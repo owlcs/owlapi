@@ -14,7 +14,6 @@ import org.semanticweb.owlapi.util.EscapeUtils;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
-/** The Class TurtleParser. */
 @SuppressWarnings("all")
 public class TurtleParser implements TurtleParserConstants {
 
@@ -23,16 +22,6 @@ public class TurtleParser implements TurtleParserConstants {
     private TripleHandler handler;
     private DefaultPrefixManager pm = new DefaultPrefixManager();
 
-    /**
-     * Instantiates a new turtle parser.
-     * 
-     * @param reader
-     *        the reader
-     * @param handler
-     *        the handler
-     * @param base
-     *        the base
-     */
     public TurtleParser(Reader reader, TripleHandler handler, IRI base) {
         this(reader);
         this.handler = handler;
@@ -41,16 +30,6 @@ public class TurtleParser implements TurtleParserConstants {
         pm.setDefaultPrefix("http://www.semanticweb.org/owl/owlapi/turtle#");
     }
 
-    /**
-     * Instantiates a new turtle parser.
-     * 
-     * @param is
-     *        the is
-     * @param handler
-     *        the handler
-     * @param base
-     *        the base
-     */
     public TurtleParser(InputStream is, TripleHandler handler, IRI base) {
         this(is);
         this.handler = handler;
@@ -59,32 +38,14 @@ public class TurtleParser implements TurtleParserConstants {
         pm.setDefaultPrefix("http://www.semanticweb.org/owl/owlapi/turtle#");
     }
 
-    /**
-     * Gets the prefix manager.
-     * 
-     * @return the prefix manager
-     */
     public PrefixManager getPrefixManager() {
         return pm;
     }
 
-    /**
-     * Sets the triple handler.
-     * 
-     * @param handler
-     *        the new triple handler
-     */
     public void setTripleHandler(TripleHandler handler) {
         this.handler = handler;
     }
 
-    /**
-     * Gets the next blank node.
-     * 
-     * @param id
-     *        the id
-     * @return the next blank node
-     */
     protected IRI getNextBlankNode(String id) {
         String string;
         if (id == null) {
@@ -104,15 +65,6 @@ public class TurtleParser implements TurtleParserConstants {
         return iri;
     }
 
-    /**
-     * Gets the iRI from q name.
-     * 
-     * @param qname
-     *        the qname
-     * @return the iRI from q name
-     * @throws ParseException
-     *         the parse exception
-     */
     protected IRI getIRIFromQName(String qname) throws ParseException {
         int colonIndex = qname.indexOf(':');
         if (colonIndex == -1) {
@@ -128,13 +80,6 @@ public class TurtleParser implements TurtleParserConstants {
         return pm.getIRI(qname);
     }
 
-    /**
-     * Gets the iri.
-     * 
-     * @param s
-     *        the s
-     * @return the iri
-     */
     public IRI getIRI(String s) {
         if (s.charAt(0) == '<') {
             s = s.substring(1, s.length() - 1);
@@ -152,11 +97,6 @@ public class TurtleParser implements TurtleParserConstants {
         return iri;
     }
 
-    // ///////////////////////////////////////////////////////////////////////////////////////////
-    // TOKEN:
-    // {
-    // <LONG_STRING: (<QUOTE><QUOTE><QUOTE>~["\""]<QUOTE><QUOTE><QUOTE>)>
-    // }
     final public void parseDocument() throws ParseException {
         label_1: while (true) {
             if (jj_2_1(2)) {
@@ -1734,12 +1674,9 @@ public class TurtleParser implements TurtleParserConstants {
         return false;
     }
 
-    /** Generated Token Manager. */
     public TurtleParserTokenManager token_source;
     JavaCharStream jj_input_stream;
-    /** Current token. */
     public Token token;
-    /** Next token. */
     public Token jj_nt;
     private int jj_ntk;
     private Token jj_scanpos, jj_lastpos;
@@ -1765,12 +1702,10 @@ public class TurtleParser implements TurtleParserConstants {
     private boolean jj_rescan = false;
     private int jj_gc = 0;
 
-    /** Constructor with InputStream. */
     public TurtleParser(java.io.InputStream stream) {
         this(stream, null);
     }
 
-    /** Constructor with InputStream and supplied encoding */
     public TurtleParser(java.io.InputStream stream, String encoding) {
         try {
             jj_input_stream = new JavaCharStream(stream, encoding, 1, 1);
@@ -1789,12 +1724,10 @@ public class TurtleParser implements TurtleParserConstants {
         }
     }
 
-    /** Reinitialise. */
     public void ReInit(java.io.InputStream stream) {
         ReInit(stream, null);
     }
 
-    /** Reinitialise. */
     public void ReInit(java.io.InputStream stream, String encoding) {
         try {
             jj_input_stream.ReInit(stream, encoding, 1, 1);
@@ -1813,7 +1746,6 @@ public class TurtleParser implements TurtleParserConstants {
         }
     }
 
-    /** Constructor. */
     public TurtleParser(java.io.Reader stream) {
         jj_input_stream = new JavaCharStream(stream, 1, 1);
         token_source = new TurtleParserTokenManager(jj_input_stream);
@@ -1828,7 +1760,6 @@ public class TurtleParser implements TurtleParserConstants {
         }
     }
 
-    /** Reinitialise. */
     public void ReInit(java.io.Reader stream) {
         jj_input_stream.ReInit(stream, 1, 1);
         token_source.ReInit(jj_input_stream);
@@ -1843,7 +1774,6 @@ public class TurtleParser implements TurtleParserConstants {
         }
     }
 
-    /** Constructor with generated Token Manager. */
     public TurtleParser(TurtleParserTokenManager tm) {
         token_source = tm;
         token = new Token();
@@ -1857,7 +1787,6 @@ public class TurtleParser implements TurtleParserConstants {
         }
     }
 
-    /** Reinitialise. */
     public void ReInit(TurtleParserTokenManager tm) {
         token_source = tm;
         token = new Token();
@@ -1936,7 +1865,6 @@ public class TurtleParser implements TurtleParserConstants {
         return false;
     }
 
-    /** Get the next Token. */
     final public Token getNextToken() {
         if (token.next != null) {
             token = token.next;
@@ -1948,7 +1876,6 @@ public class TurtleParser implements TurtleParserConstants {
         return token;
     }
 
-    /** Get the specific Token. */
     final public Token getToken(int index) {
         Token t = token;
         for (int i = 0; i < index; i++) {
@@ -2005,7 +1932,6 @@ public class TurtleParser implements TurtleParserConstants {
         }
     }
 
-    /** Generate ParseException. */
     public ParseException generateParseException() {
         jj_expentries.clear();
         boolean[] la1tokens = new boolean[49];
@@ -2042,10 +1968,8 @@ public class TurtleParser implements TurtleParserConstants {
         return new ParseException(token, exptokseq, tokenImage);
     }
 
-    /** Enable tracing. */
     final public void enable_tracing() {}
 
-    /** Disable tracing. */
     final public void disable_tracing() {}
 
     private void jj_rescan_token() {

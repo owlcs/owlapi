@@ -32,7 +32,6 @@ import uk.ac.manchester.cs.owl.owlapi.turtle.parser.NullTripleHandler;
 import uk.ac.manchester.cs.owl.owlapi.turtle.parser.OWLRDFConsumerAdapter;
 import uk.ac.manchester.cs.owl.owlapi.turtle.parser.TripleHandler;
 import uk.ac.manchester.cs.owl.owlapi.turtle.parser.TurtleOntologyParserFactory;
-import uk.ac.manchester.cs.owl.owlapi.turtle.parser.TurtleParserConstants;
 import uk.ac.manchester.cs.owl.owlapi.turtle.parser.TurtleParserException;
 
 @SuppressWarnings({ "unused", "javadoc" })
@@ -209,11 +208,6 @@ public class ContractTurtleParserTest {
         TurtleOntologyParserFactory testSubject0 = new TurtleOntologyParserFactory();
         OWLParser result0 = testSubject0.createParser(Utils.getMockManager());
         String result1 = testSubject0.toString();
-    }
-
-    @Test
-    public void shouldTestInterfaceTurtleParserConstants() throws Exception {
-        TurtleParserConstants testSubject0 = mock(TurtleParserConstants.class);
     }
 
     @Test

@@ -15,14 +15,11 @@ package uk.ac.manchester.cs.owl.owlapi.turtle.parser;
 
 import uk.ac.manchester.cs.BOMSafeJavaCharStream;
 
-/** Token Manager. */
 @SuppressWarnings("all")
 public class TurtleParserTokenManager implements TurtleParserConstants {
 
-    /** Debug output. */
     public java.io.PrintStream debugStream = System.out;
 
-    /** Set debug output. */
     public void setDebugStream(java.io.PrintStream ds) {
         debugStream = ds;
     }
@@ -1542,7 +1539,6 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
         }
     }
 
-    /** Token literal values. */
     public static final String[] jjstrLiteralImages = { "", null, null, null,
             null, null, null, null, null, null, null, null, null, null, null,
             null, null, null, null, "\50", "\51", "\133", "\135", "\54", "\56",
@@ -1552,10 +1548,8 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
             "\123\105\114\105\103\124", "\127\110\105\122\105",
             "\106\111\114\124\105\122", null, null, null, null, null, null,
             null, null, null, null, null, };
-    /** Lexer state names. */
     public static final String[] lexStateNames = { "DEFAULT", "IN_STRING",
             "IN_LONG_STRING", };
-    /** Lex State array. */
     public static final int[] jjnewLexState = { -1, -1, -1, -1, -1, -1, 1, -1,
             -1, 0, 2, -1, -1, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
             -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
@@ -1568,7 +1562,6 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
     private final int[] jjstateSet = new int[124];
     protected char curChar;
 
-    /** Constructor. */
     public TurtleParserTokenManager(JavaCharStream stream) {
         if (BOMSafeJavaCharStream.staticFlag) {
             throw new Error(
@@ -1577,13 +1570,11 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
         input_stream = stream;
     }
 
-    /** Constructor. */
     public TurtleParserTokenManager(JavaCharStream stream, int lexState) {
         this(stream);
         SwitchTo(lexState);
     }
 
-    /** Reinitialise parser. */
     public void ReInit(JavaCharStream stream) {
         jjmatchedPos = jjnewStateCnt = 0;
         curLexState = defaultLexState;
@@ -1599,13 +1590,11 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
         }
     }
 
-    /** Reinitialise parser. */
     public void ReInit(JavaCharStream stream, int lexState) {
         ReInit(stream);
         SwitchTo(lexState);
     }
 
-    /** Switch to specified lex state. */
     public void SwitchTo(int lexState) {
         if (lexState >= 3 || lexState < 0) {
             throw new TokenMgrError("Error: Ignoring invalid lexical state : "
@@ -1644,8 +1633,6 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
     int jjmatchedPos;
     int jjmatchedKind;
 
-    /** Get the next Token. */
-    @SuppressWarnings("incomplete-switch")
     public Token getNextToken() {
         Token matchedToken;
         int curPos = 0;

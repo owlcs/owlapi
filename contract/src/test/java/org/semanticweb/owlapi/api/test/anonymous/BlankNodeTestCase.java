@@ -38,14 +38,11 @@
  */
 package org.semanticweb.owlapi.api.test.anonymous;
 
-import java.io.Reader;
-import java.io.StringReader;
-
 import org.junit.Test;
-import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.io.StringDocumentSource;
 
-import uk.ac.manchester.cs.owl.owlapi.turtle.parser.TripleHandler;
-import uk.ac.manchester.cs.owl.owlapi.turtle.parser.TurtleParser;
+import uk.ac.manchester.cs.owl.owlapi.turtle.parser.TurtleOntologyParser;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
@@ -56,34 +53,9 @@ public class BlankNodeTestCase {
 
     @Test
     public void testBlankNodes() throws Exception {
-        Reader input = new StringReader("_:foo <http://example.com/> _:bar .");
-        TripleHandler handler = new TripleHandler() {
-
-            @Override
-            public void handleTriple(IRI s, IRI p, String o, IRI d) {}
-
-            @Override
-            public void handleTriple(IRI s, IRI p, String o, String lang) {}
-
-            @Override
-            public void handleTriple(IRI s, IRI p, String o) {}
-
-            @Override
-            public void handleTriple(IRI s, IRI p, IRI o) {}
-
-            @Override
-            public void handlePrefixDirective(String pn, String p) {}
-
-            @Override
-            public void handleEnd() {}
-
-            @Override
-            public void handleComment(String comment) {}
-
-            @Override
-            public void handleBaseDirective(String base) {}
-        };
-        TurtleParser parser = new TurtleParser(input, handler, IRI.create(""));
-        parser.parseDocument();
+        String input = "_:foo <http://example.com/> _:bar .";
+        TurtleOntologyParser parser = new TurtleOntologyParser();
+        parser.parse(new StringDocumentSource(input), OWLManager
+                .createOWLOntologyManager().createOntology());
     }
 }
