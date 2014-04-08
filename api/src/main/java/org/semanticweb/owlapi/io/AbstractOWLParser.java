@@ -42,6 +42,7 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Locale;
@@ -130,8 +131,9 @@ public abstract class AbstractOWLParser implements OWLParser {
         if (IOProperties.getInstance().isConnectionAcceptHTTPCompression()) {
             conn.setRequestProperty("Accept-Encoding", "gzip, deflate");
         }
-        conn.setConnectTimeout(IOProperties.getInstance()
-                .getConnectionTimeout());
+        int connectionTimeout = IOProperties.getInstance()
+                .getConnectionTimeout();
+        conn.setConnectTimeout(connectionTimeout);
         if (conn instanceof HttpURLConnection && config.isFollowRedirects()) {
             // follow redirects to HTTPS
             HttpURLConnection con = (HttpURLConnection) conn;
@@ -154,14 +156,30 @@ public abstract class AbstractOWLParser implements OWLParser {
                         conn.setRequestProperty("Accept-Encoding",
                                 "gzip, deflate");
                     }
-                    conn.setConnectTimeout(IOProperties.getInstance()
-                            .getConnectionTimeout());
+                    conn.setConnectTimeout(connectionTimeout);
                 }
             }
         }
         String contentEncoding = conn.getContentEncoding();
-        InputStream is = getInputStreamFromContentEncoding(conn,
-                contentEncoding);
+        // hardcode five retries with increasing timeouts here
+        InputStream is = null;
+        int count = 0;
+        while (count < 5 && is == null) {
+            try {
+                is = getInputStreamFromContentEncoding(conn, contentEncoding);
+            } catch (SocketTimeoutException e) {
+                count++;
+                if (count == 5) {
+                    throw e;
+                }
+                conn.setConnectTimeout(connectionTimeout + connectionTimeout
+                        * count);
+            }
+        }
+        if (is == null) {
+            throw new IOException("cannot connect to " + documentIRI
+                    + "; retry limit exhausted");
+        }
         if (isZipName(documentIRI, conn)) {
             ZipInputStream zis = new ZipInputStream(is);
             ZipEntry entry = zis.getNextEntry();
