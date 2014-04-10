@@ -1281,21 +1281,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
         writeSpace();
     }
 
-    /**
-     * Write section.
-     * 
-     * @param keyword
-     *        the keyword
-     * @param content
-     *        the content
-     * @param delimeter
-     *        the delimeter
-     * @param newline
-     *        the newline
-     * @param ontologiesList
-     *        the ontologies list
-     */
-    public void writeSection(ManchesterOWLSyntax keyword,
+    private void writeSection(ManchesterOWLSyntax keyword,
             SectionMap<Object, OWLAxiom> content, String delimeter,
             boolean newline, OWLOntology... ontologiesList) {
         String sec = keyword.toString();

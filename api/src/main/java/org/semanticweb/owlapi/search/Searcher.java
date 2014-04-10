@@ -44,13 +44,11 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
- * A configurable search.
+ * A collection of static search utilities.
  * 
- * @param <T>
- *        the generic type
  * @author ignazio
  */
-public class Searcher<T> {
+public class Searcher {
 
     /**
      * Retrieve literals from a collection of assertions.
