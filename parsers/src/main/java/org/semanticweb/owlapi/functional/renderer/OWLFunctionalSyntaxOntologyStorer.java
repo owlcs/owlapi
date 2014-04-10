@@ -46,7 +46,7 @@ public class OWLFunctionalSyntaxOntologyStorer extends
     protected void storeOntology(OWLOntology ontology, Writer writer,
             OWLOntologyFormat format) throws OWLOntologyStorageException {
         try {
-            OWLObjectRenderer ren = new OWLObjectRenderer(ontology, writer);
+            FunctionalSyntaxObjectRenderer ren = new FunctionalSyntaxObjectRenderer(ontology, writer);
             if (format instanceof PrefixOWLOntologyFormat) {
                 PrefixOWLOntologyFormat prefixFormat = (PrefixOWLOntologyFormat) format;
                 PrefixManager man = new DefaultPrefixManager();

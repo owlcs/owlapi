@@ -22,7 +22,7 @@ import java.util.Set;
 import org.junit.Test;
 import org.semanticweb.owlapi.functional.renderer.OWLFunctionalSyntaxOntologyStorer;
 import org.semanticweb.owlapi.functional.renderer.OWLFunctionalSyntaxRenderer;
-import org.semanticweb.owlapi.functional.renderer.OWLObjectRenderer;
+import org.semanticweb.owlapi.functional.renderer.FunctionalSyntaxObjectRenderer;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -58,7 +58,7 @@ public class ContractFunctionalrendererTest {
     }
 
     public void shouldTestOWLObjectRenderer() {
-        OWLObjectRenderer testSubject0 = new OWLObjectRenderer(
+        FunctionalSyntaxObjectRenderer testSubject0 = new FunctionalSyntaxObjectRenderer(
                 Utils.getMockOntology(), mock(Writer.class));
         testSubject0.write(mock(OWLAnnotation.class));
         testSubject0.write(OWLXMLVocabulary.COMMENT, mock(OWLObject.class));

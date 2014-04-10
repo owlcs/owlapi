@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.Writer;
 
 import org.semanticweb.owlapi.formats.LabelFunctionalFormat;
-import org.semanticweb.owlapi.functional.renderer.OWLObjectRenderer;
+import org.semanticweb.owlapi.functional.renderer.FunctionalSyntaxObjectRenderer;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationValue;
@@ -31,7 +31,7 @@ public class LabelFunctionalSyntaxOntologyStorer extends
     protected void storeOntology(OWLOntology ontology, Writer writer,
             OWLOntologyFormat format) throws OWLOntologyStorageException {
         try {
-            OWLObjectRenderer renderer = new OWLObjectRenderer(ontology, writer);
+            FunctionalSyntaxObjectRenderer renderer = new FunctionalSyntaxObjectRenderer(ontology, writer);
             renderer.setPrefixManager(new LabelPrefixManager(ontology));
             ontology.accept(renderer);
             writer.flush();

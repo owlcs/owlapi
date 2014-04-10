@@ -37,7 +37,7 @@ import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLObjectRenderer implements OWLObjectVisitor {
+public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
 
     private PrefixManager prefixManager;
     protected OWLOntology ontology;
@@ -51,7 +51,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
      * @param writer
      *        the writer
      */
-    public OWLObjectRenderer(OWLOntology ontology, Writer writer) {
+    public FunctionalSyntaxObjectRenderer(OWLOntology ontology, Writer writer) {
         this.ontology = ontology;
         this.writer = writer;
         prefixManager = new DefaultPrefixManager();
