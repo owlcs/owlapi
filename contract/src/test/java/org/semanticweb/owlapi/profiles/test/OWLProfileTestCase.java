@@ -99,7 +99,7 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
 @SuppressWarnings({ "javadoc", "rawtypes" })
-public class OWLProfileJUnitTest {
+public class OWLProfileTestCase {
 
     private static final String START = OWLThing().getIRI().getNamespace();
     private static final OWLClass cl = Class(IRI("urn:test#fakeclass"));
