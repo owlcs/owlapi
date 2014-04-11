@@ -2006,16 +2006,26 @@ public class OWLRDFConsumer implements RDFConsumer {
             RDFOntologyFormat format = ontologyFormat;
             consumeSWRLRules();
             // We need to mop up all remaining triples. These triples will be in
-            // the
-            // triples by subject map. Other triples which reside in the triples
-            // by
-            // predicate (single valued) triple aren't "root" triples for
-            // axioms. First
-            // we translate all system triples and then go for triples whose
-            // predicates
-            // are not system/reserved vocabulary IRIs to translate these into
-            // ABox assertions
-            // or annotationIRIs
+            // the triples by subject map. Other triples which reside in the
+            // triples by predicate (single valued) triple aren't "root" triples
+            // for axioms. First we translate all system triples, starting with
+            // property ranges, then go for triples whose predicates are not
+            // system/reserved vocabulary IRIs to translate these into ABox
+            // assertions or annotationIRIs
+            final TriplePredicateHandler propertyRangeHandler = predicateHandlers
+                    .get(RDFS_RANGE.getIRI());
+            iterateResourceTriples(new ResourceTripleIterator<UnloadableImportException>() {
+
+                @Override
+                public void handleResourceTriple(IRI subject, IRI predicate,
+                        IRI object) throws UnloadableImportException {
+                    if (propertyRangeHandler.canHandle(subject, predicate,
+                            object)) {
+                        propertyRangeHandler.handleTriple(subject, predicate,
+                                object);
+                    }
+                }
+            });
             iterateResourceTriples(new ResourceTripleIterator<UnloadableImportException>() {
 
                 @Override
