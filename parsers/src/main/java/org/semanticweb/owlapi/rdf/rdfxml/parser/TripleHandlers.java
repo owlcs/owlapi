@@ -1999,6 +1999,7 @@ public class TripleHandlers {
                     && !consumer.isAnonymousNode(object)) {
                 translateAnnotationPropertyDomain(subject, predicate, object);
             } else if (!isStrict()) {
+                consumer.addAnnotationProperty(subject, false);
                 translateAnnotationPropertyDomain(subject, predicate, object);
             }
         }
@@ -2061,14 +2062,19 @@ public class TripleHandlers {
                     translateAsAnnotationPropertyRange(subject, predicate,
                             object);
                 } else if (isClassExpressionLax(object)) {
+                    consumer.addObjectProperty(subject, false);
                     translateAsObjectPropertyRange(subject, predicate, object);
                 } else if (isDataRangeLax(object)) {
+                    consumer.addDataProperty(subject, false);
                     translateAsDataPropertyRange(subject, predicate, object);
                 } else if (isObjectPropertyLax(subject)) {
+                    consumer.addObjectProperty(subject, false);
                     translateAsObjectPropertyRange(subject, predicate, object);
                 } else if (isDataPropertyLax(subject)) {
+                    consumer.addDataProperty(subject, false);
                     translateAsDataPropertyRange(subject, predicate, object);
                 } else {
+                    consumer.addAnnotationProperty(subject, false);
                     translateAsAnnotationPropertyRange(subject, predicate,
                             object);
                 }
