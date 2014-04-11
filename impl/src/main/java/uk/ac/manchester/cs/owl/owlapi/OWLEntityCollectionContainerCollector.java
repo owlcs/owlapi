@@ -13,7 +13,6 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -67,15 +66,6 @@ public class OWLEntityCollectionContainerCollector extends
     public OWLEntityCollectionContainerCollector(Set<OWLEntity> toReturn) {
         objects = toReturn;
         anonymousIndividuals = null;
-    }
-
-    /**
-     * Deprecated default constructor: use one of the other constructors to get
-     * more efficient set creation.
-     */
-    @Deprecated
-    public OWLEntityCollectionContainerCollector() {
-        this(new HashSet<OWLEntity>(), new HashSet<OWLAnonymousIndividual>());
     }
 
     /**
@@ -135,36 +125,6 @@ public class OWLEntityCollectionContainerCollector extends
     // XXX not in the interface
     public void setCollectDatatypes(boolean collectDatatypes) {
         this.collectDatatypes = collectDatatypes;
-    }
-
-    /**
-     * Gets the objects that are used by all axioms, class expressions etc. that
-     * this collector has visited since it was constructed or reset. Deprecated:
-     * if the non deprecated constructors are used, this method is useless and
-     * inefficient
-     * 
-     * @return A set of entities. This will be a copy.
-     */
-    @Deprecated
-    public Set<OWLEntity> getObjects() {
-        return new HashSet<OWLEntity>(objects);
-    }
-
-    /**
-     * A convenience method. Although anonymous individuals are not entities
-     * they are collected by this collector and stored in a separate set. This
-     * method returns collected individuals. Deprecated: if the non deprecated
-     * constructors are used, this method is useless and inefficient
-     * 
-     * @return The set of anonymous individuals that were collected by the
-     *         collector
-     */
-    @Deprecated
-    public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
-        if (anonymousIndividuals != null) {
-            return new HashSet<OWLAnonymousIndividual>(anonymousIndividuals);
-        }
-        return new HashSet<OWLAnonymousIndividual>();
     }
 
     @Override
