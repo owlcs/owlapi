@@ -85,14 +85,20 @@ public class TPPropertyRangeHandler extends TriplePredicateHandler {
             if (isAnnotationPropertyOnly(subject) && !isAnonymous(object)) {
                 translateAsAnnotationPropertyRange(subject, predicate, object);
             } else if (isClassExpressionLax(object)) {
+                getConsumer().addObjectProperty(subject,false);
                 translateAsObjectPropertyRange(subject, predicate, object);
             } else if (isDataRangeLax(object)) {
+                getConsumer().addDataProperty(subject,false);
+
                 translateAsDataPropertyRange(subject, predicate, object);
             } else if (isObjectPropertyLax(subject)) {
+                getConsumer().addObjectProperty(subject,false);
                 translateAsObjectPropertyRange(subject, predicate, object);
             } else if (isDataPropertyLax(subject)) {
+                getConsumer().addDataProperty(subject,false);
                 translateAsDataPropertyRange(subject, predicate, object);
             } else {
+                getConsumer().addAnnotationProperty(subject,false);
                 translateAsAnnotationPropertyRange(subject, predicate, object);
             }
         }

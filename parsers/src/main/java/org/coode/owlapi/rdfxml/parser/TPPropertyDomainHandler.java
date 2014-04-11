@@ -77,6 +77,7 @@ public class TPPropertyDomainHandler extends TriplePredicateHandler {
                 && !getConsumer().isAnonymousNode(object)) {
             translateAnnotationPropertyDomain(subject, predicate, object);
         } else if (!isStrict()) {
+            getConsumer().addAnnotationProperty(subject,false);
             translateAnnotationPropertyDomain(subject, predicate, object);
         }
     }
