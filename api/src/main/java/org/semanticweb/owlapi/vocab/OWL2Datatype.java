@@ -51,7 +51,13 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.regex.Pattern;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.HasIRI;
+import org.semanticweb.owlapi.model.HasPrefixedName;
+import org.semanticweb.owlapi.model.HasShortForm;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /**
  * An enumeration of the datatypes in the OWL 2 specification. These are the
@@ -61,6 +67,8 @@ import org.semanticweb.owlapi.model.*;
  *         Management Group, Date: 11-Nov-2008
  */
 public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
+
+
 
     //@formatter:off
     /** RDF_XML_LITERAL */          RDF_XML_LITERAL          (RDF,  "XMLLiteral",   Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, false, ".*"), 
@@ -128,6 +136,16 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
     }
 
     /**
+     * Gets the Pattern string that specifies the regular expression for the
+     * allowed lexical values of a datatype.
+     * 
+     * @return The Pattern string. Not null.
+     */
+    public String getPatternString() {
+        return regExpression;
+    }
+
+    /**
      * Determines if the specified IRI identifies a built in datatype.
      * 
      * @param datatypeIRI
@@ -167,15 +185,17 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
     private final Category category;
     private final boolean finite;
     private Pattern pattern;
+    private final String regExpression;
     private final String prefixedName;
 
     OWL2Datatype(Namespaces namespace, String shortForm, Category category,
             boolean finite, String regEx) {
         iri = IRI.create(namespace.toString(), shortForm);
         this.shortForm = shortForm;
-        this.prefixedName = namespace.getPrefixName() + ":" + shortForm;
+        prefixedName = namespace.getPrefixName() + ":" + shortForm;
         this.category = category;
         this.finite = finite;
+        regExpression = regEx;
         if (regEx != null) {
             pattern = Pattern.compile(regEx, Pattern.DOTALL);
         }
@@ -185,9 +205,10 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
             String regEx) {
         iri = xsd.getIRI();
         shortForm = xsd.getShortForm();
-        this.prefixedName = xsd.getPrefixedName();
+        prefixedName = xsd.getPrefixedName();
         this.category = category;
         this.finite = finite;
+        regExpression = regEx;
         pattern = Pattern.compile(regEx, Pattern.DOTALL);
     }
 
