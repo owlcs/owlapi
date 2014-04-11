@@ -14,7 +14,7 @@
 package org.semanticweb.owlapi.functional.parser;
 
 @SuppressWarnings("javadoc")
-public interface OWLFunctionalSyntaxParserTreeConstants {
+interface OWLFunctionalSyntaxParserTreeConstants {
 
     int JJTPARSE = 0;
     int JJTONTOLOGY = 1;

@@ -18,7 +18,7 @@ package org.semanticweb.owlapi.functional.parser;
  * org.javacc.parser.OtherFilesGen#start()
  */
 @SuppressWarnings("javadoc")
-public interface OWLFunctionalSyntaxParserConstants {
+interface OWLFunctionalSyntaxParserConstants {
 
     /** End of File. */
     int EOF = 0;

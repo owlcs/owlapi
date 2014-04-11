@@ -15,7 +15,7 @@
 package org.semanticweb.owlapi.functional.parser;
 
 /** Describes the input token stream. */
-public class Token implements java.io.Serializable {
+class Token implements java.io.Serializable {
 
     private static final long serialVersionUID = 40000L;
     /** An integer that describes the kind of this token. */

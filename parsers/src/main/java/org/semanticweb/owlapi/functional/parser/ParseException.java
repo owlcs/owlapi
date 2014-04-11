@@ -40,8 +40,8 @@ public class ParseException extends OWLParserException {
      * @param tokenImageVal
      *        token image val
      */
-    public ParseException(Token currentTokenVal,
-            int[][] expectedTokenSequencesVal, String[] tokenImageVal) {
+    ParseException(Token currentTokenVal, int[][] expectedTokenSequencesVal,
+            String[] tokenImageVal) {
         super(initialise(currentTokenVal, expectedTokenSequencesVal,
                 tokenImageVal));
         currentToken = currentTokenVal;

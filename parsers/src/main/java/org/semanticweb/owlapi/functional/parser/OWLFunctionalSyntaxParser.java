@@ -82,8 +82,7 @@ import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
 /** The Class OWLFunctionalSyntaxParser. */
-public class OWLFunctionalSyntaxParser implements
-        OWLFunctionalSyntaxParserConstants {
+class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
 
     private OWLOntologyLoaderConfiguration configuration;
     private OWLOntology ontology;

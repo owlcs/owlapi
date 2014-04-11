@@ -16,7 +16,7 @@ package org.semanticweb.owlapi.functional.parser;
 import org.semanticweb.owlapi.BOMSafeJavaCharStream;
 
 /** Token Manager. */
-public class OWLFunctionalSyntaxParserTokenManager implements
+class OWLFunctionalSyntaxParserTokenManager implements
         OWLFunctionalSyntaxParserConstants {
 
     /** Debug output. */

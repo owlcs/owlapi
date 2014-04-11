@@ -17,7 +17,7 @@ package org.semanticweb.owlapi.functional.parser;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /** Token Manager Error. */
-public class TokenMgrError extends OWLRuntimeException {
+class TokenMgrError extends OWLRuntimeException {
 
     private static final long serialVersionUID = 40000L;
     /*

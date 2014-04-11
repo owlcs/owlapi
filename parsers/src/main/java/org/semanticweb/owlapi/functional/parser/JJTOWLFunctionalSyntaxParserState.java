@@ -15,7 +15,7 @@ package org.semanticweb.owlapi.functional.parser;
 
 /** generated parser class */
 @SuppressWarnings("unused")
-public class JJTOWLFunctionalSyntaxParserState {
+class JJTOWLFunctionalSyntaxParserState {
 
     private java.util.List<Node> nodes;
     private java.util.List<Integer> marks;
