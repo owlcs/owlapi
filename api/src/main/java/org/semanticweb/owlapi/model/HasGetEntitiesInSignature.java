@@ -8,5 +8,10 @@ import java.util.Set;
  */
 public interface HasGetEntitiesInSignature {
 
+    /**
+     * @param entityIRI
+     *        the iri to look for
+     * @return entities in signature
+     */
     Set<OWLEntity> getEntitiesInSignature(IRI entityIRI);
 }

@@ -6,5 +6,6 @@ package org.semanticweb.owlapi.model;
  */
 public interface HasDataFactory {
 
+    /** @return data factory */
     OWLDataFactory getOWLDataFactory();
 }

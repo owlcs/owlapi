@@ -7,15 +7,16 @@ import java.io.Serializable;
  *         Research Group Date: 18/02/2014
  */
 public enum PrimitiveType implements Serializable, HasShortForm {
-    CLASS(EntityType.CLASS),
-    OBJECT_PROPERTY(EntityType.OBJECT_PROPERTY),
-    DATA_PROPERTY(EntityType.DATA_PROPERTY),
-    ANNOTATION_PROPERTY(EntityType.ANNOTATION_PROPERTY),
-    DATATYPE(EntityType.DATATYPE),
-    NAMED_INDIVIDUAL(EntityType.NAMED_INDIVIDUAL),
-    LITERAL("Literal", "Literal", "Literals"),
-    IRI("IRI", "IRI", "IRIs");
-
+    //@formatter:off
+    /** CLASS               */ CLASS               (EntityType.CLASS),
+    /** OBJECT_PROPERTY     */ OBJECT_PROPERTY     (EntityType.OBJECT_PROPERTY),
+    /** DATA_PROPERTY       */ DATA_PROPERTY       (EntityType.DATA_PROPERTY),
+    /** ANNOTATION_PROPERTY */ ANNOTATION_PROPERTY (EntityType.ANNOTATION_PROPERTY),
+    /** DATATYPE            */ DATATYPE            (EntityType.DATATYPE),
+    /** NAMED_INDIVIDUAL    */ NAMED_INDIVIDUAL    (EntityType.NAMED_INDIVIDUAL),
+    /** LITERAL             */ LITERAL             ("Literal", "Literal", "Literals"),
+    /** IRI                 */ IRI                 ("IRI", "IRI", "IRIs");
+    //@formatter:on
     private final String shortForm;
     private final String printName;
     private final String pluralPrintName;
@@ -36,10 +37,12 @@ public enum PrimitiveType implements Serializable, HasShortForm {
         return shortForm;
     }
 
+    /** @return print name */
     public String getPrintName() {
         return printName;
     }
 
+    /** @return print name plural */
     public String getPluralPrintName() {
         return pluralPrintName;
     }

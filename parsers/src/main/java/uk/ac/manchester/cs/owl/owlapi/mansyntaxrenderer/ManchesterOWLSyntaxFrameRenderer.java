@@ -913,6 +913,10 @@ public class ManchesterOWLSyntaxFrameRenderer extends
         }
     }
 
+    /**
+     * @param predicate
+     *        predicate to write
+     */
     public void writeRulesContainingPredicate(OWLObject predicate) {
         if (isFiltered(AxiomType.SWRL_RULE)) {
             return;
