@@ -48,8 +48,8 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 08-Dec-2006
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 08-Dec-2006
  */
 public class TPPropertyRangeHandler extends TriplePredicateHandler {
 
@@ -85,14 +85,19 @@ public class TPPropertyRangeHandler extends TriplePredicateHandler {
             if (isAnnotationPropertyOnly(subject) && !isAnonymous(object)) {
                 translateAsAnnotationPropertyRange(subject, predicate, object);
             } else if (isClassExpressionLax(object)) {
+                getConsumer().addObjectProperty(subject, false);
                 translateAsObjectPropertyRange(subject, predicate, object);
             } else if (isDataRangeLax(object)) {
+                getConsumer().addDataProperty(subject, false);
                 translateAsDataPropertyRange(subject, predicate, object);
             } else if (isObjectPropertyLax(subject)) {
+                getConsumer().addObjectProperty(subject, false);
                 translateAsObjectPropertyRange(subject, predicate, object);
             } else if (isDataPropertyLax(subject)) {
+                getConsumer().addDataProperty(subject, false);
                 translateAsDataPropertyRange(subject, predicate, object);
             } else {
+                getConsumer().addAnnotationProperty(subject, false);
                 translateAsAnnotationPropertyRange(subject, predicate, object);
             }
         }

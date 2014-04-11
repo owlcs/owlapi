@@ -45,8 +45,8 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 08-Dec-2006
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 08-Dec-2006
  */
 public class TPPropertyDomainHandler extends TriplePredicateHandler {
 
@@ -77,6 +77,7 @@ public class TPPropertyDomainHandler extends TriplePredicateHandler {
                 && !getConsumer().isAnonymousNode(object)) {
             translateAnnotationPropertyDomain(subject, predicate, object);
         } else if (!isStrict()) {
+            getConsumer().addAnnotationProperty(subject, false);
             translateAnnotationPropertyDomain(subject, predicate, object);
         }
     }
