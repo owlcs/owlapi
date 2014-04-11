@@ -327,6 +327,27 @@ public class TripleHandlers {
          * @return any remaining triples
          */
         public Set<RDFTriple> mopUp() {
+            // We need to mop up all remaining triples. These triples will be in
+            // the triples by subject map. Other triples which reside in the
+            // triples by predicate (single valued) triple aren't "root" triples
+            // for axioms. First we translate all system triples, starting with
+            // property ranges, then go for triples whose predicates are not
+            // system/reserved vocabulary IRIs to translate these into ABox
+            // assertions or annotationIRIs
+            consumer.iterateResourceTriples(new ResourceTripleIterator() {
+
+                @Override
+                public void handleResourceTriple(IRI subject, IRI predicate,
+                        IRI object) {
+                    TriplePredicateHandler propertyRangeHandler = getPredicateHandlers(
+                            consumer).get(RDFS_RANGE.getIRI());
+                    if (propertyRangeHandler.canHandle(subject, predicate,
+                            object)) {
+                        propertyRangeHandler.handleTriple(subject, predicate,
+                                object);
+                    }
+                }
+            });
             // Now handle non-reserved predicate triples
             consumeNonReservedPredicateTriples();
             // Now axiom annotations
@@ -393,7 +414,7 @@ public class TripleHandlers {
                             r), new GTPAnnotationResourceTripleHandler(r));
         }
 
-        private Map<IRI, TriplePredicateHandler> getPredicateHandlers(
+        protected Map<IRI, TriplePredicateHandler> getPredicateHandlers(
                 OWLRDFConsumer r) {
             Map<IRI, TriplePredicateHandler> predicateHandlers = new ConcurrentHashMap<IRI, TriplePredicateHandler>();
             add(predicateHandlers, new TPDifferentFromHandler(r));
