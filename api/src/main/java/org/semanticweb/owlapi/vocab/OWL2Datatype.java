@@ -116,6 +116,16 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
     }
 
     /**
+     * Gets the Pattern string that specifies the regular expression for the
+     * allowed lexical values of a datatype.
+     * 
+     * @return The Pattern string. Not null.
+     */
+    public String getPatternString() {
+        return regExpression;
+    }
+
+    /**
      * Determines if the specified IRI identifies a built in datatype.
      * 
      * @param datatypeIRI
@@ -150,20 +160,22 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
         throw new OWLRuntimeException(datatype + " is not a built in datatype!");
     }
 
-    private final String shortName;
+    private final String shortForm;
     private final IRI iri;
     private final Category category;
     private final boolean finite;
     private Pattern pattern;
+    private final String regExpression;
     private final String prefixedName;
 
-    OWL2Datatype(Namespaces namespace, String shortName, Category category,
+    OWL2Datatype(Namespaces namespace, String shortForm, Category category,
             boolean finite, String regEx) {
-        iri = IRI.create(namespace.toString(), shortName);
-        this.shortName = shortName;
-        prefixedName = namespace.getPrefixName() + ":" + shortName;
+        iri = IRI.create(namespace.toString(), shortForm);
+        this.shortForm = shortForm;
+        prefixedName = namespace.getPrefixName() + ":" + shortForm;
         this.category = category;
         this.finite = finite;
+        regExpression = regEx;
         if (regEx != null) {
             pattern = Pattern.compile(regEx, Pattern.DOTALL);
         }
@@ -172,16 +184,17 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
     OWL2Datatype(XSDVocabulary xsd, Category category, boolean finite,
             String regEx) {
         iri = xsd.getIRI();
-        shortName = xsd.getShortForm();
+        shortForm = xsd.getShortForm();
         prefixedName = xsd.getPrefixedName();
         this.category = category;
         this.finite = finite;
+        regExpression = regEx;
         pattern = Pattern.compile(regEx, Pattern.DOTALL);
     }
 
     @Override
     public String getShortForm() {
-        return shortName;
+        return shortForm;
     }
 
     @Override
