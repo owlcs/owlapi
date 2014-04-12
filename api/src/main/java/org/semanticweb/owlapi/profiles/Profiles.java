@@ -18,6 +18,7 @@ import java.util.List;
 
 import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 
@@ -56,7 +57,7 @@ interface KnownFactories {
  * 
  * @author ignazio
  */
-public enum Profiles implements HasIRI, KnownFactories {
+public enum Profiles implements HasIRI, KnownFactories, OWLProfile {
     //@formatter:off
     /** http://www.w3.org/ns/owl-profile/DL **/     OWL2_DL     ("DL",   new OWL2DLProfile(),                 FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe),
     /** http://www.w3.org/ns/owl-profile/QL **/     OWL2_QL     ("QL",   new OWL2QLProfile(),                 FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe),
@@ -73,6 +74,16 @@ public enum Profiles implements HasIRI, KnownFactories {
         iri = IRI.create("http://www.w3.org/ns/owl-profile/", name);
         this.profile = profile;
         this.supportingFactories = Arrays.asList(supportingFactories);
+    }
+
+    @Override
+    public String getName() {
+        return profile.getName();
+    }
+
+    @Override
+    public OWLProfileReport checkOntology(OWLOntology ontology) {
+        return profile.checkOntology(ontology);
     }
 
     @Override
