@@ -16,38 +16,15 @@ package org.semanticweb.owlapi.dlsyntax.parser;
 
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-/** Token Manager Error. */
-public class TokenMgrError extends OWLRuntimeException {
+class TokenMgrError extends OWLRuntimeException {
 
     private static final long serialVersionUID = 40000L;
-    /*
-     * Ordinals for various reasons why an Error of this type can be thrown.
-     */
-    /** Lexical error occurred. */
     static final int LEXICAL_ERROR = 0;
-    /**
-     * An attempt was made to create a second instance of a static token
-     * manager.
-     */
     static final int STATIC_LEXER_ERROR = 1;
-    /** Tried to change to an invalid lexical state. */
     static final int INVALID_LEXICAL_STATE = 2;
-    /** Detected (and bailed out of) an infinite loop in the token manager. */
     static final int LOOP_DETECTED = 3;
-    /**
-     * Indicates the reason why the exception is thrown. It will have one of the
-     * above 4 values.
-     */
     int errorCode;
 
-    /**
-     * Replaces unprintable characters by their escaped (or unicode escaped)
-     * equivalents in the given string.
-     * 
-     * @param str
-     *        string to escape
-     * @return escaped string
-     */
     protected static final String addEscapes(String str) {
         StringBuffer retval = new StringBuffer();
         char ch;
@@ -93,25 +70,6 @@ public class TokenMgrError extends OWLRuntimeException {
         return retval.toString();
     }
 
-    /**
-     * Returns a detailed message for the Error when it is thrown by the token
-     * manager to indicate a lexical error. Note: You can customize the lexical
-     * error message by modifying this method.
-     * 
-     * @param EOFSeen
-     *        indicates if EOF caused the lexical error
-     * @param lexState
-     *        lexical state in which this error occurred
-     * @param errorLine
-     *        line number when the error occurred
-     * @param errorColumn
-     *        column number when the error occurred
-     * @param errorAfter
-     *        prefix that was seen before this error occurred
-     * @param curChar
-     *        the offending character
-     * @return error
-     */
     protected static String LexicalError(boolean EOFSeen,
             @SuppressWarnings("unused") int lexState, int errorLine,
             int errorColumn, String errorAfter, char curChar) {
@@ -126,42 +84,14 @@ public class TokenMgrError extends OWLRuntimeException {
                 + addEscapes(errorAfter) + "\"";
     }
 
-    @Override
-    public String getMessage() {
-        return super.getMessage();
-    }
+    TokenMgrError() {}
 
-    /** No arg constructor. */
-    public TokenMgrError() {}
-
-    /**
-     * @param message
-     *        the message
-     * @param reason
-     *        the reason
-     */
-    public TokenMgrError(String message, int reason) {
+    TokenMgrError(String message, int reason) {
         super(message);
         errorCode = reason;
     }
 
-    /**
-     * @param EOFSeen
-     *        EOFSeen
-     * @param lexState
-     *        lexState
-     * @param errorLine
-     *        errorLine
-     * @param errorColumn
-     *        errorColumn
-     * @param errorAfter
-     *        errorAfter
-     * @param curChar
-     *        curChar
-     * @param reason
-     *        reason
-     */
-    public TokenMgrError(boolean EOFSeen, int lexState, int errorLine,
+    TokenMgrError(boolean EOFSeen, int lexState, int errorLine,
             int errorColumn, String errorAfter, char curChar, int reason) {
         this(LexicalError(EOFSeen, lexState, errorLine, errorColumn,
                 errorAfter, curChar), reason);

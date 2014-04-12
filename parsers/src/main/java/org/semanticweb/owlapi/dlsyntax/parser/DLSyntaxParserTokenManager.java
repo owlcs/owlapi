@@ -15,18 +15,12 @@ package org.semanticweb.owlapi.dlsyntax.parser;
 
 import org.semanticweb.owlapi.BOMSafeJavaCharStream;
 
-/** Token Manager. */
-@SuppressWarnings("unused")
-public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
+@SuppressWarnings("all")
+class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
 
-    /** Debug output. */
-    public java.io.PrintStream debugStream = System.out;
+    java.io.PrintStream debugStream = System.out;
 
-    /**
-     * @param ds
-     *        the new debug stream
-     */
-    public void setDebugStream(java.io.PrintStream ds) {
+    void setDebugStream(java.io.PrintStream ds) {
         debugStream = ds;
     }
 
@@ -1110,26 +1104,19 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
         }
     }
 
-    /** Token literal values. */
-    public static final String[] jjstrLiteralImages = { "", null, null, null,
-            null, null, null, null, "\56", null, "\50", "\51", "\133", "\135",
+    static final String[] jjstrLiteralImages = { "", null, null, null, null,
+            null, null, null, "\56", null, "\50", "\51", "\133", "\135",
             "\173", "\175", "\72", null, null, null, null, null, null, null,
             null, null, null, null, null, null, "\12", "\54", };
-    /** Lexer state names. */
-    public static final String[] lexStateNames = { "DEFAULT", };
+    static final String[] lexStateNames = { "DEFAULT", };
     static final long[] jjtoToken = { 0xfffffff1L, };
     static final long[] jjtoSkip = { 0xeL, };
-    /** The input_stream. */
     protected JavaCharStream input_stream;
     private final int[] jjrounds = new int[121];
     private final int[] jjstateSet = new int[242];
     protected char curChar;
 
-    /**
-     * @param stream
-     *        the stream
-     */
-    public DLSyntaxParserTokenManager(JavaCharStream stream) {
+    DLSyntaxParserTokenManager(JavaCharStream stream) {
         if (BOMSafeJavaCharStream.staticFlag) {
             throw new Error(
                     "ERROR: Cannot use a static CharStream class with a non-static lexical analyzer.");
@@ -1137,24 +1124,12 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
         input_stream = stream;
     }
 
-    /**
-     * @param stream
-     *        the stream
-     * @param lexState
-     *        the lex state
-     */
-    public DLSyntaxParserTokenManager(JavaCharStream stream, int lexState) {
+    DLSyntaxParserTokenManager(JavaCharStream stream, int lexState) {
         this(stream);
         SwitchTo(lexState);
     }
 
-    /**
-     * Reinitialise parser.
-     * 
-     * @param stream
-     *        the stream
-     */
-    public void ReInit(JavaCharStream stream) {
+    void ReInit(JavaCharStream stream) {
         jjmatchedPos = jjnewStateCnt = 0;
         curLexState = defaultLexState;
         input_stream = stream;
@@ -1169,26 +1144,12 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
         }
     }
 
-    /**
-     * Reinitialise parser.
-     * 
-     * @param stream
-     *        the stream
-     * @param lexState
-     *        the lex state
-     */
-    public void ReInit(JavaCharStream stream, int lexState) {
+    void ReInit(JavaCharStream stream, int lexState) {
         ReInit(stream);
         SwitchTo(lexState);
     }
 
-    /**
-     * Switch to specified lex state.
-     * 
-     * @param lexState
-     *        the lex state
-     */
-    public void SwitchTo(int lexState) {
+    void SwitchTo(int lexState) {
         if (lexState >= 1 || lexState < 0) {
             throw new TokenMgrError("Error: Ignoring invalid lexical state : "
                     + lexState + ". State unchanged.",
@@ -1226,8 +1187,7 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
     int jjmatchedPos;
     int jjmatchedKind;
 
-    /** @return the next token */
-    public Token getNextToken() {
+    Token getNextToken() {
         Token matchedToken;
         int curPos = 0;
         EOFLoop: for (;;) {
