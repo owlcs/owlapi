@@ -72,21 +72,6 @@ public class OWL2DatatypeImpl implements OWLDatatype {
                 "owl2Datatype must not be null");
     }
 
-    /**
-     * A factory method which gets an instance of {@link OWLDatatype} for an
-     * instance of {@link OWL2Datatype} specified by the {@code owl2Datatype}
-     * parameter.
-     * 
-     * @param owl2Datatype
-     *        The datatype to be retrieved.
-     * @return A {@link OWLDatatype} that has the same IRI as the IRI returned
-     *         by {@code owl2Datatype#getIRI()}.
-     */
-    @Deprecated
-    public static OWLDatatype getDatatype(OWL2Datatype owl2Datatype) {
-        return new OWL2DatatypeImpl(owl2Datatype);
-    }
-
     private final OWL2Datatype owl2Datatype;
 
     @Override
