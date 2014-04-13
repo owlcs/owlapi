@@ -25,11 +25,9 @@ import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
-import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
@@ -55,7 +53,7 @@ public class OWLXMLParser extends AbstractOWLParser {
 
     @Override
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
-            OWLOntology ontology) throws IOException, UnloadableImportException {
+            OWLOntology ontology) throws IOException {
         return parse(documentSource, ontology,
                 new OWLOntologyLoaderConfiguration());
     }
@@ -63,8 +61,7 @@ public class OWLXMLParser extends AbstractOWLParser {
     @Override
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
             OWLOntology ontology, OWLOntologyLoaderConfiguration configuration)
-            throws IOException, OWLOntologyChangeException,
-            UnloadableImportException {
+            throws IOException {
         InputSource isrc = null;
         try {
             System.setProperty("entityExpansionLimit", "100000000");

@@ -121,7 +121,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     }
 
     @Override
-    public int parseInteger() throws NumberFormatException {
+    public int parseInteger() {
         return Integer.parseInt(literal.get());
     }
 
@@ -131,7 +131,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     }
 
     @Override
-    public boolean parseBoolean() throws NumberFormatException {
+    public boolean parseBoolean() {
         if (literal.get().equals("0")) {
             return false;
         }
@@ -153,7 +153,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     }
 
     @Override
-    public double parseDouble() throws NumberFormatException {
+    public double parseDouble() {
         return Double.parseDouble(literal.get());
     }
 
@@ -163,7 +163,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     }
 
     @Override
-    public float parseFloat() throws NumberFormatException {
+    public float parseFloat() {
         return Float.parseFloat(literal.get());
     }
 

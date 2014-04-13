@@ -52,7 +52,7 @@ public class TurtleOntologyParser extends AbstractOWLParser {
 
     @Override
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
-            OWLOntology ontology) throws UnloadableImportException, IOException {
+            OWLOntology ontology) throws IOException {
         return parse(documentSource, ontology,
                 new OWLOntologyLoaderConfiguration());
     }

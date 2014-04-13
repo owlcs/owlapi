@@ -69,8 +69,8 @@ public interface OWLParser {
      */
     @Nonnull
     OWLOntologyFormat parse(@Nonnull IRI documentIRI,
-            @Nonnull OWLOntology ontology) throws OWLParserException,
-            IOException, OWLOntologyChangeException, UnloadableImportException;
+            @Nonnull OWLOntology ontology) throws IOException,
+            OWLOntologyChangeException;
 
     /**
      * Parses the ontology with a concrete representation in
@@ -97,8 +97,8 @@ public interface OWLParser {
      */
     @Nonnull
     OWLOntologyFormat parse(@Nonnull OWLOntologyDocumentSource documentSource,
-            @Nonnull OWLOntology ontology) throws OWLParserException,
-            IOException, OWLOntologyChangeException, UnloadableImportException;
+            @Nonnull OWLOntology ontology) throws IOException,
+            OWLOntologyChangeException;
 
     /**
      * Parses the ontology with a concrete representation in
@@ -129,8 +129,7 @@ public interface OWLParser {
     OWLOntologyFormat parse(@Nonnull OWLOntologyDocumentSource documentSource,
             @Nonnull OWLOntology ontology,
             @Nonnull OWLOntologyLoaderConfiguration configuration)
-            throws OWLParserException, IOException, OWLOntologyChangeException,
-            UnloadableImportException;
+            throws IOException, OWLOntologyChangeException;
 
     /** @return a name for the parser, typically the simple class name */
     @Nonnull

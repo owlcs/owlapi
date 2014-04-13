@@ -23,10 +23,8 @@ import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.mansyntax.renderer.ParserException;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
-import org.semanticweb.owlapi.model.UnloadableImportException;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -53,8 +51,7 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
     @Override
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
             OWLOntology ontology, OWLOntologyLoaderConfiguration configuration)
-            throws IOException, OWLOntologyChangeException,
-            UnloadableImportException {
+            throws IOException {
         try {
             BufferedReader br = null;
             ManchesterOWLSyntaxOntologyFormat format = new ManchesterOWLSyntaxOntologyFormat();
@@ -129,7 +126,7 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
 
     @Override
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
-            OWLOntology ontology) throws IOException, UnloadableImportException {
+            OWLOntology ontology) throws IOException {
         return parse(documentSource, ontology,
                 new OWLOntologyLoaderConfiguration());
     }

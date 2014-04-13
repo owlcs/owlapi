@@ -65,7 +65,6 @@ import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
@@ -126,8 +125,7 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
     @Override
     public OWLOntologyFormat parse(
             final OWLOntologyDocumentSource documentSource,
-            final OWLOntology ontology) throws OWLParserException, IOException,
-            UnloadableImportException {
+            final OWLOntology ontology) throws IOException {
         return this.parse(documentSource, ontology,
                 new OWLOntologyLoaderConfiguration());
     }
@@ -137,8 +135,7 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
             final OWLOntologyDocumentSource documentSource,
             final OWLOntology ontology,
             final OWLOntologyLoaderConfiguration configuration)
-            throws OWLParserException, IOException, OWLOntologyChangeException,
-            UnloadableImportException {
+            throws IOException {
         final InputSource is = null;
         try {
             // IRIProvider prov = new IRIProvider() {
@@ -345,8 +342,8 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
      */
     protected StatementCollector parseDocumentSource(
             final OWLOntologyDocumentSource documentSource, String baseUri)
-            throws UnsupportedRDFormatException, IOException,
-            RDFParseException, RDFHandlerException, MalformedURLException {
+            throws IOException, RDFParseException, RDFHandlerException,
+            MalformedURLException {
         // parse into a collection of statements so that we can sort things to
         // make sure the
         // process is starting from a known point

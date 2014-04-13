@@ -138,7 +138,7 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements
     }
 
     @Override
-    public int parseInteger() throws NumberFormatException {
+    public int parseInteger() {
         return Integer.parseInt(getLiteral());
     }
 
@@ -148,7 +148,7 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements
     }
 
     @Override
-    public boolean parseBoolean() throws NumberFormatException {
+    public boolean parseBoolean() {
         String literal2 = getLiteral();
         if (literal2.equals("0")) {
             return false;
@@ -171,7 +171,7 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements
     }
 
     @Override
-    public double parseDouble() throws NumberFormatException {
+    public double parseDouble() {
         return Double.parseDouble(getLiteral());
     }
 
@@ -181,7 +181,7 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements
     }
 
     @Override
-    public float parseFloat() throws NumberFormatException {
+    public float parseFloat() {
         String literal2 = getLiteral();
         if ("inf".equalsIgnoreCase(literal2)) {
             return Float.POSITIVE_INFINITY;

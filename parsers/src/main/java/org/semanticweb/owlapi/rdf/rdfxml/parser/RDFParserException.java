@@ -15,7 +15,7 @@ package org.semanticweb.owlapi.rdf.rdfxml.parser;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.xml.sax.Locator;
 
-/** Throws if an RDF error is encountered while parsing RDF. */
+/** Thrown if an RDF error is encountered while parsing RDF. */
 public class RDFParserException extends OWLRuntimeException {
 
     private static final long serialVersionUID = 40000L;

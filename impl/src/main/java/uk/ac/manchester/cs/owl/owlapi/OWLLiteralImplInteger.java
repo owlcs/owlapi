@@ -90,7 +90,7 @@ public class OWLLiteralImplInteger extends OWLObjectImpl implements OWLLiteral {
     }
 
     @Override
-    public int parseInteger() throws NumberFormatException {
+    public int parseInteger() {
         return literal;
     }
 
@@ -100,7 +100,7 @@ public class OWLLiteralImplInteger extends OWLObjectImpl implements OWLLiteral {
     }
 
     @Override
-    public boolean parseBoolean() throws NumberFormatException {
+    public boolean parseBoolean() {
         throw new NumberFormatException(
                 "this literal is not a boolean but a int");
     }
@@ -111,7 +111,7 @@ public class OWLLiteralImplInteger extends OWLObjectImpl implements OWLLiteral {
     }
 
     @Override
-    public double parseDouble() throws NumberFormatException {
+    public double parseDouble() {
         throw new NumberFormatException(
                 "this literal is not a double but a int");
     }
@@ -122,7 +122,7 @@ public class OWLLiteralImplInteger extends OWLObjectImpl implements OWLLiteral {
     }
 
     @Override
-    public float parseFloat() throws NumberFormatException {
+    public float parseFloat() {
         throw new NumberFormatException("this literal is not a float but a int");
     }
 

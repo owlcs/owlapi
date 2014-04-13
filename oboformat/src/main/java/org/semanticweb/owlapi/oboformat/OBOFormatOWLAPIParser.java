@@ -36,7 +36,6 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
-import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.util.OWLOntologyFormatFactoryImpl;
 
 /** oboformat parser */
@@ -47,8 +46,7 @@ public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
 
     @Override
     public OWLOntologyFormat parse(IRI documentIRI, OWLOntology ontology)
-            throws OWLParserException, IOException, OWLOntologyChangeException,
-            UnloadableImportException {
+            throws IOException, OWLOntologyChangeException {
         try {
             parse(documentIRI, null, ontology);
         } catch (OBOFormatParserException e) {
@@ -62,8 +60,8 @@ public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
 
     @Override
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
-            OWLOntology ontology) throws OWLParserException, IOException,
-            OWLOntologyChangeException, UnloadableImportException {
+            OWLOntology ontology) throws IOException,
+            OWLOntologyChangeException {
         try {
             parse(null, documentSource, ontology);
         } catch (OBOFormatParserException e) {
@@ -78,8 +76,7 @@ public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
     @Override
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
             OWLOntology ontology, OWLOntologyLoaderConfiguration configuration)
-            throws OWLParserException, IOException, OWLOntologyChangeException,
-            UnloadableImportException {
+            throws IOException, OWLOntologyChangeException {
         try {
             parse(null, documentSource, ontology);
         } catch (OBOFormatParserException e) {
@@ -92,8 +89,8 @@ public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
     }
 
     private OWLOntology parse(IRI iri, OWLOntologyDocumentSource source,
-            OWLOntology in) throws OBOFormatParserException,
-            MalformedURLException, IOException, OWLOntologyCreationException {
+            OWLOntology in) throws MalformedURLException, IOException,
+            OWLOntologyCreationException {
         OBOFormatParser p = new OBOFormatParser();
         OBODoc obodoc = null;
         if (iri != null) {

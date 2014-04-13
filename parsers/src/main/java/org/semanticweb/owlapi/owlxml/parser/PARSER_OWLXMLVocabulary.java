@@ -218,7 +218,7 @@ abstract class OWLElementHandler<O> {
      * @throws UnloadableImportException
      *         if an import cannot be resolved
      */
-    abstract void endElement() throws UnloadableImportException;
+    abstract void endElement();
 
     OWLElementHandler(OWLXMLParserHandler handler) {
         this.handler = handler;
@@ -432,7 +432,7 @@ abstract class AbstractClassExpressionElementHandler extends
     }
 
     @Override
-    void endElement() throws UnloadableImportException {
+    void endElement() {
         endClassExpressionElement();
         getParentHandler().handleChild(this);
     }
@@ -672,7 +672,7 @@ abstract class AbstractOWLAxiomElementHandler extends
     }
 
     @Override
-    void endElement() throws UnloadableImportException {
+    void endElement() {
         setAxiom(createAxiom());
         getParentHandler().handleChild(this);
     }
@@ -747,7 +747,7 @@ abstract class AbstractOWLDataRangeHandler extends
     }
 
     @Override
-    void endElement() throws UnloadableImportException {
+    void endElement() {
         endDataRangeElement();
         getParentHandler().handleChild(this);
     }
@@ -865,7 +865,7 @@ abstract class AbstractOWLObjectPropertyElementHandler extends
     }
 
     @Override
-    void endElement() throws UnloadableImportException {
+    void endElement() {
         endObjectPropertyElement();
         getParentHandler().handleChild(this);
     }
@@ -976,7 +976,7 @@ class AbbreviatedIRIElementHandler extends AbstractIRIElementHandler {
     }
 
     @Override
-    void endElement() throws UnloadableImportException {
+    void endElement() {
         String iriText = getText().trim();
         iri = handler.getAbbreviatedIRI(iriText);
         getParentHandler().handleChild(this);
@@ -1002,7 +1002,7 @@ class IRIElementHandler extends AbstractIRIElementHandler {
     }
 
     @Override
-    void endElement() throws UnloadableImportException {
+    void endElement() {
         String iriText = getText().trim();
         iri = handler.getIRI(iriText);
         getParentHandler().handleChild(this);
@@ -1022,7 +1022,7 @@ class OWLUnionOfElementHandler extends OWLElementHandler<OWLClassExpression> {
     }
 
     @Override
-    void endElement() throws UnloadableImportException {}
+    void endElement() {}
 
     @Override
     OWLClassExpression getOWLObject() {
@@ -1143,7 +1143,7 @@ class OWLAnnotationElementHandler extends OWLElementHandler<OWLAnnotation> {
     }
 
     @Override
-    void endElement() throws UnloadableImportException {
+    void endElement() {
         getParentHandler().handleChild(this);
     }
 
@@ -1243,7 +1243,7 @@ class OWLAnnotationPropertyElementHandler extends
     }
 
     @Override
-    void endElement() throws UnloadableImportException {
+    void endElement() {
         prop = df.getOWLAnnotationProperty(iri);
         getParentHandler().handleChild(this);
     }
@@ -1302,7 +1302,7 @@ class OWLAnonymousIndividualElementHandler extends
     }
 
     @Override
-    void endElement() throws UnloadableImportException {
+    void endElement() {
         getParentHandler().handleChild(this);
     }
 }
@@ -1587,7 +1587,7 @@ class OWLDataPropertyElementHandler extends
     }
 
     @Override
-    void endElement() throws UnloadableImportException {
+    void endElement() {
         prop = df.getOWLDataProperty(iri);
         getParentHandler().handleChild(this);
     }
@@ -1760,7 +1760,7 @@ class OWLDatatypeFacetRestrictionElementHandler extends
     }
 
     @Override
-    void endElement() throws UnloadableImportException {
+    void endElement() {
         getParentHandler().handleChild(this);
     }
 
@@ -2075,7 +2075,7 @@ class OWLIndividualElementHandler extends OWLElementHandler<OWLNamedIndividual> 
     }
 
     @Override
-    void endElement() throws UnloadableImportException {
+    void endElement() {
         // URI uri = getNameAttribute();
         individual = df.getOWLNamedIndividual(name);
         getParentHandler().handleChild(this);
@@ -2185,7 +2185,7 @@ class OWLLiteralElementHandler extends OWLElementHandler<OWLLiteral> {
     }
 
     @Override
-    void endElement() throws UnloadableImportException {
+    void endElement() {
         if (iri != null && !iri.isPlainLiteral()) {
             literal = df.getOWLLiteral(getText(), df.getOWLDatatype(iri));
         } else {
@@ -2640,7 +2640,7 @@ class OWLSubObjectPropertyChainElementHandler extends
     }
 
     @Override
-    void endElement() throws UnloadableImportException {
+    void endElement() {
         getParentHandler().handleChild(this);
     }
 
@@ -2760,7 +2760,7 @@ class SWRLAtomListElementHandler extends OWLElementHandler<List<SWRLAtom>> {
     }
 
     @Override
-    void endElement() throws UnloadableImportException {
+    void endElement() {
         getParentHandler().handleChild(this);
     }
 }
@@ -2790,7 +2790,7 @@ class SWRLBuiltInAtomElementHandler extends SWRLAtomElementHandler {
     }
 
     @Override
-    void endElement() throws UnloadableImportException {
+    void endElement() {
         setAtom(df.getSWRLBuiltInAtom(iri, args));
         getParentHandler().handleChild(this);
     }
@@ -2821,7 +2821,7 @@ class SWRLClassAtomElementHandler extends SWRLAtomElementHandler {
     }
 
     @Override
-    void endElement() throws UnloadableImportException {
+    void endElement() {
         setAtom(df.getSWRLClassAtom(ce, arg));
         getParentHandler().handleChild(this);
     }
@@ -2867,7 +2867,7 @@ class SWRLDataPropertyAtomElementHandler extends SWRLAtomElementHandler {
     }
 
     @Override
-    void endElement() throws UnloadableImportException {
+    void endElement() {
         setAtom(df.getSWRLDataPropertyAtom(prop, arg0, arg1));
         getParentHandler().handleChild(this);
     }
@@ -2898,7 +2898,7 @@ class SWRLDataRangeAtomElementHandler extends SWRLAtomElementHandler {
     }
 
     @Override
-    void endElement() throws UnloadableImportException {
+    void endElement() {
         setAtom(df.getSWRLDataRangeAtom(prop, arg1));
         getParentHandler().handleChild(this);
     }
@@ -2932,7 +2932,7 @@ class SWRLDifferentIndividualsAtomElementHandler extends SWRLAtomElementHandler 
     }
 
     @Override
-    void endElement() throws UnloadableImportException {
+    void endElement() {
         setAtom(df.getSWRLDifferentIndividualsAtom(arg0, arg1));
         getParentHandler().handleChild(this);
     }
@@ -2972,7 +2972,7 @@ class SWRLObjectPropertyAtomElementHandler extends SWRLAtomElementHandler {
     }
 
     @Override
-    void endElement() throws UnloadableImportException {
+    void endElement() {
         setAtom(df.getSWRLObjectPropertyAtom(prop, arg0, arg1));
         getParentHandler().handleChild(this);
     }
@@ -3030,7 +3030,7 @@ class SWRLSameIndividualAtomElementHandler extends SWRLAtomElementHandler {
     }
 
     @Override
-    void endElement() throws UnloadableImportException {
+    void endElement() {
         setAtom(df.getSWRLSameIndividualAtom(arg0, arg1));
         getParentHandler().handleChild(this);
     }
@@ -3045,7 +3045,7 @@ class SWRLVariableElementHandler extends OWLElementHandler<SWRLVariable> {
     IRI iri;
 
     @Override
-    void endElement() throws UnloadableImportException {
+    void endElement() {
         getParentHandler().handleChild(this);
     }
 
@@ -3112,7 +3112,7 @@ class OWLOntologyHandler extends OWLElementHandler<OWLOntology> {
     }
 
     @Override
-    void endElement() throws UnloadableImportException {}
+    void endElement() {}
 
     @Override
     OWLOntology getOWLObject() {
@@ -3130,7 +3130,7 @@ class OWLImportsHandler extends OWLElementHandler<OWLOntology> {
     }
 
     @Override
-    void endElement() throws UnloadableImportException {
+    void endElement() {
         IRI ontIRI = handler.getIRI(getText().trim());
         OWLImportsDeclaration decl = df.getOWLImportsDeclaration(ontIRI);
         handler.getOWLOntologyManager().applyChange(

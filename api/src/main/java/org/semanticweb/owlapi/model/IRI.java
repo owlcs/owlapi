@@ -321,7 +321,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
             .build(new CacheLoader<String, String>() {
 
                 @Override
-                public String load(String key) throws Exception {
+                public String load(String key) {
                     return key;
                 }
             });

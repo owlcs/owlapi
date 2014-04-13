@@ -38,6 +38,5 @@ public interface ImpendingOWLOntologyChangeListener {
      *         prevent all of the changes being applied.
      */
     void handleImpendingOntologyChanges(
-            @Nonnull List<? extends OWLOntologyChange<?>> impendingChanges)
-            throws OWLOntologyChangeVetoException;
+            @Nonnull List<? extends OWLOntologyChange<?>> impendingChanges);
 }

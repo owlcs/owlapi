@@ -32,7 +32,7 @@ public class XrefExpander {
      * @throws InvalidXrefMapException
      *         InvalidXrefMapException
      */
-    public XrefExpander(OBODoc src) throws InvalidXrefMapException {
+    public XrefExpander(OBODoc src) {
         sourceOBODoc = src;
         Frame shf = src.getHeaderFrame();
         String ontId = shf.getTagValue(OboFormatTag.TAG_ONTOLOGY, String.class);
@@ -53,8 +53,7 @@ public class XrefExpander {
      * @throws InvalidXrefMapException
      *         InvalidXrefMapException
      */
-    public XrefExpander(OBODoc src, String targetBase)
-            throws InvalidXrefMapException {
+    public XrefExpander(OBODoc src, String targetBase) {
         sourceOBODoc = src;
         this.targetBase = targetBase;
         setUp();
@@ -68,7 +67,7 @@ public class XrefExpander {
      * @throws InvalidXrefMapException
      *         InvalidXrefMapException
      */
-    public XrefExpander(OBODoc src, OBODoc tgt) throws InvalidXrefMapException {
+    public XrefExpander(OBODoc src, OBODoc tgt) {
         sourceOBODoc = src;
         targetOBODoc = tgt;
         setUp();
@@ -78,7 +77,7 @@ public class XrefExpander {
      * @throws InvalidXrefMapException
      *         InvalidXrefMapException
      */
-    public void setUp() throws InvalidXrefMapException {
+    public void setUp() {
         // required for translation of IDs
         // obo2owl = new Obo2Owl();
         // obo2owl.setObodoc(sourceOBODoc);
@@ -170,7 +169,7 @@ public class XrefExpander {
         return targetDocMap.get(idSpace);
     }
 
-    private void addRule(String db, Rule rule) throws InvalidXrefMapException {
+    private void addRule(String db, Rule rule) {
         if (treatMap.containsKey(db)) {
             throw new InvalidXrefMapException(db);
         }

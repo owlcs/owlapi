@@ -57,7 +57,6 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLPrimitive;
 import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
-import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
 import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
@@ -677,8 +676,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     }
 
     @Override
-    public Set<IRI> getDirectImportsDocuments()
-            throws UnknownOWLOntologyException {
+    public Set<IRI> getDirectImportsDocuments() {
         Set<IRI> result = createSet();
         for (OWLImportsDeclaration importsDeclaration : ints
                 .getImportsDeclarations(false)) {
@@ -688,19 +686,17 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     }
 
     @Override
-    public Set<OWLOntology> getImports() throws UnknownOWLOntologyException {
+    public Set<OWLOntology> getImports() {
         return manager.getImports(this);
     }
 
     @Override
-    public Set<OWLOntology> getDirectImports()
-            throws UnknownOWLOntologyException {
+    public Set<OWLOntology> getDirectImports() {
         return manager.getDirectImports(this);
     }
 
     @Override
-    public Set<OWLOntology> getImportsClosure()
-            throws UnknownOWLOntologyException {
+    public Set<OWLOntology> getImportsClosure() {
         return getOWLOntologyManager().getImportsClosure(this);
     }
 

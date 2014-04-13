@@ -863,7 +863,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      *         If the specified ontology is not managed by this manager.
      */
     void setOntologyDocumentIRI(@Nonnull OWLOntology ontology,
-            @Nonnull IRI documentIRI) throws UnknownOWLOntologyException;
+            @Nonnull IRI documentIRI);
 
     /**
      * Gets the ontology format for the specified ontology.
@@ -875,8 +875,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      *         If the specified ontology is not managed by this manager.
      */
     @Nonnull
-    OWLOntologyFormat getOntologyFormat(@Nonnull OWLOntology ontology)
-            throws UnknownOWLOntologyException;
+    OWLOntologyFormat getOntologyFormat(@Nonnull OWLOntology ontology);
 
     /**
      * Sets the format for the specified ontology.

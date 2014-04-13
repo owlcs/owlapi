@@ -103,7 +103,7 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
      *         was removed from the manager.
      */
     @Nonnull
-    Set<IRI> getDirectImportsDocuments() throws UnknownOWLOntologyException;
+    Set<IRI> getDirectImportsDocuments();
 
     /**
      * Gets the set of <em>loaded</em> ontologies that this ontology is related
@@ -124,7 +124,7 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
      */
     @Override
     @Nonnull
-    Set<OWLOntology> getDirectImports() throws UnknownOWLOntologyException;
+    Set<OWLOntology> getDirectImports();
 
     /**
      * Gets the set of <em>loaded</em> ontologies that this ontology is related
@@ -145,7 +145,7 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
      *         was removed from the manager.
      */
     @Nonnull
-    Set<OWLOntology> getImports() throws UnknownOWLOntologyException;
+    Set<OWLOntology> getImports();
 
     /**
      * Gets the set of <em>loaded</em> ontologies that this ontology is related
@@ -165,7 +165,7 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
      */
     @Override
     @Nonnull
-    Set<OWLOntology> getImportsClosure() throws UnknownOWLOntologyException;
+    Set<OWLOntology> getImportsClosure();
 
     /**
      * Gets the set of imports declarations for this ontology. The set returned

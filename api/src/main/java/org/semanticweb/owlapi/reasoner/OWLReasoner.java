@@ -346,9 +346,7 @@ public interface OWLReasoner {
      *         if the reasoner timed out during a basic reasoning operation. See
      *         {@link #getTimeOut()}.
      */
-    void precomputeInferences(InferenceType... inferenceTypes)
-            throws ReasonerInterruptedException, TimeOutException,
-            InconsistentOntologyException;
+    void precomputeInferences(InferenceType... inferenceTypes);
 
     /**
      * Determines if a specific set of inferences have been precomputed.
@@ -386,8 +384,7 @@ public interface OWLReasoner {
      *         if the reasoner timed out during a basic reasoning operation. See
      *         {@link #getTimeOut()}.
      */
-    boolean isConsistent() throws ReasonerInterruptedException,
-            TimeOutException;
+    boolean isConsistent();
 
     /**
      * A convenience method that determines if the specified class expression is
@@ -414,10 +411,7 @@ public interface OWLReasoner {
      *         if the reasoner timed out during a basic reasoning operation. See
      *         {@link #getTimeOut()}.
      */
-    boolean isSatisfiable(OWLClassExpression classExpression)
-            throws ReasonerInterruptedException, TimeOutException,
-            ClassExpressionNotInProfileException, FreshEntitiesException,
-            InconsistentOntologyException;
+    boolean isSatisfiable(OWLClassExpression classExpression);
 
     /**
      * A convenience method that obtains the classes in the signature of the
@@ -437,9 +431,7 @@ public interface OWLReasoner {
      * @throws InconsistentOntologyException
      *         if the set of reasoner axioms is inconsistent
      */
-    Node<OWLClass> getUnsatisfiableClasses()
-            throws ReasonerInterruptedException, TimeOutException,
-            InconsistentOntologyException;
+    Node<OWLClass> getUnsatisfiableClasses();
 
     /**
      * A convenience method that determines if the specified axiom is entailed
@@ -471,10 +463,7 @@ public interface OWLReasoner {
      *         if the set of reasoner axioms is inconsistent
      * @see #isEntailmentCheckingSupported(org.semanticweb.owlapi.model.AxiomType)
      */
-    boolean isEntailed(OWLAxiom axiom) throws ReasonerInterruptedException,
-            UnsupportedEntailmentTypeException, TimeOutException,
-            AxiomNotInProfileException, FreshEntitiesException,
-            InconsistentOntologyException;
+    boolean isEntailed(OWLAxiom axiom);
 
     /**
      * Determines if the specified set of axioms is entailed by the reasoner
@@ -508,11 +497,7 @@ public interface OWLReasoner {
      *         if the set of reasoner axioms is inconsistent
      * @see #isEntailmentCheckingSupported(org.semanticweb.owlapi.model.AxiomType)
      */
-    boolean isEntailed(Set<? extends OWLAxiom> axioms)
-            throws ReasonerInterruptedException,
-            UnsupportedEntailmentTypeException, TimeOutException,
-            AxiomNotInProfileException, FreshEntitiesException,
-            InconsistentOntologyException;
+    boolean isEntailed(Set<? extends OWLAxiom> axioms);
 
     /**
      * Determines if entailment checking for the specified axiom type is
@@ -603,10 +588,7 @@ public interface OWLReasoner {
      *         if the reasoner timed out during a basic reasoning operation. See
      *         {@link #getTimeOut()}.
      */
-    NodeSet<OWLClass> getSubClasses(OWLClassExpression ce, boolean direct)
-            throws ReasonerInterruptedException, TimeOutException,
-            FreshEntitiesException, InconsistentOntologyException,
-            ClassExpressionNotInProfileException;
+    NodeSet<OWLClass> getSubClasses(OWLClassExpression ce, boolean direct);
 
     /**
      * Gets the set of named classes that are the strict (potentially direct)
@@ -647,10 +629,7 @@ public interface OWLReasoner {
      *         if the reasoner timed out during a basic reasoning operation. See
      *         {@link #getTimeOut()}.
      */
-    NodeSet<OWLClass> getSuperClasses(OWLClassExpression ce, boolean direct)
-            throws InconsistentOntologyException,
-            ClassExpressionNotInProfileException, FreshEntitiesException,
-            ReasonerInterruptedException, TimeOutException;
+    NodeSet<OWLClass> getSuperClasses(OWLClassExpression ce, boolean direct);
 
     /**
      * Gets the set of named classes that are equivalent to the specified class
@@ -691,10 +670,7 @@ public interface OWLReasoner {
      *         if the reasoner timed out during a basic reasoning operation. See
      *         {@link #getTimeOut()}.
      */
-    Node<OWLClass> getEquivalentClasses(OWLClassExpression ce)
-            throws InconsistentOntologyException,
-            ClassExpressionNotInProfileException, FreshEntitiesException,
-            ReasonerInterruptedException, TimeOutException;
+    Node<OWLClass> getEquivalentClasses(OWLClassExpression ce);
 
     /**
      * Gets the classes that are disjoint with the specified class expression
@@ -725,9 +701,7 @@ public interface OWLReasoner {
      *         if the reasoner timed out during a basic reasoning operation. See
      *         {@link #getTimeOut()}.
      */
-    NodeSet<OWLClass> getDisjointClasses(OWLClassExpression ce)
-            throws ReasonerInterruptedException, TimeOutException,
-            FreshEntitiesException, InconsistentOntologyException;
+    NodeSet<OWLClass> getDisjointClasses(OWLClassExpression ce);
 
     // //////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // //////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -803,9 +777,7 @@ public interface OWLReasoner {
      *         {@link #getTimeOut()}.
      */
     NodeSet<OWLObjectPropertyExpression> getSubObjectProperties(
-            OWLObjectPropertyExpression pe, boolean direct)
-            throws InconsistentOntologyException, FreshEntitiesException,
-            ReasonerInterruptedException, TimeOutException;
+            OWLObjectPropertyExpression pe, boolean direct);
 
     /**
      * Gets the set of <a href="#spe">simplified object property expressions</a>
@@ -849,9 +821,7 @@ public interface OWLReasoner {
      *         {@link #getTimeOut()}.
      */
     NodeSet<OWLObjectPropertyExpression> getSuperObjectProperties(
-            OWLObjectPropertyExpression pe, boolean direct)
-            throws InconsistentOntologyException, FreshEntitiesException,
-            ReasonerInterruptedException, TimeOutException;
+            OWLObjectPropertyExpression pe, boolean direct);
 
     /**
      * Gets the set of <a href="#spe">simplified object property expressions</a>
@@ -892,9 +862,7 @@ public interface OWLReasoner {
      *         {@link #getTimeOut()}.
      */
     Node<OWLObjectPropertyExpression> getEquivalentObjectProperties(
-            OWLObjectPropertyExpression pe)
-            throws InconsistentOntologyException, FreshEntitiesException,
-            ReasonerInterruptedException, TimeOutException;
+            OWLObjectPropertyExpression pe);
 
     /**
      * Gets the <a href="#spe">simplified object property expressions</a> that
@@ -935,9 +903,7 @@ public interface OWLReasoner {
      *         {@link #getTimeOut()}.
      */
     NodeSet<OWLObjectPropertyExpression> getDisjointObjectProperties(
-            OWLObjectPropertyExpression pe)
-            throws InconsistentOntologyException, FreshEntitiesException,
-            ReasonerInterruptedException, TimeOutException;
+            OWLObjectPropertyExpression pe);
 
     /**
      * Gets the set of <a href="#spe">simplified object property expressions</a>
@@ -968,9 +934,7 @@ public interface OWLReasoner {
      *         {@link #getTimeOut()}.
      */
     Node<OWLObjectPropertyExpression> getInverseObjectProperties(
-            OWLObjectPropertyExpression pe)
-            throws InconsistentOntologyException, FreshEntitiesException,
-            ReasonerInterruptedException, TimeOutException;
+            OWLObjectPropertyExpression pe);
 
     /**
      * Gets the named classes that are the direct or indirect domains of this
@@ -1010,9 +974,7 @@ public interface OWLReasoner {
      *         {@link #getTimeOut()}.
      */
     NodeSet<OWLClass> getObjectPropertyDomains(OWLObjectPropertyExpression pe,
-            boolean direct) throws InconsistentOntologyException,
-            FreshEntitiesException, ReasonerInterruptedException,
-            TimeOutException;
+            boolean direct);
 
     /**
      * Gets the named classes that are the direct or indirect ranges of this
@@ -1052,17 +1014,9 @@ public interface OWLReasoner {
      *         {@link #getTimeOut()}.
      */
     NodeSet<OWLClass> getObjectPropertyRanges(OWLObjectPropertyExpression pe,
-            boolean direct) throws InconsistentOntologyException,
-            FreshEntitiesException, ReasonerInterruptedException,
-            TimeOutException;
+            boolean direct);
 
-    // //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // //
-    // // Methods for dealing with the data property hierarchy
-    // //
-    // //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Methods for dealing with the data property hierarchy
     /**
      * Gets the {@code Node} corresponding to the top node (containing
      * {@code owl:topDataProperty}) in the data property hierarchy.
@@ -1126,9 +1080,7 @@ public interface OWLReasoner {
      *         {@link #getTimeOut()}.
      */
     NodeSet<OWLDataProperty> getSubDataProperties(OWLDataProperty pe,
-            boolean direct) throws InconsistentOntologyException,
-            FreshEntitiesException, ReasonerInterruptedException,
-            TimeOutException;
+            boolean direct);
 
     /**
      * Gets the set of named data properties that are the strict (potentially
@@ -1167,9 +1119,7 @@ public interface OWLReasoner {
      *         {@link #getTimeOut()}.
      */
     NodeSet<OWLDataProperty> getSuperDataProperties(OWLDataProperty pe,
-            boolean direct) throws InconsistentOntologyException,
-            FreshEntitiesException, ReasonerInterruptedException,
-            TimeOutException;
+            boolean direct);
 
     /**
      * Gets the set of named data properties that are equivalent to the
@@ -1209,9 +1159,7 @@ public interface OWLReasoner {
      *         if the reasoner timed out during a basic reasoning operation. See
      *         {@link #getTimeOut()}.
      */
-    Node<OWLDataProperty> getEquivalentDataProperties(OWLDataProperty pe)
-            throws InconsistentOntologyException, FreshEntitiesException,
-            ReasonerInterruptedException, TimeOutException;
+    Node<OWLDataProperty> getEquivalentDataProperties(OWLDataProperty pe);
 
     /**
      * Gets the data properties that are disjoint with the specified data
@@ -1247,9 +1195,7 @@ public interface OWLReasoner {
      *         {@link #getTimeOut()}.
      */
     NodeSet<OWLDataProperty> getDisjointDataProperties(
-            OWLDataPropertyExpression pe) throws InconsistentOntologyException,
-            FreshEntitiesException, ReasonerInterruptedException,
-            TimeOutException;
+            OWLDataPropertyExpression pe);
 
     /**
      * Gets the named classes that are the direct or indirect domains of this
@@ -1290,10 +1236,7 @@ public interface OWLReasoner {
      *         {@link #getTimeOut()}.
      */
     NodeSet<OWLClass>
-            getDataPropertyDomains(OWLDataProperty pe, boolean direct)
-                    throws InconsistentOntologyException,
-                    FreshEntitiesException, ReasonerInterruptedException,
-                    TimeOutException;
+            getDataPropertyDomains(OWLDataProperty pe, boolean direct);
 
     // //////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // //////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1335,9 +1278,7 @@ public interface OWLReasoner {
      *         if the reasoner timed out during a basic reasoning operation. See
      *         {@link #getTimeOut()}.
      */
-    NodeSet<OWLClass> getTypes(OWLNamedIndividual ind, boolean direct)
-            throws InconsistentOntologyException, FreshEntitiesException,
-            ReasonerInterruptedException, TimeOutException;
+    NodeSet<OWLClass> getTypes(OWLNamedIndividual ind, boolean direct);
 
     /**
      * Gets the individuals which are instances of the specified class
@@ -1380,9 +1321,7 @@ public interface OWLReasoner {
      * @see org.semanticweb.owlapi.reasoner.IndividualNodeSetPolicy
      */
     NodeSet<OWLNamedIndividual> getInstances(OWLClassExpression ce,
-            boolean direct) throws InconsistentOntologyException,
-            ClassExpressionNotInProfileException, FreshEntitiesException,
-            ReasonerInterruptedException, TimeOutException;
+            boolean direct);
 
     /**
      * Gets the object property values for the specified individual and object
@@ -1414,9 +1353,7 @@ public interface OWLReasoner {
      * @see org.semanticweb.owlapi.reasoner.IndividualNodeSetPolicy
      */
     NodeSet<OWLNamedIndividual> getObjectPropertyValues(OWLNamedIndividual ind,
-            OWLObjectPropertyExpression pe)
-            throws InconsistentOntologyException, FreshEntitiesException,
-            ReasonerInterruptedException, TimeOutException;
+            OWLObjectPropertyExpression pe);
 
     /**
      * Gets the data property values for the specified individual and data
@@ -1451,9 +1388,7 @@ public interface OWLReasoner {
      * @see org.semanticweb.owlapi.reasoner.IndividualNodeSetPolicy
      */
     Set<OWLLiteral> getDataPropertyValues(OWLNamedIndividual ind,
-            OWLDataProperty pe) throws InconsistentOntologyException,
-            FreshEntitiesException, ReasonerInterruptedException,
-            TimeOutException;
+            OWLDataProperty pe);
 
     /**
      * Gets the individuals that are the same as the specified individual.
@@ -1479,9 +1414,7 @@ public interface OWLReasoner {
      *         if the reasoner timed out during a basic reasoning operation. See
      *         {@link #getTimeOut()}.
      */
-    Node<OWLNamedIndividual> getSameIndividuals(OWLNamedIndividual ind)
-            throws InconsistentOntologyException, FreshEntitiesException,
-            ReasonerInterruptedException, TimeOutException;
+    Node<OWLNamedIndividual> getSameIndividuals(OWLNamedIndividual ind);
 
     /**
      * Gets the individuals which are entailed to be different from the
@@ -1508,9 +1441,7 @@ public interface OWLReasoner {
      *         if the reasoner timed out during a basic reasoning operation. See
      *         {@link #getTimeOut()}.
      */
-    NodeSet<OWLNamedIndividual> getDifferentIndividuals(OWLNamedIndividual ind)
-            throws InconsistentOntologyException, FreshEntitiesException,
-            ReasonerInterruptedException, TimeOutException;
+    NodeSet<OWLNamedIndividual> getDifferentIndividuals(OWLNamedIndividual ind);
 
     /**
      * Gets the time out (in milliseconds) for the most basic reasoning

@@ -29,7 +29,7 @@ public interface RDFConsumer {
      * @throws OWLRuntimeException
      *         OWLRuntimeException
      */
-    void startModel(@Nonnull IRI physicalURI) throws OWLRuntimeException;
+    void startModel(@Nonnull IRI physicalURI);
 
     /**
      * Called when model parsing is finished.
@@ -37,7 +37,7 @@ public interface RDFConsumer {
      * @throws OWLRuntimeException
      *         OWLRuntimeException
      */
-    void endModel() throws OWLRuntimeException;
+    void endModel();
 
     /**
      * Called when a statement with resource value is added to the model.
@@ -52,8 +52,7 @@ public interface RDFConsumer {
      *         OWLRuntimeException
      */
     void statementWithResourceValue(@Nonnull String subject,
-            @Nonnull String predicate, @Nonnull String object)
-            throws OWLRuntimeException;
+            @Nonnull String predicate, @Nonnull String object);
 
     /**
      * Called when a statement with resource value is added to the model.
@@ -87,8 +86,7 @@ public interface RDFConsumer {
      */
     void statementWithLiteralValue(@Nonnull String subject,
             @Nonnull String predicate, @Nonnull String object,
-            @Nullable String language, @Nullable String datatype)
-            throws OWLRuntimeException;
+            @Nullable String language, @Nullable String datatype);
 
     /**
      * Called when a statement with literal value is added to the model.
@@ -107,7 +105,7 @@ public interface RDFConsumer {
      *         OWLRuntimeException
      */
     void statementWithLiteralValue(IRI subject, IRI predicate, String object,
-            String language, IRI datatype) throws OWLRuntimeException;
+            String language, IRI datatype);
 
     /**
      * Receives the logical URI of the model.
@@ -117,7 +115,7 @@ public interface RDFConsumer {
      * @throws OWLRuntimeException
      *         OWLRuntimeException
      */
-    void logicalURI(@Nonnull IRI logicalURI) throws OWLRuntimeException;
+    void logicalURI(@Nonnull IRI logicalURI);
 
     /**
      * Receives the notification that the model being parsed includes another
@@ -132,5 +130,5 @@ public interface RDFConsumer {
      */
     void
             includeModel(@Nullable String logicalURI,
-                    @Nullable String physicalURI) throws OWLRuntimeException;
+                    @Nullable String physicalURI);
 }

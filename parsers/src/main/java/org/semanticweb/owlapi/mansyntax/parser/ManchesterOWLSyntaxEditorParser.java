@@ -82,7 +82,6 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.model.SetOntologyID;
-import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.NamespaceUtil;
 import org.semanticweb.owlapi.util.OntologyAxiomPair;
@@ -458,7 +457,7 @@ public class ManchesterOWLSyntaxEditorParser implements
 
     /* Parser */
     @Override
-    public OWLClassExpression parseClassExpression() throws ParserException {
+    public OWLClassExpression parseClassExpression() {
         OWLClassExpression desc = parseUnion();
         if (!eof(consumeToken())) {
             throw new ExceptionBuilder().withKeyword(EOF).build();
@@ -1014,7 +1013,7 @@ public class ManchesterOWLSyntaxEditorParser implements
      * @throws ParserException
      *         parsing error
      */
-    public Set<OntologyAxiomPair> parseFrames() throws ParserException {
+    public Set<OntologyAxiomPair> parseFrames() {
         Set<OntologyAxiomPair> axioms = new HashSet<OntologyAxiomPair>();
         Set<ManchesterOWLSyntax> possible = new HashSet<ManchesterOWLSyntax>();
         resetPossible(possible);
@@ -1247,7 +1246,7 @@ public class ManchesterOWLSyntaxEditorParser implements
     }
 
     @Override
-    public Set<OntologyAxiomPair> parseClassFrameEOF() throws ParserException {
+    public Set<OntologyAxiomPair> parseClassFrameEOF() {
         return parseClassFrame(true);
     }
 
@@ -1676,7 +1675,7 @@ public class ManchesterOWLSyntaxEditorParser implements
     }
 
     @Override
-    public IRI parseVariable() throws ParserException {
+    public IRI parseVariable() {
         consumeToken("?");
         String fragment = peekToken();
         if (fragment.startsWith("<")) {
@@ -1931,8 +1930,7 @@ public class ManchesterOWLSyntaxEditorParser implements
     }
 
     @Override
-    public Set<OWLObjectPropertyExpression> parseObjectPropertyList()
-            throws ParserException {
+    public Set<OWLObjectPropertyExpression> parseObjectPropertyList() {
         Set<OWLObjectPropertyExpression> props = new HashSet<OWLObjectPropertyExpression>();
         String sep = COMMA.keyword();
         while (COMMA.matches(sep)) {
@@ -2103,8 +2101,7 @@ public class ManchesterOWLSyntaxEditorParser implements
     }
 
     @Override
-    public ManchesterOWLSyntaxOntologyFormat parseOntology(OWLOntology ont)
-            throws ParserException, UnloadableImportException {
+    public ManchesterOWLSyntaxOntologyFormat parseOntology(OWLOntology ont) {
         Set<OntologyAxiomPair> axioms = new HashSet<OntologyAxiomPair>();
         OWLOntologyID ontologyID = new OWLOntologyID();
         Set<AddImport> imports = new HashSet<AddImport>();
@@ -2499,7 +2496,7 @@ public class ManchesterOWLSyntaxEditorParser implements
     }
 
     @Override
-    public OWLAxiom parseAxiom() throws ParserException {
+    public OWLAxiom parseAxiom() {
         String token = peekToken();
         if (isClassName(token)) {
             return parseAxiomWithClassExpressionStart();

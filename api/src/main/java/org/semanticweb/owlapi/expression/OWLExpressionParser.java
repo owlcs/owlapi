@@ -42,5 +42,5 @@ public interface OWLExpressionParser<O extends Object> {
      *         parse exception
      */
     @Nonnull
-    O parse(@Nonnull String expression) throws OWLParserException;
+    O parse(@Nonnull String expression);
 }

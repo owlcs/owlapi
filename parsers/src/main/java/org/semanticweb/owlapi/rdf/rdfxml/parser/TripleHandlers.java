@@ -47,7 +47,6 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
@@ -1632,8 +1631,7 @@ public class TripleHandlers {
         }
 
         @Override
-        public void handleTriple(IRI subject, IRI predicate, OWLLiteral object)
-                throws OWLOntologyChangeException {
+        public void handleTriple(IRI subject, IRI predicate, OWLLiteral object) {
             consumer.addFirst(subject, object);
             consumeTriple(subject, predicate, object);
         }
@@ -2035,7 +2033,7 @@ public class TripleHandlers {
         }
 
         private void translateDataPropertyDomain(IRI subject, IRI predicate,
-                IRI object) throws OWLOntologyChangeException {
+                IRI object) {
             addAxiom(df.getOWLDataPropertyDomainAxiom(
                     translateDataProperty(subject),
                     translateClassExpression(object), getPendingAnnotations()));
@@ -2043,7 +2041,7 @@ public class TripleHandlers {
         }
 
         private void translateObjectPropertyDomain(IRI subject, IRI predicate,
-                IRI object) throws OWLOntologyChangeException {
+                IRI object) {
             addAxiom(df.getOWLObjectPropertyDomainAxiom(
                     translateObjectProperty(subject),
                     translateClassExpression(object), getPendingAnnotations()));
@@ -2322,7 +2320,7 @@ public class TripleHandlers {
         }
 
         private void translateSubObjectProperty(IRI subject, IRI predicate,
-                IRI object) throws OWLOntologyChangeException {
+                IRI object) {
             // Object - object
             addAxiom(df.getOWLSubObjectPropertyOfAxiom(
                     translateObjectProperty(subject),
@@ -2331,7 +2329,7 @@ public class TripleHandlers {
         }
 
         private void translateSubDataProperty(IRI subject, IRI predicate,
-                IRI object) throws OWLOntologyChangeException {
+                IRI object) {
             // Data - Data
             addAxiom(df.getOWLSubDataPropertyOfAxiom(
                     translateDataProperty(subject),

@@ -89,8 +89,7 @@ public class OBOFormatWriter {
      * @throws OBOFormatParserException
      *         the oBO format parser exception
      */
-    public void write(String fn, BufferedWriter writer) throws IOException,
-            OBOFormatParserException {
+    public void write(String fn, BufferedWriter writer) throws IOException {
         if (fn.startsWith("http:")) {
             write(new URL(fn), writer);
         } else {
@@ -112,8 +111,7 @@ public class OBOFormatWriter {
      * @throws OBOFormatParserException
      *         the oBO format parser exception
      */
-    public void write(URL url, BufferedWriter writer) throws IOException,
-            OBOFormatParserException {
+    public void write(URL url, BufferedWriter writer) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(
                 url.openStream()));
         write(reader, writer);
@@ -130,7 +128,7 @@ public class OBOFormatWriter {
      *         the oBO format parser exception
      */
     public void write(BufferedReader reader, BufferedWriter writer)
-            throws IOException, OBOFormatParserException {
+            throws IOException {
         OBOFormatParser parser = new OBOFormatParser();
         OBODoc doc = parser.parse(reader);
         write(doc, writer);

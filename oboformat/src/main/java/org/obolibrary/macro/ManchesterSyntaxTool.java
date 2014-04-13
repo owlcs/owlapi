@@ -142,7 +142,7 @@ public class ManchesterSyntaxTool {
      *         parser exception
      */
     public Set<OntologyAxiomPair> parseManchesterExpressionFrames(
-            String expression) throws ParserException {
+            String expression) {
         ManchesterOWLSyntaxEditorParser parser = createParser(expression);
         Set<OntologyAxiomPair> set = parser.parseFrames();
         return set;
@@ -157,8 +157,7 @@ public class ManchesterSyntaxTool {
      * @throws ParserException
      *         parser exception
      */
-    public OWLClassExpression parseManchesterExpression(String expression)
-            throws ParserException {
+    public OWLClassExpression parseManchesterExpression(String expression) {
         ManchesterOWLSyntaxEditorParser parser = createParser(expression);
         OWLClassExpression ce = parser.parseClassExpression();
         return ce;

@@ -46,7 +46,7 @@ public interface ManchesterOWLSyntaxParser {
      * @throws OWLParserException
      *         parsing error
      */
-    OWLAxiom parseAxiom() throws OWLParserException;
+    OWLAxiom parseAxiom();
 
     /**
      * Parses an OWL class expression that is represented in Manchester OWL
@@ -56,14 +56,14 @@ public interface ManchesterOWLSyntaxParser {
      * @throws OWLParserException
      *         If a class expression could not be parsed.
      */
-    OWLClassExpression parseClassExpression() throws OWLParserException;
+    OWLClassExpression parseClassExpression();
 
     /**
      * @return class frames
      * @throws OWLParserException
      *         parsing error
      */
-    Set<OntologyAxiomPair> parseClassFrameEOF() throws OWLParserException;
+    Set<OntologyAxiomPair> parseClassFrameEOF();
 
     /**
      * @param datatype
@@ -97,8 +97,7 @@ public interface ManchesterOWLSyntaxParser {
      * @throws UnloadableImportException
      *         import error
      */
-    ManchesterOWLSyntaxOntologyFormat parseOntology(OWLOntology ont)
-            throws OWLParserException, UnloadableImportException;
+    ManchesterOWLSyntaxOntologyFormat parseOntology(OWLOntology ont);
 
     /** @return list of class expressions */
     Set<OWLClassExpression> parseClassExpressionList();
@@ -108,8 +107,7 @@ public interface ManchesterOWLSyntaxParser {
      * @throws OWLParserException
      *         if a parser exception is raised
      */
-    Set<OWLObjectPropertyExpression> parseObjectPropertyList()
-            throws OWLParserException;
+    Set<OWLObjectPropertyExpression> parseObjectPropertyList();
 
     /** @return data range */
     OWLDataRange parseDataRange();
@@ -125,5 +123,5 @@ public interface ManchesterOWLSyntaxParser {
      * @throws OWLParserException
      *         if a parser exception is raised
      */
-    IRI parseVariable() throws OWLParserException;
+    IRI parseVariable();
 }

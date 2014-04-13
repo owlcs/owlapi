@@ -460,7 +460,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
      * @throws RDFParserException
      *         exception thrown
      */
-    public void verify(boolean b, String message) throws RDFParserException {
+    public void verify(boolean b, String message) {
         if (b) {
             throw new RDFParserException(message, m_documentLocator);
         }

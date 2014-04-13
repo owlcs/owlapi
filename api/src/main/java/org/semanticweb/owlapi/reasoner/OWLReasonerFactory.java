@@ -105,8 +105,7 @@ public interface OWLReasonerFactory {
      *         {@code null}.
      */
     OWLReasoner createNonBufferingReasoner(OWLOntology ontology,
-            OWLReasonerConfiguration config)
-            throws IllegalConfigurationException;
+            OWLReasonerConfiguration config);
 
     /**
      * Creates a buffering reasoner that reasons over the imports closure of the
@@ -136,6 +135,5 @@ public interface OWLReasonerFactory {
      *         {@code null}.
      */
     OWLReasoner createReasoner(OWLOntology ontology,
-            OWLReasonerConfiguration config)
-            throws IllegalConfigurationException;
+            OWLReasonerConfiguration config);
 }

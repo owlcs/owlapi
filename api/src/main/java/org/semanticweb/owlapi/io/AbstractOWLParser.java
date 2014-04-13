@@ -37,7 +37,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
-import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.util.OWLOntologyFormatFactoryImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -221,7 +220,7 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
 
     @Override
     public OWLOntologyFormat parse(IRI documentIRI, OWLOntology ontology)
-            throws OWLParserException, IOException, UnloadableImportException {
+            throws IOException {
         return parse(new IRIDocumentSource(documentIRI, null, null), ontology);
     }
 

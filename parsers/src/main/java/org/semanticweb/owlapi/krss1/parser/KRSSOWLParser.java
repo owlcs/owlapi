@@ -18,10 +18,8 @@ import org.semanticweb.owlapi.formats.KRSSOntologyFormat;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
-import org.semanticweb.owlapi.model.UnloadableImportException;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -44,8 +42,7 @@ public class KRSSOWLParser extends AbstractOWLParser {
 
     @Override
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
-            OWLOntology ontology) throws IOException,
-            OWLOntologyChangeException, UnloadableImportException {
+            OWLOntology ontology) throws IOException {
         return parse(documentSource, ontology,
                 new OWLOntologyLoaderConfiguration());
     }
@@ -53,8 +50,7 @@ public class KRSSOWLParser extends AbstractOWLParser {
     @Override
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
             OWLOntology ontology, OWLOntologyLoaderConfiguration configuration)
-            throws IOException, OWLOntologyChangeException,
-            UnloadableImportException {
+            throws IOException {
         try {
             KRSSOntologyFormat format = new KRSSOntologyFormat();
             KRSSParser parser;

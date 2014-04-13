@@ -76,7 +76,6 @@ import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
 import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SetOntologyID;
-import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.util.EscapeUtils;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWLFacet;
@@ -153,7 +152,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         prefixMap.putAll(nsm.getPrefixName2PrefixMap());
     }
 
-    OWLFunctionalSyntaxOntologyFormat parse() throws UnloadableImportException {
+    OWLFunctionalSyntaxOntologyFormat parse() {
         label_1: while (true) {
             if (jj_2_1(2)) {} else {
                 break label_1;
@@ -169,7 +168,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return format;
     }
 
-    private void Ontology() throws UnloadableImportException {
+    private void Ontology() {
         OWLAnnotation anno;
         OWLAxiom ax;
         OWLImportsDeclaration decl;

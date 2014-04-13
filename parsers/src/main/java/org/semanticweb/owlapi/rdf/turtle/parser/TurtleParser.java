@@ -65,7 +65,7 @@ class TurtleParser implements TurtleParserConstants {
         return iri;
     }
 
-    protected IRI getIRIFromQName(String qname) throws ParseException {
+    protected IRI getIRIFromQName(String qname) {
         int colonIndex = qname.indexOf(':');
         if (colonIndex == -1) {
             throw new ParseException("Not a valid qname (missing ':') " + qname);
@@ -102,7 +102,7 @@ class TurtleParser implements TurtleParserConstants {
     // {
     // <LONG_STRING: (<QUOTE><QUOTE><QUOTE>~["\""]<QUOTE><QUOTE><QUOTE>)>
     // }
-    final void parseDocument() throws ParseException {
+    final void parseDocument() {
         label_1: while (true) {
             if (jj_2_1(2)) {
                 parseDirective();
@@ -124,7 +124,7 @@ class TurtleParser implements TurtleParserConstants {
         handler.handleEnd();
     }
 
-    final void parseDirective() throws ParseException {
+    final void parseDirective() {
         if (jj_2_4(2)) {
             parsePrefixDirective();
         } else if (jj_2_5(2)) {
@@ -135,7 +135,7 @@ class TurtleParser implements TurtleParserConstants {
         }
     }
 
-    final void parsePrefixDirective() throws ParseException {
+    final void parsePrefixDirective() {
         Token t;
         String prefix = "";
         IRI ns;
@@ -147,7 +147,7 @@ class TurtleParser implements TurtleParserConstants {
         handler.handlePrefixDirective(prefix, ns.toString());
     }
 
-    final void parseBaseDirective() throws ParseException {
+    final void parseBaseDirective() {
         Token t;
         jj_consume_token(BASE);
         t = jj_consume_token(FULLIRI);
@@ -155,11 +155,11 @@ class TurtleParser implements TurtleParserConstants {
         handler.handleBaseDirective(base);
     }
 
-    final void parseStatement() throws ParseException {
+    final void parseStatement() {
         parseTriples();
     }
 
-    final void parseTriples() throws ParseException {
+    final void parseTriples() {
         IRI subject;
         subject = parseSubject();
         if (jj_2_6(2)) {
@@ -169,7 +169,7 @@ class TurtleParser implements TurtleParserConstants {
         }
     }
 
-    final IRI parseSubject() throws ParseException {
+    final IRI parseSubject() {
         IRI iri;
         if (jj_2_7(2)) {
             iri = parseResource();
@@ -187,7 +187,7 @@ class TurtleParser implements TurtleParserConstants {
         throw new Error("Missing return statement in function");
     }
 
-    final IRI parseLoneNS() throws ParseException {
+    final IRI parseLoneNS() {
         Token t;
         t = jj_consume_token(PNAME_NS);
         {
@@ -198,7 +198,7 @@ class TurtleParser implements TurtleParserConstants {
         throw new Error("Missing return statement in function");
     }
 
-    final IRI parseAbbreviatedIRI() throws ParseException {
+    final IRI parseAbbreviatedIRI() {
         Token t;
         t = jj_consume_token(PNAME_LN);
         {
@@ -209,7 +209,7 @@ class TurtleParser implements TurtleParserConstants {
         throw new Error("Missing return statement in function");
     }
 
-    final IRI parseIRI() throws ParseException {
+    final IRI parseIRI() {
         Token t;
         t = jj_consume_token(FULLIRI);
         {
@@ -220,7 +220,7 @@ class TurtleParser implements TurtleParserConstants {
         throw new Error("Missing return statement in function");
     }
 
-    final IRI parseBlankNode() throws ParseException {
+    final IRI parseBlankNode() {
         IRI iri = null;
         Token t;
         if (jj_2_11(2)) {
@@ -263,7 +263,7 @@ class TurtleParser implements TurtleParserConstants {
         throw new Error("Missing return statement in function");
     }
 
-    final IRI parseNodeID() throws ParseException {
+    final IRI parseNodeID() {
         Token t;
         t = jj_consume_token(NODEID);
         {
@@ -274,7 +274,7 @@ class TurtleParser implements TurtleParserConstants {
         throw new Error("Missing return statement in function");
     }
 
-    final void parsePredicateObjectList(IRI subject) throws ParseException {
+    final void parsePredicateObjectList(IRI subject) {
         IRI predicate;
         predicate = parseVerb();
         parseObjectList(subject, predicate);
@@ -295,7 +295,7 @@ class TurtleParser implements TurtleParserConstants {
         }
     }
 
-    final IRI parseVerb() throws ParseException {
+    final IRI parseVerb() {
         IRI iri;
         if (jj_2_17(2)) {
             jj_consume_token(A);
@@ -314,7 +314,7 @@ class TurtleParser implements TurtleParserConstants {
         throw new Error("Missing return statement in function");
     }
 
-    final IRI parsePredicate() throws ParseException {
+    final IRI parsePredicate() {
         IRI iri;
         iri = parseResource();
         {
@@ -325,7 +325,7 @@ class TurtleParser implements TurtleParserConstants {
         throw new Error("Missing return statement in function");
     }
 
-    final IRI parseResource() throws ParseException {
+    final IRI parseResource() {
         IRI iri;
         if (jj_2_19(2)) {
             iri = parseIRI();
@@ -345,8 +345,7 @@ class TurtleParser implements TurtleParserConstants {
         throw new Error("Missing return statement in function");
     }
 
-    final void parseObjectList(IRI subject, IRI predicate)
-            throws ParseException {
+    final void parseObjectList(IRI subject, IRI predicate) {
         parseObject(subject, predicate);
         label_3: while (true) {
             if (jj_2_22(2)) {
@@ -359,7 +358,7 @@ class TurtleParser implements TurtleParserConstants {
         }
     }
 
-    final void parseObject(IRI subject, IRI predicate) throws ParseException {
+    final void parseObject(IRI subject, IRI predicate) {
         IRI resObject;
         if (jj_2_25(2)) {
             parseLiteral(subject, predicate);
@@ -379,7 +378,7 @@ class TurtleParser implements TurtleParserConstants {
         }
     }
 
-    final IRI parseCollection() throws ParseException {
+    final IRI parseCollection() {
         IRI iri;
         jj_consume_token(OPENPAR);
         iri = parseItemList();
@@ -392,7 +391,7 @@ class TurtleParser implements TurtleParserConstants {
         throw new Error("Missing return statement in function");
     }
 
-    final IRI parseItemList() throws ParseException {
+    final IRI parseItemList() {
         // _x rdf:type rdf:List
         // _x rdf:first
         // _x rdf:next
@@ -433,7 +432,7 @@ class TurtleParser implements TurtleParserConstants {
         throw new Error("Missing return statement in function");
     }
 
-    final void parseLiteral(IRI subject, IRI predicate) throws ParseException {
+    final void parseLiteral(IRI subject, IRI predicate) {
         String literal;
         String lang = null;
         IRI datatype = null;
@@ -484,7 +483,7 @@ class TurtleParser implements TurtleParserConstants {
         }
     }
 
-    final String parseInteger() throws ParseException {
+    final String parseInteger() {
         Token t;
         if (jj_2_36(2)) {
             t = jj_consume_token(INTEGER);
@@ -507,7 +506,7 @@ class TurtleParser implements TurtleParserConstants {
         throw new Error("Missing return statement in function");
     }
 
-    final String parseDouble() throws ParseException {
+    final String parseDouble() {
         Token t;
         t = jj_consume_token(DOUBLE);
         {
@@ -518,7 +517,7 @@ class TurtleParser implements TurtleParserConstants {
         throw new Error("Missing return statement in function");
     }
 
-    final String parseDecimal() throws ParseException {
+    final String parseDecimal() {
         Token t;
         t = jj_consume_token(DECIMAL);
         {
@@ -529,7 +528,7 @@ class TurtleParser implements TurtleParserConstants {
         throw new Error("Missing return statement in function");
     }
 
-    final String parseBoolean() throws ParseException {
+    final String parseBoolean() {
         Token t;
         if (jj_2_38(2)) {
             t = jj_consume_token(TRUE);
@@ -547,7 +546,7 @@ class TurtleParser implements TurtleParserConstants {
         throw new Error("Missing return statement in function");
     }
 
-    final String parseQuotedString() throws ParseException {
+    final String parseQuotedString() {
         String s;
         s = parseString();
         {
@@ -558,7 +557,7 @@ class TurtleParser implements TurtleParserConstants {
         throw new Error("Missing return statement in function");
     }
 
-    final String parseString() throws ParseException {
+    final String parseString() {
         Token t;
         String rawString = "";
         if (jj_2_40(2)) {
@@ -1802,7 +1801,7 @@ class TurtleParser implements TurtleParserConstants {
         }
     }
 
-    private Token jj_consume_token(int kind) throws ParseException {
+    private Token jj_consume_token(int kind) {
         Token oldToken;
         if ((oldToken = token).next != null) {
             token = token.next;

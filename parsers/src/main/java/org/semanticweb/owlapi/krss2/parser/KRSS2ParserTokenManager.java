@@ -2171,9 +2171,4 @@ class KRSS2ParserTokenManager implements KRSS2ParserConstants {
             jjstateSet[jjnewStateCnt++] = jjnextStates[start];
         } while (start++ != end);
     }
-
-    private void jjCheckNAddTwoStates(int state1, int state2) {
-        jjCheckNAdd(state1);
-        jjCheckNAdd(state2);
-    }
 }

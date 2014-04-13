@@ -130,7 +130,7 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject,
      *         if the lexical form could not be parsed into an integer because
      *         it is not in the lexical space of the integer datatype.
      */
-    int parseInteger() throws NumberFormatException;
+    int parseInteger();
 
     /**
      * Determines if this literal is typed with a datatype that has an IRI that
@@ -152,7 +152,7 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject,
      *         if the lexical form could not be parsed into a boolean because it
      *         is not in the lexical space of the boolean datatype.
      */
-    boolean parseBoolean() throws NumberFormatException;
+    boolean parseBoolean();
 
     /**
      * Determines if this literal is typed with a datatype that has an IRI that
@@ -174,7 +174,7 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject,
      *         if the lexical form could not be parsed into a double because it
      *         is not in the lexical space of the double datatype.
      */
-    double parseDouble() throws NumberFormatException;
+    double parseDouble();
 
     /**
      * Determines if this literal is typed with a datatype that has an IRI that
@@ -196,7 +196,7 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject,
      *         if the lexical form could not be parsed into a float because it
      *         is not in the lexical space of the float datatype.
      */
-    float parseFloat() throws NumberFormatException;
+    float parseFloat();
 
     /**
      * @param visitor

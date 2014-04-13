@@ -156,8 +156,7 @@ public class OWLOntologyChangeRecord<T> implements Serializable {
      *         associated with this {@link OWLOntologyChangeRecord}.
      */
     public OWLOntologyChange<T>
-            createOntologyChange(OWLOntologyManager manager)
-                    throws UnknownOWLOntologyException {
+            createOntologyChange(OWLOntologyManager manager) {
         OWLOntology ontology = checkNotNull(manager, "manager cannot be null")
                 .getOntology(ontologyID);
         if (ontology == null) {

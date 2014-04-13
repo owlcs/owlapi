@@ -302,8 +302,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     }
 
     @Override
-    public Set<OWLOntology> getDirectImports(OWLOntology ontology)
-            throws UnknownOWLOntologyException {
+    public Set<OWLOntology> getDirectImports(OWLOntology ontology) {
         if (!contains(ontology)) {
             throw new UnknownOWLOntologyException(ontology.getOntologyID());
         }
@@ -318,8 +317,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     }
 
     @Override
-    public Set<OWLOntology> getImports(OWLOntology ontology)
-            throws UnknownOWLOntologyException {
+    public Set<OWLOntology> getImports(OWLOntology ontology) {
         if (!contains(ontology)) {
             throw new UnknownOWLOntologyException(ontology.getOntologyID());
         }
@@ -381,8 +379,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     }
 
     @Override
-    public List<OWLOntology> getSortedImportsClosure(OWLOntology ontology)
-            throws UnknownOWLOntologyException {
+    public List<OWLOntology> getSortedImportsClosure(OWLOntology ontology) {
         return new ArrayList<OWLOntology>(ontology.getImportsClosure());
     }
 
@@ -869,8 +866,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     }
 
     @Override
-    public IRI getOntologyDocumentIRI(OWLOntology ontology)
-            throws UnknownOWLOntologyException {
+    public IRI getOntologyDocumentIRI(OWLOntology ontology) {
         if (!contains(ontology)) {
             throw new UnknownOWLOntologyException(ontology.getOntologyID());
         }
@@ -878,8 +874,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     }
 
     @Override
-    public void setOntologyDocumentIRI(OWLOntology ontology, IRI documentIRI)
-            throws UnknownOWLOntologyException {
+    public void setOntologyDocumentIRI(OWLOntology ontology, IRI documentIRI) {
         if (!ontologiesByID.containsKey(ontology.getOntologyID())) {
             throw new UnknownOWLOntologyException(ontology.getOntologyID());
         }
@@ -925,7 +920,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     // /////////////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
     public void saveOntology(OWLOntology ontology)
-            throws OWLOntologyStorageException, UnknownOWLOntologyException {
+            throws OWLOntologyStorageException {
         OWLOntologyFormat format = getOntologyFormat(ontology);
         saveOntology(ontology, format);
     }
@@ -933,14 +928,14 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     @Override
     public void saveOntology(OWLOntology ontology,
             OWLOntologyFormat ontologyFormat)
-            throws OWLOntologyStorageException, UnknownOWLOntologyException {
+            throws OWLOntologyStorageException {
         IRI documentIRI = getOntologyDocumentIRI(ontology);
         saveOntology(ontology, ontologyFormat, documentIRI);
     }
 
     @Override
     public void saveOntology(OWLOntology ontology, IRI documentIRI)
-            throws OWLOntologyStorageException, UnknownOWLOntologyException {
+            throws OWLOntologyStorageException {
         OWLOntologyFormat format = getOntologyFormat(ontology);
         saveOntology(ontology, format, documentIRI);
     }
@@ -948,7 +943,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     @Override
     public void saveOntology(OWLOntology ontology,
             OWLOntologyFormat ontologyFormat, IRI documentIRI)
-            throws OWLOntologyStorageException, UnknownOWLOntologyException {
+            throws OWLOntologyStorageException {
         try {
             for (OWLOntologyStorer storer : ontologyStorers) {
                 if (storer.canStoreOntology(ontologyFormat)) {
@@ -979,7 +974,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     @Override
     public void saveOntology(OWLOntology ontology,
             OWLOntologyDocumentTarget documentTarget)
-            throws OWLOntologyStorageException, UnknownOWLOntologyException {
+            throws OWLOntologyStorageException {
         saveOntology(ontology, getOntologyFormat(ontology), documentTarget);
     }
 
@@ -987,7 +982,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     public void saveOntology(OWLOntology ontology,
             OWLOntologyFormat ontologyFormat,
             OWLOntologyDocumentTarget documentTarget)
-            throws OWLOntologyStorageException, UnknownOWLOntologyException {
+            throws OWLOntologyStorageException {
         try {
             for (OWLOntologyStorer storer : ontologyStorers) {
                 if (storer.canStoreOntology(ontologyFormat)) {
@@ -1242,8 +1237,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
 
     @Override
     public void makeLoadImportRequest(OWLImportsDeclaration declaration,
-            OWLOntologyLoaderConfiguration configuration)
-            throws UnloadableImportException {
+            OWLOntologyLoaderConfiguration configuration) {
         IRI iri = declaration.getIRI();
         if (!configuration.isIgnoredImport(iri) && !importedIRIs.contains(iri)) {
             importedIRIs.add(iri);

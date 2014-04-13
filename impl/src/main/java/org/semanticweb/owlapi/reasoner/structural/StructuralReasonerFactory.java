@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.reasoner.structural;
 
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.reasoner.BufferingMode;
-import org.semanticweb.owlapi.reasoner.IllegalConfigurationException;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerConfiguration;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
@@ -44,16 +43,14 @@ public class StructuralReasonerFactory implements OWLReasonerFactory {
 
     @Override
     public OWLReasoner createNonBufferingReasoner(OWLOntology ontology,
-            OWLReasonerConfiguration config)
-            throws IllegalConfigurationException {
+            OWLReasonerConfiguration config) {
         return new StructuralReasoner(ontology, config,
                 BufferingMode.NON_BUFFERING);
     }
 
     @Override
     public OWLReasoner createReasoner(OWLOntology ontology,
-            OWLReasonerConfiguration config)
-            throws IllegalConfigurationException {
+            OWLReasonerConfiguration config) {
         return new StructuralReasoner(ontology, config, BufferingMode.BUFFERING);
     }
 }
