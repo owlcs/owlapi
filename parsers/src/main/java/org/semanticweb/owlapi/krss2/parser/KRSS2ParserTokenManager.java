@@ -16,18 +16,11 @@ package org.semanticweb.owlapi.krss2.parser;
 import org.semanticweb.owlapi.BOMSafeJavaCharStream;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-/** Token Manager. */
-@SuppressWarnings("unused")
-public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
+class KRSS2ParserTokenManager implements KRSS2ParserConstants {
 
-    /** Debug output. */
-    public java.io.PrintStream debugStream = System.out;
+    java.io.PrintStream debugStream = System.out;
 
-    /**
-     * @param ds
-     *        debug stream
-     */
-    public void setDebugStream(java.io.PrintStream ds) {
+    void setDebugStream(java.io.PrintStream ds) {
         debugStream = ds;
     }
 
@@ -1465,27 +1458,19 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         return jjMoveNfa_0(2, 23);
     }
 
-    /** The Constant jjbitVec0. */
     static final long[] jjbitVec0 = { 0xfffe7000fffffff6L, 0xffffffffffffffffL,
             0xffffffffffffffffL, 0xfe00000000ffffffL };
-    /** The Constant jjbitVec2. */
     static final long[] jjbitVec2 = { 0x0L, 0x0L, 0x0L, 0xff7fffffff7fffffL };
-    /** The Constant jjbitVec3. */
     static final long[] jjbitVec3 = { 0x0L, 0xbfff000000000000L,
             0xffffffffffffffffL, 0xffffffffffffffffL };
-    /** The Constant jjbitVec4. */
     static final long[] jjbitVec4 = { 0x3000L, 0xffff000000000000L,
             0xffffffffffffffffL, 0xffffffffffffffffL };
-    /** The Constant jjbitVec5. */
     static final long[] jjbitVec5 = { 0xffffffffffffffffL, 0xffffffffffffffffL,
             0xffffL, 0x0L };
-    /** The Constant jjbitVec6. */
     static final long[] jjbitVec6 = { 0xffffffffffffffffL, 0xffffffffffffffffL,
             0xffffffffffffffffL, 0xffffffffffffL };
-    /** The Constant jjbitVec7. */
     static final long[] jjbitVec7 = { 0xfffffffffffffffeL, 0xffffffffffffffffL,
             0xffffffffffffffffL, 0xffffffffffffffffL };
-    /** The Constant jjbitVec8. */
     static final long[] jjbitVec8 = { 0x0L, 0x0L, 0x80000000000000L,
             0xff7fffffff7fffffL };
 
@@ -1980,12 +1965,11 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         }
     }
 
-    /** Token literal values. */
-    public static final String[] jjstrLiteralImages = { "", null, null, null,
+    static final String[] jjstrLiteralImages = { "", null, null, null, null,
             null, null, null, null, null, null, null, null, null, null, null,
-            null, null, null, "\50", "\51", null, null, null, null, null, null,
+            null, null, "\50", "\51", null, null, null, null, null, null, null,
             null, null, null, null, null, null, null, null, null, null, null,
-            null, null, null, "\72\144\157\155\141\151\156",
+            null, null, "\72\144\157\155\141\151\156",
             "\151\155\160\154\151\145\163\55\162\157\154\145", "\151\156\166",
             "\151\156\166\145\162\163\145", "\72\151\156\166\145\162\163\145",
             "\72\154\145\146\164\55\151\144\145\156\164\151\164\171", null,
@@ -1995,29 +1979,21 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
             null, "\163\165\142\162\157\154\145",
             "\72\163\171\155\155\145\164\162\151\143", null, null, null, null,
             null, null, null, "\72", null, null, null, null, null, null, };
-    /** Lexer state names. */
-    public static final String[] lexStateNames = { "DEFAULT", "IN_COMMENT",
-            "IN_IRI", };
-    /** Lex State array. */
-    public static final int[] jjnewLexState = { -1, -1, -1, -1, -1, -1, -1, -1,
-            1, 0, -1, 2, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+    static final String[] lexStateNames = { "DEFAULT", "IN_COMMENT", "IN_IRI", };
+    static final int[] jjnewLexState = { -1, -1, -1, -1, -1, -1, -1, -1, 1, 0,
+            -1, 2, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
             -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
             -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-            -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, };
+            -1, -1, -1, -1, -1, -1, -1, -1, -1, };
     static final long[] jjtoToken = { 0xffffffffffffd001L, 0x3fL, };
     static final long[] jjtoSkip = { 0x2feL, 0x0L, };
     static final long[] jjtoMore = { 0x2d00L, 0x0L, };
-    /** The input_stream. */
-    protected BOMSafeJavaCharStream input_stream;
+    BOMSafeJavaCharStream input_stream;
     private final int[] jjrounds = new int[51];
     private final int[] jjstateSet = new int[102];
     protected char curChar;
 
-    /**
-     * @param stream
-     *        the stream
-     */
-    public KRSS2ParserTokenManager(BOMSafeJavaCharStream stream) {
+    KRSS2ParserTokenManager(BOMSafeJavaCharStream stream) {
         if (BOMSafeJavaCharStream.staticFlag) {
             throw new OWLRuntimeException(
                     "ERROR: Cannot use a static CharStream class with a non-static lexical analyzer.");
@@ -2025,24 +2001,12 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         input_stream = stream;
     }
 
-    /**
-     * @param stream
-     *        the stream
-     * @param lexState
-     *        the lex state
-     */
-    public KRSS2ParserTokenManager(BOMSafeJavaCharStream stream, int lexState) {
+    KRSS2ParserTokenManager(BOMSafeJavaCharStream stream, int lexState) {
         this(stream);
         SwitchTo(lexState);
     }
 
-    /**
-     * Reinitialise parser.
-     * 
-     * @param stream
-     *        the stream
-     */
-    public void ReInit(BOMSafeJavaCharStream stream) {
+    void ReInit(BOMSafeJavaCharStream stream) {
         jjmatchedPos = jjnewStateCnt = 0;
         curLexState = defaultLexState;
         input_stream = stream;
@@ -2057,26 +2021,12 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         }
     }
 
-    /**
-     * Reinitialise parser.
-     * 
-     * @param stream
-     *        the stream
-     * @param lexState
-     *        the lex state
-     */
-    public void ReInit(BOMSafeJavaCharStream stream, int lexState) {
+    void ReInit(BOMSafeJavaCharStream stream, int lexState) {
         ReInit(stream);
         SwitchTo(lexState);
     }
 
-    /**
-     * Switch to specified lex state.
-     * 
-     * @param lexState
-     *        the lex state
-     */
-    public void SwitchTo(int lexState) {
+    void SwitchTo(int lexState) {
         if (lexState >= 3 || lexState < 0) {
             throw new TokenMgrError("Error: Ignoring invalid lexical state : "
                     + lexState + ". State unchanged.",
@@ -2107,21 +2057,14 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         return t;
     }
 
-    /** The cur lex state. */
     int curLexState = 0;
-    /** The default lex state. */
     int defaultLexState = 0;
     int jjnewStateCnt;
     int jjround;
     int jjmatchedPos;
     int jjmatchedKind;
 
-    /**
-     * Get the next Token.
-     * 
-     * @return the next token
-     */
-    public Token getNextToken() {
+    Token getNextToken() {
         Token matchedToken;
         int curPos = 0;
         EOFLoop: for (;;) {

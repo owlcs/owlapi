@@ -12,27 +12,14 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.krss2.parser;
 
-import org.semanticweb.owlapi.krss1.parser.KRSSOWLParserException;
+import org.semanticweb.owlapi.io.OWLParserException;
 
-/** @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence */
-public class KRSS2OWLParserException extends KRSSOWLParserException {
+/* @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence */
+class KRSS2OWLParserException extends OWLParserException {
 
     private static final long serialVersionUID = 40000L;
 
-    /**
-     * @param e
-     *        cause
-     */
-    public KRSS2OWLParserException(
-            org.semanticweb.owlapi.krss1.parser.ParseException e) {
-        super(e);
-    }
-
-    /**
-     * @param cause
-     *        cause
-     */
-    public KRSS2OWLParserException(Throwable cause) {
+    KRSS2OWLParserException(Throwable cause) {
         super(cause);
     }
 }

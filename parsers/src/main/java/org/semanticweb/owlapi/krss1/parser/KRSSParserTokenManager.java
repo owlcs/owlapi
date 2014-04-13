@@ -15,17 +15,11 @@ package org.semanticweb.owlapi.krss1.parser;
 
 import org.semanticweb.owlapi.BOMSafeJavaCharStream;
 
-/** Token Manager. */
-public class KRSSParserTokenManager implements KRSSParserConstants {
+class KRSSParserTokenManager implements KRSSParserConstants {
 
-    /** Debug output. */
-    public java.io.PrintStream debugStream = System.out;
+    java.io.PrintStream debugStream = System.out;
 
-    /**
-     * @param ds
-     *        debug stream
-     */
-    public void setDebugStream(java.io.PrintStream ds) {
+    void setDebugStream(java.io.PrintStream ds) {
         debugStream = ds;
     }
 
@@ -1291,10 +1285,8 @@ public class KRSSParserTokenManager implements KRSSParserConstants {
         }
     }
 
-    /** The Constant jjnextStates. */
     static final int[] jjnextStates = {};
-    /** Token literal values. */
-    public static final String[] jjstrLiteralImages = {
+    static final String[] jjstrLiteralImages = {
             "",
             null,
             null,
@@ -1327,33 +1319,20 @@ public class KRSSParserTokenManager implements KRSSParserConstants {
             "\162\145\154\141\164\145\144", "\145\161\165\141\154",
             "\144\151\163\164\151\156\143\164", null, null,
             "\72\162\151\147\150\164\55\151\144\145\156\164\151\164\171", };
-    /** Lexer state names. */
-    public static final String[] lexStateNames = { "DEFAULT", "IN_COMMENT",
-            "IN_IRI", "IN_STRING_LITERAL", };
-    /** Lex State array. */
-    public static final int[] jjnewLexState = { -1, -1, -1, -1, -1, 1, 0, -1,
-            2, 0, -1, 3, -1, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-            -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, };
-    /** The Constant jjtoToken. */
+    static final String[] lexStateNames = { "DEFAULT", "IN_COMMENT", "IN_IRI",
+            "IN_STRING_LITERAL", };
+    static final int[] jjnewLexState = { -1, -1, -1, -1, -1, 1, 0, -1, 2, 0,
+            -1, 3, -1, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+            -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, };
     static final long[] jjtoToken = { 0x7ffffffa201L, };
-    /** The Constant jjtoSkip. */
     static final long[] jjtoSkip = { 0x5eL, };
-    /** The Constant jjtoMore. */
     static final long[] jjtoMore = { 0x5da0L, };
-    /** The input_stream. */
     protected JavaCharStream input_stream;
     private final int[] jjrounds = new int[2];
     private final int[] jjstateSet = new int[4];
-    /** The cur char. */
     protected char curChar;
 
-    /**
-     * Constructor.
-     * 
-     * @param stream
-     *        the stream
-     */
-    public KRSSParserTokenManager(JavaCharStream stream) {
+    KRSSParserTokenManager(JavaCharStream stream) {
         if (BOMSafeJavaCharStream.staticFlag) {
             throw new Error(
                     "ERROR: Cannot use a static CharStream class with a non-static lexical analyzer.");
@@ -1361,26 +1340,12 @@ public class KRSSParserTokenManager implements KRSSParserConstants {
         input_stream = stream;
     }
 
-    /**
-     * Constructor.
-     * 
-     * @param stream
-     *        the stream
-     * @param lexState
-     *        the lex state
-     */
-    public KRSSParserTokenManager(JavaCharStream stream, int lexState) {
+    KRSSParserTokenManager(JavaCharStream stream, int lexState) {
         this(stream);
         SwitchTo(lexState);
     }
 
-    /**
-     * Reinitialise parser.
-     * 
-     * @param stream
-     *        the stream
-     */
-    public void ReInit(JavaCharStream stream) {
+    void ReInit(JavaCharStream stream) {
         jjmatchedPos = jjnewStateCnt = 0;
         curLexState = defaultLexState;
         input_stream = stream;
@@ -1395,26 +1360,12 @@ public class KRSSParserTokenManager implements KRSSParserConstants {
         }
     }
 
-    /**
-     * Reinitialise parser.
-     * 
-     * @param stream
-     *        the stream
-     * @param lexState
-     *        the lex state
-     */
-    public void ReInit(JavaCharStream stream, int lexState) {
+    void ReInit(JavaCharStream stream, int lexState) {
         ReInit(stream);
         SwitchTo(lexState);
     }
 
-    /**
-     * Switch to specified lex state.
-     * 
-     * @param lexState
-     *        the lex state
-     */
-    public void SwitchTo(int lexState) {
+    void SwitchTo(int lexState) {
         if (lexState >= 4 || lexState < 0) {
             throw new TokenMgrError("Error: Ignoring invalid lexical state : "
                     + lexState + ". State unchanged.",
@@ -1445,22 +1396,15 @@ public class KRSSParserTokenManager implements KRSSParserConstants {
         return t;
     }
 
-    /** The cur lex state. */
     int curLexState = 0;
-    /** The default lex state. */
     int defaultLexState = 0;
     int jjnewStateCnt;
     int jjround;
     int jjmatchedPos;
     int jjmatchedKind;
 
-    /**
-     * Get the next Token.
-     * 
-     * @return the next token
-     */
     @SuppressWarnings("incomplete-switch")
-    public Token getNextToken() {
+    Token getNextToken() {
         Token matchedToken;
         int curPos = 0;
         EOFLoop: for (;;) {

@@ -14,26 +14,15 @@ import org.semanticweb.owlapi.util.EscapeUtils;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
-/** The Class TurtleParser. */
 @SuppressWarnings("all")
-public class TurtleParser implements TurtleParserConstants {
+class TurtleParser implements TurtleParserConstants {
 
     private Map<String, IRI> string2IRI;
     private IRI base;
     private TripleHandler handler;
     private PrefixManager pm = new DefaultPrefixManager();
 
-    /**
-     * Instantiates a new turtle parser.
-     * 
-     * @param reader
-     *        the reader
-     * @param handler
-     *        the handler
-     * @param base
-     *        the base
-     */
-    public TurtleParser(Reader reader, TripleHandler handler, IRI base) {
+    TurtleParser(Reader reader, TripleHandler handler, IRI base) {
         this(reader);
         this.handler = handler;
         this.base = base;
@@ -41,17 +30,7 @@ public class TurtleParser implements TurtleParserConstants {
         pm.setDefaultPrefix("http://www.semanticweb.org/owl/owlapi/turtle#");
     }
 
-    /**
-     * Instantiates a new turtle parser.
-     * 
-     * @param is
-     *        the is
-     * @param handler
-     *        the handler
-     * @param base
-     *        the base
-     */
-    public TurtleParser(InputStream is, TripleHandler handler, IRI base) {
+    TurtleParser(InputStream is, TripleHandler handler, IRI base) {
         this(is);
         this.handler = handler;
         this.base = base;
@@ -59,33 +38,15 @@ public class TurtleParser implements TurtleParserConstants {
         pm.setDefaultPrefix("http://www.semanticweb.org/owl/owlapi/turtle#");
     }
 
-    /**
-     * Gets the prefix manager.
-     * 
-     * @return the prefix manager
-     */
-    public PrefixManager getPrefixManager() {
+    PrefixManager getPrefixManager() {
         return pm;
     }
 
-    /**
-     * Sets the triple handler.
-     * 
-     * @param handler
-     *        the new triple handler
-     */
-    public void setTripleHandler(TripleHandler handler) {
+    void setTripleHandler(TripleHandler handler) {
         this.handler = handler;
     }
 
-    /**
-     * Gets the next blank node.
-     * 
-     * @param id
-     *        the id
-     * @return the next blank node
-     */
-    protected IRI getNextBlankNode(String id) {
+    IRI getNextBlankNode(String id) {
         String string;
         if (id == null) {
             string = NodeID.nextAnonymousIRI();
@@ -104,15 +65,6 @@ public class TurtleParser implements TurtleParserConstants {
         return iri;
     }
 
-    /**
-     * Gets the iRI from q name.
-     * 
-     * @param qname
-     *        the qname
-     * @return the iRI from q name
-     * @throws ParseException
-     *         the parse exception
-     */
     protected IRI getIRIFromQName(String qname) throws ParseException {
         int colonIndex = qname.indexOf(':');
         if (colonIndex == -1) {
@@ -128,14 +80,7 @@ public class TurtleParser implements TurtleParserConstants {
         return pm.getIRI(qname);
     }
 
-    /**
-     * Gets the iri.
-     * 
-     * @param s
-     *        the s
-     * @return the iri
-     */
-    public IRI getIRI(String s) {
+    IRI getIRI(String s) {
         if (s.charAt(0) == '<') {
             s = s.substring(1, s.length() - 1);
         }
@@ -157,7 +102,7 @@ public class TurtleParser implements TurtleParserConstants {
     // {
     // <LONG_STRING: (<QUOTE><QUOTE><QUOTE>~["\""]<QUOTE><QUOTE><QUOTE>)>
     // }
-    final public void parseDocument() throws ParseException {
+    final void parseDocument() throws ParseException {
         label_1: while (true) {
             if (jj_2_1(2)) {
                 parseDirective();
@@ -179,7 +124,7 @@ public class TurtleParser implements TurtleParserConstants {
         handler.handleEnd();
     }
 
-    final public void parseDirective() throws ParseException {
+    final void parseDirective() throws ParseException {
         if (jj_2_4(2)) {
             parsePrefixDirective();
         } else if (jj_2_5(2)) {
@@ -190,7 +135,7 @@ public class TurtleParser implements TurtleParserConstants {
         }
     }
 
-    final public void parsePrefixDirective() throws ParseException {
+    final void parsePrefixDirective() throws ParseException {
         Token t;
         String prefix = "";
         IRI ns;
@@ -202,7 +147,7 @@ public class TurtleParser implements TurtleParserConstants {
         handler.handlePrefixDirective(prefix, ns.toString());
     }
 
-    final public void parseBaseDirective() throws ParseException {
+    final void parseBaseDirective() throws ParseException {
         Token t;
         jj_consume_token(BASE);
         t = jj_consume_token(FULLIRI);
@@ -210,11 +155,11 @@ public class TurtleParser implements TurtleParserConstants {
         handler.handleBaseDirective(base);
     }
 
-    final public void parseStatement() throws ParseException {
+    final void parseStatement() throws ParseException {
         parseTriples();
     }
 
-    final public void parseTriples() throws ParseException {
+    final void parseTriples() throws ParseException {
         IRI subject;
         subject = parseSubject();
         if (jj_2_6(2)) {
@@ -224,7 +169,7 @@ public class TurtleParser implements TurtleParserConstants {
         }
     }
 
-    final public IRI parseSubject() throws ParseException {
+    final IRI parseSubject() throws ParseException {
         IRI iri;
         if (jj_2_7(2)) {
             iri = parseResource();
@@ -242,7 +187,7 @@ public class TurtleParser implements TurtleParserConstants {
         throw new Error("Missing return statement in function");
     }
 
-    final public IRI parseLoneNS() throws ParseException {
+    final IRI parseLoneNS() throws ParseException {
         Token t;
         t = jj_consume_token(PNAME_NS);
         {
@@ -253,7 +198,7 @@ public class TurtleParser implements TurtleParserConstants {
         throw new Error("Missing return statement in function");
     }
 
-    final public IRI parseAbbreviatedIRI() throws ParseException {
+    final IRI parseAbbreviatedIRI() throws ParseException {
         Token t;
         t = jj_consume_token(PNAME_LN);
         {
@@ -264,7 +209,7 @@ public class TurtleParser implements TurtleParserConstants {
         throw new Error("Missing return statement in function");
     }
 
-    final public IRI parseIRI() throws ParseException {
+    final IRI parseIRI() throws ParseException {
         Token t;
         t = jj_consume_token(FULLIRI);
         {
@@ -275,7 +220,7 @@ public class TurtleParser implements TurtleParserConstants {
         throw new Error("Missing return statement in function");
     }
 
-    final public IRI parseBlankNode() throws ParseException {
+    final IRI parseBlankNode() throws ParseException {
         IRI iri = null;
         Token t;
         if (jj_2_11(2)) {
@@ -318,7 +263,7 @@ public class TurtleParser implements TurtleParserConstants {
         throw new Error("Missing return statement in function");
     }
 
-    final public IRI parseNodeID() throws ParseException {
+    final IRI parseNodeID() throws ParseException {
         Token t;
         t = jj_consume_token(NODEID);
         {
@@ -329,8 +274,7 @@ public class TurtleParser implements TurtleParserConstants {
         throw new Error("Missing return statement in function");
     }
 
-    final public void parsePredicateObjectList(IRI subject)
-            throws ParseException {
+    final void parsePredicateObjectList(IRI subject) throws ParseException {
         IRI predicate;
         predicate = parseVerb();
         parseObjectList(subject, predicate);
@@ -351,7 +295,7 @@ public class TurtleParser implements TurtleParserConstants {
         }
     }
 
-    final public IRI parseVerb() throws ParseException {
+    final IRI parseVerb() throws ParseException {
         IRI iri;
         if (jj_2_17(2)) {
             jj_consume_token(A);
@@ -370,7 +314,7 @@ public class TurtleParser implements TurtleParserConstants {
         throw new Error("Missing return statement in function");
     }
 
-    final public IRI parsePredicate() throws ParseException {
+    final IRI parsePredicate() throws ParseException {
         IRI iri;
         iri = parseResource();
         {
@@ -381,7 +325,7 @@ public class TurtleParser implements TurtleParserConstants {
         throw new Error("Missing return statement in function");
     }
 
-    final public IRI parseResource() throws ParseException {
+    final IRI parseResource() throws ParseException {
         IRI iri;
         if (jj_2_19(2)) {
             iri = parseIRI();
@@ -401,7 +345,7 @@ public class TurtleParser implements TurtleParserConstants {
         throw new Error("Missing return statement in function");
     }
 
-    final public void parseObjectList(IRI subject, IRI predicate)
+    final void parseObjectList(IRI subject, IRI predicate)
             throws ParseException {
         parseObject(subject, predicate);
         label_3: while (true) {
@@ -415,8 +359,7 @@ public class TurtleParser implements TurtleParserConstants {
         }
     }
 
-    final public void parseObject(IRI subject, IRI predicate)
-            throws ParseException {
+    final void parseObject(IRI subject, IRI predicate) throws ParseException {
         IRI resObject;
         if (jj_2_25(2)) {
             parseLiteral(subject, predicate);
@@ -436,7 +379,7 @@ public class TurtleParser implements TurtleParserConstants {
         }
     }
 
-    final public IRI parseCollection() throws ParseException {
+    final IRI parseCollection() throws ParseException {
         IRI iri;
         jj_consume_token(OPENPAR);
         iri = parseItemList();
@@ -449,7 +392,7 @@ public class TurtleParser implements TurtleParserConstants {
         throw new Error("Missing return statement in function");
     }
 
-    final public IRI parseItemList() throws ParseException {
+    final IRI parseItemList() throws ParseException {
         // _x rdf:type rdf:List
         // _x rdf:first
         // _x rdf:next
@@ -490,8 +433,7 @@ public class TurtleParser implements TurtleParserConstants {
         throw new Error("Missing return statement in function");
     }
 
-    final public void parseLiteral(IRI subject, IRI predicate)
-            throws ParseException {
+    final void parseLiteral(IRI subject, IRI predicate) throws ParseException {
         String literal;
         String lang = null;
         IRI datatype = null;
@@ -542,7 +484,7 @@ public class TurtleParser implements TurtleParserConstants {
         }
     }
 
-    final public String parseInteger() throws ParseException {
+    final String parseInteger() throws ParseException {
         Token t;
         if (jj_2_36(2)) {
             t = jj_consume_token(INTEGER);
@@ -565,7 +507,7 @@ public class TurtleParser implements TurtleParserConstants {
         throw new Error("Missing return statement in function");
     }
 
-    final public String parseDouble() throws ParseException {
+    final String parseDouble() throws ParseException {
         Token t;
         t = jj_consume_token(DOUBLE);
         {
@@ -576,7 +518,7 @@ public class TurtleParser implements TurtleParserConstants {
         throw new Error("Missing return statement in function");
     }
 
-    final public String parseDecimal() throws ParseException {
+    final String parseDecimal() throws ParseException {
         Token t;
         t = jj_consume_token(DECIMAL);
         {
@@ -587,7 +529,7 @@ public class TurtleParser implements TurtleParserConstants {
         throw new Error("Missing return statement in function");
     }
 
-    final public String parseBoolean() throws ParseException {
+    final String parseBoolean() throws ParseException {
         Token t;
         if (jj_2_38(2)) {
             t = jj_consume_token(TRUE);
@@ -605,7 +547,7 @@ public class TurtleParser implements TurtleParserConstants {
         throw new Error("Missing return statement in function");
     }
 
-    final public String parseQuotedString() throws ParseException {
+    final String parseQuotedString() throws ParseException {
         String s;
         s = parseString();
         {
@@ -616,7 +558,7 @@ public class TurtleParser implements TurtleParserConstants {
         throw new Error("Missing return statement in function");
     }
 
-    final public String parseString() throws ParseException {
+    final String parseString() throws ParseException {
         Token t;
         String rawString = "";
         if (jj_2_40(2)) {
@@ -1734,13 +1676,10 @@ public class TurtleParser implements TurtleParserConstants {
         return false;
     }
 
-    /** Generated Token Manager. */
-    public TurtleParserTokenManager token_source;
+    TurtleParserTokenManager token_source;
     JavaCharStream jj_input_stream;
-    /** Current token. */
-    public Token token;
-    /** Next token. */
-    public Token jj_nt;
+    Token token;
+    Token jj_nt;
     private int jj_ntk;
     private Token jj_scanpos, jj_lastpos;
     private int jj_la;
@@ -1765,13 +1704,11 @@ public class TurtleParser implements TurtleParserConstants {
     private boolean jj_rescan = false;
     private int jj_gc = 0;
 
-    /** Constructor with InputStream. */
-    public TurtleParser(java.io.InputStream stream) {
+    TurtleParser(java.io.InputStream stream) {
         this(stream, null);
     }
 
-    /** Constructor with InputStream and supplied encoding */
-    public TurtleParser(java.io.InputStream stream, String encoding) {
+    TurtleParser(java.io.InputStream stream, String encoding) {
         try {
             jj_input_stream = new JavaCharStream(stream, encoding, 1, 1);
         } catch (java.io.UnsupportedEncodingException e) {
@@ -1789,13 +1726,11 @@ public class TurtleParser implements TurtleParserConstants {
         }
     }
 
-    /** Reinitialise. */
-    public void ReInit(java.io.InputStream stream) {
+    void ReInit(java.io.InputStream stream) {
         ReInit(stream, null);
     }
 
-    /** Reinitialise. */
-    public void ReInit(java.io.InputStream stream, String encoding) {
+    void ReInit(java.io.InputStream stream, String encoding) {
         try {
             jj_input_stream.ReInit(stream, encoding, 1, 1);
         } catch (java.io.UnsupportedEncodingException e) {
@@ -1813,8 +1748,7 @@ public class TurtleParser implements TurtleParserConstants {
         }
     }
 
-    /** Constructor. */
-    public TurtleParser(java.io.Reader stream) {
+    TurtleParser(java.io.Reader stream) {
         jj_input_stream = new JavaCharStream(stream, 1, 1);
         token_source = new TurtleParserTokenManager(jj_input_stream);
         token = new Token();
@@ -1828,8 +1762,7 @@ public class TurtleParser implements TurtleParserConstants {
         }
     }
 
-    /** Reinitialise. */
-    public void ReInit(java.io.Reader stream) {
+    void ReInit(java.io.Reader stream) {
         jj_input_stream.ReInit(stream, 1, 1);
         token_source.ReInit(jj_input_stream);
         token = new Token();
@@ -1843,8 +1776,7 @@ public class TurtleParser implements TurtleParserConstants {
         }
     }
 
-    /** Constructor with generated Token Manager. */
-    public TurtleParser(TurtleParserTokenManager tm) {
+    TurtleParser(TurtleParserTokenManager tm) {
         token_source = tm;
         token = new Token();
         jj_ntk = -1;
@@ -1857,8 +1789,7 @@ public class TurtleParser implements TurtleParserConstants {
         }
     }
 
-    /** Reinitialise. */
-    public void ReInit(TurtleParserTokenManager tm) {
+    void ReInit(TurtleParserTokenManager tm) {
         token_source = tm;
         token = new Token();
         jj_ntk = -1;
@@ -1936,8 +1867,7 @@ public class TurtleParser implements TurtleParserConstants {
         return false;
     }
 
-    /** Get the next Token. */
-    final public Token getNextToken() {
+    Token getNextToken() {
         if (token.next != null) {
             token = token.next;
         } else {
@@ -1948,8 +1878,7 @@ public class TurtleParser implements TurtleParserConstants {
         return token;
     }
 
-    /** Get the specific Token. */
-    final public Token getToken(int index) {
+    final Token getToken(int index) {
         Token t = token;
         for (int i = 0; i < index; i++) {
             if (t.next != null) {
@@ -1959,14 +1888,6 @@ public class TurtleParser implements TurtleParserConstants {
             }
         }
         return t;
-    }
-
-    private int jj_ntk() {
-        if ((jj_nt = token.next) == null) {
-            return jj_ntk = (token.next = token_source.getNextToken()).kind;
-        } else {
-            return jj_ntk = jj_nt.kind;
-        }
     }
 
     private java.util.List<int[]> jj_expentries = new java.util.ArrayList<int[]>();
@@ -2005,8 +1926,7 @@ public class TurtleParser implements TurtleParserConstants {
         }
     }
 
-    /** Generate ParseException. */
-    public ParseException generateParseException() {
+    ParseException generateParseException() {
         jj_expentries.clear();
         boolean[] la1tokens = new boolean[49];
         if (jj_kind >= 0) {
@@ -2042,11 +1962,9 @@ public class TurtleParser implements TurtleParserConstants {
         return new ParseException(token, exptokseq, tokenImage);
     }
 
-    /** Enable tracing. */
-    final public void enable_tracing() {}
+    final void enable_tracing() {}
 
-    /** Disable tracing. */
-    final public void disable_tracing() {}
+    final void disable_tracing() {}
 
     private void jj_rescan_token() {
         jj_rescan = true;

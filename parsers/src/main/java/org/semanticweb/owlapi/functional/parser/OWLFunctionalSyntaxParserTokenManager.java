@@ -15,18 +15,12 @@ package org.semanticweb.owlapi.functional.parser;
 
 import org.semanticweb.owlapi.BOMSafeJavaCharStream;
 
-/** Token Manager. */
 class OWLFunctionalSyntaxParserTokenManager implements
         OWLFunctionalSyntaxParserConstants {
 
-    /** Debug output. */
-    public java.io.PrintStream debugStream = System.out;
+    java.io.PrintStream debugStream = System.out;
 
-    /**
-     * @param ds
-     *        debug stream
-     */
-    public void setDebugStream(java.io.PrintStream ds) {
+    void setDebugStream(java.io.PrintStream ds) {
         debugStream = ds;
     }
 
@@ -3428,7 +3422,6 @@ class OWLFunctionalSyntaxParserTokenManager implements
         }
     }
 
-    /** Token literal values. */
     public static final String[] jjstrLiteralImages = {
             "",
             null,
@@ -3549,10 +3542,8 @@ class OWLFunctionalSyntaxParserTokenManager implements
             "\105\144\147\145\101\163\163\145\162\164\151\157\156",
             "\115\141\151\156\103\154\141\163\163\145\163", "\75", null, null,
             null, null, null, null, null, null, null, null, null, };
-    /** Lexer state names. */
     public static final String[] lexStateNames = { "DEFAULT", "IN_COMMENT",
             "IN_STRING_LITERAL", };
-    /** Lex State array. */
     public static final int[] jjnewLexState = { -1, -1, -1, -1, -1, 1, -1, 0,
             2, -1, -1, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
             -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
@@ -3571,13 +3562,7 @@ class OWLFunctionalSyntaxParserTokenManager implements
     private final int[] jjstateSet = new int[60];
     protected char curChar;
 
-    /**
-     * Constructor.
-     * 
-     * @param stream
-     *        stream
-     */
-    public OWLFunctionalSyntaxParserTokenManager(JavaCharStream stream) {
+    OWLFunctionalSyntaxParserTokenManager(JavaCharStream stream) {
         if (BOMSafeJavaCharStream.staticFlag) {
             throw new Error(
                     "ERROR: Cannot use a static CharStream class with a non-static lexical analyzer.");
@@ -3585,27 +3570,12 @@ class OWLFunctionalSyntaxParserTokenManager implements
         input_stream = stream;
     }
 
-    /**
-     * Constructor.
-     * 
-     * @param stream
-     *        stream
-     * @param lexState
-     *        state
-     */
-    public OWLFunctionalSyntaxParserTokenManager(JavaCharStream stream,
-            int lexState) {
+    OWLFunctionalSyntaxParserTokenManager(JavaCharStream stream, int lexState) {
         this(stream);
         SwitchTo(lexState);
     }
 
-    /**
-     * Reinitialise parser.
-     * 
-     * @param stream
-     *        stream
-     */
-    public void ReInit(JavaCharStream stream) {
+    void ReInit(JavaCharStream stream) {
         jjmatchedPos = jjnewStateCnt = 0;
         curLexState = defaultLexState;
         input_stream = stream;
@@ -3620,26 +3590,12 @@ class OWLFunctionalSyntaxParserTokenManager implements
         }
     }
 
-    /**
-     * Reinitialise parser.
-     * 
-     * @param stream
-     *        stream
-     * @param lexState
-     *        state
-     */
-    public void ReInit(JavaCharStream stream, int lexState) {
+    void ReInit(JavaCharStream stream, int lexState) {
         ReInit(stream);
         SwitchTo(lexState);
     }
 
-    /**
-     * Switch to specified lex state.
-     * 
-     * @param lexState
-     *        state
-     */
-    public void SwitchTo(int lexState) {
+    void SwitchTo(int lexState) {
         if (lexState >= 3 || lexState < 0) {
             throw new TokenMgrError("Error: Ignoring invalid lexical state : "
                     + lexState + ". State unchanged.",
@@ -3677,7 +3633,6 @@ class OWLFunctionalSyntaxParserTokenManager implements
     int jjmatchedPos;
     int jjmatchedKind;
 
-    /** @return the next Token. */
     @SuppressWarnings("incomplete-switch")
     public Token getNextToken() {
         Token matchedToken;

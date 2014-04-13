@@ -14,29 +14,21 @@ package org.semanticweb.owlapi.krss1.parser;
 
 import org.semanticweb.owlapi.io.OWLParserException;
 
-/**
+/*
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0
  */
-public class KRSSOWLParserException extends OWLParserException {
+class KRSSOWLParserException extends OWLParserException {
 
     private static final long serialVersionUID = 40000L;
 
-    /**
-     * @param e
-     *        cause
-     */
-    public KRSSOWLParserException(ParseException e) {
+    KRSSOWLParserException(ParseException e) {
         super(e.getMessage(), e.currentToken.beginLine,
                 e.currentToken.beginColumn);
     }
 
-    /**
-     * @param cause
-     *        cause
-     */
-    public KRSSOWLParserException(Throwable cause) {
+    KRSSOWLParserException(Throwable cause) {
         super(cause);
     }
 }

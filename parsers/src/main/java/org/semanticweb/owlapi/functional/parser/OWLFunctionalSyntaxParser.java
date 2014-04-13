@@ -81,7 +81,6 @@ import org.semanticweb.owlapi.util.EscapeUtils;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
-/** The Class OWLFunctionalSyntaxParser. */
 class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
 
     private OWLOntologyLoaderConfiguration configuration;
@@ -93,13 +92,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
     private Set<OWLAnnotation> currentAnnotations;
     private OWLDataFactory df;
 
-    /**
-     * @param ontology
-     *        the ontology
-     * @param configuration
-     *        the configuration
-     */
-    public void setUp(OWLOntology ontology,
+    void setUp(OWLOntology ontology,
             OWLOntologyLoaderConfiguration configuration) {
         this.ontology = ontology;
         this.configuration = configuration;
@@ -116,12 +109,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         string2IRI = new HashMap<String, IRI>();
     }
 
-    /**
-     * @param s
-     *        the string
-     * @return the iri
-     */
-    public IRI getIRI(String s) {
+    IRI getIRI(String s) {
         IRI iri = string2IRI.get(s);
         if (iri == null) {
             if (s.charAt(0) == '<') {
@@ -142,31 +130,15 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return iri;
     }
 
-    /**
-     * @param b
-     *        the new ignore annotations and declarations
-     */
-    public void setIgnoreAnnotationsAndDeclarations(boolean b) {
+    void setIgnoreAnnotationsAndDeclarations(boolean b) {
         ignoreAnnotationsAndDeclarations = b;
     }
 
-    /**
-     * Apply change.
-     * 
-     * @param chg
-     *        the chg
-     */
-    protected void applyChange(OWLOntologyChange<?> chg) {
+    void applyChange(OWLOntologyChange<?> chg) {
         chg.getOntology().getOWLOntologyManager().applyChange(chg);
     }
 
-    /**
-     * Adds the axiom.
-     * 
-     * @param ax
-     *        the ax
-     */
-    protected void addAxiom(OWLAxiom ax) {
+    void addAxiom(OWLAxiom ax) {
         if (!(ax instanceof OWLAnnotationAxiom)
                 || configuration.isLoadAnnotationAxioms()) {
             AddAxiom addAxiom = new AddAxiom(ontology, ax);
@@ -174,26 +146,14 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         }
     }
 
-    /**
-     * Sets the prefixes.
-     * 
-     * @param nsm
-     *        the new prefixes
-     */
-    public void setPrefixes(PrefixManager nsm) {
+    void setPrefixes(PrefixManager nsm) {
         if (prefixMap == null) {
             prefixMap = new HashMap<String, String>();
         }
         prefixMap.putAll(nsm.getPrefixName2PrefixMap());
     }
 
-    /**
-     * @return the oWL functional syntax ontology format
-     * @throws UnloadableImportException
-     *         the unloadable import exception
-     */
-    public OWLFunctionalSyntaxOntologyFormat parse()
-            throws UnloadableImportException {
+    OWLFunctionalSyntaxOntologyFormat parse() throws UnloadableImportException {
         label_1: while (true) {
             if (jj_2_1(2)) {} else {
                 break label_1;
@@ -296,11 +256,6 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return t.image;
     }
 
-    // ///////////////////////////////////////////////////////////////////////////////////////////////////
-    //
-    // Class Descriptions
-    //
-    // ///////////////////////////////////////////////////////////////////////////////////////////////////
     private OWLClassExpression ClassExpression() {
         OWLClassExpression desc;
         if (jj_2_10(2)) {
@@ -5668,30 +5623,15 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         jj_la1_4 = new int[] {};
     }
 
-    /** The jj_2_rtns. */
     final private JJCalls[] jj_2_rtns = new JJCalls[130];
     private boolean jj_rescan = false;
     private int jj_gc = 0;
 
-    /**
-     * Constructor with InputStream.
-     * 
-     * @param stream
-     *        the stream
-     */
-    public OWLFunctionalSyntaxParser(java.io.InputStream stream) {
+    OWLFunctionalSyntaxParser(java.io.InputStream stream) {
         this(stream, null);
     }
 
-    /**
-     * Constructor with InputStream and supplied encoding.
-     * 
-     * @param stream
-     *        the stream
-     * @param encoding
-     *        the encoding
-     */
-    public OWLFunctionalSyntaxParser(java.io.InputStream stream, String encoding) {
+    OWLFunctionalSyntaxParser(java.io.InputStream stream, String encoding) {
         try {
             jj_input_stream = new JavaCharStream(stream, encoding, 1, 1);
         } catch (java.io.UnsupportedEncodingException e) {
@@ -5709,25 +5649,11 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         }
     }
 
-    /**
-     * Reinitialise.
-     * 
-     * @param stream
-     *        the stream
-     */
-    public void ReInit(java.io.InputStream stream) {
+    void ReInit(java.io.InputStream stream) {
         ReInit(stream, null);
     }
 
-    /**
-     * Reinitialise.
-     * 
-     * @param stream
-     *        the stream
-     * @param encoding
-     *        the encoding
-     */
-    public void ReInit(java.io.InputStream stream, String encoding) {
+    void ReInit(java.io.InputStream stream, String encoding) {
         try {
             jj_input_stream.ReInit(stream, encoding, 1, 1);
         } catch (java.io.UnsupportedEncodingException e) {
@@ -5744,11 +5670,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         }
     }
 
-    /**
-     * @param stream
-     *        the stream
-     */
-    public OWLFunctionalSyntaxParser(java.io.Reader stream) {
+    OWLFunctionalSyntaxParser(java.io.Reader stream) {
         jj_input_stream = new JavaCharStream(stream, 1, 1);
         token_source = new OWLFunctionalSyntaxParserTokenManager(
                 jj_input_stream);
@@ -5762,13 +5684,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         }
     }
 
-    /**
-     * Constructor with generated Token Manager.
-     * 
-     * @param tm
-     *        the tm
-     */
-    public OWLFunctionalSyntaxParser(OWLFunctionalSyntaxParserTokenManager tm) {
+    OWLFunctionalSyntaxParser(OWLFunctionalSyntaxParserTokenManager tm) {
         token_source = tm;
         token = new Token();
         jj_gen = 0;
@@ -5780,13 +5696,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         }
     }
 
-    /**
-     * Reinitialise.
-     * 
-     * @param tm
-     *        the tm
-     */
-    public void ReInit(OWLFunctionalSyntaxParserTokenManager tm) {
+    void ReInit(OWLFunctionalSyntaxParserTokenManager tm) {
         token_source = tm;
         token = new Token();
         jj_gen = 0;
@@ -5867,12 +5777,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return false;
     }
 
-    /**
-     * Get the next Token.
-     * 
-     * @return the next token
-     */
-    public Token getNextToken() {
+    Token getNextToken() {
         if (token.next != null) {
             token = token.next;
         } else {
@@ -5882,14 +5787,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return token;
     }
 
-    /**
-     * Get the specific Token.
-     * 
-     * @param index
-     *        the index
-     * @return the token
-     */
-    public Token getToken(int index) {
+    Token getToken(int index) {
         Token t = token;
         for (int i = 0; i < index; i++) {
             if (t.next != null) {
@@ -6406,16 +6304,11 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         p.arg = xla;
     }
 
-    /** The Class JJCalls. */
     static final class JJCalls {
 
-        /** The gen. */
         int gen;
-        /** The first. */
         Token first;
-        /** The arg. */
         int arg;
-        /** The next. */
         JJCalls next;
     }
 }

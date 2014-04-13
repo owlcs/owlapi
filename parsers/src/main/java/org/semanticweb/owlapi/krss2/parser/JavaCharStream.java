@@ -16,36 +16,14 @@ package org.semanticweb.owlapi.krss2.parser;
 
 import java.io.UnsupportedEncodingException;
 
-/** JavaCharStream for this parser */
-public class JavaCharStream extends
-        org.semanticweb.owlapi.BOMSafeJavaCharStream {
+class JavaCharStream extends org.semanticweb.owlapi.BOMSafeJavaCharStream {
 
-    /**
-     * @param dstream
-     *        stream
-     * @param startline
-     *        start line
-     * @param startcolumn
-     *        start column
-     */
-    public JavaCharStream(java.io.Reader dstream, int startline, int startcolumn) {
+    JavaCharStream(java.io.Reader dstream, int startline, int startcolumn) {
         super(dstream, startline, startcolumn, 4096);
     }
 
-    /**
-     * @param dstream
-     *        stream
-     * @param encoding
-     *        encoding
-     * @param startline
-     *        start line
-     * @param startcolumn
-     *        start column
-     * @throws UnsupportedEncodingException
-     *         for unsupported encoding
-     */
-    public JavaCharStream(java.io.InputStream dstream, String encoding,
-            int startline, int startcolumn) throws UnsupportedEncodingException {
+    JavaCharStream(java.io.InputStream dstream, String encoding, int startline,
+            int startcolumn) throws UnsupportedEncodingException {
         super(dstream, encoding, startline, startcolumn, 4096);
     }
 }

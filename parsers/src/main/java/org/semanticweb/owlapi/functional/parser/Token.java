@@ -14,94 +14,46 @@
 /* JavaCCOptions:TOKEN_EXTENDS=,KEEP_LINE_COL=null,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 package org.semanticweb.owlapi.functional.parser;
 
-/** Describes the input token stream. */
 class Token implements java.io.Serializable {
 
     private static final long serialVersionUID = 40000L;
-    /** An integer that describes the kind of this token. */
-    public int kind;
-    /** The line number of the first character of this Token. */
-    public int beginLine;
-    /** The column number of the first character of this Token. */
-    public int beginColumn;
-    /** The line number of the last character of this Token. */
-    public int endLine;
-    /** The column number of the last character of this Token. */
-    public int endColumn;
-    /** The string image of the token. */
-    public String image;
-    /**
-     * A reference to the next regular (non-special) token from the input
-     * stream.
-     */
-    public Token next;
-    /**
-     * This field is used to access special tokens that occur prior to this
-     * token, but after the immediately preceding regular (non-special) token.
-     */
-    public Token specialToken;
+    int kind;
+    int beginLine;
+    int beginColumn;
+    int endLine;
+    int endColumn;
+    String image;
+    Token next;
+    Token specialToken;
 
-    /**
-     * An optional attribute value of the Token. Tokens which are not used as
-     * syntactic sugar will contain meaningful values that will be used later on
-     * by the compiler or interpreter.
-     * 
-     * @return value
-     */
-    public Object getValue() {
+    Object getValue() {
         return null;
     }
 
-    /** default constructor */
-    public Token() {}
+    Token() {}
 
-    /**
-     * @param kind
-     *        kind
-     */
-    public Token(int kind) {
+    Token(int kind) {
         this(kind, null);
     }
 
-    /**
-     * @param kind
-     *        kind
-     * @param image
-     *        string value
-     */
-    public Token(int kind, String image) {
+    Token(int kind, String image) {
         this.kind = kind;
         this.image = image;
     }
 
-    /** Returns the image. */
     @Override
     public String toString() {
         return image;
     }
 
-    /**
-     * Returns a new Token object.
-     * 
-     * @param ofKind
-     *        kind
-     * @param image
-     *        string value
-     * @return token
-     */
-    public static Token newToken(int ofKind, String image) {
+    static Token newToken(int ofKind, String image) {
         switch (ofKind) {
             default:
                 return new Token(ofKind, image);
         }
     }
 
-    /**
-     * @param ofKind
-     *        type
-     * @return token
-     */
-    public static Token newToken(int ofKind) {
+    static Token newToken(int ofKind) {
         return newToken(ofKind, null);
     }
 }

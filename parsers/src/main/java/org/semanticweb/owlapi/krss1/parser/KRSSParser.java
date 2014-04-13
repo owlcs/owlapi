@@ -30,23 +30,14 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.vocab.Namespaces;
 
-/** The Class KRSSParser. */
-public class KRSSParser implements KRSSParserConstants {
+class KRSSParser implements KRSSParserConstants {
 
     private OWLOntology ontology;
     private OWLDataFactory dataFactory;
     private Map<String, IRI> string2IRI;
     private String base;
 
-    /**
-     * Sets the ontology.
-     * 
-     * @param ontology
-     *        the ontology
-     * @param dataFactory
-     *        the data factory
-     */
-    public void setOntology(OWLOntology ontology, OWLDataFactory dataFactory) {
+    void setOntology(OWLOntology ontology, OWLDataFactory dataFactory) {
         this.ontology = ontology;
         this.dataFactory = dataFactory;
         string2IRI = new HashMap<String, IRI>();
@@ -57,11 +48,7 @@ public class KRSSParser implements KRSSParserConstants {
         }
     }
 
-    /**
-     * @param ax
-     *        the ax
-     */
-    protected void addAxiom(OWLAxiom ax) {
+    void addAxiom(OWLAxiom ax) {
         try {
             ((OWLMutableOntology) ontology).applyChange(new AddAxiom(ontology,
                     ax));
@@ -70,14 +57,7 @@ public class KRSSParser implements KRSSParserConstants {
         }
     }
 
-    /**
-     * Gets the iri.
-     * 
-     * @param _s
-     *        the string
-     * @return the iri
-     */
-    public IRI getIRI(String _s) {
+    IRI getIRI(String _s) {
         String s = base + _s;
         IRI iri = string2IRI.get(s);
         if (iri == null) {
@@ -87,8 +67,7 @@ public class KRSSParser implements KRSSParserConstants {
         return iri;
     }
 
-    /** parse */
-    public void parse() {
+    void parse() {
         OWLAxiom ax;
         label_1: while (true) {
             if (jj_2_1(2)) {} else {
@@ -1166,25 +1145,11 @@ public class KRSSParser implements KRSSParserConstants {
     private boolean jj_rescan = false;
     private int jj_gc = 0;
 
-    /**
-     * Constructor with InputStream.
-     * 
-     * @param stream
-     *        the stream
-     */
-    public KRSSParser(java.io.InputStream stream) {
+    KRSSParser(java.io.InputStream stream) {
         this(stream, null);
     }
 
-    /**
-     * Constructor with InputStream and supplied encoding.
-     * 
-     * @param stream
-     *        the stream
-     * @param encoding
-     *        the encoding
-     */
-    public KRSSParser(java.io.InputStream stream, String encoding) {
+    KRSSParser(java.io.InputStream stream, String encoding) {
         try {
             jj_input_stream = new JavaCharStream(stream, encoding, 1, 1);
         } catch (java.io.UnsupportedEncodingException e) {
@@ -1201,25 +1166,11 @@ public class KRSSParser implements KRSSParserConstants {
         }
     }
 
-    /**
-     * Reinitialise.
-     * 
-     * @param stream
-     *        the stream
-     */
-    public void ReInit(java.io.InputStream stream) {
+    void ReInit(java.io.InputStream stream) {
         ReInit(stream, null);
     }
 
-    /**
-     * Reinitialise.
-     * 
-     * @param stream
-     *        the stream
-     * @param encoding
-     *        the encoding
-     */
-    public void ReInit(java.io.InputStream stream, String encoding) {
+    void ReInit(java.io.InputStream stream, String encoding) {
         try {
             jj_input_stream.ReInit(stream, encoding, 1, 1);
         } catch (java.io.UnsupportedEncodingException e) {
@@ -1236,13 +1187,7 @@ public class KRSSParser implements KRSSParserConstants {
         }
     }
 
-    /**
-     * Constructor.
-     * 
-     * @param stream
-     *        the stream
-     */
-    public KRSSParser(java.io.Reader stream) {
+    KRSSParser(java.io.Reader stream) {
         jj_input_stream = new JavaCharStream(stream, 1, 1);
         token_source = new KRSSParserTokenManager(jj_input_stream);
         token = new Token();
@@ -1255,13 +1200,7 @@ public class KRSSParser implements KRSSParserConstants {
         }
     }
 
-    /**
-     * Reinitialise.
-     * 
-     * @param stream
-     *        the stream
-     */
-    public void ReInit(java.io.Reader stream) {
+    void ReInit(java.io.Reader stream) {
         jj_input_stream.ReInit(stream, 1, 1);
         token_source.ReInit(jj_input_stream);
         token = new Token();
@@ -1274,13 +1213,7 @@ public class KRSSParser implements KRSSParserConstants {
         }
     }
 
-    /**
-     * Constructor with generated Token Manager.
-     * 
-     * @param tm
-     *        the tm
-     */
-    public KRSSParser(KRSSParserTokenManager tm) {
+    KRSSParser(KRSSParserTokenManager tm) {
         token_source = tm;
         token = new Token();
         jj_gen = 0;
@@ -1292,13 +1225,7 @@ public class KRSSParser implements KRSSParserConstants {
         }
     }
 
-    /**
-     * Reinitialise.
-     * 
-     * @param tm
-     *        the tm
-     */
-    public void ReInit(KRSSParserTokenManager tm) {
+    void ReInit(KRSSParserTokenManager tm) {
         token_source = tm;
         token = new Token();
         jj_gen = 0;
@@ -1379,12 +1306,7 @@ public class KRSSParser implements KRSSParserConstants {
         return false;
     }
 
-    /**
-     * Get the next Token.
-     * 
-     * @return the next token
-     */
-    public Token getNextToken() {
+    Token getNextToken() {
         if (token.next != null) {
             token = token.next;
         } else {
@@ -1394,14 +1316,7 @@ public class KRSSParser implements KRSSParserConstants {
         return token;
     }
 
-    /**
-     * Get the specific Token.
-     * 
-     * @param index
-     *        the index
-     * @return the token
-     */
-    public Token getToken(int index) {
+    Token getToken(int index) {
         Token t = token;
         for (int i = 0; i < index; i++) {
             if (t.next != null) {
@@ -1449,12 +1364,7 @@ public class KRSSParser implements KRSSParserConstants {
         }
     }
 
-    /**
-     * Generate ParseException.
-     * 
-     * @return the parses the exception
-     */
-    public ParseException generateParseException() {
+    ParseException generateParseException() {
         jj_expentries.clear();
         boolean[] la1tokens = new boolean[43];
         if (jj_kind >= 0) {
@@ -1598,13 +1508,9 @@ public class KRSSParser implements KRSSParserConstants {
 
     static final class JJCalls {
 
-        /** The gen. */
         int gen;
-        /** The first. */
         Token first;
-        /** The arg. */
         int arg;
-        /** The next. */
         JJCalls next;
     }
 }

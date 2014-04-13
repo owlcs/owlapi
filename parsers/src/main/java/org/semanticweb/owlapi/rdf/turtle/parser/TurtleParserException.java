@@ -14,46 +14,26 @@ package org.semanticweb.owlapi.rdf.turtle.parser;
 
 import org.semanticweb.owlapi.io.OWLParserException;
 
-/**
+/*
  * The Class TurtleParserException.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.2.0
  */
-public class TurtleParserException extends OWLParserException {
+class TurtleParserException extends OWLParserException {
 
     private static final long serialVersionUID = 40000L;
 
-    /**
-     * Instantiates a new turtle parser exception.
-     * 
-     * @param message
-     *        the message
-     */
-    public TurtleParserException(String message) {
+    TurtleParserException(String message) {
         super(message);
     }
 
-    /**
-     * Instantiates a new turtle parser exception.
-     * 
-     * @param message
-     *        the message
-     * @param cause
-     *        the cause
-     */
-    public TurtleParserException(String message, Throwable cause) {
+    TurtleParserException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    /**
-     * Instantiates a new turtle parser exception.
-     * 
-     * @param cause
-     *        the cause
-     */
-    public TurtleParserException(Throwable cause) {
+    TurtleParserException(Throwable cause) {
         super(cause);
     }
 }

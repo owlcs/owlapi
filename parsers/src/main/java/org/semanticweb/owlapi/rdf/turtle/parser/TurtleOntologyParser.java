@@ -57,6 +57,7 @@ public class TurtleOntologyParser extends AbstractOWLParser {
                 new OWLOntologyLoaderConfiguration());
     }
 
+    @SuppressWarnings("all")
     @Override
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
             OWLOntology ontology, OWLOntologyLoaderConfiguration configuration)

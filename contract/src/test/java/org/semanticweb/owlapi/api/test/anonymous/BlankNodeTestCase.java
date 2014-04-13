@@ -12,16 +12,11 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.anonymous;
 
-import static org.mockito.Mockito.mock;
-
-import java.io.Reader;
-import java.io.StringReader;
-
 import org.junit.Test;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.rdf.turtle.parser.ParseException;
-import org.semanticweb.owlapi.rdf.turtle.parser.TripleHandler;
-import org.semanticweb.owlapi.rdf.turtle.parser.TurtleParser;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi.formats.TurtleOntologyFormat;
+import org.semanticweb.owlapi.io.StringDocumentSource;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
@@ -29,13 +24,12 @@ import org.semanticweb.owlapi.rdf.turtle.parser.TurtleParser;
  * @since 3.0.0
  */
 @SuppressWarnings("javadoc")
-public class BlankNodeTestCase {
+public class BlankNodeTestCase extends TestBase {
 
     @Test
-    public void testBlankNodes() throws ParseException {
-        Reader input = new StringReader("_:foo <http://example.com/> _:bar .");
-        TripleHandler handler = mock(TripleHandler.class);
-        TurtleParser parser = new TurtleParser(input, handler, IRI.create(""));
-        parser.parseDocument();
+    public void testBlankNodes() throws OWLOntologyCreationException {
+        m.loadOntologyFromOntologyDocument(new StringDocumentSource(
+                "_:foo <http://example.com/> _:bar .", StringDocumentSource
+                        .getNextDocumentIRI(), new TurtleOntologyFormat(), null));
     }
 }
