@@ -16,6 +16,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -25,10 +26,12 @@ import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
 import org.semanticweb.owlapi.util.CollectionFactory;
-import org.semanticweb.owlapi.util.MultiMap;
 
 import uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.InitCollectionVisitor;
 import uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.InitVisitor;
+
+import com.google.common.collect.LinkedHashMultimap;
+import com.google.common.collect.Multimap;
 
 /**
  * * Objects that identify contained maps - so that getting the keys of a
@@ -44,7 +47,7 @@ import uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.InitVisitor;
 public class MapPointer<K, V extends OWLAxiom> implements Serializable {
 
     private static final long serialVersionUID = 40000L;
-    private final MultiMap<K, V> map;
+    private final Multimap<K, V> map;
     private final AxiomType<?> type;
     private final OWLAxiomVisitorEx<?> visitor;
     private boolean initialized;
@@ -65,7 +68,7 @@ public class MapPointer<K, V extends OWLAxiom> implements Serializable {
             @Nonnull Internals i) {
         type = t;
         visitor = v;
-        map = new MultiMap<K, V>();
+        map = LinkedHashMultimap.create();
         this.initialized = initialized;
         this.i = checkNotNull(i, "i cannot be null");
     }
@@ -73,14 +76,6 @@ public class MapPointer<K, V extends OWLAxiom> implements Serializable {
     /** @return true if initialized */
     public boolean isInitialized() {
         return initialized;
-    }
-
-    /**
-     * @return true if the underlying map is using sets. This implies the
-     *         collections returned contain only unique elements.
-     */
-    public boolean isUsingSets() {
-        return map.isUsingSets();
     }
 
     /**
@@ -197,13 +192,13 @@ public class MapPointer<K, V extends OWLAxiom> implements Serializable {
      */
     public boolean contains(K key, V value) {
         init();
-        return map.contains(key, value);
+        return map.containsEntry(key, value);
     }
 
     /** @return all values contained */
     public Set<V> getAllValues() {
         init();
-        return map.getAllValues();
+        return new HashSet<V>(map.values());
     }
 
     /** @return number of mapping contained */

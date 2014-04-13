@@ -20,7 +20,6 @@ import static uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.AxiomType;
@@ -699,14 +698,7 @@ public class Internals implements Serializable {
             return 0;
         }
         Collection<OWLAxiom> collection = axiomsByType.getValues(axiomType);
-        if (collection.isEmpty()) {
-            return 0;
-        }
-        if (axiomsByType.isUsingSets()) {
-            return collection.size();
-        }
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>(collection);
-        return axioms.size();
+        return collection.size();
     }
 
     /**
