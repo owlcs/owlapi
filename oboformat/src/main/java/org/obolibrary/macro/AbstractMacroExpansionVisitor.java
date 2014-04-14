@@ -1,5 +1,6 @@
 package org.obolibrary.macro;
 
+import static org.semanticweb.owlapi.model.Imports.*;
 import static org.semanticweb.owlapi.search.Searcher.annotations;
 
 import java.util.HashMap;
@@ -121,7 +122,8 @@ public abstract class AbstractMacroExpansionVisitor implements
         for (OWLObjectProperty p : inputOntology
                 .getObjectPropertiesInSignature()) {
             for (OWLAnnotation a : annotations(inputOntology.filterAxioms(
-                    Filters.annotations, p.getIRI(), true), expandExpressionAP)) {
+                    Filters.annotations, p.getIRI(), INCLUDED),
+                    expandExpressionAP)) {
                 OWLAnnotationValue v = a.getValue();
                 if (v instanceof OWLLiteral) {
                     String str = ((OWLLiteral) v).getLiteral();
@@ -131,9 +133,10 @@ public abstract class AbstractMacroExpansionVisitor implements
             }
         }
         for (OWLAnnotationProperty p : inputOntology
-                .getAnnotationPropertiesInSignature(false)) {
+                .getAnnotationPropertiesInSignature(EXCLUDED)) {
             for (OWLAnnotation a : annotations(inputOntology.filterAxioms(
-                    Filters.annotations, p.getIRI(), true), expandAssertionAP)) {
+                    Filters.annotations, p.getIRI(), INCLUDED),
+                    expandAssertionAP)) {
                 OWLAnnotationValue v = a.getValue();
                 if (v instanceof OWLLiteral) {
                     String str = ((OWLLiteral) v).getLiteral();

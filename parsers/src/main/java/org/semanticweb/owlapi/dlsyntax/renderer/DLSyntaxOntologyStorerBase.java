@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.dlsyntax.renderer;
 
+import static org.semanticweb.owlapi.model.Imports.EXCLUDED;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.PrintWriter;
@@ -53,19 +54,19 @@ public abstract class DLSyntaxOntologyStorerBase extends
         beginWritingOntology(ontology, writer);
         for (OWLObjectProperty prop : new TreeSet<OWLObjectProperty>(
                 ontology.getObjectPropertiesInSignature())) {
-            write(ontology, prop, ontology.getAxioms(prop, false), writer);
+            write(ontology, prop, ontology.getAxioms(prop, EXCLUDED), writer);
         }
         for (OWLDataProperty prop : new TreeSet<OWLDataProperty>(
                 ontology.getDataPropertiesInSignature())) {
-            write(ontology, prop, ontology.getAxioms(prop, false), writer);
+            write(ontology, prop, ontology.getAxioms(prop, EXCLUDED), writer);
         }
         for (OWLClass cls : new TreeSet<OWLClass>(
                 ontology.getClassesInSignature())) {
-            write(ontology, cls, ontology.getAxioms(cls, false), writer);
+            write(ontology, cls, ontology.getAxioms(cls, EXCLUDED), writer);
         }
         for (OWLNamedIndividual ind : new TreeSet<OWLNamedIndividual>(
                 ontology.getIndividualsInSignature())) {
-            write(ontology, ind, ontology.getAxioms(ind, false), writer);
+            write(ontology, ind, ontology.getAxioms(ind, EXCLUDED), writer);
         }
         beginWritingGeneralAxioms(ontology.getGeneralClassAxioms(), writer);
         for (OWLAxiom ax : ontology.getGeneralClassAxioms()) {
@@ -89,7 +90,7 @@ public abstract class DLSyntaxOntologyStorerBase extends
             endWritingAxiom(ax, writer);
         }
         Set<OWLAxiom> usages = new TreeSet<OWLAxiom>(ont.getReferencingAxioms(
-                entity, false));
+                entity, EXCLUDED));
         usages.removeAll(axioms);
         beginWritingUsage(entity, usages, writer);
         for (OWLAxiom usage : usages) {

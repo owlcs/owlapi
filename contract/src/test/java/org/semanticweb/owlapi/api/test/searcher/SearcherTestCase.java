@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.api.test.searcher;
 
 import static org.junit.Assert.assertTrue;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.model.Imports.*;
 import static org.semanticweb.owlapi.search.Searcher.*;
 
 import java.util.Collection;
@@ -41,7 +42,7 @@ public class SearcherTestCase extends TestBase {
         OWLAxiom ax = SubClassOf(c, d);
         o.getOWLOntologyManager().addAxiom(o, ax);
         assertTrue(o.getAxioms(AxiomType.SUBCLASS_OF).contains(ax));
-        assertTrue(o.getAxioms(c, false).contains(ax));
+        assertTrue(o.getAxioms(c, EXCLUDED).contains(ax));
     }
 
     @Test
@@ -64,9 +65,9 @@ public class SearcherTestCase extends TestBase {
         o.getOWLOntologyManager().addAxiom(o, ax4);
         assertTrue(o.getAxioms(AxiomType.SUB_OBJECT_PROPERTY).contains(ax));
         Collection<OWLAxiom> axioms = o.filterAxioms(
-                Filters.subObjectPropertyWithSuper, d, true);
+                Filters.subObjectPropertyWithSuper, d, INCLUDED);
         assertTrue(sub(axioms).contains(c));
-        axioms = o.filterAxioms(Filters.subObjectPropertyWithSub, c, true);
+        axioms = o.filterAxioms(Filters.subObjectPropertyWithSub, c, INCLUDED);
         assertTrue(sup(axioms).contains(d));
         assertTrue(domain(o.getObjectPropertyDomainAxioms(c)).contains(x));
         assertTrue(equivalent(o.getEquivalentObjectPropertiesAxioms(c))
@@ -92,9 +93,9 @@ public class SearcherTestCase extends TestBase {
         o.getOWLOntologyManager().addAxiom(o, ax4);
         assertTrue(o.getAxioms(AxiomType.SUB_DATA_PROPERTY).contains(ax));
         Collection<OWLAxiom> axioms = o.filterAxioms(
-                Filters.subDataPropertyWithSuper, d, true);
+                Filters.subDataPropertyWithSuper, d, INCLUDED);
         assertTrue(sub(axioms).contains(c));
-        axioms = o.filterAxioms(Filters.subDataPropertyWithSub, c, true);
+        axioms = o.filterAxioms(Filters.subDataPropertyWithSub, c, INCLUDED);
         assertTrue(sup(axioms).contains(d));
         assertTrue(domain(o.getDataPropertyDomainAxioms(c)).contains(x));
         assertTrue(range(o.getDataPropertyRangeAxioms(c)).contains(Boolean()));

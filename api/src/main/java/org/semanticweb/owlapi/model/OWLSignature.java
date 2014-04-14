@@ -31,91 +31,92 @@ public interface OWLSignature extends HasGetEntitiesInSignature,
      * Gets the classes in the signature and optionally the imports closure.
      * 
      * @param includeImportsClosure
-     *        true if the import closure should be included.
+     *        if INCLUDED, include imports closure.
      * @return the set of classes in the signature, optionally including the
      *         import closure. The set that is returned is a copy of the data.
      */
     @Nonnull
-    Set<OWLClass> getClassesInSignature(boolean includeImportsClosure);
+    Set<OWLClass> getClassesInSignature(@Nonnull Imports includeImportsClosure);
 
     /**
      * Gets the object properties in the signature and optionally the imports
      * closure.
      * 
      * @param includeImportsClosure
-     *        true if the import closure should be included.
+     *        if INCLUDED, include imports closure.
      * @return the set of object properties in the signature, optionally
      *         including the import closure. The set that is returned is a copy
      *         of the data.
      */
     @Nonnull
     Set<OWLObjectProperty> getObjectPropertiesInSignature(
-            boolean includeImportsClosure);
+            @Nonnull Imports includeImportsClosure);
 
     /**
      * Gets the data properties in the signature and optionally the imports
      * closure.
      * 
      * @param includeImportsClosure
-     *        true if the import closure should be included.
+     *        if INCLUDED, include imports closure.
      * @return the set of data properties in the signature, optionally including
      *         the import closure. The set that is returned is a copy of the
      *         data.
      */
     @Nonnull
     Set<OWLDataProperty> getDataPropertiesInSignature(
-            boolean includeImportsClosure);
+            @Nonnull Imports includeImportsClosure);
 
     /**
      * Gets the named individuals in the signature and optionally the imports
      * closure.
      * 
      * @param includeImportsClosure
-     *        true if the import closure should be included.
+     *        if INCLUDED, include imports closure.
      * @return the set of individuals in the signature, optionally including the
      *         import closure. The set that is returned is a copy of the data.
      */
     @Nonnull
     Set<OWLNamedIndividual> getIndividualsInSignature(
-            boolean includeImportsClosure);
+            @Nonnull Imports includeImportsClosure);
 
     /**
      * Gets the referenced anonymous individuals in the signature and optionally
      * the imports closure.
      * 
      * @param includeImportsClosure
-     *        true if the import closure should be included.
+     *        if INCLUDED, include imports closure.
      * @return The set of referenced anonymous individuals
      */
     @Nonnull
     Set<OWLAnonymousIndividual> getReferencedAnonymousIndividuals(
-            boolean includeImportsClosure);
+            @Nonnull Imports includeImportsClosure);
 
     /**
      * Gets the datatypes in the signature and optionally the imports closure.
      * 
      * @param includeImportsClosure
-     *        true if the import closure should be included.
+     *        if INCLUDED, include imports closure.
      * @return the set of datatypes in the signature of this ontology,
      *         optionally including the import closure. The set that is returned
      *         is a copy of the data.
      */
     @Nonnull
-    Set<OWLDatatype> getDatatypesInSignature(boolean includeImportsClosure);
+    Set<OWLDatatype> getDatatypesInSignature(
+            @Nonnull Imports includeImportsClosure);
 
     /**
      * Gets the annotation properties in the signature and optionally the
      * imports closure.
      * 
      * @param includeImportsClosure
-     *        true if the import closure should be included.
+     *        if INCLUDED, include imports closure.
      * @return the set of annotation properties in the signature, optionally
      *         including the import closure. The set that is returned is a copy
      *         of the data.
      */
     @Nonnull
     Set<OWLAnnotationProperty> getAnnotationPropertiesInSignature(
-            boolean includeImportsClosure);
+            @Nonnull Imports includeImportsClosure);
 
     /**
      * Determines if the signature contains the specified entity.
@@ -123,12 +124,12 @@ public interface OWLSignature extends HasGetEntitiesInSignature,
      * @param owlEntity
      *        The entity
      * @param includeImportsClosure
-     *        true if the import closure should be included.
+     *        if INCLUDED, include imports closure.
      * @return {@code true} if the signature or the import closure contains a
      *         reference to the specified entity.
      */
     boolean containsEntityInSignature(@Nonnull OWLEntity owlEntity,
-            boolean includeImportsClosure);
+            @Nonnull Imports includeImportsClosure);
 
     /**
      * Determines if the signature contains an entity with the specified IRI.
@@ -136,18 +137,14 @@ public interface OWLSignature extends HasGetEntitiesInSignature,
      * @param entityIRI
      *        The IRI to test for.
      * @param includeImportsClosure
-     *        true if the import closure should be included.
+     *        if INCLUDED, include imports closure.
      * @return true if the signature or the import closure contains an entity
      *         with the specified IRI.
      */
     boolean containsEntityInSignature(@Nonnull IRI entityIRI,
-            boolean includeImportsClosure);
+            @Nonnull Imports includeImportsClosure);
 
-    // ////////////////////////////////////////////////////////////////////////////////////////////////
-    //
     // Access by IRI
-    //
-    // ////////////////////////////////////////////////////////////////////////////////////////////////
     /**
      * Determines if the signature contains an OWLClass that has the specified
      * IRI.
@@ -155,12 +152,12 @@ public interface OWLSignature extends HasGetEntitiesInSignature,
      * @param owlClassIRI
      *        The IRI of the class to check for
      * @param includeImportsClosure
-     *        true if the import closure should be included.
+     *        if INCLUDED, include imports closure.
      * @return true if the signature or the import closure contains an entity
      *         with the specified IRI.
      */
     boolean containsClassInSignature(@Nonnull IRI owlClassIRI,
-            boolean includeImportsClosure);
+            @Nonnull Imports includeImportsClosure);
 
     /**
      * Determines if the signature contains an OWLObjectProperty that has the
@@ -169,12 +166,13 @@ public interface OWLSignature extends HasGetEntitiesInSignature,
      * @param owlObjectPropertyIRI
      *        The IRI of the OWLObjectProperty to check for
      * @param includeImportsClosure
-     *        true if the import closure should be included.
+     *        if INCLUDED, include imports closure.
      * @return true if the signature or the import closure contains an object
      *         property with the specified IRI.
      */
     boolean containsObjectPropertyInSignature(
-            @Nonnull IRI owlObjectPropertyIRI, boolean includeImportsClosure);
+            @Nonnull IRI owlObjectPropertyIRI,
+            @Nonnull Imports includeImportsClosure);
 
     /**
      * Determines if the signature contains an OWLDataProperty that has the
@@ -183,12 +181,12 @@ public interface OWLSignature extends HasGetEntitiesInSignature,
      * @param owlDataPropertyIRI
      *        The IRI of the OWLDataProperty to check for
      * @param includeImportsClosure
-     *        true if the import closure should be included.
+     *        if INCLUDED, include imports closure.
      * @return true if the signature or the import closure contains a data
      *         property with the specified IRI.
      */
     boolean containsDataPropertyInSignature(@Nonnull IRI owlDataPropertyIRI,
-            boolean includeImportsClosure);
+            @Nonnull Imports includeImportsClosure);
 
     /**
      * Determines if the signature contains an OWLAnnotationProperty that has
@@ -197,14 +195,13 @@ public interface OWLSignature extends HasGetEntitiesInSignature,
      * @param owlAnnotationPropertyIRI
      *        The IRI of the OWLAnnotationProperty to check for
      * @param includeImportsClosure
-     *        true if the import closure should be included.
+     *        if INCLUDED, include imports closure.
      * @return true if the signature or the import closure contains an
      *         annotation property with the specified IRI.
      */
-    boolean
-            containsAnnotationPropertyInSignature(
-                    @Nonnull IRI owlAnnotationPropertyIRI,
-                    boolean includeImportsClosure);
+    boolean containsAnnotationPropertyInSignature(
+            @Nonnull IRI owlAnnotationPropertyIRI,
+            @Nonnull Imports includeImportsClosure);
 
     /**
      * Determines if the signature contains an OWLNamedIndividual that has the
@@ -213,12 +210,12 @@ public interface OWLSignature extends HasGetEntitiesInSignature,
      * @param owlIndividualIRI
      *        The IRI of the OWLNamedIndividual to check for
      * @param includeImportsClosure
-     *        true if the import closure should be included.
+     *        if INCLUDED, include imports closure.
      * @return true if the signature or the import closure contains an
      *         individual with the specified IRI.
      */
     boolean containsIndividualInSignature(@Nonnull IRI owlIndividualIRI,
-            boolean includeImportsClosure);
+            @Nonnull Imports includeImportsClosure);
 
     /**
      * Determines if the signature contains an OWLDatatype that has the
@@ -227,12 +224,12 @@ public interface OWLSignature extends HasGetEntitiesInSignature,
      * @param owlDatatypeIRI
      *        The IRI of the OWLDatatype to check for
      * @param includeImportsClosure
-     *        true if the import closure should be included.
+     *        if INCLUDED, include imports closure.
      * @return true if the signature or the import closure contains a datatype
      *         with the specified IRI.
      */
     boolean containsDatatypeInSignature(@Nonnull IRI owlDatatypeIRI,
-            boolean includeImportsClosure);
+            @Nonnull Imports includeImportsClosure);
 
     /**
      * Gets the entities in the signature that have the specified IRI.
@@ -240,21 +237,21 @@ public interface OWLSignature extends HasGetEntitiesInSignature,
      * @param iri
      *        The IRI of the entitied to be retrieved.
      * @param includeImportsClosure
-     *        true if the import closure should be included.
+     *        if INCLUDED, include imports closure.
      * @return the set of entities with the specified IRI, optionally including
      *         the ones in the import closure.
      */
     @Nonnull
     Set<OWLEntity> getEntitiesInSignature(@Nonnull IRI iri,
-            boolean includeImportsClosure);
+            @Nonnull Imports includeImportsClosure);
 
     /**
      * @param entity
      *        entyty to check
      * @param includeImportsClosure
-     *        true if the import closure should be included.
+     *        if INCLUDED, include imports closure.
      * @return true if entity is referenced
      */
     boolean containsReference(@Nonnull OWLEntity entity,
-            boolean includeImportsClosure);
+            @Nonnull Imports includeImportsClosure);
 }

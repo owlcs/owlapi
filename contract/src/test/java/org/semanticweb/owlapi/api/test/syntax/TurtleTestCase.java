@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.api.test.syntax;
 
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.model.Imports.EXCLUDED;
 
 import java.net.URISyntaxException;
 import java.util.HashSet;
@@ -168,8 +169,8 @@ public class TurtleTestCase extends TestBase {
         String input = "<http://dbpedia.org/resource/South_Africa> <http://dbpedia.org/ontology/areaTotal> 1e+07 .";
         OWLOntology ontology = loadOntologyFromString(input);
         OWLAnnotationProperty p = AnnotationProperty(IRI("http://dbpedia.org/ontology/areaTotal"));
-        assertTrue(ontology.getAnnotationPropertiesInSignature(false).contains(
-                p));
+        assertTrue(ontology.getAnnotationPropertiesInSignature(EXCLUDED)
+                .contains(p));
         IRI i = IRI("http://dbpedia.org/resource/South_Africa");
         assertTrue(ontology.containsAxiom(AnnotationAssertion(p, i,
                 Literal("1.0E7", OWL2Datatype.XSD_DOUBLE))));
@@ -180,8 +181,8 @@ public class TurtleTestCase extends TestBase {
         String input = "<http://dbpedia.org/resource/South_Africa> <http://dbpedia.org/ontology/areaTotal> 1 .";
         OWLOntology ontology = loadOntologyFromString(input);
         OWLAnnotationProperty p = AnnotationProperty(IRI("http://dbpedia.org/ontology/areaTotal"));
-        assertTrue(ontology.getAnnotationPropertiesInSignature(false).contains(
-                p));
+        assertTrue(ontology.getAnnotationPropertiesInSignature(EXCLUDED)
+                .contains(p));
         IRI i = IRI("http://dbpedia.org/resource/South_Africa");
         assertTrue(ontology
                 .containsAxiom(AnnotationAssertion(p, i, Literal(1))));
@@ -192,8 +193,8 @@ public class TurtleTestCase extends TestBase {
         String input = "<http://dbpedia.org/resource/South_Africa> <http://dbpedia.org/ontology/areaTotal> 1.0.";
         OWLOntology ontology = loadOntologyFromString(input);
         OWLAnnotationProperty p = AnnotationProperty(IRI("http://dbpedia.org/ontology/areaTotal"));
-        assertTrue(ontology.getAnnotationPropertiesInSignature(false).contains(
-                p));
+        assertTrue(ontology.getAnnotationPropertiesInSignature(EXCLUDED)
+                .contains(p));
         IRI i = IRI("http://dbpedia.org/resource/South_Africa");
         assertTrue(ontology.containsAxiom(AnnotationAssertion(p, i,
                 Literal("1.0", OWL2Datatype.XSD_DECIMAL))));

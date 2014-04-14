@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.examples;
 
+import static org.semanticweb.owlapi.model.Imports.*;
 import static org.semanticweb.owlapi.search.Searcher.*;
 import static org.semanticweb.owlapi.vocab.OWLFacet.*;
 
@@ -572,7 +573,7 @@ public class Examples extends TestBase {
         }
         // We should also find that B is an ASSERTED superclass of A
         Iterable<OWLClassExpression> superClasses = sup(
-                ontology.filterAxioms(Filters.subClassWithSub, clsA, true),
+                ontology.filterAxioms(Filters.subClassWithSub, clsA, INCLUDED),
                 OWLClassExpression.class);
         // Now save the ontology. The ontology will be saved to the location
         // where we loaded it from, in the default ontology format
@@ -1305,9 +1306,8 @@ public class Examples extends TestBase {
                 .getOWLAnnotationProperty(OWLRDFVocabulary.RDFS_LABEL.getIRI());
         for (OWLClass cls : ont.getClassesInSignature()) {
             // Get the annotations on the class that use the label property
-            for (OWLAnnotation annotation : annotations(
-                    ont.filterAxioms(Filters.annotations, cls.getIRI(), true),
-                    label)) {
+            for (OWLAnnotation annotation : annotations(ont.filterAxioms(
+                    Filters.annotations, cls.getIRI(), INCLUDED), label)) {
                 if (annotation.getValue() instanceof OWLLiteral) {
                     OWLLiteral val = (OWLLiteral) annotation.getValue();
                     if (val.hasLang("pt")) {
@@ -1490,7 +1490,7 @@ public class Examples extends TestBase {
      */
     private static void printProperties(OWLOntologyManager man,
             OWLOntology ont, OWLReasoner reasoner, OWLClass cls) {
-        if (!ont.containsClassInSignature(cls.getIRI(), false)) {
+        if (!ont.containsClassInSignature(cls.getIRI(), EXCLUDED)) {
             throw new OWLRuntimeException(
                     "Class not in signature of the ontology");
         }

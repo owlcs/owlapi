@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.reasoner.structural;
 
+import static org.semanticweb.owlapi.model.Imports.INCLUDED;
 import static org.semanticweb.owlapi.search.Searcher.*;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
@@ -220,13 +221,13 @@ public class StructuralReasoner extends OWLReasonerBase {
 
     @Override
     public boolean isEntailed(OWLAxiom axiom) {
-        return getRootOntology().containsAxiom(axiom, true, true);
+        return getRootOntology().containsAxiom(axiom, INCLUDED, true);
     }
 
     @Override
     public boolean isEntailed(Set<? extends OWLAxiom> axioms) {
         for (OWLAxiom ax : axioms) {
-            if (!getRootOntology().containsAxiom(ax, true, true)) {
+            if (!getRootOntology().containsAxiom(ax, INCLUDED, true)) {
                 return false;
             }
         }
@@ -1377,7 +1378,7 @@ public class StructuralReasoner extends OWLReasonerBase {
         public Collection<OWLClass> getChildren(OWLClass parent) {
             Collection<OWLClass> result = new HashSet<OWLClass>();
             for (OWLAxiom ax : getRootOntology().getReferencingAxioms(parent,
-                    true)) {
+                    INCLUDED)) {
                 if (ax instanceof OWLSubClassOfAxiom) {
                     OWLSubClassOfAxiom sca = (OWLSubClassOfAxiom) ax;
                     if (!sca.getSubClass().isAnonymous()) {
@@ -1476,7 +1477,7 @@ public class StructuralReasoner extends OWLReasonerBase {
         public Collection<OWLDataProperty> getParents(OWLDataProperty child) {
             Set<OWLDataProperty> properties = new HashSet<OWLDataProperty>();
             Collection<OWLAxiom> axioms = getRootOntology().filterAxioms(
-                    Filters.subDataPropertyWithSub, child, true);
+                    Filters.subDataPropertyWithSub, child, INCLUDED);
             Collection<OWLDataPropertyExpression> expressions = sup(axioms,
                     OWLDataPropertyExpression.class);
             for (OWLDataPropertyExpression prop : expressions) {
@@ -1489,7 +1490,7 @@ public class StructuralReasoner extends OWLReasonerBase {
         public Collection<OWLDataProperty> getChildren(OWLDataProperty parent) {
             Set<OWLDataProperty> properties = new HashSet<OWLDataProperty>();
             Collection<OWLAxiom> axioms = getRootOntology().filterAxioms(
-                    Filters.subDataPropertyWithSuper, parent, true);
+                    Filters.subDataPropertyWithSuper, parent, INCLUDED);
             for (OWLDataPropertyExpression prop : sub(axioms,
                     OWLDataPropertyExpression.class)) {
                 properties.add(prop.asOWLDataProperty());

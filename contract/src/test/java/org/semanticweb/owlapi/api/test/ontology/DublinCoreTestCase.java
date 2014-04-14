@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.api.test.ontology;
 
 import static org.junit.Assert.assertTrue;
+import static org.semanticweb.owlapi.model.Imports.EXCLUDED;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileTestCase;
@@ -38,7 +39,7 @@ public class DublinCoreTestCase extends AbstractFileTestCase {
         OWLOntology ontology = createOntology();
         for (DublinCoreVocabulary vocabulary : DublinCoreVocabulary.values()) {
             assertTrue(ontology.containsAnnotationPropertyInSignature(
-                    vocabulary.getIRI(), false));
+                    vocabulary.getIRI(), EXCLUDED));
         }
     }
 }

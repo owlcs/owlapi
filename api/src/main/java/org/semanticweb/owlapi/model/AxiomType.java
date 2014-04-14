@@ -26,7 +26,7 @@ import com.google.common.collect.Sets;
  * Represents the type of axioms which can belong to ontologies. Axioms can be
  * retrieved from ontologies by their {@code AxiomType}. For example, see
  * {@link org.semanticweb.owlapi.model.OWLOntology#getAxioms(AxiomType)} and
- * {@link org.semanticweb.owlapi.model.OWLOntology#getAxiomCount(AxiomType, boolean)}
+ * {@link org.semanticweb.owlapi.model.OWLOntology#getAxiomCount(AxiomType, Imports)}
  * .
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health

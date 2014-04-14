@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.api.test.annotations;
 
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.model.Imports.EXCLUDED;
 
 import java.util.Collections;
 
@@ -42,13 +43,14 @@ public class GetAxiomsIgnoringAnnotationsTestCase extends TestBase {
                 Class(getIRI("B")), Collections.singleton(anno));
         OWLOntology ont = getOWLOntology("testont");
         ont.getOWLOntologyManager().addAxiom(ont, axiom);
-        assertTrue(ont.getAxiomsIgnoreAnnotations(axiom, false).contains(axiom));
-        assertFalse(ont.getAxiomsIgnoreAnnotations(axiom, false).contains(
+        assertTrue(ont.getAxiomsIgnoreAnnotations(axiom, EXCLUDED).contains(
+                axiom));
+        assertFalse(ont.getAxiomsIgnoreAnnotations(axiom, EXCLUDED).contains(
                 axiom.getAxiomWithoutAnnotations()));
         assertTrue(ont.getAxiomsIgnoreAnnotations(
-                axiom.getAxiomWithoutAnnotations(), false).contains(axiom));
+                axiom.getAxiomWithoutAnnotations(), EXCLUDED).contains(axiom));
         assertFalse(ont.getAxiomsIgnoreAnnotations(
-                axiom.getAxiomWithoutAnnotations(), false).contains(
+                axiom.getAxiomWithoutAnnotations(), EXCLUDED).contains(
                 axiom.getAxiomWithoutAnnotations()));
     }
 }

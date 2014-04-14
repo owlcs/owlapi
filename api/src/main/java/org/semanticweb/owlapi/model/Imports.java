@@ -10,48 +10,18 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.util;
-
-import static org.semanticweb.owlapi.model.Imports.EXCLUDED;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.annotation.Nonnull;
-
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLOntology;
+package org.semanticweb.owlapi.model;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
- * @since 2.2.0
+ * An enumeration for human readable values to include/exclude imports from
+ * searches
+ * 
+ * @author ignazio
+ * @since 4.0.0
  */
-public class ReferencedEntitySetProvider implements
-        OWLEntitySetProvider<OWLEntity> {
-
-    private final Set<OWLOntology> ontologies;
-
-    /**
-     * @param ontologies
-     *        ontologies to use
-     */
-    public ReferencedEntitySetProvider(@Nonnull Set<OWLOntology> ontologies) {
-        this.ontologies = checkNotNull(ontologies, "ontologies cannot be null");
-    }
-
-    @Override
-    public Set<OWLEntity> getEntities() {
-        Set<OWLEntity> entities = new HashSet<OWLEntity>();
-        for (OWLOntology ont : ontologies) {
-            entities.addAll(ont.getClassesInSignature());
-            entities.addAll(ont.getObjectPropertiesInSignature());
-            entities.addAll(ont.getDataPropertiesInSignature());
-            entities.addAll(ont.getIndividualsInSignature());
-            entities.addAll(ont.getAnnotationPropertiesInSignature(EXCLUDED));
-            entities.addAll(ont.getDatatypesInSignature());
-        }
-        return entities;
-    }
+public enum Imports {
+    /** imports are included */
+    INCLUDED,
+    /** imports are excluded */
+    EXCLUDED
 }

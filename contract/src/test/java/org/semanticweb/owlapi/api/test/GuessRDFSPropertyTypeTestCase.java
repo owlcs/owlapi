@@ -1,6 +1,7 @@
 package org.semanticweb.owlapi.api.test;
 
 import static org.junit.Assert.*;
+import static org.semanticweb.owlapi.model.Imports.INCLUDED;
 
 import java.io.InputStream;
 import java.util.Collection;
@@ -125,7 +126,8 @@ public class GuessRDFSPropertyTypeTestCase {
                 prefixOWLOntologyFormat.getIRI(expectedDomain), domainIRI);
         Collection<OWLObjectPropertyExpression> superProperties = Searcher
                 .sup(cidocOntology.filterAxioms(
-                        Filters.subObjectPropertyWithSub, p11_property, true));
+                        Filters.subObjectPropertyWithSub, p11_property,
+                        INCLUDED));
         // Set<OWLPropertyExpression> superProperties =
         // p11_property.getSuperProperties(cidocOntology);
         assertEquals("should have 1 super Property", 1, superProperties.size());
@@ -159,7 +161,7 @@ public class GuessRDFSPropertyTypeTestCase {
                 prefixOWLOntologyFormat.getIRI(expectedDomain), domainIRI);
         Collection<OWLObjectPropertyExpression> superProperties = Searcher
                 .sup(cidocOntology.filterAxioms(Filters.subDataPropertyWithSub,
-                        p11_property, true));
+                        p11_property, INCLUDED));
         // Set<OWLPropertyExpression> superProperties =
         // p11_property.getSuperProperties(cidocOntology);
         assertEquals("should have 1 super Property", 1, superProperties.size());
@@ -187,7 +189,7 @@ public class GuessRDFSPropertyTypeTestCase {
     @Test
     public void testAnnotationPropertyCount() {
         Set<OWLAnnotationProperty> annotationProperties = cidocOntology
-                .getAnnotationPropertiesInSignature(true);
+                .getAnnotationPropertiesInSignature(INCLUDED);
         assertEquals("should only have 2 rdfs annotation properties", 2,
                 annotationProperties.size());
     }

@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.api.test.annotations;
 
 import static org.junit.Assert.assertTrue;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnnotationProperty;
+import static org.semanticweb.owlapi.model.Imports.*;
 import static org.semanticweb.owlapi.search.Filters.subAnnotationWithSuper;
 import static org.semanticweb.owlapi.search.Searcher.*;
 
@@ -45,10 +46,11 @@ public class AnnotationPropertyConvenienceMethodTestCase extends TestBase {
         ont.getOWLOntologyManager().addAxiom(ont,
                 df.getOWLSubAnnotationPropertyOfAxiom(propP, propR));
         Collection<OWLAxiom> axioms = ont.filterAxioms(
-                Filters.subAnnotationWithSub, propP, true);
+                Filters.subAnnotationWithSub, propP, INCLUDED);
         assertTrue(sup(axioms).contains(propQ));
         assertTrue(sup(axioms).contains(propR));
-        axioms = ont.filterAxioms(Filters.subAnnotationWithSub, propP, false);
+        axioms = ont
+                .filterAxioms(Filters.subAnnotationWithSub, propP, EXCLUDED);
         assertTrue(sup(axioms).contains(propQ));
         assertTrue(sup(axioms).contains(propR));
     }
@@ -63,13 +65,17 @@ public class AnnotationPropertyConvenienceMethodTestCase extends TestBase {
                 df.getOWLSubAnnotationPropertyOfAxiom(propP, propQ));
         ont.getOWLOntologyManager().addAxiom(ont,
                 df.getOWLSubAnnotationPropertyOfAxiom(propP, propR));
-        assertTrue(sub(ont.filterAxioms(subAnnotationWithSuper, propQ, true))
+        assertTrue(sub(
+                ont.filterAxioms(subAnnotationWithSuper, propQ, INCLUDED))
                 .contains(propP));
-        assertTrue(sub(ont.filterAxioms(subAnnotationWithSuper, propQ, false))
+        assertTrue(sub(
+                ont.filterAxioms(subAnnotationWithSuper, propQ, EXCLUDED))
                 .contains(propP));
-        assertTrue(sub(ont.filterAxioms(subAnnotationWithSuper, propR, true))
+        assertTrue(sub(
+                ont.filterAxioms(subAnnotationWithSuper, propR, INCLUDED))
                 .contains(propP));
-        assertTrue(sub(ont.filterAxioms(subAnnotationWithSuper, propR, false))
+        assertTrue(sub(
+                ont.filterAxioms(subAnnotationWithSuper, propR, EXCLUDED))
                 .contains(propP));
     }
 }

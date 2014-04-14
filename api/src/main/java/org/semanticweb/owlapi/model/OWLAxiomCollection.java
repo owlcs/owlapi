@@ -26,7 +26,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
         HasAxiomsByType, HasContainsAxiom {
 
     /**
-     * Equivalent to {@link #getAxioms(boolean)} with
+     * Equivalent to {@link #getAxioms(Imports)} with
      * {@code includeImportsClosure=false}.
      * 
      * @return All of the axioms in this collection. The set is a copy of the
@@ -38,15 +38,15 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
 
     /**
      * @param includeImportsClosure
-     *        if true, the import closure is included.
+     *        if INCLUDED, include imports closure.
      * @return All of the axioms in this collection, and optionally in the
      *         import closure. The set that is returned is a copy of the data.
      */
     @Nonnull
-    Set<OWLAxiom> getAxioms(boolean includeImportsClosure);
+    Set<OWLAxiom> getAxioms(@Nonnull Imports includeImportsClosure);
 
     /**
-     * Equivalent to {@link #getAxiomCount(boolean)} with
+     * Equivalent to {@link #getAxiomCount(Imports)} with
      * {@code includeImportsClosure=false}.
      * 
      * @return The number of axioms in this ontology.
@@ -55,11 +55,11 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
 
     /**
      * @param includeImportsClosure
-     *        if true, the import closure is included.
+     *        if INCLUDED, include imports closure.
      * @return The number of axioms in this ontology, and optionally in the
      *         imports closure.
      */
-    int getAxiomCount(boolean includeImportsClosure);
+    int getAxiomCount(@Nonnull Imports includeImportsClosure);
 
     /**
      * Gets all axioms semantically relevant, i.e., all axioms that are not
@@ -77,13 +77,14 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      * annotation axioms or declaration axioms.
      * 
      * @param includeImportsClosure
-     *        if true, the import closure is included.
+     *        if INCLUDED, include imports closure.
      * @return A set of axioms which are of type {@code OWLLogicalAxiom},
      *         optionally including the imports closure. The set that is
      *         returned is a copy of the data.
      */
     @Nonnull
-    Set<OWLLogicalAxiom> getLogicalAxioms(boolean includeImportsClosure);
+    Set<OWLLogicalAxiom>
+            getLogicalAxioms(@Nonnull Imports includeImportsClosure);
 
     /**
      * Gets the number of logical axioms in this collection.
@@ -97,11 +98,11 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      * including the imports closure.
      * 
      * @param includeImportsClosure
-     *        if true, the import closure is included.
+     *        if INCLUDED, include imports closure.
      * @return The number of axioms in this collection, optionally including the
      *         imports closure.
      */
-    int getLogicalAxiomCount(boolean includeImportsClosure);
+    int getLogicalAxiomCount(@Nonnull Imports includeImportsClosure);
 
     /**
      * Gets all axioms of the specified type.
@@ -122,14 +123,14 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      * @param axiomType
      *        The type of axioms to be retrived.
      * @param includeImportsClosure
-     *        if true, the import closure is included.
+     *        if INCLUDED, include imports closure.
      * @return all axioms of the specified type. The set is a copy of the data.
      * @param <T>
      *        axiom type
      */
     @Nonnull
     <T extends OWLAxiom> Set<T> getAxioms(@Nonnull AxiomType<T> axiomType,
-            boolean includeImportsClosure);
+            @Nonnull Imports includeImportsClosure);
 
     /**
      * Gets the axiom count of a specific type of axiom.
@@ -149,13 +150,13 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      * @param axiomType
      *        The type of axiom to count
      * @param includeImportsClosure
-     *        if true, the import closure is included.
+     *        if INCLUDED, include imports closure.
      * @param <T>
      *        axiom type
      * @return The number of the specified types of axioms in this collection
      */
     <T extends OWLAxiom> int getAxiomCount(@Nonnull AxiomType<T> axiomType,
-            boolean includeImportsClosure);
+            @Nonnull Imports includeImportsClosure);
 
     /**
      * Determines if this ontology contains the specified axiom.
@@ -174,7 +175,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      * @param axiom
      *        The axiom to search.
      * @param includeImportsClosure
-     *        if true, the import closure is included.
+     *        if INCLUDED, include imports closure.
      * @param ignoreAnnotations
      *        if true, annotations are ignored when searching for the axiom. For
      *        example, if the collection contains
@@ -186,7 +187,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      * @return {@code true} if the ontology contains the specified axiom.
      */
     boolean containsAxiom(@Nonnull OWLAxiom axiom,
-            boolean includeImportsClosure, boolean ignoreAnnotations);
+            @Nonnull Imports includeImportsClosure, boolean ignoreAnnotations);
 
     /**
      * Gets the set of axioms contained in this collection that have the same
@@ -198,7 +199,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      *        The axiom that the returned axioms must equal, ignoring
      *        annotations.
      * @param includeImportsClosure
-     *        if true, the import closure is included.
+     *        if INCLUDED, include imports closure.
      * @return The set of axioms such that for any two axioms, {@code axiomA}
      *         and {@code axiomB} in the set,
      *         {@code axiomA.getAxiomWithoutAnnotations()} is equal to
@@ -207,7 +208,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      */
     @Nonnull
     Set<OWLAxiom> getAxiomsIgnoreAnnotations(@Nonnull OWLAxiom axiom,
-            boolean includeImportsClosure);
+            @Nonnull Imports includeImportsClosure);
 
     /**
      * Gets the axioms where the specified {@link OWLPrimitive} appears in the
@@ -221,12 +222,12 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      *        The entity that should be directly referred to by all axioms in
      *        the results set.
      * @param includeImportsClosure
-     *        if true, the import closure is included.
+     *        if INCLUDED, include imports closure.
      * @return All axioms referencing the entity. The set is a copy of the data.
      */
     @Nonnull
     Set<OWLAxiom> getReferencingAxioms(@Nonnull OWLPrimitive owlEntity,
-            boolean includeImportsClosure);
+            @Nonnull Imports includeImportsClosure);
 
     // ////////////////////////////////////////////////////////////////////////////////////////////
     //
@@ -239,7 +240,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      * @param cls
      *        The class whose describing axioms are to be retrieved.
      * @param includeImportsClosure
-     *        if true, the import closure is included.
+     *        if INCLUDED, include imports closure.
      * @return A set of class axioms that describe the class. This set includes
      *         <ul>
      *         <li>Subclass axioms where the subclass is equal to the specified
@@ -255,7 +256,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      */
     @Nonnull
     Set<OWLClassAxiom> getAxioms(@Nonnull OWLClass cls,
-            boolean includeImportsClosure);
+            @Nonnull Imports includeImportsClosure);
 
     /**
      * Gets the axioms that form the definition/description of an object
@@ -264,7 +265,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      * @param property
      *        The property whose defining axioms are to be retrieved.
      * @param includeImportsClosure
-     *        if true, the import closure is included.
+     *        if INCLUDED, include imports closure.
      * @return A set of object property axioms that includes
      *         <ul>
      *         <li>Sub-property axioms where the sub property is the specified
@@ -288,7 +289,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
     @Nonnull
     Set<OWLObjectPropertyAxiom> getAxioms(
             @Nonnull OWLObjectPropertyExpression property,
-            boolean includeImportsClosure);
+            @Nonnull Imports includeImportsClosure);
 
     /**
      * Gets the axioms that form the definition/description of a data property.
@@ -296,7 +297,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      * @param property
      *        The property whose defining axioms are to be retrieved.
      * @param includeImportsClosure
-     *        if true, the import closure is included.
+     *        if INCLUDED, include imports closure.
      * @return A set of data property axioms that includes
      *         <ul>
      *         <li>Sub-property axioms where the sub property is the specified
@@ -315,7 +316,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      */
     @Nonnull
     Set<OWLDataPropertyAxiom> getAxioms(@Nonnull OWLDataProperty property,
-            boolean includeImportsClosure);
+            @Nonnull Imports includeImportsClosure);
 
     /**
      * Gets the axioms that form the definition/description of an individual.
@@ -323,7 +324,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      * @param individual
      *        The individual whose defining axioms are to be retrieved.
      * @param includeImportsClosure
-     *        if true, the import closure is included.
+     *        if INCLUDED, include imports closure.
      * @return A set of individual axioms that includes
      *         <ul>
      *         <li>Individual type assertions that assert the type of the
@@ -345,7 +346,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      */
     @Nonnull
     Set<OWLIndividualAxiom> getAxioms(@Nonnull OWLIndividual individual,
-            boolean includeImportsClosure);
+            @Nonnull Imports includeImportsClosure);
 
     /**
      * Gets the axioms that form the definition/description of an annotation
@@ -354,7 +355,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      * @param property
      *        The property whose definition axioms are to be retrieved
      * @param includeImportsClosure
-     *        if true, the import closure is included.
+     *        if INCLUDED, include imports closure.
      * @return A set of axioms that includes
      *         <ul>
      *         <li>Annotation subpropertyOf axioms where the specified property
@@ -368,7 +369,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      */
     @Nonnull
     Set<OWLAnnotationAxiom> getAxioms(@Nonnull OWLAnnotationProperty property,
-            boolean includeImportsClosure);
+            @Nonnull Imports includeImportsClosure);
 
     /**
      * Gets the datatype definition axioms for the specified datatype.
@@ -376,11 +377,11 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      * @param datatype
      *        The datatype
      * @param includeImportsClosure
-     *        if true, the import closure is included.
+     *        if INCLUDED, include imports closure.
      * @return The set of datatype definition axioms for the specified datatype.
      *         The set is a copy of the data.
      */
     @Nonnull
     Set<OWLDatatypeDefinitionAxiom> getAxioms(@Nonnull OWLDatatype datatype,
-            boolean includeImportsClosure);
+            @Nonnull Imports includeImportsClosure);
 }

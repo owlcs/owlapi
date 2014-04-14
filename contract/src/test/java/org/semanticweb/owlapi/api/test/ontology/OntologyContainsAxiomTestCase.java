@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.api.test.ontology;
 
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.model.Imports.*;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -53,7 +54,7 @@ public class OntologyContainsAxiomTestCase extends TestBase {
         OWLOntology ont = getOWLOntology("testont");
         ont.getOWLOntologyManager().addAxiom(ont, axiom);
         assertTrue(ont.containsAxiom(axiom));
-        assertTrue(ont.containsAxiom(axiom, false, true));
+        assertTrue(ont.containsAxiom(axiom, EXCLUDED, true));
     }
 
     @Test
@@ -66,10 +67,10 @@ public class OntologyContainsAxiomTestCase extends TestBase {
         OWLOntology ont = getOWLOntology("testont");
         ont.getOWLOntologyManager().addAxiom(ont, axiom);
         assertTrue(ont.containsAxiom(axiom));
-        assertTrue(ont.containsAxiom(axiom, false, true));
+        assertTrue(ont.containsAxiom(axiom, EXCLUDED, true));
         assertFalse(ont.containsAxiom(axiom.getAxiomWithoutAnnotations()));
-        assertTrue(ont.containsAxiom(axiom.getAxiomWithoutAnnotations(), false,
-                true));
+        assertTrue(ont.containsAxiom(axiom.getAxiomWithoutAnnotations(),
+                EXCLUDED, true));
     }
 
     @Test
@@ -135,21 +136,21 @@ public class OntologyContainsAxiomTestCase extends TestBase {
                 Collections.singleton(in_ont2_anno));
         ont2.getOWLOntologyManager().addAxiom(ont2, ax_AsubB);
         // annoProp is in ont1 and in the import closure of ont2
-        assertTrue(ont1.containsAxiom(ax_annoProp_decl, false, false));
-        assertFalse(ont2.containsAxiom(ax_annoProp_decl, false, false));
-        assertTrue(ont2.containsAxiom(ax_annoProp_decl, true, false));
+        assertTrue(ont1.containsAxiom(ax_annoProp_decl, EXCLUDED, false));
+        assertFalse(ont2.containsAxiom(ax_annoProp_decl, EXCLUDED, false));
+        assertTrue(ont2.containsAxiom(ax_annoProp_decl, INCLUDED, false));
         // A is in ont1 and in the import closure of ont2
-        assertTrue(ont1.containsAxiom(ax_A_decl, false, false));
-        assertFalse(ont2.containsAxiom(ax_A_decl, false, false));
-        assertTrue(ont2.containsAxiom(ax_A_decl, true, false));
+        assertTrue(ont1.containsAxiom(ax_A_decl, EXCLUDED, false));
+        assertFalse(ont2.containsAxiom(ax_A_decl, EXCLUDED, false));
+        assertTrue(ont2.containsAxiom(ax_A_decl, INCLUDED, false));
         // B is in only in ont2
-        assertFalse(ont1.containsAxiom(ax_B_decl, true, false));
-        assertTrue(ont2.containsAxiom(ax_B_decl, false, false));
-        assertTrue(ont2.containsAxiom(ax_B_decl, true, false));
+        assertFalse(ont1.containsAxiom(ax_B_decl, INCLUDED, false));
+        assertTrue(ont2.containsAxiom(ax_B_decl, EXCLUDED, false));
+        assertTrue(ont2.containsAxiom(ax_B_decl, INCLUDED, false));
         // A is a subclass of B is in only in ont2
-        assertFalse(ont1.containsAxiom(ax_AsubB, true, false));
-        assertTrue(ont2.containsAxiom(ax_AsubB, false, false));
-        assertTrue(ont2.containsAxiom(ax_AsubB, true, false));
+        assertFalse(ont1.containsAxiom(ax_AsubB, INCLUDED, false));
+        assertTrue(ont2.containsAxiom(ax_AsubB, EXCLUDED, false));
+        assertTrue(ont2.containsAxiom(ax_AsubB, INCLUDED, false));
         File savedLocation1 = folder.newFile("testont1A.owl");
         FileOutputStream out1 = new FileOutputStream(savedLocation1);
         StreamDocumentTarget writer1 = new StreamDocumentTarget(out1);
@@ -164,21 +165,21 @@ public class OntologyContainsAxiomTestCase extends TestBase {
         OWLOntology ont2L = man
                 .loadOntologyFromOntologyDocument(savedLocation2);
         // annoProp is in ont1 and in the import closure of ont2
-        assertTrue(ont1L.containsAxiom(ax_annoProp_decl, false, false));
-        assertFalse(ont2L.containsAxiom(ax_annoProp_decl, false, false));
-        assertTrue(ont2L.containsAxiom(ax_annoProp_decl, true, false));
+        assertTrue(ont1L.containsAxiom(ax_annoProp_decl, EXCLUDED, false));
+        assertFalse(ont2L.containsAxiom(ax_annoProp_decl, EXCLUDED, false));
+        assertTrue(ont2L.containsAxiom(ax_annoProp_decl, INCLUDED, false));
         // A is in ont1 and in the import closure of ont2
-        assertTrue(ont1L.containsAxiom(ax_A_decl, false, false));
-        assertFalse(ont2L.containsAxiom(ax_A_decl, false, false));
-        assertTrue(ont2L.containsAxiom(ax_A_decl, true, false));
+        assertTrue(ont1L.containsAxiom(ax_A_decl, EXCLUDED, false));
+        assertFalse(ont2L.containsAxiom(ax_A_decl, EXCLUDED, false));
+        assertTrue(ont2L.containsAxiom(ax_A_decl, INCLUDED, false));
         // B is in only in ont2
-        assertFalse(ont1L.containsAxiom(ax_B_decl, true, false));
-        assertTrue(ont2L.containsAxiom(ax_B_decl, false, false));
-        assertTrue(ont2L.containsAxiom(ax_B_decl, true, false));
+        assertFalse(ont1L.containsAxiom(ax_B_decl, INCLUDED, false));
+        assertTrue(ont2L.containsAxiom(ax_B_decl, EXCLUDED, false));
+        assertTrue(ont2L.containsAxiom(ax_B_decl, INCLUDED, false));
         // A is a subclass of B is in only in ont2
-        assertFalse(ont1L.containsAxiom(ax_AsubB, true, false));
-        assertTrue(ont2L.containsAxiom(ax_AsubB, false, false));
-        assertTrue(ont2L.containsAxiom(ax_AsubB, true, false));
+        assertFalse(ont1L.containsAxiom(ax_AsubB, INCLUDED, false));
+        assertTrue(ont2L.containsAxiom(ax_AsubB, EXCLUDED, false));
+        assertTrue(ont2L.containsAxiom(ax_AsubB, INCLUDED, false));
     }
 
     @Test
@@ -226,21 +227,21 @@ public class OntologyContainsAxiomTestCase extends TestBase {
                 Collections.singleton(in_ont2_anno));
         ont2.getOWLOntologyManager().addAxiom(ont2, ax_AsubB);
         // annoProp is in ont1 and in the import closure of ont2
-        assertTrue(ont1.containsAxiom(ax_annoProp_decl, false, false));
-        assertFalse(ont2.containsAxiom(ax_annoProp_decl, false, false));
-        assertTrue(ont2.containsAxiom(ax_annoProp_decl, true, false));
+        assertTrue(ont1.containsAxiom(ax_annoProp_decl, EXCLUDED, false));
+        assertFalse(ont2.containsAxiom(ax_annoProp_decl, EXCLUDED, false));
+        assertTrue(ont2.containsAxiom(ax_annoProp_decl, INCLUDED, false));
         // A is in ont1 and in the import closure of ont2
-        assertTrue(ont1.containsAxiom(ax_A_decl, false, false));
-        assertFalse(ont2.containsAxiom(ax_A_decl, false, false));
-        assertTrue(ont2.containsAxiom(ax_A_decl, true, false));
+        assertTrue(ont1.containsAxiom(ax_A_decl, EXCLUDED, false));
+        assertFalse(ont2.containsAxiom(ax_A_decl, EXCLUDED, false));
+        assertTrue(ont2.containsAxiom(ax_A_decl, INCLUDED, false));
         // B is in only in ont2
-        assertFalse(ont1.containsAxiom(ax_B_decl, true, false));
-        assertTrue(ont2.containsAxiom(ax_B_decl, false, false));
-        assertTrue(ont2.containsAxiom(ax_B_decl, true, false));
+        assertFalse(ont1.containsAxiom(ax_B_decl, INCLUDED, false));
+        assertTrue(ont2.containsAxiom(ax_B_decl, EXCLUDED, false));
+        assertTrue(ont2.containsAxiom(ax_B_decl, INCLUDED, false));
         // A is a subclass of B is in only in ont2
-        assertFalse(ont1.containsAxiom(ax_AsubB, true, false));
-        assertTrue(ont2.containsAxiom(ax_AsubB, false, false));
-        assertTrue(ont2.containsAxiom(ax_AsubB, true, false));
+        assertFalse(ont1.containsAxiom(ax_AsubB, INCLUDED, false));
+        assertTrue(ont2.containsAxiom(ax_AsubB, EXCLUDED, false));
+        assertTrue(ont2.containsAxiom(ax_AsubB, INCLUDED, false));
         File savedLocation1 = folder.newFile("testont1B.owl");
         FileOutputStream out1 = new FileOutputStream(savedLocation1);
         StreamDocumentTarget writer1 = new StreamDocumentTarget(out1);
@@ -257,9 +258,9 @@ public class OntologyContainsAxiomTestCase extends TestBase {
                 .loadOntologyFromOntologyDocument(savedLocation2);
         for (OWLOntology importedOntology : ont2L.getImports()) {
             for (OWLAxiom importedAxiom : importedOntology.getAxioms()) {
-                assertTrue(importedOntology.containsAxiom(importedAxiom, false,
-                        false));
-                assertFalse(ont2L.containsAxiom(importedAxiom, false, false));
+                assertTrue(importedOntology.containsAxiom(importedAxiom,
+                        EXCLUDED, false));
+                assertFalse(ont2L.containsAxiom(importedAxiom, EXCLUDED, false));
             }
         }
     }

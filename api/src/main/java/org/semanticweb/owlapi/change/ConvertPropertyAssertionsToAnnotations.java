@@ -33,6 +33,7 @@ package org.semanticweb.owlapi.change;/*
 * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+import static org.semanticweb.owlapi.model.Imports.EXCLUDED;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.ArrayList;
@@ -105,7 +106,7 @@ public class ConvertPropertyAssertionsToAnnotations extends
         List<OWLNamedIndividual> punned = new ArrayList<OWLNamedIndividual>();
         for (OWLNamedIndividual ind : individuals) {
             for (OWLOntology ont : ontologies) {
-                if (ont.containsClassInSignature(ind.getIRI(), false)) {
+                if (ont.containsClassInSignature(ind.getIRI(), EXCLUDED)) {
                     punned.add(ind);
                 }
             }
@@ -130,7 +131,7 @@ public class ConvertPropertyAssertionsToAnnotations extends
             for (OWLAxiom ax : ont.getDeclarationAxioms(prop)) {
                 addChange(new RemoveAxiom(ont, ax));
             }
-            for (OWLAxiom ax : ont.getAxioms(prop, false)) {
+            for (OWLAxiom ax : ont.getAxioms(prop, EXCLUDED)) {
                 addChange(new RemoveAxiom(ont, ax));
             }
         }

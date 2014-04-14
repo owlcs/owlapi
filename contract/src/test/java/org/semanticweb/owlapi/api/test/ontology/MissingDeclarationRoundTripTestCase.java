@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.api.test.ontology;
 
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.model.Imports.EXCLUDED;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
@@ -34,13 +35,13 @@ public class MissingDeclarationRoundTripTestCase extends TestBase {
         OWLAnnotationProperty p = AnnotationProperty(IRI("http://test.org/MissingDeclaration.owl#p"));
         OWLOntology ontology = createOntology(p);
         assertTrue(ontology.containsAnnotationPropertyInSignature(p.getIRI(),
-                false));
+                EXCLUDED));
         assertEquals(1, ontology.getAxiomCount());
         RDFXMLOntologyFormat format = new RDFXMLOntologyFormat();
         format.setAddMissingTypes(false);
         ontology = loadOntologyStrict(saveOntology(ontology, format));
         assertFalse(ontology.containsAnnotationPropertyInSignature(p.getIRI(),
-                false));
+                EXCLUDED));
         assertEquals(0, ontology.getAxiomCount());
     }
 

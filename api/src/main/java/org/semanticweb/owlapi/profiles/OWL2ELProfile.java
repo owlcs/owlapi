@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.profiles;
 
+import static org.semanticweb.owlapi.model.Imports.INCLUDED;
 import static org.semanticweb.owlapi.vocab.OWL2Datatype.*;
 
 import java.util.Arrays;
@@ -355,7 +356,7 @@ public class OWL2ELProfile implements OWLProfile {
         @Override
         public Object visit(OWLSubPropertyChainOfAxiom axiom) {
             Set<OWLObjectPropertyRangeAxiom> rangeAxioms = getCurrentOntology()
-                    .getAxioms(AxiomType.OBJECT_PROPERTY_RANGE, true);
+                    .getAxioms(AxiomType.OBJECT_PROPERTY_RANGE, INCLUDED);
             if (rangeAxioms.isEmpty()) {
                 return Boolean.FALSE;
             }

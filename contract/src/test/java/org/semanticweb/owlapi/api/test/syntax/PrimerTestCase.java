@@ -1,5 +1,7 @@
 package org.semanticweb.owlapi.api.test.syntax;
 
+import static org.semanticweb.owlapi.model.Imports.EXCLUDED;
+
 import java.util.Set;
 
 import org.junit.Before;
@@ -57,7 +59,7 @@ public class PrimerTestCase extends TestBase {
         // Rectifying this to be able to assert equality
         OWLClass X = df.getOWLClass(IRI
                 .create("http://example.com/owl/families/X"));
-        Set<OWLClassAxiom> axioms = manch.getAxioms(X, false);
+        Set<OWLClassAxiom> axioms = manch.getAxioms(X, EXCLUDED);
         manch.getOWLOntologyManager().removeAxioms(manch, axioms);
         OWLClass female = df.getOWLClass(IRI
                 .create("http://example.com/owl/families/Female"));

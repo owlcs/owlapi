@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.latex.renderer;
 
+import static org.semanticweb.owlapi.model.Imports.EXCLUDED;
+
 import java.io.IOException;
 import java.io.Serializable;
 import java.io.Writer;
@@ -75,7 +77,7 @@ public class LatexRenderer extends AbstractOWLRenderer {
             }
             for (OWLClass cls : clses) {
                 writeEntitySection(cls, w);
-                for (OWLAxiom ax : sortAxioms(ontology.getAxioms(cls, false))) {
+                for (OWLAxiom ax : sortAxioms(ontology.getAxioms(cls, EXCLUDED))) {
                     renderer.setSubject(cls);
                     ax.accept(renderer);
                     w.write("\n\n");
@@ -85,7 +87,8 @@ public class LatexRenderer extends AbstractOWLRenderer {
             for (OWLObjectProperty prop : sortEntities(ontology
                     .getObjectPropertiesInSignature())) {
                 writeEntitySection(prop, w);
-                for (OWLAxiom ax : sortAxioms(ontology.getAxioms(prop, false))) {
+                for (OWLAxiom ax : sortAxioms(ontology
+                        .getAxioms(prop, EXCLUDED))) {
                     ax.accept(renderer);
                     w.write("\n\n");
                 }
@@ -94,7 +97,8 @@ public class LatexRenderer extends AbstractOWLRenderer {
             for (OWLDataProperty prop : sortEntities(ontology
                     .getDataPropertiesInSignature())) {
                 writeEntitySection(prop, w);
-                for (OWLAxiom ax : sortAxioms(ontology.getAxioms(prop, false))) {
+                for (OWLAxiom ax : sortAxioms(ontology
+                        .getAxioms(prop, EXCLUDED))) {
                     ax.accept(renderer);
                     w.write("\n\n");
                 }
@@ -103,7 +107,7 @@ public class LatexRenderer extends AbstractOWLRenderer {
             for (OWLNamedIndividual ind : sortEntities(ontology
                     .getIndividualsInSignature())) {
                 writeEntitySection(ind, w);
-                for (OWLAxiom ax : sortAxioms(ontology.getAxioms(ind, false))) {
+                for (OWLAxiom ax : sortAxioms(ontology.getAxioms(ind, EXCLUDED))) {
                     ax.accept(renderer);
                     w.write("\n\n");
                 }
@@ -112,7 +116,8 @@ public class LatexRenderer extends AbstractOWLRenderer {
             for (OWLDatatype type : sortEntities(ontology
                     .getDatatypesInSignature())) {
                 writeEntitySection(type, w);
-                for (OWLAxiom ax : sortAxioms(ontology.getAxioms(type, false))) {
+                for (OWLAxiom ax : sortAxioms(ontology
+                        .getAxioms(type, EXCLUDED))) {
                     ax.accept(renderer);
                     w.write("\n\n");
                 }

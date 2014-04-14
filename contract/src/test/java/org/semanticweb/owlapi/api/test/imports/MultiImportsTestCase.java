@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.api.test.imports;
 
 import static org.junit.Assert.assertTrue;
+import static org.semanticweb.owlapi.model.Imports.INCLUDED;
 
 import java.io.File;
 
@@ -104,6 +105,7 @@ public class MultiImportsTestCase extends TestBase {
                 .loadOntologyFromOntologyDocument(new File(ONTOLOGY_DIRECTORY,
                         "subjects.ttl"));
         assertTrue("Individuals about Bob are missing...",
-                topLevelImport.containsEntityInSignature(BOBS_INDIVIDUAL, true));
+                topLevelImport.containsEntityInSignature(BOBS_INDIVIDUAL,
+                        INCLUDED));
     }
 }

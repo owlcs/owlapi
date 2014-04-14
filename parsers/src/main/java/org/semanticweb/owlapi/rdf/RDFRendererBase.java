@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.rdf;
 
+import static org.semanticweb.owlapi.model.Imports.*;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 
 import java.io.IOException;
@@ -252,7 +253,7 @@ public abstract class RDFRendererBase {
 
     private void renderAnnotationProperties() throws IOException {
         Set<OWLAnnotationProperty> annotationProperties = ontology
-                .getAnnotationPropertiesInSignature(false);
+                .getAnnotationPropertiesInSignature(EXCLUDED);
         renderEntities(annotationProperties, ANNOTATION_PROPERTIES_BANNER_TEXT);
     }
 
@@ -351,7 +352,7 @@ public abstract class RDFRendererBase {
             OWLAnnotationSubject subject = ax.getSubject();
             if (subject instanceof IRI) {
                 IRI iri = (IRI) subject;
-                if (!ontology.containsEntityInSignature(iri, false)) {
+                if (!ontology.containsEntityInSignature(iri, EXCLUDED)) {
                     annotatedIRIs.add(iri);
                 }
             }
@@ -370,10 +371,10 @@ public abstract class RDFRendererBase {
 
     private void renderAnonymousIndividuals() throws IOException {
         for (OWLAnonymousIndividual anonInd : ontology
-                .getReferencedAnonymousIndividuals(false)) {
+                .getReferencedAnonymousIndividuals(EXCLUDED)) {
             boolean anonRoot = true;
             Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-            for (OWLAxiom ax : ontology.getReferencingAxioms(anonInd, false)) {
+            for (OWLAxiom ax : ontology.getReferencingAxioms(anonInd, EXCLUDED)) {
                 if (!(ax instanceof OWLDifferentIndividualsAxiom)) {
                     AxiomSubjectProvider subjectProvider = new AxiomSubjectProvider();
                     OWLObject obj = subjectProvider.getSubject(ax);
@@ -536,14 +537,14 @@ public abstract class RDFRendererBase {
         // Don't write out duplicates for punned annotations!
         if (!isIndividualAndClass(entity)) {
             axioms.addAll(ontology.filterAxioms(Filters.annotations,
-                    entity.getIRI(), true));
+                    entity.getIRI(), INCLUDED));
         }
         axioms.addAll(ontology.getDeclarationAxioms(entity));
         entity.accept(new OWLEntityVisitor() {
 
             @Override
             public void visit(OWLClass cls) {
-                for (OWLAxiom ax : ontology.getAxioms(cls, false)) {
+                for (OWLAxiom ax : ontology.getAxioms(cls, EXCLUDED)) {
                     if (ax instanceof OWLDisjointClassesAxiom) {
                         OWLDisjointClassesAxiom disjAx = (OWLDisjointClassesAxiom) ax;
                         if (disjAx.getClassExpressions().size() > 2) {
@@ -567,7 +568,7 @@ public abstract class RDFRendererBase {
 
             @Override
             public void visit(OWLNamedIndividual individual) {
-                for (OWLAxiom ax : ontology.getAxioms(individual, false)) {
+                for (OWLAxiom ax : ontology.getAxioms(individual, EXCLUDED)) {
                     if (ax instanceof OWLDifferentIndividualsAxiom) {
                         continue;
                     }
@@ -577,7 +578,7 @@ public abstract class RDFRendererBase {
 
             @Override
             public void visit(OWLDataProperty property) {
-                for (OWLAxiom ax : ontology.getAxioms(property, false)) {
+                for (OWLAxiom ax : ontology.getAxioms(property, EXCLUDED)) {
                     if (ax instanceof OWLDisjointDataPropertiesAxiom
                             && ((OWLDisjointDataPropertiesAxiom) ax)
                                     .getProperties().size() > 2) {
@@ -589,7 +590,7 @@ public abstract class RDFRendererBase {
 
             @Override
             public void visit(OWLObjectProperty property) {
-                for (OWLAxiom ax : ontology.getAxioms(property, false)) {
+                for (OWLAxiom ax : ontology.getAxioms(property, EXCLUDED)) {
                     if (ax instanceof OWLDisjointObjectPropertiesAxiom
                             && ((OWLDisjointObjectPropertiesAxiom) ax)
                                     .getProperties().size() > 2) {
@@ -605,12 +606,12 @@ public abstract class RDFRendererBase {
                 }
                 axioms.addAll(ontology.getAxioms(ontology
                         .getOWLOntologyManager().getOWLDataFactory()
-                        .getOWLObjectInverseOf(property), false));
+                        .getOWLObjectInverseOf(property), EXCLUDED));
             }
 
             @Override
             public void visit(OWLAnnotationProperty property) {
-                axioms.addAll(ontology.getAxioms(property, false));
+                axioms.addAll(ontology.getAxioms(property, EXCLUDED));
             }
         });
         if (axioms.isEmpty() && shouldInsertDeclarations()
@@ -624,7 +625,7 @@ public abstract class RDFRendererBase {
 
     private boolean isIndividualAndClass(OWLEntity entity) {
         return entity.isOWLNamedIndividual()
-                && ontology.containsClassInSignature(entity.getIRI(), false);
+                && ontology.containsClassInSignature(entity.getIRI(), EXCLUDED);
     }
 
     protected boolean shouldInsertDeclarations() {

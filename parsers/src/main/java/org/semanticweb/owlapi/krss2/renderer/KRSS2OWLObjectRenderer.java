@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.krss2.renderer;
 
 import static org.semanticweb.owlapi.krss2.renderer.KRSS2Vocabulary.*;
+import static org.semanticweb.owlapi.model.Imports.INCLUDED;
 import static org.semanticweb.owlapi.search.Searcher.*;
 
 import java.io.IOException;
@@ -195,7 +196,7 @@ public class KRSS2OWLObjectRenderer extends OWLObjectVisitorAdapter {
                 write(eachClass);
                 writeSpace();
                 Collection<OWLAxiom> axioms = onto.filterAxioms(
-                        Filters.subClassWithSub, eachClass, true);
+                        Filters.subClassWithSub, eachClass, INCLUDED);
                 Collection<OWLClassExpression> superClasses = sup(axioms,
                         OWLClassExpression.class);
                 flatten(superClasses);
@@ -276,7 +277,7 @@ public class KRSS2OWLObjectRenderer extends OWLObjectVisitorAdapter {
                 flatten(ranges);
             }
             Collection<OWLAxiom> axioms = onto.filterAxioms(
-                    Filters.subObjectPropertyWithSub, property, true);
+                    Filters.subObjectPropertyWithSub, property, INCLUDED);
             Collection<OWLObjectPropertyExpression> superProperties = sup(
                     axioms, OWLObjectPropertyExpression.class);
             if (!superProperties.isEmpty()) {

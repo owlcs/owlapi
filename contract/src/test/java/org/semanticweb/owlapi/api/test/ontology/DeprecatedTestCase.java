@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.api.test.ontology;
 
 import static org.junit.Assert.assertTrue;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.model.Imports.INCLUDED;
 import static org.semanticweb.owlapi.search.Searcher.annotations;
 
 import org.junit.Test;
@@ -39,12 +40,12 @@ public class DeprecatedTestCase extends AbstractFileTestCase {
         OWLOntology ont = createOntology();
         OWLClass cls = Class(getIRI("http://www.semanticweb.org/owlapi/test#ClsA"));
         for (OWLAnnotation anno : annotations(ont.filterAxioms(
-                Filters.annotations, cls.getIRI(), true))) {
+                Filters.annotations, cls.getIRI(), INCLUDED))) {
             assertTrue(anno.isDeprecatedIRIAnnotation());
         }
         OWLDataProperty prop = DataProperty(getIRI("http://www.semanticweb.org/owlapi/test#prop"));
         for (OWLAnnotation anno : annotations(ont.filterAxioms(
-                Filters.annotations, prop.getIRI(), true))) {
+                Filters.annotations, prop.getIRI(), INCLUDED))) {
             assertTrue(anno.isDeprecatedIRIAnnotation());
         }
     }

@@ -38,7 +38,7 @@ public interface OWLAxiomIndex {
      * @param entity
      *        referred entity (OWLPrimitive or property/class expression)
      * @param includeImports
-     *        true if import closure should be searched
+     *        if INCLUDED, include imports closure.
      * @param forSubPosition
      *        for sub axioms (subclass, subproperty), the value specifies
      *        whether entity should appear as sub or super entity in the axioms
@@ -49,7 +49,7 @@ public interface OWLAxiomIndex {
      */
     @Nonnull
     <T extends OWLAxiom> Set<T> getAxioms(Class<T> type, OWLObject entity,
-            boolean includeImports, boolean forSubPosition);
+            @Nonnull Imports includeImports, boolean forSubPosition);
 
     /**
      * Generic filter type for further refining search by axiom type. The
@@ -61,7 +61,7 @@ public interface OWLAxiomIndex {
      * @param key
      *        the key. Its type is generic and it is used only by the filter.
      * @param includeImportsClosure
-     *        true if import closure should be searched
+     *        if INCLUDED, include imports closure.
      * @return a collection of axioms matching the request. The axioms are
      *         collected from a set, therefore the collection contains no
      *         duplicates. It is a copy of the data.
@@ -69,7 +69,7 @@ public interface OWLAxiomIndex {
     @Nonnull
     <T extends OWLAxiom> Collection<T> filterAxioms(
             OWLAxiomSearchFilter filter, Object key,
-            boolean includeImportsClosure);
+            @Nonnull Imports includeImportsClosure);
 
     /**
      * Generic containment check type for further refining search by axiom type.
@@ -81,12 +81,12 @@ public interface OWLAxiomIndex {
      * @param key
      *        the key. Its type is generic and it is used only by the filter.
      * @param includeImportsClosure
-     *        true if import closure should be searched
+     *        if INCLUDED, include imports closure.
      * @return true if there is at least one result matching the filter.
      */
     @Nonnull
     boolean contains(OWLAxiomSearchFilter filter, Object key,
-            boolean includeImportsClosure);
+            @Nonnull Imports includeImportsClosure);
 
     /**
      * Generic search method: resutns all axioms which refer entity, are
@@ -101,7 +101,7 @@ public interface OWLAxiomIndex {
      * @param entity
      *        referred entity (OWLPrimitive or property/class expression)
      * @param includeImports
-     *        true if import closure should be searched
+     *        if INCLUDED, include imports closure.
      * @param forSubPosition
      *        for sub axioms (subclass, subproperty), the value specifies
      *        whether entity should appear as sub or super entity in the axioms
@@ -113,7 +113,7 @@ public interface OWLAxiomIndex {
     @Nonnull
     <T extends OWLAxiom> Set<T> getAxioms(Class<T> type,
             Class<? extends OWLObject> explicitClass, OWLObject entity,
-            boolean includeImports, boolean forSubPosition);
+            @Nonnull Imports includeImports, boolean forSubPosition);
 
     // ////////////////////////////////////////////////////////////////////////////////////////////
     //

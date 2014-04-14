@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.krss2.renderer;
 
 import static org.semanticweb.owlapi.krss2.renderer.KRSS2Vocabulary.*;
+import static org.semanticweb.owlapi.model.Imports.*;
 import static org.semanticweb.owlapi.search.Searcher.*;
 
 import java.io.IOException;
@@ -302,7 +303,7 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
         reset();
         for (final OWLClass eachClass : ontology1.getClassesInSignature()) {
             if (ignoreDeclarations) {
-                if (ontology1.getAxioms(eachClass, false).size() == 1
+                if (ontology1.getAxioms(eachClass, EXCLUDED).size() == 1
                         && ontology1.getDeclarationAxioms(eachClass).size() == 1) {
                     continue;
                 }
@@ -314,7 +315,7 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
                 write(eachClass);
                 writeSpace();
                 Collection<OWLAxiom> axioms = ontology1.filterAxioms(
-                        Filters.subClassWithSub, eachClass, true);
+                        Filters.subClassWithSub, eachClass, INCLUDED);
                 flatten(sup(axioms, OWLClassExpression.class),
                         KRSSVocabulary.AND);
                 writeCloseBracket();
@@ -356,7 +357,7 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
         for (final OWLObjectProperty property : sort(ontology1
                 .getObjectPropertiesInSignature())) {
             if (ignoreDeclarations) {
-                if (ontology1.getAxioms(property, false).size() == 1
+                if (ontology1.getAxioms(property, EXCLUDED).size() == 1
                         && ontology1.getDeclarationAxioms(property).size() == 1) {
                     continue;
                 }
@@ -369,7 +370,7 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
                 write(DEFINE_PRIMITIVE_ROLE);
                 write(property);
                 Collection<OWLAxiom> axioms = ontology1.filterAxioms(
-                        Filters.subObjectPropertyWithSub, property, true);
+                        Filters.subObjectPropertyWithSub, property, INCLUDED);
                 Collection<OWLObjectPropertyExpression> superProperties = sup(
                         axioms, OWLObjectPropertyExpression.class);
                 int superSize = superProperties.size();
@@ -481,7 +482,7 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
         for (final OWLNamedIndividual individual : sort(ontology1
                 .getIndividualsInSignature())) {
             if (ignoreDeclarations) {
-                if (ontology1.getAxioms(individual, false).size() == 1
+                if (ontology1.getAxioms(individual, EXCLUDED).size() == 1
                         && ontology1.getDeclarationAxioms(individual).size() == 1) {
                     continue;
                 }

@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.api.test.annotations;
 
 import static org.junit.Assert.assertTrue;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.model.Imports.EXCLUDED;
 
 import java.util.Collections;
 import java.util.Set;
@@ -45,9 +46,10 @@ public class AnnotationPropertyReferencesTestCase extends TestBase {
         OWLAnnotationAssertionAxiom ax = AnnotationAssertion(ap, subject, val);
         OWLOntology ont = getOWLOntology("Ont");
         ont.getOWLOntologyManager().addAxiom(ont, ax);
-        assertTrue(ont
-                .containsAnnotationPropertyInSignature(ap.getIRI(), false));
-        assertTrue(ont.getAnnotationPropertiesInSignature(false).contains(ap));
+        assertTrue(ont.containsAnnotationPropertyInSignature(ap.getIRI(),
+                EXCLUDED));
+        assertTrue(ont.getAnnotationPropertiesInSignature(EXCLUDED)
+                .contains(ap));
     }
 
     @Test
@@ -61,8 +63,8 @@ public class AnnotationPropertyReferencesTestCase extends TestBase {
         OWLOntology ont = getOWLOntology("Ont");
         ont.getOWLOntologyManager().addAxiom(ont, ax);
         assertTrue(ont.containsAnnotationPropertyInSignature(anno.getProperty()
-                .getIRI(), false));
-        assertTrue(ont.getAnnotationPropertiesInSignature(false).contains(
+                .getIRI(), EXCLUDED));
+        assertTrue(ont.getAnnotationPropertiesInSignature(EXCLUDED).contains(
                 anno.getProperty()));
     }
 
@@ -75,8 +77,8 @@ public class AnnotationPropertyReferencesTestCase extends TestBase {
         ont.getOWLOntologyManager().applyChange(
                 new AddOntologyAnnotation(ont, anno));
         assertTrue(ont.containsAnnotationPropertyInSignature(anno.getProperty()
-                .getIRI(), false));
-        assertTrue(ont.getAnnotationPropertiesInSignature(false).contains(
+                .getIRI(), EXCLUDED));
+        assertTrue(ont.getAnnotationPropertiesInSignature(EXCLUDED).contains(
                 anno.getProperty()));
     }
 }

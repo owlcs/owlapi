@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.debugging;
 
+import static org.semanticweb.owlapi.model.Imports.INCLUDED;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.ArrayList;
@@ -249,16 +250,16 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
         Set<OWLAxiom> expansionAxioms = new HashSet<OWLAxiom>();
         if (obj instanceof OWLClass) {
             expansionAxioms.addAll(getOWLOntology().getAxioms((OWLClass) obj,
-                    true));
+                    INCLUDED));
         } else if (obj instanceof OWLObjectProperty) {
             expansionAxioms.addAll(getOWLOntology().getAxioms(
-                    (OWLObjectProperty) obj, true));
+                    (OWLObjectProperty) obj, INCLUDED));
         } else if (obj instanceof OWLDataProperty) {
             expansionAxioms.addAll(getOWLOntology().getAxioms(
-                    (OWLDataProperty) obj, true));
+                    (OWLDataProperty) obj, INCLUDED));
         } else if (obj instanceof OWLIndividual) {
             expansionAxioms.addAll(getOWLOntology().getAxioms(
-                    (OWLIndividual) obj, true));
+                    (OWLIndividual) obj, INCLUDED));
         }
         expansionAxioms.removeAll(debuggingAxioms);
         return addMax(expansionAxioms, debuggingAxioms, limit);
@@ -281,8 +282,8 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
         Set<OWLAxiom> expansionAxioms = new HashSet<OWLAxiom>();
         // First expand by getting the defining axioms - if this doesn't
         // return any axioms, then get the axioms that reference the entity
-        expansionAxioms
-                .addAll(getOWLOntology().getReferencingAxioms(obj, true));
+        expansionAxioms.addAll(getOWLOntology().getReferencingAxioms(obj,
+                INCLUDED));
         expansionAxioms.removeAll(debuggingAxioms);
         return addMax(expansionAxioms, debuggingAxioms, limit);
     }

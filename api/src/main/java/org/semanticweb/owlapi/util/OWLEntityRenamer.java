@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
+import static org.semanticweb.owlapi.model.Imports.EXCLUDED;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.ArrayList;
@@ -129,7 +130,7 @@ public class OWLEntityRenamer {
     }
 
     private static Set<OWLAxiom> getAxioms(OWLOntology ont, OWLEntity entity) {
-        Set<OWLAxiom> axioms = ont.getReferencingAxioms(entity, false);
+        Set<OWLAxiom> axioms = ont.getReferencingAxioms(entity, EXCLUDED);
         axioms.addAll(ont.getDeclarationAxioms(entity));
         axioms.addAll(ont.getAnnotationAssertionAxioms(entity.getIRI()));
         return axioms;
@@ -138,17 +139,17 @@ public class OWLEntityRenamer {
     private Set<OWLAxiom> getAxioms(OWLOntology ont, IRI iri) {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         axioms.addAll(ont.getReferencingAxioms(owlOntologyManager
-                .getOWLDataFactory().getOWLClass(iri), false));
+                .getOWLDataFactory().getOWLClass(iri), EXCLUDED));
         axioms.addAll(ont.getReferencingAxioms(owlOntologyManager
-                .getOWLDataFactory().getOWLObjectProperty(iri), false));
+                .getOWLDataFactory().getOWLObjectProperty(iri), EXCLUDED));
         axioms.addAll(ont.getReferencingAxioms(owlOntologyManager
-                .getOWLDataFactory().getOWLDataProperty(iri), false));
+                .getOWLDataFactory().getOWLDataProperty(iri), EXCLUDED));
         axioms.addAll(ont.getReferencingAxioms(owlOntologyManager
-                .getOWLDataFactory().getOWLNamedIndividual(iri), false));
+                .getOWLDataFactory().getOWLNamedIndividual(iri), EXCLUDED));
         axioms.addAll(ont.getReferencingAxioms(owlOntologyManager
-                .getOWLDataFactory().getOWLDatatype(iri), false));
+                .getOWLDataFactory().getOWLDatatype(iri), EXCLUDED));
         axioms.addAll(ont.getReferencingAxioms(owlOntologyManager
-                .getOWLDataFactory().getOWLAnnotationProperty(iri), false));
+                .getOWLDataFactory().getOWLAnnotationProperty(iri), EXCLUDED));
         axioms.addAll(ont.getAnnotationAssertionAxioms(iri));
         return axioms;
     }

@@ -220,36 +220,36 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
 
                     @Override
                     public Set<? extends OWLAxiom> visit(OWLClass cls) {
-                        return ontology.getAxioms(cls, false);
+                        return ontology.getAxioms(cls, Imports.EXCLUDED);
                     }
 
                     @Override
                     public Set<? extends OWLAxiom> visit(
                             OWLObjectProperty property) {
-                        return ontology.getAxioms(property, false);
+                        return ontology.getAxioms(property, Imports.EXCLUDED);
                     }
 
                     @Override
                     public Set<? extends OWLAxiom> visit(
                             OWLDataProperty property) {
-                        return ontology.getAxioms(property, false);
+                        return ontology.getAxioms(property, Imports.EXCLUDED);
                     }
 
                     @Override
                     public Set<? extends OWLAxiom> visit(
                             OWLNamedIndividual individual) {
-                        return ontology.getAxioms(individual, false);
+                        return ontology.getAxioms(individual, Imports.EXCLUDED);
                     }
 
                     @Override
                     public Set<? extends OWLAxiom> visit(OWLDatatype datatype) {
-                        return ontology.getAxioms(datatype, false);
+                        return ontology.getAxioms(datatype, Imports.EXCLUDED);
                     }
 
                     @Override
                     public Set<? extends OWLAxiom> visit(
                             OWLAnnotationProperty property) {
-                        return ontology.getAxioms(property, false);
+                        return ontology.getAxioms(property, Imports.EXCLUDED);
                     }
                 }));
         Collections.sort(axs);

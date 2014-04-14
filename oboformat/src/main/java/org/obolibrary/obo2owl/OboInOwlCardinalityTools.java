@@ -1,5 +1,7 @@
 package org.obolibrary.obo2owl;
 
+import static org.semanticweb.owlapi.model.Imports.INCLUDED;
+
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -182,12 +184,12 @@ public class OboInOwlCardinalityTools {
                 OboFormatTag.TAG_IS_INVERSE_FUNCTIONAL,
                 OboFormatTag.TAG_IS_OBSELETE, OboFormatTag.TAG_CREATED_BY,
                 OboFormatTag.TAG_CREATION_DATE);
-        for (OWLClass owlClass : ontology.getClassesInSignature(true)) {
+        for (OWLClass owlClass : ontology.getClassesInSignature(INCLUDED)) {
             checkOwlEntity(owlClass, properties, ontology, reporter, handler,
                     manager);
         }
         for (OWLObjectProperty owlProperty : ontology
-                .getObjectPropertiesInSignature(true)) {
+                .getObjectPropertiesInSignature(INCLUDED)) {
             checkOwlEntity(owlProperty, properties, ontology, reporter,
                     handler, manager);
         }

@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.profiles;
 
+import static org.semanticweb.owlapi.model.Imports.*;
+
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -334,12 +336,12 @@ public class OWL2DLProfile implements OWLProfile {
                 }
             }
             if (!desc.isBuiltIn()
-                    && !getCurrentOntology().isDeclared(desc, true)) {
+                    && !getCurrentOntology().isDeclared(desc, INCLUDED)) {
                 profileViolations.add(new UseOfUndeclaredClass(
                         getCurrentOntology(), getCurrentAxiom(), desc));
             }
             if (getCurrentOntology().containsDatatypeInSignature(desc.getIRI(),
-                    false)) {
+                    EXCLUDED)) {
                 profileViolations
                         .add(new DatatypeIRIAlsoUsedAsClassIRI(
                                 getCurrentOntology(), getCurrentAxiom(), desc
@@ -373,13 +375,13 @@ public class OWL2DLProfile implements OWLProfile {
                 // if (!datatype.isTopDatatype() && datatype.isBuiltIn()
                 // && getCurrentOntology().isDeclared(datatype, true)) {
                 if (!datatype.isTopDatatype() && !datatype.isBuiltIn()
-                        && !getCurrentOntology().isDeclared(datatype, true)) {
+                        && !getCurrentOntology().isDeclared(datatype, INCLUDED)) {
                     profileViolations.add(new UseOfUndeclaredDatatype(
                             getCurrentOntology(), getCurrentAxiom(), datatype));
                 }
             }
             if (getCurrentOntology().containsClassInSignature(
-                    datatype.getIRI(), true)) {
+                    datatype.getIRI(), INCLUDED)) {
                 profileViolations.add(new DatatypeIRIAlsoUsedAsClassIRI(
                         getCurrentOntology(), getCurrentAxiom(), datatype
                                 .getIRI()));
@@ -435,17 +437,17 @@ public class OWL2DLProfile implements OWLProfile {
                 }
             }
             if (!property.isBuiltIn()
-                    && !getCurrentOntology().isDeclared(property, true)) {
+                    && !getCurrentOntology().isDeclared(property, INCLUDED)) {
                 profileViolations.add(new UseOfUndeclaredObjectProperty(
                         getCurrentOntology(), getCurrentAxiom(), property));
             }
             if (getCurrentOntology().containsDataPropertyInSignature(
-                    property.getIRI(), true)) {
+                    property.getIRI(), INCLUDED)) {
                 profileViolations.add(new IllegalPunning(getCurrentOntology(),
                         getCurrentAxiom(), property.getIRI()));
             }
             if (getCurrentOntology().containsAnnotationPropertyInSignature(
-                    property.getIRI(), true)) {
+                    property.getIRI(), INCLUDED)) {
                 profileViolations.add(new IllegalPunning(getCurrentOntology(),
                         getCurrentAxiom(), property.getIRI()));
             }
@@ -464,17 +466,17 @@ public class OWL2DLProfile implements OWLProfile {
                 }
             }
             if (!property.isBuiltIn()
-                    && !getCurrentOntology().isDeclared(property, true)) {
+                    && !getCurrentOntology().isDeclared(property, INCLUDED)) {
                 profileViolations.add(new UseOfUndeclaredDataProperty(
                         getCurrentOntology(), getCurrentAxiom(), property));
             }
             if (getCurrentOntology().containsObjectPropertyInSignature(
-                    property.getIRI(), true)) {
+                    property.getIRI(), INCLUDED)) {
                 profileViolations.add(new IllegalPunning(getCurrentOntology(),
                         getCurrentAxiom(), property.getIRI()));
             }
             if (getCurrentOntology().containsAnnotationPropertyInSignature(
-                    property.getIRI(), true)) {
+                    property.getIRI(), INCLUDED)) {
                 profileViolations.add(new IllegalPunning(getCurrentOntology(),
                         getCurrentAxiom(), property.getIRI()));
             }
@@ -492,18 +494,18 @@ public class OWL2DLProfile implements OWLProfile {
                 }
             }
             if (!property.isBuiltIn()
-                    && !getCurrentOntology().isDeclared(property, true)) {
+                    && !getCurrentOntology().isDeclared(property, INCLUDED)) {
                 profileViolations.add(new UseOfUndeclaredAnnotationProperty(
                         getCurrentOntology(), getCurrentAxiom(),
                         getCurrentAnnotation(), property));
             }
             if (getCurrentOntology().containsObjectPropertyInSignature(
-                    property.getIRI(), true)) {
+                    property.getIRI(), INCLUDED)) {
                 profileViolations.add(new IllegalPunning(getCurrentOntology(),
                         getCurrentAxiom(), property.getIRI()));
             }
             if (getCurrentOntology().containsDataPropertyInSignature(
-                    property.getIRI(), true)) {
+                    property.getIRI(), INCLUDED)) {
                 profileViolations.add(new IllegalPunning(getCurrentOntology(),
                         getCurrentAxiom(), property.getIRI()));
             }

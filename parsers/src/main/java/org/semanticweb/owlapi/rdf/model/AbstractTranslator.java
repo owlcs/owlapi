@@ -1065,7 +1065,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
         if (!currentIndividuals.contains(ind)) {
             currentIndividuals.add(ind);
             if (ind.isAnonymous()) {
-                for (OWLAxiom ax : ontology.getAxioms(ind, false)) {
+                for (OWLAxiom ax : ontology.getAxioms(ind, Imports.EXCLUDED)) {
                     if (root == null || !root.equals(ax)) {
                         ax.accept(this);
                     }
@@ -1084,7 +1084,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
         if (!currentIndividuals.contains(ind)) {
             currentIndividuals.add(ind);
             if (ind.isAnonymous()) {
-                for (OWLAxiom ax : ontology.getAxioms(ind, false)) {
+                for (OWLAxiom ax : ontology.getAxioms(ind, Imports.EXCLUDED)) {
                     ax.accept(this);
                 }
                 for (OWLAnnotationAssertionAxiom ax : ontology

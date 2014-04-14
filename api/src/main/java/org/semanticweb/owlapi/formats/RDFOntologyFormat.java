@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.formats;
 
+import static org.semanticweb.owlapi.model.Imports.INCLUDED;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -71,7 +73,7 @@ public abstract class RDFOntologyFormat extends PrefixOWLOntologyFormat {
         if (!ontology.containsEntityInSignature(entity)) {
             return false;
         }
-        if (ontology.isDeclared(entity, true)) {
+        if (ontology.isDeclared(entity, INCLUDED)) {
             return false;
         }
         Set<OWLOntology> transitiveImports = ontology.getImports();

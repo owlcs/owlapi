@@ -202,51 +202,42 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
      * whose type is in the AxiomType::TBoxAxiomTypes.
      * 
      * @param includeImportsClosure
-     *        if {@code true} then axioms of the specified type will also be
-     *        retrieved from the imports closure of this ontology, if
-     *        {@code false} then axioms of the specified type will only be
-     *        retrieved from this ontology.
+     *        if INCLUDED, the imports closure is included.
      * @return A set containing the axioms which are of the specified type. The
      *         set that is returned is a copy of the axioms in the ontology (and
      *         its imports closure) - it will not be updated if the ontology
      *         changes.
      */
     @Nonnull
-    Set<OWLAxiom> getTBoxAxioms(boolean includeImportsClosure);
+    Set<OWLAxiom> getTBoxAxioms(@Nonnull Imports includeImportsClosure);
 
     /**
      * Gets the axioms that form the ABox for this ontology, i.e., the ones
      * whose type is in the AxiomType::ABoxAxiomTypes.
      * 
      * @param includeImportsClosure
-     *        if {@code true} then axioms of the specified type will also be
-     *        retrieved from the imports closure of this ontology, if
-     *        {@code false} then axioms of the specified type will only be
-     *        retrieved from this ontology.
+     *        if INCLUDED, the imports closure is included.
      * @return A set containing the axioms which are of the specified type. The
      *         set that is returned is a copy of the axioms in the ontology (and
      *         its imports closure) - it will not be updated if the ontology
      *         changes.
      */
     @Nonnull
-    Set<OWLAxiom> getABoxAxioms(boolean includeImportsClosure);
+    Set<OWLAxiom> getABoxAxioms(@Nonnull Imports includeImportsClosure);
 
     /**
      * Gets the axioms that form the RBox for this ontology, i.e., the ones
      * whose type is in the AxiomType::RBoxAxiomTypes.
      * 
      * @param includeImportsClosure
-     *        if {@code true} then axioms of the specified type will also be
-     *        retrieved from the imports closure of this ontology, if
-     *        {@code false} then axioms of the specified type will only be
-     *        retrieved from this ontology.
+     *        if INCLUDED, the imports closure is included.
      * @return A set containing the axioms which are of the specified type. The
      *         set that is returned is a copy of the axioms in the ontology (and
      *         its imports closure) - it will not be updated if the ontology
      *         changes.
      */
     @Nonnull
-    Set<OWLAxiom> getRBoxAxioms(boolean includeImportsClosure);
+    Set<OWLAxiom> getRBoxAxioms(@Nonnull Imports includeImportsClosure);
 
     /**
      * Gets the set of general axioms in this ontology. This includes:
@@ -299,9 +290,7 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
      * >The OWL 2 Structural Specification</a>)
      * 
      * @param includeImportsClosure
-     *        Specifies whether or not the returned set of entities should
-     *        represent the signature of just this ontology, or the signature of
-     *        the imports closure of this ontology.
+     *        if INCLUDED, the imports closure is included.
      * @return A set of {@code OWLEntity} objects. The set that is returned is a
      *         copy - it will not be updated if the ontology changes. It is
      *         therefore safe to apply changes to this ontology while iterating
@@ -312,7 +301,7 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
      * @see #getIndividualsInSignature()
      */
     @Nonnull
-    Set<OWLEntity> getSignature(boolean includeImportsClosure);
+    Set<OWLEntity> getSignature(@Nonnull Imports includeImportsClosure);
 
     /**
      * Determines if this ontology declares an entity i.e. it contains a
@@ -332,11 +321,10 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
      * @param owlEntity
      *        The entity to be tested for
      * @param includeImportsClosure
-     *        {@code true} if the imports closure of this ontology should be
-     *        examined, {@code false} if just this ontology should be examined.
+     *        if INCLUDED, the imports closure is included.
      * @return {@code true} if the ontology or its imports closure contains a
      *         declaration for the specified entity, otherwise {@code false}.
      */
     boolean isDeclared(@Nonnull OWLEntity owlEntity,
-            boolean includeImportsClosure);
+            @Nonnull Imports includeImportsClosure);
 }

@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.explanation.ordering;
 
+import static org.semanticweb.owlapi.model.Imports.EXCLUDED;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.Serializable;
@@ -150,20 +151,20 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
     private Set<OWLAxiom> getTargetAxioms(@Nonnull OWLEntity currentTarget) {
         Set<OWLAxiom> targetAxioms = new HashSet<OWLAxiom>();
         if (currentTarget.isOWLClass()) {
-            targetAxioms
-                    .addAll(ont.getAxioms(currentTarget.asOWLClass(), false));
+            targetAxioms.addAll(ont.getAxioms(currentTarget.asOWLClass(),
+                    EXCLUDED));
         }
         if (currentTarget.isOWLObjectProperty()) {
             targetAxioms.addAll(ont.getAxioms(
-                    currentTarget.asOWLObjectProperty(), false));
+                    currentTarget.asOWLObjectProperty(), EXCLUDED));
         }
         if (currentTarget.isOWLDataProperty()) {
             targetAxioms.addAll(ont.getAxioms(
-                    currentTarget.asOWLDataProperty(), false));
+                    currentTarget.asOWLDataProperty(), EXCLUDED));
         }
         if (currentTarget.isOWLNamedIndividual()) {
             targetAxioms.addAll(ont.getAxioms(
-                    currentTarget.asOWLNamedIndividual(), false));
+                    currentTarget.asOWLNamedIndividual(), EXCLUDED));
         }
         return targetAxioms;
     }
@@ -182,13 +183,13 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
                 tree.getUserObjectPathToRoot());
         Set<? extends OWLAxiom> axioms = Collections.emptySet();
         if (entity.isOWLClass()) {
-            axioms = ont.getAxioms(entity.asOWLClass(), false);
+            axioms = ont.getAxioms(entity.asOWLClass(), EXCLUDED);
         } else if (entity.isOWLObjectProperty()) {
-            axioms = ont.getAxioms(entity.asOWLObjectProperty(), false);
+            axioms = ont.getAxioms(entity.asOWLObjectProperty(), EXCLUDED);
         } else if (entity.isOWLDataProperty()) {
-            axioms = ont.getAxioms(entity.asOWLDataProperty(), false);
+            axioms = ont.getAxioms(entity.asOWLDataProperty(), EXCLUDED);
         } else if (entity.isOWLNamedIndividual()) {
-            axioms = ont.getAxioms(entity.asOWLNamedIndividual(), false);
+            axioms = ont.getAxioms(entity.asOWLNamedIndividual(), EXCLUDED);
         }
         for (OWLAxiom ax : axioms) {
             if (passTypes.contains(ax.getAxiomType())) {

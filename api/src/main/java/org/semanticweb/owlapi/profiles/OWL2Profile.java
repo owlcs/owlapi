@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.profiles;
 
+import static org.semanticweb.owlapi.model.Imports.INCLUDED;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -166,7 +168,7 @@ public class OWL2Profile implements OWLProfile {
         @Override
         public Object visit(OWLDatatypeDefinitionAxiom axiom) {
             // The datatype MUST be declared
-            if (!getCurrentOntology().isDeclared(axiom.getDatatype(), true)) {
+            if (!getCurrentOntology().isDeclared(axiom.getDatatype(), INCLUDED)) {
                 profileViolations.add(new UseOfUndeclaredDatatype(
                         getCurrentOntology(), axiom, axiom.getDatatype()));
             }

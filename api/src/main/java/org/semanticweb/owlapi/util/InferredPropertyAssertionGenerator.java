@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
+import static org.semanticweb.owlapi.model.Imports.INCLUDED;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Set;
@@ -41,7 +42,7 @@ public class InferredPropertyAssertionGenerator extends
         checkNotNull(result, "result cannot be null");
         checkNotNull(entity, "entity cannot be null");
         for (OWLObjectProperty prop : reasoner.getRootOntology()
-                .getObjectPropertiesInSignature(true)) {
+                .getObjectPropertiesInSignature(INCLUDED)) {
             for (OWLNamedIndividual value : reasoner.getObjectPropertyValues(
                     entity, prop).getFlattened()) {
                 result.add(dataFactory.getOWLObjectPropertyAssertionAxiom(prop,
@@ -49,7 +50,7 @@ public class InferredPropertyAssertionGenerator extends
             }
         }
         for (OWLDataProperty prop : reasoner.getRootOntology()
-                .getDataPropertiesInSignature(true)) {
+                .getDataPropertiesInSignature(INCLUDED)) {
             for (OWLLiteral value : reasoner
                     .getDataPropertyValues(entity, prop)) {
                 result.add(dataFactory.getOWLDataPropertyAssertionAxiom(prop,

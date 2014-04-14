@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
+import static org.semanticweb.owlapi.model.Imports.EXCLUDED;
 import static org.semanticweb.owlapi.util.DLExpressivityChecker.Construct.*;
 
 import java.util.ArrayList;
@@ -259,7 +260,8 @@ public class DLExpressivityChecker extends OWLObjectVisitorAdapter {
             return false;
         } else {
             for (OWLOntology ont : ontologies) {
-                if (!ont.getAxioms((OWLClass) classExpression, false).isEmpty()) {
+                if (!ont.getAxioms((OWLClass) classExpression, EXCLUDED)
+                        .isEmpty()) {
                     return false;
                 }
             }

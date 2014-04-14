@@ -1,5 +1,6 @@
 package org.obolibrary.obo2owl;
 
+import static org.semanticweb.owlapi.model.Imports.INCLUDED;
 import static org.semanticweb.owlapi.search.Searcher.annotations;
 
 import java.io.UnsupportedEncodingException;
@@ -1570,7 +1571,7 @@ public class OWLAPIOwl2Obo {
             return;
         }
         Collection<OWLAxiom> set = owlOntology.filterAxioms(
-                Filters.annotations, entity.getIRI(), true);
+                Filters.annotations, entity.getIRI(), INCLUDED);
         if (set.isEmpty()) {
             return;
         }
@@ -1710,7 +1711,7 @@ public class OWLAPIOwl2Obo {
                 || obj instanceof OWLAnnotationProperty) {
             OWLEntity entity = (OWLEntity) obj;
             for (OWLAxiom a : ont.filterAxioms(Filters.annotations,
-                    entity.getIRI(), true)) {
+                    entity.getIRI(), INCLUDED)) {
                 OWLAnnotationAssertionAxiom ax = (OWLAnnotationAssertionAxiom) a;
                 String propId = getIdentifierFromObject(ax.getProperty()
                         .getIRI(), ont);

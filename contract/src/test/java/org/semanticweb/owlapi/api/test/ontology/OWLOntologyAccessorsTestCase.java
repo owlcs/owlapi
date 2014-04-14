@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.api.test.ontology;
 
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.model.Imports.*;
 import static org.semanticweb.owlapi.search.Filters.*;
 import static org.semanticweb.owlapi.search.Searcher.*;
 
@@ -80,11 +81,12 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
             assertEquals(ont.getLogicalAxiomCount(), axioms.length);
             AxiomType<?> axiomType = ax.getAxiomType();
             assertTrue(ont.getAxioms(axiomType).contains(ax));
-            assertTrue(ont.getAxioms(axiomType, true).contains(ax));
+            assertTrue(ont.getAxioms(axiomType, INCLUDED).contains(ax));
             assertEquals(ont.getAxiomCount(axiomType), axioms.length);
-            assertEquals(ont.getAxiomCount(axiomType, true), axioms.length);
+            assertEquals(ont.getAxiomCount(axiomType, INCLUDED), axioms.length);
             for (OWLEntity entity : ax.getSignature()) {
-                assertTrue(ont.getReferencingAxioms(entity, false).contains(ax));
+                assertTrue(ont.getReferencingAxioms(entity, EXCLUDED).contains(
+                        ax));
                 assertTrue(ont.getSignature().contains(entity));
             }
         }
@@ -105,10 +107,10 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
         performAxiomTests(ont, ax, ax2);
         assertTrue(ont.getSubClassAxiomsForSubClass(clsA).contains(ax));
         assertTrue(ont.getSubClassAxiomsForSuperClass(clsB).contains(ax));
-        assertTrue(ont.getAxioms(clsA, false).contains(ax));
-        assertTrue(sup(ont.filterAxioms(subClassWithSub, clsA, true)).contains(
-                clsB));
-        assertTrue(sub(ont.filterAxioms(subClassWithSuper, clsB, true))
+        assertTrue(ont.getAxioms(clsA, EXCLUDED).contains(ax));
+        assertTrue(sup(ont.filterAxioms(subClassWithSub, clsA, INCLUDED))
+                .contains(clsB));
+        assertTrue(sub(ont.filterAxioms(subClassWithSuper, clsB, INCLUDED))
                 .contains(clsA));
     }
 
@@ -128,9 +130,9 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
         assertTrue(ont.getEquivalentClassesAxioms(clsA).contains(ax));
         assertTrue(ont.getEquivalentClassesAxioms(clsB).contains(ax));
         assertTrue(ont.getEquivalentClassesAxioms(clsC).contains(ax));
-        assertTrue(ont.getAxioms(clsA, false).contains(ax));
-        assertTrue(ont.getAxioms(clsB, false).contains(ax));
-        assertTrue(ont.getAxioms(clsC, false).contains(ax));
+        assertTrue(ont.getAxioms(clsA, EXCLUDED).contains(ax));
+        assertTrue(ont.getAxioms(clsB, EXCLUDED).contains(ax));
+        assertTrue(ont.getAxioms(clsC, EXCLUDED).contains(ax));
     }
 
     @Test
@@ -149,9 +151,9 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
         assertTrue(ont.getDisjointClassesAxioms(clsA).contains(ax));
         assertTrue(ont.getDisjointClassesAxioms(clsB).contains(ax));
         assertTrue(ont.getDisjointClassesAxioms(clsC).contains(ax));
-        assertTrue(ont.getAxioms(clsA, false).contains(ax));
-        assertTrue(ont.getAxioms(clsB, false).contains(ax));
-        assertTrue(ont.getAxioms(clsC, false).contains(ax));
+        assertTrue(ont.getAxioms(clsA, EXCLUDED).contains(ax));
+        assertTrue(ont.getAxioms(clsB, EXCLUDED).contains(ax));
+        assertTrue(ont.getAxioms(clsC, EXCLUDED).contains(ax));
     }
 
     @Test
@@ -167,7 +169,7 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
                 .contains(ax));
         assertTrue(ont.getObjectSubPropertyAxiomsForSuperProperty(propQ)
                 .contains(ax));
-        assertTrue(ont.getAxioms(propP, false).contains(ax));
+        assertTrue(ont.getAxioms(propP, EXCLUDED).contains(ax));
     }
 
     @Test
@@ -184,9 +186,9 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
         assertTrue(ont.getEquivalentObjectPropertiesAxioms(propP).contains(ax));
         assertTrue(ont.getEquivalentObjectPropertiesAxioms(propQ).contains(ax));
         assertTrue(ont.getEquivalentObjectPropertiesAxioms(propR).contains(ax));
-        assertTrue(ont.getAxioms(propP, false).contains(ax));
-        assertTrue(ont.getAxioms(propQ, false).contains(ax));
-        assertTrue(ont.getAxioms(propR, false).contains(ax));
+        assertTrue(ont.getAxioms(propP, EXCLUDED).contains(ax));
+        assertTrue(ont.getAxioms(propQ, EXCLUDED).contains(ax));
+        assertTrue(ont.getAxioms(propR, EXCLUDED).contains(ax));
     }
 
     @Test
@@ -203,9 +205,9 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
         assertTrue(ont.getDisjointObjectPropertiesAxioms(propP).contains(ax));
         assertTrue(ont.getDisjointObjectPropertiesAxioms(propQ).contains(ax));
         assertTrue(ont.getDisjointObjectPropertiesAxioms(propR).contains(ax));
-        assertTrue(ont.getAxioms(propP, false).contains(ax));
-        assertTrue(ont.getAxioms(propQ, false).contains(ax));
-        assertTrue(ont.getAxioms(propR, false).contains(ax));
+        assertTrue(ont.getAxioms(propP, EXCLUDED).contains(ax));
+        assertTrue(ont.getAxioms(propQ, EXCLUDED).contains(ax));
+        assertTrue(ont.getAxioms(propR, EXCLUDED).contains(ax));
     }
 
     @Test
@@ -218,7 +220,7 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
         man.addAxiom(ont, ax);
         performAxiomTests(ont, ax);
         assertTrue(ont.getObjectPropertyDomainAxioms(propP).contains(ax));
-        assertTrue(ont.getAxioms(propP, false).contains(ax));
+        assertTrue(ont.getAxioms(propP, EXCLUDED).contains(ax));
         assertTrue(domain(ont.getObjectPropertyDomainAxioms(propP)).contains(
                 clsA));
     }
@@ -233,7 +235,7 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
         man.addAxiom(ont, ax);
         performAxiomTests(ont, ax);
         assertTrue(ont.getObjectPropertyRangeAxioms(propP).contains(ax));
-        assertTrue(ont.getAxioms(propP, false).contains(ax));
+        assertTrue(ont.getAxioms(propP, EXCLUDED).contains(ax));
         assertTrue(range(ont.getObjectPropertyRangeAxioms(propP))
                 .contains(clsA));
     }
@@ -247,7 +249,7 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
         man.addAxiom(ont, ax);
         performAxiomTests(ont, ax);
         assertTrue(ont.getFunctionalObjectPropertyAxioms(propP).contains(ax));
-        assertTrue(ont.getAxioms(propP, false).contains(ax));
+        assertTrue(ont.getAxioms(propP, EXCLUDED).contains(ax));
         assertTrue(isFunctional(ont, propP));
     }
 
@@ -261,7 +263,7 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
         performAxiomTests(ont, ax);
         assertTrue(ont.getInverseFunctionalObjectPropertyAxioms(propP)
                 .contains(ax));
-        assertTrue(ont.getAxioms(propP, false).contains(ax));
+        assertTrue(ont.getAxioms(propP, EXCLUDED).contains(ax));
         assertTrue(isInverseFunctional(ont, propP));
     }
 
@@ -274,7 +276,7 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
         man.addAxiom(ont, ax);
         performAxiomTests(ont, ax);
         assertTrue(ont.getTransitiveObjectPropertyAxioms(propP).contains(ax));
-        assertTrue(ont.getAxioms(propP, false).contains(ax));
+        assertTrue(ont.getAxioms(propP, EXCLUDED).contains(ax));
         assertTrue(isTransitive(ont, propP));
     }
 
@@ -287,7 +289,7 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
         man.addAxiom(ont, ax);
         performAxiomTests(ont, ax);
         assertTrue(ont.getSymmetricObjectPropertyAxioms(propP).contains(ax));
-        assertTrue(ont.getAxioms(propP, false).contains(ax));
+        assertTrue(ont.getAxioms(propP, EXCLUDED).contains(ax));
         assertTrue(isSymmetric(ont, propP));
     }
 
@@ -300,7 +302,7 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
         man.addAxiom(ont, ax);
         performAxiomTests(ont, ax);
         assertTrue(ont.getAsymmetricObjectPropertyAxioms(propP).contains(ax));
-        assertTrue(ont.getAxioms(propP, false).contains(ax));
+        assertTrue(ont.getAxioms(propP, EXCLUDED).contains(ax));
         assertTrue(isAsymmetric(ont, propP));
     }
 
@@ -313,7 +315,7 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
         man.addAxiom(ont, ax);
         performAxiomTests(ont, ax);
         assertTrue(ont.getReflexiveObjectPropertyAxioms(propP).contains(ax));
-        assertTrue(ont.getAxioms(propP, false).contains(ax));
+        assertTrue(ont.getAxioms(propP, EXCLUDED).contains(ax));
         assertTrue(isReflexive(ont, propP));
     }
 
@@ -326,7 +328,7 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
         man.addAxiom(ont, ax);
         performAxiomTests(ont, ax);
         assertTrue(ont.getIrreflexiveObjectPropertyAxioms(propP).contains(ax));
-        assertTrue(ont.getAxioms(propP, false).contains(ax));
+        assertTrue(ont.getAxioms(propP, EXCLUDED).contains(ax));
         assertTrue(isIrreflexive(ont, propP));
     }
 
@@ -343,7 +345,7 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
                 ax));
         assertTrue(ont.getDataSubPropertyAxiomsForSuperProperty(propQ)
                 .contains(ax));
-        assertTrue(ont.getAxioms(propP, false).contains(ax));
+        assertTrue(ont.getAxioms(propP, EXCLUDED).contains(ax));
     }
 
     @Test
@@ -360,9 +362,9 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
         assertTrue(ont.getEquivalentDataPropertiesAxioms(propP).contains(ax));
         assertTrue(ont.getEquivalentDataPropertiesAxioms(propQ).contains(ax));
         assertTrue(ont.getEquivalentDataPropertiesAxioms(propR).contains(ax));
-        assertTrue(ont.getAxioms(propP, false).contains(ax));
-        assertTrue(ont.getAxioms(propQ, false).contains(ax));
-        assertTrue(ont.getAxioms(propR, false).contains(ax));
+        assertTrue(ont.getAxioms(propP, EXCLUDED).contains(ax));
+        assertTrue(ont.getAxioms(propQ, EXCLUDED).contains(ax));
+        assertTrue(ont.getAxioms(propR, EXCLUDED).contains(ax));
     }
 
     @Test
@@ -379,9 +381,9 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
         assertTrue(ont.getDisjointDataPropertiesAxioms(propP).contains(ax));
         assertTrue(ont.getDisjointDataPropertiesAxioms(propQ).contains(ax));
         assertTrue(ont.getDisjointDataPropertiesAxioms(propR).contains(ax));
-        assertTrue(ont.getAxioms(propP, false).contains(ax));
-        assertTrue(ont.getAxioms(propQ, false).contains(ax));
-        assertTrue(ont.getAxioms(propR, false).contains(ax));
+        assertTrue(ont.getAxioms(propP, EXCLUDED).contains(ax));
+        assertTrue(ont.getAxioms(propQ, EXCLUDED).contains(ax));
+        assertTrue(ont.getAxioms(propR, EXCLUDED).contains(ax));
     }
 
     @Test
@@ -394,7 +396,7 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
         man.addAxiom(ont, ax);
         performAxiomTests(ont, ax);
         assertTrue(ont.getDataPropertyDomainAxioms(propP).contains(ax));
-        assertTrue(ont.getAxioms(propP, false).contains(ax));
+        assertTrue(ont.getAxioms(propP, EXCLUDED).contains(ax));
         assertTrue(domain(ont.getDataPropertyDomainAxioms(propP))
                 .contains(clsA));
     }
@@ -409,7 +411,7 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
         man.addAxiom(ont, ax);
         performAxiomTests(ont, ax);
         assertTrue(ont.getDataPropertyRangeAxioms(propP).contains(ax));
-        assertTrue(ont.getAxioms(propP, false).contains(ax));
+        assertTrue(ont.getAxioms(propP, EXCLUDED).contains(ax));
         assertTrue(range(ont.getDataPropertyRangeAxioms(propP)).contains(dt));
     }
 
@@ -422,7 +424,7 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
         man.addAxiom(ont, ax);
         performAxiomTests(ont, ax);
         assertTrue(ont.getFunctionalDataPropertyAxioms(propP).contains(ax));
-        assertTrue(ont.getAxioms(propP, false).contains(ax));
+        assertTrue(ont.getAxioms(propP, EXCLUDED).contains(ax));
         assertTrue(isFunctional(ont, propP));
     }
 
@@ -437,7 +439,7 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
         performAxiomTests(ont, ax);
         assertTrue(ont.getClassAssertionAxioms(indA).contains(ax));
         assertTrue(ont.getClassAssertionAxioms(clsA).contains(ax));
-        assertTrue(ont.getAxioms(indA, false).contains(ax));
+        assertTrue(ont.getAxioms(indA, EXCLUDED).contains(ax));
         assertTrue(instances(ont.getClassAssertionAxioms(indA)).contains(indA));
         assertTrue(types(ont.getClassAssertionAxioms(indA)).contains(clsA));
     }
@@ -454,7 +456,7 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
         man.addAxiom(ont, ax);
         performAxiomTests(ont, ax);
         assertTrue(ont.getObjectPropertyAssertionAxioms(indA).contains(ax));
-        assertTrue(ont.getAxioms(indA, false).contains(ax));
+        assertTrue(ont.getAxioms(indA, EXCLUDED).contains(ax));
     }
 
     @Test
@@ -470,7 +472,7 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
         performAxiomTests(ont, ax);
         assertTrue(ont.getNegativeObjectPropertyAssertionAxioms(indA).contains(
                 ax));
-        assertTrue(ont.getAxioms(indA, false).contains(ax));
+        assertTrue(ont.getAxioms(indA, EXCLUDED).contains(ax));
     }
 
     @Test
@@ -485,7 +487,7 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
         man.addAxiom(ont, ax);
         performAxiomTests(ont, ax);
         assertTrue(ont.getDataPropertyAssertionAxioms(indA).contains(ax));
-        assertTrue(ont.getAxioms(indA, false).contains(ax));
+        assertTrue(ont.getAxioms(indA, EXCLUDED).contains(ax));
     }
 
     @Test
@@ -501,7 +503,7 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
         performAxiomTests(ont, ax);
         assertTrue(ont.getNegativeDataPropertyAssertionAxioms(indA)
                 .contains(ax));
-        assertTrue(ont.getAxioms(indA, false).contains(ax));
+        assertTrue(ont.getAxioms(indA, EXCLUDED).contains(ax));
     }
 
     @Test
@@ -517,7 +519,7 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
         assertTrue(ont.getSameIndividualAxioms(indA).contains(ax));
         assertTrue(ont.getSameIndividualAxioms(indB).contains(ax));
         assertTrue(ont.getSameIndividualAxioms(indC).contains(ax));
-        assertTrue(ont.getAxioms(indA, false).contains(ax));
+        assertTrue(ont.getAxioms(indA, EXCLUDED).contains(ax));
         Collection<OWLObject> equivalent = equivalent(ont
                 .getSameIndividualAxioms(indA));
         assertTrue(equivalent.contains(indB));
@@ -537,7 +539,7 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
         assertTrue(ont.getDifferentIndividualAxioms(indA).contains(ax));
         assertTrue(ont.getDifferentIndividualAxioms(indB).contains(ax));
         assertTrue(ont.getDifferentIndividualAxioms(indC).contains(ax));
-        assertTrue(ont.getAxioms(indA, false).contains(ax));
+        assertTrue(ont.getAxioms(indA, EXCLUDED).contains(ax));
         Collection<OWLObject> different = different(ont
                 .getDifferentIndividualAxioms(indA));
         assertTrue(different.contains(indB));
