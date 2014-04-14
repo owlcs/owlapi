@@ -85,6 +85,7 @@ import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.util.OWLAxiomFilter;
+import org.semanticweb.owlapi.util.OWLObjectComparator;
 import org.semanticweb.owlapi.util.OntologyIRIShortFormProvider;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 
@@ -174,6 +175,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
     };
     /** The rendering director. */
     private RenderingDirector renderingDirector = new DefaultRenderingDirector();
+    private final OWLObjectComparator owlObjectComparator;
 
     /**
      * Instantiates a new manchester owl syntax frame renderer.
@@ -204,6 +206,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
             Writer writer, ShortFormProvider entityShortFormProvider) {
         super(writer, entityShortFormProvider);
         this.ontologies = new LinkedHashSet<OWLOntology>(ontologies);
+        owlObjectComparator = new OWLObjectComparator(entityShortFormProvider);
     }
 
     /**
@@ -581,8 +584,8 @@ public class ManchesterOWLSyntaxFrameRenderer extends
                 for (OWLDisjointUnionAxiom ax : ontology
                         .getDisjointUnionAxioms(cls)) {
                     if (isDisplayed(ax)) {
-                        Set<OWLClassExpression> allDisjointClasses = new TreeSet<OWLClassExpression>(
-                                ax.getClassExpressions());
+                        Collection<OWLClassExpression> allDisjointClasses = sortedCollection(ax
+                                .getClassExpressions());
                         axioms.add(ax);
                         writeSection(DISJOINT_UNION_OF, allDisjointClasses,
                                 ", ", false, ontology);
@@ -615,7 +618,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
                             .getDisjointClassesAxioms(cls)) {
                         if (isDisplayed(ax)
                                 && ax.getClassExpressions().size() > 2) {
-                            Set<OWLClassExpression> allDisjointClasses = createTreeSet(ax
+                            Collection<OWLClassExpression> allDisjointClasses = sortedCollection(ax
                                     .getClassExpressions());
                             axioms.add(ax);
                             writeSection(DISJOINT_CLASSES, allDisjointClasses,
@@ -857,7 +860,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
         }
         if (!isFiltered(AxiomType.INVERSE_OBJECT_PROPERTIES)) {
             for (OWLOntology ontology : ontologies) {
-                Set<OWLObjectPropertyExpression> properties = new TreeSet<OWLObjectPropertyExpression>();
+                Collection<OWLObjectPropertyExpression> properties = sortedCollection();
                 for (OWLInverseObjectPropertiesAxiom ax : ontology
                         .getInverseObjectPropertyAxioms(property)) {
                     if (isDisplayed(ax)) {
@@ -1074,7 +1077,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
         }
         if (!isFiltered(AxiomType.SAME_INDIVIDUAL)) {
             for (OWLOntology ontology : ontologies) {
-                Set<OWLIndividual> inds = createTreeSet();
+                Collection<OWLIndividual> inds = sortedCollection();
                 for (OWLSameIndividualAxiom ax : ontology
                         .getSameIndividualAxioms(individual)) {
                     if (isDisplayed(ax)) {
@@ -1088,8 +1091,8 @@ public class ManchesterOWLSyntaxFrameRenderer extends
         }
         if (!isFiltered(AxiomType.DIFFERENT_INDIVIDUALS)) {
             for (OWLOntology ontology : ontologies) {
-                Set<OWLIndividual> inds = createTreeSet();
-                Set<OWLDifferentIndividualsAxiom> nary = new TreeSet<OWLDifferentIndividualsAxiom>();
+                Collection<OWLIndividual> inds = sortedCollection();
+                Collection<OWLDifferentIndividualsAxiom> nary = sortedCollection();
                 for (OWLDifferentIndividualsAxiom ax : ontology
                         .getDifferentIndividualAxioms(individual)) {
                     if (ax.getIndividuals().size() == 2 && isDisplayed(ax)) {
@@ -1123,7 +1126,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
         axioms.addAll(writeEntityStart(DATATYPE, datatype));
         if (!isFiltered(AxiomType.DATATYPE_DEFINITION)) {
             for (OWLOntology ontology : ontologies) {
-                Set<OWLDataRange> dataRanges = createTreeSet();
+                Collection<OWLDataRange> dataRanges = sortedCollection();
                 for (OWLDatatypeDefinitionAxiom ax : ontology
                         .getDatatypeDefinitions(datatype)) {
                     if (isDisplayed(ax)) {
@@ -1165,7 +1168,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
         axioms.addAll(writeEntityStart(ANNOTATION_PROPERTY, property));
         if (!isFiltered(AxiomType.ANNOTATION_ASSERTION)) {
             for (OWLOntology ont : ontologies) {
-                Set<OWLAnnotation> annos = createTreeSet();
+                Collection<OWLAnnotation> annos = sortedCollection();
                 for (OWLAnnotationAssertionAxiom ax : ont
                         .getAnnotationAssertionAxioms(property.getIRI())) {
                     if (isDisplayed(ax)) {
@@ -1177,7 +1180,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
         }
         if (!isFiltered(AxiomType.SUB_ANNOTATION_PROPERTY_OF)) {
             for (OWLOntology ont : ontologies) {
-                Set<OWLAnnotationProperty> props = createTreeSet();
+                Collection<OWLAnnotationProperty> props = sortedCollection();
                 for (OWLSubAnnotationPropertyOfAxiom ax : ont
                         .getSubAnnotationPropertyOfAxioms(property)) {
                     if (isDisplayed(ax)) {
@@ -1189,7 +1192,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
         }
         if (!isFiltered(AxiomType.ANNOTATION_PROPERTY_DOMAIN)) {
             for (OWLOntology ont : ontologies) {
-                Set<IRI> iris = createTreeSet();
+                Collection<IRI> iris = sortedCollection();
                 for (OWLAnnotationPropertyDomainAxiom ax : ont
                         .getAnnotationPropertyDomainAxioms(property)) {
                     if (isDisplayed(ax)) {
@@ -1201,7 +1204,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
         }
         if (!isFiltered(AxiomType.ANNOTATION_PROPERTY_RANGE)) {
             for (OWLOntology ont : ontologies) {
-                Set<IRI> iris = createTreeSet();
+                Collection<IRI> iris = sortedCollection();
                 for (OWLAnnotationPropertyRangeAxiom ax : ont
                         .getAnnotationPropertyRangeAxioms(property)) {
                     if (isDisplayed(ax)) {
@@ -1609,12 +1612,14 @@ public class ManchesterOWLSyntaxFrameRenderer extends
         }
     }
 
-    private <E extends OWLObject> TreeSet<E> createTreeSet() {
-        return new TreeSet<E>();
+    private <E extends OWLObject> Collection<E> sortedCollection() {
+        return new TreeSet<E>(owlObjectComparator);
     }
 
-    private <E extends OWLObject> TreeSet<E> createTreeSet(
+    private <E extends OWLObject> Collection<E> sortedCollection(
             Collection<? extends E> fromCollection) {
-        return new TreeSet<E>(fromCollection);
+        Collection<E> set = sortedCollection();
+        set.addAll(fromCollection);
+        return set;
     }
 }

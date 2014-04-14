@@ -51,6 +51,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
     /** a convenience reference for an empty annotation set, saves on typing. */
     protected static final Set<OWLAnnotation> NO_ANNOTATIONS = Collections
             .<OWLAnnotation> emptySet();
+    private static final OWLObjectTypeIndexProvider owlObjectTypeIndexProvider = new OWLObjectTypeIndexProvider();
     private int hashCode = 0;
     private transient WeakReference<Set<OWLEntity>> signature = null;
     private transient WeakReference<Set<OWLAnonymousIndividual>> anons = null;
@@ -173,7 +174,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
         if (o instanceof OWLObjectImpl) {
             otherTypeIndex = ((OWLObjectImpl) o).index();
         } else {
-            otherTypeIndex = new OWLObjectTypeIndexProvider().getTypeIndex(o);
+            otherTypeIndex = owlObjectTypeIndexProvider.getTypeIndex(o);
         }
         int diff = thisTypeIndex - otherTypeIndex;
         if (diff == 0) {
