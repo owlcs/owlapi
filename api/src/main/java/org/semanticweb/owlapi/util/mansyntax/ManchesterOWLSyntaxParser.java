@@ -59,11 +59,60 @@ public interface ManchesterOWLSyntaxParser {
     OWLClassExpression parseClassExpression();
 
     /**
-     * @return class frames
+     * @return class frames (parsing with EOF true)
      * @throws OWLParserException
      *         parsing error
      */
     Set<OntologyAxiomPair> parseClassFrameEOF();
+
+    /**
+     * @return value partition frames
+     * @throws OWLParserException
+     *         parsing error
+     */
+    Set<OntologyAxiomPair> parseValuePartitionFrame();
+
+    /**
+     * @return datatype frames
+     * @throws OWLParserException
+     *         parsing error
+     */
+    Set<OntologyAxiomPair> parseDatatypeFrame();
+
+    /**
+     * @return class frames
+     * @throws OWLParserException
+     *         parsing error
+     */
+    Set<OntologyAxiomPair> parseClassFrame();
+
+    /**
+     * @return object property frames
+     * @throws OWLParserException
+     *         parsing error
+     */
+    Set<OntologyAxiomPair> parseObjectPropertyFrame();
+
+    /**
+     * @return individual frames
+     * @throws OWLParserException
+     *         parsing error
+     */
+    Set<OntologyAxiomPair> parseIndividualFrame();
+
+    /**
+     * @return data property frames
+     * @throws OWLParserException
+     *         parsing error
+     */
+    Set<OntologyAxiomPair> parseDataPropertyFrame();
+
+    /**
+     * @return annotation frames
+     * @throws OWLParserException
+     *         parsing error
+     */
+    Set<OntologyAxiomPair> parseAnnotationPropertyFrame();
 
     /**
      * @param datatype

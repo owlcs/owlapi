@@ -1070,7 +1070,8 @@ public class ManchesterOWLSyntaxEditorParser implements
         return axioms;
     }
 
-    private Set<OntologyAxiomPair> parseDatatypeFrame() {
+    @Override
+    public Set<OntologyAxiomPair> parseDatatypeFrame() {
         String tok = consumeToken();
         Set<OntologyAxiomPair> axioms = new HashSet<OntologyAxiomPair>();
         if (!DATATYPE.matches(tok)) {
@@ -1241,7 +1242,8 @@ public class ManchesterOWLSyntaxEditorParser implements
         return anno;
     }
 
-    private Set<OntologyAxiomPair> parseClassFrame() {
+    @Override
+    public Set<OntologyAxiomPair> parseClassFrame() {
         return parseClassFrame(false);
     }
 
@@ -1352,7 +1354,8 @@ public class ManchesterOWLSyntaxEditorParser implements
         }
     }
 
-    private Set<OntologyAxiomPair> parseObjectPropertyFrame() {
+    @Override
+    public Set<OntologyAxiomPair> parseObjectPropertyFrame() {
         return parseObjectPropertyFrame(false);
     }
 
@@ -1372,7 +1375,8 @@ public class ManchesterOWLSyntaxEditorParser implements
         return axioms;
     }
 
-    private Set<OntologyAxiomPair> parseDataPropertyFrame() {
+    @Override
+    public Set<OntologyAxiomPair> parseDataPropertyFrame() {
         Set<OntologyAxiomPair> axioms = new HashSet<OntologyAxiomPair>();
         String tok = consumeToken();
         if (!DATA_PROPERTY.matches(tok)) {
@@ -1389,7 +1393,8 @@ public class ManchesterOWLSyntaxEditorParser implements
         return axioms;
     }
 
-    private Set<OntologyAxiomPair> parseAnnotationPropertyFrame() {
+    @Override
+    public Set<OntologyAxiomPair> parseAnnotationPropertyFrame() {
         Set<OntologyAxiomPair> axioms = new HashSet<OntologyAxiomPair>();
         String tok = consumeToken();
         if (!ANNOTATION_PROPERTY.matches(tok)) {
@@ -1409,7 +1414,8 @@ public class ManchesterOWLSyntaxEditorParser implements
         return axioms;
     }
 
-    private Set<OntologyAxiomPair> parseIndividualFrame() {
+    @Override
+    public Set<OntologyAxiomPair> parseIndividualFrame() {
         String tok = consumeToken();
         Set<OntologyAxiomPair> axioms = new HashSet<OntologyAxiomPair>();
         if (!INDIVIDUAL.matches(tok)) {
@@ -1460,7 +1466,8 @@ public class ManchesterOWLSyntaxEditorParser implements
         }
     }
 
-    private Set<OntologyAxiomPair> parseValuePartitionFrame() {
+    @Override
+    public Set<OntologyAxiomPair> parseValuePartitionFrame() {
         String section = consumeToken();
         if (!VALUE_PARTITION.matches(section)) {
             throw new ExceptionBuilder().withKeyword(VALUE_PARTITION).build();
