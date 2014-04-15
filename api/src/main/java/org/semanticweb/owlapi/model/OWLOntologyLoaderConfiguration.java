@@ -56,6 +56,22 @@ public final class OWLOntologyLoaderConfiguration {
     private final Set<IRI> ignoredImports = new HashSet<IRI>();
     private int connectionTimeout = 20000;
     private boolean acceptHTTPCompression = true;
+    private boolean treatDublinCoreAsBuiltIn = true;
+
+    /**
+     * Determines if the various parsers, for formats such as RDF based formats
+     * that do not require strong typing, should treat Dublin Core Vocabulary as
+     * built in vocabulary, so that Dublin Core metadata properties are
+     * interpreted as annotation properties.
+     * 
+     * @return {@code true} if the Dublin Core Vocabulary should be treated as
+     *         built in vocabulary and Dublin Core properties are interpreted as
+     *         annotation properties, otherwise {@code false}. The defaut is
+     *         {@code true}.
+     */
+    public boolean isTreatDublinCoreAsBuiltIn() {
+        return treatDublinCoreAsBuiltIn;
+    }
 
     /** @return the ontology header strategy */
     public MissingOntologyHeaderStrategy getMissingOntologyHeaderStrategy() {
@@ -168,6 +184,24 @@ public final class OWLOntologyLoaderConfiguration {
         }
         OWLOntologyLoaderConfiguration copy = copyConfiguration();
         copy.followRedirects = value;
+        return copy;
+    }
+
+    /**
+     * @param value
+     *        true if Dublin Core vocabulary should be treated as built in.
+     * @return a copy of the current object with treatDublinCoreAsBuiltIn set to
+     *         the new value.
+     */
+    public OWLOntologyLoaderConfiguration setTreatDublinCoreAsBuiltIn(
+            boolean value) {
+        // as the objects are immutable, setting to the same value returns the
+        // same object
+        if (value == treatDublinCoreAsBuiltIn) {
+            return this;
+        }
+        OWLOntologyLoaderConfiguration copy = copyConfiguration();
+        copy.treatDublinCoreAsBuiltIn = value;
         return copy;
     }
 

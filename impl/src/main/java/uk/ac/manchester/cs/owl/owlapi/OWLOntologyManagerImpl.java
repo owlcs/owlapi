@@ -79,7 +79,6 @@ import org.semanticweb.owlapi.model.OWLOntologyIRIMappingNotFoundException;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderListener;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.OWLOntologyManagerProperties;
 import org.semanticweb.owlapi.model.OWLOntologyRenameException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLOntologyStorer;
@@ -109,6 +108,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
             .getLogger(OWLOntologyManagerImpl.class);
     protected Map<OWLOntologyID, OWLOntology> ontologiesByID = new HashMap<OWLOntologyID, OWLOntology>();
     protected Map<OWLOntologyID, IRI> documentIRIsByID = new HashMap<OWLOntologyID, IRI>();
+    protected Map<OWLOntologyID, OWLOntologyLoaderConfiguration> ontologyConfigurationsByOntologyID = new HashMap<OWLOntologyID, OWLOntologyLoaderConfiguration>();
     protected Map<OWLOntologyID, OWLOntologyFormat> ontologyFormatsByOntology = new HashMap<OWLOntologyID, OWLOntologyFormat>();
     protected Map<OWLImportsDeclaration, OWLOntologyID> ontologyIDsByImportsDeclaration = new HashMap<OWLImportsDeclaration, OWLOntologyID>();
     protected PriorityCollection<OWLOntologyIRIMapper> documentMappers = new PriorityCollection<OWLOntologyIRIMapper>();
@@ -121,7 +121,6 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     protected final Set<IRI> importedIRIs = new HashSet<IRI>();
     protected final OWLDataFactory dataFactory;
     protected Map<OWLOntologyID, Set<OWLOntology>> importsClosureCache = new HashMap<OWLOntologyID, Set<OWLOntology>>();
-    protected OWLOntologyManagerProperties properties = new OWLOntologyManagerProperties();
     protected List<MissingImportListener> missingImportsListeners = new ArrayList<MissingImportListener>();
     protected List<OWLOntologyLoaderListener> loaderListeners = new ArrayList<OWLOntologyLoaderListener>();
     protected List<OWLOntologyChangeProgressListener> progressListeners = new ArrayList<OWLOntologyChangeProgressListener>();
@@ -393,7 +392,10 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
      *         {@code false}.
      */
     private boolean isChangeApplicable(OWLOntologyChange<?> change) {
-        if (!properties.isLoadAnnotationAxioms() && change.isAddAxiom()
+        OWLOntologyLoaderConfiguration config = ontologyConfigurationsByOntologyID
+                .get(change.getOntology().getOntologyID());
+        if (config != null && !config.isLoadAnnotationAxioms()
+                && change.isAddAxiom()
                 && change.getAxiom() instanceof OWLAnnotationAxiom) {
             return false;
         }
@@ -812,6 +814,8 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
                         // Store the ontology to the document IRI mapping
                         documentIRIsByID.put(ontology.getOntologyID(),
                                 documentSource.getDocumentIRI());
+                        ontologyConfigurationsByOntologyID.put(
+                                ontology.getOntologyID(), configuration);
                         return ontology;
                     } catch (OWLOntologyRenameException e) {
                         // We loaded an ontology from a document and the
