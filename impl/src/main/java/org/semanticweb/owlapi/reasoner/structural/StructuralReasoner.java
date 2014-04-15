@@ -55,6 +55,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.Search;
 import org.semanticweb.owlapi.reasoner.BufferingMode;
 import org.semanticweb.owlapi.reasoner.FreshEntityPolicy;
 import org.semanticweb.owlapi.reasoner.IndividualNodeSetPolicy;
@@ -221,13 +222,15 @@ public class StructuralReasoner extends OWLReasonerBase {
 
     @Override
     public boolean isEntailed(OWLAxiom axiom) {
-        return getRootOntology().containsAxiom(axiom, INCLUDED, true);
+        return getRootOntology().containsAxiom(axiom, INCLUDED,
+                Search.IGNORE_ANNOTATIONS);
     }
 
     @Override
     public boolean isEntailed(Set<? extends OWLAxiom> axioms) {
         for (OWLAxiom ax : axioms) {
-            if (!getRootOntology().containsAxiom(ax, INCLUDED, true)) {
+            if (!getRootOntology().containsAxiom(ax, INCLUDED,
+                    Search.IGNORE_ANNOTATIONS)) {
                 return false;
             }
         }

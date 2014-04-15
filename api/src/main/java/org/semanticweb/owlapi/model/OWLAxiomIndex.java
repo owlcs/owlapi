@@ -49,7 +49,7 @@ public interface OWLAxiomIndex {
      */
     @Nonnull
     <T extends OWLAxiom> Set<T> getAxioms(Class<T> type, OWLObject entity,
-            @Nonnull Imports includeImports, boolean forSubPosition);
+            @Nonnull Imports includeImports, @Nonnull Search forSubPosition);
 
     /**
      * Generic filter type for further refining search by axiom type. The
@@ -113,7 +113,7 @@ public interface OWLAxiomIndex {
     @Nonnull
     <T extends OWLAxiom> Set<T> getAxioms(Class<T> type,
             Class<? extends OWLObject> explicitClass, OWLObject entity,
-            @Nonnull Imports includeImports, boolean forSubPosition);
+            @Nonnull Imports includeImports, @Nonnull Search forSubPosition);
 
     // ////////////////////////////////////////////////////////////////////////////////////////////
     //

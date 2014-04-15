@@ -59,6 +59,7 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLPrimitive;
 import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
+import org.semanticweb.owlapi.model.Search;
 import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
@@ -294,9 +295,9 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
 
     @Override
     public boolean containsAxiom(OWLAxiom axiom, Imports includeImports,
-            boolean ignoreAnnotations) {
+            Search ignoreAnnotations) {
         if (includeImports == EXCLUDED) {
-            if (!ignoreAnnotations) {
+            if (ignoreAnnotations == Search.CONSIDER_ANNOTATIONS) {
                 return containsAxiom(axiom);
             } else {
                 return containsAxiomIgnoreAnnotations(axiom);
@@ -657,7 +658,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
         Set<OWLAnnotationProperty> props = createSet();
         if (includeImports == EXCLUDED) {
             props.addAll(ints.get(OWLAnnotationProperty.class, OWLAxiom.class,
-                    false).keySet());
+                    Search.IN_SUB_POSITION).keySet());
             for (OWLAnnotation anno : ints.getOntologyAnnotations(false)) {
                 props.add(anno.getProperty());
             }
@@ -930,7 +931,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     // OWLAxiomIndex
     @Override
     public <A extends OWLAxiom> Set<A> getAxioms(Class<A> type,
-            OWLObject entity, Imports includeImports, boolean forSubPosition) {
+            OWLObject entity, Imports includeImports, Search forSubPosition) {
         if (includeImports == EXCLUDED) {
             return getAxioms(type, entity.getClass(), entity, includeImports,
                     forSubPosition);
@@ -946,7 +947,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     @SuppressWarnings("unchecked")
     public <A extends OWLAxiom> Set<A> getAxioms(Class<A> type,
             Class<? extends OWLObject> explicit, OWLObject entity,
-            Imports includeImports, boolean forSubPosition) {
+            Imports includeImports, Search forSubPosition) {
         if (includeImports == EXCLUDED) {
             return ints.get((Class<OWLObject>) explicit, type, forSubPosition)
                     .getValues(entity);

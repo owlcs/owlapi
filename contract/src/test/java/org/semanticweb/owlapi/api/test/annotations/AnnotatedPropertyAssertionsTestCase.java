@@ -25,6 +25,7 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.Search;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health
@@ -46,7 +47,8 @@ public class AnnotatedPropertyAssertionsTestCase extends AbstractFileTestCase {
         OWLObjectProperty predicate = ObjectProperty(IRI("http://Example.com#located_at"));
         OWLNamedIndividual object = NamedIndividual(IRI("http://Example.com#myLocation"));
         OWLAxiom ax = ObjectPropertyAssertion(predicate, subject, object);
-        assertTrue(ontology.containsAxiom(ax, EXCLUDED, true));
+        assertTrue(ontology.containsAxiom(ax, EXCLUDED,
+                Search.IGNORE_ANNOTATIONS));
         Set<OWLAxiom> axioms = ontology
                 .getAxiomsIgnoreAnnotations(ax, EXCLUDED);
         assertEquals(1, axioms.size());

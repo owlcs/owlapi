@@ -177,8 +177,8 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      * @param includeImportsClosure
      *        if INCLUDED, include imports closure.
      * @param ignoreAnnotations
-     *        if true, annotations are ignored when searching for the axiom. For
-     *        example, if the collection contains
+     *        if IGNORE_ANNOTATIONS, annotations are ignored when searching for
+     *        the axiom. For example, if the collection contains
      *        {@code SubClassOf(Annotation(p V) A B)} then this method will
      *        return {@code true} if the ontology contains
      *        {@code SubClassOf(A B)} or {@code SubClassOf(Annotation(q S) A B)}
@@ -187,7 +187,8 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      * @return {@code true} if the ontology contains the specified axiom.
      */
     boolean containsAxiom(@Nonnull OWLAxiom axiom,
-            @Nonnull Imports includeImportsClosure, boolean ignoreAnnotations);
+            @Nonnull Imports includeImportsClosure,
+            @Nonnull Search ignoreAnnotations);
 
     /**
      * Gets the set of axioms contained in this collection that have the same

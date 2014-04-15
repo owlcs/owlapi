@@ -79,6 +79,7 @@ import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.Search;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
 import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
@@ -160,12 +161,12 @@ public class Internals implements Serializable {
     //@formatter:off
     protected final MapPointer<OWLClassExpression, OWLClassAssertionAxiom>                          classAssertionAxiomsByClass                         = buildLazy(CLASS_ASSERTION, classexpressions);
     protected final MapPointer<OWLAnnotationSubject, OWLAnnotationAssertionAxiom>                   annotationAssertionAxiomsBySubject                  = buildLazy(ANNOTATION_ASSERTION, annotsupernamed);
-    protected final MapPointer<OWLClass, OWLSubClassOfAxiom>                                        subClassAxiomsByLHS                                 = buildLazy(SUBCLASS_OF, classsubnamed);
-    protected final MapPointer<OWLClass, OWLSubClassOfAxiom>                                        subClassAxiomsByRHS                                 = buildLazy(SUBCLASS_OF, classsupernamed);
-    protected final MapPointer<OWLObjectPropertyExpression, OWLSubObjectPropertyOfAxiom>            objectSubPropertyAxiomsByLHS                        = buildLazy(SUB_OBJECT_PROPERTY, opsubnamed);
-    protected final MapPointer<OWLObjectPropertyExpression, OWLSubObjectPropertyOfAxiom>            objectSubPropertyAxiomsByRHS                        = buildLazy(SUB_OBJECT_PROPERTY, opsupernamed);
-    protected final MapPointer<OWLDataPropertyExpression, OWLSubDataPropertyOfAxiom>                dataSubPropertyAxiomsByLHS                          = buildLazy(SUB_DATA_PROPERTY, dpsubnamed);
-    protected final MapPointer<OWLDataPropertyExpression, OWLSubDataPropertyOfAxiom>                dataSubPropertyAxiomsByRHS                          = buildLazy(SUB_DATA_PROPERTY, dpsupernamed);
+    protected final MapPointer<OWLClass, OWLSubClassOfAxiom>                                        subClassAxiomsBySubPosition                                 = buildLazy(SUBCLASS_OF, classsubnamed);
+    protected final MapPointer<OWLClass, OWLSubClassOfAxiom>                                        subClassAxiomsBySuperPosition                                 = buildLazy(SUBCLASS_OF, classsupernamed);
+    protected final MapPointer<OWLObjectPropertyExpression, OWLSubObjectPropertyOfAxiom>            objectSubPropertyAxiomsBySubPosition                        = buildLazy(SUB_OBJECT_PROPERTY, opsubnamed);
+    protected final MapPointer<OWLObjectPropertyExpression, OWLSubObjectPropertyOfAxiom>            objectSubPropertyAxiomsBySuperPosition                        = buildLazy(SUB_OBJECT_PROPERTY, opsupernamed);
+    protected final MapPointer<OWLDataPropertyExpression, OWLSubDataPropertyOfAxiom>                dataSubPropertyAxiomsBySubPosition                          = buildLazy(SUB_DATA_PROPERTY, dpsubnamed);
+    protected final MapPointer<OWLDataPropertyExpression, OWLSubDataPropertyOfAxiom>                dataSubPropertyAxiomsBySuperPosition                          = buildLazy(SUB_DATA_PROPERTY, dpsupernamed);
 
     protected final MapPointer<OWLClass, OWLClassAxiom>                                             classAxiomsByClass                                  = buildClassAxiomByClass();
     protected final MapPointer<OWLClass, OWLEquivalentClassesAxiom>                                 equivalentClassesAxiomsByClass                      = buildLazy(EQUIVALENT_CLASSES, classcollections);
@@ -235,7 +236,7 @@ public class Internals implements Serializable {
      */
     <T extends OWLObject, A extends OWLAxiom> MapPointer<T, A> get(
             Class<T> type, Class<A> axiom) {
-        return get(type, axiom, false);
+        return get(type, axiom, Search.IN_SUB_POSITION);
     }
 
     /**
@@ -243,8 +244,9 @@ public class Internals implements Serializable {
      *        type of map key
      * @param axiom
      *        class of axiom indexed
-     * @param right
-     *        for axioms with a left/right distinction, true means right index
+     * @param position
+     *        for axioms with a left/right distinction, IN_SUPER_POSITION means
+     *        right index
      * @param <T>
      *        key type
      * @param <A>
@@ -253,7 +255,7 @@ public class Internals implements Serializable {
      */
     @SuppressWarnings("unchecked")
     <T extends OWLObject, A extends OWLAxiom> MapPointer<T, A> get(
-            Class<T> type, Class<A> axiom, boolean right) {
+            Class<T> type, Class<A> axiom, Search position) {
         if (OWLEntity.class.isAssignableFrom(type)
                 && axiom.equals(OWLDeclarationAxiom.class)) {
             return (MapPointer<T, A>) declarationsByEntity;
@@ -288,10 +290,10 @@ public class Internals implements Serializable {
         }
         if (type.equals(OWLObjectPropertyExpression.class)) {
             if (axiom.equals(OWLSubObjectPropertyOfAxiom.class)) {
-                if (right) {
-                    return (MapPointer<T, A>) objectSubPropertyAxiomsByRHS;
+                if (position == Search.IN_SUPER_POSITION) {
+                    return (MapPointer<T, A>) objectSubPropertyAxiomsBySuperPosition;
                 } else {
-                    return (MapPointer<T, A>) objectSubPropertyAxiomsByLHS;
+                    return (MapPointer<T, A>) objectSubPropertyAxiomsBySubPosition;
                 }
             }
             if (axiom.equals(OWLEquivalentObjectPropertiesAxiom.class)) {
@@ -333,10 +335,10 @@ public class Internals implements Serializable {
         }
         if (type.equals(OWLDataPropertyExpression.class)) {
             if (axiom.equals(OWLSubDataPropertyOfAxiom.class)) {
-                if (right) {
-                    return (MapPointer<T, A>) dataSubPropertyAxiomsByRHS;
+                if (position == Search.IN_SUPER_POSITION) {
+                    return (MapPointer<T, A>) dataSubPropertyAxiomsBySuperPosition;
                 } else {
-                    return (MapPointer<T, A>) dataSubPropertyAxiomsByLHS;
+                    return (MapPointer<T, A>) dataSubPropertyAxiomsBySubPosition;
                 }
             }
             if (axiom.equals(OWLEquivalentDataPropertiesAxiom.class)) {
@@ -383,10 +385,10 @@ public class Internals implements Serializable {
         }
         if (type.equals(OWLClass.class)) {
             if (axiom.equals(OWLSubClassOfAxiom.class)) {
-                if (right) {
-                    return (MapPointer<T, A>) subClassAxiomsByRHS;
+                if (position == Search.IN_SUPER_POSITION) {
+                    return (MapPointer<T, A>) subClassAxiomsBySuperPosition;
                 } else {
-                    return (MapPointer<T, A>) subClassAxiomsByLHS;
+                    return (MapPointer<T, A>) subClassAxiomsBySubPosition;
                 }
             }
             if (axiom.equals(OWLClassAxiom.class)) {
@@ -796,14 +798,14 @@ public class Internals implements Serializable {
         public void visit(OWLSubClassOfAxiom axiom) {
             if (!axiom.getSubClass().isAnonymous()) {
                 OWLClass subClass = (OWLClass) axiom.getSubClass();
-                subClassAxiomsByLHS.put(subClass, axiom);
+                subClassAxiomsBySubPosition.put(subClass, axiom);
                 classAxiomsByClass.put(subClass, axiom);
             } else {
                 addGeneralClassAxioms(axiom);
             }
             if (!axiom.getSuperClass().isAnonymous()) {
-                subClassAxiomsByRHS
-                        .put((OWLClass) axiom.getSuperClass(), axiom);
+                subClassAxiomsBySuperPosition.put(
+                        (OWLClass) axiom.getSuperClass(), axiom);
             }
         }
 
@@ -913,8 +915,10 @@ public class Internals implements Serializable {
 
         @Override
         public void visit(OWLSubObjectPropertyOfAxiom axiom) {
-            objectSubPropertyAxiomsByLHS.put(axiom.getSubProperty(), axiom);
-            objectSubPropertyAxiomsByRHS.put(axiom.getSuperProperty(), axiom);
+            objectSubPropertyAxiomsBySubPosition.put(axiom.getSubProperty(),
+                    axiom);
+            objectSubPropertyAxiomsBySuperPosition.put(
+                    axiom.getSuperProperty(), axiom);
         }
 
         @Override
@@ -1005,8 +1009,10 @@ public class Internals implements Serializable {
 
         @Override
         public void visit(OWLSubDataPropertyOfAxiom axiom) {
-            dataSubPropertyAxiomsByLHS.put(axiom.getSubProperty(), axiom);
-            dataSubPropertyAxiomsByRHS.put(axiom.getSuperProperty(), axiom);
+            dataSubPropertyAxiomsBySubPosition.put(axiom.getSubProperty(),
+                    axiom);
+            dataSubPropertyAxiomsBySuperPosition.put(axiom.getSuperProperty(),
+                    axiom);
         }
 
         @Override
@@ -1037,14 +1043,14 @@ public class Internals implements Serializable {
         public void visit(OWLSubClassOfAxiom axiom) {
             if (!axiom.getSubClass().isAnonymous()) {
                 OWLClass subClass = (OWLClass) axiom.getSubClass();
-                subClassAxiomsByLHS.remove(subClass, axiom);
+                subClassAxiomsBySubPosition.remove(subClass, axiom);
                 classAxiomsByClass.remove(subClass, axiom);
             } else {
                 removeGeneralClassAxioms(axiom);
             }
             if (!axiom.getSuperClass().isAnonymous()) {
-                subClassAxiomsByRHS.remove(axiom.getSuperClass().asOWLClass(),
-                        axiom);
+                subClassAxiomsBySuperPosition.remove(axiom.getSuperClass()
+                        .asOWLClass(), axiom);
             }
         }
 
@@ -1158,9 +1164,10 @@ public class Internals implements Serializable {
 
         @Override
         public void visit(OWLSubObjectPropertyOfAxiom axiom) {
-            objectSubPropertyAxiomsByLHS.remove(axiom.getSubProperty(), axiom);
-            objectSubPropertyAxiomsByRHS
-                    .remove(axiom.getSuperProperty(), axiom);
+            objectSubPropertyAxiomsBySubPosition.remove(axiom.getSubProperty(),
+                    axiom);
+            objectSubPropertyAxiomsBySuperPosition.remove(
+                    axiom.getSuperProperty(), axiom);
         }
 
         @Override
@@ -1259,8 +1266,10 @@ public class Internals implements Serializable {
 
         @Override
         public void visit(OWLSubDataPropertyOfAxiom axiom) {
-            dataSubPropertyAxiomsByLHS.remove(axiom.getSubProperty(), axiom);
-            dataSubPropertyAxiomsByRHS.remove(axiom.getSuperProperty(), axiom);
+            dataSubPropertyAxiomsBySubPosition.remove(axiom.getSubProperty(),
+                    axiom);
+            dataSubPropertyAxiomsBySuperPosition.remove(
+                    axiom.getSuperProperty(), axiom);
         }
 
         @Override
