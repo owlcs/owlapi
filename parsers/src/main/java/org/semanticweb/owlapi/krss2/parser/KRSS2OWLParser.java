@@ -244,13 +244,6 @@ public class KRSS2OWLParser extends AbstractOWLParser {
 
     @Override
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
-            OWLOntology ontology) throws IOException {
-        return parse(documentSource, ontology,
-                new OWLOntologyLoaderConfiguration());
-    }
-
-    @Override
-    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
             OWLOntology ontology, OWLOntologyLoaderConfiguration configuration)
             throws IOException {
         Reader reader = null;

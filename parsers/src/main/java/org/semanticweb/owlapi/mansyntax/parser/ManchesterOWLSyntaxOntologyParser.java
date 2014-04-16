@@ -124,13 +124,6 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
         }
     }
 
-    @Override
-    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
-            OWLOntology ontology) throws IOException {
-        return parse(documentSource, ontology,
-                new OWLOntologyLoaderConfiguration());
-    }
-
     private boolean startsWithMagicNumber(String line) {
         return line.indexOf(ManchesterOWLSyntax.PREFIX.toString()) != -1
                 || line.indexOf(ManchesterOWLSyntax.ONTOLOGY.toString()) != -1;

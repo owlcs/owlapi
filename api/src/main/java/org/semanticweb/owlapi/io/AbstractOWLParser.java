@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.net.HttpURLConnection;
+import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Collections;
@@ -105,7 +106,8 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
         if (config.isAcceptingHTTPCompression()) {
             conn.setRequestProperty("Accept-Encoding", "gzip, deflate");
         }
-        conn.setConnectTimeout(config.getConnectionTimeout());
+        int connectionTimeout = config.getConnectionTimeout();
+        conn.setConnectTimeout(connectionTimeout);
         if (conn instanceof HttpURLConnection && config.isFollowRedirects()) {
             // follow redirects to HTTPS
             HttpURLConnection con = (HttpURLConnection) conn;
@@ -127,13 +129,29 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
                         conn.setRequestProperty("Accept-Encoding",
                                 "gzip, deflate");
                     }
-                    conn.setConnectTimeout(config.getConnectionTimeout());
+                    conn.setConnectTimeout(connectionTimeout);
                 }
             }
         }
         String contentEncoding = conn.getContentEncoding();
-        InputStream is = getInputStreamFromContentEncoding(conn,
-                contentEncoding);
+        InputStream is = null;
+        int count = 0;
+        while (count < config.getRetriesToAttempt() && is == null) {
+            try {
+                is = getInputStreamFromContentEncoding(conn, contentEncoding);
+            } catch (SocketTimeoutException e) {
+                count++;
+                if (count == 5) {
+                    throw e;
+                }
+                conn.setConnectTimeout(connectionTimeout + connectionTimeout
+                        * count);
+            }
+        }
+        if (is == null) {
+            throw new IOException("cannot connect to " + documentIRI
+                    + "; retry limit exhausted");
+        }
         if (isZipName(documentIRI, conn)) {
             ZipInputStream zis = new ZipInputStream(is);
             ZipEntry entry = zis.getNextEntry();
@@ -221,7 +239,8 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
     @Override
     public OWLOntologyFormat parse(IRI documentIRI, OWLOntology ontology)
             throws IOException {
-        return parse(new IRIDocumentSource(documentIRI, null, null), ontology);
+        return parse(new IRIDocumentSource(documentIRI, null, null), ontology,
+                new OWLOntologyLoaderConfiguration());
     }
 
     @Override

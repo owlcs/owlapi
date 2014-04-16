@@ -60,23 +60,9 @@ public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
 
     @Override
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
-            OWLOntology ontology) throws IOException,
-            OWLOntologyChangeException {
-        try {
-            parse(null, documentSource, ontology);
-        } catch (OBOFormatParserException e) {
-            throw new OWLParserException(e);
-        } catch (OWLOntologyCreationException e) {
-            throw new OWLParserException(e);
-        }
-        OBOOntologyFormat format = new OBOOntologyFormat();
-        return format;
-    }
-
-    @Override
-    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
             OWLOntology ontology, OWLOntologyLoaderConfiguration configuration)
             throws IOException, OWLOntologyChangeException {
+        // XXX configuration is not used
         try {
             parse(null, documentSource, ontology);
         } catch (OBOFormatParserException e) {

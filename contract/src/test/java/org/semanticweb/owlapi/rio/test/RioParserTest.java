@@ -56,7 +56,7 @@ public class RioParserTest extends TestBase {
         RDFXMLParser owlapiParser = new RDFXMLParser();
         OWLOntologyFormat owlapiOntologyFormat = owlapiParser.parse(
                 new StreamDocumentSource(this.getClass().getResourceAsStream(
-                        "/koala.owl")), owlapiOntologyPrimer);
+                        "/koala.owl")), owlapiOntologyPrimer, config);
         assertEquals(70, owlapiOntologyPrimer.getAxiomCount());
         assertEquals(new RDFXMLOntologyFormat(), owlapiOntologyFormat);
         RioParserImpl rioParser = new RioParserImpl(
@@ -68,7 +68,7 @@ public class RioParserTest extends TestBase {
                         .create("http://protege.stanford.edu/plugins/owl/owl-library/koala.owl"));
         OWLOntologyFormat rioOntologyFormat = rioParser.parse(
                 new StreamDocumentSource(this.getClass().getResourceAsStream(
-                        "/koala.owl")), ontology);
+                        "/koala.owl")), ontology, config);
         assertEquals(new RioRDFXMLOntologyFormat(RDFFormat.RDFXML),
                 rioOntologyFormat);
         equal(owlapiOntologyPrimer, ontology);
@@ -86,7 +86,7 @@ public class RioParserTest extends TestBase {
         RDFXMLParser owlapiParser = new RDFXMLParser();
         OWLOntologyFormat owlapiOntologyFormat = owlapiParser.parse(
                 new StreamDocumentSource(this.getClass().getResourceAsStream(
-                        "/primer.rdfxml.xml")), owlapiOntologyPrimer);
+                        "/primer.rdfxml.xml")), owlapiOntologyPrimer, config);
         assertEquals(93, owlapiOntologyPrimer.getAxiomCount());
         assertEquals(new RDFXMLOntologyFormat(), owlapiOntologyFormat);
         RioParserImpl rioParser = new RioParserImpl(
@@ -97,7 +97,7 @@ public class RioParserTest extends TestBase {
                 .create("http://example.com/owl/families"));
         OWLOntologyFormat rioOntologyFormat = rioParser.parse(
                 new StreamDocumentSource(this.getClass().getResourceAsStream(
-                        "/primer.rdfxml.xml")), rioOntologyPrimer);
+                        "/primer.rdfxml.xml")), rioOntologyPrimer, config);
         assertEquals(new RioRDFXMLOntologyFormat(RDFFormat.RDFXML),
                 rioOntologyFormat);
         equal(owlapiOntologyPrimer, rioOntologyPrimer);
@@ -125,7 +125,8 @@ public class RioParserTest extends TestBase {
         RDFXMLParser owlapiParser = new RDFXMLParser();
         OWLOntologyFormat owlapiOntologyFormat = owlapiParser.parse(
                 new StreamDocumentSource(this.getClass().getResourceAsStream(
-                        "/rioParserTest1-minimal.rdf")), owlapiOntologyPrimer);
+                        "/rioParserTest1-minimal.rdf")), owlapiOntologyPrimer,
+                config);
         assertEquals(4, owlapiOntologyPrimer.getAxiomCount());
         assertEquals(new RDFXMLOntologyFormat(), owlapiOntologyFormat);
         RioParserImpl rioParser = new RioParserImpl(
@@ -136,7 +137,8 @@ public class RioParserTest extends TestBase {
                 .createOntology(IRI.create("http://example.com/owl/families"));
         OWLOntologyFormat rioOntologyFormat = rioParser.parse(
                 new StreamDocumentSource(this.getClass().getResourceAsStream(
-                        "/rioParserTest1-minimal.rdf")), rioOntologyPrimer);
+                        "/rioParserTest1-minimal.rdf")), rioOntologyPrimer,
+                config);
         assertEquals(new RioRDFXMLOntologyFormat(RDFFormat.RDFXML),
                 rioOntologyFormat);
         equal(owlapiOntologyPrimer, rioOntologyPrimer);
@@ -154,7 +156,8 @@ public class RioParserTest extends TestBase {
         RDFXMLParser owlapiParser = new RDFXMLParser();
         OWLOntologyFormat owlapiOntologyFormat = owlapiParser.parse(
                 new StreamDocumentSource(this.getClass().getResourceAsStream(
-                        "/rioParserTest1-minimal.rdf")), owlapiOntologyPrimer);
+                        "/rioParserTest1-minimal.rdf")), owlapiOntologyPrimer,
+                config);
         assertEquals(4, owlapiOntologyPrimer.getAxiomCount());
         assertEquals(new RDFXMLOntologyFormat(), owlapiOntologyFormat);
         RioParserImpl rioParser = new RioParserImpl(
@@ -165,7 +168,8 @@ public class RioParserTest extends TestBase {
                 .create("http://example.com/owl/families"));
         OWLOntologyFormat rioOntologyFormat = rioParser.parse(
                 new StreamDocumentSource(this.getClass().getResourceAsStream(
-                        "/rioParserTest1-minimal.rdf")), rioOntologyPrimer);
+                        "/rioParserTest1-minimal.rdf")), rioOntologyPrimer,
+                config);
         assertEquals(new RioRDFXMLOntologyFormat(RDFFormat.RDFXML),
                 rioOntologyFormat);
         equal(owlapiOntologyPrimer, rioOntologyPrimer);

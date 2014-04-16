@@ -50,13 +50,6 @@ public class TurtleOntologyParser extends AbstractOWLParser {
         return TurtleOntologyFormat.class;
     }
 
-    @Override
-    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
-            OWLOntology ontology) throws IOException {
-        return parse(documentSource, ontology,
-                new OWLOntologyLoaderConfiguration());
-    }
-
     @SuppressWarnings("all")
     @Override
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,

@@ -206,7 +206,7 @@ public class MultipleOntologyLoadsTest extends TestBase {
             OWLOntology initialOntology) throws OWLParserException,
             IOException, UnloadableImportException {
         OWLParser initialParser = new RDFXMLParser();
-        initialParser.parse(initialDocumentSource, initialOntology);
+        initialParser.parse(initialDocumentSource, initialOntology, config);
     }
 
     private OWLOntologyDocumentSource getDocumentSource() {

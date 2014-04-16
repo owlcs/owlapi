@@ -76,7 +76,8 @@ public class Utf8TestCase extends TestBase {
                 onto.getBytes(Charset.forName("ISO-8859-1")));
         OWLXMLParser parser = new OWLXMLParser();
         try {
-            parser.parse(new StreamDocumentSource(in), m.createOntology());
+            parser.parse(new StreamDocumentSource(in), m.createOntology(),
+                    config);
             fail("parsing should have failed, invalid input");
         } catch (Exception ex) {
             // expected to fail, but actual exception depends on the parsers in

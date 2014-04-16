@@ -125,14 +125,6 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
     @Override
     public OWLOntologyFormat parse(
             final OWLOntologyDocumentSource documentSource,
-            final OWLOntology ontology) throws IOException {
-        return this.parse(documentSource, ontology,
-                new OWLOntologyLoaderConfiguration());
-    }
-
-    @Override
-    public OWLOntologyFormat parse(
-            final OWLOntologyDocumentSource documentSource,
             final OWLOntology ontology,
             final OWLOntologyLoaderConfiguration configuration)
             throws IOException {

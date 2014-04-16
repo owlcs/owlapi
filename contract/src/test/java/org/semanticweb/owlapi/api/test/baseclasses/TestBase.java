@@ -60,6 +60,7 @@ public abstract class TestBase {
     public ExpectedException expectedException = ExpectedException.none();
     @Rule
     public Timeout timeout = new Timeout(10000);
+    protected OWLOntologyLoaderConfiguration config = new OWLOntologyLoaderConfiguration();
     protected OWLDataFactory df = OWLManager.getOWLDataFactory();
     protected OWLOntologyManager m = OWLManager.createOWLOntologyManager();
     protected OWLOntologyManager m1 = OWLManager.createOWLOntologyManager();

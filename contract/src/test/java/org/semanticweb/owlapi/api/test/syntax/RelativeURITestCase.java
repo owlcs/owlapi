@@ -70,6 +70,6 @@ public class RelativeURITestCase extends AbstractAxiomsRoundTrippingTestCase {
                 + "  </owl:Thing>" + "</rdf:RDF>";
         OWLOntology ontology = m.createOntology();
         RDFXMLParser parser = new RDFXMLParser();
-        parser.parse(new StringDocumentSource(RDFCONTENT), ontology);
+        parser.parse(new StringDocumentSource(RDFCONTENT), ontology, config);
     }
 }
