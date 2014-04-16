@@ -1,6 +1,6 @@
 package org.obolibrary.obo2owl;
 
-import static org.semanticweb.owlapi.model.Imports.INCLUDED;
+import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.search.Searcher.annotations;
 
 import java.io.UnsupportedEncodingException;

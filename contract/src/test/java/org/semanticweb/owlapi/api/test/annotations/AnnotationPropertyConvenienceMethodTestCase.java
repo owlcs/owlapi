@@ -14,7 +14,7 @@ package org.semanticweb.owlapi.api.test.annotations;
 
 import static org.junit.Assert.assertTrue;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnnotationProperty;
-import static org.semanticweb.owlapi.model.Imports.*;
+import static org.semanticweb.owlapi.model.parameters.Imports.*;
 import static org.semanticweb.owlapi.search.Filters.subAnnotationWithSuper;
 import static org.semanticweb.owlapi.search.Searcher.*;
 

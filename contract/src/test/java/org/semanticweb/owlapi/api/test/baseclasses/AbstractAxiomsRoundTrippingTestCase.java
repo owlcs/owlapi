@@ -13,7 +13,7 @@
 package org.semanticweb.owlapi.api.test.baseclasses;
 
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Declaration;
-import static org.semanticweb.owlapi.model.Imports.INCLUDED;
+import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 
 import java.util.HashSet;
 import java.util.Set;

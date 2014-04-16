@@ -1,7 +1,7 @@
 package org.semanticweb.owlapi.api.test;
 
 import static org.junit.Assert.*;
-import static org.semanticweb.owlapi.model.Imports.INCLUDED;
+import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 
 import java.io.InputStream;
 import java.util.Collection;

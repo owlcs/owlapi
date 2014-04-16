@@ -1,6 +1,6 @@
 package org.semanticweb.owlapi.api.test.syntax;
 
-import static org.semanticweb.owlapi.model.Imports.EXCLUDED;
+import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 
 import java.util.Set;
 

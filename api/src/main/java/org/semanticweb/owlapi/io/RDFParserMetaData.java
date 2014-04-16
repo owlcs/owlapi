@@ -46,6 +46,8 @@ public class RDFParserMetaData implements OWLOntologyLoaderMetaData,
      *        the triple count
      * @param unparsedTriples
      *        the set of triples not parsed
+     * @param guessedDeclarations
+     *        guessed declarations map
      */
     public RDFParserMetaData(@Nonnull RDFOntologyHeaderStatus headerStatus,
             int tripleCount, @Nonnull Set<RDFTriple> unparsedTriples,

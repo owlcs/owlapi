@@ -14,7 +14,7 @@ package org.semanticweb.owlapi.api.test.axioms;
 
 import static org.junit.Assert.assertTrue;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
-import static org.semanticweb.owlapi.model.Imports.EXCLUDED;
+import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;

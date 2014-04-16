@@ -13,7 +13,7 @@
 package org.semanticweb.owlapi.mansyntax.renderer;
 
 import static org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntax.*;
-import static org.semanticweb.owlapi.model.Imports.EXCLUDED;
+import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 
 import java.io.Writer;
 import java.util.ArrayList;

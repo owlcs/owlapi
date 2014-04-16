@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.rdf.rdfxml.parser;
 
+import static org.semanticweb.owlapi.model.parameters.MissingOntologyHeaderStrategy.INCLUDE_GRAPH;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 
 import java.util.Arrays;
@@ -1733,12 +1734,8 @@ public class TripleHandlers {
                             .getOntologyFormat(importedOntology);
                     if (importedOntologyFormat instanceof RDFOntologyFormat
                             && importedOntology.isAnonymous()) {
-                        OWLOntologyLoaderConfiguration.MissingOntologyHeaderStrategy missingOntologyHeaderStrategy = consumer
-                                .getConfiguration()
-                                .getMissingOntologyHeaderStrategy();
-                        boolean includeGraph = missingOntologyHeaderStrategy
-                                .equals(OWLOntologyLoaderConfiguration.MissingOntologyHeaderStrategy.INCLUDE_GRAPH);
-                        if (includeGraph) {
+                        if (consumer.getConfiguration()
+                                .getMissingOntologyHeaderStrategy() == INCLUDE_GRAPH) {
                             // We should have just included the triples rather
                             // than imported them. So,
                             // we remove the imports statement, add the axioms

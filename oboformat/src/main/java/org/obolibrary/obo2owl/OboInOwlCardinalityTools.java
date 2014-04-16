@@ -1,6 +1,6 @@
 package org.obolibrary.obo2owl;
 
-import static org.semanticweb.owlapi.model.Imports.INCLUDED;
+import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 
 import java.util.Collection;
 import java.util.Collections;

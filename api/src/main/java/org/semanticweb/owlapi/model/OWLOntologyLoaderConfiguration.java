@@ -16,6 +16,8 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.semanticweb.owlapi.model.parameters.MissingImportHandlingStrategy;
+import org.semanticweb.owlapi.model.parameters.MissingOntologyHeaderStrategy;
 import org.semanticweb.owlapi.vocab.Namespaces;
 
 /**
@@ -38,26 +40,168 @@ import org.semanticweb.owlapi.vocab.Namespaces;
  */
 public final class OWLOntologyLoaderConfiguration implements Serializable {
 
-    /** strategies to cope with missing headers */
-    public enum MissingOntologyHeaderStrategy {
-        /** include triples */
-        INCLUDE_GRAPH,
-        /** keep import structure */
-        IMPORT_GRAPH
-    }
-
+    private static final long serialVersionUID = 40000L;
+    /** true if http compression should be used */
+    private boolean acceptHTTPCompression = true;
+    /** timeout for connections */
+    private int connectionTimeout = 20000;
+    /** true if redirects should be followed across protocols */
+    private boolean followRedirects = true;
+    /** set of imports to ignore */
+    private final Set<IRI> ignoredImports = new HashSet<IRI>();
+    /** true if annotations should be loaded, false if skipped */
     private boolean loadAnnotations = true;
+    /** missing imports handling strategy */
+    private MissingImportHandlingStrategy missingImportHandlingStrategy = MissingImportHandlingStrategy.THROW_EXCEPTION;
     /** default missing ontology strategy. */
     private MissingOntologyHeaderStrategy missingOntologyHeaderStrategy = MissingOntologyHeaderStrategy.INCLUDE_GRAPH;
-    private boolean strict = false;
     /** flag to enable stack traces on parsing exceptions. */
     private boolean reportStackTraces = false;
-    private boolean followRedirects = true;
-    private MissingImportHandlingStrategy missingImportHandlingStrategy = MissingImportHandlingStrategy.THROW_EXCEPTION;
-    private final Set<IRI> ignoredImports = new HashSet<IRI>();
-    private int connectionTimeout = 20000;
-    private boolean acceptHTTPCompression = true;
+    /**
+     * number of retries to attempt when retrieving an ontology form a remote
+     * URL. Defaults to 5.
+     */
+    private int retriesToAttempt = 5;
+    /** true if strict parsing should be used */
+    private boolean strict = false;
+    /** true if Dublin Core */
     private boolean treatDublinCoreAsBuiltIn = true;
+
+    /**
+     * Adds an ontology document IRI to the list of ontology imports that will
+     * be ignored during ontology loading.
+     * 
+     * @param ontologyDocumentIRI
+     *        The ontology document IRI that will be ignored if it is
+     *        encountered as an imported ontology during loading.
+     * @return An {@code OWLOntologyLoaderConfiguration} with the ignored
+     *         ontology document IRI set.
+     */
+    public OWLOntologyLoaderConfiguration addIgnoredImport(
+            IRI ontologyDocumentIRI) {
+        OWLOntologyLoaderConfiguration configuration = copyConfiguration();
+        configuration.ignoredImports.add(ontologyDocumentIRI);
+        return configuration;
+    }
+
+    /**
+     * Clears all ontology document IRIs from the list of ignored ontology
+     * document IRIs.
+     * 
+     * @return An {@code OWLOntologyLoaderConfiguration} with the list of
+     *         ignored ontology document IRIs set to be empty.
+     */
+    public OWLOntologyLoaderConfiguration clearIgnoredImports() {
+        OWLOntologyLoaderConfiguration configuration = copyConfiguration();
+        configuration.ignoredImports.clear();
+        return configuration;
+    }
+
+    /**
+     * Internally copies this configuaration object.
+     * 
+     * @return The copied configuration
+     */
+    private OWLOntologyLoaderConfiguration copyConfiguration() {
+        OWLOntologyLoaderConfiguration copy = new OWLOntologyLoaderConfiguration();
+        copy.acceptHTTPCompression = acceptHTTPCompression;
+        copy.connectionTimeout = connectionTimeout;
+        copy.followRedirects = followRedirects;
+        copy.ignoredImports.clear();
+        copy.ignoredImports.addAll(ignoredImports);
+        copy.loadAnnotations = loadAnnotations;
+        copy.missingImportHandlingStrategy = missingImportHandlingStrategy;
+        copy.missingOntologyHeaderStrategy = missingOntologyHeaderStrategy;
+        copy.reportStackTraces = reportStackTraces;
+        copy.retriesToAttempt = retriesToAttempt;
+        copy.strict = strict;
+        copy.treatDublinCoreAsBuiltIn = treatDublinCoreAsBuiltIn;
+        return copy;
+    }
+
+    /** @return the connection timeout for this configuration */
+    public int getConnectionTimeout() {
+        return connectionTimeout;
+    }
+
+    /**
+     * Gets the strategy used for missing imports.
+     * 
+     * @return The strategy. See {@link MissingImportHandlingStrategy} for the
+     *         strategies and their descriptions.
+     * @since 3.3
+     */
+    public MissingImportHandlingStrategy getMissingImportHandlingStrategy() {
+        return missingImportHandlingStrategy;
+    }
+
+    /** @return the ontology header strategy */
+    public MissingOntologyHeaderStrategy getMissingOntologyHeaderStrategy() {
+        return missingOntologyHeaderStrategy;
+    }
+
+    /**
+     * @return number of retries to attempt when retrieving an ontology form a
+     *         remote URL.
+     */
+    public int getRetriesToAttempt() {
+        return retriesToAttempt;
+    }
+
+    /** @return true if http compression should be accepted. */
+    public boolean isAcceptingHTTPCompression() {
+        return acceptHTTPCompression;
+    }
+
+    /**
+     * When loading an ontology, a parser might connect to a remote URL. If the
+     * remote URL is a 302 redirect and the protocol is different, e.g., http to
+     * https, the parser needs to decide whether to follow the redirect and
+     * download the ontology from an alternate source, or stop with an
+     * UnloadableOntologyError. By default this is true, meaning redirects will
+     * be followed across protocols. If set to false, redirects will be followed
+     * only within the same protocol (URLConnection limits this to five
+     * redirects).
+     * 
+     * @return true if redirects should be followed when importing ontologies
+     *         from remote URLs
+     */
+    public boolean isFollowRedirects() {
+        return followRedirects;
+    }
+
+    /**
+     * @param iri
+     *        iri to check
+     * @return true if iri should be ignored
+     */
+    public boolean isIgnoredImport(IRI iri) {
+        return Namespaces.isDefaultIgnoredImport(iri)
+                || ignoredImports.contains(iri);
+    }
+
+    /**
+     * Determines whether or not annotation axioms (instances of
+     * {@code OWLAnnotationAxiom}) should be loaded. By default, the loading of
+     * annotation axioms is enabled.
+     * 
+     * @return {@code true} if annotation assertions will be loaded, or
+     *         {@code false} if annotation assertions will not be loaded because
+     *         they will be discarded on loading.
+     */
+    public boolean isLoadAnnotationAxioms() {
+        return loadAnnotations;
+    }
+
+    /** @return value for the report stack trace flag. */
+    public boolean isReportStackTrace() {
+        return reportStackTraces;
+    }
+
+    /** @return true if parsing should be strict */
+    public boolean isStrict() {
+        return strict;
+    }
 
     /**
      * Determines if the various parsers, for formats such as RDF based formats
@@ -74,24 +218,71 @@ public final class OWLOntologyLoaderConfiguration implements Serializable {
         return treatDublinCoreAsBuiltIn;
     }
 
-    /** @return the ontology header strategy */
-    public MissingOntologyHeaderStrategy getMissingOntologyHeaderStrategy() {
-        return missingOntologyHeaderStrategy;
+    /**
+     * Removes an ontology document IRI from the list of ontology imports that
+     * will be ignored during ontology loading.
+     * 
+     * @param ontologyDocumentIRI
+     *        The ontology document IRI that would be ignored if it is
+     *        encountered as an imported ontology during loading.
+     * @return An {@code OWLOntologyLoaderConfiguration} with the ignored
+     *         ontology document IRI removed.
+     */
+    public OWLOntologyLoaderConfiguration removeIgnoredImport(
+            IRI ontologyDocumentIRI) {
+        OWLOntologyLoaderConfiguration configuration = copyConfiguration();
+        configuration.ignoredImports.remove(ontologyDocumentIRI);
+        return configuration;
     }
 
     /**
-     * @param missingOntologyHeaderStrategy
-     *        new value
-     * @return a copy of this configuration object with a different strategy
+     * @param b
+     *        true if HTTP compression should be accepted
+     * @return a copy of this configuration with accepting HTTP compression set
+     *         to the new value
      */
-    public OWLOntologyLoaderConfiguration setMissingOntologyHeaderStrategy(
-            MissingOntologyHeaderStrategy missingOntologyHeaderStrategy) {
+    public OWLOntologyLoaderConfiguration
+            setAcceptingHTTPCompression(boolean b) {
         // do not make copies if setting the same value
-        if (missingOntologyHeaderStrategy == this.missingOntologyHeaderStrategy) {
+        if (acceptHTTPCompression == b) {
             return this;
         }
         OWLOntologyLoaderConfiguration copy = copyConfiguration();
-        copy.missingOntologyHeaderStrategy = missingOntologyHeaderStrategy;
+        copy.acceptHTTPCompression = b;
+        return copy;
+    }
+
+    /**
+     * @param l
+     *        new timeout Note: the timeout is an int and represents
+     *        milliseconds. This is necessary for use in {@code URLConnection}
+     * @return A {@code OWLOntologyLoaderConfiguration} with the connection
+     *         timeout set to the new value.
+     */
+    public OWLOntologyLoaderConfiguration setConnectionTimeout(int l) {
+        if (l == connectionTimeout) {
+            return this;
+        }
+        OWLOntologyLoaderConfiguration configuration = copyConfiguration();
+        configuration.connectionTimeout = l;
+        return configuration;
+    }
+
+    /**
+     * @param value
+     *        true if redirects should be followed across protocols, false
+     *        otherwise.
+     * @return a copy of the current object with followRedirects set to the new
+     *         value.
+     */
+    public OWLOntologyLoaderConfiguration setFollowRedirects(boolean value) {
+        // as the objects are immutable, setting to the same value returns the
+        // same object
+        if (value == followRedirects) {
+            return this;
+        }
+        OWLOntologyLoaderConfiguration copy = copyConfiguration();
+        copy.followRedirects = value;
         return copy;
     }
 
@@ -119,94 +310,6 @@ public final class OWLOntologyLoaderConfiguration implements Serializable {
     }
 
     /**
-     * Determines whether or not annotation axioms (instances of
-     * {@code OWLAnnotationAxiom}) should be loaded. By default, the loading of
-     * annotation axioms is enabled.
-     * 
-     * @return {@code true} if annotation assertions will be loaded, or
-     *         {@code false} if annotation assertions will not be loaded because
-     *         they will be discarded on loading.
-     */
-    public boolean isLoadAnnotationAxioms() {
-        return loadAnnotations;
-    }
-
-    /**
-     * When loading an ontology, a parser might connect to a remote URL. If the
-     * remote URL is a 302 redirect and the protocol is different, e.g., http to
-     * https, the parser needs to decide whether to follow the redirect and
-     * download the ontology from an alternate source, or stop with an
-     * UnloadableOntologyError. By default this is true, meaning redirects will
-     * be followed across protocols. If set to false, redirects will be followed
-     * only within the same protocol (URLConnection limits this to five
-     * redirects).
-     * 
-     * @return true if redirects should be followed when importing ontologies
-     *         from remote URLs
-     */
-    public boolean isFollowRedirects() {
-        return followRedirects;
-    }
-
-    /** @return true if http compression should be accepted. */
-    public boolean isAcceptingHTTPCompression() {
-        return acceptHTTPCompression;
-    }
-
-    /**
-     * @param b
-     *        true if HTTP compression should be accepted
-     * @return a copy of this configuration with accepting HTTP compression set
-     *         to the new value
-     */
-    public OWLOntologyLoaderConfiguration
-            setAcceptingHTTPCompression(boolean b) {
-        // do not make copies if setting the same value
-        if (acceptHTTPCompression == b) {
-            return this;
-        }
-        OWLOntologyLoaderConfiguration copy = copyConfiguration();
-        copy.acceptHTTPCompression = b;
-        return copy;
-    }
-
-    /**
-     * @param value
-     *        true if redirects should be followed across protocols, false
-     *        otherwise.
-     * @return a copy of the current object with followRedirects set to the new
-     *         value.
-     */
-    public OWLOntologyLoaderConfiguration setFollowRedirects(boolean value) {
-        // as the objects are immutable, setting to the same value returns the
-        // same object
-        if (value == followRedirects) {
-            return this;
-        }
-        OWLOntologyLoaderConfiguration copy = copyConfiguration();
-        copy.followRedirects = value;
-        return copy;
-    }
-
-    /**
-     * @param value
-     *        true if Dublin Core vocabulary should be treated as built in.
-     * @return a copy of the current object with treatDublinCoreAsBuiltIn set to
-     *         the new value.
-     */
-    public OWLOntologyLoaderConfiguration setTreatDublinCoreAsBuiltIn(
-            boolean value) {
-        // as the objects are immutable, setting to the same value returns the
-        // same object
-        if (value == treatDublinCoreAsBuiltIn) {
-            return this;
-        }
-        OWLOntologyLoaderConfiguration copy = copyConfiguration();
-        copy.treatDublinCoreAsBuiltIn = value;
-        return copy;
-    }
-
-    /**
      * Sets the strategy that is used for missing imports handling. See
      * {@link MissingImportHandlingStrategy} for the strategies and their
      * descriptions.
@@ -229,91 +332,19 @@ public final class OWLOntologyLoaderConfiguration implements Serializable {
     }
 
     /**
-     * Gets the strategy used for missing imports.
-     * 
-     * @return The strategy. See {@link MissingImportHandlingStrategy} for the
-     *         strategies and their descriptions.
-     * @since 3.3
+     * @param missingOntologyHeaderStrategy
+     *        new value
+     * @return a copy of this configuration object with a different strategy
      */
-    public MissingImportHandlingStrategy getMissingImportHandlingStrategy() {
-        return missingImportHandlingStrategy;
-    }
-
-    /** @return true if parsing should be strict */
-    public boolean isStrict() {
-        return strict;
-    }
-
-    /**
-     * @param strict
-     *        new value for strict
-     * @return copy of the configuration with new strict value
-     */
-    public OWLOntologyLoaderConfiguration setStrict(boolean strict) {
+    public OWLOntologyLoaderConfiguration setMissingOntologyHeaderStrategy(
+            MissingOntologyHeaderStrategy missingOntologyHeaderStrategy) {
         // do not make copies if setting the same value
-        if (this.strict == strict) {
+        if (missingOntologyHeaderStrategy == this.missingOntologyHeaderStrategy) {
             return this;
         }
         OWLOntologyLoaderConfiguration copy = copyConfiguration();
-        copy.strict = strict;
+        copy.missingOntologyHeaderStrategy = missingOntologyHeaderStrategy;
         return copy;
-    }
-
-    /**
-     * @param iri
-     *        iri to check
-     * @return true if iri should be ignored
-     */
-    public boolean isIgnoredImport(IRI iri) {
-        return Namespaces.isDefaultIgnoredImport(iri)
-                || ignoredImports.contains(iri);
-    }
-
-    /**
-     * Adds an ontology document IRI to the list of ontology imports that will
-     * be ignored during ontology loading.
-     * 
-     * @param ontologyDocumentIRI
-     *        The ontology document IRI that will be ignored if it is
-     *        encountered as an imported ontology during loading.
-     * @return An {@code OWLOntologyLoaderConfiguration} with the ignored
-     *         ontology document IRI set.
-     */
-    public OWLOntologyLoaderConfiguration addIgnoredImport(
-            IRI ontologyDocumentIRI) {
-        OWLOntologyLoaderConfiguration configuration = copyConfiguration();
-        configuration.ignoredImports.add(ontologyDocumentIRI);
-        return configuration;
-    }
-
-    /**
-     * Removes an ontology document IRI from the list of ontology imports that
-     * will be ignored during ontology loading.
-     * 
-     * @param ontologyDocumentIRI
-     *        The ontology document IRI that would be ignored if it is
-     *        encountered as an imported ontology during loading.
-     * @return An {@code OWLOntologyLoaderConfiguration} with the ignored
-     *         ontology document IRI removed.
-     */
-    public OWLOntologyLoaderConfiguration removeIgnoredImport(
-            IRI ontologyDocumentIRI) {
-        OWLOntologyLoaderConfiguration configuration = copyConfiguration();
-        configuration.ignoredImports.remove(ontologyDocumentIRI);
-        return configuration;
-    }
-
-    /**
-     * Clears all ontology document IRIs from the list of ignored ontology
-     * document IRIs.
-     * 
-     * @return An {@code OWLOntologyLoaderConfiguration} with the list of
-     *         ignored ontology document IRIs set to be empty.
-     */
-    public OWLOntologyLoaderConfiguration clearIgnoredImports() {
-        OWLOntologyLoaderConfiguration configuration = copyConfiguration();
-        configuration.ignoredImports.clear();
-        return configuration;
     }
 
     /**
@@ -335,49 +366,51 @@ public final class OWLOntologyLoaderConfiguration implements Serializable {
         return configuration;
     }
 
-    /** @return value for the report stack trace flag. */
-    public boolean isReportStackTrace() {
-        return reportStackTraces;
-    }
-
-    /** @return the connection timeout for this configuration */
-    public int getConnectionTimeout() {
-        return connectionTimeout;
-    }
-
     /**
-     * @param l
-     *        new timeout Note: the timeout is an int and represents
-     *        milliseconds. This is necessary for use in {@code URLConnection}
-     * @return A {@code OWLOntologyLoaderConfiguration} with the connection
-     *         timeout set to the new value.
+     * @param retries
+     *        new value of retries to attempt
+     * @return copy of this configuration with modified retries attempts.
      */
-    public OWLOntologyLoaderConfiguration setConnectionTimeout(int l) {
-        if (l == connectionTimeout) {
+    public OWLOntologyLoaderConfiguration setRetriesToAttempt(int retries) {
+        // do not make copies if setting the same value
+        if (retries == retriesToAttempt) {
             return this;
         }
-        OWLOntologyLoaderConfiguration configuration = copyConfiguration();
-        configuration.connectionTimeout = l;
-        return configuration;
+        OWLOntologyLoaderConfiguration copy = copyConfiguration();
+        copy.retriesToAttempt = retries;
+        return copy;
     }
 
     /**
-     * Internally copies this configuaration object.
-     * 
-     * @return The copied configuration
+     * @param strict
+     *        new value for strict
+     * @return copy of the configuration with new strict value
      */
-    private OWLOntologyLoaderConfiguration copyConfiguration() {
-        OWLOntologyLoaderConfiguration copy = new OWLOntologyLoaderConfiguration();
-        copy.loadAnnotations = loadAnnotations;
-        copy.ignoredImports.clear();
-        copy.ignoredImports.addAll(ignoredImports);
+    public OWLOntologyLoaderConfiguration setStrict(boolean strict) {
+        // do not make copies if setting the same value
+        if (this.strict == strict) {
+            return this;
+        }
+        OWLOntologyLoaderConfiguration copy = copyConfiguration();
         copy.strict = strict;
-        copy.missingImportHandlingStrategy = missingImportHandlingStrategy;
-        copy.missingOntologyHeaderStrategy = missingOntologyHeaderStrategy;
-        copy.followRedirects = followRedirects;
-        copy.reportStackTraces = reportStackTraces;
-        copy.connectionTimeout = connectionTimeout;
-        copy.acceptHTTPCompression = acceptHTTPCompression;
+        return copy;
+    }
+
+    /**
+     * @param value
+     *        true if Dublin Core vocabulary should be treated as built in.
+     * @return a copy of the current object with treatDublinCoreAsBuiltIn set to
+     *         the new value.
+     */
+    public OWLOntologyLoaderConfiguration setTreatDublinCoreAsBuiltIn(
+            boolean value) {
+        // as the objects are immutable, setting to the same value returns the
+        // same object
+        if (value == treatDublinCoreAsBuiltIn) {
+            return this;
+        }
+        OWLOntologyLoaderConfiguration copy = copyConfiguration();
+        copy.treatDublinCoreAsBuiltIn = value;
         return copy;
     }
 }

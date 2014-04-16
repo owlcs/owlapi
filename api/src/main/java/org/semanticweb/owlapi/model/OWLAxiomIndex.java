@@ -17,6 +17,8 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.model.parameters.Imports;
+import org.semanticweb.owlapi.model.parameters.Search;
 import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
 
 /**

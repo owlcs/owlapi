@@ -1,6 +1,6 @@
 package org.obolibrary.macro;
 
-import static org.semanticweb.owlapi.model.Imports.*;
+import static org.semanticweb.owlapi.model.parameters.Imports.*;
 import static org.semanticweb.owlapi.search.Searcher.annotations;
 
 import java.util.HashMap;

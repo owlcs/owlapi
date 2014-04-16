@@ -14,7 +14,7 @@ package org.semanticweb.owlapi.api.test.annotations;
 
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
-import static org.semanticweb.owlapi.model.Imports.EXCLUDED;
+import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 
 import java.util.Set;
 
@@ -25,7 +25,7 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.Search;
+import org.semanticweb.owlapi.model.parameters.Search;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health

@@ -33,7 +33,7 @@ package org.semanticweb.owlapi.change;/*
 * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-import static org.semanticweb.owlapi.model.Imports.EXCLUDED;
+import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.ArrayList;

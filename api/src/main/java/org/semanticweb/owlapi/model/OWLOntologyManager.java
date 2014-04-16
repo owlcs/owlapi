@@ -24,6 +24,7 @@ import javax.annotation.Nullable;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 import org.semanticweb.owlapi.io.OWLParser;
+import org.semanticweb.owlapi.model.parameters.MissingImportHandlingStrategy;
 import org.semanticweb.owlapi.util.PriorityCollection;
 
 /**

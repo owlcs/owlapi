@@ -14,7 +14,7 @@ package org.semanticweb.owlapi.api.test.searcher;
 
 import static org.junit.Assert.assertTrue;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
-import static org.semanticweb.owlapi.model.Imports.*;
+import static org.semanticweb.owlapi.model.parameters.Imports.*;
 import static org.semanticweb.owlapi.search.Searcher.*;
 
 import java.util.Collection;

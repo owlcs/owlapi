@@ -16,6 +16,8 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.model.parameters.Imports;
+
 /**
  * Represents an OWL 2 <a
  * href="http://www.w3.org/TR/owl2-syntax/#Ontologies">Ontology</a> in the OWL 2

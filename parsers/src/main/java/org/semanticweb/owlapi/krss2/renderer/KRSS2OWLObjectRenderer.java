@@ -13,7 +13,7 @@
 package org.semanticweb.owlapi.krss2.renderer;
 
 import static org.semanticweb.owlapi.krss2.renderer.KRSS2Vocabulary.*;
-import static org.semanticweb.owlapi.model.Imports.INCLUDED;
+import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.search.Searcher.*;
 
 import java.io.IOException;

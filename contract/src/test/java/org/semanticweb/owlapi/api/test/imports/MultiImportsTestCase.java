@@ -13,7 +13,7 @@
 package org.semanticweb.owlapi.api.test.imports;
 
 import static org.junit.Assert.assertTrue;
-import static org.semanticweb.owlapi.model.Imports.INCLUDED;
+import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 
 import java.io.File;
 

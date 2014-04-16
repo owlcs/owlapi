@@ -16,6 +16,9 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.model.parameters.Imports;
+import org.semanticweb.owlapi.model.parameters.Search;
+
 /**
  * Ontology methods related to it being a collection of axioms.
  * 
