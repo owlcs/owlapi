@@ -150,7 +150,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     private Set<Construct> constructs;
     private Set<OWLOntology> ontologies;
 
-    public List<Construct> getConstructs() throws OWLException {
+    public List<Construct> getConstructs() {
         return getOrderedConstructs();
     }
 
