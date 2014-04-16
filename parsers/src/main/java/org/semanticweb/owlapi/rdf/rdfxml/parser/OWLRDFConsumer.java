@@ -839,8 +839,9 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
             updateGuesses(IRI iri, Class<?> class1, boolean explicitlyTyped) {
         if (explicitlyTyped && guessedDeclarations.containsValue(iri)) {
             // if an explicitly typed declaration has been added and there was a
-            // guess for it, replace it
-            guessedDeclarations.removeAll(iri);
+            // guess for its type, replace it
+            // Do not replace all guesses, as these might be due to punning
+            guessedDeclarations.remove(iri, class1);
         }
         if (!explicitlyTyped) {
             guessedDeclarations.put(iri, class1);
