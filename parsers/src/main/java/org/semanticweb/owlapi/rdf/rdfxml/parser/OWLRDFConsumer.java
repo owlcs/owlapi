@@ -46,6 +46,7 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnnotationValue;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
@@ -78,6 +79,9 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.google.common.collect.LinkedHashMultimap;
+import com.google.common.collect.Multimap;
 
 /**
  * A parser/interpreter for an RDF graph which represents an OWL ontology. The
@@ -166,7 +170,6 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
     private OWLAxiom lastAddedAxiom;
     /** The synonym map. */
     private Map<IRI, IRI> synonymMap;
-    // //////////////////////////////////////////////////////////////////////////////////////////////////////
     // SWRL Stuff
     /** The swrl rules. */
     private Set<IRI> swrlRules;
@@ -195,12 +198,13 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
     private Collection<OWLAnnotationAxiom> parsedAnnotationAxioms = new ArrayList<OWLAnnotationAxiom>();
     /** The axioms to be removed. */
     private Collection<OWLAxiom> axiomsToBeRemoved = new ArrayList<OWLAxiom>();
-    // //////////////////////////////////////////////////////////////////////////////////////////////////////
     /** The parsed all triples. */
     private boolean parsedAllTriples = false;
     HandlerAccessor handlerAccessor;
     TranslatorAccessor translatorAccessor;
     private AnonymousNodeChecker nodeCheckerDelegate;
+    private Multimap<IRI, Class<?>> guessedDeclarations = LinkedHashMultimap
+            .create();
 
     /**
      * Instantiates a new oWLRDF consumer.
@@ -827,7 +831,20 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
      *        the explicitly typed
      */
     public void addClassExpression(IRI iri, boolean explicitlyTyped) {
+        updateGuesses(iri, OWLClass.class, explicitlyTyped);
         addType(iri, classExpressionIRIs, explicitlyTyped);
+    }
+
+    private void
+            updateGuesses(IRI iri, Class<?> class1, boolean explicitlyTyped) {
+        if (explicitlyTyped && guessedDeclarations.containsValue(iri)) {
+            // if an explicitly typed declaration has been added and there was a
+            // guess for it, replace it
+            guessedDeclarations.removeAll(iri);
+        }
+        if (!explicitlyTyped) {
+            guessedDeclarations.put(iri, class1);
+        }
     }
 
     /**
@@ -850,6 +867,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
      *        the explicitly typed
      */
     public void addObjectProperty(IRI iri, boolean explicitlyTyped) {
+        updateGuesses(iri, OWLObjectProperty.class, explicitlyTyped);
         addType(iri, objectPropertyExpressionIRIs, explicitlyTyped);
     }
 
@@ -862,6 +880,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
      *        the explicitly typed
      */
     public void addDataProperty(IRI iri, boolean explicitlyTyped) {
+        updateGuesses(iri, OWLDataProperty.class, explicitlyTyped);
         addType(iri, dataPropertyExpressionIRIs, explicitlyTyped);
     }
 
@@ -874,6 +893,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
      *        the explicitly typed
      */
     protected void addAnnotationProperty(IRI iri, boolean explicitlyTyped) {
+        updateGuesses(iri, OWLAnnotationProperty.class, explicitlyTyped);
         addType(iri, annotationPropertyIRIs, explicitlyTyped);
     }
 
@@ -886,6 +906,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
      *        the explicitly typed
      */
     public void addDataRange(IRI iri, boolean explicitlyTyped) {
+        updateGuesses(iri, OWLDataRange.class, explicitlyTyped);
         addType(iri, dataRangeIRIs, explicitlyTyped);
     }
 
@@ -894,11 +915,12 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
      * 
      * @param iri
      *        the iri
-     * @param explicitlyType
+     * @param explicitlyTyped
      *        the explicitly type
      */
-    protected void addOWLNamedIndividual(IRI iri, boolean explicitlyType) {
-        addType(iri, individualIRIs, explicitlyType);
+    protected void addOWLNamedIndividual(IRI iri, boolean explicitlyTyped) {
+        updateGuesses(iri, OWLNamedIndividual.class, explicitlyTyped);
+        addType(iri, individualIRIs, explicitlyTyped);
     }
 
     /**
@@ -910,20 +932,17 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
      *        the explicitly typed
      */
     protected void addOWLRestriction(IRI iri, boolean explicitlyTyped) {
+        updateGuesses(iri, OWLClassExpression.class, explicitlyTyped);
         addType(iri, restrictionIRIs, explicitlyTyped);
     }
 
     private void addType(IRI iri, Set<IRI> types, boolean explicitlyTyped) {
-        if (configuration.isStrict()) {
-            if (explicitlyTyped) {
-                types.add(iri);
-            } else {
-                logger.warn("STRICT: Not adding implicit type iri={} types={}",
-                        iri, types);
-            }
-        } else {
-            types.add(iri);
+        if (configuration.isStrict() && !explicitlyTyped) {
+            logger.warn("STRICT: Not adding implicit type iri={} types={}",
+                    iri, types);
+            return;
         }
+        types.add(iri);
     }
 
     /**
@@ -1496,7 +1515,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
         if (ontologyFormat != null) {
             RDFParserMetaData metaData = new RDFParserMetaData(
                     RDFOntologyHeaderStatus.PARSED_ONE_HEADER,
-                    tripleLogger.count(), remainingTriples);
+                    tripleLogger.count(), remainingTriples, guessedDeclarations);
             ontologyFormat.setOntologyLoaderMetaData(metaData);
         }
         // Do we need to change the ontology IRI?

@@ -15,12 +15,15 @@ package org.semanticweb.owlapi.io;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.util.CollectionFactory;
+
+import com.google.common.collect.Multimap;
+import com.google.common.collect.Multimaps;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health
@@ -33,7 +36,8 @@ public class RDFParserMetaData implements OWLOntologyLoaderMetaData,
     private static final long serialVersionUID = 40000L;
     private final int tripleCount;
     private final RDFOntologyHeaderStatus headerStatus;
-    private final Set<RDFTriple> unparsedTriples = new HashSet<RDFTriple>();
+    private final Set<RDFTriple> unparsedTriples;
+    private final Multimap<IRI, Class<?>> guessedDeclarations;
 
     /**
      * @param headerStatus
@@ -44,12 +48,15 @@ public class RDFParserMetaData implements OWLOntologyLoaderMetaData,
      *        the set of triples not parsed
      */
     public RDFParserMetaData(@Nonnull RDFOntologyHeaderStatus headerStatus,
-            int tripleCount, @Nonnull Set<RDFTriple> unparsedTriples) {
+            int tripleCount, @Nonnull Set<RDFTriple> unparsedTriples,
+            @Nonnull Multimap<IRI, Class<?>> guessedDeclarations) {
         this.tripleCount = tripleCount;
         this.headerStatus = checkNotNull(headerStatus,
                 "headerStatus cannot be null");
-        this.unparsedTriples.addAll(checkNotNull(unparsedTriples,
-                "unparsedTriples cannot be null"));
+        this.unparsedTriples = checkNotNull(unparsedTriples,
+                "unparsedTriples cannot be null");
+        this.guessedDeclarations = checkNotNull(guessedDeclarations,
+                "guessedDeclarations cannot be null");
     }
 
     /**
@@ -70,5 +77,13 @@ public class RDFParserMetaData implements OWLOntologyLoaderMetaData,
     public Set<RDFTriple> getUnparsedTriples() {
         return CollectionFactory
                 .getCopyOnRequestSetFromMutableCollection(unparsedTriples);
+    }
+
+    /**
+     * @return the guessed declarations, i.e., those not parsed from explicit
+     *         declaration axioms
+     */
+    public Multimap<IRI, Class<?>> getGuessedDeclarations() {
+        return Multimaps.unmodifiableMultimap(guessedDeclarations);
     }
 }
