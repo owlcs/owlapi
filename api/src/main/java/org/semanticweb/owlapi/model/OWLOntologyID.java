@@ -33,7 +33,7 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
     private static final long serialVersionUID = 40000L;
     private static final AtomicInteger COUNTER = new AtomicInteger();
     private static final String ANON_PREFIX = "Anonymous-";
-    private Optional<String> internalID;
+    private Optional<String> internalID = Optional.absent();
     private final Optional<IRI> ontologyIRI;
     private final Optional<IRI> versionIRI;
     private int hashCode;
@@ -47,19 +47,15 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
      * @param versionIRI
      *        The version IRI (must be {@code null} if the ontologyIRI is null)
      */
-    @Deprecated
     public OWLOntologyID(IRI iri, IRI versionIRI) {
         this(opt(iri), opt(versionIRI));
     }
 
     private static Optional<IRI> opt(IRI i) {
-        if (i == null) {
-            return Optional.absent();
-        }
         if (NodeID.isAnonymousNodeIRI(i)) {
             return Optional.absent();
         }
-        return Optional.of(i);
+        return Optional.fromNullable(i);
     }
 
     /**
@@ -75,7 +71,6 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
         ontologyIRI = iri;
         hashCode = 17;
         if (ontologyIRI.isPresent()) {
-            internalID = Optional.absent();
             hashCode += 37 * ontologyIRI.hashCode();
         } else {
             internalID = Optional.of(ANON_PREFIX + COUNTER.getAndIncrement());
