@@ -224,7 +224,7 @@ public class SerializationTest {
         OWLOntologyManager copy = (OWLOntologyManager) inStream.readObject();
         for (OWLOntology onto : copy.getOntologies()) {
             OWLOntology original = m.getOntology(onto.getOntologyID()
-                    .getOntologyIRI());
+                    .getOntologyIRI().get());
             assertEquals("Troubles with ontology " + onto.getOntologyID(),
                     original.getAxioms(), onto.getAxioms());
         }

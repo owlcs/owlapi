@@ -15,6 +15,8 @@ package org.semanticweb.owlapi.model;
 import java.io.Serializable;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import com.google.common.base.Optional;
+
 /**
  * An object that identifies an ontology. Since OWL 2, ontologies do not have to
  * have an ontology IRI, or if they have an ontology IRI then they can
@@ -31,20 +33,10 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
     private static final long serialVersionUID = 40000L;
     private static final AtomicInteger COUNTER = new AtomicInteger();
     private static final String ANON_PREFIX = "Anonymous-";
-    private String internalID;
-    private final IRI ontologyIRI;
-    private final IRI versionIRI;
+    private Optional<String> internalID;
+    private final Optional<IRI> ontologyIRI;
+    private final Optional<IRI> versionIRI;
     private int hashCode;
-
-    /**
-     * Constructs an ontology identifier specifying the ontology IRI.
-     * 
-     * @param ontologyIRI
-     *        The ontology IRI used to indentify the ontology
-     */
-    public OWLOntologyID(IRI ontologyIRI) {
-        this(ontologyIRI, null);
-    }
 
     /**
      * Constructs an ontology identifier specifiying the ontology IRI and
@@ -55,27 +47,48 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
      * @param versionIRI
      *        The version IRI (must be {@code null} if the ontologyIRI is null)
      */
+    @Deprecated
     public OWLOntologyID(IRI iri, IRI versionIRI) {
-        ontologyIRI = NodeID.isAnonymousNodeIRI(iri) ? null : iri;
-        hashCode = 17;
-        if (ontologyIRI != null) {
-            internalID = null;
-            hashCode += 37 * ontologyIRI.hashCode();
+        this(opt(iri), opt(versionIRI));
+    }
+
+    private static Optional<IRI> opt(IRI i) {
+        if (i == null) {
+            return Optional.absent();
         }
-        if (versionIRI != null) {
-            if (ontologyIRI == null) {
+        if (NodeID.isAnonymousNodeIRI(i)) {
+            return Optional.absent();
+        }
+        return Optional.of(i);
+    }
+
+    /**
+     * Constructs an ontology identifier specifiying the ontology IRI and
+     * version IRI.
+     * 
+     * @param iri
+     *        The ontology IRI (may be absent)
+     * @param versionIRI
+     *        The version IRI (must be absent if the ontologyIRI is absent)
+     */
+    public OWLOntologyID(Optional<IRI> iri, Optional<IRI> versionIRI) {
+        ontologyIRI = iri;
+        hashCode = 17;
+        if (ontologyIRI.isPresent()) {
+            internalID = Optional.absent();
+            hashCode += 37 * ontologyIRI.hashCode();
+        } else {
+            internalID = Optional.of(ANON_PREFIX + COUNTER.getAndIncrement());
+            hashCode += 37 * internalID.hashCode();
+        }
+        if (versionIRI.isPresent()) {
+            if (!ontologyIRI.isPresent()) {
                 throw new IllegalArgumentException(
                         "If the ontology IRI is null then it is not possible to specify a version IRI");
             }
-            this.versionIRI = versionIRI;
             hashCode += 37 * versionIRI.hashCode();
-        } else {
-            this.versionIRI = null;
         }
-        if (ontologyIRI == null) {
-            internalID = ANON_PREFIX + COUNTER.getAndIncrement();
-            hashCode += 37 * internalID.hashCode();
-        }
+        this.versionIRI = versionIRI;
     }
 
     /**
@@ -83,7 +96,7 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
      * hence the version IRI) is not present.
      */
     public OWLOntologyID() {
-        this(null, null);
+        this(Optional.<IRI> absent(), Optional.<IRI> absent());
     }
 
     /**
@@ -95,8 +108,10 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
      * @see org.semanticweb.owlapi.model.IRI#isReservedVocabulary()
      */
     public boolean isOWL2DLOntologyID() {
-        return ontologyIRI == null || !ontologyIRI.isReservedVocabulary()
-                && (versionIRI == null || !versionIRI.isReservedVocabulary());
+        return !ontologyIRI.isPresent()
+                || !ontologyIRI.get().isReservedVocabulary()
+                && (!versionIRI.isPresent() || !versionIRI.get()
+                        .isReservedVocabulary());
     }
 
     @Override
@@ -109,7 +124,7 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
      * 
      * @return the ontology IRI, or {@code null} if there is no ontology IRI.
      */
-    public IRI getOntologyIRI() {
+    public Optional<IRI> getOntologyIRI() {
         return ontologyIRI;
     }
 
@@ -118,7 +133,7 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
      * 
      * @return the version IRI, or {@code null} if there is no version IRI.
      */
-    public IRI getVersionIRI() {
+    public Optional<IRI> getVersionIRI() {
         return versionIRI;
     }
 
@@ -135,9 +150,9 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
      *         containing an ontology as identified by this ontology ID. Returns
      *         the default IRI or {@code null}.
      */
-    public IRI getDefaultDocumentIRI() {
+    public Optional<IRI> getDefaultDocumentIRI() {
         if (ontologyIRI != null) {
-            if (versionIRI != null) {
+            if (versionIRI.isPresent()) {
                 return versionIRI;
             } else {
                 return ontologyIRI;
@@ -155,23 +170,21 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
      *         or {@code false} if this ID is an ID for an ontology with an IRI.
      */
     public boolean isAnonymous() {
-        return ontologyIRI == null || NodeID.isAnonymousNodeIRI(ontologyIRI);
+        return !ontologyIRI.isPresent();
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("OntologyID(");
-        if (ontologyIRI != null) {
-            sb.append("OntologyIRI(");
-            sb.append(ontologyIRI.toQuotedString());
-            sb.append(")");
-            if (versionIRI != null) {
-                sb.append(" VersionIRI(");
-                sb.append(versionIRI.toQuotedString());
-                sb.append(")");
+        if (ontologyIRI.isPresent()) {
+            sb.append("OntologyIRI(")
+                    .append(ontologyIRI.get().toQuotedString()).append(")");
+            if (versionIRI.isPresent()) {
+                sb.append(" VersionIRI(")
+                        .append(versionIRI.get().toQuotedString()).append(")");
             }
         } else {
-            sb.append(internalID);
+            sb.append(internalID.get().toString());
         }
         sb.append(")");
         return sb.toString();
@@ -208,11 +221,7 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
                 return toReturn;
             }
             // if toReturn is true, compare the version iris
-            if (versionIRI != null) {
-                toReturn = versionIRI.equals(other.versionIRI);
-            } else {
-                toReturn = other.versionIRI == null;
-            }
+            toReturn = versionIRI.equals(other.versionIRI);
             return toReturn;
         }
         // else this is anonymous and the other cannot be anonymous, so return

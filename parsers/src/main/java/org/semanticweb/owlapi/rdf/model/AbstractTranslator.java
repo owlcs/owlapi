@@ -32,24 +32,26 @@ import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
+import com.google.common.base.Optional;
+
 /**
  * An abstract translator that can produce an RDF graph from an OWLOntology.
  * Subclasses must provide implementations to create concrete representations of
  * resources, triples etc.
  * 
- * @param <NODE>
+ * @param <N>
  *        the basic node
- * @param <RESOURCE>
+ * @param <R>
  *        a resource node
- * @param <PREDICATE>
+ * @param <P>
  *        a predicate node
- * @param <LITERAL>
+ * @param <L>
  *        a literal node
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0
  */
-public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE extends NODE, LITERAL extends NODE>
+public abstract class AbstractTranslator<N, R extends N, P extends N, L extends N>
         implements OWLObjectVisitor, SWRLObjectVisitor {
 
     private OWLOntologyManager manager;
@@ -688,13 +690,14 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
 
     @Override
     public void visit(OWLOntology ontologyToVisit) {
-        if (ontologyToVisit.isAnonymous()) {
-            translateAnonymousNode(ontologyToVisit);
-        } else {
+        Optional<IRI> ontologyIRI = ontologyToVisit.getOntologyID()
+                .getOntologyIRI();
+        if (ontologyIRI.isPresent()) {
             if (!nodeMap.containsKey(ontologyToVisit)) {
-                nodeMap.put(ontologyToVisit, getResourceNode(ontologyToVisit
-                        .getOntologyID().getOntologyIRI()));
+                nodeMap.put(ontologyToVisit, getResourceNode(ontologyIRI.get()));
             }
+        } else {
+            translateAnonymousNode(ontologyToVisit);
         }
         addTriple(ontologyToVisit, RDF_TYPE.getIRI(), OWL_ONTOLOGY.getIRI());
     }
@@ -812,7 +815,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     //
     // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /** Maps Objects to nodes. */
-    private Map<OWLObject, NODE> nodeMap = new IdentityHashMap<OWLObject, NODE>();
+    private Map<OWLObject, N> nodeMap = new IdentityHashMap<OWLObject, N>();
 
     private void addSingleTripleAxiom(OWLAxiom ax, OWLObject subject, IRI pred,
             OWLObject obj) {
@@ -859,8 +862,8 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
      * @param object
      *        The object of the triple representing the axiom
      */
-    private void addSingleTripleAxiom(OWLAxiom ax, RESOURCE subject,
-            PREDICATE predicate, NODE object) {
+    private void addSingleTripleAxiom(OWLAxiom ax, R subject, P predicate,
+            N object) {
         // Base triple
         addTriple(subject, predicate, object);
         if (ax.getAnnotations().isEmpty()) {
@@ -944,9 +947,9 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
      *        The IRI of the resource
      * @return The resource with the specified IRI
      */
-    protected abstract RESOURCE getResourceNode(IRI IRI);
+    protected abstract R getResourceNode(IRI IRI);
 
-    protected abstract PREDICATE getPredicateNode(IRI IRI);
+    protected abstract P getPredicateNode(IRI IRI);
 
     /**
      * Gets an anonymous resource.
@@ -956,19 +959,18 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
      *        that are returned should be equal and have the same hashcode.
      * @return The resource
      */
-    protected abstract RESOURCE getAnonymousNode(Object key);
+    protected abstract R getAnonymousNode(Object key);
 
-    protected abstract LITERAL getLiteralNode(OWLLiteral literal);
+    protected abstract L getLiteralNode(OWLLiteral literal);
 
-    protected abstract void addTriple(RESOURCE subject, PREDICATE pred,
-            NODE object);
+    protected abstract void addTriple(R subject, P pred, N object);
 
     @SuppressWarnings("unchecked")
-    private RESOURCE getResourceNode(OWLObject object) {
-        RESOURCE r = (RESOURCE) nodeMap.get(object);
+    private R getResourceNode(OWLObject object) {
+        R r = (R) nodeMap.get(object);
         if (r == null) {
             object.accept(this);
-            r = (RESOURCE) nodeMap.get(object);
+            r = (R) nodeMap.get(object);
             if (r == null) {
                 throw new IllegalStateException("Node is null!");
             }
@@ -977,11 +979,11 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     }
 
     @SuppressWarnings("unchecked")
-    private PREDICATE getPredicateNode(OWLObject object) {
-        PREDICATE p = (PREDICATE) nodeMap.get(object);
+    private P getPredicateNode(OWLObject object) {
+        P p = (P) nodeMap.get(object);
         if (p == null) {
             object.accept(this);
-            p = (PREDICATE) nodeMap.get(object);
+            p = (P) nodeMap.get(object);
             if (p == null) {
                 throw new IllegalStateException("Node is null!");
             }
@@ -989,8 +991,8 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
         return p;
     }
 
-    private NODE getNode(OWLObject obj) {
-        NODE node = nodeMap.get(obj);
+    private N getNode(OWLObject obj) {
+        N node = nodeMap.get(obj);
         if (node == null) {
             obj.accept(this);
             node = nodeMap.get(obj);
@@ -1002,19 +1004,18 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
         return node;
     }
 
-    private RESOURCE translateList(List<? extends OWLObject> list) {
+    private R translateList(List<? extends OWLObject> list) {
         return translateList(list, RDF_LIST.getIRI());
     }
 
-    private RESOURCE
-            translateList(List<? extends OWLObject> list, IRI listType) {
+    private R translateList(List<? extends OWLObject> list, IRI listType) {
         if (list.isEmpty()) {
             return getResourceNode(RDF_NIL.getIRI());
         }
-        RESOURCE main = getResourceNode(RDF_NIL.getIRI());
+        R main = getResourceNode(RDF_NIL.getIRI());
         int listSize = list.size() - 1;
         for (int i = listSize; i >= 0; i--) {
-            RESOURCE anonNode = getAnonymousNode(list.subList(i, listSize));
+            R anonNode = getAnonymousNode(list.subList(i, listSize));
             addTriple(anonNode, getPredicateNode(RDF_TYPE.getIRI()),
                     getResourceNode(listType));
             addTriple(anonNode, getPredicateNode(RDF_FIRST.getIRI()),

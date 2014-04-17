@@ -40,9 +40,10 @@ public class OWLOntologyManagerTestCase extends TestBase {
         assertNotNull("ontology should not be null", ontology);
         assertNotNull("ontology id should not be null",
                 ontology.getOntologyID());
-        assertNull(ontology.getOntologyID().getDefaultDocumentIRI());
-        assertNull(ontology.getOntologyID().getOntologyIRI());
-        assertNull(ontology.getOntologyID().getVersionIRI());
+        assertFalse(ontology.getOntologyID().getDefaultDocumentIRI()
+                .isPresent());
+        assertFalse(ontology.getOntologyID().getOntologyIRI().isPresent());
+        assertFalse(ontology.getOntologyID().getVersionIRI().isPresent());
         assertNotNull("iri should not be null",
                 m.getOntologyDocumentIRI(ontology));
     }
@@ -55,9 +56,10 @@ public class OWLOntologyManagerTestCase extends TestBase {
         assertNotNull("ontology id should not be null",
                 ontology.getOntologyID());
         assertEquals(ontologyIRI, ontology.getOntologyID()
-                .getDefaultDocumentIRI());
-        assertEquals(ontologyIRI, ontology.getOntologyID().getOntologyIRI());
-        assertNull(ontology.getOntologyID().getVersionIRI());
+                .getDefaultDocumentIRI().get());
+        assertEquals(ontologyIRI, ontology.getOntologyID().getOntologyIRI()
+                .get());
+        assertFalse(ontology.getOntologyID().getVersionIRI().isPresent());
         assertEquals(ontologyIRI, m.getOntologyDocumentIRI(ontology));
     }
 
@@ -72,9 +74,10 @@ public class OWLOntologyManagerTestCase extends TestBase {
         assertNotNull("ontology id should not be null",
                 ontology.getOntologyID());
         assertEquals(versionIRI, ontology.getOntologyID()
-                .getDefaultDocumentIRI());
-        assertEquals(ontologyIRI, ontology.getOntologyID().getOntologyIRI());
-        assertEquals(versionIRI, ontology.getOntologyID().getVersionIRI());
+                .getDefaultDocumentIRI().get());
+        assertEquals(ontologyIRI, ontology.getOntologyID().getOntologyIRI()
+                .get());
+        assertEquals(versionIRI, ontology.getOntologyID().getVersionIRI().get());
         assertEquals(versionIRI, m.getOntologyDocumentIRI(ontology));
     }
 
@@ -90,9 +93,10 @@ public class OWLOntologyManagerTestCase extends TestBase {
         assertNotNull("ontology id should not be null",
                 ontology.getOntologyID());
         assertEquals(ontologyIRI, ontology.getOntologyID()
-                .getDefaultDocumentIRI());
-        assertEquals(ontologyIRI, ontology.getOntologyID().getOntologyIRI());
-        assertNull(ontology.getOntologyID().getVersionIRI());
+                .getDefaultDocumentIRI().get());
+        assertEquals(ontologyIRI, ontology.getOntologyID().getOntologyIRI()
+                .get());
+        assertFalse(ontology.getOntologyID().getVersionIRI().isPresent());
         assertEquals(documentIRI, m.getOntologyDocumentIRI(ontology));
     }
 
@@ -110,9 +114,10 @@ public class OWLOntologyManagerTestCase extends TestBase {
         assertNotNull("ontology id should not be null",
                 ontology.getOntologyID());
         assertEquals(versionIRI, ontology.getOntologyID()
-                .getDefaultDocumentIRI());
-        assertEquals(ontologyIRI, ontology.getOntologyID().getOntologyIRI());
-        assertEquals(versionIRI, ontology.getOntologyID().getVersionIRI());
+                .getDefaultDocumentIRI().get());
+        assertEquals(ontologyIRI, ontology.getOntologyID().getOntologyIRI()
+                .get());
+        assertEquals(versionIRI, ontology.getOntologyID().getVersionIRI().get());
         assertEquals(documentIRI, m.getOntologyDocumentIRI(ontology));
     }
 
@@ -141,7 +146,7 @@ public class OWLOntologyManagerTestCase extends TestBase {
         IRI documentIRI = IRI("file:documentIRI");
         m.getIRIMappers().add(new SimpleIRIMapper(ontologyIRI, documentIRI));
         m.getIRIMappers().add(new SimpleIRIMapper(ontologyIRI2, documentIRI));
-        m.createOntology(new OWLOntologyID(ontologyIRI));
-        m.createOntology(new OWLOntologyID(ontologyIRI2));
+        m.createOntology(new OWLOntologyID(ontologyIRI, null));
+        m.createOntology(new OWLOntologyID(ontologyIRI2, null));
     }
 }

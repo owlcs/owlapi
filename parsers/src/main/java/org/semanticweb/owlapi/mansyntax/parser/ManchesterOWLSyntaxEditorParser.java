@@ -94,6 +94,8 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.vocab.SWRLBuiltInsVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
+import com.google.common.base.Optional;
+
 /**
  * A parser for the Manchester OWL Syntax. All properties must be defined before
  * they are used. For example, consider the restriction hasPart some Leg. The
@@ -2227,9 +2229,9 @@ public class ManchesterOWLSyntaxEditorParser implements
             if (IMPORT.matches(section)) {
                 consumeToken();
                 tok = peekToken();
-                IRI importedIRI = null;
+                Optional<IRI> importedIRI = Optional.absent();
                 if (tok.startsWith("<")) {
-                    importedIRI = parseIRI();
+                    importedIRI = Optional.of(parseIRI());
                 } else if (isOntologyName(tok)) {
                     consumeToken();
                     OWLOntology ont = getOntology(tok);
@@ -2241,11 +2243,12 @@ public class ManchesterOWLSyntaxEditorParser implements
                     throw new ExceptionBuilder().withOnto()
                             .withKeyword("<$ONTOLOGYYURI$>").build();
                 }
-                if (importedIRI == null) {
+                if (!importedIRI.isPresent()) {
                     throw new ExceptionBuilder().withOnto()
                             .withKeyword("Imported IRI is null").build();
                 }
-                imports.add(dataFactory.getOWLImportsDeclaration(importedIRI));
+                imports.add(dataFactory.getOWLImportsDeclaration(importedIRI
+                        .get()));
             } else if (ANNOTATIONS.matches(section)) {
                 consumeToken();
                 annotations.addAll(parseAnnotationList());

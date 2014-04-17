@@ -149,7 +149,8 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
             // What do we return here? Just return the OWL namespace for now.
             return Namespaces.OWL.toString();
         } else {
-            String base = ontology.getOntologyID().getOntologyIRI().toString();
+            String base = ontology.getOntologyID().getOntologyIRI().get()
+                    .toString();
             if (!base.endsWith("#") && !base.endsWith("/")) {
                 base += "#";
             }

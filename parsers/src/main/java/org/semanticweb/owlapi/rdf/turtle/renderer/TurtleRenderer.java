@@ -79,7 +79,7 @@ public class TurtleRenderer extends RDFRendererBase {
         pm = new DefaultPrefixManager();
         if (!ontology.isAnonymous()) {
             String ontologyIRIString = ontology.getOntologyID()
-                    .getOntologyIRI().toString();
+                    .getOntologyIRI().get().toString();
             String defaultPrefix = ontologyIRIString;
             if (!ontologyIRIString.endsWith("/")) {
                 defaultPrefix = ontologyIRIString + "#";
@@ -149,7 +149,7 @@ public class TurtleRenderer extends RDFRendererBase {
     }
 
     private void write(IRI iri) {
-        if (iri.equals(ontology.getOntologyID().getOntologyIRI())) {
+        if (iri.equals(ontology.getOntologyID().getOntologyIRI().orNull())) {
             writeAsURI(iri.toString());
         } else {
             String name = pm.getPrefixIRI(iri);
@@ -257,7 +257,7 @@ public class TurtleRenderer extends RDFRendererBase {
         write("@base ");
         write("<");
         if (!ontology.isAnonymous()) {
-            write(ontology.getOntologyID().getOntologyIRI().toString());
+            write(ontology.getOntologyID().getOntologyIRI().get().toString());
         } else {
             write(Namespaces.OWL.toString());
         }

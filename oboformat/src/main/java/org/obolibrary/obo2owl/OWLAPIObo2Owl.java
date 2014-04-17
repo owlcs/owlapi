@@ -376,16 +376,16 @@ public class OWLAPIObo2Owl {
                 // empty one
                 if (owlOntology.getOntologyID() == null
                         || !ontIRI.equals(owlOntology.getOntologyID()
-                                .getOntologyIRI())) {
+                                .getOntologyIRI().orNull())) {
                     manager.applyChange(new SetOntologyID(owlOntology,
-                            new OWLOntologyID(ontIRI)));
+                            new OWLOntologyID(ontIRI, null)));
                 }
             }
         } else {
             defaultIDSpace = "TEMP";
             manager.applyChange(new SetOntologyID(owlOntology,
                     new OWLOntologyID(IRI.create(DEFAULT_IRI_PREFIX
-                            + defaultIDSpace))));
+                            + defaultIDSpace), null)));
             // TODO - warn
         }
         trHeaderFrame(hf);

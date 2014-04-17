@@ -69,7 +69,7 @@ public class ManchesterImportTestCase {
         IRI iri = IRI(str);
         OWLOntology ontology = manager.loadOntology(iri);
         assertEquals(1, ontology.getAxioms().size());
-        assertEquals(ontology.getOntologyID().getOntologyIRI(), iri);
+        assertEquals(ontology.getOntologyID().getOntologyIRI().get(), iri);
         assertNotNull(manager.getOntology(iri));
     }
 

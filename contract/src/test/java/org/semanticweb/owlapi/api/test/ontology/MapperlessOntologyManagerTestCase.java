@@ -46,7 +46,8 @@ public class MapperlessOntologyManagerTestCase {
     public void testCreateOntologyWithIRI() throws OWLOntologyCreationException {
         OWLOntologyManager manager = createManager();
         OWLOntology ontology = manager.createOntology(ONTOLOGY_IRI);
-        assertEquals(ONTOLOGY_IRI, ontology.getOntologyID().getOntologyIRI());
+        assertEquals(ONTOLOGY_IRI, ontology.getOntologyID().getOntologyIRI()
+                .get());
         assertEquals(ONTOLOGY_IRI, manager.getOntologyDocumentIRI(ontology));
     }
 
@@ -66,7 +67,8 @@ public class MapperlessOntologyManagerTestCase {
         OWLOntologyManager manager = createManager();
         OWLOntology ontology = manager.createOntology(
                 Collections.<OWLAxiom> emptySet(), ONTOLOGY_IRI);
-        assertEquals(ONTOLOGY_IRI, ontology.getOntologyID().getOntologyIRI());
+        assertEquals(ONTOLOGY_IRI, ontology.getOntologyID().getOntologyIRI()
+                .get());
         assertEquals(ONTOLOGY_IRI, manager.getOntologyDocumentIRI(ontology));
     }
 
@@ -77,17 +79,19 @@ public class MapperlessOntologyManagerTestCase {
         IRI versionIRI = IRI("http://version/1");
         OWLOntologyID id = new OWLOntologyID(ONTOLOGY_IRI, versionIRI);
         OWLOntology ontology = manager.createOntology(id);
-        assertEquals(ONTOLOGY_IRI, ontology.getOntologyID().getOntologyIRI());
-        assertEquals(versionIRI, ontology.getOntologyID().getVersionIRI());
+        assertEquals(ONTOLOGY_IRI, ontology.getOntologyID().getOntologyIRI()
+                .get());
+        assertEquals(versionIRI, ontology.getOntologyID().getVersionIRI().get());
         assertEquals(versionIRI, manager.getOntologyDocumentIRI(ontology));
     }
 
     @Test
     public void testCreateOntologyWithId() throws OWLOntologyCreationException {
         OWLOntologyManager manager = createManager();
-        OWLOntologyID id = new OWLOntologyID(ONTOLOGY_IRI);
+        OWLOntologyID id = new OWLOntologyID(ONTOLOGY_IRI, null);
         OWLOntology ontology = manager.createOntology(id);
-        assertEquals(ONTOLOGY_IRI, ontology.getOntologyID().getOntologyIRI());
+        assertEquals(ONTOLOGY_IRI, ontology.getOntologyID().getOntologyIRI()
+                .get());
         assertEquals(ONTOLOGY_IRI, manager.getOntologyDocumentIRI(ontology));
     }
 }

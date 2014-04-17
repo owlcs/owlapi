@@ -116,9 +116,9 @@ public class OntologyContainsAxiomTestCase extends TestBase {
     private void runTestOntologyContainsAxioms1(OWLOntologyFormat format)
             throws Exception {
         OWLOntology ont1 = getOWLOntology("testont1A");
-        IRI ont1_iri = ont1.getOntologyID().getOntologyIRI();
+        IRI ont1_iri = ont1.getOntologyID().getOntologyIRI().get();
         OWLOntology ont2 = getOWLOntology("testont2A");
-        IRI ont2_iri = ont2.getOntologyID().getOntologyIRI();
+        IRI ont2_iri = ont2.getOntologyID().getOntologyIRI().get();
         OWLImportsDeclaration ont2_import = ImportsDeclaration(ont1_iri);
         ont1.getOWLOntologyManager().applyChange(
                 new AddImport(ont2, ont2_import));
@@ -229,9 +229,9 @@ public class OntologyContainsAxiomTestCase extends TestBase {
     private void runTestOntologyContainsAxioms2(OWLOntologyFormat format)
             throws Exception {
         OWLOntology ont1 = getOWLOntology("testont1B");
-        IRI ont1_iri = ont1.getOntologyID().getOntologyIRI();
+        IRI ont1_iri = ont1.getOntologyID().getOntologyIRI().get();
         OWLOntology ont2 = getOWLOntology("testont2B");
-        IRI ont2_iri = ont2.getOntologyID().getOntologyIRI();
+        IRI ont2_iri = ont2.getOntologyID().getOntologyIRI().get();
         OWLImportsDeclaration ont2_import = ImportsDeclaration(ont1_iri);
         ont2.getOWLOntologyManager().applyChange(
                 new AddImport(ont2, ont2_import));

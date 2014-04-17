@@ -31,6 +31,8 @@ import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.EscapeUtils;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 
+import com.google.common.base.Optional;
+
 /**
  * The Class OWLObjectRenderer.
  * 
@@ -66,7 +68,8 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
             }
         }
         if (!ontology.isAnonymous()) {
-            String defPrefix = ontology.getOntologyID().getOntologyIRI() + "#";
+            String defPrefix = ontology.getOntologyID().getOntologyIRI().get()
+                    + "#";
             prefixManager.setDefaultPrefix(defPrefix);
         }
         focusedObject = ontology.getOWLOntologyManager().getOWLDataFactory()
@@ -159,10 +162,12 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         write(ONTOLOGY);
         write("(");
         if (!ontology1.isAnonymous()) {
-            writeFullIRI(ontology1.getOntologyID().getOntologyIRI());
-            if (ontology1.getOntologyID().getVersionIRI() != null) {
+            writeFullIRI(ontology1.getOntologyID().getOntologyIRI().get());
+            Optional<IRI> versionIRI = ontology1.getOntologyID()
+                    .getVersionIRI();
+            if (versionIRI.isPresent()) {
                 write("\n");
-                writeFullIRI(ontology1.getOntologyID().getVersionIRI());
+                writeFullIRI(versionIRI.get());
             }
             write("\n");
         }

@@ -40,6 +40,7 @@ import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.NodeID;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -80,6 +81,7 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.base.Optional;
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
 
@@ -286,8 +288,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
         setupSinglePredicateMaps();
         // Cache anything in the existing imports closure
         importsClosureChanged();
-        if (this.ontology.getOntologyID().getOntologyIRI() != null) {
-            addOntology(this.ontology.getOntologyID().getOntologyIRI());
+        if (this.ontology.getOntologyID().getOntologyIRI().isPresent()) {
+            addOntology(this.ontology.getOntologyID().getOntologyIRI().get());
         }
     }
 
@@ -1545,7 +1547,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
      * {@code null} if the parsed ontology does not have an IRI
      */
     private void chooseAndSetOntologyIRI() {
-        IRI ontologyIRIToSet = null;
+        Optional<IRI> ontologyIRIToSet = Optional.absent();
         if (ontologyIRIs.isEmpty()) {
             // No ontology IRIs
             // We used to use the xml:base here. But this is probably incorrect
@@ -1554,7 +1556,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
             // Exactly one ontologyIRI
             IRI ontologyIRI = ontologyIRIs.iterator().next();
             if (!isAnonymousNode(ontologyIRI)) {
-                ontologyIRIToSet = ontologyIRI;
+                ontologyIRIToSet = Optional.of(ontologyIRI);
             }
         } else {
             // We have multiple to choose from
@@ -1570,14 +1572,15 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
             }
             // Choose the first one parsed
             if (candidateIRIs.contains(firstOntologyIRI)) {
-                ontologyIRIToSet = firstOntologyIRI;
+                ontologyIRIToSet = Optional.of(firstOntologyIRI);
             } else if (!candidateIRIs.isEmpty()) {
                 // Just pick any
-                ontologyIRIToSet = candidateIRIs.iterator().next();
+                ontologyIRIToSet = Optional.of(candidateIRIs.iterator().next());
             }
         }
-        if (ontologyIRIToSet != null) {
-            IRI versionIRI = ontology.getOntologyID().getVersionIRI();
+        if (ontologyIRIToSet.isPresent()
+                && !NodeID.isAnonymousNodeIRI(ontologyIRIToSet.get())) {
+            Optional<IRI> versionIRI = ontology.getOntologyID().getVersionIRI();
             OWLOntologyID ontologyID = new OWLOntologyID(ontologyIRIToSet,
                     versionIRI);
             applyChange(new SetOntologyID(ontology, ontologyID));

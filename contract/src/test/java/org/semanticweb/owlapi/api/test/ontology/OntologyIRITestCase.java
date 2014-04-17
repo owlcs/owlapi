@@ -32,7 +32,7 @@ public class OntologyIRITestCase extends AbstractFileTestCase {
     public void testCorrectOntologyIRI() throws OWLOntologyCreationException {
         OWLOntology ont = createOntology();
         OWLOntologyID id = ont.getOntologyID();
-        assertEquals("http://www.test.com/right.owl", id.getOntologyIRI()
+        assertEquals("http://www.test.com/right.owl", id.getOntologyIRI().get()
                 .toString());
     }
 

@@ -59,7 +59,7 @@ public class SetOntologyID extends OWLOntologyChange<OWLOntologyID> {
      *        The ontology iri
      */
     public SetOntologyID(@Nonnull OWLOntology ont, @Nonnull IRI ontologyIRI) {
-        this(ont, new OWLOntologyID(ontologyIRI));
+        this(ont, new OWLOntologyID(ontologyIRI, null));
     }
 
     @Override

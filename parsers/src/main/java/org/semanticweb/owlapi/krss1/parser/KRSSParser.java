@@ -42,7 +42,7 @@ class KRSSParser implements KRSSParserConstants {
         this.dataFactory = dataFactory;
         string2IRI = new HashMap<String, IRI>();
         if (!ontology.isAnonymous()) {
-            base = ontology.getOntologyID().getOntologyIRI() + "#";
+            base = ontology.getOntologyID().getOntologyIRI().get() + "#";
         } else {
             base = Namespaces.OWL.toString();
         }

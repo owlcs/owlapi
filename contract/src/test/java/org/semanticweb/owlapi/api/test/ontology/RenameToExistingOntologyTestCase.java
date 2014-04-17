@@ -41,6 +41,6 @@ public class RenameToExistingOntologyTestCase extends TestBase {
         IRI ontologyBIRI = IRI("http://www.semanticweb.org/ontologies/ontologyB");
         OWLOntology ontologyB = m.createOntology(ontologyBIRI);
         m.applyChange(new SetOntologyID(ontologyB, new OWLOntologyID(
-                ontologyAIRI)));
+                ontologyAIRI, null)));
     }
 }

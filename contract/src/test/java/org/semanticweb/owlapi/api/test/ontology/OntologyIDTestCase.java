@@ -12,13 +12,12 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.ontology;
 
+import static org.junit.Assert.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyID;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 @SuppressWarnings("javadoc")
 public class OntologyIDTestCase {
@@ -38,8 +37,8 @@ public class OntologyIDTestCase {
         IRI iri1 = IRI(TEST_ONTOLOGY_IRI_STRING);
         IRI iri2 = IRI(TEST_ONTOLOGY_IRI_STRING);
         assertEquals(iri1.hashCode(), iri2.hashCode());
-        OWLOntologyID id1 = new OWLOntologyID(iri1);
-        OWLOntologyID id2 = new OWLOntologyID(iri2);
+        OWLOntologyID id1 = new OWLOntologyID(iri1, null);
+        OWLOntologyID id2 = new OWLOntologyID(iri2, null);
         assertEquals(id1.hashCode(), id2.hashCode());
     }
 
@@ -49,15 +48,17 @@ public class OntologyIDTestCase {
         IRI iri2 = IRI(TEST_ONTOLOGY_IRI_STRING);
         assertEquals(iri1.hashCode(), iri2.hashCode());
         OWLOntologyID id1 = new OWLOntologyID(iri1, null);
-        OWLOntologyID id2 = new OWLOntologyID(iri2);
+        OWLOntologyID id2 = new OWLOntologyID(iri2, null);
         assertEquals(id1.hashCode(), id2.hashCode());
         assertEquals(id1, id2);
     }
 
     @Test
     public void testUnequalIdsUnequal() {
-        OWLOntologyID id1 = new OWLOntologyID(IRI("http://www.w3.org/foo"));
-        OWLOntologyID id2 = new OWLOntologyID(IRI("http://www.w3.org/bar"));
+        OWLOntologyID id1 = new OWLOntologyID(IRI("http://www.w3.org/foo"),
+                null);
+        OWLOntologyID id2 = new OWLOntologyID(IRI("http://www.w3.org/bar"),
+                null);
         assertNotEquals(id1.hashCode(), id2.hashCode());
         assertNotEquals(id1, id2);
     }
@@ -76,8 +77,8 @@ public class OntologyIDTestCase {
         OWLOntologyID version1ID = new OWLOntologyID(iri2, version1IRI);
         assertEquals("null vs v1 base IRIs", unversionedID.getOntologyIRI(),
                 version1ID.getOntologyIRI());
-        assertNotEquals("null vs v1 version IRIs",
-                unversionedID.getVersionIRI(), version1ID.getVersionIRI());
+        assertNotEquals(unversionedID.getVersionIRI(),
+                version1ID.getVersionIRI());
         assertNotEquals("null version vs version1", unversionedID.hashCode(),
                 version1ID.hashCode());
         assertNotEquals("null version vs version1", unversionedID, version1ID);

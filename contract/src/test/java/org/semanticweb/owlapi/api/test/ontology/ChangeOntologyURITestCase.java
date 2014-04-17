@@ -42,7 +42,8 @@ public class ChangeOntologyURITestCase extends TestBase {
         OWLOntology importingOnt = m
                 .createOntology(IRI("http://www.semanticweb.org/ontologies/ontC"));
         m.applyChange(new AddImport(importingOnt, m.getOWLDataFactory()
-                .getOWLImportsDeclaration(ont.getOntologyID().getOntologyIRI())));
+                .getOWLImportsDeclaration(
+                        ont.getOntologyID().getOntologyIRI().get())));
         assertTrue(m.contains(oldIRI));
         OWLOntologyIRIChanger changer = new OWLOntologyIRIChanger(m);
         m.applyChanges(changer.getChanges(ont, newIRI));
@@ -52,8 +53,8 @@ public class ChangeOntologyURITestCase extends TestBase {
         assertTrue(m.getDirectImports(importingOnt).contains(ont));
         assertNotNull("ontology should not be null", m.getOntology(newIRI));
         assertEquals(m.getOntology(newIRI), ont);
-        assertEquals(m.getOntology(newIRI).getOntologyID().getOntologyIRI(),
-                newIRI);
+        assertEquals(m.getOntology(newIRI).getOntologyID().getOntologyIRI()
+                .get(), newIRI);
         assertTrue(m.getImportsClosure(importingOnt).contains(ont));
         assertNotNull("ontology should not be null",
                 m.getOntologyDocumentIRI(ont));

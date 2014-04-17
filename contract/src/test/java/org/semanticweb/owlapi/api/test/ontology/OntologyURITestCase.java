@@ -39,7 +39,7 @@ public class OntologyURITestCase extends TestBase {
         OWLOntologyID ontIDBoth = new OWLOntologyID(iriA, iriB);
         OWLOntologyID ontIDBoth2 = new OWLOntologyID(iriA, iriB);
         assertEquals(ontIDBoth, ontIDBoth2);
-        OWLOntologyID ontIDURIOnly = new OWLOntologyID(iriA);
+        OWLOntologyID ontIDURIOnly = new OWLOntologyID(iriA, null);
         assertFalse(ontIDBoth.equals(ontIDURIOnly));
         OWLOntologyID ontIDNoneA = new OWLOntologyID();
         OWLOntologyID ontIDNoneB = new OWLOntologyID();
@@ -50,10 +50,10 @@ public class OntologyURITestCase extends TestBase {
     public void testOntologyURI() throws OWLOntologyCreationException {
         IRI iri = IRI("http://www.another.com/ont");
         OWLOntology ont = m.createOntology(iri);
-        assertEquals(ont.getOntologyID().getOntologyIRI(), iri);
+        assertEquals(ont.getOntologyID().getOntologyIRI().get(), iri);
         assertTrue(m.contains(iri));
         assertTrue(m.getOntologies().contains(ont));
-        OWLOntologyID ontID = new OWLOntologyID(iri);
+        OWLOntologyID ontID = new OWLOntologyID(iri, null);
         assertEquals(ont.getOntologyID(), ontID);
     }
 
@@ -69,11 +69,12 @@ public class OntologyURITestCase extends TestBase {
         IRI iri = IRI("http://www.another.com/ont");
         OWLOntology ont = m.createOntology(iri);
         IRI newIRI = IRI("http://www.another.com/newont");
-        SetOntologyID sou = new SetOntologyID(ont, new OWLOntologyID(newIRI));
+        SetOntologyID sou = new SetOntologyID(ont, new OWLOntologyID(newIRI,
+                null));
         m.applyChange(sou);
         assertFalse(m.contains(iri));
         assertTrue(m.contains(newIRI));
-        assertEquals(ont.getOntologyID().getOntologyIRI(), newIRI);
+        assertEquals(ont.getOntologyID().getOntologyIRI().get(), newIRI);
     }
 
     @Test
@@ -81,8 +82,8 @@ public class OntologyURITestCase extends TestBase {
         IRI ontIRI = IRI("http://www.another.com/ont");
         IRI verIRI = IRI("http://www.another.com/ont/versions/1.0.0");
         OWLOntology ont = m.createOntology(new OWLOntologyID(ontIRI, verIRI));
-        assertEquals(ont.getOntologyID().getOntologyIRI(), ontIRI);
-        assertEquals(ont.getOntologyID().getVersionIRI(), verIRI);
+        assertEquals(ont.getOntologyID().getOntologyIRI().get(), ontIRI);
+        assertEquals(ont.getOntologyID().getVersionIRI().get(), verIRI);
     }
 
     @Test
@@ -90,7 +91,7 @@ public class OntologyURITestCase extends TestBase {
         IRI ontIRI = IRI("http://www.another.com/ont");
         IRI verIRI = null;
         OWLOntology ont = m.createOntology(new OWLOntologyID(ontIRI, verIRI));
-        assertEquals(ont.getOntologyID().getOntologyIRI(), ontIRI);
-        assertEquals(ont.getOntologyID().getVersionIRI(), verIRI);
+        assertEquals(ont.getOntologyID().getOntologyIRI().get(), ontIRI);
+        assertFalse(ont.getOntologyID().getVersionIRI().isPresent());
     }
 }

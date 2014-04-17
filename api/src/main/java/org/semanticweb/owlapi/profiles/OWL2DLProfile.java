@@ -95,6 +95,8 @@ import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitorEx;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
+import com.google.common.base.Optional;
+
 /**
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
@@ -307,14 +309,14 @@ public class OWL2DLProfile implements OWLProfile {
         public Object visit(OWLOntology ontology) {
             OWLOntologyID ontologyID = ontology.getOntologyID();
             if (!ontologyID.isAnonymous()) {
-                if (ontologyID.getOntologyIRI().isReservedVocabulary()) {
+                if (ontologyID.getOntologyIRI().get().isReservedVocabulary()) {
                     profileViolations
                             .add(new UseOfReservedVocabularyForOntologyIRI(
                                     getCurrentOntology()));
                 }
-                IRI versionIRI = ontologyID.getVersionIRI();
-                if (versionIRI != null) {
-                    if (versionIRI.isReservedVocabulary()) {
+                Optional<IRI> versionIRI = ontologyID.getVersionIRI();
+                if (versionIRI.isPresent()) {
+                    if (versionIRI.get().isReservedVocabulary()) {
                         profileViolations
                                 .add(new UseOfReservedVocabularyForVersionIRI(
                                         getCurrentOntology()));

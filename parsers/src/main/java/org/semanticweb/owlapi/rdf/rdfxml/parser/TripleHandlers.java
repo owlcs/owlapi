@@ -63,6 +63,8 @@ import org.semanticweb.owlapi.vocab.SWRLVocabulary;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.base.Optional;
+
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -2396,17 +2398,16 @@ public class TripleHandlers {
             OWLOntology ontology = consumer.getOntology();
             // only setup the versionIRI if it is null before this point
             if (ontology != null
-                    && ontology.getOntologyID().getVersionIRI() == null) {
-                IRI ontologyIRI = ontology.getOntologyID().getOntologyIRI();
-                IRI versionIRI = object;
+                    && !ontology.getOntologyID().getVersionIRI().isPresent()) {
+                Optional<IRI> ontologyIRI = ontology.getOntologyID()
+                        .getOntologyIRI();
+                Optional<IRI> versionIRI = Optional.of(object);
                 // If there was no ontologyIRI before this point and the subject
-                // of
-                // this statement was not anonymous,
+                // of this statement was not anonymous,
                 // then use the subject IRI as the ontology IRI, else we keep
-                // the
-                // previous definition for the ontology IRI
-                if (ontologyIRI == null && !isAnonymous(subject)) {
-                    ontologyIRI = subject;
+                // the previous definition for the ontology IRI
+                if (!ontologyIRI.isPresent() && !isAnonymous(subject)) {
+                    ontologyIRI = Optional.of(subject);
                 }
                 OWLOntologyID ontologyID = new OWLOntologyID(ontologyIRI,
                         versionIRI);
@@ -3146,9 +3147,11 @@ public class TripleHandlers {
             if (!isAnonymous(subject) && consumer.getOntologies().isEmpty()) {
                 // Set IRI if it is not null before this point, and make sure to
                 // preserve the version IRI if it also existed before this point
-                if (consumer.getOntology().getOntologyID().getOntologyIRI() == null) {
-                    OWLOntologyID id = new OWLOntologyID(subject, consumer
-                            .getOntology().getOntologyID().getVersionIRI());
+                if (!consumer.getOntology().getOntologyID().getOntologyIRI()
+                        .isPresent()) {
+                    OWLOntologyID id = new OWLOntologyID(Optional.of(subject),
+                            consumer.getOntology().getOntologyID()
+                                    .getVersionIRI());
                     consumer.applyChange(new SetOntologyID(consumer
                             .getOntology(), id));
                 }

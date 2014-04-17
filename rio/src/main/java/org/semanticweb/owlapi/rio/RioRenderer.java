@@ -86,7 +86,8 @@ public class RioRenderer extends RDFRendererBase {
         this.writer = writer;
         pm = new DefaultPrefixManager();
         if (!ontology.isAnonymous()) {
-            pm.setDefaultPrefix(ontology.getOntologyID().getOntologyIRI() + "#");
+            pm.setDefaultPrefix(ontology.getOntologyID().getOntologyIRI().get()
+                    + "#");
         }
         // copy prefixes out of the given format if it is a
         // PrefixOWLOntologyFormat

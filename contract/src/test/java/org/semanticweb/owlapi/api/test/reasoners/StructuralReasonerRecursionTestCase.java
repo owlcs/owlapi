@@ -39,7 +39,8 @@ public class StructuralReasonerRecursionTestCase extends AbstractFileTestCase {
     @Test
     public void testRecusion() throws OWLOntologyCreationException {
         OWLOntology ontology = createOntology();
-        String ontName = ontology.getOntologyID().getOntologyIRI().toString();
+        String ontName = ontology.getOntologyID().getOntologyIRI().get()
+                .toString();
         StructuralReasoner reasoner = new StructuralReasoner(ontology,
                 new SimpleConfiguration(), BufferingMode.BUFFERING);
         OWLClass cls = Class(IRI(ontName + "#Koala"));

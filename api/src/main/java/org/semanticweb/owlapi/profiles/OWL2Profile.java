@@ -37,6 +37,8 @@ import org.semanticweb.owlapi.util.OWLOntologyWalker;
 import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitorEx;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
+import com.google.common.base.Optional;
+
 /**
  * Checks to see if an ontology and its imports closure fall into the OWL 2 DL
  * profile. An ontology is OWL Full if any of the global structural restrictions
@@ -99,13 +101,13 @@ public class OWL2Profile implements OWLProfile {
             // from the reserved vocab
             OWLOntologyID id = ont.getOntologyID();
             if (!id.isAnonymous()) {
-                IRI ontologyIRI = id.getOntologyIRI();
+                IRI ontologyIRI = id.getOntologyIRI().get();
                 if (!ontologyIRI.isAbsolute()) {
                     profileViolations.add(new OntologyIRINotAbsolute(ont));
                 }
-                IRI versionIRI = id.getVersionIRI();
-                if (versionIRI != null) {
-                    if (!versionIRI.isAbsolute()) {
+                Optional<IRI> versionIRI = id.getVersionIRI();
+                if (versionIRI.isPresent()) {
+                    if (!versionIRI.get().isAbsolute()) {
                         profileViolations
                                 .add(new OntologyVersionIRINotAbsolute(ont));
                     }

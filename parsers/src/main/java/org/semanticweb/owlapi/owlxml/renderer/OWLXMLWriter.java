@@ -37,6 +37,8 @@ import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 
+import com.google.common.base.Optional;
+
 /**
  * Writes OWL/XML. In an OWL/XML documents written by this writer, the base is
  * always the ontology URI, and the default namespace is always the OWL
@@ -96,7 +98,7 @@ public class OWLXMLWriter {
         nsm.setPrefix("xml", Namespaces.XML.toString());
         String base = Namespaces.OWL.toString();
         if (ontology != null && !ontology.isAnonymous()) {
-            base = ontology.getOntologyID().getOntologyIRI().toString();
+            base = ontology.getOntologyID().getOntologyIRI().get().toString();
         }
         this.writer = XMLWriterFactory.getInstance().createXMLWriter(writer,
                 nsm, base);
@@ -167,10 +169,10 @@ public class OWLXMLWriter {
             writer.startDocument(ONTOLOGY.getIRI());
             if (!ontology.isAnonymous()) {
                 writer.writeAttribute(ONTOLOGY_IRI, ontology.getOntologyID()
-                        .getOntologyIRI().toString());
-                if (ontology.getOntologyID().getVersionIRI() != null) {
-                    writer.writeAttribute(VERSION_IRI, ontology.getOntologyID()
-                            .getVersionIRI().toString());
+                        .getOntologyIRI().get().toString());
+                Optional<IRI> versionIRI = ontology.getOntologyID().getVersionIRI();
+                if (versionIRI.isPresent()) {
+                    writer.writeAttribute(VERSION_IRI, versionIRI.get().toString());
                 }
             }
         } catch (IOException e) {

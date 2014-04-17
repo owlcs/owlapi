@@ -90,6 +90,8 @@ import org.semanticweb.owlapi.util.OWLObjectComparator;
 import org.semanticweb.owlapi.util.OntologyIRIShortFormProvider;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 
+import com.google.common.base.Optional;
+
 /**
  * The Class ManchesterOWLSyntaxFrameRenderer.
  * 
@@ -409,11 +411,13 @@ public class ManchesterOWLSyntaxFrameRenderer extends
         writeSpace();
         if (!ontology.isAnonymous()) {
             int indent = getIndent();
-            writeFullURI(ontology.getOntologyID().getOntologyIRI().toString());
+            writeFullURI(ontology.getOntologyID().getOntologyIRI().get()
+                    .toString());
             writeNewLine();
             pushTab(indent);
-            if (ontology.getOntologyID().getVersionIRI() != null) {
-                writeFullURI(ontology.getOntologyID().getVersionIRI()
+            Optional<IRI> versionIRI = ontology.getOntologyID().getVersionIRI();
+            if (versionIRI.isPresent()) {
+                writeFullURI(versionIRI.get()
                         .toString());
             }
             popTab();

@@ -34,7 +34,7 @@ public class UseOfReservedVocabularyForOntologyIRI extends
      *        ontology
      */
     public UseOfReservedVocabularyForOntologyIRI(OWLOntology ontology) {
-        super(ontology, null, ontology.getOntologyID().getOntologyIRI());
+        super(ontology, null, ontology.getOntologyID().getOntologyIRI().get());
     }
 
     @Override

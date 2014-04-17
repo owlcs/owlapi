@@ -193,9 +193,10 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
             }
             String baseUri = "urn:default:baseUri:";
             if (ontology.getOntologyID() != null
-                    && ontology.getOntologyID().getDefaultDocumentIRI() != null) {
+                    && ontology.getOntologyID().getDefaultDocumentIRI()
+                            .isPresent()) {
                 baseUri = ontology.getOntologyID().getDefaultDocumentIRI()
-                        .toString();
+                        .get().toString();
             }
             Iterator<Statement> statementsIterator;
             Map<String, String> namespaces;

@@ -617,7 +617,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
             OWLOntology ont = (OWLOntology) object;
             if (!ont.isAnonymous()) {
                 write("<");
-                write(ont.getOntologyID().getOntologyIRI().toString());
+                write(ont.getOntologyID().getOntologyIRI().get().toString());
                 write(">");
             }
         } else {

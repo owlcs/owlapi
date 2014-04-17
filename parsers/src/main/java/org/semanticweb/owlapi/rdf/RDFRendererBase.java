@@ -68,6 +68,8 @@ import org.semanticweb.owlapi.search.Filters;
 import org.semanticweb.owlapi.util.AxiomSubjectProvider;
 import org.semanticweb.owlapi.util.SWRLVariableExtractor;
 
+import com.google.common.base.Optional;
+
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -480,20 +482,20 @@ public abstract class RDFRendererBase {
     }
 
     private RDFResource createOntologyHeaderNode() {
-        OWLOntologyID ontID = ontology.getOntologyID();
-        if (ontID.isAnonymous()) {
-            return new RDFResourceBlankNode(System.identityHashCode(ontology));
+        Optional<IRI> id = ontology.getOntologyID().getOntologyIRI();
+        if (id.isPresent()) {
+            return new RDFResourceIRI(id.get());
         } else {
-            return new RDFResourceIRI(ontID.getOntologyIRI());
+            return new RDFResourceBlankNode(System.identityHashCode(ontology));
         }
     }
 
     private void addVersionIRIToOntologyHeader(RDFResource ontologyHeaderNode) {
         OWLOntologyID ontID = ontology.getOntologyID();
-        if (ontID.getVersionIRI() != null) {
+        if (ontID.getVersionIRI().isPresent()) {
             graph.addTriple(new RDFTriple(ontologyHeaderNode,
                     new RDFResourceIRI(OWL_VERSION_IRI.getIRI()),
-                    new RDFResourceIRI(ontID.getVersionIRI())));
+                    new RDFResourceIRI(ontID.getVersionIRI().get())));
         }
     }
 

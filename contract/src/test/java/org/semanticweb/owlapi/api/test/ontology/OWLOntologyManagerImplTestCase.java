@@ -66,9 +66,9 @@ public class OWLOntologyManagerImplTestCase {
     public void testImports() throws OWLOntologyCreationException {
         OWLOntology ontA = manager.createOntology(TestUtils.createIRI());
         OWLOntology ontB = manager.createOntology(TestUtils.createIRI());
-        OWLImportsDeclaration decl = manager
-                .getOWLDataFactory()
-                .getOWLImportsDeclaration(ontB.getOntologyID().getOntologyIRI());
+        OWLImportsDeclaration decl = manager.getOWLDataFactory()
+                .getOWLImportsDeclaration(
+                        ontB.getOntologyID().getOntologyIRI().get());
         manager.applyChange(new AddImport(ontA, decl));
         assertTrue(manager.getDirectImports(ontA).contains(ontB));
         manager.removeOntology(ontB);
@@ -81,12 +81,12 @@ public class OWLOntologyManagerImplTestCase {
         OWLOntology ontA = manager.createOntology(TestUtils.createIRI());
         OWLOntology ontB = manager.createOntology(TestUtils.createIRI());
         OWLOntology ontC = manager.createOntology(TestUtils.createIRI());
-        OWLImportsDeclaration declA = manager
-                .getOWLDataFactory()
-                .getOWLImportsDeclaration(ontB.getOntologyID().getOntologyIRI());
-        OWLImportsDeclaration declB = manager
-                .getOWLDataFactory()
-                .getOWLImportsDeclaration(ontC.getOntologyID().getOntologyIRI());
+        OWLImportsDeclaration declA = manager.getOWLDataFactory()
+                .getOWLImportsDeclaration(
+                        ontB.getOntologyID().getOntologyIRI().get());
+        OWLImportsDeclaration declB = manager.getOWLDataFactory()
+                .getOWLImportsDeclaration(
+                        ontC.getOntologyID().getOntologyIRI().get());
         manager.applyChange(new AddImport(ontA, declA));
         manager.applyChange(new AddImport(ontB, declB));
         assertTrue(manager.getImportsClosure(ontA).contains(ontA));

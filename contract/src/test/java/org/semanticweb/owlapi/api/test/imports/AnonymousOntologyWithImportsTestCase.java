@@ -24,6 +24,6 @@ public class AnonymousOntologyWithImportsTestCase {
         StringDocumentSource documentSource = new StringDocumentSource(input);
         OWLOntology o = m.loadOntologyFromOntologyDocument(documentSource);
         assertTrue(o.getOntologyID().toString(), o.isAnonymous());
-        assertNull(o.getOntologyID().getDefaultDocumentIRI());
+        assertFalse(o.getOntologyID().getDefaultDocumentIRI().isPresent());
     }
 }

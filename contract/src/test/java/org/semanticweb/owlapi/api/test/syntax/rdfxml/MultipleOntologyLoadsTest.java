@@ -113,11 +113,13 @@ public class MultipleOntologyLoadsTest extends TestBase {
         parseOnto(secondDocumentSource, secondOntology);
         // then
         assertEquals(CREATE0139, initialOntology.getOntologyID()
-                .getOntologyIRI());
-        assertEquals(CREATEV1, initialOntology.getOntologyID().getVersionIRI());
+                .getOntologyIRI().get());
+        assertEquals(CREATEV1, initialOntology.getOntologyID().getVersionIRI()
+                .get());
         assertEquals(CREATE0139, secondOntology.getOntologyID()
-                .getOntologyIRI());
-        assertEquals(CREATEV2, secondOntology.getOntologyID().getVersionIRI());
+                .getOntologyIRI().get());
+        assertEquals(CREATEV2, secondOntology.getOntologyID().getVersionIRI()
+                .get());
     }
 
     @Test
@@ -136,11 +138,13 @@ public class MultipleOntologyLoadsTest extends TestBase {
         parseOnto(secondDocumentSource, secondOntology);
         // then
         assertEquals(CREATE0139, initialOntology.getOntologyID()
-                .getOntologyIRI());
-        assertEquals(CREATEV1, initialOntology.getOntologyID().getVersionIRI());
+                .getOntologyIRI().get());
+        assertEquals(CREATEV1, initialOntology.getOntologyID().getVersionIRI()
+                .get());
         assertEquals(CREATE0139, secondOntology.getOntologyID()
-                .getOntologyIRI());
-        assertEquals(CREATEV2, secondOntology.getOntologyID().getVersionIRI());
+                .getOntologyIRI().get());
+        assertEquals(CREATEV2, secondOntology.getOntologyID().getVersionIRI()
+                .get());
     }
 
     @Test
@@ -148,7 +152,8 @@ public class MultipleOntologyLoadsTest extends TestBase {
             throws OWLException, IOException {
         // given
         OWLOntologyDocumentSource documentSource = getDocumentSource();
-        OWLOntologyID initialUniqueOWLOntologyID = new OWLOntologyID(CREATE0139);
+        OWLOntologyID initialUniqueOWLOntologyID = new OWLOntologyID(
+                CREATE0139, null);
         OWLOntologyDocumentSource secondDocumentSource = getDocumentSource();
         OWLOntologyID secondUniqueOWLOntologyID = new OWLOntologyID(CREATE0139,
                 CREATEV2);
@@ -161,11 +166,13 @@ public class MultipleOntologyLoadsTest extends TestBase {
         parseOnto(secondDocumentSource, secondOntology);
         // then
         assertEquals(CREATE0139, initialOntology.getOntologyID()
-                .getOntologyIRI());
-        assertEquals(CREATEV1, initialOntology.getOntologyID().getVersionIRI());
+                .getOntologyIRI().get());
+        assertEquals(CREATEV1, initialOntology.getOntologyID().getVersionIRI()
+                .get());
         assertEquals(CREATE0139, secondOntology.getOntologyID()
-                .getOntologyIRI());
-        assertEquals(CREATEV2, secondOntology.getOntologyID().getVersionIRI());
+                .getOntologyIRI().get());
+        assertEquals(CREATEV2, secondOntology.getOntologyID().getVersionIRI()
+                .get());
     }
 
     @Test
@@ -181,8 +188,9 @@ public class MultipleOntologyLoadsTest extends TestBase {
         parseOnto(secondDocumentSource, secondOntology);
         // then
         assertEquals(CREATE0139, secondOntology.getOntologyID()
-                .getOntologyIRI());
-        assertEquals(CREATEV2, secondOntology.getOntologyID().getVersionIRI());
+                .getOntologyIRI().get());
+        assertEquals(CREATEV2, secondOntology.getOntologyID().getVersionIRI()
+                .get());
     }
 
     @Test
@@ -198,8 +206,9 @@ public class MultipleOntologyLoadsTest extends TestBase {
         parseOnto(documentSource, initialOntology);
         // then
         assertEquals(CREATE0139, initialOntology.getOntologyID()
-                .getOntologyIRI());
-        assertEquals(CREATEV1, initialOntology.getOntologyID().getVersionIRI());
+                .getOntologyIRI().get());
+        assertEquals(CREATEV1, initialOntology.getOntologyID().getVersionIRI()
+                .get());
     }
 
     private void parseOnto(OWLOntologyDocumentSource initialDocumentSource,

@@ -1168,7 +1168,8 @@ public class Examples extends TestBase {
         // always the case. A class may have a URI that bears no resemblance to
         // the ontology URI which contains axioms about the class).
         IRI margheritaPizzaIRI = IRI.create(ont.getOntologyID()
-                .getOntologyIRI() + "#Margherita");
+                .getOntologyIRI().get()
+                + "#Margherita");
         OWLClass margheritaPizza = man.getOWLDataFactory().getOWLClass(
                 margheritaPizzaIRI);
         // Now we want to collect the properties which are used in existential
@@ -1261,7 +1262,7 @@ public class Examples extends TestBase {
         // We want to add a comment to the pizza class. First, we need to obtain
         // a reference to the pizza class
         OWLClass pizzaCls = df.getOWLClass(IRI.create(ont.getOntologyID()
-                .getOntologyIRI().toString()
+                .getOntologyIRI().get().toString()
                 + "#Pizza"));
         // Now we create the content of our comment. In this case we simply want
         // a plain string literal. We'll attach a language to the comment to
@@ -1451,7 +1452,7 @@ public class Examples extends TestBase {
         // For this particular ontology, we know that all class, properties
         // names etc. have URIs that is made up of the ontology IRI plus # plus
         // the local name
-        String prefix = ont.getOntologyID().getOntologyIRI() + "#";
+        String prefix = ont.getOntologyID().getOntologyIRI().get() + "#";
         // Create a reasoner. We will use Pellet in this case. Make sure that
         // the latest version of the Pellet libraries are on the runtime class
         // path
@@ -1615,7 +1616,7 @@ public class Examples extends TestBase {
      */
     private static void printOntology(OWLOntologyManager manager,
             OWLOntology ontology) {
-        IRI ontologyIRI = ontology.getOntologyID().getOntologyIRI();
+        IRI ontologyIRI = ontology.getOntologyID().getOntologyIRI().get();
         IRI documentIRI = manager.getOntologyDocumentIRI(ontology);
         // System.out.println(ontologyIRI == null ? "anonymous" : ontologyIRI
         // .toQuotedString());
@@ -1664,7 +1665,7 @@ public class Examples extends TestBase {
         // subclasses. We start by creating a signature that consists of
         // "PizzaTopping".
         OWLClass toppingCls = df.getOWLClass(IRI.create(ont.getOntologyID()
-                .getOntologyIRI().toString()
+                .getOntologyIRI().get().toString()
                 + "#PizzaTopping"));
         Set<OWLEntity> sig = new HashSet<OWLEntity>();
         sig.add(toppingCls);
@@ -1919,7 +1920,8 @@ public class Examples extends TestBase {
         // hasWife as hasHusband We first need a reference to the hasHusband
         // property.
         OWLObjectProperty hasHusband = factory.getOWLObjectProperty(IRI
-                .create(ont.getOntologyID().getOntologyIRI() + "#hasHusband"));
+                .create(ont.getOntologyID().getOntologyIRI().get()
+                        + "#hasHusband"));
         // The full URI of the hasHusband property will be
         // http://example.com/owlapi/families#hasHusband since the URI of our
         // ontology is http://example.com/owlapi/families Create the inverse
@@ -1930,7 +1932,8 @@ public class Examples extends TestBase {
         // specified. Here, hasSon and hasDaughter will be specified as
         // hasChild.
         OWLObjectProperty hasChild = factory.getOWLObjectProperty(IRI
-                .create(ont.getOntologyID().getOntologyIRI() + "#hasChild"));
+                .create(ont.getOntologyID().getOntologyIRI().get()
+                        + "#hasChild"));
         OWLSubObjectPropertyOfAxiom hasSonSubHasChildAx = factory
                 .getOWLSubObjectPropertyOfAxiom(hasSon, hasChild);
         // Add the axiom

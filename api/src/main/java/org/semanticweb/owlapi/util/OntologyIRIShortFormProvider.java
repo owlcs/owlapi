@@ -20,6 +20,7 @@ import java.util.StringTokenizer;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.vocab.Namespaces;
 
 /**
@@ -63,10 +64,11 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
      * @return short form of the ontology IRI
      */
     public String getShortForm(OWLOntology ont) {
-        if (!ont.isAnonymous()) {
-            return getShortForm(ont.getOntologyID().getOntologyIRI());
+        OWLOntologyID ontologyID = ont.getOntologyID();
+        if (ontologyID.getOntologyIRI().isPresent()) {
+            return getShortForm(ontologyID.getOntologyIRI().get());
         } else {
-            return ont.getOntologyID().toString();
+            return ontologyID.toString();
         }
     }
 

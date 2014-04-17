@@ -61,6 +61,8 @@ import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 
+import com.google.common.base.Optional;
+
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -3075,14 +3077,16 @@ class OWLOntologyHandler extends OWLElementHandler<OWLOntology> {
     @Override
     void attribute(String name, String value) {
         if (name.equals("ontologyIRI")) {
-            OWLOntologyID newID = new OWLOntologyID(IRI.create(value), handler
-                    .getOntology().getOntologyID().getVersionIRI());
+            OWLOntologyID newID = new OWLOntologyID(Optional.of(IRI
+                    .create(value)), handler.getOntology().getOntologyID()
+                    .getVersionIRI());
             handler.getOWLOntologyManager().applyChange(
                     new SetOntologyID(handler.getOntology(), newID));
         }
         if (name.equals("versionIRI")) {
             OWLOntologyID newID = new OWLOntologyID(handler.getOntology()
-                    .getOntologyID().getOntologyIRI(), IRI.create(value));
+                    .getOntologyID().getOntologyIRI(), Optional.of(IRI
+                    .create(value)));
             handler.getOWLOntologyManager().applyChange(
                     new SetOntologyID(handler.getOntology(), newID));
         }

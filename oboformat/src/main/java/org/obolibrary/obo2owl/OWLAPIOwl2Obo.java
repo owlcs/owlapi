@@ -17,6 +17,8 @@ import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.annotation.Nonnull;
+
 import org.obolibrary.obo2owl.Obo2OWLConstants.Obo2OWLVocabulary;
 import org.obolibrary.obo2owl.OwlStringTools.OwlStringException;
 import org.obolibrary.oboformat.model.Clause;
@@ -83,6 +85,8 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.google.common.base.Optional;
 
 /**
  * The Class OWLAPIOwl2Obo.
@@ -1244,7 +1248,7 @@ public class OWLAPIOwl2Obo {
      * @return The OBO ID of the ontology
      */
     public static String getOntologyId(OWLOntology ontology) {
-        return getOntologyId(ontology.getOntologyID().getOntologyIRI());
+        return getOntologyId(ontology.getOntologyID().getOntologyIRI().get());
     }
 
     /**
@@ -1254,7 +1258,7 @@ public class OWLAPIOwl2Obo {
      *        the iri obj
      * @return the ontology id
      */
-    public static String getOntologyId(IRI iriObj) {
+    public static String getOntologyId(@Nonnull IRI iriObj) {
         // String id = getIdentifier(ontology.getOntologyID().getOntologyIRI());
         String iri = iriObj.toString();
         String id;
@@ -1284,10 +1288,10 @@ public class OWLAPIOwl2Obo {
      */
     public static String getDataVersion(OWLOntology ontology) {
         String oid = getOntologyId(ontology);
-        IRI v = ontology.getOntologyID().getVersionIRI();
-        if (v != null) {
-            String vs = v.toString().replace("http://purl.obolibrary.org/obo/",
-                    "");
+        Optional<IRI> v = ontology.getOntologyID().getVersionIRI();
+        if (v.isPresent()) {
+            String vs = v.get().toString()
+                    .replace("http://purl.obolibrary.org/obo/", "");
             vs = vs.replaceFirst(oid + "/", "");
             vs = vs.replace("/" + oid + ".owl", "");
             return vs;

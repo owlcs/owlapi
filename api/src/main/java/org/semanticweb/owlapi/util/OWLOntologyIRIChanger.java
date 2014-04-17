@@ -29,6 +29,8 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.RemoveImport;
 import org.semanticweb.owlapi.model.SetOntologyID;
 
+import com.google.common.base.Optional;
+
 /**
  * Changes the URI of an ontology and ensures that ontologies which import the
  * ontology have their imports statements updated
@@ -65,12 +67,12 @@ public class OWLOntologyIRIChanger {
     public List<OWLOntologyChange<?>> getChanges(@Nonnull OWLOntology ontology,
             @Nonnull IRI newIRI) {
         List<OWLOntologyChange<?>> changes = new ArrayList<OWLOntologyChange<?>>();
-        changes.add(new SetOntologyID(ontology, new OWLOntologyID(newIRI,
-                ontology.getOntologyID().getVersionIRI())));
+        changes.add(new SetOntologyID(ontology, new OWLOntologyID(Optional
+                .of(newIRI), ontology.getOntologyID().getVersionIRI())));
         for (OWLOntology ont : owlOntologyManager.getOntologies()) {
             for (OWLImportsDeclaration decl : ont.getImportsDeclarations()) {
                 if (decl.getIRI().equals(
-                        ontology.getOntologyID().getOntologyIRI())) {
+                        ontology.getOntologyID().getOntologyIRI().get())) {
                     changes.add(new RemoveImport(ont, decl));
                     changes.add(new AddImport(ont, owlOntologyManager
                             .getOWLDataFactory().getOWLImportsDeclaration(
