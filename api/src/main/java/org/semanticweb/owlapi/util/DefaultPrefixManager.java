@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.util;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -43,27 +42,6 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
         IRIShortFormProvider {
 
     private static final long serialVersionUID = 40000L;
-
-    /**
-     * String comparator that takes length into account before natural ordering.
-     */
-    private static final class StringLengthComparator implements
-            Comparator<String>, Serializable {
-
-        private static final long serialVersionUID = 40000L;
-
-        public StringLengthComparator() {}
-
-        @Override
-        public int compare(String o1, String o2) {
-            int diff = o1.length() - o2.length();
-            if (diff != 0) {
-                return diff;
-            }
-            return o1.compareTo(o2);
-        }
-    }
-
     private static final StringLengthComparator STRING_LENGTH_COMPARATOR = new StringLengthComparator();
     private final Map<String, String> prefix2NamespaceMap;
     private final Map<String, String> reverseprefix2NamespaceMap;

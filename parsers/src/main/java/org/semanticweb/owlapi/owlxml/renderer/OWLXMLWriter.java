@@ -15,10 +15,8 @@ package org.semanticweb.owlapi.owlxml.renderer;
 import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.*;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.io.Writer;
 import java.net.URI;
-import java.util.Comparator;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -32,6 +30,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.rdf.rdfxml.renderer.XMLWriter;
 import org.semanticweb.owlapi.rdf.rdfxml.renderer.XMLWriterFactory;
 import org.semanticweb.owlapi.rdf.rdfxml.renderer.XMLWriterNamespaceManager;
+import org.semanticweb.owlapi.util.StringLengthComparator;
 import org.semanticweb.owlapi.util.VersionInfo;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWLFacet;
@@ -57,31 +56,9 @@ public class OWLXMLWriter {
             Namespaces.OWL.getPrefixIRI(), "versionIRI");
     private static final IRI ONTOLOGY_IRI = IRI.create(
             Namespaces.OWL.getPrefixIRI(), "ontologyIRI");
-
-    /**
-     * String comparator that takes length into account before natural ordering.
-     */
-    private static final class StringLengthComparator implements
-            Comparator<String>, Serializable {
-
-        private static final long serialVersionUID = 40000L;
-
-        public StringLengthComparator() {}
-
-        @Override
-        public int compare(String o1, String o2) {
-            int diff = o1.length() - o2.length();
-            if (diff != 0) {
-                return diff;
-            }
-            return o1.compareTo(o2);
-        }
-    }
-
-    private static final StringLengthComparator STRING_LENGTH_COMPARATOR = new StringLengthComparator();
     private XMLWriter writer;
     private Map<String, String> iriPrefixMap = new TreeMap<String, String>(
-            STRING_LENGTH_COMPARATOR);
+            new StringLengthComparator());
 
     /**
      * @param writer
@@ -170,9 +147,11 @@ public class OWLXMLWriter {
             if (!ontology.isAnonymous()) {
                 writer.writeAttribute(ONTOLOGY_IRI, ontology.getOntologyID()
                         .getOntologyIRI().get().toString());
-                Optional<IRI> versionIRI = ontology.getOntologyID().getVersionIRI();
+                Optional<IRI> versionIRI = ontology.getOntologyID()
+                        .getVersionIRI();
                 if (versionIRI.isPresent()) {
-                    writer.writeAttribute(VERSION_IRI, versionIRI.get().toString());
+                    writer.writeAttribute(VERSION_IRI, versionIRI.get()
+                            .toString());
                 }
             }
         } catch (IOException e) {

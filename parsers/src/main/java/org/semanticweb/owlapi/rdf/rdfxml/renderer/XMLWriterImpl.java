@@ -15,11 +15,9 @@ package org.semanticweb.owlapi.rdf.rdfxml.renderer;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -31,6 +29,7 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.util.StringLengthComparator;
 
 /**
  * Developed as part of the CO-ODE project http://www.co-ode.org
@@ -80,7 +79,7 @@ public class XMLWriterImpl implements XMLWriter {
         for (String s : xmlWriterNamespaceManager.getNamespaces()) {
             namespaces.add(s);
         }
-        Collections.sort(namespaces, new StringLengthOnlyComparator());
+        Collections.sort(namespaces, new StringLengthComparator());
         entities = new LinkedHashMap<String, String>();
         for (String curNamespace : namespaces) {
             String curPrefix = "";
@@ -264,20 +263,6 @@ public class XMLWriterImpl implements XMLWriter {
             writeEndElement();
         }
         writer.flush();
-    }
-
-    private static final class StringLengthOnlyComparator implements
-            Comparator<String>, Serializable {
-
-        private static final long serialVersionUID = 40000L;
-
-        public StringLengthOnlyComparator() {}
-
-        @Override
-        public int compare(String o1, String o2) {
-            // Shortest string first
-            return o1.length() - o2.length();
-        }
     }
 
     /** xml element */
