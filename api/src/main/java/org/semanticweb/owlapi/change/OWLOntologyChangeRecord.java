@@ -58,7 +58,9 @@ import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
 public class OWLOntologyChangeRecord<T> implements Serializable {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final OWLOntologyID ontologyID;
+    @Nonnull
     private final OWLOntologyChangeData<T> data;
 
 
