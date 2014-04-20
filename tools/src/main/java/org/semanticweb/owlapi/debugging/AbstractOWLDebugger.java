@@ -95,14 +95,16 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
     @Nonnull
     protected abstract OWLClassExpression getCurrentClass() throws OWLException;
 
+    @Nonnull
     @Override
     public OWLOntology getOWLOntology() throws OWLException {
         return ontology;
     }
 
+    @Nonnull
     @Override
     public Set<Set<OWLAxiom>> getAllSOSForIncosistentClass(
-            OWLClassExpression cls) throws OWLException {
+            @Nonnull OWLClassExpression cls) throws OWLException {
         Set<OWLAxiom> firstMups = getSOSForIncosistentClass(cls);
         if (firstMups.isEmpty()) {
             return Collections.emptySet();

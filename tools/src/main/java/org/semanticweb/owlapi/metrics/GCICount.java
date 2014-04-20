@@ -36,13 +36,15 @@ public class GCICount extends AxiomCountMetric {
         super(o);
     }
 
+    @Nonnull
     @Override
     protected String getObjectTypeName() {
         return "GCI";
     }
 
+    @Nonnull
     @Override
-    protected Set<? extends OWLAxiom> getObjects(OWLOntology ont) {
+    protected Set<? extends OWLAxiom> getObjects(@Nonnull OWLOntology ont) {
         return ont.getGeneralClassAxioms();
     }
 }

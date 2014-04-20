@@ -1492,7 +1492,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
     }
 
     @Override
-    public void startModel(IRI string) {
+    public void startModel(@Nonnull IRI string) {
         tripleLogger = new TripleLogger(ontologyFormat == null ? null
                 : ontologyFormat.asPrefixOWLOntologyFormat());
     }
@@ -1610,7 +1610,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
     }
 
     @Override
-    public void logicalURI(IRI string) {}
+    public void logicalURI(@Nonnull IRI string) {}
 
     /**
      * Gets the synonym.
@@ -1630,8 +1630,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
     }
 
     @Override
-    public void statementWithLiteralValue(String subject, String predicate,
-            String object, String lang, String datatype) {
+    public void statementWithLiteralValue(@Nonnull String subject, @Nonnull String predicate,
+            @Nonnull String object, String lang, String datatype) {
         tripleLogger.logTriple(subject, predicate, object, lang, datatype);
         IRI subjectIRI = getIRI(subject);
         IRI predicateIRI = getIRI(predicate);
@@ -1649,8 +1649,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
     }
 
     @Override
-    public void statementWithResourceValue(String subject, String predicate,
-            String object) {
+    public void statementWithResourceValue(@Nonnull String subject, @Nonnull String predicate,
+            @Nonnull String object) {
         tripleLogger.logTriple(subject, predicate, object);
         IRI subjectIRI = getIRI(subject);
         IRI predicateIRI = getIRI(predicate);

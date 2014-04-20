@@ -1021,7 +1021,6 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
         return toReturn;
     }
 
-    @Nonnull
     @Override
     public boolean contains(OWLAxiomSearchFilter filter, Object key,
             @Nonnull Imports includeImports) {

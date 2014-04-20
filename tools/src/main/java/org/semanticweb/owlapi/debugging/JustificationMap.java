@@ -210,7 +210,7 @@ public class JustificationMap {
      * @param value
      *        the value
      */
-    @Nonnull
+
     private static <K, V> void index(@Nonnull K key,
             @Nonnull Map<K, Set<V>> map, @Nonnull V value) {
         Set<V> values = map.get(key);

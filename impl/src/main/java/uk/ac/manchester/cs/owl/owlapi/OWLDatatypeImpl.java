@@ -100,6 +100,7 @@ public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
         return iri.toString();
     }
 
+    @Nonnull
     @Override
     public IRI getIRI() {
         return iri;

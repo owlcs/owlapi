@@ -90,8 +90,9 @@ public class DefaultExplanationGenerator implements ExplanationGenerator {
         }
     }
 
+    @Nonnull
     @Override
-    public Set<OWLAxiom> getExplanation(OWLClassExpression unsatClass) {
+    public Set<OWLAxiom> getExplanation(@Nonnull OWLClassExpression unsatClass) {
         return gen.getExplanation(unsatClass);
     }
 
@@ -110,8 +111,9 @@ public class DefaultExplanationGenerator implements ExplanationGenerator {
                 "axiom cannot be null")));
     }
 
+    @Nonnull
     @Override
-    public Set<Set<OWLAxiom>> getExplanations(OWLClassExpression unsatClass) {
+    public Set<Set<OWLAxiom>> getExplanations(@Nonnull OWLClassExpression unsatClass) {
         return gen.getExplanations(unsatClass);
     }
 
@@ -130,8 +132,9 @@ public class DefaultExplanationGenerator implements ExplanationGenerator {
                 "axiom cannot be null")));
     }
 
+    @Nonnull
     @Override
-    public Set<Set<OWLAxiom>> getExplanations(OWLClassExpression unsatClass,
+    public Set<Set<OWLAxiom>> getExplanations(@Nonnull OWLClassExpression unsatClass,
             int maxExplanations) {
         return gen.getExplanations(unsatClass, maxExplanations);
     }

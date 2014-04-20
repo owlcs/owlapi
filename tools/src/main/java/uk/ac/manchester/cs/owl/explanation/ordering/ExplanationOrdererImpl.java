@@ -117,9 +117,10 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
         consumedAxioms.clear();
     }
 
+    @Nonnull
     @Override
-    public ExplanationTree getOrderedExplanation(OWLAxiom entailment,
-            Set<OWLAxiom> axioms) {
+    public ExplanationTree getOrderedExplanation(@Nonnull OWLAxiom entailment,
+            @Nonnull Set<OWLAxiom> axioms) {
         currentExplanation = new HashSet<OWLAxiom>(axioms);
         buildIndices();
         ExplanationTree root = new EntailedAxiomTree(entailment);

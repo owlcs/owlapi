@@ -101,6 +101,7 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl implements
         return false;
     }
 
+    @Nonnull
     @Override
     public IRI getIRI() {
         return iri;

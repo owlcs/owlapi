@@ -123,7 +123,7 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
      * 
      * @return The Pattern string. Not null.
      */
-    @Nullable
+    @Nonnull
     public String getPatternString() {
         return regExpression;
     }
@@ -178,21 +178,19 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
     @Nonnull
     private final String prefixedName;
 
-    OWL2Datatype(@Nonnull Namespaces namespace, @Nonnull String shortForm, @Nonnull Category category,
-            boolean finite, @Nonnull String regEx) {
+    private OWL2Datatype(@Nonnull Namespaces namespace, @Nonnull String shortForm, @Nonnull Category category,
+                         boolean finite, @Nonnull String regEx) {
         iri = IRI.create(namespace.toString(), shortForm);
         this.shortForm = shortForm;
         prefixedName = namespace.getPrefixName() + ":" + shortForm;
         this.category = category;
         this.finite = finite;
         regExpression = regEx;
-        if (regEx != null) {
-            pattern = Pattern.compile(regEx, Pattern.DOTALL);
-        }
+        pattern = Pattern.compile(regEx, Pattern.DOTALL);
     }
 
-    OWL2Datatype(@Nonnull XSDVocabulary xsd, @Nonnull Category category, boolean finite,
-            @Nonnull String regEx) {
+    private OWL2Datatype(@Nonnull XSDVocabulary xsd, @Nonnull Category category, boolean finite,
+                         @Nonnull String regEx) {
         iri = xsd.getIRI();
         shortForm = xsd.getShortForm();
         prefixedName = xsd.getPrefixedName();
@@ -209,6 +207,7 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
     }
 
     @Override
+    @Nonnull
     public IRI getIRI() {
         return iri;
     }

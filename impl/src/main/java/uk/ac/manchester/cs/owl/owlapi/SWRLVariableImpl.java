@@ -44,6 +44,7 @@ public class SWRLVariableImpl extends OWLObjectImpl implements SWRLVariable {
         this.iri = checkNotNull(iri, "iri cannot be null");
     }
 
+    @Nonnull
     @Override
     public IRI getIRI() {
         return iri;

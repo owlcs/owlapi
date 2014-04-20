@@ -56,6 +56,7 @@ public abstract class OWLOntologyChangeData<T> implements HasSignature,
      * @throws E
      *         The exception thrown by the visitor's visit methods.
      */
+    @Nonnull
     public abstract <R, E extends Exception> R accept(
             @Nonnull OWLOntologyChangeDataVisitor<R, E> visitor) throws E;
 

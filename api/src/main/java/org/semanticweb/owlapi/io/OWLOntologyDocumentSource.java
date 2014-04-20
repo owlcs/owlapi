@@ -101,6 +101,7 @@ public interface OWLOntologyDocumentSource {
     boolean isFormatKnown();
 
     /** @return MIME type for this source, if one is specified. */
+    @Nullable
     String getMIMEType();
 
     /** @return true if the MIME type for this source is known */

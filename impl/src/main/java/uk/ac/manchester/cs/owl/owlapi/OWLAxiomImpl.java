@@ -81,7 +81,7 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
     }
 
     @Override
-    public void accept(CollectionContainerVisitor<OWLAnnotation> t) {
+    public void accept(@Nonnull CollectionContainerVisitor<OWLAnnotation> t) {
         int size = annotations.size();
         for (int i = 0; i < size; i++) {
             t.visitItem(annotations.get(i));

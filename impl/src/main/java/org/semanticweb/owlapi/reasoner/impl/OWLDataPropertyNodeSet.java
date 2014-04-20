@@ -55,13 +55,13 @@ public class OWLDataPropertyNodeSet extends DefaultNodeSet<OWLDataProperty> {
     }
 
     @Override
-    protected DefaultNode<OWLDataProperty> getNode(OWLDataProperty entity) {
+    protected DefaultNode<OWLDataProperty> getNode(@Nonnull OWLDataProperty entity) {
         return NodeFactory.getOWLDataPropertyNode(entity);
     }
 
     @Override
     protected DefaultNode<OWLDataProperty>
-            getNode(Set<OWLDataProperty> entities) {
+            getNode(@Nonnull Set<OWLDataProperty> entities) {
         return NodeFactory.getOWLDataPropertyNode(entities);
     }
 }

@@ -43,13 +43,15 @@ public class AxiomTypeMetric extends AxiomCountMetric {
         this.axiomType = axiomType;
     }
 
+    @Nonnull
     @Override
     protected String getObjectTypeName() {
         return axiomType.getName() + " axioms";
     }
 
+    @Nonnull
     @Override
-    protected Set<? extends OWLAxiom> getObjects(OWLOntology ont) {
+    protected Set<? extends OWLAxiom> getObjects(@Nonnull OWLOntology ont) {
         return ont.getAxioms(axiomType);
     }
 

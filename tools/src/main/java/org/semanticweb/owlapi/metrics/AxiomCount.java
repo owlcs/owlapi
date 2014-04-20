@@ -36,6 +36,7 @@ public class AxiomCount extends IntegerValuedMetric {
         super(o);
     }
 
+    @Nonnull
     @Override
     protected Integer recomputeMetric() {
         int count = 0;
@@ -47,13 +48,14 @@ public class AxiomCount extends IntegerValuedMetric {
 
     @Override
     protected boolean isMetricInvalidated(
-            List<? extends OWLOntologyChange<?>> changes) {
+            @Nonnull List<? extends OWLOntologyChange<?>> changes) {
         return true;
     }
 
     @Override
     protected void disposeMetric() {}
 
+    @Nonnull
     @Override
     public String getName() {
         return "Axiom";

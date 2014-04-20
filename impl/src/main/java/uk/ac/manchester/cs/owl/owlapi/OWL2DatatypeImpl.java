@@ -249,6 +249,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
         return visitor.visit(this);
     }
 
+    @Nonnull
     @Override
     public IRI getIRI() {
         return owl2Datatype.getIRI();
@@ -361,7 +362,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
     }
 
     @Override
-    public int compareTo(OWLObject o) {
+    public int compareTo(@Nonnull OWLObject o) {
         if (!(o instanceof OWLDatatype)) {
             OWLObjectTypeIndexProvider provider = new OWLObjectTypeIndexProvider();
             return provider.getTypeIndex(o);

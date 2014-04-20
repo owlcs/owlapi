@@ -116,10 +116,10 @@ public abstract class AbstractEntityRegistrationManager implements
     private final CollectionContainerVisitor<OWLAnnotation> annotationVisitor = new CollectionContainerVisitor<OWLAnnotation>() {
 
         @Override
-        public void visit(CollectionContainer<OWLAnnotation> c) {}
+        public void visit(@Nonnull CollectionContainer<OWLAnnotation> c) {}
 
         @Override
-        public void visitItem(OWLAnnotation c) {
+        public void visitItem(@Nonnull OWLAnnotation c) {
             c.accept(AbstractEntityRegistrationManager.this);
         }
     };

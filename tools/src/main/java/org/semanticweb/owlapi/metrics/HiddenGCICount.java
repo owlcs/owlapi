@@ -52,7 +52,7 @@ public class HiddenGCICount extends IntegerValuedMetric {
 
     @Override
     protected boolean isMetricInvalidated(
-            List<? extends OWLOntologyChange<?>> changes) {
+            @Nonnull List<? extends OWLOntologyChange<?>> changes) {
         for (OWLOntologyChange<?> chg : changes) {
             if (chg.isAxiomChange()
                     && chg.getAxiom() instanceof OWLEquivalentClassesAxiom
@@ -63,6 +63,7 @@ public class HiddenGCICount extends IntegerValuedMetric {
         return false;
     }
 
+    @Nonnull
     @Override
     protected Integer recomputeMetric() {
         Set<OWLClass> processed = new HashSet<OWLClass>();
@@ -95,6 +96,7 @@ public class HiddenGCICount extends IntegerValuedMetric {
         return result.size();
     }
 
+    @Nonnull
     @Override
     public String getName() {
         return "Hidden GCI Count";

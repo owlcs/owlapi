@@ -44,11 +44,13 @@ public class NumberOfClassesWithMultipleInheritance extends IntegerValuedMetric 
         super(o);
     }
 
+    @Nonnull
     @Override
     public String getName() {
         return "Number of classes with asserted multiple inheritance";
     }
 
+    @Nonnull
     @Override
     public Integer recomputeMetric() {
         Set<OWLClass> processed = new HashSet<OWLClass>();
@@ -79,7 +81,7 @@ public class NumberOfClassesWithMultipleInheritance extends IntegerValuedMetric 
 
     @Override
     protected boolean isMetricInvalidated(
-            List<? extends OWLOntologyChange<?>> changes) {
+            @Nonnull List<? extends OWLOntologyChange<?>> changes) {
         for (OWLOntologyChange<?> change : changes) {
             if (change.isAxiomChange()
                     && change.getAxiom() instanceof OWLSubClassOfAxiom) {

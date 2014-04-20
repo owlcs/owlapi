@@ -40,6 +40,7 @@ public class OWLImportsDeclarationImpl implements OWLImportsDeclaration,
         this.iri = checkNotNull(iri, "iri cannot be null");
     }
 
+    @Nonnull
     @Override
     public IRI getIRI() {
         return iri;
@@ -63,7 +64,7 @@ public class OWLImportsDeclarationImpl implements OWLImportsDeclaration,
     }
 
     @Override
-    public int compareTo(OWLImportsDeclaration o) {
+    public int compareTo(@Nonnull OWLImportsDeclaration o) {
         return iri.compareTo(o.getIRI());
     }
 

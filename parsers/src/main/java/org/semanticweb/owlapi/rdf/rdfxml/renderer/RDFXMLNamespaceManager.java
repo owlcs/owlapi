@@ -45,6 +45,7 @@ public class RDFXMLNamespaceManager extends OWLOntologyXMLNamespaceManager {
         super(ontology, format);
     }
 
+    @Nonnull
     @Override
     protected Set<OWLEntity> getEntitiesThatRequireNamespaces() {
         Set<OWLEntity> entities = new HashSet<OWLEntity>();

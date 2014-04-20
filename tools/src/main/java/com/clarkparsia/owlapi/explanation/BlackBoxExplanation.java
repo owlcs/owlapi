@@ -124,8 +124,9 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
         expansionLimit = initialExpansionLimit;
     }
 
+    @Nonnull
     @Override
-    public Set<OWLAxiom> getExplanation(OWLClassExpression unsatClass) {
+    public Set<OWLAxiom> getExplanation(@Nonnull OWLClassExpression unsatClass) {
         if (!getDefinitionTracker().isDefined(unsatClass)) {
             return Collections.emptySet();
         }
@@ -282,7 +283,6 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
      *        The maximum number of objects to be added.
      * @return The number of objects that were actually added.
      */
-    @Nonnull
     private static <N extends OWLAxiom> int addMax(@Nonnull Set<N> source,
             @Nonnull Set<N> dest, int limit) {
         int count = 0;

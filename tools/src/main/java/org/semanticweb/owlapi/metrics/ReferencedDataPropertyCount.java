@@ -37,13 +37,15 @@ public class ReferencedDataPropertyCount extends
         super(o);
     }
 
+    @Nonnull
     @Override
     protected String getObjectTypeName() {
         return "Data property";
     }
 
+    @Nonnull
     @Override
-    protected Set<OWLDataProperty> getObjects(OWLOntology ont) {
+    protected Set<OWLDataProperty> getObjects(@Nonnull OWLOntology ont) {
         return ont.getDataPropertiesInSignature();
     }
 }

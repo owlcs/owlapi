@@ -86,7 +86,7 @@ public class ManchesterOWLSyntaxOWLObjectRendererImpl implements
         }
 
         @Override
-        public void write(char[] cbuf, int off, int len) throws IOException {
+        public void write(@Nonnull char[] cbuf, int off, int len) throws IOException {
             delegate.write(cbuf, off, len);
         }
     }

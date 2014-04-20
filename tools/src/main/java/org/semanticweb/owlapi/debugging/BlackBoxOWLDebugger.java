@@ -115,6 +115,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
         expansionLimit = initialExpansionLimit;
     }
 
+    @Nonnull
     @Override
     protected OWLClassExpression getCurrentClass() throws OWLException {
         return currentClass;
@@ -151,8 +152,9 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
         }
     }
 
+    @Nonnull
     @Override
-    public Set<OWLAxiom> getSOSForIncosistentClass(OWLClassExpression cls)
+    public Set<OWLAxiom> getSOSForIncosistentClass(@Nonnull OWLClassExpression cls)
             throws OWLException {
         reset();
         currentClass = setupDebuggingClass(cls);

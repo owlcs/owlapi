@@ -666,14 +666,16 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
         return enrichedSig;
     }
 
+    @Nonnull
     @Override
-    public Set<OWLAxiom> extract(Set<OWLEntity> sig) {
+    public Set<OWLAxiom> extract(@Nonnull Set<OWLEntity> sig) {
         return extract(sig, 0, 0, null, false);
     }
 
+    @Nonnull
     @Override
-    public Set<OWLAxiom> extract(Set<OWLEntity> sig, int superClassLevel,
-            int subClassLevel, OWLReasoner reasoner) {
+    public Set<OWLAxiom> extract(@Nonnull Set<OWLEntity> sig, int superClassLevel,
+            int subClassLevel, @Nonnull OWLReasoner reasoner) {
         return extract(sig, superClassLevel, subClassLevel, reasoner, false);
     }
 
@@ -764,15 +766,17 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
         }
     }
 
+    @Nonnull
     @Override
-    public OWLOntology extractAsOntology(Set<OWLEntity> signature, IRI iri)
+    public OWLOntology extractAsOntology(@Nonnull Set<OWLEntity> signature, @Nonnull IRI iri)
             throws OWLOntologyCreationException {
         return extractAsOntology(signature, iri, 0, 0, null, false);
     }
 
+    @Nonnull
     @Override
-    public OWLOntology extractAsOntology(Set<OWLEntity> signature, IRI iri,
-            int superClassLevel, int subClassLevel, OWLReasoner reasoner)
+    public OWLOntology extractAsOntology(@Nonnull Set<OWLEntity> signature, @Nonnull IRI iri,
+            int superClassLevel, int subClassLevel, @Nonnull OWLReasoner reasoner)
             throws OWLOntologyCreationException {
         return extractAsOntology(signature, iri, superClassLevel,
                 subClassLevel, reasoner, false);

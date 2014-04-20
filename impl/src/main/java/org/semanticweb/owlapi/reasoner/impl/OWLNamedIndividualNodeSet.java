@@ -58,13 +58,13 @@ public class OWLNamedIndividualNodeSet extends
 
     @Override
     protected DefaultNode<OWLNamedIndividual>
-            getNode(OWLNamedIndividual entity) {
+            getNode(@Nonnull OWLNamedIndividual entity) {
         return NodeFactory.getOWLNamedIndividualNode(entity);
     }
 
     @Override
     protected DefaultNode<OWLNamedIndividual> getNode(
-            Set<OWLNamedIndividual> entities) {
+            @Nonnull Set<OWLNamedIndividual> entities) {
         return NodeFactory.getOWLNamedIndividualNode(entities);
     }
 }

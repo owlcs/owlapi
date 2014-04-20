@@ -43,11 +43,13 @@ public class AverageAssertedNamedSuperclassCount extends DoubleValuedMetric {
         super(o);
     }
 
+    @Nonnull
     @Override
     public String getName() {
         return "Average number of named superclasses";
     }
 
+    @Nonnull
     @Override
     public Double recomputeMetric() {
         int total = 0;
@@ -77,7 +79,7 @@ public class AverageAssertedNamedSuperclassCount extends DoubleValuedMetric {
 
     @Override
     protected boolean isMetricInvalidated(
-            List<? extends OWLOntologyChange<?>> changes) {
+            @Nonnull List<? extends OWLOntologyChange<?>> changes) {
         for (OWLOntologyChange<?> chg : changes) {
             if (chg.isAxiomChange()
                     && chg.getAxiom() instanceof OWLSubClassOfAxiom) {

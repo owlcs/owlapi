@@ -16,6 +16,8 @@ import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 
+import javax.annotation.Nonnull;
+
 /**
  * The Class SilentExplanationProgressMonitor.
  * 
@@ -27,7 +29,7 @@ public class SilentExplanationProgressMonitor implements
         ExplanationProgressMonitor {
 
     @Override
-    public void foundExplanation(Set<OWLAxiom> axioms) {}
+    public void foundExplanation(@Nonnull Set<OWLAxiom> axioms) {}
 
     @Override
     public boolean isCancelled() {

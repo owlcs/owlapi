@@ -33,7 +33,7 @@ public class RDFLiteral extends RDFNode {
     private final String lexicalValue;
     @Nonnull
     private final String lang;
-    @Nullable
+    @Nonnull
     private final IRI datatype;
     private int hashCode;
 
@@ -127,7 +127,7 @@ public class RDFLiteral extends RDFNode {
     }
 
     /** @return the datatype for this literal */
-    @Nullable
+    @Nonnull
     public IRI getDatatype() {
         return datatype;
     }

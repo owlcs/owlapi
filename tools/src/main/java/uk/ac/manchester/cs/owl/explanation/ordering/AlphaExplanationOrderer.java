@@ -47,9 +47,10 @@ public class AlphaExplanationOrderer implements ExplanationOrderer {
         this.renderer = checkNotNull(renderer, "renderer cannot be null");
     }
 
+    @Nonnull
     @Override
-    public ExplanationTree getOrderedExplanation(OWLAxiom entailment,
-            Set<OWLAxiom> axioms) {
+    public ExplanationTree getOrderedExplanation(@Nonnull OWLAxiom entailment,
+            @Nonnull Set<OWLAxiom> axioms) {
         EntailedAxiomTree root = new EntailedAxiomTree(entailment);
         List<OWLAxiom> sortedAxioms = new ArrayList<OWLAxiom>(axioms);
         Collections.sort(sortedAxioms, new Comparator<OWLAxiom>() {

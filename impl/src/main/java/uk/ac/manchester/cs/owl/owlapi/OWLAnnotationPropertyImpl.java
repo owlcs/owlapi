@@ -60,6 +60,7 @@ public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements
         iri = checkNotNull(i, "i cannot be null");
     }
 
+    @Nonnull
     @Override
     public IRI getIRI() {
         return iri;

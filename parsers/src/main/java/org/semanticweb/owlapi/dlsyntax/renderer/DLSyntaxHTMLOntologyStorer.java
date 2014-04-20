@@ -43,13 +43,15 @@ public class DLSyntaxHTMLOntologyStorer extends DLSyntaxOntologyStorerBase {
         return ontologyFormat instanceof DLSyntaxHTMLOntologyFormat;
     }
 
+    @Nonnull
     @Override
-    protected String getRendering(final OWLEntity subject, OWLAxiom axiom) {
+    protected String getRendering(final OWLEntity subject, @Nonnull OWLAxiom axiom) {
         checkNotNull(axiom, "axiom cannot be null");
         DLSyntaxObjectRenderer ren = new DLSyntaxObjectRenderer() {
 
+            @Nonnull
             @Override
-            protected String renderEntity(OWLEntity entity) {
+            protected String renderEntity(@Nonnull OWLEntity entity) {
                 String shortForm = sfp.getShortForm(checkNotNull(entity,
                         "entity cannot be null"));
                 if (!entity.equals(subject)) {
@@ -61,7 +63,7 @@ public class DLSyntaxHTMLOntologyStorer extends DLSyntaxOntologyStorerBase {
             }
 
             @Override
-            protected void write(DLSyntax keyword) {
+            protected void write(@Nonnull DLSyntax keyword) {
                 super.write(XMLUtils.escapeXML(checkNotNull(keyword,
                         "keyword cannot be null").toString()));
             }
@@ -74,7 +76,7 @@ public class DLSyntaxHTMLOntologyStorer extends DLSyntaxOntologyStorerBase {
 
     @Override
     protected void
-            beginWritingOntology(OWLOntology ontology, PrintWriter writer) {
+            beginWritingOntology(@Nonnull OWLOntology ontology, @Nonnull PrintWriter writer) {
         checkNotNull(ontology, "ontology cannot be null");
         checkNotNull(writer, "writer cannot be null").println(
                 "<html>\n<body>\n<h1>Ontology: ");
@@ -87,28 +89,28 @@ public class DLSyntaxHTMLOntologyStorer extends DLSyntaxOntologyStorerBase {
             @Nonnull PrintWriter writer) {}
 
     @Override
-    protected void endWritingOntology(OWLOntology ontology, PrintWriter writer) {
+    protected void endWritingOntology(@Nonnull OWLOntology ontology, @Nonnull PrintWriter writer) {
         checkNotNull(ontology, "ontology cannot be null");
         checkNotNull(writer, "writer cannot be null").println(
                 "</body>\n</html>");
     }
 
     @Override
-    protected void beginWritingAxiom(OWLAxiom axiom, PrintWriter writer) {
+    protected void beginWritingAxiom(@Nonnull OWLAxiom axiom, @Nonnull PrintWriter writer) {
         checkNotNull(axiom, "axiom cannot be null");
         checkNotNull(writer, "writer cannot be null").println(
                 "<div class=\"axiombox\"> ");
     }
 
     @Override
-    protected void endWritingAxiom(OWLAxiom axiom, PrintWriter writer) {
+    protected void endWritingAxiom(@Nonnull OWLAxiom axiom, @Nonnull PrintWriter writer) {
         checkNotNull(axiom, "axiom cannot be null");
         checkNotNull(writer, "writer cannot be null").println(" </div>");
     }
 
     @Override
-    protected void beginWritingAxioms(OWLEntity subject,
-            Set<? extends OWLAxiom> axioms, PrintWriter writer) {
+    protected void beginWritingAxioms(@Nonnull OWLEntity subject,
+            @Nonnull Set<? extends OWLAxiom> axioms, @Nonnull PrintWriter writer) {
         checkNotNull(subject, "subject cannot be null");
         checkNotNull(axioms, "axioms cannot be null");
         checkNotNull(writer, "writer cannot be null").print("<h2><a name=\"");
@@ -119,27 +121,27 @@ public class DLSyntaxHTMLOntologyStorer extends DLSyntaxOntologyStorerBase {
     }
 
     @Override
-    protected void endWritingAxioms(OWLEntity subject,
-            Set<? extends OWLAxiom> axioms, PrintWriter writer) {
+    protected void endWritingAxioms(@Nonnull OWLEntity subject,
+            @Nonnull Set<? extends OWLAxiom> axioms, @Nonnull PrintWriter writer) {
         writer.println("</div>");
     }
 
     @Override
-    protected void beginWritingGeneralAxioms(Set<? extends OWLAxiom> axioms,
-            PrintWriter writer) {
+    protected void beginWritingGeneralAxioms(@Nonnull Set<? extends OWLAxiom> axioms,
+            @Nonnull PrintWriter writer) {
         checkNotNull(writer, "writer cannot be null").println("<div>");
     }
 
     @Override
-    protected void endWritingGeneralAxioms(Set<? extends OWLAxiom> axioms,
-            PrintWriter writer) {
+    protected void endWritingGeneralAxioms(@Nonnull Set<? extends OWLAxiom> axioms,
+            @Nonnull PrintWriter writer) {
         checkNotNull(axioms, "axioms cannot be null");
         checkNotNull(writer, "writer cannot be null").println("</div>");
     }
 
     @Override
-    protected void beginWritingUsage(OWLEntity subject,
-            Set<? extends OWLAxiom> axioms, PrintWriter writer) {
+    protected void beginWritingUsage(@Nonnull OWLEntity subject,
+            @Nonnull Set<? extends OWLAxiom> axioms, @Nonnull PrintWriter writer) {
         checkNotNull(subject, "subject cannot be null");
         checkNotNull(axioms, "axioms cannot be null");
         checkNotNull(writer, "writer cannot be null").println(
@@ -148,8 +150,8 @@ public class DLSyntaxHTMLOntologyStorer extends DLSyntaxOntologyStorerBase {
     }
 
     @Override
-    protected void endWritingUsage(OWLEntity subject,
-            Set<? extends OWLAxiom> axioms, PrintWriter writer) {
+    protected void endWritingUsage(@Nonnull OWLEntity subject,
+            @Nonnull Set<? extends OWLAxiom> axioms, @Nonnull PrintWriter writer) {
         checkNotNull(subject, "subject cannot be null");
         checkNotNull(axioms, "axioms cannot be null");
         checkNotNull(writer, "writer cannot be null").println("</div>");

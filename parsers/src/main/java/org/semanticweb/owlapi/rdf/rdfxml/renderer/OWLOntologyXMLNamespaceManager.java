@@ -159,7 +159,7 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
     }
 
     @Override
-    public String getQName(String name) {
+    public String getQName(@Nonnull String name) {
         checkNotNull(name, "name cannot be null");
         final String ns = XMLUtils.getNCNamePrefix(name);
         String fragment = XMLUtils.getNCNameSuffix(name);

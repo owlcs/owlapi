@@ -87,6 +87,7 @@ public class OWLNamedIndividualImpl extends OWLIndividualImpl implements
         return true;
     }
 
+    @Nonnull
     @Override
     public IRI getIRI() {
         return iri;

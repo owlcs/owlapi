@@ -53,13 +53,14 @@ public abstract class AbstractOWLMetric<M> implements OWLMetric<M>,
         dirty = true;
     }
 
+    @Nonnull
     @Override
     public OWLOntology getOntology() {
         return ontology;
     }
 
     @Override
-    public void setOntology(OWLOntology ontology) {
+    public void setOntology(@Nonnull OWLOntology ontology) {
         this.ontology.getOWLOntologyManager()
                 .removeOntologyChangeListener(this);
         this.ontology = ontology;
@@ -75,6 +76,7 @@ public abstract class AbstractOWLMetric<M> implements OWLMetric<M>,
     @Nonnull
     protected abstract M recomputeMetric();
 
+    @Nonnull
     @Override
     public M getValue() {
         if (dirty) {
@@ -109,6 +111,7 @@ public abstract class AbstractOWLMetric<M> implements OWLMetric<M>,
         }
     }
 
+    @Nonnull
     @Override
     public OWLOntologyManager getManager() {
         return ontology.getOWLOntologyManager();

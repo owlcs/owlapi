@@ -44,7 +44,6 @@ public class OntologyUtils {
      *         ontology that contains entailments which are being explained,
      *         otherwise {@code false}
      */
-    @Nonnull
     public static boolean containsUnreferencedEntity(
             @Nonnull OWLOntology ontology, @Nonnull OWLClassExpression desc) {
         checkNotNull(ontology, "ontology cannot be null");
@@ -101,7 +100,6 @@ public class OntologyUtils {
      * @param manager
      *        the manager for the application
      */
-    @Nonnull
     public static void addAxiom(@Nonnull OWLAxiom axiom,
             @Nonnull Set<OWLOntology> ontologies,
             @Nonnull OWLOntologyManager manager) {

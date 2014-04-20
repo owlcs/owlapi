@@ -178,7 +178,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
     protected abstract int index();
 
     @Override
-    public int compareTo(OWLObject o) {
+    public int compareTo(@Nonnull OWLObject o) {
         int thisTypeIndex = index();
         int otherTypeIndex = 0;
         if (o instanceof OWLObjectImpl) {

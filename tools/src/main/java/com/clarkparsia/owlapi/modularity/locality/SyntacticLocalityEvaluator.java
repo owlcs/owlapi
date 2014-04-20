@@ -1575,7 +1575,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
     }
 
     @Override
-    public boolean isLocal(OWLAxiom axiom, Set<? extends OWLEntity> signature) {
+    public boolean isLocal(@Nonnull OWLAxiom axiom, @Nonnull Set<? extends OWLEntity> signature) {
         return axiomVisitor.isLocal(axiom, signature);
     }
 }

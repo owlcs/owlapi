@@ -42,11 +42,13 @@ public class UnsatisfiableClassCountMetric extends IntegerValuedMetric {
         this.reasoner = reasoner;
     }
 
+    @Nonnull
     @Override
     public String getName() {
         return "Unsatisfiable class count";
     }
 
+    @Nonnull
     @Override
     protected Integer recomputeMetric() {
         return reasoner.getUnsatisfiableClasses().getSize();
@@ -54,7 +56,7 @@ public class UnsatisfiableClassCountMetric extends IntegerValuedMetric {
 
     @Override
     protected boolean isMetricInvalidated(
-            List<? extends OWLOntologyChange<?>> changes) {
+            @Nonnull List<? extends OWLOntologyChange<?>> changes) {
         return false;
     }
 

@@ -91,6 +91,7 @@ public class OWLObjectPropertyImpl extends OWLObjectPropertyExpressionImpl
         return iri.toString();
     }
 
+    @Nonnull
     @Override
     public IRI getIRI() {
         return iri;

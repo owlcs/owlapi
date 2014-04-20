@@ -36,13 +36,15 @@ public class ReferencedClassCount extends ObjectCountMetric<OWLClass> {
         super(o);
     }
 
+    @Nonnull
     @Override
     protected String getObjectTypeName() {
         return "Class";
     }
 
+    @Nonnull
     @Override
-    protected Set<OWLClass> getObjects(OWLOntology ont) {
+    protected Set<OWLClass> getObjects(@Nonnull OWLOntology ont) {
         return ont.getClassesInSignature();
     }
 }

@@ -36,13 +36,15 @@ public class LogicalAxiomCount extends AxiomCountMetric {
         super(o);
     }
 
+    @Nonnull
     @Override
     protected String getObjectTypeName() {
         return "Logical axiom";
     }
 
+    @Nonnull
     @Override
-    protected Set<? extends OWLAxiom> getObjects(OWLOntology ont) {
+    protected Set<? extends OWLAxiom> getObjects(@Nonnull OWLOntology ont) {
         return ont.getLogicalAxioms();
     }
 }
