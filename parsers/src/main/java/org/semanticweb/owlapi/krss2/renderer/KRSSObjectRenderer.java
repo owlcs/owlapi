@@ -337,7 +337,7 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
             Iterable<OWLObjectPropertyExpression> properties,
             KRSSVocabulary junctor) {
         List<OWLObjectPropertyExpression> props = sort(properties);
-        final int size = props.size();
+        int size = props.size();
         if (size == 0) {
             return;
         }
@@ -350,7 +350,7 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
             write(junctor);
         }
         write(props.get(0));
-        final int indent = getIndent();
+        int indent = getIndent();
         for (int i = 1; i < size; i++) {
             writeln();
             writeIndent(indent);
@@ -364,7 +364,7 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
     protected void flatten(Iterable<OWLClassExpression> description,
             KRSSVocabulary junctor) {
         List<OWLClassExpression> descs = sort(description);
-        final int size = descs.size();
+        int size = descs.size();
         if (size == 0) {
             return;
         }
@@ -374,7 +374,7 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
         }
         writeOpenBracket();
         write(junctor);
-        final int indent = getIndent();
+        int indent = getIndent();
         for (int i = 1; i < size; i++) {
             writeln();
             writeIndent(indent);
@@ -390,8 +390,8 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
                 .getOWLThing());
         classes.remove(ontology1.getOWLOntologyManager().getOWLDataFactory()
                 .getOWLNothing());
-        for (final OWLClass eachClass : sort(classes)) {
-            final boolean primitive = !isDefined(ontology1, eachClass);
+        for (OWLClass eachClass : sort(classes)) {
+            boolean primitive = !isDefined(ontology1, eachClass);
             if (primitive) {
                 writeOpenBracket();
                 write(DEFINE_PRIMITIVE_CONCEPT);
@@ -414,7 +414,7 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
                 writeln();
             }
         }
-        for (final OWLObjectProperty property : sort(ontology1
+        for (OWLObjectProperty property : sort(ontology1
                 .getObjectPropertiesInSignature())) {
             writeOpenBracket();
             Collection<OWLObjectPropertyExpression> properties = equivalent(ontology1
@@ -442,7 +442,7 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
             writeCloseBracket();
             writeln();
         }
-        for (final OWLAxiom axiom : ontology1.getAxioms()) {
+        for (OWLAxiom axiom : ontology1.getAxioms()) {
             axiom.accept(this);
         }
         try {
@@ -542,8 +542,8 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
 
     @Override
     public void visit(OWLSameIndividualAxiom axiom) {
-        final List<OWLIndividual> individuals = sort(axiom.getIndividuals());
-        final int size = individuals.size();
+        List<OWLIndividual> individuals = sort(axiom.getIndividuals());
+        int size = individuals.size();
         if (size <= 1) {
             return;
         }
@@ -568,10 +568,10 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
     public void visit(OWLObjectIntersectionOf desc) {
         writeOpenBracket();
         write(AND);
-        final List<OWLClassExpression> operands = sort(desc.getOperands());
-        final int size = operands.size();
+        List<OWLClassExpression> operands = sort(desc.getOperands());
+        int size = operands.size();
         if (size > 0) {
-            final int indent = getIndent();
+            int indent = getIndent();
             write(operands.get(0));
             for (int i = 1; i < size; i++) {
                 writeln();
@@ -586,10 +586,10 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
     public void visit(OWLObjectUnionOf desc) {
         writeOpenBracket();
         write(OR);
-        final List<OWLClassExpression> operands = sort(desc.getOperands());
-        final int size = operands.size();
+        List<OWLClassExpression> operands = sort(desc.getOperands());
+        int size = operands.size();
         if (size > 0) {
-            final int indent = getIndent();
+            int indent = getIndent();
             write(operands.get(0));
             for (int i = 1; i < size; i++) {
                 writeln();

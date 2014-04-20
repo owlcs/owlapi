@@ -35,6 +35,7 @@ package org.semanticweb.owlapi.change;/*
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -48,7 +49,7 @@ import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.RemoveAxiom;
-import org.semanticweb.owlapi.util.OWLClassExpressionVisitorAdapter;
+import org.semanticweb.owlapi.util.OWLClassExpressionVisitorExAdapter;
 
 /**
  * This composite change will convert a defined class to a primitive class by
@@ -129,17 +130,17 @@ public class ConvertEquivalentClassesToSuperClasses extends
     @Nonnull
     private Set<OWLClassExpression> getClassExpressions(
             @Nonnull OWLClassExpression desc) {
-        final Set<OWLClassExpression> result = new HashSet<OWLClassExpression>();
+        Set<OWLClassExpression> result = Collections.emptySet();
         if (splitIntersections) {
-            desc.accept(new OWLClassExpressionVisitorAdapter() {
+            result = desc
+                    .accept(new OWLClassExpressionVisitorExAdapter<Set<OWLClassExpression>>() {
 
-                @Override
-                public void visit(OWLObjectIntersectionOf intersection) {
-                    for (OWLClassExpression op : intersection.getOperands()) {
-                        result.add(op);
-                    }
-                }
-            });
+                        @Override
+                        public Set<OWLClassExpression> visit(
+                                OWLObjectIntersectionOf intersection) {
+                            return intersection.getOperands();
+                        }
+                    });
         }
         if (result.isEmpty()) {
             result.add(desc);

@@ -173,7 +173,7 @@ public class KRSS2OWLObjectRenderer extends OWLObjectVisitorAdapter {
         if (classExpressions.isEmpty()) {
             return;
         }
-        final OWLClassExpression desc = classExpressions.iterator().next();
+        OWLClassExpression desc = classExpressions.iterator().next();
         if (classExpressions.size() == 1) {
             write(desc);
             return;
@@ -188,8 +188,8 @@ public class KRSS2OWLObjectRenderer extends OWLObjectVisitorAdapter {
 
     @Override
     public final void visit(OWLOntology onto) {
-        for (final OWLClass eachClass : onto.getClassesInSignature()) {
-            final boolean primitive = !isDefined(onto, eachClass);
+        for (OWLClass eachClass : onto.getClassesInSignature()) {
+            boolean primitive = !isDefined(onto, eachClass);
             if (primitive) {
                 writeOpenBracket();
                 write(DEFINE_PRIMITIVE_CONCEPT);
@@ -246,11 +246,10 @@ public class KRSS2OWLObjectRenderer extends OWLObjectVisitorAdapter {
                 }
             }
         }
-        for (final OWLClassAxiom axiom : onto.getGeneralClassAxioms()) {
+        for (OWLClassAxiom axiom : onto.getGeneralClassAxioms()) {
             axiom.accept(this);
         }
-        for (final OWLObjectProperty property : onto
-                .getObjectPropertiesInSignature()) {
+        for (OWLObjectProperty property : onto.getObjectPropertiesInSignature()) {
             writeOpenBracket();
             write(DEFINE_PRIMITIVE_ROLE);
             write(property);
@@ -309,7 +308,7 @@ public class KRSS2OWLObjectRenderer extends OWLObjectVisitorAdapter {
     @Override
     public final void visit(OWLDisjointClassesAxiom axiom) {
         writeOpenBracket();
-        for (final OWLClassExpression desc : axiom.getClassExpressions()) {
+        for (OWLClassExpression desc : axiom.getClassExpressions()) {
             write(desc);
         }
         writeCloseBracket();
@@ -341,7 +340,7 @@ public class KRSS2OWLObjectRenderer extends OWLObjectVisitorAdapter {
     public final void visit(OWLObjectIntersectionOf desc) {
         writeOpenBracket();
         write(AND);
-        for (final OWLClassExpression des : desc.getOperands()) {
+        for (OWLClassExpression des : desc.getOperands()) {
             write(des);
         }
         writeCloseBracket();

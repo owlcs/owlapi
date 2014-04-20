@@ -22,7 +22,7 @@ public class UntranslatableAxiomsInHeaderTest extends OboFormatTestBasics {
 
     @Test
     public void testUntranslatableAxioms() throws Exception {
-        final OWLOntology original = parseOWLFile("untranslatable_axioms.owl");
+        OWLOntology original = parseOWLFile("untranslatable_axioms.owl");
         OWLAPIOwl2Obo owl2Obo = new OWLAPIOwl2Obo(
                 OWLManager.createOWLOntologyManager());
         OBODoc obo = owl2Obo.convert(original);
@@ -45,7 +45,7 @@ public class UntranslatableAxiomsInHeaderTest extends OboFormatTestBasics {
 
     @Test
     public void testUntranslatableAxioms2() throws Exception {
-        final OWLOntology original = parseOWLFile("untranslatable_axioms2.owl");
+        OWLOntology original = parseOWLFile("untranslatable_axioms2.owl");
         OWLAPIOwl2Obo owl2Obo = new OWLAPIOwl2Obo(
                 OWLManager.createOWLOntologyManager());
         OBODoc obo = owl2Obo.convert(original);

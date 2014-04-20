@@ -301,7 +301,7 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
                 lastLangMatchIndex = 0;
                 candidateValue = node;
             } else {
-                final int index = preferredLanguages.indexOf(node.getLang());
+                int index = preferredLanguages.indexOf(node.getLang());
                 if (index >= 0 && index < lastLangMatchIndex) {
                     lastLangMatchIndex = index;
                     candidateValue = node;

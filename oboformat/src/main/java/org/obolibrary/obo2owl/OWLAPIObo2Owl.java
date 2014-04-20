@@ -619,7 +619,7 @@ public class OWLAPIObo2Owl {
      */
     protected void addPropertyValueHeaders(Collection<Clause> clauses) {
         for (Clause clause : clauses) {
-            final Set<OWLAnnotation> annotations = trAnnotations(clause);
+            Set<OWLAnnotation> annotations = trAnnotations(clause);
             Collection<Object> values = clause.getValues();
             Object v = clause.getValue();
             Object v2 = clause.getValue2();
@@ -741,11 +741,11 @@ public class OWLAPIObo2Owl {
         if (typedefFrame.getTagValue(OboFormatTag.TAG_IS_METADATA_TAG) != null
                 && (Boolean) typedefFrame
                         .getTagValue(OboFormatTag.TAG_IS_METADATA_TAG)) {
-            final String id = typedefFrame.getId();
+            String id = typedefFrame.getId();
             OWLAnnotationProperty p = trAnnotationProp(id);
             add(fac.getOWLDeclarationAxiom(p));
             // handle xrefs also for meta data tags
-            final String xid = translateShorthandIdToExpandedId(id);
+            String xid = translateShorthandIdToExpandedId(id);
             if (id.equals(xid) == false) {
                 OWLAxiom ax = fac.getOWLAnnotationAssertionAxiom(
                         trTagToAnnotationProp("shorthand"), p.getIRI(),
@@ -789,7 +789,7 @@ public class OWLAPIObo2Owl {
             // see: trTypedefToAnnotationProperty(Frame typedefFrame)
             return null;
         } else {
-            final String id = typedefFrame.getId();
+            String id = typedefFrame.getId();
             OWLObjectProperty p = trObjectProp(id);
             add(fac.getOWLDeclarationAxiom(p));
             String xid = translateShorthandIdToExpandedId(id);
@@ -817,13 +817,12 @@ public class OWLAPIObo2Owl {
                 Collection<Clause> clauses = typedefFrame.getClauses(tag);
                 OboFormatTag _tag = OBOFormatConstants.getTag(tag);
                 if (_tag == OboFormatTag.TAG_INTERSECTION_OF) {
-                    final OWLAxiom axiom = trRelationIntersectionOf(id, p,
-                            clauses);
+                    OWLAxiom axiom = trRelationIntersectionOf(id, p, clauses);
                     if (axiom != null) {
                         add(axiom);
                     }
                 } else if (_tag == OboFormatTag.TAG_UNION_OF) {
-                    final OWLAxiom axiom = trRelationUnionOf(id, p, clauses);
+                    OWLAxiom axiom = trRelationUnionOf(id, p, clauses);
                     if (axiom != null) {
                         add(axiom);
                     }

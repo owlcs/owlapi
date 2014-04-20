@@ -301,14 +301,14 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
     @Override
     public final void visit(OWLOntology ontology1) {
         reset();
-        for (final OWLClass eachClass : ontology1.getClassesInSignature()) {
+        for (OWLClass eachClass : ontology1.getClassesInSignature()) {
             if (ignoreDeclarations) {
                 if (ontology1.getAxioms(eachClass, EXCLUDED).size() == 1
                         && ontology1.getDeclarationAxioms(eachClass).size() == 1) {
                     continue;
                 }
             }
-            final boolean primitive = !isDefined(ontology1, eachClass);
+            boolean primitive = !isDefined(ontology1, eachClass);
             writeOpenBracket();
             if (primitive) { // there is no equivalentclasses axiom!
                 write(DEFINE_PRIMITIVE_CONCEPT);
@@ -354,7 +354,7 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
                 }
             }
         }
-        for (final OWLObjectProperty property : sort(ontology1
+        for (OWLObjectProperty property : sort(ontology1
                 .getObjectPropertiesInSignature())) {
             if (ignoreDeclarations) {
                 if (ontology1.getAxioms(property, EXCLUDED).size() == 1
@@ -365,7 +365,7 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
             writeOpenBracket();
             Collection<OWLObjectPropertyExpression> properties = equivalent(ontology1
                     .getEquivalentObjectPropertiesAxioms(property));
-            final boolean isPrimitive = properties.isEmpty();
+            boolean isPrimitive = properties.isEmpty();
             if (isPrimitive) {
                 write(DEFINE_PRIMITIVE_ROLE);
                 write(property);
@@ -479,7 +479,7 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
                 writeln();
             }
         }
-        for (final OWLNamedIndividual individual : sort(ontology1
+        for (OWLNamedIndividual individual : sort(ontology1
                 .getIndividualsInSignature())) {
             if (ignoreDeclarations) {
                 if (ontology1.getAxioms(individual, EXCLUDED).size() == 1
@@ -493,7 +493,7 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
             writeCloseBracket();
             writeln();
         }
-        for (final OWLAxiom axiom : ontology1.getAxioms()) {
+        for (OWLAxiom axiom : ontology1.getAxioms()) {
             axiom.accept(this);
         }
         try {
@@ -628,8 +628,8 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
         writeln();
     }
 
-    protected void writeChain(
-            final List<OWLObjectPropertyExpression> expressions, int i) {
+    protected void writeChain(List<OWLObjectPropertyExpression> expressions,
+            int i) {
         if (i == expressions.size() - 1) {
             write(expressions.get(i));
         } else {

@@ -438,8 +438,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     }
 
     @Override
-    public boolean containsReference(final OWLEntity entity,
-            Imports importsClosure) {
+    public boolean containsReference(OWLEntity entity, Imports importsClosure) {
         if (importsClosure == EXCLUDED) {
             return ints.containsReference(entity);
         }

@@ -317,7 +317,7 @@ public class OBOFormatWriter {
             List<Clause> clauses = new ArrayList<Clause>(frame.getClauses(tag));
             Collections.sort(clauses, ClauseComparator.instance);
             for (Clause clause : clauses) {
-                final String clauseTag = clause.getTag();
+                String clauseTag = clause.getTag();
                 if (OboFormatTag.TAG_ID.getTag().equals(clauseTag)) {
                     continue;
                 } else if (OboFormatTag.TAG_DEF.getTag().equals(clauseTag)) {
@@ -496,7 +496,7 @@ public class OBOFormatWriter {
         sb.append(" [");
         Iterator<Xref> xrefsIterator = sortedXrefs.iterator();
         while (xrefsIterator.hasNext()) {
-            final Xref current = xrefsIterator.next();
+            Xref current = xrefsIterator.next();
             String idref = current.getIdref();
             int colonPos = idref.indexOf(':');
             if (colonPos > 0) {

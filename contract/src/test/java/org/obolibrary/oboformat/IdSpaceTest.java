@@ -17,12 +17,12 @@ public class IdSpaceTest extends OboFormatTestBasics {
 
     @Test
     public void testIdSpace() throws Exception {
-        final OBODoc doc1 = parseOBOFile("idspace_test.obo");
+        OBODoc doc1 = parseOBOFile("idspace_test.obo");
         checkIdSpace(doc1);
-        final String oboString = renderOboToString(doc1);
+        String oboString = renderOboToString(doc1);
         assertTrue(oboString
                 .contains("idspace: GO urn:lsid:bioontology.org:GO: \"gene ontology terms\""));
-        final OBODoc doc2 = parseOboToString(oboString);
+        OBODoc doc2 = parseOboToString(oboString);
         checkIdSpace(doc2);
     }
 

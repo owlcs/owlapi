@@ -145,8 +145,8 @@ public abstract class OWLReasonerBase implements OWLReasoner {
     @Override
     public void flush() {
         // Process the changes
-        final Set<OWLAxiom> added = new HashSet<OWLAxiom>();
-        final Set<OWLAxiom> removed = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> added = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> removed = new HashSet<OWLAxiom>();
         computeDiff(added, removed);
         reasonerAxioms.removeAll(removed);
         reasonerAxioms.addAll(added);

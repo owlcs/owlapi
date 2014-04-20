@@ -3606,12 +3606,12 @@ class OWLFunctionalSyntaxParserTokenManager implements
     }
 
     protected Token jjFillToken() {
-        final Token t;
-        final String curTokenImage;
-        final int beginLine;
-        final int endLine;
-        final int beginColumn;
-        final int endColumn;
+        Token t;
+        String curTokenImage;
+        int beginLine;
+        int endLine;
+        int beginColumn;
+        int endColumn;
         String im = jjstrLiteralImages[jjmatchedKind];
         curTokenImage = im == null ? input_stream.GetImage() : im;
         beginLine = input_stream.getBeginLine();

@@ -52,7 +52,7 @@ public class RDFXMLParser extends AbstractOWLParser {
         InputSource is = null;
         try {
             final RDFXMLOntologyFormat format = new RDFXMLOntologyFormat();
-            final RDFParser parser = new RDFParser() {
+            RDFParser parser = new RDFParser() {
 
                 @Override
                 public void startPrefixMapping(String prefix, String IRI)

@@ -122,7 +122,7 @@ public class ManchesterSyntaxTool {
         };
         bidirectionalShortFormProvider = new BidirectionalShortFormProviderAdapter(
                 manager, ontologies, shortFormProvider);
-        final ShortFormEntityChecker defaultInstance = new ShortFormEntityChecker(
+        ShortFormEntityChecker defaultInstance = new ShortFormEntityChecker(
                 bidirectionalShortFormProvider);
         if (resolveEntities) {
             entityChecker = new AdvancedEntityChecker(defaultInstance,
@@ -312,8 +312,8 @@ public class ManchesterSyntaxTool {
         }
 
         private boolean isQuoted(String s) {
-            final int length = s.length();
-            if (length > 2) {
+            int length = s.length();
+            if (length >= 2) {
                 return s.charAt(0) == '\'' && s.charAt(length - 1) == '\'';
             }
             return false;
