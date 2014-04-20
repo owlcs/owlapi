@@ -55,6 +55,8 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     private static final long serialVersionUID = 40000L;
     private static final int COMPRESSION_LIMIT = 160;
     private final LiteralWrapper literal;
+    private static final OWLDatatype RDF_PLAIN_LITERAL = new OWL2DatatypeImpl(
+            OWL2Datatype.RDF_PLAIN_LITERAL);
     private final OWLDatatype datatype;
     private final String lang;
     private final int hashcode;
@@ -81,9 +83,10 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
         if (lang == null || lang.length() == 0) {
             this.lang = "";
             if (datatype == null) {
-                System.out.println("OWLLiteralImpl.OWLLiteralImpl()");
+                this.datatype = RDF_PLAIN_LITERAL;
+            } else {
+                this.datatype = datatype;
             }
-            this.datatype = datatype;
         } else {
             if (datatype != null && !datatype.isRDFPlainLiteral()) {
                 // ERROR: attempting to build a literal with a language tag and
@@ -93,8 +96,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
                                 + datatype.getIRI() + " and language: " + lang);
             }
             this.lang = lang;
-            this.datatype = new OWLDatatypeImpl(
-                    OWL2Datatype.RDF_PLAIN_LITERAL.getIRI());
+            this.datatype = RDF_PLAIN_LITERAL;
         }
         hashcode = getHashCode();
     }
@@ -267,16 +269,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
         return visitor.visit(this);
     }
 
-    // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // /////
-    // ///// Literal Wraper
-    // /////
-    // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Literal Wraper
     private static final class LiteralWrapper implements Serializable {
 
         private static final long serialVersionUID = 40000L;
