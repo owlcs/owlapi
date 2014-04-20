@@ -14,6 +14,9 @@ package org.semanticweb.owlapi.util;
 
 import com.google.common.base.Optional;
 
+import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
+
 /** a set of personalized preconditions */
 public class OWLAPIPreconditions {
 
@@ -28,7 +31,7 @@ public class OWLAPIPreconditions {
      * @throws NullPointerException
      *         if object is null
      */
-    public static <T> T checkNotNull(T object) {
+    @Nonnull public static <T> T checkNotNull( T object) {
         return checkNotNull(object, "this variable cannot be null");
     }
 
@@ -45,7 +48,7 @@ public class OWLAPIPreconditions {
      * @throws NullPointerException
      *         if object is null
      */
-    public static <T> T checkNotNull(T object, String message) {
+   @Nonnull public static <T> T checkNotNull( T object, String message) {
         if (object == null) {
             throw new NullPointerException(message);
         }
@@ -60,6 +63,7 @@ public class OWLAPIPreconditions {
      * @throws IllegalArgumentException
      *         if object is negative
      */
+    @Nonnegative
     public static void checkNotNegative(long object) {
         checkNotNegative(object, "this variable cannot be negative: " + object);
     }
@@ -74,6 +78,7 @@ public class OWLAPIPreconditions {
      * @throws IllegalArgumentException
      *         if object is negative
      */
+    @Nonnegative
     public static void checkNotNegative(long object, String message) {
         if (object < 0) {
             throw new IllegalArgumentException(message);
@@ -93,7 +98,7 @@ public class OWLAPIPreconditions {
      * @throws IllegalArgumentException
      *         if object is null
      */
-    public static <T> T checkNotNull(Optional<T> object, String message) {
+    @Nonnull public static <T> T checkNotNull( Optional<T> object, String message) {
         if (object == null || !object.isPresent()) {
             throw new IllegalArgumentException(message);
         }
