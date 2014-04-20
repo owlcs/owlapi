@@ -48,7 +48,7 @@ public class RDFLiteral extends RDFNode {
             @Nullable IRI datatype) {
         lexicalValue = checkNotNull(literal, "literal cannot be null");
         this.lang = lang == null ? "" : lang.trim();
-        this.datatype = datatype;
+        this.datatype = datatype == null ? OWL2Datatype.RDF_PLAIN_LITERAL.getIRI() : datatype;
     }
 
     /**
