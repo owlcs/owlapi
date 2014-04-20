@@ -59,7 +59,8 @@ public class DefaultPrefixManagerTestCase {
     @Test
     public void testDefaultPrefixExpansion() {
         String defaultPrefix = "http://www.semanticweb.org/test/ont";
-        PrefixManager pm = new DefaultPrefixManager(defaultPrefix);
+        PrefixManager pm = new DefaultPrefixManager();
+        pm.setDefaultPrefix(defaultPrefix);
         assertTrue(pm.containsPrefixMapping(":"));
         assertNotNull(pm.getDefaultPrefix());
         assertEquals(pm.getDefaultPrefix(), pm.getPrefix(":"));

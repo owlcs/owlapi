@@ -61,16 +61,24 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         OWLOntologyFormat ontologyFormat = ontology.getOWLOntologyManager()
                 .getOntologyFormat(ontology);
         if (ontologyFormat instanceof PrefixOWLOntologyFormat) {
-            PrefixOWLOntologyFormat prefixFormat = (PrefixOWLOntologyFormat) ontologyFormat;
-            for (String prefixName : prefixFormat.getPrefixNames()) {
-                String prefix = prefixFormat.getPrefix(prefixName);
-                prefixManager.setPrefix(prefixName, prefix);
-            }
+            prefixManager
+                    .copyPrefixesFrom((PrefixOWLOntologyFormat) ontologyFormat);
+            prefixManager
+                    .setPrefixComparator(((PrefixOWLOntologyFormat) ontologyFormat)
+                            .getPrefixComparator());
         }
         if (!ontology.isAnonymous()) {
-            String defPrefix = ontology.getOntologyID().getOntologyIRI().get()
-                    + "#";
-            prefixManager.setDefaultPrefix(defPrefix);
+            String existingDefault = prefixManager.getDefaultPrefix();
+            String ontologyIRIString = ontology.getOntologyID()
+                    .getOntologyIRI().get().toString();
+            if (existingDefault == null
+                    || !existingDefault.startsWith(ontologyIRIString)) {
+                String defaultPrefix = ontologyIRIString;
+                if (!ontologyIRIString.endsWith("/")) {
+                    defaultPrefix = ontologyIRIString + "#";
+                }
+                prefixManager.setDefaultPrefix(defaultPrefix);
+            }
         }
         focusedObject = ontology.getOWLOntologyManager().getOWLDataFactory()
                 .getOWLThing();

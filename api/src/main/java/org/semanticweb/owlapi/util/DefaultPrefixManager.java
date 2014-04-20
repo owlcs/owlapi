@@ -24,7 +24,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
@@ -42,47 +41,50 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
         IRIShortFormProvider {
 
     private static final long serialVersionUID = 40000L;
-    private static final StringLengthComparator STRING_LENGTH_COMPARATOR = new StringLengthComparator();
-    private final Map<String, String> prefix2NamespaceMap;
-    private final Map<String, String> reverseprefix2NamespaceMap;
-
-    /** Creates a namespace manager that does not have a default namespace. */
-    public DefaultPrefixManager() {
-        this(STRING_LENGTH_COMPARATOR);
-    }
+    private Map<String, String> prefix2NamespaceMap;
+    private final Map<String, String> reverseprefix2NamespaceMap = new HashMap<String, String>();
+    private Comparator<String> comparator;
 
     /**
-     * Creates a namespace manager that does not have a default namespace.
-     * 
+     * @param pm
+     *        the prefix manager to copy
      * @param c
      *        comparator to sort prefixes
+     * @param defaultPrefix
+     *        default prefix
      */
-    public DefaultPrefixManager(@Nonnull Comparator<String> c) {
-        checkNotNull(c, "c cannot be null");
-        prefix2NamespaceMap = new TreeMap<String, String>(c);
-        reverseprefix2NamespaceMap = new HashMap<String, String>();
+    public DefaultPrefixManager(@Nullable PrefixManager pm,
+            @Nullable Comparator<String> c, @Nullable String defaultPrefix) {
+        comparator = c == null ? new StringLengthComparator() : c;
+        prefix2NamespaceMap = new TreeMap<String, String>(comparator);
         setupDefaultPrefixes();
+        if (pm != null) {
+            copyPrefixesFrom(pm);
+        }
+        if (defaultPrefix != null) {
+            setDefaultPrefix(defaultPrefix);
+        }
     }
 
     /**
-     * @param pm
-     *        the prefix manager to copy
+     * default constructor setting the comparator to string lenght comparator
      */
-    public DefaultPrefixManager(@Nonnull PrefixManager pm) {
-        this();
-        copyPrefixesFrom(pm);
+    public DefaultPrefixManager() {
+        this(null, null, null);
     }
 
-    /**
-     * @param pm
-     *        the prefix manager to copy
-     * @param c
-     *        comparator to sort prefixes
-     */
-    public DefaultPrefixManager(@Nonnull PrefixManager pm,
-            @Nonnull Comparator<String> c) {
-        this(c);
-        copyPrefixesFrom(pm);
+    @Override
+    public Comparator<String> getPrefixComparator() {
+        return comparator;
+    }
+
+    @Override
+    public void setPrefixComparator(Comparator<String> comparator) {
+        checkNotNull(comparator, "comparator cannot be null");
+        this.comparator = comparator;
+        Map<String, String> p = prefix2NamespaceMap;
+        prefix2NamespaceMap = new TreeMap<String, String>(comparator);
+        prefix2NamespaceMap.putAll(p);
     }
 
     @Override
@@ -94,35 +96,6 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
     @Override
     public Set<String> getPrefixNames() {
         return new HashSet<String>(prefix2NamespaceMap.keySet());
-    }
-
-    /**
-     * Creates a namespace manager that has the specified default namespace.
-     * 
-     * @param defaultPrefix
-     *        The namespace to be used as the default namespace.
-     */
-    public DefaultPrefixManager(@Nullable String defaultPrefix) {
-        this();
-        if (defaultPrefix != null) {
-            setDefaultPrefix(defaultPrefix);
-        }
-    }
-
-    /**
-     * Creates a namespace manager that has the specified default namespace.
-     * 
-     * @param defaultPrefix
-     *        The namespace to be used as the default namespace.
-     * @param c
-     *        comparator to sort prefixes
-     */
-    public DefaultPrefixManager(@Nullable String defaultPrefix,
-            @Nonnull Comparator<String> c) {
-        this(c);
-        if (defaultPrefix != null) {
-            setDefaultPrefix(defaultPrefix);
-        }
     }
 
     private void setupDefaultPrefixes() {
@@ -208,12 +181,12 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
     public void setPrefix(String prefixName, String prefix) {
         checkNotNull(prefixName, "prefixName cannot be null");
         checkNotNull(prefix, "prefix cannot be null");
-        if (!prefixName.endsWith(":")) {
-            throw new IllegalArgumentException(
-                    "Prefix names must end with a colon (:)");
+        String _prefixName = prefixName;
+        if (!_prefixName.endsWith(":")) {
+            _prefixName = _prefixName + ":";
         }
-        prefix2NamespaceMap.put(prefixName, prefix);
-        reverseprefix2NamespaceMap.put(prefix, prefixName);
+        prefix2NamespaceMap.put(_prefixName, prefix);
+        reverseprefix2NamespaceMap.put(prefix, _prefixName);
     }
 
     @Override

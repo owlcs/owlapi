@@ -74,6 +74,9 @@ import org.semanticweb.owlapi.model.SWRLClassAtom;
 import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
 import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLVariable;
+import org.semanticweb.owlapi.profiles.OWL2DLProfile;
+import org.semanticweb.owlapi.profiles.OWLProfileReport;
+import org.semanticweb.owlapi.profiles.OWLProfileViolation;
 import org.semanticweb.owlapi.reasoner.InferenceType;
 import org.semanticweb.owlapi.reasoner.Node;
 import org.semanticweb.owlapi.reasoner.NodeSet;
@@ -99,9 +102,6 @@ import org.semanticweb.owlapi.util.SimpleIRIMapper;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
-import org.semanticweb.owlapi.profiles.OWL2DLProfile;
-import org.semanticweb.owlapi.profiles.OWLProfileReport;
-import org.semanticweb.owlapi.profiles.OWLProfileViolation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -794,7 +794,7 @@ public class TutorialSnippets {
         OWLOntologyManager m = create();
         // The IRIs used here are taken from the OWL 2 Primer
         String base = "http://example.com/owl/families/";
-        PrefixManager pm = new DefaultPrefixManager(base);
+        PrefixManager pm = new DefaultPrefixManager(null, null, base);
         OWLClass person = df.getOWLClass(":Person", pm);
         OWLNamedIndividual mary = df.getOWLNamedIndividual(":Mary", pm);
         // create a ClassAssertion to specify that :Mary is an instance of
@@ -862,7 +862,8 @@ public class TutorialSnippets {
         OWLOntologyManager m = create();
         IRI ontologyIRI = IRI.create("http://example.com/owl/families/");
         OWLOntology o = m.createOntology(ontologyIRI);
-        PrefixManager pm = new DefaultPrefixManager(ontologyIRI.toString());
+        PrefixManager pm = new DefaultPrefixManager(null, null,
+                ontologyIRI.toString());
         // Let's specify the :John has a wife :Mary
         // Get hold of the necessary individuals and object property
         OWLNamedIndividual john = df.getOWLNamedIndividual(":John", pm);

@@ -12,12 +12,13 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.mansyntax.renderer;
 
+import java.util.Map;
+
 import org.semanticweb.owlapi.formats.PrefixOWLOntologyFormat;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
-import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 
@@ -59,12 +60,9 @@ public class ManchesterOWLSyntaxPrefixNameShortFormProvider implements
             OWLOntologyFormat format) {
         prefixManager = new DefaultPrefixManager();
         if (format instanceof PrefixOWLOntologyFormat) {
-            PrefixOWLOntologyFormat prefixFormat = (PrefixOWLOntologyFormat) format;
-            for (String prefixName : prefixFormat.getPrefixName2PrefixMap()
-                    .keySet()) {
-                prefixManager.setPrefix(prefixName,
-                        prefixFormat.getPrefix(prefixName));
-            }
+            PrefixOWLOntologyFormat ontFormat = (PrefixOWLOntologyFormat) format;
+            prefixManager.copyPrefixesFrom(ontFormat);
+            prefixManager.setPrefixComparator(ontFormat.getPrefixComparator());
         }
     }
 
@@ -79,9 +77,9 @@ public class ManchesterOWLSyntaxPrefixNameShortFormProvider implements
         this.prefixManager = prefixManager;
     }
 
-    /** @return prefix manager */
-    public PrefixManager getPrefixManager() {
-        return new DefaultPrefixManager(prefixManager);
+    /** @return prefix manager map. The map is a copy. */
+    public Map<String, String> getPrefixName2PrefixMap() {
+        return prefixManager.getPrefixName2PrefixMap();
     }
 
     @Override

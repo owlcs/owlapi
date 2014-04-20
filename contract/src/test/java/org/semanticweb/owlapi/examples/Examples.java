@@ -295,7 +295,7 @@ public class Examples extends TestBase {
         // IRIs. First create our prefix manager and specify that the default
         // prefix IRI (bound to the empty prefix name) is
         // http://www.semanticweb.org/owlapi/ontologies/ontology#
-        PrefixManager pm = new DefaultPrefixManager(
+        PrefixManager pm = new DefaultPrefixManager(null, null,
                 "http://www.semanticweb.org/owlapi/ontologies/ontology#");
         // Now we use the prefix manager and just specify an abbreviated IRI
         OWLClass clsAMethodB = factory.getOWLClass(":A", pm);
@@ -361,7 +361,7 @@ public class Examples extends TestBase {
         // properties etc. For example, if we want to restrict the range of the
         // :hasAge data property to 18 or more we specify its range as this data
         // range
-        PrefixManager pm = new DefaultPrefixManager(
+        PrefixManager pm = new DefaultPrefixManager(null, null,
                 "http://www.semanticweb.org/ontologies/dataranges#");
         OWLDataProperty hasAge = factory.getOWLDataProperty(":hasAge", pm);
         OWLDataPropertyRangeAxiom rangeAxiom = factory
@@ -669,7 +669,8 @@ public class Examples extends TestBase {
         // Get hold of a data factory from the manager and set up a prefix
         // manager to make things easier
         OWLDataFactory factory = manager.getOWLDataFactory();
-        PrefixManager pm = new DefaultPrefixManager(ontologyIRI.toString());
+        PrefixManager pm = new DefaultPrefixManager(null, null,
+                ontologyIRI.toString());
         // Let's specify the :John has a wife :Mary Get hold of the necessary
         // individuals and object property
         OWLNamedIndividual john = factory.getOWLNamedIndividual(":John", pm);
@@ -722,7 +723,7 @@ public class Examples extends TestBase {
         OWLDataFactory dataFactory = manager.getOWLDataFactory();
         // The IRIs used here are taken from the OWL 2 Primer
         String base = "http://example.com/owl/families/";
-        PrefixManager pm = new DefaultPrefixManager(base);
+        PrefixManager pm = new DefaultPrefixManager(null, null, base);
         // Get the reference to the :Person class (the full IRI will be
         // <http://example.com/owl/families/Person>)
         OWLClass person = dataFactory.getOWLClass(":Person", pm);
@@ -1133,7 +1134,7 @@ public class Examples extends TestBase {
     }
 
     private static void printNode(Node<OWLClass> node) {
-        DefaultPrefixManager pm = new DefaultPrefixManager(
+        DefaultPrefixManager pm = new DefaultPrefixManager(null, null,
                 "http://owl.man.ac.uk/2005/07/sssw/people#");
         // Print out a node as a list of class names in curly brackets
         // System.out.print("{");

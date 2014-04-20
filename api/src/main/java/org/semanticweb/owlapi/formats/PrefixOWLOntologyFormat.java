@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.formats;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
+import java.util.Comparator;
 import java.util.Map;
 import java.util.Set;
 
@@ -25,6 +26,9 @@ import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 
 /**
+ * A PrefixOWLOntologyFormat delegates all PrefixManager operations to a
+ * PrefixManager implementation.
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0
@@ -46,7 +50,6 @@ public abstract class PrefixOWLOntologyFormat extends OWLOntologyFormat
      */
     public PrefixOWLOntologyFormat(@Nonnull PrefixManager manager) {
         nsm = checkNotNull(manager, "manager cannot be null");
-        nsm.clear();
     }
 
     /**
@@ -55,16 +58,11 @@ public abstract class PrefixOWLOntologyFormat extends OWLOntologyFormat
      */
     public void setPrefixManager(@Nonnull PrefixManager m) {
         nsm = checkNotNull(m, "m cannot be null");
-        nsm.clear();
     }
 
     @Override
     public void setPrefix(String prefixName, String prefix) {
-        String _prefixName = prefixName;
-        if (!_prefixName.endsWith(":")) {
-            _prefixName = _prefixName + ":";
-        }
-        nsm.setPrefix(_prefixName, prefix);
+        nsm.setPrefix(prefixName, prefix);
     }
 
     @Override
@@ -120,5 +118,15 @@ public abstract class PrefixOWLOntologyFormat extends OWLOntologyFormat
     @Override
     public void unregisterNamespace(String namespace) {
         nsm.unregisterNamespace(namespace);
+    }
+
+    @Override
+    public Comparator<String> getPrefixComparator() {
+        return nsm.getPrefixComparator();
+    }
+
+    @Override
+    public void setPrefixComparator(Comparator<String> comparator) {
+        nsm.setPrefixComparator(comparator);
     }
 }

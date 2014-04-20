@@ -14,17 +14,13 @@ package org.semanticweb.owlapi.functional.renderer;
 
 import java.io.IOException;
 import java.io.Writer;
-import java.util.Map;
 
 import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormat;
-import org.semanticweb.owlapi.formats.PrefixOWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
-import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
-import org.semanticweb.owlapi.util.DefaultPrefixManager;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -46,18 +42,7 @@ public class OWLFunctionalSyntaxOntologyStorer extends
     protected void storeOntology(OWLOntology ontology, Writer writer,
             OWLOntologyFormat format) throws OWLOntologyStorageException {
         try {
-            FunctionalSyntaxObjectRenderer ren = new FunctionalSyntaxObjectRenderer(ontology, writer);
-            if (format instanceof PrefixOWLOntologyFormat) {
-                PrefixOWLOntologyFormat prefixFormat = (PrefixOWLOntologyFormat) format;
-                PrefixManager man = new DefaultPrefixManager();
-                Map<String, String> map = prefixFormat
-                        .getPrefixName2PrefixMap();
-                for (Map.Entry<String, String> e : map.entrySet()) {
-                    man.setPrefix(e.getKey(), e.getValue());
-                }
-                ren.setPrefixManager(man);
-            }
-            ontology.accept(ren);
+            ontology.accept(new FunctionalSyntaxObjectRenderer(ontology, writer));
             writer.flush();
         } catch (IOException e) {
             throw new OWLOntologyStorageException(e);

@@ -52,7 +52,8 @@ public class SWRLAtomOrderingRoundTripTestCase {
         body = new LinkedHashSet<SWRLAtom>();
         head = new LinkedHashSet<SWRLAtom>();
         OWLDataFactory dataFactory = new OWLDataFactoryImpl();
-        PrefixManager pm = new DefaultPrefixManager("http://stuff.com/A/");
+        PrefixManager pm = new DefaultPrefixManager(null, null,
+                "http://stuff.com/A/");
         OWLClass clsA = Class("A", pm);
         OWLClass clsB = Class("B", pm);
         OWLClass clsC = Class("C", pm);
