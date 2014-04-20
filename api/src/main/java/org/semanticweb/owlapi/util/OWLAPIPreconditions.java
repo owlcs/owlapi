@@ -12,6 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
+import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.google.common.base.Optional;
 
 /** a set of personalized preconditions */
@@ -28,7 +32,8 @@ public class OWLAPIPreconditions {
      * @throws NullPointerException
      *         if object is null
      */
-    public static <T> T checkNotNull(T object) {
+    @Nonnull
+    public static <T> T checkNotNull(@Nullable T object) {
         return checkNotNull(object, "this variable cannot be null");
     }
 
@@ -45,7 +50,9 @@ public class OWLAPIPreconditions {
      * @throws NullPointerException
      *         if object is null
      */
-    public static <T> T checkNotNull(T object, String message) {
+    @Nonnull
+    public static <T> T
+            checkNotNull(@Nullable T object, @Nonnull String message) {
         if (object == null) {
             throw new NullPointerException(message);
         }
@@ -60,7 +67,7 @@ public class OWLAPIPreconditions {
      * @throws IllegalArgumentException
      *         if object is negative
      */
-    public static void checkNotNegative(long object) {
+    public static void checkNotNegative(@Nonnegative long object) {
         checkNotNegative(object, "this variable cannot be negative: " + object);
     }
 
@@ -74,7 +81,8 @@ public class OWLAPIPreconditions {
      * @throws IllegalArgumentException
      *         if object is negative
      */
-    public static void checkNotNegative(long object, String message) {
+    public static void checkNotNegative(@Nonnegative long object,
+            @Nonnull String message) {
         if (object < 0) {
             throw new IllegalArgumentException(message);
         }
@@ -93,7 +101,9 @@ public class OWLAPIPreconditions {
      * @throws IllegalArgumentException
      *         if object is null
      */
-    public static <T> T checkNotNull(Optional<T> object, String message) {
+    @Nonnull
+    public static <T> T checkNotNull(@Nullable Optional<T> object,
+            @Nonnull String message) {
         if (object == null || !object.isPresent()) {
             throw new IllegalArgumentException(message);
         }
