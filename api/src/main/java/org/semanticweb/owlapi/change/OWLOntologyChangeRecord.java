@@ -61,12 +61,6 @@ public class OWLOntologyChangeRecord<T> implements Serializable {
     private final OWLOntologyID ontologyID;
     private final OWLOntologyChangeData<T> data;
 
-    /** Default constructor for serialization purposes only. */
-    @SuppressWarnings({"ConstantConditions", "unused"})
-    private OWLOntologyChangeRecord() {
-        ontologyID = null;
-        data = null;
-    }
 
     /**
      * Constructs an {@link OWLOntologyChangeRecord} object which holds
