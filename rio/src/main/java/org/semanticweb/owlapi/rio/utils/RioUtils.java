@@ -120,14 +120,16 @@ public class RioUtils {
             }
         } else if (triple.getObject() instanceof RDFLiteral) {
             final RDFLiteral literalObject = (RDFLiteral) triple.getObject();
-            if (literalObject.getDatatype() != null) {
+            if(literalObject.isPlainLiteral()) {
+                if(literalObject.hasLang()) {
+                    object = vf.createLiteral(literalObject.getLexicalValue(),
+                            literalObject.getLang());
+                } else {
+                    object = vf.createLiteral(literalObject.getLexicalValue());
+                }
+            } else {
                 object = vf.createLiteral(literalObject.getLexicalValue(),
                         vf.createURI(literalObject.getDatatype().toString()));
-            } else if (literalObject.hasLang()) {
-                object = vf.createLiteral(literalObject.getLexicalValue(),
-                        literalObject.getLang());
-            } else {
-                object = vf.createLiteral(literalObject.getLexicalValue());
             }
         } else {
             // FIXME: When blank nodes are no longer represented as IRIs
