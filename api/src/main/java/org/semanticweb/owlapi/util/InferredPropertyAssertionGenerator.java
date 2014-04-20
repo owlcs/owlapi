@@ -25,6 +25,8 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLPropertyAssertionAxiom;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -34,9 +36,9 @@ public class InferredPropertyAssertionGenerator extends
         InferredIndividualAxiomGenerator<OWLPropertyAssertionAxiom<?, ?>> {
 
     @Override
-    protected void addAxioms(OWLNamedIndividual entity, OWLReasoner reasoner,
-            OWLDataFactory dataFactory,
-            Set<OWLPropertyAssertionAxiom<?, ?>> result) {
+    protected void addAxioms(@Nonnull OWLNamedIndividual entity, @Nonnull OWLReasoner reasoner,
+            @Nonnull OWLDataFactory dataFactory,
+            @Nonnull Set<OWLPropertyAssertionAxiom<?, ?>> result) {
         checkNotNull(dataFactory, "dataFactory cannot be null");
         checkNotNull(reasoner, "reasoner cannot be null");
         checkNotNull(result, "result cannot be null");
@@ -59,6 +61,7 @@ public class InferredPropertyAssertionGenerator extends
         }
     }
 
+    @Nonnull
     @Override
     public String getLabel() {
         return "Property assertions (property values)";

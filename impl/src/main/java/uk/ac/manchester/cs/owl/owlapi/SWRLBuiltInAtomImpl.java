@@ -61,6 +61,7 @@ public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements
                 "args cannot be null"));
     }
 
+    @Nonnull
     @Override
     public IRI getPredicate() {
         return (IRI) super.getPredicate();
@@ -71,33 +72,35 @@ public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements
         return SWRLBuiltInsVocabulary.getBuiltIn(getPredicate()) != null;
     }
 
+    @Nonnull
     @Override
     public List<SWRLDArgument> getArguments() {
         return new ArrayList<SWRLDArgument>(args);
     }
 
+    @Nonnull
     @Override
     public Collection<SWRLArgument> getAllArguments() {
         return new ArrayList<SWRLArgument>(args);
     }
 
     @Override
-    public void accept(OWLObjectVisitor visitor) {
+    public void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public void accept(SWRLObjectVisitor visitor) {
+    public void accept(@Nonnull SWRLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(SWRLObjectVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull SWRLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 

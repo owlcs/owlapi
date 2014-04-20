@@ -61,16 +61,19 @@ public abstract class OWLIndividualRelationshipAxiomImpl<P extends OWLPropertyEx
         this.object = checkNotNull(object, "object cannot be null");
     }
 
+    @Nonnull
     @Override
     public OWLIndividual getSubject() {
         return subject;
     }
 
+    @Nonnull
     @Override
     public P getProperty() {
         return property;
     }
 
+    @Nonnull
     @Override
     public O getObject() {
         return object;

@@ -46,9 +46,13 @@ import org.semanticweb.owlapi.model.OWLPropertyExpression;
 public class PropertyAssertionValueShortFormProvider implements
         ShortFormProvider {
 
+    @Nonnull
     private final List<OWLPropertyExpression> properties;
+    @Nonnull
     private final Map<OWLDataPropertyExpression, List<String>> preferredLanguageMap;
+    @Nonnull
     private final OWLOntologySetProvider ontologySetProvider;
+    @Nonnull
     private final ShortFormProvider alternateShortFormProvider;
 
     /**
@@ -111,8 +115,9 @@ public class PropertyAssertionValueShortFormProvider implements
                 "alternateShortFormProvider cannot be null");
     }
 
+    @Nonnull
     @Override
-    public String getShortForm(OWLEntity entity) {
+    public String getShortForm(@Nonnull OWLEntity entity) {
         checkNotNull(entity, "entity cannot be null");
         int lastURIMatchIndex = Integer.MAX_VALUE;
         int lastLangMatchIndex = Integer.MAX_VALUE;
@@ -185,6 +190,7 @@ public class PropertyAssertionValueShortFormProvider implements
      *        The object to the rendered
      * @return The rendering of the object.
      */
+    @Nonnull
     private String getRendering(OWLObject object) {
         // We return the literal value of constants or use the alternate
         // short form provider to render individuals.
@@ -196,11 +202,13 @@ public class PropertyAssertionValueShortFormProvider implements
     }
 
     /** @return the properties */
+    @Nonnull
     public List<OWLPropertyExpression> getProperties() {
         return properties;
     }
 
     /** @return the language map */
+    @Nonnull
     public Map<OWLDataPropertyExpression, List<String>>
             getPreferredLanguageMap() {
         return preferredLanguageMap;

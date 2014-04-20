@@ -50,6 +50,7 @@ public class OWLEntityTinyURIConversionStrategy implements
 
     /** default base. */
     public static final String DEFAULT_BASE = "http://tinyname.org#";
+    @Nonnull
     private final String base;
     private final Map<OWLEntity, IRI> entityNameMap = new HashMap<OWLEntity, IRI>();
     private final OWLEntityFragmentProvider fragmentProvider = new OWLEntityFragmentProvider();
@@ -74,8 +75,9 @@ public class OWLEntityTinyURIConversionStrategy implements
         this.base = checkNotNull(base, "base cannot be null");
     }
 
+    @Nonnull
     @Override
-    public IRI getConvertedIRI(OWLEntity entity) {
+    public IRI getConvertedIRI(@Nonnull OWLEntity entity) {
         IRI iri = entityNameMap.get(entity);
         if (iri != null) {
             return iri;
@@ -101,7 +103,7 @@ public class OWLEntityTinyURIConversionStrategy implements
 
         public OWLEntityFragmentProvider() {}
 
-        public String getName(OWLEntity entity) {
+        public String getName(@Nonnull OWLEntity entity) {
             if (entity.isBuiltIn()) {
                 return entity.getIRI().toString();
             }
@@ -110,37 +112,37 @@ public class OWLEntityTinyURIConversionStrategy implements
         }
 
         @Override
-        public void visit(OWLClass cls) {
+        public void visit(@Nonnull OWLClass cls) {
             classCount++;
             name = "C" + classCount;
         }
 
         @Override
-        public void visit(OWLDatatype datatype) {
+        public void visit(@Nonnull OWLDatatype datatype) {
             datatypeCount++;
             name = "dt" + datatypeCount;
         }
 
         @Override
-        public void visit(OWLNamedIndividual individual) {
+        public void visit(@Nonnull OWLNamedIndividual individual) {
             individualCount++;
             name = "i" + individualCount;
         }
 
         @Override
-        public void visit(OWLDataProperty property) {
+        public void visit(@Nonnull OWLDataProperty property) {
             dataPropertyCount++;
             name = "dp" + dataPropertyCount;
         }
 
         @Override
-        public void visit(OWLObjectProperty property) {
+        public void visit(@Nonnull OWLObjectProperty property) {
             objectPropertyCount++;
             name = "op" + objectPropertyCount;
         }
 
         @Override
-        public void visit(OWLAnnotationProperty property) {
+        public void visit(@Nonnull OWLAnnotationProperty property) {
             annotationPropertyCount++;
             name = "ap" + annotationPropertyCount;
         }

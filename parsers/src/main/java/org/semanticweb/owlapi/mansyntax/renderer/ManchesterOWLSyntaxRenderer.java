@@ -18,6 +18,8 @@ import org.semanticweb.owlapi.io.AbstractOWLRenderer;
 import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.model.OWLOntology;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -26,7 +28,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 public class ManchesterOWLSyntaxRenderer extends AbstractOWLRenderer {
 
     @Override
-    public void render(OWLOntology ontology, Writer writer)
+    public void render(@Nonnull OWLOntology ontology, @Nonnull Writer writer)
             throws OWLRendererException {
         ManchesterOWLSyntaxFrameRenderer ren = new ManchesterOWLSyntaxFrameRenderer(
                 ontology, writer,

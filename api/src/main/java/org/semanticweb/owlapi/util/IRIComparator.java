@@ -17,6 +17,8 @@ import java.util.Comparator;
 
 import org.semanticweb.owlapi.model.IRI;
 
+import javax.annotation.Nonnull;
+
 /**
  * A ShortFormProvider based comparator for IRIs. IRIs are sorted according to
  * their short forms.
@@ -38,7 +40,7 @@ public class IRIComparator implements Comparator<IRI>, Serializable {
     }
 
     @Override
-    public int compare(IRI o1, IRI o2) {
+    public int compare(@Nonnull IRI o1, @Nonnull IRI o2) {
         return iriShortFormProvider.getShortForm(o1).compareTo(
                 iriShortFormProvider.getShortForm(o2));
     }

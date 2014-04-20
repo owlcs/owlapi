@@ -22,6 +22,7 @@ import org.semanticweb.owlapi.model.IRI;
 public class RDFResourceIRI extends RDFResource {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final IRI resource;
 
     /**
@@ -37,11 +38,13 @@ public class RDFResourceIRI extends RDFResource {
         return false;
     }
 
+    @Nonnull
     @Override
     public IRI getIRI() {
         return resource;
     }
 
+    @Nonnull
     @Override
     public IRI getResource() {
         return resource;
@@ -69,6 +72,7 @@ public class RDFResourceIRI extends RDFResource {
         return resource.equals(other.resource);
     }
 
+    @Nonnull
     @Override
     public String toString() {
         return resource.toQuotedString();

@@ -35,6 +35,7 @@ import org.semanticweb.owlapi.util.BidirectionalShortFormProvider;
  */
 public class ShortFormEntityChecker implements OWLEntityChecker {
 
+    @Nonnull
     private final BidirectionalShortFormProvider shortFormProvider;
 
     /**
@@ -52,7 +53,7 @@ public class ShortFormEntityChecker implements OWLEntityChecker {
     }
 
     @Override
-    public OWLClass getOWLClass(String name) {
+    public OWLClass getOWLClass(@Nonnull String name) {
         for (OWLEntity ent : shortFormProvider.getEntities(checkNotNull(name,
                 "name cannot be null"))) {
             if (ent.isOWLClass()) {
@@ -63,7 +64,7 @@ public class ShortFormEntityChecker implements OWLEntityChecker {
     }
 
     @Override
-    public OWLDataProperty getOWLDataProperty(String name) {
+    public OWLDataProperty getOWLDataProperty(@Nonnull String name) {
         for (OWLEntity ent : shortFormProvider.getEntities(checkNotNull(name,
                 "name cannot be null"))) {
             if (ent.isOWLDataProperty()) {
@@ -74,7 +75,7 @@ public class ShortFormEntityChecker implements OWLEntityChecker {
     }
 
     @Override
-    public OWLDatatype getOWLDatatype(String name) {
+    public OWLDatatype getOWLDatatype(@Nonnull String name) {
         for (OWLEntity ent : shortFormProvider.getEntities(checkNotNull(name,
                 "name cannot be null"))) {
             if (ent.isOWLDatatype()) {
@@ -85,7 +86,7 @@ public class ShortFormEntityChecker implements OWLEntityChecker {
     }
 
     @Override
-    public OWLNamedIndividual getOWLIndividual(String name) {
+    public OWLNamedIndividual getOWLIndividual(@Nonnull String name) {
         for (OWLEntity ent : shortFormProvider.getEntities(checkNotNull(name,
                 "name cannot be null"))) {
             if (ent.isOWLNamedIndividual()) {
@@ -96,7 +97,7 @@ public class ShortFormEntityChecker implements OWLEntityChecker {
     }
 
     @Override
-    public OWLObjectProperty getOWLObjectProperty(String name) {
+    public OWLObjectProperty getOWLObjectProperty(@Nonnull String name) {
         for (OWLEntity ent : shortFormProvider.getEntities(checkNotNull(name,
                 "name cannot be null"))) {
             if (ent.isOWLObjectProperty()) {
@@ -107,7 +108,7 @@ public class ShortFormEntityChecker implements OWLEntityChecker {
     }
 
     @Override
-    public OWLAnnotationProperty getOWLAnnotationProperty(String name) {
+    public OWLAnnotationProperty getOWLAnnotationProperty(@Nonnull String name) {
         for (OWLEntity ent : shortFormProvider.getEntities(checkNotNull(name,
                 "name cannot be null"))) {
             if (ent.isOWLAnnotationProperty()) {

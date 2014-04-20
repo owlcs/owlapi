@@ -41,6 +41,7 @@ public class RemoveAxiom extends OWLAxiomChange {
         return false;
     }
 
+    @Nonnull
     @Override
     public RemoveAxiomData getChangeData() {
         return new RemoveAxiomData(getAxiom());
@@ -65,15 +66,16 @@ public class RemoveAxiom extends OWLAxiomChange {
     }
 
     @Override
-    public void accept(OWLOntologyChangeVisitor visitor) {
+    public void accept(@Nonnull OWLOntologyChangeVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLOntologyChangeVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLOntologyChangeVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Nonnull
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

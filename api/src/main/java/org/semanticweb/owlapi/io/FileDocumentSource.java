@@ -37,6 +37,7 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
  */
 public class FileDocumentSource extends OWLOntologyDocumentSourceBase {
 
+    @Nonnull
     private final File file;
 
     /**
@@ -80,6 +81,7 @@ public class FileDocumentSource extends OWLOntologyDocumentSourceBase {
         this.file = checkNotNull(file, "file cannot be null");
     }
 
+    @Nonnull
     @Override
     public IRI getDocumentIRI() {
         return IRI.create(file);
@@ -90,6 +92,7 @@ public class FileDocumentSource extends OWLOntologyDocumentSourceBase {
         return true;
     }
 
+    @Nonnull
     @Override
     public InputStream getInputStream() {
         try {
@@ -104,6 +107,7 @@ public class FileDocumentSource extends OWLOntologyDocumentSourceBase {
         return true;
     }
 
+    @Nonnull
     @Override
     public Reader getReader() {
         try {

@@ -52,15 +52,17 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements
         super(manager, ontologyID);
     }
 
+    @Nonnull
     @Override
-    public <T> OWLOntologyChange<T> applyChange(OWLOntologyChange<T> change) {
+    public <T> OWLOntologyChange<T> applyChange(@Nonnull OWLOntologyChange<T> change) {
         OWLOntologyChangeFilter<OWLOntologyChange<T>> changeFilter = new OWLOntologyChangeFilter<OWLOntologyChange<T>>();
         return change.accept(changeFilter);
     }
 
+    @Nonnull
     @Override
     public List<OWLOntologyChange<?>> applyChanges(
-            List<? extends OWLOntologyChange<?>> changes) {
+            @Nonnull List<? extends OWLOntologyChange<?>> changes) {
         List<OWLOntologyChange<?>> appliedChanges = new ArrayList<OWLOntologyChange<?>>();
         OWLOntologyChangeFilter<OWLOntologyChange<?>> changeFilter = new OWLOntologyChangeFilter<OWLOntologyChange<?>>();
         for (OWLOntologyChange<?> change : changes) {
@@ -79,7 +81,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements
         private static final long serialVersionUID = 40000L;
 
         @Override
-        public T visit(RemoveAxiom change) {
+        public T visit(@Nonnull RemoveAxiom change) {
             if (ints.removeAxiom(change.getAxiom())) {
                 return (T) change;
             }
@@ -87,7 +89,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements
         }
 
         @Override
-        public T visit(SetOntologyID change) {
+        public T visit(@Nonnull SetOntologyID change) {
             OWLOntologyID id = change.getNewOntologyID();
             if (!id.equals(ontologyID)) {
                 ontologyID = id;
@@ -97,7 +99,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements
         }
 
         @Override
-        public T visit(AddAxiom change) {
+        public T visit(@Nonnull AddAxiom change) {
             if (ints.addAxiom(change.getAxiom())) {
                 return (T) change;
             }
@@ -105,7 +107,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements
         }
 
         @Override
-        public T visit(AddImport change) {
+        public T visit(@Nonnull AddImport change) {
             // TODO change this to be done inside
             if (ints.addImportsDeclaration(change.getImportDeclaration())) {
                 return (T) change;
@@ -114,7 +116,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements
         }
 
         @Override
-        public T visit(RemoveImport change) {
+        public T visit(@Nonnull RemoveImport change) {
             if (ints.removeImportsDeclaration(change.getImportDeclaration())) {
                 return (T) change;
             }
@@ -122,7 +124,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements
         }
 
         @Override
-        public T visit(AddOntologyAnnotation change) {
+        public T visit(@Nonnull AddOntologyAnnotation change) {
             if (ints.addOntologyAnnotation(change.getAnnotation())) {
                 return (T) change;
             }
@@ -130,7 +132,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements
         }
 
         @Override
-        public T visit(RemoveOntologyAnnotation change) {
+        public T visit(@Nonnull RemoveOntologyAnnotation change) {
             if (ints.removeOntologyAnnotation(change.getAnnotation())) {
                 return (T) change;
             }

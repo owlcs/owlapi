@@ -24,6 +24,8 @@ import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
 
+import javax.annotation.Nonnull;
+
 /**
  * Simple visitor that grabs any labels on an entity.
  * 
@@ -37,16 +39,16 @@ public class LabelExtractor implements OWLAnnotationObjectVisitor {
     String result = null;
 
     @Override
-    public void visit(OWLAnonymousIndividual individual) {}
+    public void visit(@Nonnull OWLAnonymousIndividual individual) {}
 
     @Override
-    public void visit(IRI iri) {}
+    public void visit(@Nonnull IRI iri) {}
 
     @Override
-    public void visit(OWLLiteral literal) {}
+    public void visit(@Nonnull OWLLiteral literal) {}
 
     @Override
-    public void visit(OWLAnnotation annotation) {
+    public void visit(@Nonnull OWLAnnotation annotation) {
         /*
          * If it's a label, grab it as the result. Note that if there are
          * multiple labels, the last one will be used.
@@ -58,16 +60,16 @@ public class LabelExtractor implements OWLAnnotationObjectVisitor {
     }
 
     @Override
-    public void visit(OWLAnnotationAssertionAxiom axiom) {}
+    public void visit(@Nonnull OWLAnnotationAssertionAxiom axiom) {}
 
     @Override
-    public void visit(OWLAnnotationPropertyDomainAxiom axiom) {}
+    public void visit(@Nonnull OWLAnnotationPropertyDomainAxiom axiom) {}
 
     @Override
-    public void visit(OWLAnnotationPropertyRangeAxiom axiom) {}
+    public void visit(@Nonnull OWLAnnotationPropertyRangeAxiom axiom) {}
 
     @Override
-    public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {}
+    public void visit(@Nonnull OWLSubAnnotationPropertyOfAxiom axiom) {}
 
     public void visit(OWLAnnotationProperty property) {}
 

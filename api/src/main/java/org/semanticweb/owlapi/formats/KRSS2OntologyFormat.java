@@ -16,6 +16,8 @@ import org.semanticweb.owlapi.annotations.HasIdentifierKey;
 import org.semanticweb.owlapi.annotations.IsBinaryFormat;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
+import javax.annotation.Nonnull;
+
 /** @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence */
 @HasIdentifierKey("KRSS2 Syntax")
 @IsBinaryFormat(false)
@@ -23,6 +25,7 @@ public class KRSS2OntologyFormat extends OWLOntologyFormat {
 
     private static final long serialVersionUID = 40000L;
 
+    @Nonnull
     @Override
     public String getKey() {
         return "KRSS2 Syntax";

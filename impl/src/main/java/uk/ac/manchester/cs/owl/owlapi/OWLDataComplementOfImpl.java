@@ -54,6 +54,7 @@ public class OWLDataComplementOfImpl extends OWLObjectImpl implements
         this.dataRange = checkNotNull(dataRange, "dataRange cannot be null");
     }
 
+    @Nonnull
     @Override
     public DataRangeType getDataRangeType() {
         return DataRangeType.DATA_COMPLEMENT_OF;
@@ -69,11 +70,13 @@ public class OWLDataComplementOfImpl extends OWLObjectImpl implements
         return false;
     }
 
+    @Nonnull
     @Override
     public OWLDataRange getDataRange() {
         return dataRange;
     }
 
+    @Nonnull
     @Override
     public OWLDatatype asOWLDatatype() {
         throw new OWLRuntimeException("Not a data type!");
@@ -91,32 +94,32 @@ public class OWLDataComplementOfImpl extends OWLObjectImpl implements
     }
 
     @Override
-    public void accept(OWLDataVisitor visitor) {
+    public void accept(@Nonnull OWLDataVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public void accept(OWLObjectVisitor visitor) {
+    public void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLDataVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLDataVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    public void accept(OWLDataRangeVisitor visitor) {
+    public void accept(@Nonnull OWLDataRangeVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLDataRangeVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLDataRangeVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 

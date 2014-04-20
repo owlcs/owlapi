@@ -19,6 +19,8 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
 
+import javax.annotation.Nonnull;
+
 /**
  * A visitor that simply collects any subclass axioms that have the given class
  * as the subclass.
@@ -41,7 +43,7 @@ public class SubClassCollector extends OWLAxiomVisitorAdapter {
     }
 
     @Override
-    public void visit(OWLSubClassOfAxiom axiom) {
+    public void visit(@Nonnull OWLSubClassOfAxiom axiom) {
         if (axiom.getSubClass().equals(clazz)) {
             axioms.add(axiom);
         }

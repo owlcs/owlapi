@@ -59,6 +59,8 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
+import javax.annotation.Nonnull;
+
 /**
  * An implementation of the OWLOntologyDocumentSource interface that does not
  * implement any of the InputStream, Reader, or IRI source retrieval methods.
@@ -217,6 +219,7 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
         return false;
     }
 
+    @Nonnull
     @Override
     public Reader getReader() {
         throw new UnsupportedOperationException(
@@ -228,12 +231,14 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
         return false;
     }
 
+    @Nonnull
     @Override
     public InputStream getInputStream() {
         throw new UnsupportedOperationException(
                 "No input stream available for RioMemoryTripleSource, use isReaderAvailable() to check");
     }
 
+    @Nonnull
     @Override
     public IRI getDocumentIRI() {
         return documentIRI;

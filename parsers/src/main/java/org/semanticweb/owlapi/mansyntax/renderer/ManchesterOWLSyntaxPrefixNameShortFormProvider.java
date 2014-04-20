@@ -21,6 +21,8 @@ import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 
+import javax.annotation.Nonnull;
+
 /**
  * A special short form provider that delegates to a prefix manager to obtain
  * short forms. The only difference between this short form provider and a
@@ -84,8 +86,9 @@ public class ManchesterOWLSyntaxPrefixNameShortFormProvider implements
         return new DefaultPrefixManager(prefixManager);
     }
 
+    @Nonnull
     @Override
-    public String getShortForm(OWLEntity entity) {
+    public String getShortForm(@Nonnull OWLEntity entity) {
         String sf = prefixManager.getShortForm(entity);
         if (sf.startsWith(":")) {
             return sf.substring(1);

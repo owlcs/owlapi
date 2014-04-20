@@ -40,6 +40,8 @@ import org.semanticweb.owlapi.util.OWLClassExpressionCollector;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -58,6 +60,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
     protected static final OWLClass OWL_THING = new OWLClassImpl(
             OWLRDFVocabulary.OWL_THING.getIRI());
 
+    @Nonnull
     @Override
     public Set<OWLEntity> getSignature() {
         Set<OWLEntity> set = null;
@@ -82,6 +85,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
         return getSignature().contains(owlEntity);
     }
 
+    @Nonnull
     @Override
     public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
         if (signature == null || signature.get() == null) {
@@ -91,6 +95,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
                 .getCopyOnRequestSetFromImmutableCollection(anons.get());
     }
 
+    @Nonnull
     @Override
     public Set<OWLClass> getClassesInSignature() {
         Set<OWLClass> result = new HashSet<OWLClass>();
@@ -102,6 +107,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
         return result;
     }
 
+    @Nonnull
     @Override
     public Set<OWLDataProperty> getDataPropertiesInSignature() {
         Set<OWLDataProperty> result = new HashSet<OWLDataProperty>();
@@ -113,6 +119,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
         return result;
     }
 
+    @Nonnull
     @Override
     public Set<OWLObjectProperty> getObjectPropertiesInSignature() {
         Set<OWLObjectProperty> result = new HashSet<OWLObjectProperty>();
@@ -124,6 +131,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
         return result;
     }
 
+    @Nonnull
     @Override
     public Set<OWLNamedIndividual> getIndividualsInSignature() {
         Set<OWLNamedIndividual> result = new HashSet<OWLNamedIndividual>();
@@ -135,6 +143,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
         return result;
     }
 
+    @Nonnull
     @Override
     public Set<OWLDatatype> getDatatypesInSignature() {
         Set<OWLDatatype> result = new HashSet<OWLDatatype>();
@@ -146,6 +155,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
         return result;
     }
 
+    @Nonnull
     @Override
     public Set<OWLClassExpression> getNestedClassExpressions() {
         OWLClassExpressionCollector collector = new OWLClassExpressionCollector();

@@ -17,6 +17,8 @@ import java.util.Comparator;
 
 import org.semanticweb.owlapi.model.OWLEntity;
 
+import javax.annotation.Nonnull;
+
 /** Comparator that uses IRI ordering to order entities. */
 public class OWLEntityIRIComparator implements Comparator<OWLEntity>,
         Serializable {
@@ -24,7 +26,7 @@ public class OWLEntityIRIComparator implements Comparator<OWLEntity>,
     private static final long serialVersionUID = 40000L;
 
     @Override
-    public int compare(OWLEntity o1, OWLEntity o2) {
+    public int compare(@Nonnull OWLEntity o1, @Nonnull OWLEntity o2) {
         return o1.getIRI().compareTo(o2.getIRI());
     }
 }

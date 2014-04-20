@@ -562,7 +562,7 @@ public class TutorialSnippets {
         }
 
         @Override
-        public void visit(OWLClass desc) {
+        public void visit(@Nonnull OWLClass desc) {
             // avoid cycles
             if (!processedClasses.contains(desc)) {
                 // If we are processing inherited restrictions then
@@ -578,7 +578,7 @@ public class TutorialSnippets {
         }
 
         @Override
-        public void visit(OWLObjectSomeValuesFrom desc) {
+        public void visit(@Nonnull OWLObjectSomeValuesFrom desc) {
             // This method gets called when a class expression is an
             // existential (someValuesFrom) restriction and it asks us to visit
             // it
@@ -695,7 +695,7 @@ public class TutorialSnippets {
                 walker) {
 
             @Override
-            public Object visit(OWLObjectSomeValuesFrom desc) {
+            public Object visit(@Nonnull OWLObjectSomeValuesFrom desc) {
                 assertNotNull(desc);
                 // Print out the restriction
                 // System.out.println(desc);

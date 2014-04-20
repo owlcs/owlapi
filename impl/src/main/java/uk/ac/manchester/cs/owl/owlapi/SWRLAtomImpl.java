@@ -33,6 +33,7 @@ public abstract class SWRLAtomImpl extends OWLObjectImpl implements SWRLAtom {
         this.predicate = checkNotNull(predicate, "predicate cannot be null");
     }
 
+    @Nonnull
     @Override
     public SWRLPredicate getPredicate() {
         return predicate;

@@ -21,6 +21,8 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -33,7 +35,7 @@ public class ManchesterOWLSyntaxOntologyStorer extends
     private static final long serialVersionUID = 40000L;
 
     @Override
-    public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {
+    public boolean canStoreOntology(@Nonnull OWLOntologyFormat ontologyFormat) {
         return ontologyFormat instanceof ManchesterOWLSyntaxOntologyFormat;
     }
 

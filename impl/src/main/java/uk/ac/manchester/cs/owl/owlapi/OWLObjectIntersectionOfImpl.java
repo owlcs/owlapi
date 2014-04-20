@@ -50,6 +50,7 @@ public class OWLObjectIntersectionOfImpl extends
         super(operands);
     }
 
+    @Nonnull
     @Override
     public ClassExpressionType getClassExpressionType() {
         return ClassExpressionType.OBJECT_INTERSECTION_OF;
@@ -64,25 +65,26 @@ public class OWLObjectIntersectionOfImpl extends
     }
 
     @Override
-    public void accept(OWLClassExpressionVisitor visitor) {
+    public void accept(@Nonnull OWLClassExpressionVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public void accept(OWLObjectVisitor visitor) {
+    public void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLClassExpressionVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLClassExpressionVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Nonnull
     @Override
     public Set<OWLClassExpression> asConjunctSet() {
         Set<OWLClassExpression> conjuncts = new HashSet<OWLClassExpression>();
@@ -93,7 +95,7 @@ public class OWLObjectIntersectionOfImpl extends
     }
 
     @Override
-    public boolean containsConjunct(OWLClassExpression ce) {
+    public boolean containsConjunct(@Nonnull OWLClassExpression ce) {
         if (ce.equals(this)) {
             return true;
         }

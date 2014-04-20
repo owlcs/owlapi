@@ -19,6 +19,8 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolation;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
+import javax.annotation.Nonnull;
+
 /**
  * Indicates that a class expression in an axiom is not in the profile
  * 
@@ -36,18 +38,18 @@ public class UseOfIllegalClassExpression extends
      * @param classExpression
      *        classExpression
      */
-    public UseOfIllegalClassExpression(OWLOntology ontology, OWLAxiom axiom,
+    public UseOfIllegalClassExpression(@Nonnull OWLOntology ontology, OWLAxiom axiom,
             OWLClassExpression classExpression) {
         super(ontology, axiom, classExpression);
     }
 
     @Override
-    public void accept(OWLProfileViolationVisitor visitor) {
+    public void accept(@Nonnull OWLProfileViolationVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLProfileViolationVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLProfileViolationVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 

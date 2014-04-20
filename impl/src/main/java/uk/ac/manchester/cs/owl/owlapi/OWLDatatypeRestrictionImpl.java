@@ -64,6 +64,7 @@ public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements
                 facetRestrictions, "facetRestrictions cannot be null"));
     }
 
+    @Nonnull
     @Override
     public DataRangeType getDataRangeType() {
         return DataRangeType.DATATYPE_RESTRICTION;
@@ -79,16 +80,19 @@ public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements
         return false;
     }
 
+    @Nonnull
     @Override
     public OWLDatatype asOWLDatatype() {
         throw new OWLRuntimeException("Not a data type!");
     }
 
+    @Nonnull
     @Override
     public OWLDatatype getDatatype() {
         return datatype;
     }
 
+    @Nonnull
     @Override
     public Set<OWLFacetRestriction> getFacetRestrictions() {
         return CollectionFactory
@@ -109,32 +113,32 @@ public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements
     }
 
     @Override
-    public void accept(OWLDataVisitor visitor) {
+    public void accept(@Nonnull OWLDataVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public void accept(OWLObjectVisitor visitor) {
+    public void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLDataVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLDataVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    public void accept(OWLDataRangeVisitor visitor) {
+    public void accept(@Nonnull OWLDataRangeVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLDataRangeVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLDataRangeVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 

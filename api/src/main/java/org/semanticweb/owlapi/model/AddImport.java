@@ -37,6 +37,7 @@ public class AddImport extends ImportChange {
         super(ont, importDeclaration);
     }
 
+    @Nonnull
     @Override
     public AddImportData getChangeData() {
         return new AddImportData(getImportDeclaration());
@@ -60,6 +61,7 @@ public class AddImport extends ImportChange {
         return getImportDeclaration().equals(other.getImportDeclaration());
     }
 
+    @Nonnull
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -73,12 +75,12 @@ public class AddImport extends ImportChange {
     }
 
     @Override
-    public void accept(OWLOntologyChangeVisitor visitor) {
+    public void accept(@Nonnull OWLOntologyChangeVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLOntologyChangeVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLOntologyChangeVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 }

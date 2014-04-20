@@ -66,11 +66,13 @@ public class OWLInverseObjectPropertiesAxiomImpl extends
         this.second = second;
     }
 
+    @Nonnull
     @Override
     public Set<OWLInverseObjectPropertiesAxiom> asPairwiseAxioms() {
         return Collections.<OWLInverseObjectPropertiesAxiom> singleton(this);
     }
 
+    @Nonnull
     @Override
     public OWLInverseObjectPropertiesAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
@@ -80,38 +82,41 @@ public class OWLInverseObjectPropertiesAxiomImpl extends
                 getSecondProperty(), NO_ANNOTATIONS);
     }
 
+    @Nonnull
     @Override
     public OWLInverseObjectPropertiesAxiom getAnnotatedAxiom(
-            Set<OWLAnnotation> annotations) {
+            @Nonnull Set<OWLAnnotation> annotations) {
         return new OWLInverseObjectPropertiesAxiomImpl(getFirstProperty(),
                 getSecondProperty(), mergeAnnos(annotations));
     }
 
     @Override
-    public void accept(OWLObjectVisitor visitor) {
+    public void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public void accept(OWLAxiomVisitor visitor) {
+    public void accept(@Nonnull OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Nonnull
     @Override
     public OWLObjectPropertyExpression getFirstProperty() {
         return first;
     }
 
+    @Nonnull
     @Override
     public OWLObjectPropertyExpression getSecondProperty() {
         return second;
@@ -123,11 +128,13 @@ public class OWLInverseObjectPropertiesAxiomImpl extends
                 && obj instanceof OWLInverseObjectPropertiesAxiom;
     }
 
+    @Nonnull
     @Override
     public AxiomType<?> getAxiomType() {
         return AxiomType.INVERSE_OBJECT_PROPERTIES;
     }
 
+    @Nonnull
     @Override
     public Set<OWLSubObjectPropertyOfAxiom> asSubObjectPropertyOfAxioms() {
         Set<OWLSubObjectPropertyOfAxiom> axs = new HashSet<OWLSubObjectPropertyOfAxiom>();

@@ -114,13 +114,13 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         }
 
         @Override
-        public void visit(OWLDisjointClassesAxiom axiom) {
+        public void visit(@Nonnull OWLDisjointClassesAxiom axiom) {
             // XXX this seems wrong
             isLocal = true;
         }
 
         @Override
-        public void visit(OWLEquivalentClassesAxiom axiom) {
+        public void visit(@Nonnull OWLEquivalentClassesAxiom axiom) {
             Set<OWLClassExpression> eqClasses = axiom.getClassExpressions();
             if (eqClasses.size() != 2) {
                 return;
@@ -131,7 +131,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         }
 
         @Override
-        public void visit(OWLSubClassOfAxiom axiom) {
+        public void visit(@Nonnull OWLSubClassOfAxiom axiom) {
             LOGGER.info("Calling the Reasoner");
             isLocal = reasoner.isEntailed(axiom);
             LOGGER.info("DONE Calling the Reasoner. isLocal = {}", isLocal);
@@ -218,7 +218,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         }
 
         @Override
-        public void visit(OWLClass desc) {
+        public void visit(@Nonnull OWLClass desc) {
             if (signature.contains(desc)) {
                 newClassExpression = desc;
             } else {
@@ -227,7 +227,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         }
 
         @Override
-        public void visit(OWLDataAllValuesFrom desc) {
+        public void visit(@Nonnull OWLDataAllValuesFrom desc) {
             if (signature.contains(desc.getProperty().asOWLDataProperty())) {
                 newClassExpression = desc;
             } else {
@@ -236,7 +236,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         }
 
         @Override
-        public void visit(OWLDataExactCardinality desc) {
+        public void visit(@Nonnull OWLDataExactCardinality desc) {
             if (signature.contains(desc.getProperty().asOWLDataProperty())) {
                 newClassExpression = desc;
             } else {
@@ -245,7 +245,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         }
 
         @Override
-        public void visit(OWLDataMaxCardinality desc) {
+        public void visit(@Nonnull OWLDataMaxCardinality desc) {
             if (signature.contains(desc.getProperty().asOWLDataProperty())) {
                 newClassExpression = desc;
             } else {
@@ -254,7 +254,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         }
 
         @Override
-        public void visit(OWLDataMinCardinality desc) {
+        public void visit(@Nonnull OWLDataMinCardinality desc) {
             if (signature.contains(desc.getProperty().asOWLDataProperty())) {
                 newClassExpression = desc;
             } else {
@@ -263,7 +263,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         }
 
         @Override
-        public void visit(OWLDataSomeValuesFrom desc) {
+        public void visit(@Nonnull OWLDataSomeValuesFrom desc) {
             if (signature.contains(desc.getProperty().asOWLDataProperty())) {
                 newClassExpression = desc;
             } else {
@@ -272,26 +272,26 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         }
 
         @Override
-        public void visit(OWLDataHasValue desc) {
+        public void visit(@Nonnull OWLDataHasValue desc) {
             newClassExpression = df.getOWLNothing();
         }
 
         @Override
-        public void visit(OWLDisjointClassesAxiom ax) {
+        public void visit(@Nonnull OWLDisjointClassesAxiom ax) {
             Set<OWLClassExpression> disjointclasses = replaceBottom(ax
                     .getClassExpressions());
             newAxiom = df.getOWLDisjointClassesAxiom(disjointclasses);
         }
 
         @Override
-        public void visit(OWLEquivalentClassesAxiom ax) {
+        public void visit(@Nonnull OWLEquivalentClassesAxiom ax) {
             Set<OWLClassExpression> eqclasses = replaceBottom(ax
                     .getClassExpressions());
             newAxiom = df.getOWLEquivalentClassesAxiom(eqclasses);
         }
 
         @Override
-        public void visit(OWLObjectAllValuesFrom desc) {
+        public void visit(@Nonnull OWLObjectAllValuesFrom desc) {
             if (signature.contains(desc.getProperty().getNamedProperty())) {
                 newClassExpression = df.getOWLObjectAllValuesFrom(
                         desc.getProperty(), replaceBottom(desc.getFiller()));
@@ -301,13 +301,13 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         }
 
         @Override
-        public void visit(OWLObjectComplementOf desc) {
+        public void visit(@Nonnull OWLObjectComplementOf desc) {
             newClassExpression = df.getOWLObjectComplementOf(replaceBottom(desc
                     .getOperand()));
         }
 
         @Override
-        public void visit(OWLObjectExactCardinality desc) {
+        public void visit(@Nonnull OWLObjectExactCardinality desc) {
             if (signature.contains(desc.getProperty().getNamedProperty())) {
                 newClassExpression = desc;
             } else {
@@ -316,14 +316,14 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         }
 
         @Override
-        public void visit(OWLObjectIntersectionOf desc) {
+        public void visit(@Nonnull OWLObjectIntersectionOf desc) {
             Set<OWLClassExpression> operands = desc.getOperands();
             newClassExpression = df
                     .getOWLObjectIntersectionOf(replaceBottom(operands));
         }
 
         @Override
-        public void visit(OWLObjectMaxCardinality desc) {
+        public void visit(@Nonnull OWLObjectMaxCardinality desc) {
             if (signature.contains(desc.getProperty().getNamedProperty())) {
                 newClassExpression = desc;
             } else {
@@ -332,7 +332,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         }
 
         @Override
-        public void visit(OWLObjectMinCardinality desc) {
+        public void visit(@Nonnull OWLObjectMinCardinality desc) {
             if (signature.contains(desc.getProperty().getNamedProperty())) {
                 newClassExpression = desc;
             } else {
@@ -341,17 +341,17 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         }
 
         @Override
-        public void visit(OWLObjectOneOf desc) {
+        public void visit(@Nonnull OWLObjectOneOf desc) {
             newClassExpression = df.getOWLNothing();
         }
 
         @Override
-        public void visit(OWLObjectHasSelf desc) {
+        public void visit(@Nonnull OWLObjectHasSelf desc) {
             newClassExpression = df.getOWLNothing();
         }
 
         @Override
-        public void visit(OWLObjectSomeValuesFrom desc) {
+        public void visit(@Nonnull OWLObjectSomeValuesFrom desc) {
             if (signature.contains(desc.getProperty().getNamedProperty())) {
                 newClassExpression = df.getOWLObjectSomeValuesFrom(
                         desc.getProperty(), replaceBottom(desc.getFiller()));
@@ -361,19 +361,19 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         }
 
         @Override
-        public void visit(OWLObjectUnionOf desc) {
+        public void visit(@Nonnull OWLObjectUnionOf desc) {
             Set<OWLClassExpression> operands = desc.getOperands();
             newClassExpression = df
                     .getOWLObjectUnionOf(replaceBottom(operands));
         }
 
         @Override
-        public void visit(OWLObjectHasValue desc) {
+        public void visit(@Nonnull OWLObjectHasValue desc) {
             newClassExpression = df.getOWLNothing();
         }
 
         @Override
-        public void visit(OWLSubClassOfAxiom ax) {
+        public void visit(@Nonnull OWLSubClassOfAxiom ax) {
             OWLClassExpression sup = replaceBottom(ax.getSuperClass());
             OWLClassExpression sub = replaceBottom(ax.getSubClass());
             newAxiom = df.getOWLSubClassOfAxiom(sub, sup);

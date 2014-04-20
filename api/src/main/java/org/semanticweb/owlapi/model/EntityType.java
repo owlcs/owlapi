@@ -21,6 +21,8 @@ import java.util.List;
 
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
+import javax.annotation.Nonnull;
+
 /**
  * Represents the different types of OWL 2 Entities.
  * 
@@ -104,11 +106,13 @@ public final class EntityType<E extends OWLEntity> implements Serializable,
         return pluralPrintName;
     }
 
+    @Nonnull
     @Override
     public String getShortForm() {
         return name;
     }
 
+    @Nonnull
     @Override
     public String getPrefixedName() {
         return vocabulary.getPrefixedName();

@@ -16,6 +16,7 @@ import com.google.common.base.Optional;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /** a set of personalized preconditions */
 public class OWLAPIPreconditions {
@@ -48,7 +49,7 @@ public class OWLAPIPreconditions {
      * @throws NullPointerException
      *         if object is null
      */
-   @Nonnull public static <T> T checkNotNull( T object, String message) {
+   @Nonnull public static <T> T checkNotNull( @Nullable T object, String message) {
         if (object == null) {
             throw new NullPointerException(message);
         }
@@ -98,7 +99,7 @@ public class OWLAPIPreconditions {
      * @throws IllegalArgumentException
      *         if object is null
      */
-    @Nonnull public static <T> T checkNotNull( Optional<T> object, String message) {
+    @Nonnull public static <T> T checkNotNull( @Nullable Optional<T> object, String message) {
         if (object == null || !object.isPresent()) {
             throw new IllegalArgumentException(message);
         }

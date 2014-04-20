@@ -20,6 +20,8 @@ import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
 import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
+import javax.annotation.Nonnull;
+
 /**
  * Generates inferred disjoint axioms - note that this currently uses a very
  * simple inefficient algorithm.
@@ -32,8 +34,8 @@ public class InferredDisjointClassesAxiomGenerator extends
         InferredClassAxiomGenerator<OWLDisjointClassesAxiom> {
 
     @Override
-    protected void addAxioms(OWLClass entity, OWLReasoner reasoner,
-            OWLDataFactory dataFactory, Set<OWLDisjointClassesAxiom> result) {
+    protected void addAxioms(OWLClass entity, @Nonnull OWLReasoner reasoner,
+            @Nonnull OWLDataFactory dataFactory, @Nonnull Set<OWLDisjointClassesAxiom> result) {
         for (OWLClass cls : getAllEntities(reasoner)) {
             if (!cls.equals(entity)) {
                 OWLObjectIntersectionOf intersection = dataFactory
@@ -47,6 +49,7 @@ public class InferredDisjointClassesAxiomGenerator extends
         }
     }
 
+    @Nonnull
     @Override
     public String getLabel() {
         return "Disjoint classes";

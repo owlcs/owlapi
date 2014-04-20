@@ -29,6 +29,8 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
+import javax.annotation.Nonnull;
+
 /**
  * Extracts the variables from rules.
  * 
@@ -41,12 +43,13 @@ public class SWRLVariableExtractor implements SWRLObjectVisitor {
     private final LinkedHashSet<SWRLVariable> variables = new LinkedHashSet<SWRLVariable>();
 
     /** @return the set of variables */
+    @Nonnull
     public LinkedHashSet<SWRLVariable> getVariables() {
         return variables;
     }
 
     @Override
-    public void visit(SWRLRule node) {
+    public void visit(@Nonnull SWRLRule node) {
         for (SWRLAtom atom : node.getBody()) {
             atom.accept(this);
         }
@@ -56,53 +59,53 @@ public class SWRLVariableExtractor implements SWRLObjectVisitor {
     }
 
     @Override
-    public void visit(SWRLClassAtom node) {
+    public void visit(@Nonnull SWRLClassAtom node) {
         node.getArgument().accept(this);
     }
 
     @Override
-    public void visit(SWRLDataRangeAtom node) {
+    public void visit(@Nonnull SWRLDataRangeAtom node) {
         node.getArgument().accept(this);
     }
 
     @Override
-    public void visit(SWRLObjectPropertyAtom node) {
+    public void visit(@Nonnull SWRLObjectPropertyAtom node) {
         node.getFirstArgument().accept(this);
         node.getSecondArgument().accept(this);
     }
 
     @Override
-    public void visit(SWRLDataPropertyAtom node) {
+    public void visit(@Nonnull SWRLDataPropertyAtom node) {
         node.getFirstArgument().accept(this);
         node.getSecondArgument().accept(this);
     }
 
     @Override
-    public void visit(SWRLBuiltInAtom node) {
+    public void visit(@Nonnull SWRLBuiltInAtom node) {
         for (SWRLObject o : node.getArguments()) {
             o.accept(this);
         }
     }
 
     @Override
-    public void visit(SWRLVariable node) {
+    public void visit(@Nonnull SWRLVariable node) {
         variables.add(node);
     }
 
     @Override
-    public void visit(SWRLIndividualArgument node) {}
+    public void visit(@Nonnull SWRLIndividualArgument node) {}
 
     @Override
-    public void visit(SWRLLiteralArgument node) {}
+    public void visit(@Nonnull SWRLLiteralArgument node) {}
 
     @Override
-    public void visit(SWRLSameIndividualAtom node) {
+    public void visit(@Nonnull SWRLSameIndividualAtom node) {
         node.getFirstArgument().accept(this);
         node.getSecondArgument().accept(this);
     }
 
     @Override
-    public void visit(SWRLDifferentIndividualsAtom node) {
+    public void visit(@Nonnull SWRLDifferentIndividualsAtom node) {
         node.getFirstArgument().accept(this);
         node.getSecondArgument().accept(this);
     }

@@ -70,6 +70,8 @@ import org.semanticweb.owlapi.util.SWRLVariableExtractor;
 
 import com.google.common.base.Optional;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -513,18 +515,18 @@ public abstract class RDFRendererBase {
             OWLAnnotationValueVisitorEx<RDFNode> valVisitor = new OWLAnnotationValueVisitorEx<RDFNode>() {
 
                 @Override
-                public RDFNode visit(IRI iri) {
+                public RDFNode visit(@Nonnull IRI iri) {
                     return new RDFResourceIRI(iri);
                 }
 
                 @Override
-                public RDFNode visit(OWLAnonymousIndividual individual) {
+                public RDFNode visit(@Nonnull OWLAnonymousIndividual individual) {
                     return new RDFResourceBlankNode(
                             System.identityHashCode(individual));
                 }
 
                 @Override
-                public RDFNode visit(OWLLiteral literal) {
+                public RDFNode visit(@Nonnull OWLLiteral literal) {
                     return new RDFLiteral(literal);
                 }
             };
@@ -545,7 +547,7 @@ public abstract class RDFRendererBase {
         entity.accept(new OWLEntityVisitor() {
 
             @Override
-            public void visit(OWLClass cls) {
+            public void visit(@Nonnull OWLClass cls) {
                 for (OWLAxiom ax : ontology.getAxioms(cls, EXCLUDED)) {
                     if (ax instanceof OWLDisjointClassesAxiom) {
                         OWLDisjointClassesAxiom disjAx = (OWLDisjointClassesAxiom) ax;
@@ -563,13 +565,13 @@ public abstract class RDFRendererBase {
             }
 
             @Override
-            public void visit(OWLDatatype datatype) {
+            public void visit(@Nonnull OWLDatatype datatype) {
                 axioms.addAll(ontology.getDatatypeDefinitions(datatype));
                 createGraph(axioms);
             }
 
             @Override
-            public void visit(OWLNamedIndividual individual) {
+            public void visit(@Nonnull OWLNamedIndividual individual) {
                 for (OWLAxiom ax : ontology.getAxioms(individual, EXCLUDED)) {
                     if (ax instanceof OWLDifferentIndividualsAxiom) {
                         continue;
@@ -579,7 +581,7 @@ public abstract class RDFRendererBase {
             }
 
             @Override
-            public void visit(OWLDataProperty property) {
+            public void visit(@Nonnull OWLDataProperty property) {
                 for (OWLAxiom ax : ontology.getAxioms(property, EXCLUDED)) {
                     if (ax instanceof OWLDisjointDataPropertiesAxiom
                             && ((OWLDisjointDataPropertiesAxiom) ax)
@@ -591,7 +593,7 @@ public abstract class RDFRendererBase {
             }
 
             @Override
-            public void visit(OWLObjectProperty property) {
+            public void visit(@Nonnull OWLObjectProperty property) {
                 for (OWLAxiom ax : ontology.getAxioms(property, EXCLUDED)) {
                     if (ax instanceof OWLDisjointObjectPropertiesAxiom
                             && ((OWLDisjointObjectPropertiesAxiom) ax)
@@ -612,7 +614,7 @@ public abstract class RDFRendererBase {
             }
 
             @Override
-            public void visit(OWLAnnotationProperty property) {
+            public void visit(@Nonnull OWLAnnotationProperty property) {
                 axioms.addAll(ontology.getAxioms(property, EXCLUDED));
             }
         });

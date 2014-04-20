@@ -83,6 +83,7 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
         containsAnonymousClassExpressions = hasAnon();
     }
 
+    @Nonnull
     @Override
     public SWRLRule getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
@@ -91,8 +92,9 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
         return new SWRLRuleImpl(getBody(), getHead(), NO_ANNOTATIONS);
     }
 
+    @Nonnull
     @Override
-    public OWLAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+    public OWLAxiom getAnnotatedAxiom(@Nonnull Set<OWLAnnotation> annotations) {
         return new SWRLRuleImpl(getBody(), getHead(), annotations);
     }
 
@@ -107,6 +109,7 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
         this(body, head, Collections.<OWLAnnotation> emptyList());
     }
 
+    @Nonnull
     @Override
     public Set<SWRLVariable> getVariables() {
         Set<SWRLVariable> toReturn = null;
@@ -144,6 +147,7 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
         return containsAnonymousClassExpressions;
     }
 
+    @Nonnull
     @Override
     public Set<OWLClassExpression> getClassAtomPredicates() {
         Set<OWLClassExpression> toReturn = null;
@@ -170,31 +174,33 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
     }
 
     @Override
-    public void accept(OWLObjectVisitor visitor) {
+    public void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    public void accept(SWRLObjectVisitor visitor) {
+    public void accept(@Nonnull SWRLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(SWRLObjectVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull SWRLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Nonnull
     @Override
     public Set<SWRLAtom> getBody() {
         return CollectionFactory
                 .getCopyOnRequestSetFromImmutableCollection(body);
     }
 
+    @Nonnull
     @Override
     public Set<SWRLAtom> getHead() {
         return CollectionFactory
@@ -202,15 +208,16 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
     }
 
     @Override
-    public void accept(OWLAxiomVisitor visitor) {
+    public void accept(@Nonnull OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Nonnull
     @Override
     public SWRLRule getSimplified() {
         return (SWRLRule) this.accept(ATOM_SIMPLIFIER);
@@ -233,6 +240,7 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
         return false;
     }
 
+    @Nonnull
     @Override
     public AxiomType<?> getAxiomType() {
         return AxiomType.SWRL_RULE;
@@ -253,7 +261,7 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
     protected class AtomSimplifier implements SWRLObjectVisitorEx<SWRLObject> {
 
         @Override
-        public SWRLRule visit(SWRLRule node) {
+        public SWRLRule visit(@Nonnull SWRLRule node) {
             Set<SWRLAtom> nodebody = new HashSet<SWRLAtom>();
             for (SWRLAtom atom : node.getBody()) {
                 nodebody.add((SWRLAtom) atom.accept(this));
@@ -266,53 +274,53 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
         }
 
         @Override
-        public SWRLClassAtom visit(SWRLClassAtom node) {
+        public SWRLClassAtom visit(@Nonnull SWRLClassAtom node) {
             return node;
         }
 
         @Override
-        public SWRLDataRangeAtom visit(SWRLDataRangeAtom node) {
+        public SWRLDataRangeAtom visit(@Nonnull SWRLDataRangeAtom node) {
             return node;
         }
 
         @Override
-        public SWRLObjectPropertyAtom visit(SWRLObjectPropertyAtom node) {
+        public SWRLObjectPropertyAtom visit(@Nonnull SWRLObjectPropertyAtom node) {
             return node.getSimplified();
         }
 
         @Override
-        public SWRLDataPropertyAtom visit(SWRLDataPropertyAtom node) {
+        public SWRLDataPropertyAtom visit(@Nonnull SWRLDataPropertyAtom node) {
             return node;
         }
 
         @Override
-        public SWRLBuiltInAtom visit(SWRLBuiltInAtom node) {
+        public SWRLBuiltInAtom visit(@Nonnull SWRLBuiltInAtom node) {
             return node;
         }
 
         @Override
-        public SWRLVariable visit(SWRLVariable node) {
+        public SWRLVariable visit(@Nonnull SWRLVariable node) {
             return node;
         }
 
         @Override
-        public SWRLIndividualArgument visit(SWRLIndividualArgument node) {
+        public SWRLIndividualArgument visit(@Nonnull SWRLIndividualArgument node) {
             return node;
         }
 
         @Override
-        public SWRLLiteralArgument visit(SWRLLiteralArgument node) {
+        public SWRLLiteralArgument visit(@Nonnull SWRLLiteralArgument node) {
             return node;
         }
 
         @Override
-        public SWRLSameIndividualAtom visit(SWRLSameIndividualAtom node) {
+        public SWRLSameIndividualAtom visit(@Nonnull SWRLSameIndividualAtom node) {
             return node;
         }
 
         @Override
         public SWRLDifferentIndividualsAtom visit(
-                SWRLDifferentIndividualsAtom node) {
+                @Nonnull SWRLDifferentIndividualsAtom node) {
             return node;
         }
     }

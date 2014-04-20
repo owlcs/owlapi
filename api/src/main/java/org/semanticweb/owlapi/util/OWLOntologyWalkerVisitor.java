@@ -15,6 +15,7 @@ package org.semanticweb.owlapi.util;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -27,6 +28,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  */
 public class OWLOntologyWalkerVisitor extends OWLObjectVisitorAdapter {
 
+    @Nonnull
     private final OWLOntologyWalker walker;
 
     /**
@@ -38,6 +40,7 @@ public class OWLOntologyWalkerVisitor extends OWLObjectVisitorAdapter {
     }
 
     /** @return current axiom from walker */
+    @Nullable
     public OWLAxiom getCurrentAxiom() {
         return walker.getAxiom();
     }

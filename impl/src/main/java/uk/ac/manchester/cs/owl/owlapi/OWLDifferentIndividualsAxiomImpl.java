@@ -54,6 +54,7 @@ public class OWLDifferentIndividualsAxiomImpl extends
         super(individuals, annotations);
     }
 
+    @Nonnull
     @Override
     public OWLDifferentIndividualsAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
@@ -63,13 +64,15 @@ public class OWLDifferentIndividualsAxiomImpl extends
                 NO_ANNOTATIONS);
     }
 
+    @Nonnull
     @Override
     public OWLDifferentIndividualsAxiom getAnnotatedAxiom(
-            Set<OWLAnnotation> annotations) {
+            @Nonnull Set<OWLAnnotation> annotations) {
         return new OWLDifferentIndividualsAxiomImpl(getIndividuals(),
                 mergeAnnos(annotations));
     }
 
+    @Nonnull
     @Override
     public Set<OWLDifferentIndividualsAxiom> asPairwiseAxioms() {
         List<OWLIndividual> individuals = getIndividualsAsList();
@@ -101,6 +104,7 @@ public class OWLDifferentIndividualsAxiomImpl extends
         return super.equals(obj) && obj instanceof OWLDifferentIndividualsAxiom;
     }
 
+    @Nonnull
     @Override
     public Set<OWLSubClassOfAxiom> asOWLSubClassOfAxioms() {
         List<OWLClassExpression> nominalsList = new ArrayList<OWLClassExpression>();
@@ -121,25 +125,26 @@ public class OWLDifferentIndividualsAxiomImpl extends
     }
 
     @Override
-    public void accept(OWLAxiomVisitor visitor) {
+    public void accept(@Nonnull OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public void accept(OWLObjectVisitor visitor) {
+    public void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Nonnull
     @Override
     public AxiomType<?> getAxiomType() {
         return AxiomType.DIFFERENT_INDIVIDUALS;

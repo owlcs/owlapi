@@ -59,11 +59,13 @@ public class OWLDataHasValueImpl extends OWLValueRestrictionImpl<OWLLiteral>
         this.property = checkNotNull(property, "property cannot be null");
     }
 
+    @Nonnull
     @Override
     public OWLDataPropertyExpression getProperty() {
         return property;
     }
 
+    @Nonnull
     @Override
     public ClassExpressionType getClassExpressionType() {
         return ClassExpressionType.DATA_HAS_VALUE;
@@ -99,6 +101,7 @@ public class OWLDataHasValueImpl extends OWLValueRestrictionImpl<OWLLiteral>
         return value.compareTo(other.getFiller());
     }
 
+    @Nonnull
     @Override
     public OWLClassExpression asSomeValuesFrom() {
         return new OWLDataSomeValuesFromImpl(getProperty(),
@@ -106,22 +109,22 @@ public class OWLDataHasValueImpl extends OWLValueRestrictionImpl<OWLLiteral>
     }
 
     @Override
-    public void accept(OWLClassExpressionVisitor visitor) {
+    public void accept(@Nonnull OWLClassExpressionVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public void accept(OWLObjectVisitor visitor) {
+    public void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLClassExpressionVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLClassExpressionVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 }

@@ -21,6 +21,8 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 
+import javax.annotation.Nonnull;
+
 /**
  * An implementation of the OWLObjectRenderer interface. (Renders standalone
  * class class expressions and axioms in the manchester syntax).
@@ -42,8 +44,9 @@ public class ManchesterOWLSyntaxOWLObjectRendererImpl implements
                 new SimpleShortFormProvider());
     }
 
+    @Nonnull
     @Override
-    public synchronized String render(OWLObject object) {
+    public synchronized String render(@Nonnull OWLObject object) {
         writerDelegate.reset();
         object.accept(ren);
         return writerDelegate.toString();
@@ -51,7 +54,7 @@ public class ManchesterOWLSyntaxOWLObjectRendererImpl implements
 
     @Override
     public synchronized void setShortFormProvider(
-            ShortFormProvider shortFormProvider) {
+            @Nonnull ShortFormProvider shortFormProvider) {
         ren = new ManchesterOWLSyntaxObjectRenderer(writerDelegate,
                 shortFormProvider);
     }

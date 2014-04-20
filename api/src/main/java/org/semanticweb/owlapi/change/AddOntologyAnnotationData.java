@@ -43,14 +43,16 @@ public class AddOntologyAnnotationData extends OntologyAnnotationChangeData {
         super(annotation);
     }
 
+    @Nonnull
     @Override
-    public AddOntologyAnnotation createOntologyChange(OWLOntology ontology) {
+    public AddOntologyAnnotation createOntologyChange(@Nonnull OWLOntology ontology) {
         return new AddOntologyAnnotation(ontology, getAnnotation());
     }
 
+    @Nonnull
     @Override
     public <O, E extends Exception> O accept(
-            OWLOntologyChangeDataVisitor<O, E> visitor) throws E {
+            @Nonnull OWLOntologyChangeDataVisitor<O, E> visitor) throws E {
         return visitor.visit(this);
     }
 

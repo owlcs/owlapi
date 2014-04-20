@@ -54,6 +54,7 @@ public abstract class OWLPropertyRangeAxiomImpl<P extends OWLPropertyExpression,
         this.range = checkNotNull(range, "range cannot be null");
     }
 
+    @Nonnull
     @Override
     public R getRange() {
         return range;

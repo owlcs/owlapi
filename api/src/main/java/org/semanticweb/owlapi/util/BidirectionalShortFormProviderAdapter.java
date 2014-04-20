@@ -40,6 +40,7 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
 public class BidirectionalShortFormProviderAdapter extends
         CachingBidirectionalShortFormProvider {
 
+    @Nonnull
     private final ShortFormProvider shortFormProvider;
     private Set<OWLOntology> ontologies;
     private OWLOntologyManager man;
@@ -47,7 +48,7 @@ public class BidirectionalShortFormProviderAdapter extends
 
         @Override
         public void ontologiesChanged(
-                List<? extends OWLOntologyChange<?>> changes)
+                @Nonnull List<? extends OWLOntologyChange<?>> changes)
                 throws OWLException {
             handleChanges(changes);
         }
@@ -113,8 +114,9 @@ public class BidirectionalShortFormProviderAdapter extends
         this.man.addOntologyChangeListener(changeListener);
     }
 
+    @Nonnull
     @Override
-    protected String generateShortForm(OWLEntity entity) {
+    protected String generateShortForm(@Nonnull OWLEntity entity) {
         return shortFormProvider.getShortForm(entity);
     }
 
@@ -125,7 +127,7 @@ public class BidirectionalShortFormProviderAdapter extends
         }
     }
 
-    void handleChanges(List<? extends OWLOntologyChange<?>> changes) {
+    void handleChanges(@Nonnull List<? extends OWLOntologyChange<?>> changes) {
         if (ontologies == null) {
             return;
         }

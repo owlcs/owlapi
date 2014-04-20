@@ -59,6 +59,7 @@ public class OWLDatatypeDefinitionAxiomImpl extends OWLAxiomImpl implements
         this.dataRange = checkNotNull(dataRange, "dataRange cannot be null");
     }
 
+    @Nonnull
     @Override
     public OWLAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
@@ -68,30 +69,33 @@ public class OWLDatatypeDefinitionAxiomImpl extends OWLAxiomImpl implements
                 getDataRange(), NO_ANNOTATIONS);
     }
 
+    @Nonnull
     @Override
     public OWLDatatypeDefinitionAxiom getAnnotatedAxiom(
-            Set<OWLAnnotation> annotations) {
+            @Nonnull Set<OWLAnnotation> annotations) {
         return new OWLDatatypeDefinitionAxiomImpl(getDatatype(),
                 getDataRange(), mergeAnnos(annotations));
     }
 
+    @Nonnull
     @Override
     public OWLDatatype getDatatype() {
         return datatype;
     }
 
+    @Nonnull
     @Override
     public OWLDataRange getDataRange() {
         return dataRange;
     }
 
     @Override
-    public void accept(OWLAxiomVisitor visitor) {
+    public void accept(@Nonnull OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
@@ -105,18 +109,19 @@ public class OWLDatatypeDefinitionAxiomImpl extends OWLAxiomImpl implements
         return false;
     }
 
+    @Nonnull
     @Override
     public AxiomType<?> getAxiomType() {
         return AxiomType.DATATYPE_DEFINITION;
     }
 
     @Override
-    public void accept(OWLObjectVisitor visitor) {
+    public void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 

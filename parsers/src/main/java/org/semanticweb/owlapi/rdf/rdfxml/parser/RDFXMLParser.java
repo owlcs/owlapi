@@ -25,6 +25,8 @@ import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -35,6 +37,7 @@ public class RDFXMLParser extends AbstractOWLParser {
 
     private static final long serialVersionUID = 40000L;
 
+    @Nonnull
     @Override
     public String getName() {
         return "RDFXMLParser";
@@ -45,9 +48,10 @@ public class RDFXMLParser extends AbstractOWLParser {
         return RDFXMLOntologyFormat.class;
     }
 
+    @Nonnull
     @Override
-    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
-            OWLOntology ontology, OWLOntologyLoaderConfiguration configuration)
+    public OWLOntologyFormat parse(@Nonnull OWLOntologyDocumentSource documentSource,
+            @Nonnull OWLOntology ontology, @Nonnull OWLOntologyLoaderConfiguration configuration)
             throws IOException {
         InputSource is = null;
         try {

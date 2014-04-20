@@ -45,14 +45,16 @@ public class RemoveImportData extends ImportChangeData {
         super(declaration);
     }
 
+    @Nonnull
     @Override
     public RemoveImport createOntologyChange(@Nonnull OWLOntology ontology) {
         return new RemoveImport(ontology, getDeclaration());
     }
 
+    @Nonnull
     @Override
     public <O, E extends Exception> O accept(
-            OWLOntologyChangeDataVisitor<O, E> visitor) throws E {
+            @Nonnull OWLOntologyChangeDataVisitor<O, E> visitor) throws E {
         return visitor.visit(this);
     }
 

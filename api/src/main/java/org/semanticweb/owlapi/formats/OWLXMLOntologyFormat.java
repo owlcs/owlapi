@@ -15,6 +15,8 @@ package org.semanticweb.owlapi.formats;
 import org.semanticweb.owlapi.annotations.HasIdentifierKey;
 import org.semanticweb.owlapi.annotations.IsBinaryFormat;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -26,6 +28,7 @@ public class OWLXMLOntologyFormat extends PrefixOWLOntologyFormat {
 
     private static final long serialVersionUID = 40000L;
 
+    @Nonnull
     @Override
     public String getKey() {
         return "OWL/XML Syntax";

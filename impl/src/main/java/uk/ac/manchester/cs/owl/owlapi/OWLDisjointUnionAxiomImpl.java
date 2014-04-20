@@ -64,12 +64,14 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements
                 classExpressions, "classExpressions cannot be null"));
     }
 
+    @Nonnull
     @Override
     public Set<OWLClassExpression> getClassExpressions() {
         return CollectionFactory
                 .getCopyOnRequestSetFromImmutableCollection(classExpressions);
     }
 
+    @Nonnull
     @Override
     public OWLDisjointUnionAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
@@ -79,13 +81,15 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements
                 getClassExpressions(), NO_ANNOTATIONS);
     }
 
+    @Nonnull
     @Override
     public OWLDisjointUnionAxiom getAnnotatedAxiom(
-            Set<OWLAnnotation> annotations) {
+            @Nonnull Set<OWLAnnotation> annotations) {
         return new OWLDisjointUnionAxiomImpl(getOWLClass(),
                 getClassExpressions(), mergeAnnos(annotations));
     }
 
+    @Nonnull
     @Override
     public OWLClass getOWLClass() {
         return owlClass;
@@ -105,30 +109,32 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements
     }
 
     @Override
-    public void accept(OWLAxiomVisitor visitor) {
+    public void accept(@Nonnull OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public void accept(OWLObjectVisitor visitor) {
+    public void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Nonnull
     @Override
     public AxiomType<?> getAxiomType() {
         return AxiomType.DISJOINT_UNION;
     }
 
+    @Nonnull
     @Override
     public OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom() {
         return new OWLEquivalentClassesAxiomImpl(
@@ -137,6 +143,7 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements
                 NO_ANNOTATIONS);
     }
 
+    @Nonnull
     @Override
     public OWLDisjointClassesAxiom getOWLDisjointClassesAxiom() {
         return new OWLDisjointClassesAxiomImpl(getClassExpressions(),

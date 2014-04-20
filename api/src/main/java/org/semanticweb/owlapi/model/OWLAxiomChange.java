@@ -25,6 +25,7 @@ import javax.annotation.Nonnull;
  */
 public abstract class OWLAxiomChange extends OWLOntologyChange<OWLAxiom> {
 
+    @Nonnull
     private final OWLAxiom axiom;
 
     /**
@@ -38,6 +39,7 @@ public abstract class OWLAxiomChange extends OWLOntologyChange<OWLAxiom> {
         this.axiom = checkNotNull(axiom, "axiom cannot be null");
     }
 
+    @Nonnull
     @Override
     public Set<OWLEntity> getSignature() {
         return axiom.getSignature();
@@ -53,6 +55,7 @@ public abstract class OWLAxiomChange extends OWLOntologyChange<OWLAxiom> {
         return false;
     }
 
+    @Nonnull
     @Override
     public OWLAxiom getAxiom() {
         return axiom;

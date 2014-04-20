@@ -61,6 +61,7 @@ public class OWLClassAssertionAxiomImpl extends OWLIndividualAxiomImpl
                 "classExpression cannot be null");
     }
 
+    @Nonnull
     @Override
     public OWLClassAssertionAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
@@ -70,18 +71,21 @@ public class OWLClassAssertionAxiomImpl extends OWLIndividualAxiomImpl
                 getClassExpression(), NO_ANNOTATIONS);
     }
 
+    @Nonnull
     @Override
     public OWLClassAssertionAxiom getAnnotatedAxiom(
-            Set<OWLAnnotation> annotations) {
+            @Nonnull Set<OWLAnnotation> annotations) {
         return new OWLClassAssertionAxiomImpl(getIndividual(),
                 getClassExpression(), mergeAnnos(annotations));
     }
 
+    @Nonnull
     @Override
     public OWLClassExpression getClassExpression() {
         return classExpression;
     }
 
+    @Nonnull
     @Override
     public OWLIndividual getIndividual() {
         return individual;
@@ -100,6 +104,7 @@ public class OWLClassAssertionAxiomImpl extends OWLIndividualAxiomImpl
         return false;
     }
 
+    @Nonnull
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
         return new OWLSubClassOfAxiomImpl(new OWLObjectOneOfImpl(
@@ -108,25 +113,26 @@ public class OWLClassAssertionAxiomImpl extends OWLIndividualAxiomImpl
     }
 
     @Override
-    public void accept(OWLAxiomVisitor visitor) {
+    public void accept(@Nonnull OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public void accept(OWLObjectVisitor visitor) {
+    public void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Nonnull
     @Override
     public AxiomType<?> getAxiomType() {
         return AxiomType.CLASS_ASSERTION;

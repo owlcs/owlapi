@@ -17,6 +17,8 @@ import org.semanticweb.owlapi.model.HasPrefixedName;
 import org.semanticweb.owlapi.model.HasShortForm;
 import org.semanticweb.owlapi.model.IRI;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, The University Of Manchester, Medical Informatics
  *         Group
@@ -46,7 +48,9 @@ public enum SWRLVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     /** ARGUMENT_2 */                   ARGUMENT_2              ("argument2");
 //@formatter:on
     private final String shortName;
+    @Nonnull
     private final IRI iri;
+    @Nonnull
     private final String prefixedName;
 
     SWRLVocabulary(String name) {
@@ -55,16 +59,19 @@ public enum SWRLVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
         iri = IRI.create(Namespaces.SWRL.toString(), name);
     }
 
+    @Nonnull
     @Override
     public IRI getIRI() {
         return iri;
     }
 
+    @Nonnull
     @Override
     public String getShortForm() {
         return shortName;
     }
 
+    @Nonnull
     @Override
     public String getPrefixedName() {
         return prefixedName;

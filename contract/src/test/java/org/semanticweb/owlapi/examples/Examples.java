@@ -117,6 +117,8 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import uk.ac.manchester.cs.owlapi.modularity.ModuleType;
 import uk.ac.manchester.cs.owlapi.modularity.SyntacticLocalityModuleExtractor;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -1223,7 +1225,7 @@ public class Examples extends TestBase {
         }
 
         @Override
-        public void visit(OWLClass desc) {
+        public void visit(@Nonnull OWLClass desc) {
             if (!processedClasses.contains(desc)) {
                 // If we are processing inherited restrictions then we
                 // recursively visit named supers. Note that we need to keep
@@ -1240,7 +1242,7 @@ public class Examples extends TestBase {
         }
 
         @Override
-        public void visit(OWLObjectSomeValuesFrom desc) {
+        public void visit(@Nonnull OWLObjectSomeValuesFrom desc) {
             // This method gets called when a class expression is an existential
             // (someValuesFrom) restriction and it asks us to visit it
             restrictedProperties.add(desc.getProperty());
@@ -1426,7 +1428,7 @@ public class Examples extends TestBase {
                 walker) {
 
             @Override
-            public Object visit(OWLObjectSomeValuesFrom desc) {
+            public Object visit(@Nonnull OWLObjectSomeValuesFrom desc) {
                 // Print out the restriction
                 // System.out.println(desc);
                 // Print out the axiom where the restriction is used

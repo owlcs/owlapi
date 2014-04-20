@@ -47,11 +47,13 @@ public abstract class SWRLUnaryAtomImpl<A extends SWRLArgument> extends
         this.arg = checkNotNull(arg, "arg cannot be null");
     }
 
+    @Nonnull
     @Override
     public A getArgument() {
         return arg;
     }
 
+    @Nonnull
     @Override
     public Collection<SWRLArgument> getAllArguments() {
         return Collections.singleton((SWRLArgument) arg);

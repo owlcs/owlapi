@@ -34,8 +34,11 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  */
 public class StringDocumentSource extends OWLOntologyDocumentSourceBase {
 
+    @Nonnull
     private static AtomicLong counter = new AtomicLong();
+    @Nonnull
     private final IRI documentIRI;
+    @Nonnull
     private final String string;
 
     /**
@@ -55,6 +58,7 @@ public class StringDocumentSource extends OWLOntologyDocumentSourceBase {
     }
 
     /** @return a fresh IRI */
+    @Nonnull
     public static IRI getNextDocumentIRI() {
         return IRI.create("string:ontology" + counter.incrementAndGet());
     }
@@ -84,6 +88,7 @@ public class StringDocumentSource extends OWLOntologyDocumentSourceBase {
         return true;
     }
 
+    @Nonnull
     @Override
     public Reader getReader() {
         return new StringReader(string);
@@ -94,12 +99,14 @@ public class StringDocumentSource extends OWLOntologyDocumentSourceBase {
         return false;
     }
 
+    @Nonnull
     @Override
     public InputStream getInputStream() {
         throw new OWLRuntimeException(
                 "InputStream not available.  Check with StringDocumentSource.isInputStreamAvailable() first!");
     }
 
+    @Nonnull
     @Override
     public IRI getDocumentIRI() {
         return documentIRI;

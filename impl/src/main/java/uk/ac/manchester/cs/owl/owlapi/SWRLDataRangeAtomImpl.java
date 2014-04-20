@@ -50,23 +50,24 @@ public class SWRLDataRangeAtomImpl extends SWRLUnaryAtomImpl<SWRLDArgument>
         super(predicate, arg);
     }
 
+    @Nonnull
     @Override
     public OWLDataRange getPredicate() {
         return (OWLDataRange) super.getPredicate();
     }
 
     @Override
-    public void accept(OWLObjectVisitor visitor) {
+    public void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public void accept(SWRLObjectVisitor visitor) {
+    public void accept(@Nonnull SWRLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(SWRLObjectVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull SWRLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
@@ -84,7 +85,7 @@ public class SWRLDataRangeAtomImpl extends SWRLUnaryAtomImpl<SWRLDArgument>
     }
 
     @Override
-    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 

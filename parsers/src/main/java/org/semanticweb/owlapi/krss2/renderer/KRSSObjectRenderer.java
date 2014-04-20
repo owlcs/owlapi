@@ -65,6 +65,8 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.search.Filters;
 import org.semanticweb.owlapi.util.OWLObjectVisitorAdapter;
 
+import javax.annotation.Nonnull;
+
 /**
  * A {@code KRSSObjectRenderer} renderes an OWLOntology in the original KRSS
  * syntax. Note that only a subset of OWL can be expressed in KRSS. <br>
@@ -384,7 +386,7 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
     }
 
     @Override
-    public void visit(OWLOntology ontology1) {
+    public void visit(@Nonnull OWLOntology ontology1) {
         Set<OWLClass> classes = ontology1.getClassesInSignature();
         classes.remove(ontology1.getOWLOntologyManager().getOWLDataFactory()
                 .getOWLThing());
@@ -453,7 +455,7 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
     }
 
     @Override
-    public void visit(OWLDisjointClassesAxiom axiom) {
+    public void visit(@Nonnull OWLDisjointClassesAxiom axiom) {
         List<OWLClassExpression> classes = sort(axiom.getClassExpressions());
         int size = classes.size();
         if (size <= 1) {
@@ -472,7 +474,7 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
     }
 
     @Override
-    public void visit(OWLObjectPropertyDomainAxiom axiom) {
+    public void visit(@Nonnull OWLObjectPropertyDomainAxiom axiom) {
         writeOpenBracket();
         write(DOMAIN);
         write(axiom.getProperty());
@@ -482,7 +484,7 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
     }
 
     @Override
-    public void visit(OWLDifferentIndividualsAxiom axiom) {
+    public void visit(@Nonnull OWLDifferentIndividualsAxiom axiom) {
         List<OWLIndividual> individuals = sort(axiom.getIndividuals());
         int size = individuals.size();
         if (size <= 1) {
@@ -501,7 +503,7 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
     }
 
     @Override
-    public void visit(OWLObjectPropertyRangeAxiom axiom) {
+    public void visit(@Nonnull OWLObjectPropertyRangeAxiom axiom) {
         writeOpenBracket();
         write(RANGE);
         write(axiom.getProperty());
@@ -511,7 +513,7 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
     }
 
     @Override
-    public void visit(OWLObjectPropertyAssertionAxiom axiom) {
+    public void visit(@Nonnull OWLObjectPropertyAssertionAxiom axiom) {
         writeOpenBracket();
         write(RELATED);
         write(axiom.getSubject());
@@ -522,7 +524,7 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
     }
 
     @Override
-    public void visit(OWLClassAssertionAxiom axiom) {
+    public void visit(@Nonnull OWLClassAssertionAxiom axiom) {
         writeOpenBracket();
         write(INSTANCE);
         write(axiom.getIndividual());
@@ -532,7 +534,7 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
     }
 
     @Override
-    public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
+    public void visit(@Nonnull OWLTransitiveObjectPropertyAxiom axiom) {
         writeOpenBracket();
         write(TRANSITIVE);
         write(axiom.getProperty());
@@ -541,7 +543,7 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
     }
 
     @Override
-    public void visit(OWLSameIndividualAxiom axiom) {
+    public void visit(@Nonnull OWLSameIndividualAxiom axiom) {
         final List<OWLIndividual> individuals = sort(axiom.getIndividuals());
         final int size = individuals.size();
         if (size <= 1) {
@@ -560,12 +562,12 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
     }
 
     @Override
-    public void visit(OWLClass desc) {
+    public void visit(@Nonnull OWLClass desc) {
         write(desc.getIRI());
     }
 
     @Override
-    public void visit(OWLObjectIntersectionOf desc) {
+    public void visit(@Nonnull OWLObjectIntersectionOf desc) {
         writeOpenBracket();
         write(AND);
         final List<OWLClassExpression> operands = sort(desc.getOperands());
@@ -583,7 +585,7 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
     }
 
     @Override
-    public void visit(OWLObjectUnionOf desc) {
+    public void visit(@Nonnull OWLObjectUnionOf desc) {
         writeOpenBracket();
         write(OR);
         final List<OWLClassExpression> operands = sort(desc.getOperands());
@@ -601,7 +603,7 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
     }
 
     @Override
-    public void visit(OWLObjectComplementOf desc) {
+    public void visit(@Nonnull OWLObjectComplementOf desc) {
         writeOpenBracket();
         write(NOT);
         write(desc.getOperand());
@@ -609,7 +611,7 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
     }
 
     @Override
-    public void visit(OWLObjectSomeValuesFrom desc) {
+    public void visit(@Nonnull OWLObjectSomeValuesFrom desc) {
         writeOpenBracket();
         write(SOME);
         write(desc.getProperty());
@@ -618,7 +620,7 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
     }
 
     @Override
-    public void visit(OWLObjectAllValuesFrom desc) {
+    public void visit(@Nonnull OWLObjectAllValuesFrom desc) {
         writeOpenBracket();
         write(ALL);
         write(desc.getProperty());
@@ -627,7 +629,7 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
     }
 
     @Override
-    public void visit(OWLObjectMinCardinality desc) {
+    public void visit(@Nonnull OWLObjectMinCardinality desc) {
         writeOpenBracket();
         write(AT_LEAST);
         write(desc.getCardinality());
@@ -639,7 +641,7 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
     }
 
     @Override
-    public void visit(OWLObjectExactCardinality desc) {
+    public void visit(@Nonnull OWLObjectExactCardinality desc) {
         writeOpenBracket();
         write(EXACTLY);
         write(desc.getCardinality());
@@ -651,7 +653,7 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
     }
 
     @Override
-    public void visit(OWLObjectMaxCardinality desc) {
+    public void visit(@Nonnull OWLObjectMaxCardinality desc) {
         writeOpenBracket();
         write(AT_MOST);
         write(desc.getCardinality());
@@ -663,7 +665,7 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
     }
 
     @Override
-    public void visit(OWLDataSomeValuesFrom desc) {
+    public void visit(@Nonnull OWLDataSomeValuesFrom desc) {
         writeOpenBracket();
         write(SOME);
         write(desc.getProperty());
@@ -672,7 +674,7 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
     }
 
     @Override
-    public void visit(OWLDataAllValuesFrom desc) {
+    public void visit(@Nonnull OWLDataAllValuesFrom desc) {
         writeOpenBracket();
         write(ALL);
         write(desc.getProperty());
@@ -681,7 +683,7 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
     }
 
     @Override
-    public void visit(OWLDataMinCardinality desc) {
+    public void visit(@Nonnull OWLDataMinCardinality desc) {
         writeOpenBracket();
         write(AT_LEAST);
         write(desc.getCardinality());
@@ -693,7 +695,7 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
     }
 
     @Override
-    public void visit(OWLDataExactCardinality desc) {
+    public void visit(@Nonnull OWLDataExactCardinality desc) {
         writeOpenBracket();
         write(EXACTLY);
         write(desc.getCardinality());
@@ -705,7 +707,7 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
     }
 
     @Override
-    public void visit(OWLDataMaxCardinality desc) {
+    public void visit(@Nonnull OWLDataMaxCardinality desc) {
         writeOpenBracket();
         write(AT_MOST);
         write(desc.getCardinality());
@@ -717,17 +719,17 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
     }
 
     @Override
-    public void visit(OWLLiteral node) {
+    public void visit(@Nonnull OWLLiteral node) {
         write(node.getLiteral());
     }
 
     @Override
-    public void visit(OWLObjectProperty property) {
+    public void visit(@Nonnull OWLObjectProperty property) {
         write(property.getIRI());
     }
 
     @Override
-    public void visit(OWLObjectInverseOf property) {
+    public void visit(@Nonnull OWLObjectInverseOf property) {
         writeOpenBracket();
         write(INVERSE);
         writeSpace();
@@ -736,12 +738,12 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
     }
 
     @Override
-    public void visit(OWLDataProperty property) {
+    public void visit(@Nonnull OWLDataProperty property) {
         write(property.getIRI());
     }
 
     @Override
-    public void visit(OWLNamedIndividual individual) {
+    public void visit(@Nonnull OWLNamedIndividual individual) {
         write(individual.getIRI());
     }
 }

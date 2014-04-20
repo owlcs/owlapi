@@ -142,7 +142,7 @@ public class OWLEntityCollector implements
         objects = checkNotNull(toReturn, "toReturn cannot be null");
     }
 
-    protected void processAxiomAnnotations(OWLAxiom ax) {
+    protected void processAxiomAnnotations(@Nonnull OWLAxiom ax) {
         // default behavior: iterate over the annotations outside the axiom
         for (OWLAnnotation anno : ax.getAnnotations()) {
             anno.accept(this);
@@ -150,7 +150,7 @@ public class OWLEntityCollector implements
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLSubClassOfAxiom axiom) {
+    public Collection<OWLEntity> visit(@Nonnull OWLSubClassOfAxiom axiom) {
         axiom.getSubClass().accept(this);
         axiom.getSuperClass().accept(this);
         processAxiomAnnotations(axiom);
@@ -159,7 +159,7 @@ public class OWLEntityCollector implements
 
     @Override
     public Collection<OWLEntity> visit(
-            OWLNegativeObjectPropertyAssertionAxiom axiom) {
+            @Nonnull OWLNegativeObjectPropertyAssertionAxiom axiom) {
         axiom.getSubject().accept(this);
         axiom.getProperty().accept(this);
         axiom.getObject().accept(this);
@@ -168,21 +168,21 @@ public class OWLEntityCollector implements
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLAsymmetricObjectPropertyAxiom axiom) {
+    public Collection<OWLEntity> visit(@Nonnull OWLAsymmetricObjectPropertyAxiom axiom) {
         axiom.getProperty().accept(this);
         processAxiomAnnotations(axiom);
         return objects;
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLReflexiveObjectPropertyAxiom axiom) {
+    public Collection<OWLEntity> visit(@Nonnull OWLReflexiveObjectPropertyAxiom axiom) {
         axiom.getProperty().accept(this);
         processAxiomAnnotations(axiom);
         return objects;
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLDisjointClassesAxiom axiom) {
+    public Collection<OWLEntity> visit(@Nonnull OWLDisjointClassesAxiom axiom) {
         for (OWLClassExpression desc : axiom.getClassExpressions()) {
             desc.accept(this);
         }
@@ -191,7 +191,7 @@ public class OWLEntityCollector implements
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLDataPropertyDomainAxiom axiom) {
+    public Collection<OWLEntity> visit(@Nonnull OWLDataPropertyDomainAxiom axiom) {
         axiom.getDomain().accept(this);
         axiom.getProperty().accept(this);
         processAxiomAnnotations(axiom);
@@ -199,7 +199,7 @@ public class OWLEntityCollector implements
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLObjectPropertyDomainAxiom axiom) {
+    public Collection<OWLEntity> visit(@Nonnull OWLObjectPropertyDomainAxiom axiom) {
         axiom.getDomain().accept(this);
         axiom.getProperty().accept(this);
         processAxiomAnnotations(axiom);
@@ -208,7 +208,7 @@ public class OWLEntityCollector implements
 
     @Override
     public Collection<OWLEntity>
-            visit(OWLEquivalentObjectPropertiesAxiom axiom) {
+            visit(@Nonnull OWLEquivalentObjectPropertiesAxiom axiom) {
         for (OWLObjectPropertyExpression prop : axiom.getProperties()) {
             prop.accept(this);
         }
@@ -218,7 +218,7 @@ public class OWLEntityCollector implements
 
     @Override
     public Collection<OWLEntity> visit(
-            OWLNegativeDataPropertyAssertionAxiom axiom) {
+            @Nonnull OWLNegativeDataPropertyAssertionAxiom axiom) {
         axiom.getSubject().accept(this);
         axiom.getProperty().accept(this);
         axiom.getObject().accept(this);
@@ -227,7 +227,7 @@ public class OWLEntityCollector implements
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLDifferentIndividualsAxiom axiom) {
+    public Collection<OWLEntity> visit(@Nonnull OWLDifferentIndividualsAxiom axiom) {
         for (OWLIndividual ind : axiom.getIndividuals()) {
             ind.accept(this);
         }
@@ -236,7 +236,7 @@ public class OWLEntityCollector implements
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLDisjointDataPropertiesAxiom axiom) {
+    public Collection<OWLEntity> visit(@Nonnull OWLDisjointDataPropertiesAxiom axiom) {
         for (OWLDataPropertyExpression prop : axiom.getProperties()) {
             prop.accept(this);
         }
@@ -245,7 +245,7 @@ public class OWLEntityCollector implements
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLDisjointObjectPropertiesAxiom axiom) {
+    public Collection<OWLEntity> visit(@Nonnull OWLDisjointObjectPropertiesAxiom axiom) {
         for (OWLObjectPropertyExpression prop : axiom.getProperties()) {
             prop.accept(this);
         }
@@ -254,7 +254,7 @@ public class OWLEntityCollector implements
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLObjectPropertyRangeAxiom axiom) {
+    public Collection<OWLEntity> visit(@Nonnull OWLObjectPropertyRangeAxiom axiom) {
         axiom.getRange().accept(this);
         axiom.getProperty().accept(this);
         processAxiomAnnotations(axiom);
@@ -262,7 +262,7 @@ public class OWLEntityCollector implements
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLObjectPropertyAssertionAxiom axiom) {
+    public Collection<OWLEntity> visit(@Nonnull OWLObjectPropertyAssertionAxiom axiom) {
         axiom.getSubject().accept(this);
         axiom.getProperty().accept(this);
         axiom.getObject().accept(this);
@@ -271,14 +271,14 @@ public class OWLEntityCollector implements
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLFunctionalObjectPropertyAxiom axiom) {
+    public Collection<OWLEntity> visit(@Nonnull OWLFunctionalObjectPropertyAxiom axiom) {
         axiom.getProperty().accept(this);
         processAxiomAnnotations(axiom);
         return objects;
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLSubObjectPropertyOfAxiom axiom) {
+    public Collection<OWLEntity> visit(@Nonnull OWLSubObjectPropertyOfAxiom axiom) {
         axiom.getSubProperty().accept(this);
         axiom.getSuperProperty().accept(this);
         processAxiomAnnotations(axiom);
@@ -286,7 +286,7 @@ public class OWLEntityCollector implements
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLDisjointUnionAxiom axiom) {
+    public Collection<OWLEntity> visit(@Nonnull OWLDisjointUnionAxiom axiom) {
         axiom.getOWLClass().accept((OWLEntityVisitor) this);
         for (OWLClassExpression desc : axiom.getClassExpressions()) {
             desc.accept(this);
@@ -296,21 +296,21 @@ public class OWLEntityCollector implements
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLDeclarationAxiom axiom) {
+    public Collection<OWLEntity> visit(@Nonnull OWLDeclarationAxiom axiom) {
         axiom.getEntity().accept(this);
         processAxiomAnnotations(axiom);
         return objects;
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLSymmetricObjectPropertyAxiom axiom) {
+    public Collection<OWLEntity> visit(@Nonnull OWLSymmetricObjectPropertyAxiom axiom) {
         axiom.getProperty().accept(this);
         processAxiomAnnotations(axiom);
         return objects;
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLDataPropertyRangeAxiom axiom) {
+    public Collection<OWLEntity> visit(@Nonnull OWLDataPropertyRangeAxiom axiom) {
         axiom.getProperty().accept(this);
         axiom.getRange().accept(this);
         processAxiomAnnotations(axiom);
@@ -318,14 +318,14 @@ public class OWLEntityCollector implements
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLFunctionalDataPropertyAxiom axiom) {
+    public Collection<OWLEntity> visit(@Nonnull OWLFunctionalDataPropertyAxiom axiom) {
         axiom.getProperty().accept(this);
         processAxiomAnnotations(axiom);
         return objects;
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLEquivalentDataPropertiesAxiom axiom) {
+    public Collection<OWLEntity> visit(@Nonnull OWLEquivalentDataPropertiesAxiom axiom) {
         for (OWLDataPropertyExpression prop : axiom.getProperties()) {
             prop.accept(this);
         }
@@ -334,7 +334,7 @@ public class OWLEntityCollector implements
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLClassAssertionAxiom axiom) {
+    public Collection<OWLEntity> visit(@Nonnull OWLClassAssertionAxiom axiom) {
         axiom.getClassExpression().accept(this);
         axiom.getIndividual().accept(this);
         processAxiomAnnotations(axiom);
@@ -342,7 +342,7 @@ public class OWLEntityCollector implements
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLEquivalentClassesAxiom axiom) {
+    public Collection<OWLEntity> visit(@Nonnull OWLEquivalentClassesAxiom axiom) {
         for (OWLClassExpression desc : axiom.getClassExpressions()) {
             desc.accept(this);
         }
@@ -351,7 +351,7 @@ public class OWLEntityCollector implements
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLDataPropertyAssertionAxiom axiom) {
+    public Collection<OWLEntity> visit(@Nonnull OWLDataPropertyAssertionAxiom axiom) {
         axiom.getSubject().accept(this);
         axiom.getProperty().accept(this);
         axiom.getObject().accept(this);
@@ -360,21 +360,21 @@ public class OWLEntityCollector implements
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLTransitiveObjectPropertyAxiom axiom) {
+    public Collection<OWLEntity> visit(@Nonnull OWLTransitiveObjectPropertyAxiom axiom) {
         axiom.getProperty().accept(this);
         processAxiomAnnotations(axiom);
         return objects;
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
+    public Collection<OWLEntity> visit(@Nonnull OWLIrreflexiveObjectPropertyAxiom axiom) {
         axiom.getProperty().accept(this);
         processAxiomAnnotations(axiom);
         return objects;
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLSubDataPropertyOfAxiom axiom) {
+    public Collection<OWLEntity> visit(@Nonnull OWLSubDataPropertyOfAxiom axiom) {
         axiom.getSubProperty().accept(this);
         axiom.getSuperProperty().accept(this);
         processAxiomAnnotations(axiom);
@@ -383,14 +383,14 @@ public class OWLEntityCollector implements
 
     @Override
     public Collection<OWLEntity> visit(
-            OWLInverseFunctionalObjectPropertyAxiom axiom) {
+            @Nonnull OWLInverseFunctionalObjectPropertyAxiom axiom) {
         axiom.getProperty().accept(this);
         processAxiomAnnotations(axiom);
         return objects;
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLSameIndividualAxiom axiom) {
+    public Collection<OWLEntity> visit(@Nonnull OWLSameIndividualAxiom axiom) {
         for (OWLIndividual ind : axiom.getIndividuals()) {
             ind.accept(this);
         }
@@ -399,7 +399,7 @@ public class OWLEntityCollector implements
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLSubPropertyChainOfAxiom axiom) {
+    public Collection<OWLEntity> visit(@Nonnull OWLSubPropertyChainOfAxiom axiom) {
         for (OWLObjectPropertyExpression prop : axiom.getPropertyChain()) {
             prop.accept(this);
         }
@@ -409,7 +409,7 @@ public class OWLEntityCollector implements
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLInverseObjectPropertiesAxiom axiom) {
+    public Collection<OWLEntity> visit(@Nonnull OWLInverseObjectPropertiesAxiom axiom) {
         axiom.getFirstProperty().accept(this);
         axiom.getSecondProperty().accept(this);
         processAxiomAnnotations(axiom);
@@ -417,7 +417,7 @@ public class OWLEntityCollector implements
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLHasKeyAxiom axiom) {
+    public Collection<OWLEntity> visit(@Nonnull OWLHasKeyAxiom axiom) {
         axiom.getClassExpression().accept(this);
         for (OWLPropertyExpression prop : axiom.getPropertyExpressions()) {
             prop.accept(this);
@@ -432,13 +432,13 @@ public class OWLEntityCollector implements
     //
     // //////////////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
-    public Collection<OWLEntity> visit(OWLClass desc) {
+    public Collection<OWLEntity> visit(@Nonnull OWLClass desc) {
         objects.add(desc);
         return objects;
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLObjectIntersectionOf desc) {
+    public Collection<OWLEntity> visit(@Nonnull OWLObjectIntersectionOf desc) {
         for (OWLClassExpression operand : desc.getOperands()) {
             operand.accept(this);
         }
@@ -446,7 +446,7 @@ public class OWLEntityCollector implements
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLObjectUnionOf desc) {
+    public Collection<OWLEntity> visit(@Nonnull OWLObjectUnionOf desc) {
         for (OWLClassExpression operand : desc.getOperands()) {
             operand.accept(this);
         }
@@ -454,61 +454,61 @@ public class OWLEntityCollector implements
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLObjectComplementOf desc) {
+    public Collection<OWLEntity> visit(@Nonnull OWLObjectComplementOf desc) {
         desc.getOperand().accept(this);
         return objects;
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLObjectSomeValuesFrom desc) {
+    public Collection<OWLEntity> visit(@Nonnull OWLObjectSomeValuesFrom desc) {
         desc.getProperty().accept(this);
         desc.getFiller().accept(this);
         return objects;
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLObjectAllValuesFrom desc) {
+    public Collection<OWLEntity> visit(@Nonnull OWLObjectAllValuesFrom desc) {
         desc.getProperty().accept(this);
         desc.getFiller().accept(this);
         return objects;
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLObjectHasValue desc) {
+    public Collection<OWLEntity> visit(@Nonnull OWLObjectHasValue desc) {
         desc.getProperty().accept(this);
         desc.getFiller().accept(this);
         return objects;
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLObjectMinCardinality desc) {
+    public Collection<OWLEntity> visit(@Nonnull OWLObjectMinCardinality desc) {
         desc.getProperty().accept(this);
         desc.getFiller().accept(this);
         return objects;
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLObjectExactCardinality desc) {
+    public Collection<OWLEntity> visit(@Nonnull OWLObjectExactCardinality desc) {
         desc.getProperty().accept(this);
         desc.getFiller().accept(this);
         return objects;
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLObjectMaxCardinality desc) {
+    public Collection<OWLEntity> visit(@Nonnull OWLObjectMaxCardinality desc) {
         desc.getProperty().accept(this);
         desc.getFiller().accept(this);
         return objects;
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLObjectHasSelf desc) {
+    public Collection<OWLEntity> visit(@Nonnull OWLObjectHasSelf desc) {
         desc.getProperty().accept(this);
         return objects;
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLObjectOneOf desc) {
+    public Collection<OWLEntity> visit(@Nonnull OWLObjectOneOf desc) {
         for (OWLIndividual ind : desc.getIndividuals()) {
             ind.accept(this);
         }
@@ -516,42 +516,42 @@ public class OWLEntityCollector implements
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLDataSomeValuesFrom desc) {
+    public Collection<OWLEntity> visit(@Nonnull OWLDataSomeValuesFrom desc) {
         desc.getProperty().accept(this);
         desc.getFiller().accept(this);
         return objects;
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLDataAllValuesFrom desc) {
+    public Collection<OWLEntity> visit(@Nonnull OWLDataAllValuesFrom desc) {
         desc.getProperty().accept(this);
         desc.getFiller().accept(this);
         return objects;
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLDataHasValue desc) {
+    public Collection<OWLEntity> visit(@Nonnull OWLDataHasValue desc) {
         desc.getProperty().accept(this);
         desc.getFiller().accept(this);
         return objects;
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLDataMinCardinality desc) {
+    public Collection<OWLEntity> visit(@Nonnull OWLDataMinCardinality desc) {
         desc.getProperty().accept(this);
         desc.getFiller().accept(this);
         return objects;
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLDataExactCardinality desc) {
+    public Collection<OWLEntity> visit(@Nonnull OWLDataExactCardinality desc) {
         desc.getProperty().accept(this);
         desc.getFiller().accept(this);
         return objects;
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLDataMaxCardinality desc) {
+    public Collection<OWLEntity> visit(@Nonnull OWLDataMaxCardinality desc) {
         desc.getProperty().accept(this);
         desc.getFiller().accept(this);
         return objects;
@@ -563,13 +563,13 @@ public class OWLEntityCollector implements
     //
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
-    public Collection<OWLEntity> visit(OWLDataComplementOf node) {
+    public Collection<OWLEntity> visit(@Nonnull OWLDataComplementOf node) {
         node.getDataRange().accept(this);
         return objects;
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLDataOneOf node) {
+    public Collection<OWLEntity> visit(@Nonnull OWLDataOneOf node) {
         for (OWLLiteral val : node.getValues()) {
             val.accept(this);
         }
@@ -577,7 +577,7 @@ public class OWLEntityCollector implements
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLDataIntersectionOf node) {
+    public Collection<OWLEntity> visit(@Nonnull OWLDataIntersectionOf node) {
         for (OWLDataRange dr : node.getOperands()) {
             dr.accept(this);
         }
@@ -585,7 +585,7 @@ public class OWLEntityCollector implements
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLDataUnionOf node) {
+    public Collection<OWLEntity> visit(@Nonnull OWLDataUnionOf node) {
         for (OWLDataRange dr : node.getOperands()) {
             dr.accept(this);
         }
@@ -593,7 +593,7 @@ public class OWLEntityCollector implements
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLDatatypeRestriction node) {
+    public Collection<OWLEntity> visit(@Nonnull OWLDatatypeRestriction node) {
         node.getDatatype().accept(this);
         for (OWLFacetRestriction facetRestriction : node.getFacetRestrictions()) {
             facetRestriction.accept(this);
@@ -602,13 +602,13 @@ public class OWLEntityCollector implements
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLFacetRestriction node) {
+    public Collection<OWLEntity> visit(@Nonnull OWLFacetRestriction node) {
         node.getFacetValue().accept(this);
         return objects;
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLLiteral node) {
+    public Collection<OWLEntity> visit(@Nonnull OWLLiteral node) {
         node.getDatatype().accept(this);
         return objects;
     }
@@ -619,7 +619,7 @@ public class OWLEntityCollector implements
     //
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
-    public Collection<OWLEntity> visit(OWLObjectInverseOf expression) {
+    public Collection<OWLEntity> visit(@Nonnull OWLObjectInverseOf expression) {
         expression.getInverse().accept(this);
         return objects;
     }
@@ -630,31 +630,31 @@ public class OWLEntityCollector implements
     //
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
-    public Collection<OWLEntity> visit(OWLObjectProperty property) {
+    public Collection<OWLEntity> visit(@Nonnull OWLObjectProperty property) {
         objects.add(property);
         return objects;
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLDataProperty property) {
+    public Collection<OWLEntity> visit(@Nonnull OWLDataProperty property) {
         objects.add(property);
         return objects;
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLNamedIndividual individual) {
+    public Collection<OWLEntity> visit(@Nonnull OWLNamedIndividual individual) {
         objects.add(individual);
         return objects;
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLDatatype datatype) {
+    public Collection<OWLEntity> visit(@Nonnull OWLDatatype datatype) {
         objects.add(datatype);
         return objects;
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLAnnotation annotation) {
+    public Collection<OWLEntity> visit(@Nonnull OWLAnnotation annotation) {
         annotation.getProperty().accept(this);
         annotation.getValue().accept(this);
         for (OWLAnnotation anno : annotation.getAnnotations()) {
@@ -664,7 +664,7 @@ public class OWLEntityCollector implements
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLAnnotationAssertionAxiom axiom) {
+    public Collection<OWLEntity> visit(@Nonnull OWLAnnotationAssertionAxiom axiom) {
         axiom.getSubject().accept(this);
         axiom.getProperty().accept(this);
         axiom.getValue().accept(this);
@@ -673,43 +673,43 @@ public class OWLEntityCollector implements
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLAnonymousIndividual individual) {
+    public Collection<OWLEntity> visit(@Nonnull OWLAnonymousIndividual individual) {
         return objects;
     }
 
     @Override
-    public Collection<OWLEntity> visit(IRI iri) {
+    public Collection<OWLEntity> visit(@Nonnull IRI iri) {
         return objects;
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLOntology ontology) {
+    public Collection<OWLEntity> visit(@Nonnull OWLOntology ontology) {
         objects.addAll(ontology.getSignature());
         return objects;
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLAnnotationProperty property) {
+    public Collection<OWLEntity> visit(@Nonnull OWLAnnotationProperty property) {
         objects.add(property);
         return objects;
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLAnnotationPropertyDomainAxiom axiom) {
+    public Collection<OWLEntity> visit(@Nonnull OWLAnnotationPropertyDomainAxiom axiom) {
         axiom.getProperty().accept(this);
         processAxiomAnnotations(axiom);
         return objects;
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLAnnotationPropertyRangeAxiom axiom) {
+    public Collection<OWLEntity> visit(@Nonnull OWLAnnotationPropertyRangeAxiom axiom) {
         axiom.getProperty().accept(this);
         processAxiomAnnotations(axiom);
         return objects;
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLSubAnnotationPropertyOfAxiom axiom) {
+    public Collection<OWLEntity> visit(@Nonnull OWLSubAnnotationPropertyOfAxiom axiom) {
         axiom.getSubProperty().accept(this);
         axiom.getSuperProperty().accept(this);
         processAxiomAnnotations(axiom);
@@ -717,7 +717,7 @@ public class OWLEntityCollector implements
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLDatatypeDefinitionAxiom axiom) {
+    public Collection<OWLEntity> visit(@Nonnull OWLDatatypeDefinitionAxiom axiom) {
         axiom.getDatatype().accept(this);
         axiom.getDataRange().accept(this);
         processAxiomAnnotations(axiom);
@@ -730,7 +730,7 @@ public class OWLEntityCollector implements
     //
     // /////////////////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
-    public Collection<OWLEntity> visit(SWRLRule rule) {
+    public Collection<OWLEntity> visit(@Nonnull SWRLRule rule) {
         for (SWRLAtom atom : rule.getBody()) {
             atom.accept(this);
         }
@@ -742,21 +742,21 @@ public class OWLEntityCollector implements
     }
 
     @Override
-    public Collection<OWLEntity> visit(SWRLClassAtom node) {
+    public Collection<OWLEntity> visit(@Nonnull SWRLClassAtom node) {
         node.getArgument().accept(this);
         node.getPredicate().accept(this);
         return objects;
     }
 
     @Override
-    public Collection<OWLEntity> visit(SWRLDataRangeAtom node) {
+    public Collection<OWLEntity> visit(@Nonnull SWRLDataRangeAtom node) {
         node.getArgument().accept(this);
         node.getPredicate().accept(this);
         return objects;
     }
 
     @Override
-    public Collection<OWLEntity> visit(SWRLObjectPropertyAtom node) {
+    public Collection<OWLEntity> visit(@Nonnull SWRLObjectPropertyAtom node) {
         node.getPredicate().accept(this);
         node.getFirstArgument().accept(this);
         node.getSecondArgument().accept(this);
@@ -764,7 +764,7 @@ public class OWLEntityCollector implements
     }
 
     @Override
-    public Collection<OWLEntity> visit(SWRLDataPropertyAtom node) {
+    public Collection<OWLEntity> visit(@Nonnull SWRLDataPropertyAtom node) {
         node.getPredicate().accept(this);
         node.getFirstArgument().accept(this);
         node.getSecondArgument().accept(this);
@@ -772,7 +772,7 @@ public class OWLEntityCollector implements
     }
 
     @Override
-    public Collection<OWLEntity> visit(SWRLBuiltInAtom node) {
+    public Collection<OWLEntity> visit(@Nonnull SWRLBuiltInAtom node) {
         for (SWRLArgument obj : node.getAllArguments()) {
             obj.accept(this);
         }
@@ -780,30 +780,30 @@ public class OWLEntityCollector implements
     }
 
     @Override
-    public Collection<OWLEntity> visit(SWRLVariable node) {
+    public Collection<OWLEntity> visit(@Nonnull SWRLVariable node) {
         return objects;
     }
 
     @Override
-    public Collection<OWLEntity> visit(SWRLIndividualArgument node) {
+    public Collection<OWLEntity> visit(@Nonnull SWRLIndividualArgument node) {
         node.getIndividual().accept(this);
         return objects;
     }
 
     @Override
-    public Collection<OWLEntity> visit(SWRLLiteralArgument node) {
+    public Collection<OWLEntity> visit(@Nonnull SWRLLiteralArgument node) {
         node.getLiteral().accept(this);
         return objects;
     }
 
     @Override
-    public Collection<OWLEntity> visit(SWRLDifferentIndividualsAtom node) {
+    public Collection<OWLEntity> visit(@Nonnull SWRLDifferentIndividualsAtom node) {
         node.getFirstArgument().accept(this);
         return objects;
     }
 
     @Override
-    public Collection<OWLEntity> visit(SWRLSameIndividualAtom node) {
+    public Collection<OWLEntity> visit(@Nonnull SWRLSameIndividualAtom node) {
         node.getSecondArgument().accept(this);
         return objects;
     }

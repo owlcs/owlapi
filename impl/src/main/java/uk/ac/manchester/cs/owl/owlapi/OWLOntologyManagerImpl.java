@@ -141,18 +141,21 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         installDefaultOntologyFactories();
     }
 
+    @Nonnull
     @Override
     public OWLDataFactory getOWLDataFactory() {
         return dataFactory;
     }
 
+    @Nonnull
     @Override
     public Set<OWLOntology> getOntologies() {
         return new HashSet<OWLOntology>(ontologiesByID.values());
     }
 
+    @Nonnull
     @Override
-    public Set<OWLOntology> getOntologies(OWLAxiom axiom) {
+    public Set<OWLOntology> getOntologies(@Nonnull OWLAxiom axiom) {
         Set<OWLOntology> result = new HashSet<OWLOntology>(
                 ontologiesByID.size());
         for (OWLOntology ont : getOntologies()) {
@@ -164,12 +167,12 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     }
 
     @Override
-    public boolean contains(OWLOntology ontology) {
+    public boolean contains(@Nonnull OWLOntology ontology) {
         return ontologiesByID.containsValue(ontology);
     }
 
     @Override
-    public boolean contains(IRI ontologyIRI) {
+    public boolean contains(@Nonnull IRI ontologyIRI) {
         checkNotNull(ontologyIRI, "Ontology IRI cannot be null");
         for (OWLOntologyID nextOntologyID : ontologiesByID.keySet()) {
             if (ontologyIRI.equals(nextOntologyID.getOntologyIRI().orNull())) {
@@ -189,7 +192,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     }
 
     @Override
-    public boolean contains(OWLOntologyID id) {
+    public boolean contains(@Nonnull OWLOntologyID id) {
         if (ontologiesByID.containsKey(id)) {
             return true;
         }
@@ -204,7 +207,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     }
 
     @Override
-    public boolean containsVersion(IRI ontologyVersionIRI) {
+    public boolean containsVersion(@Nonnull IRI ontologyVersionIRI) {
         for (OWLOntologyID ont : ontologiesByID.keySet()) {
             if (ontologyVersionIRI.equals(ont.getVersionIRI().orNull())) {
                 return true;
@@ -213,8 +216,9 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         return false;
     }
 
+    @Nonnull
     @Override
-    public Set<OWLOntologyID> getOntologyIDsByVersion(IRI ontologyVersionIRI) {
+    public Set<OWLOntologyID> getOntologyIDsByVersion(@Nonnull IRI ontologyVersionIRI) {
         Set<OWLOntologyID> result = new TreeSet<OWLOntologyID>();
         for (OWLOntologyID ont : ontologiesByID.keySet()) {
             if (ontologyVersionIRI.equals(ont.getVersionIRI().orNull())) {
@@ -224,8 +228,9 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         return result;
     }
 
+    @Nonnull
     @Override
-    public OWLOntology getOntology(IRI ontologyIRI) {
+    public OWLOntology getOntology(@Nonnull IRI ontologyIRI) {
         OWLOntologyID ontologyID = new OWLOntologyID(ontologyIRI, null);
         OWLOntology result = ontologiesByID.get(ontologyID);
         if (result == null) {
@@ -243,7 +248,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     }
 
     @Override
-    public OWLOntology getOntology(OWLOntologyID ontologyID) {
+    public OWLOntology getOntology(@Nonnull OWLOntologyID ontologyID) {
         OWLOntology result = ontologiesByID.get(ontologyID);
         if (result == null) {
             for (OWLOntologyID nextOntologyID : ontologiesByID.keySet()) {
@@ -280,8 +285,9 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         return result;
     }
 
+    @Nonnull
     @Override
-    public Set<OWLOntology> getVersions(IRI ontology) {
+    public Set<OWLOntology> getVersions(@Nonnull IRI ontology) {
         Set<OWLOntology> onts = new HashSet<OWLOntology>();
         for (OWLOntology ont : getOntologies()) {
             if (ontology.equals(ont.getOntologyID().getOntologyIRI().get())) {
@@ -292,7 +298,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     }
 
     @Override
-    public OWLOntology getImportedOntology(OWLImportsDeclaration declaration) {
+    public OWLOntology getImportedOntology(@Nonnull OWLImportsDeclaration declaration) {
         OWLOntologyID ontologyID = ontologyIDsByImportsDeclaration
                 .get(declaration);
         if (ontologyID == null) {
@@ -303,8 +309,9 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         }
     }
 
+    @Nonnull
     @Override
-    public Set<OWLOntology> getDirectImports(OWLOntology ontology) {
+    public Set<OWLOntology> getDirectImports(@Nonnull OWLOntology ontology) {
         if (!contains(ontology)) {
             throw new UnknownOWLOntologyException(ontology.getOntologyID());
         }
@@ -318,8 +325,9 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         return imports;
     }
 
+    @Nonnull
     @Override
-    public Set<OWLOntology> getImports(OWLOntology ontology) {
+    public Set<OWLOntology> getImports(@Nonnull OWLOntology ontology) {
         if (!contains(ontology)) {
             throw new UnknownOWLOntologyException(ontology.getOntologyID());
         }
@@ -345,8 +353,9 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         }
     }
 
+    @Nonnull
     @Override
-    public Set<OWLOntology> getImportsClosure(OWLOntology ontology) {
+    public Set<OWLOntology> getImportsClosure(@Nonnull OWLOntology ontology) {
         Set<OWLOntology> ontologies = importsClosureCache.get(ontology
                 .getOntologyID());
         if (ontologies == null) {
@@ -380,8 +389,9 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         }
     }
 
+    @Nonnull
     @Override
-    public List<OWLOntology> getSortedImportsClosure(OWLOntology ontology) {
+    public List<OWLOntology> getSortedImportsClosure(@Nonnull OWLOntology ontology) {
         return new ArrayList<OWLOntology>(ontology.getImportsClosure());
     }
 
@@ -432,9 +442,10 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         return Collections.singletonList(appliedChange);
     }
 
+    @Nonnull
     @Override
     public List<OWLOntologyChange<?>> applyChanges(
-            List<? extends OWLOntologyChange<?>> changes) {
+            @Nonnull List<? extends OWLOntologyChange<?>> changes) {
         try {
             broadcastImpendingChanges(changes);
         } catch (OWLOntologyChangeVetoException e) {
@@ -454,14 +465,16 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         return appliedChanges;
     }
 
+    @Nonnull
     @Override
-    public List<OWLOntologyChange<?>> addAxiom(OWLOntology ont, OWLAxiom axiom) {
+    public List<OWLOntologyChange<?>> addAxiom(@Nonnull OWLOntology ont, @Nonnull OWLAxiom axiom) {
         return addAxioms(ont, Collections.singleton(axiom));
     }
 
+    @Nonnull
     @Override
-    public List<OWLOntologyChange<?>> addAxioms(OWLOntology ont,
-            Set<? extends OWLAxiom> axioms) {
+    public List<OWLOntologyChange<?>> addAxioms(@Nonnull OWLOntology ont,
+            @Nonnull Set<? extends OWLAxiom> axioms) {
         List<AddAxiom> changes = new ArrayList<AddAxiom>(axioms.size() + 2);
         for (OWLAxiom ax : axioms) {
             changes.add(new AddAxiom(ont, ax));
@@ -469,15 +482,17 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         return applyChanges(changes);
     }
 
+    @Nonnull
     @Override
-    public List<OWLOntologyChange<?>> removeAxiom(OWLOntology ont,
-            OWLAxiom axiom) {
+    public List<OWLOntologyChange<?>> removeAxiom(@Nonnull OWLOntology ont,
+            @Nonnull OWLAxiom axiom) {
         return removeAxioms(ont, Collections.singleton(axiom));
     }
 
+    @Nonnull
     @Override
-    public List<OWLOntologyChange<?>> removeAxioms(OWLOntology ont,
-            Set<? extends OWLAxiom> axioms) {
+    public List<OWLOntologyChange<?>> removeAxioms(@Nonnull OWLOntology ont,
+            @Nonnull Set<? extends OWLAxiom> axioms) {
         List<RemoveAxiom> changes = new ArrayList<RemoveAxiom>(
                 axioms.size() + 2);
         for (OWLAxiom ax : axioms) {
@@ -486,8 +501,9 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         return applyChanges(changes);
     }
 
+    @Nonnull
     @Override
-    public List<OWLOntologyChange<?>> applyChange(OWLOntologyChange<?> change) {
+    public List<OWLOntologyChange<?>> applyChange(@Nonnull OWLOntologyChange<?> change) {
         return applyChanges(Collections.singletonList(change));
     }
 
@@ -562,7 +578,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     //
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
-    public void ontologyCreated(OWLOntology ontology) {
+    public void ontologyCreated(@Nonnull OWLOntology ontology) {
         // This method is called when a factory that we have asked to create or
         // load an ontology has created the ontology. We add the ontology to the
         // set of loaded ontologies.
@@ -571,31 +587,35 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
 
     @Override
     public void
-            setOntologyFormat(OWLOntology ontology, OWLOntologyFormat format) {
+            setOntologyFormat(@Nonnull OWLOntology ontology, @Nonnull OWLOntologyFormat format) {
         OWLOntologyID ontologyID = ontology.getOntologyID();
         ontologyFormatsByOntology.put(ontologyID, format);
     }
 
+    @Nonnull
     @Override
-    public OWLOntologyFormat getOntologyFormat(OWLOntology ontology) {
+    public OWLOntologyFormat getOntologyFormat(@Nonnull OWLOntology ontology) {
         OWLOntologyID ontologyID = ontology.getOntologyID();
         return ontologyFormatsByOntology.get(ontologyID);
     }
 
+    @Nonnull
     @Override
     public OWLOntology createOntology() throws OWLOntologyCreationException {
         // Brand new ontology without a URI
         return createOntology(new OWLOntologyID());
     }
 
+    @Nonnull
     @Override
-    public OWLOntology createOntology(IRI ontologyIRI)
+    public OWLOntology createOntology(@Nonnull IRI ontologyIRI)
             throws OWLOntologyCreationException {
         return createOntology(new OWLOntologyID(ontologyIRI, null));
     }
 
+    @Nonnull
     @Override
-    public OWLOntology createOntology(OWLOntologyID ontologyID)
+    public OWLOntology createOntology(@Nonnull OWLOntologyID ontologyID)
             throws OWLOntologyCreationException {
         OWLOntology ontology = ontologiesByID.get(ontologyID);
         if (ontology != null) {
@@ -626,15 +646,17 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         throw new OWLOntologyFactoryNotFoundException(documentIRI);
     }
 
+    @Nonnull
     @Override
-    public OWLOntology createOntology(IRI ontologyIRI,
-            Set<OWLOntology> ontologies) throws OWLOntologyCreationException {
+    public OWLOntology createOntology(@Nonnull IRI ontologyIRI,
+            @Nonnull Set<OWLOntology> ontologies) throws OWLOntologyCreationException {
         return createOntology(ontologyIRI, ontologies, false);
     }
 
+    @Nonnull
     @Override
-    public OWLOntology createOntology(IRI ontologyIRI,
-            Set<OWLOntology> ontologies, boolean copyLogicalAxiomsOnly)
+    public OWLOntology createOntology(@Nonnull IRI ontologyIRI,
+            @Nonnull Set<OWLOntology> ontologies, boolean copyLogicalAxiomsOnly)
             throws OWLOntologyCreationException {
         if (contains(ontologyIRI)) {
             throw new OWLOntologyAlreadyExistsException(new OWLOntologyID(
@@ -653,8 +675,9 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         return ont;
     }
 
+    @Nonnull
     @Override
-    public OWLOntology createOntology(Set<OWLAxiom> axioms, IRI iri)
+    public OWLOntology createOntology(@Nonnull Set<OWLAxiom> axioms, @Nonnull IRI iri)
             throws OWLOntologyCreationException {
         if (contains(iri)) {
             throw new OWLOntologyAlreadyExistsException(new OWLOntologyID(iri,
@@ -665,8 +688,9 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         return ont;
     }
 
+    @Nonnull
     @Override
-    public OWLOntology createOntology(Set<OWLAxiom> axioms)
+    public OWLOntology createOntology(@Nonnull Set<OWLAxiom> axioms)
             throws OWLOntologyCreationException {
         return createOntology(axioms, getNextAutoGeneratedIRI());
     }
@@ -676,8 +700,9 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
                 "ont" + autoGeneratedURICounter.incrementAndGet());
     }
 
+    @Nonnull
     @Override
-    public OWLOntology loadOntology(IRI ontologyIRI)
+    public OWLOntology loadOntology(@Nonnull IRI ontologyIRI)
             throws OWLOntologyCreationException {
         return loadOntology(ontologyIRI, false,
                 new OWLOntologyLoaderConfiguration());
@@ -736,8 +761,9 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         return null;
     }
 
+    @Nonnull
     @Override
-    public OWLOntology loadOntologyFromOntologyDocument(IRI documentIRI)
+    public OWLOntology loadOntologyFromOntologyDocument(@Nonnull IRI documentIRI)
             throws OWLOntologyCreationException {
         // Ontology URI not known in advance
         return loadOntology(null,
@@ -745,32 +771,36 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
                 new OWLOntologyLoaderConfiguration());
     }
 
+    @Nonnull
     @Override
     public OWLOntology loadOntologyFromOntologyDocument(
-            OWLOntologyDocumentSource documentSource)
+            @Nonnull OWLOntologyDocumentSource documentSource)
             throws OWLOntologyCreationException {
         // Ontology URI not known in advance
         return loadOntology(null, documentSource,
                 new OWLOntologyLoaderConfiguration());
     }
 
+    @Nonnull
     @Override
     public OWLOntology loadOntologyFromOntologyDocument(
-            OWLOntologyDocumentSource documentSource,
-            OWLOntologyLoaderConfiguration config)
+            @Nonnull OWLOntologyDocumentSource documentSource,
+            @Nonnull OWLOntologyLoaderConfiguration config)
             throws OWLOntologyCreationException {
         return loadOntology(null, documentSource, config);
     }
 
+    @Nonnull
     @Override
-    public OWLOntology loadOntologyFromOntologyDocument(File file)
+    public OWLOntology loadOntologyFromOntologyDocument(@Nonnull File file)
             throws OWLOntologyCreationException {
         return loadOntologyFromOntologyDocument(new FileDocumentSource(file));
     }
 
+    @Nonnull
     @Override
     public OWLOntology
-            loadOntologyFromOntologyDocument(InputStream inputStream)
+            loadOntologyFromOntologyDocument(@Nonnull InputStream inputStream)
                     throws OWLOntologyCreationException {
         return loadOntologyFromOntologyDocument(new StreamDocumentSource(
                 inputStream));
@@ -856,12 +886,12 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     }
 
     @Override
-    public void removeOntology(OWLOntology ontology) {
+    public void removeOntology(@Nonnull OWLOntology ontology) {
         this.removeOntology(ontology.getOntologyID());
     }
 
     @Override
-    public void removeOntology(OWLOntologyID ontologyID) {
+    public void removeOntology(@Nonnull OWLOntologyID ontologyID) {
         ontologiesByID.remove(ontologyID);
         ontologyFormatsByOntology.remove(ontologyID);
         documentIRIsByID.remove(ontologyID);
@@ -873,8 +903,9 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         resetImportsClosureCache();
     }
 
+    @Nonnull
     @Override
-    public IRI getOntologyDocumentIRI(OWLOntology ontology) {
+    public IRI getOntologyDocumentIRI(@Nonnull OWLOntology ontology) {
         if (!contains(ontology)) {
             throw new UnknownOWLOntologyException(ontology.getOntologyID());
         }
@@ -882,7 +913,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     }
 
     @Override
-    public void setOntologyDocumentIRI(OWLOntology ontology, IRI documentIRI) {
+    public void setOntologyDocumentIRI(@Nonnull OWLOntology ontology, @Nonnull IRI documentIRI) {
         if (!ontologiesByID.containsKey(ontology.getOntologyID())) {
             throw new UnknownOWLOntologyException(ontology.getOntologyID());
         }
@@ -927,30 +958,30 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     //
     // /////////////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
-    public void saveOntology(OWLOntology ontology)
+    public void saveOntology(@Nonnull OWLOntology ontology)
             throws OWLOntologyStorageException {
         OWLOntologyFormat format = getOntologyFormat(ontology);
         saveOntology(ontology, format);
     }
 
     @Override
-    public void saveOntology(OWLOntology ontology,
-            OWLOntologyFormat ontologyFormat)
+    public void saveOntology(@Nonnull OWLOntology ontology,
+            @Nonnull OWLOntologyFormat ontologyFormat)
             throws OWLOntologyStorageException {
         IRI documentIRI = getOntologyDocumentIRI(ontology);
         saveOntology(ontology, ontologyFormat, documentIRI);
     }
 
     @Override
-    public void saveOntology(OWLOntology ontology, IRI documentIRI)
+    public void saveOntology(@Nonnull OWLOntology ontology, @Nonnull IRI documentIRI)
             throws OWLOntologyStorageException {
         OWLOntologyFormat format = getOntologyFormat(ontology);
         saveOntology(ontology, format, documentIRI);
     }
 
     @Override
-    public void saveOntology(OWLOntology ontology,
-            OWLOntologyFormat ontologyFormat, IRI documentIRI)
+    public void saveOntology(@Nonnull OWLOntology ontology,
+            @Nonnull OWLOntologyFormat ontologyFormat, @Nonnull IRI documentIRI)
             throws OWLOntologyStorageException {
         try {
             for (OWLOntologyStorer storer : ontologyStorers) {
@@ -966,30 +997,30 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     }
 
     @Override
-    public void saveOntology(OWLOntology ontology, OutputStream outputStream)
+    public void saveOntology(@Nonnull OWLOntology ontology, @Nonnull OutputStream outputStream)
             throws OWLOntologyStorageException {
         saveOntology(ontology, new StreamDocumentTarget(outputStream));
     }
 
     @Override
-    public void saveOntology(OWLOntology ontology,
-            OWLOntologyFormat ontologyFormat, OutputStream outputStream)
+    public void saveOntology(@Nonnull OWLOntology ontology,
+            @Nonnull OWLOntologyFormat ontologyFormat, @Nonnull OutputStream outputStream)
             throws OWLOntologyStorageException {
         saveOntology(ontology, ontologyFormat, new StreamDocumentTarget(
                 outputStream));
     }
 
     @Override
-    public void saveOntology(OWLOntology ontology,
-            OWLOntologyDocumentTarget documentTarget)
+    public void saveOntology(@Nonnull OWLOntology ontology,
+            @Nonnull OWLOntologyDocumentTarget documentTarget)
             throws OWLOntologyStorageException {
         saveOntology(ontology, getOntologyFormat(ontology), documentTarget);
     }
 
     @Override
-    public void saveOntology(OWLOntology ontology,
-            OWLOntologyFormat ontologyFormat,
-            OWLOntologyDocumentTarget documentTarget)
+    public void saveOntology(@Nonnull OWLOntology ontology,
+            @Nonnull OWLOntologyFormat ontologyFormat,
+            @Nonnull OWLOntologyDocumentTarget documentTarget)
             throws OWLOntologyStorageException {
         try {
             for (OWLOntologyStorer storer : ontologyStorers) {
@@ -1007,7 +1038,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
 
     @Override
     @Inject
-    public void setOntologyStorers(Set<OWLOntologyStorer> storers) {
+    public void setOntologyStorers(@Nonnull Set<OWLOntologyStorer> storers) {
         ontologyStorers.set(storers);
     }
 
@@ -1105,7 +1136,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     private final List<OWLOntologyChangesVetoedListener> vetoListeners = new ArrayList<OWLOntologyChangesVetoedListener>();
 
     @Override
-    public void addOntologyChangeListener(OWLOntologyChangeListener listener) {
+    public void addOntologyChangeListener(@Nonnull OWLOntologyChangeListener listener) {
         listenerMap.put(listener, defaultChangeBroadcastStrategy);
     }
 
@@ -1162,7 +1193,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
 
     @Override
     public void setDefaultChangeBroadcastStrategy(
-            OWLOntologyChangeBroadcastStrategy strategy) {
+            @Nonnull OWLOntologyChangeBroadcastStrategy strategy) {
         if (strategy != null) {
             defaultChangeBroadcastStrategy = strategy;
         } else {
@@ -1171,39 +1202,39 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     }
 
     @Override
-    public void addOntologyChangeListener(OWLOntologyChangeListener listener,
-            OWLOntologyChangeBroadcastStrategy strategy) {
+    public void addOntologyChangeListener(@Nonnull OWLOntologyChangeListener listener,
+            @Nonnull OWLOntologyChangeBroadcastStrategy strategy) {
         listenerMap.put(listener, strategy);
     }
 
     @Override
     public void addImpendingOntologyChangeListener(
-            ImpendingOWLOntologyChangeListener listener) {
+            @Nonnull ImpendingOWLOntologyChangeListener listener) {
         impendingChangeListenerMap.put(listener,
                 defaultImpendingChangeBroadcastStrategy);
     }
 
     @Override
     public void removeImpendingOntologyChangeListener(
-            ImpendingOWLOntologyChangeListener listener) {
+            @Nonnull ImpendingOWLOntologyChangeListener listener) {
         impendingChangeListenerMap.remove(listener);
     }
 
     @Override
     public void
-            removeOntologyChangeListener(OWLOntologyChangeListener listener) {
+            removeOntologyChangeListener(@Nonnull OWLOntologyChangeListener listener) {
         listenerMap.remove(listener);
     }
 
     @Override
     public void addOntologyChangesVetoedListener(
-            OWLOntologyChangesVetoedListener listener) {
+            @Nonnull OWLOntologyChangesVetoedListener listener) {
         vetoListeners.add(listener);
     }
 
     @Override
     public void removeOntologyChangesVetoedListener(
-            OWLOntologyChangesVetoedListener listener) {
+            @Nonnull OWLOntologyChangesVetoedListener listener) {
         vetoListeners.remove(listener);
     }
 
@@ -1244,8 +1275,8 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     }
 
     @Override
-    public void makeLoadImportRequest(OWLImportsDeclaration declaration,
-            OWLOntologyLoaderConfiguration configuration) {
+    public void makeLoadImportRequest(@Nonnull OWLImportsDeclaration declaration,
+            @Nonnull OWLOntologyLoaderConfiguration configuration) {
         IRI iri = declaration.getIRI();
         if (!configuration.isIgnoredImport(iri) && !importedIRIs.contains(iri)) {
             importedIRIs.add(iri);
@@ -1263,12 +1294,12 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     }
 
     @Override
-    public void addMissingImportListener(MissingImportListener listener) {
+    public void addMissingImportListener(@Nonnull MissingImportListener listener) {
         missingImportsListeners.add(listener);
     }
 
     @Override
-    public void removeMissingImportListener(MissingImportListener listener) {
+    public void removeMissingImportListener(@Nonnull MissingImportListener listener) {
         missingImportsListeners.remove(listener);
     }
 
@@ -1285,13 +1316,13 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     //
     // //////////////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
-    public void addOntologyLoaderListener(OWLOntologyLoaderListener listener) {
+    public void addOntologyLoaderListener(@Nonnull OWLOntologyLoaderListener listener) {
         loaderListeners.add(listener);
     }
 
     @Override
     public void
-            removeOntologyLoaderListener(OWLOntologyLoaderListener listener) {
+            removeOntologyLoaderListener(@Nonnull OWLOntologyLoaderListener listener) {
         loaderListeners.remove(listener);
     }
 
@@ -1315,13 +1346,13 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
 
     @Override
     public void addOntologyChangeProgessListener(
-            OWLOntologyChangeProgressListener listener) {
+            @Nonnull OWLOntologyChangeProgressListener listener) {
         progressListeners.add(listener);
     }
 
     @Override
     public void removeOntologyChangeProgessListener(
-            OWLOntologyChangeProgressListener listener) {
+            @Nonnull OWLOntologyChangeProgressListener listener) {
         progressListeners.remove(listener);
     }
 

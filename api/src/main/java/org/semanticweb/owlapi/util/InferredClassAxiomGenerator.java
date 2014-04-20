@@ -18,6 +18,8 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -28,8 +30,9 @@ import org.semanticweb.owlapi.model.OWLOntology;
 public abstract class InferredClassAxiomGenerator<A extends OWLClassAxiom>
         extends InferredEntityAxiomGenerator<OWLClass, A> {
 
+    @Nonnull
     @Override
-    protected Set<OWLClass> getEntities(OWLOntology ont) {
+    protected Set<OWLClass> getEntities(@Nonnull OWLOntology ont) {
         return ont.getClassesInSignature();
     }
 }

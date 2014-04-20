@@ -19,6 +19,7 @@ import java.lang.ref.WeakReference;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * A weakly linked cache - elements in the cache can be garbage collected.
@@ -32,7 +33,7 @@ public class WeakCache<K> implements Serializable {
     private transient Map<K, WeakReference<K>> prefixCache = CollectionFactory
             .createSyncWeakMap();
 
-    private void readObject(ObjectInputStream in) throws IOException,
+    private void readObject(@Nonnull ObjectInputStream in) throws IOException,
             ClassNotFoundException {
         in.defaultReadObject();
         prefixCache = CollectionFactory.createSyncWeakMap();
@@ -43,6 +44,7 @@ public class WeakCache<K> implements Serializable {
      *        the value to cache
      * @return the cached value
      */
+    @Nullable
     public K cache(@Nonnull K s) {
         WeakReference<K> w = prefixCache.get(s);
         if (w != null) {

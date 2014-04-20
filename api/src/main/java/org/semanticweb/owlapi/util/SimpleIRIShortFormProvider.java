@@ -16,6 +16,8 @@ import java.io.Serializable;
 
 import org.semanticweb.owlapi.model.IRI;
 
+import javax.annotation.Nonnull;
+
 /**
  * A IRI short form provider that generates short forms from the IRI fragment if
  * there is one, or the IRI last path component if there is one.
@@ -29,8 +31,9 @@ public class SimpleIRIShortFormProvider implements IRIShortFormProvider,
 
     private static final long serialVersionUID = 40000L;
 
+    @Nonnull
     @Override
-    public String getShortForm(IRI iri) {
+    public String getShortForm(@Nonnull IRI iri) {
         String rendering = iri.getFragment();
         if (rendering != null && rendering.length() > 0) {
             return rendering;

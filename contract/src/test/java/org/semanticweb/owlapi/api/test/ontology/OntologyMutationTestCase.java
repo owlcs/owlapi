@@ -29,6 +29,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, The University Of Manchester, Information
  *         Management Group
@@ -47,7 +49,7 @@ public class OntologyMutationTestCase extends TestBase {
 
                     @Override
                     public void ontologiesChanged(
-                            List<? extends OWLOntologyChange<?>> changes)
+                            @Nonnull List<? extends OWLOntologyChange<?>> changes)
                             throws OWLException {
                         chgs.addAll(changes);
                     }
@@ -67,7 +69,7 @@ public class OntologyMutationTestCase extends TestBase {
 
                     @Override
                     public void ontologiesChanged(
-                            List<? extends OWLOntologyChange<?>> changes)
+                            @Nonnull List<? extends OWLOntologyChange<?>> changes)
                             throws OWLException {
                         chgs.addAll(changes);
                     }
@@ -87,7 +89,7 @@ public class OntologyMutationTestCase extends TestBase {
 
                     @Override
                     public void ontologiesChanged(
-                            List<? extends OWLOntologyChange<?>> changes)
+                            @Nonnull List<? extends OWLOntologyChange<?>> changes)
                             throws OWLException {
                         chgs.addAll(changes);
                     }
@@ -107,7 +109,7 @@ public class OntologyMutationTestCase extends TestBase {
 
                     @Override
                     public void ontologiesChanged(
-                            List<? extends OWLOntologyChange<?>> changes)
+                            @Nonnull List<? extends OWLOntologyChange<?>> changes)
                             throws OWLException {
                         chgs.addAll(changes);
                     }

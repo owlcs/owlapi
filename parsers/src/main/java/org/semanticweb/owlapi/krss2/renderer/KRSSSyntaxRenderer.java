@@ -20,11 +20,13 @@ import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.io.OWLRendererIOException;
 import org.semanticweb.owlapi.model.OWLOntology;
 
+import javax.annotation.Nonnull;
+
 /** @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence */
 public class KRSSSyntaxRenderer extends AbstractOWLRenderer {
 
     @Override
-    public void render(OWLOntology ontology, Writer writer)
+    public void render(@Nonnull OWLOntology ontology, @Nonnull Writer writer)
             throws OWLRendererException {
         try {
             ontology.accept(new KRSSObjectRenderer(ontology, writer));

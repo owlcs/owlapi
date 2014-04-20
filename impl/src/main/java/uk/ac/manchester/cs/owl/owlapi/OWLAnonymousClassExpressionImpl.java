@@ -21,6 +21,8 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.NNF;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -46,39 +48,45 @@ public abstract class OWLAnonymousClassExpressionImpl extends
         return false;
     }
 
+    @Nonnull
     @Override
     public OWLClassExpression getNNF() {
         NNF nnf = new NNF(new OWLDataFactoryImpl());
         return accept(nnf);
     }
 
+    @Nonnull
     @Override
     public OWLClassExpression getComplementNNF() {
         NNF nnf = new NNF(new OWLDataFactoryImpl());
         return new OWLObjectComplementOfImpl(this).accept(nnf);
     }
 
+    @Nonnull
     @Override
     public OWLClassExpression getObjectComplementOf() {
         return new OWLObjectComplementOfImpl(this);
     }
 
+    @Nonnull
     @Override
     public OWLClass asOWLClass() {
         throw new OWLRuntimeException(
                 "Not an OWLClass.  This method should only be called if the isAnonymous method returns false!");
     }
 
+    @Nonnull
     @Override
     public Set<OWLClassExpression> asConjunctSet() {
         return Collections.singleton((OWLClassExpression) this);
     }
 
     @Override
-    public boolean containsConjunct(OWLClassExpression ce) {
+    public boolean containsConjunct(@Nonnull OWLClassExpression ce) {
         return ce.equals(this);
     }
 
+    @Nonnull
     @Override
     public Set<OWLClassExpression> asDisjunctSet() {
         return Collections.singleton((OWLClassExpression) this);

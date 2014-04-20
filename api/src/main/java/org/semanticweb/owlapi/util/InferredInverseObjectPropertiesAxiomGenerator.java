@@ -20,6 +20,8 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -29,9 +31,9 @@ public class InferredInverseObjectPropertiesAxiomGenerator extends
         InferredObjectPropertyAxiomGenerator<OWLInverseObjectPropertiesAxiom> {
 
     @Override
-    protected void addAxioms(OWLObjectProperty entity, OWLReasoner reasoner,
-            OWLDataFactory dataFactory,
-            Set<OWLInverseObjectPropertiesAxiom> result) {
+    protected void addAxioms(@Nonnull OWLObjectProperty entity, @Nonnull OWLReasoner reasoner,
+            @Nonnull OWLDataFactory dataFactory,
+            @Nonnull Set<OWLInverseObjectPropertiesAxiom> result) {
         for (OWLObjectPropertyExpression prop : reasoner
                 .getInverseObjectProperties(entity)) {
             result.add(dataFactory.getOWLInverseObjectPropertiesAxiom(entity,
@@ -39,6 +41,7 @@ public class InferredInverseObjectPropertiesAxiomGenerator extends
         }
     }
 
+    @Nonnull
     @Override
     public String getLabel() {
         return "Inverse object properties";

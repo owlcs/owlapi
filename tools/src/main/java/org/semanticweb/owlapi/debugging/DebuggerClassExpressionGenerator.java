@@ -69,7 +69,7 @@ public class DebuggerClassExpressionGenerator extends OWLAxiomVisitorAdapter {
     }
 
     @Override
-    public void visit(OWLSubClassOfAxiom axiom) {
+    public void visit(@Nonnull OWLSubClassOfAxiom axiom) {
         // A and not (B)
         OWLClassExpression complement = dataFactory
                 .getOWLObjectComplementOf(axiom.getSuperClass());
@@ -78,7 +78,7 @@ public class DebuggerClassExpressionGenerator extends OWLAxiomVisitorAdapter {
     }
 
     @Override
-    public void visit(OWLDataPropertyDomainAxiom axiom) {
+    public void visit(@Nonnull OWLDataPropertyDomainAxiom axiom) {
         OWLClassExpression sub = dataFactory.getOWLDataSomeValuesFrom(
                 axiom.getProperty(), dataFactory.getTopDatatype());
         OWLAxiom ax = dataFactory.getOWLSubClassOfAxiom(sub, axiom.getDomain());
@@ -86,7 +86,7 @@ public class DebuggerClassExpressionGenerator extends OWLAxiomVisitorAdapter {
     }
 
     @Override
-    public void visit(OWLObjectPropertyDomainAxiom axiom) {
+    public void visit(@Nonnull OWLObjectPropertyDomainAxiom axiom) {
         // prop some Thing subclassOf domain
         OWLClassExpression sub = dataFactory.getOWLObjectSomeValuesFrom(
                 axiom.getProperty(), dataFactory.getOWLThing());
@@ -96,7 +96,7 @@ public class DebuggerClassExpressionGenerator extends OWLAxiomVisitorAdapter {
     }
 
     @Override
-    public void visit(OWLObjectPropertyRangeAxiom axiom) {
+    public void visit(@Nonnull OWLObjectPropertyRangeAxiom axiom) {
         // Thing subclassOf prop only Range
         OWLClassExpression sup = dataFactory.getOWLObjectAllValuesFrom(
                 axiom.getProperty(), axiom.getRange());
@@ -106,7 +106,7 @@ public class DebuggerClassExpressionGenerator extends OWLAxiomVisitorAdapter {
     }
 
     @Override
-    public void visit(OWLSubObjectPropertyOfAxiom axiom) {
+    public void visit(@Nonnull OWLSubObjectPropertyOfAxiom axiom) {
         // subProp some {a} subClassOf supProp some {a}
         OWLIndividual ind = dataFactory.getOWLNamedIndividual(IRI.create(
                 "http://debugger.com#", "A" + System.nanoTime()));
@@ -119,7 +119,7 @@ public class DebuggerClassExpressionGenerator extends OWLAxiomVisitorAdapter {
     }
 
     @Override
-    public void visit(OWLClassAssertionAxiom axiom) {
+    public void visit(@Nonnull OWLClassAssertionAxiom axiom) {
         OWLClassExpression sub = dataFactory.getOWLObjectOneOf(Collections
                 .singleton(axiom.getIndividual()));
         OWLAxiom ax = dataFactory.getOWLSubClassOfAxiom(sub,
@@ -128,7 +128,7 @@ public class DebuggerClassExpressionGenerator extends OWLAxiomVisitorAdapter {
     }
 
     @Override
-    public void visit(OWLEquivalentClassesAxiom axiom) {
+    public void visit(@Nonnull OWLEquivalentClassesAxiom axiom) {
         if (axiom.getClassExpressions().size() == 2
                 && axiom.getClassExpressions().contains(
                         dataFactory.getOWLNothing())) {

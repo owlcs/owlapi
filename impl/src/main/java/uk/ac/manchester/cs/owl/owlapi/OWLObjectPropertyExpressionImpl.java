@@ -17,6 +17,8 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.util.ObjectPropertySimplifier;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -44,6 +46,7 @@ public abstract class OWLObjectPropertyExpressionImpl extends
         return super.equals(obj) && obj instanceof OWLObjectPropertyExpression;
     }
 
+    @Nonnull
     @Override
     public OWLObjectPropertyExpression getSimplified() {
         if (simplestForm == null) {
@@ -54,6 +57,7 @@ public abstract class OWLObjectPropertyExpressionImpl extends
         return simplestForm;
     }
 
+    @Nonnull
     @Override
     public OWLObjectPropertyExpression getInverseProperty() {
         if (inverse == null) {
@@ -62,6 +66,7 @@ public abstract class OWLObjectPropertyExpressionImpl extends
         return inverse;
     }
 
+    @Nonnull
     @Override
     public OWLObjectProperty getNamedProperty() {
         OWLObjectPropertyExpression simp = getSimplified();

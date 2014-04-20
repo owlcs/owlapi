@@ -39,7 +39,7 @@ public class DLSyntaxHTMLOntologyStorer extends DLSyntaxOntologyStorerBase {
     protected ShortFormProvider sfp = new SimpleShortFormProvider();
 
     @Override
-    public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {
+    public boolean canStoreOntology(@Nonnull OWLOntologyFormat ontologyFormat) {
         return ontologyFormat instanceof DLSyntaxHTMLOntologyFormat;
     }
 

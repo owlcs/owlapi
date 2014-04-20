@@ -73,10 +73,13 @@ public class ConvertEquivalentClassesToSuperClasses extends
         AbstractCompositeOntologyChange {
 
     /** The target ontology. */
+    @Nonnull
     private final OWLOntology targetOntology;
     /** The OWL class. */
+    @Nonnull
     private final OWLClass cls;
     /** The ontologies. */
+    @Nonnull
     private final Set<OWLOntology> ontologies;
     /** true if intersections should be split. */
     private final boolean splitIntersections;
@@ -134,7 +137,7 @@ public class ConvertEquivalentClassesToSuperClasses extends
             desc.accept(new OWLClassExpressionVisitorAdapter() {
 
                 @Override
-                public void visit(OWLObjectIntersectionOf intersection) {
+                public void visit(@Nonnull OWLObjectIntersectionOf intersection) {
                     for (OWLClassExpression op : intersection.getOperands()) {
                         result.add(op);
                     }

@@ -17,6 +17,8 @@ import java.util.Collections;
 
 import org.semanticweb.owlapi.model.OWLEntity;
 
+import javax.annotation.Nonnull;
+
 /**
  * Indicates that a query whose signature contained fresh entities was posed to
  * the reasoner. This exception is only thrown if the fresh entity policy is set
@@ -79,6 +81,7 @@ public class FreshEntitiesException extends OWLReasonerRuntimeException {
         return entities;
     }
 
+    @Nonnull
     @Override
     public String getMessage() {
         return entities + " not in signature";

@@ -23,6 +23,9 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.vocab.Namespaces;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -63,7 +66,8 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
      *        ontology to use
      * @return short form of the ontology IRI
      */
-    public String getShortForm(OWLOntology ont) {
+    @Nonnull
+    public String getShortForm(@Nonnull OWLOntology ont) {
         OWLOntologyID ontologyID = ont.getOntologyID();
         if (ontologyID.getOntologyIRI().isPresent()) {
             return getShortForm(ontologyID.getOntologyIRI().get());
@@ -72,8 +76,9 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
         }
     }
 
+    @Nonnull
     @Override
-    public String getShortForm(IRI iri) {
+    public String getShortForm(@Nonnull IRI iri) {
         String wellKnownShortForm = getWellKnownShortForm(iri);
         if (wellKnownShortForm != null) {
             return wellKnownShortForm;
@@ -99,6 +104,7 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
         return shortForm;
     }
 
+    @Nullable
     private String getWellKnownShortForm(IRI iri) {
         String wellKnownShortForm = wellKnownShortForms.get(iri);
         if (wellKnownShortForm != null) {
@@ -116,7 +122,8 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
      * @return The short form with the extension removed if it was present, or
      *         the original short form if no extension was present.
      */
-    private static String stripExtensionIfPresent(String shortForm) {
+    @Nonnull
+    private static String stripExtensionIfPresent(@Nonnull String shortForm) {
         String lowerCaseShortForm = shortForm.toLowerCase();
         for (String extension : EXTENSIONS) {
             if (lowerCaseShortForm.endsWith(extension)) {
@@ -134,7 +141,7 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
      * @return {@code true} if the specified path element is a candidate short
      *         form, otherwise {@code false}.
      */
-    private static boolean isCandidatePathElement(String pathElement) {
+    private static boolean isCandidatePathElement(@Nonnull String pathElement) {
         return !pathElement.isEmpty() && !isVersionString(pathElement);
     }
 
@@ -147,7 +154,7 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
      * @return {@code true} if the string is a version string, otherwise
      *         {@code false}.
      */
-    private static boolean isVersionString(String s) {
+    private static boolean isVersionString(@Nonnull String s) {
         for (int i = 0; i < s.length(); i++) {
             char ch = s.charAt(i);
             if (!isVersionStringChar(ch)) {

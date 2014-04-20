@@ -20,6 +20,8 @@ import org.semanticweb.owlapi.model.HasPrefixedName;
 import org.semanticweb.owlapi.model.HasShortForm;
 import org.semanticweb.owlapi.model.IRI;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -48,7 +50,9 @@ public enum DublinCoreVocabulary
     /** http://purl.org/dc/elements/1.1/type */        TYPE       ("type"       );
 //@formatter:on
     private final String shortName;
+    @Nonnull
     private final String qname;
+    @Nonnull
     private final IRI iri;
     /** Dublin Core name space */
     public static final String NAME_SPACE = "http://purl.org/dc/elements/1.1/";
@@ -59,22 +63,26 @@ public enum DublinCoreVocabulary
         iri = IRI.create(NAME_SPACE, name);
     }
 
+    @Nonnull
     @Override
     public String getShortForm() {
         return shortName;
     }
 
+    @Nonnull
     @Override
     public String getPrefixedName() {
         return qname;
     }
 
+    @Nonnull
     @Override
     public IRI getIRI() {
         return iri;
     }
 
     /** all IRIs */
+    @Nonnull
     public static final Set<IRI> ALL_URIS;
     static {
         ALL_URIS = new HashSet<IRI>();
@@ -83,6 +91,7 @@ public enum DublinCoreVocabulary
         }
     }
 
+    @Nonnull
     @Override
     public String toString() {
         return iri.toString();

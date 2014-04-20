@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.formats.RDFXMLOntologyFormat;
@@ -44,20 +45,22 @@ public class EmptyInMemOWLOntologyFactory extends
         super(builder);
     }
 
+    @Nonnull
     @Override
-    public OWLOntology loadOWLOntology(OWLOntologyManager m,
-            OWLOntologyDocumentSource documentSource,
-            OWLOntologyCreationHandler handler,
-            OWLOntologyLoaderConfiguration configuration)
+    public OWLOntology loadOWLOntology(@Nonnull OWLOntologyManager m,
+            @Nonnull OWLOntologyDocumentSource documentSource,
+            @Nonnull OWLOntologyCreationHandler handler,
+            @Nonnull OWLOntologyLoaderConfiguration configuration)
             throws OWLOntologyCreationException {
         throw new OWLRuntimeException(new UnsupportedOperationException(
                 "Cannot load OWL ontologies in an empty factory."));
     }
 
+    @Nonnull
     @Override
-    public OWLOntology createOWLOntology(OWLOntologyManager m,
-            OWLOntologyID ontologyID, IRI documentIRI,
-            OWLOntologyCreationHandler handler)
+    public OWLOntology createOWLOntology(@Nonnull OWLOntologyManager m,
+            @Nonnull OWLOntologyID ontologyID, @Nonnull IRI documentIRI,
+            @Nonnull OWLOntologyCreationHandler handler)
             throws OWLOntologyCreationException {
         OWLOntology ont = super.createOWLOntology(m, ontologyID, documentIRI,
                 handler);
@@ -66,7 +69,7 @@ public class EmptyInMemOWLOntologyFactory extends
     }
 
     @Override
-    public boolean canLoad(OWLOntologyDocumentSource documentSource) {
+    public boolean canLoad(@Nonnull OWLOntologyDocumentSource documentSource) {
         return false;
     }
 }

@@ -44,7 +44,9 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  */
 public class OWLEntityRenamer {
 
+    @Nonnull
     private final OWLOntologyManager owlOntologyManager;
+    @Nonnull
     private final Set<OWLOntology> ontologies;
 
     /**
@@ -97,7 +99,8 @@ public class OWLEntityRenamer {
      * @return A list of ontology changes that should be applied to change the
      *         specified entity IRI.
      */
-    public List<OWLOntologyChange<?>> changeIRI(OWLEntity entity, IRI newIRI) {
+    @Nonnull
+    public List<OWLOntologyChange<?>> changeIRI(@Nonnull OWLEntity entity, IRI newIRI) {
         Map<OWLEntity, IRI> iriMap = new HashMap<OWLEntity, IRI>();
         iriMap.put(entity, newIRI);
         List<OWLOntologyChange<?>> changes = new ArrayList<OWLOntologyChange<?>>();
@@ -115,8 +118,9 @@ public class OWLEntityRenamer {
      *        map of IRIs to rename
      * @return list of changes
      */
+    @Nonnull
     public List<OWLOntologyChange<?>> changeIRI(
-            Map<OWLEntity, IRI> entity2IRIMap) {
+            @Nonnull Map<OWLEntity, IRI> entity2IRIMap) {
         List<OWLOntologyChange<?>> changes = new ArrayList<OWLOntologyChange<?>>();
         OWLObjectDuplicator duplicator = new OWLObjectDuplicator(entity2IRIMap,
                 owlOntologyManager.getOWLDataFactory());
@@ -129,14 +133,16 @@ public class OWLEntityRenamer {
         return changes;
     }
 
-    private static Set<OWLAxiom> getAxioms(OWLOntology ont, OWLEntity entity) {
+    @Nonnull
+    private static Set<OWLAxiom> getAxioms(@Nonnull OWLOntology ont, @Nonnull OWLEntity entity) {
         Set<OWLAxiom> axioms = ont.getReferencingAxioms(entity, EXCLUDED);
         axioms.addAll(ont.getDeclarationAxioms(entity));
         axioms.addAll(ont.getAnnotationAssertionAxioms(entity.getIRI()));
         return axioms;
     }
 
-    private Set<OWLAxiom> getAxioms(OWLOntology ont, IRI iri) {
+    @Nonnull
+    private Set<OWLAxiom> getAxioms(@Nonnull OWLOntology ont, @Nonnull IRI iri) {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         axioms.addAll(ont.getReferencingAxioms(owlOntologyManager
                 .getOWLDataFactory().getOWLClass(iri), EXCLUDED));
@@ -170,8 +176,8 @@ public class OWLEntityRenamer {
      *        The duplicator that will do the duplicating
      */
     private static void fillListWithTransformChanges(
-            List<OWLOntologyChange<?>> changes, Set<OWLAxiom> axioms,
-            OWLOntology ont, OWLObjectDuplicator duplicator) {
+            @Nonnull List<OWLOntologyChange<?>> changes, @Nonnull Set<OWLAxiom> axioms,
+            @Nonnull OWLOntology ont, @Nonnull OWLObjectDuplicator duplicator) {
         for (OWLAxiom ax : axioms) {
             changes.add(new RemoveAxiom(ont, ax));
             OWLAxiom dupAx = duplicator.duplicateObject(ax);

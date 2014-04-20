@@ -56,7 +56,7 @@ public abstract class OWLReasonerBase implements OWLReasoner {
 
         @Override
         public void ontologiesChanged(
-                List<? extends OWLOntologyChange<?>> changes)
+                @Nonnull List<? extends OWLOntologyChange<?>> changes)
                 throws OWLException {
             handleRawOntologyChanges(changes);
         }

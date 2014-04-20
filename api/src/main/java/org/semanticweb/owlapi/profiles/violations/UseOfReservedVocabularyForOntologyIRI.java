@@ -22,6 +22,8 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolation;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
@@ -33,12 +35,12 @@ public class UseOfReservedVocabularyForOntologyIRI extends
      * @param ontology
      *        ontology
      */
-    public UseOfReservedVocabularyForOntologyIRI(OWLOntology ontology) {
+    public UseOfReservedVocabularyForOntologyIRI(@Nonnull OWLOntology ontology) {
         super(ontology, null, ontology.getOntologyID().getOntologyIRI().get());
     }
 
     @Override
-    public void accept(OWLProfileViolationVisitor visitor) {
+    public void accept(@Nonnull OWLProfileViolationVisitor visitor) {
         visitor.visit(this);
     }
 
@@ -49,10 +51,11 @@ public class UseOfReservedVocabularyForOntologyIRI extends
     }
 
     @Override
-    public <O> O accept(OWLProfileViolationVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLProfileViolationVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Nonnull
     @Override
     public List<OWLOntologyChange<?>> repair() {
         // XXX arbitrary replacement

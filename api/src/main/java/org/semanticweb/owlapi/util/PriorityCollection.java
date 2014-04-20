@@ -27,6 +27,7 @@ import com.google.common.collect.Iterators;
 public class PriorityCollection<T> implements Iterable<T>, Serializable {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private List<T> delegate = new ArrayList<T>();
 
     /**
@@ -41,7 +42,7 @@ public class PriorityCollection<T> implements Iterable<T>, Serializable {
      *        collection of elements to set. Existing elements will be removed,
      *        and the priority collection will be sorted by HasPriority.
      */
-    public void set(Collection<T> c) {
+    public void set(@Nonnull Collection<T> c) {
         clear();
         delegate.addAll(c);
         sort();
@@ -54,7 +55,7 @@ public class PriorityCollection<T> implements Iterable<T>, Serializable {
      * @param c
      *        list of elements to set
      */
-    public void set(T... c) {
+    public void set(@Nonnull T... c) {
         clear();
         for (T t : c) {
             delegate.add(0, t);
@@ -72,7 +73,7 @@ public class PriorityCollection<T> implements Iterable<T>, Serializable {
      * @param c
      *        list of elements to add
      */
-    public void add(T... c) {
+    public void add(@Nonnull T... c) {
         for (T t : c) {
             delegate.add(0, t);
         }
@@ -85,7 +86,7 @@ public class PriorityCollection<T> implements Iterable<T>, Serializable {
      * @param c
      *        list of elements to add
      */
-    public void add(Collection<T> c) {
+    public void add(@Nonnull Collection<T> c) {
         for (T t : c) {
             delegate.add(t);
         }
@@ -98,7 +99,7 @@ public class PriorityCollection<T> implements Iterable<T>, Serializable {
      * @param c
      *        list of elements to remove
      */
-    public void remove(T... c) {
+    public void remove(@Nonnull T... c) {
         for (T t : c) {
             delegate.remove(t);
         }
@@ -128,6 +129,7 @@ public class PriorityCollection<T> implements Iterable<T>, Serializable {
      * @return An {@link OWLOntologyFormatFactory} matching the given mime type
      *         or null if none were found.
      */
+    @Nonnull
     public PriorityCollection<T> getByMIMEType(@Nonnull String mimeType) {
         checkNotNull(mimeType, "MIME-Type cannot be null");
         PriorityCollection<T> pc = new PriorityCollection<T>();

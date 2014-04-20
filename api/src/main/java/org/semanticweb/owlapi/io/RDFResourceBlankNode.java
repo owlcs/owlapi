@@ -23,6 +23,7 @@ import org.semanticweb.owlapi.model.NodeID;
 public class RDFResourceBlankNode extends RDFResource {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final IRI resource;
 
     /**
@@ -72,16 +73,19 @@ public class RDFResourceBlankNode extends RDFResource {
         return resource.equals(other.resource);
     }
 
+    @Nonnull
     @Override
     public String toString() {
         return resource.toString();
     }
 
+    @Nonnull
     @Override
     public IRI getIRI() {
         return resource;
     }
 
+    @Nonnull
     @Override
     public IRI getResource() {
         return resource;

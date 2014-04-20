@@ -1,5 +1,6 @@
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 /**
@@ -18,6 +19,7 @@ public interface HasApplyChanges {
      * @throws OWLOntologyChangeException
      *         If one or more of the changes could not be applied.
      */
+    @Nonnull
     List<OWLOntologyChange<?>> applyChanges(
             List<? extends OWLOntologyChange<?>> changes);
 }

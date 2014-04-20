@@ -24,6 +24,8 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyCharacteristicAxiom;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -34,9 +36,9 @@ public class InferredObjectPropertyCharacteristicAxiomGenerator
         InferredObjectPropertyAxiomGenerator<OWLObjectPropertyCharacteristicAxiom> {
 
     @Override
-    protected void addAxioms(OWLObjectProperty entity, OWLReasoner reasoner,
-            OWLDataFactory dataFactory,
-            Set<OWLObjectPropertyCharacteristicAxiom> result) {
+    protected void addAxioms(@Nonnull OWLObjectProperty entity, @Nonnull OWLReasoner reasoner,
+            @Nonnull OWLDataFactory dataFactory,
+            @Nonnull Set<OWLObjectPropertyCharacteristicAxiom> result) {
         addIfEntailed(dataFactory.getOWLFunctionalObjectPropertyAxiom(entity),
                 reasoner, result);
         addIfEntailed(
@@ -53,9 +55,9 @@ public class InferredObjectPropertyCharacteristicAxiomGenerator
                 reasoner, result);
     }
 
-    protected void addTransitiveAxiomIfEntailed(OWLObjectProperty property,
-            OWLReasoner reasoner, OWLDataFactory dataFactory,
-            Set<OWLObjectPropertyCharacteristicAxiom> result) {
+    protected void addTransitiveAxiomIfEntailed(@Nonnull OWLObjectProperty property,
+            @Nonnull OWLReasoner reasoner, @Nonnull OWLDataFactory dataFactory,
+            @Nonnull Set<OWLObjectPropertyCharacteristicAxiom> result) {
         OWLObjectPropertyCharacteristicAxiom axiom = dataFactory
                 .getOWLTransitiveObjectPropertyAxiom(property);
         if (reasoner.isEntailmentCheckingSupported(axiom.getAxiomType())
@@ -80,8 +82,8 @@ public class InferredObjectPropertyCharacteristicAxiomGenerator
      * @return true if property is trivially transitive, or if entailment
      *         checking for OWLObjectPropertyAssertionAxioms is not supported.
      */
-    private boolean triviallyTransitiveCheck(OWLObjectProperty property,
-            OWLReasoner reasoner, OWLDataFactory df) {
+    private boolean triviallyTransitiveCheck(@Nonnull OWLObjectProperty property,
+            @Nonnull OWLReasoner reasoner, @Nonnull OWLDataFactory df) {
         if (!reasoner
                 .isEntailmentCheckingSupported(AxiomType.OBJECT_PROPERTY_ASSERTION)) {
             return true;
@@ -96,15 +98,16 @@ public class InferredObjectPropertyCharacteristicAxiomGenerator
         return !reasoner.isEntailed(trivialityCheckAxioms);
     }
 
-    protected void addIfEntailed(OWLObjectPropertyCharacteristicAxiom axiom,
-            OWLReasoner reasoner,
-            Set<OWLObjectPropertyCharacteristicAxiom> result) {
+    protected void addIfEntailed(@Nonnull OWLObjectPropertyCharacteristicAxiom axiom,
+            @Nonnull OWLReasoner reasoner,
+            @Nonnull Set<OWLObjectPropertyCharacteristicAxiom> result) {
         if (reasoner.isEntailmentCheckingSupported(axiom.getAxiomType())
                 && reasoner.isEntailed(axiom)) {
             result.add(axiom);
         }
     }
 
+    @Nonnull
     @Override
     public String getLabel() {
         return "Object property characteristics";

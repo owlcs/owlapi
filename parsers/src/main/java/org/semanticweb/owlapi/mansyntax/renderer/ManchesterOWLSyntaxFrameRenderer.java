@@ -92,6 +92,8 @@ import org.semanticweb.owlapi.util.ShortFormProvider;
 
 import com.google.common.base.Optional;
 
+import javax.annotation.Nonnull;
+
 /**
  * The Class ManchesterOWLSyntaxFrameRenderer.
  * 
@@ -172,7 +174,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
     private OWLAxiomFilter axiomFilter = new OWLAxiomFilter() {
 
         @Override
-        public boolean passes(OWLAxiom axiom) {
+        public boolean passes(@Nonnull OWLAxiom axiom) {
             return true;
         }
     };

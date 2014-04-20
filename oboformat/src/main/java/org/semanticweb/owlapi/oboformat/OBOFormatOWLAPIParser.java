@@ -38,14 +38,17 @@ import org.semanticweb.owlapi.model.OWLOntologyFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.util.OWLOntologyFormatFactoryImpl;
 
+import javax.annotation.Nonnull;
+
 /** oboformat parser */
 @HasPriority(value = 5)
 public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
 
     private static final long serialVersionUID = 40000L;
 
+    @Nonnull
     @Override
-    public OWLOntologyFormat parse(IRI documentIRI, OWLOntology ontology)
+    public OWLOntologyFormat parse(@Nonnull IRI documentIRI, @Nonnull OWLOntology ontology)
             throws IOException, OWLOntologyChangeException {
         try {
             parse(documentIRI, null, ontology);
@@ -58,9 +61,10 @@ public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
         return format;
     }
 
+    @Nonnull
     @Override
-    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
-            OWLOntology ontology, OWLOntologyLoaderConfiguration configuration)
+    public OWLOntologyFormat parse(@Nonnull OWLOntologyDocumentSource documentSource,
+            @Nonnull OWLOntology ontology, @Nonnull OWLOntologyLoaderConfiguration configuration)
             throws IOException, OWLOntologyChangeException {
         // XXX configuration is not used
         try {
@@ -100,6 +104,7 @@ public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
         return ontology;
     }
 
+    @Nonnull
     @Override
     public String getName() {
         return "OWLoboformatParser";

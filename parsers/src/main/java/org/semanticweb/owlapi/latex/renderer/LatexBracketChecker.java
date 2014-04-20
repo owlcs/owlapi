@@ -35,6 +35,8 @@ import org.semanticweb.owlapi.model.OWLObjectOneOf;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, The University Of Manchester, Medical Informatics
  *         Group
@@ -49,12 +51,12 @@ public class LatexBracketChecker implements OWLClassExpressionVisitor {
     private LatexBracketChecker() {}
 
     @Override
-    public void visit(OWLObjectIntersectionOf node) {
+    public void visit(@Nonnull OWLObjectIntersectionOf node) {
         requiresBracket = true;
     }
 
     @Override
-    public void visit(OWLDataAllValuesFrom node) {
+    public void visit(@Nonnull OWLDataAllValuesFrom node) {
         requiresBracket = true;
     }
 
@@ -67,17 +69,17 @@ public class LatexBracketChecker implements OWLClassExpressionVisitor {
     }
 
     @Override
-    public void visit(OWLDataSomeValuesFrom node) {
+    public void visit(@Nonnull OWLDataSomeValuesFrom node) {
         requiresBracket = true;
     }
 
     @Override
-    public void visit(OWLDataHasValue node) {
+    public void visit(@Nonnull OWLDataHasValue node) {
         requiresBracket = true;
     }
 
     @Override
-    public void visit(OWLObjectAllValuesFrom node) {
+    public void visit(@Nonnull OWLObjectAllValuesFrom node) {
         requiresBracket = true;
     }
 
@@ -90,67 +92,67 @@ public class LatexBracketChecker implements OWLClassExpressionVisitor {
     }
 
     @Override
-    public void visit(OWLObjectSomeValuesFrom node) {
+    public void visit(@Nonnull OWLObjectSomeValuesFrom node) {
         requiresBracket = true;
     }
 
     @Override
-    public void visit(OWLObjectHasValue node) {
+    public void visit(@Nonnull OWLObjectHasValue node) {
         requiresBracket = true;
     }
 
     @Override
-    public void visit(OWLObjectComplementOf node) {
+    public void visit(@Nonnull OWLObjectComplementOf node) {
         requiresBracket = false;
     }
 
     @Override
-    public void visit(OWLObjectUnionOf node) {
+    public void visit(@Nonnull OWLObjectUnionOf node) {
         requiresBracket = true;
     }
 
     @Override
-    public void visit(OWLClass node) {
+    public void visit(@Nonnull OWLClass node) {
         requiresBracket = false;
     }
 
     @Override
-    public void visit(OWLObjectOneOf node) {
+    public void visit(@Nonnull OWLObjectOneOf node) {
         requiresBracket = true;
     }
 
     @Override
-    public void visit(OWLDataExactCardinality desc) {
+    public void visit(@Nonnull OWLDataExactCardinality desc) {
         requiresBracket = true;
     }
 
     @Override
-    public void visit(OWLDataMaxCardinality desc) {
+    public void visit(@Nonnull OWLDataMaxCardinality desc) {
         requiresBracket = true;
     }
 
     @Override
-    public void visit(OWLDataMinCardinality desc) {
+    public void visit(@Nonnull OWLDataMinCardinality desc) {
         requiresBracket = true;
     }
 
     @Override
-    public void visit(OWLObjectExactCardinality desc) {
+    public void visit(@Nonnull OWLObjectExactCardinality desc) {
         requiresBracket = true;
     }
 
     @Override
-    public void visit(OWLObjectMaxCardinality desc) {
+    public void visit(@Nonnull OWLObjectMaxCardinality desc) {
         requiresBracket = true;
     }
 
     @Override
-    public void visit(OWLObjectMinCardinality desc) {
+    public void visit(@Nonnull OWLObjectMinCardinality desc) {
         requiresBracket = true;
     }
 
     @Override
-    public void visit(OWLObjectHasSelf owlHasSelf) {
+    public void visit(@Nonnull OWLObjectHasSelf owlHasSelf) {
         requiresBracket = true;
     }
 

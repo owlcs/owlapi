@@ -16,6 +16,8 @@ import org.semanticweb.owlapi.annotations.HasIdentifierKey;
 import org.semanticweb.owlapi.annotations.IsBinaryFormat;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, The University Of Manchester, Information
  *         Management Group
@@ -27,6 +29,7 @@ public class LatexAxiomsListOntologyFormat extends OWLOntologyFormat {
 
     private static final long serialVersionUID = 40000L;
 
+    @Nonnull
     @Override
     public String getKey() {
         return "Latex Axiom List";

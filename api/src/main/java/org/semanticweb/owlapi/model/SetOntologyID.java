@@ -29,7 +29,9 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  */
 public class SetOntologyID extends OWLOntologyChange<OWLOntologyID> {
 
+    @Nonnull
     private final OWLOntologyID ontologyID;
+    @Nonnull
     private final OWLOntologyID newOntologyID;
 
     /**
@@ -62,11 +64,13 @@ public class SetOntologyID extends OWLOntologyChange<OWLOntologyID> {
         this(ont, new OWLOntologyID(ontologyIRI, null));
     }
 
+    @Nonnull
     @Override
     public SetOntologyIDData getChangeData() {
         return new SetOntologyIDData(newOntologyID);
     }
 
+    @Nonnull
     @Override
     public Set<OWLEntity> getSignature() {
         return CollectionFactory
@@ -89,6 +93,7 @@ public class SetOntologyID extends OWLOntologyChange<OWLOntologyID> {
         return false;
     }
 
+    @Nonnull
     @Override
     public OWLAxiom getAxiom() {
         throw new UnsupportedOperationException("Not an axiom change");
@@ -114,15 +119,16 @@ public class SetOntologyID extends OWLOntologyChange<OWLOntologyID> {
     }
 
     @Override
-    public void accept(OWLOntologyChangeVisitor visitor) {
+    public void accept(@Nonnull OWLOntologyChangeVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLOntologyChangeVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLOntologyChangeVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Nonnull
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

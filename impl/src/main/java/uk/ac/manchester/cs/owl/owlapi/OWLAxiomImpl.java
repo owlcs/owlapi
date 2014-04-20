@@ -70,6 +70,7 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
 
     // TODO when processing annotations on OWLOntology:: add axiom, needs
     // optimizing
+    @Nonnull
     @Override
     public Set<OWLAnnotation> getAnnotations() {
         if (annotations.isEmpty()) {
@@ -87,9 +88,10 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
         }
     }
 
+    @Nonnull
     @Override
     public Set<OWLAnnotation> getAnnotations(
-            OWLAnnotationProperty annotationProperty) {
+            @Nonnull OWLAnnotationProperty annotationProperty) {
         if (annotations.isEmpty()) {
             return Collections.emptySet();
         } else {
@@ -104,13 +106,13 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
     }
 
     @Override
-    public boolean equalsIgnoreAnnotations(OWLAxiom axiom) {
+    public boolean equalsIgnoreAnnotations(@Nonnull OWLAxiom axiom) {
         return getAxiomWithoutAnnotations().equals(
                 axiom.getAxiomWithoutAnnotations());
     }
 
     @Override
-    public boolean isOfType(AxiomType<?>... axiomTypes) {
+    public boolean isOfType(@Nonnull AxiomType<?>... axiomTypes) {
         for (AxiomType<?> type : axiomTypes) {
             if (getAxiomType().equals(type)) {
                 return true;
@@ -120,7 +122,7 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
     }
 
     @Override
-    public boolean isOfType(Set<AxiomType<?>> types) {
+    public boolean isOfType(@Nonnull Set<AxiomType<?>> types) {
         return types.contains(getAxiomType());
     }
 
@@ -150,6 +152,7 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
         return getAnnotations().equals(other.getAnnotations());
     }
 
+    @Nonnull
     @Override
     public OWLAxiom getNNF() {
         if (nnf == null) {

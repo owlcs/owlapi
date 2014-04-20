@@ -55,33 +55,35 @@ public class OWLFacetRestrictionImpl extends OWLObjectImpl implements
         this.facetValue = checkNotNull(facetValue, "facetValue cannot be null");
     }
 
+    @Nonnull
     @Override
     public OWLFacet getFacet() {
         return facet;
     }
 
+    @Nonnull
     @Override
     public OWLLiteral getFacetValue() {
         return facetValue;
     }
 
     @Override
-    public void accept(OWLObjectVisitor visitor) {
+    public void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLDataVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLDataVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    public void accept(OWLDataVisitor visitor) {
+    public void accept(@Nonnull OWLDataVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 

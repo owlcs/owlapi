@@ -48,6 +48,7 @@ public abstract class SWRLBinaryAtomImpl<A extends SWRLArgument, B extends SWRLA
         this.arg1 = checkNotNull(arg1, "arg1 cannot be null");
     }
 
+    @Nonnull
     @Override
     public Collection<SWRLArgument> getAllArguments() {
         List<SWRLArgument> objs = new ArrayList<SWRLArgument>();
@@ -56,11 +57,13 @@ public abstract class SWRLBinaryAtomImpl<A extends SWRLArgument, B extends SWRLA
         return objs;
     }
 
+    @Nonnull
     @Override
     public A getFirstArgument() {
         return arg0;
     }
 
+    @Nonnull
     @Override
     public B getSecondArgument() {
         return arg1;

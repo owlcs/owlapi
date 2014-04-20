@@ -26,6 +26,8 @@ import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -38,7 +40,7 @@ public class OWLFunctionalSyntaxOntologyStorer extends
     private static final long serialVersionUID = 40000L;
 
     @Override
-    public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {
+    public boolean canStoreOntology(@Nonnull OWLOntologyFormat ontologyFormat) {
         return ontologyFormat instanceof OWLFunctionalSyntaxOntologyFormat;
     }
 

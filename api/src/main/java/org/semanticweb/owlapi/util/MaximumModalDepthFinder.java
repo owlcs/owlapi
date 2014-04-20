@@ -100,6 +100,9 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health
  *         Informatics Group
@@ -111,77 +114,77 @@ public class MaximumModalDepthFinder implements OWLObjectVisitorEx<Integer> {
     private static final Integer _0 = Integer.valueOf(0);
 
     @Override
-    public Integer visit(IRI iri) {
+    public Integer visit(@Nonnull IRI iri) {
         return _0;
     }
 
     @Override
-    public Integer visit(OWLDatatype node) {
+    public Integer visit(@Nonnull OWLDatatype node) {
         return _0;
     }
 
     @Override
-    public Integer visit(OWLObjectProperty property) {
+    public Integer visit(@Nonnull OWLObjectProperty property) {
         return _0;
     }
 
     @Override
-    public Integer visit(OWLAnonymousIndividual individual) {
+    public Integer visit(@Nonnull OWLAnonymousIndividual individual) {
         return _0;
     }
 
     @Override
-    public Integer visit(SWRLClassAtom node) {
+    public Integer visit(@Nonnull SWRLClassAtom node) {
         return _0;
     }
 
     @Override
-    public Integer visit(OWLObjectInverseOf property) {
+    public Integer visit(@Nonnull OWLObjectInverseOf property) {
         return _0;
     }
 
     @Override
-    public Integer visit(SWRLDataRangeAtom node) {
+    public Integer visit(@Nonnull SWRLDataRangeAtom node) {
         return _0;
     }
 
     @Override
-    public Integer visit(OWLAnnotation node) {
+    public Integer visit(@Nonnull OWLAnnotation node) {
         return _0;
     }
 
     @Override
-    public Integer visit(OWLDataOneOf node) {
+    public Integer visit(@Nonnull OWLDataOneOf node) {
         return _0;
     }
 
     @Override
-    public Integer visit(OWLDataProperty property) {
+    public Integer visit(@Nonnull OWLDataProperty property) {
         return _0;
     }
 
     @Override
-    public Integer visit(SWRLObjectPropertyAtom node) {
+    public Integer visit(@Nonnull SWRLObjectPropertyAtom node) {
         return _0;
     }
 
     @Override
-    public Integer visit(OWLDataIntersectionOf node) {
+    public Integer visit(@Nonnull OWLDataIntersectionOf node) {
         return _0;
     }
 
     @Override
-    public Integer visit(OWLNamedIndividual individual) {
+    public Integer visit(@Nonnull OWLNamedIndividual individual) {
         return _0;
     }
 
     @Override
-    public Integer visit(OWLDataUnionOf node) {
+    public Integer visit(@Nonnull OWLDataUnionOf node) {
         return _0;
     }
 
     @Override
-    public Integer visit(OWLSubClassOfAxiom axiom) {
+    public Integer visit(@Nonnull OWLSubClassOfAxiom axiom) {
         int subClassModalDepth = axiom.getSubClass().accept(this).intValue();
         int superClassModalDepth = axiom.getSuperClass().accept(this)
                 .intValue();
@@ -190,12 +193,12 @@ public class MaximumModalDepthFinder implements OWLObjectVisitorEx<Integer> {
     }
 
     @Override
-    public Integer visit(OWLAnnotationPropertyRangeAxiom axiom) {
+    public Integer visit(@Nonnull OWLAnnotationPropertyRangeAxiom axiom) {
         return _0;
     }
 
     @Override
-    public Integer visit(OWLOntology ontology) {
+    public Integer visit(@Nonnull OWLOntology ontology) {
         int max = 0;
         for (OWLAxiom axiom : ontology.getLogicalAxioms()) {
             int depth = axiom.accept(this).intValue();
@@ -207,37 +210,38 @@ public class MaximumModalDepthFinder implements OWLObjectVisitorEx<Integer> {
     }
 
     @Override
-    public Integer visit(OWLDatatypeRestriction node) {
+    public Integer visit(@Nonnull OWLDatatypeRestriction node) {
         return _0;
     }
 
     @Override
-    public Integer visit(SWRLBuiltInAtom node) {
+    public Integer visit(@Nonnull SWRLBuiltInAtom node) {
         return _0;
     }
 
     @Override
-    public Integer visit(OWLAnnotationProperty property) {
+    public Integer visit(@Nonnull OWLAnnotationProperty property) {
         return _0;
     }
 
     @Override
-    public Integer visit(OWLClass ce) {
+    public Integer visit(@Nonnull OWLClass ce) {
         return _0;
     }
 
     @Override
-    public Integer visit(SWRLVariable node) {
+    public Integer visit(@Nonnull SWRLVariable node) {
         return _0;
     }
 
+    @Nullable
     @Override
-    public Integer visit(OWLLiteral node) {
+    public Integer visit(@Nonnull OWLLiteral node) {
         return null;
     }
 
     @Override
-    public Integer visit(OWLObjectIntersectionOf ce) {
+    public Integer visit(@Nonnull OWLObjectIntersectionOf ce) {
         int max = 0;
         for (OWLClassExpression op : ce.getOperands()) {
             int depth = op.accept(this).intValue();
@@ -249,17 +253,17 @@ public class MaximumModalDepthFinder implements OWLObjectVisitorEx<Integer> {
     }
 
     @Override
-    public Integer visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
+    public Integer visit(@Nonnull OWLNegativeObjectPropertyAssertionAxiom axiom) {
         return _0;
     }
 
     @Override
-    public Integer visit(SWRLIndividualArgument node) {
+    public Integer visit(@Nonnull SWRLIndividualArgument node) {
         return _0;
     }
 
     @Override
-    public Integer visit(OWLObjectUnionOf ce) {
+    public Integer visit(@Nonnull OWLObjectUnionOf ce) {
         int max = 0;
         for (OWLClassExpression op : ce.getOperands()) {
             int depth = op.accept(this).intValue();
@@ -271,52 +275,52 @@ public class MaximumModalDepthFinder implements OWLObjectVisitorEx<Integer> {
     }
 
     @Override
-    public Integer visit(OWLFacetRestriction node) {
+    public Integer visit(@Nonnull OWLFacetRestriction node) {
         return _0;
     }
 
     @Override
-    public Integer visit(SWRLLiteralArgument node) {
+    public Integer visit(@Nonnull SWRLLiteralArgument node) {
         return _0;
     }
 
     @Override
-    public Integer visit(OWLAsymmetricObjectPropertyAxiom axiom) {
+    public Integer visit(@Nonnull OWLAsymmetricObjectPropertyAxiom axiom) {
         return _0;
     }
 
     @Override
-    public Integer visit(OWLObjectComplementOf ce) {
+    public Integer visit(@Nonnull OWLObjectComplementOf ce) {
         return ce.getOperand().accept(this);
     }
 
     @Override
-    public Integer visit(SWRLSameIndividualAtom node) {
+    public Integer visit(@Nonnull SWRLSameIndividualAtom node) {
         return _0;
     }
 
     @Override
-    public Integer visit(OWLObjectSomeValuesFrom ce) {
+    public Integer visit(@Nonnull OWLObjectSomeValuesFrom ce) {
         return Integer.valueOf(1 + ce.getFiller().accept(this).intValue());
     }
 
     @Override
-    public Integer visit(OWLReflexiveObjectPropertyAxiom axiom) {
+    public Integer visit(@Nonnull OWLReflexiveObjectPropertyAxiom axiom) {
         return _0;
     }
 
     @Override
-    public Integer visit(SWRLDifferentIndividualsAtom node) {
+    public Integer visit(@Nonnull SWRLDifferentIndividualsAtom node) {
         return _0;
     }
 
     @Override
-    public Integer visit(OWLObjectAllValuesFrom ce) {
+    public Integer visit(@Nonnull OWLObjectAllValuesFrom ce) {
         return Integer.valueOf(1 + ce.getFiller().accept(this).intValue());
     }
 
     @Override
-    public Integer visit(OWLDisjointClassesAxiom axiom) {
+    public Integer visit(@Nonnull OWLDisjointClassesAxiom axiom) {
         int max = 0;
         for (OWLClassExpression ce : axiom.getClassExpressions()) {
             int depth = ce.accept(this).intValue();
@@ -328,162 +332,162 @@ public class MaximumModalDepthFinder implements OWLObjectVisitorEx<Integer> {
     }
 
     @Override
-    public Integer visit(OWLObjectHasValue ce) {
+    public Integer visit(@Nonnull OWLObjectHasValue ce) {
         return _1;
     }
 
     @Override
-    public Integer visit(OWLDataPropertyDomainAxiom axiom) {
+    public Integer visit(@Nonnull OWLDataPropertyDomainAxiom axiom) {
         return axiom.getDomain().accept(this);
     }
 
     @Override
-    public Integer visit(OWLObjectMinCardinality ce) {
+    public Integer visit(@Nonnull OWLObjectMinCardinality ce) {
         return Integer.valueOf(1 + ce.getFiller().accept(this).intValue());
     }
 
     @Override
-    public Integer visit(OWLObjectPropertyDomainAxiom axiom) {
+    public Integer visit(@Nonnull OWLObjectPropertyDomainAxiom axiom) {
         return axiom.getDomain().accept(this);
     }
 
     @Override
-    public Integer visit(OWLObjectExactCardinality ce) {
+    public Integer visit(@Nonnull OWLObjectExactCardinality ce) {
         return Integer.valueOf(1 + ce.getFiller().accept(this).intValue());
     }
 
     @Override
-    public Integer visit(OWLEquivalentObjectPropertiesAxiom axiom) {
+    public Integer visit(@Nonnull OWLEquivalentObjectPropertiesAxiom axiom) {
         return _0;
     }
 
     @Override
-    public Integer visit(OWLObjectMaxCardinality ce) {
+    public Integer visit(@Nonnull OWLObjectMaxCardinality ce) {
         return Integer.valueOf(1 + ce.getFiller().accept(this).intValue());
     }
 
     @Override
-    public Integer visit(OWLObjectHasSelf ce) {
+    public Integer visit(@Nonnull OWLObjectHasSelf ce) {
         return _1;
     }
 
     @Override
-    public Integer visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
+    public Integer visit(@Nonnull OWLNegativeDataPropertyAssertionAxiom axiom) {
         return _0;
     }
 
     @Override
-    public Integer visit(OWLObjectOneOf ce) {
+    public Integer visit(@Nonnull OWLObjectOneOf ce) {
         return _0;
     }
 
     @Override
-    public Integer visit(OWLDifferentIndividualsAxiom axiom) {
+    public Integer visit(@Nonnull OWLDifferentIndividualsAxiom axiom) {
         return _0;
     }
 
     @Override
-    public Integer visit(OWLDataSomeValuesFrom ce) {
+    public Integer visit(@Nonnull OWLDataSomeValuesFrom ce) {
         return _1;
     }
 
     @Override
-    public Integer visit(OWLDataAllValuesFrom ce) {
+    public Integer visit(@Nonnull OWLDataAllValuesFrom ce) {
         return _1;
     }
 
     @Override
-    public Integer visit(OWLDisjointDataPropertiesAxiom axiom) {
+    public Integer visit(@Nonnull OWLDisjointDataPropertiesAxiom axiom) {
         return _0;
     }
 
     @Override
-    public Integer visit(OWLDataHasValue ce) {
+    public Integer visit(@Nonnull OWLDataHasValue ce) {
         return _1;
     }
 
     @Override
-    public Integer visit(OWLDisjointObjectPropertiesAxiom axiom) {
+    public Integer visit(@Nonnull OWLDisjointObjectPropertiesAxiom axiom) {
         return _0;
     }
 
     @Override
-    public Integer visit(OWLDataMinCardinality ce) {
+    public Integer visit(@Nonnull OWLDataMinCardinality ce) {
         return _1;
     }
 
     @Override
-    public Integer visit(OWLObjectPropertyRangeAxiom axiom) {
+    public Integer visit(@Nonnull OWLObjectPropertyRangeAxiom axiom) {
         return _0;
     }
 
     @Override
-    public Integer visit(OWLDataExactCardinality ce) {
+    public Integer visit(@Nonnull OWLDataExactCardinality ce) {
         return _1;
     }
 
     @Override
-    public Integer visit(OWLDataMaxCardinality ce) {
+    public Integer visit(@Nonnull OWLDataMaxCardinality ce) {
         return _1;
     }
 
     @Override
-    public Integer visit(OWLObjectPropertyAssertionAxiom axiom) {
+    public Integer visit(@Nonnull OWLObjectPropertyAssertionAxiom axiom) {
         return _0;
     }
 
     @Override
-    public Integer visit(OWLFunctionalObjectPropertyAxiom axiom) {
+    public Integer visit(@Nonnull OWLFunctionalObjectPropertyAxiom axiom) {
         return _0;
     }
 
     @Override
-    public Integer visit(OWLSubObjectPropertyOfAxiom axiom) {
+    public Integer visit(@Nonnull OWLSubObjectPropertyOfAxiom axiom) {
         return _0;
     }
 
     @Override
-    public Integer visit(OWLDisjointUnionAxiom axiom) {
+    public Integer visit(@Nonnull OWLDisjointUnionAxiom axiom) {
         return _0;
     }
 
     @Override
-    public Integer visit(OWLDeclarationAxiom axiom) {
+    public Integer visit(@Nonnull OWLDeclarationAxiom axiom) {
         return _0;
     }
 
     @Override
-    public Integer visit(OWLAnnotationAssertionAxiom axiom) {
+    public Integer visit(@Nonnull OWLAnnotationAssertionAxiom axiom) {
         return _0;
     }
 
     @Override
-    public Integer visit(OWLSymmetricObjectPropertyAxiom axiom) {
+    public Integer visit(@Nonnull OWLSymmetricObjectPropertyAxiom axiom) {
         return _0;
     }
 
     @Override
-    public Integer visit(OWLDataPropertyRangeAxiom axiom) {
+    public Integer visit(@Nonnull OWLDataPropertyRangeAxiom axiom) {
         return _0;
     }
 
     @Override
-    public Integer visit(OWLFunctionalDataPropertyAxiom axiom) {
+    public Integer visit(@Nonnull OWLFunctionalDataPropertyAxiom axiom) {
         return _0;
     }
 
     @Override
-    public Integer visit(OWLEquivalentDataPropertiesAxiom axiom) {
+    public Integer visit(@Nonnull OWLEquivalentDataPropertiesAxiom axiom) {
         return _0;
     }
 
     @Override
-    public Integer visit(OWLClassAssertionAxiom axiom) {
+    public Integer visit(@Nonnull OWLClassAssertionAxiom axiom) {
         return axiom.getClassExpression().accept(this);
     }
 
     @Override
-    public Integer visit(OWLEquivalentClassesAxiom axiom) {
+    public Integer visit(@Nonnull OWLEquivalentClassesAxiom axiom) {
         int max = 0;
         for (OWLClassExpression ce : axiom.getClassExpressions()) {
             int depth = ce.accept(this).intValue();
@@ -495,77 +499,77 @@ public class MaximumModalDepthFinder implements OWLObjectVisitorEx<Integer> {
     }
 
     @Override
-    public Integer visit(OWLDataPropertyAssertionAxiom axiom) {
+    public Integer visit(@Nonnull OWLDataPropertyAssertionAxiom axiom) {
         return _0;
     }
 
     @Override
-    public Integer visit(OWLTransitiveObjectPropertyAxiom axiom) {
+    public Integer visit(@Nonnull OWLTransitiveObjectPropertyAxiom axiom) {
         return _0;
     }
 
     @Override
-    public Integer visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
+    public Integer visit(@Nonnull OWLIrreflexiveObjectPropertyAxiom axiom) {
         return _0;
     }
 
     @Override
-    public Integer visit(OWLSubDataPropertyOfAxiom axiom) {
+    public Integer visit(@Nonnull OWLSubDataPropertyOfAxiom axiom) {
         return _0;
     }
 
     @Override
-    public Integer visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
+    public Integer visit(@Nonnull OWLInverseFunctionalObjectPropertyAxiom axiom) {
         return _0;
     }
 
     @Override
-    public Integer visit(OWLSameIndividualAxiom axiom) {
+    public Integer visit(@Nonnull OWLSameIndividualAxiom axiom) {
         return _0;
     }
 
     @Override
-    public Integer visit(OWLSubPropertyChainOfAxiom axiom) {
+    public Integer visit(@Nonnull OWLSubPropertyChainOfAxiom axiom) {
         return _0;
     }
 
     @Override
-    public Integer visit(OWLInverseObjectPropertiesAxiom axiom) {
+    public Integer visit(@Nonnull OWLInverseObjectPropertiesAxiom axiom) {
         return _0;
     }
 
     @Override
-    public Integer visit(OWLHasKeyAxiom axiom) {
+    public Integer visit(@Nonnull OWLHasKeyAxiom axiom) {
         return _0;
     }
 
     @Override
-    public Integer visit(OWLDatatypeDefinitionAxiom axiom) {
+    public Integer visit(@Nonnull OWLDatatypeDefinitionAxiom axiom) {
         return _0;
     }
 
     @Override
-    public Integer visit(SWRLRule rule) {
+    public Integer visit(@Nonnull SWRLRule rule) {
         return _0;
     }
 
     @Override
-    public Integer visit(OWLSubAnnotationPropertyOfAxiom axiom) {
+    public Integer visit(@Nonnull OWLSubAnnotationPropertyOfAxiom axiom) {
         return _0;
     }
 
     @Override
-    public Integer visit(OWLAnnotationPropertyDomainAxiom axiom) {
+    public Integer visit(@Nonnull OWLAnnotationPropertyDomainAxiom axiom) {
         return _0;
     }
 
     @Override
-    public Integer visit(OWLDataComplementOf node) {
+    public Integer visit(@Nonnull OWLDataComplementOf node) {
         return _0;
     }
 
     @Override
-    public Integer visit(SWRLDataPropertyAtom node) {
+    public Integer visit(@Nonnull SWRLDataPropertyAtom node) {
         return _0;
     }
 }

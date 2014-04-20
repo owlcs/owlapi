@@ -19,6 +19,8 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -37,8 +39,9 @@ public class LatexOWLObjectRenderer implements OWLObjectRenderer {
         this.dataFactory = dataFactory;
     }
 
+    @Nonnull
     @Override
-    public String render(OWLObject object) {
+    public String render(@Nonnull OWLObject object) {
         StringWriter writer = new StringWriter();
         LatexWriter latexWriter = new LatexWriter(writer);
         LatexObjectVisitor visitor = new LatexObjectVisitor(latexWriter,
@@ -49,7 +52,7 @@ public class LatexOWLObjectRenderer implements OWLObjectRenderer {
     }
 
     @Override
-    public void setShortFormProvider(ShortFormProvider shortFormProvider) {
+    public void setShortFormProvider(@Nonnull ShortFormProvider shortFormProvider) {
         this.shortFormProvider = shortFormProvider;
     }
 }

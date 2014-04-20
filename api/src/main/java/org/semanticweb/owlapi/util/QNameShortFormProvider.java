@@ -61,8 +61,9 @@ public class QNameShortFormProvider implements ShortFormProvider {
         }
     }
 
+    @Nonnull
     @Override
-    public String getShortForm(OWLEntity entity) {
+    public String getShortForm(@Nonnull OWLEntity entity) {
         checkNotNull(entity, "entity cannot be null");
         String namespace = entity.getIRI().getNamespace();
         String localName = entity.getIRI().getFragment();

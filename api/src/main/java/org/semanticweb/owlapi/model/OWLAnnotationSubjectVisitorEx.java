@@ -30,6 +30,7 @@ public interface OWLAnnotationSubjectVisitorEx<O> {
      *        object to visit
      * @return visitor value
      */
+    @Nonnull
     O visit(@Nonnull IRI iri);
 
     /**
@@ -39,5 +40,6 @@ public interface OWLAnnotationSubjectVisitorEx<O> {
      *        object to visit
      * @return visitor value
      */
+    @Nonnull
     O visit(@Nonnull OWLAnonymousIndividual individual);
 }

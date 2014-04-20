@@ -36,6 +36,8 @@ import org.semanticweb.owlapi.util.SimpleIRIShortFormProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.Nonnull;
+
 /**
  * wrapper for parsing Manchester Syntax.
  * 
@@ -115,8 +117,9 @@ public class ManchesterSyntaxTool {
                 // do nothing
             }
 
+            @Nonnull
             @Override
-            public String getShortForm(OWLEntity owlEntity) {
+            public String getShortForm(@Nonnull OWLEntity owlEntity) {
                 return iriShortFormProvider.getShortForm(owlEntity.getIRI());
             }
         };
@@ -245,7 +248,7 @@ public class ManchesterSyntaxTool {
         }
 
         @Override
-        public OWLClass getOWLClass(String name) {
+        public OWLClass getOWLClass(@Nonnull String name) {
             OWLClass owlClass = defaultInstance.getOWLClass(name);
             if (owlClass == null) {
                 IRI iri = getIRI(name);
@@ -258,7 +261,7 @@ public class ManchesterSyntaxTool {
         }
 
         @Override
-        public OWLObjectProperty getOWLObjectProperty(String name) {
+        public OWLObjectProperty getOWLObjectProperty(@Nonnull String name) {
             OWLObjectProperty owlObjectProperty = defaultInstance
                     .getOWLObjectProperty(name);
             if (owlObjectProperty == null) {
@@ -271,12 +274,12 @@ public class ManchesterSyntaxTool {
         }
 
         @Override
-        public OWLDataProperty getOWLDataProperty(String name) {
+        public OWLDataProperty getOWLDataProperty(@Nonnull String name) {
             return defaultInstance.getOWLDataProperty(name);
         }
 
         @Override
-        public OWLNamedIndividual getOWLIndividual(String name) {
+        public OWLNamedIndividual getOWLIndividual(@Nonnull String name) {
             OWLNamedIndividual owlIndividual = defaultInstance
                     .getOWLIndividual(name);
             if (owlIndividual == null) {
@@ -289,12 +292,12 @@ public class ManchesterSyntaxTool {
         }
 
         @Override
-        public OWLDatatype getOWLDatatype(String name) {
+        public OWLDatatype getOWLDatatype(@Nonnull String name) {
             return defaultInstance.getOWLDatatype(name);
         }
 
         @Override
-        public OWLAnnotationProperty getOWLAnnotationProperty(String name) {
+        public OWLAnnotationProperty getOWLAnnotationProperty(@Nonnull String name) {
             return defaultInstance.getOWLAnnotationProperty(name);
         }
 

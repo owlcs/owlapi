@@ -15,6 +15,8 @@ package org.semanticweb.owlapi.dlsyntax.renderer;
 import org.semanticweb.owlapi.formats.DLSyntaxOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -25,7 +27,7 @@ public class DLSyntaxOntologyStorer extends DLSyntaxOntologyStorerBase {
     private static final long serialVersionUID = 40000L;
 
     @Override
-    public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {
+    public boolean canStoreOntology(@Nonnull OWLOntologyFormat ontologyFormat) {
         return ontologyFormat instanceof DLSyntaxOntologyFormat;
     }
 }

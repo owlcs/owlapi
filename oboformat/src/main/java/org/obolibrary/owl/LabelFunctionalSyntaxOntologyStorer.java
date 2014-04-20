@@ -15,6 +15,8 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 
+import javax.annotation.Nonnull;
+
 /** Implement the writer for {@link LabelFunctionalFormat}. */
 public class LabelFunctionalSyntaxOntologyStorer extends
         AbstractOWLOntologyStorer {
@@ -23,7 +25,7 @@ public class LabelFunctionalSyntaxOntologyStorer extends
     private static final long serialVersionUID = 40000L;
 
     @Override
-    public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {
+    public boolean canStoreOntology(@Nonnull OWLOntologyFormat ontologyFormat) {
         return ontologyFormat instanceof LabelFunctionalFormat;
     }
 
@@ -51,7 +53,7 @@ public class LabelFunctionalSyntaxOntologyStorer extends
         }
 
         @Override
-        public String getPrefixIRI(IRI iri) {
+        public String getPrefixIRI(@Nonnull IRI iri) {
             for (OWLAnnotationAssertionAxiom annotation : ontology
                     .getAnnotationAssertionAxioms(iri)) {
                 if (annotation.getProperty().isLabel()) {

@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.profiles;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -23,6 +24,7 @@ import java.util.Set;
 public class OWLProfileReport {
 
     private final OWLProfile profile;
+    @Nonnull
     private final List<OWLProfileViolation<?>> violations;
 
     /**
@@ -32,7 +34,7 @@ public class OWLProfileReport {
      *        the set of violations
      */
     public OWLProfileReport(OWLProfile profile,
-            Set<OWLProfileViolation<?>> violations) {
+            @Nonnull Set<OWLProfileViolation<?>> violations) {
         this.profile = profile;
         this.violations = new ArrayList<OWLProfileViolation<?>>(violations);
     }
@@ -48,10 +50,12 @@ public class OWLProfileReport {
     }
 
     /** @return the violations found */
+    @Nonnull
     public List<OWLProfileViolation<?>> getViolations() {
         return violations;
     }
 
+    @Nonnull
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.IRI;
@@ -38,6 +39,7 @@ import org.semanticweb.owlapi.model.OWLOntologySetProvider;
  */
 public class OWLOntologyMerger implements OWLAxiomFilter {
 
+    @Nonnull
     private final OWLOntologySetProvider setProvider;
     private final OWLAxiomFilter axiomFilter;
     private final boolean mergeOnlyLogicalAxioms;
@@ -90,8 +92,8 @@ public class OWLOntologyMerger implements OWLAxiomFilter {
      * @throws OWLOntologyCreationException
      *         if any creation exception arises
      */
-    public OWLOntology createMergedOntology(OWLOntologyManager ontologyManager,
-            IRI ontologyIRI) throws OWLOntologyCreationException {
+    public OWLOntology createMergedOntology(@Nonnull OWLOntologyManager ontologyManager,
+            @Nullable IRI ontologyIRI) throws OWLOntologyCreationException {
         OWLOntology ontology;
         if (ontologyIRI != null) {
             ontology = ontologyManager.createOntology(ontologyIRI);
@@ -110,7 +112,8 @@ public class OWLOntologyMerger implements OWLAxiomFilter {
         return ontology;
     }
 
-    private Set<? extends OWLAxiom> getAxioms(OWLOntology ont) {
+    @Nonnull
+    private Set<? extends OWLAxiom> getAxioms(@Nonnull OWLOntology ont) {
         if (mergeOnlyLogicalAxioms) {
             return ont.getLogicalAxioms();
         } else {
@@ -119,7 +122,7 @@ public class OWLOntologyMerger implements OWLAxiomFilter {
     }
 
     @Override
-    public boolean passes(OWLAxiom axiom) {
+    public boolean passes(@Nonnull OWLAxiom axiom) {
         return true;
     }
 }

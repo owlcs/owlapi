@@ -91,7 +91,7 @@ public class OWLXMLRenderer extends AbstractOWLRenderer {
     }
 
     @Override
-    public void render(OWLOntology ontology, Writer writer)
+    public void render(@Nonnull OWLOntology ontology, @Nonnull Writer writer)
             throws OWLRendererException {
         render(checkNotNull(ontology, "ontology cannot be null"),
                 checkNotNull(writer, "writer cannot be null"), ontology

@@ -505,7 +505,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
         OWLAxiomVisitor declarationRemover = new OWLAxiomVisitorAdapter() {
 
             @Override
-            public void visit(OWLDeclarationAxiom axiom) {
+            public void visit(@Nonnull OWLDeclarationAxiom axiom) {
                 checkNotNull(axiom, "axiom cannot be null");
                 debuggingAxioms.remove(axiom);
             }

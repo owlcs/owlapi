@@ -34,7 +34,7 @@ public class OWLOntologyIRIMapperImpl implements OWLOntologyIRIMapper {
     private final Map<IRI, IRI> iriMap = new TreeMap<IRI, IRI>();
 
     @Override
-    public IRI getDocumentIRI(IRI ontologyIRI) {
+    public IRI getDocumentIRI(@Nonnull IRI ontologyIRI) {
         IRI iri = iriMap.get(ontologyIRI);
         if (iri != null) {
             return iri;

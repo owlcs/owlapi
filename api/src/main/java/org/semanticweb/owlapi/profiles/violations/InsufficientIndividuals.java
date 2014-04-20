@@ -18,6 +18,8 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolation;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
+import javax.annotation.Nonnull;
+
 /** @author ignazio */
 public class InsufficientIndividuals extends OWLProfileViolation<Object> {
 
@@ -27,7 +29,7 @@ public class InsufficientIndividuals extends OWLProfileViolation<Object> {
      * @param node
      *        node
      */
-    public InsufficientIndividuals(OWLOntology currentOntology, OWLAxiom node) {
+    public InsufficientIndividuals(@Nonnull OWLOntology currentOntology, OWLAxiom node) {
         super(currentOntology, node, null);
     }
 
@@ -37,12 +39,12 @@ public class InsufficientIndividuals extends OWLProfileViolation<Object> {
     }
 
     @Override
-    public void accept(OWLProfileViolationVisitor visitor) {
+    public void accept(@Nonnull OWLProfileViolationVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLProfileViolationVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLProfileViolationVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 }

@@ -7,6 +7,8 @@ import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.util.OWLAxiomVisitorExAdapter;
 
+import javax.annotation.Nonnull;
+
 @SuppressWarnings("unchecked")
 class SupSubVisitor<C extends OWLObject> extends OWLAxiomVisitorExAdapter<C> {
 
@@ -17,23 +19,27 @@ class SupSubVisitor<C extends OWLObject> extends OWLAxiomVisitorExAdapter<C> {
         this.sup = sup;
     }
 
+    @Nonnull
     @Override
-    public C visit(OWLSubAnnotationPropertyOfAxiom axiom) {
+    public C visit(@Nonnull OWLSubAnnotationPropertyOfAxiom axiom) {
         return (C) (sup ? axiom.getSuperProperty() : axiom.getSubProperty());
     }
 
+    @Nonnull
     @Override
-    public C visit(OWLSubClassOfAxiom axiom) {
+    public C visit(@Nonnull OWLSubClassOfAxiom axiom) {
         return (C) (sup ? axiom.getSuperClass() : axiom.getSubClass());
     }
 
+    @Nonnull
     @Override
-    public C visit(OWLSubDataPropertyOfAxiom axiom) {
+    public C visit(@Nonnull OWLSubDataPropertyOfAxiom axiom) {
         return (C) (sup ? axiom.getSuperProperty() : axiom.getSubProperty());
     }
 
+    @Nonnull
     @Override
-    public C visit(OWLSubObjectPropertyOfAxiom axiom) {
+    public C visit(@Nonnull OWLSubObjectPropertyOfAxiom axiom) {
         return (C) (sup ? axiom.getSuperProperty() : axiom.getSubProperty());
     }
 }

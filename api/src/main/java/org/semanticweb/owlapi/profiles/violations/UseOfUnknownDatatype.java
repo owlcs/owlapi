@@ -19,6 +19,8 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolation;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
+import javax.annotation.Nonnull;
+
 /**
  * Use of an unknown datatype. That is, the datatype isn't in the OWL 2 datatype
  * map, the datatype IRI doesn't begin with the xsd: prefix, the datatype isn't
@@ -37,18 +39,18 @@ public class UseOfUnknownDatatype extends OWLProfileViolation<OWLDatatype> {
      * @param datatype
      *        datatype
      */
-    public UseOfUnknownDatatype(OWLOntology ontology, OWLAxiom axiom,
+    public UseOfUnknownDatatype(@Nonnull OWLOntology ontology, OWLAxiom axiom,
             OWLDatatype datatype) {
         super(ontology, axiom, datatype);
     }
 
     @Override
-    public void accept(OWLProfileViolationVisitor visitor) {
+    public void accept(@Nonnull OWLProfileViolationVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLProfileViolationVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLProfileViolationVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 

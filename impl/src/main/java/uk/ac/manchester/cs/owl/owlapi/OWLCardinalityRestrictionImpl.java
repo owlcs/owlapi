@@ -44,6 +44,7 @@ public abstract class OWLCardinalityRestrictionImpl<F extends OWLPropertyRange>
         return cardinality;
     }
 
+    @Nonnull
     @Override
     public F getFiller() {
         return filler;

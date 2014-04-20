@@ -75,6 +75,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.InputSource;
 
+import javax.annotation.Nonnull;
+
 /**
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -122,11 +124,12 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
         return supportedFormats;
     }
 
+    @Nonnull
     @Override
     public OWLOntologyFormat parse(
-            final OWLOntologyDocumentSource documentSource,
-            final OWLOntology ontology,
-            final OWLOntologyLoaderConfiguration configuration)
+            @Nonnull final OWLOntologyDocumentSource documentSource,
+            @Nonnull final OWLOntology ontology,
+            @Nonnull final OWLOntologyLoaderConfiguration configuration)
             throws IOException {
         final InputSource is = null;
         try {

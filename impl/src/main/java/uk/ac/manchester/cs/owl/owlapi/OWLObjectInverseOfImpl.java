@@ -51,6 +51,7 @@ public class OWLObjectInverseOfImpl extends OWLObjectPropertyExpressionImpl
         this.inverseProperty = inverseProperty;
     }
 
+    @Nonnull
     @Override
     public OWLObjectPropertyExpression getInverse() {
         return inverseProperty;
@@ -69,22 +70,22 @@ public class OWLObjectInverseOfImpl extends OWLObjectPropertyExpressionImpl
     }
 
     @Override
-    public void accept(OWLPropertyExpressionVisitor visitor) {
+    public void accept(@Nonnull OWLPropertyExpressionVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public void accept(OWLObjectVisitor visitor) {
+    public void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLPropertyExpressionVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLPropertyExpressionVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
@@ -93,6 +94,7 @@ public class OWLObjectInverseOfImpl extends OWLObjectPropertyExpressionImpl
         return true;
     }
 
+    @Nonnull
     @Override
     public OWLObjectProperty asOWLObjectProperty() {
         throw new OWLRuntimeException(

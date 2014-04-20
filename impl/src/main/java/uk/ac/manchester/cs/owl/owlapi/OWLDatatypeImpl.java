@@ -83,16 +83,18 @@ public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
         return iri.isPlainLiteral();
     }
 
+    @Nonnull
     @Override
     public EntityType<?> getEntityType() {
         return EntityType.DATATYPE;
     }
 
     @Override
-    public boolean isType(EntityType<?> entityType) {
+    public boolean isType(@Nonnull EntityType<?> entityType) {
         return getEntityType().equals(entityType);
     }
 
+    @Nonnull
     @Override
     public String toStringID() {
         return iri.toString();
@@ -108,11 +110,13 @@ public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
         return builtin;
     }
 
+    @Nonnull
     @Override
     public DataRangeType getDataRangeType() {
         return DataRangeType.DATATYPE;
     }
 
+    @Nonnull
     @Override
     public OWL2Datatype getBuiltInDatatype() {
         if (!builtin) {
@@ -167,26 +171,31 @@ public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
         return false;
     }
 
+    @Nonnull
     @Override
     public OWLClass asOWLClass() {
         throw new OWLRuntimeException("Not an OWLClass!");
     }
 
+    @Nonnull
     @Override
     public OWLDataProperty asOWLDataProperty() {
         throw new OWLRuntimeException("Not a data property!");
     }
 
+    @Nonnull
     @Override
     public OWLDatatype asOWLDatatype() {
         return this;
     }
 
+    @Nonnull
     @Override
     public OWLNamedIndividual asOWLNamedIndividual() {
         throw new OWLRuntimeException("Not an individual!");
     }
 
+    @Nonnull
     @Override
     public OWLObjectProperty asOWLObjectProperty() {
         throw new OWLRuntimeException("Not an object property");
@@ -217,6 +226,7 @@ public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
         return false;
     }
 
+    @Nonnull
     @Override
     public OWLAnnotationProperty asOWLAnnotationProperty() {
         throw new OWLRuntimeException("Not an annotation property");
@@ -228,47 +238,47 @@ public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
     }
 
     @Override
-    public void accept(OWLEntityVisitor visitor) {
+    public void accept(@Nonnull OWLEntityVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public void accept(OWLDataVisitor visitor) {
+    public void accept(@Nonnull OWLDataVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public void accept(OWLObjectVisitor visitor) {
+    public void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public void accept(OWLNamedObjectVisitor visitor) {
+    public void accept(@Nonnull OWLNamedObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLEntityVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLEntityVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLDataVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLDataVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    public void accept(OWLDataRangeVisitor visitor) {
+    public void accept(@Nonnull OWLDataRangeVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLDataRangeVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLDataRangeVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 

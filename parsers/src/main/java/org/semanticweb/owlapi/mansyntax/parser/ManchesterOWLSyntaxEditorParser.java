@@ -2078,32 +2078,32 @@ public class ManchesterOWLSyntaxEditorParser implements
         ax.getEntity().accept(new OWLEntityVisitor() {
 
             @Override
-            public void visit(OWLAnnotationProperty property) {
+            public void visit(@Nonnull OWLAnnotationProperty property) {
                 annotationPropertyNames.add(pm.getShortForm(property.getIRI()));
             }
 
             @Override
-            public void visit(OWLDatatype datatype) {
+            public void visit(@Nonnull OWLDatatype datatype) {
                 dataTypeNames.add(pm.getShortForm(datatype.getIRI()));
             }
 
             @Override
-            public void visit(OWLNamedIndividual individual) {
+            public void visit(@Nonnull OWLNamedIndividual individual) {
                 individualNames.add(pm.getShortForm(individual.getIRI()));
             }
 
             @Override
-            public void visit(OWLDataProperty property) {
+            public void visit(@Nonnull OWLDataProperty property) {
                 dataPropertyNames.add(pm.getShortForm(property.getIRI()));
             }
 
             @Override
-            public void visit(OWLObjectProperty property) {
+            public void visit(@Nonnull OWLObjectProperty property) {
                 objectPropertyNames.add(pm.getShortForm(property.getIRI()));
             }
 
             @Override
-            public void visit(OWLClass cls) {
+            public void visit(@Nonnull OWLClass cls) {
                 classNames.add(pm.getShortForm(cls.getIRI()));
             }
         });
@@ -2427,7 +2427,7 @@ public class ManchesterOWLSyntaxEditorParser implements
         }
 
         @Override
-        public OWLClass getOWLClass(String name) {
+        public OWLClass getOWLClass(@Nonnull String name) {
             if (name.equals("Thing") || name.equals("owl:Thing")) {
                 return dataFactory.getOWLThing();
             } else if (name.equals("Nothing") || name.equals("owl:Nothing")) {
@@ -2439,7 +2439,7 @@ public class ManchesterOWLSyntaxEditorParser implements
         }
 
         @Override
-        public OWLObjectProperty getOWLObjectProperty(String name) {
+        public OWLObjectProperty getOWLObjectProperty(@Nonnull String name) {
             if (objectPropertyNames.contains(name)) {
                 return dataFactory.getOWLObjectProperty(getIRI(name));
             }
@@ -2447,7 +2447,7 @@ public class ManchesterOWLSyntaxEditorParser implements
         }
 
         @Override
-        public OWLDataProperty getOWLDataProperty(String name) {
+        public OWLDataProperty getOWLDataProperty(@Nonnull String name) {
             if (dataPropertyNames.contains(name)) {
                 return dataFactory.getOWLDataProperty(getIRI(name));
             }
@@ -2455,7 +2455,7 @@ public class ManchesterOWLSyntaxEditorParser implements
         }
 
         @Override
-        public OWLNamedIndividual getOWLIndividual(String name) {
+        public OWLNamedIndividual getOWLIndividual(@Nonnull String name) {
             if (individualNames.contains(name)) {
                 return dataFactory.getOWLNamedIndividual(getIRI(name));
             }
@@ -2463,7 +2463,7 @@ public class ManchesterOWLSyntaxEditorParser implements
         }
 
         @Override
-        public OWLDatatype getOWLDatatype(String name) {
+        public OWLDatatype getOWLDatatype(@Nonnull String name) {
             if (dataTypeNames.contains(name)) {
                 return dataFactory.getOWLDatatype(getIRI(name));
             }
@@ -2471,7 +2471,7 @@ public class ManchesterOWLSyntaxEditorParser implements
         }
 
         @Override
-        public OWLAnnotationProperty getOWLAnnotationProperty(String name) {
+        public OWLAnnotationProperty getOWLAnnotationProperty(@Nonnull String name) {
             if (annotationPropertyNames.contains(name)) {
                 return dataFactory.getOWLAnnotationProperty(getIRI(name));
             }

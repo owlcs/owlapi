@@ -78,201 +78,201 @@ public class SatisfiabilityReducer implements
     }
 
     @Override
-    public OWLClassExpression visit(OWLSubClassOfAxiom axiom) {
+    public OWLClassExpression visit(@Nonnull OWLSubClassOfAxiom axiom) {
         return df.getOWLObjectIntersectionOf(axiom.getSubClass(),
                 df.getOWLObjectComplementOf(axiom.getSuperClass()));
     }
 
     @Override
     public OWLClassExpression visit(
-            OWLNegativeObjectPropertyAssertionAxiom axiom) {
+            @Nonnull OWLNegativeObjectPropertyAssertionAxiom axiom) {
         return axiom.asOWLSubClassOfAxiom().accept(this);
     }
 
     @Override
-    public OWLClassExpression visit(OWLAsymmetricObjectPropertyAxiom axiom) {
+    public OWLClassExpression visit(@Nonnull OWLAsymmetricObjectPropertyAxiom axiom) {
         return null;
     }
 
     @Override
-    public OWLClassExpression visit(OWLReflexiveObjectPropertyAxiom axiom) {
+    public OWLClassExpression visit(@Nonnull OWLReflexiveObjectPropertyAxiom axiom) {
         return axiom.asOWLSubClassOfAxiom().accept(this);
     }
 
     @Override
-    public OWLClassExpression visit(OWLDisjointClassesAxiom axiom) {
+    public OWLClassExpression visit(@Nonnull OWLDisjointClassesAxiom axiom) {
         return null;
     }
 
     @Override
-    public OWLClassExpression visit(OWLDataPropertyDomainAxiom axiom) {
+    public OWLClassExpression visit(@Nonnull OWLDataPropertyDomainAxiom axiom) {
         return axiom.asOWLSubClassOfAxiom().accept(this);
     }
 
     @Override
-    public OWLClassExpression visit(OWLObjectPropertyDomainAxiom axiom) {
+    public OWLClassExpression visit(@Nonnull OWLObjectPropertyDomainAxiom axiom) {
         return axiom.asOWLSubClassOfAxiom().accept(this);
     }
 
     @Override
-    public OWLClassExpression visit(OWLEquivalentObjectPropertiesAxiom axiom) {
+    public OWLClassExpression visit(@Nonnull OWLEquivalentObjectPropertiesAxiom axiom) {
         return null;
     }
 
     @Override
     public OWLClassExpression
-            visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
+            visit(@Nonnull OWLNegativeDataPropertyAssertionAxiom axiom) {
         return axiom.asOWLSubClassOfAxiom().accept(this);
     }
 
     @Override
-    public OWLClassExpression visit(OWLDifferentIndividualsAxiom axiom) {
+    public OWLClassExpression visit(@Nonnull OWLDifferentIndividualsAxiom axiom) {
         return null;
     }
 
     @Override
-    public OWLClassExpression visit(OWLDisjointDataPropertiesAxiom axiom) {
+    public OWLClassExpression visit(@Nonnull OWLDisjointDataPropertiesAxiom axiom) {
         return null;
     }
 
     @Override
-    public OWLClassExpression visit(OWLDisjointObjectPropertiesAxiom axiom) {
+    public OWLClassExpression visit(@Nonnull OWLDisjointObjectPropertiesAxiom axiom) {
         return null;
     }
 
     @Override
-    public OWLClassExpression visit(OWLObjectPropertyRangeAxiom axiom) {
+    public OWLClassExpression visit(@Nonnull OWLObjectPropertyRangeAxiom axiom) {
         return axiom.asOWLSubClassOfAxiom().accept(this);
     }
 
     @Override
-    public OWLClassExpression visit(OWLObjectPropertyAssertionAxiom axiom) {
+    public OWLClassExpression visit(@Nonnull OWLObjectPropertyAssertionAxiom axiom) {
         return axiom.asOWLSubClassOfAxiom().accept(this);
     }
 
     @Override
-    public OWLClassExpression visit(OWLFunctionalObjectPropertyAxiom axiom) {
+    public OWLClassExpression visit(@Nonnull OWLFunctionalObjectPropertyAxiom axiom) {
         return axiom.asOWLSubClassOfAxiom().accept(this);
     }
 
     @Override
-    public OWLClassExpression visit(OWLSubObjectPropertyOfAxiom axiom) {
+    public OWLClassExpression visit(@Nonnull OWLSubObjectPropertyOfAxiom axiom) {
         return null;
     }
 
     @Override
-    public OWLClassExpression visit(OWLDisjointUnionAxiom axiom) {
+    public OWLClassExpression visit(@Nonnull OWLDisjointUnionAxiom axiom) {
         return null;
     }
 
     @Override
-    public OWLClassExpression visit(OWLDeclarationAxiom axiom) {
+    public OWLClassExpression visit(@Nonnull OWLDeclarationAxiom axiom) {
         return null;
     }
 
     @Override
-    public OWLClassExpression visit(OWLSymmetricObjectPropertyAxiom axiom) {
+    public OWLClassExpression visit(@Nonnull OWLSymmetricObjectPropertyAxiom axiom) {
         return null;
     }
 
     @Override
-    public OWLClassExpression visit(OWLDataPropertyRangeAxiom axiom) {
+    public OWLClassExpression visit(@Nonnull OWLDataPropertyRangeAxiom axiom) {
         return axiom.asOWLSubClassOfAxiom().accept(this);
     }
 
     @Override
-    public OWLClassExpression visit(OWLFunctionalDataPropertyAxiom axiom) {
+    public OWLClassExpression visit(@Nonnull OWLFunctionalDataPropertyAxiom axiom) {
         return axiom.asOWLSubClassOfAxiom().accept(this);
     }
 
     @Override
-    public OWLClassExpression visit(OWLEquivalentDataPropertiesAxiom axiom) {
+    public OWLClassExpression visit(@Nonnull OWLEquivalentDataPropertiesAxiom axiom) {
         return null;
     }
 
     @Override
-    public OWLClassExpression visit(OWLClassAssertionAxiom axiom) {
+    public OWLClassExpression visit(@Nonnull OWLClassAssertionAxiom axiom) {
         return axiom.asOWLSubClassOfAxiom().accept(this);
     }
 
     @Override
-    public OWLClassExpression visit(OWLEquivalentClassesAxiom axiom) {
+    public OWLClassExpression visit(@Nonnull OWLEquivalentClassesAxiom axiom) {
         return null;
     }
 
     @Override
-    public OWLClassExpression visit(OWLDataPropertyAssertionAxiom axiom) {
+    public OWLClassExpression visit(@Nonnull OWLDataPropertyAssertionAxiom axiom) {
         return axiom.asOWLSubClassOfAxiom().accept(this);
     }
 
     @Override
-    public OWLClassExpression visit(OWLTransitiveObjectPropertyAxiom axiom) {
+    public OWLClassExpression visit(@Nonnull OWLTransitiveObjectPropertyAxiom axiom) {
         return null;
     }
 
     @Override
-    public OWLClassExpression visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
+    public OWLClassExpression visit(@Nonnull OWLIrreflexiveObjectPropertyAxiom axiom) {
         return axiom.asOWLSubClassOfAxiom().accept(this);
     }
 
     @Override
-    public OWLClassExpression visit(OWLSubDataPropertyOfAxiom axiom) {
+    public OWLClassExpression visit(@Nonnull OWLSubDataPropertyOfAxiom axiom) {
         return null;
     }
 
     @Override
     public OWLClassExpression visit(
-            OWLInverseFunctionalObjectPropertyAxiom axiom) {
+            @Nonnull OWLInverseFunctionalObjectPropertyAxiom axiom) {
         return axiom.asOWLSubClassOfAxiom().accept(this);
     }
 
     @Override
-    public OWLClassExpression visit(OWLSameIndividualAxiom axiom) {
+    public OWLClassExpression visit(@Nonnull OWLSameIndividualAxiom axiom) {
         return null;
     }
 
     @Override
-    public OWLClassExpression visit(OWLSubPropertyChainOfAxiom axiom) {
+    public OWLClassExpression visit(@Nonnull OWLSubPropertyChainOfAxiom axiom) {
         return null;
     }
 
     @Override
-    public OWLClassExpression visit(OWLInverseObjectPropertiesAxiom axiom) {
+    public OWLClassExpression visit(@Nonnull OWLInverseObjectPropertiesAxiom axiom) {
         return null;
     }
 
     @Override
-    public OWLClassExpression visit(OWLHasKeyAxiom axiom) {
+    public OWLClassExpression visit(@Nonnull OWLHasKeyAxiom axiom) {
         return null;
     }
 
     @Override
-    public OWLClassExpression visit(OWLDatatypeDefinitionAxiom axiom) {
+    public OWLClassExpression visit(@Nonnull OWLDatatypeDefinitionAxiom axiom) {
         return null;
     }
 
     @Override
-    public OWLClassExpression visit(SWRLRule rule) {
+    public OWLClassExpression visit(@Nonnull SWRLRule rule) {
         return null;
     }
 
     @Override
-    public OWLClassExpression visit(OWLAnnotationAssertionAxiom axiom) {
+    public OWLClassExpression visit(@Nonnull OWLAnnotationAssertionAxiom axiom) {
         return null;
     }
 
     @Override
-    public OWLClassExpression visit(OWLSubAnnotationPropertyOfAxiom axiom) {
+    public OWLClassExpression visit(@Nonnull OWLSubAnnotationPropertyOfAxiom axiom) {
         return null;
     }
 
     @Override
-    public OWLClassExpression visit(OWLAnnotationPropertyDomainAxiom axiom) {
+    public OWLClassExpression visit(@Nonnull OWLAnnotationPropertyDomainAxiom axiom) {
         return null;
     }
 
     @Override
-    public OWLClassExpression visit(OWLAnnotationPropertyRangeAxiom axiom) {
+    public OWLClassExpression visit(@Nonnull OWLAnnotationPropertyRangeAxiom axiom) {
         return null;
     }
 }

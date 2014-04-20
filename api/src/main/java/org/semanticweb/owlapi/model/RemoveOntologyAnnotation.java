@@ -38,18 +38,19 @@ public class RemoveOntologyAnnotation extends AnnotationChange {
         super(ont, annotation);
     }
 
+    @Nonnull
     @Override
     public OWLOntologyChangeData<OWLAnnotation> getChangeData() {
         return new RemoveOntologyAnnotationData(getAnnotation());
     }
 
     @Override
-    public void accept(OWLOntologyChangeVisitor visitor) {
+    public void accept(@Nonnull OWLOntologyChangeVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLOntologyChangeVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLOntologyChangeVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
@@ -71,6 +72,7 @@ public class RemoveOntologyAnnotation extends AnnotationChange {
                 && getOntology().equals(other.getOntology());
     }
 
+    @Nonnull
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

@@ -1,5 +1,7 @@
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group
@@ -10,5 +12,6 @@ public interface HasDataFactory {
     /**
      * @return the data factory
      */
+    @Nonnull
     OWLDataFactory getOWLDataFactory();
 }

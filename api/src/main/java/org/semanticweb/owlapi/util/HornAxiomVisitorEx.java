@@ -41,6 +41,8 @@ import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 
+import javax.annotation.Nonnull;
+
 /** Returns true if the visited axioms are an ontology in Horn-SHIQ form. */
 public class HornAxiomVisitorEx extends OWLAxiomVisitorExAdapter<Boolean> {
 
@@ -54,29 +56,29 @@ public class HornAxiomVisitorEx extends OWLAxiomVisitorExAdapter<Boolean> {
     }
 
     @Override
-    public Boolean visit(OWLSubAnnotationPropertyOfAxiom axiom) {
+    public Boolean visit(@Nonnull OWLSubAnnotationPropertyOfAxiom axiom) {
         return Boolean.TRUE;
     }
 
     @Override
-    public Boolean visit(OWLAnnotationPropertyDomainAxiom axiom) {
+    public Boolean visit(@Nonnull OWLAnnotationPropertyDomainAxiom axiom) {
         return Boolean.TRUE;
     }
 
     @Override
-    public Boolean visit(OWLAnnotationPropertyRangeAxiom axiom) {
+    public Boolean visit(@Nonnull OWLAnnotationPropertyRangeAxiom axiom) {
         return Boolean.TRUE;
     }
 
     @Override
-    public Boolean visit(OWLSubClassOfAxiom axiom) {
+    public Boolean visit(@Nonnull OWLSubClassOfAxiom axiom) {
         return Boolean.valueOf(axiom.getSubClass().accept(negative)
                 .booleanValue()
                 && axiom.getSuperClass().accept(positive).booleanValue());
     }
 
     @Override
-    public Boolean visit(OWLDisjointClassesAxiom axiom) {
+    public Boolean visit(@Nonnull OWLDisjointClassesAxiom axiom) {
         for (OWLClassExpression c : axiom.getClassExpressions()) {
             if (!c.accept(negative).booleanValue()) {
                 return Boolean.FALSE;
@@ -86,32 +88,32 @@ public class HornAxiomVisitorEx extends OWLAxiomVisitorExAdapter<Boolean> {
     }
 
     @Override
-    public Boolean visit(OWLObjectPropertyDomainAxiom axiom) {
+    public Boolean visit(@Nonnull OWLObjectPropertyDomainAxiom axiom) {
         return axiom.getDomain().accept(positive);
     }
 
     @Override
-    public Boolean visit(OWLEquivalentObjectPropertiesAxiom axiom) {
+    public Boolean visit(@Nonnull OWLEquivalentObjectPropertiesAxiom axiom) {
         return Boolean.TRUE;
     }
 
     @Override
-    public Boolean visit(OWLObjectPropertyRangeAxiom axiom) {
+    public Boolean visit(@Nonnull OWLObjectPropertyRangeAxiom axiom) {
         return axiom.getRange().accept(positive);
     }
 
     @Override
-    public Boolean visit(OWLFunctionalObjectPropertyAxiom axiom) {
+    public Boolean visit(@Nonnull OWLFunctionalObjectPropertyAxiom axiom) {
         return Boolean.TRUE;
     }
 
     @Override
-    public Boolean visit(OWLSubObjectPropertyOfAxiom axiom) {
+    public Boolean visit(@Nonnull OWLSubObjectPropertyOfAxiom axiom) {
         return Boolean.TRUE;
     }
 
     @Override
-    public Boolean visit(OWLDisjointUnionAxiom axiom) {
+    public Boolean visit(@Nonnull OWLDisjointUnionAxiom axiom) {
         OWLClassExpression c1 = axiom.getOWLClass();
         if (!c1.accept(positive).booleanValue()
                 || !c1.accept(negative).booleanValue()) {
@@ -127,22 +129,22 @@ public class HornAxiomVisitorEx extends OWLAxiomVisitorExAdapter<Boolean> {
     }
 
     @Override
-    public Boolean visit(OWLDeclarationAxiom axiom) {
+    public Boolean visit(@Nonnull OWLDeclarationAxiom axiom) {
         return Boolean.TRUE;
     }
 
     @Override
-    public Boolean visit(OWLAnnotationAssertionAxiom axiom) {
+    public Boolean visit(@Nonnull OWLAnnotationAssertionAxiom axiom) {
         return Boolean.TRUE;
     }
 
     @Override
-    public Boolean visit(OWLSymmetricObjectPropertyAxiom axiom) {
+    public Boolean visit(@Nonnull OWLSymmetricObjectPropertyAxiom axiom) {
         return Boolean.TRUE;
     }
 
     @Override
-    public Boolean visit(OWLEquivalentClassesAxiom axiom) {
+    public Boolean visit(@Nonnull OWLEquivalentClassesAxiom axiom) {
         for (OWLClassExpression c : axiom.getClassExpressions()) {
             if (!c.accept(positive).booleanValue()
                     || !c.accept(negative).booleanValue()) {
@@ -153,17 +155,17 @@ public class HornAxiomVisitorEx extends OWLAxiomVisitorExAdapter<Boolean> {
     }
 
     @Override
-    public Boolean visit(OWLTransitiveObjectPropertyAxiom axiom) {
+    public Boolean visit(@Nonnull OWLTransitiveObjectPropertyAxiom axiom) {
         return Boolean.TRUE;
     }
 
     @Override
-    public Boolean visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
+    public Boolean visit(@Nonnull OWLInverseFunctionalObjectPropertyAxiom axiom) {
         return Boolean.TRUE;
     }
 
     @Override
-    public Boolean visit(OWLInverseObjectPropertiesAxiom axiom) {
+    public Boolean visit(@Nonnull OWLInverseObjectPropertiesAxiom axiom) {
         return Boolean.TRUE;
     }
 
@@ -175,12 +177,12 @@ public class HornAxiomVisitorEx extends OWLAxiomVisitorExAdapter<Boolean> {
         }
 
         @Override
-        public Boolean visit(OWLClass ce) {
+        public Boolean visit(@Nonnull OWLClass ce) {
             return Boolean.TRUE;
         }
 
         @Override
-        public Boolean visit(OWLObjectIntersectionOf ce) {
+        public Boolean visit(@Nonnull OWLObjectIntersectionOf ce) {
             for (OWLClassExpression c : ce.getOperands()) {
                 if (c.accept(this) == Boolean.FALSE) {
                     return Boolean.FALSE;
@@ -190,34 +192,34 @@ public class HornAxiomVisitorEx extends OWLAxiomVisitorExAdapter<Boolean> {
         }
 
         @Override
-        public Boolean visit(OWLObjectComplementOf ce) {
+        public Boolean visit(@Nonnull OWLObjectComplementOf ce) {
             return ce.getOperand().accept(negative);
         }
 
         @Override
-        public Boolean visit(OWLObjectSomeValuesFrom ce) {
+        public Boolean visit(@Nonnull OWLObjectSomeValuesFrom ce) {
             return ce.getFiller().accept(this);
         }
 
         @Override
-        public Boolean visit(OWLObjectAllValuesFrom ce) {
+        public Boolean visit(@Nonnull OWLObjectAllValuesFrom ce) {
             return ce.getFiller().accept(this);
         }
 
         @Override
-        public Boolean visit(OWLObjectMinCardinality ce) {
+        public Boolean visit(@Nonnull OWLObjectMinCardinality ce) {
             return ce.getFiller().accept(this);
         }
 
         @Override
-        public Boolean visit(OWLObjectExactCardinality ce) {
+        public Boolean visit(@Nonnull OWLObjectExactCardinality ce) {
             return Boolean.valueOf(ce.getCardinality() <= 1
                     && ce.getFiller().accept(this).booleanValue()
                     && ce.getFiller().accept(negative).booleanValue());
         }
 
         @Override
-        public Boolean visit(OWLObjectMaxCardinality ce) {
+        public Boolean visit(@Nonnull OWLObjectMaxCardinality ce) {
             return Boolean.valueOf(ce.getCardinality() <= 1
                     && ce.getFiller().accept(negative).booleanValue());
         }
@@ -231,12 +233,12 @@ public class HornAxiomVisitorEx extends OWLAxiomVisitorExAdapter<Boolean> {
         }
 
         @Override
-        public Boolean visit(OWLClass ce) {
+        public Boolean visit(@Nonnull OWLClass ce) {
             return Boolean.TRUE;
         }
 
         @Override
-        public Boolean visit(OWLObjectIntersectionOf ce) {
+        public Boolean visit(@Nonnull OWLObjectIntersectionOf ce) {
             for (OWLClassExpression c : ce.getOperands()) {
                 if (c.accept(this) == Boolean.FALSE) {
                     return Boolean.FALSE;
@@ -246,7 +248,7 @@ public class HornAxiomVisitorEx extends OWLAxiomVisitorExAdapter<Boolean> {
         }
 
         @Override
-        public Boolean visit(OWLObjectUnionOf ce) {
+        public Boolean visit(@Nonnull OWLObjectUnionOf ce) {
             for (OWLClassExpression c : ce.getOperands()) {
                 if (c.accept(this) == Boolean.FALSE) {
                     return Boolean.FALSE;
@@ -256,12 +258,12 @@ public class HornAxiomVisitorEx extends OWLAxiomVisitorExAdapter<Boolean> {
         }
 
         @Override
-        public Boolean visit(OWLObjectSomeValuesFrom ce) {
+        public Boolean visit(@Nonnull OWLObjectSomeValuesFrom ce) {
             return ce.getFiller().accept(this);
         }
 
         @Override
-        public Boolean visit(OWLObjectMinCardinality ce) {
+        public Boolean visit(@Nonnull OWLObjectMinCardinality ce) {
             return Boolean.valueOf(ce.getCardinality() <= 1
                     && ce.getFiller().accept(this).booleanValue());
         }

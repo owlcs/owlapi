@@ -54,12 +54,13 @@ public class OWLObjectPropertyManager {
         private static final long serialVersionUID = 40000L;
 
         @Override
-        public int compare(Set<OWLObjectPropertyExpression> o1,
-                Set<OWLObjectPropertyExpression> o2) {
+        public int compare(@Nonnull Set<OWLObjectPropertyExpression> o1,
+                @Nonnull Set<OWLObjectPropertyExpression> o2) {
             return o1.size() - o2.size();
         }
     }
 
+    @Nonnull
     private final OWLOntologyManager man;
     private OWLOntology ontology;
     private final Set<OWLObjectPropertyExpression> properties = new HashSet<OWLObjectPropertyExpression>();

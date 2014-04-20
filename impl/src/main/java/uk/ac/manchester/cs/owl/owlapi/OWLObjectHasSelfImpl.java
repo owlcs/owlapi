@@ -50,11 +50,13 @@ public class OWLObjectHasSelfImpl extends OWLRestrictionImpl implements
         this.property = checkNotNull(property, "property cannot be null");
     }
 
+    @Nonnull
     @Override
     public OWLObjectPropertyExpression getProperty() {
         return property;
     }
 
+    @Nonnull
     @Override
     public ClassExpressionType getClassExpressionType() {
         return ClassExpressionType.OBJECT_HAS_SELF;
@@ -81,22 +83,22 @@ public class OWLObjectHasSelfImpl extends OWLRestrictionImpl implements
     }
 
     @Override
-    public void accept(OWLClassExpressionVisitor visitor) {
+    public void accept(@Nonnull OWLClassExpressionVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public void accept(OWLObjectVisitor visitor) {
+    public void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLClassExpressionVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLClassExpressionVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 

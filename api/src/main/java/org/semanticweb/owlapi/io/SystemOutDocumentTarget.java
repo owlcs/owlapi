@@ -19,6 +19,8 @@ import java.io.Writer;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
+import javax.annotation.Nonnull;
+
 /**
  * An output target that will output an ontology to {@code System.out}.
  * 
@@ -28,6 +30,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  */
 public class SystemOutDocumentTarget implements OWLOntologyDocumentTarget {
 
+    @Nonnull
     @Override
     public IRI getDocumentIRI() {
         throw new OWLRuntimeException(
@@ -39,6 +42,7 @@ public class SystemOutDocumentTarget implements OWLOntologyDocumentTarget {
         return false;
     }
 
+    @Nonnull
     @Override
     public OutputStream getOutputStream() throws IOException {
         return new OutputStream() {
@@ -60,6 +64,7 @@ public class SystemOutDocumentTarget implements OWLOntologyDocumentTarget {
         return true;
     }
 
+    @Nonnull
     @Override
     public Writer getWriter() throws IOException {
         throw new OWLRuntimeException(

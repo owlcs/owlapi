@@ -16,6 +16,8 @@ import java.io.Serializable;
 
 import org.semanticweb.owlapi.model.OWLEntity;
 
+import javax.annotation.Nonnull;
+
 /**
  * A very simple short form provider which is intended to provide human readable
  * display names for entities. The following strategy is used: 1) If the entity
@@ -34,8 +36,9 @@ public class SimpleShortFormProvider implements ShortFormProvider, Serializable 
     private static final long serialVersionUID = 40000L;
     private final SimpleIRIShortFormProvider uriShortFormProvider = new SimpleIRIShortFormProvider();
 
+    @Nonnull
     @Override
-    public String getShortForm(OWLEntity entity) {
+    public String getShortForm(@Nonnull OWLEntity entity) {
         return uriShortFormProvider.getShortForm(entity.getIRI());
     }
 

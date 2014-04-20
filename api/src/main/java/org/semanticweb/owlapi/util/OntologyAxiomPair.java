@@ -15,6 +15,8 @@ package org.semanticweb.owlapi.util;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
@@ -75,6 +77,7 @@ public class OntologyAxiomPair {
         }
     }
 
+    @Nonnull
     @Override
     public String toString() {
         return axiom.toString() + " in "

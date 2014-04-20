@@ -26,6 +26,7 @@ import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
@@ -43,9 +44,11 @@ public abstract class StreamDocumentSourceBase extends
         OWLOntologyDocumentSourceBase {
 
     private static final AtomicLong COUNTER = new AtomicLong();
+    @Nonnull
     protected final IRI documentIRI;
     protected byte[] byteBuffer;
     private String encoding = "UTF-8";
+    @Nullable
     private Boolean streamAvailable = null;
 
     /**
@@ -53,6 +56,7 @@ public abstract class StreamDocumentSourceBase extends
      *        prefix for result
      * @return a fresh IRI
      */
+    @Nonnull
     protected static IRI getNextDocumentIRI(String prefix) {
         return IRI.create(prefix + COUNTER.incrementAndGet());
     }
@@ -136,7 +140,7 @@ public abstract class StreamDocumentSourceBase extends
         }
     }
 
-    private void readIntoBuffer(Reader reader) {
+    private void readIntoBuffer(@Nonnull Reader reader) {
         try {
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             GZIPOutputStream out = new GZIPOutputStream(bos);
@@ -159,6 +163,7 @@ public abstract class StreamDocumentSourceBase extends
         }
     }
 
+    @Nonnull
     @Override
     public IRI getDocumentIRI() {
         return documentIRI;
@@ -169,6 +174,7 @@ public abstract class StreamDocumentSourceBase extends
         return Boolean.TRUE.equals(streamAvailable);
     }
 
+    @Nonnull
     @Override
     public InputStream getInputStream() {
         if (!isInputStreamAvailable()) {
@@ -182,6 +188,7 @@ public abstract class StreamDocumentSourceBase extends
         }
     }
 
+    @Nonnull
     @Override
     public Reader getReader() {
         if (!isReaderAvailable()) {

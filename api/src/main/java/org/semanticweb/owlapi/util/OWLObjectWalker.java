@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -40,10 +41,14 @@ import org.semanticweb.owlapi.model.OWLOntology;
 public class OWLObjectWalker<O extends OWLObject> {
 
     protected OWLOntology ontology;
+    @Nonnull
     private final Collection<O> objects;
+    @Nullable
     protected OWLObjectVisitor visitor;
+    @Nullable
     private OWLObjectVisitorEx<?> visitorEx;
     protected final boolean visitDuplicates;
+    @Nullable
     protected OWLAxiom ax;
     protected OWLAnnotation annotation;
     private final List<OWLClassExpression> classExpressionPath = new ArrayList<OWLClassExpression>();
@@ -58,7 +63,8 @@ public class OWLObjectWalker<O extends OWLObject> {
         this(objects, true);
     }
 
-    protected Object passToVisitor(OWLObject o) {
+    @Nullable
+    protected Object passToVisitor(@Nonnull OWLObject o) {
         if (visitor != null) {
             o.accept(visitor);
             return null;
@@ -67,12 +73,12 @@ public class OWLObjectWalker<O extends OWLObject> {
         }
     }
 
-    protected void setVisitor(OWLObjectVisitorEx<?> visitor) {
+    protected void setVisitor(@Nonnull OWLObjectVisitorEx<?> visitor) {
         this.visitorEx = visitor;
         this.visitor = null;
     }
 
-    protected void setVisitor(OWLObjectVisitor visitor) {
+    protected void setVisitor(@Nonnull OWLObjectVisitor visitor) {
         this.visitor = visitor;
         this.visitorEx = null;
     }
@@ -134,6 +140,7 @@ public class OWLObjectWalker<O extends OWLObject> {
      * @return The last axiom to be visited, or {@code null} if an axiom has not
      *         be visited
      */
+    @Nullable
     public OWLAxiom getAxiom() {
         return ax;
     }

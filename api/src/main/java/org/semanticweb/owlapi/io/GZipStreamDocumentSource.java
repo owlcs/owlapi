@@ -25,6 +25,8 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
+import javax.annotation.Nonnull;
+
 /**
  * An ontology document source which can read from a GZIP stream.
  * 
@@ -44,11 +46,12 @@ public class GZipStreamDocumentSource extends OWLOntologyDocumentSourceBase {
      * @param is
      *        The stream that the ontology representation will be read from.
      */
-    public GZipStreamDocumentSource(InputStream is) {
+    public GZipStreamDocumentSource(@Nonnull InputStream is) {
         this(is, getNextDocumentIRI(), null, null);
     }
 
     /** @return a fresh IRI */
+    @Nonnull
     public static synchronized IRI getNextDocumentIRI() {
         counter = counter + 1;
         return IRI.create("gzipinputstream:ontology" + counter);
@@ -67,14 +70,14 @@ public class GZipStreamDocumentSource extends OWLOntologyDocumentSourceBase {
      * @param mime
      *        mime type
      */
-    public GZipStreamDocumentSource(InputStream stream, IRI documentIRI,
+    public GZipStreamDocumentSource(@Nonnull InputStream stream, IRI documentIRI,
             OWLOntologyFormat format, String mime) {
         super(format, mime);
         this.documentIRI = documentIRI;
         readIntoBuffer(stream);
     }
 
-    private void readIntoBuffer(InputStream reader) {
+    private void readIntoBuffer(@Nonnull InputStream reader) {
         try {
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             final int length = 100000;
@@ -97,6 +100,7 @@ public class GZipStreamDocumentSource extends OWLOntologyDocumentSourceBase {
         return buffer != null;
     }
 
+    @Nonnull
     @Override
     public InputStream getInputStream() {
         if (buffer == null) {
@@ -110,11 +114,13 @@ public class GZipStreamDocumentSource extends OWLOntologyDocumentSourceBase {
         }
     }
 
+    @Nonnull
     @Override
     public IRI getDocumentIRI() {
         return documentIRI;
     }
 
+    @Nonnull
     @Override
     public Reader getReader() {
         try {

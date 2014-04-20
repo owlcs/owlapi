@@ -23,6 +23,8 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolation;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
+import javax.annotation.Nonnull;
+
 /**
  * Specifies that an IRI that is used for a datatype is also used for a class
  * IRI
@@ -40,18 +42,18 @@ public class DatatypeIRIAlsoUsedAsClassIRI extends OWLProfileViolation<IRI> {
      * @param iri
      *        iri
      */
-    public DatatypeIRIAlsoUsedAsClassIRI(OWLOntology ontology, OWLAxiom axiom,
+    public DatatypeIRIAlsoUsedAsClassIRI(@Nonnull OWLOntology ontology, OWLAxiom axiom,
             IRI iri) {
         super(ontology, axiom, iri);
     }
 
     @Override
-    public void accept(OWLProfileViolationVisitor visitor) {
+    public void accept(@Nonnull OWLProfileViolationVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLProfileViolationVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLProfileViolationVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
@@ -61,6 +63,7 @@ public class DatatypeIRIAlsoUsedAsClassIRI extends OWLProfileViolation<IRI> {
                 getExpression());
     }
 
+    @Nonnull
     @Override
     public List<OWLOntologyChange<?>> repair() {
         // XXX arbitrary decision: drop the axiom

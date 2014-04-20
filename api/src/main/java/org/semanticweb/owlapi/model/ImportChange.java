@@ -27,6 +27,7 @@ import javax.annotation.Nonnull;
 public abstract class ImportChange extends
         OWLOntologyChange<OWLImportsDeclaration> {
 
+    @Nonnull
     private final OWLImportsDeclaration declaration;
 
     /**
@@ -52,6 +53,7 @@ public abstract class ImportChange extends
         return declaration;
     }
 
+    @Nonnull
     @Override
     public Set<OWLEntity> getSignature() {
         return Collections.emptySet();
@@ -72,6 +74,7 @@ public abstract class ImportChange extends
         return false;
     }
 
+    @Nonnull
     @Override
     public OWLAxiom getAxiom() {
         throw new UnsupportedOperationException("Not an axiom");

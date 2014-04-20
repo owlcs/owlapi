@@ -1,5 +1,6 @@
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 /**
@@ -19,6 +20,7 @@ public interface MIMETypeAware {
      * @return The default MIME Type for the OWLOntologyFormat that this class
      *         is a factory for or null if no MIME Types are specified.
      */
+    @Nullable
     String getDefaultMIMEType();
 
     /**

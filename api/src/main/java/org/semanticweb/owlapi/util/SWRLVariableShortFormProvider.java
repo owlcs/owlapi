@@ -28,5 +28,6 @@ public interface SWRLVariableShortFormProvider {
      *        variable to shorten
      * @return short form
      */
+    @Nonnull
     String getShortForm(@Nonnull SWRLVariable variable);
 }

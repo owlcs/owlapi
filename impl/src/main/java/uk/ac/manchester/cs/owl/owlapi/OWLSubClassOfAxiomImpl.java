@@ -57,12 +57,14 @@ public class OWLSubClassOfAxiomImpl extends OWLClassAxiomImpl implements
         this.superClass = checkNotNull(superClass, "superClass cannot be null");
     }
 
+    @Nonnull
     @Override
-    public OWLSubClassOfAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+    public OWLSubClassOfAxiom getAnnotatedAxiom(@Nonnull Set<OWLAnnotation> annotations) {
         return new OWLSubClassOfAxiomImpl(subClass, superClass,
                 mergeAnnos(annotations));
     }
 
+    @Nonnull
     @Override
     public OWLSubClassOfAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
@@ -71,11 +73,13 @@ public class OWLSubClassOfAxiomImpl extends OWLClassAxiomImpl implements
         return new OWLSubClassOfAxiomImpl(subClass, superClass, NO_ANNOTATIONS);
     }
 
+    @Nonnull
     @Override
     public OWLClassExpression getSubClass() {
         return subClass;
     }
 
+    @Nonnull
     @Override
     public OWLClassExpression getSuperClass() {
         return superClass;
@@ -102,25 +106,26 @@ public class OWLSubClassOfAxiomImpl extends OWLClassAxiomImpl implements
     }
 
     @Override
-    public void accept(OWLAxiomVisitor visitor) {
+    public void accept(@Nonnull OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public void accept(OWLObjectVisitor visitor) {
+    public void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Nonnull
     @Override
     public AxiomType<?> getAxiomType() {
         return AxiomType.SUBCLASS_OF;

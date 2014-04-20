@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -97,6 +98,7 @@ import org.semanticweb.owlapi.model.SWRLRule;
  */
 public class StructuralTransformation {
 
+    @Nonnull
     protected final OWLDataFactory df;
     private int nameCounter = 0;
     protected final Set<OWLEntity> signature = new HashSet<OWLEntity>();
@@ -109,6 +111,7 @@ public class StructuralTransformation {
         df = checkNotNull(dataFactory, "dataFactory cannot be null");
     }
 
+    @Nonnull
     protected OWLClass createNewName() {
         OWLClass cls = df.getOWLClass(IRI.create(
                 "http://www.semanticweb.org/ontology#", "X" + nameCounter));
@@ -121,6 +124,7 @@ public class StructuralTransformation {
      *        axioms to transform
      * @return transformed axioms
      */
+    @Nonnull
     public Set<OWLAxiom> getTransformedAxioms(@Nonnull Set<OWLAxiom> axioms) {
         checkNotNull(axioms, "axioms cannot be null");
         signature.clear();
@@ -160,10 +164,12 @@ public class StructuralTransformation {
             this.rhs = rhs;
         }
 
-        private OWLSubClassOfAxiom getSCA(OWLClass lhs, OWLClassExpression ce) {
+        @Nonnull
+        private OWLSubClassOfAxiom getSCA(@Nonnull OWLClass lhs, @Nonnull OWLClassExpression ce) {
             return ldf.getOWLSubClassOfAxiom(lhs, ce);
         }
 
+        @Nonnull
         public Set<OWLAxiom> getAxioms() {
             axioms.clear();
             OWLClass lhs = ldf.getOWLThing();
@@ -173,42 +179,43 @@ public class StructuralTransformation {
         }
 
         @Override
-        public OWLClassExpression visit(OWLClass desc) {
+        public OWLClassExpression visit(@Nonnull OWLClass desc) {
             return desc;
         }
 
         @Override
-        public OWLClassExpression visit(OWLDataAllValuesFrom desc) {
+        public OWLClassExpression visit(@Nonnull OWLDataAllValuesFrom desc) {
             return desc;
         }
 
         @Override
-        public OWLClassExpression visit(OWLDataExactCardinality desc) {
+        public OWLClassExpression visit(@Nonnull OWLDataExactCardinality desc) {
             return desc;
         }
 
         @Override
-        public OWLClassExpression visit(OWLDataMaxCardinality desc) {
+        public OWLClassExpression visit(@Nonnull OWLDataMaxCardinality desc) {
             return desc;
         }
 
         @Override
-        public OWLClassExpression visit(OWLDataMinCardinality desc) {
+        public OWLClassExpression visit(@Nonnull OWLDataMinCardinality desc) {
             return desc;
         }
 
         @Override
-        public OWLClassExpression visit(OWLDataSomeValuesFrom desc) {
+        public OWLClassExpression visit(@Nonnull OWLDataSomeValuesFrom desc) {
             return desc;
         }
 
         @Override
-        public OWLClassExpression visit(OWLDataHasValue desc) {
+        public OWLClassExpression visit(@Nonnull OWLDataHasValue desc) {
             return desc;
         }
 
+        @Nonnull
         @Override
-        public OWLClassExpression visit(OWLObjectAllValuesFrom desc) {
+        public OWLClassExpression visit(@Nonnull OWLObjectAllValuesFrom desc) {
             if (signature.containsAll(desc.getFiller().getSignature())) {
                 OWLClass name = createNewName();
                 axioms.add(getSCA(name, desc.getFiller().accept(this)));
@@ -218,8 +225,9 @@ public class StructuralTransformation {
             }
         }
 
+        @Nonnull
         @Override
-        public OWLClassExpression visit(OWLObjectComplementOf desc) {
+        public OWLClassExpression visit(@Nonnull OWLObjectComplementOf desc) {
             // Should be a literal
             if (desc.getOperand().isAnonymous()) {
                 throw new IllegalStateException(
@@ -228,8 +236,9 @@ public class StructuralTransformation {
             return desc;
         }
 
+        @Nonnull
         @Override
-        public OWLClassExpression visit(OWLObjectExactCardinality desc) {
+        public OWLClassExpression visit(@Nonnull OWLObjectExactCardinality desc) {
             if (signature.containsAll(desc.getFiller().getSignature())) {
                 OWLClass name = createNewName();
                 axioms.add(getSCA(name, desc.getFiller().accept(this)));
@@ -240,8 +249,9 @@ public class StructuralTransformation {
             }
         }
 
+        @Nonnull
         @Override
-        public OWLClassExpression visit(OWLObjectIntersectionOf desc) {
+        public OWLClassExpression visit(@Nonnull OWLObjectIntersectionOf desc) {
             OWLClass name = createNewName();
             for (OWLClassExpression op : desc.getOperands()) {
                 OWLClassExpression flatOp = op.accept(this);
@@ -250,8 +260,9 @@ public class StructuralTransformation {
             return name;
         }
 
+        @Nonnull
         @Override
-        public OWLClassExpression visit(OWLObjectMaxCardinality desc) {
+        public OWLClassExpression visit(@Nonnull OWLObjectMaxCardinality desc) {
             if (signature.containsAll(desc.getFiller().getSignature())) {
                 OWLClass name = createNewName();
                 axioms.add(getSCA(name, desc.getFiller().accept(this)));
@@ -262,8 +273,9 @@ public class StructuralTransformation {
             }
         }
 
+        @Nonnull
         @Override
-        public OWLClassExpression visit(OWLObjectMinCardinality desc) {
+        public OWLClassExpression visit(@Nonnull OWLObjectMinCardinality desc) {
             if (signature.containsAll(desc.getFiller().getSignature())) {
                 OWLClass name = createNewName();
                 axioms.add(getSCA(name, desc.getFiller().accept(this)));
@@ -274,8 +286,9 @@ public class StructuralTransformation {
             }
         }
 
+        @Nonnull
         @Override
-        public OWLClassExpression visit(OWLObjectOneOf desc) {
+        public OWLClassExpression visit(@Nonnull OWLObjectOneOf desc) {
             if (desc.getIndividuals().size() > 1) {
                 throw new IllegalStateException(
                         "ObjectOneOf with more than one individual!");
@@ -284,12 +297,13 @@ public class StructuralTransformation {
         }
 
         @Override
-        public OWLClassExpression visit(OWLObjectHasSelf desc) {
+        public OWLClassExpression visit(@Nonnull OWLObjectHasSelf desc) {
             return desc;
         }
 
+        @Nonnull
         @Override
-        public OWLClassExpression visit(OWLObjectSomeValuesFrom desc) {
+        public OWLClassExpression visit(@Nonnull OWLObjectSomeValuesFrom desc) {
             if (desc.getFiller().isAnonymous()) {
                 OWLClass name = createNewName();
                 axioms.add(getSCA(name, desc.getFiller().accept(this)));
@@ -299,8 +313,9 @@ public class StructuralTransformation {
             }
         }
 
+        @Nonnull
         @Override
-        public OWLClassExpression visit(OWLObjectUnionOf desc) {
+        public OWLClassExpression visit(@Nonnull OWLObjectUnionOf desc) {
             Set<OWLClassExpression> descs = new HashSet<OWLClassExpression>();
             for (OWLClassExpression op : desc.getOperands()) {
                 OWLClassExpression flatOp = op.accept(this);
@@ -317,7 +332,7 @@ public class StructuralTransformation {
         }
 
         @Override
-        public OWLClassExpression visit(OWLObjectHasValue desc) {
+        public OWLClassExpression visit(@Nonnull OWLObjectHasValue desc) {
             return desc;
         }
     }
@@ -330,7 +345,8 @@ public class StructuralTransformation {
 
         public AxiomRewriter() {}
 
-        private Set<OWLAxiom> subClassOf(OWLClassExpression sub,
+        @Nonnull
+        private Set<OWLAxiom> subClassOf(@Nonnull OWLClassExpression sub,
                 OWLClassExpression sup) {
             return Collections.singleton((OWLAxiom) df.getOWLSubClassOfAxiom(
                     df.getOWLThing(),
@@ -338,53 +354,62 @@ public class StructuralTransformation {
                             sup).getNNF()));
         }
 
+        @Nonnull
         private Set<OWLAxiom> toSet(OWLAxiom ax) {
             return Collections.singleton(ax);
         }
 
+        @Nonnull
         @Override
-        public Set<OWLAxiom> visit(OWLAsymmetricObjectPropertyAxiom axiom) {
+        public Set<OWLAxiom> visit(@Nonnull OWLAsymmetricObjectPropertyAxiom axiom) {
             return toSet(axiom);
         }
 
+        @Nonnull
         @Override
-        public Set<OWLAxiom> visit(OWLClassAssertionAxiom axiom) {
+        public Set<OWLAxiom> visit(@Nonnull OWLClassAssertionAxiom axiom) {
             return subClassOf(df.getOWLObjectOneOf(axiom.getIndividual()),
                     axiom.getClassExpression());
         }
 
+        @Nonnull
         @Override
-        public Set<OWLAxiom> visit(OWLDataPropertyAssertionAxiom axiom) {
+        public Set<OWLAxiom> visit(@Nonnull OWLDataPropertyAssertionAxiom axiom) {
             return toSet(axiom);
         }
 
+        @Nonnull
         @Override
-        public Set<OWLAxiom> visit(OWLDataPropertyDomainAxiom axiom) {
+        public Set<OWLAxiom> visit(@Nonnull OWLDataPropertyDomainAxiom axiom) {
             return subClassOf(
                     df.getOWLDataSomeValuesFrom(axiom.getProperty(),
                             df.getTopDatatype()), axiom.getDomain());
         }
 
+        @Nonnull
         @Override
-        public Set<OWLAxiom> visit(OWLDataPropertyRangeAxiom axiom) {
+        public Set<OWLAxiom> visit(@Nonnull OWLDataPropertyRangeAxiom axiom) {
             return toSet(df.getOWLSubClassOfAxiom(
                     df.getOWLThing(),
                     df.getOWLDataAllValuesFrom(axiom.getProperty(),
                             axiom.getRange())));
         }
 
+        @Nonnull
         @Override
-        public Set<OWLAxiom> visit(OWLSubDataPropertyOfAxiom axiom) {
+        public Set<OWLAxiom> visit(@Nonnull OWLSubDataPropertyOfAxiom axiom) {
             return toSet(axiom);
         }
 
+        @Nonnull
         @Override
-        public Set<OWLAxiom> visit(OWLDeclarationAxiom axiom) {
+        public Set<OWLAxiom> visit(@Nonnull OWLDeclarationAxiom axiom) {
             return toSet(axiom);
         }
 
+        @Nonnull
         @Override
-        public Set<OWLAxiom> visit(OWLDifferentIndividualsAxiom axiom) {
+        public Set<OWLAxiom> visit(@Nonnull OWLDifferentIndividualsAxiom axiom) {
             // Explode into pairwise nominals?
             Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
             List<OWLIndividual> individuals = new ArrayList<OWLIndividual>(
@@ -399,8 +424,9 @@ public class StructuralTransformation {
             return axioms;
         }
 
+        @Nonnull
         @Override
-        public Set<OWLAxiom> visit(OWLDisjointClassesAxiom axiom) {
+        public Set<OWLAxiom> visit(@Nonnull OWLDisjointClassesAxiom axiom) {
             // Explode
             Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
             List<OWLClassExpression> classExpressions = new ArrayList<OWLClassExpression>(
@@ -414,8 +440,9 @@ public class StructuralTransformation {
             return axioms;
         }
 
+        @Nonnull
         @Override
-        public Set<OWLAxiom> visit(OWLDisjointDataPropertiesAxiom axiom) {
+        public Set<OWLAxiom> visit(@Nonnull OWLDisjointDataPropertiesAxiom axiom) {
             // Explode
             Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
             List<OWLDataPropertyExpression> props = new ArrayList<OWLDataPropertyExpression>(
@@ -429,8 +456,9 @@ public class StructuralTransformation {
             return axioms;
         }
 
+        @Nonnull
         @Override
-        public Set<OWLAxiom> visit(OWLDisjointObjectPropertiesAxiom axiom) {
+        public Set<OWLAxiom> visit(@Nonnull OWLDisjointObjectPropertiesAxiom axiom) {
             Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
             List<OWLObjectPropertyExpression> props = new ArrayList<OWLObjectPropertyExpression>(
                     axiom.getProperties());
@@ -443,8 +471,9 @@ public class StructuralTransformation {
             return axioms;
         }
 
+        @Nonnull
         @Override
-        public Set<OWLAxiom> visit(OWLDisjointUnionAxiom axiom) {
+        public Set<OWLAxiom> visit(@Nonnull OWLDisjointUnionAxiom axiom) {
             Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
             axioms.addAll(df.getOWLEquivalentClassesAxiom(axiom.getOWLClass(),
                     df.getOWLObjectUnionOf(axiom.getClassExpressions()))
@@ -454,13 +483,15 @@ public class StructuralTransformation {
             return axioms;
         }
 
+        @Nonnull
         @Override
-        public Set<OWLAxiom> visit(OWLAnnotationAssertionAxiom axiom) {
+        public Set<OWLAxiom> visit(@Nonnull OWLAnnotationAssertionAxiom axiom) {
             return toSet(axiom);
         }
 
+        @Nonnull
         @Override
-        public Set<OWLAxiom> visit(OWLEquivalentClassesAxiom axiom) {
+        public Set<OWLAxiom> visit(@Nonnull OWLEquivalentClassesAxiom axiom) {
             Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
             List<OWLClassExpression> classExpressions = new ArrayList<OWLClassExpression>(
                     axiom.getClassExpressions());
@@ -475,8 +506,9 @@ public class StructuralTransformation {
             return axioms;
         }
 
+        @Nonnull
         @Override
-        public Set<OWLAxiom> visit(OWLEquivalentDataPropertiesAxiom axiom) {
+        public Set<OWLAxiom> visit(@Nonnull OWLEquivalentDataPropertiesAxiom axiom) {
             Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
             List<OWLDataPropertyExpression> props = new ArrayList<OWLDataPropertyExpression>(
                     axiom.getProperties());
@@ -491,8 +523,9 @@ public class StructuralTransformation {
             return axioms;
         }
 
+        @Nonnull
         @Override
-        public Set<OWLAxiom> visit(OWLEquivalentObjectPropertiesAxiom axiom) {
+        public Set<OWLAxiom> visit(@Nonnull OWLEquivalentObjectPropertiesAxiom axiom) {
             Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
             List<OWLObjectPropertyExpression> props = new ArrayList<OWLObjectPropertyExpression>(
                     axiom.getProperties());
@@ -507,28 +540,32 @@ public class StructuralTransformation {
             return axioms;
         }
 
+        @Nonnull
         @Override
-        public Set<OWLAxiom> visit(OWLFunctionalDataPropertyAxiom axiom) {
+        public Set<OWLAxiom> visit(@Nonnull OWLFunctionalDataPropertyAxiom axiom) {
             return toSet(df.getOWLSubClassOfAxiom(df.getOWLThing(),
                     df.getOWLDataMaxCardinality(1, axiom.getProperty())));
         }
 
+        @Nonnull
         @Override
-        public Set<OWLAxiom> visit(OWLFunctionalObjectPropertyAxiom axiom) {
+        public Set<OWLAxiom> visit(@Nonnull OWLFunctionalObjectPropertyAxiom axiom) {
             return toSet(df.getOWLSubClassOfAxiom(df.getOWLThing(),
                     df.getOWLObjectMaxCardinality(1, axiom.getProperty())));
         }
 
+        @Nonnull
         @Override
         public Set<OWLAxiom>
-                visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
+                visit(@Nonnull OWLInverseFunctionalObjectPropertyAxiom axiom) {
             return toSet(df.getOWLSubClassOfAxiom(df.getOWLThing(), df
                     .getOWLObjectMaxCardinality(1, axiom.getProperty()
                             .getInverseProperty())));
         }
 
+        @Nonnull
         @Override
-        public Set<OWLAxiom> visit(OWLInverseObjectPropertiesAxiom axiom) {
+        public Set<OWLAxiom> visit(@Nonnull OWLInverseObjectPropertiesAxiom axiom) {
             Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
             axioms.add(df.getOWLSubObjectPropertyOfAxiom(axiom
                     .getFirstProperty(), axiom.getSecondProperty()
@@ -539,110 +576,129 @@ public class StructuralTransformation {
             return axioms;
         }
 
+        @Nonnull
         @Override
-        public Set<OWLAxiom> visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
+        public Set<OWLAxiom> visit(@Nonnull OWLIrreflexiveObjectPropertyAxiom axiom) {
             return toSet(axiom);
         }
 
+        @Nonnull
         @Override
-        public Set<OWLAxiom> visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
+        public Set<OWLAxiom> visit(@Nonnull OWLNegativeDataPropertyAssertionAxiom axiom) {
             return subClassOf(df.getOWLObjectOneOf(axiom.getSubject()),
                     df.getOWLDataAllValuesFrom(axiom.getProperty(), df
                             .getOWLDataComplementOf(df.getOWLDataOneOf(axiom
                                     .getObject()))));
         }
 
+        @Nonnull
         @Override
         public Set<OWLAxiom>
-                visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
+                visit(@Nonnull OWLNegativeObjectPropertyAssertionAxiom axiom) {
             return subClassOf(df.getOWLObjectOneOf(axiom.getSubject()),
                     df.getOWLObjectAllValuesFrom(axiom.getProperty(), df
                             .getOWLObjectComplementOf(df
                                     .getOWLObjectOneOf(axiom.getObject()))));
         }
 
+        @Nonnull
         @Override
-        public Set<OWLAxiom> visit(OWLObjectPropertyAssertionAxiom axiom) {
+        public Set<OWLAxiom> visit(@Nonnull OWLObjectPropertyAssertionAxiom axiom) {
             return toSet(axiom);
         }
 
+        @Nonnull
         @Override
-        public Set<OWLAxiom> visit(OWLSubPropertyChainOfAxiom axiom) {
+        public Set<OWLAxiom> visit(@Nonnull OWLSubPropertyChainOfAxiom axiom) {
             return toSet(axiom);
         }
 
+        @Nonnull
         @Override
-        public Set<OWLAxiom> visit(OWLObjectPropertyDomainAxiom axiom) {
+        public Set<OWLAxiom> visit(@Nonnull OWLObjectPropertyDomainAxiom axiom) {
             return subClassOf(
                     df.getOWLObjectSomeValuesFrom(axiom.getProperty(),
                             df.getOWLThing()), axiom.getDomain());
         }
 
+        @Nonnull
         @Override
-        public Set<OWLAxiom> visit(OWLObjectPropertyRangeAxiom axiom) {
+        public Set<OWLAxiom> visit(@Nonnull OWLObjectPropertyRangeAxiom axiom) {
             return toSet(df.getOWLSubClassOfAxiom(
                     df.getOWLThing(),
                     df.getOWLObjectAllValuesFrom(axiom.getProperty(),
                             axiom.getRange())));
         }
 
+        @Nonnull
         @Override
-        public Set<OWLAxiom> visit(OWLSubObjectPropertyOfAxiom axiom) {
+        public Set<OWLAxiom> visit(@Nonnull OWLSubObjectPropertyOfAxiom axiom) {
             return toSet(axiom);
         }
 
+        @Nonnull
         @Override
-        public Set<OWLAxiom> visit(OWLReflexiveObjectPropertyAxiom axiom) {
+        public Set<OWLAxiom> visit(@Nonnull OWLReflexiveObjectPropertyAxiom axiom) {
             return toSet(axiom);
         }
 
+        @Nullable
         @Override
-        public Set<OWLAxiom> visit(OWLSameIndividualAxiom axiom) {
+        public Set<OWLAxiom> visit(@Nonnull OWLSameIndividualAxiom axiom) {
             return null;
         }
 
+        @Nonnull
         @Override
-        public Set<OWLAxiom> visit(OWLSubClassOfAxiom axiom) {
+        public Set<OWLAxiom> visit(@Nonnull OWLSubClassOfAxiom axiom) {
             return subClassOf(axiom.getSubClass(), axiom.getSuperClass());
         }
 
+        @Nonnull
         @Override
-        public Set<OWLAxiom> visit(OWLSymmetricObjectPropertyAxiom axiom) {
+        public Set<OWLAxiom> visit(@Nonnull OWLSymmetricObjectPropertyAxiom axiom) {
             return toSet(axiom);
         }
 
+        @Nonnull
         @Override
-        public Set<OWLAxiom> visit(OWLTransitiveObjectPropertyAxiom axiom) {
+        public Set<OWLAxiom> visit(@Nonnull OWLTransitiveObjectPropertyAxiom axiom) {
             return toSet(axiom);
         }
 
+        @Nonnull
         @Override
-        public Set<OWLAxiom> visit(SWRLRule rule) {
+        public Set<OWLAxiom> visit(@Nonnull SWRLRule rule) {
             return toSet(rule);
         }
 
+        @Nonnull
         @Override
-        public Set<OWLAxiom> visit(OWLHasKeyAxiom axiom) {
+        public Set<OWLAxiom> visit(@Nonnull OWLHasKeyAxiom axiom) {
             return toSet(axiom);
         }
 
+        @Nonnull
         @Override
-        public Set<OWLAxiom> visit(OWLAnnotationPropertyDomainAxiom axiom) {
+        public Set<OWLAxiom> visit(@Nonnull OWLAnnotationPropertyDomainAxiom axiom) {
             return toSet(axiom);
         }
 
+        @Nonnull
         @Override
-        public Set<OWLAxiom> visit(OWLAnnotationPropertyRangeAxiom axiom) {
+        public Set<OWLAxiom> visit(@Nonnull OWLAnnotationPropertyRangeAxiom axiom) {
             return toSet(axiom);
         }
 
+        @Nonnull
         @Override
-        public Set<OWLAxiom> visit(OWLSubAnnotationPropertyOfAxiom axiom) {
+        public Set<OWLAxiom> visit(@Nonnull OWLSubAnnotationPropertyOfAxiom axiom) {
             return toSet(axiom);
         }
 
+        @Nonnull
         @Override
-        public Set<OWLAxiom> visit(OWLDatatypeDefinitionAxiom axiom) {
+        public Set<OWLAxiom> visit(@Nonnull OWLDatatypeDefinitionAxiom axiom) {
             return toSet(axiom);
         }
     }

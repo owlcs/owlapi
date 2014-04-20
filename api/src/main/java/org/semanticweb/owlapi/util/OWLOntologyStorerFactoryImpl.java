@@ -16,6 +16,8 @@ import org.semanticweb.owlapi.model.OWLOntologyFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntologyStorer;
 import org.semanticweb.owlapi.model.OWLOntologyStorerFactory;
 
+import javax.annotation.Nullable;
+
 /**
  * A generic factory class for OWLOntologyStorers. This class can act as a
  * factory for any OWLOntologyStorer type that has a no argument constructor
@@ -52,6 +54,7 @@ public class OWLOntologyStorerFactoryImpl<T extends OWLOntologyStorer>
         }
     }
 
+    @Nullable
     @Override
     public OWLOntologyFormatFactory getFormatFactory() {
         return null;

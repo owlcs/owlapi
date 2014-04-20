@@ -48,11 +48,13 @@ public abstract class OWLNaryBooleanClassExpressionImpl extends
                 "operands cannot be null"));
     }
 
+    @Nonnull
     @Override
     public List<OWLClassExpression> getOperandsAsList() {
         return new ArrayList<OWLClassExpression>(operands);
     }
 
+    @Nonnull
     @Override
     public Set<OWLClassExpression> getOperands() {
         return CollectionFactory

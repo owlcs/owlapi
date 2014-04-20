@@ -18,6 +18,8 @@ import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
 
+import javax.annotation.Nonnull;
+
 /**
  * Incorporates a listener into an {@code OWLOntologyChangeFilter}. This
  * listener listens to and processes axiom added and axiom removed changes. To
@@ -32,7 +34,7 @@ public class FilteringOWLOntologyChangeListener extends OWLOntologyChangeFilter
         implements OWLOntologyChangeListener {
 
     @Override
-    public void ontologiesChanged(List<? extends OWLOntologyChange<?>> changes)
+    public void ontologiesChanged(@Nonnull List<? extends OWLOntologyChange<?>> changes)
             throws OWLException {
         processChanges(changes);
     }

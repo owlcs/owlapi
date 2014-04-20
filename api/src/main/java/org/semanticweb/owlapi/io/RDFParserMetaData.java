@@ -35,8 +35,11 @@ public class RDFParserMetaData implements OWLOntologyLoaderMetaData,
 
     private static final long serialVersionUID = 40000L;
     private final int tripleCount;
+    @Nonnull
     private final RDFOntologyHeaderStatus headerStatus;
+    @Nonnull
     private final Set<RDFTriple> unparsedTriples;
+    @Nonnull
     private final Multimap<IRI, Class<?>> guessedDeclarations;
 
     /**
@@ -71,11 +74,13 @@ public class RDFParserMetaData implements OWLOntologyLoaderMetaData,
     }
 
     /** @return the header status */
+    @Nonnull
     public RDFOntologyHeaderStatus getHeaderState() {
         return headerStatus;
     }
 
     /** @return the set of unparsed triples, as a copy */
+    @Nonnull
     public Set<RDFTriple> getUnparsedTriples() {
         return CollectionFactory
                 .getCopyOnRequestSetFromMutableCollection(unparsedTriples);

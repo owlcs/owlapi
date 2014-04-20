@@ -74,33 +74,33 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
     }
 
     @Override
-    public void visit(OWLDeclarationAxiom axiom) {
+    public void visit(@Nonnull OWLDeclarationAxiom axiom) {
         addSingleTripleAxiom(axiom, axiom.getEntity(), RDF_TYPE.getIRI(), axiom
                 .getEntity().accept(OWLEntityTypeProvider.INSTANCE));
     }
 
     @Override
-    public void visit(OWLObjectInverseOf property) {
+    public void visit(@Nonnull OWLObjectInverseOf property) {
         translateAnonymousNode(property);
         addTriple(property, OWL_INVERSE_OF.getIRI(), property.getInverse());
     }
 
     @Override
-    public void visit(OWLDataIntersectionOf node) {
+    public void visit(@Nonnull OWLDataIntersectionOf node) {
         translateAnonymousNode(node);
         addTriple(node, RDF_TYPE.getIRI(), RDFS_DATATYPE.getIRI());
         addListTriples(node, OWL_INTERSECTION_OF.getIRI(), node.getOperands());
     }
 
     @Override
-    public void visit(OWLDataUnionOf node) {
+    public void visit(@Nonnull OWLDataUnionOf node) {
         translateAnonymousNode(node);
         addTriple(node, RDF_TYPE.getIRI(), RDFS_DATATYPE.getIRI());
         addListTriples(node, OWL_UNION_OF.getIRI(), node.getOperands());
     }
 
     @Override
-    public void visit(OWLDataComplementOf node) {
+    public void visit(@Nonnull OWLDataComplementOf node) {
         translateAnonymousNode(node);
         addTriple(node, RDF_TYPE.getIRI(), RDFS_DATATYPE.getIRI());
         addTriple(node, OWL_DATATYPE_COMPLEMENT_OF.getIRI(),
@@ -108,14 +108,14 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
     }
 
     @Override
-    public void visit(OWLDataOneOf node) {
+    public void visit(@Nonnull OWLDataOneOf node) {
         translateAnonymousNode(node);
         addTriple(node, RDF_TYPE.getIRI(), RDFS_DATATYPE.getIRI());
         addListTriples(node, OWL_ONE_OF.getIRI(), node.getValues());
     }
 
     @Override
-    public void visit(OWLDatatypeRestriction node) {
+    public void visit(@Nonnull OWLDatatypeRestriction node) {
         translateAnonymousNode(node);
         addTriple(node, RDF_TYPE.getIRI(), RDFS_DATATYPE.getIRI());
         addTriple(node, OWL_ON_DATA_TYPE.getIRI(), node.getDatatype());
@@ -124,28 +124,28 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
     }
 
     @Override
-    public void visit(OWLObjectIntersectionOf desc) {
+    public void visit(@Nonnull OWLObjectIntersectionOf desc) {
         translateAnonymousNode(desc);
         addListTriples(desc, OWL_INTERSECTION_OF.getIRI(), desc.getOperands());
         addTriple(desc, RDF_TYPE.getIRI(), OWL_CLASS.getIRI());
     }
 
     @Override
-    public void visit(OWLObjectUnionOf desc) {
+    public void visit(@Nonnull OWLObjectUnionOf desc) {
         translateAnonymousNode(desc);
         addTriple(desc, RDF_TYPE.getIRI(), OWL_CLASS.getIRI());
         addListTriples(desc, OWL_UNION_OF.getIRI(), desc.getOperands());
     }
 
     @Override
-    public void visit(OWLObjectComplementOf desc) {
+    public void visit(@Nonnull OWLObjectComplementOf desc) {
         translateAnonymousNode(desc);
         addTriple(desc, RDF_TYPE.getIRI(), OWL_CLASS.getIRI());
         addTriple(desc, OWL_COMPLEMENT_OF.getIRI(), desc.getOperand());
     }
 
     @Override
-    public void visit(OWLObjectOneOf desc) {
+    public void visit(@Nonnull OWLObjectOneOf desc) {
         translateAnonymousNode(desc);
         addTriple(desc, RDF_TYPE.getIRI(), OWL_CLASS.getIRI());
         addListTriples(desc, OWL_ONE_OF.getIRI(), desc.getIndividuals());
@@ -216,26 +216,26 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
 
     // ////////////////////////////////////////////////////////////////////////////////////
     @Override
-    public void visit(OWLObjectSomeValuesFrom desc) {
+    public void visit(@Nonnull OWLObjectSomeValuesFrom desc) {
         addRestrictionCommonTriplePropertyRange(desc, desc.getProperty());
         addTriple(desc, OWL_SOME_VALUES_FROM.getIRI(), desc.getFiller());
     }
 
     @Override
-    public void visit(OWLObjectAllValuesFrom desc) {
+    public void visit(@Nonnull OWLObjectAllValuesFrom desc) {
         addRestrictionCommonTriplePropertyRange(desc, desc.getProperty());
         addTriple(desc, OWL_ALL_VALUES_FROM.getIRI(), desc.getFiller());
     }
 
     @Override
-    public void visit(OWLObjectHasValue desc) {
+    public void visit(@Nonnull OWLObjectHasValue desc) {
         addRestrictionCommonTriplePropertyExpression(desc, desc.getProperty());
         addTriple(desc, OWL_HAS_VALUE.getIRI(), desc.getFiller());
         processIfAnonymous(desc.getFiller(), null);
     }
 
     @Override
-    public void visit(OWLObjectHasSelf desc) {
+    public void visit(@Nonnull OWLObjectHasSelf desc) {
         translateAnonymousNode(desc);
         addTriple(desc, RDF_TYPE.getIRI(), OWL_RESTRICTION.getIRI());
         addTriple(desc, OWL_ON_PROPERTY.getIRI(), desc.getProperty());
@@ -244,7 +244,7 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
     }
 
     @Override
-    public void visit(OWLObjectMinCardinality desc) {
+    public void visit(@Nonnull OWLObjectMinCardinality desc) {
         if (desc.isQualified()) {
             addObjectCardinalityRestrictionTriples(desc, desc.getProperty(),
                     OWL_MIN_QUALIFIED_CARDINALITY);
@@ -255,7 +255,7 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
     }
 
     @Override
-    public void visit(OWLObjectMaxCardinality desc) {
+    public void visit(@Nonnull OWLObjectMaxCardinality desc) {
         if (desc.isQualified()) {
             addObjectCardinalityRestrictionTriples(desc, desc.getProperty(),
                     OWL_MAX_QUALIFIED_CARDINALITY);
@@ -266,7 +266,7 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
     }
 
     @Override
-    public void visit(OWLObjectExactCardinality desc) {
+    public void visit(@Nonnull OWLObjectExactCardinality desc) {
         if (desc.isQualified()) {
             addObjectCardinalityRestrictionTriples(desc, desc.getProperty(),
                     OWL_QUALIFIED_CARDINALITY);
@@ -277,25 +277,25 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
     }
 
     @Override
-    public void visit(OWLDataSomeValuesFrom desc) {
+    public void visit(@Nonnull OWLDataSomeValuesFrom desc) {
         addRestrictionCommonTriplePropertyRange(desc, desc.getProperty());
         addTriple(desc, OWL_SOME_VALUES_FROM.getIRI(), desc.getFiller());
     }
 
     @Override
-    public void visit(OWLDataAllValuesFrom desc) {
+    public void visit(@Nonnull OWLDataAllValuesFrom desc) {
         addRestrictionCommonTriplePropertyRange(desc, desc.getProperty());
         addTriple(desc, OWL_ALL_VALUES_FROM.getIRI(), desc.getFiller());
     }
 
     @Override
-    public void visit(OWLDataHasValue desc) {
+    public void visit(@Nonnull OWLDataHasValue desc) {
         addRestrictionCommonTriplePropertyExpression(desc, desc.getProperty());
         addTriple(desc, OWL_HAS_VALUE.getIRI(), desc.getFiller());
     }
 
     @Override
-    public void visit(OWLDataMinCardinality desc) {
+    public void visit(@Nonnull OWLDataMinCardinality desc) {
         if (desc.isQualified()) {
             addDataCardinalityRestrictionTriples(desc, desc.getProperty(),
                     OWL_MIN_QUALIFIED_CARDINALITY);
@@ -306,7 +306,7 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
     }
 
     @Override
-    public void visit(OWLDataMaxCardinality desc) {
+    public void visit(@Nonnull OWLDataMaxCardinality desc) {
         if (desc.isQualified()) {
             addDataCardinalityRestrictionTriples(desc, desc.getProperty(),
                     OWL_MAX_QUALIFIED_CARDINALITY);
@@ -317,7 +317,7 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
     }
 
     @Override
-    public void visit(OWLDataExactCardinality desc) {
+    public void visit(@Nonnull OWLDataExactCardinality desc) {
         if (desc.isQualified()) {
             addDataCardinalityRestrictionTriples(desc, desc.getProperty(),
                     OWL_QUALIFIED_CARDINALITY);
@@ -335,13 +335,13 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
     // ////////////////////////////////////////////////////////////////////////////////////
     // ////////////////////////////////////////////////////////////////////////////////////
     @Override
-    public void visit(OWLSubClassOfAxiom axiom) {
+    public void visit(@Nonnull OWLSubClassOfAxiom axiom) {
         addSingleTripleAxiom(axiom, axiom.getSubClass(),
                 RDFS_SUBCLASS_OF.getIRI(), axiom.getSuperClass());
     }
 
     @Override
-    public void visit(OWLEquivalentClassesAxiom axiom) {
+    public void visit(@Nonnull OWLEquivalentClassesAxiom axiom) {
         if (axiom.getClassExpressions().size() == 2) {
             addPairwiseClassExpressions(axiom, axiom.getClassExpressions(),
                     OWL_EQUIVALENT_CLASS.getIRI());
@@ -357,7 +357,7 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
     }
 
     @Override
-    public void visit(OWLDisjointClassesAxiom axiom) {
+    public void visit(@Nonnull OWLDisjointClassesAxiom axiom) {
         if (axiom.getClassExpressions().size() == 2) {
             addPairwiseClassExpressions(axiom, axiom.getClassExpressions(),
                     OWL_DISJOINT_WITH.getIRI());
@@ -372,31 +372,31 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
     }
 
     @Override
-    public void visit(OWLDisjointUnionAxiom axiom) {
+    public void visit(@Nonnull OWLDisjointUnionAxiom axiom) {
         addSingleTripleAxiom(axiom, axiom.getOWLClass(),
                 OWL_DISJOINT_UNION_OF.getIRI(), axiom.getClassExpressions());
     }
 
     @Override
-    public void visit(OWLSubObjectPropertyOfAxiom axiom) {
+    public void visit(@Nonnull OWLSubObjectPropertyOfAxiom axiom) {
         addSingleTripleAxiom(axiom, axiom.getSubProperty(),
                 RDFS_SUB_PROPERTY_OF.getIRI(), axiom.getSuperProperty());
     }
 
     @Override
-    public void visit(OWLSubPropertyChainOfAxiom axiom) {
+    public void visit(@Nonnull OWLSubPropertyChainOfAxiom axiom) {
         addSingleTripleAxiom(axiom, axiom.getSuperProperty(),
                 OWL_PROPERTY_CHAIN_AXIOM.getIRI(), axiom.getPropertyChain());
     }
 
     @Override
-    public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
+    public void visit(@Nonnull OWLEquivalentObjectPropertiesAxiom axiom) {
         addPairwise(axiom, axiom.getProperties(),
                 OWL_EQUIVALENT_PROPERTY.getIRI());
     }
 
     @Override
-    public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
+    public void visit(@Nonnull OWLDisjointObjectPropertiesAxiom axiom) {
         if (axiom.getProperties().size() == 2) {
             addPairwise(axiom, axiom.getProperties(),
                     OWL_PROPERTY_DISJOINT_WITH.getIRI());
@@ -410,79 +410,79 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
     }
 
     @Override
-    public void visit(OWLObjectPropertyDomainAxiom axiom) {
+    public void visit(@Nonnull OWLObjectPropertyDomainAxiom axiom) {
         addSingleTripleAxiom(axiom, axiom.getProperty(), RDFS_DOMAIN.getIRI(),
                 axiom.getDomain());
     }
 
     @Override
-    public void visit(OWLObjectPropertyRangeAxiom axiom) {
+    public void visit(@Nonnull OWLObjectPropertyRangeAxiom axiom) {
         addSingleTripleAxiom(axiom, axiom.getProperty(), RDFS_RANGE.getIRI(),
                 axiom.getRange());
     }
 
     @Override
-    public void visit(OWLInverseObjectPropertiesAxiom axiom) {
+    public void visit(@Nonnull OWLInverseObjectPropertiesAxiom axiom) {
         addSingleTripleAxiom(axiom, axiom.getFirstProperty(),
                 OWL_INVERSE_OF.getIRI(), axiom.getSecondProperty());
     }
 
     @Override
-    public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
+    public void visit(@Nonnull OWLFunctionalObjectPropertyAxiom axiom) {
         addSingleTripleAxiom(axiom, axiom.getProperty(), RDF_TYPE.getIRI(),
                 OWL_FUNCTIONAL_PROPERTY.getIRI());
     }
 
     @Override
-    public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
+    public void visit(@Nonnull OWLInverseFunctionalObjectPropertyAxiom axiom) {
         addSingleTripleAxiom(axiom, axiom.getProperty(), RDF_TYPE.getIRI(),
                 OWL_INVERSE_FUNCTIONAL_PROPERTY.getIRI());
     }
 
     @Override
-    public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
+    public void visit(@Nonnull OWLReflexiveObjectPropertyAxiom axiom) {
         addSingleTripleAxiom(axiom, axiom.getProperty(), RDF_TYPE.getIRI(),
                 OWL_REFLEXIVE_PROPERTY.getIRI());
     }
 
     @Override
-    public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
+    public void visit(@Nonnull OWLIrreflexiveObjectPropertyAxiom axiom) {
         addSingleTripleAxiom(axiom, axiom.getProperty(), RDF_TYPE.getIRI(),
                 OWL_IRREFLEXIVE_PROPERTY.getIRI());
     }
 
     @Override
-    public void visit(OWLSymmetricObjectPropertyAxiom axiom) {
+    public void visit(@Nonnull OWLSymmetricObjectPropertyAxiom axiom) {
         addSingleTripleAxiom(axiom, axiom.getProperty(), RDF_TYPE.getIRI(),
                 OWL_SYMMETRIC_PROPERTY.getIRI());
     }
 
     @Override
-    public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
+    public void visit(@Nonnull OWLAsymmetricObjectPropertyAxiom axiom) {
         addSingleTripleAxiom(axiom, axiom.getProperty(), RDF_TYPE.getIRI(),
                 OWL_ASYMMETRIC_PROPERTY.getIRI());
     }
 
     @Override
-    public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
+    public void visit(@Nonnull OWLTransitiveObjectPropertyAxiom axiom) {
         addSingleTripleAxiom(axiom, axiom.getProperty(), RDF_TYPE.getIRI(),
                 OWL_TRANSITIVE_PROPERTY.getIRI());
     }
 
     @Override
-    public void visit(OWLSubDataPropertyOfAxiom axiom) {
+    public void visit(@Nonnull OWLSubDataPropertyOfAxiom axiom) {
         addSingleTripleAxiom(axiom, axiom.getSubProperty(),
                 RDFS_SUB_PROPERTY_OF.getIRI(), axiom.getSuperProperty());
     }
 
     @Override
-    public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
+    public void visit(@Nonnull OWLEquivalentDataPropertiesAxiom axiom) {
         addPairwise(axiom, axiom.getProperties(),
                 OWL_EQUIVALENT_PROPERTY.getIRI());
     }
 
     @Override
-    public void visit(OWLDisjointDataPropertiesAxiom axiom) {
+    public void visit(@Nonnull OWLDisjointDataPropertiesAxiom axiom) {
         if (axiom.getProperties().size() == 2) {
             addPairwise(axiom, axiom.getProperties(),
                     OWL_PROPERTY_DISJOINT_WITH.getIRI());
@@ -496,43 +496,43 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
     }
 
     @Override
-    public void visit(OWLDataPropertyDomainAxiom axiom) {
+    public void visit(@Nonnull OWLDataPropertyDomainAxiom axiom) {
         addSingleTripleAxiom(axiom, axiom.getProperty(), RDFS_DOMAIN.getIRI(),
                 axiom.getDomain());
     }
 
     @Override
-    public void visit(OWLDataPropertyRangeAxiom axiom) {
+    public void visit(@Nonnull OWLDataPropertyRangeAxiom axiom) {
         addSingleTripleAxiom(axiom, axiom.getProperty(), RDFS_RANGE.getIRI(),
                 axiom.getRange());
     }
 
     @Override
-    public void visit(OWLFunctionalDataPropertyAxiom axiom) {
+    public void visit(@Nonnull OWLFunctionalDataPropertyAxiom axiom) {
         addSingleTripleAxiom(axiom, axiom.getProperty(), RDF_TYPE.getIRI(),
                 OWL_FUNCTIONAL_PROPERTY.getIRI());
     }
 
     @Override
-    public void visit(OWLDatatypeDefinitionAxiom axiom) {
+    public void visit(@Nonnull OWLDatatypeDefinitionAxiom axiom) {
         addSingleTripleAxiom(axiom, axiom.getDatatype(),
                 OWL_EQUIVALENT_CLASS.getIRI(), axiom.getDataRange());
     }
 
     @Override
-    public void visit(OWLHasKeyAxiom axiom) {
+    public void visit(@Nonnull OWLHasKeyAxiom axiom) {
         addSingleTripleAxiom(axiom, axiom.getClassExpression(),
                 OWL_HAS_KEY.getIRI(), axiom.getPropertyExpressions());
     }
 
     @Override
-    public void visit(OWLSameIndividualAxiom axiom) {
+    public void visit(@Nonnull OWLSameIndividualAxiom axiom) {
         addPairwise(axiom, axiom.getIndividuals(), OWL_SAME_AS.getIRI());
         processIfAnonymous(axiom.getIndividuals(), axiom);
     }
 
     @Override
-    public void visit(OWLDifferentIndividualsAxiom axiom) {
+    public void visit(@Nonnull OWLDifferentIndividualsAxiom axiom) {
         translateAnonymousNode(axiom);
         addTriple(axiom, RDF_TYPE.getIRI(), OWL_ALL_DIFFERENT.getIRI());
         addListTriples(axiom, OWL_DISTINCT_MEMBERS.getIRI(),
@@ -541,7 +541,7 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
     }
 
     @Override
-    public void visit(OWLClassAssertionAxiom axiom) {
+    public void visit(@Nonnull OWLClassAssertionAxiom axiom) {
         axiom.getIndividual().accept(this);
         addSingleTripleAxiom(axiom, axiom.getIndividual(), RDF_TYPE.getIRI(),
                 axiom.getClassExpression());
@@ -549,7 +549,7 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
     }
 
     @Override
-    public void visit(OWLObjectPropertyAssertionAxiom axiom) {
+    public void visit(@Nonnull OWLObjectPropertyAssertionAxiom axiom) {
         OWLObjectPropertyAssertionAxiom simplified = axiom.getSimplified();
         addSingleTripleAxiom(simplified, simplified.getSubject(),
                 simplified.getProperty(), simplified.getObject());
@@ -558,7 +558,7 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
     }
 
     @Override
-    public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
+    public void visit(@Nonnull OWLNegativeObjectPropertyAssertionAxiom axiom) {
         translateAnonymousNode(axiom);
         addTriple(axiom, RDF_TYPE.getIRI(),
                 OWL_NEGATIVE_PROPERTY_ASSERTION.getIRI());
@@ -571,13 +571,13 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
     }
 
     @Override
-    public void visit(OWLDataPropertyAssertionAxiom axiom) {
+    public void visit(@Nonnull OWLDataPropertyAssertionAxiom axiom) {
         addSingleTripleAxiom(axiom, axiom.getSubject(), axiom.getProperty(),
                 axiom.getObject());
     }
 
     @Override
-    public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
+    public void visit(@Nonnull OWLNegativeDataPropertyAssertionAxiom axiom) {
         translateAnonymousNode(axiom);
         for (OWLAnnotation anno : axiom.getAnnotations()) {
             addTriple(axiom, anno.getProperty().getIRI(), anno.getValue());
@@ -591,7 +591,7 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
     }
 
     @Override
-    public void visit(OWLAnnotationAssertionAxiom axiom) {
+    public void visit(@Nonnull OWLAnnotationAssertionAxiom axiom) {
         addSingleTripleAxiom(axiom, axiom.getSubject(), axiom.getProperty(),
                 axiom.getValue());
         if (axiom.getValue() instanceof OWLAnonymousIndividual) {
@@ -600,25 +600,25 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
     }
 
     @Override
-    public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
+    public void visit(@Nonnull OWLSubAnnotationPropertyOfAxiom axiom) {
         addSingleTripleAxiom(axiom, axiom.getSubProperty(),
                 RDFS_SUB_PROPERTY_OF.getIRI(), axiom.getSuperProperty());
     }
 
     @Override
-    public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
+    public void visit(@Nonnull OWLAnnotationPropertyDomainAxiom axiom) {
         addSingleTripleAxiom(axiom, axiom.getProperty(), RDFS_DOMAIN.getIRI(),
                 axiom.getDomain());
     }
 
     @Override
-    public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
+    public void visit(@Nonnull OWLAnnotationPropertyRangeAxiom axiom) {
         addSingleTripleAxiom(axiom, axiom.getProperty(), RDFS_RANGE.getIRI(),
                 axiom.getRange());
     }
 
     @Override
-    public void visit(OWLClass desc) {
+    public void visit(@Nonnull OWLClass desc) {
         if (!nodeMap.containsKey(desc)) {
             nodeMap.put(desc, getResourceNode(desc.getIRI()));
         }
@@ -626,7 +626,7 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
     }
 
     @Override
-    public void visit(OWLDatatype node) {
+    public void visit(@Nonnull OWLDatatype node) {
         if (!nodeMap.containsKey(node)) {
             nodeMap.put(node, getResourceNode(node.getIRI()));
         }
@@ -634,25 +634,25 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
     }
 
     @Override
-    public void visit(OWLFacetRestriction node) {
+    public void visit(@Nonnull OWLFacetRestriction node) {
         translateAnonymousNode(node);
         addTriple(node, node.getFacet().getIRI(), node.getFacetValue());
     }
 
     @Override
-    public void visit(IRI iri) {
+    public void visit(@Nonnull IRI iri) {
         if (!nodeMap.containsKey(iri)) {
             nodeMap.put(iri, getResourceNode(iri));
         }
     }
 
     @Override
-    public void visit(OWLLiteral node) {
+    public void visit(@Nonnull OWLLiteral node) {
         nodeMap.put(node, getLiteralNode(node));
     }
 
     @Override
-    public void visit(OWLDataProperty property) {
+    public void visit(@Nonnull OWLDataProperty property) {
         if (!nodeMap.containsKey(property)) {
             nodeMap.put(property, getPredicateNode(property.getIRI()));
         }
@@ -660,7 +660,7 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
     }
 
     @Override
-    public void visit(OWLObjectProperty property) {
+    public void visit(@Nonnull OWLObjectProperty property) {
         if (!nodeMap.containsKey(property)) {
             nodeMap.put(property, getPredicateNode(property.getIRI()));
         }
@@ -668,7 +668,7 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
     }
 
     @Override
-    public void visit(OWLAnnotationProperty property) {
+    public void visit(@Nonnull OWLAnnotationProperty property) {
         if (!nodeMap.containsKey(property)) {
             nodeMap.put(property, getPredicateNode(property.getIRI()));
         }
@@ -676,7 +676,7 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
     }
 
     @Override
-    public void visit(OWLNamedIndividual individual) {
+    public void visit(@Nonnull OWLNamedIndividual individual) {
         if (!nodeMap.containsKey(individual)) {
             nodeMap.put(individual, getResourceNode(individual.getIRI()));
         }
@@ -684,12 +684,12 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
     }
 
     @Override
-    public void visit(OWLAnonymousIndividual individual) {
+    public void visit(@Nonnull OWLAnonymousIndividual individual) {
         translateAnonymousNode(individual);
     }
 
     @Override
-    public void visit(OWLOntology ontologyToVisit) {
+    public void visit(@Nonnull OWLOntology ontologyToVisit) {
         Optional<IRI> ontologyIRI = ontologyToVisit.getOntologyID()
                 .getOntologyIRI();
         if (ontologyIRI.isPresent()) {
@@ -703,7 +703,7 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
     }
 
     @Override
-    public void visit(SWRLRule rule) {
+    public void visit(@Nonnull SWRLRule rule) {
         translateAnonymousNode(rule);
         translateAnnotations(rule);
         addTriple(rule, RDF_TYPE.getIRI(), IMP.getIRI());
@@ -714,7 +714,7 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
     }
 
     @Override
-    public void visit(SWRLClassAtom node) {
+    public void visit(@Nonnull SWRLClassAtom node) {
         translateAnonymousNode(node);
         addTriple(node, RDF_TYPE.getIRI(), CLASS_ATOM.getIRI());
         node.getPredicate().accept(this);
@@ -724,7 +724,7 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
     }
 
     @Override
-    public void visit(SWRLDataRangeAtom node) {
+    public void visit(@Nonnull SWRLDataRangeAtom node) {
         translateAnonymousNode(node);
         addTriple(node, RDF_TYPE.getIRI(), DATA_RANGE_ATOM.getIRI());
         node.getPredicate().accept(this);
@@ -734,7 +734,7 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
     }
 
     @Override
-    public void visit(SWRLObjectPropertyAtom node) {
+    public void visit(@Nonnull SWRLObjectPropertyAtom node) {
         translateAnonymousNode(node);
         addTriple(node, RDF_TYPE.getIRI(), INDIVIDUAL_PROPERTY_ATOM.getIRI());
         node.getPredicate().accept(this);
@@ -746,7 +746,7 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
     }
 
     @Override
-    public void visit(SWRLDataPropertyAtom node) {
+    public void visit(@Nonnull SWRLDataPropertyAtom node) {
         translateAnonymousNode(node);
         addTriple(node, RDF_TYPE.getIRI(), DATAVALUED_PROPERTY_ATOM.getIRI());
         node.getPredicate().accept(this);
@@ -758,7 +758,7 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
     }
 
     @Override
-    public void visit(SWRLBuiltInAtom node) {
+    public void visit(@Nonnull SWRLBuiltInAtom node) {
         translateAnonymousNode(node);
         addTriple(node, RDF_TYPE.getIRI(), BUILT_IN_ATOM.getIRI());
         addTriple(node, BUILT_IN.getIRI(), node.getPredicate());
@@ -770,7 +770,7 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
     }
 
     @Override
-    public void visit(SWRLDifferentIndividualsAtom node) {
+    public void visit(@Nonnull SWRLDifferentIndividualsAtom node) {
         translateAnonymousNode(node);
         addTriple(node, RDF_TYPE.getIRI(), DIFFERENT_INDIVIDUALS_ATOM.getIRI());
         node.getFirstArgument().accept((SWRLObjectVisitor) this);
@@ -780,7 +780,7 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
     }
 
     @Override
-    public void visit(SWRLSameIndividualAtom node) {
+    public void visit(@Nonnull SWRLSameIndividualAtom node) {
         translateAnonymousNode(node);
         addTriple(node, RDF_TYPE.getIRI(), SAME_INDIVIDUAL_ATOM.getIRI());
         node.getFirstArgument().accept((SWRLObjectVisitor) this);
@@ -790,7 +790,7 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
     }
 
     @Override
-    public void visit(SWRLVariable node) {
+    public void visit(@Nonnull SWRLVariable node) {
         if (!nodeMap.containsKey(node)) {
             nodeMap.put(node, getResourceNode(node.getIRI()));
         }
@@ -798,13 +798,13 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
     }
 
     @Override
-    public void visit(SWRLIndividualArgument node) {
+    public void visit(@Nonnull SWRLIndividualArgument node) {
         node.getIndividual().accept(this);
         nodeMap.put(node, nodeMap.get(node.getIndividual()));
     }
 
     @Override
-    public void visit(SWRLLiteralArgument node) {
+    public void visit(@Nonnull SWRLLiteralArgument node) {
         node.getLiteral().accept(this);
         nodeMap.put(node, nodeMap.get(node.getLiteral()));
     }
@@ -931,7 +931,7 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
     }
 
     @Override
-    public void visit(OWLAnnotation node) {
+    public void visit(@Nonnull OWLAnnotation node) {
         throw new OWLRuntimeException(
                 "The translator should not be used directly on instances of OWLAnnotation because an annotation cannot be translated without a subject.");
     }
@@ -1160,32 +1160,32 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
         public static OWLEntityTypeProvider INSTANCE = new OWLEntityTypeProvider();
 
         @Override
-        public IRI visit(OWLClass cls) {
+        public IRI visit(@Nonnull OWLClass cls) {
             return OWL_CLASS.getIRI();
         }
 
         @Override
-        public IRI visit(OWLObjectProperty property) {
+        public IRI visit(@Nonnull OWLObjectProperty property) {
             return OWL_OBJECT_PROPERTY.getIRI();
         }
 
         @Override
-        public IRI visit(OWLDataProperty property) {
+        public IRI visit(@Nonnull OWLDataProperty property) {
             return OWL_DATA_PROPERTY.getIRI();
         }
 
         @Override
-        public IRI visit(OWLNamedIndividual individual) {
+        public IRI visit(@Nonnull OWLNamedIndividual individual) {
             return OWL_NAMED_INDIVIDUAL.getIRI();
         }
 
         @Override
-        public IRI visit(OWLDatatype datatype) {
+        public IRI visit(@Nonnull OWLDatatype datatype) {
             return RDFS_DATATYPE.getIRI();
         }
 
         @Override
-        public IRI visit(OWLAnnotationProperty property) {
+        public IRI visit(@Nonnull OWLAnnotationProperty property) {
             return OWL_ANNOTATION_PROPERTY.getIRI();
         }
     }

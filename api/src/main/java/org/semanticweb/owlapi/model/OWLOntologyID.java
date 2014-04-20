@@ -17,6 +17,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import com.google.common.base.Optional;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * An object that identifies an ontology. Since OWL 2, ontologies do not have to
  * have an ontology IRI, or if they have an ontology IRI then they can
@@ -35,6 +38,7 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
     private static final String ANON_PREFIX = "Anonymous-";
     private Optional<String> internalID = Optional.absent();
     private final Optional<IRI> ontologyIRI;
+    @Nonnull
     private final Optional<IRI> versionIRI;
     private int hashCode;
 
@@ -67,7 +71,7 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
      * @param versionIRI
      *        The version IRI (must be absent if the ontologyIRI is absent)
      */
-    public OWLOntologyID(Optional<IRI> iri, Optional<IRI> versionIRI) {
+    public OWLOntologyID(Optional<IRI> iri, @Nonnull Optional<IRI> versionIRI) {
         ontologyIRI = iri;
         hashCode = 17;
         if (ontologyIRI.isPresent()) {
@@ -110,7 +114,7 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
     }
 
     @Override
-    public int compareTo(OWLOntologyID o) {
+    public int compareTo(@Nonnull OWLOntologyID o) {
         return toString().compareTo(o.toString());
     }
 
@@ -128,6 +132,7 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
      * 
      * @return the version IRI, or {@code null} if there is no version IRI.
      */
+    @Nonnull
     public Optional<IRI> getVersionIRI() {
         return versionIRI;
     }
@@ -145,6 +150,7 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
      *         containing an ontology as identified by this ontology ID. Returns
      *         the default IRI or {@code null}.
      */
+    @Nullable
     public Optional<IRI> getDefaultDocumentIRI() {
         if (ontologyIRI != null) {
             if (versionIRI.isPresent()) {
@@ -168,6 +174,7 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
         return !ontologyIRI.isPresent();
     }
 
+    @Nonnull
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("OntologyID(");
@@ -191,7 +198,7 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         if (obj == null) {
             return false;
         }

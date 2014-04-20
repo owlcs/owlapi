@@ -52,6 +52,8 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Peter Ansell p_ansell@yahoo.com
  */
@@ -90,7 +92,7 @@ public class RioOntologyStorer extends AbstractOWLOntologyStorer {
     }
 
     @Override
-    public boolean canStoreOntology(OWLOntologyFormat format) {
+    public boolean canStoreOntology(@Nonnull OWLOntologyFormat format) {
         return ontologyFormat.createFormat().equals(format);
     }
 

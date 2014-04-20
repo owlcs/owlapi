@@ -62,7 +62,7 @@ public class OWLOntologyChangeRecord<T> implements Serializable {
     private final OWLOntologyChangeData<T> data;
 
     /** Default constructor for serialization purposes only. */
-    @SuppressWarnings("unused")
+    @SuppressWarnings({"ConstantConditions", "unused"})
     private OWLOntologyChangeRecord() {
         ontologyID = null;
         data = null;
@@ -96,7 +96,7 @@ public class OWLOntologyChangeRecord<T> implements Serializable {
      *        The {@link OWLOntologyChange} object.
      * @param <T>
      *        change type
-     * @return instance of OntologychangeRecord
+     * @return instance of OntologyChangeRecord
      */
     @Nonnull
     public static <T> OWLOntologyChangeRecord<T> createFromOWLOntologyChange(
@@ -155,6 +155,7 @@ public class OWLOntologyChangeRecord<T> implements Serializable {
      *         an {@link OWLOntologyID} equal to the {@link OWLOntologyID}
      *         associated with this {@link OWLOntologyChangeRecord}.
      */
+    @Nonnull
     public OWLOntologyChange<T>
             createOntologyChange(OWLOntologyManager manager) {
         OWLOntology ontology = checkNotNull(manager, "manager cannot be null")
@@ -182,6 +183,7 @@ public class OWLOntologyChangeRecord<T> implements Serializable {
         return getClass().hashCode() + ontologyID.hashCode() + data.hashCode();
     }
 
+    @Nonnull
     @Override
     public String toString() {
         return getName() + "(" + ontologyID + " " + data + ")";

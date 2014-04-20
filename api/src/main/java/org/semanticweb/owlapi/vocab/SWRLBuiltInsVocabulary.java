@@ -18,6 +18,9 @@ import org.semanticweb.owlapi.model.HasShortForm;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.SWRLPredicate;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * @author Matthew Horridge, The University Of Manchester, Medical Informatics
  *         Group
@@ -101,7 +104,9 @@ public enum SWRLBuiltInsVocabulary
     /** SUBTRACT_DATE_TIMES_YIELDING_DAY_TIME_DURATION */   SUBTRACT_DATE_TIMES_YIELDING_DAY_TIME_DURATION("subtractDateTimesYieldingDayTimeDuration", 3);
 //@formatter:on
     private final String shortName;
+    @Nonnull
     private final String prefixedName;
+    @Nonnull
     private final IRI iri;
     // Arity of the predicate (-1 if infinite)
     private final int minArity;
@@ -119,11 +124,13 @@ public enum SWRLBuiltInsVocabulary
         this.maxArity = maxArity;
     }
 
+    @Nonnull
     @Override
     public String getShortForm() {
         return shortName;
     }
 
+    @Nonnull
     @Override
     public IRI getIRI() {
         return iri;
@@ -155,6 +162,7 @@ public enum SWRLBuiltInsVocabulary
      * @return The builtin vocabulary having the specified IRI, or {@code null}
      *         if there is no builtin vocabulary with the specified IRI
      */
+    @Nullable
     public static SWRLBuiltInsVocabulary getBuiltIn(IRI iri) {
         for (SWRLBuiltInsVocabulary v : values()) {
             if (v.iri.equals(iri)) {
@@ -164,6 +172,7 @@ public enum SWRLBuiltInsVocabulary
         return null;
     }
 
+    @Nonnull
     @Override
     public String getPrefixedName() {
         return prefixedName;

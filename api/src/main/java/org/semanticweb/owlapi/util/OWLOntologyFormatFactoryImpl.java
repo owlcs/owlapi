@@ -22,6 +22,9 @@ import org.semanticweb.owlapi.annotations.SupportsMIMEType;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyFormatFactory;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * A generic factory class for OWLOntologyFormats. This class can act as a
  * factory for any OWLOntologyFormat type that has a no argument constructor
@@ -69,6 +72,7 @@ public class OWLOntologyFormatFactoryImpl<T extends OWLOntologyFormat>
         return createFormat().getKey();
     }
 
+    @Nullable
     @Override
     public String getDefaultMIMEType() {
         SupportsMIMEType types = this.type
@@ -79,6 +83,7 @@ public class OWLOntologyFormatFactoryImpl<T extends OWLOntologyFormat>
         return types.defaultMIMEType();
     }
 
+    @Nonnull
     @Override
     public List<String> getMIMETypes() {
         SupportsMIMEType types = this.type
@@ -119,7 +124,7 @@ public class OWLOntologyFormatFactoryImpl<T extends OWLOntologyFormat>
     }
 
     @Override
-    public boolean equals(Object other) {
+    public boolean equals(@Nullable Object other) {
         if (null == other) {
             return false;
         }

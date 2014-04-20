@@ -32,8 +32,11 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 public class RDFTriple implements Serializable, Comparable<RDFTriple> {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final RDFResource subject;
+    @Nonnull
     private final RDFResourceIRI predicate;
+    @Nonnull
     private final RDFNode object;
 
     /**
@@ -70,7 +73,8 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple> {
                 new RDFResourceIRI(predicate), getResource(object, objectAnon));
     }
 
-    private static RDFResource getResource(IRI iri, boolean anon) {
+    @Nonnull
+    private static RDFResource getResource(@Nonnull IRI iri, boolean anon) {
         if (anon) {
             return new RDFResourceBlankNode(iri);
         }
@@ -94,16 +98,19 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple> {
     }
 
     /** @return the subject */
+    @Nonnull
     public RDFResource getSubject() {
         return subject;
     }
 
     /** @return the predicate */
+    @Nonnull
     public RDFResourceIRI getPredicate() {
         return predicate;
     }
 
     /** @return the object */
+    @Nonnull
     public RDFNode getObject() {
         return object;
     }
@@ -128,6 +135,7 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple> {
                 && object.equals(other.object);
     }
 
+    @Nonnull
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -155,7 +163,7 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple> {
     }
 
     @Override
-    public int compareTo(RDFTriple b) {
+    public int compareTo(@Nonnull RDFTriple b) {
         // compare by predicate, then subject, then object
         int diff = getIndex(predicate.getIRI())
                 - getIndex(b.predicate.getIRI());

@@ -30,6 +30,7 @@ import org.semanticweb.owlapi.change.OWLOntologyChangeRecord;
  */
 public abstract class OWLOntologyChange<T> implements HasSignature {
 
+    @Nonnull
     private final OWLOntology ont;
 
     /**

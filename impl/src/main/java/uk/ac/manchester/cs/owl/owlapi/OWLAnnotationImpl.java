@@ -67,24 +67,28 @@ public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
                         checkNotNull(annotations, "annotations cannot be null")));
     }
 
+    @Nonnull
     @Override
     public Set<OWLAnnotation> getAnnotations() {
         return annotations;
     }
 
+    @Nonnull
     @Override
     public OWLAnnotationProperty getProperty() {
         return property;
     }
 
+    @Nonnull
     @Override
     public OWLAnnotationValue getValue() {
         return value;
     }
 
+    @Nonnull
     @Override
     public OWLAnnotation getAnnotatedAnnotation(
-            Set<OWLAnnotation> annotationsToAdd) {
+            @Nonnull Set<OWLAnnotation> annotationsToAdd) {
         if (annotationsToAdd.isEmpty()) {
             return this;
         }
@@ -132,12 +136,12 @@ public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
     }
 
     @Override
-    public void accept(OWLObjectVisitor visitor) {
+    public void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 

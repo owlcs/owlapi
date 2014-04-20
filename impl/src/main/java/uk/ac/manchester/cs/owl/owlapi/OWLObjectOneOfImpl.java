@@ -57,11 +57,13 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl
                 "values cannot be null"));
     }
 
+    @Nonnull
     @Override
     public ClassExpressionType getClassExpressionType() {
         return ClassExpressionType.OBJECT_ONE_OF;
     }
 
+    @Nonnull
     @Override
     public Set<OWLIndividual> getIndividuals() {
         return CollectionFactory
@@ -73,6 +75,7 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl
         return false;
     }
 
+    @Nonnull
     @Override
     public OWLClassExpression asObjectUnionOf() {
         if (values.size() == 1) {
@@ -98,22 +101,22 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl
     }
 
     @Override
-    public void accept(OWLClassExpressionVisitor visitor) {
+    public void accept(@Nonnull OWLClassExpressionVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public void accept(OWLObjectVisitor visitor) {
+    public void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLClassExpressionVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLClassExpressionVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 

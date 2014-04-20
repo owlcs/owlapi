@@ -30,6 +30,8 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health
  *         Informatics Group
@@ -55,7 +57,7 @@ public class OntologyChangeListenerTestCase extends TestBase {
                     public
                             void
                             handleImpendingOntologyChanges(
-                                    List<? extends OWLOntologyChange<?>> impendingChanges) {
+                                    @Nonnull List<? extends OWLOntologyChange<?>> impendingChanges) {
                         for (OWLOntologyChange<?> change : impendingChanges) {
                             if (change.isAddAxiom()) {
                                 impendingAdditions.add(change.getAxiom());
@@ -70,7 +72,7 @@ public class OntologyChangeListenerTestCase extends TestBase {
 
                     @Override
                     public void ontologiesChanged(
-                            List<? extends OWLOntologyChange<?>> changes)
+                            @Nonnull List<? extends OWLOntologyChange<?>> changes)
                             throws OWLException {
                         for (OWLOntologyChange<?> change : changes) {
                             if (change.isAddAxiom()) {

@@ -24,6 +24,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 
+import javax.annotation.Nonnull;
+
 /**
  * The KRSS2OWLParser differs from the
  * {@link org.semanticweb.owlapi.krss1.parser.KRSSOWLParser KRSSOWLParser} that
@@ -232,6 +234,7 @@ public class KRSS2OWLParser extends AbstractOWLParser {
 
     private static final long serialVersionUID = 40000L;
 
+    @Nonnull
     @Override
     public String getName() {
         return "KRSS2OWLParser";
@@ -242,9 +245,10 @@ public class KRSS2OWLParser extends AbstractOWLParser {
         return KRSS2OntologyFormat.class;
     }
 
+    @Nonnull
     @Override
-    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
-            OWLOntology ontology, OWLOntologyLoaderConfiguration configuration)
+    public OWLOntologyFormat parse(@Nonnull OWLOntologyDocumentSource documentSource,
+            @Nonnull OWLOntology ontology, @Nonnull OWLOntologyLoaderConfiguration configuration)
             throws IOException {
         Reader reader = null;
         InputStream is = null;

@@ -78,7 +78,9 @@ public enum XSDVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     /** UNSIGNED_BYTE */        UNSIGNED_BYTE   ("unsignedByte");
     // @formatter:on
     private final String shortName;
+    @Nonnull
     private final IRI iri;
+    @Nonnull
     private final String prefixedName;
 
     XSDVocabulary(String name) {
@@ -87,16 +89,19 @@ public enum XSDVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
         iri = IRI.create(Namespaces.XSD.toString(), name);
     }
 
+    @Nonnull
     @Override
     public String getShortForm() {
         return shortName;
     }
 
+    @Nonnull
     @Override
     public IRI getIRI() {
         return iri;
     }
 
+    @Nonnull
     @Override
     public String toString() {
         return iri.toString();
@@ -112,6 +117,7 @@ public enum XSDVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
      * @return the XSDVocabulary item matching xsd:typename, e.g.,
      *         {@code STRING} for {@code "xsd:string"}
      */
+    @Nonnull
     public static XSDVocabulary parseShortName(@Nonnull String s) {
         checkNotNull(s, "the input string cannot be null");
         if (s.startsWith("xsd:")) {
@@ -127,6 +133,7 @@ public enum XSDVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
                         + s);
     }
 
+    @Nonnull
     @Override
     public String getPrefixedName() {
         return prefixedName;

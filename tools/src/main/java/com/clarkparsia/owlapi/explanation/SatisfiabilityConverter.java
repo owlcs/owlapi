@@ -102,14 +102,14 @@ public class SatisfiabilityConverter {
         }
 
         @Override
-        public OWLClassExpression visit(OWLClassAssertionAxiom axiom) {
+        public OWLClassExpression visit(@Nonnull OWLClassAssertionAxiom axiom) {
             OWLIndividual ind = axiom.getIndividual();
             OWLClassExpression c = axiom.getClassExpression();
             return and(oneOf(ind), not(c));
         }
 
         @Override
-        public OWLClassExpression visit(OWLDataPropertyAssertionAxiom axiom) {
+        public OWLClassExpression visit(@Nonnull OWLDataPropertyAssertionAxiom axiom) {
             OWLClassExpression sub = oneOf(axiom.getSubject());
             OWLClassExpression sup = factory.getOWLDataHasValue(
                     axiom.getProperty(), axiom.getObject());
@@ -118,20 +118,20 @@ public class SatisfiabilityConverter {
         }
 
         @Override
-        public OWLClassExpression visit(OWLDataPropertyDomainAxiom axiom) {
+        public OWLClassExpression visit(@Nonnull OWLDataPropertyDomainAxiom axiom) {
             OWLClassExpression sub = factory.getOWLDataSomeValuesFrom(
                     axiom.getProperty(), factory.getTopDatatype());
             return and(sub, not(axiom.getDomain()));
         }
 
         @Override
-        public OWLClassExpression visit(OWLDataPropertyRangeAxiom axiom) {
+        public OWLClassExpression visit(@Nonnull OWLDataPropertyRangeAxiom axiom) {
             return factory.getOWLDataSomeValuesFrom(axiom.getProperty(),
                     factory.getOWLDataComplementOf(axiom.getRange()));
         }
 
         @Override
-        public OWLClassExpression visit(OWLDifferentIndividualsAxiom axiom) {
+        public OWLClassExpression visit(@Nonnull OWLDifferentIndividualsAxiom axiom) {
             Set<OWLClassExpression> nominals = new HashSet<OWLClassExpression>();
             for (OWLIndividual ind : axiom.getIndividuals()) {
                 nominals.add(oneOf(ind));
@@ -140,12 +140,12 @@ public class SatisfiabilityConverter {
         }
 
         @Override
-        public OWLClassExpression visit(OWLDisjointClassesAxiom axiom) {
+        public OWLClassExpression visit(@Nonnull OWLDisjointClassesAxiom axiom) {
             return and(axiom.getClassExpressions());
         }
 
         @Override
-        public OWLClassExpression visit(OWLEquivalentClassesAxiom axiom) {
+        public OWLClassExpression visit(@Nonnull OWLEquivalentClassesAxiom axiom) {
             Iterator<OWLClassExpression> classes = axiom.getClassExpressions()
                     .iterator();
             OWLClassExpression c1 = classes.next();
@@ -170,7 +170,7 @@ public class SatisfiabilityConverter {
 
         @Override
         public OWLClassExpression visit(
-                OWLNegativeDataPropertyAssertionAxiom axiom) {
+                @Nonnull OWLNegativeDataPropertyAssertionAxiom axiom) {
             OWLClassExpression sub = oneOf(axiom.getSubject());
             OWLClassExpression sup = factory.getOWLDataHasValue(
                     axiom.getProperty(), axiom.getObject());
@@ -179,7 +179,7 @@ public class SatisfiabilityConverter {
 
         @Override
         public OWLClassExpression visit(
-                OWLNegativeObjectPropertyAssertionAxiom axiom) {
+                @Nonnull OWLNegativeObjectPropertyAssertionAxiom axiom) {
             OWLClassExpression sub = oneOf(axiom.getSubject());
             OWLClassExpression sup = factory.getOWLObjectHasValue(
                     axiom.getProperty(), axiom.getObject());
@@ -187,7 +187,7 @@ public class SatisfiabilityConverter {
         }
 
         @Override
-        public OWLClassExpression visit(OWLObjectPropertyAssertionAxiom axiom) {
+        public OWLClassExpression visit(@Nonnull OWLObjectPropertyAssertionAxiom axiom) {
             OWLClassExpression sub = oneOf(axiom.getSubject());
             OWLClassExpression sup = factory.getOWLObjectHasValue(
                     axiom.getProperty(), axiom.getObject());
@@ -196,19 +196,19 @@ public class SatisfiabilityConverter {
         }
 
         @Override
-        public OWLClassExpression visit(OWLObjectPropertyDomainAxiom axiom) {
+        public OWLClassExpression visit(@Nonnull OWLObjectPropertyDomainAxiom axiom) {
             return and(factory.getOWLObjectSomeValuesFrom(axiom.getProperty(),
                     factory.getOWLThing()), not(axiom.getDomain()));
         }
 
         @Override
-        public OWLClassExpression visit(OWLObjectPropertyRangeAxiom axiom) {
+        public OWLClassExpression visit(@Nonnull OWLObjectPropertyRangeAxiom axiom) {
             return factory.getOWLObjectSomeValuesFrom(axiom.getProperty(),
                     not(axiom.getRange()));
         }
 
         @Override
-        public OWLClassExpression visit(OWLSameIndividualAxiom axiom) {
+        public OWLClassExpression visit(@Nonnull OWLSameIndividualAxiom axiom) {
             Set<OWLClassExpression> nominals = new HashSet<OWLClassExpression>();
             for (OWLIndividual ind : axiom.getIndividuals()) {
                 nominals.add(not(oneOf(ind)));
@@ -217,7 +217,7 @@ public class SatisfiabilityConverter {
         }
 
         @Override
-        public OWLClassExpression visit(OWLSubClassOfAxiom axiom) {
+        public OWLClassExpression visit(@Nonnull OWLSubClassOfAxiom axiom) {
             OWLClassExpression sub = axiom.getSubClass();
             OWLClassExpression sup = axiom.getSuperClass();
             if (sup.isOWLNothing()) {

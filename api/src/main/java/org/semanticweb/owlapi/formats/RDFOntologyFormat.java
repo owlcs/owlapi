@@ -22,6 +22,8 @@ import org.semanticweb.owlapi.io.RDFResourceParseError;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
@@ -63,7 +65,7 @@ public abstract class RDFOntologyFormat extends PrefixOWLOntologyFormat {
      *         signature of one of the imported ontologies, {@code true} if none
      *         of the previous conditions are met.
      */
-    public static boolean isMissingType(OWLEntity entity, OWLOntology ontology) {
+    public static boolean isMissingType(@Nonnull OWLEntity entity, @Nonnull OWLOntology ontology) {
         // We don't need to declare built in entities
         if (entity.isBuiltIn()) {
             return false;
@@ -101,6 +103,7 @@ public abstract class RDFOntologyFormat extends PrefixOWLOntologyFormat {
         this.addMissingTypes = addMissingTypes;
     }
 
+    @Nonnull
     @Override
     public RDFParserMetaData getOntologyLoaderMetaData() {
         return (RDFParserMetaData) super.getOntologyLoaderMetaData();

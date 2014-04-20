@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * An interface for objects that can accept visits from axioms. (See the <a
@@ -34,6 +35,7 @@ public interface OWLAxiomVisitorEx<O> extends OWLAnnotationAxiomVisitorEx<O>,
      *        axiom to visit
      * @return visitor value
      */
+    @Nullable
     O visit(@Nonnull OWLDeclarationAxiom axiom);
 
     /**
@@ -43,5 +45,6 @@ public interface OWLAxiomVisitorEx<O> extends OWLAnnotationAxiomVisitorEx<O>,
      *        axiom to visit
      * @return visitor value
      */
+    @Nullable
     O visit(@Nonnull OWLDatatypeDefinitionAxiom axiom);
 }

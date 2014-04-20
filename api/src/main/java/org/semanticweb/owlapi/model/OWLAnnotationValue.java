@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * A marker interface for annotation values, which can either be an IRI (URI),
@@ -40,5 +41,6 @@ public interface OWLAnnotationValue extends OWLAnnotationObject, OWLPrimitive {
      *        visitor return type
      * @return visitor value
      */
+    @Nullable
     <O> O accept(@Nonnull OWLAnnotationValueVisitorEx<O> visitor);
 }

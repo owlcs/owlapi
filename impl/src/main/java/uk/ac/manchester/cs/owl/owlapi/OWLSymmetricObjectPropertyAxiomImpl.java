@@ -51,6 +51,7 @@ public class OWLSymmetricObjectPropertyAxiomImpl extends
         super(property, annotations);
     }
 
+    @Nonnull
     @Override
     public Set<OWLSubObjectPropertyOfAxiom> asSubPropertyAxioms() {
         Set<OWLSubObjectPropertyOfAxiom> result = new HashSet<OWLSubObjectPropertyOfAxiom>(
@@ -64,13 +65,15 @@ public class OWLSymmetricObjectPropertyAxiomImpl extends
         return result;
     }
 
+    @Nonnull
     @Override
     public OWLSymmetricObjectPropertyAxiom getAnnotatedAxiom(
-            Set<OWLAnnotation> annotations) {
+            @Nonnull Set<OWLAnnotation> annotations) {
         return new OWLSymmetricObjectPropertyAxiomImpl(getProperty(),
                 mergeAnnos(annotations));
     }
 
+    @Nonnull
     @Override
     public OWLSymmetricObjectPropertyAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
@@ -87,25 +90,26 @@ public class OWLSymmetricObjectPropertyAxiomImpl extends
     }
 
     @Override
-    public void accept(OWLAxiomVisitor visitor) {
+    public void accept(@Nonnull OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public void accept(OWLObjectVisitor visitor) {
+    public void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Nonnull
     @Override
     public AxiomType<?> getAxiomType() {
         return AxiomType.SYMMETRIC_OBJECT_PROPERTY;

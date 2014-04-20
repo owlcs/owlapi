@@ -39,6 +39,9 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 import com.google.common.base.Optional;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * Checks to see if an ontology and its imports closure fall into the OWL 2 DL
  * profile. An ontology is OWL Full if any of the global structural restrictions
@@ -49,6 +52,7 @@ import com.google.common.base.Optional;
  */
 public class OWL2Profile implements OWLProfile {
 
+    @Nonnull
     @Override
     public String getName() {
         return "OWL 2";
@@ -68,8 +72,9 @@ public class OWL2Profile implements OWLProfile {
      * @return An {@code OWLProfileReport} that describes whether or not the
      *         ontology is within this profile.
      */
+    @Nonnull
     @Override
-    public OWLProfileReport checkOntology(OWLOntology ontology) {
+    public OWLProfileReport checkOntology(@Nonnull OWLOntology ontology) {
         OWLOntologyProfileWalker walker = new OWLOntologyProfileWalker(
                 ontology.getImportsClosure());
         OWL2ProfileObjectWalker visitor = new OWL2ProfileObjectWalker(walker,
@@ -85,18 +90,20 @@ public class OWL2Profile implements OWLProfile {
         private final OWLOntologyManager man;
         private final Set<OWLProfileViolation<?>> profileViolations = new HashSet<OWLProfileViolation<?>>();
 
-        public OWL2ProfileObjectWalker(OWLOntologyWalker walker,
+        public OWL2ProfileObjectWalker(@Nonnull OWLOntologyWalker walker,
                 OWLOntologyManager man) {
             super(walker);
             this.man = man;
         }
 
+        @Nonnull
         public Set<OWLProfileViolation<?>> getProfileViolations() {
             return new HashSet<OWLProfileViolation<?>>(profileViolations);
         }
 
+        @Nullable
         @Override
-        public Object visit(OWLOntology ont) {
+        public Object visit(@Nonnull OWLOntology ont) {
             // The ontology IRI and version IRI must be absolute and must not be
             // from the reserved vocab
             OWLOntologyID id = ont.getOntologyID();
@@ -116,8 +123,9 @@ public class OWL2Profile implements OWLProfile {
             return null;
         }
 
+        @Nullable
         @Override
-        public Object visit(IRI iri) {
+        public Object visit(@Nonnull IRI iri) {
             if (!iri.isAbsolute()) {
                 profileViolations.add(new UseOfNonAbsoluteIRI(
                         getCurrentOntology(), getCurrentAxiom(), iri));
@@ -125,8 +133,9 @@ public class OWL2Profile implements OWLProfile {
             return null;
         }
 
+        @Nullable
         @Override
-        public Object visit(OWLLiteral node) {
+        public Object visit(@Nonnull OWLLiteral node) {
             // Check that the lexical value of the literal is in the lexical
             // space of the
             // literal datatype
@@ -140,8 +149,9 @@ public class OWL2Profile implements OWLProfile {
             return null;
         }
 
+        @Nullable
         @Override
-        public Object visit(OWLDatatypeRestriction node) {
+        public Object visit(@Nonnull OWLDatatypeRestriction node) {
             // The datatype should not be defined with a datatype definition
             // axiom
             for (OWLOntology ont : man.getImportsClosure(getCurrentOntology())) {
@@ -167,8 +177,9 @@ public class OWL2Profile implements OWLProfile {
             return null;
         }
 
+        @Nullable
         @Override
-        public Object visit(OWLDatatypeDefinitionAxiom axiom) {
+        public Object visit(@Nonnull OWLDatatypeDefinitionAxiom axiom) {
             // The datatype MUST be declared
             if (!getCurrentOntology().isDeclared(axiom.getDatatype(), INCLUDED)) {
                 profileViolations.add(new UseOfUndeclaredDatatype(

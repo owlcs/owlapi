@@ -50,6 +50,7 @@ public class OWLReflexiveObjectPropertyAxiomImpl extends
         super(property, annotations);
     }
 
+    @Nonnull
     @Override
     public OWLReflexiveObjectPropertyAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
@@ -59,15 +60,17 @@ public class OWLReflexiveObjectPropertyAxiomImpl extends
                 NO_ANNOTATIONS);
     }
 
+    @Nonnull
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
         return new OWLSubClassOfAxiomImpl(OWL_THING, new OWLObjectHasSelfImpl(
                 getProperty()), NO_ANNOTATIONS);
     }
 
+    @Nonnull
     @Override
     public OWLReflexiveObjectPropertyAxiom getAnnotatedAxiom(
-            Set<OWLAnnotation> annotations) {
+            @Nonnull Set<OWLAnnotation> annotations) {
         return new OWLReflexiveObjectPropertyAxiomImpl(getProperty(),
                 mergeAnnos(annotations));
     }
@@ -79,25 +82,26 @@ public class OWLReflexiveObjectPropertyAxiomImpl extends
     }
 
     @Override
-    public void accept(OWLAxiomVisitor visitor) {
+    public void accept(@Nonnull OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public void accept(OWLObjectVisitor visitor) {
+    public void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Nonnull
     @Override
     public AxiomType<?> getAxiomType() {
         return AxiomType.REFLEXIVE_OBJECT_PROPERTY;

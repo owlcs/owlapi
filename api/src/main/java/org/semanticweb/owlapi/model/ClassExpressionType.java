@@ -16,6 +16,8 @@ import java.io.Serializable;
 
 import org.semanticweb.owlapi.vocab.Namespaces;
 
+import javax.annotation.Nonnull;
+
 /**
  * Represents the different types of OWL 2 class expressions.
  * 
@@ -67,7 +69,9 @@ public enum ClassExpressionType
     OBJECT_ONE_OF("ObjectOneOf");
 
     private final String name;
+    @Nonnull
     private final String prefixedName;
+    @Nonnull
     private final IRI iri;
 
     ClassExpressionType(String name) {
@@ -86,16 +90,19 @@ public enum ClassExpressionType
         return name;
     }
 
+    @Nonnull
     @Override
     public String getShortForm() {
         return name;
     }
 
+    @Nonnull
     @Override
     public IRI getIRI() {
         return iri;
     }
 
+    @Nonnull
     @Override
     public String getPrefixedName() {
         return prefixedName;

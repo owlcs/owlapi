@@ -111,6 +111,7 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements
         }
     }
 
+    @Nonnull
     @Override
     public String getLiteral() {
         try {
@@ -192,6 +193,7 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements
         return Float.parseFloat(literal2);
     }
 
+    @Nonnull
     @Override
     public String getLang() {
         return lang;
@@ -209,6 +211,7 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements
         return lang != null && lang.equalsIgnoreCase(l.trim());
     }
 
+    @Nonnull
     @Override
     public OWLDatatype getDatatype() {
         return datatype;
@@ -268,22 +271,22 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements
     }
 
     @Override
-    public void accept(OWLDataVisitor visitor) {
+    public void accept(@Nonnull OWLDataVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLDataVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLDataVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    public void accept(OWLAnnotationValueVisitor visitor) {
+    public void accept(@Nonnull OWLAnnotationValueVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLAnnotationValueVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLAnnotationValueVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
@@ -302,12 +305,12 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements
     }
 
     @Override
-    public void accept(OWLObjectVisitor visitor) {
+    public void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 }

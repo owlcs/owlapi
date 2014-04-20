@@ -1,5 +1,6 @@
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Set;
 
@@ -22,6 +23,7 @@ public interface HasAddAxioms {
      * @return A list of ontology changes that represent the changes which took
      *         place in order to add the axioms.
      */
+    @Nonnull
     List<OWLOntologyChange<?>> addAxioms(OWLOntology ont,
             Set<? extends OWLAxiom> axioms);
 }

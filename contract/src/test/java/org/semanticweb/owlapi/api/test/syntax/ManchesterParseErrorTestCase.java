@@ -28,6 +28,8 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
+import javax.annotation.Nonnull;
+
 @SuppressWarnings("javadoc")
 public class ManchesterParseErrorTestCase extends TestBase {
 
@@ -70,17 +72,17 @@ public class ManchesterParseErrorTestCase extends TestBase {
         }
 
         @Override
-        public OWLClass getOWLClass(String name) {
+        public OWLClass getOWLClass(@Nonnull String name) {
             return null;
         }
 
         @Override
-        public OWLObjectProperty getOWLObjectProperty(String name) {
+        public OWLObjectProperty getOWLObjectProperty(@Nonnull String name) {
             return null;
         }
 
         @Override
-        public OWLDataProperty getOWLDataProperty(String name) {
+        public OWLDataProperty getOWLDataProperty(@Nonnull String name) {
             if (name != null && name.equals("p")) {
                 return factory
                         .getOWLDataProperty(IRI("http://protege.org/Test.owl#p"));
@@ -90,17 +92,17 @@ public class ManchesterParseErrorTestCase extends TestBase {
         }
 
         @Override
-        public OWLAnnotationProperty getOWLAnnotationProperty(String name) {
+        public OWLAnnotationProperty getOWLAnnotationProperty(@Nonnull String name) {
             return null;
         }
 
         @Override
-        public OWLNamedIndividual getOWLIndividual(String name) {
+        public OWLNamedIndividual getOWLIndividual(@Nonnull String name) {
             return null;
         }
 
         @Override
-        public OWLDatatype getOWLDatatype(String name) {
+        public OWLDatatype getOWLDatatype(@Nonnull String name) {
             if (name != null && name.equals("rdfs:Literal")) {
                 return factory.getTopDatatype();
             } else {
