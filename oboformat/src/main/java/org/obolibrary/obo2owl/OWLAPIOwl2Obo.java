@@ -558,8 +558,8 @@ public class OWLAPIOwl2Obo {
             error(ax, false);
             return;
         }
-        final OWLObjectPropertyExpression exp1 = list.get(0);
-        final OWLObjectPropertyExpression exp2 = list.get(1);
+        OWLObjectPropertyExpression exp1 = list.get(0);
+        OWLObjectPropertyExpression exp2 = list.get(1);
         if (exp1.isBottomEntity() || exp1.isTopEntity()
                 || exp2.isBottomEntity() || exp2.isTopEntity()) {
             error("Property chains using Top or Bottom entities are not supported in OBO.",
@@ -574,7 +574,7 @@ public class OWLAPIOwl2Obo {
         }
         Clause clause;
         // set of unprocessed annotations
-        final Set<OWLAnnotation> unprocessedAnnotations = new HashSet<OWLAnnotation>(
+        Set<OWLAnnotation> unprocessedAnnotations = new HashSet<OWLAnnotation>(
                 ax.getAnnotations());
         if (rel1.equals(f.getId())) {
             clause = new Clause(OboFormatTag.TAG_TRANSITIVE_OVER, rel2);
@@ -698,7 +698,7 @@ public class OWLAPIOwl2Obo {
      *        the ax
      */
     protected void tr(OWLObjectPropertyDomainAxiom ax) {
-        final OWLClassExpression domain = ax.getDomain();
+        OWLClassExpression domain = ax.getDomain();
         OWLObjectPropertyExpression propEx = ax.getProperty();
         if (propEx.isAnonymous()) {
             error(ax, true);
@@ -787,7 +787,7 @@ public class OWLAPIOwl2Obo {
      *        the ax
      */
     protected void tr(OWLObjectPropertyRangeAxiom ax) {
-        final OWLClassExpression owlRange = ax.getRange();
+        OWLClassExpression owlRange = ax.getRange();
         OWLObjectPropertyExpression propEx = ax.getProperty();
         if (propEx.isAnonymous()) {
             error(ax, false);
@@ -1435,7 +1435,7 @@ public class OWLAPIOwl2Obo {
                     max = card.getCardinality();
                 } else if (ce instanceof OWLObjectAllValuesFrom) {
                     OWLObjectAllValuesFrom all = (OWLObjectAllValuesFrom) ce;
-                    final OWLClassExpression filler = all.getFiller();
+                    OWLClassExpression filler = all.getFiller();
                     if (filler instanceof OWLClass) {
                         r = this.getIdentifier(all.getProperty());
                         cls2 = this.getIdentifier(filler);
@@ -1722,7 +1722,7 @@ public class OWLAPIOwl2Obo {
                 // see BFOROXrefTest
                 // 5.9.3. Special Rules for Relations
                 if (propId.equals("shorthand")) {
-                    final OWLAnnotationValue value = ax.getValue();
+                    OWLAnnotationValue value = ax.getValue();
                     if (value != null && value instanceof OWLLiteral) {
                         return ((OWLLiteral) value).getLiteral();
                     }
@@ -2040,7 +2040,7 @@ public class OWLAPIOwl2Obo {
                 // OWLObjectSomeValuesFrom
                 // OWLObjectAllValuesFrom
                 OWLQuantifiedObjectRestriction r = (OWLQuantifiedObjectRestriction) sup;
-                final OWLClassExpression filler = r.getFiller();
+                OWLClassExpression filler = r.getFiller();
                 if (filler.isBottomEntity() || filler.isTopEntity()) {
                     error("Assertions using owl:Thing or owl:Nothing are not translateable OBO",
                             ax, false);
@@ -2058,7 +2058,7 @@ public class OWLAPIOwl2Obo {
                 // OWLObjectMinCardinality
                 // OWLObjectMaxCardinality
                 OWLObjectCardinalityRestriction cardinality = (OWLObjectCardinalityRestriction) sup;
-                final OWLClassExpression filler = cardinality.getFiller();
+                OWLClassExpression filler = cardinality.getFiller();
                 if (filler.isBottomEntity() || filler.isTopEntity()) {
                     error("Assertions using owl:Thing or owl:Nothing are not translateable OBO",
                             ax, false);
@@ -2077,8 +2077,7 @@ public class OWLAPIOwl2Obo {
                 for (OWLClassExpression operand : i.getOperands()) {
                     if (operand instanceof OWLQuantifiedObjectRestriction) {
                         OWLQuantifiedObjectRestriction restriction = (OWLQuantifiedObjectRestriction) operand;
-                        final OWLClassExpression filler = restriction
-                                .getFiller();
+                        OWLClassExpression filler = restriction.getFiller();
                         if (filler.isBottomEntity() || filler.isTopEntity()) {
                             error("Assertions using owl:Thing or owl:Nothing are not translateable OBO",
                                     ax, false);
@@ -2094,8 +2093,7 @@ public class OWLAPIOwl2Obo {
                                 new HashSet<QualifierValue>(qvs), ax));
                     } else if (operand instanceof OWLObjectCardinalityRestriction) {
                         OWLObjectCardinalityRestriction restriction = (OWLObjectCardinalityRestriction) operand;
-                        final OWLClassExpression filler = restriction
-                                .getFiller();
+                        OWLClassExpression filler = restriction.getFiller();
                         if (filler.isBottomEntity() || filler.isTopEntity()) {
                             error("Assertions using owl:Thing or owl:Nothing are not translateable OBO",
                                     ax, false);
@@ -2201,9 +2199,9 @@ public class OWLAPIOwl2Obo {
      */
     public static List<Clause>
             normalizeRelationshipClauses(List<Clause> clauses) {
-        final List<Clause> normalized = new ArrayList<Clause>();
+        List<Clause> normalized = new ArrayList<Clause>();
         while (!clauses.isEmpty()) {
-            final Clause target = clauses.remove(0);
+            Clause target = clauses.remove(0);
             List<Clause> similar = findSimilarClauses(clauses, target);
             normalized.add(target);
             mergeSimilarIntoTarget(target, similar);
@@ -2220,17 +2218,16 @@ public class OWLAPIOwl2Obo {
      *        the target
      * @return the list
      */
-    static List<Clause> findSimilarClauses(List<Clause> clauses,
-            final Clause target) {
-        final String targetTag = target.getTag();
-        final Object targetValue = target.getValue();
-        final Object targetValue2 = target.getValue2();
+    static List<Clause> findSimilarClauses(List<Clause> clauses, Clause target) {
+        String targetTag = target.getTag();
+        Object targetValue = target.getValue();
+        Object targetValue2 = target.getValue2();
         List<Clause> similar = new ArrayList<Clause>();
         Iterator<Clause> iterator = clauses.iterator();
         while (iterator.hasNext()) {
-            final Clause current = iterator.next();
-            final Object currentValue = current.getValue();
-            final Object currentValue2 = current.getValue2();
+            Clause current = iterator.next();
+            Object currentValue = current.getValue();
+            Object currentValue2 = current.getValue2();
             if (targetTag.equals(current.getTag())
                     && targetValue.equals(currentValue)) {
                 if (targetValue2 == null) {
@@ -2255,18 +2252,15 @@ public class OWLAPIOwl2Obo {
      * @param similar
      *        the similar
      */
-    static void
-            mergeSimilarIntoTarget(final Clause target, List<Clause> similar) {
+    static void mergeSimilarIntoTarget(Clause target, List<Clause> similar) {
         if (similar.isEmpty()) {
             return;
         }
-        final Collection<QualifierValue> targetQVs = target
-                .getQualifierValues();
+        Collection<QualifierValue> targetQVs = target.getQualifierValues();
         for (Clause current : similar) {
-            final Collection<QualifierValue> newQVs = current
-                    .getQualifierValues();
+            Collection<QualifierValue> newQVs = current.getQualifierValues();
             for (QualifierValue newQV : newQVs) {
-                final String newQualifier = newQV.getQualifier();
+                String newQualifier = newQV.getQualifier();
                 // if min or max cardinality check for possible merges
                 if ("minCardinality".equals(newQualifier)
                         || "maxCardinality".equals(newQualifier)) {

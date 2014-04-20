@@ -86,16 +86,20 @@ public class RioRenderer extends RDFRendererBase {
         this.writer = writer;
         pm = new DefaultPrefixManager();
         if (!ontology.isAnonymous()) {
-            pm.setDefaultPrefix(ontology.getOntologyID().getOntologyIRI().get()
-                    + "#");
+            String ontologyIRIString = ontology.getOntologyID()
+                    .getOntologyIRI().get().toString();
+            String defaultPrefix = ontologyIRIString;
+            if (!ontologyIRIString.endsWith("/")) {
+                defaultPrefix = ontologyIRIString + "#";
+            }
+            pm.setDefaultPrefix(defaultPrefix);
         }
         // copy prefixes out of the given format if it is a
         // PrefixOWLOntologyFormat
         if (format instanceof PrefixOWLOntologyFormat) {
-            final PrefixOWLOntologyFormat prefixFormat = (PrefixOWLOntologyFormat) format;
-            for (final String prefixName : prefixFormat.getPrefixNames()) {
-                pm.setPrefix(prefixName, prefixFormat.getPrefix(prefixName));
-            }
+            PrefixOWLOntologyFormat prefixFormat = (PrefixOWLOntologyFormat) format;
+            pm.copyPrefixesFrom(prefixFormat);
+            pm.setPrefixComparator(prefixFormat.getPrefixComparator());
         }
         // base = "";
     }

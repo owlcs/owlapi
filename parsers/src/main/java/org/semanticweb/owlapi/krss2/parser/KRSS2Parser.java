@@ -74,7 +74,7 @@ class KRSS2Parser implements KRSS2ParserConstants {
         }
     }
 
-    IRI getIRI(final String s) throws URISyntaxException {
+    IRI getIRI(String s) throws URISyntaxException {
         IRI iri = string2IRI.get(s);
         if (iri == null) {
             switch (nameResolution) {

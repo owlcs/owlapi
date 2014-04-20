@@ -140,7 +140,7 @@ public class OBOFormatWriterTest extends OboFormatTestBasics {
             sb.append('\n');
         }
         reader.close();
-        final String input = sb.toString();
+        String input = sb.toString();
         OBODoc obodoc = parseOboToString(input);
         String written = renderOboToString(obodoc);
         assertEquals(input, written);

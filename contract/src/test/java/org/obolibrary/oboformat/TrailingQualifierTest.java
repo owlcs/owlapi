@@ -96,8 +96,8 @@ public class TrailingQualifierTest extends OboFormatTestBasics {
 
     void hasQualifierClauses(Frame frame, OboFormatTag tag) {
         Collection<Clause> clauses = frame.getClauses(tag);
-        final String message = "Expected clauses " + tag.getTag()
-                + " in frame: " + frame;
+        String message = "Expected clauses " + tag.getTag() + " in frame: "
+                + frame;
         assertNotNull(message, clauses);
         assertFalse(message, clauses.isEmpty());
         for (Clause clause : clauses) {

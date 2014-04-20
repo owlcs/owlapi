@@ -75,6 +75,10 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
             Map<String, String> namespacesByPrefix = namespaceFormat
                     .getPrefixName2PrefixMap();
             for (String prefixName : namespacesByPrefix.keySet()) {
+                if (prefixName.isEmpty()) {
+                    System.out
+                            .println("OWLOntologyXMLNamespaceManager.processOntology()");
+                }
                 String xmlnsPrefixName = prefixName.substring(0,
                         prefixName.length() - 1);
                 String xmlnsPrefix = namespacesByPrefix.get(prefixName);
@@ -161,7 +165,7 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
     @Override
     public String getQName(@Nonnull String name) {
         checkNotNull(name, "name cannot be null");
-        final String ns = XMLUtils.getNCNamePrefix(name);
+        String ns = XMLUtils.getNCNamePrefix(name);
         String fragment = XMLUtils.getNCNameSuffix(name);
         if (ns.equals(getDefaultNamespace())) {
             return fragment;

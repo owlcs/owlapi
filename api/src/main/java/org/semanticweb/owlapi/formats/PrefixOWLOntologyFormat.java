@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.formats;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
+import java.util.Comparator;
 import java.util.Map;
 import java.util.Set;
 
@@ -25,6 +26,9 @@ import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 
 /**
+ * A PrefixOWLOntologyFormat delegates all PrefixManager operations to a
+ * PrefixManager implementation.
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0
@@ -46,7 +50,6 @@ public abstract class PrefixOWLOntologyFormat extends OWLOntologyFormat
      */
     public PrefixOWLOntologyFormat(@Nonnull PrefixManager manager) {
         nsm = checkNotNull(manager, "manager cannot be null");
-        nsm.clear();
     }
 
     /**
@@ -55,16 +58,11 @@ public abstract class PrefixOWLOntologyFormat extends OWLOntologyFormat
      */
     public void setPrefixManager(@Nonnull PrefixManager m) {
         nsm = checkNotNull(m, "m cannot be null");
-        nsm.clear();
     }
 
     @Override
-    public void setPrefix(@Nonnull String prefixName, @Nonnull String prefix) {
-        String _prefixName = prefixName;
-        if (!_prefixName.endsWith(":")) {
-            _prefixName = _prefixName + ":";
-        }
-        nsm.setPrefix(_prefixName, prefix);
+    public void setPrefix(String prefixName, String prefix) {
+        nsm.setPrefix(prefixName, prefix);
     }
 
     @Override
@@ -72,58 +70,63 @@ public abstract class PrefixOWLOntologyFormat extends OWLOntologyFormat
         nsm.clear();
     }
 
-    @Nonnull
     @Override
     public Set<String> getPrefixNames() {
         return nsm.getPrefixNames();
     }
 
     @Override
-    public void setDefaultPrefix(@Nonnull String namespace) {
+    public void setDefaultPrefix(String namespace) {
         nsm.setDefaultPrefix(namespace);
     }
 
     @Override
-    public boolean containsPrefixMapping(@Nonnull String prefix) {
+    public boolean containsPrefixMapping(String prefix) {
         return nsm.containsPrefixMapping(prefix);
     }
 
-    @Nonnull
     @Override
     public String getDefaultPrefix() {
         return nsm.getDefaultPrefix();
     }
 
-    @Nonnull
     @Override
     public Map<String, String> getPrefixName2PrefixMap() {
         return nsm.getPrefixName2PrefixMap();
     }
 
-    @Nonnull
     @Override
-    public String getPrefix(@Nonnull String prefixName) {
+    public String getPrefix(String prefixName) {
         return nsm.getPrefix(prefixName);
     }
 
-    @Nonnull
     @Override
-    public IRI getIRI(@Nonnull String iri) {
+    public IRI getIRI(String iri) {
         return nsm.getIRI(iri);
     }
 
     @Override
-    public String getPrefixIRI(@Nonnull IRI iri) {
+    public String getPrefixIRI(IRI iri) {
         return nsm.getPrefixIRI(iri);
     }
 
     @Override
-    public void copyPrefixesFrom(@Nonnull PrefixManager prefixManager) {
+    public void copyPrefixesFrom(PrefixManager prefixManager) {
         nsm.copyPrefixesFrom(prefixManager);
     }
 
     @Override
-    public void unregisterNamespace(@Nonnull String namespace) {
+    public void unregisterNamespace(String namespace) {
         nsm.unregisterNamespace(namespace);
+    }
+
+    @Override
+    public Comparator<String> getPrefixComparator() {
+        return nsm.getPrefixComparator();
+    }
+
+    @Override
+    public void setPrefixComparator(Comparator<String> comparator) {
+        nsm.setPrefixComparator(comparator);
     }
 }

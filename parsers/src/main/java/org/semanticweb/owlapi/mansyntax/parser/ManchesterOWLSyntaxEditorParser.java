@@ -189,7 +189,7 @@ public class ManchesterOWLSyntaxEditorParser implements
         dataTypeNames.add("rdf:"
                 + OWLRDFVocabulary.RDF_XML_LITERAL.getIRI().getFragment());
         for (IRI iri : OWLRDFVocabulary.BUILT_IN_ANNOTATION_PROPERTY_IRIS) {
-            final String string = iri.toString();
+            String string = iri.toString();
             String ns = XMLUtils.getNCNamePrefix(string);
             String fragment = XMLUtils.getNCNameSuffix(string);
             annotationPropertyNames.add(u.getPrefix(ns) + ":"

@@ -31,10 +31,10 @@ public class CurlyBracesInCommentsTest extends OboFormatTestBasics {
         h.addClause(new Clause(OboFormatTag.TAG_ONTOLOGY, "test"));
         doc.setHeaderFrame(h);
         Frame t = new Frame(FrameType.TERM);
-        final String id = "TEST:0001";
+        String id = "TEST:0001";
         t.setId(id);
         t.addClause(new Clause(OboFormatTag.TAG_ID, id));
-        final String comment = "Comment with a '{' curly braces '}'";
+        String comment = "Comment with a '{' curly braces '}'";
         t.addClause(new Clause(OboFormatTag.TAG_COMMENT, comment));
         doc.addFrame(t);
         String oboString = renderOboToString(doc);

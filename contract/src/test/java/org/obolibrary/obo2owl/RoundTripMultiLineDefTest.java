@@ -39,7 +39,7 @@ public class RoundTripMultiLineDefTest extends OboFormatTestBasics {
         OWLAPIObo2Owl bridge = new OWLAPIObo2Owl(
                 OWLManager.createOWLOntologyManager());
         OWLOntology owlOntology = bridge.convert(oboDocSource);
-        final OWLDataFactory factory = owlOntology.getOWLOntologyManager()
+        OWLDataFactory factory = owlOntology.getOWLOntologyManager()
                 .getOWLDataFactory();
         // IRI
         IRI iri = bridge.oboIdToIRI("CARO:0000049");

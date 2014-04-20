@@ -702,9 +702,8 @@ public class OWL2DLProfile implements OWLProfile {
                 return null;
             }
             List<OWLObjectPropertyExpression> chain = axiom.getPropertyChain();
-            final OWLObjectPropertyExpression first = chain.get(0);
-            final OWLObjectPropertyExpression last = chain
-                    .get(chain.size() - 1);
+            OWLObjectPropertyExpression first = chain.get(0);
+            OWLObjectPropertyExpression last = chain.get(chain.size() - 1);
             // center part of the chain must be smaller in any case
             for (int i = 1; i < chain.size() - 1; i++) {
                 if (getPropertyManager().isLessThan(superProp, chain.get(i))) {

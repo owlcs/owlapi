@@ -347,7 +347,7 @@ public class OBOFormatParser {
             parseZeroOrMoreWsOptCmtNl();
         }
         // set OBO namespace in frames
-        final String defaultOboNamespace = h.getTagValue(
+        String defaultOboNamespace = h.getTagValue(
                 OboFormatTag.TAG_DEFAULT_NAMESPACE, String.class);
         if (defaultOboNamespace != null) {
             addOboNamespace(obodoc.getTermFrames(), defaultOboNamespace);

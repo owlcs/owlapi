@@ -88,9 +88,8 @@ public class TurtleRenderer extends RDFRendererBase {
         }
         if (format instanceof PrefixOWLOntologyFormat) {
             PrefixOWLOntologyFormat prefixFormat = (PrefixOWLOntologyFormat) format;
-            for (String prefixName : prefixFormat.getPrefixNames()) {
-                pm.setPrefix(prefixName, prefixFormat.getPrefix(prefixName));
-            }
+            pm.copyPrefixesFrom(prefixFormat);
+            pm.setPrefixComparator(prefixFormat.getPrefixComparator());
         }
         base = "";
     }

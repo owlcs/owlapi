@@ -54,7 +54,7 @@ public class OWLAPICompatibleComparator implements Comparator<Statement> {
     private final static int AFTER = 1;
 
     @Override
-    public int compare(final Statement first, final Statement second) {
+    public int compare(Statement first, Statement second) {
         if (first == second) {
             return OWLAPICompatibleComparator.EQUALS;
         }

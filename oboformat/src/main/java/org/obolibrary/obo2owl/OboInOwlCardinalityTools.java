@@ -165,8 +165,8 @@ public class OboInOwlCardinalityTools {
             AnnotationCardinalityReporter reporter,
             AnnotationCardinalityConfictHandler handler)
             throws AnnotationCardinalityException {
-        final OWLOntologyManager manager = ontology.getOWLOntologyManager();
-        final OWLDataFactory factory = manager.getOWLDataFactory();
+        OWLOntologyManager manager = ontology.getOWLOntologyManager();
+        OWLDataFactory factory = manager.getOWLDataFactory();
         Set<OWLAnnotationProperty> headerProperties = getProperties(factory,
                 OboFormatTag.TAG_ONTOLOGY, OboFormatTag.TAG_FORMAT_VERSION,
                 OboFormatTag.TAG_DATE, OboFormatTag.TAG_DEFAULT_NAMESPACE,
@@ -213,8 +213,7 @@ public class OboInOwlCardinalityTools {
             Set<OWLAnnotationProperty> properties, OWLOntology ontology,
             AnnotationCardinalityReporter reporter,
             AnnotationCardinalityConfictHandler handler,
-            final OWLOntologyManager manager)
-            throws AnnotationCardinalityException {
+            OWLOntologyManager manager) throws AnnotationCardinalityException {
         Set<OWLAnnotation> annotations = ontology.getAnnotations();
         Map<OWLAnnotationProperty, Set<OWLAnnotation>> groupedAnnotations = new HashMap<OWLAnnotationProperty, Set<OWLAnnotation>>();
         for (OWLAnnotation annotation : annotations) {
@@ -260,16 +259,15 @@ public class OboInOwlCardinalityTools {
     }
 
     private static void checkOwlEntity(OWLEntity owlClass,
-            final Set<OWLAnnotationProperty> properties, OWLOntology ontology,
+            Set<OWLAnnotationProperty> properties, OWLOntology ontology,
             AnnotationCardinalityReporter reporter,
             AnnotationCardinalityConfictHandler handler,
-            final OWLOntologyManager manager)
-            throws AnnotationCardinalityException {
+            OWLOntologyManager manager) throws AnnotationCardinalityException {
         Set<OWLAnnotationAssertionAxiom> axioms = ontology
                 .getAnnotationAssertionAxioms(owlClass.getIRI());
         Map<OWLAnnotationProperty, Set<OWLAnnotationAssertionAxiom>> groupedAxioms = new HashMap<OWLAnnotationProperty, Set<OWLAnnotationAssertionAxiom>>();
         for (OWLAnnotationAssertionAxiom axiom : axioms) {
-            final OWLAnnotationProperty current = axiom.getProperty();
+            OWLAnnotationProperty current = axiom.getProperty();
             if (properties.contains(current)) {
                 Set<OWLAnnotationAssertionAxiom> set = groupedAxioms
                         .get(current);

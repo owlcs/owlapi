@@ -80,7 +80,7 @@ public class GZipStreamDocumentSource extends OWLOntologyDocumentSourceBase {
     private void readIntoBuffer(@Nonnull InputStream reader) {
         try {
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            final int length = 100000;
+            int length = 100000;
             byte[] tempBuffer = new byte[length];
             int read = 0;
             do {

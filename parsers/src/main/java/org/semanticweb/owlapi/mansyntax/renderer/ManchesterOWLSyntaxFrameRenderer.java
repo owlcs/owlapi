@@ -19,7 +19,6 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -82,7 +81,6 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
-import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.util.OWLAxiomFilter;
@@ -419,8 +417,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
             pushTab(indent);
             Optional<IRI> versionIRI = ontology.getOntologyID().getVersionIRI();
             if (versionIRI.isPresent()) {
-                writeFullURI(versionIRI.get()
-                        .toString());
+                writeFullURI(versionIRI.get().toString());
             }
             popTab();
         }
@@ -448,17 +445,13 @@ public class ManchesterOWLSyntaxFrameRenderer extends
             return;
         }
         ManchesterOWLSyntaxPrefixNameShortFormProvider prov = (ManchesterOWLSyntaxPrefixNameShortFormProvider) sfp;
-        Map<String, String> prefixMap = new HashMap<String, String>();
-        PrefixManager prefixManager = prov.getPrefixManager();
-        for (String prefixName : prefixManager.getPrefixName2PrefixMap()
-                .keySet()) {
-            String prefix = prefixManager.getPrefix(prefixName);
-            prefixMap.put(prefixName, prefix);
+        Map<String, String> prefixMap = prov.getPrefixName2PrefixMap();
+        for (Map.Entry<String, String> e : prefixMap.entrySet()) {
             write(PREFIX.toString());
             write(": ");
-            write(prefixName);
+            write(e.getKey());
             write(" ");
-            writeFullURI(prefix);
+            writeFullURI(e.getValue());
             writeNewLine();
         }
         if (!prefixMap.isEmpty()) {

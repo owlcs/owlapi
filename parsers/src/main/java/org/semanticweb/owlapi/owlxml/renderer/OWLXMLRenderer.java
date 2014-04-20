@@ -55,7 +55,7 @@ public class OWLXMLRenderer extends AbstractOWLRenderer {
             w.startDocument(ontology);
             if (format instanceof PrefixOWLOntologyFormat) {
                 PrefixOWLOntologyFormat fromPrefixFormat = (PrefixOWLOntologyFormat) format;
-                final Map<String, String> map = fromPrefixFormat
+                Map<String, String> map = fromPrefixFormat
                         .getPrefixName2PrefixMap();
                 for (String prefixName : map.keySet()) {
                     String prefix = map.get(prefixName);

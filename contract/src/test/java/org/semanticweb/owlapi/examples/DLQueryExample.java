@@ -146,7 +146,7 @@ public class DLQueryExample {
         return br.readLine();
     }
 
-    private static OWLReasoner createReasoner(final OWLOntology rootOntology) {
+    private static OWLReasoner createReasoner(OWLOntology rootOntology) {
         // We need to create an instance of OWLReasoner. An OWLReasoner provides
         // the basic query functionality that we need, for example the ability
         // obtain the subclasses of a class etc. To do this we use a reasoner
