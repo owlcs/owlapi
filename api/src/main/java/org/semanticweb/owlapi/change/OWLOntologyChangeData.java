@@ -15,6 +15,7 @@ package org.semanticweb.owlapi.change;
 import java.io.Serializable;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.HasSignature;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -55,6 +56,7 @@ public abstract class OWLOntologyChangeData<T> implements HasSignature,
      * @throws E
      *         The exception thrown by the visitor's visit methods.
      */
+    @Nonnull
     public abstract <R, E extends Exception> R accept(
             @Nonnull OWLOntologyChangeDataVisitor<R, E> visitor) throws E;
 
@@ -77,6 +79,7 @@ public abstract class OWLOntologyChangeData<T> implements HasSignature,
     /** @return a name for the object class */
     protected abstract String getName();
 
+    @Nonnull
     protected String getTemplate() {
         return getName() + "(%s)";
     }
@@ -100,7 +103,7 @@ public abstract class OWLOntologyChangeData<T> implements HasSignature,
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         if (obj == this) {
             return true;
         }

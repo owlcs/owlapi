@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapitools.builders;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -22,6 +24,7 @@ import org.semanticweb.owlapi.model.OWLObjectComplementOf;
 public class BuilderComplementOf extends
         BaseBuilder<OWLObjectComplementOf, BuilderComplementOf> {
 
+    @Nullable
     private OWLClassExpression c = null;
 
     /**
@@ -41,7 +44,7 @@ public class BuilderComplementOf extends
      * @param df
      *        data factory
      */
-    public BuilderComplementOf(OWLObjectComplementOf expected, OWLDataFactory df) {
+    public BuilderComplementOf(@Nonnull OWLObjectComplementOf expected, OWLDataFactory df) {
         this(df);
         withClass(expected.getOperand());
     }
@@ -51,11 +54,13 @@ public class BuilderComplementOf extends
      *        class expression
      * @return builder
      */
+    @Nonnull
     public BuilderComplementOf withClass(OWLClassExpression arg) {
         c = arg;
         return this;
     }
 
+    @Nonnull
     @Override
     public OWLObjectComplementOf buildObject() {
         return df.getOWLObjectComplementOf(c);

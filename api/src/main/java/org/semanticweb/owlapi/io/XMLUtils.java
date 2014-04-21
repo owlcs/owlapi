@@ -12,6 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.io;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * This class contains various methods for checking QNames, NCNames etc. The
  * implementation is based on the <a href="http://www.w3.org/TR/xml-names/">W3C
@@ -119,7 +122,7 @@ public class XMLUtils {
      *        The character sequence to be tested.
      * @return {@code true} if {@code s} is an NCName, otherwise {@code false}.
      */
-    public static boolean isNCName(CharSequence s) {
+    public static boolean isNCName(@Nonnull CharSequence s) {
         if (isNullOrEmpty(s)) {
             return false;
         }
@@ -148,7 +151,7 @@ public class XMLUtils {
      *        The character sequence to be tested.
      * @return {@code true} if {@code s} is a QName, otherwise {@code false}.
      */
-    public static boolean isQName(CharSequence s) {
+    public static boolean isQName(@Nonnull CharSequence s) {
         if (isNullOrEmpty(s)) {
             return false;
         }
@@ -190,7 +193,7 @@ public class XMLUtils {
      * @return {@code true} if the character sequence {@code s} has a suffix
      *         that is an NCName.
      */
-    public static boolean hasNCNameSuffix(CharSequence s) {
+    public static boolean hasNCNameSuffix(@Nonnull CharSequence s) {
         return getNCNameSuffixIndex(s) != -1;
     }
 
@@ -204,7 +207,7 @@ public class XMLUtils {
      *         sequence {@code s} that is an NCName, or -1 if the character
      *         sequence {@code s} does not have a suffix that is an NCName.
      */
-    public static int getNCNameSuffixIndex(CharSequence s) {
+    public static int getNCNameSuffixIndex(@Nonnull CharSequence s) {
         // identify bnode labels and do not try to split them
         if (s.length() > 1 && s.charAt(0) == '_' && s.charAt(1) == ':') {
             return -1;
@@ -233,7 +236,8 @@ public class XMLUtils {
      *         {@code s} that is an NCName, or {@code null} if the character
      *         sequence {@code s} does not have a suffix that is an NCName.
      */
-    public static String getNCNameSuffix(CharSequence s) {
+    @Nullable
+    public static String getNCNameSuffix(@Nonnull CharSequence s) {
         if (s.length() > 1 && s.charAt(0) == '_' && s.charAt(1) == ':') {
             return null;
         }
@@ -254,7 +258,7 @@ public class XMLUtils {
      * @return the prefix split at the last non-ncname character, or the whole
      *         input if no ncname is found
      */
-    public static String getNCNamePrefix(CharSequence s) {
+    public static String getNCNamePrefix(@Nonnull CharSequence s) {
         if (s.length() > 1 && s.charAt(0) == '_' && s.charAt(1) == ':') {
             return s.toString();
         }
@@ -273,7 +277,8 @@ public class XMLUtils {
      *        The character sequence.
      * @return The escaped version of the character sequence.
      */
-    public static String escapeXML(CharSequence s) {
+    @Nonnull
+    public static String escapeXML(@Nonnull CharSequence s) {
         // double quote -- quot
         // ampersand -- amp
         // less than -- lt
@@ -309,7 +314,7 @@ public class XMLUtils {
      *         {@code true} if the character sequence is empty, otherwise
      *         {@code false}.
      */
-    public static boolean isNullOrEmpty(CharSequence s) {
+    public static boolean isNullOrEmpty(@Nullable CharSequence s) {
         return s == null || s.length() == 0;
     }
 }

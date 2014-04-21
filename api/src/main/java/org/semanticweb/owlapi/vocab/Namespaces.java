@@ -19,6 +19,8 @@ import java.util.EnumSet;
 
 import org.semanticweb.owlapi.model.IRI;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -85,22 +87,24 @@ public enum Namespaces {
     /** The DBO namespace. */      DBO         ("dbo",     "http://dbpedia.org/ontology/"),
     /** The YAGO namespace. */     YAGO        ("yago",    "http://dbpedia.org/class/yago/");
     //@formatter:on
+    @Nonnull
     final String prefix;
     final String ns;
     final Status status;
     final BuiltIn builtIn;
+    @Nonnull
     final String hashless;
 
-    Namespaces(String prefix, String ns) {
+    Namespaces(@Nonnull String prefix, String ns) {
         this(prefix, ns, IN_USE, NOT_BUILT_IN);
     }
 
-    Namespaces(String prefix, String ns, Status status) {
+    Namespaces(@Nonnull String prefix, String ns, Status status) {
         this(prefix, ns, status, status == Status.LEGACY ? NOT_BUILT_IN
                 : BUILT_IN);
     }
 
-    Namespaces(String prefix, String ns, Status status, BuiltIn builtIn) {
+    Namespaces(@Nonnull String prefix, String ns, Status status, BuiltIn builtIn) {
         this.prefix = prefix;
         this.ns = ns;
         this.status = status;
@@ -112,6 +116,7 @@ public enum Namespaces {
      * @return A short, human-readable, prefix name that matches, and expands to
      *         the full IRI. Not {@code null}.
      */
+    @Nonnull
     public String getPrefixName() {
         return prefix;
     }
@@ -142,7 +147,8 @@ public enum Namespaces {
      *        namespace
      * @return this namespace without hash or slash at the end
      */
-    private static String hashless(String ns) {
+    @Nonnull
+    private static String hashless(@Nonnull String ns) {
         int index = ns.length() - 1;
         if (ns.charAt(index) == '/' || ns.charAt(index) == '#') {
             return ns.substring(0, index);
@@ -151,7 +157,7 @@ public enum Namespaces {
     }
 
     /** ignored imports */
-    public static EnumSet<Namespaces> defaultIgnoredImports = EnumSet.of(OWL,
+    public static final EnumSet<Namespaces> defaultIgnoredImports = EnumSet.of(OWL,
             RDF, RDFS, SWRL, SWRLB, XML, XSD);
 
     /**
@@ -159,7 +165,7 @@ public enum Namespaces {
      *        the iri to check
      * @return true if the iri is for a namespace ignored by default
      */
-    public static boolean isDefaultIgnoredImport(IRI i) {
+    public static boolean isDefaultIgnoredImport(@Nonnull IRI i) {
         for (Namespaces n : defaultIgnoredImports) {
             if (n.hashless.equals(i.toString())) {
                 return true;
@@ -201,7 +207,7 @@ public enum Namespaces {
      *        iri to check
      * @return true if the namespace for i equals this namespace
      */
-    public boolean inNamespace(IRI i) {
+    public boolean inNamespace(@Nonnull IRI i) {
         return ns.equals(i.getNamespace());
     }
 

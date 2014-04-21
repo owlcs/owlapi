@@ -15,6 +15,8 @@ package org.semanticweb.owlapi.rdf.rdfxml.parser;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
@@ -32,6 +34,7 @@ public class TranslatedUnloadableImportException extends OWLRuntimeException {
         super(e);
     }
 
+    @Nonnull
     @Override
     public synchronized UnloadableImportException getCause() {
         return (UnloadableImportException) super.getCause();

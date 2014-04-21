@@ -36,18 +36,19 @@ public class AddOntologyAnnotation extends AnnotationChange {
         super(ont, annotation);
     }
 
+    @Nonnull
     @Override
     public AddOntologyAnnotationData getChangeData() {
         return new AddOntologyAnnotationData(getAnnotation());
     }
 
     @Override
-    public void accept(OWLOntologyChangeVisitor visitor) {
+    public void accept(@Nonnull OWLOntologyChangeVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLOntologyChangeVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLOntologyChangeVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
@@ -69,6 +70,7 @@ public class AddOntologyAnnotation extends AnnotationChange {
                 && getOntology().equals(other.getOntology());
     }
 
+    @Nonnull
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

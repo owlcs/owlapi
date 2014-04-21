@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -43,6 +44,7 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl
         implements OWLEquivalentClassesAxiom {
 
     private static final long serialVersionUID = 40000L;
+    @Nullable
     private transient WeakReference<Set<OWLClass>> namedClasses = null;
 
     /**
@@ -57,6 +59,7 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl
         super(classExpressions, annotations);
     }
 
+    @Nonnull
     @Override
     public OWLEquivalentClassesAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
@@ -66,13 +69,15 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl
                 NO_ANNOTATIONS);
     }
 
+    @Nonnull
     @Override
     public OWLEquivalentClassesAxiom getAnnotatedAxiom(
-            Set<OWLAnnotation> annotations) {
+            @Nonnull Set<OWLAnnotation> annotations) {
         return new OWLEquivalentClassesAxiomImpl(getClassExpressions(),
                 mergeAnnos(annotations));
     }
 
+    @Nonnull
     @Override
     public Set<OWLEquivalentClassesAxiom> asPairwiseAxioms() {
         List<OWLClassExpression> classExpressions = new ArrayList<OWLClassExpression>(
@@ -113,6 +118,7 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl
         return false;
     }
 
+    @Nonnull
     @Override
     public Set<OWLClass> getNamedClasses() {
         Set<OWLClass> toReturn = null;
@@ -134,6 +140,7 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl
         return toReturn;
     }
 
+    @Nonnull
     @Override
     public Set<OWLSubClassOfAxiom> asOWLSubClassOfAxioms() {
         Set<OWLSubClassOfAxiom> result = new HashSet<OWLSubClassOfAxiom>();
@@ -156,25 +163,27 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl
     }
 
     @Override
-    public void accept(OWLAxiomVisitor visitor) {
+    public void accept(@Nonnull OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public void accept(OWLObjectVisitor visitor) {
+    public void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Nullable
     @Override
-    public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Nonnull
     @Override
     public AxiomType<?> getAxiomType() {
         return AxiomType.EQUIVALENT_CLASSES;

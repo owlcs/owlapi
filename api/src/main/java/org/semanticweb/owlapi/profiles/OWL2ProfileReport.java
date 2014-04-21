@@ -17,13 +17,17 @@ import java.util.TreeSet;
 
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
  */
 public class OWL2ProfileReport extends OWLProfileReport {
 
+    @Nonnull
     private final Set<OWLObjectPropertyExpression> nonSimpleRoles;
+    @Nonnull
     private final Set<OWLObjectPropertyExpression> simpleRoles;
 
     /**
@@ -37,9 +41,9 @@ public class OWL2ProfileReport extends OWLProfileReport {
      *        the collection of simple roles
      */
     public OWL2ProfileReport(OWLProfile profile,
-            Set<OWLProfileViolation<?>> disallowedConstructs,
-            Set<OWLObjectPropertyExpression> nonSimpleRoles,
-            Set<OWLObjectPropertyExpression> simpleRoles) {
+            @Nonnull Set<OWLProfileViolation<?>> disallowedConstructs,
+            @Nonnull Set<OWLObjectPropertyExpression> nonSimpleRoles,
+            @Nonnull Set<OWLObjectPropertyExpression> simpleRoles) {
         super(profile, disallowedConstructs);
         this.nonSimpleRoles = new TreeSet<OWLObjectPropertyExpression>(
                 nonSimpleRoles);
@@ -47,15 +51,18 @@ public class OWL2ProfileReport extends OWLProfileReport {
     }
 
     /** @return the non simple roles */
+    @Nonnull
     public Set<OWLObjectPropertyExpression> getNonSimpleRoles() {
         return nonSimpleRoles;
     }
 
     /** @return he simple roles */
+    @Nonnull
     public Set<OWLObjectPropertyExpression> getSimpleRoles() {
         return simpleRoles;
     }
 
+    @Nonnull
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder(super.toString());

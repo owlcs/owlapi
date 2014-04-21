@@ -35,6 +35,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  */
 public class ZipDocumentTarget implements OWLOntologyDocumentTarget {
 
+    @Nonnull
     private final File file;
 
     /**
@@ -50,6 +51,7 @@ public class ZipDocumentTarget implements OWLOntologyDocumentTarget {
         return false;
     }
 
+    @Nonnull
     @Override
     public Writer getWriter() {
         throw new OWLRuntimeException(
@@ -61,6 +63,7 @@ public class ZipDocumentTarget implements OWLOntologyDocumentTarget {
         return true;
     }
 
+    @Nonnull
     @Override
     public OutputStream getOutputStream() throws IOException {
         File parentFile = file.getAbsoluteFile().getParentFile();
@@ -79,6 +82,7 @@ public class ZipDocumentTarget implements OWLOntologyDocumentTarget {
         return false;
     }
 
+    @Nonnull
     @Override
     public IRI getDocumentIRI() {
         throw new OWLRuntimeException(

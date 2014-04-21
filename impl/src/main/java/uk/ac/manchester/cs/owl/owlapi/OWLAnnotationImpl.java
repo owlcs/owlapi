@@ -19,6 +19,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationObjectVisitor;
@@ -40,8 +41,11 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final OWLAnnotationProperty property;
+    @Nonnull
     private final OWLAnnotationValue value;
+    @Nonnull
     private final Set<OWLAnnotation> annotations;
 
     @Override
@@ -67,24 +71,28 @@ public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
                         checkNotNull(annotations, "annotations cannot be null")));
     }
 
+    @Nonnull
     @Override
     public Set<OWLAnnotation> getAnnotations() {
         return annotations;
     }
 
+    @Nonnull
     @Override
     public OWLAnnotationProperty getProperty() {
         return property;
     }
 
+    @Nonnull
     @Override
     public OWLAnnotationValue getValue() {
         return value;
     }
 
+    @Nonnull
     @Override
     public OWLAnnotation getAnnotatedAnnotation(
-            Set<OWLAnnotation> annotationsToAdd) {
+            @Nonnull Set<OWLAnnotation> annotationsToAdd) {
         if (annotationsToAdd.isEmpty()) {
             return this;
         }
@@ -132,22 +140,23 @@ public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
     }
 
     @Override
-    public void accept(OWLObjectVisitor visitor) {
+    public void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    public void accept(OWLAnnotationObjectVisitor visitor) {
+    public void accept(@Nonnull OWLAnnotationObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Nullable
     @Override
-    public <O> O accept(OWLAnnotationObjectVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLAnnotationObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 }

@@ -9,6 +9,8 @@ import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLEntity;
 
+import javax.annotation.Nullable;
+
 /** @author Shahid Manzoor */
 public class Obo2OWLConstants {
 
@@ -108,7 +110,7 @@ public class Obo2OWLConstants {
          * @return true if e has the same iri as the enum value, false if e is
          *         null or has a different iri
          */
-        public boolean sameIRI(OWLEntity e) {
+        public boolean sameIRI(@Nullable OWLEntity e) {
             // if a null value is passed in, then no match
             if (e == null) {
                 return false;

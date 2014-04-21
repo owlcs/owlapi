@@ -21,6 +21,8 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.util.OntologyAxiomPair;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
@@ -47,7 +49,7 @@ public class ManchesterOWLSyntaxFramesParser implements
     }
 
     @Override
-    public void setOWLEntityChecker(OWLEntityChecker entityChecker) {
+    public void setOWLEntityChecker(@Nonnull OWLEntityChecker entityChecker) {
         checker = entityChecker;
     }
 
@@ -67,8 +69,9 @@ public class ManchesterOWLSyntaxFramesParser implements
         defaultOntology = ontology;
     }
 
+    @Nonnull
     @Override
-    public Set<OntologyAxiomPair> parse(String expression) {
+    public Set<OntologyAxiomPair> parse(@Nonnull String expression) {
         ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(
                 dataFactory, expression);
         parser.setOWLEntityChecker(checker);

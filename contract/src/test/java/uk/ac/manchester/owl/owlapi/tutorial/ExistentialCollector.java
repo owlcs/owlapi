@@ -22,6 +22,8 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.util.OWLClassExpressionVisitorAdapter;
 
+import javax.annotation.Nonnull;
+
 /**
  * A visitor that collects existential restrictions. If the given expression is
  * an intersection, then the visitor will recurse and visit the operands.
@@ -46,14 +48,14 @@ public class ExistentialCollector extends OWLClassExpressionVisitorAdapter {
     }
 
     @Override
-    public void visit(OWLObjectIntersectionOf expression) {
+    public void visit(@Nonnull OWLObjectIntersectionOf expression) {
         for (OWLClassExpression operand : expression.getOperands()) {
             operand.accept(this);
         }
     }
 
     @Override
-    public void visit(OWLObjectSomeValuesFrom classExpression) {
+    public void visit(@Nonnull OWLObjectSomeValuesFrom classExpression) {
         Set<OWLClassExpression> fillers = restrictions.get(classExpression
                 .getProperty());
         if (fillers == null) {

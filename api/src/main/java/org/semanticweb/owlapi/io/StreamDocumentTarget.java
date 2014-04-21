@@ -29,6 +29,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  */
 public class StreamDocumentTarget implements OWLOntologyDocumentTarget {
 
+    @Nonnull
     private final OutputStream os;
 
     /**
@@ -44,6 +45,7 @@ public class StreamDocumentTarget implements OWLOntologyDocumentTarget {
         return false;
     }
 
+    @Nonnull
     @Override
     public Writer getWriter() {
         throw new OWLRuntimeException(
@@ -55,6 +57,7 @@ public class StreamDocumentTarget implements OWLOntologyDocumentTarget {
         return true;
     }
 
+    @Nonnull
     @Override
     public OutputStream getOutputStream() {
         return os;
@@ -65,6 +68,7 @@ public class StreamDocumentTarget implements OWLOntologyDocumentTarget {
         return false;
     }
 
+    @Nonnull
     @Override
     public IRI getDocumentIRI() {
         throw new OWLRuntimeException(

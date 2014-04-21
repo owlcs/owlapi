@@ -30,6 +30,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  */
 public class IRIDocumentSource extends OWLOntologyDocumentSourceBase {
 
+    @Nonnull
     private final IRI documentIRI;
 
     /**
@@ -47,6 +48,7 @@ public class IRIDocumentSource extends OWLOntologyDocumentSourceBase {
                 "document iri cannot be null");
     }
 
+    @Nonnull
     @Override
     public IRI getDocumentIRI() {
         return documentIRI;
@@ -57,6 +59,7 @@ public class IRIDocumentSource extends OWLOntologyDocumentSourceBase {
         return false;
     }
 
+    @Nonnull
     @Override
     public InputStream getInputStream() {
         throw new OWLRuntimeException(
@@ -68,12 +71,14 @@ public class IRIDocumentSource extends OWLOntologyDocumentSourceBase {
         return false;
     }
 
+    @Nonnull
     @Override
     public Reader getReader() {
         throw new OWLRuntimeException(
                 "Reader not available.  Check with IRIDocumentSource.isReaderAvailable() first!");
     }
 
+    @Nonnull
     @Override
     public String toString() {
         return documentIRI.toString();

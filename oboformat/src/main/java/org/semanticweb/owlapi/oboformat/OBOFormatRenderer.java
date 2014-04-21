@@ -25,11 +25,13 @@ import org.semanticweb.owlapi.io.OWLRenderer;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
+import javax.annotation.Nonnull;
+
 /** renderer for obo */
 public class OBOFormatRenderer implements OWLRenderer {
 
     @Override
-    public void render(OWLOntology ontology, OutputStream os)
+    public void render(@Nonnull OWLOntology ontology, @Nonnull OutputStream os)
             throws OWLOntologyStorageException {
         render(ontology, new OutputStreamWriter(os));
     }
@@ -42,7 +44,7 @@ public class OBOFormatRenderer implements OWLRenderer {
      * @throws OWLOntologyStorageException
      *         OWLOntologyStorageException
      */
-    public void render(OWLOntology ontology, Writer writer)
+    public void render(@Nonnull OWLOntology ontology, @Nonnull Writer writer)
             throws OWLOntologyStorageException {
         try {
             OWLAPIOwl2Obo translator = new OWLAPIOwl2Obo(

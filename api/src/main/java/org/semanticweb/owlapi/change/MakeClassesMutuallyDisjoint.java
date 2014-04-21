@@ -69,8 +69,8 @@ public class MakeClassesMutuallyDisjoint extends
     }
 
     private void generateChanges(
-            Set<? extends OWLClassExpression> classExpressions,
-            boolean usePairwiseDisjointAxioms, OWLOntology targetOntology) {
+            @Nonnull Set<? extends OWLClassExpression> classExpressions,
+            boolean usePairwiseDisjointAxioms, @Nonnull OWLOntology targetOntology) {
         if (usePairwiseDisjointAxioms) {
             List<OWLClassExpression> descList = new ArrayList<OWLClassExpression>(
                     classExpressions);

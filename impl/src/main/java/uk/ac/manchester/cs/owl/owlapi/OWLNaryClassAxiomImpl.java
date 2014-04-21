@@ -39,6 +39,7 @@ public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
         OWLNaryClassAxiom {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final List<OWLClassExpression> classExpressions;
 
     /**
@@ -56,25 +57,28 @@ public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
         Collections.sort(this.classExpressions);
     }
 
+    @Nonnull
     @Override
     public Set<OWLClassExpression> getClassExpressions() {
         return CollectionFactory
                 .getCopyOnRequestSetFromImmutableCollection(classExpressions);
     }
 
+    @Nonnull
     @Override
     public List<OWLClassExpression> getClassExpressionsAsList() {
         return new ArrayList<OWLClassExpression>(classExpressions);
     }
 
     @Override
-    public boolean contains(OWLClassExpression ce) {
+    public boolean contains(@Nonnull OWLClassExpression ce) {
         return classExpressions.contains(ce);
     }
 
+    @Nonnull
     @Override
     public Set<OWLClassExpression> getClassExpressionsMinus(
-            OWLClassExpression... descs) {
+            @Nonnull OWLClassExpression... descs) {
         Set<OWLClassExpression> result = new HashSet<OWLClassExpression>(
                 classExpressions);
         for (OWLClassExpression desc : descs) {
@@ -99,14 +103,15 @@ public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
     }
 
     @Override
-    protected int compareObjectOfSameType(OWLObject object) {
+    protected int compareObjectOfSameType(@Nonnull OWLObject object) {
         return compareSets(classExpressions,
                 ((OWLNaryClassAxiom) object).getClassExpressions());
     }
 
+    @Nonnull
     @Override
     public <T> Collection<T> walkPairwise(
-            OWLPairwiseVisitor<T, OWLClassExpression> visitor) {
+            @Nonnull OWLPairwiseVisitor<T, OWLClassExpression> visitor) {
         List<T> l = new ArrayList<T>();
         for (int i = 0; i < classExpressions.size() - 1; i++) {
             for (int j = i + 1; j < classExpressions.size(); j++) {

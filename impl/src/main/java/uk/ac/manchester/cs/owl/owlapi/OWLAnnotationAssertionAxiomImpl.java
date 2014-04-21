@@ -18,6 +18,7 @@ import java.util.Collection;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -40,8 +41,11 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements
         OWLAnnotationAssertionAxiom {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final OWLAnnotationSubject subject;
+    @Nonnull
     private final OWLAnnotationProperty property;
+    @Nonnull
     private final OWLAnnotationValue value;
 
     /**
@@ -65,6 +69,7 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements
         this.value = checkNotNull(value, "value cannot be null");
     }
 
+    @Nonnull
     @Override
     public OWLAnnotationAssertionAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
@@ -88,28 +93,33 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements
                 && getAnnotation().isDeprecatedIRIAnnotation();
     }
 
+    @Nonnull
     @Override
     public OWLAnnotationAssertionAxiom getAnnotatedAxiom(
-            Set<OWLAnnotation> annotations) {
+            @Nonnull Set<OWLAnnotation> annotations) {
         return new OWLAnnotationAssertionAxiomImpl(getSubject(), getProperty(),
                 getValue(), mergeAnnos(annotations));
     }
 
+    @Nonnull
     @Override
     public OWLAnnotationValue getValue() {
         return value;
     }
 
+    @Nonnull
     @Override
     public OWLAnnotationSubject getSubject() {
         return subject;
     }
 
+    @Nonnull
     @Override
     public OWLAnnotationProperty getProperty() {
         return property;
     }
 
+    @Nonnull
     @Override
     public OWLAnnotation getAnnotation() {
         return new OWLAnnotationImpl(property, value, NO_ANNOTATIONS);
@@ -141,25 +151,27 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements
     }
 
     @Override
-    public void accept(OWLObjectVisitor visitor) {
+    public void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public void accept(OWLAxiomVisitor visitor) {
+    public void accept(@Nonnull OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Nullable
     @Override
-    public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Nonnull
     @Override
     public AxiomType<?> getAxiomType() {
         return AxiomType.ANNOTATION_ASSERTION;

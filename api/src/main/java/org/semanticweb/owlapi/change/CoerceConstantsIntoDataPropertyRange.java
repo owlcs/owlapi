@@ -92,6 +92,7 @@ public class CoerceConstantsIntoDataPropertyRange extends
     /** The Class OWLConstantReplacer. */
     private class OWLConstantReplacer extends OWLObjectDuplicator {
 
+        @Nonnull
         private final Map<OWLDataPropertyExpression, OWLDatatype> map;
 
         /**
@@ -106,6 +107,7 @@ public class CoerceConstantsIntoDataPropertyRange extends
             map = m;
         }
 
+        @Nonnull
         private OWLDataOneOf process(@Nonnull OWLDataPropertyExpression prop,
                 @Nonnull OWLDataOneOf oneOf) {
             Set<OWLLiteral> vals = new HashSet<OWLLiteral>();
@@ -115,6 +117,7 @@ public class CoerceConstantsIntoDataPropertyRange extends
             return getDataFactory().getOWLDataOneOf(vals);
         }
 
+        @Nonnull
         private OWLLiteral process(@Nonnull OWLDataPropertyExpression prop,
                 @Nonnull OWLLiteral con) {
             OWLDatatype dt = map.get(prop);
@@ -126,7 +129,7 @@ public class CoerceConstantsIntoDataPropertyRange extends
         }
 
         @Override
-        public void visit(OWLDataHasValue desc) {
+        public void visit(@Nonnull OWLDataHasValue desc) {
             super.visit(desc);
             setLastObject(getDataFactory().getOWLDataHasValue(
                     desc.getProperty(),
@@ -134,7 +137,7 @@ public class CoerceConstantsIntoDataPropertyRange extends
         }
 
         @Override
-        public void visit(OWLDataSomeValuesFrom desc) {
+        public void visit(@Nonnull OWLDataSomeValuesFrom desc) {
             super.visit(desc);
             if (desc instanceof OWLDataOneOf) {
                 setLastObject(getDataFactory().getOWLDataSomeValuesFrom(
@@ -145,7 +148,7 @@ public class CoerceConstantsIntoDataPropertyRange extends
         }
 
         @Override
-        public void visit(OWLDataMinCardinality desc) {
+        public void visit(@Nonnull OWLDataMinCardinality desc) {
             super.visit(desc);
             if (desc instanceof OWLDataOneOf) {
                 setLastObject(getDataFactory().getOWLDataMinCardinality(
@@ -157,7 +160,7 @@ public class CoerceConstantsIntoDataPropertyRange extends
         }
 
         @Override
-        public void visit(OWLDataMaxCardinality desc) {
+        public void visit(@Nonnull OWLDataMaxCardinality desc) {
             super.visit(desc);
             if (desc instanceof OWLDataOneOf) {
                 setLastObject(getDataFactory().getOWLDataMaxCardinality(
@@ -169,7 +172,7 @@ public class CoerceConstantsIntoDataPropertyRange extends
         }
 
         @Override
-        public void visit(OWLDataExactCardinality desc) {
+        public void visit(@Nonnull OWLDataExactCardinality desc) {
             super.visit(desc);
             if (desc instanceof OWLDataOneOf) {
                 setLastObject(getDataFactory().getOWLDataExactCardinality(
@@ -181,7 +184,7 @@ public class CoerceConstantsIntoDataPropertyRange extends
         }
 
         @Override
-        public void visit(OWLDataAllValuesFrom desc) {
+        public void visit(@Nonnull OWLDataAllValuesFrom desc) {
             super.visit(desc);
             if (desc instanceof OWLDataOneOf) {
                 setLastObject(getDataFactory().getOWLDataAllValuesFrom(
@@ -192,7 +195,7 @@ public class CoerceConstantsIntoDataPropertyRange extends
         }
 
         @Override
-        public void visit(OWLDataPropertyAssertionAxiom axiom) {
+        public void visit(@Nonnull OWLDataPropertyAssertionAxiom axiom) {
             super.visit(axiom);
             setLastObject(getDataFactory().getOWLDataPropertyAssertionAxiom(
                     axiom.getProperty(), axiom.getSubject(),
@@ -200,7 +203,7 @@ public class CoerceConstantsIntoDataPropertyRange extends
         }
 
         @Override
-        public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
+        public void visit(@Nonnull OWLNegativeDataPropertyAssertionAxiom axiom) {
             super.visit(axiom);
             setLastObject(getDataFactory()
                     .getOWLNegativeDataPropertyAssertionAxiom(

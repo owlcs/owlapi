@@ -320,13 +320,14 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
             .newBuilder().concurrencyLevel(8).maximumSize(1024)
             .build(new CacheLoader<String, String>() {
 
+                @Nonnull
                 @Override
-                public String load(String key) {
+                public String load(@Nonnull String key) {
                     return key;
                 }
             });
 
-    private static final String cache(String s) {
+    private static final String cache(@Nonnull String s) {
         try {
             return prefixCache.get(s);
         } catch (ExecutionException e) {
@@ -335,6 +336,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
         return s;
     }
 
+    @Nullable
     private final String remainder;
     private final String prefix;
     private int hashCode = 0;
@@ -389,45 +391,52 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
     }
 
     @Override
-    public void accept(OWLObjectVisitor visitor) {
+    public void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Nullable
     @Override
-    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    public void accept(OWLAnnotationSubjectVisitor visitor) {
+    public void accept(@Nonnull OWLAnnotationSubjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Nonnull
     @Override
-    public <E> E accept(OWLAnnotationSubjectVisitorEx<E> visitor) {
+    public <E> E accept(@Nonnull OWLAnnotationSubjectVisitorEx<E> visitor) {
         return visitor.visit(this);
     }
 
+    @Nonnull
     @Override
     public Set<OWLClass> getClassesInSignature() {
         return Collections.emptySet();
     }
 
+    @Nonnull
     @Override
     public Set<OWLDataProperty> getDataPropertiesInSignature() {
         return Collections.emptySet();
     }
 
+    @Nonnull
     @Override
     public Set<OWLNamedIndividual> getIndividualsInSignature() {
         return Collections.emptySet();
     }
 
+    @Nonnull
     @Override
     public Set<OWLObjectProperty> getObjectPropertiesInSignature() {
         return Collections.emptySet();
     }
 
+    @Nonnull
     @Override
     public Set<OWLEntity> getSignature() {
         return Collections.emptySet();
@@ -438,23 +447,26 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
         return false;
     }
 
+    @Nonnull
     @Override
     public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
         return Collections.emptySet();
     }
 
+    @Nonnull
     @Override
     public Set<OWLDatatype> getDatatypesInSignature() {
         return Collections.emptySet();
     }
 
+    @Nonnull
     @Override
     public Set<OWLClassExpression> getNestedClassExpressions() {
         return Collections.emptySet();
     }
 
     @Override
-    public int compareTo(OWLObject o) {
+    public int compareTo(@Nonnull OWLObject o) {
         if (o == this) {
             return 0;
         }
@@ -482,6 +494,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
         }
     }
 
+    @Nonnull
     @Override
     public String toString() {
         if (remainder != null) {
@@ -504,12 +517,13 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
     }
 
     @Override
-    public void accept(OWLAnnotationValueVisitor visitor) {
+    public void accept(@Nonnull OWLAnnotationValueVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Nullable
     @Override
-    public <O> O accept(OWLAnnotationValueVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLAnnotationValueVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
@@ -524,7 +538,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         if (obj == null) {
             return false;
         }

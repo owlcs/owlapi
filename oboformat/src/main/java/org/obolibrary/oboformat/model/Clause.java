@@ -6,6 +6,9 @@ import java.util.Iterator;
 
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /** Clause */
 public class Clause {
 
@@ -18,7 +21,7 @@ public class Clause {
      * @param tag
      *        tag
      */
-    public Clause(OboFormatTag tag) {
+    public Clause(@Nonnull OboFormatTag tag) {
         this(tag.getTag());
     }
 
@@ -48,7 +51,7 @@ public class Clause {
      * @param value
      *        value
      */
-    public Clause(OboFormatTag tag, String value) {
+    public Clause(@Nonnull OboFormatTag tag, String value) {
         this(tag.getTag(), value);
     }
 
@@ -77,6 +80,7 @@ public class Clause {
     }
 
     /** @return values */
+    @Nonnull
     public Collection<Object> getValues() {
         return values;
     }
@@ -85,7 +89,7 @@ public class Clause {
      * @param values
      *        values
      */
-    public void setValues(Collection<Object> values) {
+    public void setValues(@Nonnull Collection<Object> values) {
         this.values.clear();
         this.values.addAll(values);
     }
@@ -108,6 +112,7 @@ public class Clause {
     }
 
     /** @return value */
+    @Nullable
     public Object getValue() {
         Object value = null;
         if (!values.isEmpty()) {
@@ -123,7 +128,8 @@ public class Clause {
      *        value type
      * @return value
      */
-    public <T> T getValue(Class<T> cls) {
+    @Nullable
+    public <T> T getValue(@Nonnull Class<T> cls) {
         Object value = getValue();
         if (value != null && value.getClass().isAssignableFrom(cls)) {
             return cls.cast(value);
@@ -132,6 +138,7 @@ public class Clause {
     }
 
     /** @return value2 */
+    @Nullable
     public Object getValue2() {
         Object value = null;
         if (values.size() > 1) {
@@ -149,7 +156,8 @@ public class Clause {
      *        value type
      * @return value2
      */
-    public <T> T getValue2(Class<T> cls) {
+    @Nullable
+    public <T> T getValue2(@Nonnull Class<T> cls) {
         Object value = getValue2();
         if (value != null && value.getClass().isAssignableFrom(cls)) {
             return cls.cast(value);
@@ -158,6 +166,7 @@ public class Clause {
     }
 
     /** @return xrefs */
+    @Nonnull
     public Collection<Xref> getXrefs() {
         return xrefs;
     }
@@ -166,7 +175,7 @@ public class Clause {
      * @param xrefs
      *        xrefs
      */
-    public void setXrefs(Collection<Xref> xrefs) {
+    public void setXrefs(@Nonnull Collection<Xref> xrefs) {
         this.xrefs.clear();
         this.xrefs.addAll(xrefs);
     }
@@ -180,6 +189,7 @@ public class Clause {
     }
 
     /** @return qualifier values */
+    @Nonnull
     public Collection<QualifierValue> getQualifierValues() {
         return qualifierValues;
     }
@@ -188,7 +198,7 @@ public class Clause {
      * @param qualifierValues
      *        qualifierValues
      */
-    public void setQualifierValues(Collection<QualifierValue> qualifierValues) {
+    public void setQualifierValues(@Nonnull Collection<QualifierValue> qualifierValues) {
         this.qualifierValues.clear();
         this.qualifierValues.addAll(qualifierValues);
     }
@@ -201,6 +211,7 @@ public class Clause {
         qualifierValues.add(qv);
     }
 
+    @Nonnull
     @Override
     public String toString() {
         if (values == null) {
@@ -232,7 +243,7 @@ public class Clause {
         return sb.toString();
     }
 
-    private boolean collectionsEquals(Collection<?> c1, Collection<?> c2) {
+    private boolean collectionsEquals(@Nullable Collection<?> c1, @Nullable Collection<?> c2) {
         if (c1 == null || c1.size() == 0) {
             return c2 == null || c2.size() == 0;
         }
@@ -260,7 +271,7 @@ public class Clause {
     }
 
     @Override
-    public boolean equals(Object e) {
+    public boolean equals(@Nullable Object e) {
         if (e == null || !(e instanceof Clause)) {
             return false;
         }

@@ -19,6 +19,8 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolation;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
@@ -34,18 +36,18 @@ public class UseOfReservedVocabularyForIndividualIRI extends
      * @param ind
      *        ind
      */
-    public UseOfReservedVocabularyForIndividualIRI(OWLOntology ontology,
+    public UseOfReservedVocabularyForIndividualIRI(@Nonnull OWLOntology ontology,
             OWLAxiom axiom, OWLNamedIndividual ind) {
         super(ontology, axiom, ind);
     }
 
     @Override
-    public void accept(OWLProfileViolationVisitor visitor) {
+    public void accept(@Nonnull OWLProfileViolationVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLProfileViolationVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLProfileViolationVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 

@@ -46,14 +46,15 @@ public abstract class AbstractInMemOWLOntologyFactory implements
     }
 
     @Override
-    public boolean canCreateFromDocumentIRI(IRI documentIRI) {
+    public boolean canCreateFromDocumentIRI(@Nonnull IRI documentIRI) {
         return true;
     }
 
+    @Nonnull
     @Override
     public OWLOntology createOWLOntology(@Nonnull OWLOntologyManager manager,
-            @Nonnull OWLOntologyID ontologyID, IRI documentIRI,
-            OWLOntologyCreationHandler handler)
+            @Nonnull OWLOntologyID ontologyID, @Nonnull IRI documentIRI,
+            @Nonnull OWLOntologyCreationHandler handler)
             throws OWLOntologyCreationException {
         OWLOntology ont = builder.createOWLOntology(manager, ontologyID);
         handler.ontologyCreated(ont);

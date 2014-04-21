@@ -16,6 +16,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -50,6 +51,7 @@ public class OWLObjectUnionOfImpl extends OWLNaryBooleanClassExpressionImpl
         super(operands);
     }
 
+    @Nonnull
     @Override
     public ClassExpressionType getClassExpressionType() {
         return ClassExpressionType.OBJECT_UNION_OF;
@@ -63,6 +65,7 @@ public class OWLObjectUnionOfImpl extends OWLNaryBooleanClassExpressionImpl
         return false;
     }
 
+    @Nonnull
     @Override
     public Set<OWLClassExpression> asDisjunctSet() {
         Set<OWLClassExpression> disjuncts = new HashSet<OWLClassExpression>();
@@ -73,22 +76,23 @@ public class OWLObjectUnionOfImpl extends OWLNaryBooleanClassExpressionImpl
     }
 
     @Override
-    public void accept(OWLClassExpressionVisitor visitor) {
+    public void accept(@Nonnull OWLClassExpressionVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public void accept(OWLObjectVisitor visitor) {
+    public void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Nullable
     @Override
-    public <O> O accept(OWLClassExpressionVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLClassExpressionVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 }

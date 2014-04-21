@@ -16,6 +16,8 @@ import java.io.IOException;
 
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
+import javax.annotation.Nonnull;
+
 /**
  * Indicates an {@link java.io.IOException} happened during ontology creation.
  * The cause of this exception will be an {@link java.io.IOException}.
@@ -33,7 +35,7 @@ public class OWLOntologyCreationIOException extends
      * @param ioException
      *        the cause
      */
-    public OWLOntologyCreationIOException(IOException ioException) {
+    public OWLOntologyCreationIOException(@Nonnull IOException ioException) {
         super("OWLOntologyCreationIOException: " + ioException.getMessage(),
                 ioException);
     }

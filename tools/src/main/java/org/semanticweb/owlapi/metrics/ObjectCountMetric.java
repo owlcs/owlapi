@@ -49,6 +49,7 @@ public abstract class ObjectCountMetric<E extends Object> extends
     @Nonnull
     protected abstract String getObjectTypeName();
 
+    @Nonnull
     @Override
     public String getName() {
         return getObjectTypeName() + " count";
@@ -64,6 +65,7 @@ public abstract class ObjectCountMetric<E extends Object> extends
     @Nonnull
     protected abstract Set<? extends E> getObjects(@Nonnull OWLOntology ont);
 
+    @Nonnull
     @Override
     public Integer recomputeMetric() {
         return getObjects().size();
@@ -85,7 +87,7 @@ public abstract class ObjectCountMetric<E extends Object> extends
 
     @Override
     protected boolean isMetricInvalidated(
-            List<? extends OWLOntologyChange<?>> changes) {
+            @Nonnull List<? extends OWLOntologyChange<?>> changes) {
         return true;
     }
 

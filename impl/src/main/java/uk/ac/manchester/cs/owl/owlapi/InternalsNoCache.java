@@ -27,6 +27,9 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /** no cache used @author ignazio */
 public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
 
@@ -46,6 +49,7 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
             true, XSDBOOLEAN);
     private static final OWLLiteral falseLiteral = new OWLLiteralImplBoolean(
             false, XSDBOOLEAN);
+    @Nullable
     private OWLLiteral negativeFloatZero;
     private final boolean useCompression;
 
@@ -60,43 +64,51 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
     @Override
     public void purge() {}
 
+    @Nonnull
     @Override
-    public OWLClass getOWLClass(IRI iri) {
+    public OWLClass getOWLClass(@Nonnull IRI iri) {
         return new OWLClassImpl(iri);
     }
 
+    @Nonnull
     @Override
-    public OWLObjectProperty getOWLObjectProperty(IRI iri) {
+    public OWLObjectProperty getOWLObjectProperty(@Nonnull IRI iri) {
         return new OWLObjectPropertyImpl(iri);
     }
 
+    @Nonnull
     @Override
-    public OWLDataProperty getOWLDataProperty(IRI iri) {
+    public OWLDataProperty getOWLDataProperty(@Nonnull IRI iri) {
         return new OWLDataPropertyImpl(iri);
     }
 
+    @Nonnull
     @Override
-    public OWLNamedIndividual getOWLNamedIndividual(IRI iri) {
+    public OWLNamedIndividual getOWLNamedIndividual(@Nonnull IRI iri) {
         return new OWLNamedIndividualImpl(iri);
     }
 
+    @Nonnull
     @Override
-    public OWLDatatype getOWLDatatype(IRI iri) {
+    public OWLDatatype getOWLDatatype(@Nonnull IRI iri) {
         return new OWLDatatypeImpl(iri);
     }
 
+    @Nonnull
     @Override
-    public OWLAnnotationProperty getOWLAnnotationProperty(IRI iri) {
+    public OWLAnnotationProperty getOWLAnnotationProperty(@Nonnull IRI iri) {
         return new OWLAnnotationPropertyImpl(iri);
     }
 
+    @Nonnull
     @Override
     public OWLLiteral getOWLLiteral(float value) {
         return new OWLLiteralImplFloat(value, getFloatOWLDatatype());
     }
 
+    @Nonnull
     @Override
-    public OWLLiteral getOWLLiteral(String value) {
+    public OWLLiteral getOWLLiteral(@Nonnull String value) {
         if (useCompression) {
             return new OWLLiteralImpl(value, "",
                     getOWLDatatype(XSDVocabulary.STRING.getIRI()));
@@ -105,8 +117,9 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
                 getOWLDatatype(XSDVocabulary.STRING.getIRI()));
     }
 
+    @Nonnull
     @Override
-    public OWLLiteral getOWLLiteral(String literal, String lang) {
+    public OWLLiteral getOWLLiteral(@Nonnull String literal, @Nullable String lang) {
         String normalisedLang;
         if (lang == null) {
             normalisedLang = "";
@@ -119,23 +132,27 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
         return new OWLLiteralImplNoCompression(literal, normalisedLang, null);
     }
 
+    @Nonnull
     @Override
     public OWLLiteral getOWLLiteral(int value) {
         return new OWLLiteralImplInteger(value, getIntegerOWLDatatype());
     }
 
+    @Nonnull
     @Override
     public OWLLiteral getOWLLiteral(boolean value) {
         return value ? trueLiteral : falseLiteral;
     }
 
+    @Nonnull
     @Override
     public OWLLiteral getOWLLiteral(double value) {
         return new OWLLiteralImplDouble(value, getDoubleOWLDatatype());
     }
 
+    @Nonnull
     @Override
-    public OWLLiteral getOWLLiteral(String lexicalValue, OWLDatatype datatype) {
+    public OWLLiteral getOWLLiteral(@Nonnull String lexicalValue, @SuppressWarnings("NullableProblems") @Nonnull OWLDatatype datatype) {
         OWLLiteral literal;
         if (datatype.isRDFPlainLiteral()) {
             int sep = lexicalValue.lastIndexOf('@');
@@ -197,12 +214,14 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
         return literal;
     }
 
-    protected OWLLiteral getBasicLiteral(String lexicalValue,
+    @Nullable
+    protected OWLLiteral getBasicLiteral(@Nonnull String lexicalValue,
             OWLDatatype datatype) {
         return getBasicLiteral(lexicalValue, "", datatype);
     }
 
-    protected OWLLiteral getBasicLiteral(String lexicalValue, String lang,
+    @Nullable
+    protected OWLLiteral getBasicLiteral(@Nonnull String lexicalValue, String lang,
             OWLDatatype datatype) {
         OWLLiteral literal = null;
         if (useCompression) {
@@ -214,35 +233,41 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
         return literal;
     }
 
-    private boolean isBooleanTrueValue(String lexicalValue) {
+    private boolean isBooleanTrueValue(@Nonnull String lexicalValue) {
         return lexicalValue.equals("1") || lexicalValue.equals("true");
     }
 
+    @Nonnull
     @Override
     public OWLDatatype getTopDatatype() {
         return RDFSLITERAL;
     }
 
+    @Nonnull
     @Override
     public OWLDatatype getIntegerOWLDatatype() {
         return XSDINTEGER;
     }
 
+    @Nonnull
     @Override
     public OWLDatatype getFloatOWLDatatype() {
         return XSDFLOAT;
     }
 
+    @Nonnull
     @Override
     public OWLDatatype getDoubleOWLDatatype() {
         return XSDDOUBLE;
     }
 
+    @Nonnull
     @Override
     public OWLDatatype getBooleanOWLDatatype() {
         return XSDBOOLEAN;
     }
 
+    @Nonnull
     @Override
     public OWLDatatype getRDFPlainLiteral() {
         return PLAIN;

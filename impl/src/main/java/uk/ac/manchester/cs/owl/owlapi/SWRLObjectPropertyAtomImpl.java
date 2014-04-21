@@ -13,6 +13,7 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
@@ -53,11 +54,13 @@ public class SWRLObjectPropertyAtomImpl extends
         super(predicate, arg0, arg1);
     }
 
+    @Nonnull
     @Override
     public OWLObjectPropertyExpression getPredicate() {
         return (OWLObjectPropertyExpression) super.getPredicate();
     }
 
+    @Nonnull
     @Override
     public SWRLObjectPropertyAtom getSimplified() {
         OWLObjectPropertyExpression prop = getPredicate().getSimplified();
@@ -75,22 +78,23 @@ public class SWRLObjectPropertyAtomImpl extends
     }
 
     @Override
-    public void accept(OWLObjectVisitor visitor) {
+    public void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public void accept(SWRLObjectVisitor visitor) {
+    public void accept(@Nonnull SWRLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Nullable
     @Override
-    public <O> O accept(SWRLObjectVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull SWRLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 

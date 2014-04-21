@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapitools.builders;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -22,6 +24,7 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 public class BuilderAnnotation extends
         BaseAnnotationtPropertyBuilder<OWLAnnotation, BuilderAnnotation> {
 
+    @Nullable
     private OWLAnnotationValue value = null;
 
     /**
@@ -41,7 +44,7 @@ public class BuilderAnnotation extends
      * @param df
      *        data factory
      */
-    public BuilderAnnotation(OWLAnnotation expected, OWLDataFactory df) {
+    public BuilderAnnotation(@Nonnull OWLAnnotation expected, OWLDataFactory df) {
         this(df);
         withProperty(expected.getProperty()).withValue(expected.getValue());
     }
@@ -51,11 +54,13 @@ public class BuilderAnnotation extends
      *        the annotation value
      * @return builder
      */
+    @Nonnull
     public BuilderAnnotation withValue(OWLAnnotationValue arg) {
         value = arg;
         return this;
     }
 
+    @Nonnull
     @Override
     public OWLAnnotation buildObject() {
         return df.getOWLAnnotation(property, value, annotations);

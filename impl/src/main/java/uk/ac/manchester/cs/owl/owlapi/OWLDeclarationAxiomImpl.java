@@ -18,6 +18,7 @@ import java.util.Collection;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -38,6 +39,7 @@ public class OWLDeclarationAxiomImpl extends OWLAxiomImpl implements
         OWLDeclarationAxiom {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final OWLEntity entity;
 
     /**
@@ -62,6 +64,7 @@ public class OWLDeclarationAxiomImpl extends OWLAxiomImpl implements
         return false;
     }
 
+    @Nonnull
     @Override
     public OWLDeclarationAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
@@ -70,12 +73,14 @@ public class OWLDeclarationAxiomImpl extends OWLAxiomImpl implements
         return new OWLDeclarationAxiomImpl(getEntity(), NO_ANNOTATIONS);
     }
 
+    @Nonnull
     @Override
     public OWLDeclarationAxiom
-            getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+            getAnnotatedAxiom(@Nonnull Set<OWLAnnotation> annotations) {
         return new OWLDeclarationAxiomImpl(getEntity(), mergeAnnos(annotations));
     }
 
+    @Nonnull
     @Override
     public OWLEntity getEntity() {
         return entity;
@@ -94,32 +99,34 @@ public class OWLDeclarationAxiomImpl extends OWLAxiomImpl implements
     }
 
     @Override
-    public void accept(OWLAxiomVisitor visitor) {
+    public void accept(@Nonnull OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public void accept(OWLObjectVisitor visitor) {
+    public void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Nullable
     @Override
-    public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Nonnull
     @Override
     public AxiomType<?> getAxiomType() {
         return AxiomType.DECLARATION;
     }
 
     @Override
-    protected int compareObjectOfSameType(OWLObject object) {
+    protected int compareObjectOfSameType(@Nonnull OWLObject object) {
         return entity.compareTo(((OWLDeclarationAxiom) object).getEntity());
     }
 }

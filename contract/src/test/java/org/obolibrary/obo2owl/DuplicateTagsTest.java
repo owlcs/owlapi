@@ -12,6 +12,8 @@ import org.obolibrary.oboformat.model.OBODoc;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLOntology;
 
+import javax.annotation.Nonnull;
+
 @SuppressWarnings("javadoc")
 public class DuplicateTagsTest extends OboFormatTestBasics {
 
@@ -23,7 +25,7 @@ public class DuplicateTagsTest extends OboFormatTestBasics {
                 OWLManager.createOWLOntologyManager()) {
 
             @Override
-            protected boolean handleDuplicateClause(Frame frame, Clause clause) {
+            protected boolean handleDuplicateClause(@Nonnull Frame frame, Clause clause) {
                 duplicates.add(clause);
                 return super.handleDuplicateClause(frame, clause);
             }

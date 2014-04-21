@@ -32,6 +32,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -68,6 +69,7 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
 
     protected AbstractOWLParser() {}
 
+    @Nonnull
     @SuppressWarnings("unchecked")
     @Override
     public Set<Class<OWLOntologyFormat>> getSupportedFormatClasses() {
@@ -75,8 +77,10 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
                 .singleton((Class<OWLOntologyFormat>) getFormatClass());
     }
 
+    @Nullable
     protected abstract Class<? extends OWLOntologyFormat> getFormatClass();
 
+    @Nonnull
     protected String getRequestTypes() {
         return "application/rdf+xml, application/xml; q=0.5, text/xml; q=0.3, */*; q=0.2";
     }
@@ -192,7 +196,7 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
         return is;
     }
 
-    private boolean isZipName(IRI documentIRI, URLConnection connection) {
+    private boolean isZipName(@Nonnull IRI documentIRI, @Nonnull URLConnection connection) {
         if (isZipFileName(documentIRI.toString())) {
             return true;
         } else {
@@ -201,7 +205,8 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
         }
     }
 
-    private String getFileNameFromContentDisposition(URLConnection connection) {
+    @Nullable
+    private String getFileNameFromContentDisposition(@Nonnull URLConnection connection) {
         String contentDispositionHeaderValue = connection
                 .getHeaderField(CONTENT_DISPOSITION_HEADER);
         if (contentDispositionHeaderValue != null) {
@@ -215,14 +220,14 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
         return null;
     }
 
-    private boolean isZipFileName(String fileName) {
+    private boolean isZipFileName(@Nonnull String fileName) {
         return fileName.toLowerCase(Locale.getDefault()).endsWith(
                 ZIP_FILE_EXTENSION);
     }
 
     protected InputSource getInputSource(
-            OWLOntologyDocumentSource documentSource,
-            OWLOntologyLoaderConfiguration config) throws IOException {
+            @Nonnull OWLOntologyDocumentSource documentSource,
+            @Nonnull OWLOntologyLoaderConfiguration config) throws IOException {
         InputSource is;
         if (documentSource.isReaderAvailable()) {
             is = new InputSource(documentSource.getReader());
@@ -236,13 +241,15 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
         return is;
     }
 
+    @Nonnull
     @Override
-    public OWLOntologyFormat parse(IRI documentIRI, OWLOntology ontology)
+    public OWLOntologyFormat parse(@Nonnull IRI documentIRI, @Nonnull OWLOntology ontology)
             throws IOException {
         return parse(new IRIDocumentSource(documentIRI, null, null), ontology,
                 new OWLOntologyLoaderConfiguration());
     }
 
+    @Nonnull
     @Override
     public String getName() {
         return this.getClass().getSimpleName();

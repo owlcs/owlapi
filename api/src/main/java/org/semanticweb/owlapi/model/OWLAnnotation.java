@@ -15,6 +15,7 @@ package org.semanticweb.owlapi.model;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * Annotations are used in the various types of annotation axioms, which bind
@@ -99,5 +100,6 @@ public interface OWLAnnotation extends OWLObject, HasAnnotations,
      *        visitor return type
      * @return visitor value
      */
+    @Nullable
     <O> O accept(OWLAnnotationObjectVisitorEx<O> visitor);
 }

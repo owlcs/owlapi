@@ -24,6 +24,9 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 
 import com.google.inject.Provides;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /*
  * Not a pretty pattern but I didn't want to have long strings repeated across
  * constructors, and no static constants are allowed before members declaration
@@ -124,6 +127,7 @@ public enum Profiles implements HasIRI, KnownFactories, OWLProfile {
      *         exception raised by {@code Class.forName(factoryClassName)} is
      *         wrapped by an OWLRuntimeException.
      */
+    @Nonnull
     public OWLReasonerFactory instantiateFactory(String factoryClassName) {
         try {
             Class<?> c = Class.forName(factoryClassName);
@@ -153,6 +157,7 @@ public enum Profiles implements HasIRI, KnownFactories, OWLProfile {
      *        IRI to match
      * @return Profiles with matching IRI, or null if none is found
      */
+    @Nullable
     public static Profiles valueForIRI(IRI i) {
         for (Profiles p : values()) {
             if (p.iri.equals(i)) {

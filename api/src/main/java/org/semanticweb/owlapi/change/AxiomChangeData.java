@@ -32,6 +32,7 @@ import org.semanticweb.owlapi.model.OWLEntity;
 public abstract class AxiomChangeData extends OWLOntologyChangeData<OWLAxiom> {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final OWLAxiom axiom;
 
     /**
@@ -55,11 +56,13 @@ public abstract class AxiomChangeData extends OWLOntologyChangeData<OWLAxiom> {
         return axiom;
     }
 
+    @Nonnull
     @Override
     public OWLAxiom getItem() {
         return getAxiom();
     }
 
+    @Nonnull
     @Override
     public Set<OWLEntity> getSignature() {
         return axiom.getSignature();

@@ -35,6 +35,7 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
 
     /** Mapping from entities to the number of axioms. */
     private final Map<OWLEntity, Integer> referenceCounts = new HashMap<OWLEntity, Integer>();
+    @Nonnull
     private final OWLOntology ontology;
     private final Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
     private final Integer ONE = Integer.valueOf(1);
@@ -119,7 +120,7 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
     }
 
     @Override
-    public void ontologiesChanged(List<? extends OWLOntologyChange<?>> changes)
+    public void ontologiesChanged(@Nonnull List<? extends OWLOntologyChange<?>> changes)
             throws OWLException {
         for (OWLOntologyChange<?> change : changes) {
             if (!change.isAxiomChange()

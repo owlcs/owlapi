@@ -84,6 +84,9 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
 import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /** @author ignazio */
 public class Internals implements Serializable {
 
@@ -97,32 +100,32 @@ public class Internals implements Serializable {
         public ReferenceChecker() {}
 
         @Override
-        public Boolean visit(OWLClass cls) {
+        public Boolean visit(@Nonnull OWLClass cls) {
             return owlClassReferences.containsKey(cls);
         }
 
         @Override
-        public Boolean visit(OWLObjectProperty property) {
+        public Boolean visit(@Nonnull OWLObjectProperty property) {
             return owlObjectPropertyReferences.containsKey(property);
         }
 
         @Override
-        public Boolean visit(OWLDataProperty property) {
+        public Boolean visit(@Nonnull OWLDataProperty property) {
             return owlDataPropertyReferences.containsKey(property);
         }
 
         @Override
-        public Boolean visit(OWLNamedIndividual individual) {
+        public Boolean visit(@Nonnull OWLNamedIndividual individual) {
             return owlIndividualReferences.containsKey(individual);
         }
 
         @Override
-        public Boolean visit(OWLDatatype datatype) {
+        public Boolean visit(@Nonnull OWLDatatype datatype) {
             return owlDatatypeReferences.containsKey(datatype);
         }
 
         @Override
-        public Boolean visit(OWLAnnotationProperty property) {
+        public Boolean visit(@Nonnull OWLAnnotationProperty property) {
             return owlAnnotationPropertyReferences.containsKey(property);
         }
     }
@@ -136,11 +139,13 @@ public class Internals implements Serializable {
             return set.isEmpty();
         }
 
+        @Nonnull
         public Set<K> copy() {
             return CollectionFactory
                     .getCopyOnRequestSetFromMutableCollection(set);
         }
 
+        @Nonnull
         public Iterable<K> iterable() {
             return set;
         }
@@ -234,8 +239,9 @@ public class Internals implements Serializable {
      *        value type
      * @return map pointer matching the search, or null if there is not one
      */
+    @Nullable
     <T extends OWLObject, A extends OWLAxiom> MapPointer<T, A> get(
-            Class<T> type, Class<A> axiom) {
+            @Nonnull Class<T> type, @Nonnull Class<A> axiom) {
         return get(type, axiom, Search.IN_SUB_POSITION);
     }
 
@@ -253,9 +259,10 @@ public class Internals implements Serializable {
      *        value type
      * @return map pointer matching the search, or null if there is not one
      */
+    @Nullable
     @SuppressWarnings("unchecked")
     <T extends OWLObject, A extends OWLAxiom> MapPointer<T, A> get(
-            Class<T> type, Class<A> axiom, Search position) {
+            @Nonnull Class<T> type, @Nonnull Class<A> axiom, Search position) {
         if (OWLEntity.class.isAssignableFrom(type)
                 && axiom.equals(OWLDeclarationAxiom.class)) {
             return (MapPointer<T, A>) declarationsByEntity;
@@ -410,19 +417,23 @@ public class Internals implements Serializable {
         return null;
     }
 
+    @Nonnull
     protected <K, V extends OWLAxiom> MapPointer<K, V> build() {
         return build(null, null);
     }
 
+    @Nonnull
     protected <K, V extends OWLAxiom> MapPointer<K, V> buildLazy(
             AxiomType<?> t, OWLAxiomVisitorEx<?> v) {
         return new MapPointer<K, V>(t, v, false, this);
     }
 
+    @Nonnull
     protected ClassAxiomByClassPointer buildClassAxiomByClass() {
         return new ClassAxiomByClassPointer(null, null, false, this);
     }
 
+    @Nonnull
     protected <K, V extends OWLAxiom> MapPointer<K, V> build(AxiomType<?> t,
             OWLAxiomVisitorEx<?> v) {
         return new MapPointer<K, V>(t, v, true, this);
@@ -433,44 +444,44 @@ public class Internals implements Serializable {
      *        axiom to add
      * @return true if the axiom was not already included
      */
-    public boolean addAxiom(final OWLAxiom axiom) {
+    public boolean addAxiom(@Nonnull final OWLAxiom axiom) {
         checkNotNull(axiom, "axiom cannot be null");
         if (getAxiomsByType().put(axiom.getAxiomType(), axiom)) {
             axiom.accept(addChangeVisitor);
             axiom.accept(new AbstractEntityRegistrationManager() {
 
                 @Override
-                public void visit(OWLClass owlClass) {
+                public void visit(@Nonnull OWLClass owlClass) {
                     owlClassReferences.put(owlClass, axiom);
                 }
 
                 @Override
-                public void visit(OWLObjectProperty property) {
+                public void visit(@Nonnull OWLObjectProperty property) {
                     owlObjectPropertyReferences.put(property, axiom);
                 }
 
                 @Override
-                public void visit(OWLDataProperty property) {
+                public void visit(@Nonnull OWLDataProperty property) {
                     owlDataPropertyReferences.put(property, axiom);
                 }
 
                 @Override
-                public void visit(OWLNamedIndividual owlIndividual) {
+                public void visit(@Nonnull OWLNamedIndividual owlIndividual) {
                     owlIndividualReferences.put(owlIndividual, axiom);
                 }
 
                 @Override
-                public void visit(OWLAnnotationProperty property) {
+                public void visit(@Nonnull OWLAnnotationProperty property) {
                     owlAnnotationPropertyReferences.put(property, axiom);
                 }
 
                 @Override
-                public void visit(OWLDatatype datatype) {
+                public void visit(@Nonnull OWLDatatype datatype) {
                     owlDatatypeReferences.put(datatype, axiom);
                 }
 
                 @Override
-                public void visit(OWLAnonymousIndividual individual) {
+                public void visit(@Nonnull OWLAnonymousIndividual individual) {
                     owlAnonymousIndividualReferences.put(individual, axiom);
                 }
             });
@@ -484,44 +495,44 @@ public class Internals implements Serializable {
      *        axiom to remove
      * @return true if removed
      */
-    public boolean removeAxiom(final OWLAxiom axiom) {
+    public boolean removeAxiom(@Nonnull final OWLAxiom axiom) {
         checkNotNull(axiom, "axiom cannot be null");
         if (getAxiomsByType().remove(axiom.getAxiomType(), axiom)) {
             axiom.accept(removeChangeVisitor);
             AbstractEntityRegistrationManager referenceRemover = new AbstractEntityRegistrationManager() {
 
                 @Override
-                public void visit(OWLClass owlClass) {
+                public void visit(@Nonnull OWLClass owlClass) {
                     owlClassReferences.remove(owlClass, axiom);
                 }
 
                 @Override
-                public void visit(OWLObjectProperty property) {
+                public void visit(@Nonnull OWLObjectProperty property) {
                     owlObjectPropertyReferences.remove(property, axiom);
                 }
 
                 @Override
-                public void visit(OWLDataProperty property) {
+                public void visit(@Nonnull OWLDataProperty property) {
                     owlDataPropertyReferences.remove(property, axiom);
                 }
 
                 @Override
-                public void visit(OWLNamedIndividual owlIndividual) {
+                public void visit(@Nonnull OWLNamedIndividual owlIndividual) {
                     owlIndividualReferences.remove(owlIndividual, axiom);
                 }
 
                 @Override
-                public void visit(OWLAnnotationProperty property) {
+                public void visit(@Nonnull OWLAnnotationProperty property) {
                     owlAnnotationPropertyReferences.remove(property, axiom);
                 }
 
                 @Override
-                public void visit(OWLDatatype datatype) {
+                public void visit(@Nonnull OWLDatatype datatype) {
                     owlDatatypeReferences.remove(datatype, axiom);
                 }
 
                 @Override
-                public void visit(OWLAnonymousIndividual individual) {
+                public void visit(@Nonnull OWLAnonymousIndividual individual) {
                     owlAnonymousIndividualReferences.remove(individual, axiom);
                 }
             };
@@ -558,8 +569,9 @@ public class Internals implements Serializable {
      *        key
      * @return set of values
      */
+    @Nonnull
     public <T extends OWLAxiom, K> Collection<OWLAxiom> filterAxioms(
-            OWLAxiomSearchFilter filter, K key) {
+            @Nonnull OWLAxiomSearchFilter filter, @Nonnull K key) {
         Collection<OWLAxiom> toReturn = new ArrayList<OWLAxiom>();
         for (AxiomType<?> at : filter.getAxiomTypes()) {
             for (OWLAxiom t : getAxiomsByType().getValues(at)) {
@@ -579,7 +591,7 @@ public class Internals implements Serializable {
      * @return true if the filter is matched at least once
      */
     public <T extends OWLAxiom, K> boolean contains(
-            OWLAxiomSearchFilter filter, K key) {
+            @Nonnull OWLAxiomSearchFilter filter, @Nonnull K key) {
         for (AxiomType<?> at : filter.getAxiomTypes()) {
             for (OWLAxiom t : getAxiomsByType().getValues(at)) {
                 if (filter.pass(t, key)) {
@@ -597,6 +609,7 @@ public class Internals implements Serializable {
      *        iteration)
      * @return iterable of imports declaration
      */
+    @Nonnull
     public Iterable<OWLImportsDeclaration> getImportsDeclarations(boolean copy) {
         if (!copy) {
             return importsDeclarations.iterable();
@@ -631,6 +644,7 @@ public class Internals implements Serializable {
      *        iteration)
      * @return iterable of annotations
      */
+    @Nonnull
     Iterable<OWLAnnotation> getOntologyAnnotations(boolean copy) {
         if (!copy) {
             return ontologyAnnotations.iterable();
@@ -670,7 +684,7 @@ public class Internals implements Serializable {
      * @return true if the pair (key, value) is contained
      */
     public <K, V extends OWLAxiom> boolean
-            contains(MapPointer<K, V> p, K k, V v) {
+            contains(@Nonnull MapPointer<K, V> p, K k, V v) {
         return p.contains(k, v);
     }
 
@@ -686,6 +700,7 @@ public class Internals implements Serializable {
      * 
      * @return the axioms by type
      */
+    @Nonnull
     public Set<OWLAxiom> getAxioms() {
         return axiomsByType.getAllValues();
     }
@@ -706,6 +721,7 @@ public class Internals implements Serializable {
     /**
      * @return logical axioms
      */
+    @Nonnull
     public Set<OWLLogicalAxiom> getLogicalAxioms() {
         Set<OWLLogicalAxiom> axioms = createSet();
         for (AxiomType<?> type : AXIOM_TYPES) {
@@ -740,6 +756,7 @@ public class Internals implements Serializable {
     /**
      * @return copy of GCI axioms
      */
+    @Nonnull
     public Set<OWLClassAxiom> getGeneralClassAxioms() {
         return generalClassAxioms.copy();
     }
@@ -785,6 +802,7 @@ public class Internals implements Serializable {
     /**
      * @return map of axioms by type
      */
+    @Nonnull
     public MapPointer<AxiomType<?>, OWLAxiom> getAxiomsByType() {
         return axiomsByType;
     }
@@ -795,7 +813,7 @@ public class Internals implements Serializable {
         private static final long serialVersionUID = 40000L;
 
         @Override
-        public void visit(OWLSubClassOfAxiom axiom) {
+        public void visit(@Nonnull OWLSubClassOfAxiom axiom) {
             if (!axiom.getSubClass().isAnonymous()) {
                 OWLClass subClass = (OWLClass) axiom.getSubClass();
                 subClassAxiomsBySubPosition.put(subClass, axiom);
@@ -810,23 +828,23 @@ public class Internals implements Serializable {
         }
 
         @Override
-        public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
+        public void visit(@Nonnull OWLNegativeObjectPropertyAssertionAxiom axiom) {
             negativeObjectPropertyAssertionAxiomsByIndividual.put(
                     axiom.getSubject(), axiom);
         }
 
         @Override
-        public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
+        public void visit(@Nonnull OWLAsymmetricObjectPropertyAxiom axiom) {
             asymmetricPropertyAxiomsByProperty.put(axiom.getProperty(), axiom);
         }
 
         @Override
-        public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
+        public void visit(@Nonnull OWLReflexiveObjectPropertyAxiom axiom) {
             reflexivePropertyAxiomsByProperty.put(axiom.getProperty(), axiom);
         }
 
         @Override
-        public void visit(OWLDisjointClassesAxiom axiom) {
+        public void visit(@Nonnull OWLDisjointClassesAxiom axiom) {
             boolean allAnon = true;
             // Index against each named class in the axiom
             for (OWLClassExpression desc : axiom.getClassExpressions()) {
@@ -843,12 +861,12 @@ public class Internals implements Serializable {
         }
 
         @Override
-        public void visit(OWLDataPropertyDomainAxiom axiom) {
+        public void visit(@Nonnull OWLDataPropertyDomainAxiom axiom) {
             dataPropertyDomainAxiomsByProperty.put(axiom.getProperty(), axiom);
         }
 
         @Override
-        public void visit(OWLObjectPropertyDomainAxiom axiom) {
+        public void visit(@Nonnull OWLObjectPropertyDomainAxiom axiom) {
             if (axiom.getProperty() instanceof OWLObjectProperty) {
                 objectPropertyDomainAxiomsByProperty.put(axiom.getProperty(),
                         axiom);
@@ -856,14 +874,14 @@ public class Internals implements Serializable {
         }
 
         @Override
-        public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
+        public void visit(@Nonnull OWLEquivalentObjectPropertiesAxiom axiom) {
             for (OWLObjectPropertyExpression prop : axiom.getProperties()) {
                 equivalentObjectPropertyAxiomsByProperty.put(prop, axiom);
             }
         }
 
         @Override
-        public void visit(OWLInverseObjectPropertiesAxiom axiom) {
+        public void visit(@Nonnull OWLInverseObjectPropertiesAxiom axiom) {
             inversePropertyAxiomsByProperty
                     .put(axiom.getFirstProperty(), axiom);
             inversePropertyAxiomsByProperty.put(axiom.getSecondProperty(),
@@ -871,50 +889,50 @@ public class Internals implements Serializable {
         }
 
         @Override
-        public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
+        public void visit(@Nonnull OWLNegativeDataPropertyAssertionAxiom axiom) {
             negativeDataPropertyAssertionAxiomsByIndividual.put(
                     axiom.getSubject(), axiom);
         }
 
         @Override
-        public void visit(OWLDifferentIndividualsAxiom axiom) {
+        public void visit(@Nonnull OWLDifferentIndividualsAxiom axiom) {
             for (OWLIndividual ind : axiom.getIndividuals()) {
                 differentIndividualsAxiomsByIndividual.put(ind, axiom);
             }
         }
 
         @Override
-        public void visit(OWLDisjointDataPropertiesAxiom axiom) {
+        public void visit(@Nonnull OWLDisjointDataPropertiesAxiom axiom) {
             for (OWLDataPropertyExpression prop : axiom.getProperties()) {
                 disjointDataPropertyAxiomsByProperty.put(prop, axiom);
             }
         }
 
         @Override
-        public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
+        public void visit(@Nonnull OWLDisjointObjectPropertiesAxiom axiom) {
             for (OWLObjectPropertyExpression prop : axiom.getProperties()) {
                 disjointObjectPropertyAxiomsByProperty.put(prop, axiom);
             }
         }
 
         @Override
-        public void visit(OWLObjectPropertyRangeAxiom axiom) {
+        public void visit(@Nonnull OWLObjectPropertyRangeAxiom axiom) {
             objectPropertyRangeAxiomsByProperty.put(axiom.getProperty(), axiom);
         }
 
         @Override
-        public void visit(OWLObjectPropertyAssertionAxiom axiom) {
+        public void visit(@Nonnull OWLObjectPropertyAssertionAxiom axiom) {
             objectPropertyAssertionsByIndividual.put(axiom.getSubject(), axiom);
         }
 
         @Override
-        public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
+        public void visit(@Nonnull OWLFunctionalObjectPropertyAxiom axiom) {
             functionalObjectPropertyAxiomsByProperty.put(axiom.getProperty(),
                     axiom);
         }
 
         @Override
-        public void visit(OWLSubObjectPropertyOfAxiom axiom) {
+        public void visit(@Nonnull OWLSubObjectPropertyOfAxiom axiom) {
             objectSubPropertyAxiomsBySubPosition.put(axiom.getSubProperty(),
                     axiom);
             objectSubPropertyAxiomsBySuperPosition.put(
@@ -922,23 +940,23 @@ public class Internals implements Serializable {
         }
 
         @Override
-        public void visit(OWLDisjointUnionAxiom axiom) {
+        public void visit(@Nonnull OWLDisjointUnionAxiom axiom) {
             disjointUnionAxiomsByClass.put(axiom.getOWLClass(), axiom);
             classAxiomsByClass.put(axiom.getOWLClass(), axiom);
         }
 
         @Override
-        public void visit(OWLDeclarationAxiom axiom) {
+        public void visit(@Nonnull OWLDeclarationAxiom axiom) {
             declarationsByEntity.put(axiom.getEntity(), axiom);
         }
 
         @Override
-        public void visit(OWLAnnotationAssertionAxiom axiom) {
+        public void visit(@Nonnull OWLAnnotationAssertionAxiom axiom) {
             annotationAssertionAxiomsBySubject.put(axiom.getSubject(), axiom);
         }
 
         @Override
-        public void visit(OWLHasKeyAxiom axiom) {
+        public void visit(@Nonnull OWLHasKeyAxiom axiom) {
             if (!axiom.getClassExpression().isAnonymous()) {
                 hasKeyAxiomsByClass.put(
                         axiom.getClassExpression().asOWLClass(), axiom);
@@ -946,30 +964,30 @@ public class Internals implements Serializable {
         }
 
         @Override
-        public void visit(OWLSymmetricObjectPropertyAxiom axiom) {
+        public void visit(@Nonnull OWLSymmetricObjectPropertyAxiom axiom) {
             symmetricPropertyAxiomsByProperty.put(axiom.getProperty(), axiom);
         }
 
         @Override
-        public void visit(OWLDataPropertyRangeAxiom axiom) {
+        public void visit(@Nonnull OWLDataPropertyRangeAxiom axiom) {
             dataPropertyRangeAxiomsByProperty.put(axiom.getProperty(), axiom);
         }
 
         @Override
-        public void visit(OWLFunctionalDataPropertyAxiom axiom) {
+        public void visit(@Nonnull OWLFunctionalDataPropertyAxiom axiom) {
             functionalDataPropertyAxiomsByProperty.put(axiom.getProperty(),
                     axiom);
         }
 
         @Override
-        public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
+        public void visit(@Nonnull OWLEquivalentDataPropertiesAxiom axiom) {
             for (OWLDataPropertyExpression prop : axiom.getProperties()) {
                 equivalentDataPropertyAxiomsByProperty.put(prop, axiom);
             }
         }
 
         @Override
-        public void visit(OWLClassAssertionAxiom axiom) {
+        public void visit(@Nonnull OWLClassAssertionAxiom axiom) {
             classAssertionAxiomsByIndividual.put(axiom.getIndividual(), axiom);
             if (!axiom.getClassExpression().isAnonymous()) {
                 classAssertionAxiomsByClass.put(axiom.getClassExpression(),
@@ -978,7 +996,7 @@ public class Internals implements Serializable {
         }
 
         @Override
-        public void visit(OWLEquivalentClassesAxiom axiom) {
+        public void visit(@Nonnull OWLEquivalentClassesAxiom axiom) {
             boolean allAnon = true;
             for (OWLClassExpression desc : axiom.getClassExpressions()) {
                 if (!desc.isAnonymous()) {
@@ -993,22 +1011,22 @@ public class Internals implements Serializable {
         }
 
         @Override
-        public void visit(OWLDataPropertyAssertionAxiom axiom) {
+        public void visit(@Nonnull OWLDataPropertyAssertionAxiom axiom) {
             dataPropertyAssertionsByIndividual.put(axiom.getSubject(), axiom);
         }
 
         @Override
-        public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
+        public void visit(@Nonnull OWLTransitiveObjectPropertyAxiom axiom) {
             transitivePropertyAxiomsByProperty.put(axiom.getProperty(), axiom);
         }
 
         @Override
-        public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
+        public void visit(@Nonnull OWLIrreflexiveObjectPropertyAxiom axiom) {
             irreflexivePropertyAxiomsByProperty.put(axiom.getProperty(), axiom);
         }
 
         @Override
-        public void visit(OWLSubDataPropertyOfAxiom axiom) {
+        public void visit(@Nonnull OWLSubDataPropertyOfAxiom axiom) {
             dataSubPropertyAxiomsBySubPosition.put(axiom.getSubProperty(),
                     axiom);
             dataSubPropertyAxiomsBySuperPosition.put(axiom.getSuperProperty(),
@@ -1016,20 +1034,20 @@ public class Internals implements Serializable {
         }
 
         @Override
-        public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
+        public void visit(@Nonnull OWLInverseFunctionalObjectPropertyAxiom axiom) {
             inverseFunctionalPropertyAxiomsByProperty.put(axiom.getProperty(),
                     axiom);
         }
 
         @Override
-        public void visit(OWLSameIndividualAxiom axiom) {
+        public void visit(@Nonnull OWLSameIndividualAxiom axiom) {
             for (OWLIndividual ind : axiom.getIndividuals()) {
                 sameIndividualsAxiomsByIndividual.put(ind, axiom);
             }
         }
 
         @Override
-        public void visit(OWLSubPropertyChainOfAxiom axiom) {
+        public void visit(@Nonnull OWLSubPropertyChainOfAxiom axiom) {
             addPropertyChainSubPropertyAxioms(axiom);
         }
     }
@@ -1040,7 +1058,7 @@ public class Internals implements Serializable {
         private static final long serialVersionUID = 40000L;
 
         @Override
-        public void visit(OWLSubClassOfAxiom axiom) {
+        public void visit(@Nonnull OWLSubClassOfAxiom axiom) {
             if (!axiom.getSubClass().isAnonymous()) {
                 OWLClass subClass = (OWLClass) axiom.getSubClass();
                 subClassAxiomsBySubPosition.remove(subClass, axiom);
@@ -1055,25 +1073,25 @@ public class Internals implements Serializable {
         }
 
         @Override
-        public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
+        public void visit(@Nonnull OWLNegativeObjectPropertyAssertionAxiom axiom) {
             negativeObjectPropertyAssertionAxiomsByIndividual.remove(
                     axiom.getSubject(), axiom);
         }
 
         @Override
-        public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
+        public void visit(@Nonnull OWLAsymmetricObjectPropertyAxiom axiom) {
             asymmetricPropertyAxiomsByProperty.remove(axiom.getProperty(),
                     axiom);
         }
 
         @Override
-        public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
+        public void visit(@Nonnull OWLReflexiveObjectPropertyAxiom axiom) {
             reflexivePropertyAxiomsByProperty
                     .remove(axiom.getProperty(), axiom);
         }
 
         @Override
-        public void visit(OWLDisjointClassesAxiom axiom) {
+        public void visit(@Nonnull OWLDisjointClassesAxiom axiom) {
             boolean allAnon = true;
             for (OWLClassExpression desc : axiom.getClassExpressions()) {
                 if (!desc.isAnonymous()) {
@@ -1089,13 +1107,13 @@ public class Internals implements Serializable {
         }
 
         @Override
-        public void visit(OWLDataPropertyDomainAxiom axiom) {
+        public void visit(@Nonnull OWLDataPropertyDomainAxiom axiom) {
             dataPropertyDomainAxiomsByProperty.remove(axiom.getProperty(),
                     axiom);
         }
 
         @Override
-        public void visit(OWLObjectPropertyDomainAxiom axiom) {
+        public void visit(@Nonnull OWLObjectPropertyDomainAxiom axiom) {
             if (axiom.getProperty() instanceof OWLObjectProperty) {
                 objectPropertyDomainAxiomsByProperty.remove(
                         axiom.getProperty(), axiom);
@@ -1103,14 +1121,14 @@ public class Internals implements Serializable {
         }
 
         @Override
-        public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
+        public void visit(@Nonnull OWLEquivalentObjectPropertiesAxiom axiom) {
             for (OWLObjectPropertyExpression prop : axiom.getProperties()) {
                 equivalentObjectPropertyAxiomsByProperty.remove(prop, axiom);
             }
         }
 
         @Override
-        public void visit(OWLInverseObjectPropertiesAxiom axiom) {
+        public void visit(@Nonnull OWLInverseObjectPropertiesAxiom axiom) {
             inversePropertyAxiomsByProperty.remove(axiom.getFirstProperty(),
                     axiom);
             inversePropertyAxiomsByProperty.remove(axiom.getSecondProperty(),
@@ -1118,52 +1136,52 @@ public class Internals implements Serializable {
         }
 
         @Override
-        public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
+        public void visit(@Nonnull OWLNegativeDataPropertyAssertionAxiom axiom) {
             negativeDataPropertyAssertionAxiomsByIndividual.remove(
                     axiom.getSubject(), axiom);
         }
 
         @Override
-        public void visit(OWLDifferentIndividualsAxiom axiom) {
+        public void visit(@Nonnull OWLDifferentIndividualsAxiom axiom) {
             for (OWLIndividual ind : axiom.getIndividuals()) {
                 differentIndividualsAxiomsByIndividual.remove(ind, axiom);
             }
         }
 
         @Override
-        public void visit(OWLDisjointDataPropertiesAxiom axiom) {
+        public void visit(@Nonnull OWLDisjointDataPropertiesAxiom axiom) {
             for (OWLDataPropertyExpression prop : axiom.getProperties()) {
                 disjointDataPropertyAxiomsByProperty.remove(prop, axiom);
             }
         }
 
         @Override
-        public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
+        public void visit(@Nonnull OWLDisjointObjectPropertiesAxiom axiom) {
             for (OWLObjectPropertyExpression prop : axiom.getProperties()) {
                 disjointObjectPropertyAxiomsByProperty.remove(prop, axiom);
             }
         }
 
         @Override
-        public void visit(OWLObjectPropertyRangeAxiom axiom) {
+        public void visit(@Nonnull OWLObjectPropertyRangeAxiom axiom) {
             objectPropertyRangeAxiomsByProperty.remove(axiom.getProperty(),
                     axiom);
         }
 
         @Override
-        public void visit(OWLObjectPropertyAssertionAxiom axiom) {
+        public void visit(@Nonnull OWLObjectPropertyAssertionAxiom axiom) {
             objectPropertyAssertionsByIndividual.remove(axiom.getSubject(),
                     axiom);
         }
 
         @Override
-        public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
+        public void visit(@Nonnull OWLFunctionalObjectPropertyAxiom axiom) {
             functionalObjectPropertyAxiomsByProperty.remove(
                     axiom.getProperty(), axiom);
         }
 
         @Override
-        public void visit(OWLSubObjectPropertyOfAxiom axiom) {
+        public void visit(@Nonnull OWLSubObjectPropertyOfAxiom axiom) {
             objectSubPropertyAxiomsBySubPosition.remove(axiom.getSubProperty(),
                     axiom);
             objectSubPropertyAxiomsBySuperPosition.remove(
@@ -1171,24 +1189,24 @@ public class Internals implements Serializable {
         }
 
         @Override
-        public void visit(OWLDisjointUnionAxiom axiom) {
+        public void visit(@Nonnull OWLDisjointUnionAxiom axiom) {
             disjointUnionAxiomsByClass.remove(axiom.getOWLClass(), axiom);
             classAxiomsByClass.remove(axiom.getOWLClass(), axiom);
         }
 
         @Override
-        public void visit(OWLDeclarationAxiom axiom) {
+        public void visit(@Nonnull OWLDeclarationAxiom axiom) {
             declarationsByEntity.remove(axiom.getEntity(), axiom);
         }
 
         @Override
-        public void visit(OWLAnnotationAssertionAxiom axiom) {
+        public void visit(@Nonnull OWLAnnotationAssertionAxiom axiom) {
             annotationAssertionAxiomsBySubject
                     .remove(axiom.getSubject(), axiom);
         }
 
         @Override
-        public void visit(OWLHasKeyAxiom axiom) {
+        public void visit(@Nonnull OWLHasKeyAxiom axiom) {
             if (!axiom.getClassExpression().isAnonymous()) {
                 hasKeyAxiomsByClass.remove(axiom.getClassExpression()
                         .asOWLClass(), axiom);
@@ -1196,32 +1214,32 @@ public class Internals implements Serializable {
         }
 
         @Override
-        public void visit(OWLSymmetricObjectPropertyAxiom axiom) {
+        public void visit(@Nonnull OWLSymmetricObjectPropertyAxiom axiom) {
             symmetricPropertyAxiomsByProperty
                     .remove(axiom.getProperty(), axiom);
         }
 
         @Override
-        public void visit(OWLDataPropertyRangeAxiom axiom) {
+        public void visit(@Nonnull OWLDataPropertyRangeAxiom axiom) {
             dataPropertyRangeAxiomsByProperty
                     .remove(axiom.getProperty(), axiom);
         }
 
         @Override
-        public void visit(OWLFunctionalDataPropertyAxiom axiom) {
+        public void visit(@Nonnull OWLFunctionalDataPropertyAxiom axiom) {
             functionalDataPropertyAxiomsByProperty.remove(axiom.getProperty(),
                     axiom);
         }
 
         @Override
-        public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
+        public void visit(@Nonnull OWLEquivalentDataPropertiesAxiom axiom) {
             for (OWLDataPropertyExpression prop : axiom.getProperties()) {
                 equivalentDataPropertyAxiomsByProperty.remove(prop, axiom);
             }
         }
 
         @Override
-        public void visit(OWLClassAssertionAxiom axiom) {
+        public void visit(@Nonnull OWLClassAssertionAxiom axiom) {
             classAssertionAxiomsByIndividual.remove(axiom.getIndividual(),
                     axiom);
             if (!axiom.getClassExpression().isAnonymous()) {
@@ -1231,7 +1249,7 @@ public class Internals implements Serializable {
         }
 
         @Override
-        public void visit(OWLEquivalentClassesAxiom axiom) {
+        public void visit(@Nonnull OWLEquivalentClassesAxiom axiom) {
             boolean allAnon = true;
             for (OWLClassExpression desc : axiom.getClassExpressions()) {
                 if (!desc.isAnonymous()) {
@@ -1247,25 +1265,25 @@ public class Internals implements Serializable {
         }
 
         @Override
-        public void visit(OWLDataPropertyAssertionAxiom axiom) {
+        public void visit(@Nonnull OWLDataPropertyAssertionAxiom axiom) {
             dataPropertyAssertionsByIndividual
                     .remove(axiom.getSubject(), axiom);
         }
 
         @Override
-        public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
+        public void visit(@Nonnull OWLTransitiveObjectPropertyAxiom axiom) {
             transitivePropertyAxiomsByProperty.remove(axiom.getProperty(),
                     axiom);
         }
 
         @Override
-        public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
+        public void visit(@Nonnull OWLIrreflexiveObjectPropertyAxiom axiom) {
             irreflexivePropertyAxiomsByProperty.remove(axiom.getProperty(),
                     axiom);
         }
 
         @Override
-        public void visit(OWLSubDataPropertyOfAxiom axiom) {
+        public void visit(@Nonnull OWLSubDataPropertyOfAxiom axiom) {
             dataSubPropertyAxiomsBySubPosition.remove(axiom.getSubProperty(),
                     axiom);
             dataSubPropertyAxiomsBySuperPosition.remove(
@@ -1273,24 +1291,25 @@ public class Internals implements Serializable {
         }
 
         @Override
-        public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
+        public void visit(@Nonnull OWLInverseFunctionalObjectPropertyAxiom axiom) {
             inverseFunctionalPropertyAxiomsByProperty.remove(
                     axiom.getProperty(), axiom);
         }
 
         @Override
-        public void visit(OWLSameIndividualAxiom axiom) {
+        public void visit(@Nonnull OWLSameIndividualAxiom axiom) {
             for (OWLIndividual ind : axiom.getIndividuals()) {
                 sameIndividualsAxiomsByIndividual.remove(ind, axiom);
             }
         }
 
         @Override
-        public void visit(OWLSubPropertyChainOfAxiom axiom) {
+        public void visit(@Nonnull OWLSubPropertyChainOfAxiom axiom) {
             removePropertyChainSubPropertyAxioms(axiom);
         }
     }
 
+    @Nonnull
     @Override
     public String toString() {
         StringBuilder b = new StringBuilder("Internals{");
@@ -1306,7 +1325,7 @@ public class Internals implements Serializable {
      *        entity to check
      * @return true if reference is contained
      */
-    public boolean containsReference(OWLEntity entity) {
+    public boolean containsReference(@Nonnull OWLEntity entity) {
         return entity.accept(refChecker);
     }
 
@@ -1315,7 +1334,8 @@ public class Internals implements Serializable {
      *        entity to describe
      * @return referencing axioms
      */
-    public Set<OWLAxiom> getReferencingAxioms(OWLEntity owlEntity) {
+    @Nullable
+    public Set<OWLAxiom> getReferencingAxioms(@Nonnull OWLEntity owlEntity) {
         return owlEntity.accept(refAxiomsCollector);
     }
 
@@ -1327,32 +1347,32 @@ public class Internals implements Serializable {
         public ReferencedAxiomsCollector() {}
 
         @Override
-        public Set<OWLAxiom> visit(OWLClass cls) {
+        public Set<OWLAxiom> visit(@Nonnull OWLClass cls) {
             return owlClassReferences.getValues(cls);
         }
 
         @Override
-        public Set<OWLAxiom> visit(OWLObjectProperty property) {
+        public Set<OWLAxiom> visit(@Nonnull OWLObjectProperty property) {
             return owlObjectPropertyReferences.getValues(property);
         }
 
         @Override
-        public Set<OWLAxiom> visit(OWLDataProperty property) {
+        public Set<OWLAxiom> visit(@Nonnull OWLDataProperty property) {
             return owlDataPropertyReferences.getValues(property);
         }
 
         @Override
-        public Set<OWLAxiom> visit(OWLNamedIndividual individual) {
+        public Set<OWLAxiom> visit(@Nonnull OWLNamedIndividual individual) {
             return owlIndividualReferences.getValues(individual);
         }
 
         @Override
-        public Set<OWLAxiom> visit(OWLDatatype datatype) {
+        public Set<OWLAxiom> visit(@Nonnull OWLDatatype datatype) {
             return owlDatatypeReferences.getValues(datatype);
         }
 
         @Override
-        public Set<OWLAxiom> visit(OWLAnnotationProperty property) {
+        public Set<OWLAxiom> visit(@Nonnull OWLAnnotationProperty property) {
             return owlAnnotationPropertyReferences.getValues(property);
         }
     }

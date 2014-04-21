@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapitools.builders;
 
+import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
@@ -40,12 +41,13 @@ public class BuilderAsymmetricObjectProperty
      *        data factory
      */
     public BuilderAsymmetricObjectProperty(
-            OWLAsymmetricObjectPropertyAxiom expected, OWLDataFactory df) {
+            @Nonnull OWLAsymmetricObjectPropertyAxiom expected, OWLDataFactory df) {
         this(df);
         withProperty(expected.getProperty()).withAnnotations(
                 expected.getAnnotations());
     }
 
+    @Nonnull
     @Override
     public OWLAsymmetricObjectPropertyAxiom buildObject() {
         return df.getOWLAsymmetricObjectPropertyAxiom(property, annotations);

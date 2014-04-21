@@ -50,7 +50,9 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
 
     private static final Logger LOGGER = LoggerFactory
             .getLogger(HSTExplanationGenerator.class);
+    @Nonnull
     private final TransactionAwareSingleExpGen singleExplanationGenerator;
+    @Nonnull
     private ExplanationProgressMonitor progressMonitor = new SilentExplanationProgressMonitor();
 
     /**
@@ -67,26 +69,30 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
     }
 
     @Override
-    public void setProgressMonitor(ExplanationProgressMonitor progressMonitor) {
+    public void setProgressMonitor(@Nonnull ExplanationProgressMonitor progressMonitor) {
         this.progressMonitor = checkNotNull(progressMonitor,
                 "progressMonitor cannot be null");
     }
 
+    @Nonnull
     @Override
     public OWLOntologyManager getOntologyManager() {
         return singleExplanationGenerator.getOntologyManager();
     }
 
+    @Nonnull
     @Override
     public OWLOntology getOntology() {
         return singleExplanationGenerator.getOntology();
     }
 
+    @Nonnull
     @Override
     public OWLReasoner getReasoner() {
         return singleExplanationGenerator.getReasoner();
     }
 
+    @Nonnull
     @Override
     public OWLReasonerFactory getReasonerFactory() {
         return singleExplanationGenerator.getReasonerFactory();
@@ -102,13 +108,15 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
         return singleExplanationGenerator;
     }
 
+    @Nonnull
     @Override
-    public Set<OWLAxiom> getExplanation(OWLClassExpression unsatClass) {
+    public Set<OWLAxiom> getExplanation(@Nonnull OWLClassExpression unsatClass) {
         return singleExplanationGenerator.getExplanation(unsatClass);
     }
 
+    @Nonnull
     @Override
-    public Set<Set<OWLAxiom>> getExplanations(OWLClassExpression unsatClass) {
+    public Set<Set<OWLAxiom>> getExplanations(@Nonnull OWLClassExpression unsatClass) {
         return getExplanations(unsatClass, 0);
     }
 
@@ -117,8 +125,9 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
         singleExplanationGenerator.dispose();
     }
 
+    @Nonnull
     @Override
-    public Set<Set<OWLAxiom>> getExplanations(OWLClassExpression unsatClass,
+    public Set<Set<OWLAxiom>> getExplanations(@Nonnull OWLClassExpression unsatClass,
             @Nonnegative int maxExplanations) {
         OWLAPIPreconditions.checkNotNegative(maxExplanations,
                 "max explanations cannot be negative");
@@ -169,7 +178,7 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
         Comparator<OWLAxiom> mupsComparator = new Comparator<OWLAxiom>() {
 
             @Override
-            public int compare(OWLAxiom o1, OWLAxiom o2) {
+            public int compare(@Nonnull OWLAxiom o1, @Nonnull OWLAxiom o2) {
                 // The axiom that appears in most MUPS has the lowest index
                 // in the list
                 int occ1 = getOccurrences(o1, allMups);
@@ -293,7 +302,7 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
      *        the current path contents
      * @return true, if successful
      */
-    @Nonnull
+
     private boolean checkEarlyTermination(@Nonnull Set<Set<OWLAxiom>> satPaths,
             @Nonnull Set<OWLAxiom> currentPathContents) {
         boolean earlyTermination = false;

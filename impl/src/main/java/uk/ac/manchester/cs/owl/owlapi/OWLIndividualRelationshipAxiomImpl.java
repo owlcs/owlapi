@@ -38,8 +38,11 @@ public abstract class OWLIndividualRelationshipAxiomImpl<P extends OWLPropertyEx
         extends OWLLogicalAxiomImpl implements OWLPropertyAssertionAxiom<P, O> {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final OWLIndividual subject;
+    @Nonnull
     private final P property;
+    @Nonnull
     private final O object;
 
     /**
@@ -61,16 +64,19 @@ public abstract class OWLIndividualRelationshipAxiomImpl<P extends OWLPropertyEx
         this.object = checkNotNull(object, "object cannot be null");
     }
 
+    @Nonnull
     @Override
     public OWLIndividual getSubject() {
         return subject;
     }
 
+    @Nonnull
     @Override
     public P getProperty() {
         return property;
     }
 
+    @Nonnull
     @Override
     public O getObject() {
         return object;
@@ -91,7 +97,7 @@ public abstract class OWLIndividualRelationshipAxiomImpl<P extends OWLPropertyEx
     }
 
     @Override
-    protected int compareObjectOfSameType(OWLObject o) {
+    protected int compareObjectOfSameType(@Nonnull OWLObject o) {
         OWLPropertyAssertionAxiom<?, ?> other = (OWLPropertyAssertionAxiom<?, ?>) o;
         int diff = subject.compareTo(other.getSubject());
         if (diff != 0) {

@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
@@ -30,6 +31,7 @@ public interface OWLIndividualVisitorEx<O> {
      *        individual to visit
      * @return visitor value
      */
+    @Nullable
     O visit(@Nonnull OWLNamedIndividual individual);
 
     /**
@@ -39,5 +41,6 @@ public interface OWLIndividualVisitorEx<O> {
      *        individual to visit
      * @return visitor value
      */
+    @Nullable
     O visit(@Nonnull OWLAnonymousIndividual individual);
 }

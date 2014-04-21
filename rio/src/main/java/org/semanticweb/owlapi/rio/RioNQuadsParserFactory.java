@@ -40,6 +40,8 @@ import org.semanticweb.owlapi.formats.NQuadsOntologyFormatFactory;
 import org.semanticweb.owlapi.formats.RioRDFOntologyFormatFactory;
 import org.semanticweb.owlapi.io.OWLParserFactory;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Peter Ansell p_ansell@yahoo.com
  */
@@ -49,6 +51,7 @@ public class RioNQuadsParserFactory extends AbstractRioParserFactory implements
 
     private static final long serialVersionUID = 40000L;
 
+    @Nonnull
     @Override
     public RioRDFOntologyFormatFactory getRioFormatFactory() {
         return new NQuadsOntologyFormatFactory();

@@ -16,6 +16,8 @@ import java.io.Serializable;
 
 import org.semanticweb.owlapi.vocab.Namespaces;
 
+import javax.annotation.Nonnull;
+
 /**
  * Represents the different types of OWL 2 data ranges.
  * 
@@ -42,7 +44,9 @@ public enum DataRangeType
     DATA_INTERSECTION_OF("DataIntersectionOf");
 
     private final String name;
+    @Nonnull
     private final String prefixedName;
+    @Nonnull
     private final IRI iri;
 
     DataRangeType(String name) {
@@ -56,16 +60,19 @@ public enum DataRangeType
         return name;
     }
 
+    @Nonnull
     @Override
     public String getShortForm() {
         return name;
     }
 
+    @Nonnull
     @Override
     public IRI getIRI() {
         return iri;
     }
 
+    @Nonnull
     @Override
     public String getPrefixedName() {
         return prefixedName;

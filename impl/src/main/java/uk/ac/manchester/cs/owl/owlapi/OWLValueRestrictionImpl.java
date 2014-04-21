@@ -30,12 +30,14 @@ public abstract class OWLValueRestrictionImpl<V extends OWLObject> extends
         OWLRestrictionImpl implements OWLHasValueRestriction<V> {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     protected final V value;
 
     protected OWLValueRestrictionImpl(@Nonnull V value) {
         this.value = checkNotNull(value, "value cannot be null");
     }
 
+    @Nonnull
     @Override
     public V getFiller() {
         return value;

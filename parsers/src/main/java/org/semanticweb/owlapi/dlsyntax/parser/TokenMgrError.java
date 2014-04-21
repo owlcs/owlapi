@@ -16,6 +16,8 @@ package org.semanticweb.owlapi.dlsyntax.parser;
 
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
+import javax.annotation.Nonnull;
+
 class TokenMgrError extends OWLRuntimeException {
 
     private static final long serialVersionUID = 40000L;
@@ -25,7 +27,8 @@ class TokenMgrError extends OWLRuntimeException {
     static final int LOOP_DETECTED = 3;
     int errorCode;
 
-    protected static final String addEscapes(String str) {
+    @Nonnull
+    protected static final String addEscapes(@Nonnull String str) {
         StringBuffer retval = new StringBuffer();
         char ch;
         for (int i = 0; i < str.length(); i++) {
@@ -70,9 +73,10 @@ class TokenMgrError extends OWLRuntimeException {
         return retval.toString();
     }
 
+    @Nonnull
     protected static String LexicalError(boolean EOFSeen,
             @SuppressWarnings("unused") int lexState, int errorLine,
-            int errorColumn, String errorAfter, char curChar) {
+            int errorColumn, @Nonnull String errorAfter, char curChar) {
         return "Lexical error at line "
                 + errorLine
                 + ", column "
@@ -92,7 +96,7 @@ class TokenMgrError extends OWLRuntimeException {
     }
 
     TokenMgrError(boolean EOFSeen, int lexState, int errorLine,
-            int errorColumn, String errorAfter, char curChar, int reason) {
+            int errorColumn, @Nonnull String errorAfter, char curChar, int reason) {
         this(LexicalError(EOFSeen, lexState, errorLine, errorColumn,
                 errorAfter, curChar), reason);
     }

@@ -3,6 +3,8 @@ package org.obolibrary.oboformat.diff;
 import org.obolibrary.oboformat.model.Clause;
 import org.obolibrary.oboformat.model.Frame;
 
+import javax.annotation.Nonnull;
+
 /** Diff */
 public class Diff {
 
@@ -116,6 +118,7 @@ public class Diff {
         this.clause2 = clause2;
     }
 
+    @Nonnull
     @Override
     public String toString() {
         return type + " " + frameType + " Frame1="

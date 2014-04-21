@@ -43,6 +43,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 
+import javax.annotation.Nonnull;
+
 /**
  * Given a set of ontologies, this composite change will replace all subclass
  * axioms in each ontology, whose super class is an object intersection
@@ -65,8 +67,8 @@ public class SplitSubClassAxioms extends AbstractCompositeOntologyChange {
      * @param dataFactory
      *        The data factory which should be used to create new axioms.
      */
-    public SplitSubClassAxioms(Set<OWLOntology> ontologies,
-            OWLDataFactory dataFactory) {
+    public SplitSubClassAxioms(@Nonnull Set<OWLOntology> ontologies,
+            @Nonnull OWLDataFactory dataFactory) {
         super(dataFactory);
         for (OWLOntology ont : ontologies) {
             for (OWLSubClassOfAxiom ax : ont.getAxioms(AxiomType.SUBCLASS_OF)) {
@@ -88,100 +90,101 @@ public class SplitSubClassAxioms extends AbstractCompositeOntologyChange {
     private static class ConjunctSplitter implements OWLClassExpressionVisitor {
 
         /** The result. */
+        @Nonnull
         Set<OWLClassExpression> result = new HashSet<OWLClassExpression>();
 
         /** Instantiates a new conjunct splitter. */
         public ConjunctSplitter() {}
 
         @Override
-        public void visit(OWLClass desc) {
+        public void visit(@Nonnull OWLClass desc) {
             result.add(desc);
         }
 
         @Override
-        public void visit(OWLDataAllValuesFrom desc) {
+        public void visit(@Nonnull OWLDataAllValuesFrom desc) {
             result.add(desc);
         }
 
         @Override
-        public void visit(OWLDataExactCardinality desc) {
+        public void visit(@Nonnull OWLDataExactCardinality desc) {
             result.add(desc);
         }
 
         @Override
-        public void visit(OWLDataMaxCardinality desc) {
+        public void visit(@Nonnull OWLDataMaxCardinality desc) {
             result.add(desc);
         }
 
         @Override
-        public void visit(OWLDataMinCardinality desc) {
+        public void visit(@Nonnull OWLDataMinCardinality desc) {
             result.add(desc);
         }
 
         @Override
-        public void visit(OWLDataSomeValuesFrom desc) {
+        public void visit(@Nonnull OWLDataSomeValuesFrom desc) {
             result.add(desc);
         }
 
         @Override
-        public void visit(OWLDataHasValue desc) {
+        public void visit(@Nonnull OWLDataHasValue desc) {
             result.add(desc);
         }
 
         @Override
-        public void visit(OWLObjectAllValuesFrom desc) {
+        public void visit(@Nonnull OWLObjectAllValuesFrom desc) {
             result.add(desc);
         }
 
         @Override
-        public void visit(OWLObjectComplementOf desc) {
+        public void visit(@Nonnull OWLObjectComplementOf desc) {
             result.add(desc);
         }
 
         @Override
-        public void visit(OWLObjectExactCardinality desc) {
+        public void visit(@Nonnull OWLObjectExactCardinality desc) {
             result.add(desc);
         }
 
         @Override
-        public void visit(OWLObjectIntersectionOf desc) {
+        public void visit(@Nonnull OWLObjectIntersectionOf desc) {
             for (OWLClassExpression op : desc.getOperands()) {
                 op.accept(this);
             }
         }
 
         @Override
-        public void visit(OWLObjectMaxCardinality desc) {
+        public void visit(@Nonnull OWLObjectMaxCardinality desc) {
             result.add(desc);
         }
 
         @Override
-        public void visit(OWLObjectMinCardinality desc) {
+        public void visit(@Nonnull OWLObjectMinCardinality desc) {
             result.add(desc);
         }
 
         @Override
-        public void visit(OWLObjectOneOf desc) {
+        public void visit(@Nonnull OWLObjectOneOf desc) {
             result.add(desc);
         }
 
         @Override
-        public void visit(OWLObjectHasSelf desc) {
+        public void visit(@Nonnull OWLObjectHasSelf desc) {
             result.add(desc);
         }
 
         @Override
-        public void visit(OWLObjectSomeValuesFrom desc) {
+        public void visit(@Nonnull OWLObjectSomeValuesFrom desc) {
             result.add(desc);
         }
 
         @Override
-        public void visit(OWLObjectUnionOf desc) {
+        public void visit(@Nonnull OWLObjectUnionOf desc) {
             result.add(desc);
         }
 
         @Override
-        public void visit(OWLObjectHasValue desc) {
+        public void visit(@Nonnull OWLObjectHasValue desc) {
             result.add(desc);
         }
     }

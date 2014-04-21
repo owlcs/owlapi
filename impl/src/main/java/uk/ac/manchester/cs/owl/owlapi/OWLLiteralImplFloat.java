@@ -15,6 +15,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLAnnotationValueVisitor;
 import org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx;
@@ -36,6 +37,7 @@ public class OWLLiteralImplFloat extends OWLObjectImpl implements OWLLiteral {
 
     private static final long serialVersionUID = 40000L;
     private final float literal;
+    @Nonnull
     private final OWLDatatype datatype;
 
     @Override
@@ -69,6 +71,7 @@ public class OWLLiteralImplFloat extends OWLObjectImpl implements OWLLiteral {
         return hashCode;
     }
 
+    @Nonnull
     @Override
     public String getLiteral() {
         return Float.toString(literal);
@@ -127,6 +130,7 @@ public class OWLLiteralImplFloat extends OWLObjectImpl implements OWLLiteral {
         return literal;
     }
 
+    @Nonnull
     @Override
     public String getLang() {
         return "";
@@ -137,6 +141,7 @@ public class OWLLiteralImplFloat extends OWLObjectImpl implements OWLLiteral {
         return false;
     }
 
+    @Nonnull
     @Override
     public OWLDatatype getDatatype() {
         return datatype;
@@ -159,22 +164,23 @@ public class OWLLiteralImplFloat extends OWLObjectImpl implements OWLLiteral {
     }
 
     @Override
-    public void accept(OWLDataVisitor visitor) {
+    public void accept(@Nonnull OWLDataVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Nullable
     @Override
-    public <O> O accept(OWLDataVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLDataVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    public void accept(OWLAnnotationValueVisitor visitor) {
+    public void accept(@Nonnull OWLAnnotationValueVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLAnnotationValueVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLAnnotationValueVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
@@ -189,12 +195,12 @@ public class OWLLiteralImplFloat extends OWLObjectImpl implements OWLLiteral {
     }
 
     @Override
-    public void accept(OWLObjectVisitor visitor) {
+    public void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 }

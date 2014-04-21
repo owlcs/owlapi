@@ -17,6 +17,8 @@ import org.semanticweb.owlapi.expression.OWLExpressionParser;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 
+import javax.annotation.Nonnull;
+
 /**
  * An expression parser that parses class expressions written in the Manchester
  * OWL Syntax.
@@ -43,8 +45,9 @@ public class ManchesterOWLSyntaxClassExpressionParser implements
         this.checker = checker;
     }
 
+    @Nonnull
     @Override
-    public OWLClassExpression parse(String expression) {
+    public OWLClassExpression parse(@Nonnull String expression) {
         ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(
                 dataFactory, expression);
         parser.setOWLEntityChecker(checker);
@@ -52,7 +55,7 @@ public class ManchesterOWLSyntaxClassExpressionParser implements
     }
 
     @Override
-    public void setOWLEntityChecker(OWLEntityChecker checker) {
+    public void setOWLEntityChecker(@Nonnull OWLEntityChecker checker) {
         this.checker = checker;
     }
 }

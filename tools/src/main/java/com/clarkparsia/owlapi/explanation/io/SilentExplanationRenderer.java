@@ -19,6 +19,8 @@ import java.util.Set;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLException;
 
+import javax.annotation.Nonnull;
+
 /** Null implementation. */
 public class SilentExplanationRenderer implements ExplanationRenderer {
 
@@ -28,13 +30,13 @@ public class SilentExplanationRenderer implements ExplanationRenderer {
     }
 
     @Override
-    public void render(OWLAxiom axiom, Set<Set<OWLAxiom>> explanations)
+    public void render(@Nonnull OWLAxiom axiom, @Nonnull Set<Set<OWLAxiom>> explanations)
             throws OWLException, IOException {
         // do nothing
     }
 
     @Override
-    public void startRendering(Writer writer) {
+    public void startRendering(@Nonnull Writer writer) {
         // do nothing
     }
 }

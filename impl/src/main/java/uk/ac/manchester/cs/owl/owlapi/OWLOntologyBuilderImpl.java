@@ -17,6 +17,8 @@ import org.semanticweb.owlapi.model.OWLOntologyBuilder;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
+import javax.annotation.Nonnull;
+
 /**
  * Default implementation of {@link OWLOntologyBuilder}
  * 
@@ -27,9 +29,10 @@ public class OWLOntologyBuilderImpl implements OWLOntologyBuilder {
 
     private static final long serialVersionUID = 40000L;
 
+    @Nonnull
     @Override
-    public OWLOntology createOWLOntology(OWLOntologyManager manager,
-            OWLOntologyID ontologyID) {
+    public OWLOntology createOWLOntology(@Nonnull OWLOntologyManager manager,
+            @Nonnull OWLOntologyID ontologyID) {
         return new OWLOntologyImpl(manager, ontologyID);
     }
 }

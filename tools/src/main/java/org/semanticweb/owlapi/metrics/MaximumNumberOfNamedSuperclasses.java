@@ -43,11 +43,13 @@ public class MaximumNumberOfNamedSuperclasses extends IntegerValuedMetric {
         super(o);
     }
 
+    @Nonnull
     @Override
     public String getName() {
         return "Maximum number of asserted named superclasses";
     }
 
+    @Nonnull
     @Override
     public Integer recomputeMetric() {
         int count = 0;
@@ -75,7 +77,7 @@ public class MaximumNumberOfNamedSuperclasses extends IntegerValuedMetric {
 
     @Override
     protected boolean isMetricInvalidated(
-            List<? extends OWLOntologyChange<?>> changes) {
+            @Nonnull List<? extends OWLOntologyChange<?>> changes) {
         for (OWLOntologyChange<?> chg : changes) {
             if (chg.isAxiomChange()
                     && chg.getAxiom() instanceof OWLSubClassOfAxiom) {

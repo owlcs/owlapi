@@ -1,5 +1,6 @@
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
 import java.util.Set;
 
 /**
@@ -16,5 +17,6 @@ public interface HasGetOntologies {
      * 
      * @return The set of ontologies. Possibly empty. Not {@code null}.
      */
+    @Nonnull
     Set<OWLOntology> getOntologies();
 }

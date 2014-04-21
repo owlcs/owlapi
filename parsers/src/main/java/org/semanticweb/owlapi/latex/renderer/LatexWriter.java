@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.latex.renderer;
 
+import javax.annotation.Nonnull;
 import java.io.PrintWriter;
 import java.io.Writer;
 
@@ -41,7 +42,7 @@ public class LatexWriter {
      * @param o
      *        object to write
      */
-    public void write(Object o) {
+    public void write(@Nonnull Object o) {
         writer.write(o.toString());
     }
 

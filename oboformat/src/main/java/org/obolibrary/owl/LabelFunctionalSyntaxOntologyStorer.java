@@ -19,6 +19,8 @@ import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 
+import javax.annotation.Nonnull;
+
 /** Implement the writer for {@link LabelFunctionalFormat}. */
 public class LabelFunctionalSyntaxOntologyStorer extends
         AbstractOWLOntologyStorer {
@@ -27,12 +29,12 @@ public class LabelFunctionalSyntaxOntologyStorer extends
     private static final long serialVersionUID = 40000L;
 
     @Override
-    public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {
+    public boolean canStoreOntology(@Nonnull OWLOntologyFormat ontologyFormat) {
         return ontologyFormat instanceof LabelFunctionalFormat;
     }
 
     @Override
-    protected void storeOntology(OWLOntology ontology, Writer writer,
+    protected void storeOntology(@Nonnull OWLOntology ontology, @Nonnull Writer writer,
             OWLOntologyFormat format) throws OWLOntologyStorageException {
         try {
             FunctionalSyntaxObjectRenderer renderer = new FunctionalSyntaxObjectRenderer(
@@ -48,10 +50,12 @@ public class LabelFunctionalSyntaxOntologyStorer extends
     static class LabelPrefixManager implements PrefixManager {
 
         private static final long serialVersionUID = 40000L;
+        @Nonnull
         private final OWLOntology ontology;
+        @Nonnull
         private final PrefixManager delegate;
 
-        LabelPrefixManager(OWLOntology ontology) {
+        LabelPrefixManager(@Nonnull OWLOntology ontology) {
             this.ontology = ontology;
             OWLOntologyFormat ontologyFormat = ontology.getOWLOntologyManager()
                     .getOntologyFormat(ontology);
@@ -63,7 +67,7 @@ public class LabelFunctionalSyntaxOntologyStorer extends
         }
 
         @Override
-        public String getPrefixIRI(IRI iri) {
+        public String getPrefixIRI(@Nonnull IRI iri) {
             for (OWLAnnotationAssertionAxiom annotation : ontology
                     .getAnnotationAssertionAxioms(iri)) {
                 if (annotation.getProperty().isLabel()) {
@@ -76,66 +80,72 @@ public class LabelFunctionalSyntaxOntologyStorer extends
             return delegate.getPrefixIRI(iri);
         }
 
+        @Nonnull
         @Override
         public String getDefaultPrefix() {
             return delegate.getDefaultPrefix();
         }
 
         @Override
-        public boolean containsPrefixMapping(String prefixName) {
+        public boolean containsPrefixMapping(@Nonnull String prefixName) {
             return delegate.containsPrefixMapping(prefixName);
         }
 
+        @Nonnull
         @Override
-        public String getPrefix(String prefixName) {
+        public String getPrefix(@Nonnull String prefixName) {
             return delegate.getPrefix(prefixName);
         }
 
+        @Nonnull
         @Override
         public Map<String, String> getPrefixName2PrefixMap() {
             return delegate.getPrefixName2PrefixMap();
         }
 
+        @Nonnull
         @Override
-        public IRI getIRI(String prefixIRI) {
+        public IRI getIRI(@Nonnull String prefixIRI) {
             return delegate.getIRI(prefixIRI);
         }
 
+        @Nonnull
         @Override
         public Set<String> getPrefixNames() {
             return delegate.getPrefixNames();
         }
 
+        @Nonnull
         @Override
         public Comparator<String> getPrefixComparator() {
             return delegate.getPrefixComparator();
         }
 
         @Override
-        public void setPrefixComparator(Comparator<String> comparator) {
+        public void setPrefixComparator(@Nonnull Comparator<String> comparator) {
             delegate.setPrefixComparator(comparator);
         }
 
         @Override
-        public void setDefaultPrefix(String defaultPrefix) {
+        public void setDefaultPrefix(@Nonnull String defaultPrefix) {
             // do not propagate changes to the original manager
             // there should be no changes during rendering anyway
         }
 
         @Override
-        public void setPrefix(String prefixName, String prefix) {
+        public void setPrefix(@Nonnull String prefixName, @Nonnull String prefix) {
             // do not propagate changes to the original manager
             // there should be no changes during rendering anyway
         }
 
         @Override
-        public void copyPrefixesFrom(PrefixManager from) {
+        public void copyPrefixesFrom(@Nonnull PrefixManager from) {
             // do not propagate changes to the original manager
             // there should be no changes during rendering anyway
         }
 
         @Override
-        public void unregisterNamespace(String namespace) {
+        public void unregisterNamespace(@Nonnull String namespace) {
             // do not propagate changes to the original manager
             // there should be no changes during rendering anyway
         }

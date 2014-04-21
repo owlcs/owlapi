@@ -36,6 +36,7 @@ public abstract class OWLPropertyDomainAxiomImpl<P extends OWLPropertyExpression
         OWLPropertyDomainAxiom<P> {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final OWLClassExpression domain;
 
     /**
@@ -53,6 +54,7 @@ public abstract class OWLPropertyDomainAxiomImpl<P extends OWLPropertyExpression
         this.domain = checkNotNull(domain, "domain cannot be null");
     }
 
+    @Nonnull
     @Override
     public OWLClassExpression getDomain() {
         return domain;

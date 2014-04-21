@@ -15,6 +15,8 @@ package org.semanticweb.owlapi.rdf.turtle.parser;
 
 import org.semanticweb.owlapi.BOMSafeJavaCharStream;
 
+import javax.annotation.Nullable;
+
 @SuppressWarnings("all")
 class TurtleParserTokenManager implements TurtleParserConstants {
 
@@ -1539,6 +1541,7 @@ class TurtleParserTokenManager implements TurtleParserConstants {
         }
     }
 
+    @Nullable
     static final String[] jjstrLiteralImages = { "", null, null, null, null,
             null, null, null, null, null, null, null, null, null, null, null,
             null, null, null, "\50", "\51", "\133", "\135", "\54", "\56",

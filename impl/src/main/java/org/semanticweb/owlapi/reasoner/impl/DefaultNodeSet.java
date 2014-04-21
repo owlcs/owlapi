@@ -21,6 +21,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.reasoner.Node;
@@ -135,8 +136,10 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
         }
     }
 
+    @Nonnull
     protected abstract DefaultNode<E> getNode(@Nonnull E entity);
 
+    @Nonnull
     protected abstract DefaultNode<E> getNode(@Nonnull Set<E> entities);
 
     @Override
@@ -179,18 +182,20 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
         return isSingleton() && nodes.iterator().next().isBottomNode();
     }
 
+    @Nonnull
     @Override
     public Iterator<Node<E>> iterator() {
         return nodes.iterator();
     }
 
+    @Nonnull
     @Override
     public String toString() {
         return "Nodeset" + this.nodes.toString();
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         if (obj == null) {
             return false;
         }

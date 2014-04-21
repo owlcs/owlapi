@@ -31,6 +31,7 @@ public abstract class OWLObjectCardinalityRestrictionImpl extends
         OWLObjectCardinalityRestriction {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final OWLObjectPropertyExpression property;
 
     protected OWLObjectCardinalityRestrictionImpl(
@@ -40,6 +41,7 @@ public abstract class OWLObjectCardinalityRestrictionImpl extends
         this.property = checkNotNull(property, "property cannot be null");
     }
 
+    @Nonnull
     @Override
     public OWLObjectPropertyExpression getProperty() {
         return property;

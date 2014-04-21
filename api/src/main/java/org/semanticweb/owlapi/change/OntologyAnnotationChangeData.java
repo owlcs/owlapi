@@ -35,6 +35,7 @@ public abstract class OntologyAnnotationChangeData extends
         OWLOntologyChangeData<OWLAnnotation> {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final OWLAnnotation annotation;
 
     /**
@@ -61,11 +62,13 @@ public abstract class OntologyAnnotationChangeData extends
         return annotation;
     }
 
+    @Nonnull
     @Override
     public OWLAnnotation getItem() {
         return getAnnotation();
     }
 
+    @Nonnull
     @Override
     public Set<OWLEntity> getSignature() {
         return annotation.getSignature();

@@ -25,6 +25,8 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolation;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
@@ -50,19 +52,19 @@ public class UseOfUndeclaredAnnotationProperty extends
      * @param prop
      *        prop
      */
-    public UseOfUndeclaredAnnotationProperty(OWLOntology ontology,
+    public UseOfUndeclaredAnnotationProperty(@Nonnull OWLOntology ontology,
             OWLAxiom axiom, OWLAnnotation annotation, OWLAnnotationProperty prop) {
         super(ontology, axiom, prop);
         this.annotation = annotation;
     }
 
     @Override
-    public void accept(OWLProfileViolationVisitor visitor) {
+    public void accept(@Nonnull OWLProfileViolationVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLProfileViolationVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLProfileViolationVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
@@ -73,6 +75,7 @@ public class UseOfUndeclaredAnnotationProperty extends
                 getExpression(), annotation);
     }
 
+    @Nonnull
     @Override
     public List<OWLOntologyChange<?>> repair() {
         return list(new AddAxiom(ontology,

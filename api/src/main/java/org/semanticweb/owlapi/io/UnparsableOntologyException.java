@@ -19,6 +19,8 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 
+import javax.annotation.Nonnull;
+
 /**
  * A class that describes how ontology parsing failed. This class collects parse
  * errors and the parsers that generated the errors.
@@ -31,6 +33,7 @@ public class UnparsableOntologyException extends OWLOntologyCreationException {
 
     private static final long serialVersionUID = 40000L;
     private boolean includeStackTraceInMessage = true;
+    @Nonnull
     private final IRI documentIRI;
     private final Map<OWLParser, OWLParserException> exceptions;
 
@@ -42,9 +45,9 @@ public class UnparsableOntologyException extends OWLOntologyCreationException {
      * @param config
      *        the configuration object
      */
-    public UnparsableOntologyException(IRI documentIRI,
+    public UnparsableOntologyException(@Nonnull IRI documentIRI,
             Map<OWLParser, OWLParserException> exceptions,
-            OWLOntologyLoaderConfiguration config) {
+            @Nonnull OWLOntologyLoaderConfiguration config) {
         super("Could not parse ontology from document IRI: "
                 + documentIRI.toQuotedString());
         includeStackTraceInMessage = config.isReportStackTrace();
@@ -52,6 +55,7 @@ public class UnparsableOntologyException extends OWLOntologyCreationException {
         this.exceptions = exceptions;
     }
 
+    @Nonnull
     @Override
     public String getMessage() {
         StringBuilder msg = new StringBuilder();
@@ -110,6 +114,7 @@ public class UnparsableOntologyException extends OWLOntologyCreationException {
      * 
      * @return The ontology document IRI
      */
+    @Nonnull
     public IRI getDocumentIRI() {
         return documentIRI;
     }

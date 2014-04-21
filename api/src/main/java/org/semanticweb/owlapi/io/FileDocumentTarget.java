@@ -37,6 +37,7 @@ import org.semanticweb.owlapi.model.IRI;
  */
 public class FileDocumentTarget implements OWLOntologyDocumentTarget {
 
+    @Nonnull
     private final File file;
 
     /**
@@ -54,6 +55,7 @@ public class FileDocumentTarget implements OWLOntologyDocumentTarget {
         return true;
     }
 
+    @Nonnull
     @Override
     public Writer getWriter() throws IOException {
         return new BufferedWriter(new FileWriter(file));
@@ -64,6 +66,7 @@ public class FileDocumentTarget implements OWLOntologyDocumentTarget {
         return true;
     }
 
+    @Nonnull
     @Override
     public OutputStream getOutputStream() throws IOException {
         return new BufferedOutputStream(new FileOutputStream(file));
@@ -74,6 +77,7 @@ public class FileDocumentTarget implements OWLOntologyDocumentTarget {
         return true;
     }
 
+    @Nonnull
     @Override
     public IRI getDocumentIRI() {
         return IRI.create(file);

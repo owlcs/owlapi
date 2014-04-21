@@ -37,8 +37,9 @@ public class OWLEntityURIUnderscores2CamelBackConverterStrategy implements
 
     private final Map<IRI, IRI> iriMap = new HashMap<IRI, IRI>();
 
+    @Nonnull
     @Override
-    public IRI getConvertedIRI(OWLEntity entity) {
+    public IRI getConvertedIRI(@Nonnull OWLEntity entity) {
         IRI convIRI = iriMap.get(entity.getIRI());
         if (convIRI == null) {
             convIRI = convert(entity.getIRI());
@@ -71,7 +72,8 @@ public class OWLEntityURIUnderscores2CamelBackConverterStrategy implements
         return iri;
     }
 
-    private static String toCamelCase(String s) {
+    @Nonnull
+    private static String toCamelCase(@Nonnull String s) {
         StringBuilder sb = new StringBuilder();
         boolean nextIsUpperCase = false;
         for (int i = 0; i < s.length(); i++) {

@@ -18,6 +18,8 @@ import java.util.Set;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
+import javax.annotation.Nonnull;
+
 /**
  * Describes why an RDF resource could not be parsed into an {@code OWLObject}.
  * For example, why an RDF resource could not be parsed into an
@@ -45,7 +47,7 @@ public class RDFResourceParseError {
      *        the main node triples
      */
     public RDFResourceParseError(OWLEntity parserGeneratedErrorEntity,
-            RDFNode mainNode, Set<RDFTriple> mainNodeTriples) {
+            RDFNode mainNode, @Nonnull Set<RDFTriple> mainNodeTriples) {
         this.parserGeneratedErrorEntity = parserGeneratedErrorEntity;
         this.mainNode = mainNode;
         this.mainNodeTriples.addAll(mainNodeTriples);
@@ -62,6 +64,7 @@ public class RDFResourceParseError {
     }
 
     /** @return the main node triples */
+    @Nonnull
     public Set<RDFTriple> getMainNodeTriples() {
         return CollectionFactory
                 .getCopyOnRequestSetFromMutableCollection(mainNodeTriples);

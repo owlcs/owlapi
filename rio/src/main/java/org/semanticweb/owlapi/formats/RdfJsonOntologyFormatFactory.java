@@ -6,6 +6,8 @@ package org.semanticweb.owlapi.formats;
 import org.kohsuke.MetaInfServices;
 import org.semanticweb.owlapi.model.OWLOntologyFormatFactory;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Peter Ansell p_ansell@yahoo.com
  */
@@ -15,6 +17,7 @@ public class RdfJsonOntologyFormatFactory extends
 
     private static final long serialVersionUID = 40000L;
 
+    @Nonnull
     @Override
     public RioRDFOntologyFormat createFormat() {
         return new RdfJsonOntologyFormat();

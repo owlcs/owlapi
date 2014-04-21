@@ -21,6 +21,8 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -31,9 +33,9 @@ public class InferredEquivalentObjectPropertyAxiomGenerator
         InferredObjectPropertyAxiomGenerator<OWLEquivalentObjectPropertiesAxiom> {
 
     @Override
-    protected void addAxioms(OWLObjectProperty entity, OWLReasoner reasoner,
-            OWLDataFactory dataFactory,
-            Set<OWLEquivalentObjectPropertiesAxiom> result) {
+    protected void addAxioms(OWLObjectProperty entity, @Nonnull OWLReasoner reasoner,
+            @Nonnull OWLDataFactory dataFactory,
+            @Nonnull Set<OWLEquivalentObjectPropertiesAxiom> result) {
         Set<OWLObjectPropertyExpression> equivProps = new HashSet<OWLObjectPropertyExpression>(
                 reasoner.getEquivalentObjectProperties(entity).getEntities());
         equivProps.add(entity);
@@ -41,6 +43,7 @@ public class InferredEquivalentObjectPropertyAxiomGenerator
                 .getOWLEquivalentObjectPropertiesAxiom(equivProps));
     }
 
+    @Nonnull
     @Override
     public String getLabel() {
         return "Equivalent object properties";

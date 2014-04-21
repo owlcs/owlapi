@@ -19,6 +19,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -43,7 +44,9 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements
         OWLHasKeyAxiom {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final OWLClassExpression expression;
+    @Nonnull
     private final Set<OWLPropertyExpression> propertyExpressions;
 
     /**
@@ -64,6 +67,7 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements
                         "propertyExpressions cannot be null"));
     }
 
+    @Nonnull
     @Override
     public OWLHasKeyAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
@@ -73,12 +77,14 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements
                 getPropertyExpressions(), NO_ANNOTATIONS);
     }
 
+    @Nonnull
     @Override
-    public OWLHasKeyAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+    public OWLHasKeyAxiom getAnnotatedAxiom(@Nonnull Set<OWLAnnotation> annotations) {
         return new OWLHasKeyAxiomImpl(getClassExpression(),
                 getPropertyExpressions(), mergeAnnos(annotations));
     }
 
+    @Nonnull
     @Override
     public AxiomType<?> getAxiomType() {
         return AxiomType.HAS_KEY;
@@ -89,17 +95,20 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements
         return true;
     }
 
+    @Nonnull
     @Override
     public OWLClassExpression getClassExpression() {
         return expression;
     }
 
+    @Nonnull
     @Override
     public Set<OWLPropertyExpression> getPropertyExpressions() {
         return CollectionFactory
                 .getCopyOnRequestSetFromImmutableCollection(propertyExpressions);
     }
 
+    @Nonnull
     @Override
     public Set<OWLDataPropertyExpression> getDataPropertyExpressions() {
         Set<OWLDataPropertyExpression> props = new TreeSet<OWLDataPropertyExpression>();
@@ -111,6 +120,7 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements
         return props;
     }
 
+    @Nonnull
     @Override
     public Set<OWLObjectPropertyExpression> getObjectPropertyExpressions() {
         Set<OWLObjectPropertyExpression> props = new TreeSet<OWLObjectPropertyExpression>();
@@ -133,22 +143,23 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements
     }
 
     @Override
-    public void accept(OWLObjectVisitor visitor) {
+    public void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    public void accept(OWLAxiomVisitor visitor) {
+    public void accept(@Nonnull OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Nullable
     @Override
-    public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 

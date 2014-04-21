@@ -20,6 +20,8 @@ import org.semanticweb.owlapi.model.OWLDataPropertyCharacteristicAxiom;
 import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
+import javax.annotation.Nonnull;
+
 /**
  * Generates inferred data property characteristics.
  * 
@@ -31,9 +33,9 @@ public class InferredDataPropertyCharacteristicAxiomGenerator extends
         InferredDataPropertyAxiomGenerator<OWLDataPropertyCharacteristicAxiom> {
 
     @Override
-    protected void addAxioms(OWLDataProperty entity, OWLReasoner reasoner,
-            OWLDataFactory dataFactory,
-            Set<OWLDataPropertyCharacteristicAxiom> result) {
+    protected void addAxioms(@Nonnull OWLDataProperty entity, @Nonnull OWLReasoner reasoner,
+            @Nonnull OWLDataFactory dataFactory,
+            @Nonnull Set<OWLDataPropertyCharacteristicAxiom> result) {
         OWLFunctionalDataPropertyAxiom axiom = dataFactory
                 .getOWLFunctionalDataPropertyAxiom(entity);
         if (reasoner.isEntailed(axiom) && reasoner.isEntailed(axiom)) {
@@ -41,6 +43,7 @@ public class InferredDataPropertyCharacteristicAxiomGenerator extends
         }
     }
 
+    @Nonnull
     @Override
     public String getLabel() {
         return "Data property characteristics";

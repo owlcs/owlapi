@@ -14,12 +14,16 @@ import org.semanticweb.owlapi.util.EscapeUtils;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 @SuppressWarnings("all")
 class TurtleParser implements TurtleParserConstants {
 
     private Map<String, IRI> string2IRI;
     private IRI base;
     private TripleHandler handler;
+    @Nonnull
     private PrefixManager pm = new DefaultPrefixManager();
 
     TurtleParser(Reader reader, TripleHandler handler, IRI base) {
@@ -38,6 +42,7 @@ class TurtleParser implements TurtleParserConstants {
         pm.setDefaultPrefix("http://www.semanticweb.org/owl/owlapi/turtle#");
     }
 
+    @Nonnull
     PrefixManager getPrefixManager() {
         return pm;
     }
@@ -46,7 +51,7 @@ class TurtleParser implements TurtleParserConstants {
         this.handler = handler;
     }
 
-    IRI getNextBlankNode(String id) {
+    IRI getNextBlankNode(@Nullable String id) {
         String string;
         if (id == null) {
             string = NodeID.nextAnonymousIRI();
@@ -65,7 +70,7 @@ class TurtleParser implements TurtleParserConstants {
         return iri;
     }
 
-    protected IRI getIRIFromQName(String qname) {
+    protected IRI getIRIFromQName(@Nonnull String qname) {
         int colonIndex = qname.indexOf(':');
         if (colonIndex == -1) {
             throw new ParseException("Not a valid qname (missing ':') " + qname);
@@ -80,7 +85,7 @@ class TurtleParser implements TurtleParserConstants {
         return pm.getIRI(qname);
     }
 
-    IRI getIRI(String s) {
+    IRI getIRI(@Nonnull String s) {
         if (s.charAt(0) == '<') {
             s = s.substring(1, s.length() - 1);
         }
@@ -169,6 +174,7 @@ class TurtleParser implements TurtleParserConstants {
         }
     }
 
+    @Nullable
     final IRI parseSubject() {
         IRI iri;
         if (jj_2_7(2)) {
@@ -220,6 +226,7 @@ class TurtleParser implements TurtleParserConstants {
         throw new Error("Missing return statement in function");
     }
 
+    @Nullable
     final IRI parseBlankNode() {
         IRI iri = null;
         Token t;
@@ -378,6 +385,7 @@ class TurtleParser implements TurtleParserConstants {
         }
     }
 
+    @Nullable
     final IRI parseCollection() {
         IRI iri;
         jj_consume_token(OPENPAR);
@@ -391,6 +399,7 @@ class TurtleParser implements TurtleParserConstants {
         throw new Error("Missing return statement in function");
     }
 
+    @Nullable
     final IRI parseItemList() {
         // _x rdf:type rdf:List
         // _x rdf:first
@@ -557,6 +566,7 @@ class TurtleParser implements TurtleParserConstants {
         throw new Error("Missing return statement in function");
     }
 
+    @Nonnull
     final String parseString() {
         Token t;
         String rawString = "";
@@ -1680,6 +1690,7 @@ class TurtleParser implements TurtleParserConstants {
     Token token;
     Token jj_nt;
     private int jj_ntk;
+    @Nullable
     private Token jj_scanpos, jj_lastpos;
     private int jj_la;
     private int jj_gen;
@@ -1889,9 +1900,11 @@ class TurtleParser implements TurtleParserConstants {
         return t;
     }
 
+    @Nonnull
     private java.util.List<int[]> jj_expentries = new java.util.ArrayList<int[]>();
     private int[] jj_expentry;
     private int jj_kind = -1;
+    @Nonnull
     private int[] jj_lasttokens = new int[100];
     private int jj_endpos;
 
@@ -1925,6 +1938,7 @@ class TurtleParser implements TurtleParserConstants {
         }
     }
 
+    @Nonnull
     ParseException generateParseException() {
         jj_expentries.clear();
         boolean[] la1tokens = new boolean[49];
@@ -2124,6 +2138,7 @@ class TurtleParser implements TurtleParserConstants {
     static final class JJCalls {
 
         int gen;
+        @Nullable
         Token first;
         int arg;
         JJCalls next;

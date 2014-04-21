@@ -24,6 +24,8 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 
+import javax.annotation.Nonnull;
+
 /**
  * Describes a violation of an OWLProfile by an axiom. Ultimately, there may be
  * part of the axiom that violates the profile rather than the complete axiom.
@@ -36,7 +38,9 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  */
 public abstract class OWLProfileViolation<T> {
 
+    @Nonnull
     protected final OWLOntology ontology;
+    @Nonnull
     protected final OWLDataFactory df;
     protected final OWLAxiom axiom;
     protected final T expression;
@@ -49,7 +53,7 @@ public abstract class OWLProfileViolation<T> {
      * @param o
      *        violation expression
      */
-    public OWLProfileViolation(OWLOntology ontology, OWLAxiom axiom, T o) {
+    public OWLProfileViolation(@Nonnull OWLOntology ontology, OWLAxiom axiom, T o) {
         this.axiom = axiom;
         this.ontology = ontology;
         df = ontology.getOWLOntologyManager().getOWLDataFactory();
@@ -57,11 +61,13 @@ public abstract class OWLProfileViolation<T> {
     }
 
     /** @return ontology id */
+    @Nonnull
     public OWLOntologyID getOntologyID() {
         return ontology.getOntologyID();
     }
 
     /** @return ontology */
+    @Nonnull
     public final OWLOntology getOntology() {
         return ontology;
     }
@@ -81,12 +87,14 @@ public abstract class OWLProfileViolation<T> {
      *         removal, or a rewrite, or addition of other needed axioms.
      */
     // public abstract Collection<OWLOntologyChange> repair();
+    @Nonnull
     public List<OWLOntologyChange<?>> repair() {
         // default fix is to drop the axiom
         return list(new RemoveAxiom(ontology, axiom));
     }
 
-    protected AddAxiom addDeclaration(OWLEntity e) {
+    @Nonnull
+    protected AddAxiom addDeclaration(@Nonnull OWLEntity e) {
         return new AddAxiom(ontology, df.getOWLDeclarationAxiom(e));
     }
 
@@ -122,6 +130,7 @@ public abstract class OWLProfileViolation<T> {
                 ontology.getOntologyID());
     }
 
+    @Nonnull
     protected List<OWLOntologyChange<?>> list(OWLOntologyChange<?>... changes) {
         return Arrays.asList(changes);
     }

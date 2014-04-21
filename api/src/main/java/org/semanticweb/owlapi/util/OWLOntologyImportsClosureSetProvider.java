@@ -34,7 +34,9 @@ import org.semanticweb.owlapi.model.OWLOntologySetProvider;
 public class OWLOntologyImportsClosureSetProvider implements
         OWLOntologySetProvider {
 
+    @Nonnull
     private final OWLOntologyManager manager;
+    @Nonnull
     private final OWLOntology rootOntology;
 
     /**
@@ -54,6 +56,7 @@ public class OWLOntologyImportsClosureSetProvider implements
                 "rootOntology cannot be null");
     }
 
+    @Nonnull
     @Override
     public Set<OWLOntology> getOntologies() {
         return manager.getImportsClosure(rootOntology);

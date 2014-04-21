@@ -28,6 +28,7 @@ public abstract class OWLQuantifiedObjectRestrictionImpl extends
         OWLObjectRestriction {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final OWLObjectPropertyExpression property;
 
     /**
@@ -43,6 +44,7 @@ public abstract class OWLQuantifiedObjectRestrictionImpl extends
         this.property = checkNotNull(property, "property cannot be null");
     }
 
+    @Nonnull
     @Override
     public OWLObjectPropertyExpression getProperty() {
         return property;

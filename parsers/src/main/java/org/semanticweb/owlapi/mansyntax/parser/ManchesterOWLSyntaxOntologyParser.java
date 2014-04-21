@@ -26,6 +26,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -38,23 +40,26 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
     private static final String COMMENT_START_CHAR = "#";
     private static final String DEFAULT_FILE_ENCODING = "UTF-8";
 
+    @Nonnull
     @Override
     public String getName() {
         return "ManchesterOWLSyntaxOntologyParser";
     }
 
+    @Nonnull
     @Override
     protected Class<? extends OWLOntologyFormat> getFormatClass() {
         return ManchesterOWLSyntaxOntologyFormat.class;
     }
 
+    @Nonnull
     @Override
-    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
-            OWLOntology ontology, OWLOntologyLoaderConfiguration configuration)
+    public OWLOntologyFormat parse(@Nonnull OWLOntologyDocumentSource documentSource,
+            @Nonnull OWLOntology ontology, @Nonnull OWLOntologyLoaderConfiguration configuration)
             throws IOException {
         try {
             BufferedReader br = null;
-            ManchesterOWLSyntaxOntologyFormat format = new ManchesterOWLSyntaxOntologyFormat();
+            ManchesterOWLSyntaxOntologyFormat format=null;
             try {
                 if (documentSource.isReaderAvailable()) {
                     br = new BufferedReader(documentSource.getReader());
@@ -124,7 +129,7 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
         }
     }
 
-    private boolean startsWithMagicNumber(String line) {
+    private boolean startsWithMagicNumber(@Nonnull String line) {
         return line.indexOf(ManchesterOWLSyntax.PREFIX.toString()) != -1
                 || line.indexOf(ManchesterOWLSyntax.ONTOLOGY.toString()) != -1;
     }

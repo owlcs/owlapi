@@ -19,6 +19,8 @@ import org.semanticweb.owlapi.model.OWLOntologyStorer;
 import com.google.inject.AbstractModule;
 import com.google.inject.multibindings.Multibinder;
 
+import javax.annotation.Nonnull;
+
 /**
  * OWLAPI module. Bindings can be overridden by subclassing this class, to allow
  * to replace part of the configuration without having to rewrite all of it.
@@ -43,7 +45,7 @@ public class OWLAPIOBOModule extends AbstractModule {
     }
 
     private <T> Multibinder<T> multibind(Class<T> type,
-            Class<? extends T>... implementations) {
+            @Nonnull Class<? extends T>... implementations) {
         Multibinder<T> binder = Multibinder.newSetBinder(binder(), type);
         for (Class<? extends T> i : implementations) {
             binder.addBinding().to(i);

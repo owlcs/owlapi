@@ -27,6 +27,8 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.util.OWLObjectDuplicator;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
@@ -61,7 +63,7 @@ public class AnonymousIndividualsNormaliser extends OWLObjectDuplicator {
     }
 
     @Override
-    public void visit(OWLAnonymousIndividual individual) {
+    public void visit(@Nonnull OWLAnonymousIndividual individual) {
         OWLAnonymousIndividual ind = renamingMap.get(individual);
         if (ind == null) {
             counter++;

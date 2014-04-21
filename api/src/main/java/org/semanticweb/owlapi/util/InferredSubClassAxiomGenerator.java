@@ -21,6 +21,8 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -30,8 +32,8 @@ public class InferredSubClassAxiomGenerator extends
         InferredClassAxiomGenerator<OWLSubClassOfAxiom> {
 
     @Override
-    protected void addAxioms(OWLClass entity, OWLReasoner reasoner,
-            OWLDataFactory dataFactory, Set<OWLSubClassOfAxiom> result) {
+    protected void addAxioms(@Nonnull OWLClass entity, @Nonnull OWLReasoner reasoner,
+            @Nonnull OWLDataFactory dataFactory, @Nonnull Set<OWLSubClassOfAxiom> result) {
         checkNotNull(dataFactory, "dataFactory cannot be null");
         checkNotNull(reasoner, "reasoner cannot be null");
         checkNotNull(result, "result cannot be null");
@@ -47,6 +49,7 @@ public class InferredSubClassAxiomGenerator extends
         }
     }
 
+    @Nonnull
     @Override
     public String getLabel() {
         return "Subclasses";

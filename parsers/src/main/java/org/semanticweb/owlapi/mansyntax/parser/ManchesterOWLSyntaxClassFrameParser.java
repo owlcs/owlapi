@@ -19,6 +19,8 @@ import org.semanticweb.owlapi.expression.OWLExpressionParser;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.util.OntologyAxiomPair;
 
+import javax.annotation.Nonnull;
+
 /**
  * An expression parser that parses a Manchester OWL Syntax Class Frame to
  * produce a set of axioms that represent the class frame.
@@ -46,12 +48,13 @@ public class ManchesterOWLSyntaxClassFrameParser implements
     }
 
     @Override
-    public void setOWLEntityChecker(OWLEntityChecker entityChecker) {
+    public void setOWLEntityChecker(@Nonnull OWLEntityChecker entityChecker) {
         checker = entityChecker;
     }
 
+    @Nonnull
     @Override
-    public Set<OntologyAxiomPair> parse(String expression) {
+    public Set<OntologyAxiomPair> parse(@Nonnull String expression) {
         ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(
                 dataFactory, expression);
         parser.setOWLEntityChecker(checker);

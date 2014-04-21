@@ -51,6 +51,9 @@ import org.semanticweb.owlapi.io.RDFTriple;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * @author Peter Ansell p_ansell@yahoo.com
  */
@@ -65,7 +68,8 @@ public class RioUtils {
      *        The OWLAPI {@link RDFTriple} to convert.
      * @return An OpenRDF {@link Statement} representing the given RDFTriple.
      */
-    public static Statement tripleAsStatement(final RDFTriple triple) {
+    @Nullable
+    public static Statement tripleAsStatement(@Nonnull final RDFTriple triple) {
         Collection<Statement> statements = RioUtils.tripleAsStatements(triple);
         if (!statements.isEmpty()) {
             return statements.iterator().next();
@@ -84,8 +88,9 @@ public class RioUtils {
      * @return A collection of OpenRDF {@link Statement}s representing the given
      *         RDFTriple in each of the given contexts.
      */
+    @Nonnull
     public static Collection<Statement> tripleAsStatements(
-            final RDFTriple triple, final Resource... contexts) {
+            @Nonnull final RDFTriple triple, @Nullable final Resource... contexts) {
         OpenRDFUtil.verifyContextNotNull(contexts);
         final ValueFactoryImpl vf = ValueFactoryImpl.getInstance();
         Resource subject;

@@ -36,6 +36,7 @@ public class ImportClosureSize extends IntegerValuedMetric {
         super(o);
     }
 
+    @Nonnull
     @Override
     protected Integer recomputeMetric() {
         return getOntology().getImportsClosure().size();
@@ -43,7 +44,7 @@ public class ImportClosureSize extends IntegerValuedMetric {
 
     @Override
     protected boolean isMetricInvalidated(
-            List<? extends OWLOntologyChange<?>> changes) {
+            @Nonnull List<? extends OWLOntologyChange<?>> changes) {
         for (OWLOntologyChange<?> change : changes) {
             if (change.isImportChange()) {
                 return true;
@@ -55,6 +56,7 @@ public class ImportClosureSize extends IntegerValuedMetric {
     @Override
     protected void disposeMetric() {}
 
+    @Nonnull
     @Override
     public String getName() {
         return "Imports closure size";

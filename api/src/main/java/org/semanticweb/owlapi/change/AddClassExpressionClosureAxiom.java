@@ -77,9 +77,9 @@ public class AddClassExpressionClosureAxiom extends
                 checkNotNull(targetOntology, "targetOntology cannot be null"));
     }
 
-    private void generateChanges(OWLClass cls,
-            OWLObjectPropertyExpression property, Set<OWLOntology> ontologies,
-            OWLOntology targetOntology) {
+    private void generateChanges(@Nonnull OWLClass cls,
+            @Nonnull OWLObjectPropertyExpression property, @Nonnull Set<OWLOntology> ontologies,
+            @Nonnull OWLOntology targetOntology) {
         // We collect all of the fillers for existential restrictions along
         // the target property and all of the fillers for hasValue restrictions
         // as nominals
@@ -104,6 +104,7 @@ public class AddClassExpressionClosureAxiom extends
     private class FillerCollector extends OWLClassExpressionVisitorAdapter {
 
         private final Set<OWLClassExpression> fillers = new HashSet<OWLClassExpression>();
+        @Nonnull
         private final OWLObjectPropertyExpression property;
 
         /**
@@ -115,19 +116,20 @@ public class AddClassExpressionClosureAxiom extends
         }
 
         /** @return the fillers */
+        @Nonnull
         public Set<OWLClassExpression> getFillers() {
             return fillers;
         }
 
         @Override
-        public void visit(OWLObjectSomeValuesFrom desc) {
+        public void visit(@Nonnull OWLObjectSomeValuesFrom desc) {
             if (desc.getProperty().equals(property)) {
                 fillers.add(desc.getFiller());
             }
         }
 
         @Override
-        public void visit(OWLObjectHasValue desc) {
+        public void visit(@Nonnull OWLObjectHasValue desc) {
             if (desc.getProperty().equals(property)) {
                 fillers.add(getDataFactory().getOWLObjectOneOf(
                         CollectionFactory.createSet(desc.getFiller())));

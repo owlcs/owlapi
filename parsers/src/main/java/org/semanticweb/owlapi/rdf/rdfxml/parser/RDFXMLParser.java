@@ -25,6 +25,8 @@ import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -35,19 +37,22 @@ public class RDFXMLParser extends AbstractOWLParser {
 
     private static final long serialVersionUID = 40000L;
 
+    @Nonnull
     @Override
     public String getName() {
         return "RDFXMLParser";
     }
 
+    @Nonnull
     @Override
     protected Class<? extends OWLOntologyFormat> getFormatClass() {
         return RDFXMLOntologyFormat.class;
     }
 
+    @Nonnull
     @Override
-    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
-            OWLOntology ontology, OWLOntologyLoaderConfiguration configuration)
+    public OWLOntologyFormat parse(@Nonnull OWLOntologyDocumentSource documentSource,
+            @Nonnull OWLOntology ontology, @Nonnull OWLOntologyLoaderConfiguration configuration)
             throws IOException {
         InputSource is = null;
         try {
@@ -55,7 +60,7 @@ public class RDFXMLParser extends AbstractOWLParser {
             RDFParser parser = new RDFParser() {
 
                 @Override
-                public void startPrefixMapping(String prefix, String IRI)
+                public void startPrefixMapping(@Nonnull String prefix, @Nonnull String IRI)
                         throws SAXException {
                     super.startPrefixMapping(prefix, IRI);
                     format.setPrefix(prefix, IRI);
@@ -63,7 +68,7 @@ public class RDFXMLParser extends AbstractOWLParser {
 
                 @Override
                 public void startElement(String namespaceIRI, String localName,
-                        String qName, Attributes atts) throws SAXException {
+                        String qName, @Nonnull Attributes atts) throws SAXException {
                     super.startElement(namespaceIRI, localName, qName, atts);
                 }
             };

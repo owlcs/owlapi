@@ -37,13 +37,15 @@ public class ReferencedObjectPropertyCount extends
         super(o);
     }
 
+    @Nonnull
     @Override
     protected String getObjectTypeName() {
         return "Object property";
     }
 
+    @Nonnull
     @Override
-    protected Set<OWLObjectProperty> getObjects(OWLOntology ont) {
+    protected Set<OWLObjectProperty> getObjects(@Nonnull OWLOntology ont) {
         return ont.getObjectPropertiesInSignature();
     }
 }

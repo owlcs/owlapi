@@ -17,6 +17,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFConsumer;
 
+import javax.annotation.Nonnull;
+
 /**
  * The Class OWLRDFConsumerAdapter.
  * 
@@ -33,8 +35,8 @@ public class OWLRDFConsumerAdapter extends OWLRDFConsumer implements
      * @param configuration
      *        configuration
      */
-    public OWLRDFConsumerAdapter(OWLOntology ontology,
-            OWLOntologyLoaderConfiguration configuration) {
+    public OWLRDFConsumerAdapter(@Nonnull OWLOntology ontology,
+            @Nonnull OWLOntologyLoaderConfiguration configuration) {
         super(ontology, configuration);
     }
 
@@ -50,24 +52,24 @@ public class OWLRDFConsumerAdapter extends OWLRDFConsumer implements
     public void handleComment(String comment) {}
 
     @Override
-    public void handleTriple(IRI subject, IRI predicate, IRI object) {
+    public void handleTriple(@Nonnull IRI subject, IRI predicate, IRI object) {
         // XXX inefficient?
         statementWithResourceValue(subject, predicate, object);
     }
 
     @Override
-    public void handleTriple(IRI subject, IRI predicate, String object) {
+    public void handleTriple(IRI subject, IRI predicate, @Nonnull String object) {
         statementWithLiteralValue(subject, predicate, object, null, null);
     }
 
     @Override
-    public void handleTriple(IRI subject, IRI predicate, String object,
+    public void handleTriple(IRI subject, IRI predicate, @Nonnull String object,
             String lang) {
         statementWithLiteralValue(subject, predicate, object, lang, null);
     }
 
     @Override
-    public void handleTriple(IRI subject, IRI predicate, String object,
+    public void handleTriple(IRI subject, IRI predicate, @Nonnull String object,
             IRI datatype) {
         statementWithLiteralValue(subject, predicate, object, null, datatype);
     }

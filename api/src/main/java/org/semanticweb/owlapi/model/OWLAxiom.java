@@ -15,6 +15,7 @@ package org.semanticweb.owlapi.model;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * Represents <a href="http://www.w3.org/TR/owl2-syntax/#Axioms">Axioms</a> in
@@ -41,6 +42,7 @@ public interface OWLAxiom extends OWLObject, HasAnnotations {
      *        visitor return type
      * @return visitor value
      */
+    @Nullable
     <O> O accept(@Nonnull OWLAxiomVisitorEx<O> visitor);
 
     /**

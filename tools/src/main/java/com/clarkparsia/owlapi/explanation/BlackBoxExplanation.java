@@ -25,6 +25,7 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationAxiom;
@@ -57,6 +58,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
     private static final Logger LOGGER = LoggerFactory
             .getLogger(BlackBoxExplanation.class.getName());
     /** The debugging ontology. */
+    @Nullable
     private OWLOntology debuggingOntology;
     /** The debugging axioms. */
     protected final Set<OWLAxiom> debuggingAxioms = new LinkedHashSet<OWLAxiom>();
@@ -85,6 +87,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
     /** The perform repeated fast pruning. */
     private boolean performRepeatedFastPruning = false;
     /** The owl ontology manager. */
+    @Nonnull
     private final OWLOntologyManager owlOntologyManager;
 
     /**
@@ -124,8 +127,9 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
         expansionLimit = initialExpansionLimit;
     }
 
+    @Nonnull
     @Override
-    public Set<OWLAxiom> getExplanation(OWLClassExpression unsatClass) {
+    public Set<OWLAxiom> getExplanation(@Nonnull OWLClassExpression unsatClass) {
         if (!getDefinitionTracker().isDefined(unsatClass)) {
             return Collections.emptySet();
         }
@@ -282,7 +286,6 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
      *        The maximum number of objects to be added.
      * @return The number of objects that were actually added.
      */
-    @Nonnull
     private static <N extends OWLAxiom> int addMax(@Nonnull Set<N> source,
             @Nonnull Set<N> dest, int limit) {
         int count = 0;
@@ -505,7 +508,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
         OWLAxiomVisitor declarationRemover = new OWLAxiomVisitorAdapter() {
 
             @Override
-            public void visit(OWLDeclarationAxiom axiom) {
+            public void visit(@Nonnull OWLDeclarationAxiom axiom) {
                 checkNotNull(axiom, "axiom cannot be null");
                 debuggingAxioms.remove(axiom);
             }
@@ -516,6 +519,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
         }
     }
 
+    @Nonnull
     @Override
     public String toString() {
         return "BlackBox";

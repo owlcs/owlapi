@@ -25,6 +25,9 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * A utility class that visits axioms, class expressions etc. and accumulates
  * the named objects that are referred to in those axioms, class expressions
@@ -40,6 +43,7 @@ public class OWLEntityCollectionContainerCollector extends
         AbstractEntityRegistrationManager {
 
     private Collection<OWLEntity> objects;
+    @Nullable
     private final Collection<OWLAnonymousIndividual> anonymousIndividuals;
     private boolean collectClasses = true;
     private boolean collectObjectProperties = true;
@@ -128,42 +132,42 @@ public class OWLEntityCollectionContainerCollector extends
     }
 
     @Override
-    public void visit(OWLClass desc) {
+    public void visit(@Nonnull OWLClass desc) {
         if (collectClasses) {
             objects.add(desc);
         }
     }
 
     @Override
-    public void visit(OWLObjectProperty property) {
+    public void visit(@Nonnull OWLObjectProperty property) {
         if (collectObjectProperties) {
             objects.add(property);
         }
     }
 
     @Override
-    public void visit(OWLDataProperty property) {
+    public void visit(@Nonnull OWLDataProperty property) {
         if (collectDataProperties) {
             objects.add(property);
         }
     }
 
     @Override
-    public void visit(OWLNamedIndividual individual) {
+    public void visit(@Nonnull OWLNamedIndividual individual) {
         if (collectIndividuals) {
             objects.add(individual);
         }
     }
 
     @Override
-    public void visit(OWLDatatype datatype) {
+    public void visit(@Nonnull OWLDatatype datatype) {
         if (collectDatatypes) {
             objects.add(datatype);
         }
     }
 
     @Override
-    public void visit(OWLAnonymousIndividual individual) {
+    public void visit(@Nonnull OWLAnonymousIndividual individual) {
         // Anon individuals aren't entities
         // But store them in a set anyway for utility
         if (anonymousIndividuals != null) {
@@ -172,12 +176,12 @@ public class OWLEntityCollectionContainerCollector extends
     }
 
     @Override
-    public void visit(OWLOntology ontology) {
+    public void visit(@Nonnull OWLOntology ontology) {
         objects.addAll(ontology.getSignature());
     }
 
     @Override
-    public void visit(OWLAnnotationProperty property) {
+    public void visit(@Nonnull OWLAnnotationProperty property) {
         objects.add(property);
     }
 }

@@ -21,6 +21,8 @@ import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
+import javax.annotation.Nonnull;
+
 /**
  * Generates axioms which relate to inferred information for a specific entity.
  * 
@@ -35,8 +37,9 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
 public abstract class InferredEntityAxiomGenerator<E extends OWLEntity, A extends OWLAxiom>
         implements InferredAxiomGenerator<A> {
 
+    @Nonnull
     @Override
-    public Set<A> createAxioms(OWLDataFactory df, OWLReasoner reasoner) {
+    public Set<A> createAxioms(OWLDataFactory df, @Nonnull OWLReasoner reasoner) {
         Set<E> processedEntities = new HashSet<E>();
         Set<A> result = new HashSet<A>();
         for (OWLOntology ont : reasoner.getRootOntology().getImportsClosure()) {
@@ -74,9 +77,11 @@ public abstract class InferredEntityAxiomGenerator<E extends OWLEntity, A extend
      *        The ontology from which entities are to be retrieved.
      * @return A set of entities.
      */
+    @Nonnull
     protected abstract Set<E> getEntities(OWLOntology ont);
 
-    protected Set<E> getAllEntities(OWLReasoner reasoner) {
+    @Nonnull
+    protected Set<E> getAllEntities(@Nonnull OWLReasoner reasoner) {
         Set<E> results = new HashSet<E>();
         for (OWLOntology ont : reasoner.getRootOntology().getImportsClosure()) {
             results.addAll(getEntities(ont));
@@ -84,6 +89,7 @@ public abstract class InferredEntityAxiomGenerator<E extends OWLEntity, A extend
         return results;
     }
 
+    @Nonnull
     @Override
     public String toString() {
         return getLabel();

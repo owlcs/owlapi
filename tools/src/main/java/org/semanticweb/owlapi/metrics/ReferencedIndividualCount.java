@@ -37,13 +37,15 @@ public class ReferencedIndividualCount extends
         super(o);
     }
 
+    @Nonnull
     @Override
     protected String getObjectTypeName() {
         return "Individual";
     }
 
+    @Nonnull
     @Override
-    protected Set<OWLNamedIndividual> getObjects(OWLOntology ont) {
+    protected Set<OWLNamedIndividual> getObjects(@Nonnull OWLOntology ont) {
         return ont.getIndividualsInSignature();
     }
 }

@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
+import javax.annotation.Nonnull;
 import java.io.Serializable;
 import java.util.Comparator;
 
@@ -21,7 +22,7 @@ public class StringLengthComparator implements Comparator<String>, Serializable 
     private static final long serialVersionUID = 40000L;
 
     @Override
-    public int compare(String o1, String o2) {
+    public int compare(@Nonnull String o1, @Nonnull String o2) {
         int diff = o1.length() - o2.length();
         if (diff != 0) {
             return diff;

@@ -25,6 +25,7 @@ import javax.annotation.Nonnull;
  */
 public abstract class AnnotationChange extends OWLOntologyChange<OWLAnnotation> {
 
+    @Nonnull
     private final OWLAnnotation annotation;
 
     /**
@@ -39,6 +40,7 @@ public abstract class AnnotationChange extends OWLOntologyChange<OWLAnnotation> 
         this.annotation = checkNotNull(annotation, "annotation cannot be null");
     }
 
+    @Nonnull
     @Override
     public Set<OWLEntity> getSignature() {
         return annotation.getSignature();
@@ -69,6 +71,7 @@ public abstract class AnnotationChange extends OWLOntologyChange<OWLAnnotation> 
         return false;
     }
 
+    @Nonnull
     @Override
     public OWLAxiom getAxiom() {
         throw new UnsupportedOperationException(

@@ -23,6 +23,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.io.OWLOntologyCreationIOException;
@@ -68,7 +69,7 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
      *        injected ontology builder
      */
     @Inject
-    public ParsableOWLOntologyFactory(OWLOntologyBuilder builder) {
+    public ParsableOWLOntologyFactory(@Nonnull OWLOntologyBuilder builder) {
         super(builder);
     }
 
@@ -81,12 +82,12 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
      * @return false
      */
     @Override
-    public boolean canCreateFromDocumentIRI(IRI documentIRI) {
+    public boolean canCreateFromDocumentIRI(@Nonnull IRI documentIRI) {
         return false;
     }
 
     @Override
-    public boolean canLoad(OWLOntologyDocumentSource documentSource) {
+    public boolean canLoad(@Nonnull OWLOntologyDocumentSource documentSource) {
         if (documentSource.isReaderAvailable()) {
             return true;
         }
@@ -117,11 +118,12 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
         return false;
     }
 
+    @Nonnull
     @Override
-    public OWLOntology loadOWLOntology(OWLOntologyManager m,
-            OWLOntologyDocumentSource documentSource,
-            OWLOntologyCreationHandler mediator,
-            OWLOntologyLoaderConfiguration configuration)
+    public OWLOntology loadOWLOntology(@Nonnull OWLOntologyManager m,
+            @Nonnull OWLOntologyDocumentSource documentSource,
+            @Nonnull OWLOntologyCreationHandler mediator,
+            @Nonnull OWLOntologyLoaderConfiguration configuration)
             throws OWLOntologyCreationException {
         // Attempt to parse the ontology by looping through the parsers. If the
         // ontology is parsed successfully then we break out and return the
@@ -201,9 +203,10 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
      *        parsers
      * @return selected parsers
      */
+    @Nonnull
     private PriorityCollection<OWLParser> getParsers(
-            OWLOntologyDocumentSource documentSource,
-            PriorityCollection<OWLParser> parsers) {
+            @Nonnull OWLOntologyDocumentSource documentSource,
+            @Nonnull PriorityCollection<OWLParser> parsers) {
         PriorityCollection<OWLParser> candidateParsers = parsers;
         candidateParsers = getParserCandidatesByMIME(documentSource, parsers);
         candidateParsers = getParsersByFormat(documentSource, candidateParsers);
@@ -220,9 +223,10 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
      *        parsers
      * @return candidate parsers
      */
+    @Nonnull
     private PriorityCollection<OWLParser> getParsersByFormat(
-            OWLOntologyDocumentSource documentSource,
-            PriorityCollection<OWLParser> parsers) {
+            @Nonnull OWLOntologyDocumentSource documentSource,
+            @Nonnull PriorityCollection<OWLParser> parsers) {
         if (!documentSource.isFormatKnown()) {
             return parsers;
         }
@@ -249,9 +253,10 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
      *        parsers
      * @return candidate parsers
      */
+    @Nonnull
     private PriorityCollection<OWLParser> getParserCandidatesByMIME(
-            OWLOntologyDocumentSource documentSource,
-            PriorityCollection<OWLParser> parsers) {
+            @Nonnull OWLOntologyDocumentSource documentSource,
+            @Nonnull PriorityCollection<OWLParser> parsers) {
         if (!documentSource.isMIMETypeKnown()) {
             return parsers;
         }

@@ -40,13 +40,19 @@ import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 class DLSyntaxParser implements DLSyntaxParserConstants {
 
     private String defaultNamespace = "http://www.sematicweb.org/ontologies/Ontology"
             + System.nanoTime();
+    @Nonnull
     private Map<String, String> namespaceMap = new HashMap<String, String>();
     private OWLDataFactory factory;
+    @Nonnull
     private Map<String, IRI> iriMap = new HashMap<String, IRI>();
+    @Nonnull
     private Map<String, IRI> qnameIRIMap = new HashMap<String, IRI>();
 
     void setOWLDataFactory(OWLDataFactory factory) {
@@ -61,7 +67,7 @@ class DLSyntaxParser implements DLSyntaxParserConstants {
         defaultNamespace = ns;
     }
 
-    IRI getIRI(String val) {
+    IRI getIRI(@Nonnull String val) {
         IRI iri = iriMap.get(val);
         if (iri == null) {
             iri = IRI.create(val);
@@ -70,7 +76,7 @@ class DLSyntaxParser implements DLSyntaxParserConstants {
         return iri;
     }
 
-    IRI getIRIFromId(String qname) {
+    IRI getIRIFromId(@Nonnull String qname) {
         if (qname.equals("top") || qname.equals("\u22a4")) {
             return OWLRDFVocabulary.OWL_THING.getIRI();
         }
@@ -91,6 +97,7 @@ class DLSyntaxParser implements DLSyntaxParserConstants {
         return desc;
     }
 
+    @Nonnull
     Set<OWLAxiom> parseAxioms() {
         OWLAxiom ax;
         Set<OWLAxiom> axioms = new LinkedHashSet<OWLAxiom>();
@@ -154,6 +161,7 @@ class DLSyntaxParser implements DLSyntaxParserConstants {
         return ax;
     }
 
+    @Nonnull
     private OWLAxiom parseDifferentIndividualsAxiom() {
         Set<OWLIndividual> inds = new HashSet<OWLIndividual>();
         OWLIndividual ind;
@@ -173,6 +181,7 @@ class DLSyntaxParser implements DLSyntaxParserConstants {
         return factory.getOWLDifferentIndividualsAxiom(inds);
     }
 
+    @Nonnull
     private OWLAxiom parseObjectPropertyAssertion() {
         OWLIndividual subj, obj;
         OWLObjectPropertyExpression prop;
@@ -185,6 +194,7 @@ class DLSyntaxParser implements DLSyntaxParserConstants {
         return factory.getOWLObjectPropertyAssertionAxiom(prop, subj, obj);
     }
 
+    @Nonnull
     private OWLAxiom parseDataPropertyAssertion() {
         OWLIndividual subj;
         OWLDataPropertyExpression prop;
@@ -198,6 +208,7 @@ class DLSyntaxParser implements DLSyntaxParserConstants {
         return factory.getOWLDataPropertyAssertionAxiom(prop, subj, obj);
     }
 
+    @Nonnull
     private OWLAxiom parseSameIndividual() {
         OWLIndividual indA;
         OWLIndividual indB;
@@ -208,6 +219,7 @@ class DLSyntaxParser implements DLSyntaxParserConstants {
                 indA, indB));
     }
 
+    @Nonnull
     private OWLAxiom parseClassAssertion() {
         OWLIndividual ind;
         OWLClassExpression desc;
@@ -235,6 +247,7 @@ class DLSyntaxParser implements DLSyntaxParserConstants {
         throw new ParseException();
     }
 
+    @Nonnull
     private OWLAxiom parseClassAxiom() {
         OWLClassExpression lhs;
         OWLClassExpression rhs;
@@ -279,6 +292,7 @@ class DLSyntaxParser implements DLSyntaxParserConstants {
         throw new ParseException();
     }
 
+    @Nonnull
     private OWLAxiom parsePropertyChain() {
         OWLObjectPropertyExpression prop;
         OWLObjectPropertyExpression supProp;
@@ -398,6 +412,7 @@ class DLSyntaxParser implements DLSyntaxParserConstants {
         return desc;
     }
 
+    @Nonnull
     private OWLObjectPropertyExpression parseObjectPropertyId() {
         IRI iri;
         boolean inverse = false;
@@ -414,6 +429,7 @@ class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
+    @Nonnull
     private OWLDataPropertyExpression parseDataPropertyId() {
         IRI iri;
         iri = parseId();
@@ -437,6 +453,7 @@ class DLSyntaxParser implements DLSyntaxParserConstants {
         return desc;
     }
 
+    @Nonnull
     private OWLClassExpression parseSomeRestriction() {
         OWLObjectPropertyExpression prop;
         OWLClassExpression filler;
@@ -449,6 +466,7 @@ class DLSyntaxParser implements DLSyntaxParserConstants {
         return factory.getOWLObjectSomeValuesFrom(prop, filler);
     }
 
+    @Nonnull
     private OWLClassExpression parseDataSomeRestriction() {
         OWLDataPropertyExpression prop;
         OWLDataRange filler;
@@ -461,6 +479,7 @@ class DLSyntaxParser implements DLSyntaxParserConstants {
         return factory.getOWLDataSomeValuesFrom(prop, filler);
     }
 
+    @Nonnull
     private OWLClassExpression parseAllRestriction() {
         OWLObjectPropertyExpression prop;
         OWLClassExpression filler;
@@ -473,6 +492,7 @@ class DLSyntaxParser implements DLSyntaxParserConstants {
         return factory.getOWLObjectAllValuesFrom(prop, filler);
     }
 
+    @Nonnull
     private OWLClassExpression parseCardinalityRestriction() {
         OWLObjectPropertyExpression prop;
         OWLClassExpression filler = null;
@@ -511,12 +531,14 @@ class DLSyntaxParser implements DLSyntaxParserConstants {
         return factory.getOWLObjectMaxCardinality(card, prop, filler);
     }
 
+    @Nonnull
     private OWLIndividual parseIndividualId() {
         IRI iri;
         iri = parseId();
         return factory.getOWLNamedIndividual(iri);
     }
 
+    @Nonnull
     private OWLClassExpression parseObjectComplementOf() {
         OWLClassExpression op;
         jj_consume_token(NOT);
@@ -524,6 +546,7 @@ class DLSyntaxParser implements DLSyntaxParserConstants {
         return factory.getOWLObjectComplementOf(op);
     }
 
+    @Nonnull
     private OWLClassExpression parseObjectOneOf() {
         OWLIndividual ind;
         Set<OWLIndividual> inds = new HashSet<OWLIndividual>();
@@ -541,6 +564,7 @@ class DLSyntaxParser implements DLSyntaxParserConstants {
         return factory.getOWLObjectOneOf(inds);
     }
 
+    @Nonnull
     private OWLDataRange parseDataOneOf() {
         OWLLiteral val;
         Set<OWLLiteral> values = new HashSet<OWLLiteral>();
@@ -571,6 +595,7 @@ class DLSyntaxParser implements DLSyntaxParserConstants {
         return desc;
     }
 
+    @Nonnull
     private OWLClass parseClassId() {
         IRI iri;
         iri = parseId();
@@ -592,6 +617,7 @@ class DLSyntaxParser implements DLSyntaxParserConstants {
         throw new ParseException();
     }
 
+    @Nonnull
     private OWLLiteral parseLiteral() {
         Token t;
         if (jj_2_49(5)) {
@@ -2109,6 +2135,7 @@ class DLSyntaxParser implements DLSyntaxParserConstants {
     private DLSyntaxParserTokenManager token_source;
     private JavaCharStream jj_input_stream;
     private Token token;
+    @Nullable
     private Token jj_scanpos, jj_lastpos;
     private int jj_la;
     private int jj_gen;
@@ -2309,9 +2336,11 @@ class DLSyntaxParser implements DLSyntaxParserConstants {
         return t;
     }
 
+    @Nonnull
     private java.util.List<int[]> jj_expentries = new java.util.ArrayList<int[]>();
     private int[] jj_expentry;
     private int jj_kind = -1;
+    @Nonnull
     private int[] jj_lasttokens = new int[100];
     private int jj_endpos;
 
@@ -2345,6 +2374,7 @@ class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
+    @Nonnull
     ParseException generateParseException() {
         jj_expentries.clear();
         boolean[] la1tokens = new boolean[32];
@@ -2565,6 +2595,7 @@ class DLSyntaxParser implements DLSyntaxParserConstants {
     static final class JJCalls {
 
         int gen;
+        @Nullable
         Token first;
         int arg;
         JJCalls next;

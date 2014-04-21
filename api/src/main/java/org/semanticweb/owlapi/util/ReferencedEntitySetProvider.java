@@ -31,6 +31,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 public class ReferencedEntitySetProvider implements
         OWLEntitySetProvider<OWLEntity> {
 
+    @Nonnull
     private final Set<OWLOntology> ontologies;
 
     /**
@@ -41,6 +42,7 @@ public class ReferencedEntitySetProvider implements
         this.ontologies = checkNotNull(ontologies, "ontologies cannot be null");
     }
 
+    @Nonnull
     @Override
     public Set<OWLEntity> getEntities() {
         Set<OWLEntity> entities = new HashSet<OWLEntity>();

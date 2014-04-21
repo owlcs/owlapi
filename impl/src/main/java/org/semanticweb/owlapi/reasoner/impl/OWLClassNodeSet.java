@@ -55,13 +55,15 @@ public class OWLClassNodeSet extends DefaultNodeSet<OWLClass> {
         super(nodes);
     }
 
+    @Nonnull
     @Override
-    protected DefaultNode<OWLClass> getNode(OWLClass entity) {
+    protected DefaultNode<OWLClass> getNode(@Nonnull OWLClass entity) {
         return NodeFactory.getOWLClassNode(entity);
     }
 
+    @Nonnull
     @Override
-    protected DefaultNode<OWLClass> getNode(Set<OWLClass> entities) {
+    protected DefaultNode<OWLClass> getNode(@Nonnull Set<OWLClass> entities) {
         return NodeFactory.getOWLClassNode(entities);
     }
 }

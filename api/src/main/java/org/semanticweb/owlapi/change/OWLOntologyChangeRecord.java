@@ -58,15 +58,11 @@ import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
 public class OWLOntologyChangeRecord<T> implements Serializable {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final OWLOntologyID ontologyID;
+    @Nonnull
     private final OWLOntologyChangeData<T> data;
 
-    /** Default constructor for serialization purposes only. */
-    @SuppressWarnings("unused")
-    private OWLOntologyChangeRecord() {
-        ontologyID = null;
-        data = null;
-    }
 
     /**
      * Constructs an {@link OWLOntologyChangeRecord} object which holds
@@ -96,7 +92,7 @@ public class OWLOntologyChangeRecord<T> implements Serializable {
      *        The {@link OWLOntologyChange} object.
      * @param <T>
      *        change type
-     * @return instance of OntologychangeRecord
+     * @return instance of OntologyChangeRecord
      */
     @Nonnull
     public static <T> OWLOntologyChangeRecord<T> createFromOWLOntologyChange(
@@ -155,6 +151,7 @@ public class OWLOntologyChangeRecord<T> implements Serializable {
      *         an {@link OWLOntologyID} equal to the {@link OWLOntologyID}
      *         associated with this {@link OWLOntologyChangeRecord}.
      */
+    @Nonnull
     public OWLOntologyChange<T>
             createOntologyChange(OWLOntologyManager manager) {
         OWLOntology ontology = checkNotNull(manager, "manager cannot be null")
@@ -182,6 +179,7 @@ public class OWLOntologyChangeRecord<T> implements Serializable {
         return getClass().hashCode() + ontologyID.hashCode() + data.hashCode();
     }
 
+    @Nonnull
     @Override
     public String toString() {
         return getName() + "(" + ontologyID + " " + data + ")";

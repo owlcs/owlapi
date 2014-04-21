@@ -34,6 +34,7 @@ public abstract class OWLNaryDataRangeImpl extends OWLObjectImpl implements
         OWLNaryDataRange {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final Set<OWLDataRange> operands;
 
     protected OWLNaryDataRangeImpl(@Nonnull Set<? extends OWLDataRange> operands) {
@@ -41,6 +42,7 @@ public abstract class OWLNaryDataRangeImpl extends OWLObjectImpl implements
                 "operands cannot be null"));
     }
 
+    @Nonnull
     @Override
     public Set<OWLDataRange> getOperands() {
         return CollectionFactory
@@ -57,6 +59,7 @@ public abstract class OWLNaryDataRangeImpl extends OWLObjectImpl implements
         return false;
     }
 
+    @Nonnull
     @Override
     public OWLDatatype asOWLDatatype() {
         throw new OWLRuntimeException("Not a datatype");

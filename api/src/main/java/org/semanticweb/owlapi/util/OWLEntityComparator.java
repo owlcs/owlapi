@@ -48,6 +48,7 @@ public class OWLEntityComparator implements Comparator<OWLEntity>,
     private static final int OWL_DATA_PROPERTY_INDEX = 2;
     private static final int OWL_INDIVIDUAL_INDEX = 3;
     private static final int OWL_DATATYPE_INDEX = 4;
+    @Nonnull
     private final ShortFormProvider shortFormProvider;
     int lastValue;
 
@@ -64,7 +65,7 @@ public class OWLEntityComparator implements Comparator<OWLEntity>,
     }
 
     @Override
-    public int compare(OWLEntity o1, OWLEntity o2) {
+    public int compare(@Nonnull OWLEntity o1, @Nonnull OWLEntity o2) {
         o1.accept(this);
         int i1 = lastValue;
         o2.accept(this);
@@ -78,37 +79,38 @@ public class OWLEntityComparator implements Comparator<OWLEntity>,
         return s1.compareTo(s2);
     }
 
-    private String getShortForm(OWLEntity entity) {
+    @Nonnull
+    private String getShortForm(@Nonnull OWLEntity entity) {
         return shortFormProvider.getShortForm(entity);
     }
 
     @Override
-    public void visit(OWLClass cls) {
+    public void visit(@Nonnull OWLClass cls) {
         lastValue = 0;
     }
 
     @Override
-    public void visit(OWLObjectProperty property) {
+    public void visit(@Nonnull OWLObjectProperty property) {
         lastValue = 1;
     }
 
     @Override
-    public void visit(OWLDataProperty property) {
+    public void visit(@Nonnull OWLDataProperty property) {
         lastValue = 2;
     }
 
     @Override
-    public void visit(OWLNamedIndividual individual) {
+    public void visit(@Nonnull OWLNamedIndividual individual) {
         lastValue = 3;
     }
 
     @Override
-    public void visit(OWLAnnotationProperty property) {
+    public void visit(@Nonnull OWLAnnotationProperty property) {
         lastValue = 4;
     }
 
     @Override
-    public void visit(OWLDatatype datatype) {
+    public void visit(@Nonnull OWLDatatype datatype) {
         lastValue = 5;
     }
 }

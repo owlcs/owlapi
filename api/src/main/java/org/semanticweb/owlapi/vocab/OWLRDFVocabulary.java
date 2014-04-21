@@ -21,6 +21,8 @@ import org.semanticweb.owlapi.model.HasPrefixedName;
 import org.semanticweb.owlapi.model.HasShortForm;
 import org.semanticweb.owlapi.model.IRI;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -161,33 +163,40 @@ public enum OWLRDFVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     /** http://www.w3.org/2002/07/owl#propertyChain                     **/    @Deprecated    OWL_PROPERTY_CHAIN(Namespaces.OWL, "propertyChain");
     
     //@formatter:on
+    @Nonnull
     final IRI iri;
+    @Nonnull
     final Namespaces namespace;
     final String shortName;
+    @Nonnull
     private final String prefixedName;
 
-    OWLRDFVocabulary(Namespaces namespace, String shortName) {
+    OWLRDFVocabulary(@Nonnull Namespaces namespace, String shortName) {
         this.namespace = namespace;
         this.shortName = shortName;
         this.prefixedName = namespace.getPrefixName() + ":" + shortName;
         iri = IRI.create(namespace.toString(), shortName);
     }
 
+    @Nonnull
     @Override
     public IRI getIRI() {
         return iri;
     }
 
     /** @return the entry namespace */
+    @Nonnull
     public Namespaces getNamespace() {
         return namespace;
     }
 
+    @Nonnull
     @Override
     public String getPrefixedName() {
         return prefixedName;
     }
 
+    @Nonnull
     @Override
     public String getShortForm() {
         return shortName;
@@ -206,6 +215,7 @@ public enum OWLRDFVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
      * label , comment , versionInfo , backwardCompatibleWith , priorVersion ,
      * seeAlso , isDefinedBy , incompatibleWith , deprecated
      */
+    @Nonnull
     public static final Set<IRI> BUILT_IN_ANNOTATION_PROPERTY_IRIS;
     static {
         BUILT_IN_ANNOTATION_PROPERTY_IRIS = new HashSet<IRI>();
@@ -221,6 +231,7 @@ public enum OWLRDFVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
         BUILT_IN_ANNOTATION_PROPERTY_IRIS.add(OWL_DEPRECATED.getIRI());
     }
 
+    @Nonnull
     @Override
     public String toString() {
         return iri.toString();

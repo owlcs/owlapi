@@ -50,6 +50,7 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
 public class OWLEntityRemover implements OWLEntityVisitor {
 
     private final List<RemoveAxiom> changes = new ArrayList<RemoveAxiom>();
+    @Nonnull
     private final Collection<OWLOntology> ontologies;
 
     /**
@@ -96,32 +97,32 @@ public class OWLEntityRemover implements OWLEntityVisitor {
     }
 
     @Override
-    public void visit(OWLClass cls) {
+    public void visit(@Nonnull OWLClass cls) {
         generateChanges(cls);
     }
 
     @Override
-    public void visit(OWLDatatype datatype) {
+    public void visit(@Nonnull OWLDatatype datatype) {
         generateChanges(datatype);
     }
 
     @Override
-    public void visit(OWLNamedIndividual individual) {
+    public void visit(@Nonnull OWLNamedIndividual individual) {
         generateChanges(individual);
     }
 
     @Override
-    public void visit(OWLDataProperty property) {
+    public void visit(@Nonnull OWLDataProperty property) {
         generateChanges(property);
     }
 
     @Override
-    public void visit(OWLObjectProperty property) {
+    public void visit(@Nonnull OWLObjectProperty property) {
         generateChanges(property);
     }
 
     @Override
-    public void visit(OWLAnnotationProperty property) {
+    public void visit(@Nonnull OWLAnnotationProperty property) {
         generateChanges(property);
     }
 }

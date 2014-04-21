@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.mansyntax.parser;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -36,8 +37,11 @@ public class ManchesterOWLSyntaxTokenizer {
         return EOF.equals(s);
     }
 
+    @Nonnull
     protected Set<Character> skip = new HashSet<Character>();
+    @Nonnull
     protected Set<Character> commentDelimiters = new HashSet<Character>();
+    @Nonnull
     protected Set<Character> delims = new HashSet<Character>();
     private String buffer;
     private int pos;
@@ -46,6 +50,7 @@ public class ManchesterOWLSyntaxTokenizer {
     int startPos = 0;
     int startCol = 1;
     int startRow = 1;
+    @Nonnull
     List<Token> tokens = new ArrayList<Token>();
     private StringBuilder sb;
     private static final char ESCAPE_CHAR = '\\';
@@ -89,6 +94,7 @@ public class ManchesterOWLSyntaxTokenizer {
     }
 
     /** @return tokens */
+    @Nonnull
     public List<Token> tokenize() {
         reset();
         int bufferLen = buffer.length();
@@ -255,6 +261,7 @@ public class ManchesterOWLSyntaxTokenizer {
             return row;
         }
 
+        @Nonnull
         @Override
         public String toString() {
             return token + " [" + pos + ", " + col + ", " + row + "]";

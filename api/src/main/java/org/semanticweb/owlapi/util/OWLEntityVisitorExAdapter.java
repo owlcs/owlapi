@@ -21,6 +21,9 @@ import org.semanticweb.owlapi.model.OWLEntityVisitorEx;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * Provides a default implementation of {@code OWLObjectVisitorEx}. Only the
  * methods that need specific client implementation need be overridden. The
@@ -34,6 +37,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  */
 public class OWLEntityVisitorExAdapter<O> implements OWLEntityVisitorEx<O> {
 
+    @Nullable
     private O defaultReturnValue = null;
 
     /**
@@ -45,6 +49,7 @@ public class OWLEntityVisitorExAdapter<O> implements OWLEntityVisitorEx<O> {
      *        The object that was visited.
      * @return The default return value
      */
+    @Nullable
     protected O doDefault(@SuppressWarnings("unused") OWLEntity object) {
         return defaultReturnValue;
     }
@@ -58,37 +63,43 @@ public class OWLEntityVisitorExAdapter<O> implements OWLEntityVisitorEx<O> {
      * @param defaultReturnValue
      *        default return value
      */
-    public OWLEntityVisitorExAdapter(O defaultReturnValue) {
+    public OWLEntityVisitorExAdapter(@Nullable O defaultReturnValue) {
         this.defaultReturnValue = defaultReturnValue;
     }
 
+    @Nullable
     @Override
-    public O visit(OWLClass desc) {
+    public O visit(@Nonnull OWLClass desc) {
         return doDefault(desc);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLDatatype node) {
+    public O visit(@Nonnull OWLDatatype node) {
         return doDefault(node);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLDataProperty property) {
+    public O visit(@Nonnull OWLDataProperty property) {
         return doDefault(property);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLObjectProperty property) {
+    public O visit(@Nonnull OWLObjectProperty property) {
         return doDefault(property);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLNamedIndividual individual) {
+    public O visit(@Nonnull OWLNamedIndividual individual) {
         return doDefault(individual);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLAnnotationProperty property) {
+    public O visit(@Nonnull OWLAnnotationProperty property) {
         return doDefault(property);
     }
 }

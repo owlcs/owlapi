@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapitools.builders;
 
+import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.OWLDataExactCardinality;
@@ -40,7 +41,7 @@ public class BuilderDataExactCardinality extends
      * @param df
      *        data factory
      */
-    public BuilderDataExactCardinality(OWLDataExactCardinality expected,
+    public BuilderDataExactCardinality(@Nonnull OWLDataExactCardinality expected,
             OWLDataFactory df) {
         this(df);
         withCardinality(expected.getCardinality()).withProperty(
@@ -52,11 +53,13 @@ public class BuilderDataExactCardinality extends
      *        cardinality
      * @return builder
      */
+    @Nonnull
     public BuilderDataExactCardinality withCardinality(int arg) {
         cardinality = arg;
         return this;
     }
 
+    @Nonnull
     @Override
     public OWLDataExactCardinality buildObject() {
         return df.getOWLDataExactCardinality(cardinality, property, dataRange);

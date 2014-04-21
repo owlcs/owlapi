@@ -15,6 +15,8 @@ package org.semanticweb.owlapi.rdf.rdfxml.parser;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.xml.sax.Locator;
 
+import javax.annotation.Nonnull;
+
 /** Thrown if an RDF error is encountered while parsing RDF. */
 public class RDFParserException extends OWLRuntimeException {
 
@@ -30,7 +32,7 @@ public class RDFParserException extends OWLRuntimeException {
      * @param locator
      *        locator
      */
-    public RDFParserException(String message, Locator locator) {
+    public RDFParserException(String message, @Nonnull Locator locator) {
         this(null, message, locator);
     }
 
@@ -42,7 +44,7 @@ public class RDFParserException extends OWLRuntimeException {
      * @param locator
      *        locator
      */
-    public RDFParserException(Exception e, String message, Locator locator) {
+    public RDFParserException(Exception e, String message, @Nonnull Locator locator) {
         super(message(locator, message), e);
         publicId = locator.getPublicId();
         systemId = locator.getSystemId();
@@ -50,7 +52,7 @@ public class RDFParserException extends OWLRuntimeException {
         columnNumber = locator.getColumnNumber();
     }
 
-    private static String message(Locator locator, String message) {
+    private static String message(@Nonnull Locator locator, String message) {
         int lineNumber = locator.getLineNumber();
         int columnNumber = locator.getColumnNumber();
         if (lineNumber == -1 && columnNumber == -1) {

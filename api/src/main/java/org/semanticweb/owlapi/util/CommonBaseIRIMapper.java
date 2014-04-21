@@ -32,6 +32,7 @@ import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
  */
 public class CommonBaseIRIMapper implements OWLOntologyIRIMapper {
 
+    @Nonnull
     private final IRI base;
     private final Map<IRI, IRI> iriMap = new HashMap<IRI, IRI>();
 
@@ -65,7 +66,7 @@ public class CommonBaseIRIMapper implements OWLOntologyIRIMapper {
     }
 
     @Override
-    public IRI getDocumentIRI(IRI ontologyIRI) {
+    public IRI getDocumentIRI(@Nonnull IRI ontologyIRI) {
         checkNotNull(ontologyIRI, "ontologyIRI cannot be null");
         return iriMap.get(ontologyIRI);
     }

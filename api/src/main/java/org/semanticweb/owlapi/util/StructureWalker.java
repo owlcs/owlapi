@@ -110,6 +110,8 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
+import javax.annotation.Nonnull;
+
 /**
  * Structure walker for object walkers.
  * 
@@ -129,7 +131,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
         this.walkerCallback = owlObjectWalker;
     }
 
-    protected void process(OWLObject object) {
+    protected void process(@Nonnull OWLObject object) {
         if (!this.walkerCallback.visitDuplicates) {
             if (!visited.contains(object)) {
                 visited.add(object);
@@ -141,12 +143,12 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(IRI iri) {
+    public void visit(@Nonnull IRI iri) {
         process(iri);
     }
 
     @Override
-    public void visit(OWLOntology ontologyToVisit) {
+    public void visit(@Nonnull OWLOntology ontologyToVisit) {
         walkerCallback.ontology = ontologyToVisit;
         walkerCallback.ax = null;
         process(ontologyToVisit);
@@ -159,14 +161,14 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
+    public void visit(@Nonnull OWLAsymmetricObjectPropertyAxiom axiom) {
         process(axiom);
         walkerCallback.ax = axiom;
         axiom.getProperty().accept(this);
     }
 
     @Override
-    public void visit(OWLClassAssertionAxiom axiom) {
+    public void visit(@Nonnull OWLClassAssertionAxiom axiom) {
         process(axiom);
         walkerCallback.ax = axiom;
         axiom.getIndividual().accept(this);
@@ -174,7 +176,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLDataPropertyAssertionAxiom axiom) {
+    public void visit(@Nonnull OWLDataPropertyAssertionAxiom axiom) {
         process(axiom);
         walkerCallback.ax = axiom;
         axiom.getSubject().accept(this);
@@ -183,7 +185,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLDataPropertyDomainAxiom axiom) {
+    public void visit(@Nonnull OWLDataPropertyDomainAxiom axiom) {
         process(axiom);
         walkerCallback.ax = axiom;
         axiom.getDomain().accept(this);
@@ -191,7 +193,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLDataPropertyRangeAxiom axiom) {
+    public void visit(@Nonnull OWLDataPropertyRangeAxiom axiom) {
         process(axiom);
         walkerCallback.ax = axiom;
         axiom.getRange().accept(this);
@@ -199,7 +201,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLSubDataPropertyOfAxiom axiom) {
+    public void visit(@Nonnull OWLSubDataPropertyOfAxiom axiom) {
         process(axiom);
         walkerCallback.ax = axiom;
         axiom.getSubProperty().accept(this);
@@ -207,14 +209,14 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLDeclarationAxiom axiom) {
+    public void visit(@Nonnull OWLDeclarationAxiom axiom) {
         process(axiom);
         walkerCallback.ax = axiom;
         axiom.getEntity().accept(this);
     }
 
     @Override
-    public void visit(OWLDifferentIndividualsAxiom axiom) {
+    public void visit(@Nonnull OWLDifferentIndividualsAxiom axiom) {
         process(axiom);
         walkerCallback.ax = axiom;
         for (OWLIndividual ind : axiom.getIndividuals()) {
@@ -223,7 +225,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLDisjointClassesAxiom axiom) {
+    public void visit(@Nonnull OWLDisjointClassesAxiom axiom) {
         process(axiom);
         walkerCallback.ax = axiom;
         for (OWLClassExpression desc : axiom.getClassExpressions()) {
@@ -232,7 +234,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLDisjointDataPropertiesAxiom axiom) {
+    public void visit(@Nonnull OWLDisjointDataPropertiesAxiom axiom) {
         process(axiom);
         walkerCallback.ax = axiom;
         for (OWLDataPropertyExpression prop : axiom.getProperties()) {
@@ -241,7 +243,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
+    public void visit(@Nonnull OWLDisjointObjectPropertiesAxiom axiom) {
         process(axiom);
         walkerCallback.ax = axiom;
         for (OWLObjectPropertyExpression prop : axiom.getProperties()) {
@@ -250,7 +252,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLDisjointUnionAxiom axiom) {
+    public void visit(@Nonnull OWLDisjointUnionAxiom axiom) {
         process(axiom);
         walkerCallback.ax = axiom;
         axiom.getOWLClass().accept(this);
@@ -260,7 +262,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLAnnotationAssertionAxiom axiom) {
+    public void visit(@Nonnull OWLAnnotationAssertionAxiom axiom) {
         process(axiom);
         walkerCallback.ax = axiom;
         axiom.getSubject().accept(this);
@@ -268,7 +270,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
+    public void visit(@Nonnull OWLAnnotationPropertyDomainAxiom axiom) {
         process(axiom);
         walkerCallback.ax = axiom;
         axiom.getProperty().accept(this);
@@ -276,7 +278,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
+    public void visit(@Nonnull OWLAnnotationPropertyRangeAxiom axiom) {
         process(axiom);
         walkerCallback.ax = axiom;
         axiom.getProperty().accept(this);
@@ -284,7 +286,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
+    public void visit(@Nonnull OWLSubAnnotationPropertyOfAxiom axiom) {
         process(axiom);
         walkerCallback.ax = axiom;
         axiom.getSubProperty().accept(this);
@@ -292,7 +294,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLAnnotation node) {
+    public void visit(@Nonnull OWLAnnotation node) {
         process(node);
         this.walkerCallback.setAnnotation(node);
         node.getProperty().accept(this);
@@ -300,7 +302,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLEquivalentClassesAxiom axiom) {
+    public void visit(@Nonnull OWLEquivalentClassesAxiom axiom) {
         process(axiom);
         walkerCallback.ax = axiom;
         for (OWLClassExpression desc : axiom.getClassExpressions()) {
@@ -309,7 +311,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
+    public void visit(@Nonnull OWLEquivalentDataPropertiesAxiom axiom) {
         process(axiom);
         walkerCallback.ax = axiom;
         for (OWLDataPropertyExpression prop : axiom.getProperties()) {
@@ -318,7 +320,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
+    public void visit(@Nonnull OWLEquivalentObjectPropertiesAxiom axiom) {
         process(axiom);
         walkerCallback.ax = axiom;
         for (OWLObjectPropertyExpression prop : axiom.getProperties()) {
@@ -327,28 +329,28 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLFunctionalDataPropertyAxiom axiom) {
+    public void visit(@Nonnull OWLFunctionalDataPropertyAxiom axiom) {
         process(axiom);
         walkerCallback.ax = axiom;
         axiom.getProperty().accept(this);
     }
 
     @Override
-    public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
+    public void visit(@Nonnull OWLFunctionalObjectPropertyAxiom axiom) {
         process(axiom);
         walkerCallback.ax = axiom;
         axiom.getProperty().accept(this);
     }
 
     @Override
-    public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
+    public void visit(@Nonnull OWLInverseFunctionalObjectPropertyAxiom axiom) {
         process(axiom);
         walkerCallback.ax = axiom;
         axiom.getProperty().accept(this);
     }
 
     @Override
-    public void visit(OWLInverseObjectPropertiesAxiom axiom) {
+    public void visit(@Nonnull OWLInverseObjectPropertiesAxiom axiom) {
         process(axiom);
         walkerCallback.ax = axiom;
         axiom.getFirstProperty().accept(this);
@@ -356,23 +358,14 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
+    public void visit(@Nonnull OWLIrreflexiveObjectPropertyAxiom axiom) {
         process(axiom);
         walkerCallback.ax = axiom;
         axiom.getProperty().accept(this);
     }
 
     @Override
-    public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
-        process(axiom);
-        walkerCallback.ax = axiom;
-        axiom.getSubject().accept(this);
-        axiom.getProperty().accept(this);
-        axiom.getObject().accept(this);
-    }
-
-    @Override
-    public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
+    public void visit(@Nonnull OWLNegativeDataPropertyAssertionAxiom axiom) {
         process(axiom);
         walkerCallback.ax = axiom;
         axiom.getSubject().accept(this);
@@ -381,7 +374,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLObjectPropertyAssertionAxiom axiom) {
+    public void visit(@Nonnull OWLNegativeObjectPropertyAssertionAxiom axiom) {
         process(axiom);
         walkerCallback.ax = axiom;
         axiom.getSubject().accept(this);
@@ -390,7 +383,16 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLSubPropertyChainOfAxiom axiom) {
+    public void visit(@Nonnull OWLObjectPropertyAssertionAxiom axiom) {
+        process(axiom);
+        walkerCallback.ax = axiom;
+        axiom.getSubject().accept(this);
+        axiom.getProperty().accept(this);
+        axiom.getObject().accept(this);
+    }
+
+    @Override
+    public void visit(@Nonnull OWLSubPropertyChainOfAxiom axiom) {
         process(axiom);
         walkerCallback.ax = axiom;
         for (OWLObjectPropertyExpression prop : axiom.getPropertyChain()) {
@@ -400,7 +402,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLObjectPropertyDomainAxiom axiom) {
+    public void visit(@Nonnull OWLObjectPropertyDomainAxiom axiom) {
         process(axiom);
         walkerCallback.ax = axiom;
         axiom.getDomain().accept(this);
@@ -408,7 +410,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLObjectPropertyRangeAxiom axiom) {
+    public void visit(@Nonnull OWLObjectPropertyRangeAxiom axiom) {
         process(axiom);
         walkerCallback.ax = axiom;
         axiom.getProperty().accept(this);
@@ -416,7 +418,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLSubObjectPropertyOfAxiom axiom) {
+    public void visit(@Nonnull OWLSubObjectPropertyOfAxiom axiom) {
         process(axiom);
         walkerCallback.ax = axiom;
         axiom.getSubProperty().accept(this);
@@ -424,14 +426,14 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
+    public void visit(@Nonnull OWLReflexiveObjectPropertyAxiom axiom) {
         process(axiom);
         walkerCallback.ax = axiom;
         axiom.getProperty().accept(this);
     }
 
     @Override
-    public void visit(OWLSameIndividualAxiom axiom) {
+    public void visit(@Nonnull OWLSameIndividualAxiom axiom) {
         process(axiom);
         walkerCallback.ax = axiom;
         for (OWLIndividual ind : axiom.getIndividuals()) {
@@ -440,7 +442,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLSubClassOfAxiom axiom) {
+    public void visit(@Nonnull OWLSubClassOfAxiom axiom) {
         process(axiom);
         walkerCallback.ax = axiom;
         // -ve polarity
@@ -450,21 +452,21 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLSymmetricObjectPropertyAxiom axiom) {
+    public void visit(@Nonnull OWLSymmetricObjectPropertyAxiom axiom) {
         process(axiom);
         walkerCallback.ax = axiom;
         axiom.getProperty().accept(this);
     }
 
     @Override
-    public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
+    public void visit(@Nonnull OWLTransitiveObjectPropertyAxiom axiom) {
         process(axiom);
         walkerCallback.ax = axiom;
         axiom.getProperty().accept(this);
     }
 
     @Override
-    public void visit(SWRLRule rule) {
+    public void visit(@Nonnull SWRLRule rule) {
         process(rule);
         walkerCallback.ax = rule;
         for (SWRLAtom at : rule.getBody()) {
@@ -476,7 +478,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLHasKeyAxiom axiom) {
+    public void visit(@Nonnull OWLHasKeyAxiom axiom) {
         process(axiom);
         walkerCallback.ax = axiom;
         axiom.getClassExpression().accept(this);
@@ -491,7 +493,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLClass desc) {
+    public void visit(@Nonnull OWLClass desc) {
         this.walkerCallback.pushClassExpression(desc);
         process(desc);
         desc.getIRI().accept(this);
@@ -499,7 +501,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLDataAllValuesFrom desc) {
+    public void visit(@Nonnull OWLDataAllValuesFrom desc) {
         this.walkerCallback.pushClassExpression(desc);
         process(desc);
         desc.getProperty().accept(this);
@@ -508,7 +510,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLDataExactCardinality desc) {
+    public void visit(@Nonnull OWLDataExactCardinality desc) {
         this.walkerCallback.pushClassExpression(desc);
         process(desc);
         desc.getProperty().accept(this);
@@ -517,7 +519,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLDataMaxCardinality desc) {
+    public void visit(@Nonnull OWLDataMaxCardinality desc) {
         this.walkerCallback.pushClassExpression(desc);
         process(desc);
         desc.getProperty().accept(this);
@@ -526,7 +528,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLDataMinCardinality desc) {
+    public void visit(@Nonnull OWLDataMinCardinality desc) {
         this.walkerCallback.pushClassExpression(desc);
         process(desc);
         desc.getProperty().accept(this);
@@ -535,7 +537,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLDataSomeValuesFrom desc) {
+    public void visit(@Nonnull OWLDataSomeValuesFrom desc) {
         this.walkerCallback.pushClassExpression(desc);
         process(desc);
         desc.getProperty().accept(this);
@@ -544,7 +546,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLDataHasValue desc) {
+    public void visit(@Nonnull OWLDataHasValue desc) {
         this.walkerCallback.pushClassExpression(desc);
         process(desc);
         desc.getProperty().accept(this);
@@ -553,7 +555,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLObjectAllValuesFrom desc) {
+    public void visit(@Nonnull OWLObjectAllValuesFrom desc) {
         this.walkerCallback.pushClassExpression(desc);
         process(desc);
         desc.getProperty().accept(this);
@@ -562,7 +564,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLObjectComplementOf desc) {
+    public void visit(@Nonnull OWLObjectComplementOf desc) {
         this.walkerCallback.pushClassExpression(desc);
         process(desc);
         desc.getOperand().accept(this);
@@ -570,7 +572,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLObjectExactCardinality desc) {
+    public void visit(@Nonnull OWLObjectExactCardinality desc) {
         this.walkerCallback.pushClassExpression(desc);
         process(desc);
         desc.getProperty().accept(this);
@@ -579,7 +581,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLObjectIntersectionOf desc) {
+    public void visit(@Nonnull OWLObjectIntersectionOf desc) {
         this.walkerCallback.pushClassExpression(desc);
         process(desc);
         for (OWLClassExpression op : desc.getOperands()) {
@@ -589,7 +591,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLObjectMaxCardinality desc) {
+    public void visit(@Nonnull OWLObjectMaxCardinality desc) {
         this.walkerCallback.pushClassExpression(desc);
         process(desc);
         desc.getProperty().accept(this);
@@ -598,7 +600,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLObjectMinCardinality desc) {
+    public void visit(@Nonnull OWLObjectMinCardinality desc) {
         this.walkerCallback.pushClassExpression(desc);
         process(desc);
         desc.getProperty().accept(this);
@@ -607,7 +609,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLObjectOneOf desc) {
+    public void visit(@Nonnull OWLObjectOneOf desc) {
         this.walkerCallback.pushClassExpression(desc);
         process(desc);
         for (OWLIndividual ind : desc.getIndividuals()) {
@@ -617,7 +619,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLObjectHasSelf desc) {
+    public void visit(@Nonnull OWLObjectHasSelf desc) {
         this.walkerCallback.pushClassExpression(desc);
         process(desc);
         desc.getProperty().accept(this);
@@ -625,7 +627,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLObjectSomeValuesFrom desc) {
+    public void visit(@Nonnull OWLObjectSomeValuesFrom desc) {
         this.walkerCallback.pushClassExpression(desc);
         process(desc);
         desc.getProperty().accept(this);
@@ -634,7 +636,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLObjectUnionOf desc) {
+    public void visit(@Nonnull OWLObjectUnionOf desc) {
         this.walkerCallback.pushClassExpression(desc);
         process(desc);
         for (OWLClassExpression op : desc.getOperands()) {
@@ -644,7 +646,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLObjectHasValue desc) {
+    public void visit(@Nonnull OWLObjectHasValue desc) {
         this.walkerCallback.pushClassExpression(desc);
         process(desc);
         desc.getProperty().accept(this);
@@ -653,7 +655,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLDataComplementOf node) {
+    public void visit(@Nonnull OWLDataComplementOf node) {
         this.walkerCallback.pushDataRange(node);
         process(node);
         node.getDataRange().accept(this);
@@ -661,7 +663,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLDataOneOf node) {
+    public void visit(@Nonnull OWLDataOneOf node) {
         this.walkerCallback.pushDataRange(node);
         process(node);
         for (OWLLiteral con : node.getValues()) {
@@ -671,7 +673,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLDataIntersectionOf node) {
+    public void visit(@Nonnull OWLDataIntersectionOf node) {
         this.walkerCallback.pushDataRange(node);
         process(node);
         for (OWLDataRange rng : node.getOperands()) {
@@ -681,7 +683,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLDataUnionOf node) {
+    public void visit(@Nonnull OWLDataUnionOf node) {
         this.walkerCallback.pushDataRange(node);
         process(node);
         for (OWLDataRange rng : node.getOperands()) {
@@ -691,13 +693,13 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLFacetRestriction node) {
+    public void visit(@Nonnull OWLFacetRestriction node) {
         process(node);
         node.getFacetValue().accept(this);
     }
 
     @Override
-    public void visit(OWLDatatypeRestriction node) {
+    public void visit(@Nonnull OWLDatatypeRestriction node) {
         this.walkerCallback.pushDataRange(node);
         process(node);
         node.getDatatype().accept(this);
@@ -708,73 +710,73 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLDatatype node) {
+    public void visit(@Nonnull OWLDatatype node) {
         this.walkerCallback.pushDataRange(node);
         process(node);
         this.walkerCallback.popDataRange();
     }
 
     @Override
-    public void visit(OWLLiteral node) {
+    public void visit(@Nonnull OWLLiteral node) {
         process(node);
         node.getDatatype().accept(this);
         this.walkerCallback.popDataRange();
     }
 
     @Override
-    public void visit(OWLAnnotationProperty property) {
+    public void visit(@Nonnull OWLAnnotationProperty property) {
         process(property);
         property.getIRI().accept(this);
     }
 
     @Override
-    public void visit(OWLDataProperty property) {
+    public void visit(@Nonnull OWLDataProperty property) {
         process(property);
         property.getIRI().accept(this);
     }
 
     @Override
-    public void visit(OWLObjectProperty property) {
+    public void visit(@Nonnull OWLObjectProperty property) {
         process(property);
         property.getIRI().accept(this);
     }
 
     @Override
-    public void visit(OWLObjectInverseOf property) {
+    public void visit(@Nonnull OWLObjectInverseOf property) {
         process(property);
         property.getInverse().accept(this);
     }
 
     @Override
-    public void visit(OWLNamedIndividual individual) {
+    public void visit(@Nonnull OWLNamedIndividual individual) {
         process(individual);
         individual.getIRI().accept(this);
     }
 
     @Override
-    public void visit(OWLAnonymousIndividual individual) {
+    public void visit(@Nonnull OWLAnonymousIndividual individual) {
         process(individual);
     }
 
     @Override
-    public void visit(SWRLLiteralArgument node) {
+    public void visit(@Nonnull SWRLLiteralArgument node) {
         process(node);
         node.getLiteral().accept(this);
     }
 
     @Override
-    public void visit(SWRLVariable node) {
+    public void visit(@Nonnull SWRLVariable node) {
         process(node);
     }
 
     @Override
-    public void visit(SWRLIndividualArgument node) {
+    public void visit(@Nonnull SWRLIndividualArgument node) {
         process(node);
         node.getIndividual().accept(this);
     }
 
     @Override
-    public void visit(SWRLBuiltInAtom node) {
+    public void visit(@Nonnull SWRLBuiltInAtom node) {
         process(node);
         for (SWRLDArgument at : node.getArguments()) {
             at.accept(this);
@@ -782,21 +784,21 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(SWRLClassAtom node) {
+    public void visit(@Nonnull SWRLClassAtom node) {
         process(node);
         node.getArgument().accept(this);
         node.getPredicate().accept(this);
     }
 
     @Override
-    public void visit(SWRLDataRangeAtom node) {
+    public void visit(@Nonnull SWRLDataRangeAtom node) {
         process(node);
         node.getArgument().accept(this);
         node.getPredicate().accept(this);
     }
 
     @Override
-    public void visit(SWRLDataPropertyAtom node) {
+    public void visit(@Nonnull SWRLDataPropertyAtom node) {
         process(node);
         node.getPredicate().accept(this);
         node.getFirstArgument().accept(this);
@@ -804,14 +806,14 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(SWRLDifferentIndividualsAtom node) {
+    public void visit(@Nonnull SWRLDifferentIndividualsAtom node) {
         process(node);
         node.getFirstArgument().accept(this);
         node.getSecondArgument().accept(this);
     }
 
     @Override
-    public void visit(SWRLObjectPropertyAtom node) {
+    public void visit(@Nonnull SWRLObjectPropertyAtom node) {
         process(node);
         node.getPredicate().accept(this);
         node.getFirstArgument().accept(this);
@@ -819,14 +821,14 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(SWRLSameIndividualAtom node) {
+    public void visit(@Nonnull SWRLSameIndividualAtom node) {
         process(node);
         node.getFirstArgument().accept(this);
         node.getSecondArgument().accept(this);
     }
 
     @Override
-    public void visit(OWLDatatypeDefinitionAxiom axiom) {
+    public void visit(@Nonnull OWLDatatypeDefinitionAxiom axiom) {
         process(axiom);
         walkerCallback.ax = axiom;
         axiom.getDatatype().accept(this);

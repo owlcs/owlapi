@@ -15,6 +15,8 @@ package org.semanticweb.owlapi.profiles.violations;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
 
+import javax.annotation.Nonnull;
+
 /**
  * Entity not declared
  * 
@@ -26,5 +28,6 @@ public interface UndeclaredEntityViolation {
     OWLEntity getEntity();
 
     /** @return ontology */
+    @Nonnull
     OWLOntology getOntology();
 }

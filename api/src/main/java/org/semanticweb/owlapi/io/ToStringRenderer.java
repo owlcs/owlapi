@@ -32,6 +32,7 @@ import org.semanticweb.owlapi.util.SimpleRenderer;
  */
 public class ToStringRenderer {
 
+    @Nonnull
     private static ToStringRenderer instance = new ToStringRenderer();
     private OWLObjectRenderer renderer;
 
@@ -40,6 +41,7 @@ public class ToStringRenderer {
     }
 
     /** @return the singleton instance */
+    @Nonnull
     public static ToStringRenderer getInstance() {
         return instance;
     }
@@ -66,7 +68,8 @@ public class ToStringRenderer {
      *        the object to render
      * @return the rendering for the object
      */
-    public synchronized String getRendering(OWLObject object) {
+    @Nonnull
+    public synchronized String getRendering(@Nonnull OWLObject object) {
         return renderer.render(object);
     }
 }

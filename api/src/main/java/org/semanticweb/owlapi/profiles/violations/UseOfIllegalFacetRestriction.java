@@ -20,6 +20,8 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolation;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
@@ -38,19 +40,19 @@ public class UseOfIllegalFacetRestriction extends OWLProfileViolation<OWLFacet> 
      * @param facet
      *        facet
      */
-    public UseOfIllegalFacetRestriction(OWLOntology ontology, OWLAxiom axiom,
+    public UseOfIllegalFacetRestriction(@Nonnull OWLOntology ontology, OWLAxiom axiom,
             OWLDatatypeRestriction dtr, OWLFacet facet) {
         super(ontology, axiom, facet);
         datatypeRestriction = dtr;
     }
 
     @Override
-    public void accept(OWLProfileViolationVisitor visitor) {
+    public void accept(@Nonnull OWLProfileViolationVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLProfileViolationVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLProfileViolationVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 

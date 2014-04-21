@@ -61,7 +61,7 @@ public abstract class PrefixOWLOntologyFormat extends OWLOntologyFormat
     }
 
     @Override
-    public void setPrefix(String prefixName, String prefix) {
+    public void setPrefix(@Nonnull String prefixName, @Nonnull String prefix) {
         nsm.setPrefix(prefixName, prefix);
     }
 
@@ -70,63 +70,69 @@ public abstract class PrefixOWLOntologyFormat extends OWLOntologyFormat
         nsm.clear();
     }
 
+    @Nonnull
     @Override
     public Set<String> getPrefixNames() {
         return nsm.getPrefixNames();
     }
 
     @Override
-    public void setDefaultPrefix(String namespace) {
+    public void setDefaultPrefix(@Nonnull String namespace) {
         nsm.setDefaultPrefix(namespace);
     }
 
     @Override
-    public boolean containsPrefixMapping(String prefix) {
+    public boolean containsPrefixMapping(@Nonnull String prefix) {
         return nsm.containsPrefixMapping(prefix);
     }
 
+    @Nonnull
     @Override
     public String getDefaultPrefix() {
         return nsm.getDefaultPrefix();
     }
 
+    @Nonnull
     @Override
     public Map<String, String> getPrefixName2PrefixMap() {
         return nsm.getPrefixName2PrefixMap();
     }
 
+    @Nonnull
     @Override
-    public String getPrefix(String prefixName) {
+    public String getPrefix(@Nonnull String prefixName) {
         return nsm.getPrefix(prefixName);
     }
 
+    @Nonnull
     @Override
-    public IRI getIRI(String iri) {
+    public IRI getIRI(@Nonnull String iri) {
         return nsm.getIRI(iri);
     }
 
     @Override
-    public String getPrefixIRI(IRI iri) {
+    public String getPrefixIRI(@Nonnull IRI iri) {
         return nsm.getPrefixIRI(iri);
     }
 
     @Override
-    public void copyPrefixesFrom(PrefixManager prefixManager) {
+    public void copyPrefixesFrom(@Nonnull PrefixManager prefixManager) {
         nsm.copyPrefixesFrom(prefixManager);
     }
 
     @Override
-    public void unregisterNamespace(String namespace) {
+    public void unregisterNamespace(@Nonnull String namespace) {
         nsm.unregisterNamespace(namespace);
     }
 
+    @Nonnull
     @Override
     public Comparator<String> getPrefixComparator() {
         return nsm.getPrefixComparator();
     }
 
     @Override
-    public void setPrefixComparator(Comparator<String> comparator) {
+    public void setPrefixComparator(@Nonnull Comparator<String> comparator) {
         nsm.setPrefixComparator(comparator);
     }
 }

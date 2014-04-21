@@ -9,6 +9,9 @@ import org.semanticweb.owlapi.annotations.SupportsMIMEType;
 import org.semanticweb.owlapi.model.OWLOntologyFormatFactory;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * Generic parser factory.
  * 
@@ -30,6 +33,7 @@ public class OWLParserFactoryImpl<T extends OWLParser> implements
         this.type = type;
     }
 
+    @Nonnull
     @Override
     public OWLParser createParser() {
         try {
@@ -46,11 +50,13 @@ public class OWLParserFactoryImpl<T extends OWLParser> implements
         return createParser().getSupportedFormats();
     }
 
+    @Nonnull
     @Override
     public OWLParser get() {
         return createParser();
     }
 
+    @Nullable
     @Override
     public String getDefaultMIMEType() {
         SupportsMIMEType annotation = type
@@ -61,6 +67,7 @@ public class OWLParserFactoryImpl<T extends OWLParser> implements
         return null;
     }
 
+    @Nonnull
     @Override
     public List<String> getMIMETypes() {
         SupportsMIMEType annotation = type
@@ -72,7 +79,7 @@ public class OWLParserFactoryImpl<T extends OWLParser> implements
     }
 
     @Override
-    public boolean handlesMimeType(String mimeType) {
+    public boolean handlesMimeType(@Nonnull String mimeType) {
         return mimeType.equals(getDefaultMIMEType())
                 || getMIMETypes().contains(mimeType);
     }

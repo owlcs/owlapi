@@ -38,6 +38,9 @@ import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * A handler which knows about OWLXML.
  * 
@@ -50,7 +53,9 @@ public class OWLXMLParserHandler extends DefaultHandler {
     private OWLOntologyManager owlOntologyManager;
     private OWLOntology ontology;
     private List<OWLElementHandler<?>> handlerStack;
+    @Nonnull
     private Map<String, PARSER_OWLXMLVocabulary> handlerMap = new HashMap<String, PARSER_OWLXMLVocabulary>();
+    @Nonnull
     private Map<String, String> prefixName2PrefixMap = new HashMap<String, String>();
     private Locator locator;
     private Stack<URI> bases;
@@ -60,7 +65,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
      * @param ontology
      *        ontology to parse into
      */
-    public OWLXMLParserHandler(OWLOntology ontology) {
+    public OWLXMLParserHandler(@Nonnull OWLOntology ontology) {
         this(ontology, null, new OWLOntologyLoaderConfiguration());
     }
 
@@ -70,13 +75,13 @@ public class OWLXMLParserHandler extends DefaultHandler {
      * @param configuration
      *        load configuration
      */
-    public OWLXMLParserHandler(OWLOntology ontology,
+    public OWLXMLParserHandler(@Nonnull OWLOntology ontology,
             OWLOntologyLoaderConfiguration configuration) {
         this(ontology, null, configuration);
     }
 
     @Override
-    public void setDocumentLocator(Locator locator) {
+    public void setDocumentLocator(@Nonnull Locator locator) {
         super.setDocumentLocator(locator);
         this.locator = locator;
         URI base = null;
@@ -95,7 +100,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
      * @param topHandler
      *        top level handler
      */
-    public OWLXMLParserHandler(OWLOntology ontology,
+    public OWLXMLParserHandler(@Nonnull OWLOntology ontology,
             OWLElementHandler<?> topHandler) {
         this(ontology, topHandler, new OWLOntologyLoaderConfiguration());
     }
@@ -114,8 +119,8 @@ public class OWLXMLParserHandler extends DefaultHandler {
      * @param configuration
      *        load configuration
      */
-    public OWLXMLParserHandler(OWLOntology ontology,
-            OWLElementHandler<?> topHandler,
+    public OWLXMLParserHandler(@Nonnull OWLOntology ontology,
+            @Nullable OWLElementHandler<?> topHandler,
             OWLOntologyLoaderConfiguration configuration) {
         owlOntologyManager = ontology.getOWLOntologyManager();
         this.ontology = ontology;
@@ -250,6 +255,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
         }
     }
 
+    @Nonnull
     private Map<String, IRI> iriMap = new HashMap<String, IRI>();
 
     /**
@@ -257,7 +263,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
      *        iri
      * @return parsed, absolute iri
      */
-    public IRI getIRI(String iriStr) {
+    public IRI getIRI(@Nonnull String iriStr) {
         try {
             IRI iri = iriMap.get(iriStr);
             if (iri == null) {
@@ -280,7 +286,8 @@ public class OWLXMLParserHandler extends DefaultHandler {
         }
     }
 
-    private String getNormalisedAbbreviatedIRI(String input) {
+    @Nonnull
+    private String getNormalisedAbbreviatedIRI(@Nonnull String input) {
         if (input.indexOf(':') != -1) {
             return input;
         } else {
@@ -293,7 +300,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
      *        short iri
      * @return extended iri
      */
-    public IRI getAbbreviatedIRI(String abbreviatedIRI) {
+    public IRI getAbbreviatedIRI(@Nonnull String abbreviatedIRI) {
         String normalisedAbbreviatedIRI = getNormalisedAbbreviatedIRI(abbreviatedIRI);
         int sepIndex = normalisedAbbreviatedIRI.indexOf(':');
         String prefixName = normalisedAbbreviatedIRI.substring(0, sepIndex + 1);
@@ -310,12 +317,13 @@ public class OWLXMLParserHandler extends DefaultHandler {
     }
 
     /** @return prefix name to prefix */
+    @Nonnull
     public Map<String, String> getPrefixName2PrefixMap() {
         return prefixName2PrefixMap;
     }
 
-    private void addFactory(PARSER_OWLXMLVocabulary factory,
-            String... legacyElementNames) {
+    private void addFactory(@Nonnull PARSER_OWLXMLVocabulary factory,
+            @Nonnull String... legacyElementNames) {
         handlerMap.put(factory.getShortName(), factory);
         for (String elementName : legacyElementNames) {
             handlerMap.put(elementName, factory);
@@ -328,6 +336,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
     }
 
     /** @return data factory */
+    @Nonnull
     public OWLDataFactory getDataFactory() {
         return getOWLOntologyManager().getOWLDataFactory();
     }
@@ -354,8 +363,8 @@ public class OWLXMLParserHandler extends DefaultHandler {
     }
 
     @Override
-    public void startElement(String uri, String localName, String qName,
-            Attributes attributes) throws SAXException {
+    public void startElement(String uri, @Nonnull String localName, String qName,
+            @Nonnull Attributes attributes) throws SAXException {
         processXMLBase(attributes);
         if (localName.equals(PREFIX.getShortForm())) {
             String name = attributes.getValue(NAME_ATTRIBUTE.getShortForm());
@@ -385,7 +394,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
         }
     }
 
-    protected void processXMLBase(Attributes attributes) {
+    protected void processXMLBase(@Nonnull Attributes attributes) {
         String base = attributes.getValue(Namespaces.XML.toString(), "base");
         if (base != null) {
             bases.push(URI.create(base));
@@ -405,7 +414,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
     }
 
     @Override
-    public void endElement(String uri, String localName, String qName)
+    public void endElement(String uri, @Nonnull String localName, String qName)
             throws SAXException {
         if (localName.equals(PREFIX.getShortForm())) {
             return;

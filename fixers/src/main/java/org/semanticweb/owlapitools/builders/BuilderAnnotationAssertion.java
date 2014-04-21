@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapitools.builders;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -24,6 +26,7 @@ public class BuilderAnnotationAssertion
         extends
         BaseAnnotationtPropertyBuilder<OWLAnnotationAssertionAxiom, BuilderAnnotationAssertion> {
 
+    @Nullable
     private OWLAnnotationSubject subject = null;
     private OWLAnnotationValue value;
 
@@ -44,7 +47,7 @@ public class BuilderAnnotationAssertion
      * @param df
      *        data factory
      */
-    public BuilderAnnotationAssertion(OWLAnnotationAssertionAxiom expected,
+    public BuilderAnnotationAssertion(@Nonnull OWLAnnotationAssertionAxiom expected,
             OWLDataFactory df) {
         this(df);
         withAnnotations(expected.getAnnotations())
@@ -58,6 +61,7 @@ public class BuilderAnnotationAssertion
      *        subject
      * @return builder
      */
+    @Nonnull
     public BuilderAnnotationAssertion withSubject(OWLAnnotationSubject arg) {
         subject = arg;
         return this;
@@ -68,11 +72,13 @@ public class BuilderAnnotationAssertion
      *        value
      * @return builder
      */
+    @Nonnull
     public BuilderAnnotationAssertion withValue(OWLAnnotationValue arg) {
         value = arg;
         return this;
     }
 
+    @Nonnull
     @Override
     public OWLAnnotationAssertionAxiom buildObject() {
         return df.getOWLAnnotationAssertionAxiom(property, subject, value,

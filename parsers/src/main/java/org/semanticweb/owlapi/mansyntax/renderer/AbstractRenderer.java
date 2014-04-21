@@ -23,6 +23,9 @@ import org.semanticweb.owlapi.io.OWLRendererIOException;
 import org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntax;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -118,7 +121,7 @@ public class AbstractRenderer {
         return currentPos - lastNewLinePos - 2;
     }
 
-    protected void write(String s) {
+    protected void write(@Nullable String s) {
         if (s == null) {
             return;
         }
@@ -160,15 +163,15 @@ public class AbstractRenderer {
         write(" ");
     }
 
-    protected void write(ManchesterOWLSyntax keyword) {
+    protected void write(@Nonnull ManchesterOWLSyntax keyword) {
         write(" ", keyword, " ");
     }
 
-    protected void writeFrameKeyword(ManchesterOWLSyntax keyword) {
+    protected void writeFrameKeyword(@Nonnull ManchesterOWLSyntax keyword) {
         write("", keyword, ": ");
     }
 
-    protected void writeSectionKeyword(ManchesterOWLSyntax keyword) {
+    protected void writeSectionKeyword(@Nonnull ManchesterOWLSyntax keyword) {
         write(" ", keyword, ": ");
     }
 
@@ -179,7 +182,7 @@ public class AbstractRenderer {
         }
     }
 
-    protected void write(String prefix, ManchesterOWLSyntax keyword,
+    protected void write(String prefix, @Nonnull ManchesterOWLSyntax keyword,
             String suffix) {
         write(prefix);
         write(keyword.toString());

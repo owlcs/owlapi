@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -30,6 +31,7 @@ public interface OWLDataVisitorEx<O> {
      *        node to visit
      * @return visitor value
      */
+    @Nullable
     O visit(@Nonnull OWLDatatype node);
 
     /**
@@ -39,6 +41,7 @@ public interface OWLDataVisitorEx<O> {
      *        node to visit
      * @return visitor value
      */
+    @Nullable
     O visit(@Nonnull OWLDataComplementOf node);
 
     /**
@@ -48,6 +51,7 @@ public interface OWLDataVisitorEx<O> {
      *        node to visit
      * @return visitor value
      */
+    @Nullable
     O visit(@Nonnull OWLDataOneOf node);
 
     /**
@@ -57,6 +61,7 @@ public interface OWLDataVisitorEx<O> {
      *        node to visit
      * @return visitor value
      */
+    @Nullable
     O visit(@Nonnull OWLDataIntersectionOf node);
 
     /**
@@ -66,6 +71,7 @@ public interface OWLDataVisitorEx<O> {
      *        node to visit
      * @return visitor value
      */
+    @Nullable
     O visit(@Nonnull OWLDataUnionOf node);
 
     /**
@@ -75,6 +81,7 @@ public interface OWLDataVisitorEx<O> {
      *        node to visit
      * @return visitor value
      */
+    @Nullable
     O visit(@Nonnull OWLDatatypeRestriction node);
 
     /**
@@ -84,6 +91,7 @@ public interface OWLDataVisitorEx<O> {
      *        node to visit
      * @return visitor value
      */
+    @Nullable
     O visit(@Nonnull OWLLiteral node);
 
     /**
@@ -93,5 +101,6 @@ public interface OWLDataVisitorEx<O> {
      *        node to visit
      * @return visitor value
      */
+    @Nullable
     O visit(@Nonnull OWLFacetRestriction node);
 }

@@ -14,6 +14,8 @@
 /* JavaCCOptions:MULTI=false,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=AST,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 package org.semanticweb.owlapi.functional.parser;
 
+import javax.annotation.Nonnull;
+
 interface Node {
 
     void jjtOpen();
@@ -22,10 +24,12 @@ interface Node {
 
     void jjtSetParent(Node n);
 
+    @Nonnull
     Node jjtGetParent();
 
     void jjtAddChild(Node n, int i);
 
+    @Nonnull
     Node jjtGetChild(int i);
 
     int jjtGetNumChildren();

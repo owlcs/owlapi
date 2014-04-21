@@ -19,6 +19,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -41,6 +42,7 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl
         implements OWLObjectOneOf {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final Set<OWLIndividual> values;
 
     @Override
@@ -57,11 +59,13 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl
                 "values cannot be null"));
     }
 
+    @Nonnull
     @Override
     public ClassExpressionType getClassExpressionType() {
         return ClassExpressionType.OBJECT_ONE_OF;
     }
 
+    @Nonnull
     @Override
     public Set<OWLIndividual> getIndividuals() {
         return CollectionFactory
@@ -73,6 +77,7 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl
         return false;
     }
 
+    @Nonnull
     @Override
     public OWLClassExpression asObjectUnionOf() {
         if (values.size() == 1) {
@@ -98,27 +103,28 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl
     }
 
     @Override
-    public void accept(OWLClassExpressionVisitor visitor) {
+    public void accept(@Nonnull OWLClassExpressionVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public void accept(OWLObjectVisitor visitor) {
+    public void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Nullable
     @Override
-    public <O> O accept(OWLClassExpressionVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLClassExpressionVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    protected int compareObjectOfSameType(OWLObject object) {
+    protected int compareObjectOfSameType(@Nonnull OWLObject object) {
         return compareSets(values, ((OWLObjectOneOf) object).getIndividuals());
     }
 }

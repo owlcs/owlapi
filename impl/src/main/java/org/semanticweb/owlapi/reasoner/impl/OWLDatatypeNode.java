@@ -15,6 +15,7 @@ package org.semanticweb.owlapi.reasoner.impl;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLDatatype;
 
@@ -44,11 +45,13 @@ public class OWLDatatypeNode extends DefaultNode<OWLDatatype> {
         super(entities);
     }
 
+    @Nonnull
     @Override
     protected OWLDatatype getTopEntity() {
         return TOP_DATATYPE;
     }
 
+    @Nullable
     @Override
     protected OWLDatatype getBottomEntity() {
         return null;

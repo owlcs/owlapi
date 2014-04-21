@@ -22,6 +22,8 @@ import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
 
+import javax.annotation.Nonnull;
+
 /**
  * A convenience class which is an ontology change listener which collects the
  * entities which are referenced in a set of ontology changes.
@@ -36,7 +38,7 @@ public abstract class OWLEntityCollectingOntologyChangeListener implements
     private final Set<OWLEntity> entities = new HashSet<OWLEntity>();
 
     @Override
-    public void ontologiesChanged(List<? extends OWLOntologyChange<?>> changes)
+    public void ontologiesChanged(@Nonnull List<? extends OWLOntologyChange<?>> changes)
             throws OWLException {
         entities.clear();
         for (OWLOntologyChange<?> change : changes) {
@@ -57,6 +59,7 @@ public abstract class OWLEntityCollectingOntologyChangeListener implements
     public abstract void ontologiesChanged() throws OWLException;
 
     /** @return the entities which were referenced in the last change set. */
+    @Nonnull
     public Set<OWLEntity> getEntities() {
         return CollectionFactory
                 .getCopyOnRequestSetFromMutableCollection(entities);

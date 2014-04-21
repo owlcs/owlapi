@@ -19,6 +19,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -83,8 +84,10 @@ public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
 
     protected DefaultNode() {}
 
+    @Nullable
     protected abstract E getTopEntity();
 
+    @Nullable
     protected abstract E getBottomEntity();
 
     /**
@@ -105,6 +108,7 @@ public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
         return entities.contains(getBottomEntity());
     }
 
+    @Nonnull
     @Override
     public Set<E> getEntities() {
         return entities;
@@ -120,6 +124,7 @@ public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
         return entities.contains(entity);
     }
 
+    @Nonnull
     @Override
     public Set<E> getEntitiesMinus(E E) {
         HashSet<E> result = new HashSet<E>(entities);
@@ -127,11 +132,13 @@ public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
         return result;
     }
 
+    @Nonnull
     @Override
     public Set<E> getEntitiesMinusTop() {
         return getEntitiesMinus(getTopEntity());
     }
 
+    @Nonnull
     @Override
     public Set<E> getEntitiesMinusBottom() {
         return getEntitiesMinus(getBottomEntity());
@@ -142,6 +149,7 @@ public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
         return entities.size() == 1;
     }
 
+    @Nullable
     @Override
     public E getRepresentativeElement() {
         if (!entities.isEmpty()) {
@@ -151,11 +159,13 @@ public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
         }
     }
 
+    @Nonnull
     @Override
     public Iterator<E> iterator() {
         return entities.iterator();
     }
 
+    @Nonnull
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -169,7 +179,7 @@ public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         if (obj == null) {
             return false;
         }

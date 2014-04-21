@@ -20,6 +20,8 @@ import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLEntity;
 
+import javax.annotation.Nonnull;
+
 /**
  * A bidirectional short form provider that caches entity short forms. The
  * provider has various methods to add, remove, update entities in the cache and
@@ -48,8 +50,10 @@ public abstract class CachingBidirectionalShortFormProvider implements
      *        The entity whose short form should be generated.
      * @return short form
      */
+    @Nonnull
     protected abstract String generateShortForm(OWLEntity entity);
 
+    @Nonnull
     @Override
     public Set<String> getShortForms() {
         return CollectionFactory
@@ -65,7 +69,7 @@ public abstract class CachingBidirectionalShortFormProvider implements
      *        The {@code OWLEntitySetProvider} that should be used to obtain the
      *        entities whose short forms will be cached.
      */
-    protected void rebuild(OWLEntitySetProvider<OWLEntity> entitySetProvider) {
+    protected void rebuild(@Nonnull OWLEntitySetProvider<OWLEntity> entitySetProvider) {
         shortForm2EntityMap.clear();
         entity2ShortFormMap.clear();
         for (OWLEntity entity : entitySetProvider.getEntities()) {
@@ -105,8 +109,9 @@ public abstract class CachingBidirectionalShortFormProvider implements
         }
     }
 
+    @Nonnull
     @Override
-    public Set<OWLEntity> getEntities(String shortForm) {
+    public Set<OWLEntity> getEntities(@Nonnull String shortForm) {
         Set<OWLEntity> entities = shortForm2EntityMap.get(shortForm);
         if (entities != null) {
             return CollectionFactory
@@ -117,7 +122,7 @@ public abstract class CachingBidirectionalShortFormProvider implements
     }
 
     @Override
-    public OWLEntity getEntity(String shortForm) {
+    public OWLEntity getEntity(@Nonnull String shortForm) {
         Set<OWLEntity> entities = shortForm2EntityMap.get(shortForm);
         if (entities != null) {
             if (!entities.isEmpty()) {
@@ -130,8 +135,9 @@ public abstract class CachingBidirectionalShortFormProvider implements
         }
     }
 
+    @Nonnull
     @Override
-    public String getShortForm(OWLEntity entity) {
+    public String getShortForm(@Nonnull OWLEntity entity) {
         String sf = entity2ShortFormMap.get(entity);
         if (sf != null) {
             return sf;

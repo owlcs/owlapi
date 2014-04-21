@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapitools.builders;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -23,7 +25,9 @@ public class BuilderObjectPropertyAssertion
         extends
         BaseObjectPropertyBuilder<OWLObjectPropertyAssertionAxiom, BuilderObjectPropertyAssertion> {
 
+    @Nullable
     private OWLIndividual subject = null;
+    @Nullable
     private OWLIndividual value = null;
 
     /**
@@ -35,7 +39,7 @@ public class BuilderObjectPropertyAssertion
      *        data factory
      */
     public BuilderObjectPropertyAssertion(
-            OWLObjectPropertyAssertionAxiom expected, OWLDataFactory df) {
+            @Nonnull OWLObjectPropertyAssertionAxiom expected, OWLDataFactory df) {
         this(df);
         withSubject(expected.getSubject()).withProperty(expected.getProperty())
                 .withValue(expected.getObject())
@@ -56,6 +60,7 @@ public class BuilderObjectPropertyAssertion
      *        subject
      * @return builder
      */
+    @Nonnull
     public BuilderObjectPropertyAssertion withSubject(OWLIndividual arg) {
         subject = arg;
         return this;
@@ -66,11 +71,13 @@ public class BuilderObjectPropertyAssertion
      *        value
      * @return builder
      */
+    @Nonnull
     public BuilderObjectPropertyAssertion withValue(OWLIndividual arg) {
         value = arg;
         return this;
     }
 
+    @Nonnull
     @Override
     public OWLObjectPropertyAssertionAxiom buildObject() {
         return df.getOWLObjectPropertyAssertionAxiom(property, subject, value,

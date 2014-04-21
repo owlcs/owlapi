@@ -26,7 +26,9 @@ import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
  */
 public class SimpleIRIMapper implements OWLOntologyIRIMapper {
 
+    @Nonnull
     private final IRI ontologyIRI;
+    @Nonnull
     private final IRI documentIRI;
 
     /**
@@ -43,7 +45,7 @@ public class SimpleIRIMapper implements OWLOntologyIRIMapper {
     }
 
     @Override
-    public IRI getDocumentIRI(IRI iri) {
+    public IRI getDocumentIRI(@Nonnull IRI iri) {
         if (ontologyIRI.equals(iri)) {
             return documentIRI;
         } else {

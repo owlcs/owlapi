@@ -38,6 +38,7 @@ public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl
         implements OWLNaryIndividualAxiom {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final List<OWLIndividual> individuals;
 
     /**
@@ -55,12 +56,14 @@ public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl
         Collections.sort(this.individuals);
     }
 
+    @Nonnull
     @Override
     public Set<OWLIndividual> getIndividuals() {
         return CollectionFactory
                 .getCopyOnRequestSetFromImmutableCollection(individuals);
     }
 
+    @Nonnull
     @Override
     public List<OWLIndividual> getIndividualsAsList() {
         return new ArrayList<OWLIndividual>(individuals);
@@ -82,14 +85,15 @@ public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl
     }
 
     @Override
-    protected int compareObjectOfSameType(OWLObject object) {
+    protected int compareObjectOfSameType(@Nonnull OWLObject object) {
         return compareSets(individuals,
                 ((OWLNaryIndividualAxiom) object).getIndividuals());
     }
 
+    @Nonnull
     @Override
     public <T> Collection<T> walkPairwise(
-            OWLPairwiseVisitor<T, OWLIndividual> visitor) {
+            @Nonnull OWLPairwiseVisitor<T, OWLIndividual> visitor) {
         List<T> l = new ArrayList<T>();
         for (int i = 0; i < individuals.size() - 1; i++) {
             for (int j = i + 1; j < individuals.size(); j++) {

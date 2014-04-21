@@ -19,6 +19,7 @@ import java.util.Collections;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.DataRangeType;
 import org.semanticweb.owlapi.model.EntityType;
@@ -72,8 +73,10 @@ public class OWL2DatatypeImpl implements OWLDatatype {
                 "owl2Datatype must not be null");
     }
 
+    @Nonnull
     private final OWL2Datatype owl2Datatype;
 
+    @Nonnull
     @Override
     public OWL2Datatype getBuiltInDatatype() {
         return owl2Datatype;
@@ -119,43 +122,48 @@ public class OWL2DatatypeImpl implements OWLDatatype {
         return owl2Datatype == RDFS_LITERAL;
     }
 
+    @Nonnull
     @Override
     public OWLDatatype asOWLDatatype() {
         return this;
     }
 
+    @Nonnull
     @Override
     public DataRangeType getDataRangeType() {
         return DataRangeType.DATATYPE;
     }
 
     @Override
-    public void accept(OWLDataVisitor visitor) {
+    public void accept(@Nonnull OWLDataVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Nullable
     @Override
-    public <O> O accept(OWLDataVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLDataVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    public void accept(OWLDataRangeVisitor visitor) {
+    public void accept(@Nonnull OWLDataRangeVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Nonnull
     @Override
-    public <O> O accept(OWLDataRangeVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLDataRangeVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Nonnull
     @Override
     public EntityType<?> getEntityType() {
         return EntityType.DATATYPE;
     }
 
     @Override
-    public boolean isType(EntityType<?> entityType) {
+    public boolean isType(@Nonnull EntityType<?> entityType) {
         return entityType == EntityType.DATATYPE;
     }
 
@@ -169,6 +177,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
         return false;
     }
 
+    @Nonnull
     @Override
     public OWLClass asOWLClass() {
         throw new UnsupportedOperationException("Not an OWLClass");
@@ -179,6 +188,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
         return false;
     }
 
+    @Nonnull
     @Override
     public OWLObjectProperty asOWLObjectProperty() {
         throw new UnsupportedOperationException("Not an OWLObjectProperty");
@@ -189,6 +199,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
         return false;
     }
 
+    @Nonnull
     @Override
     public OWLDataProperty asOWLDataProperty() {
         throw new UnsupportedOperationException("Not an OWLDataProperty");
@@ -199,6 +210,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
         return false;
     }
 
+    @Nonnull
     @Override
     public OWLNamedIndividual asOWLNamedIndividual() {
         throw new UnsupportedOperationException("Not an OWLNamedIndividual");
@@ -214,48 +226,53 @@ public class OWL2DatatypeImpl implements OWLDatatype {
         return false;
     }
 
+    @Nonnull
     @Override
     public OWLAnnotationProperty asOWLAnnotationProperty() {
         throw new UnsupportedOperationException("Not an OWLAnnotationProperty");
     }
 
+    @Nonnull
     @Override
     public String toStringID() {
         return owl2Datatype.getIRI().toString();
     }
 
+    @Nonnull
     @Override
     public String toString() {
         return toStringID();
     }
 
     @Override
-    public void accept(OWLEntityVisitor visitor) {
+    public void accept(@Nonnull OWLEntityVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Nullable
     @Override
-    public <O> O accept(OWLEntityVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLEntityVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Nonnull
     @Override
     public IRI getIRI() {
         return owl2Datatype.getIRI();
     }
 
     @Override
-    public void accept(OWLNamedObjectVisitor visitor) {
+    public void accept(@Nonnull OWLNamedObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public void accept(OWLObjectVisitor visitor) {
+    public void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
@@ -271,6 +288,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
         return owl2Datatype.getIRI().equals(other.getIRI());
     }
 
+    @Nonnull
     @Override
     public Set<OWLEntity> getSignature() {
         return CollectionFactory
@@ -283,6 +301,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
         return equals(owlEntity);
     }
 
+    @Nonnull
     @Override
     public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
         return CollectionFactory
@@ -290,6 +309,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
                         .<OWLAnonymousIndividual> emptySet());
     }
 
+    @Nonnull
     @Override
     public Set<OWLClass> getClassesInSignature() {
         return CollectionFactory
@@ -297,6 +317,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
                         .<OWLClass> emptySet());
     }
 
+    @Nonnull
     @Override
     public Set<OWLDataProperty> getDataPropertiesInSignature() {
         return CollectionFactory
@@ -304,6 +325,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
                         .<OWLDataProperty> emptySet());
     }
 
+    @Nonnull
     @Override
     public Set<OWLObjectProperty> getObjectPropertiesInSignature() {
         return CollectionFactory
@@ -311,6 +333,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
                         .<OWLObjectProperty> emptySet());
     }
 
+    @Nonnull
     @Override
     public Set<OWLNamedIndividual> getIndividualsInSignature() {
         return CollectionFactory
@@ -318,6 +341,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
                         .<OWLNamedIndividual> emptySet());
     }
 
+    @Nonnull
     @Override
     public Set<OWLDatatype> getDatatypesInSignature() {
         return CollectionFactory
@@ -325,6 +349,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
                         .singleton((OWLDatatype) this));
     }
 
+    @Nonnull
     @Override
     public Set<OWLClassExpression> getNestedClassExpressions() {
         return CollectionFactory
@@ -343,7 +368,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
     }
 
     @Override
-    public int compareTo(OWLObject o) {
+    public int compareTo(@Nonnull OWLObject o) {
         if (!(o instanceof OWLDatatype)) {
             OWLObjectTypeIndexProvider provider = new OWLObjectTypeIndexProvider();
             return provider.getTypeIndex(o);

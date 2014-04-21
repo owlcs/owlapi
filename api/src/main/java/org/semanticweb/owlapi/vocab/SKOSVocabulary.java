@@ -28,6 +28,8 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -84,6 +86,7 @@ public enum SKOSVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     COMMENT("comment", EntityType.ANNOTATION_PROPERTY);
 //@formatter:on
     /** all IRIs */
+    @Nonnull
     public static final Set<IRI> ALL_IRIS;
     static {
         ALL_IRIS = new HashSet<IRI>();
@@ -92,8 +95,10 @@ public enum SKOSVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
         }
     }
     private final String localName;
+    @Nonnull
     private final IRI iri;
     private final EntityType<?> entityType;
+    @Nonnull
     private final String prefixedName;
 
     SKOSVocabulary(String localname, EntityType<?> entityType) {
@@ -113,6 +118,7 @@ public enum SKOSVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
         return localName;
     }
 
+    @Nonnull
     @Override
     public IRI getIRI() {
         return iri;
@@ -123,8 +129,9 @@ public enum SKOSVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
      *        data factory to use
      * @return set of SKOS annotation properties
      */
+    @Nonnull
     public static Set<OWLAnnotationProperty> getAnnotationProperties(
-            OWLDataFactory dataFactory) {
+            @Nonnull OWLDataFactory dataFactory) {
         Set<OWLAnnotationProperty> result = new HashSet<OWLAnnotationProperty>();
         for (SKOSVocabulary v : values()) {
             if (v.entityType.equals(EntityType.ANNOTATION_PROPERTY)) {
@@ -139,8 +146,9 @@ public enum SKOSVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
      *        data factory to use
      * @return set of SKOS object properties
      */
+    @Nonnull
     public static Set<OWLObjectProperty> getObjectProperties(
-            OWLDataFactory dataFactory) {
+            @Nonnull OWLDataFactory dataFactory) {
         Set<OWLObjectProperty> result = new HashSet<OWLObjectProperty>();
         for (SKOSVocabulary v : values()) {
             if (v.entityType.equals(EntityType.OBJECT_PROPERTY)) {
@@ -155,8 +163,9 @@ public enum SKOSVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
      *        data factory to use
      * @return set of SKOS data properties
      */
+    @Nonnull
     public static Set<OWLDataProperty> getDataProperties(
-            OWLDataFactory dataFactory) {
+            @Nonnull OWLDataFactory dataFactory) {
         Set<OWLDataProperty> result = new HashSet<OWLDataProperty>();
         for (SKOSVocabulary v : values()) {
             if (v.entityType.equals(EntityType.DATA_PROPERTY)) {
@@ -171,7 +180,8 @@ public enum SKOSVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
      *        data factory to use
      * @return set of SKOS classes
      */
-    public static Set<OWLClass> getClasses(OWLDataFactory dataFactory) {
+    @Nonnull
+    public static Set<OWLClass> getClasses(@Nonnull OWLDataFactory dataFactory) {
         Set<OWLClass> result = new HashSet<OWLClass>();
         for (SKOSVocabulary v : values()) {
             if (v.entityType.equals(EntityType.CLASS)) {
@@ -181,11 +191,13 @@ public enum SKOSVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
         return result;
     }
 
+    @Nonnull
     @Override
     public String getShortForm() {
         return localName;
     }
 
+    @Nonnull
     @Override
     public String getPrefixedName() {
         return prefixedName;

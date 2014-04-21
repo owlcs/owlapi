@@ -45,18 +45,24 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerConfiguration;
  */
 public abstract class OWLReasonerBase implements OWLReasoner {
 
+    @Nonnull
     private final OWLOntologyManager manager;
+    @Nonnull
     private final OWLOntology rootOntology;
+    @Nonnull
     private final BufferingMode bufferingMode;
     private final List<OWLOntologyChange<?>> rawChanges = new ArrayList<OWLOntologyChange<?>>();
+    @Nonnull
     private final Set<OWLAxiom> reasonerAxioms;
     private final long timeOut;
+    @Nonnull
     private final OWLReasonerConfiguration configuration;
+    @Nonnull
     private OWLOntologyChangeListener ontologyChangeListener = new OWLOntologyChangeListener() {
 
         @Override
         public void ontologiesChanged(
-                List<? extends OWLOntologyChange<?>> changes)
+                @Nonnull List<? extends OWLOntologyChange<?>> changes)
                 throws OWLException {
             handleRawOntologyChanges(changes);
         }
@@ -86,10 +92,12 @@ public abstract class OWLReasonerBase implements OWLReasoner {
     }
 
     /** @return the configuration */
+    @Nonnull
     public OWLReasonerConfiguration getReasonerConfiguration() {
         return configuration;
     }
 
+    @Nonnull
     @Override
     public BufferingMode getBufferingMode() {
         return bufferingMode;
@@ -100,6 +108,7 @@ public abstract class OWLReasonerBase implements OWLReasoner {
         return timeOut;
     }
 
+    @Nonnull
     @Override
     public OWLOntology getRootOntology() {
         return rootOntology;
@@ -115,7 +124,7 @@ public abstract class OWLReasonerBase implements OWLReasoner {
      *        The list of raw changes.
      */
     protected synchronized void handleRawOntologyChanges(
-            List<? extends OWLOntologyChange<?>> changes) {
+            @Nonnull List<? extends OWLOntologyChange<?>> changes) {
         rawChanges.addAll(changes);
         // We auto-flush the changes if the reasoner is non-buffering
         if (bufferingMode.equals(BufferingMode.NON_BUFFERING)) {
@@ -123,11 +132,13 @@ public abstract class OWLReasonerBase implements OWLReasoner {
         }
     }
 
+    @Nonnull
     @Override
     public List<OWLOntologyChange<?>> getPendingChanges() {
         return new ArrayList<OWLOntologyChange<?>>(rawChanges);
     }
 
+    @Nonnull
     @Override
     public Set<OWLAxiom> getPendingAxiomAdditions() {
         Set<OWLAxiom> added = new HashSet<OWLAxiom>();
@@ -135,6 +146,7 @@ public abstract class OWLReasonerBase implements OWLReasoner {
         return added;
     }
 
+    @Nonnull
     @Override
     public Set<OWLAxiom> getPendingAxiomRemovals() {
         Set<OWLAxiom> removed = new HashSet<OWLAxiom>();
@@ -169,7 +181,7 @@ public abstract class OWLReasonerBase implements OWLReasoner {
      *        The logical axioms that have been removed from the imports closure
      *        of the reasoner root ontology
      */
-    private void computeDiff(Set<OWLAxiom> added, Set<OWLAxiom> removed) {
+    private void computeDiff(@Nonnull Set<OWLAxiom> added, @Nonnull Set<OWLAxiom> removed) {
         if (rawChanges.isEmpty()) {
             return;
         }
@@ -202,6 +214,7 @@ public abstract class OWLReasonerBase implements OWLReasoner {
      *         imports closure of the reasoner root ontology if the reasoner is
      *         buffered.
      */
+    @Nonnull
     public Collection<OWLAxiom> getReasonerAxioms() {
         return new ArrayList<OWLAxiom>(reasonerAxioms);
     }
@@ -235,6 +248,7 @@ public abstract class OWLReasonerBase implements OWLReasoner {
     }
 
     /** @return the data factory */
+    @Nonnull
     public OWLDataFactory getOWLDataFactory() {
         return rootOntology.getOWLOntologyManager().getOWLDataFactory();
     }

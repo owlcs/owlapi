@@ -30,6 +30,7 @@ public abstract class OWLQuantifiedRestrictionImpl<F extends OWLPropertyRange>
         extends OWLRestrictionImpl implements OWLQuantifiedRestriction<F> {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final F filler;
 
     /**
@@ -40,6 +41,7 @@ public abstract class OWLQuantifiedRestrictionImpl<F extends OWLPropertyRange>
         this.filler = checkNotNull(filler, "filler cannot be null");
     }
 
+    @Nonnull
     @Override
     public F getFiller() {
         return filler;

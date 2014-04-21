@@ -22,6 +22,8 @@ import org.semanticweb.owlapi.model.RemoveImport;
 import org.semanticweb.owlapi.model.RemoveOntologyAnnotation;
 import org.semanticweb.owlapi.model.SetOntologyID;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -40,37 +42,37 @@ public class OWLOntologyChangeVisitorAdapter implements
             @SuppressWarnings("unused") OWLOntologyChange<?> c) {}
 
     @Override
-    public void visit(RemoveAxiom change) {
+    public void visit(@Nonnull RemoveAxiom change) {
         handleDefault(change);
     }
 
     @Override
-    public void visit(SetOntologyID change) {
+    public void visit(@Nonnull SetOntologyID change) {
         handleDefault(change);
     }
 
     @Override
-    public void visit(AddAxiom change) {
+    public void visit(@Nonnull AddAxiom change) {
         handleDefault(change);
     }
 
     @Override
-    public void visit(AddImport change) {
+    public void visit(@Nonnull AddImport change) {
         handleDefault(change);
     }
 
     @Override
-    public void visit(RemoveImport change) {
+    public void visit(@Nonnull RemoveImport change) {
         handleDefault(change);
     }
 
     @Override
-    public void visit(AddOntologyAnnotation change) {
+    public void visit(@Nonnull AddOntologyAnnotation change) {
         handleDefault(change);
     }
 
     @Override
-    public void visit(RemoveOntologyAnnotation change) {
+    public void visit(@Nonnull RemoveOntologyAnnotation change) {
         handleDefault(change);
     }
 }

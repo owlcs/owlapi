@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -30,6 +31,7 @@ public interface OWLOntologyChangeVisitorEx<O> {
      *        change to visit
      * @return visitor value
      */
+    @Nullable
     O visit(@Nonnull AddAxiom change);
 
     /**
@@ -39,6 +41,7 @@ public interface OWLOntologyChangeVisitorEx<O> {
      *        change to visit
      * @return visitor value
      */
+    @Nullable
     O visit(@Nonnull RemoveAxiom change);
 
     /**
@@ -48,6 +51,7 @@ public interface OWLOntologyChangeVisitorEx<O> {
      *        change to visit
      * @return visitor value
      */
+    @Nullable
     O visit(@Nonnull SetOntologyID change);
 
     /**
@@ -57,6 +61,7 @@ public interface OWLOntologyChangeVisitorEx<O> {
      *        change to visit
      * @return visitor value
      */
+    @Nullable
     O visit(@Nonnull AddImport change);
 
     /**
@@ -66,6 +71,7 @@ public interface OWLOntologyChangeVisitorEx<O> {
      *        change to visit
      * @return visitor value
      */
+    @Nullable
     O visit(@Nonnull RemoveImport change);
 
     /**
@@ -75,6 +81,7 @@ public interface OWLOntologyChangeVisitorEx<O> {
      *        change to visit
      * @return visitor value
      */
+    @Nullable
     O visit(@Nonnull AddOntologyAnnotation change);
 
     /**
@@ -84,5 +91,6 @@ public interface OWLOntologyChangeVisitorEx<O> {
      *        change to visit
      * @return visitor value
      */
+    @Nullable
     O visit(@Nonnull RemoveOntologyAnnotation change);
 }

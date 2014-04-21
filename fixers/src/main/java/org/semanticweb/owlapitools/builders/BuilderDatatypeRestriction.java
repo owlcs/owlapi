@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapitools.builders;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -24,6 +26,7 @@ public class BuilderDatatypeRestriction
         extends
         BaseSetBuilder<OWLDatatypeRestriction, BuilderDatatypeRestriction, OWLFacetRestriction> {
 
+    @Nullable
     private OWLDatatype type = null;
 
     /**
@@ -34,7 +37,7 @@ public class BuilderDatatypeRestriction
      * @param df
      *        data factory
      */
-    public BuilderDatatypeRestriction(OWLDatatypeRestriction expected,
+    public BuilderDatatypeRestriction(@Nonnull OWLDatatypeRestriction expected,
             OWLDataFactory df) {
         this(df);
         withDatatype(expected.getDatatype()).withItems(
@@ -55,11 +58,13 @@ public class BuilderDatatypeRestriction
      *        range
      * @return builder
      */
+    @Nonnull
     public BuilderDatatypeRestriction withDatatype(OWLDatatype arg) {
         type = arg;
         return this;
     }
 
+    @Nonnull
     @Override
     public OWLDatatypeRestriction buildObject() {
         return df.getOWLDatatypeRestriction(type, items);

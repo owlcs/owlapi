@@ -16,6 +16,8 @@ import org.semanticweb.owlapi.annotations.HasIdentifierKey;
 import org.semanticweb.owlapi.annotations.IsBinaryFormat;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
+import javax.annotation.Nonnull;
+
 /**
  * Format for serializing an OWL ontology in a functional syntax format and
  * labels instead of identifiers. WARNING: This will produce a file, which
@@ -28,6 +30,7 @@ public class LabelFunctionalFormat extends OWLOntologyFormat {
 
     private static final long serialVersionUID = 40000L;
 
+    @Nonnull
     @Override
     public String getKey() {
         return "Label functional Syntax";

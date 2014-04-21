@@ -13,7 +13,9 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 public abstract class OWLOntologyDocumentSourceBase implements
         OWLOntologyDocumentSource {
 
+    @Nullable
     private final OWLOntologyFormat format;
+    @Nullable
     private final String mimeType;
 
     /**
@@ -30,6 +32,7 @@ public abstract class OWLOntologyDocumentSourceBase implements
         mimeType = mime;
     }
 
+    @Nullable
     @Override
     public final OWLOntologyFormat getFormat() {
         return format;
@@ -40,6 +43,7 @@ public abstract class OWLOntologyDocumentSourceBase implements
         return format != null;
     }
 
+    @Nullable
     @Override
     public final String getMIMEType() {
         return mimeType;

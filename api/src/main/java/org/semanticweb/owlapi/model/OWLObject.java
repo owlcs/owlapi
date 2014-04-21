@@ -16,6 +16,7 @@ import java.io.Serializable;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -140,6 +141,7 @@ public interface OWLObject extends Comparable<OWLObject>, Serializable,
      *        visitor return type
      * @return visitor value
      */
+    @Nullable
     <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor);
 
     /**

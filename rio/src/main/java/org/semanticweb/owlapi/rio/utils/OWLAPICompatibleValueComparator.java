@@ -43,6 +43,8 @@ import org.openrdf.model.Literal;
 import org.openrdf.model.URI;
 import org.openrdf.model.Value;
 
+import javax.annotation.Nullable;
+
 /**
  * Implements a Comparator for OpenRDF Value objects where:
  * <p>
@@ -83,7 +85,7 @@ public class OWLAPICompatibleValueComparator implements Comparator<Value> {
      *         ordered after the second param.
      */
     @Override
-    public int compare(final Value first, final Value second) {
+    public int compare(@Nullable final Value first, @Nullable final Value second) {
         if (first == null) {
             if (second == null) {
                 return OWLAPICompatibleValueComparator.EQUALS;

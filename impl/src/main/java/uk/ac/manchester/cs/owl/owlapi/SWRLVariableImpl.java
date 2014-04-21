@@ -15,6 +15,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLObject;
@@ -33,6 +34,7 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 public class SWRLVariableImpl extends OWLObjectImpl implements SWRLVariable {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final IRI iri;
 
     @Override
@@ -44,33 +46,35 @@ public class SWRLVariableImpl extends OWLObjectImpl implements SWRLVariable {
         this.iri = checkNotNull(iri, "iri cannot be null");
     }
 
+    @Nonnull
     @Override
     public IRI getIRI() {
         return iri;
     }
 
     @Override
-    protected int compareObjectOfSameType(OWLObject object) {
+    protected int compareObjectOfSameType(@Nonnull OWLObject object) {
         return iri.compareTo(((SWRLVariable) object).getIRI());
     }
 
     @Override
-    public void accept(OWLObjectVisitor visitor) {
+    public void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    public void accept(SWRLObjectVisitor visitor) {
+    public void accept(@Nonnull SWRLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Nullable
     @Override
-    public <O> O accept(SWRLObjectVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull SWRLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 

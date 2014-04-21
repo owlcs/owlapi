@@ -80,6 +80,9 @@ import org.semanticweb.owlapi.util.EscapeUtils;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
 
     private OWLOntologyLoaderConfiguration configuration;
@@ -91,7 +94,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
     private Set<OWLAnnotation> currentAnnotations;
     private OWLDataFactory df;
 
-    void setUp(OWLOntology ontology,
+    void setUp(@Nonnull OWLOntology ontology,
             OWLOntologyLoaderConfiguration configuration) {
         this.ontology = ontology;
         this.configuration = configuration;
@@ -108,7 +111,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         string2IRI = new HashMap<String, IRI>();
     }
 
-    IRI getIRI(String s) {
+    IRI getIRI(@Nonnull String s) {
         IRI iri = string2IRI.get(s);
         if (iri == null) {
             if (s.charAt(0) == '<') {
@@ -133,7 +136,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         ignoreAnnotationsAndDeclarations = b;
     }
 
-    void applyChange(OWLOntologyChange<?> chg) {
+    void applyChange(@Nonnull OWLOntologyChange<?> chg) {
         chg.getOntology().getOWLOntologyManager().applyChange(chg);
     }
 
@@ -145,13 +148,14 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         }
     }
 
-    void setPrefixes(PrefixManager nsm) {
+    void setPrefixes(@Nonnull PrefixManager nsm) {
         if (prefixMap == null) {
             prefixMap = new HashMap<String, String>();
         }
         prefixMap.putAll(nsm.getPrefixName2PrefixMap());
     }
 
+    @Nonnull
     OWLFunctionalSyntaxOntologyFormat parse() {
         label_1: while (true) {
             if (jj_2_1(2)) {} else {
@@ -300,10 +304,12 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return desc;
     }
 
+    @Nonnull
     private OWLClass ClassIRI() {
         return df.getOWLClass(IRI());
     }
 
+    @Nonnull
     private Set<OWLClassExpression> ClassExpressionSet() {
         Set<OWLClassExpression> classExpressions = new HashSet<OWLClassExpression>();
         OWLClassExpression desc;
@@ -321,6 +327,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return classExpressions;
     }
 
+    @Nonnull
     private Set<OWLIndividual> IndividualMinOneSet() {
         Set<OWLIndividual> individuals = new HashSet<OWLIndividual>();
         OWLIndividual ind;
@@ -336,6 +343,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return individuals;
     }
 
+    @Nonnull
     private OWLClassExpression ObjectUnionOf() {
         Set<OWLClassExpression> classExpressions;
         jj_consume_token(OBJECTUNIONOF);
@@ -345,6 +353,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return df.getOWLObjectUnionOf(classExpressions);
     }
 
+    @Nonnull
     private OWLClassExpression ObjectIntersectionOf() {
         Set<OWLClassExpression> classExpressions;
         jj_consume_token(OBJECTINTERSECTIONOF);
@@ -354,6 +363,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return df.getOWLObjectIntersectionOf(classExpressions);
     }
 
+    @Nonnull
     private OWLClassExpression ObjectComplementOf() {
         OWLClassExpression operand;
         jj_consume_token(OBJECTCOMPLEMENTOF);
@@ -363,6 +373,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return df.getOWLObjectComplementOf(operand);
     }
 
+    @Nonnull
     private OWLClassExpression ObjectOneOf() {
         Set<OWLIndividual> individuals;
         jj_consume_token(OBJECTONEOF);
@@ -372,6 +383,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return df.getOWLObjectOneOf(individuals);
     }
 
+    @Nonnull
     private OWLClassExpression ObjectAllValuesFrom() {
         OWLObjectPropertyExpression prop;
         OWLClassExpression filler;
@@ -383,6 +395,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return df.getOWLObjectAllValuesFrom(prop, filler);
     }
 
+    @Nonnull
     private OWLClassExpression ObjectSomeValuesFrom() {
         OWLObjectPropertyExpression prop;
         OWLClassExpression filler;
@@ -394,6 +407,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return df.getOWLObjectSomeValuesFrom(prop, filler);
     }
 
+    @Nonnull
     private OWLClassExpression ObjectHasValue() {
         OWLObjectPropertyExpression prop;
         OWLIndividual ind;
@@ -405,6 +419,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return df.getOWLObjectHasValue(prop, ind);
     }
 
+    @Nonnull
     private OWLClassExpression ObjectSelf() {
         OWLObjectPropertyExpression prop;
         jj_consume_token(OBJECTHASSELF);
@@ -414,6 +429,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return df.getOWLObjectHasSelf(prop);
     }
 
+    @Nonnull
     private OWLClassExpression ObjectMinCardinality() {
         int cardinality = 0;
         OWLObjectPropertyExpression prop = null;
@@ -433,6 +449,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         }
     }
 
+    @Nonnull
     private OWLClassExpression ObjectExactCardinality() {
         int cardinality = 0;
         OWLObjectPropertyExpression prop = null;
@@ -451,6 +468,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return df.getOWLObjectExactCardinality(cardinality, prop, filler);
     }
 
+    @Nonnull
     private OWLClassExpression ObjectMaxCardinality() {
         int cardinality = 0;
         OWLObjectPropertyExpression prop = null;
@@ -469,6 +487,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return df.getOWLObjectMaxCardinality(cardinality, prop, filler);
     }
 
+    @Nonnull
     private OWLClassExpression DataAllValuesFrom() {
         OWLDataPropertyExpression prop = null;
         OWLDataRange dataRange = null;
@@ -480,6 +499,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return df.getOWLDataAllValuesFrom(prop, dataRange);
     }
 
+    @Nonnull
     private OWLClassExpression DataSomeValuesFrom() {
         OWLDataPropertyExpression prop = null;
         OWLDataRange dataRange = null;
@@ -491,6 +511,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return df.getOWLDataSomeValuesFrom(prop, dataRange);
     }
 
+    @Nonnull
     private OWLClassExpression DataHasValue() {
         OWLDataPropertyExpression prop = null;
         OWLLiteral literal = null;
@@ -502,6 +523,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return df.getOWLDataHasValue(prop, literal);
     }
 
+    @Nonnull
     private OWLClassExpression DataMinCardinality() {
         int cardinality = 0;
         OWLDataPropertyExpression prop = null;
@@ -520,6 +542,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return df.getOWLDataMinCardinality(cardinality, prop, rng);
     }
 
+    @Nonnull
     private OWLClassExpression DataExactCardinality() {
         int cardinality = 0;
         OWLDataPropertyExpression prop = null;
@@ -538,6 +561,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return df.getOWLDataExactCardinality(cardinality, prop, rng);
     }
 
+    @Nonnull
     private OWLClassExpression DataMaxCardinality() {
         int cardinality = 0;
         OWLDataPropertyExpression prop = null;
@@ -578,6 +602,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return prop;
     }
 
+    @Nonnull
     private OWLObjectPropertyExpression InverseObjectProperty() {
         OWLObjectPropertyExpression prop;
         jj_consume_token(OBJECTINVERSEOF);
@@ -602,6 +627,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return prop;
     }
 
+    @Nonnull
     private OWLDataProperty DataPropertyIRI() {
         IRI iri;
         iri = IRI();
@@ -626,6 +652,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return prop;
     }
 
+    @Nonnull
     private OWLAnnotationProperty AnnotationPropertyIRI() {
         IRI iri;
         iri = IRI();
@@ -641,6 +668,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return ind;
     }
 
+    @Nonnull
     private OWLAnonymousIndividual AnonymousIndividual() {
         Token t;
         t = jj_consume_token(NODEID);
@@ -657,6 +685,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return dt;
     }
 
+    @Nonnull
     private OWLDatatype DatatypeIRI() {
         IRI iri;
         iri = IRI();
@@ -676,6 +705,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return i;
     }
 
+    @Nonnull
     private OWLDatatypeDefinitionAxiom DatatypeDefinitionAxiom() {
         OWLDatatype datatype;
         OWLDataRange dr;
@@ -710,6 +740,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return rng;
     }
 
+    @Nonnull
     private OWLDataRange DataComplementOf() {
         OWLDataRange rng;
         jj_consume_token(DATACOMPLEMENTOF);
@@ -719,6 +750,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return df.getOWLDataComplementOf(rng);
     }
 
+    @Nonnull
     private OWLDataRange DataOneOf() {
         Set<OWLLiteral> values = new HashSet<OWLLiteral>();
         OWLLiteral con = null;
@@ -735,6 +767,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return df.getOWLDataOneOf(values);
     }
 
+    @Nonnull
     private OWLDataRange DataUnionOf() {
         OWLDataRange dataRange;
         Set<OWLDataRange> ranges = new HashSet<OWLDataRange>();
@@ -751,6 +784,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return df.getOWLDataUnionOf(ranges);
     }
 
+    @Nonnull
     private OWLDataRange DataIntersectionOf() {
         OWLDataRange dataRange;
         Set<OWLDataRange> ranges = new HashSet<OWLDataRange>();
@@ -767,6 +801,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return df.getOWLDataIntersectionOf(ranges);
     }
 
+    @Nonnull
     private OWLDataRange DataRangeRestriction() {
         OWLDatatype rng;
         OWLFacetRestriction facetRestriction;
@@ -785,6 +820,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return df.getOWLDatatypeRestriction(rng, facetRestrictions);
     }
 
+    @Nonnull
     private OWLFacetRestriction DataRangeFacetRestriction() {
         IRI iri;
         OWLLiteral con;
@@ -799,6 +835,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
     // Axioms
     //
     // /////////////////////////////////////////////////////////////////////////////////////////////////////////
+    @Nullable
     private OWLAxiom Axiom() {
         OWLAxiom ax = null;
         if (jj_2_48(2)) {
@@ -848,6 +885,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return ax;
     }
 
+    @Nonnull
     private OWLClassAxiom SubClassOf() {
         OWLClassExpression subClass;
         OWLClassExpression superClass;
@@ -861,6 +899,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return df.getOWLSubClassOfAxiom(subClass, superClass, axiomAnnos);
     }
 
+    @Nonnull
     private OWLClassAxiom EquivalentClasses() {
         Set<OWLClassExpression> classExpressions;
         Set<OWLAnnotation> axiomAnnos;
@@ -872,6 +911,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return df.getOWLEquivalentClassesAxiom(classExpressions, axiomAnnos);
     }
 
+    @Nonnull
     private OWLClassAxiom DisjointClasses() {
         Set<OWLClassExpression> classExpressions;
         Set<OWLAnnotation> axiomAnnos;
@@ -883,6 +923,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return df.getOWLDisjointClassesAxiom(classExpressions, axiomAnnos);
     }
 
+    @Nonnull
     private OWLClassAxiom DisjointUnion() {
         OWLClass cls;
         Set<OWLClassExpression> classExpressions;
@@ -901,6 +942,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
     // Object Property Axioms
     //
     // /////////////////////////////////////////////////////////////////////////////////////////////////////////
+    @Nullable
     private OWLPropertyAxiom ObjectPropertyAxiom() {
         OWLPropertyAxiom ax;
         if (jj_2_61(2)) {
@@ -936,6 +978,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return ax;
     }
 
+    @Nonnull
     private List<OWLObjectPropertyExpression> SubObjectPropertyChain() {
         OWLObjectPropertyExpression prop;
         List<OWLObjectPropertyExpression> props = new ArrayList<OWLObjectPropertyExpression>();
@@ -954,6 +997,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return props;
     }
 
+    @Nullable
     private OWLPropertyAxiom SubObjectPropertyOf() {
         OWLObjectPropertyExpression subProperty = null;
         List<OWLObjectPropertyExpression> chain = null;
@@ -982,6 +1026,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return null;
     }
 
+    @Nonnull
     private OWLPropertyAxiom EquivalentObjectProperties() {
         Set<OWLObjectPropertyExpression> props;
         Set<OWLAnnotation> axiomAnnos;
@@ -993,6 +1038,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return df.getOWLEquivalentObjectPropertiesAxiom(props, axiomAnnos);
     }
 
+    @Nonnull
     private OWLPropertyAxiom DisjointObjectProperties() {
         Set<OWLObjectPropertyExpression> props;
         Set<OWLAnnotation> axiomAnnos;
@@ -1004,6 +1050,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return df.getOWLDisjointObjectPropertiesAxiom(props, axiomAnnos);
     }
 
+    @Nonnull
     private Set<OWLObjectPropertyExpression> ObjectPropertySet() {
         OWLObjectPropertyExpression prop;
         Set<OWLObjectPropertyExpression> props = new HashSet<OWLObjectPropertyExpression>();
@@ -1021,6 +1068,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return props;
     }
 
+    @Nonnull
     private OWLPropertyAxiom ObjectPropertyRange() {
         OWLObjectPropertyExpression prop;
         OWLClassExpression range;
@@ -1034,6 +1082,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return df.getOWLObjectPropertyRangeAxiom(prop, range, axiomAnnos);
     }
 
+    @Nonnull
     private OWLPropertyAxiom ObjectPropertyDomain() {
         OWLObjectPropertyExpression prop;
         OWLClassExpression desc;
@@ -1047,6 +1096,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return df.getOWLObjectPropertyDomainAxiom(prop, desc, axiomAnnos);
     }
 
+    @Nonnull
     private OWLPropertyAxiom FunctionalObjectProperty() {
         OWLObjectPropertyExpression prop;
         Set<OWLAnnotation> axiomAnnos = Collections.emptySet();
@@ -1058,6 +1108,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return df.getOWLFunctionalObjectPropertyAxiom(prop, axiomAnnos);
     }
 
+    @Nonnull
     private OWLPropertyAxiom InverseObjectProperties() {
         OWLObjectPropertyExpression propA;
         OWLObjectPropertyExpression propB;
@@ -1071,6 +1122,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return df.getOWLInverseObjectPropertiesAxiom(propA, propB, axiomAnnos);
     }
 
+    @Nonnull
     private OWLPropertyAxiom InverseFunctionalObjectProperty() {
         OWLObjectPropertyExpression prop;
         Set<OWLAnnotation> axiomAnnos;
@@ -1082,6 +1134,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return df.getOWLInverseFunctionalObjectPropertyAxiom(prop, axiomAnnos);
     }
 
+    @Nonnull
     private OWLPropertyAxiom SymmetricObjectProperty() {
         OWLObjectPropertyExpression prop;
         Set<OWLAnnotation> axiomAnnos;
@@ -1093,6 +1146,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return df.getOWLSymmetricObjectPropertyAxiom(prop, axiomAnnos);
     }
 
+    @Nonnull
     private OWLPropertyAxiom AsymmetricObjectProperty() {
         OWLObjectPropertyExpression prop;
         Set<OWLAnnotation> axiomAnnos;
@@ -1104,6 +1158,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return df.getOWLAsymmetricObjectPropertyAxiom(prop, axiomAnnos);
     }
 
+    @Nonnull
     private OWLPropertyAxiom ReflexiveObjectProperty() {
         OWLObjectPropertyExpression prop;
         Set<OWLAnnotation> axiomAnnos;
@@ -1115,6 +1170,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return df.getOWLReflexiveObjectPropertyAxiom(prop, axiomAnnos);
     }
 
+    @Nonnull
     private OWLPropertyAxiom IrreflexiveObjectProperty() {
         OWLObjectPropertyExpression prop;
         Set<OWLAnnotation> axiomAnnos;
@@ -1126,6 +1182,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return df.getOWLIrreflexiveObjectPropertyAxiom(prop, axiomAnnos);
     }
 
+    @Nonnull
     private OWLPropertyAxiom TransitiveObjectProperty() {
         OWLObjectPropertyExpression prop;
         Set<OWLAnnotation> axiomAnnos;
@@ -1163,6 +1220,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return ax;
     }
 
+    @Nonnull
     private OWLPropertyAxiom SubDataPropertyOf() {
         OWLDataPropertyExpression subProperty;
         OWLDataPropertyExpression superProperty;
@@ -1177,6 +1235,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
                 axiomAnnos);
     }
 
+    @Nonnull
     private OWLPropertyAxiom EquivalentDataProperties() {
         Set<OWLDataPropertyExpression> props;
         Set<OWLAnnotation> axiomAnnos;
@@ -1188,6 +1247,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return df.getOWLEquivalentDataPropertiesAxiom(props, axiomAnnos);
     }
 
+    @Nonnull
     private OWLPropertyAxiom DisjointDataProperties() {
         Set<OWLDataPropertyExpression> props;
         Set<OWLAnnotation> axiomAnnos;
@@ -1199,6 +1259,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return df.getOWLDisjointDataPropertiesAxiom(props, axiomAnnos);
     }
 
+    @Nonnull
     private Set<OWLDataPropertyExpression> DataPropertySet() {
         OWLDataPropertyExpression prop;
         Set<OWLDataPropertyExpression> props = new HashSet<OWLDataPropertyExpression>();
@@ -1216,6 +1277,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return props;
     }
 
+    @Nonnull
     private OWLPropertyAxiom DataPropertyDomain() {
         OWLDataPropertyExpression prop;
         OWLClassExpression domain;
@@ -1229,6 +1291,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return df.getOWLDataPropertyDomainAxiom(prop, domain, axiomAnnos);
     }
 
+    @Nonnull
     private OWLPropertyAxiom DataPropertyRange() {
         OWLDataPropertyExpression prop;
         OWLDataRange rng;
@@ -1242,6 +1305,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return df.getOWLDataPropertyRangeAxiom(prop, rng, axiomAnnos);
     }
 
+    @Nonnull
     private OWLPropertyAxiom FunctionalDataProperty() {
         OWLDataPropertyExpression prop;
         Set<OWLAnnotation> axiomAnnos;
@@ -1281,6 +1345,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return ax;
     }
 
+    @Nonnull
     private Set<OWLIndividual> IndividualSet() {
         OWLIndividual ind;
         Set<OWLIndividual> individuals = new HashSet<OWLIndividual>();
@@ -1298,6 +1363,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return individuals;
     }
 
+    @Nonnull
     private OWLIndividualAxiom SameIndividuals() {
         Set<OWLIndividual> individuals;
         Set<OWLAnnotation> axiomAnnos;
@@ -1309,6 +1375,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return df.getOWLSameIndividualAxiom(individuals, axiomAnnos);
     }
 
+    @Nonnull
     private OWLIndividualAxiom DifferentIndividuals() {
         Set<OWLIndividual> individuals;
         Set<OWLAnnotation> axiomAnnos;
@@ -1320,6 +1387,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return df.getOWLDifferentIndividualsAxiom(individuals, axiomAnnos);
     }
 
+    @Nonnull
     private OWLIndividualAxiom ClassAssertion() {
         OWLIndividual ind;
         OWLClassExpression desc;
@@ -1333,6 +1401,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return df.getOWLClassAssertionAxiom(desc, ind, axiomAnnos);
     }
 
+    @Nonnull
     private OWLIndividualAxiom ObjectPropertyAssertion() {
         OWLIndividual subj;
         OWLObjectPropertyExpression prop;
@@ -1349,6 +1418,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
                 axiomAnnos);
     }
 
+    @Nonnull
     private OWLIndividualAxiom NegativeObjectPropertyAssertion() {
         OWLIndividual subj;
         OWLObjectPropertyExpression prop;
@@ -1365,6 +1435,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
                 axiomAnnos);
     }
 
+    @Nonnull
     private OWLIndividualAxiom DataPropertyAssertion() {
         OWLIndividual subj;
         OWLDataPropertyExpression prop;
@@ -1380,6 +1451,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return df.getOWLDataPropertyAssertionAxiom(prop, subj, obj, axiomAnnos);
     }
 
+    @Nonnull
     private OWLIndividualAxiom NegativeDataPropertyAssertion() {
         OWLIndividual subj;
         OWLDataPropertyExpression prop;
@@ -1396,6 +1468,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
                 axiomAnnos);
     }
 
+    @Nonnull
     private OWLNamedIndividual IndividualIRI() {
         IRI iri;
         iri = IRI();
@@ -1415,6 +1488,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return ind;
     }
 
+    @Nonnull
     private OWLObjectProperty ObjectPropertyIRI() {
         IRI iri;
         iri = IRI();
@@ -1443,6 +1517,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return axiom;
     }
 
+    @Nonnull
     private OWLAnnotation Annotation() {
         OWLAnnotationProperty prop;
         OWLAnnotationValue val;
@@ -1492,6 +1567,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return value;
     }
 
+    @Nullable
     private Set<OWLAnnotation> AxiomAnnotationSet() {
         Set<OWLAnnotation> annos = null;
         OWLAnnotation anno;
@@ -1511,6 +1587,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return annos;
     }
 
+    @Nonnull
     private OWLImportsDeclaration ImportsDeclaration() {
         IRI iri;
         jj_consume_token(IMPORT);
@@ -1522,6 +1599,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return importsDeclaration;
     }
 
+    @Nonnull
     private OWLAnnotationAssertionAxiom AnnotationAssertion() {
         OWLAnnotationProperty prop;
         OWLAnnotationSubject subj;
@@ -1537,6 +1615,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return df.getOWLAnnotationAssertionAxiom(prop, subj, val, axiomAnnos);
     }
 
+    @Nonnull
     private OWLSubAnnotationPropertyOfAxiom SubAnnotationPropertyOf() {
         OWLAnnotationProperty subProp;
         OWLAnnotationProperty superProperty;
@@ -1551,6 +1630,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
                 axiomAnnos);
     }
 
+    @Nonnull
     private OWLAnnotationPropertyDomainAxiom AnnotationPropertyDomain() {
         IRI domain;
         OWLAnnotationProperty prop;
@@ -1564,6 +1644,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return df.getOWLAnnotationPropertyDomainAxiom(prop, domain, axiomAnnos);
     }
 
+    @Nonnull
     private OWLAnnotationPropertyRangeAxiom AnnotationPropertyRange() {
         IRI range;
         OWLAnnotationProperty prop;
@@ -1577,6 +1658,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return df.getOWLAnnotationPropertyRangeAxiom(prop, range, axiomAnnos);
     }
 
+    @Nonnull
     private OWLHasKeyAxiom HasKey() {
         OWLClassExpression ce;
         OWLPropertyExpression prop;
@@ -1608,6 +1690,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return df.getOWLHasKeyAxiom(ce, props, axiomAnnos);
     }
 
+    @Nullable
     private OWLAxiom Declaration() {
         OWLEntity entity = null;
         Set<OWLAnnotation> axiomAnnos;
@@ -1648,6 +1731,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
     // Data Stuff
     //
     // //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    @Nonnull
     private OWLLiteral Literal() {
         boolean plain = true;
         String literal;
@@ -1680,6 +1764,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return df.getOWLLiteral(literal, datatype);
     }
 
+    @Nonnull
     private String QuotedString() {
         Token t;
         t = jj_consume_token(STRINGLITERAL);
@@ -1700,6 +1785,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
     // Rules
     //
     // ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    @Nonnull
     private SWRLRule DLSafeRule() {
         Set<OWLAnnotation> annos;
         SWRLAtom atom;
@@ -1757,6 +1843,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return atom;
     }
 
+    @Nonnull
     private SWRLClassAtom ClassAtom() {
         OWLClassExpression ce;
         SWRLIArgument arg0;
@@ -1768,6 +1855,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return df.getSWRLClassAtom(ce, arg0);
     }
 
+    @Nonnull
     private SWRLDataRangeAtom DataRangeAtom() {
         OWLDataRange rng;
         SWRLDArgument arg0;
@@ -1779,6 +1867,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return df.getSWRLDataRangeAtom(rng, arg0);
     }
 
+    @Nonnull
     private SWRLObjectPropertyAtom ObjectPropertyAtom() {
         OWLObjectPropertyExpression prop;
         SWRLIArgument arg0;
@@ -1792,6 +1881,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return df.getSWRLObjectPropertyAtom(prop, arg0, arg1);
     }
 
+    @Nonnull
     private SWRLDataPropertyAtom DataPropertyAtom() {
         OWLDataProperty prop;
         SWRLIArgument arg0;
@@ -1805,6 +1895,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return df.getSWRLDataPropertyAtom(prop, arg0, arg1);
     }
 
+    @Nonnull
     private SWRLBuiltInAtom BuiltInAtom() {
         IRI iri;
         List<SWRLDArgument> args;
@@ -1826,6 +1917,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return df.getSWRLBuiltInAtom(iri, args);
     }
 
+    @Nonnull
     private SWRLSameIndividualAtom SameIndividualAtom() {
         SWRLIArgument arg0;
         SWRLIArgument arg1;
@@ -1837,6 +1929,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return df.getSWRLSameIndividualAtom(arg0, arg1);
     }
 
+    @Nonnull
     private SWRLDifferentIndividualsAtom DifferentIndividualsAtom() {
         SWRLIArgument arg0;
         SWRLIArgument arg1;
@@ -1848,6 +1941,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return df.getSWRLDifferentIndividualsAtom(arg0, arg1);
     }
 
+    @Nonnull
     private SWRLIArgument IArg() {
         OWLNamedIndividual ind;
         IRI iri;
@@ -1865,6 +1959,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         throw new ParseException();
     }
 
+    @Nonnull
     private SWRLDArgument DArg() {
         OWLLiteral literal;
         IRI iri;
@@ -5585,6 +5680,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
     private OWLFunctionalSyntaxParserTokenManager token_source;
     private JavaCharStream jj_input_stream;
     private Token token;
+    @Nullable
     private Token jj_scanpos, jj_lastpos;
     private int jj_la;
     private int jj_gen;
@@ -5798,9 +5894,11 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         return t;
     }
 
+    @Nonnull
     private java.util.List<int[]> jj_expentries = new java.util.ArrayList<int[]>();
     private int[] jj_expentry;
     private int jj_kind = -1;
+    @Nonnull
     private int[] jj_lasttokens = new int[100];
     private int jj_endpos;
 
@@ -5834,6 +5932,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         }
     }
 
+    @Nonnull
     private ParseException generateParseException() {
         jj_expentries.clear();
         boolean[] la1tokens = new boolean[130];
@@ -6306,6 +6405,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
     static final class JJCalls {
 
         int gen;
+        @Nullable
         Token first;
         int arg;
         JJCalls next;

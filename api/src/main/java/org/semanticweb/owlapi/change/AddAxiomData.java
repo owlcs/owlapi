@@ -42,14 +42,16 @@ public class AddAxiomData extends AxiomChangeData {
         super(axiom);
     }
 
+    @Nonnull
     @Override
     public AddAxiom createOntologyChange(@Nonnull OWLOntology ontology) {
         return new AddAxiom(ontology, getAxiom());
     }
 
+    @Nonnull
     @Override
     public <O, E extends Exception> O accept(
-            OWLOntologyChangeDataVisitor<O, E> visitor) throws E {
+            @Nonnull OWLOntologyChangeDataVisitor<O, E> visitor) throws E {
         return visitor.visit(this);
     }
 

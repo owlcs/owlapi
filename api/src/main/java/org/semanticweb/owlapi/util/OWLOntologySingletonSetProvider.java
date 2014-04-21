@@ -32,6 +32,7 @@ import org.semanticweb.owlapi.model.OWLOntologySetProvider;
  */
 public class OWLOntologySingletonSetProvider implements OWLOntologySetProvider {
 
+    @Nonnull
     private final Set<OWLOntology> ontologySingletonSet;
 
     /**
@@ -47,6 +48,7 @@ public class OWLOntologySingletonSetProvider implements OWLOntologySetProvider {
                 "ontology cannot be null"));
     }
 
+    @Nonnull
     @Override
     public Set<OWLOntology> getOntologies() {
         return ontologySingletonSet;

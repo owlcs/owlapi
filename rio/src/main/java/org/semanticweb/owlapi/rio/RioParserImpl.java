@@ -75,6 +75,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.InputSource;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -100,12 +103,14 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
                 .singleton((OWLOntologyFormatFactory) owlFormatFactory);
     }
 
+    @Nonnull
     @Override
     public Set<Class<OWLOntologyFormat>> getSupportedFormatClasses() {
         // not needed for this parser
         return Collections.emptySet();
     }
 
+    @Nullable
     @Override
     protected Class<? extends OWLOntologyFormat> getFormatClass() {
         // not needed for this parser
@@ -122,11 +127,12 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
         return supportedFormats;
     }
 
+    @Nonnull
     @Override
     public OWLOntologyFormat parse(
-            final OWLOntologyDocumentSource documentSource,
-            final OWLOntology ontology,
-            final OWLOntologyLoaderConfiguration configuration)
+            @Nonnull final OWLOntologyDocumentSource documentSource,
+            @Nonnull final OWLOntology ontology,
+            @Nonnull final OWLOntologyLoaderConfiguration configuration)
             throws IOException {
         final InputSource is = null;
         try {
@@ -140,7 +146,7 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
                     ontology, new AnonymousNodeChecker() {
 
                         @Override
-                        public boolean isAnonymousNode(final IRI iri) {
+                        public boolean isAnonymousNode(@Nonnull final IRI iri) {
                             // HACK: FIXME: When the mess of having blank nodes
                             // represented as IRIs is
                             // finished remove the genid hack below
@@ -155,7 +161,7 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
                         }
 
                         @Override
-                        public boolean isAnonymousNode(final String iri) {
+                        public boolean isAnonymousNode(@Nonnull final String iri) {
                             // HACK: FIXME: When the mess of having blank nodes
                             // represented as IRIs is
                             // finished remove the genid hack below
@@ -172,7 +178,7 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
                         // gave a name to the blank
                         // node themselves
                         @Override
-                        public boolean isAnonymousSharedNode(final String iri) {
+                        public boolean isAnonymousSharedNode(@Nonnull final String iri) {
                             // HACK: FIXME: When the mess of having blank nodes
                             // represented as IRIs is
                             // finished remove the genid hack below
@@ -271,9 +277,9 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
                 log.debug("owl handled statements={}", statementCount.get());
             }
             return consumer.getOntologyFormat();
-        } catch (final RDFParseException e) {
+        } catch (@Nonnull final RDFParseException e) {
             throw new OWLParserException(e);
-        } catch (final RDFHandlerException e) {
+        } catch (@Nonnull final RDFHandlerException e) {
             // See sourceforge bug 3566820 for more information about this
             // branch
             if (e.getCause() != null
@@ -283,16 +289,16 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
             } else {
                 throw new OWLParserException(e);
             }
-        } catch (final UnsupportedRDFormatException e) {
+        } catch (@Nonnull final UnsupportedRDFormatException e) {
             throw new OWLParserException(e);
-        } catch (final MalformedURLException e) {
+        } catch (@Nonnull final MalformedURLException e) {
             throw new OWLParserException(e);
         } finally {
             try {
                 if (is != null && is.getByteStream() != null) {
                     is.getByteStream().close();
                 }
-            } catch (final IOException ioe) {
+            } catch (@Nonnull final IOException ioe) {
                 log.error(
                         "Found unexpected IOException while closing byteStream",
                         ioe);
@@ -301,7 +307,7 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
                 if (is != null && is.getCharacterStream() != null) {
                     is.getCharacterStream().close();
                 }
-            } catch (final IOException ioe) {
+            } catch (@Nonnull final IOException ioe) {
                 log.error(
                         "Found unexpected IOException while closing character stream",
                         ioe);
@@ -333,8 +339,9 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
      * @throws MalformedURLException
      *         If there are malformed URLs.
      */
+    @Nonnull
     protected StatementCollector parseDocumentSource(
-            final OWLOntologyDocumentSource documentSource, String baseUri)
+            @Nonnull final OWLOntologyDocumentSource documentSource, String baseUri)
             throws IOException, RDFParseException, RDFHandlerException,
             MalformedURLException {
         // parse into a collection of statements so that we can sort things to
@@ -362,6 +369,7 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
         return rdfHandler;
     }
 
+    @Nonnull
     @Override
     public String toString() {
         return this.getClass().getName() + " : " + owlFormatFactory.toString();

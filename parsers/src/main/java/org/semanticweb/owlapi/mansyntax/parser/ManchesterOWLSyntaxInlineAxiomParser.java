@@ -17,6 +17,8 @@ import org.semanticweb.owlapi.expression.OWLExpressionParser;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
@@ -41,12 +43,13 @@ public class ManchesterOWLSyntaxInlineAxiomParser implements
     }
 
     @Override
-    public void setOWLEntityChecker(OWLEntityChecker entityChecker) {
+    public void setOWLEntityChecker(@Nonnull OWLEntityChecker entityChecker) {
         checker = entityChecker;
     }
 
+    @Nonnull
     @Override
-    public OWLAxiom parse(String expression) {
+    public OWLAxiom parse(@Nonnull String expression) {
         ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(
                 dataFactory, expression);
         parser.setOWLEntityChecker(checker);

@@ -33,6 +33,9 @@ import org.semanticweb.owlapi.model.OWLObjectOneOf;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -71,93 +74,102 @@ public class OWLClassExpressionVisitorExAdapter<O> implements
         return object;
     }
 
+    @Nullable
     @Override
-    public O visit(OWLClass ce) {
+    public O visit(@Nonnull OWLClass ce) {
+        return handleDefault(ce);
+    }
+
+    @Nullable
+    @Override
+    public O visit(@Nonnull OWLObjectIntersectionOf ce) {
+        return handleDefault(ce);
+    }
+
+    @Nullable
+    @Override
+    public O visit(@Nonnull OWLObjectUnionOf ce) {
+        return handleDefault(ce);
+    }
+
+    @Nullable
+    @Override
+    public O visit(@Nonnull OWLObjectComplementOf ce) {
+        return handleDefault(ce);
+    }
+
+    @Nullable
+    @Override
+    public O visit(@Nonnull OWLObjectSomeValuesFrom ce) {
+        return handleDefault(ce);
+    }
+
+    @Nullable
+    @Override
+    public O visit(@Nonnull OWLObjectAllValuesFrom ce) {
         return handleDefault(ce);
     }
 
     @Override
-    public O visit(OWLObjectIntersectionOf ce) {
+    public O visit(@Nonnull OWLObjectHasValue ce) {
+        return handleDefault(ce);
+    }
+
+    @Nullable
+    @Override
+    public O visit(@Nonnull OWLObjectMinCardinality ce) {
+        return handleDefault(ce);
+    }
+
+    @Nullable
+    @Override
+    public O visit(@Nonnull OWLObjectExactCardinality ce) {
+        return handleDefault(ce);
+    }
+
+    @Nullable
+    @Override
+    public O visit(@Nonnull OWLObjectMaxCardinality ce) {
         return handleDefault(ce);
     }
 
     @Override
-    public O visit(OWLObjectUnionOf ce) {
+    public O visit(@Nonnull OWLObjectHasSelf ce) {
         return handleDefault(ce);
     }
 
     @Override
-    public O visit(OWLObjectComplementOf ce) {
+    public O visit(@Nonnull OWLObjectOneOf ce) {
         return handleDefault(ce);
     }
 
     @Override
-    public O visit(OWLObjectSomeValuesFrom ce) {
+    public O visit(@Nonnull OWLDataSomeValuesFrom ce) {
         return handleDefault(ce);
     }
 
     @Override
-    public O visit(OWLObjectAllValuesFrom ce) {
+    public O visit(@Nonnull OWLDataAllValuesFrom ce) {
         return handleDefault(ce);
     }
 
     @Override
-    public O visit(OWLObjectHasValue ce) {
+    public O visit(@Nonnull OWLDataHasValue ce) {
         return handleDefault(ce);
     }
 
     @Override
-    public O visit(OWLObjectMinCardinality ce) {
+    public O visit(@Nonnull OWLDataMinCardinality ce) {
         return handleDefault(ce);
     }
 
     @Override
-    public O visit(OWLObjectExactCardinality ce) {
+    public O visit(@Nonnull OWLDataExactCardinality ce) {
         return handleDefault(ce);
     }
 
     @Override
-    public O visit(OWLObjectMaxCardinality ce) {
-        return handleDefault(ce);
-    }
-
-    @Override
-    public O visit(OWLObjectHasSelf ce) {
-        return handleDefault(ce);
-    }
-
-    @Override
-    public O visit(OWLObjectOneOf ce) {
-        return handleDefault(ce);
-    }
-
-    @Override
-    public O visit(OWLDataSomeValuesFrom ce) {
-        return handleDefault(ce);
-    }
-
-    @Override
-    public O visit(OWLDataAllValuesFrom ce) {
-        return handleDefault(ce);
-    }
-
-    @Override
-    public O visit(OWLDataHasValue ce) {
-        return handleDefault(ce);
-    }
-
-    @Override
-    public O visit(OWLDataMinCardinality ce) {
-        return handleDefault(ce);
-    }
-
-    @Override
-    public O visit(OWLDataExactCardinality ce) {
-        return handleDefault(ce);
-    }
-
-    @Override
-    public O visit(OWLDataMaxCardinality ce) {
+    public O visit(@Nonnull OWLDataMaxCardinality ce) {
         return handleDefault(ce);
     }
 }

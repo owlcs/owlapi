@@ -34,6 +34,7 @@ public abstract class SWRLUnaryAtomImpl<A extends SWRLArgument> extends
         SWRLAtomImpl implements SWRLUnaryAtom<A> {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final A arg;
 
     /**
@@ -47,11 +48,13 @@ public abstract class SWRLUnaryAtomImpl<A extends SWRLArgument> extends
         this.arg = checkNotNull(arg, "arg cannot be null");
     }
 
+    @Nonnull
     @Override
     public A getArgument() {
         return arg;
     }
 
+    @Nonnull
     @Override
     public Collection<SWRLArgument> getAllArguments() {
         return Collections.singleton((SWRLArgument) arg);

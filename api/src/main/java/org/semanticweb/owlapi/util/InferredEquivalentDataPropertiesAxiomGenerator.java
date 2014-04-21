@@ -20,6 +20,8 @@ import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -29,15 +31,16 @@ public class InferredEquivalentDataPropertiesAxiomGenerator extends
         InferredDataPropertyAxiomGenerator<OWLEquivalentDataPropertiesAxiom> {
 
     @Override
-    protected void addAxioms(OWLDataProperty entity, OWLReasoner reasoner,
-            OWLDataFactory dataFactory,
-            Set<OWLEquivalentDataPropertiesAxiom> result) {
+    protected void addAxioms(OWLDataProperty entity, @Nonnull OWLReasoner reasoner,
+            @Nonnull OWLDataFactory dataFactory,
+            @Nonnull Set<OWLEquivalentDataPropertiesAxiom> result) {
         Set<OWLDataProperty> props = new HashSet<OWLDataProperty>(reasoner
                 .getEquivalentDataProperties(entity).getEntities());
         props.add(entity);
         result.add(dataFactory.getOWLEquivalentDataPropertiesAxiom(props));
     }
 
+    @Nonnull
     @Override
     public String getLabel() {
         return "Equivalent data properties";

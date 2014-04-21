@@ -40,7 +40,9 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
 public class InferredOntologyGenerator {
 
     // The reasoner which is used to compute the inferred axioms
+    @Nonnull
     private final OWLReasoner reasoner;
+    @Nonnull
     private final List<InferredAxiomGenerator<? extends OWLAxiom>> axiomGenerators;
 
     /**
@@ -65,6 +67,7 @@ public class InferredOntologyGenerator {
         this(reasoner, generators());
     }
 
+    @Nonnull
     @SuppressWarnings("unchecked")
     private static List<InferredAxiomGenerator<? extends OWLAxiom>>
             generators() {

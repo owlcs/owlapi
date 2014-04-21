@@ -36,6 +36,8 @@ import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.SimpleIRIShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health
  *         Informatics Group
@@ -125,17 +127,17 @@ public class AnnotationShortFormProviderTestCase extends TestBase {
                 new OWLAnnotationValueVisitorEx<String>() {
 
                     @Override
-                    public String visit(OWLLiteral literal) {
+                    public String visit(@Nonnull OWLLiteral literal) {
                         return "\"" + literal.getLiteral() + "\"";
                     }
 
                     @Override
-                    public String visit(OWLAnonymousIndividual individual) {
+                    public String visit(@Nonnull OWLAnonymousIndividual individual) {
                         return null;
                     }
 
                     @Override
-                    public String visit(IRI iri) {
+                    public String visit(@Nonnull IRI iri) {
                         return null;
                     }
                 });

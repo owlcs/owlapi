@@ -18,6 +18,7 @@ import java.util.Collection;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -53,6 +54,7 @@ public class OWLFunctionalDataPropertyAxiomImpl extends
         super(property, annotations);
     }
 
+    @Nonnull
     @Override
     public OWLFunctionalDataPropertyAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
@@ -62,9 +64,10 @@ public class OWLFunctionalDataPropertyAxiomImpl extends
                 NO_ANNOTATIONS);
     }
 
+    @Nonnull
     @Override
     public OWLFunctionalDataPropertyAxiom getAnnotatedAxiom(
-            Set<OWLAnnotation> annotations) {
+            @Nonnull Set<OWLAnnotation> annotations) {
         return new OWLFunctionalDataPropertyAxiomImpl(getProperty(),
                 mergeAnnos(annotations));
     }
@@ -76,36 +79,39 @@ public class OWLFunctionalDataPropertyAxiomImpl extends
     }
 
     @Override
-    public void accept(OWLAxiomVisitor visitor) {
+    public void accept(@Nonnull OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public void accept(OWLObjectVisitor visitor) {
+    public void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Nullable
     @Override
-    public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Nonnull
     @Override
     public AxiomType<?> getAxiomType() {
         return AxiomType.FUNCTIONAL_DATA_PROPERTY;
     }
 
     @Override
-    protected int compareObjectOfSameType(OWLObject object) {
+    protected int compareObjectOfSameType(@Nonnull OWLObject object) {
         return getProperty().compareTo(
                 ((OWLFunctionalDataPropertyAxiom) object).getProperty());
     }
 
+    @Nonnull
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
         return new OWLSubClassOfAxiomImpl(OWL_THING,

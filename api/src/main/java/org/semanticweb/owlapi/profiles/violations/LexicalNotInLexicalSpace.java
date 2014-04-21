@@ -19,6 +19,8 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolation;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
@@ -33,18 +35,18 @@ public class LexicalNotInLexicalSpace extends OWLProfileViolation<OWLLiteral> {
      * @param literal
      *        literal
      */
-    public LexicalNotInLexicalSpace(OWLOntology ontology, OWLAxiom axiom,
+    public LexicalNotInLexicalSpace(@Nonnull OWLOntology ontology, OWLAxiom axiom,
             OWLLiteral literal) {
         super(ontology, axiom, literal);
     }
 
     @Override
-    public void accept(OWLProfileViolationVisitor visitor) {
+    public void accept(@Nonnull OWLProfileViolationVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLProfileViolationVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLProfileViolationVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 

@@ -95,8 +95,8 @@ public class ConvertSuperClassesToEquivalentClass extends
                 checkNotNull(ontologies, "ontologies cannot be null"));
     }
 
-    private void generateChanges(OWLOntology targetOntology, OWLClass cls,
-            Set<OWLOntology> ontologies) {
+    private void generateChanges(@Nonnull OWLOntology targetOntology, @Nonnull OWLClass cls,
+            @Nonnull Set<OWLOntology> ontologies) {
         // We remove the existing superclasses and then combine these
         // into an intersection which is made equivalent.
         Set<OWLClassExpression> descs = new HashSet<OWLClassExpression>();

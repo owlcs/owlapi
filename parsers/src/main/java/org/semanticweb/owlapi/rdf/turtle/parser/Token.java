@@ -2,6 +2,9 @@
 /* JavaCCOptions:TOKEN_EXTENDS=,KEEP_LINE_COL=null,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 package org.semanticweb.owlapi.rdf.turtle.parser;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 class Token implements java.io.Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -14,6 +17,7 @@ class Token implements java.io.Serializable {
     Token next;
     Token specialToken;
 
+    @Nullable
     Object getValue() {
         return null;
     }
@@ -34,6 +38,7 @@ class Token implements java.io.Serializable {
         return image;
     }
 
+    @Nonnull
     static Token newToken(int ofKind, String image) {
         switch (ofKind) {
             default:
@@ -41,6 +46,7 @@ class Token implements java.io.Serializable {
         }
     }
 
+    @Nonnull
     static Token newToken(int ofKind) {
         return newToken(ofKind, null);
     }

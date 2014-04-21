@@ -19,6 +19,8 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolation;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
+import javax.annotation.Nonnull;
+
 /** @author ignazio */
 public class InsufficientPropertyExpressions extends
         OWLProfileViolation<OWLObject> {
@@ -29,7 +31,7 @@ public class InsufficientPropertyExpressions extends
      * @param axiom
      *        axiom
      */
-    public InsufficientPropertyExpressions(OWLOntology ontology, OWLAxiom axiom) {
+    public InsufficientPropertyExpressions(@Nonnull OWLOntology ontology, OWLAxiom axiom) {
         super(ontology, axiom, null);
     }
 
@@ -39,12 +41,12 @@ public class InsufficientPropertyExpressions extends
     }
 
     @Override
-    public void accept(OWLProfileViolationVisitor visitor) {
+    public void accept(@Nonnull OWLProfileViolationVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLProfileViolationVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLProfileViolationVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 }

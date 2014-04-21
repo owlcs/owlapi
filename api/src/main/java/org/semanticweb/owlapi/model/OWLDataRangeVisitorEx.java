@@ -30,6 +30,7 @@ public interface OWLDataRangeVisitorEx<O> {
      *        node to visit
      * @return visitor value
      */
+    @Nonnull
     O visit(@Nonnull OWLDatatype node);
 
     /**
@@ -39,6 +40,7 @@ public interface OWLDataRangeVisitorEx<O> {
      *        node to visit
      * @return visitor value
      */
+    @Nonnull
     O visit(@Nonnull OWLDataOneOf node);
 
     /**
@@ -48,6 +50,7 @@ public interface OWLDataRangeVisitorEx<O> {
      *        node to visit
      * @return visitor value
      */
+    @Nonnull
     O visit(@Nonnull OWLDataComplementOf node);
 
     /**
@@ -57,6 +60,7 @@ public interface OWLDataRangeVisitorEx<O> {
      *        node to visit
      * @return visitor value
      */
+    @Nonnull
     O visit(@Nonnull OWLDataIntersectionOf node);
 
     /**
@@ -66,6 +70,7 @@ public interface OWLDataRangeVisitorEx<O> {
      *        node to visit
      * @return visitor value
      */
+    @Nonnull
     O visit(@Nonnull OWLDataUnionOf node);
 
     /**
@@ -75,5 +80,6 @@ public interface OWLDataRangeVisitorEx<O> {
      *        node to visit
      * @return visitor value
      */
+    @Nonnull
     O visit(@Nonnull OWLDatatypeRestriction node);
 }

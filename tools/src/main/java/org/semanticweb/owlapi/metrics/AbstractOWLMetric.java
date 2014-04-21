@@ -53,13 +53,14 @@ public abstract class AbstractOWLMetric<M> implements OWLMetric<M>,
         dirty = true;
     }
 
+    @Nonnull
     @Override
     public OWLOntology getOntology() {
         return ontology;
     }
 
     @Override
-    public void setOntology(OWLOntology ontology) {
+    public void setOntology(@Nonnull OWLOntology ontology) {
         this.ontology.getOWLOntologyManager()
                 .removeOntologyChangeListener(this);
         this.ontology = ontology;
@@ -75,6 +76,7 @@ public abstract class AbstractOWLMetric<M> implements OWLMetric<M>,
     @Nonnull
     protected abstract M recomputeMetric();
 
+    @Nonnull
     @Override
     public M getValue() {
         if (dirty) {
@@ -102,13 +104,14 @@ public abstract class AbstractOWLMetric<M> implements OWLMetric<M>,
     }
 
     @Override
-    public void ontologiesChanged(List<? extends OWLOntologyChange<?>> changes)
+    public void ontologiesChanged(@Nonnull List<? extends OWLOntologyChange<?>> changes)
             throws OWLException {
         if (isMetricInvalidated(changes)) {
             setDirty(true);
         }
     }
 
+    @Nonnull
     @Override
     public OWLOntologyManager getManager() {
         return ontology.getOWLOntologyManager();
@@ -150,6 +153,7 @@ public abstract class AbstractOWLMetric<M> implements OWLMetric<M>,
     /** Dispose metric. */
     protected abstract void disposeMetric();
 
+    @Nonnull
     @Override
     public String toString() {
         return getName() + ": " + getValue();

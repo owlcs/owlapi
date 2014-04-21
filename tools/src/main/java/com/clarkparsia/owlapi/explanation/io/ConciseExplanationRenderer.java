@@ -23,6 +23,8 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.util.SimpleRenderer;
 
+import javax.annotation.Nonnull;
+
 /** Explanation renderer in concise form. */
 public class ConciseExplanationRenderer implements ExplanationRenderer {
 
@@ -34,14 +36,14 @@ public class ConciseExplanationRenderer implements ExplanationRenderer {
     private PrintWriter writer;
 
     @Override
-    public void startRendering(Writer w) {
+    public void startRendering(@Nonnull Writer w) {
         checkNotNull(w, "w cannot be null");
         writer = w instanceof PrintWriter ? (PrintWriter) w
                 : new PrintWriter(w);
     }
 
     @Override
-    public void render(OWLAxiom axiom, Set<Set<OWLAxiom>> explanations)
+    public void render(@Nonnull OWLAxiom axiom, @Nonnull Set<Set<OWLAxiom>> explanations)
             throws OWLException, IOException {
         writer.println("Axiom: "
                 + renderer.render(checkNotNull(axiom, "axiom cannot be null")));
@@ -61,7 +63,7 @@ public class ConciseExplanationRenderer implements ExplanationRenderer {
         writer.println();
     }
 
-    private void renderMultipleExplanations(Set<Set<OWLAxiom>> explanations) {
+    private void renderMultipleExplanations(@Nonnull Set<Set<OWLAxiom>> explanations) {
         int count = 1;
         for (Set<OWLAxiom> exp : explanations) {
             String header = count++ + ") ";
@@ -69,7 +71,7 @@ public class ConciseExplanationRenderer implements ExplanationRenderer {
         }
     }
 
-    private void renderSingleExplanation(String _header, Set<OWLAxiom> axioms) {
+    private void renderSingleExplanation(String _header, @Nonnull Set<OWLAxiom> axioms) {
         String header = _header;
         boolean first = true;
         for (OWLAxiom axiom : axioms) {

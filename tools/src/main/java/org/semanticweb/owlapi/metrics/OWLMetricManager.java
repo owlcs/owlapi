@@ -28,6 +28,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  */
 public class OWLMetricManager {
 
+    @Nonnull
     private final List<OWLMetric<?>> metrics;
 
     /**
@@ -57,6 +58,7 @@ public class OWLMetricManager {
         return new ArrayList<OWLMetric<?>>(metrics);
     }
 
+    @Nonnull
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

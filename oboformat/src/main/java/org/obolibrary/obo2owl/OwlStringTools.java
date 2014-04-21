@@ -18,6 +18,9 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * Tools to read and write a set of owl axioms to/from a string. Used to
  * preserve untranslatable axioms in an owl2obo conversion.
@@ -55,8 +58,9 @@ public class OwlStringTools {
      *         OwlStringException
      * @see #translate(String, OWLOntologyManager)
      */
-    public static String translate(Set<OWLAxiom> axioms,
-            OWLOntologyManager translationManager) throws OwlStringException {
+    @Nullable
+    public static String translate(@Nullable Set<OWLAxiom> axioms,
+            @Nonnull OWLOntologyManager translationManager) throws OwlStringException {
         if (axioms == null || axioms.isEmpty()) {
             return null;
         }
@@ -87,8 +91,9 @@ public class OwlStringTools {
      *         OwlStringException
      * @see #translate(Set,OWLOntologyManager)
      */
-    public static Set<OWLAxiom> translate(String axioms,
-            OWLOntologyManager translationManager) throws OwlStringException {
+    @Nullable
+    public static Set<OWLAxiom> translate(@Nullable String axioms,
+            @Nonnull OWLOntologyManager translationManager) throws OwlStringException {
         if (axioms == null || axioms.isEmpty()) {
             return null;
         }

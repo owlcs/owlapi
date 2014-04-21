@@ -32,6 +32,7 @@ public abstract class OWLObjectPropertyCharacteristicAxiomImpl extends
         OWLPropertyAxiomImpl implements OWLObjectPropertyCharacteristicAxiom {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final OWLObjectPropertyExpression property;
 
     /**
@@ -47,6 +48,7 @@ public abstract class OWLObjectPropertyCharacteristicAxiomImpl extends
         this.property = checkNotNull(property, "property cannot be null");
     }
 
+    @Nonnull
     @Override
     public OWLObjectPropertyExpression getProperty() {
         return property;
@@ -65,7 +67,7 @@ public abstract class OWLObjectPropertyCharacteristicAxiomImpl extends
     }
 
     @Override
-    protected int compareObjectOfSameType(OWLObject object) {
+    protected int compareObjectOfSameType(@Nonnull OWLObject object) {
         return property
                 .compareTo(((OWLObjectPropertyCharacteristicAxiom) object)
                         .getProperty());

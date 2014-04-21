@@ -36,6 +36,7 @@ import org.semanticweb.owlapi.model.SetOntologyID;
 public class SetOntologyIDData extends OWLOntologyChangeData<OWLOntologyID> {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final OWLOntologyID newId;
 
     /**
@@ -61,22 +62,26 @@ public class SetOntologyIDData extends OWLOntologyChangeData<OWLOntologyID> {
         return newId;
     }
 
+    @Nonnull
     @Override
     public SetOntologyID createOntologyChange(@Nonnull OWLOntology ontology) {
         return new SetOntologyID(ontology, newId);
     }
 
+    @Nonnull
     @Override
     public <O, E extends Exception> O accept(
-            OWLOntologyChangeDataVisitor<O, E> visitor) throws E {
+            @Nonnull OWLOntologyChangeDataVisitor<O, E> visitor) throws E {
         return visitor.visit(this);
     }
 
+    @Nonnull
     @Override
     public Set<OWLEntity> getSignature() {
         return Collections.emptySet();
     }
 
+    @Nonnull
     @Override
     public OWLOntologyID getItem() {
         return getNewId();

@@ -5,6 +5,9 @@ import java.util.Map;
 
 import org.semanticweb.owlapi.model.IRI;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * This class will eventually replace the id to uri translation in Owl2Obo and
  * OboO2Owl <br>
@@ -14,7 +17,9 @@ import org.semanticweb.owlapi.model.IRI;
  */
 public class IdTranslator {
 
+    @Nonnull
     String OBO_IRI_PREFIX = "http://purl.obolibrary.org/obo/";
+    @Nonnull
     private Map<String, String> idspaceMap = new HashMap<String, String>();
 
     /**
@@ -22,6 +27,7 @@ public class IdTranslator {
      *        iri
      * @return string for iri
      */
+    @Nullable
     public String translateIRI(IRI iri) {
         return null;
     }
@@ -31,7 +37,8 @@ public class IdTranslator {
      *        id
      * @return string for id
      */
-    public String translateIdToIRIString(String id) {
+    @Nullable
+    public String translateIdToIRIString(@Nonnull String id) {
         if (isURI(id)) {
             return id;
         }
@@ -57,7 +64,7 @@ public class IdTranslator {
      *        id
      * @return boolean
      */
-    public boolean isURI(String id) {
+    public boolean isURI(@Nonnull String id) {
         if (id.startsWith("http:") || id.startsWith("ftp:")
                 || id.startsWith("https:")) {
             return true;

@@ -31,6 +31,7 @@ public class SpecificOntologyChangeBroadcastStrategy implements
         OWLOntologyChangeBroadcastStrategy {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final OWLOntology ontology;
 
     /**
@@ -45,8 +46,8 @@ public class SpecificOntologyChangeBroadcastStrategy implements
     }
 
     @Override
-    public void broadcastChanges(OWLOntologyChangeListener listener,
-            List<? extends OWLOntologyChange<?>> changes) throws OWLException {
+    public void broadcastChanges(@Nonnull OWLOntologyChangeListener listener,
+            @Nonnull List<? extends OWLOntologyChange<?>> changes) throws OWLException {
         checkNotNull(listener, "listener cannot be null");
         checkNotNull(changes, "changes cannot be null");
         List<OWLOntologyChange<?>> broadcastChanges = new ArrayList<OWLOntologyChange<?>>();

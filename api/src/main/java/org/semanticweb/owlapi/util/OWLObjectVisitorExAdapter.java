@@ -99,6 +99,9 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * Provides a default implementation of {@code OWLObjectVisitorEx}. Only the
  * methods that need specific client implementation need be overridden. The
@@ -112,6 +115,7 @@ import org.semanticweb.owlapi.model.SWRLVariable;
  */
 public class OWLObjectVisitorExAdapter<O> implements OWLObjectVisitorEx<O> {
 
+    @Nullable
     private O defaultReturnValue = null;
 
     /**
@@ -124,6 +128,7 @@ public class OWLObjectVisitorExAdapter<O> implements OWLObjectVisitorEx<O> {
      *        The object that was visited.
      * @return The default return value
      */
+    @Nullable
     protected O doDefault(@SuppressWarnings("unused") OWLObject object) {
         return defaultReturnValue;
     }
@@ -137,427 +142,511 @@ public class OWLObjectVisitorExAdapter<O> implements OWLObjectVisitorEx<O> {
      * @param defaultReturnValue
      *        default return value
      */
-    public OWLObjectVisitorExAdapter(O defaultReturnValue) {
+    public OWLObjectVisitorExAdapter(@Nullable O defaultReturnValue) {
         this.defaultReturnValue = defaultReturnValue;
     }
 
+    @Nullable
     @Override
-    public O visit(OWLAnnotationAssertionAxiom axiom) {
+    public O visit(@Nonnull OWLAnnotationAssertionAxiom axiom) {
         return doDefault(axiom);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLAsymmetricObjectPropertyAxiom axiom) {
+    public O visit(@Nonnull OWLAsymmetricObjectPropertyAxiom axiom) {
         return doDefault(axiom);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLClassAssertionAxiom axiom) {
+    public O visit(@Nonnull OWLClassAssertionAxiom axiom) {
         return doDefault(axiom);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLDataPropertyAssertionAxiom axiom) {
+    public O visit(@Nonnull OWLDataPropertyAssertionAxiom axiom) {
         return doDefault(axiom);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLDataPropertyDomainAxiom axiom) {
+    public O visit(@Nonnull OWLDataPropertyDomainAxiom axiom) {
         return doDefault(axiom);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLDataPropertyRangeAxiom axiom) {
+    public O visit(@Nonnull OWLDataPropertyRangeAxiom axiom) {
         return doDefault(axiom);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLDeclarationAxiom axiom) {
+    public O visit(@Nonnull OWLDeclarationAxiom axiom) {
         return doDefault(axiom);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLDifferentIndividualsAxiom axiom) {
+    public O visit(@Nonnull OWLDifferentIndividualsAxiom axiom) {
         return doDefault(axiom);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLDisjointClassesAxiom axiom) {
+    public O visit(@Nonnull OWLDisjointClassesAxiom axiom) {
         return doDefault(axiom);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLDisjointDataPropertiesAxiom axiom) {
+    public O visit(@Nonnull OWLDisjointDataPropertiesAxiom axiom) {
         return doDefault(axiom);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLDisjointObjectPropertiesAxiom axiom) {
+    public O visit(@Nonnull OWLDisjointObjectPropertiesAxiom axiom) {
         return doDefault(axiom);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLDisjointUnionAxiom axiom) {
+    public O visit(@Nonnull OWLDisjointUnionAxiom axiom) {
         return doDefault(axiom);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLEquivalentClassesAxiom axiom) {
+    public O visit(@Nonnull OWLEquivalentClassesAxiom axiom) {
         return doDefault(axiom);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLEquivalentDataPropertiesAxiom axiom) {
+    public O visit(@Nonnull OWLEquivalentDataPropertiesAxiom axiom) {
         return doDefault(axiom);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLEquivalentObjectPropertiesAxiom axiom) {
+    public O visit(@Nonnull OWLEquivalentObjectPropertiesAxiom axiom) {
         return doDefault(axiom);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLFunctionalDataPropertyAxiom axiom) {
+    public O visit(@Nonnull OWLFunctionalDataPropertyAxiom axiom) {
         return doDefault(axiom);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLFunctionalObjectPropertyAxiom axiom) {
+    public O visit(@Nonnull OWLFunctionalObjectPropertyAxiom axiom) {
         return doDefault(axiom);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLHasKeyAxiom axiom) {
+    public O visit(@Nonnull OWLHasKeyAxiom axiom) {
         return doDefault(axiom);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
+    public O visit(@Nonnull OWLInverseFunctionalObjectPropertyAxiom axiom) {
         return doDefault(axiom);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLInverseObjectPropertiesAxiom axiom) {
+    public O visit(@Nonnull OWLInverseObjectPropertiesAxiom axiom) {
         return doDefault(axiom);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
+    public O visit(@Nonnull OWLIrreflexiveObjectPropertyAxiom axiom) {
         return doDefault(axiom);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
+    public O visit(@Nonnull OWLNegativeDataPropertyAssertionAxiom axiom) {
         return doDefault(axiom);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
+    public O visit(@Nonnull OWLNegativeObjectPropertyAssertionAxiom axiom) {
         return doDefault(axiom);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLObjectPropertyAssertionAxiom axiom) {
+    public O visit(@Nonnull OWLObjectPropertyAssertionAxiom axiom) {
         return doDefault(axiom);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLSubPropertyChainOfAxiom axiom) {
+    public O visit(@Nonnull OWLSubPropertyChainOfAxiom axiom) {
         return doDefault(axiom);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLObjectPropertyDomainAxiom axiom) {
+    public O visit(@Nonnull OWLObjectPropertyDomainAxiom axiom) {
         return doDefault(axiom);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLObjectPropertyRangeAxiom axiom) {
+    public O visit(@Nonnull OWLObjectPropertyRangeAxiom axiom) {
         return doDefault(axiom);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLReflexiveObjectPropertyAxiom axiom) {
+    public O visit(@Nonnull OWLReflexiveObjectPropertyAxiom axiom) {
         return doDefault(axiom);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLSameIndividualAxiom axiom) {
+    public O visit(@Nonnull OWLSameIndividualAxiom axiom) {
         return doDefault(axiom);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLSubClassOfAxiom axiom) {
+    public O visit(@Nonnull OWLSubClassOfAxiom axiom) {
         return doDefault(axiom);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLSubDataPropertyOfAxiom axiom) {
+    public O visit(@Nonnull OWLSubDataPropertyOfAxiom axiom) {
         return doDefault(axiom);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLSubObjectPropertyOfAxiom axiom) {
+    public O visit(@Nonnull OWLSubObjectPropertyOfAxiom axiom) {
         return doDefault(axiom);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLSymmetricObjectPropertyAxiom axiom) {
+    public O visit(@Nonnull OWLSymmetricObjectPropertyAxiom axiom) {
         return doDefault(axiom);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLTransitiveObjectPropertyAxiom axiom) {
+    public O visit(@Nonnull OWLTransitiveObjectPropertyAxiom axiom) {
         return doDefault(axiom);
     }
 
+    @Nullable
     @Override
-    public O visit(SWRLRule rule) {
+    public O visit(@Nonnull SWRLRule rule) {
         return doDefault(rule);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLClass desc) {
+    public O visit(@Nonnull OWLClass desc) {
         return doDefault(desc);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLDataAllValuesFrom desc) {
+    public O visit(@Nonnull OWLDataAllValuesFrom desc) {
         return doDefault(desc);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLDataExactCardinality desc) {
+    public O visit(@Nonnull OWLDataExactCardinality desc) {
         return doDefault(desc);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLDataMaxCardinality desc) {
+    public O visit(@Nonnull OWLDataMaxCardinality desc) {
         return doDefault(desc);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLDataMinCardinality desc) {
+    public O visit(@Nonnull OWLDataMinCardinality desc) {
         return doDefault(desc);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLDataSomeValuesFrom desc) {
+    public O visit(@Nonnull OWLDataSomeValuesFrom desc) {
         return doDefault(desc);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLDataHasValue desc) {
+    public O visit(@Nonnull OWLDataHasValue desc) {
         return doDefault(desc);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLObjectAllValuesFrom desc) {
+    public O visit(@Nonnull OWLObjectAllValuesFrom desc) {
         return doDefault(desc);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLObjectComplementOf desc) {
+    public O visit(@Nonnull OWLObjectComplementOf desc) {
         return doDefault(desc);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLObjectExactCardinality desc) {
+    public O visit(@Nonnull OWLObjectExactCardinality desc) {
         return doDefault(desc);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLObjectHasSelf desc) {
+    public O visit(@Nonnull OWLObjectHasSelf desc) {
         return doDefault(desc);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLObjectHasValue desc) {
+    public O visit(@Nonnull OWLObjectHasValue desc) {
         return doDefault(desc);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLObjectIntersectionOf desc) {
+    public O visit(@Nonnull OWLObjectIntersectionOf desc) {
         return doDefault(desc);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLObjectMaxCardinality desc) {
+    public O visit(@Nonnull OWLObjectMaxCardinality desc) {
         return doDefault(desc);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLObjectMinCardinality desc) {
+    public O visit(@Nonnull OWLObjectMinCardinality desc) {
         return doDefault(desc);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLObjectOneOf desc) {
+    public O visit(@Nonnull OWLObjectOneOf desc) {
         return doDefault(desc);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLObjectSomeValuesFrom desc) {
+    public O visit(@Nonnull OWLObjectSomeValuesFrom desc) {
         return doDefault(desc);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLObjectUnionOf desc) {
+    public O visit(@Nonnull OWLObjectUnionOf desc) {
         return doDefault(desc);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLDataComplementOf node) {
+    public O visit(@Nonnull OWLDataComplementOf node) {
         return doDefault(node);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLDataIntersectionOf node) {
+    public O visit(@Nonnull OWLDataIntersectionOf node) {
         return doDefault(node);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLDataOneOf node) {
+    public O visit(@Nonnull OWLDataOneOf node) {
         return doDefault(node);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLDatatype node) {
+    public O visit(@Nonnull OWLDatatype node) {
         return doDefault(node);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLDatatypeRestriction node) {
+    public O visit(@Nonnull OWLDatatypeRestriction node) {
         return doDefault(node);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLDataUnionOf node) {
+    public O visit(@Nonnull OWLDataUnionOf node) {
         return doDefault(node);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLFacetRestriction node) {
+    public O visit(@Nonnull OWLFacetRestriction node) {
         return doDefault(node);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLDataProperty property) {
+    public O visit(@Nonnull OWLDataProperty property) {
         return doDefault(property);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLObjectProperty property) {
+    public O visit(@Nonnull OWLObjectProperty property) {
         return doDefault(property);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLObjectInverseOf property) {
+    public O visit(@Nonnull OWLObjectInverseOf property) {
         return doDefault(property);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLNamedIndividual individual) {
+    public O visit(@Nonnull OWLNamedIndividual individual) {
         return doDefault(individual);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLAnnotationProperty property) {
+    public O visit(@Nonnull OWLAnnotationProperty property) {
         return doDefault(property);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLAnnotation annotation) {
+    public O visit(@Nonnull OWLAnnotation annotation) {
         return doDefault(annotation);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLAnnotationPropertyDomainAxiom axiom) {
+    public O visit(@Nonnull OWLAnnotationPropertyDomainAxiom axiom) {
         return doDefault(axiom);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLAnnotationPropertyRangeAxiom axiom) {
+    public O visit(@Nonnull OWLAnnotationPropertyRangeAxiom axiom) {
         return doDefault(axiom);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLSubAnnotationPropertyOfAxiom axiom) {
+    public O visit(@Nonnull OWLSubAnnotationPropertyOfAxiom axiom) {
         return doDefault(axiom);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLAnonymousIndividual individual) {
+    public O visit(@Nonnull OWLAnonymousIndividual individual) {
         return doDefault(individual);
     }
 
+    @Nullable
     @Override
-    public O visit(IRI iri) {
+    public O visit(@Nonnull IRI iri) {
         return doDefault(iri);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLLiteral literal) {
+    public O visit(@Nonnull OWLLiteral literal) {
         return doDefault(literal);
     }
 
+    @Nullable
     @Override
-    public O visit(SWRLLiteralArgument node) {
+    public O visit(@Nonnull SWRLLiteralArgument node) {
         return doDefault(node);
     }
 
+    @Nullable
     @Override
-    public O visit(SWRLVariable node) {
+    public O visit(@Nonnull SWRLVariable node) {
         return doDefault(node);
     }
 
+    @Nullable
     @Override
-    public O visit(SWRLIndividualArgument node) {
+    public O visit(@Nonnull SWRLIndividualArgument node) {
         return doDefault(node);
     }
 
+    @Nullable
     @Override
-    public O visit(SWRLBuiltInAtom node) {
+    public O visit(@Nonnull SWRLBuiltInAtom node) {
         return doDefault(node);
     }
 
+    @Nullable
     @Override
-    public O visit(SWRLClassAtom node) {
+    public O visit(@Nonnull SWRLClassAtom node) {
         return doDefault(node);
     }
 
+    @Nullable
     @Override
-    public O visit(SWRLDataRangeAtom node) {
+    public O visit(@Nonnull SWRLDataRangeAtom node) {
         return doDefault(node);
     }
 
+    @Nullable
     @Override
-    public O visit(SWRLDataPropertyAtom node) {
+    public O visit(@Nonnull SWRLDataPropertyAtom node) {
         return doDefault(node);
     }
 
+    @Nullable
     @Override
-    public O visit(SWRLDifferentIndividualsAtom node) {
+    public O visit(@Nonnull SWRLDifferentIndividualsAtom node) {
         return doDefault(node);
     }
 
+    @Nullable
     @Override
-    public O visit(SWRLObjectPropertyAtom node) {
+    public O visit(@Nonnull SWRLObjectPropertyAtom node) {
         return doDefault(node);
     }
 
+    @Nullable
     @Override
-    public O visit(SWRLSameIndividualAtom node) {
+    public O visit(@Nonnull SWRLSameIndividualAtom node) {
         return doDefault(node);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLOntology ontology) {
+    public O visit(@Nonnull OWLOntology ontology) {
         return doDefault(ontology);
     }
 
+    @Nullable
     @Override
-    public O visit(OWLDatatypeDefinitionAxiom axiom) {
+    public O visit(@Nonnull OWLDatatypeDefinitionAxiom axiom) {
         return doDefault(axiom);
     }
 }

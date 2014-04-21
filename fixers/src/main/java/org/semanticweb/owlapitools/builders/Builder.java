@@ -17,6 +17,8 @@ import java.util.List;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 
+import javax.annotation.Nonnull;
+
 /**
  * A builder interface for building owl objects
  * 
@@ -39,5 +41,6 @@ public interface Builder<T> {
      *        ontology
      * @return changes the ontology to which the changes should be applied
      */
+    @Nonnull
     List<OWLOntologyChange<?>> applyChanges(OWLOntology o);
 }

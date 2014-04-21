@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.krss1.parser;
 
 import org.semanticweb.owlapi.io.OWLParserException;
 
+import javax.annotation.Nonnull;
+
 /*
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -23,7 +25,7 @@ class KRSSOWLParserException extends OWLParserException {
 
     private static final long serialVersionUID = 40000L;
 
-    KRSSOWLParserException(ParseException e) {
+    KRSSOWLParserException(@Nonnull ParseException e) {
         super(e.getMessage(), e.currentToken.beginLine,
                 e.currentToken.beginColumn);
     }

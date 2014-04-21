@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -40,7 +41,9 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
         CollectionContainer<OWLAnnotation> {
 
     private static final long serialVersionUID = 40000L;
+    @Nullable
     private OWLAxiom nnf;
+    @Nonnull
     private final List<OWLAnnotation> annotations;
 
     @Override
@@ -70,6 +73,7 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
 
     // TODO when processing annotations on OWLOntology:: add axiom, needs
     // optimizing
+    @Nonnull
     @Override
     public Set<OWLAnnotation> getAnnotations() {
         if (annotations.isEmpty()) {
@@ -80,16 +84,17 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
     }
 
     @Override
-    public void accept(CollectionContainerVisitor<OWLAnnotation> t) {
+    public void accept(@Nonnull CollectionContainerVisitor<OWLAnnotation> t) {
         int size = annotations.size();
         for (int i = 0; i < size; i++) {
             t.visitItem(annotations.get(i));
         }
     }
 
+    @Nonnull
     @Override
     public Set<OWLAnnotation> getAnnotations(
-            OWLAnnotationProperty annotationProperty) {
+            @Nonnull OWLAnnotationProperty annotationProperty) {
         if (annotations.isEmpty()) {
             return Collections.emptySet();
         } else {
@@ -104,13 +109,13 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
     }
 
     @Override
-    public boolean equalsIgnoreAnnotations(OWLAxiom axiom) {
+    public boolean equalsIgnoreAnnotations(@Nonnull OWLAxiom axiom) {
         return getAxiomWithoutAnnotations().equals(
                 axiom.getAxiomWithoutAnnotations());
     }
 
     @Override
-    public boolean isOfType(AxiomType<?>... axiomTypes) {
+    public boolean isOfType(@Nonnull AxiomType<?>... axiomTypes) {
         for (AxiomType<?> type : axiomTypes) {
             if (getAxiomType().equals(type)) {
                 return true;
@@ -120,7 +125,7 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
     }
 
     @Override
-    public boolean isOfType(Set<AxiomType<?>> types) {
+    public boolean isOfType(@Nonnull Set<AxiomType<?>> types) {
         return types.contains(getAxiomType());
     }
 
@@ -132,7 +137,8 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
      *        The annotations to add to the annotations on this axiom
      * @return The annotations
      */
-    protected Set<OWLAnnotation> mergeAnnos(Set<OWLAnnotation> annos) {
+    @Nonnull
+    protected Set<OWLAnnotation> mergeAnnos(@Nonnull Set<OWLAnnotation> annos) {
         Set<OWLAnnotation> merged = new HashSet<OWLAnnotation>(annos);
         merged.addAll(annotations);
         return merged;
@@ -150,6 +156,7 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
         return getAnnotations().equals(other.getAnnotations());
     }
 
+    @Nonnull
     @Override
     public OWLAxiom getNNF() {
         if (nnf == null) {

@@ -1,5 +1,6 @@
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Set;
 
@@ -23,6 +24,7 @@ public interface HasRemoveAxioms {
      * @throws OWLOntologyChangeException
      *         if there was a problem removing the axioms
      */
+    @Nonnull
     List<OWLOntologyChange<?>> removeAxioms(OWLOntology ont,
             Set<? extends OWLAxiom> axioms);
 }

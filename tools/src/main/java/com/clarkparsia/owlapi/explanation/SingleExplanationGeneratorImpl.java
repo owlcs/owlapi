@@ -29,10 +29,15 @@ public abstract class SingleExplanationGeneratorImpl implements
         TransactionAwareSingleExpGen {
 
     private boolean inTransaction;
+    @Nonnull
     private final OWLOntologyManager owlOntologyManager;
+    @Nonnull
     private final OWLOntology ontology;
+    @Nonnull
     private final OWLReasoner reasoner;
+    @Nonnull
     private final OWLReasonerFactory reasonerFactory;
+    @Nonnull
     private final DefinitionTracker definitionTracker;
 
     /**
@@ -56,11 +61,13 @@ public abstract class SingleExplanationGeneratorImpl implements
         definitionTracker = new DefinitionTracker(ontology);
     }
 
+    @Nonnull
     @Override
     public OWLOntologyManager getOntologyManager() {
         return owlOntologyManager;
     }
 
+    @Nonnull
     @Override
     public OWLReasoner getReasoner() {
         return reasoner;
@@ -72,11 +79,13 @@ public abstract class SingleExplanationGeneratorImpl implements
         return definitionTracker;
     }
 
+    @Nonnull
     @Override
     public OWLOntology getOntology() {
         return ontology;
     }
 
+    @Nonnull
     @Override
     public OWLReasonerFactory getReasonerFactory() {
         return reasonerFactory;

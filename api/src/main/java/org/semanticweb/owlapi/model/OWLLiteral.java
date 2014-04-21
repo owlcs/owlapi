@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * Represents a <a
@@ -211,5 +212,6 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject,
      *        visitor return type
      * @return visitor return value
      */
+    @Nullable
     <O> O accept(@Nonnull OWLDataVisitorEx<O> visitor);
 }

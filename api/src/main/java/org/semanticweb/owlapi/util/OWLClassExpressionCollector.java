@@ -105,6 +105,8 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
+import javax.annotation.Nonnull;
+
 /**
  * Collects all of the nested class expression that are used in some OWLObject.
  * For example, given SubClassOf(ObjectUnionOf(D C) ObjectSomeValuesFrom(R F))
@@ -118,91 +120,107 @@ import org.semanticweb.owlapi.model.SWRLVariable;
 public class OWLClassExpressionCollector implements
         OWLObjectVisitorEx<Set<OWLClassExpression>> {
 
+    @Nonnull
     @Override
-    public Set<OWLClassExpression> visit(IRI iri) {
+    public Set<OWLClassExpression> visit(@Nonnull IRI iri) {
+        return Collections.emptySet();
+    }
+
+    @Nonnull
+    @Override
+    public Set<OWLClassExpression> visit(@Nonnull OWLDatatype node) {
+        return Collections.emptySet();
+    }
+
+    @Nonnull
+    @Override
+    public Set<OWLClassExpression> visit(@Nonnull OWLObjectProperty property) {
+        return Collections.emptySet();
+    }
+
+    @Nonnull
+    @Override
+    public Set<OWLClassExpression> visit(@Nonnull OWLAnonymousIndividual individual) {
         return Collections.emptySet();
     }
 
     @Override
-    public Set<OWLClassExpression> visit(OWLDatatype node) {
-        return Collections.emptySet();
-    }
-
-    @Override
-    public Set<OWLClassExpression> visit(OWLObjectProperty property) {
-        return Collections.emptySet();
-    }
-
-    @Override
-    public Set<OWLClassExpression> visit(OWLAnonymousIndividual individual) {
-        return Collections.emptySet();
-    }
-
-    @Override
-    public Set<OWLClassExpression> visit(SWRLClassAtom node) {
+    public Set<OWLClassExpression> visit(@Nonnull SWRLClassAtom node) {
         return node.getPredicate().accept(this);
     }
 
+    @Nonnull
     @Override
-    public Set<OWLClassExpression> visit(OWLObjectInverseOf property) {
+    public Set<OWLClassExpression> visit(@Nonnull OWLObjectInverseOf property) {
         return Collections.emptySet();
     }
 
+    @Nonnull
     @Override
-    public Set<OWLClassExpression> visit(SWRLDataRangeAtom node) {
+    public Set<OWLClassExpression> visit(@Nonnull SWRLDataRangeAtom node) {
         return Collections.emptySet();
     }
 
+    @Nonnull
     @Override
-    public Set<OWLClassExpression> visit(OWLAnnotation node) {
+    public Set<OWLClassExpression> visit(@Nonnull OWLAnnotation node) {
         return Collections.emptySet();
     }
 
+    @Nonnull
     @Override
-    public Set<OWLClassExpression> visit(OWLDataOneOf node) {
+    public Set<OWLClassExpression> visit(@Nonnull OWLDataOneOf node) {
         return Collections.emptySet();
     }
 
+    @Nonnull
     @Override
-    public Set<OWLClassExpression> visit(OWLDataProperty property) {
+    public Set<OWLClassExpression> visit(@Nonnull OWLDataProperty property) {
         return Collections.emptySet();
     }
 
+    @Nonnull
     @Override
-    public Set<OWLClassExpression> visit(SWRLObjectPropertyAtom node) {
+    public Set<OWLClassExpression> visit(@Nonnull SWRLObjectPropertyAtom node) {
         return Collections.emptySet();
     }
 
+    @Nonnull
     @Override
-    public Set<OWLClassExpression> visit(OWLDataIntersectionOf node) {
+    public Set<OWLClassExpression> visit(@Nonnull OWLDataIntersectionOf node) {
         return Collections.emptySet();
     }
 
+    @Nonnull
     @Override
-    public Set<OWLClassExpression> visit(OWLNamedIndividual individual) {
+    public Set<OWLClassExpression> visit(@Nonnull OWLNamedIndividual individual) {
         return Collections.emptySet();
     }
 
+    @Nonnull
     @Override
-    public Set<OWLClassExpression> visit(OWLDataUnionOf node) {
+    public Set<OWLClassExpression> visit(@Nonnull OWLDataUnionOf node) {
         return Collections.emptySet();
     }
 
+    @Nonnull
     @Override
-    public Set<OWLClassExpression> visit(OWLSubClassOfAxiom axiom) {
+    public Set<OWLClassExpression> visit(@Nonnull OWLSubClassOfAxiom axiom) {
         Set<OWLClassExpression> result = new HashSet<OWLClassExpression>();
         result.addAll(axiom.getSubClass().accept(this));
         result.addAll(axiom.getSuperClass().accept(this));
         return result;
     }
 
+    @Nonnull
     @Override
-    public Set<OWLClassExpression> visit(OWLAnnotationPropertyRangeAxiom axiom) {
+    public Set<OWLClassExpression> visit(@Nonnull OWLAnnotationPropertyRangeAxiom axiom) {
         return Collections.emptySet();
     }
 
+    @Nonnull
     @Override
-    public Set<OWLClassExpression> visit(OWLOntology ontology) {
+    public Set<OWLClassExpression> visit(@Nonnull OWLOntology ontology) {
         Set<OWLClassExpression> result = new HashSet<OWLClassExpression>();
         for (OWLAxiom ax : ontology.getLogicalAxioms()) {
             result.addAll(ax.accept(this));
@@ -210,38 +228,45 @@ public class OWLClassExpressionCollector implements
         return result;
     }
 
+    @Nonnull
     @Override
-    public Set<OWLClassExpression> visit(OWLDatatypeRestriction node) {
+    public Set<OWLClassExpression> visit(@Nonnull OWLDatatypeRestriction node) {
         return Collections.emptySet();
     }
 
+    @Nonnull
     @Override
-    public Set<OWLClassExpression> visit(SWRLBuiltInAtom node) {
+    public Set<OWLClassExpression> visit(@Nonnull SWRLBuiltInAtom node) {
         return Collections.emptySet();
     }
 
+    @Nonnull
     @Override
-    public Set<OWLClassExpression> visit(OWLAnnotationProperty property) {
+    public Set<OWLClassExpression> visit(@Nonnull OWLAnnotationProperty property) {
         return Collections.emptySet();
     }
 
+    @Nonnull
     @Override
-    public Set<OWLClassExpression> visit(OWLClass ce) {
+    public Set<OWLClassExpression> visit(@Nonnull OWLClass ce) {
         return Collections.<OWLClassExpression> singleton(ce);
     }
 
+    @Nonnull
     @Override
-    public Set<OWLClassExpression> visit(SWRLVariable node) {
+    public Set<OWLClassExpression> visit(@Nonnull SWRLVariable node) {
         return Collections.emptySet();
     }
 
+    @Nonnull
     @Override
-    public Set<OWLClassExpression> visit(OWLLiteral node) {
+    public Set<OWLClassExpression> visit(@Nonnull OWLLiteral node) {
         return Collections.emptySet();
     }
 
+    @Nonnull
     @Override
-    public Set<OWLClassExpression> visit(OWLObjectIntersectionOf ce) {
+    public Set<OWLClassExpression> visit(@Nonnull OWLObjectIntersectionOf ce) {
         Set<OWLClassExpression> result = new HashSet<OWLClassExpression>();
         result.add(ce);
         for (OWLClassExpression op : ce.getOperands()) {
@@ -250,19 +275,22 @@ public class OWLClassExpressionCollector implements
         return result;
     }
 
+    @Nonnull
     @Override
     public Set<OWLClassExpression> visit(
-            OWLNegativeObjectPropertyAssertionAxiom axiom) {
+            @Nonnull OWLNegativeObjectPropertyAssertionAxiom axiom) {
         return Collections.emptySet();
     }
 
+    @Nonnull
     @Override
-    public Set<OWLClassExpression> visit(SWRLIndividualArgument node) {
+    public Set<OWLClassExpression> visit(@Nonnull SWRLIndividualArgument node) {
         return Collections.emptySet();
     }
 
+    @Nonnull
     @Override
-    public Set<OWLClassExpression> visit(OWLObjectUnionOf ce) {
+    public Set<OWLClassExpression> visit(@Nonnull OWLObjectUnionOf ce) {
         Set<OWLClassExpression> result = new HashSet<OWLClassExpression>();
         result.add(ce);
         for (OWLClassExpression op : ce.getOperands()) {
@@ -271,63 +299,73 @@ public class OWLClassExpressionCollector implements
         return result;
     }
 
+    @Nonnull
     @Override
-    public Set<OWLClassExpression> visit(OWLFacetRestriction node) {
+    public Set<OWLClassExpression> visit(@Nonnull OWLFacetRestriction node) {
         return Collections.emptySet();
     }
 
+    @Nonnull
     @Override
-    public Set<OWLClassExpression> visit(SWRLLiteralArgument node) {
+    public Set<OWLClassExpression> visit(@Nonnull SWRLLiteralArgument node) {
         return Collections.emptySet();
     }
 
+    @Nonnull
     @Override
     public Set<OWLClassExpression>
-            visit(OWLAsymmetricObjectPropertyAxiom axiom) {
+            visit(@Nonnull OWLAsymmetricObjectPropertyAxiom axiom) {
         return Collections.emptySet();
     }
 
+    @Nonnull
     @Override
-    public Set<OWLClassExpression> visit(OWLObjectComplementOf ce) {
+    public Set<OWLClassExpression> visit(@Nonnull OWLObjectComplementOf ce) {
         Set<OWLClassExpression> result = new HashSet<OWLClassExpression>();
         result.add(ce);
         result.addAll(ce.getOperand().accept(this));
         return result;
     }
 
+    @Nonnull
     @Override
-    public Set<OWLClassExpression> visit(SWRLSameIndividualAtom node) {
+    public Set<OWLClassExpression> visit(@Nonnull SWRLSameIndividualAtom node) {
         return Collections.emptySet();
     }
 
+    @Nonnull
     @Override
-    public Set<OWLClassExpression> visit(OWLObjectSomeValuesFrom ce) {
+    public Set<OWLClassExpression> visit(@Nonnull OWLObjectSomeValuesFrom ce) {
         Set<OWLClassExpression> result = new HashSet<OWLClassExpression>();
         result.add(ce);
         result.addAll(ce.getFiller().accept(this));
         return result;
     }
 
+    @Nonnull
     @Override
-    public Set<OWLClassExpression> visit(OWLReflexiveObjectPropertyAxiom axiom) {
+    public Set<OWLClassExpression> visit(@Nonnull OWLReflexiveObjectPropertyAxiom axiom) {
         return Collections.emptySet();
     }
 
+    @Nonnull
     @Override
-    public Set<OWLClassExpression> visit(SWRLDifferentIndividualsAtom node) {
+    public Set<OWLClassExpression> visit(@Nonnull SWRLDifferentIndividualsAtom node) {
         return Collections.emptySet();
     }
 
+    @Nonnull
     @Override
-    public Set<OWLClassExpression> visit(OWLObjectAllValuesFrom ce) {
+    public Set<OWLClassExpression> visit(@Nonnull OWLObjectAllValuesFrom ce) {
         Set<OWLClassExpression> result = new HashSet<OWLClassExpression>();
         result.add(ce);
         result.addAll(ce.getFiller().accept(this));
         return result;
     }
 
+    @Nonnull
     @Override
-    public Set<OWLClassExpression> visit(OWLDisjointClassesAxiom axiom) {
+    public Set<OWLClassExpression> visit(@Nonnull OWLDisjointClassesAxiom axiom) {
         Set<OWLClassExpression> result = new HashSet<OWLClassExpression>();
         for (OWLClassExpression ce : axiom.getClassExpressions()) {
             result.addAll(ce.accept(this));
@@ -335,18 +373,20 @@ public class OWLClassExpressionCollector implements
         return result;
     }
 
+    @Nonnull
     @Override
-    public Set<OWLClassExpression> visit(OWLObjectHasValue ce) {
+    public Set<OWLClassExpression> visit(@Nonnull OWLObjectHasValue ce) {
         return Collections.<OWLClassExpression> singleton(ce);
     }
 
     @Override
-    public Set<OWLClassExpression> visit(OWLDataPropertyDomainAxiom axiom) {
+    public Set<OWLClassExpression> visit(@Nonnull OWLDataPropertyDomainAxiom axiom) {
         return axiom.getDomain().accept(this);
     }
 
+    @Nonnull
     @Override
-    public Set<OWLClassExpression> visit(OWLObjectMinCardinality ce) {
+    public Set<OWLClassExpression> visit(@Nonnull OWLObjectMinCardinality ce) {
         Set<OWLClassExpression> result = new HashSet<OWLClassExpression>();
         result.add(ce);
         result.addAll(ce.getFiller().accept(this));
@@ -354,117 +394,136 @@ public class OWLClassExpressionCollector implements
     }
 
     @Override
-    public Set<OWLClassExpression> visit(OWLObjectPropertyDomainAxiom axiom) {
+    public Set<OWLClassExpression> visit(@Nonnull OWLObjectPropertyDomainAxiom axiom) {
         return axiom.getDomain().accept(this);
     }
 
+    @Nonnull
     @Override
-    public Set<OWLClassExpression> visit(OWLObjectExactCardinality ce) {
+    public Set<OWLClassExpression> visit(@Nonnull OWLObjectExactCardinality ce) {
         Set<OWLClassExpression> result = new HashSet<OWLClassExpression>();
         result.add(ce);
         result.addAll(ce.getFiller().accept(this));
         return result;
     }
 
+    @Nonnull
     @Override
     public Set<OWLClassExpression> visit(
-            OWLEquivalentObjectPropertiesAxiom axiom) {
+            @Nonnull OWLEquivalentObjectPropertiesAxiom axiom) {
         return Collections.emptySet();
     }
 
+    @Nonnull
     @Override
-    public Set<OWLClassExpression> visit(OWLObjectMaxCardinality ce) {
+    public Set<OWLClassExpression> visit(@Nonnull OWLObjectMaxCardinality ce) {
         Set<OWLClassExpression> result = new HashSet<OWLClassExpression>();
         result.add(ce);
         result.addAll(ce.getFiller().accept(this));
         return result;
     }
 
+    @Nonnull
     @Override
-    public Set<OWLClassExpression> visit(OWLObjectHasSelf ce) {
+    public Set<OWLClassExpression> visit(@Nonnull OWLObjectHasSelf ce) {
         return Collections.<OWLClassExpression> singleton(ce);
     }
 
+    @Nonnull
     @Override
     public Set<OWLClassExpression> visit(
-            OWLNegativeDataPropertyAssertionAxiom axiom) {
+            @Nonnull OWLNegativeDataPropertyAssertionAxiom axiom) {
         return Collections.emptySet();
     }
 
+    @Nonnull
     @Override
-    public Set<OWLClassExpression> visit(OWLObjectOneOf ce) {
+    public Set<OWLClassExpression> visit(@Nonnull OWLObjectOneOf ce) {
         return Collections.<OWLClassExpression> singleton(ce);
     }
 
+    @Nonnull
     @Override
-    public Set<OWLClassExpression> visit(OWLDifferentIndividualsAxiom axiom) {
+    public Set<OWLClassExpression> visit(@Nonnull OWLDifferentIndividualsAxiom axiom) {
         return Collections.emptySet();
     }
 
+    @Nonnull
     @Override
-    public Set<OWLClassExpression> visit(OWLDataSomeValuesFrom ce) {
+    public Set<OWLClassExpression> visit(@Nonnull OWLDataSomeValuesFrom ce) {
         return Collections.<OWLClassExpression> singleton(ce);
     }
 
+    @Nonnull
     @Override
-    public Set<OWLClassExpression> visit(OWLDataAllValuesFrom ce) {
+    public Set<OWLClassExpression> visit(@Nonnull OWLDataAllValuesFrom ce) {
         return Collections.<OWLClassExpression> singleton(ce);
     }
 
+    @Nonnull
     @Override
-    public Set<OWLClassExpression> visit(OWLDisjointDataPropertiesAxiom axiom) {
+    public Set<OWLClassExpression> visit(@Nonnull OWLDisjointDataPropertiesAxiom axiom) {
         return Collections.emptySet();
     }
 
+    @Nonnull
     @Override
-    public Set<OWLClassExpression> visit(OWLDataHasValue ce) {
+    public Set<OWLClassExpression> visit(@Nonnull OWLDataHasValue ce) {
         return Collections.<OWLClassExpression> singleton(ce);
     }
 
+    @Nonnull
     @Override
     public Set<OWLClassExpression>
-            visit(OWLDisjointObjectPropertiesAxiom axiom) {
+            visit(@Nonnull OWLDisjointObjectPropertiesAxiom axiom) {
         return Collections.emptySet();
     }
 
+    @Nonnull
     @Override
-    public Set<OWLClassExpression> visit(OWLDataMinCardinality ce) {
+    public Set<OWLClassExpression> visit(@Nonnull OWLDataMinCardinality ce) {
         return Collections.<OWLClassExpression> singleton(ce);
     }
 
     @Override
-    public Set<OWLClassExpression> visit(OWLObjectPropertyRangeAxiom axiom) {
+    public Set<OWLClassExpression> visit(@Nonnull OWLObjectPropertyRangeAxiom axiom) {
         return axiom.getRange().accept(this);
     }
 
+    @Nonnull
     @Override
-    public Set<OWLClassExpression> visit(OWLDataExactCardinality ce) {
+    public Set<OWLClassExpression> visit(@Nonnull OWLDataExactCardinality ce) {
         return Collections.<OWLClassExpression> singleton(ce);
     }
 
+    @Nonnull
     @Override
-    public Set<OWLClassExpression> visit(OWLDataMaxCardinality ce) {
+    public Set<OWLClassExpression> visit(@Nonnull OWLDataMaxCardinality ce) {
         return Collections.<OWLClassExpression> singleton(ce);
     }
 
+    @Nonnull
     @Override
-    public Set<OWLClassExpression> visit(OWLObjectPropertyAssertionAxiom axiom) {
+    public Set<OWLClassExpression> visit(@Nonnull OWLObjectPropertyAssertionAxiom axiom) {
         return Collections.emptySet();
     }
 
+    @Nonnull
     @Override
     public Set<OWLClassExpression>
-            visit(OWLFunctionalObjectPropertyAxiom axiom) {
+            visit(@Nonnull OWLFunctionalObjectPropertyAxiom axiom) {
         return Collections.emptySet();
     }
 
+    @Nonnull
     @Override
-    public Set<OWLClassExpression> visit(OWLSubObjectPropertyOfAxiom axiom) {
+    public Set<OWLClassExpression> visit(@Nonnull OWLSubObjectPropertyOfAxiom axiom) {
         return Collections.emptySet();
     }
 
+    @Nonnull
     @Override
-    public Set<OWLClassExpression> visit(OWLDisjointUnionAxiom axiom) {
+    public Set<OWLClassExpression> visit(@Nonnull OWLDisjointUnionAxiom axiom) {
         Set<OWLClassExpression> result = new HashSet<OWLClassExpression>();
         result.add(axiom.getOWLClass());
         for (OWLClassExpression ce : axiom.getClassExpressions()) {
@@ -474,43 +533,49 @@ public class OWLClassExpressionCollector implements
     }
 
     @Override
-    public Set<OWLClassExpression> visit(OWLDeclarationAxiom axiom) {
+    public Set<OWLClassExpression> visit(@Nonnull OWLDeclarationAxiom axiom) {
         return axiom.getEntity().accept(this);
     }
 
+    @Nonnull
     @Override
-    public Set<OWLClassExpression> visit(OWLAnnotationAssertionAxiom axiom) {
+    public Set<OWLClassExpression> visit(@Nonnull OWLAnnotationAssertionAxiom axiom) {
         return Collections.emptySet();
     }
 
+    @Nonnull
     @Override
-    public Set<OWLClassExpression> visit(OWLSymmetricObjectPropertyAxiom axiom) {
+    public Set<OWLClassExpression> visit(@Nonnull OWLSymmetricObjectPropertyAxiom axiom) {
         return Collections.emptySet();
     }
 
+    @Nonnull
     @Override
-    public Set<OWLClassExpression> visit(OWLDataPropertyRangeAxiom axiom) {
+    public Set<OWLClassExpression> visit(@Nonnull OWLDataPropertyRangeAxiom axiom) {
         return Collections.emptySet();
     }
 
+    @Nonnull
     @Override
-    public Set<OWLClassExpression> visit(OWLFunctionalDataPropertyAxiom axiom) {
+    public Set<OWLClassExpression> visit(@Nonnull OWLFunctionalDataPropertyAxiom axiom) {
         return Collections.emptySet();
     }
 
+    @Nonnull
     @Override
     public Set<OWLClassExpression>
-            visit(OWLEquivalentDataPropertiesAxiom axiom) {
+            visit(@Nonnull OWLEquivalentDataPropertiesAxiom axiom) {
         return Collections.emptySet();
     }
 
     @Override
-    public Set<OWLClassExpression> visit(OWLClassAssertionAxiom axiom) {
+    public Set<OWLClassExpression> visit(@Nonnull OWLClassAssertionAxiom axiom) {
         return axiom.getClassExpression().accept(this);
     }
 
+    @Nonnull
     @Override
-    public Set<OWLClassExpression> visit(OWLEquivalentClassesAxiom axiom) {
+    public Set<OWLClassExpression> visit(@Nonnull OWLEquivalentClassesAxiom axiom) {
         Set<OWLClassExpression> result = new HashSet<OWLClassExpression>();
         for (OWLClassExpression ce : axiom.getClassExpressions()) {
             result.addAll(ce.accept(this));
@@ -518,61 +583,71 @@ public class OWLClassExpressionCollector implements
         return result;
     }
 
+    @Nonnull
     @Override
-    public Set<OWLClassExpression> visit(OWLDataPropertyAssertionAxiom axiom) {
+    public Set<OWLClassExpression> visit(@Nonnull OWLDataPropertyAssertionAxiom axiom) {
         return Collections.emptySet();
     }
 
-    @Override
-    public Set<OWLClassExpression>
-            visit(OWLTransitiveObjectPropertyAxiom axiom) {
-        return Collections.emptySet();
-    }
-
+    @Nonnull
     @Override
     public Set<OWLClassExpression>
-            visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
+            visit(@Nonnull OWLTransitiveObjectPropertyAxiom axiom) {
         return Collections.emptySet();
     }
 
+    @Nonnull
     @Override
-    public Set<OWLClassExpression> visit(OWLSubDataPropertyOfAxiom axiom) {
+    public Set<OWLClassExpression>
+            visit(@Nonnull OWLIrreflexiveObjectPropertyAxiom axiom) {
         return Collections.emptySet();
     }
 
+    @Nonnull
+    @Override
+    public Set<OWLClassExpression> visit(@Nonnull OWLSubDataPropertyOfAxiom axiom) {
+        return Collections.emptySet();
+    }
+
+    @Nonnull
     @Override
     public Set<OWLClassExpression> visit(
-            OWLInverseFunctionalObjectPropertyAxiom axiom) {
+            @Nonnull OWLInverseFunctionalObjectPropertyAxiom axiom) {
+        return Collections.emptySet();
+    }
+
+    @Nonnull
+    @Override
+    public Set<OWLClassExpression> visit(@Nonnull OWLSameIndividualAxiom axiom) {
+        return Collections.emptySet();
+    }
+
+    @Nonnull
+    @Override
+    public Set<OWLClassExpression> visit(@Nonnull OWLSubPropertyChainOfAxiom axiom) {
+        return Collections.emptySet();
+    }
+
+    @Nonnull
+    @Override
+    public Set<OWLClassExpression> visit(@Nonnull OWLInverseObjectPropertiesAxiom axiom) {
         return Collections.emptySet();
     }
 
     @Override
-    public Set<OWLClassExpression> visit(OWLSameIndividualAxiom axiom) {
-        return Collections.emptySet();
-    }
-
-    @Override
-    public Set<OWLClassExpression> visit(OWLSubPropertyChainOfAxiom axiom) {
-        return Collections.emptySet();
-    }
-
-    @Override
-    public Set<OWLClassExpression> visit(OWLInverseObjectPropertiesAxiom axiom) {
-        return Collections.emptySet();
-    }
-
-    @Override
-    public Set<OWLClassExpression> visit(OWLHasKeyAxiom axiom) {
+    public Set<OWLClassExpression> visit(@Nonnull OWLHasKeyAxiom axiom) {
         return axiom.getClassExpression().accept(this);
     }
 
+    @Nonnull
     @Override
-    public Set<OWLClassExpression> visit(OWLDatatypeDefinitionAxiom axiom) {
+    public Set<OWLClassExpression> visit(@Nonnull OWLDatatypeDefinitionAxiom axiom) {
         return Collections.emptySet();
     }
 
+    @Nonnull
     @Override
-    public Set<OWLClassExpression> visit(SWRLRule rule) {
+    public Set<OWLClassExpression> visit(@Nonnull SWRLRule rule) {
         Set<OWLClassExpression> result = new HashSet<OWLClassExpression>();
         for (SWRLAtom atom : rule.getBody()) {
             result.addAll(atom.accept(this));
@@ -583,24 +658,28 @@ public class OWLClassExpressionCollector implements
         return result;
     }
 
+    @Nonnull
     @Override
-    public Set<OWLClassExpression> visit(OWLSubAnnotationPropertyOfAxiom axiom) {
+    public Set<OWLClassExpression> visit(@Nonnull OWLSubAnnotationPropertyOfAxiom axiom) {
         return Collections.emptySet();
     }
 
+    @Nonnull
     @Override
     public Set<OWLClassExpression>
-            visit(OWLAnnotationPropertyDomainAxiom axiom) {
+            visit(@Nonnull OWLAnnotationPropertyDomainAxiom axiom) {
         return Collections.emptySet();
     }
 
+    @Nonnull
     @Override
-    public Set<OWLClassExpression> visit(OWLDataComplementOf node) {
+    public Set<OWLClassExpression> visit(@Nonnull OWLDataComplementOf node) {
         return Collections.emptySet();
     }
 
+    @Nonnull
     @Override
-    public Set<OWLClassExpression> visit(SWRLDataPropertyAtom node) {
+    public Set<OWLClassExpression> visit(@Nonnull SWRLDataPropertyAtom node) {
         return Collections.emptySet();
     }
 }

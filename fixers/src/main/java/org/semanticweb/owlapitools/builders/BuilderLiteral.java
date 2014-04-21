@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapitools.builders;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -22,12 +24,19 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 /** Builder class for OWLLiteral */
 public class BuilderLiteral extends BaseBuilder<OWLLiteral, BuilderLiteral> {
 
+    @Nullable
     private String lang = null;
+    @Nullable
     private String literalForm = null;
+    @Nullable
     private Integer intValue = null;
+    @Nullable
     private Double doubleValue = null;
+    @Nullable
     private Float floatValue = null;
+    @Nullable
     private Boolean booleanValue = null;
+    @Nullable
     private OWLDatatype datatype;
 
     /**
@@ -38,7 +47,7 @@ public class BuilderLiteral extends BaseBuilder<OWLLiteral, BuilderLiteral> {
      * @param df
      *        data factory
      */
-    public BuilderLiteral(OWLLiteral expected, OWLDataFactory df) {
+    public BuilderLiteral(@Nonnull OWLLiteral expected, OWLDataFactory df) {
         this(df);
         withDatatype(expected.getDatatype()).withLanguage(expected.getLang());
         if (expected.isBoolean()) {
@@ -76,6 +85,7 @@ public class BuilderLiteral extends BaseBuilder<OWLLiteral, BuilderLiteral> {
      *        int value
      * @return builder
      */
+    @Nonnull
     public BuilderLiteral withValue(int arg) {
         clear();
         intValue = arg;
@@ -87,7 +97,8 @@ public class BuilderLiteral extends BaseBuilder<OWLLiteral, BuilderLiteral> {
      *        datatype
      * @return builder
      */
-    public BuilderLiteral withDatatype(OWL2Datatype arg) {
+    @Nonnull
+    public BuilderLiteral withDatatype(@Nonnull OWL2Datatype arg) {
         return withDatatype(df.getOWLDatatype(arg.getIRI()));
     }
 
@@ -96,6 +107,7 @@ public class BuilderLiteral extends BaseBuilder<OWLLiteral, BuilderLiteral> {
      *        datatype
      * @return builder
      */
+    @Nonnull
     public BuilderLiteral withDatatype(OWLDatatype arg) {
         lang = null;
         datatype = arg;
@@ -107,6 +119,7 @@ public class BuilderLiteral extends BaseBuilder<OWLLiteral, BuilderLiteral> {
      *        boolean value
      * @return builder
      */
+    @Nonnull
     public BuilderLiteral withValue(boolean arg) {
         clear();
         booleanValue = arg;
@@ -118,6 +131,7 @@ public class BuilderLiteral extends BaseBuilder<OWLLiteral, BuilderLiteral> {
      *        double value
      * @return builder
      */
+    @Nonnull
     public BuilderLiteral withValue(double arg) {
         clear();
         doubleValue = arg;
@@ -129,6 +143,7 @@ public class BuilderLiteral extends BaseBuilder<OWLLiteral, BuilderLiteral> {
      *        float value
      * @return builder
      */
+    @Nonnull
     public BuilderLiteral withValue(float arg) {
         clear();
         floatValue = arg;
@@ -140,6 +155,7 @@ public class BuilderLiteral extends BaseBuilder<OWLLiteral, BuilderLiteral> {
      *        literal form
      * @return builder
      */
+    @Nonnull
     public BuilderLiteral withLiteralForm(String arg) {
         clear();
         literalForm = arg;
@@ -151,12 +167,14 @@ public class BuilderLiteral extends BaseBuilder<OWLLiteral, BuilderLiteral> {
      *        language
      * @return builder
      */
+    @Nonnull
     public BuilderLiteral withLanguage(String arg) {
         datatype = null;
         lang = arg;
         return this;
     }
 
+    @Nonnull
     @Override
     public OWLLiteral buildObject() {
         if (intValue != null) {

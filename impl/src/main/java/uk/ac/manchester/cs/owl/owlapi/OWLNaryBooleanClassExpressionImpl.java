@@ -36,6 +36,7 @@ public abstract class OWLNaryBooleanClassExpressionImpl extends
         OWLNaryBooleanClassExpression {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final Set<OWLClassExpression> operands;
 
     /**
@@ -48,11 +49,13 @@ public abstract class OWLNaryBooleanClassExpressionImpl extends
                 "operands cannot be null"));
     }
 
+    @Nonnull
     @Override
     public List<OWLClassExpression> getOperandsAsList() {
         return new ArrayList<OWLClassExpression>(operands);
     }
 
+    @Nonnull
     @Override
     public Set<OWLClassExpression> getOperands() {
         return CollectionFactory
@@ -77,7 +80,7 @@ public abstract class OWLNaryBooleanClassExpressionImpl extends
     }
 
     @Override
-    protected int compareObjectOfSameType(OWLObject object) {
+    protected int compareObjectOfSameType(@Nonnull OWLObject object) {
         return compareSets(operands,
                 ((OWLNaryBooleanClassExpression) object).getOperands());
     }

@@ -38,7 +38,9 @@ public abstract class SWRLBinaryAtomImpl<A extends SWRLArgument, B extends SWRLA
         extends SWRLAtomImpl implements SWRLBinaryAtom<A, B> {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final A arg0;
+    @Nonnull
     private final B arg1;
 
     protected SWRLBinaryAtomImpl(@Nonnull SWRLPredicate predicate,
@@ -48,6 +50,7 @@ public abstract class SWRLBinaryAtomImpl<A extends SWRLArgument, B extends SWRLA
         this.arg1 = checkNotNull(arg1, "arg1 cannot be null");
     }
 
+    @Nonnull
     @Override
     public Collection<SWRLArgument> getAllArguments() {
         List<SWRLArgument> objs = new ArrayList<SWRLArgument>();
@@ -56,11 +59,13 @@ public abstract class SWRLBinaryAtomImpl<A extends SWRLArgument, B extends SWRLA
         return objs;
     }
 
+    @Nonnull
     @Override
     public A getFirstArgument() {
         return arg0;
     }
 
+    @Nonnull
     @Override
     public B getSecondArgument() {
         return arg1;

@@ -40,6 +40,9 @@ import org.semanticweb.owlapi.util.OWLClassExpressionCollector;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -53,11 +56,14 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
             .<OWLAnnotation> emptySet();
     private static final OWLObjectTypeIndexProvider owlObjectTypeIndexProvider = new OWLObjectTypeIndexProvider();
     private int hashCode = 0;
+    @Nullable
     private transient WeakReference<Set<OWLEntity>> signature = null;
+    @Nullable
     private transient WeakReference<Set<OWLAnonymousIndividual>> anons = null;
     protected static final OWLClass OWL_THING = new OWLClassImpl(
             OWLRDFVocabulary.OWL_THING.getIRI());
 
+    @Nonnull
     @Override
     public Set<OWLEntity> getSignature() {
         Set<OWLEntity> set = null;
@@ -82,6 +88,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
         return getSignature().contains(owlEntity);
     }
 
+    @Nonnull
     @Override
     public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
         if (signature == null || signature.get() == null) {
@@ -91,6 +98,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
                 .getCopyOnRequestSetFromImmutableCollection(anons.get());
     }
 
+    @Nonnull
     @Override
     public Set<OWLClass> getClassesInSignature() {
         Set<OWLClass> result = new HashSet<OWLClass>();
@@ -102,6 +110,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
         return result;
     }
 
+    @Nonnull
     @Override
     public Set<OWLDataProperty> getDataPropertiesInSignature() {
         Set<OWLDataProperty> result = new HashSet<OWLDataProperty>();
@@ -113,6 +122,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
         return result;
     }
 
+    @Nonnull
     @Override
     public Set<OWLObjectProperty> getObjectPropertiesInSignature() {
         Set<OWLObjectProperty> result = new HashSet<OWLObjectProperty>();
@@ -124,6 +134,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
         return result;
     }
 
+    @Nonnull
     @Override
     public Set<OWLNamedIndividual> getIndividualsInSignature() {
         Set<OWLNamedIndividual> result = new HashSet<OWLNamedIndividual>();
@@ -135,6 +146,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
         return result;
     }
 
+    @Nonnull
     @Override
     public Set<OWLDatatype> getDatatypesInSignature() {
         Set<OWLDatatype> result = new HashSet<OWLDatatype>();
@@ -146,6 +158,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
         return result;
     }
 
+    @Nonnull
     @Override
     public Set<OWLClassExpression> getNestedClassExpressions() {
         OWLClassExpressionCollector collector = new OWLClassExpressionCollector();
@@ -153,7 +166,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         return obj == this || obj != null && obj instanceof OWLObject;
     }
 
@@ -168,7 +181,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
     protected abstract int index();
 
     @Override
-    public int compareTo(OWLObject o) {
+    public int compareTo(@Nonnull OWLObject o) {
         int thisTypeIndex = index();
         int otherTypeIndex = 0;
         if (o instanceof OWLObjectImpl) {
@@ -187,6 +200,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
 
     protected abstract int compareObjectOfSameType(OWLObject object);
 
+    @Nonnull
     @Override
     public String toString() {
         return ToStringRenderer.getInstance().getRendering(this);
@@ -231,8 +245,8 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
         return ss1.size() - ss2.size();
     }
 
-    protected static int compareLists(List<? extends OWLObject> list1,
-            List<? extends OWLObject> list2) {
+    protected static int compareLists(@Nonnull List<? extends OWLObject> list1,
+            @Nonnull List<? extends OWLObject> list2) {
         int i = 0;
         int size = list1.size() < list2.size() ? list1.size() : list2.size();
         while (i < size) {

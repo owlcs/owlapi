@@ -15,6 +15,8 @@ package org.semanticweb.owlapi.functional.parser;
 
 import org.semanticweb.owlapi.BOMSafeJavaCharStream;
 
+import javax.annotation.Nullable;
+
 class OWLFunctionalSyntaxParserTokenManager implements
         OWLFunctionalSyntaxParserConstants {
 
@@ -3422,6 +3424,7 @@ class OWLFunctionalSyntaxParserTokenManager implements
         }
     }
 
+    @Nullable
     public static final String[] jjstrLiteralImages = {
             "",
             null,

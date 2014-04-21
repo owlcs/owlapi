@@ -20,6 +20,8 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
+import javax.annotation.Nonnull;
+
 /**
  * Generates {@code OWLClassAssertionsAxiom}s for inferred individual types.
  * 
@@ -31,13 +33,14 @@ public class InferredClassAssertionAxiomGenerator extends
         InferredIndividualAxiomGenerator<OWLClassAssertionAxiom> {
 
     @Override
-    protected void addAxioms(OWLNamedIndividual entity, OWLReasoner reasoner,
-            OWLDataFactory dataFactory, Set<OWLClassAssertionAxiom> result) {
+    protected void addAxioms(@Nonnull OWLNamedIndividual entity, @Nonnull OWLReasoner reasoner,
+            @Nonnull OWLDataFactory dataFactory, @Nonnull Set<OWLClassAssertionAxiom> result) {
         for (OWLClass type : reasoner.getTypes(entity, false).getFlattened()) {
             result.add(dataFactory.getOWLClassAssertionAxiom(type, entity));
         }
     }
 
+    @Nonnull
     @Override
     public String getLabel() {
         return "Class assertions (individual types)";

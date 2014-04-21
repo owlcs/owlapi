@@ -13,6 +13,7 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectInverseOf;
@@ -40,6 +41,7 @@ public class OWLObjectInverseOfImpl extends OWLObjectPropertyExpressionImpl
         return OWLObjectTypeIndexProvider.OBJECT_PROPERTY_INVERSE;
     }
 
+    @Nonnull
     private final OWLObjectPropertyExpression inverseProperty;
 
     /**
@@ -51,6 +53,7 @@ public class OWLObjectInverseOfImpl extends OWLObjectPropertyExpressionImpl
         this.inverseProperty = inverseProperty;
     }
 
+    @Nonnull
     @Override
     public OWLObjectPropertyExpression getInverse() {
         return inverseProperty;
@@ -69,22 +72,23 @@ public class OWLObjectInverseOfImpl extends OWLObjectPropertyExpressionImpl
     }
 
     @Override
-    public void accept(OWLPropertyExpressionVisitor visitor) {
+    public void accept(@Nonnull OWLPropertyExpressionVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public void accept(OWLObjectVisitor visitor) {
+    public void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Nullable
     @Override
-    public <O> O accept(OWLPropertyExpressionVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLPropertyExpressionVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
@@ -93,6 +97,7 @@ public class OWLObjectInverseOfImpl extends OWLObjectPropertyExpressionImpl
         return true;
     }
 
+    @Nonnull
     @Override
     public OWLObjectProperty asOWLObjectProperty() {
         throw new OWLRuntimeException(
@@ -100,7 +105,7 @@ public class OWLObjectInverseOfImpl extends OWLObjectPropertyExpressionImpl
     }
 
     @Override
-    protected int compareObjectOfSameType(OWLObject object) {
+    protected int compareObjectOfSameType(@Nonnull OWLObject object) {
         return inverseProperty.compareTo(((OWLObjectInverseOf) object)
                 .getInverse());
     }

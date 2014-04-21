@@ -19,6 +19,8 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolation;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
@@ -31,17 +33,17 @@ public class UseOfIllegalAxiom extends OWLProfileViolation<AxiomType<?>> {
      * @param axiom
      *        axiom
      */
-    public UseOfIllegalAxiom(OWLOntology ontology, OWLAxiom axiom) {
+    public UseOfIllegalAxiom(@Nonnull OWLOntology ontology, @Nonnull OWLAxiom axiom) {
         super(ontology, axiom, axiom.getAxiomType());
     }
 
     @Override
-    public void accept(OWLProfileViolationVisitor visitor) {
+    public void accept(@Nonnull OWLProfileViolationVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLProfileViolationVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLProfileViolationVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 

@@ -51,6 +51,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  */
 public class SimpleRootClassChecker implements RootClassChecker {
 
+    @Nonnull
     private final Set<OWLOntology> ontologies;
 
     /**
@@ -83,7 +84,7 @@ public class SimpleRootClassChecker implements RootClassChecker {
     protected final NamedSuperChecker superChecker = new NamedSuperChecker();
 
     @Override
-    public boolean isRootClass(OWLClass cls) {
+    public boolean isRootClass(@Nonnull OWLClass cls) {
         for (OWLOntology ont : ontologies) {
             for (OWLAxiom ax : ont.getReferencingAxioms(cls, EXCLUDED)) {
                 checker.setOWLClass(cls);
@@ -108,12 +109,12 @@ public class SimpleRootClassChecker implements RootClassChecker {
         }
 
         @Override
-        public void visit(OWLClass desc) {
+        public void visit(@Nonnull OWLClass desc) {
             namedSuper = true;
         }
 
         @Override
-        public void visit(OWLObjectIntersectionOf desc) {
+        public void visit(@Nonnull OWLObjectIntersectionOf desc) {
             for (OWLClassExpression op : desc.getOperands()) {
                 op.accept(this);
                 if (namedSuper) {
@@ -148,7 +149,7 @@ public class SimpleRootClassChecker implements RootClassChecker {
         }
 
         @Override
-        public void visit(OWLSubClassOfAxiom axiom) {
+        public void visit(@Nonnull OWLSubClassOfAxiom axiom) {
             if (axiom.getSubClass().equals(cls)) {
                 superChecker.reset();
                 axiom.getSuperClass().accept(superChecker);
@@ -157,7 +158,7 @@ public class SimpleRootClassChecker implements RootClassChecker {
         }
 
         @Override
-        public void visit(OWLEquivalentClassesAxiom axiom) {
+        public void visit(@Nonnull OWLEquivalentClassesAxiom axiom) {
             Set<OWLClassExpression> descs = axiom.getClassExpressions();
             if (!descs.contains(cls)) {
                 return;

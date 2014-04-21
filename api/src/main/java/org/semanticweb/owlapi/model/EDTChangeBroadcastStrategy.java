@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.model;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
 import javax.swing.SwingUtilities;
 
 /**
@@ -30,8 +31,8 @@ public class EDTChangeBroadcastStrategy implements
     private static final long serialVersionUID = 40000L;
 
     @Override
-    public void broadcastChanges(final OWLOntologyChangeListener listener,
-            final List<? extends OWLOntologyChange<?>> changes)
+    public void broadcastChanges(@Nonnull final OWLOntologyChangeListener listener,
+            @Nonnull final List<? extends OWLOntologyChange<?>> changes)
             throws OWLException {
         if (SwingUtilities.isEventDispatchThread()) {
             listener.ontologiesChanged(changes);

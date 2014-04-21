@@ -50,12 +50,15 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  */
 public class OWLEntityURIConverter {
 
+    @Nonnull
     private final OWLOntologyManager manager;
     // The ontologies that reference the
     // entities whose names will be converted
+    @Nonnull
     private final Collection<OWLOntology> ontologies;
     private Map<OWLEntity, IRI> replacementMap;
     private Set<OWLEntity> processedEntities;
+    @Nonnull
     private final OWLEntityURIConverterStrategy strategy;
 
     /**
@@ -84,6 +87,7 @@ public class OWLEntityURIConverter {
      * @return A list of ontology changes that should be applied in order to
      *         convert the URI of entities in the specified ontologies.
      */
+    @Nonnull
     public List<OWLOntologyChange<?>> getChanges() {
         replacementMap = new HashMap<OWLEntity, IRI>();
         processedEntities = new HashSet<OWLEntity>();
@@ -118,7 +122,7 @@ public class OWLEntityURIConverter {
         return changes;
     }
 
-    private void processEntity(OWLEntity ent) {
+    private void processEntity(@Nonnull OWLEntity ent) {
         if (processedEntities.contains(ent)) {
             return;
         }
@@ -128,7 +132,8 @@ public class OWLEntityURIConverter {
         processedEntities.add(ent);
     }
 
-    private IRI getTinyIRI(OWLEntity ent) {
+    @Nonnull
+    private IRI getTinyIRI(@Nonnull OWLEntity ent) {
         return strategy.getConvertedIRI(ent);
     }
 }

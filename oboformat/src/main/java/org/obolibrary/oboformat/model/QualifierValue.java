@@ -1,5 +1,8 @@
 package org.obolibrary.oboformat.model;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /** qualifier value */
 public class QualifierValue {
 
@@ -43,6 +46,7 @@ public class QualifierValue {
         this.value = value;
     }
 
+    @Nonnull
     @Override
     public String toString() {
         return "{" + qualifier + "=" + value + "}";
@@ -59,7 +63,7 @@ public class QualifierValue {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         if (this == obj) {
             return true;
         }

@@ -15,6 +15,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLDataVisitor;
 import org.semanticweb.owlapi.model.OWLDataVisitorEx;
@@ -35,7 +36,9 @@ public class OWLFacetRestrictionImpl extends OWLObjectImpl implements
         OWLFacetRestriction {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final OWLFacet facet;
+    @Nonnull
     private final OWLLiteral facetValue;
 
     @Override
@@ -55,33 +58,36 @@ public class OWLFacetRestrictionImpl extends OWLObjectImpl implements
         this.facetValue = checkNotNull(facetValue, "facetValue cannot be null");
     }
 
+    @Nonnull
     @Override
     public OWLFacet getFacet() {
         return facet;
     }
 
+    @Nonnull
     @Override
     public OWLLiteral getFacetValue() {
         return facetValue;
     }
 
     @Override
-    public void accept(OWLObjectVisitor visitor) {
+    public void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Nullable
     @Override
-    public <O> O accept(OWLDataVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLDataVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    public void accept(OWLDataVisitor visitor) {
+    public void accept(@Nonnull OWLDataVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 

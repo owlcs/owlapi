@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -60,6 +62,7 @@ public class CollectionFactory {
      * @param <T>
      *        axiom type
      */
+    @Nonnull
     public static <T> Set<T> createSet() {
         // TODO large number of sets stay very small, wasting space
         return new HashSet<T>();
@@ -70,6 +73,7 @@ public class CollectionFactory {
      * @param <T>
      *        axiom type
      */
+    @Nonnull
     public static <T> List<T> createList() {
         return new ArrayList<T>();
     }
@@ -81,7 +85,8 @@ public class CollectionFactory {
      * @param <T>
      *        axiom type
      */
-    public static <T> Set<T> createSet(Collection<T> c) {
+    @Nonnull
+    public static <T> Set<T> createSet(@Nonnull Collection<T> c) {
         return new HashSet<T>(c);
     }
 
@@ -92,6 +97,7 @@ public class CollectionFactory {
      * @param <T>
      *        axiom type
      */
+    @Nonnull
     public static <T> Set<T> createSet(int initialCapacity) {
         return new HashSet<T>(initialCapacity);
     }
@@ -103,6 +109,7 @@ public class CollectionFactory {
      * @param <V>
      *        value type
      */
+    @Nonnull
     public static <K, V> Map<K, V> createMap() {
         return new HashMap<K, V>();
     }
@@ -126,7 +133,8 @@ public class CollectionFactory {
      * @param <T>
      *        axiom type
      */
-    public static <T> Set<T> createSet(T... elements) {
+    @Nonnull
+    public static <T> Set<T> createSet(@Nonnull T... elements) {
         Set<T> result = createSet();
         for (T t : elements) {
             result.add(t);
@@ -151,6 +159,7 @@ public class CollectionFactory {
      * @param <V>
      *        value type
      */
+    @Nonnull
     public static <K, V> ConcurrentHashMap<K, V> createSyncMap() {
         return new ConcurrentHashMap<K, V>(16, 0.75F, expectedThreads.get());
     }
@@ -176,7 +185,7 @@ public class CollectionFactory {
             this(new ConcurrentHashMap<T, Set<T>>());
         }
 
-        public SyncSet(Collection<T> delegate) {
+        public SyncSet(@Nonnull Collection<T> delegate) {
             this();
             for (T d : delegate) {
                 add(d);
@@ -189,7 +198,7 @@ public class CollectionFactory {
         }
 
         @Override
-        public boolean addAll(Collection<? extends T> c) {
+        public boolean addAll(@Nonnull Collection<? extends T> c) {
             boolean toReturn = false;
             for (T o : c) {
                 toReturn = toReturn || add(o);
@@ -208,7 +217,7 @@ public class CollectionFactory {
         }
 
         @Override
-        public boolean containsAll(Collection<?> c) {
+        public boolean containsAll(@Nonnull Collection<?> c) {
             boolean toReturn = true;
             for (Object o : c) {
                 toReturn = toReturn && contains(o);
@@ -224,6 +233,7 @@ public class CollectionFactory {
             return backingMap.isEmpty();
         }
 
+        @Nonnull
         @Override
         public Iterator<T> iterator() {
             return backingMap.keySet().iterator();
@@ -240,7 +250,7 @@ public class CollectionFactory {
         }
 
         @Override
-        public boolean removeAll(Collection<?> c) {
+        public boolean removeAll(@Nonnull Collection<?> c) {
             boolean toReturn = false;
             for (Object o : c) {
                 toReturn = toReturn || remove(o);
@@ -249,7 +259,7 @@ public class CollectionFactory {
         }
 
         @Override
-        public boolean retainAll(Collection<?> c) {
+        public boolean retainAll(@Nonnull Collection<?> c) {
             boolean toReturn = false;
             for (Map.Entry<T, Set<T>> e : backingMap.entrySet()) {
                 if (!c.contains(e.getKey())) {
@@ -260,19 +270,21 @@ public class CollectionFactory {
             return toReturn;
         }
 
+        @Nonnull
         @Override
         public Object[] toArray() {
             return backingMap.keySet().toArray();
         }
 
+        @Nonnull
         @Override
-        public <Type> Type[] toArray(Type[] a) {
+        public <Type> Type[] toArray(@Nonnull Type[] a) {
             return backingMap.keySet().toArray(a);
         }
 
         @SuppressWarnings("rawtypes")
         @Override
-        public boolean equals(Object obj) {
+        public boolean equals(@Nullable Object obj) {
             if (obj == null) {
                 return false;
             }
@@ -304,6 +316,7 @@ public class CollectionFactory {
      * @param <T>
      *        axiom type
      */
+    @Nonnull
     public static <T> Set<T> getCopyOnRequestSet(Collection<T> source) {
         return getCopyOnRequestSetFromMutableCollection(source);
     }
@@ -315,8 +328,9 @@ public class CollectionFactory {
      * @param <T>
      *        axiom type
      */
+    @Nonnull
     public static <T> Set<T> getCopyOnRequestSetFromMutableCollection(
-            Collection<T> source) {
+            @Nullable Collection<T> source) {
         if (source == null || source.isEmpty()) {
             return Collections.emptySet();
         }
@@ -330,8 +344,9 @@ public class CollectionFactory {
      * @param <T>
      *        axiom type
      */
+    @Nonnull
     public static <T> Set<T> getCopyOnRequestSetFromImmutableCollection(
-            Collection<T> source) {
+            @Nullable Collection<T> source) {
         if (source == null || source.isEmpty()) {
             return Collections.emptySet();
         }
@@ -345,7 +360,8 @@ public class CollectionFactory {
      * @param <T>
      *        axiom type
      */
-    public static <T> Set<T> getThreadSafeCopyOnRequestSet(Set<T> source) {
+    @Nonnull
+    public static <T> Set<T> getThreadSafeCopyOnRequestSet(@Nonnull Set<T> source) {
         return new ThreadSafeConditionalCopySet<T>(source);
     }
 
@@ -385,7 +401,7 @@ public class CollectionFactory {
          * @param listCopy
          *        true if a copy must be made
          */
-        public ConditionalCopySet(Collection<T> source, boolean listCopy) {
+        public ConditionalCopySet(@Nonnull Collection<T> source, boolean listCopy) {
             if (listCopy) {
                 this.delegate = new ArrayList<T>(source);
             } else {
@@ -395,7 +411,7 @@ public class CollectionFactory {
 
         @SuppressWarnings("rawtypes")
         @Override
-        public boolean equals(Object obj) {
+        public boolean equals(@Nullable Object obj) {
             if (obj == null) {
                 return false;
             }
@@ -435,7 +451,7 @@ public class CollectionFactory {
         }
 
         @Override
-        public boolean addAll(Collection<? extends T> arg0) {
+        public boolean addAll(@Nonnull Collection<? extends T> arg0) {
             if (!copyDone) {
                 copyDone = true;
                 delegate = new LinkedHashSet<T>(delegate);
@@ -471,7 +487,7 @@ public class CollectionFactory {
         }
 
         @Override
-        public boolean containsAll(Collection<?> arg0) {
+        public boolean containsAll(@Nonnull Collection<?> arg0) {
             containsCounter++;
             if (containsCounter >= maxContains && !copyDone) {
                 checkDelegate();
@@ -484,6 +500,7 @@ public class CollectionFactory {
             return delegate.isEmpty();
         }
 
+        @Nonnull
         @Override
         public Iterator<T> iterator() {
             return delegate.iterator();
@@ -499,7 +516,7 @@ public class CollectionFactory {
         }
 
         @Override
-        public boolean removeAll(Collection<?> arg0) {
+        public boolean removeAll(@Nonnull Collection<?> arg0) {
             if (!copyDone) {
                 copyDone = true;
                 delegate = new LinkedHashSet<T>(delegate);
@@ -508,7 +525,7 @@ public class CollectionFactory {
         }
 
         @Override
-        public boolean retainAll(Collection<?> arg0) {
+        public boolean retainAll(@Nonnull Collection<?> arg0) {
             if (!copyDone) {
                 copyDone = true;
                 delegate = new LinkedHashSet<T>(delegate);
@@ -521,13 +538,15 @@ public class CollectionFactory {
             return delegate.size();
         }
 
+        @Nonnull
         @Override
         public Object[] toArray() {
             return delegate.toArray();
         }
 
+        @Nonnull
         @Override
-        public <Type> Type[] toArray(Type[] arg0) {
+        public <Type> Type[] toArray(@Nonnull Type[] arg0) {
             return delegate.toArray(arg0);
         }
     }
@@ -554,12 +573,12 @@ public class CollectionFactory {
          * @param source
          *        initial values
          */
-        public ThreadSafeConditionalCopySet(Collection<T> source) {
+        public ThreadSafeConditionalCopySet(@Nonnull Collection<T> source) {
             this.delegate = new ArrayList<T>(source);
         }
 
         @Override
-        public boolean equals(Object obj) {
+        public boolean equals(@Nullable Object obj) {
             try {
                 readLock.lock();
                 if (obj == null) {
@@ -605,7 +624,7 @@ public class CollectionFactory {
         }
 
         @Override
-        public boolean addAll(Collection<? extends T> arg0) {
+        public boolean addAll(@Nonnull Collection<? extends T> arg0) {
             try {
                 writeLock.lock();
                 if (!copyDone.getAndSet(true)) {
@@ -673,7 +692,7 @@ public class CollectionFactory {
         }
 
         @Override
-        public boolean containsAll(Collection<?> arg0) {
+        public boolean containsAll(@Nonnull Collection<?> arg0) {
             if (containsCounter.incrementAndGet() >= maxContains
                     && !copyDone.get()) {
                 try {
@@ -715,6 +734,7 @@ public class CollectionFactory {
             }
         }
 
+        @Nonnull
         @Override
         public Iterator<T> iterator() {
             try {
@@ -739,7 +759,7 @@ public class CollectionFactory {
         }
 
         @Override
-        public boolean removeAll(Collection<?> arg0) {
+        public boolean removeAll(@Nonnull Collection<?> arg0) {
             try {
                 writeLock.lock();
                 if (!copyDone.getAndSet(true)) {
@@ -752,7 +772,7 @@ public class CollectionFactory {
         }
 
         @Override
-        public boolean retainAll(Collection<?> arg0) {
+        public boolean retainAll(@Nonnull Collection<?> arg0) {
             try {
                 writeLock.lock();
                 if (!copyDone.getAndSet(true)) {
@@ -774,6 +794,7 @@ public class CollectionFactory {
             }
         }
 
+        @Nonnull
         @Override
         public Object[] toArray() {
             try {
@@ -784,8 +805,9 @@ public class CollectionFactory {
             }
         }
 
+        @Nonnull
         @Override
-        public <Type> Type[] toArray(Type[] arg0) {
+        public <Type> Type[] toArray(@Nonnull Type[] arg0) {
             try {
                 readLock.lock();
                 return delegate.toArray(arg0);

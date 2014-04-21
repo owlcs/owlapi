@@ -18,6 +18,8 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
+import javax.annotation.Nonnull;
+
 /**
  * Given a reasoner, implementations of this interface generate axioms that
  * represent inferred information. For example, an implementation might generate
@@ -40,8 +42,10 @@ public interface InferredAxiomGenerator<A extends OWLAxiom> {
      *        the reasoner to use
      * @return the set of axioms generated
      */
+    @Nonnull
     Set<A> createAxioms(OWLDataFactory df, OWLReasoner reasoner);
 
     /** @return the label */
+    @Nonnull
     String getLabel();
 }

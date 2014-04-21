@@ -15,6 +15,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.NodeID;
 import org.semanticweb.owlapi.model.OWLAnnotationSubjectVisitor;
@@ -40,6 +41,7 @@ public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements
         OWLAnonymousIndividual {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final NodeID nodeId;
 
     @Override
@@ -55,11 +57,13 @@ public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements
         nodeId = checkNotNull(nodeID, "nodeID cannot be null");
     }
 
+    @Nonnull
     @Override
     public NodeID getID() {
         return nodeId;
     }
 
+    @Nonnull
     @Override
     public String toStringID() {
         return nodeId.getID();
@@ -75,11 +79,13 @@ public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements
         return true;
     }
 
+    @Nonnull
     @Override
     public OWLAnonymousIndividual asOWLAnonymousIndividual() {
         return this;
     }
 
+    @Nonnull
     @Override
     public OWLNamedIndividual asOWLNamedIndividual() {
         throw new OWLRuntimeException(
@@ -93,42 +99,44 @@ public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements
     }
 
     @Override
-    public void accept(OWLObjectVisitor visitor) {
+    public void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    public void accept(OWLIndividualVisitor visitor) {
+    public void accept(@Nonnull OWLIndividualVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Nullable
     @Override
-    public <O> O accept(OWLIndividualVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLIndividualVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    public void accept(OWLAnnotationValueVisitor visitor) {
+    public void accept(@Nonnull OWLAnnotationValueVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLAnnotationValueVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLAnnotationValueVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    public void accept(OWLAnnotationSubjectVisitor visitor) {
+    public void accept(@Nonnull OWLAnnotationSubjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Nonnull
     @Override
-    public <E> E accept(OWLAnnotationSubjectVisitorEx<E> visitor) {
+    public <E> E accept(@Nonnull OWLAnnotationSubjectVisitorEx<E> visitor) {
         return visitor.visit(this);
     }
 

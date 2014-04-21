@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
@@ -20,7 +22,9 @@ package org.semanticweb.owlapi.model;
 public class UnloadableImportException extends OWLRuntimeException {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final OWLImportsDeclaration importsDeclaration;
+    @Nonnull
     private final OWLOntologyCreationException ontologyCreationException;
 
     /**
@@ -29,8 +33,8 @@ public class UnloadableImportException extends OWLRuntimeException {
      * @param importsDeclaration
      *        imports declaration
      */
-    public UnloadableImportException(OWLOntologyCreationException e,
-            OWLImportsDeclaration importsDeclaration) {
+    public UnloadableImportException(@Nonnull OWLOntologyCreationException e,
+            @Nonnull OWLImportsDeclaration importsDeclaration) {
         super("Could not load imported ontology: "
                 + importsDeclaration.getIRI().toQuotedString() + " Cause: "
                 + e.getMessage(), e);
@@ -39,11 +43,13 @@ public class UnloadableImportException extends OWLRuntimeException {
     }
 
     /** @return imports declaration */
+    @Nonnull
     public OWLImportsDeclaration getImportsDeclaration() {
         return importsDeclaration;
     }
 
     /** @return creation exception */
+    @Nonnull
     public OWLOntologyCreationException getOntologyCreationException() {
         return ontologyCreationException;
     }

@@ -28,6 +28,7 @@ import java.util.TreeSet;
 import java.util.regex.Pattern;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.HasPrefixedName;
@@ -111,6 +112,7 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
      * 
      * @return The Pattern, or {@code null}
      */
+    @Nonnull
     public Pattern getPattern() {
         return pattern;
     }
@@ -121,6 +123,7 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
      * 
      * @return The Pattern string. Not null.
      */
+    @Nonnull
     public String getPatternString() {
         return regExpression;
     }
@@ -147,6 +150,7 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
      * @throws OWLRuntimeException
      *         if the specified IRI is not a built in datatype IRI.
      */
+    @Nonnull
     public static OWL2Datatype getDatatype(IRI datatype) {
         if (!isBuiltIn(datatype)) {
             throw new OWLRuntimeException(datatype
@@ -160,29 +164,33 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
         throw new OWLRuntimeException(datatype + " is not a built in datatype!");
     }
 
+    @Nonnull
     private final String shortForm;
+    @Nonnull
     private final IRI iri;
+    @Nonnull
     private final Category category;
     private final boolean finite;
+    @Nonnull
     private Pattern pattern;
+    @Nonnull
     private final String regExpression;
+    @Nonnull
     private final String prefixedName;
 
-    OWL2Datatype(Namespaces namespace, String shortForm, Category category,
-            boolean finite, String regEx) {
+    private OWL2Datatype(@Nonnull Namespaces namespace, @Nonnull String shortForm, @Nonnull Category category,
+                         boolean finite, @Nonnull String regEx) {
         iri = IRI.create(namespace.toString(), shortForm);
         this.shortForm = shortForm;
         prefixedName = namespace.getPrefixName() + ":" + shortForm;
         this.category = category;
         this.finite = finite;
         regExpression = regEx;
-        if (regEx != null) {
-            pattern = Pattern.compile(regEx, Pattern.DOTALL);
-        }
+        pattern = Pattern.compile(regEx, Pattern.DOTALL);
     }
 
-    OWL2Datatype(XSDVocabulary xsd, Category category, boolean finite,
-            String regEx) {
+    private OWL2Datatype(@Nonnull XSDVocabulary xsd, @Nonnull Category category, boolean finite,
+                         @Nonnull String regEx) {
         iri = xsd.getIRI();
         shortForm = xsd.getShortForm();
         prefixedName = xsd.getPrefixedName();
@@ -192,12 +200,14 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
         pattern = Pattern.compile(regEx, Pattern.DOTALL);
     }
 
+    @Nonnull
     @Override
     public String getShortForm() {
         return shortForm;
     }
 
     @Override
+    @Nonnull
     public IRI getIRI() {
         return iri;
     }
@@ -207,6 +217,7 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
      * 
      * @return The category
      */
+    @Nonnull
     public Category getCategory() {
         return category;
     }
@@ -247,6 +258,7 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
      * @return An {@link OWLDatatype} that has the same IRI as this
      *         {@link OWL2Datatype}. Not {@code null}.
      */
+    @Nonnull
     public OWLDatatype getDatatype(@Nonnull OWLDataFactory factory) {
         checkNotNull(factory, "factory cannot be null");
         return factory.getOWLDatatype(getIRI());
@@ -264,6 +276,7 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
         return pattern.matcher(s).matches();
     }
 
+    @Nonnull
     @Override
     public String getPrefixedName() {
         return prefixedName;
@@ -327,7 +340,7 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
          *        The string to normalise
          * @return The normalised string
          */
-        public String getNormalisedString(String s) {
+        public String getNormalisedString(@Nonnull String s) {
             switch (this) {
                 case REPLACE:
                     return s.replaceAll("\\t|\\n|\\r", " ");

@@ -18,6 +18,7 @@ import java.util.Collection;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -38,7 +39,9 @@ public class OWLSubAnnotationPropertyOfAxiomImpl extends OWLAxiomImpl implements
         OWLSubAnnotationPropertyOfAxiom {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final OWLAnnotationProperty subProperty;
+    @Nonnull
     private final OWLAnnotationProperty superProperty;
 
     /**
@@ -60,13 +63,15 @@ public class OWLSubAnnotationPropertyOfAxiomImpl extends OWLAxiomImpl implements
                 "superProperty cannot be null");
     }
 
+    @Nonnull
     @Override
     public OWLSubAnnotationPropertyOfAxiom getAnnotatedAxiom(
-            Set<OWLAnnotation> annotations) {
+            @Nonnull Set<OWLAnnotation> annotations) {
         return new OWLSubAnnotationPropertyOfAxiomImpl(getSubProperty(),
                 getSuperProperty(), mergeAnnos(annotations));
     }
 
+    @Nonnull
     @Override
     public OWLSubAnnotationPropertyOfAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {
@@ -76,23 +81,26 @@ public class OWLSubAnnotationPropertyOfAxiomImpl extends OWLAxiomImpl implements
                 getSuperProperty(), NO_ANNOTATIONS);
     }
 
+    @Nonnull
     @Override
     public OWLAnnotationProperty getSubProperty() {
         return subProperty;
     }
 
+    @Nonnull
     @Override
     public OWLAnnotationProperty getSuperProperty() {
         return superProperty;
     }
 
     @Override
-    public void accept(OWLAxiomVisitor visitor) {
+    public void accept(@Nonnull OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Nullable
     @Override
-    public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
@@ -106,18 +114,19 @@ public class OWLSubAnnotationPropertyOfAxiomImpl extends OWLAxiomImpl implements
         return true;
     }
 
+    @Nonnull
     @Override
     public AxiomType<?> getAxiomType() {
         return AxiomType.SUB_ANNOTATION_PROPERTY_OF;
     }
 
     @Override
-    public void accept(OWLObjectVisitor visitor) {
+    public void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 

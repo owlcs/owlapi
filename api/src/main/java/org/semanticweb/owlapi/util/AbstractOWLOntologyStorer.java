@@ -33,6 +33,8 @@ import org.semanticweb.owlapi.model.OWLOntologyStorer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.Nonnull;
+
 /**
  * Base class for ontology storers. Note that all current implementations are
  * stateless.
@@ -49,8 +51,8 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
             .getLogger(OWLOntologyStorer.class);
 
     @Override
-    public final void storeOntology(OWLOntology ontology, IRI documentIRI,
-            OWLOntologyFormat ontologyFormat)
+    public final void storeOntology(@Nonnull OWLOntology ontology, @Nonnull IRI documentIRI,
+            @Nonnull OWLOntologyFormat ontologyFormat)
             throws OWLOntologyStorageException {
         if (!documentIRI.isAbsolute()) {
             throw new OWLOntologyStorageException(
@@ -72,7 +74,7 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
         }
     }
 
-    private OutputStream prepareActualOutput(IRI documentIRI)
+    private OutputStream prepareActualOutput(@Nonnull IRI documentIRI)
             throws FileNotFoundException, MalformedURLException, IOException {
         OutputStream os;
         if (documentIRI.getScheme().equals("file")) {
@@ -89,7 +91,7 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
     }
 
     private void store(OWLOntology ontology, OWLOntologyFormat ontologyFormat,
-            OutputStream tempOutputStream) throws OWLOntologyStorageException,
+            @Nonnull OutputStream tempOutputStream) throws OWLOntologyStorageException,
             IOException {
         Writer tempWriter = new BufferedWriter(new OutputStreamWriter(
                 tempOutputStream, UTF_8));
@@ -99,8 +101,8 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
     }
 
     @Override
-    public final void storeOntology(OWLOntology ontology,
-            OWLOntologyDocumentTarget target, OWLOntologyFormat format)
+    public final void storeOntology(@Nonnull OWLOntology ontology,
+            @Nonnull OWLOntologyDocumentTarget target, @Nonnull OWLOntologyFormat format)
             throws OWLOntologyStorageException {
         if (target.isWriterAvailable()) {
             try {

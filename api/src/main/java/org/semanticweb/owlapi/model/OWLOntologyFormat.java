@@ -19,6 +19,9 @@ import java.util.Map;
 import org.semanticweb.owlapi.formats.PrefixOWLOntologyFormat;
 import org.semanticweb.owlapi.io.OWLOntologyLoaderMetaData;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * Represents the concrete representation format of an ontology. The equality of
  * an ontology format is defined by the equals and hashCode method (not its
@@ -91,6 +94,7 @@ public abstract class OWLOntologyFormat implements Serializable {
      *         if this format is not an instance of
      *         {@link org.semanticweb.owlapi.formats.PrefixOWLOntologyFormat}
      */
+    @Nonnull
     public PrefixOWLOntologyFormat asPrefixOWLOntologyFormat() {
         return (PrefixOWLOntologyFormat) this;
     }
@@ -139,7 +143,7 @@ public abstract class OWLOntologyFormat implements Serializable {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         return obj != null
                 && (obj == this || obj.getClass().equals(getClass()));
     }

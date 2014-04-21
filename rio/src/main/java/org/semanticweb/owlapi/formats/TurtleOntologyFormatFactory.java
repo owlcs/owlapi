@@ -5,6 +5,8 @@ package org.semanticweb.owlapi.formats;
 
 import org.kohsuke.MetaInfServices;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Peter Ansell p_ansell@yahoo.com
  */
@@ -15,6 +17,7 @@ public class TurtleOntologyFormatFactory extends
 
     private static final long serialVersionUID = 40000L;
 
+    @Nonnull
     @Override
     public RioRDFOntologyFormat createFormat() {
         return new RioTurtleOntologyFormat();

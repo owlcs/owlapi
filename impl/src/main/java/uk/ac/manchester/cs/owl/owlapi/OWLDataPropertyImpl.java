@@ -15,6 +15,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
@@ -45,6 +46,7 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl implements
         OWLDataProperty {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final IRI iri;
     private final boolean builtin;
 
@@ -74,16 +76,18 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl implements
         return isOWLBottomDataProperty();
     }
 
+    @Nonnull
     @Override
     public EntityType<?> getEntityType() {
         return EntityType.DATA_PROPERTY;
     }
 
     @Override
-    public boolean isType(EntityType<?> entityType) {
+    public boolean isType(@Nonnull EntityType<?> entityType) {
         return getEntityType().equals(entityType);
     }
 
+    @Nonnull
     @Override
     public String toStringID() {
         return iri.toString();
@@ -99,6 +103,7 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl implements
         return false;
     }
 
+    @Nonnull
     @Override
     public IRI getIRI() {
         return iri;
@@ -122,37 +127,39 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl implements
     }
 
     @Override
-    public void accept(OWLEntityVisitor visitor) {
+    public void accept(@Nonnull OWLEntityVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public void accept(OWLPropertyExpressionVisitor visitor) {
+    public void accept(@Nonnull OWLPropertyExpressionVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public void accept(OWLObjectVisitor visitor) {
+    public void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public void accept(OWLNamedObjectVisitor visitor) {
+    public void accept(@Nonnull OWLNamedObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Nullable
     @Override
-    public <O> O accept(OWLEntityVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLEntityVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
+
+    @Nullable
+    @Override
+    public <O> O accept(@Nonnull OWLPropertyExpressionVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLPropertyExpressionVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
-
-    @Override
-    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
@@ -161,26 +168,31 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl implements
         return false;
     }
 
+    @Nonnull
     @Override
     public OWLDataProperty asOWLDataProperty() {
         return this;
     }
 
+    @Nonnull
     @Override
     public OWLClass asOWLClass() {
         throw new OWLRuntimeException("Not an OWLClass!");
     }
 
+    @Nonnull
     @Override
     public OWLDatatype asOWLDatatype() {
         throw new OWLRuntimeException("Not an OWLDatatype!");
     }
 
+    @Nonnull
     @Override
     public OWLNamedIndividual asOWLNamedIndividual() {
         throw new OWLRuntimeException("Not an OWLIndividual!");
     }
 
+    @Nonnull
     @Override
     public OWLObjectProperty asOWLObjectProperty() {
         throw new OWLRuntimeException("Not an OWLObjectProperty!");
@@ -231,6 +243,7 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl implements
         return iri.equals(OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY.getIRI());
     }
 
+    @Nonnull
     @Override
     public OWLAnnotationProperty asOWLAnnotationProperty() {
         throw new OWLRuntimeException("Not an annotation property");
@@ -242,7 +255,7 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl implements
     }
 
     @Override
-    protected int compareObjectOfSameType(OWLObject object) {
+    protected int compareObjectOfSameType(@Nonnull OWLObject object) {
         return iri.compareTo(((OWLDataProperty) object).getIRI());
     }
 }

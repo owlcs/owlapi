@@ -41,6 +41,7 @@ import com.google.common.base.Optional;
  */
 public class OWLOntologyIRIChanger {
 
+    @Nonnull
     private final OWLOntologyManager owlOntologyManager;
 
     /**

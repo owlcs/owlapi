@@ -26,6 +26,7 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.IRI;
@@ -61,13 +62,16 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
 
     private static final Logger LOGGER = LoggerFactory
             .getLogger(BlackBoxOWLDebugger.class);
+    @Nullable
     private OWLClass currentClass;
+    @Nullable
     private OWLOntology debuggingOntology;
     private final Set<OWLAxiom> debuggingAxioms = new LinkedHashSet<OWLAxiom>();
     private final Set<OWLEntity> objectsExpandedWithDefiningAxioms = new HashSet<OWLEntity>();
     private final Set<OWLEntity> objectsExpandedWithReferencingAxioms = new HashSet<OWLEntity>();
     private final Set<OWLAxiom> expandedWithDefiningAxioms = new HashSet<OWLAxiom>();
     private final Set<OWLAxiom> expandedWithReferencingAxioms = new HashSet<OWLAxiom>();
+    @Nonnull
     private final OWLReasonerFactory reasonerFactory;
     private final Set<OWLAxiom> temporaryAxioms = new HashSet<OWLAxiom>();
     private final Map<OWLAxiom, OWLAxiom> expandedAxiomMap = new HashMap<OWLAxiom, OWLAxiom>();
@@ -115,6 +119,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
         expansionLimit = initialExpansionLimit;
     }
 
+    @Nonnull
     @Override
     protected OWLClassExpression getCurrentClass() throws OWLException {
         return currentClass;
@@ -151,8 +156,9 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
         }
     }
 
+    @Nonnull
     @Override
-    public Set<OWLAxiom> getSOSForIncosistentClass(OWLClassExpression cls)
+    public Set<OWLAxiom> getSOSForIncosistentClass(@Nonnull OWLClassExpression cls)
             throws OWLException {
         reset();
         currentClass = setupDebuggingClass(cls);
@@ -501,6 +507,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
 
     private static final AtomicLong counter = new AtomicLong(System.nanoTime());
 
+    @Nonnull
     private static IRI createIRI() {
         return IRI.create("http://debugging.blackbox#",
                 "A" + counter.incrementAndGet());

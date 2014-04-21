@@ -22,6 +22,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.util.OWLOntologyWalker;
 import org.semanticweb.owlapi.util.StructureWalker;
 
+import javax.annotation.Nonnull;
+
 /**
  * A specialized walker that skips visiting annotation assertion literals. This
  * is used by profile checkers to skip literals in annotations.
@@ -34,12 +36,12 @@ public class OWLOntologyProfileWalker extends OWLOntologyWalker {
      * @param objects
      *        ontologies to walk
      */
-    public OWLOntologyProfileWalker(Set<OWLOntology> objects) {
+    public OWLOntologyProfileWalker(@Nonnull Set<OWLOntology> objects) {
         super(objects);
         setStructureWalker(new StructureWalker<OWLOntology>(this) {
 
             @Override
-            public void visit(OWLAnnotationAssertionAxiom axiom) {
+            public void visit(@Nonnull OWLAnnotationAssertionAxiom axiom) {
                 process(axiom);
                 walkerCallback.setAxiom(axiom);
                 if (axiom.getSubject() instanceof IRI) {
@@ -50,7 +52,7 @@ public class OWLOntologyProfileWalker extends OWLOntologyWalker {
             }
 
             @Override
-            public void visit(OWLAnnotation node) {
+            public void visit(@Nonnull OWLAnnotation node) {
                 process(node);
                 walkerCallback.setAnnotation(node);
                 node.getProperty().accept(this);
@@ -61,7 +63,7 @@ public class OWLOntologyProfileWalker extends OWLOntologyWalker {
             }
 
             @Override
-            public void visit(OWLDeclarationAxiom axiom) {
+            public void visit(@Nonnull OWLDeclarationAxiom axiom) {
                 process(axiom);
                 walkerCallback.setAxiom(axiom);
                 // do not visit entities from declarations, only their IRIs

@@ -5,6 +5,8 @@ import java.util.List;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyFormatFactory;
 
+import javax.annotation.Nullable;
+
 /**
  * Abstract implementation of OWLOntologyFormatFactory to define the use of
  * getKey for equals and hashCode.
@@ -22,7 +24,7 @@ public abstract class AbstractOWLOntologyFormatFactory implements
     }
 
     @Override
-    public boolean equals(Object other) {
+    public boolean equals(@Nullable Object other) {
         if (null == other) {
             return false;
         }
@@ -46,7 +48,7 @@ public abstract class AbstractOWLOntologyFormatFactory implements
     }
 
     @Override
-    public final boolean handlesMimeType(String mimeType) {
+    public final boolean handlesMimeType(@Nullable String mimeType) {
         if (mimeType == null) {
             return false;
         }

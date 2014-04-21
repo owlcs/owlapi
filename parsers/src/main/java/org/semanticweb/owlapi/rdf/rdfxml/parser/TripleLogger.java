@@ -2,6 +2,7 @@ package org.semanticweb.owlapi.rdf.rdfxml.parser;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
@@ -20,8 +21,10 @@ public class TripleLogger {
 
     private static final Logger log = LoggerFactory
             .getLogger(TripleLogger.class);
+    @Nullable
     private final PrefixManager prefixManager;
     // Debug stuff
+    @Nonnull
     private AtomicInteger count = new AtomicInteger();
 
     /**
@@ -107,7 +110,8 @@ public class TripleLogger {
         }
     }
 
-    private Object shorten(Object o) {
+    @Nullable
+    private Object shorten(@Nullable Object o) {
         if (o == null) {
             return "null";
         }

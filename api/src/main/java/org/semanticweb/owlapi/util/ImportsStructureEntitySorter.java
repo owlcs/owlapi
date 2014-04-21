@@ -39,8 +39,9 @@ public class ImportsStructureEntitySorter extends
     public static class ReferencedEntitySelector implements
             ObjectSelector<OWLEntity> {
 
+        @Nonnull
         @Override
-        public Set<OWLEntity> getObjects(OWLOntology ontology) {
+        public Set<OWLEntity> getObjects(@Nonnull OWLOntology ontology) {
             return ontology.getSignature();
         }
     }

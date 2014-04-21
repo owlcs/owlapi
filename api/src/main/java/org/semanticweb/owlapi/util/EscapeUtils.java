@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -28,7 +30,8 @@ public class EscapeUtils {
      *        The string to be escaped
      * @return The escaped string.
      */
-    public static String escapeString(String s) {
+    @Nonnull
+    public static String escapeString(@Nonnull String s) {
         // We replace double quotes with a back slash followed
         // by a double quote. We replace backslashes with a double
         // backslash
@@ -56,7 +59,8 @@ public class EscapeUtils {
      *        string to unescape
      * @return the unescaped string
      */
-    public static String unescapeString(String s) {
+    @Nonnull
+    public static String unescapeString(@Nonnull String s) {
         if (s.indexOf('\\') == -1) {
             return s;
         }

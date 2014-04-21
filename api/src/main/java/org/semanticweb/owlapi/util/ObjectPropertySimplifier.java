@@ -15,6 +15,7 @@ package org.semanticweb.owlapi.util;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -36,6 +37,7 @@ import org.semanticweb.owlapi.model.OWLPropertyExpressionVisitor;
  */
 public class ObjectPropertySimplifier {
 
+    @Nonnull
     private final OWLDataFactory dataFactory;
     private final Simplifier simplifier = new Simplifier();
 
@@ -70,6 +72,7 @@ public class ObjectPropertySimplifier {
 
     private static class Simplifier implements OWLPropertyExpressionVisitor {
 
+        @Nullable
         private OWLObjectProperty property;
         private int depth;
 
@@ -80,6 +83,7 @@ public class ObjectPropertySimplifier {
             property = null;
         }
 
+        @Nullable
         public OWLObjectProperty getProperty() {
             return property;
         }
@@ -89,20 +93,20 @@ public class ObjectPropertySimplifier {
         }
 
         @Override
-        public void visit(OWLObjectProperty p) {
+        public void visit(@Nonnull OWLObjectProperty p) {
             property = p;
         }
 
         @Override
-        public void visit(OWLObjectInverseOf p) {
+        public void visit(@Nonnull OWLObjectInverseOf p) {
             depth++;
             p.getInverse().accept(this);
         }
 
         @Override
-        public void visit(OWLDataProperty p) {}
+        public void visit(@Nonnull OWLDataProperty p) {}
 
         @Override
-        public void visit(OWLAnnotationProperty p) {}
+        public void visit(@Nonnull OWLAnnotationProperty p) {}
     }
 }

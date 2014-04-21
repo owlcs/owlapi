@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapitools.builders;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -23,7 +25,9 @@ import org.semanticweb.owlapi.model.SWRLIArgument;
 public class BuilderSWRLClassAtom extends
         BaseBuilder<SWRLClassAtom, BuilderSWRLClassAtom> {
 
+    @Nullable
     private SWRLIArgument argument = null;
+    @Nullable
     private OWLClassExpression predicate = null;
 
     /**
@@ -34,7 +38,7 @@ public class BuilderSWRLClassAtom extends
      * @param df
      *        data factory
      */
-    public BuilderSWRLClassAtom(SWRLClassAtom expected, OWLDataFactory df) {
+    public BuilderSWRLClassAtom(@Nonnull SWRLClassAtom expected, OWLDataFactory df) {
         this(df);
         with(expected.getPredicate()).with(expected.getArgument());
     }
@@ -53,6 +57,7 @@ public class BuilderSWRLClassAtom extends
      *        argument
      * @return builder
      */
+    @Nonnull
     public BuilderSWRLClassAtom with(SWRLIArgument arg) {
         argument = arg;
         return this;
@@ -63,11 +68,13 @@ public class BuilderSWRLClassAtom extends
      *        class
      * @return builder
      */
+    @Nonnull
     public BuilderSWRLClassAtom with(OWLClassExpression arg) {
         predicate = arg;
         return this;
     }
 
+    @Nonnull
     @Override
     public SWRLClassAtom buildObject() {
         return df.getSWRLClassAtom(predicate, argument);

@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * Represents a property or possibly the inverse of a property.
@@ -45,6 +46,7 @@ public interface OWLPropertyExpression extends OWLObject {
      *        visitor return type
      * @return visitor value
      */
+    @Nullable
     <O> O accept(@Nonnull OWLPropertyExpressionVisitorEx<O> visitor);
 
     /** @return true if this is a data property */

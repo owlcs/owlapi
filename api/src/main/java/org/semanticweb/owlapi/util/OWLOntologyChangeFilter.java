@@ -17,6 +17,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.util.List;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.AddImport;
@@ -72,6 +73,7 @@ public class OWLOntologyChangeFilter extends OWLAxiomVisitorAdapter implements
         OWLAxiomVisitor, OWLOntologyChangeVisitor {
 
     protected boolean add;
+    @Nullable
     protected OWLOntology ontology;
 
     /**
@@ -116,34 +118,35 @@ public class OWLOntologyChangeFilter extends OWLAxiomVisitorAdapter implements
      *         visit cycle. When called from within a {@code visit} method, the
      *         return value is guarenteed not to be {@code null}.
      */
+    @Nullable
     protected OWLOntology getOntology() {
         return ontology;
     }
 
     @Override
-    public void visit(AddAxiom change) {
+    public void visit(@Nonnull AddAxiom change) {
         add = true;
         processChange(change);
     }
 
     @Override
-    public void visit(RemoveAxiom change) {
+    public void visit(@Nonnull RemoveAxiom change) {
         add = false;
         processChange(change);
     }
 
     @Override
-    public void visit(SetOntologyID change) {}
+    public void visit(@Nonnull SetOntologyID change) {}
 
     @Override
-    public void visit(AddImport change) {}
+    public void visit(@Nonnull AddImport change) {}
 
     @Override
-    public void visit(RemoveImport change) {}
+    public void visit(@Nonnull RemoveImport change) {}
 
     @Override
-    public void visit(AddOntologyAnnotation change) {}
+    public void visit(@Nonnull AddOntologyAnnotation change) {}
 
     @Override
-    public void visit(RemoveOntologyAnnotation change) {}
+    public void visit(@Nonnull RemoveOntologyAnnotation change) {}
 }

@@ -26,6 +26,8 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 
+import javax.annotation.Nonnull;
+
 /**
  * This class demonstrates some aspects of the OWL API. It expects three
  * arguments:
@@ -46,13 +48,17 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 @SuppressWarnings({ "javadoc" })
 public class Debugger {
 
+    @Nonnull
     private final OWLOntology ontology;
+    @Nonnull
     private final OWLDebugger debugger;
+    @Nonnull
     private final OWLReasoner checker;
+    @Nonnull
     private final OWLClass bottom;
 
-    public Debugger(OWLOntologyManager manager, OWLOntology ontology,
-            OWLReasonerFactory reasonerFactory) {
+    public Debugger(@Nonnull OWLOntologyManager manager, @Nonnull OWLOntology ontology,
+            @Nonnull OWLReasonerFactory reasonerFactory) {
         this.ontology = ontology;
         checker = reasonerFactory.createNonBufferingReasoner(ontology);
         /* Create a new debugger */
@@ -61,7 +67,7 @@ public class Debugger {
         bottom = manager.getOWLDataFactory().getOWLNothing();
     }
 
-    public void report(PrintWriter writer) throws OWLException {
+    public void report(@Nonnull PrintWriter writer) throws OWLException {
         OWLTutorialSyntaxObjectRenderer renderer = new OWLTutorialSyntaxObjectRenderer(
                 ontology, writer);
         /* Write a header */

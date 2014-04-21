@@ -16,6 +16,8 @@ import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLObject;
 
+import javax.annotation.Nonnull;
+
 /**
  * A set of {@link Node}s.
  * 
@@ -34,6 +36,7 @@ public interface NodeSet<E extends OWLObject> extends Iterable<Node<E>> {
      * @return The union of the entities contained in the {@code Nodes} in this
      *         {@code NodeSet}.
      */
+    @Nonnull
     Set<E> getFlattened();
 
     /** @return true if the node set is empty */
@@ -87,5 +90,6 @@ public interface NodeSet<E extends OWLObject> extends Iterable<Node<E>> {
      * @return The set of {@code Node}s contained in this {@code NodeSet}. Note
      *         that this set will be an unmodifiable set.
      */
+    @Nonnull
     Set<Node<E>> getNodes();
 }

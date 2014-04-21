@@ -17,6 +17,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.AddImport;
@@ -31,6 +32,7 @@ public class BuilderImportsDeclaration implements
         Builder<OWLImportsDeclaration> {
 
     // XXX inject
+    @Nonnull
     protected final OWLDataFactory df;
     private IRI iri;
 
@@ -42,7 +44,7 @@ public class BuilderImportsDeclaration implements
      * @param df
      *        data factory
      */
-    public BuilderImportsDeclaration(OWLImportsDeclaration expected,
+    public BuilderImportsDeclaration(@Nonnull OWLImportsDeclaration expected,
             OWLDataFactory df) {
         this(df);
         withImportedOntology(expected.getIRI());
@@ -64,18 +66,21 @@ public class BuilderImportsDeclaration implements
      *        IRI of imported ontology
      * @return builder
      */
+    @Nonnull
     public BuilderImportsDeclaration withImportedOntology(IRI arg) {
         iri = arg;
         return this;
     }
 
+    @Nonnull
     @Override
     public OWLImportsDeclaration buildObject() {
         return df.getOWLImportsDeclaration(iri);
     }
 
+    @Nonnull
     @Override
-    public List<OWLOntologyChange<?>> applyChanges(OWLOntology o) {
+    public List<OWLOntologyChange<?>> applyChanges(@Nonnull OWLOntology o) {
         List<OWLOntologyChange<?>> list = new ArrayList<OWLOntologyChange<?>>();
         list.add(new AddImport(o, buildObject()));
         return list;
