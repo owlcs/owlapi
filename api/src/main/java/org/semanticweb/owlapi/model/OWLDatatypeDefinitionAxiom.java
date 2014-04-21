@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * Represents a <a
@@ -44,6 +45,7 @@ public interface OWLDatatypeDefinitionAxiom extends OWLLogicalAxiom {
     @Override
     void accept(@Nonnull OWLAxiomVisitor visitor);
 
+    @Nullable
     @Override
     <O> O accept(@Nonnull OWLAxiomVisitorEx<O> visitor);
 }

@@ -52,24 +52,24 @@ public class OWLRDFConsumerAdapter extends OWLRDFConsumer implements
     public void handleComment(String comment) {}
 
     @Override
-    public void handleTriple(IRI subject, IRI predicate, IRI object) {
+    public void handleTriple(@Nonnull IRI subject, IRI predicate, IRI object) {
         // XXX inefficient?
         statementWithResourceValue(subject, predicate, object);
     }
 
     @Override
-    public void handleTriple(IRI subject, IRI predicate, String object) {
+    public void handleTriple(IRI subject, IRI predicate, @Nonnull String object) {
         statementWithLiteralValue(subject, predicate, object, null, null);
     }
 
     @Override
-    public void handleTriple(IRI subject, IRI predicate, String object,
+    public void handleTriple(IRI subject, IRI predicate, @Nonnull String object,
             String lang) {
         statementWithLiteralValue(subject, predicate, object, lang, null);
     }
 
     @Override
-    public void handleTriple(IRI subject, IRI predicate, String object,
+    public void handleTriple(IRI subject, IRI predicate, @Nonnull String object,
             IRI datatype) {
         statementWithLiteralValue(subject, predicate, object, null, datatype);
     }

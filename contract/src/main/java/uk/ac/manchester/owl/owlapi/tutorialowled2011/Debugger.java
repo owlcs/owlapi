@@ -52,6 +52,7 @@ public class Debugger {
     private final OWLOntology ontology;
     @Nonnull
     private final OWLDebugger debugger;
+    @Nonnull
     private final OWLReasoner checker;
     @Nonnull
     private final OWLClass bottom;

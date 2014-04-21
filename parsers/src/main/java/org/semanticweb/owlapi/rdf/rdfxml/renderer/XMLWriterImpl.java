@@ -178,7 +178,7 @@ public class XMLWriterImpl implements XMLWriter {
     }
 
     @Override
-    public void writeAttribute(IRI attr, String val) {
+    public void writeAttribute(@Nonnull IRI attr, String val) {
         XMLElement element = elementStack.peek();
         String qName = xmlWriterNamespaceManager.getQName(attr);
         if (qName != null) {
@@ -210,7 +210,7 @@ public class XMLWriterImpl implements XMLWriter {
         }
     }
 
-    private void writeEntities(IRI rootName) throws IOException {
+    private void writeEntities(@Nonnull IRI rootName) throws IOException {
         String qName = xmlWriterNamespaceManager.getQName(rootName);
         if (qName == null) {
             throw new IOException("Cannot create valid XML: qname for "

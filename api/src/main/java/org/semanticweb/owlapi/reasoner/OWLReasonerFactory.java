@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.reasoner;
 
 import org.semanticweb.owlapi.model.OWLOntology;
 
+import javax.annotation.Nonnull;
+
 /**
  * An OWLReasonerFactory is a point for creating instances of
  * {@link org.semanticweb.owlapi.reasoner.OWLReasoner} objects. A reasoner
@@ -33,6 +35,7 @@ public interface OWLReasonerFactory {
      * @return A string that represents the name of the reasoner created by this
      *         factory.
      */
+    @Nonnull
     String getReasonerName();
 
     /**
@@ -54,6 +57,7 @@ public interface OWLReasonerFactory {
      * @throws NullPointerException
      *         if the {@code manager} or {@code ontology} are {@code null}.
      */
+    @Nonnull
     OWLReasoner createNonBufferingReasoner(OWLOntology ontology);
 
     /**
@@ -75,6 +79,7 @@ public interface OWLReasonerFactory {
      * @throws NullPointerException
      *         if the {@code manager} or {@code ontology} are {@code null}.
      */
+    @Nonnull
     OWLReasoner createReasoner(OWLOntology ontology);
 
     /**
@@ -104,6 +109,7 @@ public interface OWLReasonerFactory {
      *         if any of {@code manager}, {@code ontology} or {@code config} are
      *         {@code null}.
      */
+    @Nonnull
     OWLReasoner createNonBufferingReasoner(OWLOntology ontology,
             OWLReasonerConfiguration config);
 
@@ -134,6 +140,7 @@ public interface OWLReasonerFactory {
      *         if any of {@code manager}, {@code ontology} or {@code config} are
      *         {@code null}.
      */
+    @Nonnull
     OWLReasoner createReasoner(OWLOntology ontology,
             OWLReasonerConfiguration config);
 }

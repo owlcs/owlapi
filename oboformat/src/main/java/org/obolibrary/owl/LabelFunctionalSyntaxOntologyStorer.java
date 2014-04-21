@@ -127,25 +127,25 @@ public class LabelFunctionalSyntaxOntologyStorer extends
         }
 
         @Override
-        public void setDefaultPrefix(String defaultPrefix) {
+        public void setDefaultPrefix(@Nonnull String defaultPrefix) {
             // do not propagate changes to the original manager
             // there should be no changes during rendering anyway
         }
 
         @Override
-        public void setPrefix(String prefixName, String prefix) {
+        public void setPrefix(@Nonnull String prefixName, @Nonnull String prefix) {
             // do not propagate changes to the original manager
             // there should be no changes during rendering anyway
         }
 
         @Override
-        public void copyPrefixesFrom(PrefixManager from) {
+        public void copyPrefixesFrom(@Nonnull PrefixManager from) {
             // do not propagate changes to the original manager
             // there should be no changes during rendering anyway
         }
 
         @Override
-        public void unregisterNamespace(String namespace) {
+        public void unregisterNamespace(@Nonnull String namespace) {
             // do not propagate changes to the original manager
             // there should be no changes during rendering anyway
         }

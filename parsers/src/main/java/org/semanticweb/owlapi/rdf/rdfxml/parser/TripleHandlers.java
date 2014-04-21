@@ -1367,7 +1367,7 @@ public class TripleHandlers {
         }
 
         @Override
-        public boolean canHandle(IRI subject, IRI predicate, IRI object) {
+        public boolean canHandle(IRI subject, @Nonnull IRI predicate, IRI object) {
             return false;
         }
 
@@ -1460,7 +1460,7 @@ public class TripleHandlers {
         }
 
         @Override
-        public void handleTriple(@Nonnull IRI subject, IRI predicate, IRI object) {
+        public void handleTriple(@Nonnull IRI subject, IRI predicate, @Nonnull IRI object) {
             if (!consumer.isAnonymousNode(subject)) {
                 OWLClass cls = (OWLClass) translateClassExpression(subject);
                 Set<OWLClassExpression> classExpressions = consumer.translatorAccessor
@@ -1525,7 +1525,7 @@ public class TripleHandlers {
         }
 
         @Override
-        public void handleTriple(IRI subject, IRI predicate, IRI object) {
+        public void handleTriple(IRI subject, IRI predicate, @Nonnull IRI object) {
             Set<OWLIndividual> inds = consumer.translatorAccessor
                     .translateToIndividualSet(object);
             addAxiom(df.getOWLDifferentIndividualsAxiom(inds,
@@ -1699,7 +1699,7 @@ public class TripleHandlers {
         }
 
         @Override
-        public void handleTriple(@Nonnull IRI subject, IRI predicate, IRI object) {
+        public void handleTriple(@Nonnull IRI subject, IRI predicate, @Nonnull IRI object) {
             if (consumer.isClassExpression(subject)) {
                 consumeTriple(subject, predicate, object);
                 OWLClassExpression ce = translateClassExpression(subject);
@@ -1802,7 +1802,7 @@ public class TripleHandlers {
 
         @Nonnull
         @Override
-        protected OWLClassExpression translateEquivalentClass(IRI mainNode) {
+        protected OWLClassExpression translateEquivalentClass(@Nonnull IRI mainNode) {
             return df.getOWLObjectIntersectionOf(consumer.translatorAccessor
                     .translateToClassExpressionSet(mainNode));
         }
@@ -1876,7 +1876,7 @@ public class TripleHandlers {
         }
 
         @Override
-        public boolean canHandle(IRI subject, IRI predicate, IRI object) {
+        public boolean canHandle(IRI subject, @Nonnull IRI predicate, IRI object) {
             return false;
         }
 
@@ -1901,7 +1901,7 @@ public class TripleHandlers {
         public void handleTriple(IRI subject, IRI predicate, IRI object) {}
 
         @Override
-        public boolean canHandle(IRI subject, IRI predicate, IRI object) {
+        public boolean canHandle(IRI subject, @Nonnull IRI predicate, IRI object) {
             return false;
         }
 
@@ -1939,7 +1939,7 @@ public class TripleHandlers {
 
         @Nonnull
         @Override
-        protected OWLClassExpression translateEquivalentClass(IRI mainNode) {
+        protected OWLClassExpression translateEquivalentClass(@Nonnull IRI mainNode) {
             return df.getOWLObjectOneOf(consumer.translatorAccessor
                     .translateToIndividualSet(mainNode));
         }
@@ -1960,7 +1960,7 @@ public class TripleHandlers {
         }
 
         @Override
-        public void handleTriple(@Nonnull IRI subject, IRI predicate, IRI object) {
+        public void handleTriple(@Nonnull IRI subject, IRI predicate, @Nonnull IRI object) {
             OWLObjectPropertyExpression superProp = consumer
                     .translateObjectPropertyExpression(subject);
             List<OWLObjectPropertyExpression> chain = consumer.translatorAccessor
@@ -2407,7 +2407,7 @@ public class TripleHandlers {
 
         @Nonnull
         @Override
-        protected OWLClassExpression translateEquivalentClass(IRI mainNode) {
+        protected OWLClassExpression translateEquivalentClass(@Nonnull IRI mainNode) {
             return df.getOWLObjectUnionOf(consumer.translatorAccessor
                     .translateToClassExpressionSet(mainNode));
         }

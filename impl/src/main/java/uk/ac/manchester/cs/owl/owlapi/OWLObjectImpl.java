@@ -200,6 +200,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
 
     protected abstract int compareObjectOfSameType(OWLObject object);
 
+    @Nonnull
     @Override
     public String toString() {
         return ToStringRenderer.getInstance().getRendering(this);

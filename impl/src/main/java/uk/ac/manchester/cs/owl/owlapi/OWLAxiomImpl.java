@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -40,6 +41,7 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
         CollectionContainer<OWLAnnotation> {
 
     private static final long serialVersionUID = 40000L;
+    @Nullable
     private OWLAxiom nnf;
     @Nonnull
     private final List<OWLAnnotation> annotations;

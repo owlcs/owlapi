@@ -700,6 +700,7 @@ public class Internals implements Serializable {
      * 
      * @return the axioms by type
      */
+    @Nonnull
     public Set<OWLAxiom> getAxioms() {
         return axiomsByType.getAllValues();
     }
@@ -1333,6 +1334,7 @@ public class Internals implements Serializable {
      *        entity to describe
      * @return referencing axioms
      */
+    @Nullable
     public Set<OWLAxiom> getReferencingAxioms(@Nonnull OWLEntity owlEntity) {
         return owlEntity.accept(refAxiomsCollector);
     }

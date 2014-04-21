@@ -72,9 +72,9 @@ public class RioOWLRDFConsumerAdapter extends OWLRDFConsumer implements
      * @param configuration
      *        loading configuration
      */
-    public RioOWLRDFConsumerAdapter(OWLOntology ontology,
+    public RioOWLRDFConsumerAdapter(@Nonnull OWLOntology ontology,
             AnonymousNodeChecker checker,
-            OWLOntologyLoaderConfiguration configuration) {
+            @Nonnull OWLOntologyLoaderConfiguration configuration) {
         super(ontology, checker, configuration);
     }
 

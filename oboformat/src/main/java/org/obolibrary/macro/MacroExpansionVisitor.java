@@ -134,7 +134,7 @@ public class MacroExpansionVisitor {
 
     private class Visitor extends AbstractMacroExpansionVisitor {
 
-        Visitor(OWLOntology inputOntology) {
+        Visitor(@Nonnull OWLOntology inputOntology) {
             super(inputOntology);
         }
 

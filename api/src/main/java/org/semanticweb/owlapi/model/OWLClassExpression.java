@@ -15,6 +15,7 @@ package org.semanticweb.owlapi.model;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * Represents <a
@@ -166,5 +167,6 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange,
      *        visitor return type
      * @return visitor return value
      */
+    @Nullable
     <O> O accept(@Nonnull OWLClassExpressionVisitorEx<O> visitor);
 }

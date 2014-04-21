@@ -1656,7 +1656,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
 
     @Override
     public void statementWithLiteralValue(IRI subject, IRI predicate,
-            String object, String lang, IRI datatype) {
+            @Nonnull String object, String lang, IRI datatype) {
         tripleLogger.logTriple(subject, predicate, object, lang, datatype);
         handlerAccessor.handleStreaming(subject, getSynonym(predicate), object,
                 datatype, lang);
@@ -1674,7 +1674,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
     }
 
     @Override
-    public void statementWithResourceValue(IRI subject, IRI predicate,
+    public void statementWithResourceValue(@Nonnull IRI subject, IRI predicate,
             IRI object) {
         tripleLogger.logTriple(subject, predicate, object);
         handlerAccessor.handleStreaming(subject, getSynonym(predicate),

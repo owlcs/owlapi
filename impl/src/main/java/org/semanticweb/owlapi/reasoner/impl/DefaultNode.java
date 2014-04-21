@@ -84,8 +84,10 @@ public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
 
     protected DefaultNode() {}
 
+    @Nullable
     protected abstract E getTopEntity();
 
+    @Nullable
     protected abstract E getBottomEntity();
 
     /**

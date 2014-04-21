@@ -46,7 +46,7 @@ public class DLSyntaxHTMLOntologyStorer extends DLSyntaxOntologyStorerBase {
 
     @Nonnull
     @Override
-    protected String getRendering(@Nonnull final OWLEntity subject, @Nonnull OWLAxiom axiom) {
+    protected String getRendering(@SuppressWarnings("NullableProblems") @Nonnull final OWLEntity subject, @Nonnull OWLAxiom axiom) {
         checkNotNull(axiom, "axiom cannot be null");
         DLSyntaxObjectRenderer ren = new DLSyntaxObjectRenderer() {
 

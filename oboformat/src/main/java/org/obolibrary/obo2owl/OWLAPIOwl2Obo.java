@@ -1883,6 +1883,7 @@ public class OWLAPIOwl2Obo {
      *        the entity
      * @return the term frame
      */
+    @Nullable
     protected Frame getTermFrame(@Nonnull OWLClass entity) {
         String id = getIdentifier(entity.getIRI());
         Frame f = obodoc.getTermFrame(id);
@@ -1902,6 +1903,7 @@ public class OWLAPIOwl2Obo {
      *        the entity
      * @return the typedef frame
      */
+    @Nullable
     protected Frame getTypedefFrame(OWLEntity entity) {
         String id = this.getIdentifier(entity);
         Frame f = obodoc.getTypedefFrame(id);
@@ -2157,7 +2159,7 @@ public class OWLAPIOwl2Obo {
     @Nonnull
     protected Clause createRelationshipClauseWithRestrictions(
             @Nonnull OWLQuantifiedObjectRestriction r, String fillerId,
-            Set<QualifierValue> qvs, @Nonnull OWLSubClassOfAxiom ax) {
+            @Nonnull Set<QualifierValue> qvs, @Nonnull OWLSubClassOfAxiom ax) {
         Clause c = new Clause(OboFormatTag.TAG_RELATIONSHIP.getTag());
         c.addValue(this.getIdentifier(r.getProperty()));
         c.addValue(fillerId);
@@ -2182,7 +2184,7 @@ public class OWLAPIOwl2Obo {
     @Nonnull
     protected Clause createRelationshipClauseWithCardinality(
             @Nonnull OWLObjectCardinalityRestriction restriction, String fillerId,
-            Set<QualifierValue> qvs, @Nonnull OWLSubClassOfAxiom ax) {
+            @Nonnull Set<QualifierValue> qvs, @Nonnull OWLSubClassOfAxiom ax) {
         Clause c = new Clause(OboFormatTag.TAG_RELATIONSHIP.getTag());
         c.addValue(this.getIdentifier(restriction.getProperty()));
         c.addValue(fillerId);

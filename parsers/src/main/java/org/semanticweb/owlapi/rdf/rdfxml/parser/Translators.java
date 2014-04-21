@@ -179,11 +179,13 @@ public class Translators {
                     this));
         }
 
+        @Nonnull
         protected Set<OWLClassExpression> translateToClassExpressionSet(
-                IRI mainNode) {
+                @Nonnull IRI mainNode) {
             return classExpressionListTranslator.translateToSet(mainNode);
         }
 
+        @Nonnull
         private OWLClassExpression
                 translateClassExpressionInternal(@Nonnull IRI mainNode) {
             // Some optimisations...
@@ -220,29 +222,33 @@ public class Translators {
         }
 
         protected List<OWLObjectPropertyExpression>
-                translateToObjectPropertyList(IRI mainNode) {
+                translateToObjectPropertyList(@Nonnull IRI mainNode) {
             return objectPropertyListTranslator.translateList(mainNode);
         }
 
         protected List<OWLDataPropertyExpression> translateToDataPropertyList(
-                IRI mainNode) {
+                @Nonnull IRI mainNode) {
             return dataPropertyListTranslator.translateList(mainNode);
         }
 
-        protected Set<OWLLiteral> translateToConstantSet(IRI mainNode) {
+        @Nonnull
+        protected Set<OWLLiteral> translateToConstantSet(@Nonnull IRI mainNode) {
             return constantListTranslator.translateToSet(mainNode);
         }
 
-        protected Set<OWLIndividual> translateToIndividualSet(IRI mainNode) {
+        @Nonnull
+        protected Set<OWLIndividual> translateToIndividualSet(@Nonnull IRI mainNode) {
             return individualListTranslator.translateToSet(mainNode);
         }
 
-        protected Set<OWLDataRange> translateToDataRangeSet(IRI mainNode) {
+        @Nonnull
+        protected Set<OWLDataRange> translateToDataRangeSet(@Nonnull IRI mainNode) {
             return dataRangeListTranslator.translateToSet(mainNode);
         }
 
+        @Nonnull
         protected Set<OWLFacetRestriction> translateToFacetRestrictionSet(
-                IRI mainNode) {
+                @Nonnull IRI mainNode) {
             return faceRestrictionListTranslator.translateToSet(mainNode);
         }
 
@@ -299,12 +305,12 @@ public class Translators {
         }
 
         protected boolean isResourcePresent(IRI mainNode,
-                OWLRDFVocabulary predicate) {
+                @Nonnull OWLRDFVocabulary predicate) {
             return consumer.getResourceObject(mainNode, predicate, false) != null;
         }
 
         protected boolean isLiteralPresent(IRI mainNode,
-                OWLRDFVocabulary predicate) {
+                @Nonnull OWLRDFVocabulary predicate) {
             return consumer.getLiteralObject(mainNode, predicate, false) != null;
         }
 
@@ -317,7 +323,7 @@ public class Translators {
         }
 
         protected boolean isNonNegativeIntegerStrict(IRI mainNode,
-                OWLRDFVocabulary predicate) {
+                @Nonnull OWLRDFVocabulary predicate) {
             OWLLiteral literal = consumer.getLiteralObject(mainNode, predicate,
                     false);
             if (literal == null) {
@@ -330,7 +336,7 @@ public class Translators {
         }
 
         protected boolean isNonNegativeIntegerLax(IRI mainNode,
-                OWLRDFVocabulary predicate) {
+                @Nonnull OWLRDFVocabulary predicate) {
             OWLLiteral literal = consumer.getLiteralObject(mainNode, predicate,
                     false);
             if (literal == null) {
@@ -341,7 +347,7 @@ public class Translators {
         }
 
         protected int
-                translateInteger(IRI mainNode, OWLRDFVocabulary predicate) {
+                translateInteger(IRI mainNode, @Nonnull OWLRDFVocabulary predicate) {
             OWLLiteral literal = consumer.getLiteralObject(mainNode, predicate,
                     true);
             if (literal == null) {
@@ -360,7 +366,7 @@ public class Translators {
         }
 
         protected boolean isClassExpressionStrict(IRI mainNode,
-                OWLRDFVocabulary predicate) {
+                @Nonnull OWLRDFVocabulary predicate) {
             IRI object = consumer.getResourceObject(mainNode, predicate, false);
             return object != null && isClassExpressionStrict(object);
         }
@@ -372,7 +378,7 @@ public class Translators {
         }
 
         protected boolean isClassExpressionLax(IRI mainNode,
-                OWLRDFVocabulary predicate) {
+                @Nonnull OWLRDFVocabulary predicate) {
             IRI object = consumer.getResourceObject(mainNode, predicate, false);
             return object != null && isClassExpressionLax(object);
         }
@@ -382,7 +388,7 @@ public class Translators {
         }
 
         protected boolean isObjectPropertyStrict(IRI mainNode,
-                OWLRDFVocabulary predicate) {
+                @Nonnull OWLRDFVocabulary predicate) {
             IRI object = consumer.getResourceObject(mainNode, predicate, false);
             return object != null && isObjectPropertyStrict(object);
         }
@@ -392,7 +398,7 @@ public class Translators {
         }
 
         protected boolean isObjectPropertyLax(IRI mainNode,
-                OWLRDFVocabulary predicate) {
+                @Nonnull OWLRDFVocabulary predicate) {
             IRI object = consumer.getResourceObject(mainNode, predicate, false);
             return object != null && isObjectPropertyLax(object);
         }
@@ -402,7 +408,7 @@ public class Translators {
         }
 
         protected boolean isDataPropertyStrict(IRI mainNode,
-                OWLRDFVocabulary predicate) {
+                @Nonnull OWLRDFVocabulary predicate) {
             IRI object = consumer.getResourceObject(mainNode, predicate, false);
             return object != null && isDataPropertyStrict(object);
         }
@@ -412,7 +418,7 @@ public class Translators {
         }
 
         protected boolean isDataPropertyLax(IRI mainNode,
-                OWLRDFVocabulary predicate) {
+                @Nonnull OWLRDFVocabulary predicate) {
             IRI object = consumer.getResourceObject(mainNode, predicate, false);
             return object != null && isDataPropertyLax(object);
         }
@@ -423,7 +429,7 @@ public class Translators {
         }
 
         protected boolean isDataRangeStrict(IRI mainNode,
-                OWLRDFVocabulary predicate) {
+                @Nonnull OWLRDFVocabulary predicate) {
             IRI object = consumer.getResourceObject(mainNode, predicate, false);
             return isDataRangeStrict(object);
         }
@@ -433,7 +439,7 @@ public class Translators {
         }
 
         protected boolean isDataRangeLax(IRI mainNode,
-                OWLRDFVocabulary predicate) {
+                @Nonnull OWLRDFVocabulary predicate) {
             IRI object = consumer.getResourceObject(mainNode, predicate, false);
             return object != null && isDataRangeLax(object);
         }
@@ -593,6 +599,7 @@ public class Translators {
          *        expression.
          * @return The class expression that represents the translation.
          */
+        @Nonnull
         OWLClassExpression translate(IRI mainNode);
     }
 
@@ -910,7 +917,7 @@ public class Translators {
         }
 
         @Override
-        public OWLDataPropertyExpression translate(IRI firstObject) {
+        public OWLDataPropertyExpression translate(@Nonnull IRI firstObject) {
             consumer.addDataProperty(firstObject, false);
             return consumer.getOWLDataProperty(firstObject);
         }
@@ -980,7 +987,7 @@ public class Translators {
         }
 
         @Override
-        public OWLDataRange translate(IRI firstObject) {
+        public OWLDataRange translate(@Nonnull IRI firstObject) {
             return consumer.translateDataRange(firstObject);
         }
     }
@@ -1105,7 +1112,7 @@ public class Translators {
         }
 
         @Override
-        public OWLIndividual translate(IRI IRI) {
+        public OWLIndividual translate(@Nonnull IRI IRI) {
             return consumer.translateIndividual(IRI);
         }
 
@@ -1174,8 +1181,9 @@ public class Translators {
          *        expression.
          * @return The class expression that represents the translation.
          */
+        @Nonnull
         @Override
-        public OWLClass translate(IRI mainNode) {
+        public OWLClass translate(@Nonnull IRI mainNode) {
             return getConsumer().getOWLClass(mainNode);
         }
     }
@@ -1221,7 +1229,7 @@ public class Translators {
         }
 
         @Override
-        public OWLObjectPropertyExpression translate(IRI IRI) {
+        public OWLObjectPropertyExpression translate(@Nonnull IRI IRI) {
             return consumer.translateObjectPropertyExpression(IRI);
         }
 
@@ -1729,7 +1737,7 @@ public class Translators {
          * @return The translated item.
          */
         @Override
-        public OWLObjectPropertyExpression translate(IRI firstObject) {
+        public OWLObjectPropertyExpression translate(@Nonnull IRI firstObject) {
             consumer.addObjectProperty(firstObject, false);
             return consumer.translateObjectPropertyExpression(firstObject);
         }

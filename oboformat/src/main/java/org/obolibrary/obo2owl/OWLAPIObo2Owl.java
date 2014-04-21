@@ -295,7 +295,7 @@ public class OWLAPIObo2Owl {
      * @throws OWLOntologyCreationException
      *         the oWL ontology creation exception
      */
-    public OWLOntology convert(String oboFile)
+    public OWLOntology convert(@Nonnull String oboFile)
             throws OWLOntologyCreationException {
         try {
             OBOFormatParser p = new OBOFormatParser();

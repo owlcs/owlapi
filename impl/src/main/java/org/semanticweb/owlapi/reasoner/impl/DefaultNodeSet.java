@@ -136,8 +136,10 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
         }
     }
 
+    @Nonnull
     protected abstract DefaultNode<E> getNode(@Nonnull E entity);
 
+    @Nonnull
     protected abstract DefaultNode<E> getNode(@Nonnull Set<E> entities);
 
     @Override

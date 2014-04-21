@@ -28,6 +28,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.util.Version;
 
+import javax.annotation.Nonnull;
+
 /**
  * An OWLReasoner reasons over a set of axioms (the set of reasoner axioms) that
  * is based on the imports closure of a particular ontology - the "root"
@@ -227,6 +229,7 @@ public interface OWLReasoner {
      * 
      * @return A string that represents the name of this reasoner.
      */
+    @Nonnull
     String getReasonerName();
 
     /**
@@ -234,6 +237,7 @@ public interface OWLReasoner {
      * 
      * @return The version of this reasoner. Not {@code null}.
      */
+    @Nonnull
     Version getReasonerVersion();
 
     /**
@@ -241,6 +245,7 @@ public interface OWLReasoner {
      * 
      * @return The buffering mode of this reasoner.
      */
+    @Nonnull
     BufferingMode getBufferingMode();
 
     /**
@@ -261,6 +266,7 @@ public interface OWLReasoner {
      * @return A set of changes. Note that the changes represent the raw changes
      *         as applied to the imports closure of the root ontology.
      */
+    @Nonnull
     List<OWLOntologyChange<?>> getPendingChanges();
 
     /**
@@ -274,6 +280,7 @@ public interface OWLReasoner {
      *         reasoner to synchronise it with the root ontology imports
      *         closure.
      */
+    @Nonnull
     Set<OWLAxiom> getPendingAxiomAdditions();
 
     /**
@@ -287,6 +294,7 @@ public interface OWLReasoner {
      *         reasoner to synchronise it with the root ontology imports
      *         closure.
      */
+    @Nonnull
     Set<OWLAxiom> getPendingAxiomRemovals();
 
     /**
@@ -302,6 +310,7 @@ public interface OWLReasoner {
      * 
      * @return The root ontology that is loaded into the reasoner.
      */
+    @Nonnull
     OWLOntology getRootOntology();
 
     /**
@@ -365,6 +374,7 @@ public interface OWLReasoner {
      * @return A set of {@link org.semanticweb.owlapi.reasoner.InferenceType}s
      *         that can be precomputed by this reasoner.
      */
+    @Nonnull
     Set<InferenceType> getPrecomputableInferenceTypes();
 
     /**
@@ -431,6 +441,7 @@ public interface OWLReasoner {
      * @throws InconsistentOntologyException
      *         if the set of reasoner axioms is inconsistent
      */
+    @Nonnull
     Node<OWLClass> getUnsatisfiableClasses();
 
     /**
@@ -588,6 +599,7 @@ public interface OWLReasoner {
      *         if the reasoner timed out during a basic reasoning operation. See
      *         {@link #getTimeOut()}.
      */
+    @Nonnull
     NodeSet<OWLClass> getSubClasses(OWLClassExpression ce, boolean direct);
 
     /**
@@ -629,6 +641,7 @@ public interface OWLReasoner {
      *         if the reasoner timed out during a basic reasoning operation. See
      *         {@link #getTimeOut()}.
      */
+    @Nonnull
     NodeSet<OWLClass> getSuperClasses(OWLClassExpression ce, boolean direct);
 
     /**
@@ -701,6 +714,7 @@ public interface OWLReasoner {
      *         if the reasoner timed out during a basic reasoning operation. See
      *         {@link #getTimeOut()}.
      */
+    @Nonnull
     NodeSet<OWLClass> getDisjointClasses(OWLClassExpression ce);
 
     // //////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -776,6 +790,7 @@ public interface OWLReasoner {
      *         if the reasoner timed out during a basic reasoning operation. See
      *         {@link #getTimeOut()}.
      */
+    @Nonnull
     NodeSet<OWLObjectPropertyExpression> getSubObjectProperties(
             OWLObjectPropertyExpression pe, boolean direct);
 
@@ -820,6 +835,7 @@ public interface OWLReasoner {
      *         if the reasoner timed out during a basic reasoning operation. See
      *         {@link #getTimeOut()}.
      */
+    @Nonnull
     NodeSet<OWLObjectPropertyExpression> getSuperObjectProperties(
             OWLObjectPropertyExpression pe, boolean direct);
 
@@ -902,6 +918,7 @@ public interface OWLReasoner {
      *         if the reasoner timed out during a basic reasoning operation. See
      *         {@link #getTimeOut()}.
      */
+    @Nonnull
     NodeSet<OWLObjectPropertyExpression> getDisjointObjectProperties(
             OWLObjectPropertyExpression pe);
 
@@ -973,6 +990,7 @@ public interface OWLReasoner {
      *         if the reasoner timed out during a basic reasoning operation. See
      *         {@link #getTimeOut()}.
      */
+    @Nonnull
     NodeSet<OWLClass> getObjectPropertyDomains(OWLObjectPropertyExpression pe,
             boolean direct);
 
@@ -1013,6 +1031,7 @@ public interface OWLReasoner {
      *         if the reasoner timed out during a basic reasoning operation. See
      *         {@link #getTimeOut()}.
      */
+    @Nonnull
     NodeSet<OWLClass> getObjectPropertyRanges(OWLObjectPropertyExpression pe,
             boolean direct);
 
@@ -1079,6 +1098,7 @@ public interface OWLReasoner {
      *         if the reasoner timed out during a basic reasoning operation. See
      *         {@link #getTimeOut()}.
      */
+    @Nonnull
     NodeSet<OWLDataProperty> getSubDataProperties(OWLDataProperty pe,
             boolean direct);
 
@@ -1118,6 +1138,7 @@ public interface OWLReasoner {
      *         if the reasoner timed out during a basic reasoning operation. See
      *         {@link #getTimeOut()}.
      */
+    @Nonnull
     NodeSet<OWLDataProperty> getSuperDataProperties(OWLDataProperty pe,
             boolean direct);
 
@@ -1194,6 +1215,7 @@ public interface OWLReasoner {
      *         if the reasoner timed out during a basic reasoning operation. See
      *         {@link #getTimeOut()}.
      */
+    @Nonnull
     NodeSet<OWLDataProperty> getDisjointDataProperties(
             OWLDataPropertyExpression pe);
 
@@ -1235,6 +1257,7 @@ public interface OWLReasoner {
      *         if the reasoner timed out during a basic reasoning operation. See
      *         {@link #getTimeOut()}.
      */
+    @Nonnull
     NodeSet<OWLClass>
             getDataPropertyDomains(OWLDataProperty pe, boolean direct);
 
@@ -1278,6 +1301,7 @@ public interface OWLReasoner {
      *         if the reasoner timed out during a basic reasoning operation. See
      *         {@link #getTimeOut()}.
      */
+    @Nonnull
     NodeSet<OWLClass> getTypes(OWLNamedIndividual ind, boolean direct);
 
     /**
@@ -1320,6 +1344,7 @@ public interface OWLReasoner {
      *         {@link #getTimeOut()}.
      * @see org.semanticweb.owlapi.reasoner.IndividualNodeSetPolicy
      */
+    @Nonnull
     NodeSet<OWLNamedIndividual> getInstances(OWLClassExpression ce,
             boolean direct);
 
@@ -1352,6 +1377,7 @@ public interface OWLReasoner {
      *         {@link #getTimeOut()}.
      * @see org.semanticweb.owlapi.reasoner.IndividualNodeSetPolicy
      */
+    @Nonnull
     NodeSet<OWLNamedIndividual> getObjectPropertyValues(OWLNamedIndividual ind,
             OWLObjectPropertyExpression pe);
 
@@ -1387,6 +1413,7 @@ public interface OWLReasoner {
      *         {@link #getTimeOut()}.
      * @see org.semanticweb.owlapi.reasoner.IndividualNodeSetPolicy
      */
+    @Nonnull
     Set<OWLLiteral> getDataPropertyValues(OWLNamedIndividual ind,
             OWLDataProperty pe);
 
@@ -1414,6 +1441,7 @@ public interface OWLReasoner {
      *         if the reasoner timed out during a basic reasoning operation. See
      *         {@link #getTimeOut()}.
      */
+    @Nonnull
     Node<OWLNamedIndividual> getSameIndividuals(OWLNamedIndividual ind);
 
     /**
@@ -1441,6 +1469,7 @@ public interface OWLReasoner {
      *         if the reasoner timed out during a basic reasoning operation. See
      *         {@link #getTimeOut()}.
      */
+    @Nonnull
     NodeSet<OWLNamedIndividual> getDifferentIndividuals(OWLNamedIndividual ind);
 
     /**

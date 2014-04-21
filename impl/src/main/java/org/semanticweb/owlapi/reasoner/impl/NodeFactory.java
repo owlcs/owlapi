@@ -58,11 +58,13 @@ public class NodeFactory {
     }
 
     /** @return the top class node */
+    @Nonnull
     public static DefaultNode<OWLClass> getOWLClassTopNode() {
         return OWLClassNode.getTopNode();
     }
 
     /** @return the bottom class node */
+    @Nonnull
     public static DefaultNode<OWLClass> getOWLClassBottomNode() {
         return OWLClassNode.getBottomNode();
     }
@@ -98,12 +100,14 @@ public class NodeFactory {
     }
 
     /** @return the top object property node */
+    @Nonnull
     public static DefaultNode<OWLObjectPropertyExpression>
             getOWLObjectPropertyTopNode() {
         return OWLObjectPropertyNode.getTopNode();
     }
 
     /** @return the bottom object property node */
+    @Nonnull
     public static DefaultNode<OWLObjectPropertyExpression>
             getOWLObjectPropertyBottomNode() {
         return OWLObjectPropertyNode.getBottomNode();
@@ -138,11 +142,13 @@ public class NodeFactory {
     }
 
     /** @return the top data property node */
+    @Nonnull
     public static DefaultNode<OWLDataProperty> getOWLDataPropertyTopNode() {
         return OWLDataPropertyNode.getTopNode();
     }
 
     /** @return the bottom data property node */
+    @Nonnull
     public static DefaultNode<OWLDataProperty> getOWLDataPropertyBottomNode() {
         return OWLDataPropertyNode.getBottomNode();
     }

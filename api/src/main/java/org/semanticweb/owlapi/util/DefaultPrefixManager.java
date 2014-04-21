@@ -81,7 +81,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
     }
 
     @Override
-    public void setPrefixComparator(Comparator<String> comparator) {
+    public void setPrefixComparator(@Nonnull Comparator<String> comparator) {
         checkNotNull(comparator, "comparator cannot be null");
         this.comparator = comparator;
         Map<String, String> p = prefix2NamespaceMap;
@@ -110,7 +110,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
     }
 
     @Override
-    public void setDefaultPrefix(String defaultPrefix) {
+    public void setDefaultPrefix(@Nonnull String defaultPrefix) {
         checkNotNull(defaultPrefix, "defaultPrefix cannot be null");
         setPrefix(":", defaultPrefix);
     }
@@ -135,7 +135,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
     }
 
     @Override
-    public boolean containsPrefixMapping(String prefix) {
+    public boolean containsPrefixMapping(@Nonnull String prefix) {
         return prefix2NamespaceMap.get(prefix) != null;
     }
 
@@ -180,12 +180,12 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
 
     @Nonnull
     @Override
-    public String getPrefix(String prefixName) {
+    public String getPrefix(@Nonnull String prefixName) {
         return prefix2NamespaceMap.get(prefixName);
     }
 
     @Override
-    public void setPrefix(String prefixName, String prefix) {
+    public void setPrefix(@Nonnull String prefixName, @Nonnull String prefix) {
         checkNotNull(prefixName, "prefixName cannot be null");
         checkNotNull(prefix, "prefix cannot be null");
         String _prefixName = prefixName;
@@ -197,7 +197,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
     }
 
     @Override
-    public void unregisterNamespace(String namespace) {
+    public void unregisterNamespace(@Nonnull String namespace) {
         List<String> toRemove = new ArrayList<String>();
         for (Map.Entry<String, String> e : prefix2NamespaceMap.entrySet()) {
             if (e.getValue().equals(namespace)) {

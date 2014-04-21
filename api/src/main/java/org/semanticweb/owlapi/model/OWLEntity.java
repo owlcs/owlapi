@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * Represents <a href=
@@ -218,5 +219,6 @@ public interface OWLEntity extends OWLObject, OWLNamedObject, OWLPrimitive {
      *        visitor return type
      * @return visitor return value
      */
+    @Nullable
     <O> O accept(@Nonnull OWLEntityVisitorEx<O> visitor);
 }

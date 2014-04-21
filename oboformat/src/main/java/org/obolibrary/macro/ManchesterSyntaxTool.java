@@ -334,7 +334,8 @@ public class ManchesterSyntaxTool {
             return false;
         }
 
-        IRI getIRIByIdentifier(String id) {
+        @Nullable
+        IRI getIRIByIdentifier(@Nonnull String id) {
             OWLAPIObo2Owl b = new OWLAPIObo2Owl(manager);
             b.setObodoc(new OBODoc());
             return b.oboIdToIRI(id);

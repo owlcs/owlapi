@@ -69,6 +69,7 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
 
     protected AbstractOWLParser() {}
 
+    @Nonnull
     @SuppressWarnings("unchecked")
     @Override
     public Set<Class<OWLOntologyFormat>> getSupportedFormatClasses() {
@@ -76,6 +77,7 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
                 .singleton((Class<OWLOntologyFormat>) getFormatClass());
     }
 
+    @Nullable
     protected abstract Class<? extends OWLOntologyFormat> getFormatClass();
 
     @Nonnull

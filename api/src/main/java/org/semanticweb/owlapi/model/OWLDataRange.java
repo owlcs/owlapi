@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * Represents a <a
@@ -78,6 +79,7 @@ public interface OWLDataRange extends OWLObject, OWLPropertyRange,
      *        visitor return type
      * @return visitor return value
      */
+    @Nullable
     <O> O accept(@Nonnull OWLDataVisitorEx<O> visitor);
 
     /**
@@ -93,5 +95,6 @@ public interface OWLDataRange extends OWLObject, OWLPropertyRange,
      *        visitor return type
      * @return visitor return value
      */
+    @Nonnull
     <O> O accept(@Nonnull OWLDataRangeVisitorEx<O> visitor);
 }

@@ -88,6 +88,7 @@ public abstract class BaseBuilder<T extends OWLObject, Type> implements
         return (Type) this;
     }
 
+    @Nonnull
     @Override
     public abstract T buildObject();
 

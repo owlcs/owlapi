@@ -114,7 +114,7 @@ public class MacroExpansionGCIVisitor {
 
     private class GCIVisitor extends AbstractMacroExpansionVisitor {
 
-        GCIVisitor(OWLOntology inputOntology) {
+        GCIVisitor(@Nonnull OWLOntology inputOntology) {
             super(inputOntology);
         }
 

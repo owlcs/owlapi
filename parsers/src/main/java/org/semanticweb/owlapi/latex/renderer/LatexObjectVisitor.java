@@ -758,13 +758,13 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         expression.accept(this);
     }
 
-    private void openBracket(OWLClassExpression classExpression) {
+    private void openBracket(@Nonnull OWLClassExpression classExpression) {
         if (LatexBracketChecker.requiresBracket(classExpression)) {
             write("(");
         }
     }
 
-    private void closeBracket(OWLClassExpression classExpression) {
+    private void closeBracket(@Nonnull OWLClassExpression classExpression) {
         if (LatexBracketChecker.requiresBracket(classExpression)) {
             write(")");
         }

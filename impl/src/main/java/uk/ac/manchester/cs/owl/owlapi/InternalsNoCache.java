@@ -152,7 +152,7 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
 
     @Nonnull
     @Override
-    public OWLLiteral getOWLLiteral(@Nonnull String lexicalValue, @Nonnull OWLDatatype datatype) {
+    public OWLLiteral getOWLLiteral(@Nonnull String lexicalValue, @SuppressWarnings("NullableProblems") @Nonnull OWLDatatype datatype) {
         OWLLiteral literal;
         if (datatype.isRDFPlainLiteral()) {
             int sep = lexicalValue.lastIndexOf('@');

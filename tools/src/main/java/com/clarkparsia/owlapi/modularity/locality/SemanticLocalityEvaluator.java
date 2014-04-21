@@ -64,6 +64,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
     protected final OWLDataFactory df;
     private final AxiomLocalityVisitor axiomVisitor = new AxiomLocalityVisitor();
     private final BottomReplacer bottomReplacer = new BottomReplacer();
+    @Nonnull
     protected final OWLReasoner reasoner;
 
     /**

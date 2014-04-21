@@ -94,6 +94,7 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression>
                 ((OWLNaryPropertyAxiom<?>) object).getProperties());
     }
 
+    @Nonnull
     @Override
     public <T> Collection<T> walkPairwise(@Nonnull OWLPairwiseVisitor<T, P> visitor) {
         List<T> l = new ArrayList<T>();

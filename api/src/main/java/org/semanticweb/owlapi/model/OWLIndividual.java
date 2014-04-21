@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * Represents a named or anonymous individual.
@@ -88,5 +89,6 @@ public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject {
      *        visitor return type
      * @return visitor ex type
      */
+    @Nullable
     <O> O accept(@Nonnull OWLIndividualVisitorEx<O> visitor);
 }

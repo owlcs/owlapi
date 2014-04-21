@@ -16,6 +16,9 @@ import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLObject;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * Represents a node (set) of entities. The entities in a node are equivalent to
  * each other. <br>
@@ -98,6 +101,7 @@ public interface Node<E extends OWLObject> extends Iterable<E> {
      * 
      * @return The set of entities contained in this {@code Node}.
      */
+    @Nonnull
     Set<E> getEntities();
 
     /**
@@ -130,6 +134,7 @@ public interface Node<E extends OWLObject> extends Iterable<E> {
      *         this node then the full set of entities returned is the same as
      *         that returned by {@link #getEntities()}
      */
+    @Nonnull
     Set<E> getEntitiesMinus(E e);
 
     /**
@@ -143,6 +148,7 @@ public interface Node<E extends OWLObject> extends Iterable<E> {
      *         of entities returned is the same as that returned by
      *         {@link #getEntities()}.
      */
+    @Nonnull
     Set<E> getEntitiesMinusTop();
 
     /**
@@ -157,6 +163,7 @@ public interface Node<E extends OWLObject> extends Iterable<E> {
      *         set of entities returned is the same as that returned by
      *         {@link #getEntities()}.
      */
+    @Nonnull
     Set<E> getEntitiesMinusBottom();
 
     /**
@@ -175,5 +182,6 @@ public interface Node<E extends OWLObject> extends Iterable<E> {
      * @throws RuntimeException
      *         if this node is empty (it does not contain any entities).
      */
+    @Nullable
     E getRepresentativeElement();
 }

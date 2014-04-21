@@ -838,6 +838,7 @@ abstract class AbstractOWLDataPropertyOperandAxiomElementHandler extends
 abstract class AbstractOWLDataRangeHandler extends
         OWLElementHandler<OWLDataRange> {
 
+    @Nullable
     OWLDataRange dataRange;
 
     AbstractOWLDataRangeHandler(@Nonnull OWLXMLParserHandler handler) {
@@ -1251,6 +1252,7 @@ class OWLAnnotationElementHandler extends OWLElementHandler<OWLAnnotation> {
 
     @Nonnull
     Set<OWLAnnotation> annotations = new HashSet<OWLAnnotation>();
+    @Nullable
     OWLAnnotationProperty property;
     @Nullable
     OWLAnnotationValue object;
@@ -1321,6 +1323,7 @@ class OWLAnnotationPropertyDomainElementHandler extends
 
     @Nullable
     IRI domain;
+    @Nullable
     OWLAnnotationProperty property;
 
     OWLAnnotationPropertyDomainElementHandler(@Nonnull OWLXMLParserHandler handler) {
@@ -1380,6 +1383,7 @@ class OWLAnnotationPropertyRangeElementHandler extends
 
     @Nullable
     IRI range;
+    @Nullable
     OWLAnnotationProperty property;
 
     OWLAnnotationPropertyRangeElementHandler(@Nonnull OWLXMLParserHandler handler) {
@@ -1467,7 +1471,9 @@ class OWLAsymmetricObjectPropertyElementHandler extends
 class OWLClassAssertionAxiomElementHandler extends
         AbstractOWLAxiomElementHandler {
 
+    @Nullable
     OWLIndividual individual;
+    @Nullable
     OWLClassExpression classExpression;
 
     OWLClassAssertionAxiomElementHandler(@Nonnull OWLXMLParserHandler handler) {
@@ -1536,6 +1542,7 @@ class OWLDataAllValuesFromElementHandler extends
 
 class OWLDataComplementOfElementHandler extends AbstractOWLDataRangeHandler {
 
+    @Nullable
     OWLDataRange operand;
 
     OWLDataComplementOfElementHandler(@Nonnull OWLXMLParserHandler handler) {
@@ -1679,7 +1686,9 @@ class OWLDataPropertyAssertionAxiomElementHandler extends
 class OWLDataPropertyDomainAxiomElementHandler extends
         AbstractOWLAxiomElementHandler {
 
+    @Nullable
     OWLClassExpression domain;
+    @Nullable
     OWLDataPropertyExpression property;
 
     OWLDataPropertyDomainAxiomElementHandler(@Nonnull OWLXMLParserHandler handler) {
@@ -1737,7 +1746,9 @@ class OWLDataPropertyElementHandler extends
 class OWLDataPropertyRangeAxiomElementHandler extends
         AbstractOWLAxiomElementHandler {
 
+    @Nullable
     OWLDataPropertyExpression property;
+    @Nullable
     OWLDataRange range;
 
     OWLDataPropertyRangeAxiomElementHandler(@Nonnull OWLXMLParserHandler handler) {
@@ -1766,6 +1777,7 @@ class OWLDataPropertyRangeAxiomElementHandler extends
 
 class OWLDataRestrictionElementHandler extends AbstractOWLDataRangeHandler {
 
+    @Nullable
     OWLLiteral constant;
     IRI facetIRI;
 
@@ -1838,6 +1850,7 @@ class OWLDatatypeDefinitionElementHandler extends
         AbstractOWLAxiomElementHandler {
 
     OWLDatatype datatype;
+    @Nullable
     OWLDataRange dataRange;
 
     OWLDatatypeDefinitionElementHandler(@Nonnull OWLXMLParserHandler handler) {
@@ -1888,6 +1901,7 @@ class OWLDatatypeFacetRestrictionElementHandler extends
 
     @Nullable
     OWLFacet facet;
+    @Nullable
     OWLLiteral constant;
 
     OWLDatatypeFacetRestrictionElementHandler(@Nonnull OWLXMLParserHandler handler) {
@@ -2074,6 +2088,7 @@ class OWLDisjointObjectPropertiesAxiomElementHandler extends
 
 class OWLDisjointUnionElementHandler extends AbstractOWLAxiomElementHandler {
 
+    @Nullable
     OWLClass cls;
     @Nonnull
     Set<OWLClassExpression> classExpressions = new HashSet<OWLClassExpression>();
@@ -2183,6 +2198,7 @@ class OWLFunctionalObjectPropertyAxiomElementHandler extends
 
 class OWLHasKeyElementHandler extends AbstractOWLAxiomElementHandler {
 
+    @Nullable
     OWLClassExpression ce;
     @Nonnull
     Set<OWLPropertyExpression> props = new HashSet<OWLPropertyExpression>();
@@ -2295,6 +2311,7 @@ class OWLInverseObjectPropertiesAxiomElementHandler extends
 class OWLInverseObjectPropertyElementHandler extends
         AbstractOWLObjectPropertyElementHandler {
 
+    @Nullable
     OWLObjectPropertyExpression inverse;
 
     OWLInverseObjectPropertyElementHandler(@Nonnull OWLXMLParserHandler handler) {
@@ -2426,6 +2443,7 @@ class OWLObjectAllValuesFromElementHandler extends
 class OWLObjectComplementOfElementHandler extends
         AbstractClassExpressionElementHandler {
 
+    @Nullable
     OWLClassExpression operand;
 
     OWLObjectComplementOfElementHandler(@Nonnull OWLXMLParserHandler handler) {
@@ -2462,6 +2480,7 @@ class OWLObjectExactCardinalityElementHandler extends
 class OWLObjectExistsSelfElementHandler extends
         AbstractClassExpressionElementHandler {
 
+    @Nullable
     OWLObjectPropertyExpression property;
 
     OWLObjectExistsSelfElementHandler(@Nonnull OWLXMLParserHandler handler) {
@@ -2592,7 +2611,9 @@ class OWLObjectPropertyAssertionAxiomElementHandler extends
 class OWLObjectPropertyDomainElementHandler extends
         AbstractOWLAxiomElementHandler {
 
+    @Nullable
     OWLClassExpression domain;
+    @Nullable
     OWLObjectPropertyExpression property;
 
     OWLObjectPropertyDomainElementHandler(@Nonnull OWLXMLParserHandler handler) {
@@ -2643,7 +2664,9 @@ class OWLObjectPropertyElementHandler extends
 class OWLObjectPropertyRangeAxiomElementHandler extends
         AbstractOWLAxiomElementHandler {
 
+    @Nullable
     OWLClassExpression range;
+    @Nullable
     OWLObjectPropertyExpression property;
 
     OWLObjectPropertyRangeAxiomElementHandler(@Nonnull OWLXMLParserHandler handler) {
@@ -2797,7 +2820,9 @@ class OWLSubClassAxiomElementHandler extends AbstractOWLAxiomElementHandler {
 class OWLSubDataPropertyOfAxiomElementHandler extends
         AbstractOWLAxiomElementHandler {
 
+    @Nullable
     OWLDataPropertyExpression subProperty;
+    @Nullable
     OWLDataPropertyExpression superProperty;
 
     OWLSubDataPropertyOfAxiomElementHandler(@Nonnull OWLXMLParserHandler handler) {
@@ -2852,8 +2877,11 @@ class OWLSubObjectPropertyChainElementHandler extends
 class OWLSubObjectPropertyOfAxiomElementHandler extends
         AbstractOWLAxiomElementHandler {
 
+    @Nullable
     OWLObjectPropertyExpression subProperty;
+    @Nullable
     List<OWLObjectPropertyExpression> propertyList;
+    @Nullable
     OWLObjectPropertyExpression superProperty;
 
     OWLSubObjectPropertyOfAxiomElementHandler(@Nonnull OWLXMLParserHandler handler) {
@@ -2999,6 +3027,7 @@ class SWRLBuiltInAtomElementHandler extends SWRLAtomElementHandler {
 
 class SWRLClassAtomElementHandler extends SWRLAtomElementHandler {
 
+    @Nullable
     OWLClassExpression ce;
     @Nullable
     SWRLIArgument arg;
@@ -3031,6 +3060,7 @@ class SWRLClassAtomElementHandler extends SWRLAtomElementHandler {
 
 class SWRLDataPropertyAtomElementHandler extends SWRLAtomElementHandler {
 
+    @Nullable
     OWLDataPropertyExpression prop;
     @Nullable
     SWRLIArgument arg0 = null;
@@ -3079,6 +3109,7 @@ class SWRLDataPropertyAtomElementHandler extends SWRLAtomElementHandler {
 
 class SWRLDataRangeAtomElementHandler extends SWRLAtomElementHandler {
 
+    @Nullable
     OWLDataRange prop;
     @Nullable
     SWRLDArgument arg1 = null;
@@ -3147,6 +3178,7 @@ class SWRLDifferentIndividualsAtomElementHandler extends SWRLAtomElementHandler 
 
 class SWRLObjectPropertyAtomElementHandler extends SWRLAtomElementHandler {
 
+    @Nullable
     OWLObjectPropertyExpression prop;
     @Nullable
     SWRLIArgument arg0 = null;

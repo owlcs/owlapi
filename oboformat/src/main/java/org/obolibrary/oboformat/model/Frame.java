@@ -264,7 +264,7 @@ public class Frame {
      * @return the tag values for tag and class
      */
     @Nonnull
-    public <T> Collection<T> getTagValues(@Nonnull OboFormatTag tag, Class<T> cls) {
+    public <T> Collection<T> getTagValues(@Nonnull OboFormatTag tag, @Nonnull Class<T> cls) {
         return getTagValues(tag.getTag(), cls);
     }
 
@@ -278,7 +278,7 @@ public class Frame {
      * @return the tag values for tag and class
      */
     @Nonnull
-    public <T> Collection<T> getTagValues(String tag, Class<T> cls) {
+    public <T> Collection<T> getTagValues(String tag, @Nonnull Class<T> cls) {
         Collection<T> vals = new Vector<T>();
         for (Clause c : getClauses(tag)) {
             vals.add(c.getValue(cls));

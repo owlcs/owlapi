@@ -58,7 +58,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     private final LiteralWrapper literal;
     @Nullable
     private final OWLDatatype datatype;
-    @Nullable
+    @Nonnull
     private final String lang;
     private final int hashcode;
 

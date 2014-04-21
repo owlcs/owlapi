@@ -86,6 +86,7 @@ public class MapPointer<K, V extends OWLAxiom> implements Serializable {
      * 
      * @return the map pointer
      */
+    @Nonnull
     @SuppressWarnings("unchecked")
     public MapPointer<K, V> init() {
         if (initialized) {
