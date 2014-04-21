@@ -54,9 +54,11 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
 
     private static final long serialVersionUID = 40000L;
     private static final int COMPRESSION_LIMIT = 160;
+    private static final OWLDatatypeImpl RDF_PLAIN_LITERAL = new OWLDatatypeImpl(
+            OWL2Datatype.RDF_PLAIN_LITERAL.getIRI());
     @Nonnull
     private final LiteralWrapper literal;
-    @Nullable
+    @Nonnull
     private final OWLDatatype datatype;
     @Nonnull
     private final String lang;
@@ -84,9 +86,11 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
         if (lang == null || lang.length() == 0) {
             this.lang = "";
             if (datatype == null) {
-                System.out.println("OWLLiteralImpl.OWLLiteralImpl()");
+                this.datatype = RDF_PLAIN_LITERAL;;
+            } else {
+                this.datatype = datatype;
             }
-            this.datatype = datatype;
+
         } else {
             if (datatype != null && !datatype.isRDFPlainLiteral()) {
                 // ERROR: attempting to build a literal with a language tag and
@@ -96,8 +100,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
                                 + datatype.getIRI() + " and language: " + lang);
             }
             this.lang = lang;
-            this.datatype = new OWLDatatypeImpl(
-                    OWL2Datatype.RDF_PLAIN_LITERAL.getIRI());
+            this.datatype = RDF_PLAIN_LITERAL;
         }
         hashcode = getHashCode();
     }

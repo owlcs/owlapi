@@ -45,7 +45,7 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements
             OWL2Datatype.RDF_PLAIN_LITERAL);
     @Nonnull
     private final byte[] literal;
-    @Nullable
+    @Nonnull
     private final OWLDatatype datatype;
     @Nonnull
     private final String lang;
