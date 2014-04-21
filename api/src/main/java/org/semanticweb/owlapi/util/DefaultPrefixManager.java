@@ -24,6 +24,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
@@ -41,8 +42,11 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
         IRIShortFormProvider {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private Map<String, String> prefix2NamespaceMap;
+    @Nonnull
     private final Map<String, String> reverseprefix2NamespaceMap = new HashMap<String, String>();
+    @Nonnull
     private Comparator<String> comparator;
 
     /**
