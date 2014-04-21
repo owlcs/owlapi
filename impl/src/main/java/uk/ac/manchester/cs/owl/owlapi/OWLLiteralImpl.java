@@ -54,13 +54,10 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
 
     private static final long serialVersionUID = 40000L;
     private static final int COMPRESSION_LIMIT = 160;
-    private static final OWLDatatypeImpl RDF_PLAIN_LITERAL = new OWLDatatypeImpl(
-            OWL2Datatype.RDF_PLAIN_LITERAL.getIRI());
-    @Nonnull
     private final LiteralWrapper literal;
-    @Nonnull
+    private static final OWLDatatype RDF_PLAIN_LITERAL = new OWL2DatatypeImpl(
+            OWL2Datatype.RDF_PLAIN_LITERAL);
     private final OWLDatatype datatype;
-    @Nonnull
     private final String lang;
     private final int hashcode;
 
@@ -86,11 +83,10 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
         if (lang == null || lang.length() == 0) {
             this.lang = "";
             if (datatype == null) {
-                this.datatype = RDF_PLAIN_LITERAL;;
+                this.datatype = RDF_PLAIN_LITERAL;
             } else {
                 this.datatype = datatype;
             }
-
         } else {
             if (datatype != null && !datatype.isRDFPlainLiteral()) {
                 // ERROR: attempting to build a literal with a language tag and
@@ -105,7 +101,6 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
         hashcode = getHashCode();
     }
 
-    @Nonnull
     @Override
     public String getLiteral() {
         return literal.get();
@@ -174,7 +169,6 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
         return Float.parseFloat(literal.get());
     }
 
-    @Nonnull
     @Override
     public String getLang() {
         return lang;
@@ -192,7 +186,6 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
         return lang != null && lang.equalsIgnoreCase(l.trim());
     }
 
-    @Nonnull
     @Override
     public OWLDatatype getDatatype() {
         return datatype;
@@ -233,23 +226,22 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     }
 
     @Override
-    public void accept(@Nonnull OWLDataVisitor visitor) {
+    public void accept(OWLDataVisitor visitor) {
         visitor.visit(this);
     }
 
-    @Nullable
     @Override
-    public <O> O accept(@Nonnull OWLDataVisitorEx<O> visitor) {
+    public <O> O accept(OWLDataVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    public void accept(@Nonnull OWLAnnotationValueVisitor visitor) {
+    public void accept(OWLAnnotationValueVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(@Nonnull OWLAnnotationValueVisitorEx<O> visitor) {
+    public <O> O accept(OWLAnnotationValueVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
@@ -268,34 +260,23 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     }
 
     @Override
-    public void accept(@Nonnull OWLObjectVisitor visitor) {
+    public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
+    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
-    // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // /////
-    // ///// Literal Wraper
-    // /////
-    // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Literal Wraper
     private static final class LiteralWrapper implements Serializable {
 
         private static final long serialVersionUID = 40000L;
-        @Nullable
         String l;
-        @Nullable
         byte[] bytes;
 
-        LiteralWrapper(@Nonnull String s) {
+        LiteralWrapper(String s) {
             if (s.length() > COMPRESSION_LIMIT) {
                 try {
                     bytes = compress(s);
@@ -311,7 +292,6 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
             }
         }
 
-        @Nullable
         String get() {
             if (l != null) {
                 return l;
@@ -325,7 +305,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
             }
         }
 
-        byte[] compress(@Nonnull String s) throws IOException {
+        byte[] compress(String s) throws IOException {
             ByteArrayOutputStream out = new ByteArrayOutputStream();
             GZIPOutputStream zipout;
             zipout = new GZIPOutputStream(out);
@@ -337,7 +317,6 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
             return out.toByteArray();
         }
 
-        @Nonnull
         String decompress(byte[] result) throws IOException {
             ByteArrayInputStream in = new ByteArrayInputStream(result);
             GZIPInputStream zipin = new GZIPInputStream(in);
