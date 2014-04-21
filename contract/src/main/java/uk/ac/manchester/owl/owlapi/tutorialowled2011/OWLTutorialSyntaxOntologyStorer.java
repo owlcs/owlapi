@@ -22,6 +22,8 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Sean Bechhofer, The University Of Manchester, Information Management
  *         Group
