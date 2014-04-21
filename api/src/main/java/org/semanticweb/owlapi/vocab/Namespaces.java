@@ -106,7 +106,8 @@ public enum Namespaces {
     /** The DBPEDIA namespace. */  DBPEDIA     ("dbpedia", "http://dbpedia.org/resource/"),
     /** The DBP namespace. */      DBP         ("dbp",     "http://dbpedia.org/property/"),
     /** The DBO namespace. */      DBO         ("dbo",     "http://dbpedia.org/ontology/"),
-    /** The YAGO namespace. */     YAGO        ("yago",    "http://dbpedia.org/class/yago/");
+    /** The YAGO namespace. */     YAGO        ("yago",    "http://dbpedia.org/class/yago/"),
+    /** The DOAP namespace. */     DOAP        ("doap",    "http://usefulinc.com/ns/doap#");
     //@formatter:on
     final String prefix;
     final String ns;
