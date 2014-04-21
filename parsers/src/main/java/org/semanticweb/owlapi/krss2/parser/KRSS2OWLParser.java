@@ -240,6 +240,7 @@ public class KRSS2OWLParser extends AbstractOWLParser {
         return "KRSS2OWLParser";
     }
 
+    @Nonnull
     @Override
     protected Class<? extends OWLOntologyFormat> getFormatClass() {
         return KRSS2OntologyFormat.class;

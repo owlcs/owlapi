@@ -15,6 +15,8 @@ package org.semanticweb.owlapi.rdf.rdfxml.parser;
 import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
@@ -32,6 +34,7 @@ public class TranslatedOntologyChangeException extends OWLRuntimeException {
         super(e);
     }
 
+    @Nonnull
     @Override
     public synchronized OWLOntologyChangeException getCause() {
         return (OWLOntologyChangeException) super.getCause();

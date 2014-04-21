@@ -16,6 +16,9 @@ import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /** xref expander */
 public class XrefExpander {
 
@@ -23,7 +26,9 @@ public class XrefExpander {
     OBODoc sourceOBODoc;
     OBODoc targetOBODoc;
     String targetBase;
+    @Nonnull
     Map<String, Rule> treatMap = new HashMap<String, Rule>();
+    @Nonnull
     Map<String, OBODoc> targetDocMap = new HashMap<String, OBODoc>();
 
     /**
@@ -32,7 +37,7 @@ public class XrefExpander {
      * @throws InvalidXrefMapException
      *         InvalidXrefMapException
      */
-    public XrefExpander(OBODoc src) {
+    public XrefExpander(@Nonnull OBODoc src) {
         sourceOBODoc = src;
         Frame shf = src.getHeaderFrame();
         String ontId = shf.getTagValue(OboFormatTag.TAG_ONTOLOGY, String.class);
@@ -169,7 +174,7 @@ public class XrefExpander {
         return targetDocMap.get(idSpace);
     }
 
-    private void addRule(String db, Rule rule) {
+    private void addRule(String db, @Nonnull Rule rule) {
         if (treatMap.containsKey(db)) {
             throw new InvalidXrefMapException(db);
         }
@@ -195,7 +200,7 @@ public class XrefExpander {
         }
     }
 
-    private String getIDSpace(String x) {
+    private String getIDSpace(@Nonnull String x) {
         String[] parts = x.split(":", 2);
         return parts[0];
     }
@@ -217,6 +222,7 @@ public class XrefExpander {
          */
         public abstract void expand(Frame sf, String id, String xRef);
 
+        @Nullable
         protected Frame getTargetFrame(String id) {
             Frame f = getTargetDoc(idSpace).getTermFrame(id);
             if (f == null) {
@@ -237,7 +243,7 @@ public class XrefExpander {
     public class EquivalenceExpansion extends Rule {
 
         @Override
-        public void expand(Frame sf, String id, String xRef) {
+        public void expand(@Nonnull Frame sf, String id, String xRef) {
             Clause c = new Clause(OboFormatTag.TAG_EQUIVALENT_TO, xRef);
             sf.addClause(c);
         }

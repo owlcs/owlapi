@@ -270,6 +270,7 @@ import javax.annotation.Nonnull;
  */
 public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
 
+    @Nonnull
     private final Set<OWLSubPropertyChainOfAxiom> leftRightIdentityUsed;
     /**
      * If declarations are ignored, entities which are only referenced in a
@@ -296,7 +297,7 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
         this.ignoreDeclarations = ignoreDeclarations;
     }
 
-    protected void write(KRSS2Vocabulary v) {
+    protected void write(@Nonnull KRSS2Vocabulary v) {
         write(v.toString());
     }
 
@@ -630,7 +631,7 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
         writeln();
     }
 
-    protected void writeChain(List<OWLObjectPropertyExpression> expressions,
+    protected void writeChain(@Nonnull List<OWLObjectPropertyExpression> expressions,
             int i) {
         if (i == expressions.size() - 1) {
             write(expressions.get(i));
@@ -683,7 +684,7 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
         writeCloseBracket();
     }
 
-    protected boolean isLeftIdentityAxiom(OWLSubPropertyChainOfAxiom axiom,
+    protected boolean isLeftIdentityAxiom(@Nonnull OWLSubPropertyChainOfAxiom axiom,
             OWLObjectProperty property) {
         if (axiom.getSuperProperty().equals(property)) {
             Iterator<OWLObjectPropertyExpression> chain = axiom
@@ -699,7 +700,7 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
         return false;
     }
 
-    protected boolean isRightIdentityAxiom(OWLSubPropertyChainOfAxiom axiom,
+    protected boolean isRightIdentityAxiom(@Nonnull OWLSubPropertyChainOfAxiom axiom,
             OWLObjectProperty property) {
         if (axiom.getSuperProperty().equals(property)) {
             Iterator<OWLObjectPropertyExpression> chain = axiom
@@ -716,6 +717,7 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
         return false;
     }
 
+    @Nonnull
     protected
             Set<OWLSubPropertyChainOfAxiom>
             getPropertyChainSubPropertyAxiomsFor(OWLPropertyExpression property) {

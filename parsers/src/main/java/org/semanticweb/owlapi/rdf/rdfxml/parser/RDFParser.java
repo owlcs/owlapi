@@ -55,7 +55,9 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
     private static final String wrongResolve = "IRI '%s' cannot be resolved against current base IRI %s reason is: %s";
     protected static final Locator s_nullDocumentLocator = new LocatorImpl();
     protected static final SAXParserFactory s_parserFactory = initFactory();
+    @Nonnull
     private Map<String, String> resolvedIRIs = new HashMap<String, String>();
+    @Nonnull
     protected Map<String, IRI> uriCache = new HashMap<String, IRI>();
 
     static SAXParserFactory initFactory() {
@@ -77,6 +79,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
     }
 
     /** Registered error handler. */
+    @Nonnull
     protected ErrorHandler m_errorHandler = new ErrorHandler() {
 
         @Override
@@ -91,21 +94,27 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
         public void error(SAXParseException exception) throws SAXException {}
     };
     /** Stack of base IRIs. */
+    @Nonnull
     protected LinkedList<IRI> m_baseIRIs = new LinkedList<IRI>();
+    @Nonnull
     private Map<IRI, URI> m_baseURICache = new HashMap<IRI, URI>();
     /** IRI of the document being parsed. */
     protected IRI m_baseIRI;
     /** The stack of languages. */
+    @Nonnull
     protected LinkedList<String> m_languages = new LinkedList<String>();
     /** The current language. */
     protected String m_language;
     /** Consumer receiving notifications about parsing events. */
     protected RDFConsumer m_consumer;
     /** Current parser's state. */
+    @Nullable
     protected State state;
     /** Stack of parser states. */
+    @Nonnull
     protected List<State> m_states = new ArrayList<State>();
     /** Document locator. */
+    @Nullable
     protected Locator m_documentLocator;
 
     /**
@@ -195,7 +204,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
 
     @Override
     public void startElement(String namespaceIRI, String localName,
-            String qName, Attributes atts) throws SAXException {
+            String qName, @Nonnull Attributes atts) throws SAXException {
         processXMLBase(atts);
         processXMLLanguage(atts);
         state.startElement(namespaceIRI, localName, qName, atts);
@@ -216,7 +225,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
     }
 
     @Override
-    public void processingInstruction(String target, String data)
+    public void processingInstruction(String target, @Nonnull String data)
             throws SAXException {
         if ("include-rdf".equals(target)) {
             Map<String, String> arguments = parseStringArguments(data);
@@ -420,7 +429,8 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
      *        string to be parsed
      * @return map of name-value pairs
      */
-    private Map<String, String> parseStringArguments(String string) {
+    @Nonnull
+    private Map<String, String> parseStringArguments(@Nonnull String string) {
         try {
             StreamTokenizer tokenizer = new StreamTokenizer(new StringReader(
                     string));

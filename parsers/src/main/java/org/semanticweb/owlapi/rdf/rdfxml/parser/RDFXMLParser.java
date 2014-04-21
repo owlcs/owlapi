@@ -43,6 +43,7 @@ public class RDFXMLParser extends AbstractOWLParser {
         return "RDFXMLParser";
     }
 
+    @Nonnull
     @Override
     protected Class<? extends OWLOntologyFormat> getFormatClass() {
         return RDFXMLOntologyFormat.class;
@@ -59,7 +60,7 @@ public class RDFXMLParser extends AbstractOWLParser {
             RDFParser parser = new RDFParser() {
 
                 @Override
-                public void startPrefixMapping(String prefix, String IRI)
+                public void startPrefixMapping(@Nonnull String prefix, @Nonnull String IRI)
                         throws SAXException {
                     super.startPrefixMapping(prefix, IRI);
                     format.setPrefix(prefix, IRI);
@@ -67,7 +68,7 @@ public class RDFXMLParser extends AbstractOWLParser {
 
                 @Override
                 public void startElement(String namespaceIRI, String localName,
-                        String qName, Attributes atts) throws SAXException {
+                        String qName, @Nonnull Attributes atts) throws SAXException {
                     super.startElement(namespaceIRI, localName, qName, atts);
                 }
             };

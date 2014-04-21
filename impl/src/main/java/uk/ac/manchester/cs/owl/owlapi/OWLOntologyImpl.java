@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.AddImport;
@@ -80,6 +81,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements
 
         private static final long serialVersionUID = 40000L;
 
+        @Nullable
         @Override
         public T visit(@Nonnull RemoveAxiom change) {
             if (ints.removeAxiom(change.getAxiom())) {
@@ -88,6 +90,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements
             return null;
         }
 
+        @Nullable
         @Override
         public T visit(@Nonnull SetOntologyID change) {
             OWLOntologyID id = change.getNewOntologyID();
@@ -98,6 +101,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements
             return null;
         }
 
+        @Nullable
         @Override
         public T visit(@Nonnull AddAxiom change) {
             if (ints.addAxiom(change.getAxiom())) {
@@ -106,6 +110,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements
             return null;
         }
 
+        @Nullable
         @Override
         public T visit(@Nonnull AddImport change) {
             // TODO change this to be done inside
@@ -115,6 +120,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements
             return null;
         }
 
+        @Nullable
         @Override
         public T visit(@Nonnull RemoveImport change) {
             if (ints.removeImportsDeclaration(change.getImportDeclaration())) {
@@ -123,6 +129,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements
             return null;
         }
 
+        @Nullable
         @Override
         public T visit(@Nonnull AddOntologyAnnotation change) {
             if (ints.addOntologyAnnotation(change.getAnnotation())) {
@@ -131,6 +138,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements
             return null;
         }
 
+        @Nullable
         @Override
         public T visit(@Nonnull RemoveOntologyAnnotation change) {
             if (ints.removeOntologyAnnotation(change.getAnnotation())) {

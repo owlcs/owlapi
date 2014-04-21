@@ -13,6 +13,7 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
@@ -70,6 +71,7 @@ public class SWRLDataPropertyAtomImpl extends
         visitor.visit(this);
     }
 
+    @Nullable
     @Override
     public <O> O accept(@Nonnull SWRLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);

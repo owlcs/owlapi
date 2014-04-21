@@ -46,6 +46,7 @@ public class ClassAxiomByClassPointer extends
         super(t, v, initialized, i);
     }
 
+    @Nonnull
     @Override
     public ClassAxiomByClassPointer init() {
         if (isInitialized()) {

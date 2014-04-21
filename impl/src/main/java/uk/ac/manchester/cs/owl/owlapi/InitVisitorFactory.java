@@ -59,6 +59,7 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.util.OWLAxiomVisitorExAdapter;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /** @author ignazio */
 public class InitVisitorFactory {
@@ -170,6 +171,7 @@ public class InitVisitorFactory {
             return (K) axiom.getProperty();
         }
 
+        @Nullable
         @Override
         public K visit(@Nonnull OWLClassAssertionAxiom axiom) {
             OWLClassExpression c = axiom.getClassExpression();
@@ -274,7 +276,7 @@ public class InitVisitorFactory {
             return (Collection<K>) list;
         }
 
-        private void deleteAnonymousClasses(List<OWLClassExpression> list) {
+        private void deleteAnonymousClasses(@Nonnull List<OWLClassExpression> list) {
             for (int i = 0; i < list.size();) {
                 if (list.get(i).isAnonymous()) {
                     list.remove(i);

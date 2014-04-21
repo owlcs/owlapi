@@ -1,5 +1,6 @@
 package org.obolibrary.oboformat.parser;
 
+import javax.annotation.Nonnull;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Hashtable;
@@ -109,6 +110,7 @@ public class OBOFormatConstants {
     }
 
     /** tags */
+    @Nonnull
     public final static Set<String> TAGS;
     private static Hashtable<String, OboFormatTag> tagsTable;
     static {
@@ -129,6 +131,7 @@ public class OBOFormatConstants {
     /** Date format for OboFormatTag.TAG_DATE Use Thread local to ensure thread
      * safety, as {@link SimpleDateFormat} is not thread safe. */
     public static final ThreadLocal<DateFormat> headerDateFormat = new ThreadLocal<DateFormat>() {
+        @Nonnull
         @Override
         protected DateFormat initialValue() {
             return new SimpleDateFormat("dd:MM:yyyy HH:mm");

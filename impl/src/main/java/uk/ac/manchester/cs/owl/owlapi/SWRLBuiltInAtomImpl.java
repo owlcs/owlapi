@@ -19,6 +19,7 @@ import java.util.Collection;
 import java.util.List;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLObject;
@@ -41,6 +42,7 @@ public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements
         SWRLBuiltInAtom {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final List<SWRLDArgument> args;
 
     @Override
@@ -94,6 +96,7 @@ public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements
         visitor.visit(this);
     }
 
+    @Nullable
     @Override
     public <O> O accept(@Nonnull SWRLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);

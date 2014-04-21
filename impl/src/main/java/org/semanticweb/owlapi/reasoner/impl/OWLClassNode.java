@@ -44,22 +44,26 @@ public class OWLClassNode extends DefaultNode<OWLClass> {
     /** default constructor. */
     public OWLClassNode() {}
 
+    @Nonnull
     @Override
     protected OWLClass getTopEntity() {
         return TOP_CLASS;
     }
 
+    @Nonnull
     @Override
     protected OWLClass getBottomEntity() {
         return BOTTOM_CLASS;
     }
 
     /** @return singleton top node */
+    @Nonnull
     public static OWLClassNode getTopNode() {
         return TOP_NODE;
     }
 
     /** @return singleton bottom node */
+    @Nonnull
     public static OWLClassNode getBottomNode() {
         return BOTTOM_NODE;
     }

@@ -41,6 +41,7 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression>
         extends OWLPropertyAxiomImpl implements OWLNaryPropertyAxiom<P> {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final List<P> properties;
 
     /**
@@ -88,13 +89,13 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression>
     }
 
     @Override
-    protected int compareObjectOfSameType(OWLObject object) {
+    protected int compareObjectOfSameType(@Nonnull OWLObject object) {
         return compareSets(properties,
                 ((OWLNaryPropertyAxiom<?>) object).getProperties());
     }
 
     @Override
-    public <T> Collection<T> walkPairwise(OWLPairwiseVisitor<T, P> visitor) {
+    public <T> Collection<T> walkPairwise(@Nonnull OWLPairwiseVisitor<T, P> visitor) {
         List<T> l = new ArrayList<T>();
         for (int i = 0; i < properties.size() - 1; i++) {
             for (int j = i + 1; j < properties.size(); j++) {

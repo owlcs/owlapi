@@ -41,6 +41,7 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -55,7 +56,9 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
             .<OWLAnnotation> emptySet();
     private static final OWLObjectTypeIndexProvider owlObjectTypeIndexProvider = new OWLObjectTypeIndexProvider();
     private int hashCode = 0;
+    @Nullable
     private transient WeakReference<Set<OWLEntity>> signature = null;
+    @Nullable
     private transient WeakReference<Set<OWLAnonymousIndividual>> anons = null;
     protected static final OWLClass OWL_THING = new OWLClassImpl(
             OWLRDFVocabulary.OWL_THING.getIRI());
@@ -163,7 +166,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         return obj == this || obj != null && obj instanceof OWLObject;
     }
 
@@ -241,8 +244,8 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
         return ss1.size() - ss2.size();
     }
 
-    protected static int compareLists(List<? extends OWLObject> list1,
-            List<? extends OWLObject> list2) {
+    protected static int compareLists(@Nonnull List<? extends OWLObject> list1,
+            @Nonnull List<? extends OWLObject> list2) {
         int i = 0;
         int size = list1.size() < list2.size() ? list1.size() : list2.size();
         while (i < size) {

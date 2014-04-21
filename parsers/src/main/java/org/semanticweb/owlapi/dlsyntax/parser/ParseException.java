@@ -16,11 +16,13 @@ package org.semanticweb.owlapi.dlsyntax.parser;
 
 import org.semanticweb.owlapi.io.OWLParserException;
 
+import javax.annotation.Nonnull;
+
 class ParseException extends OWLParserException {
 
     private static final long serialVersionUID = 40000L;
 
-    ParseException(Token currentTokenVal, int[][] expectedTokenSequencesVal,
+    ParseException(@Nonnull Token currentTokenVal, @Nonnull int[][] expectedTokenSequencesVal,
             String[] tokenImageVal) {
         super(initialise(currentTokenVal, expectedTokenSequencesVal,
                 tokenImageVal));
@@ -41,8 +43,8 @@ class ParseException extends OWLParserException {
     int[][] expectedTokenSequences;
     String[] tokenImage;
 
-    private static String initialise(Token currentToken,
-            int[][] expectedTokenSequences, String[] tokenImage) {
+    private static String initialise(@Nonnull Token currentToken,
+            @Nonnull int[][] expectedTokenSequences, String[] tokenImage) {
         String eol = System.getProperty("line.separator", "\n");
         StringBuffer expected = new StringBuffer();
         int maxSize = 0;
@@ -89,7 +91,8 @@ class ParseException extends OWLParserException {
 
     protected String eol = System.getProperty("line.separator", "\n");
 
-    static String add_escapes(String str) {
+    @Nonnull
+    static String add_escapes(@Nonnull String str) {
         StringBuffer retval = new StringBuffer();
         char ch;
         for (int i = 0; i < str.length(); i++) {

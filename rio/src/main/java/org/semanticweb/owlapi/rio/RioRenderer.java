@@ -64,6 +64,9 @@ import org.semanticweb.owlapi.util.VersionInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * @author Peter Ansell p_ansell@yahoo.com
  */
@@ -73,12 +76,15 @@ public class RioRenderer extends RDFRendererBase {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private RDFHandler writer;
     private DefaultPrefixManager pm;
+    @Nullable
     private Set<RDFResource> pendingNodes;
+    @Nullable
     private AtomicInteger renderedTriples;
+    @Nullable
     private Set<Statement> renderedStatements;
     private Resource[] contexts;
 
-    public RioRenderer(final OWLOntology ontology, final RDFHandler writer,
+    public RioRenderer(@Nonnull final OWLOntology ontology, final RDFHandler writer,
             final OWLOntologyFormat format, final Resource... contexts) {
         super(ontology, format);
         OpenRDFUtil.verifyContextNotNull(contexts);
@@ -111,7 +117,7 @@ public class RioRenderer extends RDFRendererBase {
         renderedTriples = new AtomicInteger(0);
         try {
             writer.startRDF();
-        } catch (final RDFHandlerException e) {
+        } catch (@Nonnull final RDFHandlerException e) {
             throw new IOException(e);
         }
         // Namespaces
@@ -123,7 +129,7 @@ public class RioRenderer extends RDFRendererBase {
         writeComment(VersionInfo.getVersionInfo().getGeneratedByMessage());
         try {
             writer.endRDF();
-        } catch (final RDFHandlerException e) {
+        } catch (@Nonnull final RDFHandlerException e) {
             throw new IOException(e);
         }
         // writer.flush();
@@ -196,7 +202,7 @@ public class RioRenderer extends RDFRendererBase {
                             "not printing duplicate statement, or recursing on its object: {}",
                             referenceStatement);
                 }
-            } catch (final RDFHandlerException e) {
+            } catch (@Nonnull final RDFHandlerException e) {
                 throw new IOException(e);
             }
         }
@@ -205,7 +211,7 @@ public class RioRenderer extends RDFRendererBase {
 
     @Override
     protected void writeAnnotationPropertyComment(
-            final OWLAnnotationProperty prop) throws IOException {
+            @Nonnull final OWLAnnotationProperty prop) throws IOException {
         writeComment(prop.getIRI().toString());
     }
 
@@ -223,14 +229,14 @@ public class RioRenderer extends RDFRendererBase {
     }
 
     @Override
-    protected void writeClassComment(final OWLClass cls) throws IOException {
+    protected void writeClassComment(@Nonnull final OWLClass cls) throws IOException {
         writeComment(cls.getIRI().toString());
     }
 
     private void writeComment(final String comment) throws IOException {
         try {
             writer.handleComment(comment);
-        } catch (final RDFHandlerException e) {
+        } catch (@Nonnull final RDFHandlerException e) {
             throw new IOException(e);
         }
         // write("###  ");
@@ -240,19 +246,19 @@ public class RioRenderer extends RDFRendererBase {
     }
 
     @Override
-    protected void writeDataPropertyComment(final OWLDataProperty prop)
+    protected void writeDataPropertyComment(@Nonnull final OWLDataProperty prop)
             throws IOException {
         writeComment(prop.getIRI().toString());
     }
 
     @Override
-    protected void writeDatatypeComment(final OWLDatatype datatype)
+    protected void writeDatatypeComment(@Nonnull final OWLDatatype datatype)
             throws IOException {
         writeComment(datatype.getIRI().toString());
     }
 
     @Override
-    protected void writeIndividualComments(final OWLNamedIndividual ind)
+    protected void writeIndividualComments(@Nonnull final OWLNamedIndividual ind)
             throws IOException {
         writeComment(ind.getIRI().toString());
     }
@@ -270,14 +276,14 @@ public class RioRenderer extends RDFRendererBase {
             }
             try {
                 writer.handleNamespace(prefixName, prefix);
-            } catch (final RDFHandlerException e) {
+            } catch (@Nonnull final RDFHandlerException e) {
                 throw new IOException(e);
             }
         }
     }
 
     @Override
-    protected void writeObjectPropertyComment(final OWLObjectProperty prop)
+    protected void writeObjectPropertyComment(@Nonnull final OWLObjectProperty prop)
             throws IOException {
         writeComment(prop.getIRI().toString());
     }

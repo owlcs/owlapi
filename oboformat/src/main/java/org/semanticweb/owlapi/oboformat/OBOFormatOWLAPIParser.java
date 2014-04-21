@@ -39,6 +39,7 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.util.OWLOntologyFormatFactoryImpl;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /** oboformat parser */
 @HasPriority(value = 5)
@@ -78,8 +79,8 @@ public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
         return format;
     }
 
-    private OWLOntology parse(IRI iri, OWLOntologyDocumentSource source,
-            OWLOntology in) throws MalformedURLException, IOException,
+    private OWLOntology parse(@Nullable IRI iri, @Nonnull OWLOntologyDocumentSource source,
+            @Nonnull OWLOntology in) throws MalformedURLException, IOException,
             OWLOntologyCreationException {
         OBOFormatParser p = new OBOFormatParser();
         OBODoc obodoc = null;
@@ -110,6 +111,7 @@ public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
         return "OWLoboformatParser";
     }
 
+    @Nonnull
     @SuppressWarnings("unchecked")
     @Override
     public Set<Class<OWLOntologyFormat>> getSupportedFormatClasses() {
@@ -117,6 +119,7 @@ public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
                 .singleton((Class<OWLOntologyFormat>) (Class<? extends OWLOntologyFormat>) OBOOntologyFormat.class);
     }
 
+    @Nonnull
     @Override
     public Set<OWLOntologyFormatFactory> getSupportedFormats() {
         return Collections

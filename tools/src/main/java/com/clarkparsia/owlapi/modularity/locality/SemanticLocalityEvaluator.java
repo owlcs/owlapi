@@ -18,6 +18,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
@@ -59,6 +60,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
 
     protected static final Logger LOGGER = LoggerFactory
             .getLogger(SemanticLocalityEvaluator.class);
+    @Nonnull
     protected final OWLDataFactory df;
     private final AxiomLocalityVisitor axiomVisitor = new AxiomLocalityVisitor();
     private final BottomReplacer bottomReplacer = new BottomReplacer();
@@ -102,7 +104,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
          *        the axiom
          * @return true, if is local
          */
-        public boolean isLocal(OWLAxiom axiom) {
+        public boolean isLocal(@Nonnull OWLAxiom axiom) {
             reset();
             axiom.accept(this);
             return isLocal();
@@ -142,13 +144,16 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
     private class BottomReplacer extends OWLAxiomVisitorAdapter implements
             OWLAxiomVisitor, OWLClassExpressionVisitor {
 
+        @Nullable
         private OWLAxiom newAxiom;
+        @Nullable
         private OWLClassExpression newClassExpression;
         private Set<? extends OWLEntity> signature;
 
         public BottomReplacer() {}
 
         /** @return the result */
+        @Nullable
         public OWLAxiom getResult() {
             return newAxiom;
         }

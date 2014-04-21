@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.rdf.rdfxml.renderer;
 
+import javax.annotation.Nonnull;
+
 /**
  * Developed as part of the CO-ODE project http://www.co-ode.org
  * 
@@ -21,6 +23,7 @@ package org.semanticweb.owlapi.rdf.rdfxml.renderer;
  */
 public class XMLWriterPreferences {
 
+    @Nonnull
     private static XMLWriterPreferences instance = new XMLWriterPreferences();
     private boolean useNamespaceEntities;
     private boolean indenting;
@@ -33,6 +36,7 @@ public class XMLWriterPreferences {
     }
 
     /** @return the only instance */
+    @Nonnull
     public static XMLWriterPreferences getInstance() {
         return instance;
     }

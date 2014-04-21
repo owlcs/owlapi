@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapitools.builders;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -31,7 +33,9 @@ import org.semanticweb.owlapi.model.OWLObject;
 public abstract class BaseDomainBuilder<T extends OWLObject, Type, Property>
         extends BaseBuilder<T, Type> {
 
+    @Nullable
     protected Property property = null;
+    @Nullable
     protected OWLClassExpression domain = null;
 
     /**
@@ -48,6 +52,7 @@ public abstract class BaseDomainBuilder<T extends OWLObject, Type, Property>
      *        domain
      * @return builder
      */
+    @Nonnull
     @SuppressWarnings("unchecked")
     public Type withDomain(OWLClassExpression arg) {
         domain = arg;
@@ -59,6 +64,7 @@ public abstract class BaseDomainBuilder<T extends OWLObject, Type, Property>
      *        property
      * @return builder
      */
+    @Nonnull
     @SuppressWarnings("unchecked")
     public Type withProperty(Property arg) {
         property = arg;

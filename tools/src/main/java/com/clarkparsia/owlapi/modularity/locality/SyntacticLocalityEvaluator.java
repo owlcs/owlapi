@@ -92,6 +92,7 @@ import org.semanticweb.owlapi.model.SWRLRule;
 /** Syntactic locality evaluator. */
 public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
+    @Nonnull
     protected final LocalityClass localityCls;
     private final AxiomLocalityVisitor axiomVisitor = new AxiomLocalityVisitor();
     private static final EnumSet<LocalityClass> SUPPORTED_LOCALITY_CLASSES = EnumSet

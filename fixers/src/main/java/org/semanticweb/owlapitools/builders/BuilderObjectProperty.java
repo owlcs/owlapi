@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapitools.builders;
 
+import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -29,7 +30,7 @@ public class BuilderObjectProperty extends
      * @param df
      *        data factory
      */
-    public BuilderObjectProperty(OWLObjectProperty expected, OWLDataFactory df) {
+    public BuilderObjectProperty(@Nonnull OWLObjectProperty expected, OWLDataFactory df) {
         this(df);
         withIRI(expected.getIRI());
     }
@@ -43,6 +44,7 @@ public class BuilderObjectProperty extends
         super(df);
     }
 
+    @Nonnull
     @Override
     public OWLObjectProperty buildObject() {
         if (pm != null && string != null) {

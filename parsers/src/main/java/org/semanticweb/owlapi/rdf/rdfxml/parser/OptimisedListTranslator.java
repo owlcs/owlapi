@@ -12,6 +12,8 @@ import org.semanticweb.owlapi.rdf.rdfxml.parser.Translators.ListItemTranslator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.Nonnull;
+
 /**
  * Translates an rdf:List into a Java {@code List}, or Java {@code Set}. The
  * type of list (i.e. the type of objects in the list) are determined by a
@@ -47,7 +49,7 @@ class OptimisedListTranslator<O extends OWLObject> {
         return consumer;
     }
 
-    private void translateList(IRI mainNode, List<O> list) {
+    private void translateList(IRI mainNode, @Nonnull List<O> list) {
         IRI current = mainNode;
         while (current != null) {
             IRI firstResource = consumer.getFirstResource(current, true);
@@ -83,7 +85,7 @@ class OptimisedListTranslator<O extends OWLObject> {
      * @return translated list
      */
     @SuppressWarnings("unchecked")
-    public List<O> translateList(IRI mainNode) {
+    public List<O> translateList(@Nonnull IRI mainNode) {
         boolean shared = consumer.isAnonymousSharedNode(mainNode.toString());
         List<O> list;
         if (shared) {
@@ -107,7 +109,8 @@ class OptimisedListTranslator<O extends OWLObject> {
      *        mainNode
      * @return translated list
      */
-    public Set<O> translateToSet(IRI mainNode) {
+    @Nonnull
+    public Set<O> translateToSet(@Nonnull IRI mainNode) {
         return new LinkedHashSet<O>(translateList(mainNode));
     }
 }

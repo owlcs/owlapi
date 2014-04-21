@@ -34,6 +34,7 @@ public abstract class OWLNaryDataRangeImpl extends OWLObjectImpl implements
         OWLNaryDataRange {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final Set<OWLDataRange> operands;
 
     protected OWLNaryDataRangeImpl(@Nonnull Set<? extends OWLDataRange> operands) {

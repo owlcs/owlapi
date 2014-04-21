@@ -43,6 +43,7 @@ public class OWLFunctionalSyntaxOWLParser extends AbstractOWLParser {
         return "OWLFunctionalSyntaxOWLParser";
     }
 
+    @Nonnull
     @Override
     protected Class<? extends OWLOntologyFormat> getFormatClass() {
         return OWLFunctionalSyntaxOntologyFormat.class;

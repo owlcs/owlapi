@@ -67,6 +67,7 @@ import org.semanticweb.owlapi.model.SWRLRule;
 public class SatisfiabilityReducer implements
         OWLAxiomVisitorEx<OWLClassExpression> {
 
+    @Nonnull
     private final OWLDataFactory df;
 
     /**

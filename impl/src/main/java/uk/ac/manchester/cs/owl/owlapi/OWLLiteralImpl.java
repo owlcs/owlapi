@@ -54,8 +54,11 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
 
     private static final long serialVersionUID = 40000L;
     private static final int COMPRESSION_LIMIT = 160;
+    @Nonnull
     private final LiteralWrapper literal;
+    @Nullable
     private final OWLDatatype datatype;
+    @Nullable
     private final String lang;
     private final int hashcode;
 
@@ -231,6 +234,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
         visitor.visit(this);
     }
 
+    @Nullable
     @Override
     public <O> O accept(@Nonnull OWLDataVisitorEx<O> visitor) {
         return visitor.visit(this);
@@ -283,10 +287,12 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     private static final class LiteralWrapper implements Serializable {
 
         private static final long serialVersionUID = 40000L;
+        @Nullable
         String l;
+        @Nullable
         byte[] bytes;
 
-        LiteralWrapper(String s) {
+        LiteralWrapper(@Nonnull String s) {
             if (s.length() > COMPRESSION_LIMIT) {
                 try {
                     bytes = compress(s);
@@ -302,6 +308,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
             }
         }
 
+        @Nullable
         String get() {
             if (l != null) {
                 return l;
@@ -315,7 +322,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
             }
         }
 
-        byte[] compress(String s) throws IOException {
+        byte[] compress(@Nonnull String s) throws IOException {
             ByteArrayOutputStream out = new ByteArrayOutputStream();
             GZIPOutputStream zipout;
             zipout = new GZIPOutputStream(out);
@@ -327,6 +334,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
             return out.toByteArray();
         }
 
+        @Nonnull
         String decompress(byte[] result) throws IOException {
             ByteArrayInputStream in = new ByteArrayInputStream(result);
             GZIPInputStream zipin = new GZIPInputStream(in);

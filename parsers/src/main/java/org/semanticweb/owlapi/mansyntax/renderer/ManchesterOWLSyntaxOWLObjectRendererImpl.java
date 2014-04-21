@@ -70,6 +70,7 @@ public class ManchesterOWLSyntaxOWLObjectRendererImpl implements
             delegate = new StringWriter();
         }
 
+        @Nonnull
         @Override
         public String toString() {
             return delegate.getBuffer().toString();

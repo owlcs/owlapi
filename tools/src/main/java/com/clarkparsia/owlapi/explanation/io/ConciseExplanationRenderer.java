@@ -63,7 +63,7 @@ public class ConciseExplanationRenderer implements ExplanationRenderer {
         writer.println();
     }
 
-    private void renderMultipleExplanations(Set<Set<OWLAxiom>> explanations) {
+    private void renderMultipleExplanations(@Nonnull Set<Set<OWLAxiom>> explanations) {
         int count = 1;
         for (Set<OWLAxiom> exp : explanations) {
             String header = count++ + ") ";
@@ -71,7 +71,7 @@ public class ConciseExplanationRenderer implements ExplanationRenderer {
         }
     }
 
-    private void renderSingleExplanation(String _header, Set<OWLAxiom> axioms) {
+    private void renderSingleExplanation(String _header, @Nonnull Set<OWLAxiom> axioms) {
         String header = _header;
         boolean first = true;
         for (OWLAxiom axiom : axioms) {

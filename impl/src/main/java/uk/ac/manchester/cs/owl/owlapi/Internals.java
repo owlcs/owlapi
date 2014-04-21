@@ -85,6 +85,7 @@ import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
 import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /** @author ignazio */
 public class Internals implements Serializable {
@@ -138,11 +139,13 @@ public class Internals implements Serializable {
             return set.isEmpty();
         }
 
+        @Nonnull
         public Set<K> copy() {
             return CollectionFactory
                     .getCopyOnRequestSetFromMutableCollection(set);
         }
 
+        @Nonnull
         public Iterable<K> iterable() {
             return set;
         }
@@ -236,8 +239,9 @@ public class Internals implements Serializable {
      *        value type
      * @return map pointer matching the search, or null if there is not one
      */
+    @Nullable
     <T extends OWLObject, A extends OWLAxiom> MapPointer<T, A> get(
-            Class<T> type, Class<A> axiom) {
+            @Nonnull Class<T> type, @Nonnull Class<A> axiom) {
         return get(type, axiom, Search.IN_SUB_POSITION);
     }
 
@@ -255,9 +259,10 @@ public class Internals implements Serializable {
      *        value type
      * @return map pointer matching the search, or null if there is not one
      */
+    @Nullable
     @SuppressWarnings("unchecked")
     <T extends OWLObject, A extends OWLAxiom> MapPointer<T, A> get(
-            Class<T> type, Class<A> axiom, Search position) {
+            @Nonnull Class<T> type, @Nonnull Class<A> axiom, Search position) {
         if (OWLEntity.class.isAssignableFrom(type)
                 && axiom.equals(OWLDeclarationAxiom.class)) {
             return (MapPointer<T, A>) declarationsByEntity;
@@ -412,19 +417,23 @@ public class Internals implements Serializable {
         return null;
     }
 
+    @Nonnull
     protected <K, V extends OWLAxiom> MapPointer<K, V> build() {
         return build(null, null);
     }
 
+    @Nonnull
     protected <K, V extends OWLAxiom> MapPointer<K, V> buildLazy(
             AxiomType<?> t, OWLAxiomVisitorEx<?> v) {
         return new MapPointer<K, V>(t, v, false, this);
     }
 
+    @Nonnull
     protected ClassAxiomByClassPointer buildClassAxiomByClass() {
         return new ClassAxiomByClassPointer(null, null, false, this);
     }
 
+    @Nonnull
     protected <K, V extends OWLAxiom> MapPointer<K, V> build(AxiomType<?> t,
             OWLAxiomVisitorEx<?> v) {
         return new MapPointer<K, V>(t, v, true, this);
@@ -435,7 +444,7 @@ public class Internals implements Serializable {
      *        axiom to add
      * @return true if the axiom was not already included
      */
-    public boolean addAxiom(final OWLAxiom axiom) {
+    public boolean addAxiom(@Nonnull final OWLAxiom axiom) {
         checkNotNull(axiom, "axiom cannot be null");
         if (getAxiomsByType().put(axiom.getAxiomType(), axiom)) {
             axiom.accept(addChangeVisitor);
@@ -486,7 +495,7 @@ public class Internals implements Serializable {
      *        axiom to remove
      * @return true if removed
      */
-    public boolean removeAxiom(final OWLAxiom axiom) {
+    public boolean removeAxiom(@Nonnull final OWLAxiom axiom) {
         checkNotNull(axiom, "axiom cannot be null");
         if (getAxiomsByType().remove(axiom.getAxiomType(), axiom)) {
             axiom.accept(removeChangeVisitor);
@@ -560,8 +569,9 @@ public class Internals implements Serializable {
      *        key
      * @return set of values
      */
+    @Nonnull
     public <T extends OWLAxiom, K> Collection<OWLAxiom> filterAxioms(
-            OWLAxiomSearchFilter filter, K key) {
+            @Nonnull OWLAxiomSearchFilter filter, @Nonnull K key) {
         Collection<OWLAxiom> toReturn = new ArrayList<OWLAxiom>();
         for (AxiomType<?> at : filter.getAxiomTypes()) {
             for (OWLAxiom t : getAxiomsByType().getValues(at)) {
@@ -581,7 +591,7 @@ public class Internals implements Serializable {
      * @return true if the filter is matched at least once
      */
     public <T extends OWLAxiom, K> boolean contains(
-            OWLAxiomSearchFilter filter, K key) {
+            @Nonnull OWLAxiomSearchFilter filter, @Nonnull K key) {
         for (AxiomType<?> at : filter.getAxiomTypes()) {
             for (OWLAxiom t : getAxiomsByType().getValues(at)) {
                 if (filter.pass(t, key)) {
@@ -599,6 +609,7 @@ public class Internals implements Serializable {
      *        iteration)
      * @return iterable of imports declaration
      */
+    @Nonnull
     public Iterable<OWLImportsDeclaration> getImportsDeclarations(boolean copy) {
         if (!copy) {
             return importsDeclarations.iterable();
@@ -633,6 +644,7 @@ public class Internals implements Serializable {
      *        iteration)
      * @return iterable of annotations
      */
+    @Nonnull
     Iterable<OWLAnnotation> getOntologyAnnotations(boolean copy) {
         if (!copy) {
             return ontologyAnnotations.iterable();
@@ -672,7 +684,7 @@ public class Internals implements Serializable {
      * @return true if the pair (key, value) is contained
      */
     public <K, V extends OWLAxiom> boolean
-            contains(MapPointer<K, V> p, K k, V v) {
+            contains(@Nonnull MapPointer<K, V> p, K k, V v) {
         return p.contains(k, v);
     }
 
@@ -708,6 +720,7 @@ public class Internals implements Serializable {
     /**
      * @return logical axioms
      */
+    @Nonnull
     public Set<OWLLogicalAxiom> getLogicalAxioms() {
         Set<OWLLogicalAxiom> axioms = createSet();
         for (AxiomType<?> type : AXIOM_TYPES) {
@@ -742,6 +755,7 @@ public class Internals implements Serializable {
     /**
      * @return copy of GCI axioms
      */
+    @Nonnull
     public Set<OWLClassAxiom> getGeneralClassAxioms() {
         return generalClassAxioms.copy();
     }
@@ -787,6 +801,7 @@ public class Internals implements Serializable {
     /**
      * @return map of axioms by type
      */
+    @Nonnull
     public MapPointer<AxiomType<?>, OWLAxiom> getAxiomsByType() {
         return axiomsByType;
     }
@@ -1293,6 +1308,7 @@ public class Internals implements Serializable {
         }
     }
 
+    @Nonnull
     @Override
     public String toString() {
         StringBuilder b = new StringBuilder("Internals{");
@@ -1308,7 +1324,7 @@ public class Internals implements Serializable {
      *        entity to check
      * @return true if reference is contained
      */
-    public boolean containsReference(OWLEntity entity) {
+    public boolean containsReference(@Nonnull OWLEntity entity) {
         return entity.accept(refChecker);
     }
 
@@ -1317,7 +1333,7 @@ public class Internals implements Serializable {
      *        entity to describe
      * @return referencing axioms
      */
-    public Set<OWLAxiom> getReferencingAxioms(OWLEntity owlEntity) {
+    public Set<OWLAxiom> getReferencingAxioms(@Nonnull OWLEntity owlEntity) {
         return owlEntity.accept(refAxiomsCollector);
     }
 

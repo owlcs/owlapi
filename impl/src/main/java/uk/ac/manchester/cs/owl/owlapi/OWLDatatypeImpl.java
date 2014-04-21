@@ -15,6 +15,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.DataRangeType;
 import org.semanticweb.owlapi.model.EntityType;
@@ -48,6 +49,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final IRI iri;
     private final boolean top;
     private final boolean builtin;
@@ -258,11 +260,13 @@ public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
         visitor.visit(this);
     }
 
+    @Nullable
     @Override
     public <O> O accept(@Nonnull OWLEntityVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Nullable
     @Override
     public <O> O accept(@Nonnull OWLDataVisitorEx<O> visitor) {
         return visitor.visit(this);
@@ -278,13 +282,14 @@ public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
         visitor.visit(this);
     }
 
+    @Nonnull
     @Override
     public <O> O accept(@Nonnull OWLDataRangeVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    protected int compareObjectOfSameType(OWLObject object) {
+    protected int compareObjectOfSameType(@Nonnull OWLObject object) {
         return iri.compareTo(((OWLDatatype) object).getIRI());
     }
 }

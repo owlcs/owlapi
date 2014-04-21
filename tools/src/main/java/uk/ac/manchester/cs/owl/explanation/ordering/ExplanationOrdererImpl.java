@@ -91,6 +91,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
     private final Map<OWLEntity, Set<OWLAxiom>> lhs2AxiomMap = new HashMap<OWLEntity, Set<OWLAxiom>>();
     private final Map<OWLAxiom, Set<OWLEntity>> entitiesByAxiomRHS = new HashMap<OWLAxiom, Set<OWLEntity>>();
     private final SeedExtractor seedExtractor = new SeedExtractor();
+    @Nonnull
     private final OWLOntologyManager man;
     private OWLOntology ont;
     private final Map<OWLObject, Set<OWLAxiom>> mappedAxioms = new HashMap<OWLObject, Set<OWLAxiom>>();
@@ -213,12 +214,14 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
     }
 
     /** The comparator. */
+    @Nonnull
     private static Comparator<Tree<OWLAxiom>> comparator = new OWLAxiomTreeComparator();
 
     private void sortChildrenAxioms(@Nonnull ExplanationTree tree) {
         tree.sortChildren(comparator);
     }
 
+    @Nonnull
     private static AtomicLong randomstart = new AtomicLong(
             System.currentTimeMillis());
 
@@ -318,6 +321,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
     /** The Class TargetAxiomsComparator. */
     private static class TargetAxiomsComparator implements Comparator<OWLAxiom> {
 
+        @Nonnull
         private final Set<OWLAxiom> targetAxioms;
 
         /**
@@ -363,6 +367,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
     }
 
     /** The properties first comparator. */
+    @Nonnull
     private static PropertiesFirstComparator propertiesFirstComparator = new PropertiesFirstComparator();
 
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -376,7 +381,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
         public OWLAxiomTreeComparator() {}
 
         @Override
-        public int compare(Tree<OWLAxiom> o1, Tree<OWLAxiom> o2) {
+        public int compare(@Nonnull Tree<OWLAxiom> o1, @Nonnull Tree<OWLAxiom> o2) {
             OWLAxiom ax1 = o1.getUserObject();
             OWLAxiom ax2 = o2.getUserObject();
             // Equivalent classes axioms always come last
@@ -402,7 +407,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
             return 1;
         }
 
-        private int childDiff(Tree<OWLAxiom> o1, Tree<OWLAxiom> o2) {
+        private int childDiff(@Nonnull Tree<OWLAxiom> o1, @Nonnull Tree<OWLAxiom> o2) {
             int childCount1 = o1.getChildCount();
             childCount1 = childCount1 > 0 ? 0 : 1;
             int childCount2 = o2.getChildCount();

@@ -15,6 +15,7 @@ package org.semanticweb.owlapi.reasoner.impl;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 
@@ -44,11 +45,13 @@ public class OWLNamedIndividualNode extends DefaultNode<OWLNamedIndividual> {
         super(entities);
     }
 
+    @Nullable
     @Override
     protected OWLNamedIndividual getTopEntity() {
         return null;
     }
 
+    @Nullable
     @Override
     protected OWLNamedIndividual getBottomEntity() {
         return null;

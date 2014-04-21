@@ -44,6 +44,8 @@ import org.semanticweb.owlapi.model.OWLOntologyStorer;
 import org.semanticweb.owlapi.model.OWLOntologyStorerFactory;
 import org.semanticweb.owlapi.util.OWLOntologyFormatFactoryImpl;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Peter Ansell p_ansell@yahoo.com
  */
@@ -53,6 +55,7 @@ public class RioTurtleOntologyStorerFactory implements
 
     private static final long serialVersionUID = 40000L;
 
+    @Nonnull
     @Override
     public OWLOntologyStorer createStorer() {
         return new RioOntologyStorer(new TurtleOntologyFormatFactory());
@@ -64,6 +67,7 @@ public class RioTurtleOntologyStorerFactory implements
                 TurtleOntologyFormat.class);
     }
 
+    @Nonnull
     @Override
     public OWLOntologyStorer get() {
         return createStorer();

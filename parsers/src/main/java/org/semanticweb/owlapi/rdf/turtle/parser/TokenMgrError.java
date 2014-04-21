@@ -2,6 +2,8 @@
 /* JavaCCOptions: */
 package org.semanticweb.owlapi.rdf.turtle.parser;
 
+import javax.annotation.Nonnull;
+
 @SuppressWarnings("all")
 class TokenMgrError extends Error {
 
@@ -12,7 +14,8 @@ class TokenMgrError extends Error {
     static final int LOOP_DETECTED = 3;
     int errorCode;
 
-    static final String addEscapes(String str) {
+    @Nonnull
+    static final String addEscapes(@Nonnull String str) {
         StringBuffer retval = new StringBuffer();
         char ch;
         for (int i = 0; i < str.length(); i++) {
@@ -57,8 +60,9 @@ class TokenMgrError extends Error {
         return retval.toString();
     }
 
+    @Nonnull
     static String LexicalError(boolean EOFSeen, int lexState, int errorLine,
-            int errorColumn, String errorAfter, char curChar) {
+            int errorColumn, @Nonnull String errorAfter, char curChar) {
         return "Lexical error at line "
                 + errorLine
                 + ", column "
@@ -78,7 +82,7 @@ class TokenMgrError extends Error {
     }
 
     TokenMgrError(boolean EOFSeen, int lexState, int errorLine,
-            int errorColumn, String errorAfter, char curChar, int reason) {
+            int errorColumn, @Nonnull String errorAfter, char curChar, int reason) {
         this(LexicalError(EOFSeen, lexState, errorLine, errorColumn,
                 errorAfter, curChar), reason);
     }

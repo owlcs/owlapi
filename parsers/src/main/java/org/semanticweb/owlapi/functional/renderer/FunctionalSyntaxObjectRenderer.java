@@ -56,7 +56,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
      * @param writer
      *        the writer
      */
-    public FunctionalSyntaxObjectRenderer(OWLOntology ontology, Writer writer) {
+    public FunctionalSyntaxObjectRenderer(@Nonnull OWLOntology ontology, Writer writer) {
         this.ontology = ontology;
         this.writer = writer;
         prefixManager = new DefaultPrefixManager();
@@ -108,7 +108,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
      * @param namespace
      *        the namespace
      */
-    public void writePrefix(String prefix, String namespace) {
+    public void writePrefix(@Nonnull String prefix, @Nonnull String namespace) {
         write("Prefix");
         writeOpenBracket();
         write(prefix);
@@ -127,11 +127,11 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         }
     }
 
-    private void write(OWLXMLVocabulary v) {
+    private void write(@Nonnull OWLXMLVocabulary v) {
         write(v.getShortForm());
     }
 
-    private void write(String s) {
+    private void write(@Nonnull String s) {
         try {
             writer.write(s);
         } catch (IOException e) {
@@ -147,7 +147,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         }
     }
 
-    private void write(IRI iri) {
+    private void write(@Nonnull IRI iri) {
         String qname = prefixManager.getPrefixIRI(iri);
         if (qname != null) {
             write(qname);
@@ -156,7 +156,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         }
     }
 
-    private void writeFullIRI(IRI iri) {
+    private void writeFullIRI(@Nonnull IRI iri) {
         write("<");
         write(iri.getNamespace());
         if (iri.getFragment() != null) {
@@ -219,13 +219,15 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
      *        The entity
      * @return The set of axioms that was written out
      */
-    public Set<OWLAxiom> writeAxioms(OWLEntity entity) {
+    @Nonnull
+    public Set<OWLAxiom> writeAxioms(@Nonnull OWLEntity entity) {
         Set<OWLAxiom> writtenAxioms = new HashSet<OWLAxiom>();
         return writeAxioms(entity, writtenAxioms);
     }
 
-    private Set<OWLAxiom> writeAxioms(OWLEntity entity,
-            Set<OWLAxiom> alreadyWrittenAxioms) {
+    @Nonnull
+    private Set<OWLAxiom> writeAxioms(@Nonnull OWLEntity entity,
+            @Nonnull Set<OWLAxiom> alreadyWrittenAxioms) {
         Set<OWLAxiom> writtenAxioms = new HashSet<OWLAxiom>();
         setFocusedObject(entity);
         writtenAxioms.addAll(writeDeclarations(entity, alreadyWrittenAxioms));
@@ -296,7 +298,8 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
      *        The entity
      * @return The axioms that were written out
      */
-    public Set<OWLAxiom> writeDeclarations(OWLEntity entity) {
+    @Nonnull
+    public Set<OWLAxiom> writeDeclarations(@Nonnull OWLEntity entity) {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         for (OWLAxiom ax : ontology.getDeclarationAxioms(entity)) {
             ax.accept(this);
@@ -306,8 +309,9 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         return axioms;
     }
 
-    private Set<OWLAxiom> writeDeclarations(OWLEntity entity,
-            Set<OWLAxiom> alreadyWrittenAxioms) {
+    @Nonnull
+    private Set<OWLAxiom> writeDeclarations(@Nonnull OWLEntity entity,
+            @Nonnull Set<OWLAxiom> alreadyWrittenAxioms) {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         for (OWLAxiom ax : ontology.getDeclarationAxioms(entity)) {
             if (!alreadyWrittenAxioms.contains(ax)) {
@@ -327,7 +331,8 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
      *        The entity
      * @return The set of axioms that were written out
      */
-    public Set<OWLAxiom> writeAnnotations(OWLEntity entity) {
+    @Nonnull
+    public Set<OWLAxiom> writeAnnotations(@Nonnull OWLEntity entity) {
         Set<OWLAxiom> annotationAssertions = new HashSet<OWLAxiom>();
         for (OWLAnnotationAxiom ax : ontology
                 .getAnnotationAssertionAxioms(entity.getIRI())) {
@@ -346,14 +351,14 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
      * @param o
      *        the o
      */
-    public void write(OWLXMLVocabulary v, OWLObject o) {
+    public void write(@Nonnull OWLXMLVocabulary v, @Nonnull OWLObject o) {
         write(v);
         write("(");
         o.accept(this);
         write(")");
     }
 
-    private void write(Collection<? extends OWLObject> objects) {
+    private void write(@Nonnull Collection<? extends OWLObject> objects) {
         if (objects.size() > 2) {
             for (Iterator<? extends OWLObject> it = objects.iterator(); it
                     .hasNext();) {
@@ -382,7 +387,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         }
     }
 
-    private void write(List<? extends OWLObject> objects) {
+    private void write(@Nonnull List<? extends OWLObject> objects) {
         if (objects.size() > 1) {
             for (Iterator<? extends OWLObject> it = objects.iterator(); it
                     .hasNext();) {
@@ -425,7 +430,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
      * @param ax
      *        the ax
      */
-    public void writeAnnotations(OWLAxiom ax) {
+    public void writeAnnotations(@Nonnull OWLAxiom ax) {
         for (OWLAnnotation anno : ax.getAnnotations()) {
             anno.accept(this);
             write(" ");
@@ -440,7 +445,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
      * @param axiom
      *        the axiom
      */
-    public void writeAxiomStart(OWLXMLVocabulary v, OWLAxiom axiom) {
+    public void writeAxiomStart(@Nonnull OWLXMLVocabulary v, @Nonnull OWLAxiom axiom) {
         write(v);
         writeOpenBracket();
         writeAnnotations(axiom);
@@ -461,8 +466,8 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
      * @param prop
      *        the prop
      */
-    public void writePropertyCharacteristic(OWLXMLVocabulary v, OWLAxiom ax,
-            OWLPropertyExpression prop) {
+    public void writePropertyCharacteristic(@Nonnull OWLXMLVocabulary v, @Nonnull OWLAxiom ax,
+            @Nonnull OWLPropertyExpression prop) {
         writeAxiomStart(v, ax);
         prop.accept(this);
         writeAxiomEnd();
@@ -797,8 +802,8 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     private <F extends OWLPropertyRange> void writeRestriction(
-            OWLXMLVocabulary v, OWLCardinalityRestriction<F> restriction,
-            OWLPropertyExpression p) {
+            @Nonnull OWLXMLVocabulary v, @Nonnull OWLCardinalityRestriction<F> restriction,
+            @Nonnull OWLPropertyExpression p) {
         write(v);
         writeOpenBracket();
         write(Integer.toString(restriction.getCardinality()));
@@ -811,18 +816,18 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         writeCloseBracket();
     }
 
-    private void writeRestriction(OWLXMLVocabulary v,
-            OWLQuantifiedDataRestriction restriction) {
+    private void writeRestriction(@Nonnull OWLXMLVocabulary v,
+            @Nonnull OWLQuantifiedDataRestriction restriction) {
         writeRestriction(v, restriction.getProperty(), restriction.getFiller());
     }
 
-    private void writeRestriction(OWLXMLVocabulary v,
-            OWLQuantifiedObjectRestriction restriction) {
+    private void writeRestriction(@Nonnull OWLXMLVocabulary v,
+            @Nonnull OWLQuantifiedObjectRestriction restriction) {
         writeRestriction(v, restriction.getProperty(), restriction.getFiller());
     }
 
-    private void writeRestriction(OWLXMLVocabulary v,
-            OWLPropertyExpression prop, OWLObject filler) {
+    private void writeRestriction(@Nonnull OWLXMLVocabulary v,
+            @Nonnull OWLPropertyExpression prop, @Nonnull OWLObject filler) {
         write(v);
         writeOpenBracket();
         prop.accept(this);

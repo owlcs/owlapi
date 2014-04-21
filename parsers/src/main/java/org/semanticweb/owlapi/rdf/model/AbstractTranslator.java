@@ -25,6 +25,7 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.formats.RDFOntologyFormat;
 import org.semanticweb.owlapi.model.*;
@@ -170,23 +171,23 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
      */
     private
             <R extends OWLPropertyRange, P extends OWLPropertyExpression, F extends OWLPropertyRange>
-            void addRestrictionCommonTriplePropertyRange(OWLRestriction desc,
-                    OWLPropertyExpression property) {
+            void addRestrictionCommonTriplePropertyRange(@Nonnull OWLRestriction desc,
+                    @Nonnull OWLPropertyExpression property) {
         translateAnonymousNode(desc);
         addTriple(desc, RDF_TYPE.getIRI(), OWL_RESTRICTION.getIRI());
         addTriple(desc, OWL_ON_PROPERTY.getIRI(), property);
     }
 
     private void addRestrictionCommonTriplePropertyExpression(
-            OWLRestriction desc, OWLPropertyExpression property) {
+            @Nonnull OWLRestriction desc, @Nonnull OWLPropertyExpression property) {
         translateAnonymousNode(desc);
         addTriple(desc, RDF_TYPE.getIRI(), OWL_RESTRICTION.getIRI());
         addTriple(desc, OWL_ON_PROPERTY.getIRI(), property);
     }
 
     private void addObjectCardinalityRestrictionTriples(
-            OWLCardinalityRestriction<OWLClassExpression> ce,
-            OWLPropertyExpression p, OWLRDFVocabulary cardiPredicate) {
+            @Nonnull OWLCardinalityRestriction<OWLClassExpression> ce,
+            @Nonnull OWLPropertyExpression p, @Nonnull OWLRDFVocabulary cardiPredicate) {
         addRestrictionCommonTriplePropertyRange(ce, p);
         addTriple(ce, cardiPredicate.getIRI(),
                 toTypedConstant(ce.getCardinality()));
@@ -200,8 +201,8 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
     }
 
     private void addDataCardinalityRestrictionTriples(
-            OWLCardinalityRestriction<OWLDataRange> ce,
-            OWLPropertyExpression p, OWLRDFVocabulary cardiPredicate) {
+            @Nonnull OWLCardinalityRestriction<OWLDataRange> ce,
+            @Nonnull OWLPropertyExpression p, @Nonnull OWLRDFVocabulary cardiPredicate) {
         addRestrictionCommonTriplePropertyRange(ce, p);
         addTriple(ce, cardiPredicate.getIRI(),
                 toTypedConstant(ce.getCardinality()));
@@ -815,28 +816,29 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
     //
     // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /** Maps Objects to nodes. */
+    @Nonnull
     private Map<OWLObject, N> nodeMap = new IdentityHashMap<OWLObject, N>();
 
-    private void addSingleTripleAxiom(OWLAxiom ax, OWLObject subject, IRI pred,
-            OWLObject obj) {
+    private void addSingleTripleAxiom(@Nonnull OWLAxiom ax, @Nonnull OWLObject subject, IRI pred,
+            @Nonnull OWLObject obj) {
         addSingleTripleAxiom(ax, getResourceNode(subject),
                 getPredicateNode(pred), getNode(obj));
     }
 
-    private void addSingleTripleAxiom(OWLAxiom ax, OWLObject subject, IRI pred,
+    private void addSingleTripleAxiom(@Nonnull OWLAxiom ax, @Nonnull OWLObject subject, IRI pred,
             IRI obj) {
         addSingleTripleAxiom(ax, getResourceNode(subject),
                 getPredicateNode(pred), getResourceNode(obj));
     }
 
-    private void addSingleTripleAxiom(OWLAxiom ax, OWLObject subj, IRI pred,
-            Collection<? extends OWLObject> obj) {
+    private void addSingleTripleAxiom(@Nonnull OWLAxiom ax, @Nonnull OWLObject subj, IRI pred,
+            @Nonnull Collection<? extends OWLObject> obj) {
         addSingleTripleAxiom(ax, getResourceNode(subj), getPredicateNode(pred),
                 translateList(new ArrayList<OWLObject>(obj)));
     }
 
-    private void addSingleTripleAxiom(OWLAxiom ax, OWLObject subj,
-            OWLObject pred, OWLObject obj) {
+    private void addSingleTripleAxiom(@Nonnull OWLAxiom ax, @Nonnull OWLObject subj,
+            @Nonnull OWLObject pred, @Nonnull OWLObject obj) {
         addSingleTripleAxiom(ax, getResourceNode(subj), getPredicateNode(pred),
                 getNode(obj));
     }
@@ -862,7 +864,7 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
      * @param object
      *        The object of the triple representing the axiom
      */
-    private void addSingleTripleAxiom(OWLAxiom ax, R subject, P predicate,
+    private void addSingleTripleAxiom(@Nonnull OWLAxiom ax, R subject, P predicate,
             N object) {
         // Base triple
         addTriple(subject, predicate, object);
@@ -883,7 +885,7 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
         translateAnnotations(ax);
     }
 
-    private void translateAnnotations(OWLAxiom ax) {
+    private void translateAnnotations(@Nonnull OWLAxiom ax) {
         translateAnonymousNode(ax);
         for (OWLAnnotation anno : ax.getAnnotations()) {
             translateAnnotation(ax, anno);
@@ -900,7 +902,7 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
      *        The annotation
      */
     private void
-            translateAnnotation(OWLObject subject, OWLAnnotation annotation) {
+            translateAnnotation(@Nonnull OWLObject subject, @Nonnull OWLAnnotation annotation) {
         // We first add the base triple
         addTriple(subject, annotation.getProperty().getIRI(),
                 annotation.getValue());
@@ -947,8 +949,10 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
      *        The IRI of the resource
      * @return The resource with the specified IRI
      */
+    @Nonnull
     protected abstract R getResourceNode(IRI IRI);
 
+    @Nonnull
     protected abstract P getPredicateNode(IRI IRI);
 
     /**
@@ -959,14 +963,17 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
      *        that are returned should be equal and have the same hashcode.
      * @return The resource
      */
+    @Nonnull
     protected abstract R getAnonymousNode(Object key);
 
+    @Nonnull
     protected abstract L getLiteralNode(OWLLiteral literal);
 
     protected abstract void addTriple(R subject, P pred, N object);
 
+    @Nonnull
     @SuppressWarnings("unchecked")
-    private R getResourceNode(OWLObject object) {
+    private R getResourceNode(@Nonnull OWLObject object) {
         R r = (R) nodeMap.get(object);
         if (r == null) {
             object.accept(this);
@@ -978,8 +985,9 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
         return r;
     }
 
+    @Nonnull
     @SuppressWarnings("unchecked")
-    private P getPredicateNode(OWLObject object) {
+    private P getPredicateNode(@Nonnull OWLObject object) {
         P p = (P) nodeMap.get(object);
         if (p == null) {
             object.accept(this);
@@ -991,7 +999,7 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
         return p;
     }
 
-    private N getNode(OWLObject obj) {
+    private N getNode(@Nonnull OWLObject obj) {
         N node = nodeMap.get(obj);
         if (node == null) {
             obj.accept(this);
@@ -1004,11 +1012,13 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
         return node;
     }
 
-    private R translateList(List<? extends OWLObject> list) {
+    @Nonnull
+    private R translateList(@Nonnull List<? extends OWLObject> list) {
         return translateList(list, RDF_LIST.getIRI());
     }
 
-    private R translateList(List<? extends OWLObject> list, IRI listType) {
+    @Nonnull
+    private R translateList(@Nonnull List<? extends OWLObject> list, IRI listType) {
         if (list.isEmpty()) {
             return getResourceNode(RDF_NIL.getIRI());
         }
@@ -1026,28 +1036,29 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
         return main;
     }
 
-    private void addTriple(OWLObject subject, IRI pred, IRI object) {
+    private void addTriple(@Nonnull OWLObject subject, IRI pred, IRI object) {
         addTriple(getResourceNode(subject), getPredicateNode(pred),
                 getResourceNode(object));
     }
 
-    private void addTriple(OWLObject subject, IRI pred, OWLObject object) {
+    private void addTriple(@Nonnull OWLObject subject, IRI pred, @Nonnull OWLObject object) {
         addTriple(getResourceNode(subject), getPredicateNode(pred),
                 getNode(object));
     }
 
-    private void addListTriples(OWLObject subject, IRI pred,
-            Set<? extends OWLObject> objects) {
+    private void addListTriples(@Nonnull OWLObject subject, IRI pred,
+            @Nonnull Set<? extends OWLObject> objects) {
         addTriple(getResourceNode(subject), getPredicateNode(pred),
                 translateList(new ArrayList<OWLObject>(objects)));
     }
 
-    private void addTriple(OWLObject subject, IRI pred,
-            Set<? extends OWLObject> objects, IRI listType) {
+    private void addTriple(@Nonnull OWLObject subject, IRI pred,
+            @Nonnull Set<? extends OWLObject> objects, IRI listType) {
         addTriple(getResourceNode(subject), getPredicateNode(pred),
                 translateList(new ArrayList<OWLObject>(objects), listType));
     }
 
+    @Nonnull
     private OWLLiteral toTypedConstant(int i) {
         return manager.getOWLDataFactory().getOWLLiteral(
                 Integer.toString(i),
@@ -1055,15 +1066,16 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
                         XSDVocabulary.NON_NEGATIVE_INTEGER.getIRI()));
     }
 
-    private void processIfAnonymous(Set<OWLIndividual> inds, OWLAxiom root) {
+    private void processIfAnonymous(@Nonnull Set<OWLIndividual> inds, OWLAxiom root) {
         for (OWLIndividual ind : inds) {
             processIfAnonymous(ind, root);
         }
     }
 
+    @Nonnull
     private Set<OWLIndividual> currentIndividuals = new HashSet<OWLIndividual>();
 
-    private void processIfAnonymous(OWLIndividual ind, OWLAxiom root) {
+    private void processIfAnonymous(@Nonnull OWLIndividual ind, @Nullable OWLAxiom root) {
         if (!currentIndividuals.contains(ind)) {
             currentIndividuals.add(ind);
             if (ind.isAnonymous()) {
@@ -1082,7 +1094,7 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
         }
     }
 
-    private void processIfAnonymous(OWLIndividual ind) {
+    private void processIfAnonymous(@Nonnull OWLIndividual ind) {
         if (!currentIndividuals.contains(ind)) {
             currentIndividuals.add(ind);
             if (ind.isAnonymous()) {
@@ -1099,8 +1111,8 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
         }
     }
 
-    private void addPairwise(OWLAxiom axiom,
-            Collection<? extends OWLObject> objects, IRI IRI) {
+    private void addPairwise(@Nonnull OWLAxiom axiom,
+            @Nonnull Collection<? extends OWLObject> objects, IRI IRI) {
         List<? extends OWLObject> objectList = new ArrayList<OWLObject>(objects);
         for (int i = 0; i < objectList.size(); i++) {
             for (int j = i; j < objectList.size(); j++) {
@@ -1127,8 +1139,8 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
      *        The IRI which describes the relationship between pairs of class
      *        expressions.
      */
-    private void addPairwiseClassExpressions(OWLAxiom axiom,
-            Set<OWLClassExpression> classExpressions, IRI IRI) {
+    private void addPairwiseClassExpressions(@Nonnull OWLAxiom axiom,
+            @Nonnull Set<OWLClassExpression> classExpressions, IRI IRI) {
         List<OWLClassExpression> classExpressionList = new ArrayList<OWLClassExpression>(
                 classExpressions);
         addPairwise(axiom, classExpressionList, IRI);
@@ -1142,7 +1154,7 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
      * @param entity
      *        The entity for which strong typing triples should be added.
      */
-    private void addStrongTyping(OWLEntity entity) {
+    private void addStrongTyping(@Nonnull OWLEntity entity) {
         if (!useStrongTyping) {
             return;
         }
@@ -1157,6 +1169,7 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
     private static class OWLEntityTypeProvider implements
             OWLEntityVisitorEx<IRI> {
 
+        @Nonnull
         public static OWLEntityTypeProvider INSTANCE = new OWLEntityTypeProvider();
 
         @Override

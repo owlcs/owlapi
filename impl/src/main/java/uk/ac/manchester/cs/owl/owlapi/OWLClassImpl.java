@@ -19,6 +19,7 @@ import java.util.Collections;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.EntityType;
@@ -57,6 +58,7 @@ public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass,
         return OWLObjectTypeIndexProvider.OWL_CLASS;
     }
 
+    @Nonnull
     private final IRI iri;
     private final boolean isThing;
     private final boolean isNothing;
@@ -268,11 +270,13 @@ public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass,
         visitor.visit(this);
     }
 
+    @Nullable
     @Override
     public <O> O accept(@Nonnull OWLEntityVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
+    @Nullable
     @Override
     public <O> O accept(@Nonnull OWLClassExpressionVisitorEx<O> visitor) {
         return visitor.visit(this);

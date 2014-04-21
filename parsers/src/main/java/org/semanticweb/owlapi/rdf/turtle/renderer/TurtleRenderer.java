@@ -49,6 +49,8 @@ import org.semanticweb.owlapi.util.VersionInfo;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -70,7 +72,7 @@ public class TurtleRenderer extends RDFRendererBase {
      * @param format
      *        format
      */
-    public TurtleRenderer(OWLOntology ontology, Writer writer,
+    public TurtleRenderer(@Nonnull OWLOntology ontology, Writer writer,
             OWLOntologyFormat format) {
         super(ontology, format);
         this.format = checkNotNull(format, "format cannot be null");
@@ -108,6 +110,7 @@ public class TurtleRenderer extends RDFRendererBase {
 
     int bufferLength = 0;
     int lastNewLineIndex = 0;
+    @Nonnull
     Stack<Integer> tabs = new Stack<Integer>();
 
     protected void pushTab() {
@@ -120,7 +123,7 @@ public class TurtleRenderer extends RDFRendererBase {
         }
     }
 
-    private void write(String s) {
+    private void write(@Nonnull String s) {
         int newLineIndex = s.indexOf('\n');
         if (newLineIndex != -1) {
             lastNewLineIndex = bufferLength + newLineIndex;
@@ -137,7 +140,7 @@ public class TurtleRenderer extends RDFRendererBase {
         return getCurrentPos() - lastNewLineIndex;
     }
 
-    private void writeAsURI(String s) {
+    private void writeAsURI(@Nonnull String s) {
         write("<");
         if (s.startsWith(base)) {
             write(s.substring(base.length()));
@@ -147,7 +150,7 @@ public class TurtleRenderer extends RDFRendererBase {
         write(">");
     }
 
-    private void write(IRI iri) {
+    private void write(@Nonnull IRI iri) {
         if (iri.equals(ontology.getOntologyID().getOntologyIRI().orNull())) {
             writeAsURI(iri.toString());
         } else {
@@ -177,7 +180,7 @@ public class TurtleRenderer extends RDFRendererBase {
         }
     }
 
-    private void write(RDFNode node) {
+    private void write(@Nonnull RDFNode node) {
         if (node.isLiteral()) {
             write((RDFLiteral) node);
         } else {
@@ -185,7 +188,7 @@ public class TurtleRenderer extends RDFRendererBase {
         }
     }
 
-    private void write(RDFLiteral node) {
+    private void write(@Nonnull RDFLiteral node) {
         if (!node.isPlainLiteral()) {
             if (node.getDatatype().equals(XSDVocabulary.INTEGER.getIRI())) {
                 write(node.getLexicalValue());
@@ -206,7 +209,7 @@ public class TurtleRenderer extends RDFRendererBase {
         }
     }
 
-    private void writeStringLiteral(String literal) {
+    private void writeStringLiteral(@Nonnull String literal) {
         String escapedLiteral = EscapeUtils.escapeString(literal);
         if (escapedLiteral.indexOf('\n') != -1) {
             write("\"\"\"");
@@ -219,7 +222,7 @@ public class TurtleRenderer extends RDFRendererBase {
         }
     }
 
-    private void write(RDFResource node) {
+    private void write(@Nonnull RDFResource node) {
         if (!node.isAnonymous()) {
             write(node.getIRI());
         } else {
@@ -281,36 +284,36 @@ public class TurtleRenderer extends RDFRendererBase {
     }
 
     @Override
-    protected void writeClassComment(OWLClass cls) {
+    protected void writeClassComment(@Nonnull OWLClass cls) {
         writeComment(cls.getIRI().toString());
     }
 
     @Override
-    protected void writeObjectPropertyComment(OWLObjectProperty prop) {
+    protected void writeObjectPropertyComment(@Nonnull OWLObjectProperty prop) {
         writeComment(prop.getIRI().toString());
     }
 
     @Override
-    protected void writeDataPropertyComment(OWLDataProperty prop) {
+    protected void writeDataPropertyComment(@Nonnull OWLDataProperty prop) {
         writeComment(prop.getIRI().toString());
     }
 
     @Override
-    protected void writeIndividualComments(OWLNamedIndividual ind) {
+    protected void writeIndividualComments(@Nonnull OWLNamedIndividual ind) {
         writeComment(ind.getIRI().toString());
     }
 
     @Override
-    protected void writeAnnotationPropertyComment(OWLAnnotationProperty prop) {
+    protected void writeAnnotationPropertyComment(@Nonnull OWLAnnotationProperty prop) {
         writeComment(prop.getIRI().toString());
     }
 
     @Override
-    protected void writeDatatypeComment(OWLDatatype datatype) {
+    protected void writeDatatypeComment(@Nonnull OWLDatatype datatype) {
         writeComment(datatype.getIRI().toString());
     }
 
-    private void writeComment(String comment) {
+    private void writeComment(@Nonnull String comment) {
         write("###  ");
         write(comment);
         writeNewLine();
@@ -341,7 +344,7 @@ public class TurtleRenderer extends RDFRendererBase {
     int level = 0;
 
     @Override
-    public void render(RDFResource node) {
+    public void render(@Nonnull RDFResource node) {
         level++;
         Collection<RDFTriple> triples;
         if (pending.contains(node)) {

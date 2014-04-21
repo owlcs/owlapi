@@ -67,6 +67,7 @@ public abstract class OWLAxiomIndexImpl extends OWLObjectImpl implements
         OWLAxiomIndex {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     protected Internals ints = new Internals();
 
     @Nonnull

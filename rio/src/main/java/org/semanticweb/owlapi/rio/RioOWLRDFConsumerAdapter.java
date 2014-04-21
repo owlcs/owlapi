@@ -51,6 +51,8 @@ import org.semanticweb.owlapi.util.AnonymousNodeChecker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Peter Ansell p_ansell@yahoo.com
  */
@@ -59,6 +61,7 @@ public class RioOWLRDFConsumerAdapter extends OWLRDFConsumer implements
 
     private final Logger logger = LoggerFactory
             .getLogger(RioOWLRDFConsumerAdapter.class);
+    @Nonnull
     private AtomicInteger statementCount = new AtomicInteger(0);
 
     /**
@@ -85,13 +88,13 @@ public class RioOWLRDFConsumerAdapter extends OWLRDFConsumer implements
     public void handleComment(final String comment) throws RDFHandlerException {}
 
     @Override
-    public void handleNamespace(final String prefix, final String uri)
+    public void handleNamespace(final String prefix, @Nonnull final String uri)
             throws RDFHandlerException {
         getOntologyFormat().setPrefix(prefix + ":", uri);
     }
 
     @Override
-    public void handleStatement(final Statement st) throws RDFHandlerException {
+    public void handleStatement(@Nonnull final Statement st) throws RDFHandlerException {
         statementCount.incrementAndGet();
         logger.trace("st{}={}", statementCount.get(), st);
         String subjectString;

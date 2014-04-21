@@ -48,9 +48,12 @@ public class MapPointer<K, V extends OWLAxiom> implements Serializable {
 
     private static final long serialVersionUID = 40000L;
     private final Multimap<K, V> map;
+    @Nullable
     private final AxiomType<?> type;
+    @Nullable
     private final OWLAxiomVisitorEx<?> visitor;
     private boolean initialized;
+    @Nonnull
     protected final Internals i;
 
     /**
@@ -111,12 +114,14 @@ public class MapPointer<K, V extends OWLAxiom> implements Serializable {
         return this;
     }
 
+    @Nonnull
     @Override
     public String toString() {
         return initialized + map.toString();
     }
 
     /** @return keyset */
+    @Nonnull
     public Set<K> keySet() {
         init();
         return CollectionFactory.getCopyOnRequestSetFromMutableCollection(map
@@ -128,6 +133,7 @@ public class MapPointer<K, V extends OWLAxiom> implements Serializable {
      *        key to look up
      * @return value
      */
+    @Nonnull
     public Set<V> getValues(K key) {
         init();
         return CollectionFactory.getCopyOnRequestSetFromMutableCollection(map
@@ -196,6 +202,7 @@ public class MapPointer<K, V extends OWLAxiom> implements Serializable {
     }
 
     /** @return all values contained */
+    @Nonnull
     public Set<V> getAllValues() {
         init();
         return new HashSet<V>(map.values());

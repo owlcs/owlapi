@@ -36,6 +36,7 @@ import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 public class DLSyntaxHTMLOntologyStorer extends DLSyntaxOntologyStorerBase {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     protected ShortFormProvider sfp = new SimpleShortFormProvider();
 
     @Override
@@ -45,7 +46,7 @@ public class DLSyntaxHTMLOntologyStorer extends DLSyntaxOntologyStorerBase {
 
     @Nonnull
     @Override
-    protected String getRendering(final OWLEntity subject, @Nonnull OWLAxiom axiom) {
+    protected String getRendering(@Nonnull final OWLEntity subject, @Nonnull OWLAxiom axiom) {
         checkNotNull(axiom, "axiom cannot be null");
         DLSyntaxObjectRenderer ren = new DLSyntaxObjectRenderer() {
 

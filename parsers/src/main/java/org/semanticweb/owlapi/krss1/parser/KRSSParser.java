@@ -30,6 +30,9 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.vocab.Namespaces;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 class KRSSParser implements KRSSParserConstants {
 
     private OWLOntology ontology;
@@ -37,7 +40,7 @@ class KRSSParser implements KRSSParserConstants {
     private Map<String, IRI> string2IRI;
     private String base;
 
-    void setOntology(OWLOntology ontology, OWLDataFactory dataFactory) {
+    void setOntology(@Nonnull OWLOntology ontology, OWLDataFactory dataFactory) {
         this.ontology = ontology;
         this.dataFactory = dataFactory;
         string2IRI = new HashMap<String, IRI>();
@@ -48,7 +51,7 @@ class KRSSParser implements KRSSParserConstants {
         }
     }
 
-    void addAxiom(OWLAxiom ax) {
+    void addAxiom(@Nonnull OWLAxiom ax) {
         try {
             ((OWLMutableOntology) ontology).applyChange(new AddAxiom(ontology,
                     ax));
@@ -112,6 +115,7 @@ class KRSSParser implements KRSSParserConstants {
         return ax;
     }
 
+    @Nonnull
     private OWLAxiom DefinePrimitiveConcept() {
         OWLClassExpression subClass;
         OWLClassExpression superClass;
@@ -123,6 +127,7 @@ class KRSSParser implements KRSSParserConstants {
         return dataFactory.getOWLSubClassOfAxiom(subClass, superClass);
     }
 
+    @Nonnull
     private OWLAxiom DefineConcept() {
         OWLClassExpression clsA;
         OWLClassExpression clsB;
@@ -137,6 +142,7 @@ class KRSSParser implements KRSSParserConstants {
         return dataFactory.getOWLEquivalentClassesAxiom(ops);
     }
 
+    @Nonnull
     private OWLAxiom DefinePrimitiveRole() {
         OWLObjectProperty subProp;
         OWLObjectProperty superProp;
@@ -152,6 +158,7 @@ class KRSSParser implements KRSSParserConstants {
         return dataFactory.getOWLSubObjectPropertyOfAxiom(subProp, superProp);
     }
 
+    @Nonnull
     private OWLAxiom Transitive() {
         OWLObjectProperty prop;
         jj_consume_token(OPENPAR);
@@ -161,6 +168,7 @@ class KRSSParser implements KRSSParserConstants {
         return dataFactory.getOWLTransitiveObjectPropertyAxiom(prop);
     }
 
+    @Nonnull
     private OWLAxiom Range() {
         OWLObjectProperty prop;
         OWLClassExpression rng;
@@ -199,12 +207,14 @@ class KRSSParser implements KRSSParserConstants {
         return desc;
     }
 
+    @Nonnull
     private OWLClassExpression ConceptName() {
         IRI iri;
         iri = Name();
         return dataFactory.getOWLClass(iri);
     }
 
+    @Nonnull
     private Set<OWLClassExpression> ConceptSet() {
         Set<OWLClassExpression> descs = new HashSet<OWLClassExpression>();
         OWLClassExpression desc;
@@ -218,6 +228,7 @@ class KRSSParser implements KRSSParserConstants {
         return descs;
     }
 
+    @Nonnull
     private OWLClassExpression And() {
         Set<OWLClassExpression> operands;
         jj_consume_token(OPENPAR);
@@ -227,6 +238,7 @@ class KRSSParser implements KRSSParserConstants {
         return dataFactory.getOWLObjectIntersectionOf(operands);
     }
 
+    @Nonnull
     private OWLClassExpression Or() {
         Set<OWLClassExpression> operands;
         jj_consume_token(OPENPAR);
@@ -236,6 +248,7 @@ class KRSSParser implements KRSSParserConstants {
         return dataFactory.getOWLObjectUnionOf(operands);
     }
 
+    @Nonnull
     private OWLClassExpression Not() {
         OWLClassExpression operand;
         jj_consume_token(OPENPAR);
@@ -245,6 +258,7 @@ class KRSSParser implements KRSSParserConstants {
         return dataFactory.getOWLObjectComplementOf(operand);
     }
 
+    @Nonnull
     private OWLClassExpression All() {
         OWLObjectProperty prop;
         OWLClassExpression filler;
@@ -256,6 +270,7 @@ class KRSSParser implements KRSSParserConstants {
         return dataFactory.getOWLObjectAllValuesFrom(prop, filler);
     }
 
+    @Nonnull
     private OWLClassExpression Some() {
         OWLObjectProperty prop;
         OWLClassExpression filler;
@@ -267,6 +282,7 @@ class KRSSParser implements KRSSParserConstants {
         return dataFactory.getOWLObjectSomeValuesFrom(prop, filler);
     }
 
+    @Nonnull
     private OWLClassExpression AtLeast() {
         OWLObjectProperty prop;
         OWLClassExpression filler;
@@ -280,6 +296,7 @@ class KRSSParser implements KRSSParserConstants {
         return dataFactory.getOWLObjectMinCardinality(card, prop, filler);
     }
 
+    @Nonnull
     private OWLClassExpression AtMost() {
         OWLObjectProperty prop;
         OWLClassExpression filler;
@@ -293,6 +310,7 @@ class KRSSParser implements KRSSParserConstants {
         return dataFactory.getOWLObjectMaxCardinality(card, prop, filler);
     }
 
+    @Nonnull
     private OWLClassExpression Exactly() {
         OWLObjectProperty prop;
         OWLClassExpression filler;
@@ -306,6 +324,7 @@ class KRSSParser implements KRSSParserConstants {
         return dataFactory.getOWLObjectExactCardinality(card, prop, filler);
     }
 
+    @Nonnull
     private OWLObjectProperty RoleName() {
         IRI iri;
         iri = Name();
@@ -329,6 +348,7 @@ class KRSSParser implements KRSSParserConstants {
         return ax;
     }
 
+    @Nonnull
     private OWLAxiom Instance() {
         OWLIndividual ind;
         OWLClassExpression type;
@@ -340,6 +360,7 @@ class KRSSParser implements KRSSParserConstants {
         return dataFactory.getOWLClassAssertionAxiom(type, ind);
     }
 
+    @Nonnull
     private OWLAxiom Related() {
         OWLIndividual subj;
         OWLObjectProperty prop;
@@ -353,6 +374,7 @@ class KRSSParser implements KRSSParserConstants {
         return dataFactory.getOWLObjectPropertyAssertionAxiom(prop, subj, obj);
     }
 
+    @Nonnull
     private OWLAxiom Equal() {
         OWLIndividual indA, indB;
         Set<OWLIndividual> inds = new HashSet<OWLIndividual>();
@@ -366,6 +388,7 @@ class KRSSParser implements KRSSParserConstants {
         return dataFactory.getOWLSameIndividualAxiom(inds);
     }
 
+    @Nonnull
     private OWLAxiom Distinct() {
         OWLIndividual indA, indB;
         Set<OWLIndividual> inds = new HashSet<OWLIndividual>();
@@ -379,6 +402,7 @@ class KRSSParser implements KRSSParserConstants {
         return dataFactory.getOWLDifferentIndividualsAxiom(inds);
     }
 
+    @Nonnull
     private OWLIndividual IndividualName() {
         IRI name;
         name = Name();
@@ -1122,6 +1146,7 @@ class KRSSParser implements KRSSParserConstants {
     private KRSSParserTokenManager token_source;
     private JavaCharStream jj_input_stream;
     private Token token;
+    @Nullable
     private Token jj_scanpos, jj_lastpos;
     private int jj_la;
     private int jj_gen;
@@ -1328,9 +1353,11 @@ class KRSSParser implements KRSSParserConstants {
         return t;
     }
 
+    @Nonnull
     private java.util.List<int[]> jj_expentries = new java.util.ArrayList<int[]>();
     private int[] jj_expentry;
     private int jj_kind = -1;
+    @Nonnull
     private int[] jj_lasttokens = new int[100];
     private int jj_endpos;
 
@@ -1364,6 +1391,7 @@ class KRSSParser implements KRSSParserConstants {
         }
     }
 
+    @Nonnull
     ParseException generateParseException() {
         jj_expentries.clear();
         boolean[] la1tokens = new boolean[43];
@@ -1509,6 +1537,7 @@ class KRSSParser implements KRSSParserConstants {
     static final class JJCalls {
 
         int gen;
+        @Nullable
         Token first;
         int arg;
         JJCalls next;

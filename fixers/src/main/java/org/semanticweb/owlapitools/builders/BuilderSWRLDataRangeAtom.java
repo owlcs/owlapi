@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapitools.builders;
 
+import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -34,7 +35,7 @@ public class BuilderSWRLDataRangeAtom extends
      * @param df
      *        data factory
      */
-    public BuilderSWRLDataRangeAtom(SWRLDataRangeAtom expected,
+    public BuilderSWRLDataRangeAtom(@Nonnull SWRLDataRangeAtom expected,
             OWLDataFactory df) {
         this(df);
         with(expected.getArgument()).with(expected.getPredicate());
@@ -54,6 +55,7 @@ public class BuilderSWRLDataRangeAtom extends
      *        argument
      * @return builder
      */
+    @Nonnull
     public BuilderSWRLDataRangeAtom with(SWRLDArgument arg) {
         argument = arg;
         return this;
@@ -64,11 +66,13 @@ public class BuilderSWRLDataRangeAtom extends
      *        predicate
      * @return builder
      */
+    @Nonnull
     public BuilderSWRLDataRangeAtom with(OWLDataRange arg) {
         predicate = arg;
         return this;
     }
 
+    @Nonnull
     @Override
     public SWRLDataRangeAtom buildObject() {
         return df.getSWRLDataRangeAtom(predicate, argument);

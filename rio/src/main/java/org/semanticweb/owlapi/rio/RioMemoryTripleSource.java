@@ -60,6 +60,7 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * An implementation of the OWLOntologyDocumentSource interface that does not
@@ -72,6 +73,7 @@ import javax.annotation.Nonnull;
 public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
 
     private final Map<String, String> namespaces = new LinkedHashMap<String, String>();
+    @Nullable
     private final Iterator<Statement> statementIterator;
     private IRI documentIRI;
     private static final AtomicInteger counter = new AtomicInteger(0);
@@ -102,7 +104,7 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
      *        by this source.
      */
     public RioMemoryTripleSource(final Iterator<Statement> statements,
-            final Map<String, String> namespaces) {
+            @Nonnull final Map<String, String> namespaces) {
         this(statements);
         this.namespaces.putAll(namespaces);
     }
@@ -117,7 +119,7 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
      *        A {@link CloseableIteration} of {@link Statement} objects that
      *        make up this source.
      */
-    public RioMemoryTripleSource(final Iterable<Statement> statements) {
+    public RioMemoryTripleSource(@Nonnull final Iterable<Statement> statements) {
         documentIRI = IRI.create("urn:rio-memory-triples:"
                 + counter.incrementAndGet());
         statementIterator = statements.iterator();
@@ -137,7 +139,7 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
      *        make up this source.
      */
     public RioMemoryTripleSource(
-            final CloseableIteration<Statement, ? extends OpenRDFException> statements) {
+            @Nonnull final CloseableIteration<Statement, ? extends OpenRDFException> statements) {
         documentIRI = IRI.create("urn:rio-memory-triples:"
                 + counter.incrementAndGet());
         statementIterator = new Iterator<Statement>() {
@@ -148,6 +150,7 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
                         "Cannot remove statements using this iterator");
             }
 
+            @Nullable
             @Override
             public Statement next() {
                 Statement nextStatement = null;
@@ -208,8 +211,8 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
      *        by this source.
      */
     public RioMemoryTripleSource(
-            final CloseableIteration<Statement, ? extends OpenRDFException> statements,
-            final Map<String, String> namespaces) {
+            @Nonnull final CloseableIteration<Statement, ? extends OpenRDFException> statements,
+            @Nonnull final Map<String, String> namespaces) {
         this(statements);
         this.namespaces.putAll(namespaces);
     }
@@ -257,6 +260,7 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
     /**
      * @return namespace map
      */
+    @Nonnull
     public Map<String, String> getNamespaces() {
         return namespaces;
     }
@@ -264,6 +268,7 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
     /**
      * @return statements
      */
+    @Nullable
     public Iterator<Statement> getStatementIterator() {
         return statementIterator;
     }
@@ -281,7 +286,7 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
      * @param nextNamespaces
      *        map of namespaces to set
      */
-    public void setNamespaces(Map<String, String> nextNamespaces) {
+    public void setNamespaces(@Nonnull Map<String, String> nextNamespaces) {
         namespaces.clear();
         namespaces.putAll(nextNamespaces);
     }

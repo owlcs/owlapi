@@ -34,7 +34,7 @@ public class LabelFunctionalSyntaxOntologyStorer extends
     }
 
     @Override
-    protected void storeOntology(OWLOntology ontology, Writer writer,
+    protected void storeOntology(@Nonnull OWLOntology ontology, @Nonnull Writer writer,
             OWLOntologyFormat format) throws OWLOntologyStorageException {
         try {
             FunctionalSyntaxObjectRenderer renderer = new FunctionalSyntaxObjectRenderer(
@@ -50,10 +50,12 @@ public class LabelFunctionalSyntaxOntologyStorer extends
     static class LabelPrefixManager implements PrefixManager {
 
         private static final long serialVersionUID = 40000L;
+        @Nonnull
         private final OWLOntology ontology;
+        @Nonnull
         private final PrefixManager delegate;
 
-        LabelPrefixManager(OWLOntology ontology) {
+        LabelPrefixManager(@Nonnull OWLOntology ontology) {
             this.ontology = ontology;
             OWLOntologyFormat ontologyFormat = ontology.getOWLOntologyManager()
                     .getOntologyFormat(ontology);
@@ -78,43 +80,49 @@ public class LabelFunctionalSyntaxOntologyStorer extends
             return delegate.getPrefixIRI(iri);
         }
 
+        @Nonnull
         @Override
         public String getDefaultPrefix() {
             return delegate.getDefaultPrefix();
         }
 
         @Override
-        public boolean containsPrefixMapping(String prefixName) {
+        public boolean containsPrefixMapping(@Nonnull String prefixName) {
             return delegate.containsPrefixMapping(prefixName);
         }
 
+        @Nonnull
         @Override
-        public String getPrefix(String prefixName) {
+        public String getPrefix(@Nonnull String prefixName) {
             return delegate.getPrefix(prefixName);
         }
 
+        @Nonnull
         @Override
         public Map<String, String> getPrefixName2PrefixMap() {
             return delegate.getPrefixName2PrefixMap();
         }
 
+        @Nonnull
         @Override
-        public IRI getIRI(String prefixIRI) {
+        public IRI getIRI(@Nonnull String prefixIRI) {
             return delegate.getIRI(prefixIRI);
         }
 
+        @Nonnull
         @Override
         public Set<String> getPrefixNames() {
             return delegate.getPrefixNames();
         }
 
+        @Nonnull
         @Override
         public Comparator<String> getPrefixComparator() {
             return delegate.getPrefixComparator();
         }
 
         @Override
-        public void setPrefixComparator(Comparator<String> comparator) {
+        public void setPrefixComparator(@Nonnull Comparator<String> comparator) {
             delegate.setPrefixComparator(comparator);
         }
 

@@ -44,6 +44,7 @@ import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
  */
 public class DebuggerClassExpressionGenerator extends OWLAxiomVisitorAdapter {
 
+    @Nonnull
     private final OWLDataFactory dataFactory;
     private OWLClassExpression desc;
 

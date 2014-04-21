@@ -604,7 +604,7 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
     }
 
     private void writeCardinalityRestriction(
-            OWLDataCardinalityRestriction restriction, DLSyntax keyword) {
+            @Nonnull OWLDataCardinalityRestriction restriction, @Nonnull DLSyntax keyword) {
         write(keyword);
         writeSpace();
         write(restriction.getCardinality());
@@ -615,7 +615,7 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
     }
 
     private void writeCardinalityRestriction(
-            OWLObjectCardinalityRestriction restriction, DLSyntax keyword) {
+            @Nonnull OWLObjectCardinalityRestriction restriction, @Nonnull DLSyntax keyword) {
         write(keyword);
         writeSpace();
         write(restriction.getCardinality());
@@ -626,7 +626,7 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
     }
 
     private void writeQuantifiedRestriction(
-            OWLQuantifiedDataRestriction restriction, DLSyntax keyword) {
+            @Nonnull OWLQuantifiedDataRestriction restriction, @Nonnull DLSyntax keyword) {
         write(keyword);
         writeSpace();
         restriction.getProperty().accept(this);
@@ -635,7 +635,7 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
     }
 
     private void writeQuantifiedRestriction(
-            OWLQuantifiedObjectRestriction restriction, DLSyntax keyword) {
+            @Nonnull OWLQuantifiedObjectRestriction restriction, @Nonnull DLSyntax keyword) {
         write(keyword);
         writeSpace();
         restriction.getProperty().accept(this);
@@ -655,8 +655,8 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
 
     private
             <R extends OWLPropertyRange, P extends OWLPropertyExpression, V extends OWLObject>
-            void writeValueRestriction(OWLHasValueRestriction<V> restriction,
-                    OWLPropertyExpression p) {
+            void writeValueRestriction(@Nonnull OWLHasValueRestriction<V> restriction,
+                    @Nonnull OWLPropertyExpression p) {
         write(EXISTS);
         writeSpace();
         p.accept(this);

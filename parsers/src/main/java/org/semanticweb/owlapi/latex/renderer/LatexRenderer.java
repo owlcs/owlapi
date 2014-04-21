@@ -47,15 +47,16 @@ import javax.annotation.Nonnull;
  */
 public class LatexRenderer extends AbstractOWLRenderer {
 
+    @Nonnull
     private ShortFormProvider shortFormProvider = new SimpleShortFormProvider();
 
-    private void writeEntitySection(OWLEntity entity, LatexWriter w) {
+    private void writeEntitySection(@Nonnull OWLEntity entity, @Nonnull LatexWriter w) {
         w.write("\\subsubsection*{");
         w.write(escapeName(shortFormProvider.getShortForm(entity)));
         w.write("}\n\n");
     }
 
-    private String escapeName(String name) {
+    private String escapeName(@Nonnull String name) {
         return name.replace("_", "\\_");
     }
 
@@ -131,7 +132,8 @@ public class LatexRenderer extends AbstractOWLRenderer {
         }
     }
 
-    private <T extends OWLEntity> Collection<T> sortEntities(Set<T> entites) {
+    @Nonnull
+    private <T extends OWLEntity> Collection<T> sortEntities(@Nonnull Set<T> entites) {
         List<T> list = new ArrayList<T>(entites);
         OWLEntityComparator entityComparator = new OWLEntityComparator(
                 shortFormProvider);
@@ -139,7 +141,8 @@ public class LatexRenderer extends AbstractOWLRenderer {
         return list;
     }
 
-    private Collection<OWLAxiom> sortAxioms(Set<? extends OWLAxiom> axioms) {
+    @Nonnull
+    private Collection<OWLAxiom> sortAxioms(@Nonnull Set<? extends OWLAxiom> axioms) {
         List<OWLAxiom> list = new ArrayList<OWLAxiom>(axioms);
         Collections.sort(list, new OWLAxiomComparator());
         return list;
@@ -153,7 +156,7 @@ public class LatexRenderer extends AbstractOWLRenderer {
         public OWLAxiomComparator() {}
 
         @Override
-        public int compare(OWLAxiom o1, OWLAxiom o2) {
+        public int compare(@Nonnull OWLAxiom o1, @Nonnull OWLAxiom o2) {
             int index1 = o1.getAxiomType().getIndex();
             int index2 = o2.getAxiomType().getIndex();
             return index1 - index2;

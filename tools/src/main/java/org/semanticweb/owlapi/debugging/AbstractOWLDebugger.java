@@ -46,6 +46,7 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  */
 public abstract class AbstractOWLDebugger implements OWLDebugger {
 
+    @Nonnull
     protected final OWLOntologyManager owlOntologyManager;
     private OWLOntology ontology;
 

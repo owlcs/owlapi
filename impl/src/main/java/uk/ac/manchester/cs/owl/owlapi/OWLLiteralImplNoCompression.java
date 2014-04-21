@@ -43,8 +43,11 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements
     static final String UTF8 = "UTF-8";
     private static final OWLDatatype RDF_PLAIN_LITERAL = new OWL2DatatypeImpl(
             OWL2Datatype.RDF_PLAIN_LITERAL);
+    @Nonnull
     private final byte[] literal;
+    @Nullable
     private final OWLDatatype datatype;
+    @Nullable
     private final String lang;
     private final int hashcode;
 
@@ -102,7 +105,8 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements
         hashcode = getHashCode();
     }
 
-    private static byte[] getBytes(String literal) {
+    @Nonnull
+    private static byte[] getBytes(@Nonnull String literal) {
         try {
             return literal.getBytes(UTF8);
         } catch (UnsupportedEncodingException e) {
@@ -275,6 +279,7 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements
         visitor.visit(this);
     }
 
+    @Nullable
     @Override
     public <O> O accept(@Nonnull OWLDataVisitorEx<O> visitor) {
         return visitor.visit(this);

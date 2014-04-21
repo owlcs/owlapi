@@ -43,6 +43,8 @@ import org.openrdf.model.vocabulary.OWL;
 import org.openrdf.model.vocabulary.RDF;
 import org.openrdf.model.vocabulary.RDFS;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Peter Ansell p_ansell@yahoo.com
  */
@@ -54,7 +56,7 @@ public class OWLAPICompatibleComparator implements Comparator<Statement> {
     private final static int AFTER = 1;
 
     @Override
-    public int compare(Statement first, Statement second) {
+    public int compare(@Nonnull Statement first, @Nonnull Statement second) {
         if (first == second) {
             return OWLAPICompatibleComparator.EQUALS;
         }

@@ -25,6 +25,7 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationAxiom;
@@ -57,6 +58,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
     private static final Logger LOGGER = LoggerFactory
             .getLogger(BlackBoxExplanation.class.getName());
     /** The debugging ontology. */
+    @Nullable
     private OWLOntology debuggingOntology;
     /** The debugging axioms. */
     protected final Set<OWLAxiom> debuggingAxioms = new LinkedHashSet<OWLAxiom>();
@@ -85,6 +87,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
     /** The perform repeated fast pruning. */
     private boolean performRepeatedFastPruning = false;
     /** The owl ontology manager. */
+    @Nonnull
     private final OWLOntologyManager owlOntologyManager;
 
     /**
@@ -516,6 +519,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
         }
     }
 
+    @Nonnull
     @Override
     public String toString() {
         return "BlackBox";

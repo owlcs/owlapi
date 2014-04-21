@@ -153,6 +153,7 @@ public abstract class AbstractOWLMetric<M> implements OWLMetric<M>,
     /** Dispose metric. */
     protected abstract void disposeMetric();
 
+    @Nonnull
     @Override
     public String toString() {
         return getName() + ": " + getValue();

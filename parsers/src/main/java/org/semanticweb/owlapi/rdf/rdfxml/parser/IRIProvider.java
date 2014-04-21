@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.rdf.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.IRI;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
@@ -26,5 +28,6 @@ public interface IRIProvider {
      *        input String
      * @return iri
      */
+    @Nonnull
     IRI getIRI(String s);
 }

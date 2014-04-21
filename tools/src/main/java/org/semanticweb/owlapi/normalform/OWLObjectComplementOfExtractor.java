@@ -50,7 +50,7 @@ public class OWLObjectComplementOfExtractor extends
      */
     @Nonnull
     public Set<OWLClassExpression> getComplementedClassExpressions(
-            OWLClassExpression desc) {
+            @Nonnull OWLClassExpression desc) {
         // XXX a stateless visitor would not need copies
         reset();
         desc.accept(this);

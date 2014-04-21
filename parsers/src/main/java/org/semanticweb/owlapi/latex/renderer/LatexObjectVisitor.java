@@ -64,7 +64,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
      * @param df
      *        data factory
      */
-    public LatexObjectVisitor(LatexWriter writer, OWLDataFactory df) {
+    public LatexObjectVisitor(LatexWriter writer, @Nonnull OWLDataFactory df) {
         this.writer = writer;
         this.df = df;
         shortFormProvider = new SimpleShortFormProvider();
@@ -91,7 +91,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         writer.writeSpace();
     }
 
-    private void write(Object o) {
+    private void write(@Nonnull Object o) {
         writer.write(o);
     }
 
@@ -576,7 +576,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
      * @param axiom
      *        the axiom
      */
-    public void visit(OWLImportsDeclaration axiom) {
+    public void visit(@Nonnull OWLImportsDeclaration axiom) {
         write("ImportsDeclaration");
         axiom.getIRI().accept(this);
     }
@@ -748,13 +748,13 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         write(node.getIRI());
     }
 
-    private void writeNested(OWLClassExpression classExpression) {
+    private void writeNested(@Nonnull OWLClassExpression classExpression) {
         openBracket(classExpression);
         classExpression.accept(this);
         closeBracket(classExpression);
     }
 
-    private void writeNested(OWLObject expression) {
+    private void writeNested(@Nonnull OWLObject expression) {
         expression.accept(this);
     }
 
@@ -770,7 +770,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         }
     }
 
-    private String escapeName(String name) {
+    private String escapeName(@Nonnull String name) {
         return name.replace("_", "\\_");
     }
 
@@ -934,7 +934,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
      * @param value
      *        value
      */
-    public void visit(OWLAnnotationValue value) {
+    public void visit(@Nonnull OWLAnnotationValue value) {
         value.accept(new OWLAnnotationValueVisitor() {
 
             @Override

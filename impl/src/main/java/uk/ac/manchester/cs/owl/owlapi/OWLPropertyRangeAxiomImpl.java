@@ -38,6 +38,7 @@ public abstract class OWLPropertyRangeAxiomImpl<P extends OWLPropertyExpression,
         OWLPropertyRangeAxiom<P, R> {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final R range;
 
     /**
@@ -72,7 +73,7 @@ public abstract class OWLPropertyRangeAxiomImpl<P extends OWLPropertyExpression,
     }
 
     @Override
-    protected int compareObjectOfSameType(OWLObject object) {
+    protected int compareObjectOfSameType(@Nonnull OWLObject object) {
         int diff = getProperty().compareTo(
                 ((OWLPropertyRangeAxiom<?, ?>) object).getProperty());
         if (diff != 0) {

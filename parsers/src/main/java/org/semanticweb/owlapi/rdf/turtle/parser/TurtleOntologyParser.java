@@ -48,6 +48,7 @@ public class TurtleOntologyParser extends AbstractOWLParser {
         return "TurtleOntologyParser";
     }
 
+    @Nonnull
     @Override
     protected Class<? extends OWLOntologyFormat> getFormatClass() {
         return TurtleOntologyFormat.class;

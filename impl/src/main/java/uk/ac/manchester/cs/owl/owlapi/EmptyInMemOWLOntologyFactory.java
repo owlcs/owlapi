@@ -41,7 +41,7 @@ public class EmptyInMemOWLOntologyFactory extends
      *        injected ontology builder
      */
     @Inject
-    public EmptyInMemOWLOntologyFactory(OWLOntologyBuilder builder) {
+    public EmptyInMemOWLOntologyFactory(@Nonnull OWLOntologyBuilder builder) {
         super(builder);
     }
 

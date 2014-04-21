@@ -95,6 +95,7 @@ public class SatisfiabilityConverter {
             return set;
         }
 
+        @Nonnull
         @Override
         protected OWLClassExpression doDefault(OWLAxiom axiom) {
             throw new OWLRuntimeException(
@@ -232,7 +233,9 @@ public class SatisfiabilityConverter {
 
     protected static final Logger LOGGER = LoggerFactory
             .getLogger(SatisfiabilityConverter.class);
+    @Nonnull
     private final AxiomConverter converter;
+    @Nonnull
     protected final OWLDataFactory factory;
 
     /**

@@ -15,6 +15,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.DataRangeType;
 import org.semanticweb.owlapi.model.OWLDataComplementOf;
@@ -39,6 +40,7 @@ public class OWLDataComplementOfImpl extends OWLObjectImpl implements
         OWLDataComplementOf {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final OWLDataRange dataRange;
 
     @Override
@@ -103,6 +105,7 @@ public class OWLDataComplementOfImpl extends OWLObjectImpl implements
         visitor.visit(this);
     }
 
+    @Nullable
     @Override
     public <O> O accept(@Nonnull OWLDataVisitorEx<O> visitor) {
         return visitor.visit(this);
@@ -118,6 +121,7 @@ public class OWLDataComplementOfImpl extends OWLObjectImpl implements
         visitor.visit(this);
     }
 
+    @Nonnull
     @Override
     public <O> O accept(@Nonnull OWLDataRangeVisitorEx<O> visitor) {
         return visitor.visit(this);

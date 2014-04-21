@@ -50,16 +50,17 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
         super(writer, entityShortFormProvider);
     }
 
+    @Nonnull
     protected List<? extends OWLObject> sort(
-            Collection<? extends OWLObject> objects) {
+            @Nonnull Collection<? extends OWLObject> objects) {
         List<? extends OWLObject> sortedObjects = new ArrayList<OWLObject>(
                 objects);
         Collections.sort(sortedObjects);
         return sortedObjects;
     }
 
-    protected void write(Set<? extends OWLObject> objects,
-            ManchesterOWLSyntax delimeter, boolean newline) {
+    protected void write(@Nonnull Set<? extends OWLObject> objects,
+            @Nonnull ManchesterOWLSyntax delimeter, boolean newline) {
         int tab = getIndent();
         pushTab(tab);
         for (Iterator<? extends OWLObject> it = sort(objects).iterator(); it
@@ -75,7 +76,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
         popTab();
     }
 
-    protected void writeCommaSeparatedList(Set<? extends OWLObject> objects) {
+    protected void writeCommaSeparatedList(@Nonnull Set<? extends OWLObject> objects) {
         for (Iterator<OWLObject> it = new TreeSet<OWLObject>(objects)
                 .iterator(); it.hasNext();) {
             it.next().accept(this);
@@ -85,7 +86,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
         }
     }
 
-    protected void write(Set<? extends OWLClassExpression> objects,
+    protected void write(@Nonnull Set<? extends OWLClassExpression> objects,
             boolean newline) {
         boolean first = true;
         for (Iterator<? extends OWLObject> it = sort(objects).iterator(); it
@@ -108,15 +109,15 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
         }
     }
 
-    private void writeRestriction(OWLQuantifiedDataRestriction restriction,
-            ManchesterOWLSyntax keyword) {
+    private void writeRestriction(@Nonnull OWLQuantifiedDataRestriction restriction,
+            @Nonnull ManchesterOWLSyntax keyword) {
         restriction.getProperty().accept(this);
         write(keyword);
         restriction.getFiller().accept(this);
     }
 
-    private void writeRestriction(OWLQuantifiedObjectRestriction restriction,
-            ManchesterOWLSyntax keyword) {
+    private void writeRestriction(@Nonnull OWLQuantifiedObjectRestriction restriction,
+            @Nonnull ManchesterOWLSyntax keyword) {
         restriction.getProperty().accept(this);
         write(keyword);
         boolean conjunctionOrDisjunction = false;
@@ -140,8 +141,8 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
 
     private
             <R extends OWLPropertyRange, P extends OWLPropertyExpression, V extends OWLObject>
-            void writeRestriction(OWLHasValueRestriction<V> restriction,
-                    OWLPropertyExpression p) {
+            void writeRestriction(@Nonnull OWLHasValueRestriction<V> restriction,
+                    @Nonnull OWLPropertyExpression p) {
         p.accept(this);
         write(VALUE);
         restriction.getFiller().accept(this);
@@ -149,8 +150,8 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
 
     private
             <R extends OWLPropertyRange, P extends OWLPropertyExpression, F extends OWLPropertyRange>
-            void writeRestriction(OWLCardinalityRestriction<F> restriction,
-                    ManchesterOWLSyntax keyword, OWLPropertyExpression p) {
+            void writeRestriction(@Nonnull OWLCardinalityRestriction<F> restriction,
+                    @Nonnull ManchesterOWLSyntax keyword, @Nonnull OWLPropertyExpression p) {
         p.accept(this);
         write(keyword);
         write(Integer.toString(restriction.getCardinality()));
@@ -394,7 +395,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
         }
     }
 
-    private void writeLiteral(String literal) {
+    private void writeLiteral(@Nonnull String literal) {
         write("\"");
         for (int i = 0; i < literal.length(); i++) {
             char ch = literal.charAt(i);
@@ -481,8 +482,8 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
         restore();
     }
 
-    private void writeBinaryOrNaryList(ManchesterOWLSyntax binaryKeyword,
-            Set<? extends OWLObject> objects, ManchesterOWLSyntax naryKeyword) {
+    private void writeBinaryOrNaryList(@Nonnull ManchesterOWLSyntax binaryKeyword,
+            @Nonnull Set<? extends OWLObject> objects, @Nonnull ManchesterOWLSyntax naryKeyword) {
         if (objects.size() == 2) {
             Iterator<? extends OWLObject> it = objects.iterator();
             it.next().accept(this);
@@ -941,7 +942,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     @Override
     public void visit(@Nonnull OWLDatatypeDefinitionAxiom axiom) {}
 
-    protected void writeAnnotations(Set<OWLAnnotation> annos) {
+    protected void writeAnnotations(@Nonnull Set<OWLAnnotation> annos) {
         if (annos.isEmpty()) {
             return;
         }

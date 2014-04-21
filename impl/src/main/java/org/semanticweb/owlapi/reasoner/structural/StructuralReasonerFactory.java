@@ -19,6 +19,8 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerConfiguration;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.semanticweb.owlapi.reasoner.SimpleConfiguration;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
@@ -26,31 +28,36 @@ import org.semanticweb.owlapi.reasoner.SimpleConfiguration;
  */
 public class StructuralReasonerFactory implements OWLReasonerFactory {
 
+    @Nonnull
     @Override
     public String getReasonerName() {
         return "Structural Reasoner";
     }
 
+    @Nonnull
     @Override
-    public OWLReasoner createNonBufferingReasoner(OWLOntology ontology) {
+    public OWLReasoner createNonBufferingReasoner(@Nonnull OWLOntology ontology) {
         return createNonBufferingReasoner(ontology, new SimpleConfiguration());
     }
 
+    @Nonnull
     @Override
-    public OWLReasoner createReasoner(OWLOntology ontology) {
+    public OWLReasoner createReasoner(@Nonnull OWLOntology ontology) {
         return createReasoner(ontology, new SimpleConfiguration());
     }
 
+    @Nonnull
     @Override
-    public OWLReasoner createNonBufferingReasoner(OWLOntology ontology,
-            OWLReasonerConfiguration config) {
+    public OWLReasoner createNonBufferingReasoner(@Nonnull OWLOntology ontology,
+            @Nonnull OWLReasonerConfiguration config) {
         return new StructuralReasoner(ontology, config,
                 BufferingMode.NON_BUFFERING);
     }
 
+    @Nonnull
     @Override
-    public OWLReasoner createReasoner(OWLOntology ontology,
-            OWLReasonerConfiguration config) {
+    public OWLReasoner createReasoner(@Nonnull OWLOntology ontology,
+            @Nonnull OWLReasonerConfiguration config) {
         return new StructuralReasoner(ontology, config, BufferingMode.BUFFERING);
     }
 }

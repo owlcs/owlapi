@@ -25,6 +25,7 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -35,10 +36,13 @@ import javax.annotation.Nonnull;
  */
 public class MutableTree<N> implements Tree<N> {
 
+    @Nonnull
     private final N userObject;
+    @Nullable
     private MutableTree<N> parent;
     private final List<MutableTree<N>> children = new ArrayList<MutableTree<N>>();
     private final Map<Tree<N>, Object> child2EdgeMap = new HashMap<Tree<N>, Object>();
+    @Nonnull
     private NodeRenderer<N> toStringRenderer = new NodeRenderer<N>() {
 
         @Nonnull

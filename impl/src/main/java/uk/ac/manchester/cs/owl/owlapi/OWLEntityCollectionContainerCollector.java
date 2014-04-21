@@ -26,6 +26,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * A utility class that visits axioms, class expressions etc. and accumulates
@@ -42,6 +43,7 @@ public class OWLEntityCollectionContainerCollector extends
         AbstractEntityRegistrationManager {
 
     private Collection<OWLEntity> objects;
+    @Nullable
     private final Collection<OWLAnonymousIndividual> anonymousIndividuals;
     private boolean collectClasses = true;
     private boolean collectObjectProperties = true;

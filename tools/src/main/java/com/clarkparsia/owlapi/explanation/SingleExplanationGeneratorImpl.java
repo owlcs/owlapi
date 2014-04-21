@@ -29,10 +29,15 @@ public abstract class SingleExplanationGeneratorImpl implements
         TransactionAwareSingleExpGen {
 
     private boolean inTransaction;
+    @Nonnull
     private final OWLOntologyManager owlOntologyManager;
+    @Nonnull
     private final OWLOntology ontology;
+    @Nonnull
     private final OWLReasoner reasoner;
+    @Nonnull
     private final OWLReasonerFactory reasonerFactory;
+    @Nonnull
     private final DefinitionTracker definitionTracker;
 
     /**

@@ -28,6 +28,7 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
  */
 public class UnsatisfiableClassCountMetric extends IntegerValuedMetric {
 
+    @Nonnull
     private final OWLReasoner reasoner;
 
     /**

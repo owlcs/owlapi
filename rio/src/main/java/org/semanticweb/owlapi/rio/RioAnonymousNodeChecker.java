@@ -38,6 +38,8 @@ package org.semanticweb.owlapi.rio;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.util.AnonymousNodeChecker;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Peter Ansell p_ansell@yahoo.com
  */
@@ -49,12 +51,12 @@ public class RioAnonymousNodeChecker implements AnonymousNodeChecker {
     public RioAnonymousNodeChecker() {}
 
     @Override
-    public boolean isAnonymousNode(final IRI iri) {
+    public boolean isAnonymousNode(@Nonnull final IRI iri) {
         return this.isAnonymousNode(iri.toString());
     }
 
     @Override
-    public boolean isAnonymousNode(final String iri) {
+    public boolean isAnonymousNode(@Nonnull final String iri) {
         return iri.startsWith("_:");
     }
 

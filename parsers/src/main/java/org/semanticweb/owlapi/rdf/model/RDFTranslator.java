@@ -36,6 +36,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 public class RDFTranslator extends
         AbstractTranslator<RDFNode, RDFResource, RDFResourceIRI, RDFLiteral> {
 
+    @Nonnull
     private RDFGraph graph = new RDFGraph();
 
     /**
@@ -52,6 +53,7 @@ public class RDFTranslator extends
     }
 
     /** @return the graph */
+    @Nonnull
     public RDFGraph getGraph() {
         return graph;
     }
@@ -65,6 +67,7 @@ public class RDFTranslator extends
                 "object cannot be null")));
     }
 
+    @Nonnull
     @Override
     protected RDFResourceBlankNode getAnonymousNode(Object key) {
         checkNotNull(key, "key cannot be null");
@@ -79,18 +82,21 @@ public class RDFTranslator extends
         return toReturn;
     }
 
+    @Nonnull
     @Override
-    protected RDFLiteral getLiteralNode(OWLLiteral literal) {
+    protected RDFLiteral getLiteralNode(@Nonnull OWLLiteral literal) {
         return new RDFLiteral(literal);
     }
 
+    @Nonnull
     @Override
-    protected RDFResourceIRI getPredicateNode(IRI uri) {
+    protected RDFResourceIRI getPredicateNode(@Nonnull IRI uri) {
         return new RDFResourceIRI(uri);
     }
 
+    @Nonnull
     @Override
-    protected RDFResourceIRI getResourceNode(IRI uri) {
+    protected RDFResourceIRI getResourceNode(@Nonnull IRI uri) {
         return new RDFResourceIRI(uri);
     }
 

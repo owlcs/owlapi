@@ -69,7 +69,7 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
      *        injected ontology builder
      */
     @Inject
-    public ParsableOWLOntologyFactory(OWLOntologyBuilder builder) {
+    public ParsableOWLOntologyFactory(@Nonnull OWLOntologyBuilder builder) {
         super(builder);
     }
 
@@ -203,9 +203,10 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
      *        parsers
      * @return selected parsers
      */
+    @Nonnull
     private PriorityCollection<OWLParser> getParsers(
-            OWLOntologyDocumentSource documentSource,
-            PriorityCollection<OWLParser> parsers) {
+            @Nonnull OWLOntologyDocumentSource documentSource,
+            @Nonnull PriorityCollection<OWLParser> parsers) {
         PriorityCollection<OWLParser> candidateParsers = parsers;
         candidateParsers = getParserCandidatesByMIME(documentSource, parsers);
         candidateParsers = getParsersByFormat(documentSource, candidateParsers);
@@ -222,9 +223,10 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
      *        parsers
      * @return candidate parsers
      */
+    @Nonnull
     private PriorityCollection<OWLParser> getParsersByFormat(
-            OWLOntologyDocumentSource documentSource,
-            PriorityCollection<OWLParser> parsers) {
+            @Nonnull OWLOntologyDocumentSource documentSource,
+            @Nonnull PriorityCollection<OWLParser> parsers) {
         if (!documentSource.isFormatKnown()) {
             return parsers;
         }
@@ -251,9 +253,10 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
      *        parsers
      * @return candidate parsers
      */
+    @Nonnull
     private PriorityCollection<OWLParser> getParserCandidatesByMIME(
-            OWLOntologyDocumentSource documentSource,
-            PriorityCollection<OWLParser> parsers) {
+            @Nonnull OWLOntologyDocumentSource documentSource,
+            @Nonnull PriorityCollection<OWLParser> parsers) {
         if (!documentSource.isMIMETypeKnown()) {
             return parsers;
         }

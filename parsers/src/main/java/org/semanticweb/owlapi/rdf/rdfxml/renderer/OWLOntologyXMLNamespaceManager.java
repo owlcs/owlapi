@@ -45,6 +45,7 @@ import org.semanticweb.owlapi.vocab.Namespaces;
 public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
 
     private OWLOntology ontology;
+    @Nonnull
     private NamespaceUtil namespaceUtil = new NamespaceUtil();
     private OWLOntologyFormat ontologyFormat;
 

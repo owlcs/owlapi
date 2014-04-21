@@ -48,6 +48,7 @@ public class OWLXMLParser extends AbstractOWLParser {
         return "OWLXMLParser";
     }
 
+    @Nonnull
     @Override
     protected Class<? extends OWLOntologyFormat> getFormatClass() {
         return OWLXMLOntologyFormat.class;

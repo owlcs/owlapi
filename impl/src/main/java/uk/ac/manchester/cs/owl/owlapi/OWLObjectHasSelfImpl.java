@@ -15,6 +15,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
@@ -35,6 +36,7 @@ public class OWLObjectHasSelfImpl extends OWLRestrictionImpl implements
         OWLObjectHasSelf {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final OWLObjectPropertyExpression property;
 
     @Override
@@ -92,6 +94,7 @@ public class OWLObjectHasSelfImpl extends OWLRestrictionImpl implements
         visitor.visit(this);
     }
 
+    @Nullable
     @Override
     public <O> O accept(@Nonnull OWLClassExpressionVisitorEx<O> visitor) {
         return visitor.visit(this);
@@ -103,7 +106,7 @@ public class OWLObjectHasSelfImpl extends OWLRestrictionImpl implements
     }
 
     @Override
-    protected int compareObjectOfSameType(OWLObject object) {
+    protected int compareObjectOfSameType(@Nonnull OWLObject object) {
         return getProperty().compareTo(
                 ((OWLObjectHasSelf) object).getProperty());
     }

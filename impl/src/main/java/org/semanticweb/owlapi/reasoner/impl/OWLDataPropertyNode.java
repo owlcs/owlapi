@@ -44,22 +44,26 @@ public class OWLDataPropertyNode extends DefaultNode<OWLDataProperty> {
         super(entities);
     }
 
+    @Nonnull
     @Override
     protected OWLDataProperty getTopEntity() {
         return TOP_DATA_PROPERTY;
     }
 
+    @Nonnull
     @Override
     protected OWLDataProperty getBottomEntity() {
         return BOTTOM_DATA_PROPERTY;
     }
 
     /** @return singleton top node */
+    @Nonnull
     public static OWLDataPropertyNode getTopNode() {
         return TOP_DATA_NODE;
     }
 
     /** @return singleton bottom node */
+    @Nonnull
     public static OWLDataPropertyNode getBottomNode() {
         return BOTTOM_DATA_NODE;
     }

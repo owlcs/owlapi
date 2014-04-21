@@ -38,6 +38,7 @@ public class KRSSOWLParser extends AbstractOWLParser {
         return "KRSSOWLParser";
     }
 
+    @Nonnull
     @Override
     protected Class<? extends OWLOntologyFormat> getFormatClass() {
         return KRSSOntologyFormat.class;

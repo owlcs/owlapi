@@ -16,6 +16,7 @@ import java.util.Collections;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -107,6 +108,7 @@ public class OWLNegativeDataPropertyAssertionAxiomImpl
         visitor.visit(this);
     }
 
+    @Nullable
     @Override
     public <O> O accept(@Nonnull OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);

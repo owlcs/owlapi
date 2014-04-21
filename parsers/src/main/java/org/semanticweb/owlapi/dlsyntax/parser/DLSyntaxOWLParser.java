@@ -46,6 +46,7 @@ public class DLSyntaxOWLParser extends AbstractOWLParser {
         return "DLSyntaxOWLParser";
     }
 
+    @Nonnull
     @Override
     protected Class<? extends OWLOntologyFormat> getFormatClass() {
         return DLSyntaxHTMLOntologyFormat.class;

@@ -34,7 +34,9 @@ public abstract class OWLSubPropertyAxiomImpl<P extends OWLPropertyExpression>
         extends OWLPropertyAxiomImpl implements OWLSubPropertyAxiom<P> {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final P subProperty;
+    @Nonnull
     private final P superProperty;
 
     /**

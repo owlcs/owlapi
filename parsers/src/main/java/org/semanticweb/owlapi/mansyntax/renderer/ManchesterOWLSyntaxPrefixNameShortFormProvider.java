@@ -47,7 +47,7 @@ public class ManchesterOWLSyntaxPrefixNameShortFormProvider implements
      * @param ont
      *        The ontology
      */
-    public ManchesterOWLSyntaxPrefixNameShortFormProvider(OWLOntology ont) {
+    public ManchesterOWLSyntaxPrefixNameShortFormProvider(@Nonnull OWLOntology ont) {
         this(ont.getOWLOntologyManager().getOntologyFormat(ont));
     }
 
@@ -80,6 +80,7 @@ public class ManchesterOWLSyntaxPrefixNameShortFormProvider implements
     }
 
     /** @return prefix manager map. The map is a copy. */
+    @Nonnull
     public Map<String, String> getPrefixName2PrefixMap() {
         return prefixManager.getPrefixName2PrefixMap();
     }
@@ -102,7 +103,8 @@ public class ManchesterOWLSyntaxPrefixNameShortFormProvider implements
      *        The IRI
      * @return The short form for the specified IRI
      */
-    public String getShortForm(IRI iri) {
+    @Nonnull
+    public String getShortForm(@Nonnull IRI iri) {
         return iri.toQuotedString();
     }
 

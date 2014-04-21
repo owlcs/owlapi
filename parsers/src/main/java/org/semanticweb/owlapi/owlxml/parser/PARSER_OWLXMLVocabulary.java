@@ -63,6 +63,9 @@ import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 
 import com.google.common.base.Optional;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -70,83 +73,160 @@ import com.google.common.base.Optional;
  */
 public enum PARSER_OWLXMLVocabulary implements HasIRI {
 //@formatter:off
-    /** CLASS                               */  PARSER_CLASS                               (CLASS                               ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLClassElementHandler(handler); } },
-    /** DATA_PROPERTY                       */  PARSER_DATA_PROPERTY                       (DATA_PROPERTY                       ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLDataPropertyElementHandler(handler); } },
-    /** OBJECT_PROPERTY                     */  PARSER_OBJECT_PROPERTY                     (OBJECT_PROPERTY                     ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLObjectPropertyElementHandler(handler); } },
-    /** NAMED_INDIVIDUAL                    */  PARSER_NAMED_INDIVIDUAL                    (NAMED_INDIVIDUAL                    ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLIndividualElementHandler(handler); } },
-    /** ENTITY_ANNOTATION                   */  PARSER_ENTITY_ANNOTATION                   (ENTITY_ANNOTATION                   ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new LegacyEntityAnnotationElementHandler(handler); } },
-    /** ANNOTATION_PROPERTY                 */  PARSER_ANNOTATION_PROPERTY                 (ANNOTATION_PROPERTY                 ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLAnnotationPropertyElementHandler(handler); } },
-    /** DATATYPE                            */  PARSER_DATATYPE                            (DATATYPE                            ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLDatatypeElementHandler(handler); } },
-    /** ANNOTATION                          */  PARSER_ANNOTATION                          (ANNOTATION                          ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLAnnotationElementHandler(handler); } },
-    /** ANONYMOUS_INDIVIDUAL                */  PARSER_ANONYMOUS_INDIVIDUAL                (ANONYMOUS_INDIVIDUAL                ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLAnonymousIndividualElementHandler(handler); } },
-    /** IMPORT                              */  PARSER_IMPORT                              (IMPORT                              ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLImportsHandler(handler); } },
-    /** ONTOLOGY                            */  PARSER_ONTOLOGY                            (ONTOLOGY                            ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLOntologyHandler(handler); } },
-    /** LITERAL                             */  PARSER_LITERAL                             (LITERAL                             ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLLiteralElementHandler(handler); } },
-    /** OBJECT_INVERSE_OF                   */  PARSER_OBJECT_INVERSE_OF                   (OBJECT_INVERSE_OF                   ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLInverseObjectPropertyElementHandler(handler); } },
-    /** DATA_COMPLEMENT_OF                  */  PARSER_DATA_COMPLEMENT_OF                  (DATA_COMPLEMENT_OF                  ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLDataComplementOfElementHandler(handler); } },
-    /** DATA_ONE_OF                         */  PARSER_DATA_ONE_OF                         (DATA_ONE_OF                         ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLDataOneOfElementHandler(handler); } },
-    /** DATATYPE_RESTRICTION                */  PARSER_DATATYPE_RESTRICTION                (DATATYPE_RESTRICTION                ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLDatatypeRestrictionElementHandler(handler); } },
-    /** FACET_RESTRICTION                   */  PARSER_FACET_RESTRICTION                   (FACET_RESTRICTION                   ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLDatatypeFacetRestrictionElementHandler(handler); } },
-    /** DATA_UNION_OF                       */  PARSER_DATA_UNION_OF                       (DATA_UNION_OF                       ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLDataUnionOfElementHandler(handler); } },
-    /** DATA_INTERSECTION_OF                */  PARSER_DATA_INTERSECTION_OF                (DATA_INTERSECTION_OF                ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLDataIntersectionOfElementHandler(handler); } },
-    /** OBJECT_INTERSECTION_OF              */  PARSER_OBJECT_INTERSECTION_OF              (OBJECT_INTERSECTION_OF              ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLObjectIntersectionOfElementHandler(handler); } },
-    /** OBJECT_UNION_OF                     */  PARSER_OBJECT_UNION_OF                     (OBJECT_UNION_OF                     ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLObjectUnionOfElementHandler(handler); } },
-    /** OBJECT_COMPLEMENT_OF                */  PARSER_OBJECT_COMPLEMENT_OF                (OBJECT_COMPLEMENT_OF                ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLObjectComplementOfElementHandler(handler); } },
-    /** OBJECT_ONE_OF                       */  PARSER_OBJECT_ONE_OF                       (OBJECT_ONE_OF                       ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLObjectOneOfElementHandler(handler); } },
-    /** OBJECT_SOME_VALUES_FROM             */  PARSER_OBJECT_SOME_VALUES_FROM             (OBJECT_SOME_VALUES_FROM             ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLObjectSomeValuesFromElementHandler(handler); } },
-    /** OBJECT_ALL_VALUES_FROM              */  PARSER_OBJECT_ALL_VALUES_FROM              (OBJECT_ALL_VALUES_FROM              ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLObjectAllValuesFromElementHandler(handler); } },
-    /** OBJECT_HAS_SELF                     */  PARSER_OBJECT_HAS_SELF                     (OBJECT_HAS_SELF                     ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLObjectExistsSelfElementHandler(handler); } },
-    /** OBJECT_HAS_VALUE                    */  PARSER_OBJECT_HAS_VALUE                    (OBJECT_HAS_VALUE                    ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLObjectHasValueElementHandler(handler); } },
-    /** OBJECT_MIN_CARDINALITY              */  PARSER_OBJECT_MIN_CARDINALITY              (OBJECT_MIN_CARDINALITY              ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLObjectMinCardinalityElementHandler(handler); } },
-    /** OBJECT_EXACT_CARDINALITY            */  PARSER_OBJECT_EXACT_CARDINALITY            (OBJECT_EXACT_CARDINALITY            ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLObjectExactCardinalityElementHandler(handler); } },
-    /** OBJECT_MAX_CARDINALITY              */  PARSER_OBJECT_MAX_CARDINALITY              (OBJECT_MAX_CARDINALITY              ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLObjectMaxCardinalityElementHandler(handler); } },
-    /** DATA_SOME_VALUES_FROM               */  PARSER_DATA_SOME_VALUES_FROM               (DATA_SOME_VALUES_FROM               ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLDataSomeValuesFromElementHandler(handler); } },
-    /** DATA_ALL_VALUES_FROM                */  PARSER_DATA_ALL_VALUES_FROM                (DATA_ALL_VALUES_FROM                ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLDataAllValuesFromElementHandler(handler); } },
-    /** DATA_HAS_VALUE                      */  PARSER_DATA_HAS_VALUE                      (DATA_HAS_VALUE                      ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLDataHasValueElementHandler(handler); } },
-    /** DATA_MIN_CARDINALITY                */  PARSER_DATA_MIN_CARDINALITY                (DATA_MIN_CARDINALITY                ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLDataMinCardinalityElementHandler(handler); } },
-    /** DATA_EXACT_CARDINALITY              */  PARSER_DATA_EXACT_CARDINALITY              (DATA_EXACT_CARDINALITY              ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLDataExactCardinalityElementHandler(handler); } },
-    /** DATA_MAX_CARDINALITY                */  PARSER_DATA_MAX_CARDINALITY                (DATA_MAX_CARDINALITY                ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLDataMaxCardinalityElementHandler(handler); } },
-    /** SUB_CLASS_OF                        */  PARSER_SUB_CLASS_OF                        (SUB_CLASS_OF                        ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLSubClassAxiomElementHandler(handler); } },
-    /** EQUIVALENT_CLASSES                  */  PARSER_EQUIVALENT_CLASSES                  (EQUIVALENT_CLASSES                  ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLEquivalentClassesAxiomElementHandler(handler); } },
-    /** DISJOINT_CLASSES                    */  PARSER_DISJOINT_CLASSES                    (DISJOINT_CLASSES                    ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLDisjointClassesAxiomElementHandler(handler); } },
-    /** DISJOINT_UNION                      */  PARSER_DISJOINT_UNION                      (DISJOINT_UNION                      ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLDisjointUnionElementHandler(handler); } },
-    /** UNION_OF                            */  PARSER_UNION_OF                            (UNION_OF                            ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLUnionOfElementHandler(handler); } },
-    /** SUB_OBJECT_PROPERTY_OF              */  PARSER_SUB_OBJECT_PROPERTY_OF              (SUB_OBJECT_PROPERTY_OF              ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLSubObjectPropertyOfAxiomElementHandler(handler); } },
-    /** OBJECT_PROPERTY_CHAIN               */  PARSER_OBJECT_PROPERTY_CHAIN               (OBJECT_PROPERTY_CHAIN               ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLSubObjectPropertyChainElementHandler(handler); } },
-    /** EQUIVALENT_OBJECT_PROPERTIES        */  PARSER_EQUIVALENT_OBJECT_PROPERTIES        (EQUIVALENT_OBJECT_PROPERTIES        ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLEquivalentObjectPropertiesAxiomElementHandler(             handler); } },
-    /** DISJOINT_OBJECT_PROPERTIES          */  PARSER_DISJOINT_OBJECT_PROPERTIES          (DISJOINT_OBJECT_PROPERTIES          ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLDisjointObjectPropertiesAxiomElementHandler(             handler); } },
-    /** OBJECT_PROPERTY_DOMAIN              */  PARSER_OBJECT_PROPERTY_DOMAIN              (OBJECT_PROPERTY_DOMAIN              ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLObjectPropertyDomainElementHandler(handler); } },
-    /** OBJECT_PROPERTY_RANGE               */  PARSER_OBJECT_PROPERTY_RANGE               (OBJECT_PROPERTY_RANGE               ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLObjectPropertyRangeAxiomElementHandler(handler); } },
-    /** INVERSE_OBJECT_PROPERTIES           */  PARSER_INVERSE_OBJECT_PROPERTIES           (INVERSE_OBJECT_PROPERTIES           ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLInverseObjectPropertiesAxiomElementHandler(             handler); } },
-    /** FUNCTIONAL_OBJECT_PROPERTY          */  PARSER_FUNCTIONAL_OBJECT_PROPERTY          (FUNCTIONAL_OBJECT_PROPERTY          ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLFunctionalObjectPropertyAxiomElementHandler(             handler); } },
-    /** INVERSE_FUNCTIONAL_OBJECT_PROPERTY  */  PARSER_INVERSE_FUNCTIONAL_OBJECT_PROPERTY  (INVERSE_FUNCTIONAL_OBJECT_PROPERTY  ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLInverseFunctionalObjectPropertyAxiomElementHandler(             handler); } },
-    /** SYMMETRIC_OBJECT_PROPERTY           */  PARSER_SYMMETRIC_OBJECT_PROPERTY           (SYMMETRIC_OBJECT_PROPERTY           ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLSymmetricObjectPropertyAxiomElementHandler(             handler); } },
-    /** ASYMMETRIC_OBJECT_PROPERTY          */  PARSER_ASYMMETRIC_OBJECT_PROPERTY          (ASYMMETRIC_OBJECT_PROPERTY          ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLAsymmetricObjectPropertyElementHandler(handler); } },
-    /** REFLEXIVE_OBJECT_PROPERTY           */  PARSER_REFLEXIVE_OBJECT_PROPERTY           (REFLEXIVE_OBJECT_PROPERTY           ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLReflexiveObjectPropertyAxiomElementHandler(             handler); } },
-    /** IRREFLEXIVE_OBJECT_PROPERTY         */  PARSER_IRREFLEXIVE_OBJECT_PROPERTY         (IRREFLEXIVE_OBJECT_PROPERTY         ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLIrreflexiveObjectPropertyAxiomElementHandler(             handler); } },
-    /** TRANSITIVE_OBJECT_PROPERTY          */  PARSER_TRANSITIVE_OBJECT_PROPERTY          (TRANSITIVE_OBJECT_PROPERTY          ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLTransitiveObjectPropertyAxiomElementHandler(             handler); } },
-    /** SUB_DATA_PROPERTY_OF                */  PARSER_SUB_DATA_PROPERTY_OF                (SUB_DATA_PROPERTY_OF                ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLSubDataPropertyOfAxiomElementHandler(handler); } },
-    /** EQUIVALENT_DATA_PROPERTIES          */  PARSER_EQUIVALENT_DATA_PROPERTIES          (EQUIVALENT_DATA_PROPERTIES          ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLEquivalentDataPropertiesAxiomElementHandler(             handler); } },
-    /** DISJOINT_DATA_PROPERTIES            */  PARSER_DISJOINT_DATA_PROPERTIES            (DISJOINT_DATA_PROPERTIES            ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLDisjointDataPropertiesAxiomElementHandler(handler); } },
-    /** DATA_PROPERTY_DOMAIN                */  PARSER_DATA_PROPERTY_DOMAIN                (DATA_PROPERTY_DOMAIN                ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLDataPropertyDomainAxiomElementHandler(handler); } },
-    /** DATA_PROPERTY_RANGE                 */  PARSER_DATA_PROPERTY_RANGE                 (DATA_PROPERTY_RANGE                 ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLDataPropertyRangeAxiomElementHandler(handler); } },
-    /** FUNCTIONAL_DATA_PROPERTY            */  PARSER_FUNCTIONAL_DATA_PROPERTY            (FUNCTIONAL_DATA_PROPERTY            ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLFunctionalDataPropertyAxiomElementHandler(handler); } },
-    /** SAME_INDIVIDUAL                     */  PARSER_SAME_INDIVIDUAL                     (SAME_INDIVIDUAL                     ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLSameIndividualsAxiomElementHandler(handler); } },
-    /** DIFFERENT_INDIVIDUALS               */  PARSER_DIFFERENT_INDIVIDUALS               (DIFFERENT_INDIVIDUALS               ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLDifferentIndividualsAxiomElementHandler(handler); } },
-    /** CLASS_ASSERTION                     */  PARSER_CLASS_ASSERTION                     (CLASS_ASSERTION                     ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLClassAssertionAxiomElementHandler(handler); } },
-    /** OBJECT_PROPERTY_ASSERTION           */  PARSER_OBJECT_PROPERTY_ASSERTION           (OBJECT_PROPERTY_ASSERTION           ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLObjectPropertyAssertionAxiomElementHandler(             handler); } },
-    /** DATA_PROPERTY_ASSERTION             */  PARSER_DATA_PROPERTY_ASSERTION             (DATA_PROPERTY_ASSERTION             ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLDataPropertyAssertionAxiomElementHandler(handler); } },
-    /** NEGATIVE_OBJECT_PROPERTY_ASSERTION  */  PARSER_NEGATIVE_OBJECT_PROPERTY_ASSERTION  (NEGATIVE_OBJECT_PROPERTY_ASSERTION  ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLNegativeObjectPropertyAssertionAxiomElementHandler(             handler); } },
-    /** NEGATIVE_DATA_PROPERTY_ASSERTION    */  PARSER_NEGATIVE_DATA_PROPERTY_ASSERTION    (NEGATIVE_DATA_PROPERTY_ASSERTION    ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLNegativeDataPropertyAssertionAxiomElementHandler(             handler); } },
-    /** HAS_KEY                             */  PARSER_HAS_KEY                             (HAS_KEY                             ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLHasKeyElementHandler(handler); } },
-    /** DECLARATION                         */  PARSER_DECLARATION                         (DECLARATION                         ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLDeclarationAxiomElementHandler(handler); } },
-    /** ANNOTATION_ASSERTION                */  PARSER_ANNOTATION_ASSERTION                (ANNOTATION_ASSERTION                ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLAnnotationAssertionElementHandler(handler); } },
-    /** ANNOTATION_PROPERTY_DOMAIN          */  PARSER_ANNOTATION_PROPERTY_DOMAIN          (ANNOTATION_PROPERTY_DOMAIN          ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLAnnotationPropertyDomainElementHandler(handler); } },
-    /** ANNOTATION_PROPERTY_RANGE           */  PARSER_ANNOTATION_PROPERTY_RANGE           (ANNOTATION_PROPERTY_RANGE           ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLAnnotationPropertyRangeElementHandler(handler); } },
-    /** SUB_ANNOTATION_PROPERTY_OF          */  PARSER_SUB_ANNOTATION_PROPERTY_OF          (SUB_ANNOTATION_PROPERTY_OF          ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLSubAnnotationPropertyOfElementHandler(handler); } },
-    /** DATATYPE_DEFINITION                 */  PARSER_DATATYPE_DEFINITION                 (DATATYPE_DEFINITION                 ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new OWLDatatypeDefinitionElementHandler(handler); } },
-    /** IRI_ELEMENT                         */  PARSER_IRI_ELEMENT                         (IRI_ELEMENT                         ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new IRIElementHandler(handler); } },
-    /** ABBREVIATED_IRI_ELEMENT             */  PARSER_ABBREVIATED_IRI_ELEMENT             (ABBREVIATED_IRI_ELEMENT             ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new AbbreviatedIRIElementHandler(handler); } },
+    /** CLASS                               */  PARSER_CLASS                               (CLASS                               ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLClassElementHandler(handler); } },
+    /** DATA_PROPERTY                       */  PARSER_DATA_PROPERTY                       (DATA_PROPERTY                       ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLDataPropertyElementHandler(handler); } },
+    /** OBJECT_PROPERTY                     */  PARSER_OBJECT_PROPERTY                     (OBJECT_PROPERTY                     ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLObjectPropertyElementHandler(handler); } },
+    /** NAMED_INDIVIDUAL                    */  PARSER_NAMED_INDIVIDUAL                    (NAMED_INDIVIDUAL                    ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLIndividualElementHandler(handler); } },
+    /** ENTITY_ANNOTATION                   */  PARSER_ENTITY_ANNOTATION                   (ENTITY_ANNOTATION                   ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new LegacyEntityAnnotationElementHandler(handler); } },
+    /** ANNOTATION_PROPERTY                 */  PARSER_ANNOTATION_PROPERTY                 (ANNOTATION_PROPERTY                 ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLAnnotationPropertyElementHandler(handler); } },
+    /** DATATYPE                            */  PARSER_DATATYPE                            (DATATYPE                            ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLDatatypeElementHandler(handler); } },
+    /** ANNOTATION                          */  PARSER_ANNOTATION                          (ANNOTATION                          ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLAnnotationElementHandler(handler); } },
+    /** ANONYMOUS_INDIVIDUAL                */  PARSER_ANONYMOUS_INDIVIDUAL                (ANONYMOUS_INDIVIDUAL                ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLAnonymousIndividualElementHandler(handler); } },
+    /** IMPORT                              */  PARSER_IMPORT                              (IMPORT                              ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLImportsHandler(handler); } },
+    /** ONTOLOGY                            */  PARSER_ONTOLOGY                            (ONTOLOGY                            ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLOntologyHandler(handler); } },
+    /** LITERAL                             */  PARSER_LITERAL                             (LITERAL                             ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLLiteralElementHandler(handler); } },
+    /** OBJECT_INVERSE_OF                   */  PARSER_OBJECT_INVERSE_OF                   (OBJECT_INVERSE_OF                   ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLInverseObjectPropertyElementHandler(handler); } },
+    /** DATA_COMPLEMENT_OF                  */  PARSER_DATA_COMPLEMENT_OF                  (DATA_COMPLEMENT_OF                  ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLDataComplementOfElementHandler(handler); } },
+    /** DATA_ONE_OF                         */  PARSER_DATA_ONE_OF                         (DATA_ONE_OF                         ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLDataOneOfElementHandler(handler); } },
+    /** DATATYPE_RESTRICTION                */  PARSER_DATATYPE_RESTRICTION                (DATATYPE_RESTRICTION                ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLDatatypeRestrictionElementHandler(handler); } },
+    /** FACET_RESTRICTION                   */  PARSER_FACET_RESTRICTION                   (FACET_RESTRICTION                   ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLDatatypeFacetRestrictionElementHandler(handler); } },
+    /** DATA_UNION_OF                       */  PARSER_DATA_UNION_OF                       (DATA_UNION_OF                       ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLDataUnionOfElementHandler(handler); } },
+    /** DATA_INTERSECTION_OF                */  PARSER_DATA_INTERSECTION_OF                (DATA_INTERSECTION_OF                ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLDataIntersectionOfElementHandler(handler); } },
+    /** OBJECT_INTERSECTION_OF              */  PARSER_OBJECT_INTERSECTION_OF              (OBJECT_INTERSECTION_OF              ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLObjectIntersectionOfElementHandler(handler); } },
+    /** OBJECT_UNION_OF                     */  PARSER_OBJECT_UNION_OF                     (OBJECT_UNION_OF                     ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLObjectUnionOfElementHandler(handler); } },
+    /** OBJECT_COMPLEMENT_OF                */  PARSER_OBJECT_COMPLEMENT_OF                (OBJECT_COMPLEMENT_OF                ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLObjectComplementOfElementHandler(handler); } },
+    /** OBJECT_ONE_OF                       */  PARSER_OBJECT_ONE_OF                       (OBJECT_ONE_OF                       ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLObjectOneOfElementHandler(handler); } },
+    /** OBJECT_SOME_VALUES_FROM             */  PARSER_OBJECT_SOME_VALUES_FROM             (OBJECT_SOME_VALUES_FROM             ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLObjectSomeValuesFromElementHandler(handler); } },
+    /** OBJECT_ALL_VALUES_FROM              */  PARSER_OBJECT_ALL_VALUES_FROM              (OBJECT_ALL_VALUES_FROM              ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLObjectAllValuesFromElementHandler(handler); } },
+    /** OBJECT_HAS_SELF                     */  PARSER_OBJECT_HAS_SELF                     (OBJECT_HAS_SELF                     ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLObjectExistsSelfElementHandler(handler); } },
+    /** OBJECT_HAS_VALUE                    */  PARSER_OBJECT_HAS_VALUE                    (OBJECT_HAS_VALUE                    ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLObjectHasValueElementHandler(handler); } },
+    /** OBJECT_MIN_CARDINALITY              */  PARSER_OBJECT_MIN_CARDINALITY              (OBJECT_MIN_CARDINALITY              ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLObjectMinCardinalityElementHandler(handler); } },
+    /** OBJECT_EXACT_CARDINALITY            */  PARSER_OBJECT_EXACT_CARDINALITY            (OBJECT_EXACT_CARDINALITY            ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLObjectExactCardinalityElementHandler(handler); } },
+    /** OBJECT_MAX_CARDINALITY              */  PARSER_OBJECT_MAX_CARDINALITY              (OBJECT_MAX_CARDINALITY              ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLObjectMaxCardinalityElementHandler(handler); } },
+    /** DATA_SOME_VALUES_FROM               */  PARSER_DATA_SOME_VALUES_FROM               (DATA_SOME_VALUES_FROM               ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLDataSomeValuesFromElementHandler(handler); } },
+    /** DATA_ALL_VALUES_FROM                */  PARSER_DATA_ALL_VALUES_FROM                (DATA_ALL_VALUES_FROM                ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLDataAllValuesFromElementHandler(handler); } },
+    /** DATA_HAS_VALUE                      */  PARSER_DATA_HAS_VALUE                      (DATA_HAS_VALUE                      ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLDataHasValueElementHandler(handler); } },
+    /** DATA_MIN_CARDINALITY                */  PARSER_DATA_MIN_CARDINALITY                (DATA_MIN_CARDINALITY                ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLDataMinCardinalityElementHandler(handler); } },
+    /** DATA_EXACT_CARDINALITY              */  PARSER_DATA_EXACT_CARDINALITY              (DATA_EXACT_CARDINALITY              ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLDataExactCardinalityElementHandler(handler); } },
+    /** DATA_MAX_CARDINALITY                */  PARSER_DATA_MAX_CARDINALITY                (DATA_MAX_CARDINALITY                ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLDataMaxCardinalityElementHandler(handler); } },
+    /** SUB_CLASS_OF                        */  PARSER_SUB_CLASS_OF                        (SUB_CLASS_OF                        ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLSubClassAxiomElementHandler(handler); } },
+    /** EQUIVALENT_CLASSES                  */  PARSER_EQUIVALENT_CLASSES                  (EQUIVALENT_CLASSES                  ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLEquivalentClassesAxiomElementHandler(handler); } },
+    /** DISJOINT_CLASSES                    */  PARSER_DISJOINT_CLASSES                    (DISJOINT_CLASSES                    ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLDisjointClassesAxiomElementHandler(handler); } },
+    /** DISJOINT_UNION                      */  PARSER_DISJOINT_UNION                      (DISJOINT_UNION                      ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLDisjointUnionElementHandler(handler); } },
+    /** UNION_OF                            */  PARSER_UNION_OF                            (UNION_OF                            ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLUnionOfElementHandler(handler); } },
+    /** SUB_OBJECT_PROPERTY_OF              */  PARSER_SUB_OBJECT_PROPERTY_OF              (SUB_OBJECT_PROPERTY_OF              ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLSubObjectPropertyOfAxiomElementHandler(handler); } },
+    /** OBJECT_PROPERTY_CHAIN               */  PARSER_OBJECT_PROPERTY_CHAIN               (OBJECT_PROPERTY_CHAIN               ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLSubObjectPropertyChainElementHandler(handler); } },
+    /** EQUIVALENT_OBJECT_PROPERTIES        */  PARSER_EQUIVALENT_OBJECT_PROPERTIES        (EQUIVALENT_OBJECT_PROPERTIES        ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLEquivalentObjectPropertiesAxiomElementHandler(             handler); } },
+    /** DISJOINT_OBJECT_PROPERTIES          */  PARSER_DISJOINT_OBJECT_PROPERTIES          (DISJOINT_OBJECT_PROPERTIES          ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLDisjointObjectPropertiesAxiomElementHandler(             handler); } },
+    /** OBJECT_PROPERTY_DOMAIN              */  PARSER_OBJECT_PROPERTY_DOMAIN              (OBJECT_PROPERTY_DOMAIN              ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLObjectPropertyDomainElementHandler(handler); } },
+    /** OBJECT_PROPERTY_RANGE               */  PARSER_OBJECT_PROPERTY_RANGE               (OBJECT_PROPERTY_RANGE               ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLObjectPropertyRangeAxiomElementHandler(handler); } },
+    /** INVERSE_OBJECT_PROPERTIES           */  PARSER_INVERSE_OBJECT_PROPERTIES           (INVERSE_OBJECT_PROPERTIES           ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLInverseObjectPropertiesAxiomElementHandler(             handler); } },
+    /** FUNCTIONAL_OBJECT_PROPERTY          */  PARSER_FUNCTIONAL_OBJECT_PROPERTY          (FUNCTIONAL_OBJECT_PROPERTY          ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLFunctionalObjectPropertyAxiomElementHandler(             handler); } },
+    /** INVERSE_FUNCTIONAL_OBJECT_PROPERTY  */  PARSER_INVERSE_FUNCTIONAL_OBJECT_PROPERTY  (INVERSE_FUNCTIONAL_OBJECT_PROPERTY  ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLInverseFunctionalObjectPropertyAxiomElementHandler(             handler); } },
+    /** SYMMETRIC_OBJECT_PROPERTY           */  PARSER_SYMMETRIC_OBJECT_PROPERTY           (SYMMETRIC_OBJECT_PROPERTY           ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLSymmetricObjectPropertyAxiomElementHandler(             handler); } },
+    /** ASYMMETRIC_OBJECT_PROPERTY          */  PARSER_ASYMMETRIC_OBJECT_PROPERTY          (ASYMMETRIC_OBJECT_PROPERTY          ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLAsymmetricObjectPropertyElementHandler(handler); } },
+    /** REFLEXIVE_OBJECT_PROPERTY           */  PARSER_REFLEXIVE_OBJECT_PROPERTY           (REFLEXIVE_OBJECT_PROPERTY           ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLReflexiveObjectPropertyAxiomElementHandler(             handler); } },
+    /** IRREFLEXIVE_OBJECT_PROPERTY         */  PARSER_IRREFLEXIVE_OBJECT_PROPERTY         (IRREFLEXIVE_OBJECT_PROPERTY         ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLIrreflexiveObjectPropertyAxiomElementHandler(             handler); } },
+    /** TRANSITIVE_OBJECT_PROPERTY          */  PARSER_TRANSITIVE_OBJECT_PROPERTY          (TRANSITIVE_OBJECT_PROPERTY          ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLTransitiveObjectPropertyAxiomElementHandler(             handler); } },
+    /** SUB_DATA_PROPERTY_OF                */  PARSER_SUB_DATA_PROPERTY_OF                (SUB_DATA_PROPERTY_OF                ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLSubDataPropertyOfAxiomElementHandler(handler); } },
+    /** EQUIVALENT_DATA_PROPERTIES          */  PARSER_EQUIVALENT_DATA_PROPERTIES          (EQUIVALENT_DATA_PROPERTIES          ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLEquivalentDataPropertiesAxiomElementHandler(             handler); } },
+    /** DISJOINT_DATA_PROPERTIES            */  PARSER_DISJOINT_DATA_PROPERTIES            (DISJOINT_DATA_PROPERTIES            ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLDisjointDataPropertiesAxiomElementHandler(handler); } },
+    /** DATA_PROPERTY_DOMAIN                */  PARSER_DATA_PROPERTY_DOMAIN                (DATA_PROPERTY_DOMAIN                ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLDataPropertyDomainAxiomElementHandler(handler); } },
+    /** DATA_PROPERTY_RANGE                 */  PARSER_DATA_PROPERTY_RANGE                 (DATA_PROPERTY_RANGE                 ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLDataPropertyRangeAxiomElementHandler(handler); } },
+    /** FUNCTIONAL_DATA_PROPERTY            */  PARSER_FUNCTIONAL_DATA_PROPERTY            (FUNCTIONAL_DATA_PROPERTY            ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLFunctionalDataPropertyAxiomElementHandler(handler); } },
+    /** SAME_INDIVIDUAL                     */  PARSER_SAME_INDIVIDUAL                     (SAME_INDIVIDUAL                     ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLSameIndividualsAxiomElementHandler(handler); } },
+    /** DIFFERENT_INDIVIDUALS               */  PARSER_DIFFERENT_INDIVIDUALS               (DIFFERENT_INDIVIDUALS               ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLDifferentIndividualsAxiomElementHandler(handler); } },
+    /** CLASS_ASSERTION                     */  PARSER_CLASS_ASSERTION                     (CLASS_ASSERTION                     ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLClassAssertionAxiomElementHandler(handler); } },
+    /** OBJECT_PROPERTY_ASSERTION           */  PARSER_OBJECT_PROPERTY_ASSERTION           (OBJECT_PROPERTY_ASSERTION           ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLObjectPropertyAssertionAxiomElementHandler(             handler); } },
+    /** DATA_PROPERTY_ASSERTION             */  PARSER_DATA_PROPERTY_ASSERTION             (DATA_PROPERTY_ASSERTION             ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLDataPropertyAssertionAxiomElementHandler(handler); } },
+    /** NEGATIVE_OBJECT_PROPERTY_ASSERTION  */  PARSER_NEGATIVE_OBJECT_PROPERTY_ASSERTION  (NEGATIVE_OBJECT_PROPERTY_ASSERTION  ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLNegativeObjectPropertyAssertionAxiomElementHandler(             handler); } },
+    /** NEGATIVE_DATA_PROPERTY_ASSERTION    */  PARSER_NEGATIVE_DATA_PROPERTY_ASSERTION    (NEGATIVE_DATA_PROPERTY_ASSERTION    ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLNegativeDataPropertyAssertionAxiomElementHandler(             handler); } },
+    /** HAS_KEY                             */  PARSER_HAS_KEY                             (HAS_KEY                             ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLHasKeyElementHandler(handler); } },
+    /** DECLARATION                         */  PARSER_DECLARATION                         (DECLARATION                         ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLDeclarationAxiomElementHandler(handler); } },
+    /** ANNOTATION_ASSERTION                */  PARSER_ANNOTATION_ASSERTION                (ANNOTATION_ASSERTION                ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLAnnotationAssertionElementHandler(handler); } },
+    /** ANNOTATION_PROPERTY_DOMAIN          */  PARSER_ANNOTATION_PROPERTY_DOMAIN          (ANNOTATION_PROPERTY_DOMAIN          ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLAnnotationPropertyDomainElementHandler(handler); } },
+    /** ANNOTATION_PROPERTY_RANGE           */  PARSER_ANNOTATION_PROPERTY_RANGE           (ANNOTATION_PROPERTY_RANGE           ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLAnnotationPropertyRangeElementHandler(handler); } },
+    /** SUB_ANNOTATION_PROPERTY_OF          */  PARSER_SUB_ANNOTATION_PROPERTY_OF          (SUB_ANNOTATION_PROPERTY_OF          ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLSubAnnotationPropertyOfElementHandler(handler); } },
+    /** DATATYPE_DEFINITION                 */  PARSER_DATATYPE_DEFINITION                 (DATATYPE_DEFINITION                 ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLDatatypeDefinitionElementHandler(handler); } },
+    /** IRI_ELEMENT                         */  PARSER_IRI_ELEMENT                         (IRI_ELEMENT                         ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new IRIElementHandler(handler); } },
+    /** ABBREVIATED_IRI_ELEMENT             */  PARSER_ABBREVIATED_IRI_ELEMENT             (ABBREVIATED_IRI_ELEMENT             ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new AbbreviatedIRIElementHandler(handler); } },
     /** NODE_ID                             */  PARSER_NODE_ID                             (NODE_ID                             ),
     /** ANNOTATION_URI                      */  PARSER_ANNOTATION_URI                      (ANNOTATION_URI                      ),
     /** LABEL                               */  PARSER_LABEL                               (LABEL                               ),
@@ -162,23 +242,36 @@ public enum PARSER_OWLXMLVocabulary implements HasIRI {
     /** CARDINALITY_ATTRIBUTE               */  PARSER_CARDINALITY_ATTRIBUTE               (CARDINALITY_ATTRIBUTE               ),
     
     // Rules Extensions
-    /** DL_SAFE_RULE                        */  PARSER_DL_SAFE_RULE                        (DL_SAFE_RULE                        ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new SWRLRuleElementHandler(handler); } },
-    /** BODY                                */  PARSER_BODY                                (BODY                                ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new SWRLAtomListElementHandler(handler); } },
-    /** HEAD                                */  PARSER_HEAD                                (HEAD                                ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new SWRLAtomListElementHandler(handler); } },
-    /** CLASS_ATOM                          */  PARSER_CLASS_ATOM                          (CLASS_ATOM                          ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new SWRLClassAtomElementHandler(handler); } },
-    /** DATA_RANGE_ATOM                     */  PARSER_DATA_RANGE_ATOM                     (DATA_RANGE_ATOM                     ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new SWRLDataRangeAtomElementHandler(handler); } },
-    /** OBJECT_PROPERTY_ATOM                */  PARSER_OBJECT_PROPERTY_ATOM                (OBJECT_PROPERTY_ATOM                ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new SWRLObjectPropertyAtomElementHandler(handler); } },
-    /** DATA_PROPERTY_ATOM                  */  PARSER_DATA_PROPERTY_ATOM                  (DATA_PROPERTY_ATOM                  ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new SWRLDataPropertyAtomElementHandler(handler); } },
-    /** BUILT_IN_ATOM                       */  PARSER_BUILT_IN_ATOM                       (BUILT_IN_ATOM                       ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new SWRLBuiltInAtomElementHandler(handler); } },
-    /** SAME_INDIVIDUAL_ATOM                */  PARSER_SAME_INDIVIDUAL_ATOM                (SAME_INDIVIDUAL_ATOM                ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new SWRLSameIndividualAtomElementHandler(handler); } },
-    /** DIFFERENT_INDIVIDUALS_ATOM          */  PARSER_DIFFERENT_INDIVIDUALS_ATOM          (DIFFERENT_INDIVIDUALS_ATOM          ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new SWRLDifferentIndividualsAtomElementHandler(handler); } },
-    /** VARIABLE                            */  PARSER_VARIABLE                            (VARIABLE                            ) { @Override public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) { return new SWRLVariableElementHandler(handler); } },
+    /** DL_SAFE_RULE                        */  PARSER_DL_SAFE_RULE                        (DL_SAFE_RULE                        ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new SWRLRuleElementHandler(handler); } },
+    /** BODY                                */  PARSER_BODY                                (BODY                                ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new SWRLAtomListElementHandler(handler); } },
+    /** HEAD                                */  PARSER_HEAD                                (HEAD                                ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new SWRLAtomListElementHandler(handler); } },
+    /** CLASS_ATOM                          */  PARSER_CLASS_ATOM                          (CLASS_ATOM                          ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new SWRLClassAtomElementHandler(handler); } },
+    /** DATA_RANGE_ATOM                     */  PARSER_DATA_RANGE_ATOM                     (DATA_RANGE_ATOM                     ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new SWRLDataRangeAtomElementHandler(handler); } },
+    /** OBJECT_PROPERTY_ATOM                */  PARSER_OBJECT_PROPERTY_ATOM                (OBJECT_PROPERTY_ATOM                ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new SWRLObjectPropertyAtomElementHandler(handler); } },
+    /** DATA_PROPERTY_ATOM                  */  PARSER_DATA_PROPERTY_ATOM                  (DATA_PROPERTY_ATOM                  ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new SWRLDataPropertyAtomElementHandler(handler); } },
+    /** BUILT_IN_ATOM                       */  PARSER_BUILT_IN_ATOM                       (BUILT_IN_ATOM                       ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new SWRLBuiltInAtomElementHandler(handler); } },
+    /** SAME_INDIVIDUAL_ATOM                */  PARSER_SAME_INDIVIDUAL_ATOM                (SAME_INDIVIDUAL_ATOM                ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new SWRLSameIndividualAtomElementHandler(handler); } },
+    /** DIFFERENT_INDIVIDUALS_ATOM          */  PARSER_DIFFERENT_INDIVIDUALS_ATOM          (DIFFERENT_INDIVIDUALS_ATOM          ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new SWRLDifferentIndividualsAtomElementHandler(handler); } },
+    /** VARIABLE                            */  PARSER_VARIABLE                            (VARIABLE                            ) { @Nonnull
+                                                                                                                                    @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new SWRLVariableElementHandler(handler); } },
     /** DESCRIPTION_GRAPH_RULE              */  PARSER_DESCRIPTION_GRAPH_RULE              (DESCRIPTION_GRAPH_RULE              );
 //@formatter:on
+    @Nonnull
     private final IRI iri;
+    @Nonnull
     private final String shortName;
 
-    PARSER_OWLXMLVocabulary(OWLXMLVocabulary name) {
+    PARSER_OWLXMLVocabulary(@Nonnull OWLXMLVocabulary name) {
         iri = IRI.create(Namespaces.OWL.toString(), name.getShortForm());
         shortName = name.getShortForm();
     }
@@ -189,6 +282,7 @@ public enum PARSER_OWLXMLVocabulary implements HasIRI {
     }
 
     /** @return short name */
+    @Nonnull
     public String getShortName() {
         return shortName;
     }
@@ -198,6 +292,7 @@ public enum PARSER_OWLXMLVocabulary implements HasIRI {
      *        owlxml handler
      * @return element handler
      */
+    @Nullable
     public OWLElementHandler<?> createHandler(
             @SuppressWarnings("unused") OWLXMLParserHandler handler) {
         return null;
@@ -209,11 +304,13 @@ abstract class OWLElementHandler<O> {
 
     OWLXMLParserHandler handler;
     OWLElementHandler<?> parentHandler;
+    @Nullable
     StringBuilder sb;
     String elementName;
     OWLDataFactory df;
 
     /** @return object */
+    @Nullable
     abstract O getOWLObject();
 
     /**
@@ -222,12 +319,13 @@ abstract class OWLElementHandler<O> {
      */
     abstract void endElement();
 
-    OWLElementHandler(OWLXMLParserHandler handler) {
+    OWLElementHandler(@Nonnull OWLXMLParserHandler handler) {
         this.handler = handler;
         df = handler.getDataFactory();
     }
 
-    IRI getIRIFromAttribute(String localName, String value) {
+    @Nullable
+    IRI getIRIFromAttribute(@Nonnull String localName, @Nonnull String value) {
         if (localName.equals(IRI_ATTRIBUTE.getShortForm())) {
             return handler.getIRI(value);
         } else if (localName.equals(ABBREVIATED_IRI_ATTRIBUTE.getShortForm())) {
@@ -240,7 +338,7 @@ abstract class OWLElementHandler<O> {
         return null;
     }
 
-    IRI getIRIFromElement(String elementLocalName, String textContent) {
+    IRI getIRIFromElement(@Nonnull String elementLocalName, @Nonnull String textContent) {
         if (elementLocalName.equals(IRI_ELEMENT.getShortForm())) {
             return handler.getIRI(textContent.trim());
         } else if (elementLocalName.equals(ABBREVIATED_IRI_ELEMENT
@@ -380,13 +478,13 @@ abstract class OWLElementHandler<O> {
      */
     void handleChild(SWRLAtomListElementHandler h) {}
 
-    void ensureNotNull(Object element, String message) {
+    void ensureNotNull(@Nullable Object element, String message) {
         if (element == null) {
             throw new OWLXMLParserElementNotFoundException(handler, message);
         }
     }
 
-    void ensureAttributeNotNull(Object element, String message) {
+    void ensureAttributeNotNull(@Nullable Object element, String message) {
         if (element == null) {
             throw new OWLXMLParserAttributeNotFoundException(handler, message);
         }
@@ -410,6 +508,7 @@ abstract class OWLElementHandler<O> {
     }
 
     /** @return text handled */
+    @Nonnull
     String getText() {
         if (sb == null) {
             return "";
@@ -429,7 +528,7 @@ abstract class AbstractClassExpressionElementHandler extends
 
     OWLClassExpression desc;
 
-    AbstractClassExpressionElementHandler(OWLXMLParserHandler handler) {
+    AbstractClassExpressionElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
@@ -454,12 +553,12 @@ abstract class AbstractClassExpressionElementHandler extends
 abstract class AbstractClassExpressionFillerRestriction extends
         AbstractObjectRestrictionElementHandler<OWLClassExpression> {
 
-    AbstractClassExpressionFillerRestriction(OWLXMLParserHandler handler) {
+    AbstractClassExpressionFillerRestriction(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
     @Override
-    void handleChild(AbstractClassExpressionElementHandler h) {
+    void handleChild(@Nonnull AbstractClassExpressionElementHandler h) {
         setFiller(h.getOWLObject());
     }
 }
@@ -468,12 +567,12 @@ abstract class AbstractClassExpressionOperandAxiomElementHandler extends
         AbstractOperandAxiomElementHandler<OWLClassExpression> {
 
     AbstractClassExpressionOperandAxiomElementHandler(
-            OWLXMLParserHandler handler) {
+            @Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
     @Override
-    void handleChild(AbstractClassExpressionElementHandler h) {
+    void handleChild(@Nonnull AbstractClassExpressionElementHandler h) {
         addOperand(h.getOWLObject());
     }
 }
@@ -483,12 +582,12 @@ abstract class AbstractDataCardinalityRestrictionElementHandler extends
 
     int cardinality;
 
-    AbstractDataCardinalityRestrictionElementHandler(OWLXMLParserHandler handler) {
+    AbstractDataCardinalityRestrictionElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
     @Override
-    void attribute(String localName, String value) {
+    void attribute(@Nonnull String localName, String value) {
         if (localName.equals("cardinality")) {
             cardinality = Integer.parseInt(value);
         }
@@ -508,12 +607,12 @@ abstract class AbstractDataCardinalityRestrictionElementHandler extends
 abstract class AbstractDataRangeFillerRestrictionElementHandler extends
         AbstractDataRestrictionElementHandler<OWLDataRange> {
 
-    AbstractDataRangeFillerRestrictionElementHandler(OWLXMLParserHandler handler) {
+    AbstractDataRangeFillerRestrictionElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
     @Override
-    void handleChild(AbstractOWLDataRangeHandler h) {
+    void handleChild(@Nonnull AbstractOWLDataRangeHandler h) {
         setFiller(h.getOWLObject());
     }
 }
@@ -523,13 +622,13 @@ abstract class AbstractNaryBooleanClassExpressionElementHandler extends
 
     Set<OWLClassExpression> operands;
 
-    AbstractNaryBooleanClassExpressionElementHandler(OWLXMLParserHandler handler) {
+    AbstractNaryBooleanClassExpressionElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
         operands = new HashSet<OWLClassExpression>();
     }
 
     @Override
-    void handleChild(AbstractClassExpressionElementHandler h) {
+    void handleChild(@Nonnull AbstractClassExpressionElementHandler h) {
         operands.add(h.getOWLObject());
     }
 
@@ -546,13 +645,14 @@ abstract class AbstractNaryBooleanClassExpressionElementHandler extends
         }
     }
 
+    @Nonnull
     abstract OWLClassExpression createClassExpression(
             Set<OWLClassExpression> expressions);
 }
 
 abstract class AbstractIRIElementHandler extends OWLElementHandler<IRI> {
 
-    AbstractIRIElementHandler(OWLXMLParserHandler handler) {
+    AbstractIRIElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 }
@@ -560,12 +660,12 @@ abstract class AbstractIRIElementHandler extends OWLElementHandler<IRI> {
 abstract class AbstractDataRestrictionElementHandler<F extends OWLObject>
         extends AbstractRestrictionElementHandler<OWLDataPropertyExpression, F> {
 
-    AbstractDataRestrictionElementHandler(OWLXMLParserHandler handler) {
+    AbstractDataRestrictionElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
     @Override
-    void handleChild(OWLDataPropertyElementHandler h) {
+    void handleChild(@Nonnull OWLDataPropertyElementHandler h) {
         setProperty(h.getOWLObject());
     }
 }
@@ -574,12 +674,12 @@ abstract class AbstractObjectRestrictionElementHandler<F extends OWLObject>
         extends
         AbstractRestrictionElementHandler<OWLObjectPropertyExpression, F> {
 
-    AbstractObjectRestrictionElementHandler(OWLXMLParserHandler handler) {
+    AbstractObjectRestrictionElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
     @Override
-    void handleChild(AbstractOWLObjectPropertyElementHandler h) {
+    void handleChild(@Nonnull AbstractOWLObjectPropertyElementHandler h) {
         setProperty(h.getOWLObject());
     }
 }
@@ -587,9 +687,10 @@ abstract class AbstractObjectRestrictionElementHandler<F extends OWLObject>
 abstract class AbstractOperandAxiomElementHandler<O extends OWLObject> extends
         AbstractOWLAxiomElementHandler {
 
+    @Nonnull
     Set<O> operands = new HashSet<O>();
 
-    AbstractOperandAxiomElementHandler(OWLXMLParserHandler handler) {
+    AbstractOperandAxiomElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
@@ -599,6 +700,7 @@ abstract class AbstractOperandAxiomElementHandler<O extends OWLObject> extends
         operands.clear();
     }
 
+    @Nonnull
     Set<O> getOperands() {
         return operands;
     }
@@ -615,7 +717,7 @@ abstract class AbstractOWLAssertionAxiomElementHandler<P extends OWLPropertyExpr
     P property;
     O object;
 
-    AbstractOWLAssertionAxiomElementHandler(OWLXMLParserHandler handler) {
+    AbstractOWLAssertionAxiomElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
@@ -648,9 +750,10 @@ abstract class AbstractOWLAxiomElementHandler extends
         OWLElementHandler<OWLAxiom> {
 
     OWLAxiom axiom;
+    @Nonnull
     Set<OWLAnnotation> annotations = new HashSet<OWLAnnotation>();
 
-    AbstractOWLAxiomElementHandler(OWLXMLParserHandler handler) {
+    AbstractOWLAxiomElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
@@ -669,7 +772,7 @@ abstract class AbstractOWLAxiomElementHandler extends
     }
 
     @Override
-    void handleChild(OWLAnnotationElementHandler h) {
+    void handleChild(@Nonnull OWLAnnotationElementHandler h) {
         annotations.add(h.getOWLObject());
     }
 
@@ -679,10 +782,12 @@ abstract class AbstractOWLAxiomElementHandler extends
         getParentHandler().handleChild(this);
     }
 
+    @Nonnull
     Set<OWLAnnotation> getAnnotations() {
         return annotations;
     }
 
+    @Nonnull
     abstract OWLAxiom createAxiom();
 }
 
@@ -691,27 +796,27 @@ abstract class AbstractOWLDataPropertyAssertionAxiomElementHandler
         AbstractOWLAssertionAxiomElementHandler<OWLDataPropertyExpression, OWLLiteral> {
 
     AbstractOWLDataPropertyAssertionAxiomElementHandler(
-            OWLXMLParserHandler handler) {
+            @Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
     @Override
-    void handleChild(OWLAnonymousIndividualElementHandler h) {
+    void handleChild(@Nonnull OWLAnonymousIndividualElementHandler h) {
         setSubject(h.getOWLObject());
     }
 
     @Override
-    void handleChild(OWLIndividualElementHandler h) {
+    void handleChild(@Nonnull OWLIndividualElementHandler h) {
         setSubject(h.getOWLObject());
     }
 
     @Override
-    void handleChild(OWLDataPropertyElementHandler h) {
+    void handleChild(@Nonnull OWLDataPropertyElementHandler h) {
         setProperty(h.getOWLObject());
     }
 
     @Override
-    void handleChild(OWLLiteralElementHandler h) {
+    void handleChild(@Nonnull OWLLiteralElementHandler h) {
         setObject(h.getOWLObject());
     }
 }
@@ -720,12 +825,12 @@ abstract class AbstractOWLDataPropertyOperandAxiomElementHandler extends
         AbstractOperandAxiomElementHandler<OWLDataPropertyExpression> {
 
     AbstractOWLDataPropertyOperandAxiomElementHandler(
-            OWLXMLParserHandler handler) {
+            @Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
     @Override
-    void handleChild(OWLDataPropertyElementHandler h) {
+    void handleChild(@Nonnull OWLDataPropertyElementHandler h) {
         addOperand(h.getOWLObject());
     }
 }
@@ -735,7 +840,7 @@ abstract class AbstractOWLDataRangeHandler extends
 
     OWLDataRange dataRange;
 
-    AbstractOWLDataRangeHandler(OWLXMLParserHandler handler) {
+    AbstractOWLDataRangeHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
@@ -760,17 +865,17 @@ abstract class AbstractOWLDataRangeHandler extends
 abstract class AbstractOWLIndividualOperandAxiomElementHandler extends
         AbstractOperandAxiomElementHandler<OWLIndividual> {
 
-    AbstractOWLIndividualOperandAxiomElementHandler(OWLXMLParserHandler handler) {
+    AbstractOWLIndividualOperandAxiomElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
     @Override
-    void handleChild(OWLIndividualElementHandler h) {
+    void handleChild(@Nonnull OWLIndividualElementHandler h) {
         addOperand(h.getOWLObject());
     }
 
     @Override
-    void handleChild(OWLAnonymousIndividualElementHandler h) {
+    void handleChild(@Nonnull OWLAnonymousIndividualElementHandler h) {
         addOperand(h.getOWLObject());
     }
 }
@@ -780,7 +885,7 @@ abstract class AbstractOWLObjectCardinalityElementHandler extends
 
     int cardinality;
 
-    AbstractOWLObjectCardinalityElementHandler(OWLXMLParserHandler handler) {
+    AbstractOWLObjectCardinalityElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
@@ -791,17 +896,19 @@ abstract class AbstractOWLObjectCardinalityElementHandler extends
     }
 
     @Override
-    void attribute(String localName, String value) {
+    void attribute(@Nonnull String localName, String value) {
         if (localName.equals("cardinality")) {
             cardinality = Integer.parseInt(value);
         }
     }
 
+    @Nonnull
     @Override
     OWLClassExpression createRestriction() {
         return createCardinalityRestriction();
     }
 
+    @Nonnull
     abstract OWLClassExpression createCardinalityRestriction();
 
     int getCardinality() {
@@ -814,12 +921,12 @@ abstract class AbstractOWLObjectPropertyAssertionAxiomElementHandler
         AbstractOWLAssertionAxiomElementHandler<OWLObjectPropertyExpression, OWLIndividual> {
 
     AbstractOWLObjectPropertyAssertionAxiomElementHandler(
-            OWLXMLParserHandler handler) {
+            @Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
     @Override
-    void handleChild(OWLAnonymousIndividualElementHandler h) {
+    void handleChild(@Nonnull OWLAnonymousIndividualElementHandler h) {
         if (getSubject() == null) {
             setSubject(h.getOWLObject());
         } else if (getObject() == null) {
@@ -828,7 +935,7 @@ abstract class AbstractOWLObjectPropertyAssertionAxiomElementHandler
     }
 
     @Override
-    void handleChild(OWLIndividualElementHandler h) {
+    void handleChild(@Nonnull OWLIndividualElementHandler h) {
         if (getSubject() == null) {
             setSubject(h.getOWLObject());
         } else if (getObject() == null) {
@@ -837,7 +944,7 @@ abstract class AbstractOWLObjectPropertyAssertionAxiomElementHandler
     }
 
     @Override
-    void handleChild(AbstractOWLObjectPropertyElementHandler h) {
+    void handleChild(@Nonnull AbstractOWLObjectPropertyElementHandler h) {
         setProperty(h.getOWLObject());
     }
 }
@@ -847,12 +954,12 @@ abstract class AbstractOWLObjectPropertyCharacteristicAxiomElementHandler
         AbstractOWLPropertyCharacteristicAxiomElementHandler<OWLObjectPropertyExpression> {
 
     AbstractOWLObjectPropertyCharacteristicAxiomElementHandler(
-            OWLXMLParserHandler handler) {
+            @Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
     @Override
-    void handleChild(AbstractOWLObjectPropertyElementHandler h) {
+    void handleChild(@Nonnull AbstractOWLObjectPropertyElementHandler h) {
         setProperty(h.getOWLObject());
     }
 }
@@ -862,7 +969,7 @@ abstract class AbstractOWLObjectPropertyElementHandler extends
 
     OWLObjectPropertyExpression property;
 
-    AbstractOWLObjectPropertyElementHandler(OWLXMLParserHandler handler) {
+    AbstractOWLObjectPropertyElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
@@ -888,12 +995,12 @@ abstract class AbstractOWLObjectPropertyOperandAxiomElementHandler extends
         AbstractOperandAxiomElementHandler<OWLObjectPropertyExpression> {
 
     AbstractOWLObjectPropertyOperandAxiomElementHandler(
-            OWLXMLParserHandler handler) {
+            @Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
     @Override
-    void handleChild(AbstractOWLObjectPropertyElementHandler h) {
+    void handleChild(@Nonnull AbstractOWLObjectPropertyElementHandler h) {
         addOperand(h.getOWLObject());
     }
 }
@@ -904,7 +1011,7 @@ abstract class AbstractOWLPropertyCharacteristicAxiomElementHandler<P extends OW
     P property;
 
     AbstractOWLPropertyCharacteristicAxiomElementHandler(
-            OWLXMLParserHandler handler) {
+            @Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
@@ -916,12 +1023,14 @@ abstract class AbstractOWLPropertyCharacteristicAxiomElementHandler<P extends OW
         return property;
     }
 
+    @Nonnull
     @Override
     OWLAxiom createAxiom() {
         ensureNotNull(property, "property element");
         return createPropertyCharacteristicAxiom();
     }
 
+    @Nonnull
     abstract OWLAxiom createPropertyCharacteristicAxiom();
 }
 
@@ -931,7 +1040,7 @@ abstract class AbstractRestrictionElementHandler<P extends OWLPropertyExpression
     P property;
     F filler;
 
-    AbstractRestrictionElementHandler(OWLXMLParserHandler handler) {
+    AbstractRestrictionElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
@@ -956,12 +1065,13 @@ abstract class AbstractRestrictionElementHandler<P extends OWLPropertyExpression
         setClassExpression(createRestriction());
     }
 
+    @Nonnull
     abstract OWLClassExpression createRestriction();
 }
 
 class AbbreviatedIRIElementHandler extends AbstractIRIElementHandler {
 
-    AbbreviatedIRIElementHandler(OWLXMLParserHandler handler) {
+    AbbreviatedIRIElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
@@ -987,7 +1097,7 @@ class AbbreviatedIRIElementHandler extends AbstractIRIElementHandler {
 
 class IRIElementHandler extends AbstractIRIElementHandler {
 
-    IRIElementHandler(OWLXMLParserHandler handler) {
+    IRIElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
@@ -1013,7 +1123,7 @@ class IRIElementHandler extends AbstractIRIElementHandler {
 
 class OWLUnionOfElementHandler extends OWLElementHandler<OWLClassExpression> {
 
-    OWLUnionOfElementHandler(OWLXMLParserHandler handler) {
+    OWLUnionOfElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
@@ -1026,6 +1136,7 @@ class OWLUnionOfElementHandler extends OWLElementHandler<OWLClassExpression> {
     @Override
     void endElement() {}
 
+    @Nonnull
     @Override
     OWLClassExpression getOWLObject() {
         throw new OWLRuntimeException(
@@ -1036,13 +1147,16 @@ class OWLUnionOfElementHandler extends OWLElementHandler<OWLClassExpression> {
 class LegacyEntityAnnotationElementHandler extends
         AbstractOWLAxiomElementHandler {
 
+    @Nullable
     OWLEntity entity;
+    @Nullable
     OWLAnnotation annotation;
 
-    LegacyEntityAnnotationElementHandler(OWLXMLParserHandler handler) {
+    LegacyEntityAnnotationElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
+    @Nonnull
     @Override
     OWLAxiom createAxiom() {
         OWLAnnotationAssertionAxiom toReturn = df
@@ -1054,27 +1168,27 @@ class LegacyEntityAnnotationElementHandler extends
     }
 
     @Override
-    void handleChild(AbstractClassExpressionElementHandler h) {
+    void handleChild(@Nonnull AbstractClassExpressionElementHandler h) {
         entity = h.getOWLObject().asOWLClass();
     }
 
     @Override
-    void handleChild(OWLDataPropertyElementHandler h) {
+    void handleChild(@Nonnull OWLDataPropertyElementHandler h) {
         entity = h.getOWLObject().asOWLDataProperty();
     }
 
     @Override
-    void handleChild(OWLIndividualElementHandler h) {
+    void handleChild(@Nonnull OWLIndividualElementHandler h) {
         entity = h.getOWLObject();
     }
 
     @Override
-    void handleChild(AbstractOWLObjectPropertyElementHandler h) {
+    void handleChild(@Nonnull AbstractOWLObjectPropertyElementHandler h) {
         entity = h.getOWLObject().asOWLObjectProperty();
     }
 
     @Override
-    void handleChild(OWLAnnotationElementHandler h) {
+    void handleChild(@Nonnull OWLAnnotationElementHandler h) {
         if (entity == null) {
             super.handleChild(h);
         } else {
@@ -1086,16 +1200,19 @@ class LegacyEntityAnnotationElementHandler extends
 class OWLAnnotationAssertionElementHandler extends
         AbstractOWLAxiomElementHandler {
 
-    OWLAnnotationAssertionElementHandler(OWLXMLParserHandler handler) {
+    OWLAnnotationAssertionElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
+    @Nullable
     OWLAnnotationSubject subject = null;
+    @Nullable
     OWLAnnotationValue object = null;
+    @Nullable
     OWLAnnotationProperty property = null;
 
     @Override
-    void handleChild(AbstractIRIElementHandler h) {
+    void handleChild(@Nonnull AbstractIRIElementHandler h) {
         if (subject == null) {
             subject = h.getOWLObject();
         } else {
@@ -1104,7 +1221,7 @@ class OWLAnnotationAssertionElementHandler extends
     }
 
     @Override
-    void handleChild(OWLAnonymousIndividualElementHandler h) {
+    void handleChild(@Nonnull OWLAnonymousIndividualElementHandler h) {
         if (subject == null) {
             subject = h.getOWLObject();
         } else {
@@ -1113,15 +1230,16 @@ class OWLAnnotationAssertionElementHandler extends
     }
 
     @Override
-    void handleChild(OWLAnnotationPropertyElementHandler h) {
+    void handleChild(@Nonnull OWLAnnotationPropertyElementHandler h) {
         property = h.getOWLObject();
     }
 
     @Override
-    void handleChild(OWLLiteralElementHandler h) {
+    void handleChild(@Nonnull OWLLiteralElementHandler h) {
         object = h.getOWLObject();
     }
 
+    @Nonnull
     @Override
     OWLAxiom createAxiom() {
         return df.getOWLAnnotationAssertionAxiom(property, subject, object,
@@ -1131,11 +1249,13 @@ class OWLAnnotationAssertionElementHandler extends
 
 class OWLAnnotationElementHandler extends OWLElementHandler<OWLAnnotation> {
 
+    @Nonnull
     Set<OWLAnnotation> annotations = new HashSet<OWLAnnotation>();
     OWLAnnotationProperty property;
+    @Nullable
     OWLAnnotationValue object;
 
-    OWLAnnotationElementHandler(OWLXMLParserHandler handler) {
+    OWLAnnotationElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
@@ -1150,7 +1270,7 @@ class OWLAnnotationElementHandler extends OWLElementHandler<OWLAnnotation> {
     }
 
     @Override
-    void attribute(String localName, String value) {
+    void attribute(@Nonnull String localName, @Nonnull String value) {
         super.attribute(localName, value);
         // Legacy Handling
         if (localName.equals(ANNOTATION_URI.getShortForm())) {
@@ -1160,30 +1280,31 @@ class OWLAnnotationElementHandler extends OWLElementHandler<OWLAnnotation> {
     }
 
     @Override
-    void handleChild(OWLAnnotationElementHandler h) {
+    void handleChild(@Nonnull OWLAnnotationElementHandler h) {
         annotations.add(h.getOWLObject());
     }
 
     @Override
-    void handleChild(OWLAnonymousIndividualElementHandler h) {
+    void handleChild(@Nonnull OWLAnonymousIndividualElementHandler h) {
         object = h.getOWLObject();
     }
 
     @Override
-    void handleChild(OWLLiteralElementHandler h) {
+    void handleChild(@Nonnull OWLLiteralElementHandler h) {
         object = h.getOWLObject();
     }
 
     @Override
-    void handleChild(OWLAnnotationPropertyElementHandler h) {
+    void handleChild(@Nonnull OWLAnnotationPropertyElementHandler h) {
         property = h.getOWLObject();
     }
 
     @Override
-    void handleChild(AbstractIRIElementHandler h) {
+    void handleChild(@Nonnull AbstractIRIElementHandler h) {
         object = h.getOWLObject();
     }
 
+    @Nonnull
     @Override
     OWLAnnotation getOWLObject() {
         return df.getOWLAnnotation(property, object, annotations);
@@ -1198,23 +1319,25 @@ class OWLAnnotationElementHandler extends OWLElementHandler<OWLAnnotation> {
 class OWLAnnotationPropertyDomainElementHandler extends
         AbstractOWLAxiomElementHandler {
 
+    @Nullable
     IRI domain;
     OWLAnnotationProperty property;
 
-    OWLAnnotationPropertyDomainElementHandler(OWLXMLParserHandler handler) {
+    OWLAnnotationPropertyDomainElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
     @Override
-    void handleChild(AbstractIRIElementHandler h) {
+    void handleChild(@Nonnull AbstractIRIElementHandler h) {
         domain = h.getOWLObject();
     }
 
     @Override
-    void handleChild(OWLAnnotationPropertyElementHandler h) {
+    void handleChild(@Nonnull OWLAnnotationPropertyElementHandler h) {
         property = h.getOWLObject();
     }
 
+    @Nonnull
     @Override
     OWLAxiom createAxiom() {
         ensureNotNull(property, "Expected annotation property element");
@@ -1228,9 +1351,10 @@ class OWLAnnotationPropertyElementHandler extends
         OWLElementHandler<OWLAnnotationProperty> {
 
     OWLAnnotationProperty prop;
+    @Nullable
     IRI iri;
 
-    OWLAnnotationPropertyElementHandler(OWLXMLParserHandler handler) {
+    OWLAnnotationPropertyElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
@@ -1240,7 +1364,7 @@ class OWLAnnotationPropertyElementHandler extends
     }
 
     @Override
-    void attribute(String localName, String value) {
+    void attribute(@Nonnull String localName, @Nonnull String value) {
         iri = getIRIFromAttribute(localName, value);
     }
 
@@ -1254,23 +1378,25 @@ class OWLAnnotationPropertyElementHandler extends
 class OWLAnnotationPropertyRangeElementHandler extends
         AbstractOWLAxiomElementHandler {
 
+    @Nullable
     IRI range;
     OWLAnnotationProperty property;
 
-    OWLAnnotationPropertyRangeElementHandler(OWLXMLParserHandler handler) {
+    OWLAnnotationPropertyRangeElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
     @Override
-    void handleChild(AbstractIRIElementHandler h) {
+    void handleChild(@Nonnull AbstractIRIElementHandler h) {
         range = h.getOWLObject();
     }
 
     @Override
-    void handleChild(OWLAnnotationPropertyElementHandler h) {
+    void handleChild(@Nonnull OWLAnnotationPropertyElementHandler h) {
         property = h.getOWLObject();
     }
 
+    @Nonnull
     @Override
     OWLAxiom createAxiom() {
         ensureNotNull(property, "Expected annotation property element");
@@ -1285,7 +1411,7 @@ class OWLAnonymousIndividualElementHandler extends
 
     OWLAnonymousIndividual ind;
 
-    OWLAnonymousIndividualElementHandler(OWLXMLParserHandler handler) {
+    OWLAnonymousIndividualElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
@@ -1295,7 +1421,7 @@ class OWLAnonymousIndividualElementHandler extends
     }
 
     @Override
-    void attribute(String localName, String value) {
+    void attribute(@Nonnull String localName, @Nonnull String value) {
         if (localName.equals(NODE_ID.getShortForm())) {
             ind = df.getOWLAnonymousIndividual(value.trim());
         } else {
@@ -1312,10 +1438,11 @@ class OWLAnonymousIndividualElementHandler extends
 class OWLAsymmetricObjectPropertyAxiomElementHandler extends
         AbstractOWLObjectPropertyCharacteristicAxiomElementHandler {
 
-    OWLAsymmetricObjectPropertyAxiomElementHandler(OWLXMLParserHandler handler) {
+    OWLAsymmetricObjectPropertyAxiomElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
+    @Nonnull
     @Override
     OWLAxiom createPropertyCharacteristicAxiom() {
         return df.getOWLAsymmetricObjectPropertyAxiom(getProperty());
@@ -1325,10 +1452,11 @@ class OWLAsymmetricObjectPropertyAxiomElementHandler extends
 class OWLAsymmetricObjectPropertyElementHandler extends
         AbstractOWLObjectPropertyCharacteristicAxiomElementHandler {
 
-    OWLAsymmetricObjectPropertyElementHandler(OWLXMLParserHandler handler) {
+    OWLAsymmetricObjectPropertyElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
+    @Nonnull
     @Override
     OWLAxiom createPropertyCharacteristicAxiom() {
         return df.getOWLAsymmetricObjectPropertyAxiom(getProperty(),
@@ -1342,25 +1470,26 @@ class OWLClassAssertionAxiomElementHandler extends
     OWLIndividual individual;
     OWLClassExpression classExpression;
 
-    OWLClassAssertionAxiomElementHandler(OWLXMLParserHandler handler) {
+    OWLClassAssertionAxiomElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
     @Override
-    void handleChild(AbstractClassExpressionElementHandler h) {
+    void handleChild(@Nonnull AbstractClassExpressionElementHandler h) {
         classExpression = h.getOWLObject();
     }
 
     @Override
-    void handleChild(OWLIndividualElementHandler h) {
+    void handleChild(@Nonnull OWLIndividualElementHandler h) {
         individual = h.getOWLObject();
     }
 
     @Override
-    void handleChild(OWLAnonymousIndividualElementHandler h) {
+    void handleChild(@Nonnull OWLAnonymousIndividualElementHandler h) {
         individual = h.getOWLObject();
     }
 
+    @Nonnull
     @Override
     OWLAxiom createAxiom() {
         ensureNotNull(individual, "individual element");
@@ -1372,14 +1501,15 @@ class OWLClassAssertionAxiomElementHandler extends
 
 class OWLClassElementHandler extends AbstractClassExpressionElementHandler {
 
+    @Nullable
     IRI iri;
 
-    OWLClassElementHandler(OWLXMLParserHandler handler) {
+    OWLClassElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
     @Override
-    void attribute(String localName, String value) {
+    void attribute(@Nonnull String localName, @Nonnull String value) {
         iri = getIRIFromAttribute(localName, value);
     }
 
@@ -1393,10 +1523,11 @@ class OWLClassElementHandler extends AbstractClassExpressionElementHandler {
 class OWLDataAllValuesFromElementHandler extends
         AbstractDataRangeFillerRestrictionElementHandler {
 
-    OWLDataAllValuesFromElementHandler(OWLXMLParserHandler handler) {
+    OWLDataAllValuesFromElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
+    @Nonnull
     @Override
     OWLClassExpression createRestriction() {
         return df.getOWLDataAllValuesFrom(getProperty(), getFiller());
@@ -1407,12 +1538,12 @@ class OWLDataComplementOfElementHandler extends AbstractOWLDataRangeHandler {
 
     OWLDataRange operand;
 
-    OWLDataComplementOfElementHandler(OWLXMLParserHandler handler) {
+    OWLDataComplementOfElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
     @Override
-    void handleChild(AbstractOWLDataRangeHandler h) {
+    void handleChild(@Nonnull AbstractOWLDataRangeHandler h) {
         operand = h.getOWLObject();
     }
 
@@ -1426,10 +1557,11 @@ class OWLDataComplementOfElementHandler extends AbstractOWLDataRangeHandler {
 class OWLDataExactCardinalityElementHandler extends
         AbstractDataCardinalityRestrictionElementHandler {
 
-    OWLDataExactCardinalityElementHandler(OWLXMLParserHandler handler) {
+    OWLDataExactCardinalityElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
+    @Nonnull
     @Override
     OWLClassExpression createRestriction() {
         return df.getOWLDataExactCardinality(getCardinality(), getProperty(),
@@ -1440,15 +1572,16 @@ class OWLDataExactCardinalityElementHandler extends
 class OWLDataHasValueElementHandler extends
         AbstractDataRestrictionElementHandler<OWLLiteral> {
 
-    OWLDataHasValueElementHandler(OWLXMLParserHandler handler) {
+    OWLDataHasValueElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
     @Override
-    void handleChild(OWLLiteralElementHandler h) {
+    void handleChild(@Nonnull OWLLiteralElementHandler h) {
         setFiller(h.getOWLObject());
     }
 
+    @Nonnull
     @Override
     OWLClassExpression createRestriction() {
         return df.getOWLDataHasValue(getProperty(), getFiller());
@@ -1457,14 +1590,15 @@ class OWLDataHasValueElementHandler extends
 
 class OWLDataIntersectionOfElementHandler extends AbstractOWLDataRangeHandler {
 
+    @Nonnull
     Set<OWLDataRange> dataRanges = new HashSet<OWLDataRange>();
 
-    OWLDataIntersectionOfElementHandler(OWLXMLParserHandler handler) {
+    OWLDataIntersectionOfElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
     @Override
-    void handleChild(AbstractOWLDataRangeHandler h) {
+    void handleChild(@Nonnull AbstractOWLDataRangeHandler h) {
         dataRanges.add(h.getOWLObject());
     }
 
@@ -1477,10 +1611,11 @@ class OWLDataIntersectionOfElementHandler extends AbstractOWLDataRangeHandler {
 class OWLDataMaxCardinalityElementHandler extends
         AbstractDataCardinalityRestrictionElementHandler {
 
-    OWLDataMaxCardinalityElementHandler(OWLXMLParserHandler handler) {
+    OWLDataMaxCardinalityElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
+    @Nonnull
     @Override
     OWLClassExpression createRestriction() {
         return df.getOWLDataMaxCardinality(getCardinality(), getProperty(),
@@ -1491,10 +1626,11 @@ class OWLDataMaxCardinalityElementHandler extends
 class OWLDataMinCardinalityElementHandler extends
         AbstractDataCardinalityRestrictionElementHandler {
 
-    OWLDataMinCardinalityElementHandler(OWLXMLParserHandler handler) {
+    OWLDataMinCardinalityElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
+    @Nonnull
     @Override
     OWLClassExpression createRestriction() {
         return df.getOWLDataMinCardinality(getCardinality(), getProperty(),
@@ -1506,13 +1642,13 @@ class OWLDataOneOfElementHandler extends AbstractOWLDataRangeHandler {
 
     Set<OWLLiteral> constants;
 
-    OWLDataOneOfElementHandler(OWLXMLParserHandler handler) {
+    OWLDataOneOfElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
         constants = new HashSet<OWLLiteral>();
     }
 
     @Override
-    void handleChild(OWLLiteralElementHandler h) {
+    void handleChild(@Nonnull OWLLiteralElementHandler h) {
         constants.add(h.getOWLObject());
     }
 
@@ -1528,10 +1664,11 @@ class OWLDataOneOfElementHandler extends AbstractOWLDataRangeHandler {
 class OWLDataPropertyAssertionAxiomElementHandler extends
         AbstractOWLDataPropertyAssertionAxiomElementHandler {
 
-    OWLDataPropertyAssertionAxiomElementHandler(OWLXMLParserHandler handler) {
+    OWLDataPropertyAssertionAxiomElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
+    @Nonnull
     @Override
     OWLAxiom createAxiom() {
         return df.getOWLDataPropertyAssertionAxiom(getProperty(), getSubject(),
@@ -1545,20 +1682,21 @@ class OWLDataPropertyDomainAxiomElementHandler extends
     OWLClassExpression domain;
     OWLDataPropertyExpression property;
 
-    OWLDataPropertyDomainAxiomElementHandler(OWLXMLParserHandler handler) {
+    OWLDataPropertyDomainAxiomElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
     @Override
-    void handleChild(AbstractClassExpressionElementHandler h) {
+    void handleChild(@Nonnull AbstractClassExpressionElementHandler h) {
         domain = h.getOWLObject();
     }
 
     @Override
-    void handleChild(OWLDataPropertyElementHandler h) {
+    void handleChild(@Nonnull OWLDataPropertyElementHandler h) {
         property = h.getOWLObject();
     }
 
+    @Nonnull
     @Override
     OWLAxiom createAxiom() {
         ensureNotNull(property, "data property element");
@@ -1572,9 +1710,10 @@ class OWLDataPropertyElementHandler extends
         OWLElementHandler<OWLDataPropertyExpression> {
 
     OWLDataPropertyExpression prop;
+    @Nullable
     IRI iri;
 
-    OWLDataPropertyElementHandler(OWLXMLParserHandler handler) {
+    OWLDataPropertyElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
@@ -1584,7 +1723,7 @@ class OWLDataPropertyElementHandler extends
     }
 
     @Override
-    void attribute(String localName, String value) {
+    void attribute(@Nonnull String localName, @Nonnull String value) {
         iri = getIRIFromAttribute(localName, value);
     }
 
@@ -1601,20 +1740,21 @@ class OWLDataPropertyRangeAxiomElementHandler extends
     OWLDataPropertyExpression property;
     OWLDataRange range;
 
-    OWLDataPropertyRangeAxiomElementHandler(OWLXMLParserHandler handler) {
+    OWLDataPropertyRangeAxiomElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
     @Override
-    void handleChild(AbstractOWLDataRangeHandler h) {
+    void handleChild(@Nonnull AbstractOWLDataRangeHandler h) {
         range = h.getOWLObject();
     }
 
     @Override
-    void handleChild(OWLDataPropertyElementHandler h) {
+    void handleChild(@Nonnull OWLDataPropertyElementHandler h) {
         property = h.getOWLObject();
     }
 
+    @Nonnull
     @Override
     OWLAxiom createAxiom() {
         ensureNotNull(property, "data property element");
@@ -1629,22 +1769,22 @@ class OWLDataRestrictionElementHandler extends AbstractOWLDataRangeHandler {
     OWLLiteral constant;
     IRI facetIRI;
 
-    OWLDataRestrictionElementHandler(OWLXMLParserHandler handler) {
+    OWLDataRestrictionElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
     @Override
-    void handleChild(AbstractOWLDataRangeHandler h) {
+    void handleChild(@Nonnull AbstractOWLDataRangeHandler h) {
         dataRange = h.getOWLObject();
     }
 
     @Override
-    void handleChild(OWLLiteralElementHandler h) {
+    void handleChild(@Nonnull OWLLiteralElementHandler h) {
         constant = h.getOWLObject();
     }
 
     @Override
-    void attribute(String localName, String value) {
+    void attribute(@Nonnull String localName, @Nonnull String value) {
         super.attribute(localName, value);
         if (localName.equals("facet")) {
             facetIRI = handler.getIRI(value);
@@ -1663,10 +1803,11 @@ class OWLDataRestrictionElementHandler extends AbstractOWLDataRangeHandler {
 class OWLDataSomeValuesFromElementHandler extends
         AbstractDataRangeFillerRestrictionElementHandler {
 
-    OWLDataSomeValuesFromElementHandler(OWLXMLParserHandler handler) {
+    OWLDataSomeValuesFromElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
+    @Nonnull
     @Override
     OWLClassExpression createRestriction() {
         return df.getOWLDataSomeValuesFrom(getProperty(), getFiller());
@@ -1675,14 +1816,15 @@ class OWLDataSomeValuesFromElementHandler extends
 
 class OWLDataUnionOfElementHandler extends AbstractOWLDataRangeHandler {
 
+    @Nonnull
     Set<OWLDataRange> dataRanges = new HashSet<OWLDataRange>();
 
-    OWLDataUnionOfElementHandler(OWLXMLParserHandler handler) {
+    OWLDataUnionOfElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
     @Override
-    void handleChild(AbstractOWLDataRangeHandler h) {
+    void handleChild(@Nonnull AbstractOWLDataRangeHandler h) {
         dataRanges.add(h.getOWLObject());
     }
 
@@ -1698,12 +1840,12 @@ class OWLDatatypeDefinitionElementHandler extends
     OWLDatatype datatype;
     OWLDataRange dataRange;
 
-    OWLDatatypeDefinitionElementHandler(OWLXMLParserHandler handler) {
+    OWLDatatypeDefinitionElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
     @Override
-    void handleChild(AbstractOWLDataRangeHandler h) {
+    void handleChild(@Nonnull AbstractOWLDataRangeHandler h) {
         OWLDataRange handledDataRange = h.getOWLObject();
         if (handledDataRange.isDatatype() && datatype == null) {
             datatype = handledDataRange.asOWLDatatype();
@@ -1712,6 +1854,7 @@ class OWLDatatypeDefinitionElementHandler extends
         }
     }
 
+    @Nonnull
     @Override
     OWLAxiom createAxiom() {
         return df.getOWLDatatypeDefinitionAxiom(datatype, dataRange,
@@ -1721,14 +1864,15 @@ class OWLDatatypeDefinitionElementHandler extends
 
 class OWLDatatypeElementHandler extends AbstractOWLDataRangeHandler {
 
+    @Nullable
     IRI iri;
 
-    OWLDatatypeElementHandler(OWLXMLParserHandler handler) {
+    OWLDatatypeElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
     @Override
-    void attribute(String localName, String value) {
+    void attribute(@Nonnull String localName, @Nonnull String value) {
         iri = getIRIFromAttribute(localName, value);
     }
 
@@ -1742,20 +1886,21 @@ class OWLDatatypeElementHandler extends AbstractOWLDataRangeHandler {
 class OWLDatatypeFacetRestrictionElementHandler extends
         OWLElementHandler<OWLFacetRestriction> {
 
+    @Nullable
     OWLFacet facet;
     OWLLiteral constant;
 
-    OWLDatatypeFacetRestrictionElementHandler(OWLXMLParserHandler handler) {
+    OWLDatatypeFacetRestrictionElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
     @Override
-    void handleChild(OWLLiteralElementHandler h) {
+    void handleChild(@Nonnull OWLLiteralElementHandler h) {
         constant = h.getOWLObject();
     }
 
     @Override
-    void attribute(String localName, String value) {
+    void attribute(@Nonnull String localName, @Nonnull String value) {
         if (localName.equals("facet")) {
             facet = OWLFacet.getFacet(IRI.create(value));
         }
@@ -1766,6 +1911,7 @@ class OWLDatatypeFacetRestrictionElementHandler extends
         getParentHandler().handleChild(this);
     }
 
+    @Nonnull
     @Override
     OWLFacetRestriction getOWLObject() {
         return df.getOWLFacetRestriction(facet, constant);
@@ -1777,7 +1923,7 @@ class OWLDatatypeRestrictionElementHandler extends AbstractOWLDataRangeHandler {
     OWLDatatype restrictedDataRange;
     Set<OWLFacetRestriction> facetRestrictions;
 
-    OWLDatatypeRestrictionElementHandler(OWLXMLParserHandler handler) {
+    OWLDatatypeRestrictionElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
         facetRestrictions = new HashSet<OWLFacetRestriction>();
     }
@@ -1789,7 +1935,7 @@ class OWLDatatypeRestrictionElementHandler extends AbstractOWLDataRangeHandler {
     }
 
     @Override
-    void handleChild(AbstractOWLDataRangeHandler h) {
+    void handleChild(@Nonnull AbstractOWLDataRangeHandler h) {
         OWLDataRange dr = h.getOWLObject();
         if (dr.isDatatype()) {
             restrictedDataRange = dr.asOWLDatatype();
@@ -1797,18 +1943,20 @@ class OWLDatatypeRestrictionElementHandler extends AbstractOWLDataRangeHandler {
     }
 
     @Override
-    void handleChild(OWLDatatypeFacetRestrictionElementHandler h) {
+    void handleChild(@Nonnull OWLDatatypeFacetRestrictionElementHandler h) {
         facetRestrictions.add(h.getOWLObject());
     }
 }
 
 class OWLDeclarationAxiomElementHandler extends AbstractOWLAxiomElementHandler {
 
+    @Nullable
     OWLEntity entity;
     // XXX this set seems unused
+    @Nonnull
     Set<OWLAnnotation> entityAnnotations = new HashSet<OWLAnnotation>();
 
-    OWLDeclarationAxiomElementHandler(OWLXMLParserHandler handler) {
+    OWLDeclarationAxiomElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
@@ -1820,42 +1968,43 @@ class OWLDeclarationAxiomElementHandler extends AbstractOWLAxiomElementHandler {
     }
 
     @Override
-    void handleChild(AbstractClassExpressionElementHandler h) {
+    void handleChild(@Nonnull AbstractClassExpressionElementHandler h) {
         entity = (OWLClass) h.getOWLObject();
     }
 
     @Override
-    void handleChild(AbstractOWLObjectPropertyElementHandler h) {
+    void handleChild(@Nonnull AbstractOWLObjectPropertyElementHandler h) {
         entity = (OWLEntity) h.getOWLObject();
     }
 
     @Override
-    void handleChild(OWLDataPropertyElementHandler h) {
+    void handleChild(@Nonnull OWLDataPropertyElementHandler h) {
         entity = (OWLEntity) h.getOWLObject();
     }
 
     @Override
-    void handleChild(AbstractOWLDataRangeHandler h) {
+    void handleChild(@Nonnull AbstractOWLDataRangeHandler h) {
         entity = (OWLEntity) h.getOWLObject();
     }
 
     @Override
-    void handleChild(OWLAnnotationPropertyElementHandler h) {
+    void handleChild(@Nonnull OWLAnnotationPropertyElementHandler h) {
         entity = h.getOWLObject();
     }
 
     @Override
-    void handleChild(OWLIndividualElementHandler h) {
+    void handleChild(@Nonnull OWLIndividualElementHandler h) {
         entity = h.getOWLObject();
     }
 
+    @Nonnull
     @Override
     OWLAxiom createAxiom() {
         return df.getOWLDeclarationAxiom(entity, getAnnotations());
     }
 
     @Override
-    void handleChild(OWLAnnotationElementHandler h) {
+    void handleChild(@Nonnull OWLAnnotationElementHandler h) {
         if (entity == null) {
             super.handleChild(h);
         } else {
@@ -1867,10 +2016,11 @@ class OWLDeclarationAxiomElementHandler extends AbstractOWLAxiomElementHandler {
 class OWLDifferentIndividualsAxiomElementHandler extends
         AbstractOWLIndividualOperandAxiomElementHandler {
 
-    OWLDifferentIndividualsAxiomElementHandler(OWLXMLParserHandler handler) {
+    OWLDifferentIndividualsAxiomElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
+    @Nonnull
     @Override
     OWLAxiom createAxiom() {
         return df.getOWLDifferentIndividualsAxiom(getOperands(),
@@ -1881,10 +2031,11 @@ class OWLDifferentIndividualsAxiomElementHandler extends
 class OWLDisjointClassesAxiomElementHandler extends
         AbstractClassExpressionOperandAxiomElementHandler {
 
-    OWLDisjointClassesAxiomElementHandler(OWLXMLParserHandler handler) {
+    OWLDisjointClassesAxiomElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
+    @Nonnull
     @Override
     OWLAxiom createAxiom() {
         return df.getOWLDisjointClassesAxiom(getOperands(), getAnnotations());
@@ -1894,10 +2045,11 @@ class OWLDisjointClassesAxiomElementHandler extends
 class OWLDisjointDataPropertiesAxiomElementHandler extends
         AbstractOWLDataPropertyOperandAxiomElementHandler {
 
-    OWLDisjointDataPropertiesAxiomElementHandler(OWLXMLParserHandler handler) {
+    OWLDisjointDataPropertiesAxiomElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
+    @Nonnull
     @Override
     OWLAxiom createAxiom() {
         return df.getOWLDisjointDataPropertiesAxiom(getOperands(),
@@ -1908,10 +2060,11 @@ class OWLDisjointDataPropertiesAxiomElementHandler extends
 class OWLDisjointObjectPropertiesAxiomElementHandler extends
         AbstractOWLObjectPropertyOperandAxiomElementHandler {
 
-    OWLDisjointObjectPropertiesAxiomElementHandler(OWLXMLParserHandler handler) {
+    OWLDisjointObjectPropertiesAxiomElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
+    @Nonnull
     @Override
     OWLAxiom createAxiom() {
         return df.getOWLDisjointObjectPropertiesAxiom(getOperands(),
@@ -1922,12 +2075,14 @@ class OWLDisjointObjectPropertiesAxiomElementHandler extends
 class OWLDisjointUnionElementHandler extends AbstractOWLAxiomElementHandler {
 
     OWLClass cls;
+    @Nonnull
     Set<OWLClassExpression> classExpressions = new HashSet<OWLClassExpression>();
 
-    OWLDisjointUnionElementHandler(OWLXMLParserHandler handler) {
+    OWLDisjointUnionElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
+    @Nonnull
     @Override
     OWLAxiom createAxiom() {
         return df.getOWLDisjointUnionAxiom(cls, classExpressions,
@@ -1935,7 +2090,7 @@ class OWLDisjointUnionElementHandler extends AbstractOWLAxiomElementHandler {
     }
 
     @Override
-    void handleChild(AbstractClassExpressionElementHandler h) {
+    void handleChild(@Nonnull AbstractClassExpressionElementHandler h) {
         if (cls == null) {
             OWLClassExpression desc = h.getOWLObject();
             cls = (OWLClass) desc;
@@ -1948,10 +2103,11 @@ class OWLDisjointUnionElementHandler extends AbstractOWLAxiomElementHandler {
 class OWLEquivalentClassesAxiomElementHandler extends
         AbstractClassExpressionOperandAxiomElementHandler {
 
-    OWLEquivalentClassesAxiomElementHandler(OWLXMLParserHandler handler) {
+    OWLEquivalentClassesAxiomElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
+    @Nonnull
     @Override
     OWLAxiom createAxiom() {
         return df.getOWLEquivalentClassesAxiom(getOperands(), getAnnotations());
@@ -1961,10 +2117,11 @@ class OWLEquivalentClassesAxiomElementHandler extends
 class OWLEquivalentDataPropertiesAxiomElementHandler extends
         AbstractOWLDataPropertyOperandAxiomElementHandler {
 
-    OWLEquivalentDataPropertiesAxiomElementHandler(OWLXMLParserHandler handler) {
+    OWLEquivalentDataPropertiesAxiomElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
+    @Nonnull
     @Override
     OWLAxiom createAxiom() {
         return df.getOWLEquivalentDataPropertiesAxiom(getOperands(),
@@ -1975,10 +2132,11 @@ class OWLEquivalentDataPropertiesAxiomElementHandler extends
 class OWLEquivalentObjectPropertiesAxiomElementHandler extends
         AbstractOWLObjectPropertyOperandAxiomElementHandler {
 
-    OWLEquivalentObjectPropertiesAxiomElementHandler(OWLXMLParserHandler handler) {
+    OWLEquivalentObjectPropertiesAxiomElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
+    @Nonnull
     @Override
     OWLAxiom createAxiom() {
         return df.getOWLEquivalentObjectPropertiesAxiom(getOperands(),
@@ -1990,15 +2148,16 @@ class OWLFunctionalDataPropertyAxiomElementHandler
         extends
         AbstractOWLPropertyCharacteristicAxiomElementHandler<OWLDataPropertyExpression> {
 
-    OWLFunctionalDataPropertyAxiomElementHandler(OWLXMLParserHandler handler) {
+    OWLFunctionalDataPropertyAxiomElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
     @Override
-    void handleChild(OWLDataPropertyElementHandler h) {
+    void handleChild(@Nonnull OWLDataPropertyElementHandler h) {
         setProperty(h.getOWLObject());
     }
 
+    @Nonnull
     @Override
     OWLAxiom createPropertyCharacteristicAxiom() {
         ensureNotNull(getProperty(), "Expected data property element");
@@ -2010,10 +2169,11 @@ class OWLFunctionalDataPropertyAxiomElementHandler
 class OWLFunctionalObjectPropertyAxiomElementHandler extends
         AbstractOWLObjectPropertyCharacteristicAxiomElementHandler {
 
-    OWLFunctionalObjectPropertyAxiomElementHandler(OWLXMLParserHandler handler) {
+    OWLFunctionalObjectPropertyAxiomElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
+    @Nonnull
     @Override
     OWLAxiom createPropertyCharacteristicAxiom() {
         return df.getOWLFunctionalObjectPropertyAxiom(getProperty(),
@@ -2024,9 +2184,10 @@ class OWLFunctionalObjectPropertyAxiomElementHandler extends
 class OWLHasKeyElementHandler extends AbstractOWLAxiomElementHandler {
 
     OWLClassExpression ce;
+    @Nonnull
     Set<OWLPropertyExpression> props = new HashSet<OWLPropertyExpression>();
 
-    OWLHasKeyElementHandler(OWLXMLParserHandler handler) {
+    OWLHasKeyElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
@@ -2037,20 +2198,21 @@ class OWLHasKeyElementHandler extends AbstractOWLAxiomElementHandler {
     }
 
     @Override
-    void handleChild(AbstractClassExpressionElementHandler h) {
+    void handleChild(@Nonnull AbstractClassExpressionElementHandler h) {
         ce = h.getOWLObject();
     }
 
     @Override
-    void handleChild(OWLDataPropertyElementHandler h) {
+    void handleChild(@Nonnull OWLDataPropertyElementHandler h) {
         props.add(h.getOWLObject());
     }
 
     @Override
-    void handleChild(AbstractOWLObjectPropertyElementHandler h) {
+    void handleChild(@Nonnull AbstractOWLObjectPropertyElementHandler h) {
         props.add(h.getOWLObject());
     }
 
+    @Nonnull
     @Override
     OWLAxiom createAxiom() {
         return df.getOWLHasKeyAxiom(ce, props, getAnnotations());
@@ -2060,9 +2222,10 @@ class OWLHasKeyElementHandler extends AbstractOWLAxiomElementHandler {
 class OWLIndividualElementHandler extends OWLElementHandler<OWLNamedIndividual> {
 
     OWLNamedIndividual individual;
+    @Nullable
     IRI name;
 
-    OWLIndividualElementHandler(OWLXMLParserHandler handler) {
+    OWLIndividualElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
@@ -2072,7 +2235,7 @@ class OWLIndividualElementHandler extends OWLElementHandler<OWLNamedIndividual> 
     }
 
     @Override
-    void attribute(String localName, String value) {
+    void attribute(@Nonnull String localName, @Nonnull String value) {
         name = getIRIFromAttribute(localName, value);
     }
 
@@ -2088,10 +2251,11 @@ class OWLInverseFunctionalObjectPropertyAxiomElementHandler extends
         AbstractOWLObjectPropertyCharacteristicAxiomElementHandler {
 
     OWLInverseFunctionalObjectPropertyAxiomElementHandler(
-            OWLXMLParserHandler handler) {
+            @Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
+    @Nonnull
     @Override
     OWLAxiom createPropertyCharacteristicAxiom() {
         return df.getOWLInverseFunctionalObjectPropertyAxiom(getProperty(),
@@ -2102,10 +2266,11 @@ class OWLInverseFunctionalObjectPropertyAxiomElementHandler extends
 class OWLInverseObjectPropertiesAxiomElementHandler extends
         AbstractOWLObjectPropertyOperandAxiomElementHandler {
 
-    OWLInverseObjectPropertiesAxiomElementHandler(OWLXMLParserHandler handler) {
+    OWLInverseObjectPropertiesAxiomElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
+    @Nonnull
     @Override
     OWLAxiom createAxiom() {
         Set<OWLObjectPropertyExpression> props = getOperands();
@@ -2132,12 +2297,12 @@ class OWLInverseObjectPropertyElementHandler extends
 
     OWLObjectPropertyExpression inverse;
 
-    OWLInverseObjectPropertyElementHandler(OWLXMLParserHandler handler) {
+    OWLInverseObjectPropertyElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
     @Override
-    void handleChild(AbstractOWLObjectPropertyElementHandler h) {
+    void handleChild(@Nonnull AbstractOWLObjectPropertyElementHandler h) {
         inverse = h.getOWLObject();
     }
 
@@ -2151,10 +2316,11 @@ class OWLInverseObjectPropertyElementHandler extends
 class OWLIrreflexiveObjectPropertyAxiomElementHandler extends
         AbstractOWLObjectPropertyCharacteristicAxiomElementHandler {
 
-    OWLIrreflexiveObjectPropertyAxiomElementHandler(OWLXMLParserHandler handler) {
+    OWLIrreflexiveObjectPropertyAxiomElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
+    @Nonnull
     @Override
     OWLAxiom createPropertyCharacteristicAxiom() {
         return df.getOWLIrreflexiveObjectPropertyAxiom(getProperty(),
@@ -2165,10 +2331,12 @@ class OWLIrreflexiveObjectPropertyAxiomElementHandler extends
 class OWLLiteralElementHandler extends OWLElementHandler<OWLLiteral> {
 
     OWLLiteral literal;
+    @Nullable
     IRI iri;
+    @Nullable
     String lang;
 
-    OWLLiteralElementHandler(OWLXMLParserHandler handler) {
+    OWLLiteralElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
@@ -2178,7 +2346,7 @@ class OWLLiteralElementHandler extends OWLElementHandler<OWLLiteral> {
     }
 
     @Override
-    void attribute(String localName, String value) {
+    void attribute(@Nonnull String localName, @Nonnull String value) {
         if (localName.equals(DATATYPE_IRI.getShortForm())) {
             iri = handler.getIRI(value);
         } else if (localName.equals("lang")) {
@@ -2213,10 +2381,11 @@ class OWLNegativeDataPropertyAssertionAxiomElementHandler extends
         AbstractOWLDataPropertyAssertionAxiomElementHandler {
 
     OWLNegativeDataPropertyAssertionAxiomElementHandler(
-            OWLXMLParserHandler handler) {
+            @Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
+    @Nonnull
     @Override
     OWLAxiom createAxiom() {
         return df.getOWLNegativeDataPropertyAssertionAxiom(getProperty(),
@@ -2228,10 +2397,11 @@ class OWLNegativeObjectPropertyAssertionAxiomElementHandler extends
         AbstractOWLObjectPropertyAssertionAxiomElementHandler {
 
     OWLNegativeObjectPropertyAssertionAxiomElementHandler(
-            OWLXMLParserHandler handler) {
+            @Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
+    @Nonnull
     @Override
     OWLAxiom createAxiom() {
         return df.getOWLNegativeObjectPropertyAssertionAxiom(getProperty(),
@@ -2242,10 +2412,11 @@ class OWLNegativeObjectPropertyAssertionAxiomElementHandler extends
 class OWLObjectAllValuesFromElementHandler extends
         AbstractClassExpressionFillerRestriction {
 
-    OWLObjectAllValuesFromElementHandler(OWLXMLParserHandler handler) {
+    OWLObjectAllValuesFromElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
+    @Nonnull
     @Override
     OWLClassExpression createRestriction() {
         return df.getOWLObjectAllValuesFrom(getProperty(), getFiller());
@@ -2257,12 +2428,12 @@ class OWLObjectComplementOfElementHandler extends
 
     OWLClassExpression operand;
 
-    OWLObjectComplementOfElementHandler(OWLXMLParserHandler handler) {
+    OWLObjectComplementOfElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
     @Override
-    void handleChild(AbstractClassExpressionElementHandler h) {
+    void handleChild(@Nonnull AbstractClassExpressionElementHandler h) {
         operand = h.getOWLObject();
     }
 
@@ -2276,10 +2447,11 @@ class OWLObjectComplementOfElementHandler extends
 class OWLObjectExactCardinalityElementHandler extends
         AbstractOWLObjectCardinalityElementHandler {
 
-    OWLObjectExactCardinalityElementHandler(OWLXMLParserHandler handler) {
+    OWLObjectExactCardinalityElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
+    @Nonnull
     @Override
     OWLClassExpression createCardinalityRestriction() {
         return df.getOWLObjectExactCardinality(getCardinality(), getProperty(),
@@ -2292,12 +2464,12 @@ class OWLObjectExistsSelfElementHandler extends
 
     OWLObjectPropertyExpression property;
 
-    OWLObjectExistsSelfElementHandler(OWLXMLParserHandler handler) {
+    OWLObjectExistsSelfElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
     @Override
-    void handleChild(AbstractOWLObjectPropertyElementHandler h) {
+    void handleChild(@Nonnull AbstractOWLObjectPropertyElementHandler h) {
         property = h.getOWLObject();
     }
 
@@ -2312,20 +2484,21 @@ class OWLObjectExistsSelfElementHandler extends
 class OWLObjectHasValueElementHandler extends
         AbstractObjectRestrictionElementHandler<OWLIndividual> {
 
-    OWLObjectHasValueElementHandler(OWLXMLParserHandler handler) {
+    OWLObjectHasValueElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
     @Override
-    void handleChild(OWLIndividualElementHandler h) {
+    void handleChild(@Nonnull OWLIndividualElementHandler h) {
         setFiller(h.getOWLObject());
     }
 
     @Override
-    void handleChild(OWLAnonymousIndividualElementHandler h) {
+    void handleChild(@Nonnull OWLAnonymousIndividualElementHandler h) {
         setFiller(h.getOWLObject());
     }
 
+    @Nonnull
     @Override
     OWLClassExpression createRestriction() {
         return df.getOWLObjectHasValue(getProperty(), getFiller());
@@ -2335,12 +2508,13 @@ class OWLObjectHasValueElementHandler extends
 class OWLObjectIntersectionOfElementHandler extends
         AbstractNaryBooleanClassExpressionElementHandler {
 
-    OWLObjectIntersectionOfElementHandler(OWLXMLParserHandler handler) {
+    OWLObjectIntersectionOfElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
+    @Nonnull
     @Override
-    OWLClassExpression createClassExpression(Set<OWLClassExpression> ops) {
+    OWLClassExpression createClassExpression(@Nonnull Set<OWLClassExpression> ops) {
         return df.getOWLObjectIntersectionOf(ops);
     }
 }
@@ -2348,10 +2522,11 @@ class OWLObjectIntersectionOfElementHandler extends
 class OWLObjectMaxCardinalityElementHandler extends
         AbstractOWLObjectCardinalityElementHandler {
 
-    OWLObjectMaxCardinalityElementHandler(OWLXMLParserHandler handler) {
+    OWLObjectMaxCardinalityElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
+    @Nonnull
     @Override
     OWLClassExpression createCardinalityRestriction() {
         return df.getOWLObjectMaxCardinality(getCardinality(), getProperty(),
@@ -2362,10 +2537,11 @@ class OWLObjectMaxCardinalityElementHandler extends
 class OWLObjectMinCardinalityElementHandler extends
         AbstractOWLObjectCardinalityElementHandler {
 
-    OWLObjectMinCardinalityElementHandler(OWLXMLParserHandler handler) {
+    OWLObjectMinCardinalityElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
+    @Nonnull
     @Override
     OWLClassExpression createCardinalityRestriction() {
         return df.getOWLObjectMinCardinality(getCardinality(), getProperty(),
@@ -2376,14 +2552,15 @@ class OWLObjectMinCardinalityElementHandler extends
 class OWLObjectOneOfElementHandler extends
         AbstractClassExpressionElementHandler {
 
+    @Nonnull
     Set<OWLIndividual> individuals = new HashSet<OWLIndividual>();
 
-    OWLObjectOneOfElementHandler(OWLXMLParserHandler handler) {
+    OWLObjectOneOfElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
     @Override
-    void handleChild(OWLIndividualElementHandler h) {
+    void handleChild(@Nonnull OWLIndividualElementHandler h) {
         individuals.add(h.getOWLObject());
     }
 
@@ -2400,10 +2577,11 @@ class OWLObjectOneOfElementHandler extends
 class OWLObjectPropertyAssertionAxiomElementHandler extends
         AbstractOWLObjectPropertyAssertionAxiomElementHandler {
 
-    OWLObjectPropertyAssertionAxiomElementHandler(OWLXMLParserHandler handler) {
+    OWLObjectPropertyAssertionAxiomElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
+    @Nonnull
     @Override
     OWLAxiom createAxiom() {
         return df.getOWLObjectPropertyAssertionAxiom(getProperty(),
@@ -2417,20 +2595,21 @@ class OWLObjectPropertyDomainElementHandler extends
     OWLClassExpression domain;
     OWLObjectPropertyExpression property;
 
-    OWLObjectPropertyDomainElementHandler(OWLXMLParserHandler handler) {
+    OWLObjectPropertyDomainElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
     @Override
-    void handleChild(AbstractClassExpressionElementHandler h) {
+    void handleChild(@Nonnull AbstractClassExpressionElementHandler h) {
         domain = h.getOWLObject();
     }
 
     @Override
-    void handleChild(AbstractOWLObjectPropertyElementHandler h) {
+    void handleChild(@Nonnull AbstractOWLObjectPropertyElementHandler h) {
         property = h.getOWLObject();
     }
 
+    @Nonnull
     @Override
     OWLAxiom createAxiom() {
         ensureNotNull(property, "Expected object property element");
@@ -2443,14 +2622,15 @@ class OWLObjectPropertyDomainElementHandler extends
 class OWLObjectPropertyElementHandler extends
         AbstractOWLObjectPropertyElementHandler {
 
+    @Nullable
     IRI iri;
 
-    OWLObjectPropertyElementHandler(OWLXMLParserHandler handler) {
+    OWLObjectPropertyElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
     @Override
-    void attribute(String localName, String value) {
+    void attribute(@Nonnull String localName, @Nonnull String value) {
         iri = getIRIFromAttribute(localName, value);
     }
 
@@ -2466,20 +2646,21 @@ class OWLObjectPropertyRangeAxiomElementHandler extends
     OWLClassExpression range;
     OWLObjectPropertyExpression property;
 
-    OWLObjectPropertyRangeAxiomElementHandler(OWLXMLParserHandler handler) {
+    OWLObjectPropertyRangeAxiomElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
     @Override
-    void handleChild(AbstractClassExpressionElementHandler h) {
+    void handleChild(@Nonnull AbstractClassExpressionElementHandler h) {
         range = h.getOWLObject();
     }
 
     @Override
-    void handleChild(AbstractOWLObjectPropertyElementHandler h) {
+    void handleChild(@Nonnull AbstractOWLObjectPropertyElementHandler h) {
         property = h.getOWLObject();
     }
 
+    @Nonnull
     @Override
     OWLAxiom createAxiom() {
         ensureNotNull(property, OBJECT_PROPERTY.getShortForm());
@@ -2492,10 +2673,11 @@ class OWLObjectPropertyRangeAxiomElementHandler extends
 class OWLObjectSomeValuesFromElementHandler extends
         AbstractClassExpressionFillerRestriction {
 
-    OWLObjectSomeValuesFromElementHandler(OWLXMLParserHandler handler) {
+    OWLObjectSomeValuesFromElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
+    @Nonnull
     @Override
     OWLClassExpression createRestriction() {
         return df.getOWLObjectSomeValuesFrom(getProperty(), getFiller());
@@ -2505,12 +2687,13 @@ class OWLObjectSomeValuesFromElementHandler extends
 class OWLObjectUnionOfElementHandler extends
         AbstractNaryBooleanClassExpressionElementHandler {
 
-    OWLObjectUnionOfElementHandler(OWLXMLParserHandler handler) {
+    OWLObjectUnionOfElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
+    @Nonnull
     @Override
-    OWLClassExpression createClassExpression(Set<OWLClassExpression> ops) {
+    OWLClassExpression createClassExpression(@Nonnull Set<OWLClassExpression> ops) {
         return df.getOWLObjectUnionOf(ops);
     }
 }
@@ -2518,10 +2701,11 @@ class OWLObjectUnionOfElementHandler extends
 class OWLReflexiveObjectPropertyAxiomElementHandler extends
         AbstractOWLObjectPropertyCharacteristicAxiomElementHandler {
 
-    OWLReflexiveObjectPropertyAxiomElementHandler(OWLXMLParserHandler handler) {
+    OWLReflexiveObjectPropertyAxiomElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
+    @Nonnull
     @Override
     OWLAxiom createPropertyCharacteristicAxiom() {
         return df.getOWLReflexiveObjectPropertyAxiom(getProperty(),
@@ -2532,10 +2716,11 @@ class OWLReflexiveObjectPropertyAxiomElementHandler extends
 class OWLSameIndividualsAxiomElementHandler extends
         AbstractOWLIndividualOperandAxiomElementHandler {
 
-    OWLSameIndividualsAxiomElementHandler(OWLXMLParserHandler handler) {
+    OWLSameIndividualsAxiomElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
+    @Nonnull
     @Override
     OWLAxiom createAxiom() {
         return df.getOWLSameIndividualAxiom(getOperands(), getAnnotations());
@@ -2545,15 +2730,17 @@ class OWLSameIndividualsAxiomElementHandler extends
 class OWLSubAnnotationPropertyOfElementHandler extends
         AbstractOWLAxiomElementHandler {
 
+    @Nullable
     OWLAnnotationProperty subProperty = null;
+    @Nullable
     OWLAnnotationProperty superProperty = null;
 
-    OWLSubAnnotationPropertyOfElementHandler(OWLXMLParserHandler handler) {
+    OWLSubAnnotationPropertyOfElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
     @Override
-    void handleChild(OWLAnnotationPropertyElementHandler h) {
+    void handleChild(@Nonnull OWLAnnotationPropertyElementHandler h) {
         if (subProperty == null) {
             subProperty = h.getOWLObject();
         } else if (superProperty == null) {
@@ -2563,6 +2750,7 @@ class OWLSubAnnotationPropertyOfElementHandler extends
         }
     }
 
+    @Nonnull
     @Override
     OWLAxiom createAxiom() {
         ensureNotNull(subProperty, "AnnotationProperty for sub property");
@@ -2574,10 +2762,12 @@ class OWLSubAnnotationPropertyOfElementHandler extends
 
 class OWLSubClassAxiomElementHandler extends AbstractOWLAxiomElementHandler {
 
+    @Nullable
     OWLClassExpression subClass;
+    @Nullable
     OWLClassExpression supClass;
 
-    OWLSubClassAxiomElementHandler(OWLXMLParserHandler handler) {
+    OWLSubClassAxiomElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
@@ -2589,7 +2779,7 @@ class OWLSubClassAxiomElementHandler extends AbstractOWLAxiomElementHandler {
     }
 
     @Override
-    void handleChild(AbstractClassExpressionElementHandler h) {
+    void handleChild(@Nonnull AbstractClassExpressionElementHandler h) {
         if (subClass == null) {
             subClass = h.getOWLObject();
         } else if (supClass == null) {
@@ -2597,6 +2787,7 @@ class OWLSubClassAxiomElementHandler extends AbstractOWLAxiomElementHandler {
         }
     }
 
+    @Nonnull
     @Override
     OWLAxiom createAxiom() {
         return df.getOWLSubClassOfAxiom(subClass, supClass, getAnnotations());
@@ -2609,12 +2800,12 @@ class OWLSubDataPropertyOfAxiomElementHandler extends
     OWLDataPropertyExpression subProperty;
     OWLDataPropertyExpression superProperty;
 
-    OWLSubDataPropertyOfAxiomElementHandler(OWLXMLParserHandler handler) {
+    OWLSubDataPropertyOfAxiomElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
     @Override
-    void handleChild(OWLDataPropertyElementHandler h) {
+    void handleChild(@Nonnull OWLDataPropertyElementHandler h) {
         if (subProperty == null) {
             subProperty = h.getOWLObject();
         } else if (superProperty == null) {
@@ -2624,6 +2815,7 @@ class OWLSubDataPropertyOfAxiomElementHandler extends
         }
     }
 
+    @Nonnull
     @Override
     OWLAxiom createAxiom() {
         return df.getOWLSubDataPropertyOfAxiom(subProperty, superProperty,
@@ -2636,7 +2828,7 @@ class OWLSubObjectPropertyChainElementHandler extends
 
     List<OWLObjectPropertyExpression> propertyList;
 
-    OWLSubObjectPropertyChainElementHandler(OWLXMLParserHandler handler) {
+    OWLSubObjectPropertyChainElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
         propertyList = new ArrayList<OWLObjectPropertyExpression>();
     }
@@ -2652,7 +2844,7 @@ class OWLSubObjectPropertyChainElementHandler extends
     }
 
     @Override
-    void handleChild(AbstractOWLObjectPropertyElementHandler h) {
+    void handleChild(@Nonnull AbstractOWLObjectPropertyElementHandler h) {
         propertyList.add(h.getOWLObject());
     }
 }
@@ -2664,12 +2856,12 @@ class OWLSubObjectPropertyOfAxiomElementHandler extends
     List<OWLObjectPropertyExpression> propertyList;
     OWLObjectPropertyExpression superProperty;
 
-    OWLSubObjectPropertyOfAxiomElementHandler(OWLXMLParserHandler handler) {
+    OWLSubObjectPropertyOfAxiomElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
     @Override
-    void handleChild(AbstractOWLObjectPropertyElementHandler h) {
+    void handleChild(@Nonnull AbstractOWLObjectPropertyElementHandler h) {
         if (subProperty == null && propertyList == null) {
             subProperty = h.getOWLObject();
         } else if (superProperty == null) {
@@ -2681,10 +2873,11 @@ class OWLSubObjectPropertyOfAxiomElementHandler extends
     }
 
     @Override
-    void handleChild(OWLSubObjectPropertyChainElementHandler h) {
+    void handleChild(@Nonnull OWLSubObjectPropertyChainElementHandler h) {
         propertyList = h.getOWLObject();
     }
 
+    @Nonnull
     @Override
     OWLAxiom createAxiom() {
         if (subProperty != null) {
@@ -2700,10 +2893,11 @@ class OWLSubObjectPropertyOfAxiomElementHandler extends
 class OWLSymmetricObjectPropertyAxiomElementHandler extends
         AbstractOWLObjectPropertyCharacteristicAxiomElementHandler {
 
-    OWLSymmetricObjectPropertyAxiomElementHandler(OWLXMLParserHandler handler) {
+    OWLSymmetricObjectPropertyAxiomElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
+    @Nonnull
     @Override
     OWLAxiom createPropertyCharacteristicAxiom() {
         return df.getOWLSymmetricObjectPropertyAxiom(getProperty(),
@@ -2714,10 +2908,11 @@ class OWLSymmetricObjectPropertyAxiomElementHandler extends
 class OWLTransitiveObjectPropertyAxiomElementHandler extends
         AbstractOWLObjectPropertyCharacteristicAxiomElementHandler {
 
-    OWLTransitiveObjectPropertyAxiomElementHandler(OWLXMLParserHandler handler) {
+    OWLTransitiveObjectPropertyAxiomElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
+    @Nonnull
     @Override
     OWLAxiom createPropertyCharacteristicAxiom() {
         return df.getOWLTransitiveObjectPropertyAxiom(getProperty(),
@@ -2729,7 +2924,7 @@ abstract class SWRLAtomElementHandler extends OWLElementHandler<SWRLAtom> {
 
     SWRLAtom atom;
 
-    SWRLAtomElementHandler(OWLXMLParserHandler handler) {
+    SWRLAtomElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
@@ -2745,17 +2940,19 @@ abstract class SWRLAtomElementHandler extends OWLElementHandler<SWRLAtom> {
 
 class SWRLAtomListElementHandler extends OWLElementHandler<List<SWRLAtom>> {
 
+    @Nonnull
     List<SWRLAtom> atoms = new ArrayList<SWRLAtom>();
 
-    SWRLAtomListElementHandler(OWLXMLParserHandler handler) {
+    SWRLAtomListElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
     @Override
-    void handleChild(SWRLAtomElementHandler h) {
+    void handleChild(@Nonnull SWRLAtomElementHandler h) {
         atoms.add(h.getOWLObject());
     }
 
+    @Nonnull
     @Override
     List<SWRLAtom> getOWLObject() {
         return atoms;
@@ -2769,25 +2966,27 @@ class SWRLAtomListElementHandler extends OWLElementHandler<List<SWRLAtom>> {
 
 class SWRLBuiltInAtomElementHandler extends SWRLAtomElementHandler {
 
+    @Nullable
     IRI iri;
+    @Nonnull
     List<SWRLDArgument> args = new ArrayList<SWRLDArgument>();
 
-    SWRLBuiltInAtomElementHandler(OWLXMLParserHandler handler) {
+    SWRLBuiltInAtomElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
     @Override
-    void attribute(String localName, String value) {
+    void attribute(@Nonnull String localName, @Nonnull String value) {
         iri = getIRIFromAttribute(localName, value);
     }
 
     @Override
-    void handleChild(SWRLVariableElementHandler h) {
+    void handleChild(@Nonnull SWRLVariableElementHandler h) {
         args.add(h.getOWLObject());
     }
 
     @Override
-    void handleChild(OWLLiteralElementHandler h) {
+    void handleChild(@Nonnull OWLLiteralElementHandler h) {
         args.add(df.getSWRLLiteralArgument(h.getOWLObject()));
     }
 
@@ -2801,24 +3000,25 @@ class SWRLBuiltInAtomElementHandler extends SWRLAtomElementHandler {
 class SWRLClassAtomElementHandler extends SWRLAtomElementHandler {
 
     OWLClassExpression ce;
+    @Nullable
     SWRLIArgument arg;
 
-    SWRLClassAtomElementHandler(OWLXMLParserHandler handler) {
+    SWRLClassAtomElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
     @Override
-    void handleChild(SWRLVariableElementHandler h) {
+    void handleChild(@Nonnull SWRLVariableElementHandler h) {
         arg = h.getOWLObject();
     }
 
     @Override
-    void handleChild(AbstractClassExpressionElementHandler h) {
+    void handleChild(@Nonnull AbstractClassExpressionElementHandler h) {
         ce = h.getOWLObject();
     }
 
     @Override
-    void handleChild(OWLIndividualElementHandler h) {
+    void handleChild(@Nonnull OWLIndividualElementHandler h) {
         arg = df.getSWRLIndividualArgument(h.getOWLObject());
     }
 
@@ -2832,20 +3032,22 @@ class SWRLClassAtomElementHandler extends SWRLAtomElementHandler {
 class SWRLDataPropertyAtomElementHandler extends SWRLAtomElementHandler {
 
     OWLDataPropertyExpression prop;
+    @Nullable
     SWRLIArgument arg0 = null;
+    @Nullable
     SWRLDArgument arg1 = null;
 
-    SWRLDataPropertyAtomElementHandler(OWLXMLParserHandler handler) {
+    SWRLDataPropertyAtomElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
     @Override
-    void handleChild(OWLDataPropertyElementHandler h) {
+    void handleChild(@Nonnull OWLDataPropertyElementHandler h) {
         prop = h.getOWLObject();
     }
 
     @Override
-    void handleChild(SWRLVariableElementHandler h) {
+    void handleChild(@Nonnull SWRLVariableElementHandler h) {
         if (arg0 == null) {
             arg0 = h.getOWLObject();
         } else if (arg1 == null) {
@@ -2854,17 +3056,17 @@ class SWRLDataPropertyAtomElementHandler extends SWRLAtomElementHandler {
     }
 
     @Override
-    void handleChild(OWLLiteralElementHandler h) {
+    void handleChild(@Nonnull OWLLiteralElementHandler h) {
         arg1 = df.getSWRLLiteralArgument(h.getOWLObject());
     }
 
     @Override
-    void handleChild(OWLIndividualElementHandler _handler) {
+    void handleChild(@Nonnull OWLIndividualElementHandler _handler) {
         arg0 = df.getSWRLIndividualArgument(_handler.getOWLObject());
     }
 
     @Override
-    void handleChild(OWLAnonymousIndividualElementHandler _handler) {
+    void handleChild(@Nonnull OWLAnonymousIndividualElementHandler _handler) {
         arg0 = df.getSWRLIndividualArgument(_handler.getOWLObject());
     }
 
@@ -2878,24 +3080,25 @@ class SWRLDataPropertyAtomElementHandler extends SWRLAtomElementHandler {
 class SWRLDataRangeAtomElementHandler extends SWRLAtomElementHandler {
 
     OWLDataRange prop;
+    @Nullable
     SWRLDArgument arg1 = null;
 
-    SWRLDataRangeAtomElementHandler(OWLXMLParserHandler handler) {
+    SWRLDataRangeAtomElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
     @Override
-    void handleChild(AbstractOWLDataRangeHandler _handler) {
+    void handleChild(@Nonnull AbstractOWLDataRangeHandler _handler) {
         prop = _handler.getOWLObject();
     }
 
     @Override
-    void handleChild(SWRLVariableElementHandler h) {
+    void handleChild(@Nonnull SWRLVariableElementHandler h) {
         arg1 = h.getOWLObject();
     }
 
     @Override
-    void handleChild(OWLLiteralElementHandler h) {
+    void handleChild(@Nonnull OWLLiteralElementHandler h) {
         arg1 = df.getSWRLLiteralArgument(h.getOWLObject());
     }
 
@@ -2908,15 +3111,17 @@ class SWRLDataRangeAtomElementHandler extends SWRLAtomElementHandler {
 
 class SWRLDifferentIndividualsAtomElementHandler extends SWRLAtomElementHandler {
 
+    @Nullable
     SWRLIArgument arg0;
+    @Nullable
     SWRLIArgument arg1;
 
-    SWRLDifferentIndividualsAtomElementHandler(OWLXMLParserHandler handler) {
+    SWRLDifferentIndividualsAtomElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
     @Override
-    void handleChild(SWRLVariableElementHandler h) {
+    void handleChild(@Nonnull SWRLVariableElementHandler h) {
         if (arg0 == null) {
             arg0 = h.getOWLObject();
         } else if (arg1 == null) {
@@ -2925,7 +3130,7 @@ class SWRLDifferentIndividualsAtomElementHandler extends SWRLAtomElementHandler 
     }
 
     @Override
-    void handleChild(OWLIndividualElementHandler h) {
+    void handleChild(@Nonnull OWLIndividualElementHandler h) {
         if (arg0 == null) {
             arg0 = df.getSWRLIndividualArgument(h.getOWLObject());
         } else if (arg1 == null) {
@@ -2943,20 +3148,22 @@ class SWRLDifferentIndividualsAtomElementHandler extends SWRLAtomElementHandler 
 class SWRLObjectPropertyAtomElementHandler extends SWRLAtomElementHandler {
 
     OWLObjectPropertyExpression prop;
+    @Nullable
     SWRLIArgument arg0 = null;
+    @Nullable
     SWRLIArgument arg1 = null;
 
-    SWRLObjectPropertyAtomElementHandler(OWLXMLParserHandler handler) {
+    SWRLObjectPropertyAtomElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
     @Override
-    void handleChild(AbstractOWLObjectPropertyElementHandler h) {
+    void handleChild(@Nonnull AbstractOWLObjectPropertyElementHandler h) {
         prop = h.getOWLObject();
     }
 
     @Override
-    void handleChild(SWRLVariableElementHandler h) {
+    void handleChild(@Nonnull SWRLVariableElementHandler h) {
         if (arg0 == null) {
             arg0 = h.getOWLObject();
         } else if (arg1 == null) {
@@ -2965,7 +3172,7 @@ class SWRLObjectPropertyAtomElementHandler extends SWRLAtomElementHandler {
     }
 
     @Override
-    void handleChild(OWLIndividualElementHandler h) {
+    void handleChild(@Nonnull OWLIndividualElementHandler h) {
         if (arg0 == null) {
             arg0 = df.getSWRLIndividualArgument(h.getOWLObject());
         } else if (arg1 == null) {
@@ -2982,20 +3189,23 @@ class SWRLObjectPropertyAtomElementHandler extends SWRLAtomElementHandler {
 
 class SWRLRuleElementHandler extends AbstractOWLAxiomElementHandler {
 
+    @Nullable
     Set<SWRLAtom> body = null;
+    @Nullable
     Set<SWRLAtom> head = null;
 
-    SWRLRuleElementHandler(OWLXMLParserHandler handler) {
+    SWRLRuleElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
+    @Nonnull
     @Override
     OWLAxiom createAxiom() {
         return df.getSWRLRule(body, head, getAnnotations());
     }
 
     @Override
-    void handleChild(SWRLAtomListElementHandler h) {
+    void handleChild(@Nonnull SWRLAtomListElementHandler h) {
         if (body == null) {
             body = new LinkedHashSet<SWRLAtom>(h.getOWLObject());
         } else if (head == null) {
@@ -3006,15 +3216,17 @@ class SWRLRuleElementHandler extends AbstractOWLAxiomElementHandler {
 
 class SWRLSameIndividualAtomElementHandler extends SWRLAtomElementHandler {
 
+    @Nullable
     SWRLIArgument arg0;
+    @Nullable
     SWRLIArgument arg1;
 
-    SWRLSameIndividualAtomElementHandler(OWLXMLParserHandler handler) {
+    SWRLSameIndividualAtomElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
     @Override
-    void handleChild(SWRLVariableElementHandler h) {
+    void handleChild(@Nonnull SWRLVariableElementHandler h) {
         if (arg0 == null) {
             arg0 = h.getOWLObject();
         } else if (arg1 == null) {
@@ -3023,7 +3235,7 @@ class SWRLSameIndividualAtomElementHandler extends SWRLAtomElementHandler {
     }
 
     @Override
-    void handleChild(OWLIndividualElementHandler h) {
+    void handleChild(@Nonnull OWLIndividualElementHandler h) {
         if (arg0 == null) {
             arg0 = df.getSWRLIndividualArgument(h.getOWLObject());
         } else if (arg1 == null) {
@@ -3040,10 +3252,11 @@ class SWRLSameIndividualAtomElementHandler extends SWRLAtomElementHandler {
 
 class SWRLVariableElementHandler extends OWLElementHandler<SWRLVariable> {
 
-    SWRLVariableElementHandler(OWLXMLParserHandler handler) {
+    SWRLVariableElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
+    @Nullable
     IRI iri;
 
     @Override
@@ -3052,10 +3265,11 @@ class SWRLVariableElementHandler extends OWLElementHandler<SWRLVariable> {
     }
 
     @Override
-    void attribute(String localName, String value) {
+    void attribute(@Nonnull String localName, @Nonnull String value) {
         iri = getIRIFromAttribute(localName, value);
     }
 
+    @Nullable
     @Override
     SWRLVariable getOWLObject() {
         if (iri != null) {
@@ -3067,7 +3281,7 @@ class SWRLVariableElementHandler extends OWLElementHandler<SWRLVariable> {
 
 class OWLOntologyHandler extends OWLElementHandler<OWLOntology> {
 
-    OWLOntologyHandler(OWLXMLParserHandler handler) {
+    OWLOntologyHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
@@ -3075,7 +3289,7 @@ class OWLOntologyHandler extends OWLElementHandler<OWLOntology> {
     void startElement(String name) {}
 
     @Override
-    void attribute(String name, String value) {
+    void attribute(@Nonnull String name, @Nonnull String value) {
         if (name.equals("ontologyIRI")) {
             OWLOntologyID newID = new OWLOntologyID(Optional.of(IRI
                     .create(value)), handler.getOntology().getOntologyID()
@@ -3093,7 +3307,7 @@ class OWLOntologyHandler extends OWLElementHandler<OWLOntology> {
     }
 
     @Override
-    void handleChild(AbstractOWLAxiomElementHandler h) {
+    void handleChild(@Nonnull AbstractOWLAxiomElementHandler h) {
         OWLAxiom axiom = h.getOWLObject();
         if (!axiom.isAnnotationAxiom()
                 || handler.getConfiguration().isLoadAnnotationAxioms()) {
@@ -3109,7 +3323,7 @@ class OWLOntologyHandler extends OWLElementHandler<OWLOntology> {
     void handleChild(AbstractClassExpressionElementHandler h) {}
 
     @Override
-    void handleChild(OWLAnnotationElementHandler h) {
+    void handleChild(@Nonnull OWLAnnotationElementHandler h) {
         handler.getOWLOntologyManager().applyChange(
                 new AddOntologyAnnotation(handler.getOntology(), h
                         .getOWLObject()));
@@ -3129,7 +3343,7 @@ class OWLOntologyHandler extends OWLElementHandler<OWLOntology> {
 
 class OWLImportsHandler extends OWLElementHandler<OWLOntology> {
 
-    OWLImportsHandler(OWLXMLParserHandler handler) {
+    OWLImportsHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
     }
 
@@ -3143,6 +3357,7 @@ class OWLImportsHandler extends OWLElementHandler<OWLOntology> {
                 handler.getConfiguration());
     }
 
+    @Nullable
     @Override
     OWLOntology getOWLObject() {
         return null;

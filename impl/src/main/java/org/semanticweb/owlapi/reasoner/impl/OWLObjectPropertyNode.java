@@ -47,22 +47,26 @@ public class OWLObjectPropertyNode extends
         super(entities);
     }
 
+    @Nonnull
     @Override
     protected OWLObjectProperty getTopEntity() {
         return TOP_OBJECT_PROPERTY;
     }
 
+    @Nonnull
     @Override
     protected OWLObjectProperty getBottomEntity() {
         return BOTTOM_OBJECT_PROPERTY;
     }
 
     /** @return top node */
+    @Nonnull
     public static OWLObjectPropertyNode getTopNode() {
         return TOP_OBJECT_NODE;
     }
 
     /** @return bottom node */
+    @Nonnull
     public static OWLObjectPropertyNode getBottomNode() {
         return BOTTOM_OBJECT_NODE;
     }

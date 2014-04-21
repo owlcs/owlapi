@@ -15,6 +15,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLDataVisitor;
 import org.semanticweb.owlapi.model.OWLDataVisitorEx;
@@ -35,7 +36,9 @@ public class OWLFacetRestrictionImpl extends OWLObjectImpl implements
         OWLFacetRestriction {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final OWLFacet facet;
+    @Nonnull
     private final OWLLiteral facetValue;
 
     @Override
@@ -72,6 +75,7 @@ public class OWLFacetRestrictionImpl extends OWLObjectImpl implements
         visitor.visit(this);
     }
 
+    @Nullable
     @Override
     public <O> O accept(@Nonnull OWLDataVisitorEx<O> visitor) {
         return visitor.visit(this);

@@ -93,9 +93,11 @@ public abstract class RDFRendererBase {
     private static final OWLEntityIRIComparator OWL_ENTITY_IRI_COMPARATOR = new OWLEntityIRIComparator();
     protected OWLOntology ontology;
     protected RDFGraph graph;
+    @Nonnull
     protected Set<IRI> prettyPrintedTypes = initPrettyTypes();
     private OWLOntologyFormat format;
 
+    @Nonnull
     protected Set<IRI> initPrettyTypes() {
         return new HashSet<IRI>(Arrays.asList(OWL_CLASS.getIRI(),
                 OWL_OBJECT_PROPERTY.getIRI(), OWL_DATA_PROPERTY.getIRI(),
@@ -110,7 +112,7 @@ public abstract class RDFRendererBase {
      * @param ontology
      *        ontology
      */
-    public RDFRendererBase(OWLOntology ontology) {
+    public RDFRendererBase(@Nonnull OWLOntology ontology) {
         this(ontology, ontology.getOWLOntologyManager().getOntologyFormat(
                 ontology));
     }
@@ -301,8 +303,8 @@ public abstract class RDFRendererBase {
      * @throws IOException
      *         If there was a problem writing the rendering
      */
-    private void renderEntities(Set<? extends OWLEntity> entities,
-            String bannerText) throws IOException {
+    private void renderEntities(@Nonnull Set<? extends OWLEntity> entities,
+            @Nonnull String bannerText) throws IOException {
         boolean firstRendering = true;
         for (OWLEntity entity : toSortedSet(entities)) {
             if (createGraph(entity)) {
@@ -317,7 +319,7 @@ public abstract class RDFRendererBase {
         }
     }
 
-    private void renderEntity(OWLEntity entity) throws IOException {
+    private void renderEntity(@Nonnull OWLEntity entity) throws IOException {
         beginObject();
         writeEntityComment(entity);
         render(new RDFResourceIRI(entity.getIRI()));
@@ -333,7 +335,7 @@ public abstract class RDFRendererBase {
      * @throws IOException
      *         if there was a problem writing the comment
      */
-    private void writeEntityComment(OWLEntity entity) throws IOException {
+    private void writeEntityComment(@Nonnull OWLEntity entity) throws IOException {
         if (entity.isOWLClass()) {
             writeClassComment(entity.asOWLClass());
         } else if (entity.isOWLDatatype()) {
@@ -435,6 +437,7 @@ public abstract class RDFRendererBase {
      * @return A set of axioms that are general axioms (and can't be written out
      *         in a frame-based style).
      */
+    @Nonnull
     private Set<OWLAxiom> getGeneralAxioms() {
         Set<OWLAxiom> generalAxioms = new HashSet<OWLAxiom>();
         generalAxioms.addAll(ontology.getGeneralClassAxioms());
@@ -483,6 +486,7 @@ public abstract class RDFRendererBase {
         }
     }
 
+    @Nonnull
     private RDFResource createOntologyHeaderNode() {
         Optional<IRI> id = ontology.getOntologyID().getOntologyIRI();
         if (id.isPresent()) {
@@ -492,7 +496,7 @@ public abstract class RDFRendererBase {
         }
     }
 
-    private void addVersionIRIToOntologyHeader(RDFResource ontologyHeaderNode) {
+    private void addVersionIRIToOntologyHeader(@Nonnull RDFResource ontologyHeaderNode) {
         OWLOntologyID ontID = ontology.getOntologyID();
         if (ontID.getVersionIRI().isPresent()) {
             graph.addTriple(new RDFTriple(ontologyHeaderNode,
@@ -502,7 +506,7 @@ public abstract class RDFRendererBase {
     }
 
     private void addImportsDeclarationsToOntologyHeader(
-            RDFResource ontologyHeaderNode) {
+            @Nonnull RDFResource ontologyHeaderNode) {
         for (OWLImportsDeclaration decl : ontology.getImportsDeclarations()) {
             graph.addTriple(new RDFTriple(ontologyHeaderNode,
                     new RDFResourceIRI(OWL_IMPORTS.getIRI()),
@@ -510,7 +514,7 @@ public abstract class RDFRendererBase {
         }
     }
 
-    private void addAnnotationsToOntologyHeader(RDFResource ontologyHeaderNode) {
+    private void addAnnotationsToOntologyHeader(@Nonnull RDFResource ontologyHeaderNode) {
         for (OWLAnnotation anno : ontology.getAnnotations()) {
             OWLAnnotationValueVisitorEx<RDFNode> valVisitor = new OWLAnnotationValueVisitorEx<RDFNode>() {
 
@@ -536,7 +540,7 @@ public abstract class RDFRendererBase {
         }
     }
 
-    private boolean createGraph(OWLEntity entity) {
+    private boolean createGraph(@Nonnull OWLEntity entity) {
         final Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         // Don't write out duplicates for punned annotations!
         if (!isIndividualAndClass(entity)) {
@@ -627,7 +631,7 @@ public abstract class RDFRendererBase {
         return !axioms.isEmpty();
     }
 
-    private boolean isIndividualAndClass(OWLEntity entity) {
+    private boolean isIndividualAndClass(@Nonnull OWLEntity entity) {
         return entity.isOWLNamedIndividual()
                 && ontology.containsClassInSignature(entity.getIRI(), EXCLUDED);
     }
@@ -637,7 +641,7 @@ public abstract class RDFRendererBase {
                 || ((RDFOntologyFormat) format).isAddMissingTypes();
     }
 
-    protected void createGraph(Set<? extends OWLObject> objects) {
+    protected void createGraph(@Nonnull Set<? extends OWLObject> objects) {
         RDFTranslator translator = new RDFTranslator(
                 ontology.getOWLOntologyManager(), ontology,
                 shouldInsertDeclarations());
@@ -649,8 +653,9 @@ public abstract class RDFRendererBase {
 
     protected abstract void writeBanner(String name) throws IOException;
 
+    @Nonnull
     private static List<OWLEntity>
-            toSortedSet(Set<? extends OWLEntity> entities) {
+            toSortedSet(@Nonnull Set<? extends OWLEntity> entities) {
         List<OWLEntity> results = new ArrayList<OWLEntity>(entities);
         Collections.sort(results, OWL_ENTITY_IRI_COMPARATOR);
         return results;
@@ -695,7 +700,7 @@ public abstract class RDFRendererBase {
         return false;
     }
 
-    protected void toJavaList(RDFNode n, List<RDFNode> list) {
+    protected void toJavaList(RDFNode n, @Nonnull List<RDFNode> list) {
         RDFNode currentNode = n;
         while (currentNode != null) {
             for (RDFTriple triple : graph.getTriplesForSubject(currentNode,
@@ -734,7 +739,7 @@ public abstract class RDFRendererBase {
         public OWLEntityIRIComparator() {}
 
         @Override
-        public int compare(OWLEntity o1, OWLEntity o2) {
+        public int compare(@Nonnull OWLEntity o1, @Nonnull OWLEntity o2) {
             return o1.getIRI().compareTo(o2.getIRI());
         }
     }

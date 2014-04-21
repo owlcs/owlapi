@@ -94,6 +94,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * Empty abstract visitor for macro expansion. This class allows to minimize the
@@ -106,11 +107,14 @@ public abstract class AbstractMacroExpansionVisitor implements
 
     static final Logger log = LoggerFactory
             .getLogger(AbstractMacroExpansionVisitor.class);
+    @Nonnull
     final OWLDataFactory dataFactory;
+    @Nonnull
     final Map<IRI, String> expandAssertionToMap;
+    @Nonnull
     final Map<IRI, String> expandExpressionMap;
 
-    protected AbstractMacroExpansionVisitor(OWLOntology inputOntology) {
+    protected AbstractMacroExpansionVisitor(@Nonnull OWLOntology inputOntology) {
         super();
         dataFactory = inputOntology.getOWLOntologyManager().getOWLDataFactory();
         expandExpressionMap = new HashMap<IRI, String>();
@@ -188,6 +192,7 @@ public abstract class AbstractMacroExpansionVisitor implements
         return result;
     }
 
+    @Nullable
     protected abstract OWLClassExpression expandOWLObjSomeVal(
             OWLClassExpression filler, OWLObjectPropertyExpression p);
 
@@ -206,6 +211,7 @@ public abstract class AbstractMacroExpansionVisitor implements
         return result;
     }
 
+    @Nullable
     protected abstract OWLClassExpression expandOWLObjHasVal(
             OWLObjectHasValue desc, OWLIndividual filler,
             OWLObjectPropertyExpression p);

@@ -30,6 +30,7 @@ public class OWLImportsDeclarationImpl implements OWLImportsDeclaration,
         Serializable {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final IRI iri;
 
     /**
@@ -68,6 +69,7 @@ public class OWLImportsDeclarationImpl implements OWLImportsDeclaration,
         return iri.compareTo(o.getIRI());
     }
 
+    @Nonnull
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

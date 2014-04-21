@@ -35,6 +35,7 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
 
     /** Mapping from entities to the number of axioms. */
     private final Map<OWLEntity, Integer> referenceCounts = new HashMap<OWLEntity, Integer>();
+    @Nonnull
     private final OWLOntology ontology;
     private final Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
     private final Integer ONE = Integer.valueOf(1);

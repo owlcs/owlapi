@@ -106,6 +106,7 @@ import javax.annotation.Nonnull;
 public class OWLTutorialSyntaxObjectRenderer extends OWLObjectVisitorAdapter {
 
     private final OWLOntology ontology;
+    @Nonnull
     private final ShortFormProvider shortForms;
     private final Writer writer;
     private int pos;
@@ -113,7 +114,8 @@ public class OWLTutorialSyntaxObjectRenderer extends OWLObjectVisitorAdapter {
     private static final boolean tables = true;
     private static final int TABLE_COLUMNS = 3;
 
-    public String labelFor(OWLEntity entity) {
+    @Nonnull
+    public String labelFor(@Nonnull OWLEntity entity) {
         return shortForms.getShortForm(entity);
     }
 
@@ -123,7 +125,7 @@ public class OWLTutorialSyntaxObjectRenderer extends OWLObjectVisitorAdapter {
         shortForms = new QNameShortFormProvider();
     }
 
-    private void write(String s) {
+    private void write(@Nonnull String s) {
         try {
             int newLineIndex = s.indexOf('\n');
             if (newLineIndex != -1) {
@@ -136,7 +138,7 @@ public class OWLTutorialSyntaxObjectRenderer extends OWLObjectVisitorAdapter {
         }
     }
 
-    private void write(IRI iri) {
+    private void write(@Nonnull IRI iri) {
         write("<");
         write(iri.toQuotedString());
         write(">");
@@ -166,7 +168,7 @@ public class OWLTutorialSyntaxObjectRenderer extends OWLObjectVisitorAdapter {
         write("</html>\n");
     }
 
-    private void writeCollection(Collection<? extends OWLObject> objects) {
+    private void writeCollection(@Nonnull Collection<? extends OWLObject> objects) {
         if (tables) {
             writeTable(objects);
         } else {
@@ -174,7 +176,7 @@ public class OWLTutorialSyntaxObjectRenderer extends OWLObjectVisitorAdapter {
         }
     }
 
-    private void writeTable(Collection<? extends OWLObject> objects) {
+    private void writeTable(@Nonnull Collection<? extends OWLObject> objects) {
         writeTableStart();
         int count = 0;
         for (Iterator<? extends OWLObject> it = objects.iterator(); it
@@ -194,7 +196,7 @@ public class OWLTutorialSyntaxObjectRenderer extends OWLObjectVisitorAdapter {
         writeTableEnd();
     }
 
-    private void writeList(Collection<? extends OWLObject> objects) {
+    private void writeList(@Nonnull Collection<? extends OWLObject> objects) {
         writeListStart();
         for (Iterator<? extends OWLObject> it = objects.iterator(); it
                 .hasNext();) {
@@ -244,7 +246,7 @@ public class OWLTutorialSyntaxObjectRenderer extends OWLObjectVisitorAdapter {
         footer();
     }
 
-    public void write(String str, OWLObject o) {
+    public void write(@Nonnull String str, @Nonnull OWLObject o) {
         write(str);
         write("(");
         o.accept(this);
@@ -252,7 +254,7 @@ public class OWLTutorialSyntaxObjectRenderer extends OWLObjectVisitorAdapter {
     }
 
     private void
-            write(Collection<? extends OWLObject> objects, String separator) {
+            write(@Nonnull Collection<? extends OWLObject> objects, @Nonnull String separator) {
         for (Iterator<? extends OWLObject> it = objects.iterator(); it
                 .hasNext();) {
             it.next().accept(this);
@@ -264,7 +266,7 @@ public class OWLTutorialSyntaxObjectRenderer extends OWLObjectVisitorAdapter {
         }
     }
 
-    private void write(Collection<? extends OWLObject> objects) {
+    private void write(@Nonnull Collection<? extends OWLObject> objects) {
         write(objects, "");
     }
 
@@ -325,7 +327,7 @@ public class OWLTutorialSyntaxObjectRenderer extends OWLObjectVisitorAdapter {
     }
 
     public void writePropertyCharacteristic(String str, OWLAxiom ax,
-            OWLPropertyExpression prop) throws OWLRuntimeException {
+            @Nonnull OWLPropertyExpression prop) throws OWLRuntimeException {
         write(keyword(str));
         writeSpace();
         prop.accept(this);
@@ -438,7 +440,7 @@ public class OWLTutorialSyntaxObjectRenderer extends OWLObjectVisitorAdapter {
         writePropertyCharacteristic("functional", axiom, axiom.getProperty());
     }
 
-    public void visit(OWLImportsDeclaration axiom) {
+    public void visit(@Nonnull OWLImportsDeclaration axiom) {
         write(keyword("imports"));
         write(axiom.getIRI());
     }
@@ -565,9 +567,9 @@ public class OWLTutorialSyntaxObjectRenderer extends OWLObjectVisitorAdapter {
         write("<span class='cl'>" + labelFor(desc) + "</span>");
     }
 
-    private void writeRestriction(String str,
-            OWLCardinalityRestriction<?> restriction,
-            OWLPropertyExpression property) {
+    private void writeRestriction(@Nonnull String str,
+            @Nonnull OWLCardinalityRestriction<?> restriction,
+            @Nonnull OWLPropertyExpression property) {
         write(str);
         writeOpenBracket();
         write(Integer.toString(restriction.getCardinality()));
@@ -580,20 +582,20 @@ public class OWLTutorialSyntaxObjectRenderer extends OWLObjectVisitorAdapter {
         writeCloseBracket();
     }
 
-    private void writeRestriction(String str,
-            OWLQuantifiedDataRestriction restriction) {
+    private void writeRestriction(@Nonnull String str,
+            @Nonnull OWLQuantifiedDataRestriction restriction) {
         writeRestriction(str, restriction.getProperty(),
                 restriction.getFiller());
     }
 
-    private void writeRestriction(String str,
-            OWLQuantifiedObjectRestriction restriction) {
+    private void writeRestriction(@Nonnull String str,
+            @Nonnull OWLQuantifiedObjectRestriction restriction) {
         writeRestriction(str, restriction.getProperty(),
                 restriction.getFiller());
     }
 
-    private void writeRestriction(String str, OWLPropertyExpression prop,
-            OWLObject filler) throws OWLRuntimeException {
+    private void writeRestriction(@Nonnull String str, @Nonnull OWLPropertyExpression prop,
+            @Nonnull OWLObject filler) throws OWLRuntimeException {
         write(str);
         writeOpenBracket();
         prop.accept(this);
@@ -774,10 +776,12 @@ public class OWLTutorialSyntaxObjectRenderer extends OWLObjectVisitorAdapter {
     @Override
     public void visit(@Nonnull SWRLRule rule) {}
 
+    @Nonnull
     public String keyword(String str) {
         return "<span class='key'>" + str + "</span>";
     }
 
+    @Nonnull
     public String operator(String str) {
         return "<span class='op'>" + str + "</span>";
     }

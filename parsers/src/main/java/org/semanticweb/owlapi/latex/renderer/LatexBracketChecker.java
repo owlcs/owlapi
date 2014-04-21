@@ -46,6 +46,7 @@ import javax.annotation.Nonnull;
 public class LatexBracketChecker implements OWLClassExpressionVisitor {
 
     private boolean requiresBracket;
+    @Nonnull
     private static LatexBracketChecker instance = new LatexBracketChecker();
 
     private LatexBracketChecker() {}
@@ -161,7 +162,7 @@ public class LatexBracketChecker implements OWLClassExpressionVisitor {
      *        class expression
      * @return true if bracket required
      */
-    public static boolean requiresBracket(OWLClassExpression classExpression) {
+    public static boolean requiresBracket(@Nonnull OWLClassExpression classExpression) {
         instance.requiresBracket = true;
         classExpression.accept(instance);
         return instance.requiresBracket;

@@ -17,6 +17,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFConsumer;
 
+import javax.annotation.Nonnull;
+
 /**
  * The Class OWLRDFConsumerAdapter.
  * 
@@ -33,8 +35,8 @@ public class OWLRDFConsumerAdapter extends OWLRDFConsumer implements
      * @param configuration
      *        configuration
      */
-    public OWLRDFConsumerAdapter(OWLOntology ontology,
-            OWLOntologyLoaderConfiguration configuration) {
+    public OWLRDFConsumerAdapter(@Nonnull OWLOntology ontology,
+            @Nonnull OWLOntologyLoaderConfiguration configuration) {
         super(ontology, configuration);
     }
 

@@ -53,11 +53,13 @@ public class OWLDatatypeNodeSet extends DefaultNodeSet<OWLDatatype> {
         super(nodes);
     }
 
+    @Nonnull
     @Override
     protected DefaultNode<OWLDatatype> getNode(@Nonnull OWLDatatype entity) {
         return new OWLDatatypeNode(entity);
     }
 
+    @Nonnull
     @Override
     protected DefaultNode<OWLDatatype> getNode(@Nonnull Set<OWLDatatype> entities) {
         return new OWLDatatypeNode(entities);

@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.owlxml.parser;
 
 import org.semanticweb.owlapi.io.OWLParserException;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -29,7 +31,7 @@ public class OWLXMLParserException extends OWLParserException {
      * @param h
      *        handler
      */
-    public OWLXMLParserException(OWLXMLParserHandler h, String message) {
+    public OWLXMLParserException(@Nonnull OWLXMLParserHandler h, String message) {
         super(message, h.getLineNumber(), h.getColumnNumber());
     }
 }

@@ -56,12 +56,14 @@ public class OWLObjectPropertyNodeSet extends
         super(nodes);
     }
 
+    @Nonnull
     @Override
     protected DefaultNode<OWLObjectPropertyExpression> getNode(
             @Nonnull OWLObjectPropertyExpression entity) {
         return NodeFactory.getOWLObjectPropertyNode(entity);
     }
 
+    @Nonnull
     @Override
     protected DefaultNode<OWLObjectPropertyExpression> getNode(
             @Nonnull Set<OWLObjectPropertyExpression> entities) {

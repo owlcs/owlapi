@@ -16,6 +16,8 @@ package org.semanticweb.owlapi.krss2.parser;
 import org.semanticweb.owlapi.BOMSafeJavaCharStream;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
+import javax.annotation.Nullable;
+
 class KRSS2ParserTokenManager implements KRSS2ParserConstants {
 
     java.io.PrintStream debugStream = System.out;
@@ -1965,6 +1967,7 @@ class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         }
     }
 
+    @Nullable
     static final String[] jjstrLiteralImages = { "", null, null, null, null,
             null, null, null, null, null, null, null, null, null, null, null,
             null, null, "\50", "\51", null, null, null, null, null, null, null,

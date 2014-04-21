@@ -50,7 +50,9 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
 
     private static final Logger LOGGER = LoggerFactory
             .getLogger(HSTExplanationGenerator.class);
+    @Nonnull
     private final TransactionAwareSingleExpGen singleExplanationGenerator;
+    @Nonnull
     private ExplanationProgressMonitor progressMonitor = new SilentExplanationProgressMonitor();
 
     /**
@@ -176,7 +178,7 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
         Comparator<OWLAxiom> mupsComparator = new Comparator<OWLAxiom>() {
 
             @Override
-            public int compare(OWLAxiom o1, OWLAxiom o2) {
+            public int compare(@Nonnull OWLAxiom o1, @Nonnull OWLAxiom o2) {
                 // The axiom that appears in most MUPS has the lowest index
                 // in the list
                 int occ1 = getOccurrences(o1, allMups);

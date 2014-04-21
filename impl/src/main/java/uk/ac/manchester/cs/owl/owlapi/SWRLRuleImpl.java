@@ -22,6 +22,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -58,10 +59,14 @@ import org.semanticweb.owlapi.util.SWRLVariableExtractor;
 public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final LinkedHashSet<SWRLAtom> head;
+    @Nonnull
     private final LinkedHashSet<SWRLAtom> body;
     private final boolean containsAnonymousClassExpressions;
+    @Nullable
     private WeakReference<Set<SWRLVariable>> variables;
+    @Nullable
     private WeakReference<Set<OWLClassExpression>> classAtomsPredicates;
 
     /**
@@ -104,8 +109,8 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
      * @param head
      *        rule head
      */
-    public SWRLRuleImpl(Set<? extends SWRLAtom> body,
-            Set<? extends SWRLAtom> head) {
+    public SWRLRuleImpl(@Nonnull Set<? extends SWRLAtom> body,
+            @Nonnull Set<? extends SWRLAtom> head) {
         this(body, head, Collections.<OWLAnnotation> emptyList());
     }
 
@@ -188,6 +193,7 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
         visitor.visit(this);
     }
 
+    @Nullable
     @Override
     public <O> O accept(@Nonnull SWRLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
@@ -212,6 +218,7 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
         visitor.visit(this);
     }
 
+    @Nullable
     @Override
     public <O> O accept(@Nonnull OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);

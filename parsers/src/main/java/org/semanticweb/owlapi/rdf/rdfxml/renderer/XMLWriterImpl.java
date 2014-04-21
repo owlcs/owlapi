@@ -26,6 +26,7 @@ import java.util.Stack;
 import java.util.StringTokenizer;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.model.IRI;
@@ -42,6 +43,7 @@ public class XMLWriterImpl implements XMLWriter {
 
     private Stack<XMLElement> elementStack;
     protected Writer writer;
+    @Nonnull
     private String encoding = "";
     private String xmlBase;
     private XMLWriterNamespaceManager xmlWriterNamespaceManager;
@@ -96,7 +98,7 @@ public class XMLWriterImpl implements XMLWriter {
         }
     }
 
-    protected String swapForEntity(String value) {
+    protected String swapForEntity(@Nonnull String value) {
         for (String curEntity : entities.keySet()) {
             String entityVal = entities.get(curEntity);
             if (value.length() > curEntity.length()) {
@@ -230,7 +232,7 @@ public class XMLWriterImpl implements XMLWriter {
     }
 
     @Override
-    public void startDocument(IRI rootElement) throws IOException {
+    public void startDocument(@Nonnull IRI rootElement) throws IOException {
         String encodingString = "";
         if (encoding.length() > 0) {
             encodingString = " encoding=\"" + encoding + "\"";
@@ -272,6 +274,7 @@ public class XMLWriterImpl implements XMLWriter {
 
         private String name;
         private Map<String, String> attributes;
+        @Nullable
         String textContent;
         private boolean startWritten;
         private int indentation;
@@ -398,7 +401,7 @@ public class XMLWriterImpl implements XMLWriter {
             }
         }
 
-        private void writeAttribute(String attr, String val) throws IOException {
+        private void writeAttribute(@Nonnull String attr, @Nonnull String val) throws IOException {
             writer.write(attr);
             writer.write('=');
             writer.write('"');

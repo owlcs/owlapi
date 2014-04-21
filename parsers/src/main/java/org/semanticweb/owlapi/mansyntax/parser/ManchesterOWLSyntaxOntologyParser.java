@@ -46,6 +46,7 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
         return "ManchesterOWLSyntaxOntologyParser";
     }
 
+    @Nonnull
     @Override
     protected Class<? extends OWLOntologyFormat> getFormatClass() {
         return ManchesterOWLSyntaxOntologyFormat.class;
@@ -128,7 +129,7 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
         }
     }
 
-    private boolean startsWithMagicNumber(String line) {
+    private boolean startsWithMagicNumber(@Nonnull String line) {
         return line.indexOf(ManchesterOWLSyntax.PREFIX.toString()) != -1
                 || line.indexOf(ManchesterOWLSyntax.ONTOLOGY.toString()) != -1;
     }

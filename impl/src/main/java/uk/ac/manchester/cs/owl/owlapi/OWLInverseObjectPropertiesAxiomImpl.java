@@ -22,6 +22,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -44,7 +45,9 @@ public class OWLInverseObjectPropertiesAxiomImpl extends
         OWLInverseObjectPropertiesAxiom {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final OWLObjectPropertyExpression first;
+    @Nonnull
     private final OWLObjectPropertyExpression second;
 
     /**
@@ -100,6 +103,7 @@ public class OWLInverseObjectPropertiesAxiomImpl extends
         visitor.visit(this);
     }
 
+    @Nullable
     @Override
     public <O> O accept(@Nonnull OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
@@ -145,9 +149,10 @@ public class OWLInverseObjectPropertiesAxiomImpl extends
         return axs;
     }
 
+    @Nonnull
     @Override
     public <T> Collection<T> walkPairwise(
-            OWLPairwiseVisitor<T, OWLObjectPropertyExpression> visitor) {
+            @Nonnull OWLPairwiseVisitor<T, OWLObjectPropertyExpression> visitor) {
         T t = visitor.visit(first, second);
         if (t != null) {
             return Collections.singleton(t);

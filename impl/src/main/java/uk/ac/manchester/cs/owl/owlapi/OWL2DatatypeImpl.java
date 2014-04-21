@@ -19,6 +19,7 @@ import java.util.Collections;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.DataRangeType;
 import org.semanticweb.owlapi.model.EntityType;
@@ -72,6 +73,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
                 "owl2Datatype must not be null");
     }
 
+    @Nonnull
     private final OWL2Datatype owl2Datatype;
 
     @Nonnull
@@ -137,6 +139,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
         visitor.visit(this);
     }
 
+    @Nullable
     @Override
     public <O> O accept(@Nonnull OWLDataVisitorEx<O> visitor) {
         return visitor.visit(this);
@@ -147,6 +150,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
         visitor.visit(this);
     }
 
+    @Nonnull
     @Override
     public <O> O accept(@Nonnull OWLDataRangeVisitorEx<O> visitor) {
         return visitor.visit(this);
@@ -234,6 +238,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
         return owl2Datatype.getIRI().toString();
     }
 
+    @Nonnull
     @Override
     public String toString() {
         return toStringID();
@@ -244,6 +249,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
         visitor.visit(this);
     }
 
+    @Nullable
     @Override
     public <O> O accept(@Nonnull OWLEntityVisitorEx<O> visitor) {
         return visitor.visit(this);

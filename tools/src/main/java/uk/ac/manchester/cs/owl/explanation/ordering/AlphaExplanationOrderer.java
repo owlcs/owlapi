@@ -35,6 +35,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 public class AlphaExplanationOrderer implements ExplanationOrderer {
 
     /** The renderer. */
+    @Nonnull
     protected final OWLObjectRenderer renderer;
 
     /**
@@ -56,7 +57,7 @@ public class AlphaExplanationOrderer implements ExplanationOrderer {
         Collections.sort(sortedAxioms, new Comparator<OWLAxiom>() {
 
             @Override
-            public int compare(OWLAxiom o1, OWLAxiom o2) {
+            public int compare(@Nonnull OWLAxiom o1, @Nonnull OWLAxiom o2) {
                 return renderer.render(o1).compareTo(renderer.render(o2));
             }
         });

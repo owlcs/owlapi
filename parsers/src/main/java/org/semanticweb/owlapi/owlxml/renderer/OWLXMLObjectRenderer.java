@@ -862,7 +862,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeEndElement();
     }
 
-    private void render(Set<? extends OWLObject> objects) {
+    private void render(@Nonnull Set<? extends OWLObject> objects) {
         for (OWLObject obj : objects) {
             obj.accept(this);
         }

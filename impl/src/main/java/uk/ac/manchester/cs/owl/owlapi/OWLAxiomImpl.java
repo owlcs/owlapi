@@ -41,6 +41,7 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
 
     private static final long serialVersionUID = 40000L;
     private OWLAxiom nnf;
+    @Nonnull
     private final List<OWLAnnotation> annotations;
 
     @Override
@@ -134,7 +135,8 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
      *        The annotations to add to the annotations on this axiom
      * @return The annotations
      */
-    protected Set<OWLAnnotation> mergeAnnos(Set<OWLAnnotation> annos) {
+    @Nonnull
+    protected Set<OWLAnnotation> mergeAnnos(@Nonnull Set<OWLAnnotation> annos) {
         Set<OWLAnnotation> merged = new HashSet<OWLAnnotation>(annos);
         merged.addAll(annotations);
         return merged;

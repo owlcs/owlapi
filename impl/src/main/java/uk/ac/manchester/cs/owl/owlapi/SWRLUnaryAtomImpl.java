@@ -34,6 +34,7 @@ public abstract class SWRLUnaryAtomImpl<A extends SWRLArgument> extends
         SWRLAtomImpl implements SWRLUnaryAtom<A> {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final A arg;
 
     /**

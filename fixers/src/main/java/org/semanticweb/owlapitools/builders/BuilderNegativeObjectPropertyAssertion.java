@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapitools.builders;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -23,7 +25,9 @@ public class BuilderNegativeObjectPropertyAssertion
         extends
         BaseObjectPropertyBuilder<OWLNegativeObjectPropertyAssertionAxiom, BuilderNegativeObjectPropertyAssertion> {
 
+    @Nullable
     private OWLIndividual subject = null;
+    @Nullable
     private OWLIndividual value = null;
 
     /**
@@ -35,7 +39,7 @@ public class BuilderNegativeObjectPropertyAssertion
      *        data factory
      */
     public BuilderNegativeObjectPropertyAssertion(
-            OWLNegativeObjectPropertyAssertionAxiom expected, OWLDataFactory df) {
+            @Nonnull OWLNegativeObjectPropertyAssertionAxiom expected, OWLDataFactory df) {
         this(df);
         withSubject(expected.getSubject()).withProperty(expected.getProperty())
                 .withValue(expected.getObject())
@@ -56,6 +60,7 @@ public class BuilderNegativeObjectPropertyAssertion
      *        value
      * @return builder
      */
+    @Nonnull
     public BuilderNegativeObjectPropertyAssertion withValue(OWLIndividual arg) {
         value = arg;
         return this;
@@ -66,12 +71,14 @@ public class BuilderNegativeObjectPropertyAssertion
      *        subject
      * @return builder
      */
+    @Nonnull
     public BuilderNegativeObjectPropertyAssertion
             withSubject(OWLIndividual arg) {
         subject = arg;
         return this;
     }
 
+    @Nonnull
     @Override
     public OWLNegativeObjectPropertyAssertionAxiom buildObject() {
         return df.getOWLNegativeObjectPropertyAssertionAxiom(property, subject,

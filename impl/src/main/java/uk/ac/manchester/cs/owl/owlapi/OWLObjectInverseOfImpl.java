@@ -13,6 +13,7 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectInverseOf;
@@ -40,6 +41,7 @@ public class OWLObjectInverseOfImpl extends OWLObjectPropertyExpressionImpl
         return OWLObjectTypeIndexProvider.OBJECT_PROPERTY_INVERSE;
     }
 
+    @Nonnull
     private final OWLObjectPropertyExpression inverseProperty;
 
     /**
@@ -79,6 +81,7 @@ public class OWLObjectInverseOfImpl extends OWLObjectPropertyExpressionImpl
         visitor.visit(this);
     }
 
+    @Nullable
     @Override
     public <O> O accept(@Nonnull OWLPropertyExpressionVisitorEx<O> visitor) {
         return visitor.visit(this);
@@ -102,7 +105,7 @@ public class OWLObjectInverseOfImpl extends OWLObjectPropertyExpressionImpl
     }
 
     @Override
-    protected int compareObjectOfSameType(OWLObject object) {
+    protected int compareObjectOfSameType(@Nonnull OWLObject object) {
         return inverseProperty.compareTo(((OWLObjectInverseOf) object)
                 .getInverse());
     }

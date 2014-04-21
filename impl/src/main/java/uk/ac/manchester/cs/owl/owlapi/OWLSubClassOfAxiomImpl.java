@@ -18,6 +18,7 @@ import java.util.Collection;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -38,7 +39,9 @@ public class OWLSubClassOfAxiomImpl extends OWLClassAxiomImpl implements
         OWLSubClassOfAxiom {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final OWLClassExpression subClass;
+    @Nonnull
     private final OWLClassExpression superClass;
 
     /**
@@ -115,6 +118,7 @@ public class OWLSubClassOfAxiomImpl extends OWLClassAxiomImpl implements
         visitor.visit(this);
     }
 
+    @Nullable
     @Override
     public <O> O accept(@Nonnull OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);

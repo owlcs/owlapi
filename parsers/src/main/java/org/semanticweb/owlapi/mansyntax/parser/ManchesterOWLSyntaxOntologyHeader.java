@@ -21,6 +21,8 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
@@ -43,8 +45,8 @@ public class ManchesterOWLSyntaxOntologyHeader {
      *        the imports declarations
      */
     public ManchesterOWLSyntaxOntologyHeader(IRI ontologyIRI, IRI versionIRI,
-            Set<OWLAnnotation> annotations,
-            Set<OWLImportsDeclaration> importsDeclarations) {
+            @Nonnull Set<OWLAnnotation> annotations,
+            @Nonnull Set<OWLImportsDeclaration> importsDeclarations) {
         this.ontologyID = new OWLOntologyID(ontologyIRI, versionIRI);
         this.annotations = new ArrayList<OWLAnnotation>(annotations);
         this.importsDeclarations = new ArrayList<OWLImportsDeclaration>(

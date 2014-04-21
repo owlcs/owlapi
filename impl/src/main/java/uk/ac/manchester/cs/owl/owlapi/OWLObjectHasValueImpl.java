@@ -17,6 +17,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.util.Collections;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -41,6 +42,7 @@ public class OWLObjectHasValueImpl extends
         OWLObjectRestriction {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final OWLObjectPropertyExpression property;
 
     @Override
@@ -120,6 +122,7 @@ public class OWLObjectHasValueImpl extends
         visitor.visit(this);
     }
 
+    @Nullable
     @Override
     public <O> O accept(@Nonnull OWLClassExpressionVisitorEx<O> visitor) {
         return visitor.visit(this);

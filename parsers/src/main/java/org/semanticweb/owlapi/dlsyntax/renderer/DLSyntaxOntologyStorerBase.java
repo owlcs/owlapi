@@ -46,7 +46,7 @@ public abstract class DLSyntaxOntologyStorerBase extends
     private static final long serialVersionUID = 40000L;
 
     @Override
-    protected void storeOntology(OWLOntology ontology, Writer w,
+    protected void storeOntology(@Nonnull OWLOntology ontology, Writer w,
             OWLOntologyFormat format) throws OWLOntologyStorageException {
         checkNotNull(ontology, "ontology cannot be null");
         PrintWriter writer = new PrintWriter(
@@ -80,7 +80,7 @@ public abstract class DLSyntaxOntologyStorerBase extends
     }
 
     private void
-            write(OWLOntology ont, @Nonnull OWLEntity entity,
+            write(@Nonnull OWLOntology ont, @Nonnull OWLEntity entity,
                     @Nonnull Set<? extends OWLAxiom> axioms,
                     @Nonnull PrintWriter writer) {
         beginWritingAxioms(entity, axioms, writer);

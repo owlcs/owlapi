@@ -31,6 +31,7 @@ public abstract class OWLCardinalityRestrictionImpl<F extends OWLPropertyRange>
 
     private static final long serialVersionUID = 40000L;
     private final int cardinality;
+    @Nonnull
     private final F filler;
 
     protected OWLCardinalityRestrictionImpl(int cardinality, @Nonnull F filler) {

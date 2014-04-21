@@ -28,6 +28,7 @@ public abstract class OWLQuantifiedObjectRestrictionImpl extends
         OWLObjectRestriction {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final OWLObjectPropertyExpression property;
 
     /**

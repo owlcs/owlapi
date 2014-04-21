@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.owlxml.parser;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -27,7 +29,7 @@ public class OWLXMLParserElementNotFoundException extends OWLXMLParserException 
      * @param elementType
      *        elementType
      */
-    public OWLXMLParserElementNotFoundException(OWLXMLParserHandler h,
+    public OWLXMLParserElementNotFoundException(@Nonnull OWLXMLParserHandler h,
             String elementType) {
         super(h, "Element not found: " + elementType);
     }

@@ -56,12 +56,14 @@ public class OWLNamedIndividualNodeSet extends
         super(nodes);
     }
 
+    @Nonnull
     @Override
     protected DefaultNode<OWLNamedIndividual>
             getNode(@Nonnull OWLNamedIndividual entity) {
         return NodeFactory.getOWLNamedIndividualNode(entity);
     }
 
+    @Nonnull
     @Override
     protected DefaultNode<OWLNamedIndividual> getNode(
             @Nonnull Set<OWLNamedIndividual> entities) {

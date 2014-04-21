@@ -27,6 +27,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  */
 public class AxiomTypeMetric extends AxiomCountMetric {
 
+    @Nonnull
     private final AxiomType<?> axiomType;
 
     /**

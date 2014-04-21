@@ -82,18 +82,18 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
         data.purge();
     }
 
-    private void checkAnnotations(Set<? extends OWLAnnotation> o) {
+    private void checkAnnotations(@Nonnull Set<? extends OWLAnnotation> o) {
         checkNull(o, "annotations cannot be null", true);
     }
 
-    private void checkNull(Collection<?> o, String name, boolean emptyAllowed) {
+    private void checkNull(@Nonnull Collection<?> o, String name, boolean emptyAllowed) {
         checkNotNull(o, name + " cannot be null");
         if (!emptyAllowed && o.isEmpty()) {
             throw new IllegalArgumentException(name + " cannot be empty");
         }
     }
 
-    private void checkNull(Object[] o, String name, boolean emptyAllowed) {
+    private void checkNull(@Nonnull Object[] o, String name, boolean emptyAllowed) {
         checkNotNull(o, name + " cannot be null");
         if (!emptyAllowed && o.length == 0) {
             throw new IllegalArgumentException(name + " cannot be empty");

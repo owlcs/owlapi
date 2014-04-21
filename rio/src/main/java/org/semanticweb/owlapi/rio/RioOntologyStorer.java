@@ -53,6 +53,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com
@@ -110,7 +111,7 @@ public class RioOntologyStorer extends AbstractOWLOntologyStorer {
      * @return An implementation of the {@link RDFHandler} interface, based on
      *         the parameters given to this method.
      */
-    protected RDFHandler getRDFHandlerForWriter(final RDFFormat format,
+    protected RDFHandler getRDFHandlerForWriter(@Nullable final RDFFormat format,
             final Writer writer) {
         // by default return a StatementCollector if they did not specify a
         // format
@@ -136,7 +137,7 @@ public class RioOntologyStorer extends AbstractOWLOntologyStorer {
      * @return An implementation of the {@link RDFHandler} interface, based on
      *         the parameters given to this method.
      */
-    protected RDFHandler getRDFHandlerForOutputStream(final RDFFormat format,
+    protected RDFHandler getRDFHandlerForOutputStream(@Nullable final RDFFormat format,
             final OutputStream outputStream) {
         // by default return a StatementCollector if they did not specify a
         // format
@@ -163,7 +164,7 @@ public class RioOntologyStorer extends AbstractOWLOntologyStorer {
     }
 
     @Override
-    protected void storeOntology(final OWLOntology ontology,
+    protected void storeOntology(@Nonnull final OWLOntology ontology,
             final Writer writer, final OWLOntologyFormat format)
             throws OWLOntologyStorageException {
         if (!(format instanceof RioRDFOntologyFormat)) {
@@ -191,7 +192,7 @@ public class RioOntologyStorer extends AbstractOWLOntologyStorer {
             final RioRenderer ren = new RioRenderer(ontology, rioHandler,
                     format, contexts);
             ren.render();
-        } catch (final IOException e) {
+        } catch (@Nonnull final IOException e) {
             throw new OWLOntologyStorageException(e);
         }
     }

@@ -15,6 +15,8 @@ package org.semanticweb.owlapi.rdf.rdfxml.parser;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLObject;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health
  *         Informatics Group
@@ -36,5 +38,6 @@ public interface TriplePatternMatcher {
      *        consumer
      * @return new object
      */
+    @Nonnull
     OWLObject createObject(OWLRDFConsumer consumer);
 }

@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -43,6 +44,7 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl
         implements OWLEquivalentClassesAxiom {
 
     private static final long serialVersionUID = 40000L;
+    @Nullable
     private transient WeakReference<Set<OWLClass>> namedClasses = null;
 
     /**
@@ -170,6 +172,7 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl
         visitor.visit(this);
     }
 
+    @Nullable
     @Override
     public <O> O accept(@Nonnull OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);

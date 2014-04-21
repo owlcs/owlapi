@@ -19,6 +19,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -41,6 +42,7 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl
         implements OWLObjectOneOf {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final Set<OWLIndividual> values;
 
     @Override
@@ -110,6 +112,7 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl
         visitor.visit(this);
     }
 
+    @Nullable
     @Override
     public <O> O accept(@Nonnull OWLClassExpressionVisitorEx<O> visitor) {
         return visitor.visit(this);
@@ -121,7 +124,7 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl
     }
 
     @Override
-    protected int compareObjectOfSameType(OWLObject object) {
+    protected int compareObjectOfSameType(@Nonnull OWLObject object) {
         return compareSets(values, ((OWLObjectOneOf) object).getIndividuals());
     }
 }
