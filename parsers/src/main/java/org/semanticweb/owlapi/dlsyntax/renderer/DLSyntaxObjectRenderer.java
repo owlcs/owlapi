@@ -23,6 +23,7 @@ import java.util.TreeSet;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.io.OWLObjectRenderer;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -165,6 +166,7 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
                 "shortFormProvider cannot be null");
     }
 
+    @Nonnull
     @Override
     public String render(OWLObject object) {
         buffer = new StringBuilder();

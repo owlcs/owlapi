@@ -17,6 +17,8 @@ import java.io.InputStream;
 import java.io.Reader;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.formats.DLSyntaxHTMLOntologyFormat;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
@@ -38,6 +40,7 @@ public class DLSyntaxOWLParser extends AbstractOWLParser {
 
     private static final long serialVersionUID = 40000L;
 
+    @Nonnull
     @Override
     public String getName() {
         return "DLSyntaxOWLParser";

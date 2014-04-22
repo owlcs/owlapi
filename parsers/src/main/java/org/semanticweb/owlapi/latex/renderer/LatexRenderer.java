@@ -24,6 +24,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.io.AbstractOWLRenderer;
 import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -45,6 +47,7 @@ import org.semanticweb.owlapi.util.SimpleShortFormProvider;
  */
 public class LatexRenderer extends AbstractOWLRenderer {
 
+    @Nonnull
     private ShortFormProvider shortFormProvider = new SimpleShortFormProvider();
 
     private void writeEntitySection(OWLEntity entity, LatexWriter w) {
@@ -53,7 +56,7 @@ public class LatexRenderer extends AbstractOWLRenderer {
         w.write("}\n\n");
     }
 
-    private String escapeName(String name) {
+    private static String escapeName(String name) {
         return name.replace("_", "\\_");
     }
 
@@ -137,7 +140,8 @@ public class LatexRenderer extends AbstractOWLRenderer {
         return list;
     }
 
-    private Collection<OWLAxiom> sortAxioms(Set<? extends OWLAxiom> axioms) {
+    private static Collection<OWLAxiom> sortAxioms(
+            Set<? extends OWLAxiom> axioms) {
         List<OWLAxiom> list = new ArrayList<OWLAxiom>(axioms);
         Collections.sort(list, new OWLAxiomComparator());
         return list;

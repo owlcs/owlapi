@@ -15,6 +15,8 @@ package org.semanticweb.owlapi.krss2.renderer;
 import java.io.IOException;
 import java.io.Writer;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.io.AbstractOWLRenderer;
 import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.io.OWLRendererIOException;
@@ -25,7 +27,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 public class KRSS2SyntaxRenderer extends AbstractOWLRenderer {
 
     @Override
-    public void render(OWLOntology ontology, Writer writer)
+    public void render(@Nonnull OWLOntology ontology, Writer writer)
             throws OWLRendererException {
         try {
             ontology.accept(new KRSS2ObjectRenderer(ontology, writer));

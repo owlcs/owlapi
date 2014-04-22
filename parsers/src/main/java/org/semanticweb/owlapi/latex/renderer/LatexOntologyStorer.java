@@ -15,6 +15,8 @@ package org.semanticweb.owlapi.latex.renderer;
 import java.io.IOException;
 import java.io.Writer;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.formats.LatexOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -33,7 +35,7 @@ public class LatexOntologyStorer extends AbstractOWLOntologyStorer {
     private static final long serialVersionUID = 40000L;
 
     @Override
-    protected void storeOntology(OWLOntology ontology, Writer writer,
+    protected void storeOntology(@Nonnull OWLOntology ontology, Writer writer,
             OWLOntologyFormat format) throws OWLOntologyStorageException {
         try {
             new LatexRenderer().render(ontology, writer);

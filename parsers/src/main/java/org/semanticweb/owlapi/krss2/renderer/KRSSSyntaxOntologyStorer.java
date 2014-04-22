@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.krss2.renderer;
 
 import java.io.Writer;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.formats.KRSSOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
@@ -36,7 +38,7 @@ public class KRSSSyntaxOntologyStorer extends AbstractOWLOntologyStorer {
     }
 
     @Override
-    protected void storeOntology(OWLOntology ontology, Writer writer,
+    protected void storeOntology(@Nonnull OWLOntology ontology, Writer writer,
             OWLOntologyFormat format) throws OWLOntologyStorageException {
         new KRSSSyntaxRenderer().render(ontology, writer);
     }

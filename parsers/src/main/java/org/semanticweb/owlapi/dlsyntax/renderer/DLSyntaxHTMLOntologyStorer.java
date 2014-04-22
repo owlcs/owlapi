@@ -19,6 +19,7 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.formats.DLSyntaxHTMLOntologyFormat;
 import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -36,6 +37,7 @@ import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 public class DLSyntaxHTMLOntologyStorer extends DLSyntaxOntologyStorerBase {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     protected ShortFormProvider sfp = new SimpleShortFormProvider();
 
     @Override
@@ -43,13 +45,14 @@ public class DLSyntaxHTMLOntologyStorer extends DLSyntaxOntologyStorerBase {
         return ontologyFormat instanceof DLSyntaxHTMLOntologyFormat;
     }
 
+    @Nonnull
     @Override
     protected String getRendering(final OWLEntity subject, OWLAxiom axiom) {
         checkNotNull(axiom, "axiom cannot be null");
         DLSyntaxObjectRenderer ren = new DLSyntaxObjectRenderer() {
 
             @Override
-            protected String renderEntity(OWLEntity entity) {
+            protected String renderEntity(@Nonnull OWLEntity entity) {
                 String shortForm = sfp.getShortForm(checkNotNull(entity,
                         "entity cannot be null"));
                 if (!entity.equals(subject)) {
@@ -74,7 +77,7 @@ public class DLSyntaxHTMLOntologyStorer extends DLSyntaxOntologyStorerBase {
 
     @Override
     protected void
-            beginWritingOntology(OWLOntology ontology, PrintWriter writer) {
+            beginWritingOntology(@Nonnull OWLOntology ontology, @Nonnull PrintWriter writer) {
         checkNotNull(ontology, "ontology cannot be null");
         checkNotNull(writer, "writer cannot be null").println(
                 "<html>\n<body>\n<h1>Ontology: ");
@@ -107,8 +110,8 @@ public class DLSyntaxHTMLOntologyStorer extends DLSyntaxOntologyStorerBase {
     }
 
     @Override
-    protected void beginWritingAxioms(OWLEntity subject,
-            Set<? extends OWLAxiom> axioms, PrintWriter writer) {
+    protected void beginWritingAxioms(@Nonnull OWLEntity subject,
+            Set<? extends OWLAxiom> axioms, @Nonnull PrintWriter writer) {
         checkNotNull(subject, "subject cannot be null");
         checkNotNull(axioms, "axioms cannot be null");
         checkNotNull(writer, "writer cannot be null").print("<h2><a name=\"");
@@ -120,7 +123,7 @@ public class DLSyntaxHTMLOntologyStorer extends DLSyntaxOntologyStorerBase {
 
     @Override
     protected void endWritingAxioms(OWLEntity subject,
-            Set<? extends OWLAxiom> axioms, PrintWriter writer) {
+            Set<? extends OWLAxiom> axioms, @Nonnull PrintWriter writer) {
         writer.println("</div>");
     }
 
@@ -139,7 +142,7 @@ public class DLSyntaxHTMLOntologyStorer extends DLSyntaxOntologyStorerBase {
 
     @Override
     protected void beginWritingUsage(OWLEntity subject,
-            Set<? extends OWLAxiom> axioms, PrintWriter writer) {
+            @Nonnull Set<? extends OWLAxiom> axioms, PrintWriter writer) {
         checkNotNull(subject, "subject cannot be null");
         checkNotNull(axioms, "axioms cannot be null");
         checkNotNull(writer, "writer cannot be null").println(

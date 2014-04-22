@@ -16,6 +16,8 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.ShortFormProvider;
@@ -62,7 +64,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
      * @param df
      *        data factory
      */
-    public LatexObjectVisitor(LatexWriter writer, OWLDataFactory df) {
+    public LatexObjectVisitor(LatexWriter writer, @Nonnull OWLDataFactory df) {
         this.writer = writer;
         this.df = df;
         shortFormProvider = new SimpleShortFormProvider();
@@ -768,7 +770,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         }
     }
 
-    private String escapeName(String name) {
+    private static String escapeName(String name) {
         return name.replace("_", "\\_");
     }
 

@@ -24,6 +24,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -268,6 +270,7 @@ import org.semanticweb.owlapi.search.Filters;
  */
 public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
 
+    @Nonnull
     private final Set<OWLSubPropertyChainOfAxiom> leftRightIdentityUsed;
     /**
      * If declarations are ignored, entities which are only referenced in a

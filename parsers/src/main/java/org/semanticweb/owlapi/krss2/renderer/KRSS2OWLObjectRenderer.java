@@ -23,6 +23,8 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -99,7 +101,7 @@ public class KRSS2OWLObjectRenderer extends OWLObjectVisitorAdapter {
         }
     }
 
-    private void write(IRI iri) {
+    private void write(@Nonnull IRI iri) {
         try {
             writer.write(iri.toString());
         } catch (IOException e) {

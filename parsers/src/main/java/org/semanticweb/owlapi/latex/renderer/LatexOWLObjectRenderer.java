@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.latex.renderer;
 
 import java.io.StringWriter;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.io.OWLObjectRenderer;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObject;
@@ -38,7 +40,7 @@ public class LatexOWLObjectRenderer implements OWLObjectRenderer {
     }
 
     @Override
-    public String render(OWLObject object) {
+    public String render(@Nonnull OWLObject object) {
         StringWriter writer = new StringWriter();
         LatexWriter latexWriter = new LatexWriter(writer);
         LatexObjectVisitor visitor = new LatexObjectVisitor(latexWriter,
