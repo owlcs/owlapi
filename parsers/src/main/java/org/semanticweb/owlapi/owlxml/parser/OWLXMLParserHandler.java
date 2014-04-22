@@ -24,6 +24,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -115,7 +117,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
      *        load configuration
      */
     public OWLXMLParserHandler(OWLOntology ontology,
-            OWLElementHandler<?> topHandler,
+            @Nullable OWLElementHandler<?> topHandler,
             OWLOntologyLoaderConfiguration configuration) {
         owlOntologyManager = ontology.getOWLOntologyManager();
         this.ontology = ontology;
@@ -280,7 +282,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
         }
     }
 
-    private String getNormalisedAbbreviatedIRI(String input) {
+    private static String getNormalisedAbbreviatedIRI(String input) {
         if (input.indexOf(':') != -1) {
             return input;
         } else {

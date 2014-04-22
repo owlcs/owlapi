@@ -20,6 +20,8 @@ import java.net.URI;
 import java.util.Map;
 import java.util.TreeMap;
 
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.io.OWLRendererIOException;
 import org.semanticweb.owlapi.model.IRI;
@@ -66,7 +68,7 @@ public class OWLXMLWriter {
      * @param ontology
      *        ontology
      */
-    public OWLXMLWriter(Writer writer, OWLOntology ontology) {
+    public OWLXMLWriter(Writer writer, @Nullable OWLOntology ontology) {
         XMLWriterNamespaceManager nsm = new XMLWriterNamespaceManager(
                 Namespaces.OWL.toString());
         nsm.setPrefix("xsd", Namespaces.XSD.toString());
