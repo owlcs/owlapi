@@ -117,6 +117,7 @@ import org.semanticweb.owlapi.model.SWRLVariable;
  *         Informatics Group
  * @since 3.1.0
  */
+@SuppressWarnings("unused")
 public class OWLClassExpressionCollector implements
         OWLObjectVisitorEx<Set<OWLClassExpression>> {
 

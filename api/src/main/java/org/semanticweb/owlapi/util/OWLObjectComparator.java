@@ -15,6 +15,8 @@ package org.semanticweb.owlapi.util;
 import java.io.Serializable;
 import java.util.Comparator;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLObject;
 
@@ -28,13 +30,14 @@ import org.semanticweb.owlapi.model.OWLObject;
 public class OWLObjectComparator implements Comparator<OWLObject>, Serializable {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private OWLEntityComparator entityComparator;
 
     /**
      * @param shortFormProvider
      *        short form provider to use
      */
-    public OWLObjectComparator(ShortFormProvider shortFormProvider) {
+    public OWLObjectComparator(@Nonnull ShortFormProvider shortFormProvider) {
         entityComparator = new OWLEntityComparator(shortFormProvider);
     }
 

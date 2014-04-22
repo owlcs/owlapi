@@ -48,7 +48,7 @@ public interface PrefixManager extends Serializable {
      * @return The default prefix, or {@code null} if there is no default
      *         prefix.
      */
-    @Nonnull
+    @Nullable
     String getDefaultPrefix();
 
     /**
@@ -75,7 +75,7 @@ public interface PrefixManager extends Serializable {
      * @return The prefix, or {@code null} if there is no prefix name bound to
      *         this prefix, or the prefix name doesn't exist.
      */
-    @Nonnull
+    @Nullable
     String getPrefix(@Nonnull String prefixName);
 
     /**

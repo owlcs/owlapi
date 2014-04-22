@@ -38,6 +38,7 @@ public class ObjectPropertySimplifier {
 
     @Nonnull
     private final OWLDataFactory dataFactory;
+    @Nonnull
     private final Simplifier simplifier = new Simplifier();
 
     /**

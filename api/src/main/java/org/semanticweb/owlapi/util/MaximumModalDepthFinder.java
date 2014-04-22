@@ -107,6 +107,7 @@ import org.semanticweb.owlapi.model.SWRLVariable;
  *         Informatics Group
  * @since 3.1.0
  */
+@SuppressWarnings("unused")
 public class MaximumModalDepthFinder implements OWLObjectVisitorEx<Integer> {
 
     private static final Integer _1 = Integer.valueOf(1);

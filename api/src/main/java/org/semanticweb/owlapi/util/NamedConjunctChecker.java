@@ -18,6 +18,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -33,11 +34,13 @@ import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
  */
 public class NamedConjunctChecker {
 
-    @Nonnull
+    @Nullable
     OWLClass conjunct;
     boolean found;
     boolean collect;
+    @Nonnull
     final Set<OWLClass> conjuncts = new HashSet<OWLClass>();
+    @Nonnull
     private final NamedConjunctCheckerVisitor visitor = new NamedConjunctCheckerVisitor();
 
     /**

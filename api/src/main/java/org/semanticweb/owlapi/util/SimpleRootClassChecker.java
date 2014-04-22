@@ -80,7 +80,9 @@ public class SimpleRootClassChecker implements RootClassChecker {
     // at least one operand in the equivalent class axiom which is an
     // intersection containing a named operand i.e.
     // EquivalentClasses(A (B and hasP some C)) would not be a subclass of Thing
+    @Nonnull
     private final RootClassCheckerHelper checker = new RootClassCheckerHelper();
+    @Nonnull
     protected final NamedSuperChecker superChecker = new NamedSuperChecker();
 
     @Override

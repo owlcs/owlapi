@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
 
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -109,6 +108,7 @@ import org.semanticweb.owlapi.model.SWRLVariable;
  *         Informatics Group
  * @since 2.2.0
  */
+@SuppressWarnings("unused")
 public class OWLObjectTypeIndexProvider implements OWLObjectVisitor {
 
 //@formatter:off

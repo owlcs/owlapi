@@ -54,8 +54,8 @@ public class OWLObjectPropertyManager {
         private static final long serialVersionUID = 40000L;
 
         @Override
-        public int compare(@Nonnull Set<OWLObjectPropertyExpression> o1,
-                @Nonnull Set<OWLObjectPropertyExpression> o2) {
+        public int compare(Set<OWLObjectPropertyExpression> o1,
+                Set<OWLObjectPropertyExpression> o2) {
             return o1.size() - o2.size();
         }
     }
@@ -85,7 +85,14 @@ public class OWLObjectPropertyManager {
     public OWLObjectPropertyManager(@Nonnull OWLOntologyManager manager,
             @Nonnull OWLOntology ont) {
         man = checkNotNull(manager, "manager cannot be null");
-        setOntology(ont);
+        ontology = checkNotNull(ont, "ontology cannot be null");
+        for (OWLOntology o : man.getImportsClosure(ontology)) {
+            for (OWLObjectProperty prop : o.getObjectPropertiesInSignature()) {
+                properties.add(prop);
+                properties.add(prop.getInverseProperty());
+            }
+        }
+        reset();
     }
 
     private void reset() {
@@ -98,17 +105,6 @@ public class OWLObjectPropertyManager {
 
     /** clear the object and its resources. */
     public void dispose() {}
-
-    private void setOntology(@Nonnull OWLOntology ontology) {
-        this.ontology = checkNotNull(ontology, "ontology cannot be null");
-        for (OWLOntology ont : man.getImportsClosure(ontology)) {
-            for (OWLObjectProperty prop : ont.getObjectPropertiesInSignature()) {
-                properties.add(prop);
-                properties.add(prop.getInverseProperty());
-            }
-        }
-        reset();
-    }
 
     @Nonnull
     protected Set<OWLOntology> getOntologies() {

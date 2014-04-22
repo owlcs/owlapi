@@ -22,7 +22,6 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
@@ -42,16 +41,14 @@ public class BidirectionalShortFormProviderAdapter extends
 
     @Nonnull
     private final ShortFormProvider shortFormProvider;
-    @Nonnull
     private Set<OWLOntology> ontologies;
-    @Nonnull
     private OWLOntologyManager man;
+    @Nonnull
     private final OWLOntologyChangeListener changeListener = new OWLOntologyChangeListener() {
 
         @Override
         public void ontologiesChanged(
-                @Nonnull List<? extends OWLOntologyChange<?>> changes)
-                throws OWLException {
+                @Nonnull List<? extends OWLOntologyChange<?>> changes) {
             handleChanges(changes);
         }
     };
@@ -117,7 +114,7 @@ public class BidirectionalShortFormProviderAdapter extends
     }
 
     @Override
-    protected String generateShortForm(OWLEntity entity) {
+    protected String generateShortForm(@Nonnull OWLEntity entity) {
         return shortFormProvider.getShortForm(entity);
     }
 

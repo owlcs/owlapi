@@ -68,21 +68,7 @@ public class NamespaceUtil {
         }
         // We need to generate a candidate prefix
         prefix = generatePrefix(namespace);
-        if (prefix == null) {
-            // For some reason, we couldn't generate a decent prefix
-            // Compute an auto generated prefix
-            prefix = getPIntPrefix();
-        }
         namespace2PrefixMap.put(namespace, prefix);
-        return prefix;
-    }
-
-    @Nonnull
-    private String getPIntPrefix() {
-        String prefix;
-        do {
-            prefix = "p" + candidateIndex.getAndIncrement();
-        } while (namespace2PrefixMap.containsValue(prefix));
         return prefix;
     }
 
@@ -143,12 +129,10 @@ public class NamespaceUtil {
             computedPrefix = "p";
         }
         String candidatePrefix = computedPrefix;
-        int index = 2;
         while (namespace2PrefixMap.containsValue(candidatePrefix)
                 || standardNamespacePrefixMappings
                         .containsValue(candidatePrefix)) {
-            candidatePrefix = computedPrefix + index;
-            index++;
+            candidatePrefix = computedPrefix + candidateIndex.getAndIncrement();
         }
         return candidatePrefix;
     }

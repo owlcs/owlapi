@@ -74,10 +74,11 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
         }
     }
 
+    @Nonnull
     private static OutputStream prepareActualOutput(@Nonnull IRI documentIRI)
             throws FileNotFoundException, MalformedURLException, IOException {
         OutputStream os;
-        if (documentIRI.getScheme().equals("file")) {
+        if ("file".equals(documentIRI.getScheme())) {
             File file = new File(documentIRI.toURI());
             // Ensure that the necessary directories exist.
             file.getParentFile().mkdirs();

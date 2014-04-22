@@ -132,6 +132,12 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     }
 
     protected void process(@Nonnull OWLObject object) {
+        if (object instanceof OWLAxiom) {
+            walkerCallback.setAxiom((OWLAxiom) object);
+        }
+        if (object instanceof OWLAnnotation) {
+            walkerCallback.setAnnotation((OWLAnnotation) object);
+        }
         if (!this.walkerCallback.visitDuplicates) {
             if (!visited.contains(object)) {
                 visited.add(object);

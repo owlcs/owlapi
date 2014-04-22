@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.util;
 
 import java.io.Serializable;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
@@ -91,7 +93,7 @@ public class OWLAxiomVisitorExAdapter<O> implements OWLAxiomVisitorEx<O>,
      *        visited axiom
      * @return default return value;
      */
-    protected O doDefault(@SuppressWarnings("unused") OWLAxiom axiom) {
+    protected O doDefault(@SuppressWarnings("unused") @Nonnull OWLAxiom axiom) {
         return object;
     }
 

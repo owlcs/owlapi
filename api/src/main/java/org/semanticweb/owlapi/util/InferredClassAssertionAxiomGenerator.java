@@ -33,9 +33,9 @@ public class InferredClassAssertionAxiomGenerator extends
         InferredIndividualAxiomGenerator<OWLClassAssertionAxiom> {
 
     @Override
-    protected void addAxioms(OWLNamedIndividual entity,
-            @Nonnull OWLReasoner reasoner, OWLDataFactory dataFactory,
-            Set<OWLClassAssertionAxiom> result) {
+    protected void addAxioms(@Nonnull OWLNamedIndividual entity,
+            @Nonnull OWLReasoner reasoner, @Nonnull OWLDataFactory dataFactory,
+            @Nonnull Set<OWLClassAssertionAxiom> result) {
         for (OWLClass type : reasoner.getTypes(entity, false).getFlattened()) {
             result.add(dataFactory.getOWLClassAssertionAxiom(type, entity));
         }

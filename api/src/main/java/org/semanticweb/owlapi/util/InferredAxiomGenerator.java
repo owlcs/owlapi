@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.util;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
@@ -40,8 +42,11 @@ public interface InferredAxiomGenerator<A extends OWLAxiom> {
      *        the reasoner to use
      * @return the set of axioms generated
      */
-    Set<A> createAxioms(OWLDataFactory df, OWLReasoner reasoner);
+    @Nonnull
+    Set<A> createAxioms(@Nonnull OWLDataFactory df,
+            @Nonnull OWLReasoner reasoner);
 
     /** @return the label */
+    @Nonnull
     String getLabel();
 }

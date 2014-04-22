@@ -169,7 +169,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
      *        Specifies whether or not the prefix mapping should be obtained
      *        from imported ontologies.
      */
-    public void setPrefixesFromOntologyFormat(OWLOntology ontology,
+    public void setPrefixesFromOntologyFormat(@Nonnull OWLOntology ontology,
             @Nonnull OWLOntologyManager manager,
             boolean processImportedOntologies) {
         resetShortFormProvider();
@@ -207,7 +207,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
      * @param prefix
      *        The prefix that the prefix name maps to
      */
-    public void setPrefix(String prefixName, String prefix) {
+    public void setPrefix(@Nonnull String prefixName, @Nonnull String prefix) {
         if (!isUsingDefaultShortFormProvider()) {
             resetShortFormProvider();
         }
@@ -225,7 +225,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
      *        the iri to shorten
      * @return the short form
      */
-    public String getShortForm(IRI iri) {
+    public String getShortForm(@Nonnull IRI iri) {
         return iriShortFormProvider.getShortForm(iri);
     }
 

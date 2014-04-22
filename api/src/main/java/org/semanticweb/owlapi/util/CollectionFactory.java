@@ -199,7 +199,7 @@ public class CollectionFactory {
         }
 
         @Override
-        public boolean addAll(@Nonnull Collection<? extends T> c) {
+        public boolean addAll(Collection<? extends T> c) {
             boolean toReturn = false;
             for (T o : c) {
                 toReturn = toReturn || add(o);
@@ -218,7 +218,7 @@ public class CollectionFactory {
         }
 
         @Override
-        public boolean containsAll(@Nonnull Collection<?> c) {
+        public boolean containsAll(Collection<?> c) {
             boolean toReturn = true;
             for (Object o : c) {
                 toReturn = toReturn && contains(o);
@@ -251,7 +251,7 @@ public class CollectionFactory {
         }
 
         @Override
-        public boolean removeAll(@Nonnull Collection<?> c) {
+        public boolean removeAll(Collection<?> c) {
             boolean toReturn = false;
             for (Object o : c) {
                 toReturn = toReturn || remove(o);
@@ -260,7 +260,7 @@ public class CollectionFactory {
         }
 
         @Override
-        public boolean retainAll(@Nonnull Collection<?> c) {
+        public boolean retainAll(Collection<?> c) {
             boolean toReturn = false;
             for (Map.Entry<T, Set<T>> e : backingMap.entrySet()) {
                 if (!c.contains(e.getKey())) {
@@ -279,7 +279,7 @@ public class CollectionFactory {
 
         @Nonnull
         @Override
-        public <Type> Type[] toArray(@Nonnull Type[] a) {
+        public <Type> Type[] toArray(Type[] a) {
             return backingMap.keySet().toArray(a);
         }
 
@@ -454,7 +454,7 @@ public class CollectionFactory {
         }
 
         @Override
-        public boolean addAll(@Nonnull Collection<? extends T> arg0) {
+        public boolean addAll(Collection<? extends T> arg0) {
             if (!copyDone) {
                 copyDone = true;
                 delegate = new LinkedHashSet<T>(delegate);
@@ -490,7 +490,7 @@ public class CollectionFactory {
         }
 
         @Override
-        public boolean containsAll(@Nonnull Collection<?> arg0) {
+        public boolean containsAll(Collection<?> arg0) {
             containsCounter++;
             if (containsCounter >= maxContains && !copyDone) {
                 checkDelegate();
@@ -519,7 +519,7 @@ public class CollectionFactory {
         }
 
         @Override
-        public boolean removeAll(@Nonnull Collection<?> arg0) {
+        public boolean removeAll(Collection<?> arg0) {
             if (!copyDone) {
                 copyDone = true;
                 delegate = new LinkedHashSet<T>(delegate);
@@ -528,7 +528,7 @@ public class CollectionFactory {
         }
 
         @Override
-        public boolean retainAll(@Nonnull Collection<?> arg0) {
+        public boolean retainAll(Collection<?> arg0) {
             if (!copyDone) {
                 copyDone = true;
                 delegate = new LinkedHashSet<T>(delegate);
@@ -549,7 +549,7 @@ public class CollectionFactory {
 
         @Nonnull
         @Override
-        public <Type> Type[] toArray(@Nonnull Type[] arg0) {
+        public <Type> Type[] toArray(Type[] arg0) {
             return delegate.toArray(arg0);
         }
     }
@@ -627,7 +627,7 @@ public class CollectionFactory {
         }
 
         @Override
-        public boolean addAll(@Nonnull Collection<? extends T> arg0) {
+        public boolean addAll(Collection<? extends T> arg0) {
             try {
                 writeLock.lock();
                 if (!copyDone.getAndSet(true)) {
@@ -695,7 +695,7 @@ public class CollectionFactory {
         }
 
         @Override
-        public boolean containsAll(@Nonnull Collection<?> arg0) {
+        public boolean containsAll(Collection<?> arg0) {
             if (containsCounter.incrementAndGet() >= maxContains
                     && !copyDone.get()) {
                 try {
@@ -762,7 +762,7 @@ public class CollectionFactory {
         }
 
         @Override
-        public boolean removeAll(@Nonnull Collection<?> arg0) {
+        public boolean removeAll(Collection<?> arg0) {
             try {
                 writeLock.lock();
                 if (!copyDone.getAndSet(true)) {
@@ -775,7 +775,7 @@ public class CollectionFactory {
         }
 
         @Override
-        public boolean retainAll(@Nonnull Collection<?> arg0) {
+        public boolean retainAll(Collection<?> arg0) {
             try {
                 writeLock.lock();
                 if (!copyDone.getAndSet(true)) {
@@ -810,7 +810,7 @@ public class CollectionFactory {
 
         @Nonnull
         @Override
-        public <Type> Type[] toArray(@Nonnull Type[] arg0) {
+        public <Type> Type[] toArray(Type[] arg0) {
             try {
                 readLock.lock();
                 return delegate.toArray(arg0);

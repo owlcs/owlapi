@@ -15,15 +15,13 @@ package org.semanticweb.owlapi.util;
 import java.io.Serializable;
 import java.util.Comparator;
 
-import javax.annotation.Nonnull;
-
 /** String comparator that takes length into account before natural ordering. */
 public class StringLengthComparator implements Comparator<String>, Serializable {
 
     private static final long serialVersionUID = 40000L;
 
     @Override
-    public int compare(@Nonnull String o1, String o2) {
+    public int compare(String o1, String o2) {
         int diff = o1.length() - o2.length();
         if (diff != 0) {
             return diff;

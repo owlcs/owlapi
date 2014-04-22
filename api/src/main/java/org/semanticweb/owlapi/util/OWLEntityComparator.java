@@ -79,7 +79,7 @@ public class OWLEntityComparator implements Comparator<OWLEntity>,
         return s1.compareTo(s2);
     }
 
-    private String getShortForm(OWLEntity entity) {
+    private String getShortForm(@Nonnull OWLEntity entity) {
         return shortFormProvider.getShortForm(entity);
     }
 

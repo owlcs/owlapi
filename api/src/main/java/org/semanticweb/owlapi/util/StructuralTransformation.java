@@ -110,6 +110,7 @@ public class StructuralTransformation {
         df = checkNotNull(dataFactory, "dataFactory cannot be null");
     }
 
+    @Nonnull
     protected OWLClass createNewName() {
         OWLClass cls = df.getOWLClass(IRI.create(
                 "http://www.semanticweb.org/ontology#", "X" + nameCounter));
@@ -161,15 +162,15 @@ public class StructuralTransformation {
             this.rhs = rhs;
         }
 
-        private OWLSubClassOfAxiom getSCA(OWLClass lhs, OWLClassExpression ce) {
+        private OWLSubClassOfAxiom getSCA(@Nonnull OWLClass lhs,
+                @Nonnull OWLClassExpression ce) {
             return ldf.getOWLSubClassOfAxiom(lhs, ce);
         }
 
         public Set<OWLAxiom> getAxioms() {
             axioms.clear();
             OWLClass lhs = ldf.getOWLThing();
-            OWLClassExpression rhs2 = rhs.accept(this);
-            axioms.add(getSCA(lhs, rhs2));
+            axioms.add(getSCA(lhs, rhs.accept(this)));
             return axioms;
         }
 
@@ -245,8 +246,7 @@ public class StructuralTransformation {
         public OWLClassExpression visit(OWLObjectIntersectionOf desc) {
             OWLClass name = createNewName();
             for (OWLClassExpression op : desc.getOperands()) {
-                OWLClassExpression flatOp = op.accept(this);
-                axioms.add(getSCA(name, flatOp));
+                axioms.add(getSCA(name, op.accept(this)));
             }
             return name;
         }
@@ -331,8 +331,8 @@ public class StructuralTransformation {
 
         public AxiomRewriter() {}
 
-        private Set<OWLAxiom> subClassOf(OWLClassExpression sub,
-                OWLClassExpression sup) {
+        private Set<OWLAxiom> subClassOf(@Nonnull OWLClassExpression sub,
+                @Nonnull OWLClassExpression sup) {
             return Collections.singleton((OWLAxiom) df.getOWLSubClassOfAxiom(
                     df.getOWLThing(),
                     df.getOWLObjectUnionOf(df.getOWLObjectComplementOf(sub),

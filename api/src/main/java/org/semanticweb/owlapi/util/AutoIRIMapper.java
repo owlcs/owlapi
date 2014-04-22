@@ -108,6 +108,7 @@ public class AutoIRIMapper extends DefaultHandler implements
         return directory;
     }
 
+    @Nonnull
     protected File getCurrentFile() {
         if (currentFile == null && currentFilePath != null) {
             currentFile = new File(currentFilePath);
@@ -237,7 +238,7 @@ public class AutoIRIMapper extends DefaultHandler implements
         }
     }
 
-    private void parseManchesterSyntaxFile(File file) {
+    private void parseManchesterSyntaxFile(@Nonnull File file) {
         BufferedReader br = null;
         try {
             // Ontology: <URI>

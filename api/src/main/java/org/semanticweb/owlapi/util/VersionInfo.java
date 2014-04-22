@@ -23,6 +23,7 @@ import javax.annotation.Nonnull;
  */
 public class VersionInfo {
 
+    @Nonnull
     private static final VersionInfo INSTANCE = new VersionInfo();
     private final String version;
 

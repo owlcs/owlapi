@@ -106,6 +106,7 @@ public class ImportsStructureObjectSorter<O> {
          *        the ontology to explore
          * @return set of objects selected
          */
-        Set<O> getObjects(OWLOntology ontology);
+        @Nonnull
+        Set<O> getObjects(@Nonnull OWLOntology ontology);
     }
 }

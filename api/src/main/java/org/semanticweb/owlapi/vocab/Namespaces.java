@@ -93,16 +93,16 @@ public enum Namespaces {
     final BuiltIn builtIn;
     final String hashless;
 
-    Namespaces(String prefix, String ns) {
+    Namespaces(@Nonnull String prefix, String ns) {
         this(prefix, ns, IN_USE, NOT_BUILT_IN);
     }
 
-    Namespaces(String prefix, String ns, Status status) {
+    Namespaces(@Nonnull String prefix, String ns, Status status) {
         this(prefix, ns, status, status == Status.LEGACY ? NOT_BUILT_IN
                 : BUILT_IN);
     }
 
-    Namespaces(String prefix, String ns, Status status, BuiltIn builtIn) {
+    Namespaces(@Nonnull String prefix, String ns, Status status, BuiltIn builtIn) {
         this.prefix = prefix;
         this.ns = ns;
         this.status = status;

@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -41,14 +42,16 @@ public class OWLObjectWalker<O extends OWLObject> {
 
     protected OWLOntology ontology;
     private final Collection<O> objects;
-    @Nonnull
+    @Nullable
     protected OWLObjectVisitor visitor;
+    @Nullable
     private OWLObjectVisitorEx<?> visitorEx;
     protected final boolean visitDuplicates;
     protected OWLAxiom ax;
     protected OWLAnnotation annotation;
     private final List<OWLClassExpression> classExpressionPath = new ArrayList<OWLClassExpression>();
     private final List<OWLDataRange> dataRangePath = new ArrayList<OWLDataRange>();
+    @Nonnull
     private StructureWalker<O> walker = new StructureWalker<O>(this);
 
     /**
@@ -64,6 +67,7 @@ public class OWLObjectWalker<O extends OWLObject> {
             o.accept(visitor);
             return null;
         } else {
+            assert visitorEx != null;
             return o.accept(visitorEx);
         }
     }
@@ -94,7 +98,7 @@ public class OWLObjectWalker<O extends OWLObject> {
      * @param walker
      *        the structure walker to use with this object walker
      */
-    public void setStructureWalker(StructureWalker<O> walker) {
+    public void setStructureWalker(@Nonnull StructureWalker<O> walker) {
         this.walker = walker;
     }
 
@@ -125,6 +129,7 @@ public class OWLObjectWalker<O extends OWLObject> {
      * 
      * @return The last ontology to be visited
      */
+    @Nullable
     public OWLOntology getOntology() {
         return ontology;
     }

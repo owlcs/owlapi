@@ -16,7 +16,6 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
 
@@ -35,8 +34,7 @@ public class FilteringOWLOntologyChangeListener extends OWLOntologyChangeFilter
 
     @Override
     public void ontologiesChanged(
-            @Nonnull List<? extends OWLOntologyChange<?>> changes)
-            throws OWLException {
+            @Nonnull List<? extends OWLOntologyChange<?>> changes) {
         processChanges(changes);
     }
 }

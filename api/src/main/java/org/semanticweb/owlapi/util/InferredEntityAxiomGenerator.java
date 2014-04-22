@@ -38,8 +38,8 @@ public abstract class InferredEntityAxiomGenerator<E extends OWLEntity, A extend
         implements InferredAxiomGenerator<A> {
 
     @Override
-    public Set<A>
-            createAxioms(OWLDataFactory df, @Nonnull OWLReasoner reasoner) {
+    public Set<A> createAxioms(@Nonnull OWLDataFactory df,
+            @Nonnull OWLReasoner reasoner) {
         Set<E> processedEntities = new HashSet<E>();
         Set<A> result = new HashSet<A>();
         for (OWLOntology ont : reasoner.getRootOntology().getImportsClosure()) {
@@ -66,8 +66,9 @@ public abstract class InferredEntityAxiomGenerator<E extends OWLEntity, A extend
      * @param result
      *        The results set, which the new axioms should be added to.
      */
-    protected abstract void addAxioms(E entity, OWLReasoner reasoner,
-            OWLDataFactory dataFactory, Set<A> result);
+    protected abstract void addAxioms(@Nonnull E entity,
+            @Nonnull OWLReasoner reasoner, @Nonnull OWLDataFactory dataFactory,
+            @Nonnull Set<A> result);
 
     /**
      * Gets the entities from the specified ontology that this generator
@@ -77,7 +78,8 @@ public abstract class InferredEntityAxiomGenerator<E extends OWLEntity, A extend
      *        The ontology from which entities are to be retrieved.
      * @return A set of entities.
      */
-    protected abstract Set<E> getEntities(OWLOntology ont);
+    @Nonnull
+    protected abstract Set<E> getEntities(@Nonnull OWLOntology ont);
 
     protected Set<E> getAllEntities(OWLReasoner reasoner) {
         Set<E> results = new HashSet<E>();

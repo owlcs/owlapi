@@ -54,9 +54,11 @@ public class OWLEntityURIConverter {
     private final OWLOntologyManager manager;
     // The ontologies that reference the
     // entities whose names will be converted
+    @Nonnull
     private final Collection<OWLOntology> ontologies;
     private Map<OWLEntity, IRI> replacementMap;
     private Set<OWLEntity> processedEntities;
+    @Nonnull
     private final OWLEntityURIConverterStrategy strategy;
 
     /**
@@ -119,7 +121,7 @@ public class OWLEntityURIConverter {
         return changes;
     }
 
-    private void processEntity(OWLEntity ent) {
+    private void processEntity(@Nonnull OWLEntity ent) {
         if (processedEntities.contains(ent)) {
             return;
         }
@@ -129,7 +131,7 @@ public class OWLEntityURIConverter {
         processedEntities.add(ent);
     }
 
-    private IRI getTinyIRI(OWLEntity ent) {
+    private IRI getTinyIRI(@Nonnull OWLEntity ent) {
         return strategy.getConvertedIRI(ent);
     }
 }

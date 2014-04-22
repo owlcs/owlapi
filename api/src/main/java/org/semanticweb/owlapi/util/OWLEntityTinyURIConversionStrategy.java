@@ -49,6 +49,7 @@ public class OWLEntityTinyURIConversionStrategy implements
         OWLEntityURIConverterStrategy {
 
     /** default base. */
+    @Nonnull
     public static final String DEFAULT_BASE = "http://tinyname.org#";
     @Nonnull
     private final String base;
@@ -90,6 +91,7 @@ public class OWLEntityTinyURIConversionStrategy implements
         return iri;
     }
 
+    @SuppressWarnings("unused")
     private static class OWLEntityFragmentProvider implements OWLEntityVisitor {
 
         private String name;

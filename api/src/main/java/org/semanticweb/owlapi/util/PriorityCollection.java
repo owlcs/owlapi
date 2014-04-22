@@ -11,7 +11,6 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
-
 import org.semanticweb.owlapi.annotations.SupportsMIMEType;
 import org.semanticweb.owlapi.model.MIMETypeAware;
 import org.semanticweb.owlapi.model.OWLOntologyFormatFactory;
@@ -152,7 +151,7 @@ public class PriorityCollection<T> implements Iterable<T>, Serializable {
                 // if the instance has MIME types associated
                 if (t instanceof MIMETypeAware) {
                     MIMETypeAware mimeTypeAware = (MIMETypeAware) t;
-                    if (mimeTypeAware.getDefaultMIMEType().equals(mimeType)) {
+                    if (mimeType.equals(mimeTypeAware.getDefaultMIMEType())) {
                         pc.delegate.add(t);
                     } else {
                         if (mimeTypeAware.getMIMETypes().contains(mimeType)) {

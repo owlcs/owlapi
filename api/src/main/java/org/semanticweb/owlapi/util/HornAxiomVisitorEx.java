@@ -47,7 +47,9 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 public class HornAxiomVisitorEx extends OWLAxiomVisitorExAdapter<Boolean> {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     final PositiveAppearanceVisitorEx positive = new PositiveAppearanceVisitorEx();
+    @Nonnull
     final NegativeAppearanceVisitorEx negative = new NegativeAppearanceVisitorEx();
 
     /** default constructor */
