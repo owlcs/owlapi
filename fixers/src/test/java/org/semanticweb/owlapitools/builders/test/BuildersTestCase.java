@@ -19,6 +19,8 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
@@ -130,6 +132,7 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 @SuppressWarnings("javadoc")
 public class BuildersTestCase {
 
+    @Nonnull
     private OWLDataFactory df = new OWLDataFactoryImpl();
     private OWLAnnotationProperty ap = df.getOWLAnnotationProperty(IRI
             .create("urn:test#ann"));
@@ -139,18 +142,23 @@ public class BuildersTestCase {
             .create("urn:test#dp"));
     private OWLLiteral lit = df.getOWLLiteral(false);
     private IRI iri = IRI.create("urn:test#iri");
+    @Nonnull
     private Set<OWLAnnotation> annotations = new HashSet<OWLAnnotation>(
             Arrays.asList(df.getOWLAnnotation(ap, df.getOWLLiteral("test"))));
     private OWLClass ce = df.getOWLClass(IRI.create("urn:test#c"));
     private OWLNamedIndividual i = df.getOWLNamedIndividual(IRI
             .create("urn:test#i"));
     private OWLDatatype d = df.getBooleanOWLDatatype();
+    @Nonnull
     private Set<OWLDataProperty> dps = new HashSet<OWLDataProperty>(
             Arrays.asList(df.getOWLDataProperty(iri), dp));
+    @Nonnull
     private Set<OWLObjectProperty> ops = new HashSet<OWLObjectProperty>(
             Arrays.asList(df.getOWLObjectProperty(iri), op));
+    @Nonnull
     private Set<OWLClass> classes = new HashSet<OWLClass>(Arrays.asList(
             df.getOWLClass(iri), ce));
+    @Nonnull
     private Set<OWLIndividual> inds = new HashSet<OWLIndividual>(Arrays.asList(
             i, df.getOWLNamedIndividual(iri)));
     private SWRLDArgument var1 = df.getSWRLVariable(IRI.create("var1"));
@@ -165,7 +173,9 @@ public class BuildersTestCase {
             Arrays.asList(
                     (SWRLDArgument) df.getSWRLVariable(IRI.create("var5")),
                     df.getSWRLVariable(IRI.create("var6"))));
+    @Nonnull
     private Set<SWRLAtom> body = new HashSet<SWRLAtom>(Arrays.asList(v1));
+    @Nonnull
     private Set<SWRLAtom> head = new HashSet<SWRLAtom>(Arrays.asList(v2));
 
     @Test
