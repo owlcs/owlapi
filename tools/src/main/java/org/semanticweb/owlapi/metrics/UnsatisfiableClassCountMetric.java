@@ -18,6 +18,7 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
@@ -42,6 +43,7 @@ public class UnsatisfiableClassCountMetric extends IntegerValuedMetric {
         this.reasoner = reasoner;
     }
 
+    @Nonnull
     @Override
     public String getName() {
         return "Unsatisfiable class count";

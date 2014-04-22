@@ -18,6 +18,7 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -52,7 +53,7 @@ public class HiddenGCICount extends IntegerValuedMetric {
 
     @Override
     protected boolean isMetricInvalidated(
-            List<? extends OWLOntologyChange<?>> changes) {
+            @Nonnull List<? extends OWLOntologyChange<?>> changes) {
         for (OWLOntologyChange<?> chg : changes) {
             if (chg.isAxiomChange()
                     && chg.getAxiom() instanceof OWLEquivalentClassesAxiom

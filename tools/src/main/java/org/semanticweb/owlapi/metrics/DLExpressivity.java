@@ -16,6 +16,7 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.util.DLExpressivityChecker;
@@ -47,6 +48,7 @@ public class DLExpressivity extends AbstractOWLMetric<String> {
     @Override
     protected void disposeMetric() {}
 
+    @Nonnull
     @Override
     public String getName() {
         return "DL expressivity";

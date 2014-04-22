@@ -20,6 +20,7 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -44,6 +45,7 @@ public class NumberOfClassesWithMultipleInheritance extends IntegerValuedMetric 
         super(o);
     }
 
+    @Nonnull
     @Override
     public String getName() {
         return "Number of classes with asserted multiple inheritance";

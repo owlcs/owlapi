@@ -20,6 +20,7 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
@@ -150,6 +151,7 @@ public abstract class AbstractOWLMetric<M> implements OWLMetric<M>,
     /** Dispose metric. */
     protected abstract void disposeMetric();
 
+    @Nonnull
     @Override
     public String toString() {
         return getName() + ": " + getValue();

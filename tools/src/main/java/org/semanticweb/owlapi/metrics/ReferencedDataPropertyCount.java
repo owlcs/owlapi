@@ -16,6 +16,7 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 
@@ -37,6 +38,7 @@ public class ReferencedDataPropertyCount extends
         super(o);
     }
 
+    @Nonnull
     @Override
     protected String getObjectTypeName() {
         return "Data property";

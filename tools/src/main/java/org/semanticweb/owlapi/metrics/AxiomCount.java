@@ -16,6 +16,7 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 
@@ -54,6 +55,7 @@ public class AxiomCount extends IntegerValuedMetric {
     @Override
     protected void disposeMetric() {}
 
+    @Nonnull
     @Override
     public String getName() {
         return "Axiom";

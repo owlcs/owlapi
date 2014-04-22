@@ -17,6 +17,7 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectComplementOf;
@@ -50,7 +51,7 @@ public class OWLObjectComplementOfExtractor extends
      */
     @Nonnull
     public Set<OWLClassExpression> getComplementedClassExpressions(
-            OWLClassExpression desc) {
+            @Nonnull OWLClassExpression desc) {
         // XXX a stateless visitor would not need copies
         reset();
         desc.accept(this);

@@ -44,6 +44,7 @@ import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
  */
 public class DebuggerClassExpressionGenerator extends OWLAxiomVisitorAdapter {
 
+    @Nonnull
     private final OWLDataFactory dataFactory;
     private OWLClassExpression desc;
 
@@ -69,7 +70,7 @@ public class DebuggerClassExpressionGenerator extends OWLAxiomVisitorAdapter {
     }
 
     @Override
-    public void visit(OWLSubClassOfAxiom axiom) {
+    public void visit(@Nonnull OWLSubClassOfAxiom axiom) {
         // A and not (B)
         OWLClassExpression complement = dataFactory
                 .getOWLObjectComplementOf(axiom.getSuperClass());

@@ -16,6 +16,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
@@ -33,6 +34,7 @@ public abstract class SingleExplanationGeneratorImpl implements
     private final OWLOntology ontology;
     private final OWLReasoner reasoner;
     private final OWLReasonerFactory reasonerFactory;
+    @Nonnull
     private final DefinitionTracker definitionTracker;
 
     /**

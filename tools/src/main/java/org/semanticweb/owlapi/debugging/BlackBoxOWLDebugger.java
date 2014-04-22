@@ -26,6 +26,7 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.IRI;
@@ -61,6 +62,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
 
     private static final Logger LOGGER = LoggerFactory
             .getLogger(BlackBoxOWLDebugger.class);
+    @Nullable
     private OWLClass currentClass;
     private OWLOntology debuggingOntology;
     private final Set<OWLAxiom> debuggingAxioms = new LinkedHashSet<OWLAxiom>();

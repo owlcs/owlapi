@@ -14,6 +14,8 @@ package uk.ac.manchester.cs.owl.explanation.ordering;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLAxiom;
 
 /**
@@ -28,7 +30,7 @@ public class NullExplanationOrderer implements ExplanationOrderer {
 
     @Override
     public ExplanationTree getOrderedExplanation(OWLAxiom entailment,
-            Set<OWLAxiom> axioms) {
+            @Nonnull Set<OWLAxiom> axioms) {
         ExplanationTree root = new ExplanationTree(entailment);
         for (OWLAxiom ax : axioms) {
             root.addChild(new ExplanationTree(ax));

@@ -16,6 +16,7 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLOntology;
 
@@ -36,6 +37,7 @@ public class ReferencedClassCount extends ObjectCountMetric<OWLClass> {
         super(o);
     }
 
+    @Nonnull
     @Override
     protected String getObjectTypeName() {
         return "Class";

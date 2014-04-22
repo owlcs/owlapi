@@ -16,6 +16,7 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 
@@ -43,7 +44,7 @@ public class ImportClosureSize extends IntegerValuedMetric {
 
     @Override
     protected boolean isMetricInvalidated(
-            List<? extends OWLOntologyChange<?>> changes) {
+            @Nonnull List<? extends OWLOntologyChange<?>> changes) {
         for (OWLOntologyChange<?> change : changes) {
             if (change.isImportChange()) {
                 return true;

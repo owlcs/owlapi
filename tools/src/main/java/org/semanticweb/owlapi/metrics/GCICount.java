@@ -16,6 +16,7 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
@@ -36,6 +37,7 @@ public class GCICount extends AxiomCountMetric {
         super(o);
     }
 
+    @Nonnull
     @Override
     protected String getObjectTypeName() {
         return "GCI";

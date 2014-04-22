@@ -18,6 +18,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
@@ -142,6 +143,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
     private class BottomReplacer extends OWLAxiomVisitorAdapter implements
             OWLAxiomVisitor, OWLClassExpressionVisitor {
 
+        @Nullable
         private OWLAxiom newAxiom;
         private OWLClassExpression newClassExpression;
         private Set<? extends OWLEntity> signature;

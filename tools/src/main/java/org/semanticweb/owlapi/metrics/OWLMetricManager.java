@@ -19,6 +19,7 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
@@ -28,6 +29,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  */
 public class OWLMetricManager {
 
+    @Nonnull
     private final List<OWLMetric<?>> metrics;
 
     /**

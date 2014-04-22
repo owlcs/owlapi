@@ -18,6 +18,7 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 
@@ -49,6 +50,7 @@ public abstract class ObjectCountMetric<E extends Object> extends
     @Nonnull
     protected abstract String getObjectTypeName();
 
+    @Nonnull
     @Override
     public String getName() {
         return getObjectTypeName() + " count";

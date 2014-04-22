@@ -210,7 +210,7 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
      * @return the entities referenced in the axiom
      */
     @Nonnull
-    private Set<OWLEntity> getSignature(@Nonnull OWLAxiom axiom) {
+    private static Set<OWLEntity> getSignature(@Nonnull OWLAxiom axiom) {
         Set<OWLEntity> toReturn = new HashSet<OWLEntity>();
         OWLEntityCollector collector = new OWLEntityCollector(toReturn);
         axiom.accept(collector);
@@ -293,8 +293,8 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
      *        the current path contents
      * @return true, if successful
      */
-    @Nonnull
-    private boolean checkEarlyTermination(@Nonnull Set<Set<OWLAxiom>> satPaths,
+    private static boolean checkEarlyTermination(
+            @Nonnull Set<Set<OWLAxiom>> satPaths,
             @Nonnull Set<OWLAxiom> currentPathContents) {
         boolean earlyTermination = false;
         // Early path termination. If our path contents are the superset of

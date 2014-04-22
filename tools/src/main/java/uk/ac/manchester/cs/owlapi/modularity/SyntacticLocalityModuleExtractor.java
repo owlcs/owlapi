@@ -72,6 +72,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
     static class OntologyAxiomSet {
 
         /** Array representing all axioms of the associated ontology. */
+        @Nonnull
         final OWLAxiom[] ax;
 
         /**
@@ -222,7 +223,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      * @return the oWL ontology
      */
     @Nonnull
-    private OWLOntology createOntology(@Nonnull OWLOntologyManager man,
+    private static OWLOntology createOntology(@Nonnull OWLOntologyManager man,
             @Nonnull OWLOntology ont, @Nonnull Set<OWLAxiom> axs) {
         try {
             return man.createOntology(axs);

@@ -119,7 +119,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
 
     @Override
     public ExplanationTree getOrderedExplanation(OWLAxiom entailment,
-            Set<OWLAxiom> axioms) {
+            @Nonnull Set<OWLAxiom> axioms) {
         currentExplanation = new HashSet<OWLAxiom>(axioms);
         buildIndices();
         ExplanationTree root = new EntailedAxiomTree(entailment);
@@ -212,9 +212,10 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
     }
 
     /** The comparator. */
+    @Nonnull
     private static Comparator<Tree<OWLAxiom>> comparator = new OWLAxiomTreeComparator();
 
-    private void sortChildrenAxioms(@Nonnull ExplanationTree tree) {
+    private static void sortChildrenAxioms(@Nonnull ExplanationTree tree) {
         tree.sortChildren(comparator);
     }
 
@@ -401,7 +402,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
             return 1;
         }
 
-        private int childDiff(Tree<OWLAxiom> o1, Tree<OWLAxiom> o2) {
+        private static int childDiff(Tree<OWLAxiom> o1, Tree<OWLAxiom> o2) {
             int childCount1 = o1.getChildCount();
             childCount1 = childCount1 > 0 ? 0 : 1;
             int childCount2 = o2.getChildCount();
