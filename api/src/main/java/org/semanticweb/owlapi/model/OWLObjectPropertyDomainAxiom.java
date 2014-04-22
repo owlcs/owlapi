@@ -27,7 +27,7 @@ public interface OWLObjectPropertyDomainAxiom extends
         OWLPropertyDomainAxiom<OWLObjectPropertyExpression>,
         OWLObjectPropertyAxiom {
 
-    @Override
     @Nonnull
+    @Override
     OWLObjectPropertyDomainAxiom getAxiomWithoutAnnotations();
 }

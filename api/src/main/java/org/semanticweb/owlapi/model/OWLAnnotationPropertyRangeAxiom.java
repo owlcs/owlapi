@@ -31,8 +31,8 @@ public interface OWLAnnotationPropertyRangeAxiom extends OWLAnnotationAxiom,
      * 
      * @return The annotation property
      */
-    @Override
     @Nonnull
+    @Override
     OWLAnnotationProperty getProperty();
 
     /**
@@ -40,11 +40,11 @@ public interface OWLAnnotationPropertyRangeAxiom extends OWLAnnotationAxiom,
      * 
      * @return The range of the annotation property.
      */
-    @Override
     @Nonnull
+    @Override
     IRI getRange();
 
-    @Override
     @Nonnull
+    @Override
     OWLAnnotationPropertyRangeAxiom getAxiomWithoutAnnotations();
 }

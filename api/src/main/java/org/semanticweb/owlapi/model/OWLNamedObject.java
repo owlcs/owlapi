@@ -29,8 +29,8 @@ public interface OWLNamedObject extends OWLObject, HasIRI {
      * 
      * @return The IRI of this object
      */
-    @Override
     @Nonnull
+    @Override
     IRI getIRI();
 
     /**

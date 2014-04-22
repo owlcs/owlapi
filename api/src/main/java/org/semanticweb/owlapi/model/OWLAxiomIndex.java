@@ -86,7 +86,6 @@ public interface OWLAxiomIndex {
      *        if INCLUDED, include imports closure.
      * @return true if there is at least one result matching the filter.
      */
-    @Nonnull
     boolean contains(OWLAxiomSearchFilter filter, Object key,
             @Nonnull Imports includeImportsClosure);
 

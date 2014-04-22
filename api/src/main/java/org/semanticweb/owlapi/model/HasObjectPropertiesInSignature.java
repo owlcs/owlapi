@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 /**
  * An interface to an object that has a signature and can provide the object
  * properties that are contained in its signature.
@@ -33,5 +35,6 @@ public interface HasObjectPropertiesInSignature {
      *         backed by the signature; it is a modifiable collection and
      *         changes are not reflected by the signature.
      */
+    @Nonnull
     Set<OWLObjectProperty> getObjectPropertiesInSignature();
 }

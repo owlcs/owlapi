@@ -31,6 +31,7 @@ public class SpecificOntologyChangeBroadcastStrategy implements
         OWLOntologyChangeBroadcastStrategy {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final OWLOntology ontology;
 
     /**

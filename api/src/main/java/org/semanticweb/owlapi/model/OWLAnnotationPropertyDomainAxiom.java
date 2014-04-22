@@ -31,8 +31,8 @@ public interface OWLAnnotationPropertyDomainAxiom extends OWLAnnotationAxiom,
      * 
      * @return The annotation property.
      */
-    @Override
     @Nonnull
+    @Override
     OWLAnnotationProperty getProperty();
 
     /**
@@ -40,11 +40,11 @@ public interface OWLAnnotationPropertyDomainAxiom extends OWLAnnotationAxiom,
      * 
      * @return The IRI that represents the domain
      */
-    @Override
     @Nonnull
+    @Override
     IRI getDomain();
 
-    @Override
     @Nonnull
+    @Override
     OWLAnnotationPropertyDomainAxiom getAxiomWithoutAnnotations();
 }

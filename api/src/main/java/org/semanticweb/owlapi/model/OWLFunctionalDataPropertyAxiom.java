@@ -26,7 +26,7 @@ import javax.annotation.Nonnull;
 public interface OWLFunctionalDataPropertyAxiom extends
         OWLDataPropertyCharacteristicAxiom, OWLSubClassOfAxiomShortCut {
 
-    @Override
     @Nonnull
+    @Override
     OWLFunctionalDataPropertyAxiom getAxiomWithoutAnnotations();
 }

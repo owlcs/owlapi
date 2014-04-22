@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
 /**
@@ -56,5 +57,6 @@ public interface OWLFacetRestriction extends OWLObject {
      *        visitor return type
      * @return visitor return value
      */
+    @Nonnull
     <O> O accept(@Nonnull OWLDataVisitorEx<O> visitor);
 }

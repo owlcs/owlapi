@@ -34,8 +34,8 @@ public interface OWLAnnotation extends OWLObject, HasAnnotations,
      * 
      * @return The annotation property
      */
-    @Override
     @Nonnull
+    @Override
     OWLAnnotationProperty getProperty();
 
     /**
@@ -99,5 +99,6 @@ public interface OWLAnnotation extends OWLObject, HasAnnotations,
      *        visitor return type
      * @return visitor value
      */
+    @Nonnull
     <O> O accept(OWLAnnotationObjectVisitorEx<O> visitor);
 }

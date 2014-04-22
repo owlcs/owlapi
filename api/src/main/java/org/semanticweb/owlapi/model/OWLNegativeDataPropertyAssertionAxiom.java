@@ -27,8 +27,8 @@ public interface OWLNegativeDataPropertyAssertionAxiom extends
         OWLPropertyAssertionAxiom<OWLDataPropertyExpression, OWLLiteral>,
         OWLSubClassOfAxiomShortCut {
 
-    @Override
     @Nonnull
+    @Override
     OWLNegativeDataPropertyAssertionAxiom getAxiomWithoutAnnotations();
 
     /**

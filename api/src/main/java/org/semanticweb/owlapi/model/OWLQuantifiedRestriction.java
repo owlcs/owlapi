@@ -25,7 +25,7 @@ public interface OWLQuantifiedRestriction<F extends OWLPropertyRange> extends
         OWLRestriction, HasFiller<F> {
 
     /** @return the filler */
-    @Override
     @Nonnull
+    @Override
     F getFiller();
 }

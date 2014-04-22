@@ -32,7 +32,7 @@ public interface OWLSymmetricObjectPropertyAxiom extends
     @Nonnull
     Set<OWLSubObjectPropertyOfAxiom> asSubPropertyAxioms();
 
-    @Override
     @Nonnull
+    @Override
     OWLSymmetricObjectPropertyAxiom getAxiomWithoutAnnotations();
 }

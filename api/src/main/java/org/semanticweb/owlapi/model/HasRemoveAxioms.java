@@ -3,6 +3,8 @@ package org.semanticweb.owlapi.model;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group
@@ -23,6 +25,7 @@ public interface HasRemoveAxioms {
      * @throws OWLOntologyChangeException
      *         if there was a problem removing the axioms
      */
+    @Nonnull
     List<OWLOntologyChange<?>> removeAxioms(OWLOntology ont,
             Set<? extends OWLAxiom> axioms);
 }

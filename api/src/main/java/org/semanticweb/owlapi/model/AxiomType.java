@@ -17,6 +17,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import com.google.common.base.Function;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Maps;
@@ -54,6 +56,7 @@ public class AxiomType<C extends OWLAxiom> implements Serializable {
         index = ind;
     }
 
+    @Nonnull
     private static <O extends OWLAxiom> AxiomType<O> getInstance(int i,
             String name, boolean owl2Axiom, boolean nonSyntacticOWL2Axiom,
             boolean isLogical) {
@@ -123,8 +126,10 @@ public class AxiomType<C extends OWLAxiom> implements Serializable {
      *         specified types. Note that sourceAxioms will not be modified. The
      *         returned set is a copy.
      */
+    @Nonnull
     public static Set<OWLAxiom> getAxiomsWithoutTypes(
-            Set<OWLAxiom> sourceAxioms, AxiomType<?>... axiomTypes) {
+            @Nonnull Set<OWLAxiom> sourceAxioms,
+            @Nonnull AxiomType<?>... axiomTypes) {
         Set<OWLAxiom> result = new HashSet<OWLAxiom>();
         Set<AxiomType<?>> disallowed = new HashSet<AxiomType<?>>();
         for (AxiomType<?> t : axiomTypes) {
@@ -150,8 +155,10 @@ public class AxiomType<C extends OWLAxiom> implements Serializable {
      *         specified types. Note that sourceAxioms will not be modified. The
      *         returned set is a copy.
      */
-    public static Set<OWLAxiom> getAxiomsOfTypes(Set<OWLAxiom> sourceAxioms,
-            AxiomType<?>... axiomTypes) {
+    @Nonnull
+    public static Set<OWLAxiom> getAxiomsOfTypes(
+            @Nonnull Set<OWLAxiom> sourceAxioms,
+            @Nonnull AxiomType<?>... axiomTypes) {
         Set<OWLAxiom> result = new HashSet<OWLAxiom>();
         Set<AxiomType<?>> allowed = new HashSet<AxiomType<?>>();
         for (AxiomType<?> t : axiomTypes) {
@@ -261,7 +268,7 @@ public class AxiomType<C extends OWLAxiom> implements Serializable {
             .uniqueIndex(AXIOM_TYPES, new Function<AxiomType<?>, String>() {
 
                 @Override
-                public String apply(AxiomType<?> input) {
+                public String apply(@Nonnull AxiomType<?> input) {
                     return input.getName();
                 }
             });

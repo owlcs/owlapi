@@ -15,6 +15,8 @@ package org.semanticweb.owlapi.model;
 import java.io.Serializable;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import javax.annotation.Nullable;
+
 import com.google.common.base.Optional;
 
 /**
@@ -145,6 +147,7 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
      *         containing an ontology as identified by this ontology ID. Returns
      *         the default IRI or {@code null}.
      */
+    @Nullable
     public Optional<IRI> getDefaultDocumentIRI() {
         if (ontologyIRI != null) {
             if (versionIRI.isPresent()) {

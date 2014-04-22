@@ -26,7 +26,7 @@ import javax.annotation.Nonnull;
 public interface OWLAsymmetricObjectPropertyAxiom extends
         OWLObjectPropertyCharacteristicAxiom {
 
-    @Override
     @Nonnull
+    @Override
     OWLAsymmetricObjectPropertyAxiom getAxiomWithoutAnnotations();
 }

@@ -21,7 +21,7 @@ import javax.annotation.Nonnull;
  */
 public interface SWRLDataRangeAtom extends SWRLUnaryAtom<SWRLDArgument> {
 
-    @Override
     @Nonnull
+    @Override
     OWLDataRange getPredicate();
 }

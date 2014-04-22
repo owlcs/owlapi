@@ -63,8 +63,8 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
      * 
      * @return The ID of this ontology.
      */
-    @Override
     @Nonnull
+    @Override
     OWLOntologyID getOntologyID();
 
     /**
@@ -124,8 +124,8 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
      *         If this ontology is no longer managed by its manager because it
      *         was removed from the manager.
      */
-    @Override
     @Nonnull
+    @Override
     Set<OWLOntology> getDirectImports();
 
     /**
@@ -165,8 +165,8 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
      *         If this ontology is no longer managed by its manager because it
      *         was removed from the manager.
      */
-    @Override
     @Nonnull
+    @Override
     Set<OWLOntology> getImportsClosure();
 
     /**
@@ -280,8 +280,8 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
      * @see #getDataPropertiesInSignature()
      * @see #getIndividualsInSignature()
      */
-    @Override
     @Nonnull
+    @Override
     Set<OWLEntity> getSignature();
 
     /**

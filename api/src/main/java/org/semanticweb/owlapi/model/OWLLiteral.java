@@ -94,8 +94,8 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject,
      *         then the empty string will be returned. (The {@code null} value
      *         is never returned).
      */
-    @Override
     @Nonnull
+    @Override
     String getLang();
 
     /**
@@ -211,5 +211,6 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject,
      *        visitor return type
      * @return visitor return value
      */
+    @Nonnull
     <O> O accept(@Nonnull OWLDataVisitorEx<O> visitor);
 }

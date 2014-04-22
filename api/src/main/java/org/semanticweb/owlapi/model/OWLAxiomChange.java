@@ -25,6 +25,7 @@ import javax.annotation.Nonnull;
  */
 public abstract class OWLAxiomChange extends OWLOntologyChange<OWLAxiom> {
 
+    @Nonnull
     private final OWLAxiom axiom;
 
     /**

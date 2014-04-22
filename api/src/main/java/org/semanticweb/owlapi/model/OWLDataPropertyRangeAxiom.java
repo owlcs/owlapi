@@ -26,7 +26,7 @@ public interface OWLDataPropertyRangeAxiom extends
         OWLPropertyRangeAxiom<OWLDataPropertyExpression, OWLDataRange>,
         OWLDataPropertyAxiom {
 
-    @Override
     @Nonnull
+    @Override
     OWLDataPropertyRangeAxiom getAxiomWithoutAnnotations();
 }

@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 /**
  * An interface to an object that has annotation.
  * 
@@ -31,5 +33,6 @@ public interface HasAnnotations {
      *         in this object, similarly, any changes that affect the
      *         annotations on this object will not change the returned set.
      */
+    @Nonnull
     Set<OWLAnnotation> getAnnotations();
 }

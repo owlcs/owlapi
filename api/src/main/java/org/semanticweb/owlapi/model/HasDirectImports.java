@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 /**
  * An interface to objects that have a direct set of imports.
  * 
@@ -28,5 +30,6 @@ public interface HasDirectImports {
      * 
      * @return A (possibly empty) set of directly imported ontologies.
      */
+    @Nonnull
     Set<OWLOntology> getDirectImports();
 }

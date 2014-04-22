@@ -26,7 +26,7 @@ public interface OWLObjectPropertyRangeAxiom extends
         OWLPropertyRangeAxiom<OWLObjectPropertyExpression, OWLClassExpression>,
         OWLObjectPropertyAxiom {
 
-    @Override
     @Nonnull
+    @Override
     OWLObjectPropertyRangeAxiom getAxiomWithoutAnnotations();
 }

@@ -17,6 +17,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.change.OWLOntologyChangeData;
 import org.semanticweb.owlapi.change.OWLOntologyChangeRecord;
@@ -30,6 +31,7 @@ import org.semanticweb.owlapi.change.OWLOntologyChangeRecord;
  */
 public abstract class OWLOntologyChange<T> implements HasSignature {
 
+    @Nonnull
     private final OWLOntology ont;
 
     /**
@@ -76,7 +78,7 @@ public abstract class OWLOntologyChange<T> implements HasSignature {
      *         If the change is not an axiom change (check with the
      *         {@code isAxiomChange} method first).
      */
-    @Nonnull
+    @Nullable
     public abstract OWLAxiom getAxiom();
 
     /**

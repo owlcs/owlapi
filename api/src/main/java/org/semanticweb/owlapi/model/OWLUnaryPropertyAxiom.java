@@ -25,7 +25,7 @@ public interface OWLUnaryPropertyAxiom<P extends OWLPropertyExpression> extends
         OWLPropertyAxiom, HasProperty<P> {
 
     /** @return the property expression that this axiom describes. */
-    @Override
     @Nonnull
+    @Override
     P getProperty();
 }

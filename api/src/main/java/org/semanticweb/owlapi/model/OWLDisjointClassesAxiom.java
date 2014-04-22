@@ -27,11 +27,11 @@ import javax.annotation.Nonnull;
  */
 public interface OWLDisjointClassesAxiom extends OWLNaryClassAxiom {
 
-    @Override
     @Nonnull
+    @Override
     Set<OWLDisjointClassesAxiom> asPairwiseAxioms();
 
-    @Override
     @Nonnull
+    @Override
     OWLDisjointClassesAxiom getAxiomWithoutAnnotations();
 }

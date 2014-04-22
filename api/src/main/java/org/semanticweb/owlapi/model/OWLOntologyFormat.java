@@ -16,6 +16,8 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.formats.PrefixOWLOntologyFormat;
 import org.semanticweb.owlapi.io.OWLOntologyLoaderMetaData;
 
@@ -91,6 +93,7 @@ public abstract class OWLOntologyFormat implements Serializable {
      *         if this format is not an instance of
      *         {@link org.semanticweb.owlapi.formats.PrefixOWLOntologyFormat}
      */
+    @Nonnull
     public PrefixOWLOntologyFormat asPrefixOWLOntologyFormat() {
         return (PrefixOWLOntologyFormat) this;
     }
@@ -125,6 +128,7 @@ public abstract class OWLOntologyFormat implements Serializable {
     /**
      * @return A unique key for this format.
      */
+    @Nonnull
     public abstract String getKey();
 
     /**

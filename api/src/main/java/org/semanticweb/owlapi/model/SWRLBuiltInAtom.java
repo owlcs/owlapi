@@ -23,8 +23,8 @@ import javax.annotation.Nonnull;
  */
 public interface SWRLBuiltInAtom extends SWRLAtom {
 
-    @Override
     @Nonnull
+    @Override
     IRI getPredicate();
 
     /** @return list of arguments */

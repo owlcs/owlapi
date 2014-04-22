@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nullable;
+
 /**
  * Indicates that an ontology with the given ontology IRI (and possible version
  * IRI) exists.
@@ -26,6 +28,7 @@ public class OWLOntologyAlreadyExistsException extends
     private static final long serialVersionUID = 40000L;
     private static final String ONTOLOGY_ALREADY_EXISTS = "Ontology already exists. ";
     private final OWLOntologyID ontologyID;
+    @Nullable
     private final IRI documentIRI;
 
     /**

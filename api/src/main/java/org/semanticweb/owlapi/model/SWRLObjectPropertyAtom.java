@@ -22,8 +22,8 @@ import javax.annotation.Nonnull;
 public interface SWRLObjectPropertyAtom extends
         SWRLBinaryAtom<SWRLIArgument, SWRLIArgument> {
 
-    @Override
     @Nonnull
+    @Override
     OWLObjectPropertyExpression getPredicate();
 
     /**

@@ -31,7 +31,7 @@ public interface OWLPropertyRangeAxiom<P extends OWLPropertyExpression, R extend
         HasRange<R> {
 
     /** @return The range specified by this axiom. */
-    @Override
     @Nonnull
+    @Override
     R getRange();
 }

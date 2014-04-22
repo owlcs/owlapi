@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.change.RemoveAxiomData;
 
 /**
@@ -41,6 +42,7 @@ public class RemoveAxiom extends OWLAxiomChange {
         return false;
     }
 
+    @Nonnull
     @Override
     public RemoveAxiomData getChangeData() {
         return new RemoveAxiomData(getAxiom());

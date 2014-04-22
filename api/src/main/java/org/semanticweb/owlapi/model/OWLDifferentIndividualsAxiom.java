@@ -27,8 +27,8 @@ import javax.annotation.Nonnull;
  */
 public interface OWLDifferentIndividualsAxiom extends OWLNaryIndividualAxiom {
 
-    @Override
     @Nonnull
+    @Override
     OWLDifferentIndividualsAxiom getAxiomWithoutAnnotations();
 
     /**
@@ -39,7 +39,7 @@ public interface OWLDifferentIndividualsAxiom extends OWLNaryIndividualAxiom {
      */
     boolean containsAnonymousIndividuals();
 
-    @Override
     @Nonnull
+    @Override
     Set<OWLDifferentIndividualsAxiom> asPairwiseAxioms();
 }

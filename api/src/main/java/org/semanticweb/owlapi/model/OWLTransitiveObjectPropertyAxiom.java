@@ -26,7 +26,7 @@ import javax.annotation.Nonnull;
 public interface OWLTransitiveObjectPropertyAxiom extends
         OWLObjectPropertyCharacteristicAxiom {
 
-    @Override
     @Nonnull
+    @Override
     OWLTransitiveObjectPropertyAxiom getAxiomWithoutAnnotations();
 }

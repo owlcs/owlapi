@@ -16,6 +16,8 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.parameters.MissingImportHandlingStrategy;
 import org.semanticweb.owlapi.model.parameters.MissingOntologyHeaderStrategy;
 import org.semanticweb.owlapi.vocab.Namespaces;
@@ -102,6 +104,7 @@ public final class OWLOntologyLoaderConfiguration implements Serializable {
      * 
      * @return The copied configuration
      */
+    @Nonnull
     private OWLOntologyLoaderConfiguration copyConfiguration() {
         OWLOntologyLoaderConfiguration copy = new OWLOntologyLoaderConfiguration();
         copy.acceptHTTPCompression = acceptHTTPCompression;

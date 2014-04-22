@@ -29,7 +29,9 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  */
 public class SetOntologyID extends OWLOntologyChange<OWLOntologyID> {
 
+    @Nonnull
     private final OWLOntologyID ontologyID;
+    @Nonnull
     private final OWLOntologyID newOntologyID;
 
     /**

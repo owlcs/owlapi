@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group
@@ -26,5 +28,6 @@ public interface HasGetEntitiesInSignature {
      *        IRI for all entities to retrieve
      * @return entities with IRI equal to entityIRI
      */
+    @Nonnull
     Set<OWLEntity> getEntitiesInSignature(IRI entityIRI);
 }

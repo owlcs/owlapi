@@ -94,7 +94,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
     }
 
     /** @return the prefix */
-    @Nullable
+    @Nonnull
     public String getNamespace() {
         return prefix;
     }
@@ -230,7 +230,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
      * @since 3.3
      */
     @Nonnull
-    public static IRI create(@Nullable String prefix, @Nullable String suffix) {
+    public static IRI create(@Nullable String prefix, @Nonnull String suffix) {
         if (prefix == null) {
             return create(suffix);
         } else if (suffix == null) {
@@ -389,45 +389,50 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
     }
 
     @Override
-    public void accept(OWLObjectVisitor visitor) {
+    public void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    public void accept(OWLAnnotationSubjectVisitor visitor) {
+    public void accept(@Nonnull OWLAnnotationSubjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <E> E accept(OWLAnnotationSubjectVisitorEx<E> visitor) {
+    public <E> E accept(@Nonnull OWLAnnotationSubjectVisitorEx<E> visitor) {
         return visitor.visit(this);
     }
 
+    @Nonnull
     @Override
     public Set<OWLClass> getClassesInSignature() {
         return Collections.emptySet();
     }
 
+    @Nonnull
     @Override
     public Set<OWLDataProperty> getDataPropertiesInSignature() {
         return Collections.emptySet();
     }
 
+    @Nonnull
     @Override
     public Set<OWLNamedIndividual> getIndividualsInSignature() {
         return Collections.emptySet();
     }
 
+    @Nonnull
     @Override
     public Set<OWLObjectProperty> getObjectPropertiesInSignature() {
         return Collections.emptySet();
     }
 
+    @Nonnull
     @Override
     public Set<OWLEntity> getSignature() {
         return Collections.emptySet();
@@ -438,16 +443,19 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
         return false;
     }
 
+    @Nonnull
     @Override
     public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
         return Collections.emptySet();
     }
 
+    @Nonnull
     @Override
     public Set<OWLDatatype> getDatatypesInSignature() {
         return Collections.emptySet();
     }
 
+    @Nonnull
     @Override
     public Set<OWLClassExpression> getNestedClassExpressions() {
         return Collections.emptySet();
@@ -482,6 +490,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
         }
     }
 
+    @Nonnull
     @Override
     public String toString() {
         if (remainder != null) {
@@ -504,12 +513,12 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
     }
 
     @Override
-    public void accept(OWLAnnotationValueVisitor visitor) {
+    public void accept(@Nonnull OWLAnnotationValueVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(OWLAnnotationValueVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLAnnotationValueVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 

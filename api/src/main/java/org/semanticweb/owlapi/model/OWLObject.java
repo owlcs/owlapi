@@ -44,8 +44,8 @@ public interface OWLObject extends Comparable<OWLObject>, Serializable,
      * 
      * @return A set of anonymous individuals.
      */
-    @Override
     @Nonnull
+    @Override
     Set<OWLAnonymousIndividual> getAnonymousIndividuals();
 
     /**
@@ -57,8 +57,8 @@ public interface OWLObject extends Comparable<OWLObject>, Serializable,
      *         by the signature; it is a modifiable collection and changes are
      *         not reflected by the signature.
      */
-    @Override
     @Nonnull
+    @Override
     Set<OWLClass> getClassesInSignature();
 
     /**
@@ -70,8 +70,8 @@ public interface OWLObject extends Comparable<OWLObject>, Serializable,
      *         backed by the signature; it is a modifiable collection and
      *         changes are not reflected by the signature.
      */
-    @Override
     @Nonnull
+    @Override
     Set<OWLDataProperty> getDataPropertiesInSignature();
 
     /**
@@ -83,8 +83,8 @@ public interface OWLObject extends Comparable<OWLObject>, Serializable,
      *         backed by the signature; it is a modifiable collection and
      *         changes are not reflected by the signature.
      */
-    @Override
     @Nonnull
+    @Override
     Set<OWLObjectProperty> getObjectPropertiesInSignature();
 
     /**
@@ -96,8 +96,8 @@ public interface OWLObject extends Comparable<OWLObject>, Serializable,
      *         backed by the signature; it is a modifiable collection and
      *         changes are not reflected by the signature.
      */
-    @Override
     @Nonnull
+    @Override
     Set<OWLNamedIndividual> getIndividualsInSignature();
 
     /**
@@ -109,8 +109,8 @@ public interface OWLObject extends Comparable<OWLObject>, Serializable,
      *         the signature; it is a modifiable collection and changes are not
      *         reflected by the signature.
      */
-    @Override
     @Nonnull
+    @Override
     Set<OWLDatatype> getDatatypesInSignature();
 
     /**

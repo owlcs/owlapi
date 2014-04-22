@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 /**
  * An exception to describe a situation where there was an attempt to apply a
  * change to an immutable ontology.
@@ -31,7 +33,8 @@ public class ImmutableOWLOntologyChangeException extends
      * @param change
      *        The change.
      */
-    public ImmutableOWLOntologyChangeException(OWLOntologyChange<?> change) {
+    public ImmutableOWLOntologyChangeException(
+            @Nonnull OWLOntologyChange<?> change) {
         super(change, "Cannot apply changes to immutable ontology: "
                 + change.getOntology());
     }

@@ -26,7 +26,7 @@ import javax.annotation.Nonnull;
 public interface OWLReflexiveObjectPropertyAxiom extends
         OWLObjectPropertyCharacteristicAxiom, OWLSubClassOfAxiomShortCut {
 
-    @Override
     @Nonnull
+    @Override
     OWLReflexiveObjectPropertyAxiom getAxiomWithoutAnnotations();
 }

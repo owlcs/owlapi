@@ -41,8 +41,8 @@ public interface OWLAnnotationAssertionAxiom extends OWLAnnotationAxiom,
      * 
      * @return The annotation property.
      */
-    @Override
     @Nonnull
+    @Override
     OWLAnnotationProperty getProperty();
 
     /**
@@ -79,7 +79,7 @@ public interface OWLAnnotationAssertionAxiom extends OWLAnnotationAxiom,
      */
     boolean isDeprecatedIRIAssertion();
 
-    @Override
     @Nonnull
+    @Override
     OWLAnnotationAssertionAxiom getAxiomWithoutAnnotations();
 }

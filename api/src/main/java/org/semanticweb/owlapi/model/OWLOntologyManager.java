@@ -47,12 +47,12 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      * 
      * @return A reference to a data factory for creating OWL API objects.
      */
-    @Override
     @Nonnull
+    @Override
     OWLDataFactory getOWLDataFactory();
 
-    @Override
     @Nonnull
+    @Override
     Set<OWLOntology> getOntologies();
 
     /**
@@ -143,7 +143,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      *         {@code null} if this manager does not manage an ontology with the
      *         specified IRI and no version IRI.
      */
-    @Nonnull
+    @Nullable
     OWLOntology getOntology(@Nonnull IRI ontologyIRI);
 
     /**
@@ -156,8 +156,8 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      *         manager does not manage an ontology with the specified ontology
      *         ID.
      */
-    @Override
     @Nullable
+    @Override
     OWLOntology getOntology(@Nonnull OWLOntologyID ontologyID);
 
     /**
@@ -260,8 +260,8 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      *         {@link org.semanticweb.owlapi.model.OWLOntologyID} already
      *         belongs to an ontology managed by this manager.
      */
-    @Override
     @Nonnull
+    @Override
     List<OWLOntologyChange<?>> applyChanges(
             @Nonnull List<? extends OWLOntologyChange<?>> changes)
             throws OWLOntologyRenameException;
@@ -279,8 +279,8 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      * @throws OWLOntologyChangeException
      *         if there was a problem adding the axioms
      */
-    @Override
     @Nonnull
+    @Override
     List<OWLOntologyChange<?>> addAxioms(@Nonnull OWLOntology ont,
             @Nonnull Set<? extends OWLAxiom> axioms);
 
@@ -1057,6 +1057,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      * @return the collection of IRI mappers. This allows for iteration and
      *         modification of the list.
      */
+    @Nonnull
     PriorityCollection<OWLOntologyIRIMapper> getIRIMappers();
 
     /**
@@ -1076,6 +1077,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      * @return the collection of parsers. This allows for iteration and
      *         modification of the list.
      */
+    @Nonnull
     PriorityCollection<OWLParser> getOntologyParsers();
 
     /**
@@ -1095,6 +1097,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      * @return the collection of ontology factories. This allows for iteration
      *         and modification of the list.
      */
+    @Nonnull
     PriorityCollection<OWLOntologyFactory> getOntologyFactories();
 
     /**
@@ -1112,6 +1115,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      * @return the collection of storers. This allows for iteration and
      *         modification of the list.
      */
+    @Nonnull
     PriorityCollection<OWLOntologyStorer> getOntologyStorers();
 
     /**

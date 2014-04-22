@@ -38,6 +38,7 @@ public class RemoveImport extends ImportChange {
         super(ont, importDeclaration);
     }
 
+    @Nonnull
     @Override
     public RemoveImportData getChangeData() {
         return new RemoveImportData(getImportDeclaration());

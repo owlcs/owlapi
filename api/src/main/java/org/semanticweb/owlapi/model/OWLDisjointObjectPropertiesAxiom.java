@@ -29,11 +29,11 @@ public interface OWLDisjointObjectPropertiesAxiom extends
         OWLNaryPropertyAxiom<OWLObjectPropertyExpression>,
         OWLObjectPropertyAxiom {
 
-    @Override
     @Nonnull
+    @Override
     Set<OWLDisjointObjectPropertiesAxiom> asPairwiseAxioms();
 
-    @Override
     @Nonnull
+    @Override
     OWLDisjointObjectPropertiesAxiom getAxiomWithoutAnnotations();
 }

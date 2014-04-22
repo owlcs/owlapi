@@ -34,7 +34,7 @@ public interface OWLObjectRestriction extends OWLRestriction,
      * 
      * @return The property
      */
-    @Override
     @Nonnull
+    @Override
     OWLObjectPropertyExpression getProperty();
 }

@@ -38,6 +38,7 @@ public class RemoveOntologyAnnotation extends AnnotationChange {
         super(ont, annotation);
     }
 
+    @Nonnull
     @Override
     public OWLOntologyChangeData<OWLAnnotation> getChangeData() {
         return new RemoveOntologyAnnotationData(getAnnotation());

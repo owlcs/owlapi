@@ -28,11 +28,11 @@ import javax.annotation.Nonnull;
 public interface OWLDisjointDataPropertiesAxiom extends
         OWLNaryPropertyAxiom<OWLDataPropertyExpression>, OWLDataPropertyAxiom {
 
-    @Override
     @Nonnull
+    @Override
     Set<OWLDisjointDataPropertiesAxiom> asPairwiseAxioms();
 
-    @Override
     @Nonnull
+    @Override
     OWLDisjointDataPropertiesAxiom getAxiomWithoutAnnotations();
 }

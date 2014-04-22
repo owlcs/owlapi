@@ -31,8 +31,8 @@ public interface OWLHasValueRestriction<V extends OWLObject> extends
      * 
      * @return the value
      */
-    @Override
     @Nonnull
+    @Override
     V getFiller();
 
     /**

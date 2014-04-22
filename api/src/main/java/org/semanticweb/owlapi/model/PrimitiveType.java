@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.model;
 
 import java.io.Serializable;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group
@@ -34,7 +36,7 @@ public enum PrimitiveType implements Serializable, HasShortForm {
     private final String printName;
     private final String pluralPrintName;
 
-    PrimitiveType(EntityType<?> entityType) {
+    PrimitiveType(@Nonnull EntityType<?> entityType) {
         this(entityType.getShortForm(), entityType.getPrintName(), entityType
                 .getPluralPrintName());
     }

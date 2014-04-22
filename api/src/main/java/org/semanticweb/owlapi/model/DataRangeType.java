@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.model;
 
 import java.io.Serializable;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.vocab.Namespaces;
 
 /**
@@ -41,31 +43,38 @@ public enum DataRangeType
     /** Represents {@link OWLDataIntersectionOf} */
     DATA_INTERSECTION_OF("DataIntersectionOf");
 
+    @Nonnull
     private final String name;
+    @Nonnull
     private final String prefixedName;
+    @Nonnull
     private final IRI iri;
 
-    DataRangeType(String name) {
+    DataRangeType(@Nonnull String name) {
         this.name = name;
         prefixedName = Namespaces.OWL.getPrefixName() + ":" + name;
         iri = IRI.create(Namespaces.OWL.getPrefixIRI(), name);
     }
 
     /** @return the name */
+    @Nonnull
     public String getName() {
         return name;
     }
 
+    @Nonnull
     @Override
     public String getShortForm() {
         return name;
     }
 
+    @Nonnull
     @Override
     public IRI getIRI() {
         return iri;
     }
 
+    @Nonnull
     @Override
     public String getPrefixedName() {
         return prefixedName;

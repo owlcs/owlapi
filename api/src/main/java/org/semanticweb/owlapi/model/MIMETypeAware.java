@@ -2,6 +2,9 @@ package org.semanticweb.owlapi.model;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * Interface for MIME type aware objects. These can be instances of format,
  * parser or storer factories. Formats can use annotations for the same purpose,
@@ -19,6 +22,7 @@ public interface MIMETypeAware {
      * @return The default MIME Type for the OWLOntologyFormat that this class
      *         is a factory for or null if no MIME Types are specified.
      */
+    @Nullable
     String getDefaultMIMEType();
 
     /**
@@ -29,6 +33,7 @@ public interface MIMETypeAware {
      * @return A list of strings containing the known MIME types for this
      *         format.
      */
+    @Nonnull
     List<String> getMIMETypes();
 
     /**

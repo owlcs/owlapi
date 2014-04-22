@@ -35,7 +35,7 @@ public interface OWLPropertyDomainAxiom<P extends OWLPropertyExpression>
      * @return The class expression that represents the domain specified by this
      *         axiom.
      */
-    @Override
     @Nonnull
+    @Override
     OWLClassExpression getDomain();
 }

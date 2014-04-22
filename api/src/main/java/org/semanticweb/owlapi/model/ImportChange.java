@@ -27,6 +27,7 @@ import javax.annotation.Nonnull;
 public abstract class ImportChange extends
         OWLOntologyChange<OWLImportsDeclaration> {
 
+    @Nonnull
     private final OWLImportsDeclaration declaration;
 
     /**
