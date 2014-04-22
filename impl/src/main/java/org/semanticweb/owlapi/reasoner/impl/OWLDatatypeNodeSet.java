@@ -16,6 +16,7 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.reasoner.Node;
 
@@ -53,6 +54,7 @@ public class OWLDatatypeNodeSet extends DefaultNodeSet<OWLDatatype> {
         super(nodes);
     }
 
+    @Nonnull
     @Override
     protected DefaultNode<OWLDatatype> getNode(OWLDatatype entity) {
         return new OWLDatatypeNode(entity);

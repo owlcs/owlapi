@@ -16,6 +16,7 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.reasoner.Node;
 
@@ -56,6 +57,7 @@ public class OWLNamedIndividualNodeSet extends
         super(nodes);
     }
 
+    @Nonnull
     @Override
     protected DefaultNode<OWLNamedIndividual>
             getNode(OWLNamedIndividual entity) {

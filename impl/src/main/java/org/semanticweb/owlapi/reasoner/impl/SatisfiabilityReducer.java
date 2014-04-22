@@ -15,6 +15,7 @@ package org.semanticweb.owlapi.reasoner.impl;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
@@ -67,6 +68,7 @@ import org.semanticweb.owlapi.model.SWRLRule;
 public class SatisfiabilityReducer implements
         OWLAxiomVisitorEx<OWLClassExpression> {
 
+    @Nonnull
     private final OWLDataFactory df;
 
     /**
@@ -89,6 +91,7 @@ public class SatisfiabilityReducer implements
         return axiom.asOWLSubClassOfAxiom().accept(this);
     }
 
+    @Nullable
     @Override
     public OWLClassExpression visit(OWLAsymmetricObjectPropertyAxiom axiom) {
         return null;

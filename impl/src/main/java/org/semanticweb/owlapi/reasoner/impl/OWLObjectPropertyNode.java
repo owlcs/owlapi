@@ -16,6 +16,7 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
@@ -58,11 +59,13 @@ public class OWLObjectPropertyNode extends
     }
 
     /** @return top node */
+    @Nonnull
     public static OWLObjectPropertyNode getTopNode() {
         return TOP_OBJECT_NODE;
     }
 
     /** @return bottom node */
+    @Nonnull
     public static OWLObjectPropertyNode getBottomNode() {
         return BOTTOM_OBJECT_NODE;
     }

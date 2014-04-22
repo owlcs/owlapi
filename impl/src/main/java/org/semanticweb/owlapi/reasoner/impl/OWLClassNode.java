@@ -16,6 +16,7 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.model.OWLClass;
 
 /**
@@ -55,11 +56,13 @@ public class OWLClassNode extends DefaultNode<OWLClass> {
     }
 
     /** @return singleton top node */
+    @Nonnull
     public static OWLClassNode getTopNode() {
         return TOP_NODE;
     }
 
     /** @return singleton bottom node */
+    @Nonnull
     public static OWLClassNode getBottomNode() {
         return BOTTOM_NODE;
     }
