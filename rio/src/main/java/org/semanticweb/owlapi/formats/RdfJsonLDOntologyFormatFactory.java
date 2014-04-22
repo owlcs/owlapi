@@ -10,7 +10,7 @@ import org.semanticweb.owlapi.model.OWLOntologyFormatFactory;
  * @author Peter Ansell p_ansell@yahoo.com
  */
 @MetaInfServices(OWLOntologyFormatFactory.class)
-public class RdfJsonOntologyFormatFactory extends
+public class RdfJsonLDOntologyFormatFactory extends
         AbstractRioRDFOntologyFormatFactory implements
         RioRDFOntologyFormatFactory {
 
@@ -18,6 +18,6 @@ public class RdfJsonOntologyFormatFactory extends
 
     @Override
     public RioRDFOntologyFormat createFormat() {
-        return new RdfJsonOntologyFormat();
+        return new RdfJsonLDOntologyFormat();
     }
 }

@@ -120,8 +120,8 @@ public class RioUtils {
             }
         } else if (triple.getObject() instanceof RDFLiteral) {
             final RDFLiteral literalObject = (RDFLiteral) triple.getObject();
-            if(literalObject.isPlainLiteral()) {
-                if(literalObject.hasLang()) {
+            if (literalObject.isPlainLiteral()) {
+                if (literalObject.hasLang()) {
                     object = vf.createLiteral(literalObject.getLexicalValue(),
                             literalObject.getLang());
                 } else {

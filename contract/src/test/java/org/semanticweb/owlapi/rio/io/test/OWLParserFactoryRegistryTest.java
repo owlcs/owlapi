@@ -11,7 +11,7 @@ import org.semanticweb.owlapi.apibinding.OWLManager;
 @SuppressWarnings("javadoc")
 public class OWLParserFactoryRegistryTest {
 
-    private static final int EXPECTED_PARSERS = 15;
+    private static final int EXPECTED_PARSERS = 16;
 
     @Test
     public void setUp() {

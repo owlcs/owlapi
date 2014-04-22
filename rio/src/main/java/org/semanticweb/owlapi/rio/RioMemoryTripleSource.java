@@ -36,7 +36,6 @@
 package org.semanticweb.owlapi.rio;
 
 import info.aduna.iteration.CloseableIteration;
-import info.aduna.iteration.Iterations;
 
 import java.io.InputStream;
 import java.io.Reader;
@@ -52,8 +51,6 @@ import org.openrdf.model.Model;
 import org.openrdf.model.Namespace;
 import org.openrdf.model.Statement;
 import org.openrdf.model.util.Namespaces;
-import org.openrdf.repository.RepositoryException;
-import org.openrdf.repository.RepositoryResult;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
@@ -231,7 +228,7 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
     @Override
     public InputStream getInputStream() {
         throw new UnsupportedOperationException(
-                "No input stream available for RioMemoryTripleSource, use isReaderAvailable() to check");
+                "No input stream available for RioMemoryTripleSource, use isInputStreamAvailable() to check");
     }
 
     @Override
@@ -279,17 +276,6 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
     public void setNamespaces(Map<String, String> nextNamespaces) {
         namespaces.clear();
         namespaces.putAll(nextNamespaces);
-    }
-
-    /**
-     * @param namespaces
-     *        repository result to use to set the namespaces
-     * @throws RepositoryException
-     *         if an exception is raised setting the namespaces
-     */
-    public void setNamespaces(RepositoryResult<Namespace> namespaces)
-            throws RepositoryException {
-        setNamespaces(Namespaces.asMap(Iterations.asSet(namespaces)));
     }
 
     @Override
