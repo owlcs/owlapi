@@ -36,7 +36,7 @@
 package org.semanticweb.owlapi.rio;
 
 import org.kohsuke.MetaInfServices;
-import org.semanticweb.owlapi.formats.RdfJsonOntologyFormatFactory;
+import org.semanticweb.owlapi.formats.RdfJsonLDOntologyFormatFactory;
 import org.semanticweb.owlapi.formats.RioRDFOntologyFormatFactory;
 import org.semanticweb.owlapi.formats.RioRDFOntologyStorerFactory;
 import org.semanticweb.owlapi.model.OWLOntologyStorerFactory;
@@ -52,6 +52,6 @@ public class RioJsonLDOntologyStorerFactory extends
 
     @Override
     public RioRDFOntologyFormatFactory getFormatFactory() {
-        return new RdfJsonOntologyFormatFactory();
+        return new RdfJsonLDOntologyFormatFactory();
     }
 }

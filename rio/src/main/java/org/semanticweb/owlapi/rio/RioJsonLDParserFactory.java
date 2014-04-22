@@ -36,7 +36,7 @@
 package org.semanticweb.owlapi.rio;
 
 import org.kohsuke.MetaInfServices;
-import org.semanticweb.owlapi.formats.RdfJsonOntologyFormatFactory;
+import org.semanticweb.owlapi.formats.RdfJsonLDOntologyFormatFactory;
 import org.semanticweb.owlapi.formats.RioRDFOntologyFormatFactory;
 import org.semanticweb.owlapi.io.OWLParserFactory;
 
@@ -51,6 +51,6 @@ public class RioJsonLDParserFactory extends AbstractRioParserFactory implements
 
     @Override
     public RioRDFOntologyFormatFactory getRioFormatFactory() {
-        return new RdfJsonOntologyFormatFactory();
+        return new RdfJsonLDOntologyFormatFactory();
     }
 }
