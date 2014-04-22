@@ -35,6 +35,7 @@ import org.semanticweb.owlapi.util.BidirectionalShortFormProvider;
  */
 public class ShortFormEntityChecker implements OWLEntityChecker {
 
+    @Nonnull
     private final BidirectionalShortFormProvider shortFormProvider;
 
     /**
