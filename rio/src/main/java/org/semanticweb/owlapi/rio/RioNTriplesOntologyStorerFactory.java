@@ -39,33 +39,22 @@ import javax.annotation.Nonnull;
 
 import org.kohsuke.MetaInfServices;
 import org.semanticweb.owlapi.formats.NTriplesOntologyFormatFactory;
+import org.semanticweb.owlapi.formats.RioRDFOntologyFormatFactory;
 import org.semanticweb.owlapi.formats.RioRDFOntologyStorerFactory;
-import org.semanticweb.owlapi.model.OWLOntologyFormatFactory;
-import org.semanticweb.owlapi.model.OWLOntologyStorer;
 import org.semanticweb.owlapi.model.OWLOntologyStorerFactory;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com
  */
 @MetaInfServices(OWLOntologyStorerFactory.class)
-public class RioNTriplesOntologyStorerFactory implements
-        RioRDFOntologyStorerFactory {
+public class RioNTriplesOntologyStorerFactory extends
+        AbstractRioOntologyStorerFactory implements RioRDFOntologyStorerFactory {
 
     private static final long serialVersionUID = 40000L;
 
     @Nonnull
     @Override
-    public OWLOntologyStorer createStorer() {
-        return new RioOntologyStorer(new NTriplesOntologyFormatFactory());
-    }
-
-    @Override
-    public OWLOntologyFormatFactory getFormatFactory() {
+    public RioRDFOntologyFormatFactory getFormatFactory() {
         return new NTriplesOntologyFormatFactory();
-    }
-
-    @Override
-    public OWLOntologyStorer get() {
-        return createStorer();
     }
 }
