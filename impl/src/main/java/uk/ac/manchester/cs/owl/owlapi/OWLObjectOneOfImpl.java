@@ -20,6 +20,7 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
@@ -41,6 +42,7 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl
         implements OWLObjectOneOf {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final Set<OWLIndividual> values;
 
     @Override

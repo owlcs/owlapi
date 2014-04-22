@@ -18,6 +18,7 @@ import java.util.Collections;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
@@ -100,6 +101,7 @@ public class OWLObjectHasValueImpl extends
         return false;
     }
 
+    @Nonnull
     @Override
     @Deprecated
     public OWLClassExpression asSomeValuesFrom() {

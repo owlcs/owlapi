@@ -19,6 +19,7 @@ import java.util.Collections;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.model.SWRLArgument;
 import org.semanticweb.owlapi.model.SWRLPredicate;
 import org.semanticweb.owlapi.model.SWRLUnaryAtom;
@@ -52,6 +53,7 @@ public abstract class SWRLUnaryAtomImpl<A extends SWRLArgument> extends
         return arg;
     }
 
+    @Nonnull
     @Override
     public Collection<SWRLArgument> getAllArguments() {
         return Collections.singleton((SWRLArgument) arg);

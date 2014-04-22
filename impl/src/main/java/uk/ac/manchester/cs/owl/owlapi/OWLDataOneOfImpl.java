@@ -19,6 +19,7 @@ import java.util.TreeSet;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.model.DataRangeType;
 import org.semanticweb.owlapi.model.OWLDataOneOf;
 import org.semanticweb.owlapi.model.OWLDataRangeVisitor;
@@ -42,6 +43,7 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 public class OWLDataOneOfImpl extends OWLObjectImpl implements OWLDataOneOf {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final Set<OWLLiteral> values;
 
     @Override

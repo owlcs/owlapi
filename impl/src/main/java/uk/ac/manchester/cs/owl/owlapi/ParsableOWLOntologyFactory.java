@@ -23,6 +23,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.io.OWLOntologyCreationIOException;
@@ -86,7 +87,7 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
     }
 
     @Override
-    public boolean canLoad(OWLOntologyDocumentSource documentSource) {
+    public boolean canLoad(@Nonnull OWLOntologyDocumentSource documentSource) {
         if (documentSource.isReaderAvailable()) {
             return true;
         }
@@ -220,7 +221,7 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
      *        parsers
      * @return candidate parsers
      */
-    private PriorityCollection<OWLParser> getParsersByFormat(
+    private static PriorityCollection<OWLParser> getParsersByFormat(
             OWLOntologyDocumentSource documentSource,
             PriorityCollection<OWLParser> parsers) {
         if (!documentSource.isFormatKnown()) {
@@ -249,7 +250,7 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
      *        parsers
      * @return candidate parsers
      */
-    private PriorityCollection<OWLParser> getParserCandidatesByMIME(
+    private static PriorityCollection<OWLParser> getParserCandidatesByMIME(
             OWLOntologyDocumentSource documentSource,
             PriorityCollection<OWLParser> parsers) {
         if (!documentSource.isMIMETypeKnown()) {

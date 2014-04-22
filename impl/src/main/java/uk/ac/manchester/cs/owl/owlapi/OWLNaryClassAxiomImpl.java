@@ -23,6 +23,7 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLNaryClassAxiom;
@@ -39,6 +40,7 @@ public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
         OWLNaryClassAxiom {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final List<OWLClassExpression> classExpressions;
 
     /**

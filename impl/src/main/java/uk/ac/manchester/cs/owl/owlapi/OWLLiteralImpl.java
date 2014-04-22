@@ -305,7 +305,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
             }
         }
 
-        byte[] compress(String s) throws IOException {
+        static byte[] compress(String s) throws IOException {
             ByteArrayOutputStream out = new ByteArrayOutputStream();
             GZIPOutputStream zipout;
             zipout = new GZIPOutputStream(out);
@@ -317,7 +317,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
             return out.toByteArray();
         }
 
-        String decompress(byte[] result) throws IOException {
+        static String decompress(byte[] result) throws IOException {
             ByteArrayInputStream in = new ByteArrayInputStream(result);
             GZIPInputStream zipin = new GZIPInputStream(in);
             Reader reader = new InputStreamReader(zipin, COMPRESSED_ENCODING);

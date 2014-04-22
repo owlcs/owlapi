@@ -22,6 +22,7 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLNaryIndividualAxiom;
@@ -38,6 +39,7 @@ public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl
         implements OWLNaryIndividualAxiom {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final List<OWLIndividual> individuals;
 
     /**

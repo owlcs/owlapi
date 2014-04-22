@@ -16,6 +16,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.model.NodeID;
 import org.semanticweb.owlapi.model.OWLAnnotationSubjectVisitor;
 import org.semanticweb.owlapi.model.OWLAnnotationSubjectVisitorEx;
@@ -75,6 +76,7 @@ public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements
         return true;
     }
 
+    @Nonnull
     @Override
     public OWLAnonymousIndividual asOWLAnonymousIndividual() {
         return this;

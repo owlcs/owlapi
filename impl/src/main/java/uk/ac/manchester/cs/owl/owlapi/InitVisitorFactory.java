@@ -17,6 +17,9 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationSubject;
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
@@ -84,8 +87,9 @@ public class InitVisitorFactory {
             this.named = named;
         }
 
+        @Nullable
         @Override
-        public K visit(OWLSubClassOfAxiom axiom) {
+        public K visit(@Nonnull OWLSubClassOfAxiom axiom) {
             OWLClassExpression c = sub ? axiom.getSubClass() : axiom
                     .getSuperClass();
             if (named && c.isAnonymous()) {
@@ -94,53 +98,63 @@ public class InitVisitorFactory {
             return (K) c;
         }
 
+        @Nonnull
         @Override
-        public K visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
+        public K visit(@Nonnull OWLNegativeObjectPropertyAssertionAxiom axiom) {
             return (K) axiom.getSubject();
         }
 
+        @Nonnull
         @Override
-        public K visit(OWLAsymmetricObjectPropertyAxiom axiom) {
+        public K visit(@Nonnull OWLAsymmetricObjectPropertyAxiom axiom) {
             return (K) axiom.getProperty();
         }
 
+        @Nonnull
         @Override
-        public K visit(OWLReflexiveObjectPropertyAxiom axiom) {
+        public K visit(@Nonnull OWLReflexiveObjectPropertyAxiom axiom) {
             return (K) axiom.getProperty();
         }
 
+        @Nonnull
         @Override
-        public K visit(OWLDataPropertyDomainAxiom axiom) {
+        public K visit(@Nonnull OWLDataPropertyDomainAxiom axiom) {
             return (K) axiom.getProperty();
         }
 
+        @Nonnull
         @Override
-        public K visit(OWLObjectPropertyDomainAxiom axiom) {
+        public K visit(@Nonnull OWLObjectPropertyDomainAxiom axiom) {
             return (K) axiom.getProperty();
         }
 
+        @Nonnull
         @Override
-        public K visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
+        public K visit(@Nonnull OWLNegativeDataPropertyAssertionAxiom axiom) {
             return (K) axiom.getSubject();
         }
 
+        @Nonnull
         @Override
-        public K visit(OWLObjectPropertyRangeAxiom axiom) {
+        public K visit(@Nonnull OWLObjectPropertyRangeAxiom axiom) {
             return (K) axiom.getProperty();
         }
 
+        @Nonnull
         @Override
-        public K visit(OWLObjectPropertyAssertionAxiom axiom) {
+        public K visit(@Nonnull OWLObjectPropertyAssertionAxiom axiom) {
             return (K) axiom.getSubject();
         }
 
+        @Nonnull
         @Override
-        public K visit(OWLFunctionalObjectPropertyAxiom axiom) {
+        public K visit(@Nonnull OWLFunctionalObjectPropertyAxiom axiom) {
             return (K) axiom.getProperty();
         }
 
+        @Nonnull
         @Override
-        public K visit(OWLSubObjectPropertyOfAxiom axiom) {
+        public K visit(@Nonnull OWLSubObjectPropertyOfAxiom axiom) {
             if (sub) {
                 return (K) axiom.getSubProperty();
             } else {
@@ -148,28 +162,33 @@ public class InitVisitorFactory {
             }
         }
 
+        @Nonnull
         @Override
-        public K visit(OWLAnnotationAssertionAxiom axiom) {
+        public K visit(@Nonnull OWLAnnotationAssertionAxiom axiom) {
             return (K) axiom.getSubject();
         }
 
+        @Nonnull
         @Override
-        public K visit(OWLSymmetricObjectPropertyAxiom axiom) {
+        public K visit(@Nonnull OWLSymmetricObjectPropertyAxiom axiom) {
             return (K) axiom.getProperty();
         }
 
+        @Nonnull
         @Override
-        public K visit(OWLDataPropertyRangeAxiom axiom) {
+        public K visit(@Nonnull OWLDataPropertyRangeAxiom axiom) {
             return (K) axiom.getProperty();
         }
 
+        @Nonnull
         @Override
-        public K visit(OWLFunctionalDataPropertyAxiom axiom) {
+        public K visit(@Nonnull OWLFunctionalDataPropertyAxiom axiom) {
             return (K) axiom.getProperty();
         }
 
+        @Nullable
         @Override
-        public K visit(OWLClassAssertionAxiom axiom) {
+        public K visit(@Nonnull OWLClassAssertionAxiom axiom) {
             OWLClassExpression c = axiom.getClassExpression();
             if (named && c.isAnonymous()) {
                 return null;
@@ -177,23 +196,27 @@ public class InitVisitorFactory {
             return (K) c;
         }
 
+        @Nonnull
         @Override
-        public K visit(OWLDataPropertyAssertionAxiom axiom) {
+        public K visit(@Nonnull OWLDataPropertyAssertionAxiom axiom) {
             return (K) axiom.getSubject();
         }
 
+        @Nonnull
         @Override
-        public K visit(OWLTransitiveObjectPropertyAxiom axiom) {
+        public K visit(@Nonnull OWLTransitiveObjectPropertyAxiom axiom) {
             return (K) axiom.getProperty();
         }
 
+        @Nonnull
         @Override
-        public K visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
+        public K visit(@Nonnull OWLIrreflexiveObjectPropertyAxiom axiom) {
             return (K) axiom.getProperty();
         }
 
+        @Nonnull
         @Override
-        public K visit(OWLSubDataPropertyOfAxiom axiom) {
+        public K visit(@Nonnull OWLSubDataPropertyOfAxiom axiom) {
             if (sub) {
                 return (K) axiom.getSubProperty();
             } else {
@@ -201,13 +224,15 @@ public class InitVisitorFactory {
             }
         }
 
+        @Nonnull
         @Override
-        public K visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
+        public K visit(@Nonnull OWLInverseFunctionalObjectPropertyAxiom axiom) {
             return (K) axiom.getProperty();
         }
 
+        @Nullable
         @Override
-        public K visit(OWLHasKeyAxiom axiom) {
+        public K visit(@Nonnull OWLHasKeyAxiom axiom) {
             if (named && axiom.getClassExpression().isAnonymous()) {
                 return null;
             }
@@ -236,8 +261,9 @@ public class InitVisitorFactory {
             super(sub, named);
         }
 
+        @Nonnull
         @Override
-        public K visit(OWLClassAssertionAxiom axiom) {
+        public K visit(@Nonnull OWLClassAssertionAxiom axiom) {
             return (K) axiom.getIndividual();
         }
     }
@@ -262,8 +288,9 @@ public class InitVisitorFactory {
             this.named = named;
         }
 
+        @Nonnull
         @Override
-        public Collection<K> visit(OWLDisjointClassesAxiom axiom) {
+        public Collection<K> visit(@Nonnull OWLDisjointClassesAxiom axiom) {
             List<OWLClassExpression> list = new ArrayList<OWLClassExpression>(
                     axiom.getClassExpressions());
             if (named) {
@@ -272,7 +299,8 @@ public class InitVisitorFactory {
             return (Collection<K>) list;
         }
 
-        private void deleteAnonymousClasses(List<OWLClassExpression> list) {
+        private static void deleteAnonymousClasses(
+                @Nonnull List<OWLClassExpression> list) {
             for (int i = 0; i < list.size();) {
                 if (list.get(i).isAnonymous()) {
                     list.remove(i);
@@ -282,38 +310,49 @@ public class InitVisitorFactory {
             }
         }
 
+        @Nonnull
         @Override
-        public Collection<K> visit(OWLEquivalentObjectPropertiesAxiom axiom) {
+        public Collection<K> visit(
+                @Nonnull OWLEquivalentObjectPropertiesAxiom axiom) {
             return (Collection<K>) axiom.getProperties();
         }
 
+        @Nonnull
         @Override
-        public Collection<K> visit(OWLDifferentIndividualsAxiom axiom) {
+        public Collection<K> visit(@Nonnull OWLDifferentIndividualsAxiom axiom) {
             return (Collection<K>) axiom.getIndividuals();
         }
 
+        @Nonnull
         @Override
-        public Collection<K> visit(OWLDisjointDataPropertiesAxiom axiom) {
+        public Collection<K>
+                visit(@Nonnull OWLDisjointDataPropertiesAxiom axiom) {
             return (Collection<K>) axiom.getProperties();
         }
 
+        @Nonnull
         @Override
-        public Collection<K> visit(OWLDisjointObjectPropertiesAxiom axiom) {
+        public Collection<K> visit(
+                @Nonnull OWLDisjointObjectPropertiesAxiom axiom) {
             return (Collection<K>) axiom.getProperties();
         }
 
+        @Nonnull
         @Override
-        public Collection<K> visit(OWLDisjointUnionAxiom axiom) {
+        public Collection<K> visit(@Nonnull OWLDisjointUnionAxiom axiom) {
             return (Collection<K>) Collections.singleton(axiom.getOWLClass());
         }
 
+        @Nonnull
         @Override
-        public Collection<K> visit(OWLEquivalentDataPropertiesAxiom axiom) {
+        public Collection<K> visit(
+                @Nonnull OWLEquivalentDataPropertiesAxiom axiom) {
             return (Collection<K>) axiom.getProperties();
         }
 
+        @Nonnull
         @Override
-        public Collection<K> visit(OWLEquivalentClassesAxiom axiom) {
+        public Collection<K> visit(@Nonnull OWLEquivalentClassesAxiom axiom) {
             List<OWLClassExpression> list = new ArrayList<OWLClassExpression>(
                     axiom.getClassExpressions());
             if (named) {
@@ -322,13 +361,16 @@ public class InitVisitorFactory {
             return (Collection<K>) list;
         }
 
+        @Nonnull
         @Override
-        public Collection<K> visit(OWLSameIndividualAxiom axiom) {
+        public Collection<K> visit(@Nonnull OWLSameIndividualAxiom axiom) {
             return (Collection<K>) axiom.getIndividuals();
         }
 
+        @Nonnull
         @Override
-        public Collection<K> visit(OWLInverseObjectPropertiesAxiom axiom) {
+        public Collection<K> visit(
+                @Nonnull OWLInverseObjectPropertiesAxiom axiom) {
             return (Collection<K>) axiom.getProperties();
         }
     }

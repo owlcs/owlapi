@@ -16,6 +16,7 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
@@ -59,6 +60,7 @@ public class OWLObjectPropertyRangeAxiomImpl
         return super.equals(obj) && obj instanceof OWLObjectPropertyRangeAxiom;
     }
 
+    @Nonnull
     @Override
     public OWLObjectPropertyRangeAxiom getAxiomWithoutAnnotations() {
         if (!isAnnotated()) {

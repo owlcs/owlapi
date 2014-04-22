@@ -16,6 +16,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.model.OWLAnnotationValueVisitor;
 import org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx;
 import org.semanticweb.owlapi.model.OWLDataVisitor;
@@ -127,6 +128,7 @@ public class OWLLiteralImplBoolean extends OWLObjectImpl implements OWLLiteral {
                 "this literal is not a float but a boolean");
     }
 
+    @Nonnull
     @Override
     public String getLang() {
         return "";

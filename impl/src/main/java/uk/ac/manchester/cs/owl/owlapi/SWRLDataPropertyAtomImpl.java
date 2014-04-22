@@ -14,6 +14,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
@@ -54,6 +55,7 @@ public class SWRLDataPropertyAtomImpl extends
         super(predicate, arg0, arg1);
     }
 
+    @Nonnull
     @Override
     public OWLDataPropertyExpression getPredicate() {
         return (OWLDataPropertyExpression) super.getPredicate();

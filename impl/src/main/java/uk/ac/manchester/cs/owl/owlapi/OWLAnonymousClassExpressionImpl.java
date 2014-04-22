@@ -15,6 +15,8 @@ package uk.ac.manchester.cs.owl.owlapi;
 import java.util.Collections;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLAnonymousClassExpression;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -58,6 +60,7 @@ public abstract class OWLAnonymousClassExpressionImpl extends
         return new OWLObjectComplementOfImpl(this).accept(nnf);
     }
 
+    @Nonnull
     @Override
     public OWLClassExpression getObjectComplementOf() {
         return new OWLObjectComplementOfImpl(this);

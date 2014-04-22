@@ -17,6 +17,7 @@ import java.util.HashSet;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
@@ -70,6 +71,7 @@ public class OWLObjectExactCardinalityImpl extends
         return false;
     }
 
+    @Nonnull
     @Override
     public OWLClassExpression asIntersectionOfMinMax() {
         return new OWLObjectIntersectionOfImpl(new HashSet<OWLClassExpression>(

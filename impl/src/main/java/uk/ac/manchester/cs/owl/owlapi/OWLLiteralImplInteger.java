@@ -16,6 +16,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.model.OWLAnnotationValueVisitor;
 import org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx;
 import org.semanticweb.owlapi.model.OWLDataVisitor;
@@ -126,6 +127,7 @@ public class OWLLiteralImplInteger extends OWLObjectImpl implements OWLLiteral {
         throw new NumberFormatException("this literal is not a float but a int");
     }
 
+    @Nonnull
     @Override
     public String getLang() {
         return "";

@@ -21,6 +21,7 @@ import java.util.TreeSet;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLNaryBooleanClassExpression;
 import org.semanticweb.owlapi.model.OWLObject;
@@ -36,6 +37,7 @@ public abstract class OWLNaryBooleanClassExpressionImpl extends
         OWLNaryBooleanClassExpression {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final Set<OWLClassExpression> operands;
 
     /**

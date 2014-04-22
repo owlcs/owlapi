@@ -20,6 +20,7 @@ import java.util.TreeSet;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationObjectVisitor;
 import org.semanticweb.owlapi.model.OWLAnnotationObjectVisitorEx;
@@ -84,7 +85,7 @@ public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
 
     @Override
     public OWLAnnotation getAnnotatedAnnotation(
-            Set<OWLAnnotation> annotationsToAdd) {
+            @Nonnull Set<OWLAnnotation> annotationsToAdd) {
         if (annotationsToAdd.isEmpty()) {
             return this;
         }

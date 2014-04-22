@@ -20,6 +20,7 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.SWRLArgument;
 import org.semanticweb.owlapi.model.SWRLBinaryAtom;
@@ -48,6 +49,7 @@ public abstract class SWRLBinaryAtomImpl<A extends SWRLArgument, B extends SWRLA
         this.arg1 = checkNotNull(arg1, "arg1 cannot be null");
     }
 
+    @Nonnull
     @Override
     public Collection<SWRLArgument> getAllArguments() {
         List<SWRLArgument> objs = new ArrayList<SWRLArgument>();

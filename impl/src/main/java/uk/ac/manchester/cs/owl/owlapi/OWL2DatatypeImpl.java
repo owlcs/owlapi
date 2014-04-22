@@ -20,6 +20,7 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.model.DataRangeType;
 import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
@@ -72,6 +73,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
                 "owl2Datatype must not be null");
     }
 
+    @Nonnull
     private final OWL2Datatype owl2Datatype;
 
     @Override
@@ -119,6 +121,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
         return owl2Datatype == RDFS_LITERAL;
     }
 
+    @Nonnull
     @Override
     public OWLDatatype asOWLDatatype() {
         return this;

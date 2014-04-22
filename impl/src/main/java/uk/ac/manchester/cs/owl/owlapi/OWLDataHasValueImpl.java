@@ -18,6 +18,7 @@ import java.util.Collections;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
@@ -99,6 +100,7 @@ public class OWLDataHasValueImpl extends OWLValueRestrictionImpl<OWLLiteral>
         return value.compareTo(other.getFiller());
     }
 
+    @Nonnull
     @Override
     public OWLClassExpression asSomeValuesFrom() {
         return new OWLDataSomeValuesFromImpl(getProperty(),

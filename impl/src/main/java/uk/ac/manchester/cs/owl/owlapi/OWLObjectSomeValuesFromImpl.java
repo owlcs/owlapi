@@ -14,6 +14,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
@@ -75,7 +76,7 @@ public class OWLObjectSomeValuesFromImpl extends
     }
 
     @Override
-    public void accept(OWLClassExpressionVisitor visitor) {
+    public void accept(@Nonnull OWLClassExpressionVisitor visitor) {
         visitor.visit(this);
     }
 

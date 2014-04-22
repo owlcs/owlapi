@@ -17,6 +17,9 @@ import static org.semanticweb.owlapi.vocab.OWL2Datatype.*;
 import java.io.Serializable;
 import java.util.Locale;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -46,6 +49,7 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
             true, XSDBOOLEAN);
     private static final OWLLiteral falseLiteral = new OWLLiteralImplBoolean(
             false, XSDBOOLEAN);
+    @Nullable
     private OWLLiteral negativeFloatZero;
     private final boolean useCompression;
 
@@ -106,7 +110,7 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
     }
 
     @Override
-    public OWLLiteral getOWLLiteral(String literal, String lang) {
+    public OWLLiteral getOWLLiteral(String literal, @Nullable String lang) {
         String normalisedLang;
         if (lang == null) {
             normalisedLang = "";
@@ -197,13 +201,15 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
         return literal;
     }
 
-    protected OWLLiteral getBasicLiteral(String lexicalValue,
+    @Nonnull
+    protected OWLLiteral getBasicLiteral(@Nonnull String lexicalValue,
             OWLDatatype datatype) {
         return getBasicLiteral(lexicalValue, "", datatype);
     }
 
-    protected OWLLiteral getBasicLiteral(String lexicalValue, String lang,
-            OWLDatatype datatype) {
+    @Nonnull
+    protected OWLLiteral getBasicLiteral(@Nonnull String lexicalValue,
+            String lang, OWLDatatype datatype) {
         OWLLiteral literal = null;
         if (useCompression) {
             literal = new OWLLiteralImpl(lexicalValue, lang, datatype);
@@ -214,7 +220,7 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
         return literal;
     }
 
-    private boolean isBooleanTrueValue(String lexicalValue) {
+    private static boolean isBooleanTrueValue(@Nonnull String lexicalValue) {
         return lexicalValue.equals("1") || lexicalValue.equals("true");
     }
 

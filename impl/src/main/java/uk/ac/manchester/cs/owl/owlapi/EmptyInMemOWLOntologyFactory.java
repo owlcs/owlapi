@@ -12,7 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import javax.annotation.Nonnull;
 import javax.inject.Inject;
+
 
 import org.semanticweb.owlapi.formats.RDFXMLOntologyFormat;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
@@ -40,10 +42,11 @@ public class EmptyInMemOWLOntologyFactory extends
      *        injected ontology builder
      */
     @Inject
-    public EmptyInMemOWLOntologyFactory(OWLOntologyBuilder builder) {
+    public EmptyInMemOWLOntologyFactory(@Nonnull OWLOntologyBuilder builder) {
         super(builder);
     }
 
+    @Nonnull
     @Override
     public OWLOntology loadOWLOntology(OWLOntologyManager m,
             OWLOntologyDocumentSource documentSource,

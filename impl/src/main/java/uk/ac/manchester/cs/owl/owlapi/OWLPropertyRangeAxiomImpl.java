@@ -18,6 +18,7 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
@@ -71,7 +72,7 @@ public abstract class OWLPropertyRangeAxiomImpl<P extends OWLPropertyExpression,
     }
 
     @Override
-    protected int compareObjectOfSameType(OWLObject object) {
+    protected int compareObjectOfSameType(@Nonnull OWLObject object) {
         int diff = getProperty().compareTo(
                 ((OWLPropertyRangeAxiom<?, ?>) object).getProperty());
         if (diff != 0) {

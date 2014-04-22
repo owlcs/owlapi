@@ -14,6 +14,8 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import java.lang.ref.WeakReference;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -36,7 +38,8 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
 
         private static final long serialVersionUID = 40000L;
 
-        public V cache(IRI s, Buildable v) {
+        @Nonnull
+        public V cache(IRI s, @Nonnull Buildable v) {
             WeakReference<V> w = prefixCache.get(s);
             if (w != null) {
                 V toReturn = w.get();
@@ -52,11 +55,17 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
         }
     }
 
+    @Nonnull
     private final BuildableWeakIndexCache<OWLClass> classesByURI;
+    @Nonnull
     private final BuildableWeakIndexCache<OWLObjectProperty> objectPropertiesByURI;
+    @Nonnull
     private final BuildableWeakIndexCache<OWLDataProperty> dataPropertiesByURI;
+    @Nonnull
     private final BuildableWeakIndexCache<OWLDatatype> datatypesByURI;
+    @Nonnull
     private final BuildableWeakIndexCache<OWLNamedIndividual> individualsByURI;
+    @Nonnull
     private final BuildableWeakIndexCache<OWLAnnotationProperty> annotationPropertiesByURI;
     private final WeakIndexCache<Integer, OWLLiteral> intCache = new WeakIndexCache<Integer, OWLLiteral>();
     private final WeakIndexCache<Double, OWLLiteral> doubleCache = new WeakIndexCache<Double, OWLLiteral>();
@@ -64,6 +73,7 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
     private final WeakIndexCache<String, OWLLiteral> stringCache = new WeakIndexCache<String, OWLLiteral>();
     private final WeakCache<OWLLiteral> litCache = new WeakCache<OWLLiteral>();
 
+    @Nonnull
     protected <V extends OWLEntity> BuildableWeakIndexCache<V> buildCache() {
         return new BuildableWeakIndexCache<V>();
     }
@@ -102,8 +112,10 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
         return doubleCache.cache(value, super.getOWLLiteral(value));
     }
 
+    @Nonnull
     @Override
-    public OWLLiteral getOWLLiteral(String lexicalValue, OWLDatatype datatype) {
+    public OWLLiteral getOWLLiteral(@Nonnull String lexicalValue,
+            @Nonnull OWLDatatype datatype) {
         OWLLiteral literal = super.getOWLLiteral(lexicalValue, datatype);
         // no caches for booleans, they are singleton in owldatafactory
         if (datatype.isBoolean()) {
@@ -131,6 +143,7 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
     protected enum Buildable {
         OWLCLASS {
 
+            @Nonnull
             @Override
             OWLClass build(IRI iri) {
                 return new OWLClassImpl(iri);
@@ -138,20 +151,23 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
         },
         OWLOBJECTPROPERTY {
 
+            @Nonnull
             @Override
-            OWLObjectProperty build(IRI iri) {
+            OWLObjectProperty build(@Nonnull IRI iri) {
                 return new OWLObjectPropertyImpl(iri);
             }
         },
         OWLDATAPROPERTY {
 
+            @Nonnull
             @Override
-            OWLDataProperty build(IRI iri) {
+            OWLDataProperty build(@Nonnull IRI iri) {
                 return new OWLDataPropertyImpl(iri);
             }
         },
         OWLNAMEDINDIVIDUAL {
 
+            @Nonnull
             @Override
             OWLNamedIndividual build(IRI iri) {
                 return new OWLNamedIndividualImpl(iri);
@@ -159,22 +175,26 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
         },
         OWLDATATYPE {
 
+            @Nonnull
             @Override
-            OWLDatatype build(IRI iri) {
+            OWLDatatype build(@Nonnull IRI iri) {
                 return new OWLDatatypeImpl(iri);
             }
         },
         OWLANNOTATIONPROPERTY {
 
+            @Nonnull
             @Override
             OWLAnnotationProperty build(IRI iri) {
                 return new OWLAnnotationPropertyImpl(iri);
             }
         };
 
+        @Nonnull
         abstract <K extends OWLEntity> K build(IRI iri);
     }
 
+    @Nonnull
     @Override
     public OWLClass getOWLClass(IRI iri) {
         return classesByURI.cache(iri, Buildable.OWLCLASS);
@@ -195,26 +215,31 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
         stringCache.clear();
     }
 
+    @Nonnull
     @Override
     public OWLObjectProperty getOWLObjectProperty(IRI iri) {
         return objectPropertiesByURI.cache(iri, Buildable.OWLOBJECTPROPERTY);
     }
 
+    @Nonnull
     @Override
     public OWLDataProperty getOWLDataProperty(IRI iri) {
         return dataPropertiesByURI.cache(iri, Buildable.OWLDATAPROPERTY);
     }
 
+    @Nonnull
     @Override
     public OWLNamedIndividual getOWLNamedIndividual(IRI iri) {
         return individualsByURI.cache(iri, Buildable.OWLNAMEDINDIVIDUAL);
     }
 
+    @Nonnull
     @Override
     public OWLDatatype getOWLDatatype(IRI iri) {
         return datatypesByURI.cache(iri, Buildable.OWLDATATYPE);
     }
 
+    @Nonnull
     @Override
     public OWLAnnotationProperty getOWLAnnotationProperty(IRI iri) {
         return annotationPropertiesByURI.cache(iri,

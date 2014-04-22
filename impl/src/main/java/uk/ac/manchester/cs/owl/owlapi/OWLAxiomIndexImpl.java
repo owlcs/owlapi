@@ -6,6 +6,8 @@ import static org.semanticweb.owlapi.model.parameters.Search.*;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
@@ -65,6 +67,7 @@ public abstract class OWLAxiomIndexImpl extends OWLObjectImpl implements
         OWLAxiomIndex {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     protected Internals ints = new Internals();
 
     @Override

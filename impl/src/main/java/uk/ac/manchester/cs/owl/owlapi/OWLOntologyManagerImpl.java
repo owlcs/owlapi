@@ -33,6 +33,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.io.FileDocumentSource;
@@ -291,6 +292,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         return onts;
     }
 
+    @Nullable
     @Override
     public OWLOntology getImportedOntology(OWLImportsDeclaration declaration) {
         OWLOntologyID ontologyID = ontologyIDsByImportsDeclaration

@@ -20,6 +20,7 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
@@ -86,6 +87,7 @@ public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass,
         return ClassExpressionType.OWL_CLASS;
     }
 
+    @Nonnull
     @Override
     public OWLClassExpression getObjectComplementOf() {
         return new OWLObjectComplementOfImpl(this);

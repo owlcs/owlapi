@@ -14,6 +14,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
@@ -50,6 +51,7 @@ public class SWRLClassAtomImpl extends SWRLUnaryAtomImpl<SWRLIArgument>
         super(predicate, arg);
     }
 
+    @Nonnull
     @Override
     public OWLClassExpression getPredicate() {
         return (OWLClassExpression) super.getPredicate();

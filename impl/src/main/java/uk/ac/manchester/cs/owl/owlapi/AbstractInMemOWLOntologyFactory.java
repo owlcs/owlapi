@@ -17,6 +17,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyBuilder;
@@ -53,7 +54,7 @@ public abstract class AbstractInMemOWLOntologyFactory implements
     @Override
     public OWLOntology createOWLOntology(@Nonnull OWLOntologyManager manager,
             @Nonnull OWLOntologyID ontologyID, IRI documentIRI,
-            OWLOntologyCreationHandler handler)
+            @Nonnull OWLOntologyCreationHandler handler)
             throws OWLOntologyCreationException {
         OWLOntology ont = builder.createOWLOntology(manager, ontologyID);
         handler.ontologyCreated(ont);

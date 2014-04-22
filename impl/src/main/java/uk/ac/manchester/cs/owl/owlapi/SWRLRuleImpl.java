@@ -107,6 +107,7 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
         this(body, head, Collections.<OWLAnnotation> emptyList());
     }
 
+    @Nonnull
     @Override
     public Set<SWRLVariable> getVariables() {
         Set<SWRLVariable> toReturn = null;

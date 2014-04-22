@@ -17,6 +17,7 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
@@ -63,6 +64,7 @@ public class OWLObjectUnionOfImpl extends OWLNaryBooleanClassExpressionImpl
         return false;
     }
 
+    @Nonnull
     @Override
     public Set<OWLClassExpression> asDisjunctSet() {
         Set<OWLClassExpression> disjuncts = new HashSet<OWLClassExpression>();
