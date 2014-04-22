@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.vocab;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.HasPrefixedName;
 import org.semanticweb.owlapi.model.HasShortForm;
@@ -46,12 +48,13 @@ public enum SWRLVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     /** ARGUMENT_2 */                   ARGUMENT_2              ("argument2");
 //@formatter:on
     private final String shortName;
+    @Nonnull
     private final IRI iri;
     private final String prefixedName;
 
     SWRLVocabulary(String name) {
         shortName = name;
-        this.prefixedName = Namespaces.SWRL.getPrefixName() + ":" + name;
+        prefixedName = Namespaces.SWRL.getPrefixName() + ":" + name;
         iri = IRI.create(Namespaces.SWRL.toString(), name);
     }
 

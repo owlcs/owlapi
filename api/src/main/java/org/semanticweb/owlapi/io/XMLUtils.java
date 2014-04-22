@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.io;
 
+import javax.annotation.Nullable;
+
 /**
  * This class contains various methods for checking QNames, NCNames etc. The
  * implementation is based on the <a href="http://www.w3.org/TR/xml-names/">W3C
@@ -233,6 +235,7 @@ public class XMLUtils {
      *         {@code s} that is an NCName, or {@code null} if the character
      *         sequence {@code s} does not have a suffix that is an NCName.
      */
+    @Nullable
     public static String getNCNameSuffix(CharSequence s) {
         if (s.length() > 1 && s.charAt(0) == '_' && s.charAt(1) == ':') {
             return null;

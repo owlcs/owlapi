@@ -21,6 +21,8 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.zip.GZIPOutputStream;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
@@ -49,6 +51,7 @@ public class GZipFileDocumentTarget implements OWLOntologyDocumentTarget {
         return isOutputStreamAvailable();
     }
 
+    @Nonnull
     @Override
     public Writer getWriter() {
         if (!isWriterAvailable()) {

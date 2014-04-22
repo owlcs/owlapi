@@ -37,6 +37,7 @@ public abstract class PrefixOWLOntologyFormat extends OWLOntologyFormat
         implements PrefixManager {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private PrefixManager nsm;
 
     /** default constructor */

@@ -78,6 +78,7 @@ public enum XSDVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     /** UNSIGNED_BYTE */        UNSIGNED_BYTE   ("unsignedByte");
     // @formatter:on
     private final String shortName;
+    @Nonnull
     private final IRI iri;
     private final String prefixedName;
 

@@ -15,6 +15,8 @@ package org.semanticweb.owlapi.io;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
@@ -45,7 +47,7 @@ public class RDFResourceParseError {
      *        the main node triples
      */
     public RDFResourceParseError(OWLEntity parserGeneratedErrorEntity,
-            RDFNode mainNode, Set<RDFTriple> mainNodeTriples) {
+            RDFNode mainNode, @Nonnull Set<RDFTriple> mainNodeTriples) {
         this.parserGeneratedErrorEntity = parserGeneratedErrorEntity;
         this.mainNode = mainNode;
         this.mainNodeTriples.addAll(mainNodeTriples);

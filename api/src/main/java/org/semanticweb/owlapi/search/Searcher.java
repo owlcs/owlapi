@@ -311,8 +311,8 @@ public class Searcher {
      *        axioms
      * @return equivalent entities
      */
-    @SuppressWarnings("unchecked")
     @Nonnull
+    @SuppressWarnings("unchecked")
     public static <C extends OWLObject> Collection<C> equivalent(
             @Nonnull Collection<? extends OWLAxiom> axioms) {
         return (Collection<C>) equivalent(axioms, OWLObject.class);
@@ -368,10 +368,10 @@ public class Searcher {
      *        axioms
      * @return disjoint entities
      */
-    @SuppressWarnings("unchecked")
     @Nonnull
+    @SuppressWarnings("unchecked")
     public static <C extends OWLObject> Collection<C> different(
-            Collection<? extends OWLAxiom> axioms) {
+            @Nonnull Collection<? extends OWLAxiom> axioms) {
         return (Collection<C>) different(axioms, OWLObject.class);
     }
 
@@ -422,10 +422,10 @@ public class Searcher {
      *        axioms
      * @return sub expressions
      */
-    @SuppressWarnings("unchecked")
     @Nonnull
+    @SuppressWarnings("unchecked")
     public static <C extends OWLObject> Collection<C> sub(
-            Collection<? extends OWLAxiom> axioms) {
+            @Nonnull Collection<? extends OWLAxiom> axioms) {
         return (Collection<C>) sub(axioms, OWLObject.class);
     }
 
@@ -502,8 +502,8 @@ public class Searcher {
      *        axioms
      * @return sub expressions
      */
-    @SuppressWarnings("unchecked")
     @Nonnull
+    @SuppressWarnings("unchecked")
     public static <C extends OWLObject> Collection<C> sup(
             @Nonnull Collection<? extends OWLAxiom> axioms) {
         return (Collection<C>) sup(axioms, OWLObject.class);
@@ -531,8 +531,8 @@ public class Searcher {
      *        axioms
      * @return sub expressions
      */
-    @SuppressWarnings("unchecked")
     @Nonnull
+    @SuppressWarnings("unchecked")
     public static <C extends OWLObject> Collection<C> domain(
             @Nonnull Collection<? extends OWLAxiom> axioms) {
         return (Collection<C>) domain(axioms, OWLObject.class);
@@ -583,8 +583,8 @@ public class Searcher {
      *        axioms
      * @return sub expressions
      */
-    @SuppressWarnings("unchecked")
     @Nonnull
+    @SuppressWarnings("unchecked")
     public static <C extends OWLObject> Collection<C> range(
             @Nonnull Collection<? extends OWLAxiom> axioms) {
         return (Collection<C>) range(axioms, OWLObject.class);
@@ -636,7 +636,8 @@ public class Searcher {
      *        property
      * @return true for transitive properties
      */
-    public static boolean isTransitive(OWLOntology o, OWLObjectProperty e) {
+    public static boolean isTransitive(@Nonnull OWLOntology o,
+            OWLObjectProperty e) {
         return !o.getTransitiveObjectPropertyAxioms(e).isEmpty();
     }
 
@@ -649,7 +650,8 @@ public class Searcher {
      *        property
      * @return true for symmetric properties
      */
-    public static boolean isSymmetric(OWLOntology o, OWLObjectProperty e) {
+    public static boolean isSymmetric(@Nonnull OWLOntology o,
+            OWLObjectProperty e) {
         return !o.getSymmetricObjectPropertyAxioms(e).isEmpty();
     }
 
@@ -662,7 +664,8 @@ public class Searcher {
      *        property
      * @return true for asymmetric properties
      */
-    public static boolean isAsymmetric(OWLOntology o, OWLObjectProperty e) {
+    public static boolean isAsymmetric(@Nonnull OWLOntology o,
+            OWLObjectProperty e) {
         return !o.getAsymmetricObjectPropertyAxioms(e).isEmpty();
     }
 
@@ -675,7 +678,8 @@ public class Searcher {
      *        property
      * @return true for reflexive properties
      */
-    public static boolean isReflexive(OWLOntology o, OWLObjectProperty e) {
+    public static boolean isReflexive(@Nonnull OWLOntology o,
+            OWLObjectProperty e) {
         return !o.getReflexiveObjectPropertyAxioms(e).isEmpty();
     }
 
@@ -688,7 +692,8 @@ public class Searcher {
      *        property
      * @return true for irreflexive properties
      */
-    public static boolean isIrreflexive(OWLOntology o, OWLObjectProperty e) {
+    public static boolean isIrreflexive(@Nonnull OWLOntology o,
+            OWLObjectProperty e) {
         return !o.getIrreflexiveObjectPropertyAxioms(e).isEmpty();
     }
 
@@ -701,8 +706,8 @@ public class Searcher {
      *        property
      * @return true for inverse functional properties
      */
-    public static boolean
-            isInverseFunctional(OWLOntology o, OWLObjectProperty e) {
+    public static boolean isInverseFunctional(@Nonnull OWLOntology o,
+            OWLObjectProperty e) {
         return !o.getInverseFunctionalObjectPropertyAxioms(e).isEmpty();
     }
 
@@ -715,7 +720,8 @@ public class Searcher {
      *        property
      * @return true for functional object properties
      */
-    public static boolean isFunctional(OWLOntology o, OWLObjectProperty e) {
+    public static boolean isFunctional(@Nonnull OWLOntology o,
+            OWLObjectProperty e) {
         return !o.getFunctionalObjectPropertyAxioms(e).isEmpty();
     }
 
@@ -728,7 +734,8 @@ public class Searcher {
      *        property
      * @return true for functional data properties
      */
-    public static boolean isFunctional(OWLOntology o, OWLDataProperty e) {
+    public static boolean
+            isFunctional(@Nonnull OWLOntology o, OWLDataProperty e) {
         return !o.getFunctionalDataPropertyAxioms(e).isEmpty();
     }
 
@@ -741,7 +748,7 @@ public class Searcher {
      *        class
      * @return true for defined classes
      */
-    public static boolean isDefined(OWLOntology o, OWLClass c) {
+    public static boolean isDefined(@Nonnull OWLOntology o, OWLClass c) {
         return !o.getEquivalentClassesAxioms(c).isEmpty();
     }
 }

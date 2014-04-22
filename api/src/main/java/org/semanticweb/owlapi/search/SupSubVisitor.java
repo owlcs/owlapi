@@ -1,5 +1,7 @@
 package org.semanticweb.owlapi.search;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
@@ -17,23 +19,27 @@ class SupSubVisitor<C extends OWLObject> extends OWLAxiomVisitorExAdapter<C> {
         this.sup = sup;
     }
 
+    @Nonnull
     @Override
-    public C visit(OWLSubAnnotationPropertyOfAxiom axiom) {
+    public C visit(@Nonnull OWLSubAnnotationPropertyOfAxiom axiom) {
         return (C) (sup ? axiom.getSuperProperty() : axiom.getSubProperty());
     }
 
+    @Nonnull
     @Override
-    public C visit(OWLSubClassOfAxiom axiom) {
+    public C visit(@Nonnull OWLSubClassOfAxiom axiom) {
         return (C) (sup ? axiom.getSuperClass() : axiom.getSubClass());
     }
 
+    @Nonnull
     @Override
-    public C visit(OWLSubDataPropertyOfAxiom axiom) {
+    public C visit(@Nonnull OWLSubDataPropertyOfAxiom axiom) {
         return (C) (sup ? axiom.getSuperProperty() : axiom.getSubProperty());
     }
 
+    @Nonnull
     @Override
-    public C visit(OWLSubObjectPropertyOfAxiom axiom) {
+    public C visit(@Nonnull OWLSubObjectPropertyOfAxiom axiom) {
         return (C) (sup ? axiom.getSuperProperty() : axiom.getSubProperty());
     }
 }

@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.io;
 
 import java.io.IOException;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 /**
@@ -33,7 +35,7 @@ public class OWLOntologyCreationIOException extends
      * @param ioException
      *        the cause
      */
-    public OWLOntologyCreationIOException(IOException ioException) {
+    public OWLOntologyCreationIOException(@Nonnull IOException ioException) {
         super("OWLOntologyCreationIOException: " + ioException.getMessage(),
                 ioException);
     }

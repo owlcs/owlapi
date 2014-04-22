@@ -25,6 +25,7 @@ import java.io.Writer;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.model.IRI;
 
 /**
@@ -54,6 +55,7 @@ public class FileDocumentTarget implements OWLOntologyDocumentTarget {
         return true;
     }
 
+    @Nonnull
     @Override
     public Writer getWriter() throws IOException {
         return new BufferedWriter(new FileWriter(file));

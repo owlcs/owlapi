@@ -3,6 +3,8 @@ package org.semanticweb.owlapi.search;
 import java.util.Collections;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
@@ -26,69 +28,78 @@ class EquivalentVisitor<C extends OWLObject> extends
         this.equiv = equiv;
     }
 
+    @Nonnull
     @Override
     protected Set<C> doDefault(OWLAxiom axiom) {
         return Collections.emptySet();
     }
 
+    @Nonnull
     @Override
-    public Set<C> visit(OWLEquivalentClassesAxiom axiom) {
+    public Set<C> visit(@Nonnull OWLEquivalentClassesAxiom axiom) {
         if (equiv) {
             return (Set<C>) axiom.getClassExpressions();
         }
         return Collections.emptySet();
     }
 
+    @Nonnull
     @Override
-    public Set<C> visit(OWLEquivalentDataPropertiesAxiom axiom) {
+    public Set<C> visit(@Nonnull OWLEquivalentDataPropertiesAxiom axiom) {
         if (equiv) {
             return (Set<C>) axiom.getProperties();
         }
         return Collections.emptySet();
     }
 
+    @Nonnull
     @Override
-    public Set<C> visit(OWLEquivalentObjectPropertiesAxiom axiom) {
+    public Set<C> visit(@Nonnull OWLEquivalentObjectPropertiesAxiom axiom) {
         if (equiv) {
             return (Set<C>) axiom.getProperties();
         }
         return Collections.emptySet();
     }
 
+    @Nonnull
     @Override
-    public Set<C> visit(OWLDifferentIndividualsAxiom axiom) {
+    public Set<C> visit(@Nonnull OWLDifferentIndividualsAxiom axiom) {
         if (!equiv) {
             return (Set<C>) axiom.getIndividuals();
         }
         return Collections.emptySet();
     }
 
+    @Nonnull
     @Override
-    public Set<C> visit(OWLSameIndividualAxiom axiom) {
+    public Set<C> visit(@Nonnull OWLSameIndividualAxiom axiom) {
         if (equiv) {
             return (Set<C>) axiom.getIndividuals();
         }
         return Collections.emptySet();
     }
 
+    @Nonnull
     @Override
-    public Set<C> visit(OWLDisjointClassesAxiom axiom) {
+    public Set<C> visit(@Nonnull OWLDisjointClassesAxiom axiom) {
         if (!equiv) {
             return (Set<C>) axiom.getClassExpressions();
         }
         return Collections.emptySet();
     }
 
+    @Nonnull
     @Override
-    public Set<C> visit(OWLDisjointDataPropertiesAxiom axiom) {
+    public Set<C> visit(@Nonnull OWLDisjointDataPropertiesAxiom axiom) {
         if (!equiv) {
             return (Set<C>) axiom.getProperties();
         }
         return Collections.emptySet();
     }
 
+    @Nonnull
     @Override
-    public Set<C> visit(OWLDisjointObjectPropertiesAxiom axiom) {
+    public Set<C> visit(@Nonnull OWLDisjointObjectPropertiesAxiom axiom) {
         if (!equiv) {
             return (Set<C>) axiom.getProperties();
         }

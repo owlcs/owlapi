@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.annotations.SupportsMIMEType;
 import org.semanticweb.owlapi.model.OWLOntologyFormatFactory;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
@@ -51,6 +53,7 @@ public class OWLParserFactoryImpl<T extends OWLParser> implements
         return createParser();
     }
 
+    @Nullable
     @Override
     public String getDefaultMIMEType() {
         SupportsMIMEType annotation = type

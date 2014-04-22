@@ -16,6 +16,8 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.HasPrefixedName;
 import org.semanticweb.owlapi.model.HasShortForm;
@@ -53,6 +55,7 @@ public enum OWLFacet implements HasShortForm, HasIRI, HasPrefixedName {
         }
         FACET_IRIS = Collections.unmodifiableSet(iris);
     }
+    @Nonnull
     private final IRI iri;
     private final String shortForm;
     private final String symbolicForm;

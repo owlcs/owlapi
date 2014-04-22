@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.vocab;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.HasPrefixedName;
 import org.semanticweb.owlapi.model.HasShortForm;
@@ -102,6 +104,7 @@ public enum SWRLBuiltInsVocabulary
 //@formatter:on
     private final String shortName;
     private final String prefixedName;
+    @Nonnull
     private final IRI iri;
     // Arity of the predicate (-1 if infinite)
     private final int minArity;
@@ -113,7 +116,7 @@ public enum SWRLBuiltInsVocabulary
 
     SWRLBuiltInsVocabulary(String name, int minArity, int maxArity) {
         shortName = name;
-        this.prefixedName = Namespaces.SWRLB.getPrefixName() + ":" + name;
+        prefixedName = Namespaces.SWRLB.getPrefixName() + ":" + name;
         iri = IRI.create(Namespaces.SWRLB.toString(), name);
         this.minArity = minArity;
         this.maxArity = maxArity;

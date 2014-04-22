@@ -17,6 +17,8 @@ import static org.semanticweb.owlapi.model.EntityType.*;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.HasPrefixedName;
@@ -92,13 +94,14 @@ public enum SKOSVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
         }
     }
     private final String localName;
+    @Nonnull
     private final IRI iri;
     private final EntityType<?> entityType;
     private final String prefixedName;
 
     SKOSVocabulary(String localname, EntityType<?> entityType) {
         localName = localname;
-        this.prefixedName = Namespaces.SKOS.getPrefixName() + ":" + localname;
+        prefixedName = Namespaces.SKOS.getPrefixName() + ":" + localname;
         this.entityType = entityType;
         iri = IRI.create(Namespaces.SKOS.toString(), localname);
     }

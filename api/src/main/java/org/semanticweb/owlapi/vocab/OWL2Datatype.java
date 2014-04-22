@@ -49,6 +49,8 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
 
 
 
+
+
 //@formatter:off
     /** RDF_XML_LITERAL */          RDF_XML_LITERAL          (RDF,  "XMLLiteral",   Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, false, ".*"), 
     /** RDFS_LITERAL */             RDFS_LITERAL             (RDFS, "Literal",      Category.CAT_UNIVERSAL,                   false, ".*"),
@@ -121,6 +123,7 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
      * 
      * @return The Pattern string. Not null.
      */
+    @Nonnull
     public String getPatternString() {
         return regExpression;
     }
@@ -147,6 +150,7 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
      * @throws OWLRuntimeException
      *         if the specified IRI is not a built in datatype IRI.
      */
+    @Nonnull
     public static OWL2Datatype getDatatype(IRI datatype) {
         if (!isBuiltIn(datatype)) {
             throw new OWLRuntimeException(datatype
@@ -161,15 +165,17 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
     }
 
     private final String shortForm;
+    @Nonnull
     private final IRI iri;
     private final Category category;
     private final boolean finite;
     private Pattern pattern;
+    @Nonnull
     private final String regExpression;
     private final String prefixedName;
 
-    OWL2Datatype(Namespaces namespace, String shortForm, Category category,
-            boolean finite, String regEx) {
+    OWL2Datatype(@Nonnull Namespaces namespace, @Nonnull String shortForm,
+            Category category, boolean finite, @Nonnull String regEx) {
         iri = IRI.create(namespace.toString(), shortForm);
         this.shortForm = shortForm;
         prefixedName = namespace.getPrefixName() + ":" + shortForm;
@@ -181,8 +187,8 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
         }
     }
 
-    OWL2Datatype(XSDVocabulary xsd, Category category, boolean finite,
-            String regEx) {
+    OWL2Datatype(@Nonnull XSDVocabulary xsd, Category category, boolean finite,
+            @Nonnull String regEx) {
         iri = xsd.getIRI();
         shortForm = xsd.getShortForm();
         prefixedName = xsd.getPrefixedName();
@@ -197,6 +203,7 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
         return shortForm;
     }
 
+    @Nonnull
     @Override
     public IRI getIRI() {
         return iri;
@@ -247,6 +254,7 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
      * @return An {@link OWLDatatype} that has the same IRI as this
      *         {@link OWL2Datatype}. Not {@code null}.
      */
+    @Nonnull
     public OWLDatatype getDatatype(@Nonnull OWLDataFactory factory) {
         checkNotNull(factory, "factory cannot be null");
         return factory.getOWLDatatype(getIRI());
@@ -260,7 +268,7 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
      * @return {@code true} if the string is in the lexical space, otherwise
      *         {@code false}
      */
-    public boolean isInLexicalSpace(String s) {
+    public boolean isInLexicalSpace(@Nonnull String s) {
         return pattern.matcher(s).matches();
     }
 
@@ -327,7 +335,7 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
          *        The string to normalise
          * @return The normalised string
          */
-        public String getNormalisedString(String s) {
+        public String getNormalisedString(@Nonnull String s) {
             switch (this) {
                 case REPLACE:
                     return s.replaceAll("\\t|\\n|\\r", " ");

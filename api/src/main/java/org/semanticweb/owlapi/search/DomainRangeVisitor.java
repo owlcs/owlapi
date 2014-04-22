@@ -1,5 +1,8 @@
 package org.semanticweb.owlapi.search;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
@@ -20,48 +23,54 @@ class DomainRangeVisitor<C extends OWLObject> extends
         this.range = range;
     }
 
+    @Nullable
     @Override
-    public C visit(OWLAnnotationPropertyDomainAxiom axiom) {
+    public C visit(@Nonnull OWLAnnotationPropertyDomainAxiom axiom) {
         if (!range) {
             return (C) axiom.getDomain();
         }
         return null;
     }
 
+    @Nullable
     @Override
-    public C visit(OWLAnnotationPropertyRangeAxiom axiom) {
+    public C visit(@Nonnull OWLAnnotationPropertyRangeAxiom axiom) {
         if (range) {
             return (C) axiom.getRange();
         }
         return null;
     }
 
+    @Nullable
     @Override
-    public C visit(OWLDataPropertyDomainAxiom axiom) {
+    public C visit(@Nonnull OWLDataPropertyDomainAxiom axiom) {
         if (!range) {
             return (C) axiom.getDomain();
         }
         return null;
     }
 
+    @Nullable
     @Override
-    public C visit(OWLDataPropertyRangeAxiom axiom) {
+    public C visit(@Nonnull OWLDataPropertyRangeAxiom axiom) {
         if (range) {
             return (C) axiom.getRange();
         }
         return null;
     }
 
+    @Nullable
     @Override
-    public C visit(OWLObjectPropertyDomainAxiom axiom) {
+    public C visit(@Nonnull OWLObjectPropertyDomainAxiom axiom) {
         if (!range) {
             return (C) axiom.getDomain();
         }
         return null;
     }
 
+    @Nullable
     @Override
-    public C visit(OWLObjectPropertyRangeAxiom axiom) {
+    public C visit(@Nonnull OWLObjectPropertyRangeAxiom axiom) {
         if (range) {
             return (C) axiom.getRange();
         }

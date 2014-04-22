@@ -20,6 +20,7 @@ import java.io.Writer;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
@@ -32,7 +33,7 @@ public abstract class AbstractOWLRenderer implements OWLRenderer {
     protected AbstractOWLRenderer() {}
 
     @Override
-    public void render(OWLOntology ontology, OutputStream os)
+    public void render(OWLOntology ontology, @Nonnull OutputStream os)
             throws OWLRendererException {
         try {
             Writer writer = new BufferedWriter(new OutputStreamWriter(os,

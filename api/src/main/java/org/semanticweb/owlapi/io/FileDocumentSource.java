@@ -25,6 +25,7 @@ import java.io.UnsupportedEncodingException;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
@@ -90,6 +91,7 @@ public class FileDocumentSource extends OWLOntologyDocumentSourceBase {
         return true;
     }
 
+    @Nonnull
     @Override
     public InputStream getInputStream() {
         try {

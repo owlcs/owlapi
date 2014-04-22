@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -20,12 +22,14 @@ class AnnotationVisitor<C> extends OWLAxiomVisitorExAdapter<Set<C>> {
         this.value = value;
     }
 
+    @Nonnull
     @Override
-    protected Set<C> doDefault(OWLAxiom axiom) {
+    protected Set<C> doDefault(@Nonnull OWLAxiom axiom) {
         return get(axiom.getAnnotations());
     }
 
-    private Set<C> get(Collection<OWLAnnotation> collection) {
+    @Nonnull
+    private Set<C> get(@Nonnull Collection<OWLAnnotation> collection) {
         Set<C> toReturn = new HashSet<C>();
         for (OWLAnnotation c : collection) {
             if (value) {
@@ -37,8 +41,9 @@ class AnnotationVisitor<C> extends OWLAxiomVisitorExAdapter<Set<C>> {
         return toReturn;
     }
 
+    @Nonnull
     @Override
-    public Set<C> visit(OWLAnnotationAssertionAxiom axiom) {
+    public Set<C> visit(@Nonnull OWLAnnotationAssertionAxiom axiom) {
         if (value) {
             return Collections.singleton((C) axiom.getValue());
         }

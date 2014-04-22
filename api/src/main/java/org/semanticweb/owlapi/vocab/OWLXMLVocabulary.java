@@ -15,6 +15,8 @@ package org.semanticweb.owlapi.vocab;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.HasPrefixedName;
 import org.semanticweb.owlapi.model.HasShortForm;
@@ -132,6 +134,7 @@ public enum OWLXMLVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     /** VARIABLE                            */  VARIABLE                            ("Variable"),
     /** DESCRIPTION_GRAPH_RULE              */  DESCRIPTION_GRAPH_RULE              ("DescriptionGraphRule");
 //@formatter:on
+    @Nonnull
     private final IRI iri;
     private final String shortName;
     private final String prefixedName;

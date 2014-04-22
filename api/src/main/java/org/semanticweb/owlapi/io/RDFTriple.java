@@ -70,6 +70,7 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple> {
                 new RDFResourceIRI(predicate), getResource(object, objectAnon));
     }
 
+    @Nonnull
     private static RDFResource getResource(IRI iri, boolean anon) {
         if (anon) {
             return new RDFResourceBlankNode(iri);
@@ -146,7 +147,7 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple> {
             OWL_DISJOINT_WITH.getIRI(), OWL_ON_PROPERTY.getIRI(),
             OWL_DATA_RANGE.getIRI(), OWL_ON_CLASS.getIRI());
 
-    private int getIndex(IRI iri) {
+    private static int getIndex(IRI iri) {
         int index = orderedURIs.indexOf(iri);
         if (index == -1) {
             index = orderedURIs.size();

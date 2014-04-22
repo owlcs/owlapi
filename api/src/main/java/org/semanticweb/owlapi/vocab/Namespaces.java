@@ -17,6 +17,8 @@ import static org.semanticweb.owlapi.vocab.Namespaces.Status.IN_USE;
 
 import java.util.EnumSet;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.IRI;
 
 /**
@@ -142,7 +144,7 @@ public enum Namespaces {
      *        namespace
      * @return this namespace without hash or slash at the end
      */
-    private static String hashless(String ns) {
+    private static String hashless(@Nonnull String ns) {
         int index = ns.length() - 1;
         if (ns.charAt(index) == '/' || ns.charAt(index) == '#') {
             return ns.substring(0, index);

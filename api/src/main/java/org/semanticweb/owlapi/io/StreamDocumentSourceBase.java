@@ -26,6 +26,7 @@ import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
@@ -46,6 +47,7 @@ public abstract class StreamDocumentSourceBase extends
     protected final IRI documentIRI;
     protected byte[] byteBuffer;
     private String encoding = "UTF-8";
+    @Nullable
     private Boolean streamAvailable = null;
 
     /**

@@ -16,6 +16,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleRenderer;
@@ -32,6 +33,7 @@ import org.semanticweb.owlapi.util.SimpleRenderer;
  */
 public class ToStringRenderer {
 
+    @Nonnull
     private static ToStringRenderer instance = new ToStringRenderer();
     private OWLObjectRenderer renderer;
 

@@ -16,6 +16,8 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.HasPrefixedName;
 import org.semanticweb.owlapi.model.HasShortForm;
@@ -27,6 +29,8 @@ import org.semanticweb.owlapi.model.IRI;
  * @since 2.0.0
  */
 public enum OWLRDFVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
+
+
 
 
     //@formatter:off
@@ -161,6 +165,7 @@ public enum OWLRDFVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     /** http://www.w3.org/2002/07/owl#propertyChain                     **/    @Deprecated    OWL_PROPERTY_CHAIN(Namespaces.OWL, "propertyChain");
     
     //@formatter:on
+    @Nonnull
     final IRI iri;
     final Namespaces namespace;
     final String shortName;
@@ -169,7 +174,7 @@ public enum OWLRDFVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     OWLRDFVocabulary(Namespaces namespace, String shortName) {
         this.namespace = namespace;
         this.shortName = shortName;
-        this.prefixedName = namespace.getPrefixName() + ":" + shortName;
+        prefixedName = namespace.getPrefixName() + ":" + shortName;
         iri = IRI.create(namespace.toString(), shortName);
     }
 

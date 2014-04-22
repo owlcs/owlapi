@@ -25,6 +25,7 @@ import java.util.zip.ZipOutputStream;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
@@ -50,6 +51,7 @@ public class ZipDocumentTarget implements OWLOntologyDocumentTarget {
         return false;
     }
 
+    @Nonnull
     @Override
     public Writer getWriter() {
         throw new OWLRuntimeException(

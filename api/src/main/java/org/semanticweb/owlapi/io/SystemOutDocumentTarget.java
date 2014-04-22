@@ -16,6 +16,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Writer;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
@@ -28,6 +30,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  */
 public class SystemOutDocumentTarget implements OWLOntologyDocumentTarget {
 
+    @Nonnull
     @Override
     public IRI getDocumentIRI() {
         throw new OWLRuntimeException(

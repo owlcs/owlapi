@@ -15,6 +15,8 @@ package org.semanticweb.owlapi.vocab;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.HasPrefixedName;
 import org.semanticweb.owlapi.model.HasShortForm;
@@ -49,6 +51,7 @@ public enum DublinCoreVocabulary
 //@formatter:on
     private final String shortName;
     private final String qname;
+    @Nonnull
     private final IRI iri;
     /** Dublin Core name space */
     public static final String NAME_SPACE = "http://purl.org/dc/elements/1.1/";

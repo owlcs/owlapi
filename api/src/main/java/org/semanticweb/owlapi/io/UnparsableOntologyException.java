@@ -15,6 +15,8 @@ package org.semanticweb.owlapi.io;
 import java.util.Collections;
 import java.util.Map;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
@@ -42,7 +44,7 @@ public class UnparsableOntologyException extends OWLOntologyCreationException {
      * @param config
      *        the configuration object
      */
-    public UnparsableOntologyException(IRI documentIRI,
+    public UnparsableOntologyException(@Nonnull IRI documentIRI,
             Map<OWLParser, OWLParserException> exceptions,
             OWLOntologyLoaderConfiguration config) {
         super("Could not parse ontology from document IRI: "

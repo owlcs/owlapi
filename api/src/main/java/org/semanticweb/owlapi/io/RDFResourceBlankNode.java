@@ -16,6 +16,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.NodeID;
 
@@ -72,6 +73,7 @@ public class RDFResourceBlankNode extends RDFResource {
         return resource.equals(other.resource);
     }
 
+    @Nonnull
     @Override
     public String toString() {
         return resource.toString();

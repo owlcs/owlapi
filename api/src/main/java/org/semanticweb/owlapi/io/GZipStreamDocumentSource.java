@@ -21,6 +21,8 @@ import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.util.zip.GZIPInputStream;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
@@ -74,7 +76,7 @@ public class GZipStreamDocumentSource extends OWLOntologyDocumentSourceBase {
         readIntoBuffer(stream);
     }
 
-    private void readIntoBuffer(InputStream reader) {
+    private void readIntoBuffer(@Nonnull InputStream reader) {
         try {
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             int length = 100000;

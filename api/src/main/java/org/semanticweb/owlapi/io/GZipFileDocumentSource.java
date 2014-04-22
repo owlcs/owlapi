@@ -22,6 +22,7 @@ import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.util.zip.GZIPInputStream;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
@@ -82,6 +83,7 @@ public class GZipFileDocumentSource extends OWLOntologyDocumentSourceBase {
         return file.exists();
     }
 
+    @Nonnull
     @Override
     public InputStream getInputStream() {
         try {

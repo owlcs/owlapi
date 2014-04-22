@@ -17,6 +17,8 @@ import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.io.RDFParserMetaData;
 import org.semanticweb.owlapi.io.RDFResourceParseError;
 import org.semanticweb.owlapi.model.OWLEntity;
@@ -63,7 +65,8 @@ public abstract class RDFOntologyFormat extends PrefixOWLOntologyFormat {
      *         signature of one of the imported ontologies, {@code true} if none
      *         of the previous conditions are met.
      */
-    public static boolean isMissingType(OWLEntity entity, OWLOntology ontology) {
+    public static boolean isMissingType(@Nonnull OWLEntity entity,
+            OWLOntology ontology) {
         // We don't need to declare built in entities
         if (entity.isBuiltIn()) {
             return false;
