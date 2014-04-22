@@ -20,6 +20,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import org.obolibrary.oboformat.model.Clause;
 import org.obolibrary.oboformat.model.Frame;
 import org.obolibrary.oboformat.model.Frame.FrameType;
@@ -41,6 +44,7 @@ import org.slf4j.LoggerFactory;
 public class OBOFormatWriter {
 
     private static Logger LOG = LoggerFactory.getLogger(OBOFormatWriter.class);
+    @Nonnull
     private static HashSet<String> tagsInformative = buildTagsInformative();
     private boolean isCheckStructure = true;
 
@@ -57,6 +61,7 @@ public class OBOFormatWriter {
         this.isCheckStructure = isCheckStructure;
     }
 
+    @Nonnull
     private static HashSet<String> buildTagsInformative() {
         HashSet<String> set = new HashSet<String>();
         set.add(OboFormatTag.TAG_IS_A.getTag());
@@ -89,7 +94,8 @@ public class OBOFormatWriter {
      * @throws OBOFormatParserException
      *         the oBO format parser exception
      */
-    public void write(String fn, BufferedWriter writer) throws IOException {
+    public void write(@Nonnull String fn, @Nonnull BufferedWriter writer)
+            throws IOException {
         if (fn.startsWith("http:")) {
             write(new URL(fn), writer);
         } else {
@@ -111,7 +117,8 @@ public class OBOFormatWriter {
      * @throws OBOFormatParserException
      *         the oBO format parser exception
      */
-    public void write(URL url, BufferedWriter writer) throws IOException {
+    public void write(@Nonnull URL url, @Nonnull BufferedWriter writer)
+            throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(
                 url.openStream()));
         write(reader, writer);
@@ -127,7 +134,7 @@ public class OBOFormatWriter {
      * @throws OBOFormatParserException
      *         the oBO format parser exception
      */
-    public void write(BufferedReader reader, BufferedWriter writer)
+    public void write(BufferedReader reader, @Nonnull BufferedWriter writer)
             throws IOException {
         OBOFormatParser parser = new OBOFormatParser();
         OBODoc doc = parser.parse(reader);
@@ -142,7 +149,8 @@ public class OBOFormatWriter {
      * @throws IOException
      *         Signals that an I/O exception has occurred.
      */
-    public void write(OBODoc doc, String outFile) throws IOException {
+    public void write(@Nonnull OBODoc doc, @Nonnull String outFile)
+            throws IOException {
         FileOutputStream os = new FileOutputStream(new File(outFile));
         OutputStreamWriter osw = new OutputStreamWriter(os,
                 OBOFormatConstants.DEFAULT_CHARACTER_ENCODING);
@@ -159,7 +167,8 @@ public class OBOFormatWriter {
      * @throws IOException
      *         Signals that an I/O exception has occurred.
      */
-    public void write(OBODoc doc, BufferedWriter writer) throws IOException {
+    public void write(@Nonnull OBODoc doc, @Nonnull BufferedWriter writer)
+            throws IOException {
         NameProvider nameProvider = new OBODocNameProvider(doc);
         write(doc, writer, nameProvider);
     }
@@ -174,7 +183,7 @@ public class OBOFormatWriter {
      * @throws IOException
      *         Signals that an I/O exception has occurred.
      */
-    public void write(OBODoc doc, BufferedWriter writer,
+    public void write(@Nonnull OBODoc doc, @Nonnull BufferedWriter writer,
             NameProvider nameProvider) throws IOException {
         if (isCheckStructure) {
             doc.check();
@@ -201,21 +210,24 @@ public class OBOFormatWriter {
         }
     }
 
-    private void writeLine(StringBuilder ln, BufferedWriter writer)
-            throws IOException {
+    private static void writeLine(@Nonnull StringBuilder ln,
+            @Nonnull BufferedWriter writer) throws IOException {
         ln.append('\n');
         writer.write(ln.toString());
     }
 
-    private void writeLine(String ln, BufferedWriter writer) throws IOException {
+    private static void writeLine(String ln, @Nonnull BufferedWriter writer)
+            throws IOException {
         writer.write(ln + "\n");
     }
 
-    private void writeEmptyLine(BufferedWriter writer) throws IOException {
+    private static void writeEmptyLine(@Nonnull BufferedWriter writer)
+            throws IOException {
         writer.write("\n");
     }
 
-    private List<String> duplicateTags(Set<String> src) {
+    @Nonnull
+    private static List<String> duplicateTags(@Nonnull Set<String> src) {
         List<String> tags = new ArrayList<String>(src.size());
         for (String tag : src) {
             tags.add(tag);
@@ -235,8 +247,9 @@ public class OBOFormatWriter {
      * @throws IOException
      *         Signals that an I/O exception has occurred.
      */
-    public void writeHeader(Frame frame, BufferedWriter writer,
-            NameProvider nameProvider) throws IOException {
+    public void writeHeader(@Nonnull Frame frame,
+            @Nonnull BufferedWriter writer, NameProvider nameProvider)
+            throws IOException {
         List<String> tags = duplicateTags(frame.getTags());
         Collections.sort(tags, HeaderTagsComparator.instance);
         write(new Clause(OboFormatTag.TAG_FORMAT_VERSION.getTag(), "1.2"),
@@ -276,8 +289,8 @@ public class OBOFormatWriter {
      * @throws IOException
      *         Signals that an I/O exception has occurred.
      */
-    public void write(Frame frame, BufferedWriter writer,
-            NameProvider nameProvider) throws IOException {
+    public void write(@Nonnull Frame frame, @Nonnull BufferedWriter writer,
+            @Nullable NameProvider nameProvider) throws IOException {
         Comparator<String> comparator = null;
         if (frame.getType() == FrameType.TERM) {
             writeLine("[Term]", writer);
@@ -350,8 +363,8 @@ public class OBOFormatWriter {
         writeEmptyLine(writer);
     }
 
-    private void writeXRefClause(Clause clause, BufferedWriter writer)
-            throws IOException {
+    private void writeXRefClause(@Nonnull Clause clause,
+            @Nonnull BufferedWriter writer) throws IOException {
         Xref xref = clause.getValue(Xref.class);
         if (xref != null) {
             StringBuilder sb = new StringBuilder();
@@ -381,8 +394,8 @@ public class OBOFormatWriter {
         }
     }
 
-    private void writeSynonymtypedef(Clause clause, BufferedWriter writer)
-            throws IOException {
+    private void writeSynonymtypedef(@Nonnull Clause clause,
+            @Nonnull BufferedWriter writer) throws IOException {
         StringBuilder sb = new StringBuilder();
         sb.append(clause.getTag());
         sb.append(": ");
@@ -405,8 +418,8 @@ public class OBOFormatWriter {
         writeLine(sb, writer);
     }
 
-    private void writeHeaderDate(Clause clause, BufferedWriter writer)
-            throws IOException {
+    private static void writeHeaderDate(@Nonnull Clause clause,
+            @Nonnull BufferedWriter writer) throws IOException {
         StringBuilder sb = new StringBuilder();
         sb.append(clause.getTag());
         sb.append(": ");
@@ -426,8 +439,9 @@ public class OBOFormatWriter {
         writeLine(sb, writer);
     }
 
-    private void writeIdSpace(Clause cl, BufferedWriter writer)
-            throws IOException {
+    private void
+            writeIdSpace(@Nonnull Clause cl, @Nonnull BufferedWriter writer)
+                    throws IOException {
         StringBuilder sb = new StringBuilder();
         sb.append(cl.getTag());
         sb.append(": ");
@@ -451,8 +465,8 @@ public class OBOFormatWriter {
         writeLine(sb, writer);
     }
 
-    private void writeClauseWithQuotedString(Clause clause,
-            BufferedWriter writer) throws IOException {
+    private void writeClauseWithQuotedString(@Nonnull Clause clause,
+            @Nonnull BufferedWriter writer) throws IOException {
         StringBuilder sb = new StringBuilder();
         sb.append(clause.getTag());
         sb.append(": ");
@@ -490,7 +504,8 @@ public class OBOFormatWriter {
         writeLine(sb, writer);
     }
 
-    private void appendXrefs(StringBuilder sb, Collection<Xref> xrefs) {
+    private static void appendXrefs(@Nonnull StringBuilder sb,
+            @Nonnull Collection<Xref> xrefs) {
         List<Xref> sortedXrefs = new ArrayList<Xref>(xrefs);
         Collections.sort(sortedXrefs, XrefComparator.instance);
         sb.append(" [");
@@ -532,8 +547,9 @@ public class OBOFormatWriter {
      * @throws IOException
      *         Signals that an I/O exception has occurred.
      */
-    public void writeDef(Clause clause, BufferedWriter writer)
-            throws IOException {
+    public void
+            writeDef(@Nonnull Clause clause, @Nonnull BufferedWriter writer)
+                    throws IOException {
         writeClauseWithQuotedString(clause, writer);
     }
 
@@ -547,8 +563,8 @@ public class OBOFormatWriter {
      * @throws IOException
      *         Signals that an I/O exception has occurred.
      */
-    public void writePropertyValue(Clause clause, BufferedWriter writer)
-            throws IOException {
+    public void writePropertyValue(@Nonnull Clause clause,
+            @Nonnull BufferedWriter writer) throws IOException {
         Collection<?> cols = clause.getValues();
         if (cols.size() < 2) {
             LOG.error("The {} has incorrect number of values: {}",
@@ -589,8 +605,8 @@ public class OBOFormatWriter {
      * @throws IOException
      *         Signals that an I/O exception has occurred.
      */
-    public void writeSynonym(Clause clause, BufferedWriter writer)
-            throws IOException {
+    public void writeSynonym(@Nonnull Clause clause,
+            @Nonnull BufferedWriter writer) throws IOException {
         Collection<Xref> xrefs = clause.getXrefs();
         // xrefs in synonyms must never be null, otherwise this will generate
         // invalid obo
@@ -612,8 +628,8 @@ public class OBOFormatWriter {
      * @throws IOException
      *         Signals that an I/O exception has occurred.
      */
-    public void write(Clause clause, BufferedWriter writer,
-            NameProvider nameProvider) throws IOException {
+    public void write(@Nonnull Clause clause, @Nonnull BufferedWriter writer,
+            @Nullable NameProvider nameProvider) throws IOException {
         if (OboFormatTag.TAG_IS_OBSELETE.getTag().equals(clause.getTag())) {
             // only write the obsolete tag if the value is Boolean.TRUE or
             // "true"
@@ -679,7 +695,7 @@ public class OBOFormatWriter {
         writeLine(sb, writer);
     }
 
-    private boolean isOpaqueIdentifier(String value) {
+    private static boolean isOpaqueIdentifier(@Nullable String value) {
         boolean result = false;
         if (value != null && value.length() > 0) {
             // check for colon
@@ -701,7 +717,8 @@ public class OBOFormatWriter {
         return result;
     }
 
-    private void appendQualifiers(StringBuilder sb, Clause clause) {
+    private static void appendQualifiers(@Nonnull StringBuilder sb,
+            @Nonnull Clause clause) {
         Collection<QualifierValue> qvs = clause.getQualifierValues();
         if (qvs != null && qvs.size() > 0) {
             sb.append(" {");
@@ -737,7 +754,9 @@ public class OBOFormatWriter {
         simple
     }
 
-    private CharSequence escapeOboString(String in, EscapeMode mode) {
+    @Nonnull
+    private static CharSequence escapeOboString(@Nonnull String in,
+            EscapeMode mode) {
         boolean modfied = false;
         StringBuilder sb = new StringBuilder();
         int length = in.length();
@@ -789,8 +808,10 @@ public class OBOFormatWriter {
     private static class HeaderTagsComparator implements Comparator<String> {
 
         static final HeaderTagsComparator instance = new HeaderTagsComparator();
+        @Nonnull
         private static Hashtable<String, Integer> tagsPriorities = buildTagsPriorities();
 
+        @Nonnull
         private static Hashtable<String, Integer> buildTagsPriorities() {
             Hashtable<String, Integer> table = new Hashtable<String, Integer>();
             table.put(OboFormatTag.TAG_FORMAT_VERSION.getTag(), 0);
@@ -837,8 +858,10 @@ public class OBOFormatWriter {
     private static class TermsTagsComparator implements Comparator<String> {
 
         static final TermsTagsComparator instance = new TermsTagsComparator();
+        @Nonnull
         private static Hashtable<String, Integer> tagsPriorities = buildTagsPriorities();
 
+        @Nonnull
         private static Hashtable<String, Integer> buildTagsPriorities() {
             Hashtable<String, Integer> table = new Hashtable<String, Integer>();
             table.put(OboFormatTag.TAG_ID.getTag(), 5);
@@ -889,7 +912,7 @@ public class OBOFormatWriter {
         protected static final ClauseListComparator instance = new ClauseListComparator();
 
         @Override
-        public int compare(Clause c1, Clause c2) {
+        public int compare(@Nonnull Clause c1, @Nonnull Clause c2) {
             String t1 = c1.getTag();
             String t2 = c2.getTag();
             int compare = TermsTagsComparator.instance.compare(t1, t2);
@@ -907,7 +930,7 @@ public class OBOFormatWriter {
      * @param clauses
      *        the clauses
      */
-    public static void sortTermClauses(List<Clause> clauses) {
+    public static void sortTermClauses(@Nonnull List<Clause> clauses) {
         Collections.sort(clauses, ClauseListComparator.instance);
     }
 
@@ -915,8 +938,10 @@ public class OBOFormatWriter {
     private static class TypeDefTagsComparator implements Comparator<String> {
 
         static final TypeDefTagsComparator instance = new TypeDefTagsComparator();
+        @Nonnull
         private static Hashtable<String, Integer> tagsPriorities = buildTagsPriorities();
 
+        @Nonnull
         private static Hashtable<String, Integer> buildTagsPriorities() {
             Hashtable<String, Integer> table = new Hashtable<String, Integer>();
             table.put(OboFormatTag.TAG_ID.getTag(), 5);
@@ -983,7 +1008,7 @@ public class OBOFormatWriter {
         static final FramesComparator instance = new FramesComparator();
 
         @Override
-        public int compare(Frame f1, Frame f2) {
+        public int compare(@Nonnull Frame f1, @Nonnull Frame f2) {
             return f1.getId().compareTo(f2.getId());
         }
     }
@@ -997,7 +1022,7 @@ public class OBOFormatWriter {
         static final ClauseComparator instance = new ClauseComparator();
 
         @Override
-        public int compare(Clause o1, Clause o2) {
+        public int compare(@Nonnull Clause o1, @Nonnull Clause o2) {
             // special case for intersections
             String tag = o1.getTag();
             if (OboFormatTag.TAG_INTERSECTION_OF.getTag().equals(tag)) {
@@ -1027,7 +1052,8 @@ public class OBOFormatWriter {
          *        the o2
          * @return the int
          */
-        private int compareValues(Object o1, Object o2) {
+        private static int compareValues(@Nullable Object o1,
+                @Nullable Object o2) {
             String s1 = toStringRepresentation(o1);
             String s2 = toStringRepresentation(o2);
             if (o1 == null && o2 == null) {
@@ -1054,7 +1080,8 @@ public class OBOFormatWriter {
          *        the obj
          * @return toString representation
          */
-        private String toStringRepresentation(Object obj) {
+        @Nullable
+        private static String toStringRepresentation(@Nullable Object obj) {
             String s = null;
             if (obj != null) {
                 if (obj instanceof Xref) {
@@ -1076,7 +1103,7 @@ public class OBOFormatWriter {
         static final XrefComparator instance = new XrefComparator();
 
         @Override
-        public int compare(Xref x1, Xref x2) {
+        public int compare(@Nonnull Xref x1, @Nonnull Xref x2) {
             String idref1 = x1.getIdref();
             String idref2 = x2.getIdref();
             if (idref1 == null && idref2 == null) {
@@ -1106,6 +1133,7 @@ public class OBOFormatWriter {
          *        identifier
          * @return name or null
          */
+        @Nullable
         String getName(String id);
 
         /**
@@ -1113,6 +1141,7 @@ public class OBOFormatWriter {
          * 
          * @return default OBO namespace or null
          */
+        @Nullable
         String getDefaultOboNamespace();
     }
 
@@ -1122,7 +1151,9 @@ public class OBOFormatWriter {
      */
     public static class OBODocNameProvider implements NameProvider {
 
+        @Nonnull
         private final OBODoc oboDoc;
+        @Nullable
         private final String defaultOboNamespace;
 
         /**
@@ -1131,7 +1162,7 @@ public class OBOFormatWriter {
          * @param oboDoc
          *        the obo doc
          */
-        public OBODocNameProvider(OBODoc oboDoc) {
+        public OBODocNameProvider(@Nonnull OBODoc oboDoc) {
             super();
             this.oboDoc = oboDoc;
             Frame headerFrame = oboDoc.getHeaderFrame();
@@ -1143,6 +1174,7 @@ public class OBOFormatWriter {
             }
         }
 
+        @Nullable
         @Override
         public String getName(String id) {
             String name = null;
@@ -1159,6 +1191,7 @@ public class OBOFormatWriter {
             return name;
         }
 
+        @Nullable
         @Override
         public String getDefaultOboNamespace() {
             return defaultOboNamespace;

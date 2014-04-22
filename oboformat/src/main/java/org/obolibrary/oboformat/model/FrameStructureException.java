@@ -1,5 +1,7 @@
 package org.obolibrary.oboformat.model;
 
+import javax.annotation.Nonnull;
+
 /** The Class FrameStructureException. */
 public class FrameStructureException extends DocumentStructureException {
 
@@ -24,7 +26,7 @@ public class FrameStructureException extends DocumentStructureException {
      * @param msg
      *        the msg
      */
-    public FrameStructureException(Frame frame, String msg) {
+    public FrameStructureException(@Nonnull Frame frame, String msg) {
         super(msg + " in frame:" + frame.toString());
     }
 }

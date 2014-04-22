@@ -18,6 +18,8 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 
+import javax.annotation.Nonnull;
+
 import org.obolibrary.obo2owl.OWLAPIOwl2Obo;
 import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.writer.OBOFormatWriter;
@@ -29,7 +31,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 public class OBOFormatRenderer implements OWLRenderer {
 
     @Override
-    public void render(OWLOntology ontology, OutputStream os)
+    public void render(@Nonnull OWLOntology ontology, @Nonnull OutputStream os)
             throws OWLOntologyStorageException {
         render(ontology, new OutputStreamWriter(os));
     }
@@ -42,7 +44,7 @@ public class OBOFormatRenderer implements OWLRenderer {
      * @throws OWLOntologyStorageException
      *         OWLOntologyStorageException
      */
-    public void render(OWLOntology ontology, Writer writer)
+    public void render(@Nonnull OWLOntology ontology, @Nonnull Writer writer)
             throws OWLOntologyStorageException {
         try {
             OWLAPIOwl2Obo translator = new OWLAPIOwl2Obo(

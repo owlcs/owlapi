@@ -6,6 +6,9 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Vector;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import org.obolibrary.obo2owl.OboInOwlCardinalityTools;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 
@@ -92,6 +95,7 @@ public class Frame {
      *        the tag
      * @return the clauses for tag
      */
+    @Nonnull
     public Collection<Clause> getClauses(String tag) {
         Collection<Clause> cls = new ArrayList<Clause>();
         for (Clause cl : clauses) {
@@ -107,7 +111,8 @@ public class Frame {
      *        the tag
      * @return the clauses for tag
      */
-    public Collection<Clause> getClauses(OboFormatTag tag) {
+    @Nonnull
+    public Collection<Clause> getClauses(@Nonnull OboFormatTag tag) {
         return getClauses(tag.getTag());
     }
 
@@ -116,6 +121,7 @@ public class Frame {
      *        the tag
      * @return null if no value set, otherwise first value
      */
+    @Nullable
     public Clause getClause(String tag) {
         for (Clause cl : clauses) {
             if (cl.getTag().equals(tag)) {
@@ -131,7 +137,8 @@ public class Frame {
      *        the tag
      * @return the clause for tag
      */
-    public Clause getClause(OboFormatTag tag) {
+    @Nullable
+    public Clause getClause(@Nonnull OboFormatTag tag) {
         return getClause(tag.getTag());
     }
 
@@ -169,11 +176,13 @@ public class Frame {
      *        the tag
      * @return the tag value for tag
      */
+    @Nullable
     public Object getTagValue(String tag) {
-        if (getClause(tag) == null) {
+        Clause clause = getClause(tag);
+        if (clause == null) {
             return null;
         }
-        return getClause(tag).getValue();
+        return clause.getValue();
     }
 
     /**
@@ -181,7 +190,8 @@ public class Frame {
      *        the tag
      * @return the tag value for tag
      */
-    public Object getTagValue(OboFormatTag tag) {
+    @Nullable
+    public Object getTagValue(@Nonnull OboFormatTag tag) {
         return getTagValue(tag.getTag());
     }
 
@@ -194,7 +204,8 @@ public class Frame {
      *        the cls
      * @return the tag value for tag and class
      */
-    public <T> T getTagValue(String tag, Class<T> cls) {
+    @Nullable
+    public <T> T getTagValue(String tag, @Nonnull Class<T> cls) {
         if (getClause(tag) == null) {
             return null;
         }
@@ -214,7 +225,8 @@ public class Frame {
      *        the cls
      * @return the tag value for tag and class
      */
-    public <T> T getTagValue(OboFormatTag tag, Class<T> cls) {
+    @Nullable
+    public <T> T getTagValue(@Nonnull OboFormatTag tag, @Nonnull Class<T> cls) {
         return getTagValue(tag.getTag(), cls);
     }
 
@@ -223,7 +235,8 @@ public class Frame {
      *        the tag
      * @return the tag values for tag
      */
-    public Collection<Object> getTagValues(OboFormatTag tag) {
+    @Nonnull
+    public Collection<Object> getTagValues(@Nonnull OboFormatTag tag) {
         return getTagValues(tag.getTag());
     }
 
@@ -232,6 +245,7 @@ public class Frame {
      *        the tag
      * @return the tag values for tag
      */
+    @Nonnull
     public Collection<Object> getTagValues(String tag) {
         Collection<Object> vals = new Vector<Object>();
         for (Clause c : getClauses(tag)) {
@@ -249,7 +263,9 @@ public class Frame {
      *        the cls
      * @return the tag values for tag and class
      */
-    public <T> Collection<T> getTagValues(OboFormatTag tag, Class<T> cls) {
+    @Nonnull
+    public <T> Collection<T> getTagValues(@Nonnull OboFormatTag tag,
+            Class<T> cls) {
         return getTagValues(tag.getTag(), cls);
     }
 
@@ -262,6 +278,7 @@ public class Frame {
      *        the cls
      * @return the tag values for tag and class
      */
+    @Nonnull
     public <T> Collection<T> getTagValues(String tag, Class<T> cls) {
         Collection<T> vals = new Vector<T>();
         for (Clause c : getClauses(tag)) {
@@ -275,6 +292,7 @@ public class Frame {
      *        the tag
      * @return the tag xrefs for tg
      */
+    @Nonnull
     public Collection<Xref> getTagXrefs(String tag) {
         Collection<Xref> xrefs = new Vector<Xref>();
         for (Object ob : getClause(tag).getValues()) {
@@ -286,6 +304,7 @@ public class Frame {
     }
 
     /** @return the tags */
+    @Nonnull
     public Set<String> getTags() {
         Set<String> tags = new HashSet<String>();
         for (Clause cl : getClauses()) {
@@ -300,7 +319,7 @@ public class Frame {
      * @throws FrameMergeException
      *         the frame merge exception
      */
-    public void merge(Frame extFrame) throws FrameMergeException {
+    public void merge(@Nonnull Frame extFrame) throws FrameMergeException {
         if (this == extFrame) {
             return;
         }
@@ -375,7 +394,7 @@ public class Frame {
      * @throws FrameStructureException
      *         frame structure exception
      */
-    private void checkMaxOneCardinality(OboFormatTag... tags)
+    private void checkMaxOneCardinality(@Nonnull OboFormatTag... tags)
             throws FrameStructureException {
         for (OboFormatTag tag : tags) {
             if (getClauses(tag).size() > 1) {

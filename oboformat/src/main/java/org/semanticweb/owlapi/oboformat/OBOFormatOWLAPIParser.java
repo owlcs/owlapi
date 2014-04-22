@@ -20,6 +20,9 @@ import java.net.MalformedURLException;
 import java.util.Collections;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import org.obolibrary.obo2owl.OWLAPIObo2Owl;
 import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.parser.OBOFormatParser;
@@ -44,9 +47,11 @@ public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
 
     private static final long serialVersionUID = 40000L;
 
+    @Nonnull
     @Override
-    public OWLOntologyFormat parse(IRI documentIRI, OWLOntology ontology)
-            throws IOException, OWLOntologyChangeException {
+    public OWLOntologyFormat parse(IRI documentIRI,
+            @Nonnull OWLOntology ontology) throws IOException,
+            OWLOntologyChangeException {
         try {
             parse(documentIRI, null, ontology);
         } catch (OBOFormatParserException e) {
@@ -58,10 +63,13 @@ public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
         return format;
     }
 
+    @Nonnull
     @Override
-    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
-            OWLOntology ontology, OWLOntologyLoaderConfiguration configuration)
-            throws IOException, OWLOntologyChangeException {
+    public OWLOntologyFormat parse(
+            @Nonnull OWLOntologyDocumentSource documentSource,
+            @Nonnull OWLOntology ontology,
+            OWLOntologyLoaderConfiguration configuration) throws IOException,
+            OWLOntologyChangeException {
         // XXX configuration is not used
         try {
             parse(null, documentSource, ontology);
@@ -74,8 +82,9 @@ public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
         return format;
     }
 
-    private OWLOntology parse(IRI iri, OWLOntologyDocumentSource source,
-            OWLOntology in) throws MalformedURLException, IOException,
+    private OWLOntology parse(@Nullable IRI iri,
+            @Nonnull OWLOntologyDocumentSource source, @Nonnull OWLOntology in)
+            throws MalformedURLException, IOException,
             OWLOntologyCreationException {
         OBOFormatParser p = new OBOFormatParser();
         OBODoc obodoc = null;
@@ -100,11 +109,13 @@ public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
         return ontology;
     }
 
+    @Nonnull
     @Override
     public String getName() {
         return "OWLoboformatParser";
     }
 
+    @Nonnull
     @SuppressWarnings("unchecked")
     @Override
     public Set<Class<OWLOntologyFormat>> getSupportedFormatClasses() {
@@ -112,6 +123,7 @@ public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
                 .singleton((Class<OWLOntologyFormat>) (Class<? extends OWLOntologyFormat>) OBOOntologyFormat.class);
     }
 
+    @Nonnull
     @Override
     public Set<OWLOntologyFormatFactory> getSupportedFormats() {
         return Collections

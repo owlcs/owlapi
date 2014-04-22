@@ -1,5 +1,7 @@
 package org.obolibrary.oboformat.model;
 
+import javax.annotation.Nonnull;
+
 /** qualifier value */
 public class QualifierValue {
 
@@ -43,6 +45,7 @@ public class QualifierValue {
         this.value = value;
     }
 
+    @Nonnull
     @Override
     public String toString() {
         return "{" + qualifier + "=" + value + "}";

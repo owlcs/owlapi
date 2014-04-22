@@ -1,5 +1,6 @@
 package org.obolibrary.oboformat.model;
 
+
 /** Xref */
 public class Xref {
 

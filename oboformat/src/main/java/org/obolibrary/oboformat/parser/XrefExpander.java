@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.obolibrary.oboformat.model.Clause;
 import org.obolibrary.oboformat.model.Frame;
 import org.obolibrary.oboformat.model.Frame.FrameType;
@@ -19,11 +21,13 @@ import org.slf4j.LoggerFactory;
 /** xref expander */
 public class XrefExpander {
 
-    private static Logger LOG = LoggerFactory.getLogger(XrefExpander.class);
+    protected static Logger LOG = LoggerFactory.getLogger(XrefExpander.class);
     OBODoc sourceOBODoc;
     OBODoc targetOBODoc;
     String targetBase;
+    @Nonnull
     Map<String, Rule> treatMap = new HashMap<String, Rule>();
+    @Nonnull
     Map<String, OBODoc> targetDocMap = new HashMap<String, OBODoc>();
 
     /**
@@ -32,7 +36,7 @@ public class XrefExpander {
      * @throws InvalidXrefMapException
      *         InvalidXrefMapException
      */
-    public XrefExpander(OBODoc src) {
+    public XrefExpander(@Nonnull OBODoc src) {
         sourceOBODoc = src;
         Frame shf = src.getHeaderFrame();
         String ontId = shf.getTagValue(OboFormatTag.TAG_ONTOLOGY, String.class);
@@ -169,7 +173,7 @@ public class XrefExpander {
         return targetDocMap.get(idSpace);
     }
 
-    private void addRule(String db, Rule rule) {
+    private void addRule(String db, @Nonnull Rule rule) {
         if (treatMap.containsKey(db)) {
             throw new InvalidXrefMapException(db);
         }
@@ -195,7 +199,7 @@ public class XrefExpander {
         }
     }
 
-    private String getIDSpace(String x) {
+    private static String getIDSpace(@Nonnull String x) {
         String[] parts = x.split(":", 2);
         return parts[0];
     }
@@ -217,16 +221,18 @@ public class XrefExpander {
          */
         public abstract void expand(Frame sf, String id, String xRef);
 
+        @Nonnull
         protected Frame getTargetFrame(String id) {
             Frame f = getTargetDoc(idSpace).getTermFrame(id);
             if (f == null) {
+                f = new Frame();
+                f.setId(id);
                 try {
-                    f = new Frame();
-                    f.setId(id);
                     getTargetDoc(idSpace).addTermFrame(f);
                 } catch (FrameMergeException e) {
                     // this should be impossible
-                    e.printStackTrace();
+                    LOG.error("Frame merge exceptions should not be possible",
+                            e);
                 }
             }
             return f;
@@ -237,7 +243,7 @@ public class XrefExpander {
     public class EquivalenceExpansion extends Rule {
 
         @Override
-        public void expand(Frame sf, String id, String xRef) {
+        public void expand(@Nonnull Frame sf, String id, String xRef) {
             Clause c = new Clause(OboFormatTag.TAG_EQUIVALENT_TO, xRef);
             sf.addClause(c);
         }

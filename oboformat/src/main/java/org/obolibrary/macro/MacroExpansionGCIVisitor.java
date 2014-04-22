@@ -2,6 +2,9 @@ package org.obolibrary.macro;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.mansyntax.renderer.ParserException;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.IRI;
@@ -42,8 +45,8 @@ public class MacroExpansionGCIVisitor {
      * @param outputManager
      *        outputManager
      */
-    public MacroExpansionGCIVisitor(OWLOntology inputOntology,
-            OWLOntologyManager outputManager) {
+    public MacroExpansionGCIVisitor(@Nonnull OWLOntology inputOntology,
+            @Nonnull OWLOntologyManager outputManager) {
         super();
         this.inputOntology = inputOntology;
         visitor = new GCIVisitor(inputOntology);
@@ -57,7 +60,7 @@ public class MacroExpansionGCIVisitor {
         }
     }
 
-    protected void output(OWLAxiom axiom) {
+    protected void output(@Nullable OWLAxiom axiom) {
         if (axiom == null) {
             log.error("no axiom");
             return;
@@ -87,7 +90,7 @@ public class MacroExpansionGCIVisitor {
         return outputOntology;
     }
 
-    private void expand(OWLAnnotationAssertionAxiom ax) {
+    private void expand(@Nonnull OWLAnnotationAssertionAxiom ax) {
         OWLAnnotationProperty prop = ax.getProperty();
         String expandTo = visitor.expandAssertionToMap.get(prop.getIRI());
         if (expandTo != null) {
@@ -115,9 +118,11 @@ public class MacroExpansionGCIVisitor {
             super(inputOntology);
         }
 
+        @Nullable
         @Override
         protected OWLClassExpression expandOWLObjSomeVal(
-                OWLClassExpression filler, OWLObjectPropertyExpression p) {
+                OWLClassExpression filler,
+                @Nonnull OWLObjectPropertyExpression p) {
             OWLClassExpression gciRHS = expandObject(filler, p);
             if (gciRHS != null) {
                 OWLClassExpression gciLHS = dataFactory
@@ -129,9 +134,10 @@ public class MacroExpansionGCIVisitor {
             return gciRHS;
         }
 
+        @Nullable
         @Override
         protected OWLClassExpression expandOWLObjHasVal(OWLObjectHasValue desc,
-                OWLIndividual filler, OWLObjectPropertyExpression p) {
+                OWLIndividual filler, @Nonnull OWLObjectPropertyExpression p) {
             OWLClassExpression gciRHS = expandObject(filler, p);
             if (gciRHS != null) {
                 OWLClassExpression gciLHS = dataFactory.getOWLObjectHasValue(p,
@@ -143,8 +149,9 @@ public class MacroExpansionGCIVisitor {
             return gciRHS;
         }
 
+        @Nullable
         private OWLClassExpression expandObject(Object filler,
-                OWLObjectPropertyExpression p) {
+                @Nonnull OWLObjectPropertyExpression p) {
             OWLClassExpression result = null;
             IRI iri = ((OWLObjectProperty) p).getIRI();
             IRI templateVal = null;
