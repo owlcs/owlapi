@@ -42,9 +42,11 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -53,6 +55,7 @@ import javax.annotation.Nonnull;
 
 import org.openrdf.model.Resource;
 import org.openrdf.model.Statement;
+import org.openrdf.model.ValueFactory;
 import org.openrdf.model.impl.ValueFactoryImpl;
 import org.openrdf.model.vocabulary.RDF;
 import org.openrdf.rio.RDFHandler;
@@ -201,6 +204,7 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
                 baseUri = ontology.getOntologyID().getDefaultDocumentIRI()
                         .get().toString();
             }
+            RioParserRDFHandler handler = new RioParserRDFHandler(consumer);
             // Get a statement iterator, either from an in-memory source, or
             // from the fully parsed document
             Iterator<Statement> statementsIterator;
@@ -210,55 +214,18 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
                         .getNamespaces();
                 statementsIterator = ((RioMemoryTripleSource) documentSource)
                         .getStatementIterator();
-            } else {
-                StatementCollector rdfHandler = parseDocumentSource(
-                        documentSource, baseUri);
-                log.debug("RDFHandler statements = {}", rdfHandler
-                        .getStatements().size());
-                statementsIterator = rdfHandler.getStatements().iterator();
-                namespaces = rdfHandler.getNamespaces();
-            }
-            // FIXME: Convert the following into an RDFHandler to fully stream
-            // statements
-            long owlParseStart = System.currentTimeMillis();
-            consumer.startRDF();
-            for (final String nextPrefix : namespaces.keySet()) {
-                consumer.handleNamespace(nextPrefix, namespaces.get(nextPrefix));
-            }
-            Set<Resource> typedLists = Collections
-                    .newSetFromMap(new ConcurrentHashMap<Resource, Boolean>());
-            while (statementsIterator.hasNext()) {
-                Statement nextStatement = statementsIterator.next();
-                // Sesame does not generate list rdf:type rdf:List triple, where
-                // owlapi requires this triple to recognise a list
-                // HACK: Add an extra triple explicitly typing the subject of
-                // any statement containing rdf:first as the predicate
-                if (nextStatement.getPredicate().equals(RDF.FIRST)
-                        || nextStatement.getPredicate().equals(RDF.REST)) {
-                    if (!typedLists.contains(nextStatement.getSubject())) {
-                        typedLists.add(nextStatement.getSubject());
-                        consumer.handleStatement(ValueFactoryImpl.getInstance()
-                                .createStatement(nextStatement.getSubject(),
-                                        RDF.TYPE, RDF.LIST));
-                        log.debug("Implicitly typing list={}", nextStatement);
-                    }
-                } else if (nextStatement.getPredicate().equals(RDF.TYPE)
-                        && nextStatement.getObject().equals(RDF.LIST)) {
-                    if (!typedLists.contains(nextStatement.getSubject())) {
-                        log.debug("Explicit list type found={}", nextStatement);
-                        typedLists.add(nextStatement.getSubject());
-                    } else {
-                        log.debug(
-                                "duplicate rdf:type rdf:List statements found={}",
-                                nextStatement);
-                    }
+                handler.startRDF();
+                for (Entry<String, String> nextNamespace : namespaces
+                        .entrySet()) {
+                    handler.handleNamespace(nextNamespace.getKey(),
+                            nextNamespace.getValue());
                 }
-                consumer.handleStatement(nextStatement);
-            }
-            consumer.endRDF();
-            if (log.isDebugEnabled()) {
-                log.debug("owlParse: timing={}", System.currentTimeMillis()
-                        - owlParseStart);
+                while (statementsIterator.hasNext()) {
+                    handler.handleStatement(statementsIterator.next());
+                }
+                handler.endRDF();
+            } else {
+                parseDocumentSource(documentSource, baseUri, handler);
             }
             return consumer.getOntologyFormat();
         } catch (final RDFParseException e) {
@@ -304,14 +271,13 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
      * @throws MalformedURLException
      *         If there are malformed URLs.
      */
-    protected StatementCollector parseDocumentSource(
-            final OWLOntologyDocumentSource documentSource, String baseUri)
-            throws IOException, RDFParseException, RDFHandlerException,
-            MalformedURLException {
-        final StatementCollector rdfHandler = new StatementCollector();
+    protected void parseDocumentSource(
+            final OWLOntologyDocumentSource documentSource,
+            final String baseUri, final RDFHandler handler) throws IOException,
+            RDFParseException, RDFHandlerException, MalformedURLException {
         final RDFParser createParser = Rio.createParser(owlFormatFactory
                 .getRioFormat());
-        createParser.setRDFHandler(rdfHandler);
+        createParser.setRDFHandler(handler);
         long rioParseStart = System.currentTimeMillis();
         if (owlFormatFactory.isTextual() && documentSource.isReaderAvailable()) {
             createParser.parse(documentSource.getReader(), baseUri);
@@ -327,7 +293,6 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
             log.debug("rioParse: timing={}", System.currentTimeMillis()
                     - rioParseStart);
         }
-        return rdfHandler;
     }
 
     @Override
@@ -337,7 +302,11 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
 
     private static class RioParserRDFHandler implements RDFHandler {
 
+        private final Logger log = LoggerFactory.getLogger(this.getClass());
         private RioOWLRDFConsumerAdapter consumer;
+        private long owlParseStart;
+        private Set<Resource> typedLists = new HashSet<Resource>();
+        private ValueFactory vf = ValueFactoryImpl.getInstance();
 
         public RioParserRDFHandler(RioOWLRDFConsumerAdapter consumer) {
             this.consumer = consumer;
@@ -345,28 +314,53 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
 
         @Override
         public void startRDF() throws RDFHandlerException {
-            // TODO Auto-generated method stub
+            owlParseStart = System.currentTimeMillis();
+            consumer.startRDF();
         }
 
         @Override
         public void endRDF() throws RDFHandlerException {
-            // TODO Auto-generated method stub
+            consumer.endRDF();
+            if (log.isDebugEnabled()) {
+                log.debug("owlParse: timing={}", System.currentTimeMillis()
+                        - owlParseStart);
+            }
         }
 
         @Override
         public void handleNamespace(String prefix, String uri)
                 throws RDFHandlerException {
-            // TODO Auto-generated method stub
+            consumer.handleNamespace(prefix, uri);
         }
 
         @Override
-        public void handleStatement(Statement st) throws RDFHandlerException {
-            // TODO Auto-generated method stub
+        public void handleStatement(Statement nextStatement)
+                throws RDFHandlerException {
+            if (nextStatement.getPredicate().equals(RDF.FIRST)
+                    || nextStatement.getPredicate().equals(RDF.REST)) {
+                if (!typedLists.contains(nextStatement.getSubject())) {
+                    typedLists.add(nextStatement.getSubject());
+                    consumer.handleStatement(vf.createStatement(
+                            nextStatement.getSubject(), RDF.TYPE, RDF.LIST));
+                    log.debug("Implicitly typing list={}", nextStatement);
+                }
+            } else if (nextStatement.getPredicate().equals(RDF.TYPE)
+                    && nextStatement.getObject().equals(RDF.LIST)) {
+                if (!typedLists.contains(nextStatement.getSubject())) {
+                    log.debug("Explicit list type found={}", nextStatement);
+                    typedLists.add(nextStatement.getSubject());
+                } else {
+                    log.debug(
+                            "duplicate rdf:type rdf:List statements found={}",
+                            nextStatement);
+                }
+            }
+            consumer.handleStatement(nextStatement);
         }
 
         @Override
         public void handleComment(String comment) throws RDFHandlerException {
-            // TODO Auto-generated method stub
+            // do nothing
         }
     }
 }
