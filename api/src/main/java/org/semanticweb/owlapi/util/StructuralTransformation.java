@@ -97,6 +97,7 @@ import org.semanticweb.owlapi.model.SWRLRule;
  */
 public class StructuralTransformation {
 
+    @Nonnull
     protected final OWLDataFactory df;
     private int nameCounter = 0;
     protected final Set<OWLEntity> signature = new HashSet<OWLEntity>();

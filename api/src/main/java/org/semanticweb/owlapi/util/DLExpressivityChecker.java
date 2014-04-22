@@ -22,6 +22,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -111,6 +113,7 @@ public class DLExpressivityChecker extends OWLObjectVisitorAdapter {
     }
 
     /** @return DL name */
+    @Nonnull
     public String getDescriptionLogicName() {
         List<Construct> orderedConstructs = getOrderedConstructs();
         StringBuilder s = new StringBuilder();
@@ -251,7 +254,7 @@ public class DLExpressivityChecker extends OWLObjectVisitorAdapter {
         }
     }
 
-    private boolean isTop(OWLClassExpression classExpression) {
+    private static boolean isTop(OWLClassExpression classExpression) {
         return classExpression.isOWLThing();
     }
 

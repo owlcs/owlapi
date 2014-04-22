@@ -36,6 +36,7 @@ import org.semanticweb.owlapi.model.OWLPropertyExpressionVisitor;
  */
 public class ObjectPropertySimplifier {
 
+    @Nonnull
     private final OWLDataFactory dataFactory;
     private final Simplifier simplifier = new Simplifier();
 

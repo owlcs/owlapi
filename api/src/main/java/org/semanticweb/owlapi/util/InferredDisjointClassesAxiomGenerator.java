@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.util;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
@@ -32,7 +34,7 @@ public class InferredDisjointClassesAxiomGenerator extends
         InferredClassAxiomGenerator<OWLDisjointClassesAxiom> {
 
     @Override
-    protected void addAxioms(OWLClass entity, OWLReasoner reasoner,
+    protected void addAxioms(OWLClass entity, @Nonnull OWLReasoner reasoner,
             OWLDataFactory dataFactory, Set<OWLDisjointClassesAxiom> result) {
         for (OWLClass cls : getAllEntities(reasoner)) {
             if (!cls.equals(entity)) {

@@ -41,6 +41,7 @@ public class OWLObjectWalker<O extends OWLObject> {
 
     protected OWLOntology ontology;
     private final Collection<O> objects;
+    @Nonnull
     protected OWLObjectVisitor visitor;
     private OWLObjectVisitorEx<?> visitorEx;
     protected final boolean visitDuplicates;

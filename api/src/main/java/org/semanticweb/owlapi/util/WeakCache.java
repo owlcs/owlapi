@@ -43,6 +43,7 @@ public class WeakCache<K> implements Serializable {
      *        the value to cache
      * @return the cached value
      */
+    @Nonnull
     public K cache(@Nonnull K s) {
         WeakReference<K> w = prefixCache.get(s);
         if (w != null) {

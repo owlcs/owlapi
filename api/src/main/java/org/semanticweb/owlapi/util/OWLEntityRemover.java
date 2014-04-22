@@ -22,6 +22,7 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -50,6 +51,7 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
 public class OWLEntityRemover implements OWLEntityVisitor {
 
     private final List<RemoveAxiom> changes = new ArrayList<RemoveAxiom>();
+    @Nonnull
     private final Collection<OWLOntology> ontologies;
 
     /**

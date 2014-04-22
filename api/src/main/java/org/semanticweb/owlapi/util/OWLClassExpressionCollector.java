@@ -16,6 +16,8 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -118,6 +120,7 @@ import org.semanticweb.owlapi.model.SWRLVariable;
 public class OWLClassExpressionCollector implements
         OWLObjectVisitorEx<Set<OWLClassExpression>> {
 
+    @Nonnull
     @Override
     public Set<OWLClassExpression> visit(IRI iri) {
         return Collections.emptySet();

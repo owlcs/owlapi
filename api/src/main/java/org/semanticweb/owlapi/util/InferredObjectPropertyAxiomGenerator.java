@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.util;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -29,7 +31,7 @@ public abstract class InferredObjectPropertyAxiomGenerator<A extends OWLObjectPr
         extends InferredEntityAxiomGenerator<OWLObjectProperty, A> {
 
     @Override
-    protected Set<OWLObjectProperty> getEntities(OWLOntology ont) {
+    protected Set<OWLObjectProperty> getEntities(@Nonnull OWLOntology ont) {
         return ont.getObjectPropertiesInSignature();
     }
 }

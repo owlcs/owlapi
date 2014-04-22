@@ -45,7 +45,9 @@ import org.semanticweb.owlapi.model.OWLOntology;
  */
 public class ImportsStructureObjectSorter<O> {
 
+    @Nonnull
     private final OWLOntology ontology;
+    @Nonnull
     private final ObjectSelector<O> objectSelector;
 
     /**

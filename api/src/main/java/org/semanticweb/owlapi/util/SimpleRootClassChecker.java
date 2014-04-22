@@ -51,6 +51,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  */
 public class SimpleRootClassChecker implements RootClassChecker {
 
+    @Nonnull
     private final Set<OWLOntology> ontologies;
 
     /**

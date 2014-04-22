@@ -17,6 +17,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.util.List;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.AddImport;
@@ -72,6 +73,7 @@ public class OWLOntologyChangeFilter extends OWLAxiomVisitorAdapter implements
         OWLAxiomVisitor, OWLOntologyChangeVisitor {
 
     protected boolean add;
+    @Nullable
     protected OWLOntology ontology;
 
     /**

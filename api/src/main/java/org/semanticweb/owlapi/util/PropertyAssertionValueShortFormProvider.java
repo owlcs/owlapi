@@ -46,6 +46,7 @@ import org.semanticweb.owlapi.model.OWLPropertyExpression;
 public class PropertyAssertionValueShortFormProvider implements
         ShortFormProvider {
 
+    @Nonnull
     private final List<OWLPropertyExpression> properties;
     private final Map<OWLDataPropertyExpression, List<String>> preferredLanguageMap;
     private final OWLOntologySetProvider ontologySetProvider;

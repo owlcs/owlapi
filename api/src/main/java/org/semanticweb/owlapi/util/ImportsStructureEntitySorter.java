@@ -16,6 +16,7 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
 
@@ -40,7 +41,7 @@ public class ImportsStructureEntitySorter extends
             ObjectSelector<OWLEntity> {
 
         @Override
-        public Set<OWLEntity> getObjects(OWLOntology ontology) {
+        public Set<OWLEntity> getObjects(@Nonnull OWLOntology ontology) {
             return ontology.getSignature();
         }
     }

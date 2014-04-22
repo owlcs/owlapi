@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.util;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -29,7 +31,7 @@ public abstract class InferredClassAxiomGenerator<A extends OWLClassAxiom>
         extends InferredEntityAxiomGenerator<OWLClass, A> {
 
     @Override
-    protected Set<OWLClass> getEntities(OWLOntology ont) {
+    protected Set<OWLClass> getEntities(@Nonnull OWLOntology ont) {
         return ont.getClassesInSignature();
     }
 }

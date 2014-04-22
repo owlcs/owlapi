@@ -15,6 +15,8 @@ package org.semanticweb.owlapi.util;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -129,7 +131,7 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
         this.walkerCallback = owlObjectWalker;
     }
 
-    protected void process(OWLObject object) {
+    protected void process(@Nonnull OWLObject object) {
         if (!this.walkerCallback.visitDuplicates) {
             if (!visited.contains(object)) {
                 visited.add(object);

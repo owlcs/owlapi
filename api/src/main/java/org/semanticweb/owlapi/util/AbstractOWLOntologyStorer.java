@@ -24,6 +24,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -49,8 +51,8 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
             .getLogger(OWLOntologyStorer.class);
 
     @Override
-    public final void storeOntology(OWLOntology ontology, IRI documentIRI,
-            OWLOntologyFormat ontologyFormat)
+    public final void storeOntology(OWLOntology ontology,
+            @Nonnull IRI documentIRI, OWLOntologyFormat ontologyFormat)
             throws OWLOntologyStorageException {
         if (!documentIRI.isAbsolute()) {
             throw new OWLOntologyStorageException(
@@ -72,7 +74,7 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
         }
     }
 
-    private OutputStream prepareActualOutput(IRI documentIRI)
+    private static OutputStream prepareActualOutput(@Nonnull IRI documentIRI)
             throws FileNotFoundException, MalformedURLException, IOException {
         OutputStream os;
         if (documentIRI.getScheme().equals("file")) {
@@ -89,8 +91,8 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
     }
 
     private void store(OWLOntology ontology, OWLOntologyFormat ontologyFormat,
-            OutputStream tempOutputStream) throws OWLOntologyStorageException,
-            IOException {
+            @Nonnull OutputStream tempOutputStream)
+            throws OWLOntologyStorageException, IOException {
         Writer tempWriter = new BufferedWriter(new OutputStreamWriter(
                 tempOutputStream, UTF_8));
         storeOntology(ontology, tempWriter, ontologyFormat);
@@ -99,9 +101,11 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
     }
 
     @Override
-    public final void storeOntology(OWLOntology ontology,
-            OWLOntologyDocumentTarget target, OWLOntologyFormat format)
-            throws OWLOntologyStorageException {
+    public final void
+            storeOntology(OWLOntology ontology,
+                    @Nonnull OWLOntologyDocumentTarget target,
+                    OWLOntologyFormat format)
+                    throws OWLOntologyStorageException {
         if (target.isWriterAvailable()) {
             try {
                 Writer writer = target.getWriter();

@@ -17,6 +17,8 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLLiteral;
@@ -34,8 +36,8 @@ public class InferredPropertyAssertionGenerator extends
         InferredIndividualAxiomGenerator<OWLPropertyAssertionAxiom<?, ?>> {
 
     @Override
-    protected void addAxioms(OWLNamedIndividual entity, OWLReasoner reasoner,
-            OWLDataFactory dataFactory,
+    protected void addAxioms(OWLNamedIndividual entity,
+            @Nonnull OWLReasoner reasoner, OWLDataFactory dataFactory,
             Set<OWLPropertyAssertionAxiom<?, ?>> result) {
         checkNotNull(dataFactory, "dataFactory cannot be null");
         checkNotNull(reasoner, "reasoner cannot be null");

@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.annotations.HasIdentifierKey;
 import org.semanticweb.owlapi.annotations.IsBinaryFormat;
 import org.semanticweb.owlapi.annotations.SupportsMIMEType;
@@ -69,6 +71,7 @@ public class OWLOntologyFormatFactoryImpl<T extends OWLOntologyFormat>
         return createFormat().getKey();
     }
 
+    @Nullable
     @Override
     public String getDefaultMIMEType() {
         SupportsMIMEType types = this.type

@@ -30,6 +30,7 @@ import java.util.Set;
 import java.util.StringTokenizer;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -332,6 +333,7 @@ public class AutoIRIMapper extends DefaultHandler implements
 
         public RDFXMLOntologyRootElementHandler() {}
 
+        @Nullable
         @Override
         public IRI handle(Attributes attributes) {
             String baseValue = attributes.getValue(Namespaces.XML.toString(),

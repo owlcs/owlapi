@@ -18,6 +18,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.OWLEntity;
 
 /**
@@ -116,6 +118,7 @@ public abstract class CachingBidirectionalShortFormProvider implements
         }
     }
 
+    @Nullable
     @Override
     public OWLEntity getEntity(String shortForm) {
         Set<OWLEntity> entities = shortForm2EntityMap.get(shortForm);

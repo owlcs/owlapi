@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.util;
 
 import java.util.Comparator;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.annotations.HasPriority;
 
 /**
@@ -26,7 +28,7 @@ import org.semanticweb.owlapi.annotations.HasPriority;
  */
 public class HasPriorityComparator<T> implements Comparator<T> {
 
-    private double getPriority(Object p) {
+    private static double getPriority(@Nonnull Object p) {
         HasPriority priority = p.getClass().getAnnotation(HasPriority.class);
         if (priority != null) {
             return priority.value();

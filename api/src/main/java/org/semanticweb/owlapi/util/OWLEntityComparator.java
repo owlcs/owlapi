@@ -48,6 +48,7 @@ public class OWLEntityComparator implements Comparator<OWLEntity>,
     private static final int OWL_DATA_PROPERTY_INDEX = 2;
     private static final int OWL_INDIVIDUAL_INDEX = 3;
     private static final int OWL_DATATYPE_INDEX = 4;
+    @Nonnull
     private final ShortFormProvider shortFormProvider;
     int lastValue;
 

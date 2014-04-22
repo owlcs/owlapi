@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
@@ -69,7 +71,7 @@ public class HornAxiomVisitorEx extends OWLAxiomVisitorExAdapter<Boolean> {
     }
 
     @Override
-    public Boolean visit(OWLSubClassOfAxiom axiom) {
+    public Boolean visit(@Nonnull OWLSubClassOfAxiom axiom) {
         return Boolean.valueOf(axiom.getSubClass().accept(negative)
                 .booleanValue()
                 && axiom.getSuperClass().accept(positive).booleanValue());

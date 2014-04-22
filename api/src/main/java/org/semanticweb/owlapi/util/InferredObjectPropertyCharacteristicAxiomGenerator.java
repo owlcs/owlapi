@@ -16,6 +16,8 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -35,7 +37,7 @@ public class InferredObjectPropertyCharacteristicAxiomGenerator
 
     @Override
     protected void addAxioms(OWLObjectProperty entity, OWLReasoner reasoner,
-            OWLDataFactory dataFactory,
+            @Nonnull OWLDataFactory dataFactory,
             Set<OWLObjectPropertyCharacteristicAxiom> result) {
         addIfEntailed(dataFactory.getOWLFunctionalObjectPropertyAxiom(entity),
                 reasoner, result);
@@ -80,7 +82,7 @@ public class InferredObjectPropertyCharacteristicAxiomGenerator
      * @return true if property is trivially transitive, or if entailment
      *         checking for OWLObjectPropertyAssertionAxioms is not supported.
      */
-    private boolean triviallyTransitiveCheck(OWLObjectProperty property,
+    private static boolean triviallyTransitiveCheck(OWLObjectProperty property,
             OWLReasoner reasoner, OWLDataFactory df) {
         if (!reasoner
                 .isEntailmentCheckingSupported(AxiomType.OBJECT_PROPERTY_ASSERTION)) {

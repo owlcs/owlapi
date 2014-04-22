@@ -104,7 +104,7 @@ public class AxiomSubjectProvider implements OWLAxiomVisitor {
         subject = axiom.getProperty();
     }
 
-    private OWLClassExpression selectClassExpression(
+    private static OWLClassExpression selectClassExpression(
             Set<OWLClassExpression> descs) {
         for (OWLClassExpression desc : descs) {
             if (!desc.isAnonymous()) {

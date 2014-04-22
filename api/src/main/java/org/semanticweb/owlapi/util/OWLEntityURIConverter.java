@@ -50,6 +50,7 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  */
 public class OWLEntityURIConverter {
 
+    @Nonnull
     private final OWLOntologyManager manager;
     // The ontologies that reference the
     // entities whose names will be converted

@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.util;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.model.SWRLVariable;
 
 /**
@@ -28,5 +29,6 @@ public interface SWRLVariableShortFormProvider {
      *        variable to shorten
      * @return short form
      */
+    @Nonnull
     String getShortForm(@Nonnull SWRLVariable variable);
 }

@@ -15,6 +15,8 @@ package org.semanticweb.owlapi.util.mansyntax;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.expression.OWLOntologyChecker;
 import org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormat;
@@ -46,6 +48,7 @@ public interface ManchesterOWLSyntaxParser {
      * @throws OWLParserException
      *         parsing error
      */
+    @Nonnull
     OWLAxiom parseAxiom();
 
     /**

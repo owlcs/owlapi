@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.IRI;
@@ -91,7 +92,7 @@ public class OWLOntologyMerger implements OWLAxiomFilter {
      *         if any creation exception arises
      */
     public OWLOntology createMergedOntology(OWLOntologyManager ontologyManager,
-            IRI ontologyIRI) throws OWLOntologyCreationException {
+            @Nullable IRI ontologyIRI) throws OWLOntologyCreationException {
         OWLOntology ontology;
         if (ontologyIRI != null) {
             ontology = ontologyManager.createOntology(ontologyIRI);

@@ -29,6 +29,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  */
 public class OWLOntologyWalkerVisitorEx<E> extends OWLObjectVisitorExAdapter<E> {
 
+    @Nonnull
     private final OWLOntologyWalker walker;
 
     /**

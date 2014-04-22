@@ -19,6 +19,7 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -142,7 +143,7 @@ public class OWLEntityCollector implements
         objects = checkNotNull(toReturn, "toReturn cannot be null");
     }
 
-    protected void processAxiomAnnotations(OWLAxiom ax) {
+    protected void processAxiomAnnotations(@Nonnull OWLAxiom ax) {
         // default behavior: iterate over the annotations outside the axiom
         for (OWLAnnotation anno : ax.getAnnotations()) {
             anno.accept(this);

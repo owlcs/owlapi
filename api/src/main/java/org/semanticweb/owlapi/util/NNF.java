@@ -212,6 +212,7 @@ public class NNF implements OWLClassExpressionVisitorEx<OWLClassExpression>,
         return desc.asSomeValuesFrom().accept(this);
     }
 
+    @Nonnull
     @Override
     public OWLClassExpression visit(OWLObjectMinCardinality desc) {
         boolean neg = negated;

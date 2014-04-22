@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -47,11 +48,17 @@ import org.semanticweb.owlapi.search.Filters;
  */
 public class AnnotationValueShortFormProvider implements ShortFormProvider {
 
+    @Nonnull
     private final OWLOntologySetProvider ontologySetProvider;
+    @Nonnull
     private final ShortFormProvider alternateShortFormProvider;
+    @Nonnull
     private IRIShortFormProvider alternateIRIShortFormProvider;
+    @Nonnull
     private final List<OWLAnnotationProperty> annotationProperties;
+    @Nonnull
     private final Map<OWLAnnotationProperty, List<String>> preferredLanguageMap;
+    @Nonnull
     private final OWLAnnotationValueVisitorEx<String> literalRenderer;
 
     /**
@@ -158,19 +165,21 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
                 preferredLanguageMap,
                 new OWLAnnotationValueVisitorEx<String>() {
 
+                    @Nullable
                     @Override
                     public String visit(IRI iri) {
                         // TODO refactor the short form providers in here
                         return null;
                     }
 
+                    @Nullable
                     @Override
                     public String visit(OWLAnonymousIndividual individual) {
                         return null;
                     }
 
                     @Override
-                    public String visit(OWLLiteral literal) {
+                    public String visit(@Nonnull OWLLiteral literal) {
                         return literal.getLiteral();
                     }
                 });
@@ -213,8 +222,9 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
                 "literalRenderer cannot be null");
     }
 
+    @Nonnull
     @Override
-    public String getShortForm(OWLEntity entity) {
+    public String getShortForm(@Nonnull OWLEntity entity) {
         for (OWLAnnotationProperty prop : annotationProperties) {
             // visit the properties in order of preference
             AnnotationLanguageFilter checker = new AnnotationLanguageFilter(
@@ -242,6 +252,7 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
      *        The object to the rendered
      * @return The rendering of the object.
      */
+    @Nonnull
     private String getRendering(OWLObject object) {
         // We return the literal value of constants or use the alternate
         // short form provider to render individuals.
@@ -256,11 +267,13 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
     }
 
     /** @return the annotation URIs that this short form provider uses. */
+    @Nonnull
     public List<OWLAnnotationProperty> getAnnotationProperties() {
         return annotationProperties;
     }
 
     /** @return the preferred language map */
+    @Nonnull
     public Map<OWLAnnotationProperty, List<String>> getPreferredLanguageMap() {
         return preferredLanguageMap;
     }
@@ -273,6 +286,7 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
 
         private final OWLAnnotationProperty prop;
         private final List<String> preferredLanguages;
+        @Nullable
         OWLObject candidateValue = null;
         int lastLangMatchIndex = Integer.MAX_VALUE;
 
@@ -282,12 +296,13 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
             this.preferredLanguages = preferredLanguages;
         }
 
+        @Nullable
         public OWLObject getMatch() {
             return candidateValue;
         }
 
         @Override
-        public void visit(OWLAnnotationAssertionAxiom anno) {
+        public void visit(@Nonnull OWLAnnotationAssertionAxiom anno) {
             if (lastLangMatchIndex > 0 && anno.getProperty().equals(prop)) {
                 // a perfect match - no need to carry on search
                 anno.getValue().accept(this);
@@ -295,7 +310,7 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
         }
 
         @Override
-        public void visit(OWLLiteral node) {
+        public void visit(@Nonnull OWLLiteral node) {
             if (preferredLanguages == null || preferredLanguages.isEmpty()) {
                 // if there are no languages just match the first thing
                 lastLangMatchIndex = 0;

@@ -33,6 +33,7 @@ import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
  */
 public class NamedConjunctChecker {
 
+    @Nonnull
     OWLClass conjunct;
     boolean found;
     boolean collect;

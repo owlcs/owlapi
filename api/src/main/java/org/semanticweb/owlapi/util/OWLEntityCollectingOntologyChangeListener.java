@@ -16,6 +16,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLAxiomChange;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLException;
@@ -36,7 +38,8 @@ public abstract class OWLEntityCollectingOntologyChangeListener implements
     private final Set<OWLEntity> entities = new HashSet<OWLEntity>();
 
     @Override
-    public void ontologiesChanged(List<? extends OWLOntologyChange<?>> changes)
+    public void ontologiesChanged(
+            @Nonnull List<? extends OWLOntologyChange<?>> changes)
             throws OWLException {
         entities.clear();
         for (OWLOntologyChange<?> change : changes) {

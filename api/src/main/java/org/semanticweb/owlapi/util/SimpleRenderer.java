@@ -16,6 +16,8 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.formats.PrefixOWLOntologyFormat;
 import org.semanticweb.owlapi.io.OWLObjectRenderer;
 import org.semanticweb.owlapi.model.IRI;
@@ -168,7 +170,8 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
      *        from imported ontologies.
      */
     public void setPrefixesFromOntologyFormat(OWLOntology ontology,
-            OWLOntologyManager manager, boolean processImportedOntologies) {
+            @Nonnull OWLOntologyManager manager,
+            boolean processImportedOntologies) {
         resetShortFormProvider();
         if (processImportedOntologies) {
             for (OWLOntology importedOntology : manager
@@ -265,7 +268,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         }
     }
 
-    private <N extends OWLObject> Set<N> toSortedSet(Set<N> set) {
+    private static <N extends OWLObject> Set<N> toSortedSet(Set<N> set) {
         return new TreeSet<N>(set);
     }
 

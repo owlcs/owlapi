@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.util;
 
 import java.io.Serializable;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.IRI;
 
 /**
@@ -30,7 +32,7 @@ public class SimpleIRIShortFormProvider implements IRIShortFormProvider,
     private static final long serialVersionUID = 40000L;
 
     @Override
-    public String getShortForm(IRI iri) {
+    public String getShortForm(@Nonnull IRI iri) {
         String rendering = iri.getFragment();
         if (rendering != null && rendering.length() > 0) {
             return rendering;

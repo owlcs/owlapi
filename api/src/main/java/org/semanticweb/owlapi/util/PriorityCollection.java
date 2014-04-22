@@ -11,6 +11,7 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.annotations.SupportsMIMEType;
 import org.semanticweb.owlapi.model.MIMETypeAware;
 import org.semanticweb.owlapi.model.OWLOntologyFormatFactory;
@@ -27,6 +28,7 @@ import com.google.common.collect.Iterators;
 public class PriorityCollection<T> implements Iterable<T>, Serializable {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private List<T> delegate = new ArrayList<T>();
 
     /**

@@ -19,6 +19,7 @@ import java.util.Map;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLEntity;
 
@@ -38,7 +39,7 @@ public class OWLEntityURIUnderscores2CamelBackConverterStrategy implements
     private final Map<IRI, IRI> iriMap = new HashMap<IRI, IRI>();
 
     @Override
-    public IRI getConvertedIRI(OWLEntity entity) {
+    public IRI getConvertedIRI(@Nonnull OWLEntity entity) {
         IRI convIRI = iriMap.get(entity.getIRI());
         if (convIRI == null) {
             convIRI = convert(entity.getIRI());

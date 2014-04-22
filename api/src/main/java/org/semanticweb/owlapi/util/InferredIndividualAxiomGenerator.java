@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.util;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLIndividualAxiom;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -29,7 +31,7 @@ public abstract class InferredIndividualAxiomGenerator<A extends OWLIndividualAx
         extends InferredEntityAxiomGenerator<OWLNamedIndividual, A> {
 
     @Override
-    protected Set<OWLNamedIndividual> getEntities(OWLOntology ont) {
+    protected Set<OWLNamedIndividual> getEntities(@Nonnull OWLOntology ont) {
         return ont.getIndividualsInSignature();
     }
 }

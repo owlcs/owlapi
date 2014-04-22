@@ -19,6 +19,7 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologySetProvider;
 
@@ -32,6 +33,7 @@ import org.semanticweb.owlapi.model.OWLOntologySetProvider;
  */
 public class OWLOntologySingletonSetProvider implements OWLOntologySetProvider {
 
+    @Nonnull
     private final Set<OWLOntology> ontologySingletonSet;
 
     /**

@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.util;
 
 import java.io.Serializable;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLEntity;
 
 /**
@@ -35,7 +37,7 @@ public class SimpleShortFormProvider implements ShortFormProvider, Serializable 
     private final SimpleIRIShortFormProvider uriShortFormProvider = new SimpleIRIShortFormProvider();
 
     @Override
-    public String getShortForm(OWLEntity entity) {
+    public String getShortForm(@Nonnull OWLEntity entity) {
         return uriShortFormProvider.getShortForm(entity.getIRI());
     }
 

@@ -18,6 +18,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyID;
@@ -72,6 +74,7 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
         }
     }
 
+    @Nonnull
     @Override
     public String getShortForm(IRI iri) {
         String wellKnownShortForm = getWellKnownShortForm(iri);
@@ -99,7 +102,7 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
         return shortForm;
     }
 
-    private String getWellKnownShortForm(IRI iri) {
+    private static String getWellKnownShortForm(IRI iri) {
         String wellKnownShortForm = wellKnownShortForms.get(iri);
         if (wellKnownShortForm != null) {
             return wellKnownShortForm;

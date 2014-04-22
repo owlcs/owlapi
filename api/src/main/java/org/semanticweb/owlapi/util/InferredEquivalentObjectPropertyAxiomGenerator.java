@@ -15,6 +15,8 @@ package org.semanticweb.owlapi.util;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
@@ -31,8 +33,8 @@ public class InferredEquivalentObjectPropertyAxiomGenerator
         InferredObjectPropertyAxiomGenerator<OWLEquivalentObjectPropertiesAxiom> {
 
     @Override
-    protected void addAxioms(OWLObjectProperty entity, OWLReasoner reasoner,
-            OWLDataFactory dataFactory,
+    protected void addAxioms(OWLObjectProperty entity,
+            @Nonnull OWLReasoner reasoner, OWLDataFactory dataFactory,
             Set<OWLEquivalentObjectPropertiesAxiom> result) {
         Set<OWLObjectPropertyExpression> equivProps = new HashSet<OWLObjectPropertyExpression>(
                 reasoner.getEquivalentObjectProperties(entity).getEntities());
