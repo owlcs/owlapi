@@ -31,8 +31,11 @@ import org.semanticweb.owlapi.model.IRI;
  */
 public class XMLWriterNamespaceManager {
 
+    @Nonnull
     private Map<String, String> prefixNamespaceMap = new HashMap<String, String>();
+    @Nonnull
     private Map<String, String> namespacePrefixMap = new HashMap<String, String>();
+    @Nonnull
     private Map<String, String> wellknownNamespaces = new HashMap<String, String>();
     private String defaultNamespace;
 
@@ -105,10 +108,10 @@ public class XMLWriterNamespaceManager {
      * 
      * @param name
      *        The name which represents the full name.
-     * @return The QName representation or {@code null} if a QName could not be
-     *         generated.
+     * @return The QName representation or the input name if a QName could not
+     *         be generated.
      */
-    @Nullable
+    @Nonnull
     public String getQName(@Nonnull String name) {
         checkNotNull(name, "name cannot be null");
         if (name.startsWith(defaultNamespace)) {
@@ -131,7 +134,7 @@ public class XMLWriterNamespaceManager {
      * @return The QName representation or {@code null} if a QName could not be
      *         generated.
      */
-    public String getQName(IRI name) {
+    public String getQName(@Nonnull IRI name) {
         if (name.getNamespace().equals(defaultNamespace)) {
             return name.getFragment() == null ? "" : name.getFragment();
         }

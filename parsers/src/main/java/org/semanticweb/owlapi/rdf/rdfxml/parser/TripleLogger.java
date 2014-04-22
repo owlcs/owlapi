@@ -107,7 +107,7 @@ public class TripleLogger {
         }
     }
 
-    private Object shorten(Object o) {
+    private Object shorten(@Nullable Object o) {
         if (o == null) {
             return "null";
         }

@@ -25,6 +25,7 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.formats.RDFOntologyFormat;
 import org.semanticweb.owlapi.io.RDFLiteral;
 import org.semanticweb.owlapi.io.RDFNode;
@@ -53,6 +54,7 @@ import org.semanticweb.owlapi.util.VersionInfo;
 public class RDFXMLRenderer extends RDFRendererBase {
 
     private RDFXMLWriter writer;
+    @Nonnull
     private Set<RDFResource> pending = new HashSet<RDFResource>();
     private RDFXMLNamespaceManager qnameManager;
     private OWLOntologyFormat format;

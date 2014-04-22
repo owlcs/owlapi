@@ -24,6 +24,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -443,7 +445,7 @@ public class Translators {
             return isResourceListStrict(mainNode, individualMatcher, minSize);
         }
 
-        protected boolean isResourceListStrict(IRI mainNode,
+        protected boolean isResourceListStrict(@Nullable IRI mainNode,
                 TypeMatcher typeMatcher, int minSize) {
             if (mainNode == null) {
                 return false;
@@ -1345,7 +1347,7 @@ public class Translators {
                     && isObjectPropertyStrict(mainNode, OWL_ON_PROPERTY);
         }
 
-        private boolean isStrictBooleanTrueLiteral(OWLLiteral literal) {
+        private static boolean isStrictBooleanTrueLiteral(OWLLiteral literal) {
             return OWL2Datatype.XSD_BOOLEAN.getIRI().equals(
                     literal.getDatatype().getIRI())
                     && literal.getLiteral().toLowerCase(Locale.ENGLISH)

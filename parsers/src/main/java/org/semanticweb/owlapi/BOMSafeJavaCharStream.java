@@ -18,6 +18,9 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /** JavaCC generated JavaCharStream with added treatment for BOMs. */
@@ -422,9 +425,9 @@ public class BOMSafeJavaCharStream {
      * @throws UnsupportedEncodingException
      *         if encoding unsupported
      */
-    protected BOMSafeJavaCharStream(InputStream dstream, String encoding,
-            int startline, int startcolumn, int buffersize)
-            throws UnsupportedEncodingException {
+    protected BOMSafeJavaCharStream(InputStream dstream,
+            @Nullable String encoding, int startline, int startcolumn,
+            int buffersize) throws UnsupportedEncodingException {
         this(encoding == null ? new InputStreamReader(dstream, "UTF-8")
                 : new InputStreamReader(dstream, encoding), startline,
                 startcolumn, buffersize);
@@ -447,8 +450,8 @@ public class BOMSafeJavaCharStream {
         this(dstream, encoding, startline, startcolumn, 4096);
     }
 
-    private void ReInit(InputStream dstream, String encoding, int startline,
-            int startcolumn, int buffersize)
+    private void ReInit(InputStream dstream, @Nullable String encoding,
+            int startline, int startcolumn, int buffersize)
             throws UnsupportedEncodingException {
         ReInit(encoding == null ? new InputStreamReader(dstream, "UTF-8")
                 : new InputStreamReader(dstream, encoding), startline,
@@ -475,6 +478,7 @@ public class BOMSafeJavaCharStream {
     }
 
     /** @return token image as String */
+    @Nonnull
     public String GetImage() {
         if (bufpos >= tokenBegin) {
             return new String(buffer, tokenBegin, bufpos - tokenBegin + 1);

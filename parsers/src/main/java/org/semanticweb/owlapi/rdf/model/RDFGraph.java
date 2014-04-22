@@ -26,6 +26,7 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.io.RDFNode;
 import org.semanticweb.owlapi.io.RDFResource;
@@ -44,6 +45,7 @@ public class RDFGraph {
     private static final Logger logger = LoggerFactory
             .getLogger(RDFGraph.class);
     private Map<RDFResource, Set<RDFTriple>> triplesBySubject = new HashMap<RDFResource, Set<RDFTriple>>();
+    @Nullable
     private Set<RDFResourceBlankNode> rootAnonymousNodes = null;
     private Set<RDFTriple> triples = new HashSet<RDFTriple>();
 

@@ -20,6 +20,7 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.formats.PrefixOWLOntologyFormat;
 import org.semanticweb.owlapi.io.XMLUtils;
@@ -162,6 +163,7 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
         }
     }
 
+    @Nullable
     @Override
     public String getQName(String name) {
         checkNotNull(name, "name cannot be null");

@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.rdf.rdfxml.parser;
 
 import java.io.IOException;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.formats.RDFXMLOntologyFormat;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
@@ -35,6 +37,7 @@ public class RDFXMLParser extends AbstractOWLParser {
 
     private static final long serialVersionUID = 40000L;
 
+    @Nonnull
     @Override
     public String getName() {
         return "RDFXMLParser";

@@ -17,6 +17,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.formats.TurtleOntologyFormat;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
@@ -40,6 +42,7 @@ public class TurtleOntologyParser extends AbstractOWLParser {
 
     private static final long serialVersionUID = 40000L;
 
+    @Nonnull
     @Override
     public String getName() {
         return "TurtleOntologyParser";

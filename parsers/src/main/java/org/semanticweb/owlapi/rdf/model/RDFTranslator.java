@@ -16,6 +16,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.io.RDFLiteral;
 import org.semanticweb.owlapi.io.RDFNode;
 import org.semanticweb.owlapi.io.RDFResource;
@@ -36,6 +37,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 public class RDFTranslator extends
         AbstractTranslator<RDFNode, RDFResource, RDFResourceIRI, RDFLiteral> {
 
+    @Nonnull
     private RDFGraph graph = new RDFGraph();
 
     /**

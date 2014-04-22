@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.annotations.OwlapiModule;
 import org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxOWLParser;
 import org.semanticweb.owlapi.functional.renderer.OWLFunctionalSyntaxOntologyStorer;
@@ -64,7 +66,7 @@ public class OWLAPIParsersModule extends AbstractModule {
     }
 
     private <T> Multibinder<T> multibind(Class<T> type,
-            Class<? extends T>... implementations) {
+            @Nonnull Class<? extends T>... implementations) {
         Multibinder<T> binder = Multibinder.newSetBinder(binder(), type);
         for (Class<? extends T> i : implementations) {
             binder.addBinding().to(i);

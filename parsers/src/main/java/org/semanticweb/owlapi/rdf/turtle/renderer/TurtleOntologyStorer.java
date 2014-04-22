@@ -15,6 +15,8 @@ package org.semanticweb.owlapi.rdf.turtle.renderer;
 import java.io.IOException;
 import java.io.Writer;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.formats.TurtleOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -33,7 +35,7 @@ public class TurtleOntologyStorer extends AbstractOWLOntologyStorer {
     private static final long serialVersionUID = 40000L;
 
     @Override
-    protected void storeOntology(OWLOntology ontology, Writer writer,
+    protected void storeOntology(@Nonnull OWLOntology ontology, Writer writer,
             OWLOntologyFormat format) throws OWLOntologyStorageException {
         try {
             TurtleRenderer ren = new TurtleRenderer(ontology, writer, format);

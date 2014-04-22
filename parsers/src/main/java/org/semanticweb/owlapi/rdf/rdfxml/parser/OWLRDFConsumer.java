@@ -110,6 +110,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
     private static final String DAML_OIL = "http://www.daml.org/2001/03/daml+oil#";
     private static final Logger logger = LoggerFactory
             .getLogger(OWLRDFConsumer.class);
+    @Nullable
     TripleLogger tripleLogger;
     /** The configuration. */
     private OWLOntologyLoaderConfiguration configuration;
@@ -734,7 +735,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
      * @return {@code true} if the IRI corresponds to a built in OWL entity IRI
      *         otherwise {@code false}.
      */
-    private boolean isEntityTypeIRI(IRI iri) {
+    private static boolean isEntityTypeIRI(IRI iri) {
         return iri.equals(OWL_CLASS.getIRI())
                 || iri.equals(OWL_OBJECT_PROPERTY.getIRI())
                 || iri.equals(OWL_DATA_PROPERTY.getIRI())
@@ -1414,7 +1415,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
     // //
     // //////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    private void append(IRI i, StringBuilder b) {
+    private static void append(IRI i, StringBuilder b) {
         b.append(i.getNamespace());
         if (i.getFragment() != null) {
             b.append(i.getFragment());
@@ -1679,6 +1680,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
      * @return The {@code OWLLiteral} (either typed or untyped depending on the
      *         params)
      */
+    @Nonnull
     OWLLiteral getOWLLiteral(@Nonnull String literal, @Nullable IRI datatype,
             @Nullable String lang) {
         if (datatype != null) {

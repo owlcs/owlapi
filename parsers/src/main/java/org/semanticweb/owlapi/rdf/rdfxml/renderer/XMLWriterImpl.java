@@ -26,6 +26,7 @@ import java.util.Stack;
 import java.util.StringTokenizer;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.model.IRI;
@@ -270,6 +271,7 @@ public class XMLWriterImpl implements XMLWriter {
 
         private String name;
         private Map<String, String> attributes;
+        @Nullable
         String textContent;
         private boolean startWritten;
         private int indentation;

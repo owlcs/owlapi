@@ -102,6 +102,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
     /** Consumer receiving notifications about parsing events. */
     protected RDFConsumer m_consumer;
     /** Current parser's state. */
+    @Nullable
     protected State state;
     /** Stack of parser states. */
     protected List<State> m_states = new ArrayList<State>();
