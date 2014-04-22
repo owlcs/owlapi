@@ -16,6 +16,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormat;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
@@ -35,20 +37,24 @@ public class OWLFunctionalSyntaxOWLParser extends AbstractOWLParser {
 
     private static final long serialVersionUID = 40000L;
 
+    @Nonnull
     @Override
     public String getName() {
         return "OWLFunctionalSyntaxOWLParser";
     }
 
+    @Nonnull
     @Override
     protected Class<? extends OWLOntologyFormat> getFormatClass() {
         return OWLFunctionalSyntaxOntologyFormat.class;
     }
 
+    @Nonnull
     @Override
-    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
-            OWLOntology ontology, OWLOntologyLoaderConfiguration configuration)
-            throws IOException {
+    public OWLOntologyFormat parse(
+            @Nonnull OWLOntologyDocumentSource documentSource,
+            @Nonnull OWLOntology ontology,
+            OWLOntologyLoaderConfiguration configuration) throws IOException {
         Reader reader = null;
         InputStream is = null;
         try {
