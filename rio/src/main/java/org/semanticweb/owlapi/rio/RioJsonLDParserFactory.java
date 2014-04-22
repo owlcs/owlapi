@@ -3,7 +3,7 @@
  * 
  * The contents of this file are subject to the LGPL License, Version 3.0.
  * 
- * Copyright (C) 2011, The University of Queensland
+ * Copyright (C) 2014, Commonwealth Scientific and Industrial Research Organisation
  * 
  * This program is free software: you can redistribute it and/or modify it under the terms of the
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the
@@ -21,7 +21,7 @@
  * Version 2.0 in which case, the provisions of the Apache License Version 2.0 are applicable
  * instead of those above.
  * 
- * Copyright 2011, The University of Queensland
+ * Copyright 2014, Commonwealth Scientific and Industrial Research Organisation
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
@@ -36,22 +36,21 @@
 package org.semanticweb.owlapi.rio;
 
 import org.kohsuke.MetaInfServices;
-import org.semanticweb.owlapi.formats.BinaryRdfOntologyFormatFactory;
+import org.semanticweb.owlapi.formats.RdfJsonLDOntologyFormatFactory;
 import org.semanticweb.owlapi.formats.RioRDFOntologyFormatFactory;
-import org.semanticweb.owlapi.formats.RioRDFOntologyStorerFactory;
-import org.semanticweb.owlapi.model.OWLOntologyStorerFactory;
+import org.semanticweb.owlapi.io.OWLParserFactory;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com
  */
-@MetaInfServices(OWLOntologyStorerFactory.class)
-public class RioBinaryRdfOntologyStorerFactory extends
-        AbstractRioOntologyStorerFactory implements RioRDFOntologyStorerFactory {
+@MetaInfServices(OWLParserFactory.class)
+public class RioJsonLDParserFactory extends AbstractRioParserFactory implements
+        OWLParserFactory {
 
     private static final long serialVersionUID = 40000L;
 
     @Override
-    public RioRDFOntologyFormatFactory getFormatFactory() {
-        return new BinaryRdfOntologyFormatFactory();
+    public RioRDFOntologyFormatFactory getRioFormatFactory() {
+        return new RdfJsonLDOntologyFormatFactory();
     }
 }

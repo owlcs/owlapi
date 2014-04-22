@@ -37,32 +37,21 @@ package org.semanticweb.owlapi.rio;
 
 import org.kohsuke.MetaInfServices;
 import org.semanticweb.owlapi.formats.RDFXMLOntologyFormatFactory;
+import org.semanticweb.owlapi.formats.RioRDFOntologyFormatFactory;
 import org.semanticweb.owlapi.formats.RioRDFOntologyStorerFactory;
-import org.semanticweb.owlapi.model.OWLOntologyFormatFactory;
-import org.semanticweb.owlapi.model.OWLOntologyStorer;
 import org.semanticweb.owlapi.model.OWLOntologyStorerFactory;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com
  */
 @MetaInfServices(OWLOntologyStorerFactory.class)
-public class RioRDFXMLOntologyStorerFactory implements
-        RioRDFOntologyStorerFactory {
+public class RioRDFXMLOntologyStorerFactory extends
+        AbstractRioOntologyStorerFactory implements RioRDFOntologyStorerFactory {
 
     private static final long serialVersionUID = 40000L;
 
     @Override
-    public OWLOntologyStorer createStorer() {
-        return new RioOntologyStorer(new RDFXMLOntologyFormatFactory());
-    }
-
-    @Override
-    public OWLOntologyFormatFactory getFormatFactory() {
+    public RioRDFOntologyFormatFactory getFormatFactory() {
         return new RDFXMLOntologyFormatFactory();
-    }
-
-    @Override
-    public OWLOntologyStorer get() {
-        return createStorer();
     }
 }

@@ -20,6 +20,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.zip.GZIPInputStream;
 
 import javax.annotation.Nullable;
@@ -36,7 +37,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  */
 public class GZipFileDocumentSource extends OWLOntologyDocumentSourceBase {
 
-    private static int counter = 0;
+    private static final AtomicLong COUNTER = new AtomicLong();
     private final IRI documentIRI;
     private final File file;
 
@@ -53,8 +54,7 @@ public class GZipFileDocumentSource extends OWLOntologyDocumentSourceBase {
 
     /** @return a fresh IRI */
     public static synchronized IRI getNextDocumentIRI() {
-        counter = counter + 1;
-        return IRI.create("file:ontology" + counter);
+        return IRI.create("file:ontology" + COUNTER.incrementAndGet());
     }
 
     /**

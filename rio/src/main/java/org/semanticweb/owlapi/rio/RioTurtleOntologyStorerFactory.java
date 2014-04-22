@@ -36,36 +36,22 @@
 package org.semanticweb.owlapi.rio;
 
 import org.kohsuke.MetaInfServices;
+import org.semanticweb.owlapi.formats.RioRDFOntologyFormatFactory;
 import org.semanticweb.owlapi.formats.RioRDFOntologyStorerFactory;
-import org.semanticweb.owlapi.formats.TurtleOntologyFormat;
 import org.semanticweb.owlapi.formats.TurtleOntologyFormatFactory;
-import org.semanticweb.owlapi.model.OWLOntologyFormatFactory;
-import org.semanticweb.owlapi.model.OWLOntologyStorer;
 import org.semanticweb.owlapi.model.OWLOntologyStorerFactory;
-import org.semanticweb.owlapi.util.OWLOntologyFormatFactoryImpl;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com
  */
 @MetaInfServices(OWLOntologyStorerFactory.class)
-public class RioTurtleOntologyStorerFactory implements
-        RioRDFOntologyStorerFactory {
+public class RioTurtleOntologyStorerFactory extends
+        AbstractRioOntologyStorerFactory implements RioRDFOntologyStorerFactory {
 
     private static final long serialVersionUID = 40000L;
 
     @Override
-    public OWLOntologyStorer createStorer() {
-        return new RioOntologyStorer(new TurtleOntologyFormatFactory());
-    }
-
-    @Override
-    public OWLOntologyFormatFactory getFormatFactory() {
-        return new OWLOntologyFormatFactoryImpl<TurtleOntologyFormat>(
-                TurtleOntologyFormat.class);
-    }
-
-    @Override
-    public OWLOntologyStorer get() {
-        return createStorer();
+    public RioRDFOntologyFormatFactory getFormatFactory() {
+        return new TurtleOntologyFormatFactory();
     }
 }

@@ -11,7 +11,8 @@ import org.semanticweb.owlapi.model.OWLOntologyFormatFactory;
  */
 @MetaInfServices(OWLOntologyFormatFactory.class)
 public class RdfJsonOntologyFormatFactory extends
-        AbstractRioRDFOntologyFormatFactory implements OWLOntologyFormatFactory {
+        AbstractRioRDFOntologyFormatFactory implements
+        RioRDFOntologyFormatFactory {
 
     private static final long serialVersionUID = 40000L;
 
