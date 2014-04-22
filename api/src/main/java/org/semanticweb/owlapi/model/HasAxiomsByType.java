@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 /**
  * An interface to an object that contains axioms and can provide subsets of
  * these axioms by the type of axiom.
@@ -36,5 +38,5 @@ public interface HasAxiomsByType {
      *         Modifications to the returned set will not be reflected in this
      *         object.
      */
-    <T extends OWLAxiom> Set<T> getAxioms(AxiomType<T> axiomType);
+    <T extends OWLAxiom> Set<T> getAxioms(@Nonnull AxiomType<T> axiomType);
 }

@@ -22,6 +22,8 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.change.SetOntologyIDData;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
+import com.google.common.base.Optional;
+
 /**
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
@@ -61,7 +63,8 @@ public class SetOntologyID extends OWLOntologyChange<OWLOntologyID> {
      *        The ontology iri
      */
     public SetOntologyID(@Nonnull OWLOntology ont, @Nonnull IRI ontologyIRI) {
-        this(ont, new OWLOntologyID(ontologyIRI, null));
+        this(ont, new OWLOntologyID(Optional.of(ontologyIRI),
+                Optional.<IRI> absent()));
     }
 
     @Override

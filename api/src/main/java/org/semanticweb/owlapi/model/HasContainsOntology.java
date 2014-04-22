@@ -1,5 +1,7 @@
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group
@@ -16,5 +18,5 @@ public interface HasContainsOntology {
      * @return {@code true} if this object contains an ontology that has the
      *         specified Id, otherwise, {@code false}.
      */
-    boolean contains(OWLOntologyID id);
+    boolean contains(@Nonnull OWLOntologyID id);
 }

@@ -3,6 +3,8 @@ package org.semanticweb.owlapi.model;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group
@@ -22,6 +24,6 @@ public interface HasAddAxioms {
      * @return A list of ontology changes that represent the changes which took
      *         place in order to add the axioms.
      */
-    List<OWLOntologyChange<?>> addAxioms(OWLOntology ont,
-            Set<? extends OWLAxiom> axioms);
+    List<OWLOntologyChange<?>> addAxioms(@Nonnull OWLOntology ont,
+            @Nonnull Set<? extends OWLAxiom> axioms);
 }

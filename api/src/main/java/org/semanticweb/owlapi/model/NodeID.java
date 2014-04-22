@@ -101,8 +101,7 @@ public class NodeID implements Comparable<NodeID>, Serializable {
      *         anonymous node
      */
     public static boolean isAnonymousNodeIRI(IRI iri) {
-        return iri != null && iri.getNamespace() != null
-                && iri.getNamespace().startsWith(PREFIX)
+        return iri != null && iri.getNamespace().startsWith(PREFIX)
                 && iri.getNamespace().contains(NODE_ID_PREFIX);
     }
 

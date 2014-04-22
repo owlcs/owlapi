@@ -268,7 +268,7 @@ public class AxiomType<C extends OWLAxiom> implements Serializable {
             .uniqueIndex(AXIOM_TYPES, new Function<AxiomType<?>, String>() {
 
                 @Override
-                public String apply(@Nonnull AxiomType<?> input) {
+                public String apply(AxiomType<?> input) {
                     return input.getName();
                 }
             });

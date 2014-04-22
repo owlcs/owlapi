@@ -2,6 +2,8 @@ package org.semanticweb.owlapi.model;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group
@@ -19,5 +21,5 @@ public interface HasApplyChanges {
      *         If one or more of the changes could not be applied.
      */
     List<OWLOntologyChange<?>> applyChanges(
-            List<? extends OWLOntologyChange<?>> changes);
+            @Nonnull List<? extends OWLOntologyChange<?>> changes);
 }

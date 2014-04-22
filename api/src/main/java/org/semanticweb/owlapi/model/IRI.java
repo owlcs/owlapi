@@ -230,8 +230,13 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
      * @since 3.3
      */
     @Nonnull
-    public static IRI create(@Nullable String prefix, @Nonnull String suffix) {
+    public static IRI create(@Nullable String prefix, @Nullable String suffix) {
+        if (prefix == null && suffix == null) {
+            throw new IllegalArgumentException(
+                    "prefix and suffix cannot both be null");
+        }
         if (prefix == null) {
+            assert suffix != null;
             return create(suffix);
         } else if (suffix == null) {
             // suffix set deliberately to null is used only in blank node
@@ -326,6 +331,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
                 }
             });
 
+    @Nonnull
     private static final String cache(String s) {
         try {
             return prefixCache.get(s);
@@ -335,7 +341,9 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
         return s;
     }
 
+    @Nullable
     private final String remainder;
+    @Nonnull
     private final String prefix;
     private int hashCode = 0;
 
@@ -376,6 +384,9 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
         }
         if (index < prefix.length()) {
             return prefix.charAt(index);
+        }
+        if (remainder == null) {
+            throw new ArrayIndexOutOfBoundsException();
         }
         return remainder.charAt(index - prefix.length());
     }
