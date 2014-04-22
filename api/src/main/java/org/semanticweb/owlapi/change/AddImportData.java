@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.change;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -44,6 +45,7 @@ public class AddImportData extends ImportChangeData {
         super(declaration);
     }
 
+    @Nonnull
     @Override
     public AddImport createOntologyChange(OWLOntology ontology) {
         return new AddImport(ontology, getDeclaration());

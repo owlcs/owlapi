@@ -75,6 +75,7 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
 public class ConvertPropertyAssertionsToAnnotations extends
         AbstractCompositeOntologyChange {
 
+    @Nonnull
     private final Set<OWLOntology> ontologies;
 
     /**

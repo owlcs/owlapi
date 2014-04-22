@@ -15,6 +15,8 @@ package org.semanticweb.owlapi.change;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -65,7 +67,7 @@ public class SplitSubClassAxioms extends AbstractCompositeOntologyChange {
      * @param dataFactory
      *        The data factory which should be used to create new axioms.
      */
-    public SplitSubClassAxioms(Set<OWLOntology> ontologies,
+    public SplitSubClassAxioms(@Nonnull Set<OWLOntology> ontologies,
             OWLDataFactory dataFactory) {
         super(dataFactory);
         for (OWLOntology ont : ontologies) {

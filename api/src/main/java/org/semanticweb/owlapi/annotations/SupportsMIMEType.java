@@ -16,6 +16,8 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
+import javax.annotation.Nonnull;
+
 /**
  * MIME types (default and supported ones). This annotation is meant for
  * OWLOntologyFormats, but is not limited to them.
@@ -33,6 +35,7 @@ public @interface SupportsMIMEType {
      * 
      * @return the default MIME type
      */
+    @Nonnull
     String defaultMIMEType();
 
     /** @return list of supported MIME types. Can be empty. */

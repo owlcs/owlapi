@@ -32,6 +32,7 @@ public abstract class AbstractCompositeOntologyChange implements
         OWLCompositeOntologyChange {
 
     /** The data factory. */
+    @Nonnull
     private final OWLDataFactory dataFactory;
     /** The changes. */
     private final List<OWLOntologyChange<?>> changes = new ArrayList<OWLOntologyChange<?>>();

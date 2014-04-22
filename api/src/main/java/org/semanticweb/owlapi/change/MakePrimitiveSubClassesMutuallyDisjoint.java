@@ -21,6 +21,7 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -83,7 +84,7 @@ public class MakePrimitiveSubClassesMutuallyDisjoint extends
                 usePairwiseDisjointAxioms);
     }
 
-    private void generateChanges(OWLClass cls, OWLOntology targetOntology,
+    private void generateChanges(OWLClass cls, @Nonnull OWLOntology targetOntology,
             boolean usePairwiseDisjointAxioms) {
         Set<OWLClass> subclasses = new HashSet<OWLClass>();
         Collection<OWLClassExpression> sub = sub(

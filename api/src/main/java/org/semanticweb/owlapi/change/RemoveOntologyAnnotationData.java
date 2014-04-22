@@ -43,6 +43,7 @@ public class RemoveOntologyAnnotationData extends OntologyAnnotationChangeData {
         super(annotation);
     }
 
+    @Nonnull
     @Override
     public RemoveOntologyAnnotation createOntologyChange(
             @Nonnull OWLOntology ontology) {

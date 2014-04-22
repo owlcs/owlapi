@@ -93,7 +93,7 @@ public class ShortForm2AnnotationGenerator extends
 
     private void generateChanges(OWLOntologyManager ontologyManager,
             OWLOntology ontology, ShortFormProvider shortFormProvider,
-            IRI annotationIRI, String languageTag) {
+            IRI annotationIRI, @Nullable String languageTag) {
         ImportsStructureEntitySorter sorter = new ImportsStructureEntitySorter(
                 ontology);
         Map<OWLOntology, Set<OWLEntity>> ontology2EntityMap = sorter

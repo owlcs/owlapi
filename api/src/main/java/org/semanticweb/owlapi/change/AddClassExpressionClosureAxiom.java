@@ -19,6 +19,7 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -78,7 +79,7 @@ public class AddClassExpressionClosureAxiom extends
     }
 
     private void generateChanges(OWLClass cls,
-            OWLObjectPropertyExpression property, Set<OWLOntology> ontologies,
+            OWLObjectPropertyExpression property, @Nonnull Set<OWLOntology> ontologies,
             OWLOntology targetOntology) {
         // We collect all of the fillers for existential restrictions along
         // the target property and all of the fillers for hasValue restrictions
@@ -115,19 +116,20 @@ public class AddClassExpressionClosureAxiom extends
         }
 
         /** @return the fillers */
+        @Nonnull
         public Set<OWLClassExpression> getFillers() {
             return fillers;
         }
 
         @Override
-        public void visit(OWLObjectSomeValuesFrom desc) {
+        public void visit(@Nonnull OWLObjectSomeValuesFrom desc) {
             if (desc.getProperty().equals(property)) {
                 fillers.add(desc.getFiller());
             }
         }
 
         @Override
-        public void visit(OWLObjectHasValue desc) {
+        public void visit(@Nonnull OWLObjectHasValue desc) {
             if (desc.getProperty().equals(property)) {
                 fillers.add(getDataFactory().getOWLObjectOneOf(
                         CollectionFactory.createSet(desc.getFiller())));

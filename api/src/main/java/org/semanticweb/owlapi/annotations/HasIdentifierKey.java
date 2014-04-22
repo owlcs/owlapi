@@ -16,6 +16,8 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
+import javax.annotation.Nonnull;
+
 /**
  * Annotation for objects that have an identifier string associated with the
  * type, not the specific instance. For example, all OWLOntologyFormats have a
@@ -29,5 +31,6 @@ import java.lang.annotation.RetentionPolicy;
 public @interface HasIdentifierKey {
 
     /** @return identifier for this type */
+    @Nonnull
     String value();
 }

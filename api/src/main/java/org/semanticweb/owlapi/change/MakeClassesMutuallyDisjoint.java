@@ -20,6 +20,7 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -69,7 +70,7 @@ public class MakeClassesMutuallyDisjoint extends
     }
 
     private void generateChanges(
-            Set<? extends OWLClassExpression> classExpressions,
+            @Nonnull Set<? extends OWLClassExpression> classExpressions,
             boolean usePairwiseDisjointAxioms, OWLOntology targetOntology) {
         if (usePairwiseDisjointAxioms) {
             List<OWLClassExpression> descList = new ArrayList<OWLClassExpression>(

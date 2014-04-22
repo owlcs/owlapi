@@ -63,7 +63,6 @@ public class OWLOntologyChangeRecord<T> implements Serializable {
     @Nonnull
     private final OWLOntologyChangeData<T> data;
 
-
     /**
      * Constructs an {@link OWLOntologyChangeRecord} object which holds
      * information about a change to a particular ontology identified by an

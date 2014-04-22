@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.change;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -42,6 +43,7 @@ public class AddAxiomData extends AxiomChangeData {
         super(axiom);
     }
 
+    @Nonnull
     @Override
     public AddAxiom createOntologyChange(@Nonnull OWLOntology ontology) {
         return new AddAxiom(ontology, getAxiom());

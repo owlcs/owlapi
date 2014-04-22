@@ -35,6 +35,7 @@ public abstract class OntologyAnnotationChangeData extends
         OWLOntologyChangeData<OWLAnnotation> {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final OWLAnnotation annotation;
 
     /**

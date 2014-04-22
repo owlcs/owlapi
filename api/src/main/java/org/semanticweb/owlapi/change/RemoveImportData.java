@@ -45,6 +45,7 @@ public class RemoveImportData extends ImportChangeData {
         super(declaration);
     }
 
+    @Nonnull
     @Override
     public RemoveImport createOntologyChange(@Nonnull OWLOntology ontology) {
         return new RemoveImport(ontology, getDeclaration());

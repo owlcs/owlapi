@@ -35,6 +35,7 @@ public abstract class ImportChangeData extends
         OWLOntologyChangeData<OWLImportsDeclaration> {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final OWLImportsDeclaration declaration;
 
     /**

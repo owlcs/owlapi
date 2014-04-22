@@ -40,6 +40,7 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -96,7 +97,7 @@ public class ConvertSuperClassesToEquivalentClass extends
     }
 
     private void generateChanges(OWLOntology targetOntology, OWLClass cls,
-            Set<OWLOntology> ontologies) {
+            @Nonnull Set<OWLOntology> ontologies) {
         // We remove the existing superclasses and then combine these
         // into an intersection which is made equivalent.
         Set<OWLClassExpression> descs = new HashSet<OWLClassExpression>();

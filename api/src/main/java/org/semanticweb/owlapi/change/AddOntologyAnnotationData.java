@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.change;
 
 import javax.annotation.Nonnull;
 
+
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -43,6 +44,7 @@ public class AddOntologyAnnotationData extends OntologyAnnotationChangeData {
         super(annotation);
     }
 
+    @Nonnull
     @Override
     public AddOntologyAnnotation createOntologyChange(OWLOntology ontology) {
         return new AddOntologyAnnotation(ontology, getAnnotation());

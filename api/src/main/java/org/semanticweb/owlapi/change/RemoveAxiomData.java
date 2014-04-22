@@ -42,6 +42,7 @@ public class RemoveAxiomData extends AxiomChangeData {
         super(axiom);
     }
 
+    @Nonnull
     @Override
     public RemoveAxiom createOntologyChange(@Nonnull OWLOntology ontology) {
         return new RemoveAxiom(ontology, getAxiom());
