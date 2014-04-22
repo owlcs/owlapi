@@ -11,6 +11,11 @@
 	<artifactId>owlapi-rio</artifactId>
 	<name>OWLAPI :: Sesame Rio module</name>
 	<description>Extends OWLAPI to export ontologies to any Sesame Rio RDFHandler, including databases and in-memory RDF statement collections.</description>
+	
+	<properties>
+		<sesame.version>2.7.11</sesame.version>
+	</properties>
+	
 	<dependencies>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
@@ -29,63 +34,73 @@
 		</dependency>
 		<dependency>
 			<groupId>org.openrdf.sesame</groupId>
+			<artifactId>sesame-model</artifactId>
+			<version>${sesame.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openrdf.sesame</groupId>
 			<artifactId>sesame-rio-api</artifactId>
-			<version>2.7.10</version>
+			<version>${sesame.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.openrdf.sesame</groupId>
 			<artifactId>sesame-rio-languages</artifactId>
-			<version>2.7.10</version>
+			<version>${sesame.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.openrdf.sesame</groupId>
 			<artifactId>sesame-rio-datatypes</artifactId>
-			<version>2.7.10</version>
+			<version>${sesame.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.openrdf.sesame</groupId>
 			<artifactId>sesame-rio-binary</artifactId>
-			<version>2.7.10</version>
+			<version>${sesame.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.openrdf.sesame</groupId>
 			<artifactId>sesame-rio-n3</artifactId>
-			<version>2.7.10</version>
+			<version>${sesame.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.openrdf.sesame</groupId>
 			<artifactId>sesame-rio-nquads</artifactId>
-			<version>2.7.10</version>
+			<version>${sesame.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.openrdf.sesame</groupId>
 			<artifactId>sesame-rio-ntriples</artifactId>
-			<version>2.7.10</version>
+			<version>${sesame.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.openrdf.sesame</groupId>
 			<artifactId>sesame-rio-rdfjson</artifactId>
-			<version>2.7.10</version>
+			<version>${sesame.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.openrdf.sesame</groupId>
 			<artifactId>sesame-rio-rdfxml</artifactId>
-			<version>2.7.10</version>
+			<version>${sesame.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.openrdf.sesame</groupId>
 			<artifactId>sesame-rio-trix</artifactId>
-			<version>2.7.10</version>
+			<version>${sesame.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.openrdf.sesame</groupId>
 			<artifactId>sesame-rio-turtle</artifactId>
-			<version>2.7.10</version>
+			<version>${sesame.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.openrdf.sesame</groupId>
 			<artifactId>sesame-rio-trig</artifactId>
-			<version>2.7.10</version>
+			<version>${sesame.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.jsonld-java</groupId>
+			<artifactId>jsonld-java-sesame</artifactId>
+			<version>0.4</version>
 		</dependency>
 		<dependency>
 			<groupId>org.kohsuke.metainf-services</groupId>
@@ -93,11 +108,6 @@
 			<version>1.5</version>
 			<scope>compile</scope>
 			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.openrdf.sesame</groupId>
-			<artifactId>sesame-repository-api</artifactId>
-			<version>2.7.10</version>
 		</dependency>
 	</dependencies>
 	
