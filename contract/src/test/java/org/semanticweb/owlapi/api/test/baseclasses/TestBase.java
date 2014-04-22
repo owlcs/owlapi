@@ -19,6 +19,8 @@ import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -54,18 +56,21 @@ import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
 @SuppressWarnings("javadoc")
 public abstract class TestBase {
 
+    @Nonnull
     @Rule
     public TemporaryFolder folder = new TemporaryFolder();
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
+    @Nonnull
     @Rule
     public Timeout timeout = new Timeout(1000000);
+    @Nonnull
     protected OWLOntologyLoaderConfiguration config = new OWLOntologyLoaderConfiguration();
     protected OWLDataFactory df = OWLManager.getOWLDataFactory();
     protected OWLOntologyManager m = OWLManager.createOWLOntologyManager();
     protected OWLOntologyManager m1 = OWLManager.createOWLOntologyManager();
 
-    public boolean equal(OWLOntology ont1, OWLOntology ont2) {
+    public boolean equal(@Nonnull OWLOntology ont1, @Nonnull OWLOntology ont2) {
         if (!ont1.isAnonymous() && !ont2.isAnonymous()) {
             assertEquals("Ontologies supposed to be the same",
                     ont1.getOntologyID(), ont2.getOntologyID());
@@ -133,7 +138,8 @@ public abstract class TestBase {
         return true;
     }
 
-    private String topOfStackTrace() {
+    @Nonnull
+    private static String topOfStackTrace() {
         StackTraceElement[] elements = new RuntimeException().getStackTrace();
         return elements[1].toString() + "\n" + elements[2].toString() + "\n"
                 + elements[3].toString();
@@ -145,7 +151,7 @@ public abstract class TestBase {
      * @return
      */
     public static boolean verifyErrorIsDueToBlankNodesId(
-            Set<OWLAxiom> leftOnly, Set<OWLAxiom> rightOnly) {
+            @Nonnull Set<OWLAxiom> leftOnly, @Nonnull Set<OWLAxiom> rightOnly) {
         Set<String> leftOnlyStrings = new HashSet<String>();
         Set<String> rightOnlyStrings = new HashSet<String>();
         for (OWLAxiom ax : leftOnly) {
@@ -183,6 +189,7 @@ public abstract class TestBase {
         return false;
     }
 
+    @Nonnull
     private String uriBase = "http://www.semanticweb.org/owlapi/test";
 
     public OWLOntology getOWLOntology(String name) {
@@ -219,7 +226,7 @@ public abstract class TestBase {
         m.addAxiom(ont, ax);
     }
 
-    public void roundTripOntology(OWLOntology ont)
+    public void roundTripOntology(@Nonnull OWLOntology ont)
             throws OWLOntologyStorageException, OWLOntologyCreationException {
         roundTripOntology(ont, new RDFXMLOntologyFormat());
     }
@@ -236,7 +243,7 @@ public abstract class TestBase {
      * @param format
      *        The format to use when doing the round trip.
      */
-    public OWLOntology roundTripOntology(OWLOntology ont,
+    public OWLOntology roundTripOntology(@Nonnull OWLOntology ont,
             OWLOntologyFormat format) throws OWLOntologyStorageException,
             OWLOntologyCreationException {
         StringDocumentTarget target = new StringDocumentTarget();
@@ -323,8 +330,9 @@ public abstract class TestBase {
         return ontology;
     }
 
-    protected OWLOntology loadOntologyFromString(StringDocumentTarget input,
-            OWLOntologyFormat f) throws OWLOntologyCreationException {
+    protected OWLOntology loadOntologyFromString(
+            @Nonnull StringDocumentTarget input, OWLOntologyFormat f)
+            throws OWLOntologyCreationException {
         OWLOntology ontology = OWLManager.createOWLOntologyManager()
                 .loadOntologyFromOntologyDocument(
                         new StringDocumentSource(input.toString(),
@@ -340,37 +348,40 @@ public abstract class TestBase {
     }
 
     protected OWLOntology loadOntologyWithConfig(StringDocumentTarget o,
-            OWLOntologyLoaderConfiguration config)
+            OWLOntologyLoaderConfiguration c)
             throws OWLOntologyCreationException {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         return manager.loadOntologyFromOntologyDocument(
-                new StringDocumentSource(o), config);
+                new StringDocumentSource(o), c);
     }
 
-    protected StringDocumentTarget saveOntology(OWLOntology o)
+    @Nonnull
+    protected StringDocumentTarget saveOntology(@Nonnull OWLOntology o)
             throws UnknownOWLOntologyException, OWLOntologyStorageException {
         return saveOntology(o, o.getOWLOntologyManager().getOntologyFormat(o));
     }
 
-    protected StringDocumentTarget saveOntology(OWLOntology o,
+    @Nonnull
+    protected StringDocumentTarget saveOntology(@Nonnull OWLOntology o,
             OWLOntologyFormat format) throws OWLOntologyStorageException {
         StringDocumentTarget t = new StringDocumentTarget();
         o.getOWLOntologyManager().saveOntology(o, format, t);
         return t;
     }
 
-    protected OWLOntology roundTrip(OWLOntology o, OWLOntologyFormat format)
-            throws OWLOntologyCreationException, OWLOntologyStorageException {
+    protected OWLOntology roundTrip(@Nonnull OWLOntology o,
+            OWLOntologyFormat format) throws OWLOntologyCreationException,
+            OWLOntologyStorageException {
         return loadOntologyFromString(saveOntology(o, format), format);
     }
 
-    protected OWLOntology roundTrip(OWLOntology o, OWLOntologyFormat format,
-            OWLOntologyLoaderConfiguration config)
+    protected OWLOntology roundTrip(@Nonnull OWLOntology o,
+            OWLOntologyFormat format, OWLOntologyLoaderConfiguration c)
             throws OWLOntologyCreationException, OWLOntologyStorageException {
-        return loadOntologyWithConfig(saveOntology(o, format), config);
+        return loadOntologyWithConfig(saveOntology(o, format), c);
     }
 
-    protected OWLOntology roundTrip(OWLOntology o)
+    protected OWLOntology roundTrip(@Nonnull OWLOntology o)
             throws UnknownOWLOntologyException, OWLOntologyCreationException,
             OWLOntologyStorageException {
         return loadOntologyFromString(saveOntology(o));

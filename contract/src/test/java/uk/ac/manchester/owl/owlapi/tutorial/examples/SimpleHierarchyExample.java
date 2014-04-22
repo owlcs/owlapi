@@ -16,6 +16,8 @@ import static org.semanticweb.owlapi.search.Searcher.annotations;
 
 import java.io.PrintStream;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -56,7 +58,7 @@ public class SimpleHierarchyExample {
      * assuming this class is at the given level. Makes no attempt to deal
      * sensibly with multiple inheritance.
      */
-    private void printHierarchy(OWLClass clazz) throws OWLException {
+    private void printHierarchy(@Nonnull OWLClass clazz) throws OWLException {
         OWLReasoner reasoner = reasonerFactory
                 .createNonBufferingReasoner(ontology);
         printHierarchy(reasoner, clazz, 0);
@@ -69,7 +71,7 @@ public class SimpleHierarchyExample {
         reasoner.dispose();
     }
 
-    private String labelFor(OWLClass clazz) {
+    private String labelFor(@Nonnull OWLClass clazz) {
         /*
          * Use a visitor to extract label annotations
          */
@@ -91,9 +93,8 @@ public class SimpleHierarchyExample {
      * the given level. Makes no attempt to deal sensibly with multiple
      * inheritance.
      */
-    private void
-            printHierarchy(OWLReasoner reasoner, OWLClass clazz, int level)
-                    throws OWLException {
+    private void printHierarchy(@Nonnull OWLReasoner reasoner,
+            @Nonnull OWLClass clazz, int level) throws OWLException {
         /*
          * Only print satisfiable classes -- otherwise we end up with bottom
          * everywhere

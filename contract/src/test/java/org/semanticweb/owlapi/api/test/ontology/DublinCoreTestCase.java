@@ -15,6 +15,8 @@ package org.semanticweb.owlapi.api.test.ontology;
 import static org.junit.Assert.assertTrue;
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileTestCase;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -29,6 +31,7 @@ import org.semanticweb.owlapi.vocab.DublinCoreVocabulary;
 @SuppressWarnings("javadoc")
 public class DublinCoreTestCase extends AbstractFileTestCase {
 
+    @Nonnull
     @Override
     protected String getFileName() {
         return "dublincore.rdf";

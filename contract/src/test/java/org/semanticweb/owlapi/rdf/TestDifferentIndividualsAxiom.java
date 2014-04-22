@@ -16,6 +16,8 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLIndividual;
 
@@ -27,11 +29,13 @@ import org.semanticweb.owlapi.model.OWLIndividual;
 public class TestDifferentIndividualsAxiom extends
         AbstractRendererAndParserTestCase {
 
+    @Nonnull
     @Override
     protected String getClassExpression() {
         return "Different individuals axioms test case";
     }
 
+    @Nonnull
     @Override
     protected Set<OWLAxiom> getAxioms() {
         Set<OWLIndividual> individuals = new HashSet<OWLIndividual>();

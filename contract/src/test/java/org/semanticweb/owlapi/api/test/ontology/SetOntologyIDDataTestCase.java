@@ -15,6 +15,8 @@ package org.semanticweb.owlapi.api.test.ontology;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.change.SetOntologyIDData;
@@ -43,6 +45,7 @@ public class SetOntologyIDDataTestCase {
         mockOntologyID = new OWLOntologyID();
     }
 
+    @Nonnull
     private SetOntologyIDData createData() {
         return new SetOntologyIDData(mockOntologyID);
     }

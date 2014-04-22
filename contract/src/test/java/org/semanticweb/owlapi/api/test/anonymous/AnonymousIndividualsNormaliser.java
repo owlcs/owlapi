@@ -22,6 +22,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -49,7 +51,8 @@ public class AnonymousIndividualsNormaliser extends OWLObjectDuplicator {
         super(dataFactory);
     }
 
-    public Set<OWLAxiom> getNormalisedAxioms(Set<OWLAxiom> axioms) {
+    @Nonnull
+    public Set<OWLAxiom> getNormalisedAxioms(@Nonnull Set<OWLAxiom> axioms) {
         List<OWLAxiom> axiomsList = new ArrayList<OWLAxiom>(axioms);
         Collections.sort(axiomsList);
         Set<OWLAxiom> normalised = new HashSet<OWLAxiom>();

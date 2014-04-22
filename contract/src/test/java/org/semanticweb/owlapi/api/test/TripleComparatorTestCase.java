@@ -20,6 +20,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.io.RDFNode;
 import org.semanticweb.owlapi.io.RDFResourceBlankNode;
@@ -32,6 +34,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 @SuppressWarnings("javadoc")
 public class TripleComparatorTestCase {
 
+    @Nonnull
     String ns = "http://www.co-ode.org/roberts/pto.owl#";
     RDFResourceIRI g = r(Class(IRI(ns + "MoleOfGoldAtom")));
     RDFResourceIRI d = r(ObjectProperty(OWL_DISJOINT_WITH.getIRI()));
@@ -111,27 +114,34 @@ public class TripleComparatorTestCase {
         Collections.sort(list);
     }
 
+    @Nonnull
     private RDFTriple triple(String n) {
         return new RDFTriple(g, d, r(IRI(ns + n)));
     }
 
-    private RDFTriple triple(OWLRDFVocabulary p, OWLRDFVocabulary n) {
+    @Nonnull
+    private RDFTriple triple(@Nonnull OWLRDFVocabulary p,
+            @Nonnull OWLRDFVocabulary n) {
         return new RDFTriple(g, r(p.getIRI()), r(n.getIRI()));
     }
 
+    @Nonnull
     private RDFTriple triple(int n) {
         return new RDFTriple(g, subtype, r(n));
     }
 
-    private RDFResourceIRI r(OWLEntity e) {
+    @Nonnull
+    private static RDFResourceIRI r(@Nonnull OWLEntity e) {
         return new RDFResourceIRI(e.getIRI());
     }
 
-    private RDFResourceIRI r(IRI e) {
+    @Nonnull
+    private static RDFResourceIRI r(IRI e) {
         return new RDFResourceIRI(e);
     }
 
-    private RDFNode r(int s) {
+    @Nonnull
+    private static RDFNode r(int s) {
         return new RDFResourceBlankNode(s);
     }
 }

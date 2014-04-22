@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.api.test.baseclasses;
 
 import java.net.URL;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.io.IRIDocumentSource;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -39,5 +41,6 @@ public abstract class AbstractFileTestCase extends TestBase {
         return new OWLOntologyLoaderConfiguration();
     }
 
+    @Nonnull
     protected abstract String getFileName();
 }

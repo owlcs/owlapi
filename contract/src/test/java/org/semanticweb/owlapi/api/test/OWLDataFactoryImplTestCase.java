@@ -17,6 +17,8 @@ import static org.junit.Assert.assertSame;
 import java.util.Arrays;
 import java.util.Collection;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -47,6 +49,7 @@ public class OWLDataFactoryImplTestCase {
         this.dataFactory = dataFactory;
     }
 
+    @Nonnull
     @Parameterized.Parameters
     public static Collection<Object[]> parameters() {
         OWLDataFactoryImpl noCaching = new OWLDataFactoryImpl(false, false);

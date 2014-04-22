@@ -7,6 +7,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.obolibrary.oboformat.model.Clause;
@@ -110,8 +112,9 @@ public class BFOROXrefTest extends OboFormatTestBasics {
         assertTrue(rc.getValue2().equals("TEST:b"));
     }
 
-    private static void assertAnnotationPropertyCountEquals(OWLOntology owlOnt,
-            IRI subjectIRI, OWLAnnotationProperty property, int expected) {
+    private static void assertAnnotationPropertyCountEquals(
+            @Nonnull OWLOntology owlOnt, IRI subjectIRI,
+            OWLAnnotationProperty property, int expected) {
         Set<OWLAnnotationAssertionAxiom> aaas = owlOnt
                 .getAnnotationAssertionAxioms(subjectIRI);
         List<OWLAnnotationAssertionAxiom> matches = new ArrayList<OWLAnnotationAssertionAxiom>();

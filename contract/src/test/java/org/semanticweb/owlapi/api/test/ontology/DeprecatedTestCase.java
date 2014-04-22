@@ -17,6 +17,8 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.search.Searcher.annotations;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileTestCase;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -50,6 +52,7 @@ public class DeprecatedTestCase extends AbstractFileTestCase {
         }
     }
 
+    @Nonnull
     @Override
     protected String getFileName() {
         return "Deprecated.rdf";

@@ -24,6 +24,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.AddImport;
@@ -66,23 +68,36 @@ public class SerializationTest {
     OWLAnnotationProperty ap = f.getOWLAnnotationProperty(IRI.create("urn:ap"));
     OWLFacet owlfacet = OWLFacet.MIN_EXCLUSIVE;
     OWLAnnotation owlannotation = f.getOWLAnnotation(ap, owlliteral);
+    @Nonnull
     String string = "testString";
     OWLClassExpression c = f.getOWLClass(IRI.create("urn:classexpression"));
+    @Nonnull
     PrefixManager prefixmanager = new DefaultPrefixManager();
     OWLIndividual ai = f.getOWLAnonymousIndividual();
     OWLAnnotationValue owlannotationvalue = owlliteral;
+    @Nonnull
     Set<OWLObjectPropertyExpression> setop = new HashSet<OWLObjectPropertyExpression>();
+    @Nonnull
     Set<OWLAnnotation> setowlannotation = new HashSet<OWLAnnotation>();
+    @Nonnull
     Set<OWLDataPropertyExpression> setdp = new HashSet<OWLDataPropertyExpression>();
+    @Nonnull
     List<OWLObjectPropertyExpression> listowlobjectpropertyexpression = new ArrayList<OWLObjectPropertyExpression>();
+    @Nonnull
     Set<OWLIndividual> setowlindividual = new HashSet<OWLIndividual>();
+    @Nonnull
     Set<OWLPropertyExpression> setowlpropertyexpression = new HashSet<OWLPropertyExpression>();
+    @Nonnull
     OWLFacetRestriction[] lowlfacetrestriction = new OWLFacetRestriction[] { f
             .getOWLFacetRestriction(owlfacet, 1) };
+    @Nonnull
     OWLFacetRestriction[] nulllowlfacetrestriction = new OWLFacetRestriction[] { f
             .getOWLFacetRestriction(owlfacet, 1) };
+    @Nonnull
     Set<OWLClassExpression> setowlclassexpression = new HashSet<OWLClassExpression>();
+    @Nonnull
     Set<OWLFacetRestriction> setowlfacetrestriction = new HashSet<OWLFacetRestriction>();
+    @Nonnull
     OWLPropertyExpression[] owlpropertyexpression = new OWLPropertyExpression[] {};
 
     @Test

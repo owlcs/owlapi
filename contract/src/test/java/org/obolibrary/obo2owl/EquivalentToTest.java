@@ -11,6 +11,8 @@ import java.io.OutputStreamWriter;
 import java.util.Collection;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Test;
 import org.obolibrary.oboformat.model.Clause;
 import org.obolibrary.oboformat.model.Frame;
@@ -58,7 +60,7 @@ public class EquivalentToTest extends OboFormatTestBasics {
         checkOBODoc(obodoc);
     }
 
-    public void checkOBODoc(OBODoc obodoc) {
+    public void checkOBODoc(@Nonnull OBODoc obodoc) {
         // OBODoc tests
         // test ECA between named classes is persisted using correct tag
         if (true) {

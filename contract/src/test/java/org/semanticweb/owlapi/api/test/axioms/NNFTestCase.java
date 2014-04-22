@@ -15,6 +15,8 @@ package org.semanticweb.owlapi.api.test.axioms;
 import static org.junit.Assert.assertEquals;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -162,7 +164,8 @@ public class NNFTestCase extends TestBase {
     private OWLObjectProperty propP = ObjectProperty(IRI("p"));
     private OWLNamedIndividual indA = NamedIndividual(IRI("a"));
 
-    private OWLClassExpression getNNF(OWLClassExpression classExpression) {
+    private OWLClassExpression getNNF(
+            @Nonnull OWLClassExpression classExpression) {
         NNF nnf = new NNF(df);
         return classExpression.accept(nnf);
     }

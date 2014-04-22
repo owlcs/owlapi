@@ -15,6 +15,8 @@ package org.semanticweb.owlapi.api.test.syntax.rdf;
 import java.util.Collections;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLIndividual;
@@ -26,11 +28,13 @@ import org.semanticweb.owlapi.model.OWLIndividual;
  */
 public class ClassAssertionAxiomsTestCase extends AbstractRendererAndParser {
 
+    @Nonnull
     @Override
     protected String getClassExpression() {
         return "Class assertion axioms test case";
     }
 
+    @Nonnull
     @Override
     protected Set<OWLAxiom> getAxioms() {
         OWLIndividual ind = createIndividual();

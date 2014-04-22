@@ -18,6 +18,8 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractAxiomsRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -35,6 +37,7 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 @SuppressWarnings("javadoc")
 public class LiteralTestCase extends AbstractAxiomsRoundTrippingTestCase {
 
+    @Nonnull
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         OWLLiteral literalWithLang = Literal("abc", "en");

@@ -16,6 +16,8 @@ import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStreamWriter;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormat;
@@ -51,8 +53,9 @@ public class ExistingOutputStreamTestCase extends TestBase {
     }
 
     // test that the stream is not closed by adding a comment at the end
+    @Nonnull
     @Override
-    protected StringDocumentTarget saveOntology(OWLOntology o,
+    protected StringDocumentTarget saveOntology(@Nonnull OWLOntology o,
             OWLOntologyFormat format) throws UnknownOWLOntologyException,
             OWLOntologyStorageException {
         BufferedOutputStream os = new BufferedOutputStream(

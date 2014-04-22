@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Information
@@ -27,7 +26,7 @@ public class InversePropertiesAxiomTestCase extends
         AbstractRoundTrippingTestCase {
 
     @Override
-    protected OWLOntology createOntology() throws OWLOntologyCreationException {
+    protected OWLOntology createOntology() {
         OWLOntology ont = getOWLOntology("ont");
         ont.getOWLOntologyManager().addAxiom(
                 ont,

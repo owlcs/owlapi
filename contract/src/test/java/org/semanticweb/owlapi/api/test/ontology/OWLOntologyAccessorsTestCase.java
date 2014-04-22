@@ -20,6 +20,8 @@ import static org.semanticweb.owlapi.search.Searcher.*;
 
 import java.util.Collection;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.AxiomType;
@@ -71,7 +73,8 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 @SuppressWarnings("javadoc")
 public class OWLOntologyAccessorsTestCase extends TestBase {
 
-    private void performAxiomTests(OWLOntology ont, OWLAxiom... axioms) {
+    private static void performAxiomTests(@Nonnull OWLOntology ont,
+            @Nonnull OWLAxiom... axioms) {
         assertEquals(ont.getAxiomCount(), axioms.length);
         for (OWLAxiom ax : axioms) {
             assertTrue(ont.getAxioms().contains(ax));

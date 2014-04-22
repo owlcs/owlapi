@@ -20,6 +20,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.AddAxiom;
@@ -46,9 +48,11 @@ public class OntologyMutationTestCase extends TestBase {
                 new OWLOntologyChangeListener() {
 
                     @Override
-                    public void ontologiesChanged(
-                            List<? extends OWLOntologyChange<?>> changes)
-                            throws OWLException {
+                    public
+                            void
+                            ontologiesChanged(
+                                    @Nonnull List<? extends OWLOntologyChange<?>> changes)
+                                    throws OWLException {
                         chgs.addAll(changes);
                     }
                 });
@@ -66,9 +70,11 @@ public class OntologyMutationTestCase extends TestBase {
                 new OWLOntologyChangeListener() {
 
                     @Override
-                    public void ontologiesChanged(
-                            List<? extends OWLOntologyChange<?>> changes)
-                            throws OWLException {
+                    public
+                            void
+                            ontologiesChanged(
+                                    @Nonnull List<? extends OWLOntologyChange<?>> changes)
+                                    throws OWLException {
                         chgs.addAll(changes);
                     }
                 });
@@ -86,9 +92,11 @@ public class OntologyMutationTestCase extends TestBase {
                 new OWLOntologyChangeListener() {
 
                     @Override
-                    public void ontologiesChanged(
-                            List<? extends OWLOntologyChange<?>> changes)
-                            throws OWLException {
+                    public
+                            void
+                            ontologiesChanged(
+                                    @Nonnull List<? extends OWLOntologyChange<?>> changes)
+                                    throws OWLException {
                         chgs.addAll(changes);
                     }
                 });
@@ -106,9 +114,11 @@ public class OntologyMutationTestCase extends TestBase {
                 new OWLOntologyChangeListener() {
 
                     @Override
-                    public void ontologiesChanged(
-                            List<? extends OWLOntologyChange<?>> changes)
-                            throws OWLException {
+                    public
+                            void
+                            ontologiesChanged(
+                                    @Nonnull List<? extends OWLOntologyChange<?>> changes)
+                                    throws OWLException {
                         chgs.addAll(changes);
                     }
                 });

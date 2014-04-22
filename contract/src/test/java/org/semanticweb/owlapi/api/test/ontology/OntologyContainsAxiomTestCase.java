@@ -21,6 +21,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Collections;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.apibinding.OWLManager;
@@ -80,7 +82,8 @@ public class OntologyContainsAxiomTestCase extends TestBase {
         runTestOntologyContainsAxioms1(format);
     }
 
-    private RDFXMLOntologyFormat createRDFXMLFormat() {
+    @Nonnull
+    private static RDFXMLOntologyFormat createRDFXMLFormat() {
         RDFXMLOntologyFormat format = new RDFXMLOntologyFormat();
         // This test case relies on certain declarations being in certain
         // ontologies. The default
@@ -107,7 +110,8 @@ public class OntologyContainsAxiomTestCase extends TestBase {
         runTestOntologyContainsAxioms1(format);
     }
 
-    private TurtleOntologyFormat createTurtleOntologyFormat() {
+    @Nonnull
+    private static TurtleOntologyFormat createTurtleOntologyFormat() {
         TurtleOntologyFormat format = new TurtleOntologyFormat();
         format.setAddMissingTypes(false);
         return format;

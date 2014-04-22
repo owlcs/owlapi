@@ -17,6 +17,8 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractAxiomsRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -31,6 +33,7 @@ import org.semanticweb.owlapi.rdf.rdfxml.renderer.XMLWriterPreferences;
  */
 public class IRISubstringTestCase extends AbstractAxiomsRoundTrippingTestCase {
 
+    @Nonnull
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         XMLWriterPreferences.getInstance().setUseNamespaceEntities(true);

@@ -19,6 +19,8 @@ import static org.semanticweb.owlapi.search.Searcher.annotations;
 import java.io.ByteArrayInputStream;
 import java.nio.charset.Charset;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormat;
@@ -152,7 +154,7 @@ public class Utf8TestCase extends TestBase {
         checkOntology(newOntology, C, CHINESE);
     }
 
-    private OWLOntology createOriginalOntology(String NS, OWLClass C,
+    private OWLOntology createOriginalOntology(String NS, @Nonnull OWLClass C,
             String CHINESE) throws OWLOntologyCreationException {
         OWLOntology ontology = m.createOntology(IRI(NS));
         OWLAxiom annotationAxiom = AnnotationAssertion(RDFSLabel(), C.getIRI(),
@@ -161,8 +163,8 @@ public class Utf8TestCase extends TestBase {
         return ontology;
     }
 
-    private static boolean checkOntology(OWLOntology ontology, OWLClass C,
-            String CHINESE) {
+    private static boolean checkOntology(@Nonnull OWLOntology ontology,
+            @Nonnull OWLClass C, @Nonnull String CHINESE) {
         for (OWLAnnotation annotation : annotations(ontology
                 .getAnnotationAssertionAxioms(C.getIRI()))) {
             String value = ((OWLLiteral) annotation.getValue()).getLiteral();

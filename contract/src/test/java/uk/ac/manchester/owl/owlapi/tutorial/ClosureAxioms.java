@@ -16,6 +16,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -42,11 +44,13 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 @SuppressWarnings({ "javadoc" })
 public class ClosureAxioms {
 
+    @Nonnull
     private final OWLOntologyManager manager;
     private final OWLOntology ontology;
     private final OWLDataFactory factory;
 
-    public ClosureAxioms(OWLOntologyManager manager, OWLOntology ontology) {
+    public ClosureAxioms(@Nonnull OWLOntologyManager manager,
+            OWLOntology ontology) {
         this.manager = manager;
         this.ontology = ontology;
         factory = manager.getOWLDataFactory();

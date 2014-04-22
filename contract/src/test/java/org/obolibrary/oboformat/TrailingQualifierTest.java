@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import java.util.Collection;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Test;
 import org.obolibrary.obo2owl.OboFormatTestBasics;
 import org.obolibrary.obo2owl.RoundTripPropertyValueTest;
@@ -33,7 +35,7 @@ public class TrailingQualifierTest extends OboFormatTestBasics {
         checkAllTrailingQualifiers(doc2);
     }
 
-    private void checkAllTrailingQualifiers(OBODoc doc) {
+    private void checkAllTrailingQualifiers(@Nonnull OBODoc doc) {
         Frame headerFrame = doc.getHeaderFrame();
         hasQualifierClause(headerFrame, OboFormatTag.TAG_AUTO_GENERATED_BY);
         hasQualifierClause(headerFrame, OboFormatTag.TAG_SUBSETDEF);
@@ -87,14 +89,14 @@ public class TrailingQualifierTest extends OboFormatTestBasics {
         hasQualifierClause(frame, OboFormatTag.TAG_IS_METADATA_TAG);
     }
 
-    void hasQualifierClause(Frame frame, OboFormatTag tag) {
+    void hasQualifierClause(@Nonnull Frame frame, @Nonnull OboFormatTag tag) {
         Clause clause = frame.getClause(tag);
         assertNotNull("Expected a clause " + tag.getTag() + " in frame: "
                 + frame, clause);
         hasQualifier(clause);
     }
 
-    void hasQualifierClauses(Frame frame, OboFormatTag tag) {
+    void hasQualifierClauses(@Nonnull Frame frame, @Nonnull OboFormatTag tag) {
         Collection<Clause> clauses = frame.getClauses(tag);
         String message = "Expected clauses " + tag.getTag() + " in frame: "
                 + frame;
@@ -105,7 +107,7 @@ public class TrailingQualifierTest extends OboFormatTestBasics {
         }
     }
 
-    void hasQualifier(Clause clause) {
+    void hasQualifier(@Nonnull Clause clause) {
         Collection<QualifierValue> qualifierValues = clause
                 .getQualifierValues();
         assertNotNull(

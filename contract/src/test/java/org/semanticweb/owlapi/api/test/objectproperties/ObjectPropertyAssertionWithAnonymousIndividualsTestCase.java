@@ -17,6 +17,8 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractAxiomsRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLIndividual;
@@ -30,6 +32,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 public class ObjectPropertyAssertionWithAnonymousIndividualsTestCase extends
         AbstractAxiomsRoundTrippingTestCase {
 
+    @Nonnull
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         OWLIndividual subject = AnonymousIndividual();

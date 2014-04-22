@@ -20,6 +20,8 @@ import java.net.URISyntaxException;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.TurtleOntologyFormat;
@@ -54,6 +56,7 @@ public class TurtleTestCase extends TestBase {
     }
 
     private IRI iri = IRI.create("urn:testliterals");
+    @Nonnull
     private TurtleOntologyFormat tf = new TurtleOntologyFormat();
     private IRI s = IRI.create("urn:test#s");
 

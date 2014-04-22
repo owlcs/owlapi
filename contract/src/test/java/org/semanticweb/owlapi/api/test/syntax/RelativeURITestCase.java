@@ -18,6 +18,8 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractAxiomsRoundTrippingTestCase;
 import org.semanticweb.owlapi.io.StringDocumentSource;
@@ -36,6 +38,7 @@ import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParser;
 @SuppressWarnings("javadoc")
 public class RelativeURITestCase extends AbstractAxiomsRoundTrippingTestCase {
 
+    @Nonnull
     @Override
     protected Set<? extends OWLAxiom> createAxioms()
             throws OWLOntologyCreationException {

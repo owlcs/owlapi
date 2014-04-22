@@ -15,6 +15,8 @@ package org.semanticweb.owlapi.api.test.annotations;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.change.AddOntologyAnnotationData;
@@ -33,6 +35,7 @@ public class AddOntologyAnnotationDataTestCase {
     private OWLAnnotation mockAnnotation;
     private OWLOntology mockOntology;
 
+    @Nonnull
     private AddOntologyAnnotationData createData() {
         return new AddOntologyAnnotationData(mockAnnotation);
     }

@@ -17,6 +17,8 @@ import static org.junit.Assert.assertTrue;
 import java.util.Collections;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -31,6 +33,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  */
 public class TestQCR extends AbstractRendererAndParserTestCase {
 
+    @Nonnull
     @Override
     protected Set<OWLAxiom> getAxioms() {
         OWLClass clsA = getDataFactory().getOWLClass(TestUtils.createIRI());

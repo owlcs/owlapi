@@ -21,6 +21,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.IRI;
@@ -124,16 +127,19 @@ public class AnnotationShortFormProviderTestCase extends TestBase {
                 new SimpleIRIShortFormProvider(), props, langMap,
                 new OWLAnnotationValueVisitorEx<String>() {
 
+                    @Nonnull
                     @Override
-                    public String visit(OWLLiteral literal) {
+                    public String visit(@Nonnull OWLLiteral literal) {
                         return "\"" + literal.getLiteral() + "\"";
                     }
 
+                    @Nullable
                     @Override
                     public String visit(OWLAnonymousIndividual individual) {
                         return null;
                     }
 
+                    @Nullable
                     @Override
                     public String visit(IRI iri) {
                         return null;

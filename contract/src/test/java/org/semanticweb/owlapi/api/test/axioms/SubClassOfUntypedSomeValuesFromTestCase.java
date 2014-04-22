@@ -17,6 +17,8 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileTestCase;
 import org.semanticweb.owlapi.model.AxiomType;
@@ -39,6 +41,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 public class SubClassOfUntypedSomeValuesFromTestCase extends
         AbstractFileTestCase {
 
+    @Nonnull
     @Override
     protected String getFileName() {
         return "SubClassOfUntypedSomeValuesFrom.rdf";

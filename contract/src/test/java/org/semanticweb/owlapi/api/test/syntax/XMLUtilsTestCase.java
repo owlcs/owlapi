@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.api.test.syntax;
 
 import static org.junit.Assert.*;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.io.XMLUtils;
 
@@ -26,6 +28,7 @@ import org.semanticweb.owlapi.io.XMLUtils;
 public class XMLUtilsTestCase {
 
     private static final int CODE_POINT = 0xEFFFF;
+    @Nonnull
     private static final String CODE_POINT_STRING;
     static {
         StringBuilder sb = new StringBuilder();

@@ -23,6 +23,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
@@ -121,23 +123,24 @@ public class OWLProfileTestCase {
     private static final OWLDataFactory df = OWLManager.getOWLDataFactory();
     private static final OWLObjectProperty p = ObjectProperty(IRI("urn:test#objectproperty"));
 
-    public void declare(OWLOntology o, OWLEntity... entities) {
+    public void declare(@Nonnull OWLOntology o, @Nonnull OWLEntity... entities) {
         OWLOntologyManager m = o.getOWLOntologyManager();
         for (OWLEntity e : entities) {
             m.addAxiom(o, Declaration(e));
         }
     }
 
+    @Nonnull
     Comparator<Class> comp = new Comparator<Class>() {
 
         @Override
-        public int compare(Class o1, Class o2) {
+        public int compare(@Nonnull Class o1, @Nonnull Class o2) {
             return o1.getSimpleName().compareTo(o2.getSimpleName());
         }
     };
 
-    public void checkInCollection(List<OWLProfileViolation<?>> violations,
-            Class[] _list) {
+    public void checkInCollection(
+            @Nonnull List<OWLProfileViolation<?>> violations, Class[] _list) {
         List<Class> list = new ArrayList<Class>(Arrays.asList(_list));
         List<Class> list1 = new ArrayList<Class>();
         for (OWLProfileViolation v : violations) {
@@ -148,8 +151,8 @@ public class OWLProfileTestCase {
         assertEquals(list1.toString(), list, list1);
     }
 
-    public void runAssert(OWLOntology o, OWLProfile profile, int expected,
-            Class[] expectedViolations) {
+    public void runAssert(@Nonnull OWLOntology o, @Nonnull OWLProfile profile,
+            int expected, Class[] expectedViolations) {
         List<OWLProfileViolation<?>> violations = profile.checkOntology(o)
                 .getViolations();
         assertEquals(expected, violations.size());
@@ -160,7 +163,7 @@ public class OWLProfileTestCase {
             violation.accept(new OWLProfileViolationVisitorExAdapter<String>() {
 
                 @Override
-                protected String doDefault(OWLProfileViolation<?> v) {
+                protected String doDefault(@Nonnull OWLProfileViolation<?> v) {
                     return v.toString();
                 }
             });
@@ -2024,7 +2027,7 @@ public class OWLProfileTestCase {
         runAssert(o, profile, expected, expectedViolations);
     }
 
-    private OWLOntology createOnto() throws OWLOntologyCreationException {
+    private static OWLOntology createOnto() throws OWLOntologyCreationException {
         return OWLManager.createOWLOntologyManager().createOntology(onto);
     }
 }

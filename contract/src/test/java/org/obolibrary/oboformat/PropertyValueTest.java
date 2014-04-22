@@ -4,6 +4,9 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import org.junit.Test;
 import org.obolibrary.obo2owl.OboFormatTestBasics;
 import org.obolibrary.oboformat.diff.Diff;
@@ -37,6 +40,7 @@ public class PropertyValueTest extends OboFormatTestBasics {
         assertEquals("Expected no diffs", 0, diffs.size());
     }
 
+    @Nonnull
     private OBODoc createPVDoc() {
         OBODoc oboDoc = new OBODoc();
         Frame headerFrame = new Frame(FrameType.HEADER);
@@ -50,7 +54,8 @@ public class PropertyValueTest extends OboFormatTestBasics {
         return oboDoc;
     }
 
-    private void addPropertyValue(Frame frame, String v1, String v2, String v3) {
+    private static void addPropertyValue(@Nonnull Frame frame, String v1,
+            String v2, @Nullable String v3) {
         Clause cl = new Clause(OboFormatTag.TAG_PROPERTY_VALUE);
         cl.addValue(v1);
         cl.addValue(v2);

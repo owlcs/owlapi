@@ -36,7 +36,7 @@ public class MapperlessOntologyManagerTestCase {
 
     private static final IRI ONTOLOGY_IRI = IRI("http://test.com/ont");
 
-    private OWLOntologyManager createManager() {
+    private static OWLOntologyManager createManager() {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         manager.getIRIMappers().clear();
         return manager;

@@ -3,6 +3,8 @@ package org.semanticweb.owlapi.api.test.syntax;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -582,7 +584,7 @@ public class ManchesterOWLSyntaxParserErrorsTestCase {
         }
     }
 
-    private void checkForExceptionAtEOF(String input) {
+    private void checkForExceptionAtEOF(@Nonnull String input) {
         checkForExceptionAt(input, input.length(),
                 ManchesterOWLSyntaxTokenizer.EOF);
         String trimmedInput = input.trim();

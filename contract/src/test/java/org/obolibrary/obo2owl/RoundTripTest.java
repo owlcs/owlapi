@@ -7,6 +7,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import org.obolibrary.oboformat.diff.Diff;
 import org.obolibrary.oboformat.diff.OBODocDiffer;
 import org.obolibrary.oboformat.model.OBODoc;
@@ -52,7 +55,7 @@ public class RoundTripTest extends OboFormatTestBasics {
         return roundTripOWLOOntology(oo, isExpectRoundtrip);
     }
 
-    public boolean roundTripOWLOOntology(OWLOntology oo,
+    public boolean roundTripOWLOOntology(@Nonnull OWLOntology oo,
             boolean isExpectRoundtrip) throws IOException,
             OWLOntologyCreationException, OWLOntologyStorageException {
         OWLAPIOwl2Obo bridge = new OWLAPIOwl2Obo(
@@ -67,9 +70,9 @@ public class RoundTripTest extends OboFormatTestBasics {
         return ok || !isExpectRoundtrip;
     }
 
-    private boolean compareOWLOntologiesPartial(OWLOntology oo,
-            OWLOntology oo2, boolean isExpectRoundtrip,
-            Collection<OWLAxiom> untranslatableAxioms) {
+    private static boolean compareOWLOntologiesPartial(@Nonnull OWLOntology oo,
+            @Nonnull OWLOntology oo2, boolean isExpectRoundtrip,
+            @Nullable Collection<OWLAxiom> untranslatableAxioms) {
         if (isExpectRoundtrip) {
             int untranslatedSize = 0;
             if (untranslatableAxioms != null) {

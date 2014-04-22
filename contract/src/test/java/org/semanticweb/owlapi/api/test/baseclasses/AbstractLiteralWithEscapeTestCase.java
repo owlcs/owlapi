@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.api.test.baseclasses;
 
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -48,5 +50,6 @@ public abstract class AbstractLiteralWithEscapeTestCase extends
         return Ontology(m, ax1, ax2, ax3, ax4, Declaration(cls));
     }
 
+    @Nonnull
     protected abstract String getEscape();
 }

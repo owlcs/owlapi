@@ -20,6 +20,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -47,6 +49,7 @@ public class ComplexSubPropertyAxiomTestCase extends
         assertEquals(getOnt().getAxioms(), axioms);
     }
 
+    @Nonnull
     @Override
     protected String getFileName() {
         return "ComplexSubProperty.rdf";

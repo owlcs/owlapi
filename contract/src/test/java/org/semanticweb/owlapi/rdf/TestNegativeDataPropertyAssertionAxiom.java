@@ -15,6 +15,8 @@ package org.semanticweb.owlapi.rdf;
 import java.util.Collections;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLIndividual;
@@ -28,11 +30,13 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 public class TestNegativeDataPropertyAssertionAxiom extends
         AbstractRendererAndParserTestCase {
 
+    @Nonnull
     @Override
     protected String getClassExpression() {
         return "Negative data property assertion test case";
     }
 
+    @Nonnull
     @Override
     protected Set<OWLAxiom> getAxioms() {
         OWLIndividual subj = createIndividual();

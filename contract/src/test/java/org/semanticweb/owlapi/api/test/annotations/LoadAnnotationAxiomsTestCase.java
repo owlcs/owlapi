@@ -18,6 +18,8 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormat;
@@ -77,8 +79,10 @@ public class LoadAnnotationAxiomsTestCase extends TestBase {
         reload(ont, new OWLFunctionalSyntaxOntologyFormat());
     }
 
-    private void reload(OWLOntology ontology, OWLOntologyFormat format)
-            throws OWLOntologyStorageException, OWLOntologyCreationException {
+    private void
+            reload(@Nonnull OWLOntology ontology, OWLOntologyFormat format)
+                    throws OWLOntologyStorageException,
+                    OWLOntologyCreationException {
         Set<OWLAxiom> annotationAxioms = new HashSet<OWLAxiom>();
         Set<OWLAxiom> axioms = ontology.getAxioms();
         for (OWLAxiom ax : axioms) {

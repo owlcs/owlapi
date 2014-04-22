@@ -19,6 +19,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.AddImport;
@@ -44,7 +46,8 @@ public class TestImportByLocationTestCase extends TestBase {
         assertEquals(1, b.getImports().size());
     }
 
-    private OWLOntology createOntologyFile(IRI iri, File f) throws Exception {
+    private OWLOntology createOntologyFile(IRI iri, @Nonnull File f)
+            throws Exception {
         OWLOntology a = m1.createOntology(iri);
         OutputStream out = new FileOutputStream(f);
         m1.saveOntology(a, out);

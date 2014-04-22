@@ -9,6 +9,8 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Test;
 import org.obolibrary.obo2owl.OboFormatTestBasics;
 import org.obolibrary.oboformat.model.Clause;
@@ -56,7 +58,8 @@ public class OBOFormatWriterTest extends OboFormatTestBasics {
         assertEquals("ccc", clauses.get(4).getValue());
     }
 
-    private List<Clause> createSynonymClauses(String... labels) {
+    @Nonnull
+    private static List<Clause> createSynonymClauses(@Nonnull String... labels) {
         List<Clause> clauses = new ArrayList<Clause>(labels.length);
         for (String label : labels) {
             Clause clause = new Clause(OboFormatTag.TAG_SYNONYM, label);
@@ -74,7 +77,8 @@ public class OBOFormatWriterTest extends OboFormatTestBasics {
                 writeObsolete(Boolean.TRUE.toString()));
     }
 
-    private String writeObsolete(Object value) throws Exception {
+    @Nonnull
+    private static String writeObsolete(Object value) throws Exception {
         Clause cl = new Clause(OboFormatTag.TAG_IS_OBSELETE);
         cl.addValue(value);
         OBOFormatWriter writer = new OBOFormatWriter();

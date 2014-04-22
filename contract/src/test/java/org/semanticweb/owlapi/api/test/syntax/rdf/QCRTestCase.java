@@ -18,6 +18,8 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class
 import java.util.Collections;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLCardinalityRestriction;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -32,6 +34,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  */
 public class QCRTestCase extends AbstractRendererAndParser {
 
+    @Nonnull
     @Override
     protected Set<OWLAxiom> getAxioms() {
         OWLClass clsA = Class(TestUtils.createIRI());
@@ -48,6 +51,7 @@ public class QCRTestCase extends AbstractRendererAndParser {
         return Collections.singleton(ax);
     }
 
+    @Nonnull
     @Override
     protected String getClassExpression() {
         return "Qualified Cardinality";

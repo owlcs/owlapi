@@ -19,6 +19,8 @@ import java.io.ByteArrayInputStream;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.apibinding.OWLManager;
@@ -26,13 +28,13 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
-import org.semanticweb.owlapi.util.OWLObjectPropertyManager;
 import org.semanticweb.owlapi.profiles.OWL2DLProfile;
 import org.semanticweb.owlapi.profiles.OWL2RLProfile;
 import org.semanticweb.owlapi.profiles.OWLProfileReport;
 import org.semanticweb.owlapi.profiles.OWLProfileViolation;
 import org.semanticweb.owlapi.profiles.violations.UseOfReservedVocabularyForAnnotationPropertyIRI;
 import org.semanticweb.owlapi.profiles.violations.UseOfUndeclaredAnnotationProperty;
+import org.semanticweb.owlapi.util.OWLObjectPropertyManager;
 
 @SuppressWarnings("javadoc")
 public class ForbiddenVocabularyTestCase extends TestBase {
@@ -178,6 +180,7 @@ public class ForbiddenVocabularyTestCase extends TestBase {
         }
     }
 
+    @Nonnull
     String input1 = "<?xml version=\"1.0\"?>\n"
             + "<rdf:RDF xmlns=\"http://purl.org/net/social-reality#\"\n"
             + "     xml:base=\"http://purl.org/net/social-reality\"\n"
@@ -256,6 +259,7 @@ public class ForbiddenVocabularyTestCase extends TestBase {
             + "    </owl:Class>\n"
             + "    <owl:Class rdf:about=\"http://www.w3.org/2002/07/owl#Thing\"/>\n"
             + "</rdf:RDF>";
+    @Nonnull
     String input2 = "<?xml version=\"1.0\"?>\n"
             + "<rdf:RDF xmlns=\"http://purl.org/net/roles#\"\n"
             + "     xml:base=\"http://purl.org/net/roles\"\n"

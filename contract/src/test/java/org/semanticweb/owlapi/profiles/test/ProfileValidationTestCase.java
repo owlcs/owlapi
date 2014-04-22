@@ -19,6 +19,8 @@ import static org.semanticweb.owlapi.search.Searcher.*;
 import java.net.URL;
 import java.util.Collection;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.IRI;
@@ -135,8 +137,8 @@ public class ProfileValidationTestCase extends TestBase {
         }
     }
 
-    private void checkProfile(OWLOntology ontology, OWLProfile profile,
-            boolean shouldBeInProfile) {
+    private static void checkProfile(OWLOntology ontology,
+            @Nonnull OWLProfile profile, boolean shouldBeInProfile) {
         OWLProfileReport report = profile.checkOntology(ontology);
         assertEquals(shouldBeInProfile, report.isInProfile());
     }

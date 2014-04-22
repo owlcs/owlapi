@@ -16,6 +16,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
@@ -46,14 +48,14 @@ public class ExistentialCollector extends OWLClassExpressionVisitorAdapter {
     }
 
     @Override
-    public void visit(OWLObjectIntersectionOf expression) {
+    public void visit(@Nonnull OWLObjectIntersectionOf expression) {
         for (OWLClassExpression operand : expression.getOperands()) {
             operand.accept(this);
         }
     }
 
     @Override
-    public void visit(OWLObjectSomeValuesFrom classExpression) {
+    public void visit(@Nonnull OWLObjectSomeValuesFrom classExpression) {
         Set<OWLClassExpression> fillers = restrictions.get(classExpression
                 .getProperty());
         if (fillers == null) {

@@ -17,6 +17,8 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLIndividual;
@@ -28,6 +30,7 @@ import org.semanticweb.owlapi.model.OWLIndividual;
  */
 public class AnonymousTypeTestCase extends AbstractRendererAndParser {
 
+    @Nonnull
     @Override
     protected Set<OWLAxiom> getAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
@@ -38,6 +41,7 @@ public class AnonymousTypeTestCase extends AbstractRendererAndParser {
         return axioms;
     }
 
+    @Nonnull
     @Override
     protected String getClassExpression() {
         return "Anonymous type test case";

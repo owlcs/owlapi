@@ -5,6 +5,8 @@ import static org.junit.Assert.*;
 import java.io.StringReader;
 import java.util.Collection;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Test;
 import org.obolibrary.oboformat.model.Clause;
 import org.obolibrary.oboformat.model.Frame;
@@ -36,7 +38,7 @@ public class UnmappableExpressionsTest extends OboFormatTestBasics {
         checkOBODoc(obodoc);
     }
 
-    private void checkOBODoc(OBODoc obodoc) {
+    private static void checkOBODoc(@Nonnull OBODoc obodoc) {
         // OBODoc tests
         if (true) {
             Frame tf = obodoc.getTermFrame("x1"); // TODO - may change

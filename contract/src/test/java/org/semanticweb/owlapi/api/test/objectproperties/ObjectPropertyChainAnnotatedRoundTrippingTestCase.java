@@ -19,6 +19,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractAxiomsRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -33,6 +35,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 public class ObjectPropertyChainAnnotatedRoundTrippingTestCase extends
         AbstractAxiomsRoundTrippingTestCase {
 
+    @Nonnull
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         OWLObjectProperty propA = ObjectProperty(getIRI("propA"));

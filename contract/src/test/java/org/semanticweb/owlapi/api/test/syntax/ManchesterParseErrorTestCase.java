@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.api.test.syntax;
 
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
+import javax.annotation.Nullable;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
@@ -69,18 +71,21 @@ public class ManchesterParseErrorTestCase extends TestBase {
             this.factory = factory;
         }
 
+        @Nullable
         @Override
         public OWLClass getOWLClass(String name) {
             return null;
         }
 
+        @Nullable
         @Override
         public OWLObjectProperty getOWLObjectProperty(String name) {
             return null;
         }
 
+        @Nullable
         @Override
-        public OWLDataProperty getOWLDataProperty(String name) {
+        public OWLDataProperty getOWLDataProperty(@Nullable String name) {
             if (name != null && name.equals("p")) {
                 return factory
                         .getOWLDataProperty(IRI("http://protege.org/Test.owl#p"));
@@ -89,18 +94,21 @@ public class ManchesterParseErrorTestCase extends TestBase {
             }
         }
 
+        @Nullable
         @Override
         public OWLAnnotationProperty getOWLAnnotationProperty(String name) {
             return null;
         }
 
+        @Nullable
         @Override
         public OWLNamedIndividual getOWLIndividual(String name) {
             return null;
         }
 
+        @Nullable
         @Override
-        public OWLDatatype getOWLDatatype(String name) {
+        public OWLDatatype getOWLDatatype(@Nullable String name) {
             if (name != null && name.equals("rdfs:Literal")) {
                 return factory.getTopDatatype();
             } else {

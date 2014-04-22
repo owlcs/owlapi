@@ -25,6 +25,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import org.junit.Ignore;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
@@ -201,7 +204,7 @@ public class Examples extends TestBase {
      * @throws OWLOntologyCreationException
      *         if a problem pops up
      */
-    OWLOntology loadPizza(OWLOntologyManager manager)
+    OWLOntology loadPizza(@Nonnull OWLOntologyManager manager)
             throws OWLOntologyCreationException {
         // Let's load an ontology from the web
         // IRI iri = IRI
@@ -1105,8 +1108,8 @@ public class Examples extends TestBase {
         print(topNode, reasoner, 0);
     }
 
-    private static void print(Node<OWLClass> parent, OWLReasoner reasoner,
-            int depth) {
+    private static void print(@Nonnull Node<OWLClass> parent,
+            @Nonnull OWLReasoner reasoner, int depth) {
         // We don't want to print out the bottom node (containing owl:Nothing
         // and unsatisfiable classes) because this would appear as a leaf node
         // everywhere
@@ -1133,7 +1136,7 @@ public class Examples extends TestBase {
         }
     }
 
-    private static void printNode(Node<OWLClass> node) {
+    private static void printNode(@Nonnull Node<OWLClass> node) {
         DefaultPrefixManager pm = new DefaultPrefixManager(null, null,
                 "http://owl.man.ac.uk/2005/07/sssw/people#");
         // Print out a node as a list of class names in curly brackets
@@ -1209,7 +1212,9 @@ public class Examples extends TestBase {
     private static class RestrictionVisitor extends
             OWLClassExpressionVisitorAdapter {
 
+        @Nonnull
         private final Set<OWLClass> processedClasses;
+        @Nonnull
         private final Set<OWLObjectPropertyExpression> restrictedProperties;
         private final Set<OWLOntology> onts;
 
@@ -1219,6 +1224,7 @@ public class Examples extends TestBase {
             this.onts = onts;
         }
 
+        @Nonnull
         public Set<OWLObjectPropertyExpression> getRestrictedProperties() {
             return restrictedProperties;
         }
@@ -1241,7 +1247,7 @@ public class Examples extends TestBase {
         }
 
         @Override
-        public void visit(OWLObjectSomeValuesFrom desc) {
+        public void visit(@Nonnull OWLObjectSomeValuesFrom desc) {
             // This method gets called when a class expression is an existential
             // (someValuesFrom) restriction and it asks us to visit it
             restrictedProperties.add(desc.getProperty());
@@ -1426,6 +1432,7 @@ public class Examples extends TestBase {
         OWLOntologyWalkerVisitorEx<Object> visitor = new OWLOntologyWalkerVisitorEx<Object>(
                 walker) {
 
+            @Nullable
             @Override
             public Object visit(OWLObjectSomeValuesFrom desc) {
                 // Print out the restriction
@@ -1490,8 +1497,9 @@ public class Examples extends TestBase {
      * @param cls
      *        The class expression
      */
-    private static void printProperties(OWLOntologyManager man,
-            OWLOntology ont, OWLReasoner reasoner, OWLClass cls) {
+    private static void printProperties(@Nonnull OWLOntologyManager man,
+            @Nonnull OWLOntology ont, @Nonnull OWLReasoner reasoner,
+            @Nonnull OWLClass cls) {
         if (!ont.containsClassInSignature(cls.getIRI(), EXCLUDED)) {
             throw new OWLRuntimeException(
                     "Class not in signature of the ontology");
@@ -1510,9 +1518,9 @@ public class Examples extends TestBase {
         }
     }
 
-    private static boolean
-            hasProperty(OWLOntologyManager man, OWLReasoner reasoner,
-                    OWLClass cls, OWLObjectPropertyExpression prop) {
+    private static boolean hasProperty(@Nonnull OWLOntologyManager man,
+            @Nonnull OWLReasoner reasoner, OWLClass cls,
+            OWLObjectPropertyExpression prop) {
         // To test whether the instances of a class must have a property we
         // create a some values from restriction and then ask for the
         // satisfiability of the class interesected with the complement of this
@@ -1595,8 +1603,8 @@ public class Examples extends TestBase {
         // mappers to deal with specific application requirements.
     }
 
-    private static void printOntologyAndImports(OWLOntologyManager manager,
-            OWLOntology ontology) {
+    private static void printOntologyAndImports(
+            @Nonnull OWLOntologyManager manager, @Nonnull OWLOntology ontology) {
         // Print ontology IRI and where it was loaded from (they will be the
         // same)
         printOntology(manager, ontology);
@@ -1615,8 +1623,8 @@ public class Examples extends TestBase {
      * @param ontology
      *        The ontology
      */
-    private static void printOntology(OWLOntologyManager manager,
-            OWLOntology ontology) {
+    private static void printOntology(@Nonnull OWLOntologyManager manager,
+            @Nonnull OWLOntology ontology) {
         IRI ontologyIRI = ontology.getOntologyID().getOntologyIRI().get();
         IRI documentIRI = manager.getOntologyDocumentIRI(ontology);
         // System.out.println(ontologyIRI == null ? "anonymous" : ontologyIRI

@@ -21,6 +21,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
@@ -261,7 +263,7 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
         assertEquals(expected, dsvf);
     }
 
-    public OWLAxiom annotation(OWLEntity e, String s) {
+    public OWLAxiom annotation(@Nonnull OWLEntity e, String s) {
         return df.getOWLAnnotationAssertionAxiom(e.getIRI(),
                 df.getOWLAnnotation(df.getRDFSLabel(), df.getOWLLiteral(s)));
     }

@@ -5,6 +5,8 @@ import static org.junit.Assert.*;
 import java.io.BufferedReader;
 import java.io.StringReader;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Test;
 import org.obolibrary.obo2owl.OboFormatTestBasics;
 import org.obolibrary.oboformat.model.Clause;
@@ -99,7 +101,8 @@ public class TagTest extends OboFormatTestBasics {
         assertEquals("x", cl.getValue());
     }
 
-    private Clause parseLine(String line) {
+    @Nonnull
+    private static Clause parseLine(@Nonnull String line) {
         StringReader sr = new StringReader(line);
         OBOFormatParser p = new OBOFormatParser();
         BufferedReader br = new BufferedReader(sr);
@@ -113,7 +116,8 @@ public class TagTest extends OboFormatTestBasics {
         }
     }
 
-    private OBODoc parseFrames(String s) {
+    @Nonnull
+    private static OBODoc parseFrames(@Nonnull String s) {
         StringReader sr = new StringReader(s);
         OBOFormatParser p = new OBOFormatParser();
         BufferedReader br = new BufferedReader(sr);
@@ -128,7 +132,8 @@ public class TagTest extends OboFormatTestBasics {
         }
     }
 
-    private OBODoc parseOBODoc(String s) {
+    @Nonnull
+    private static OBODoc parseOBODoc(@Nonnull String s) {
         StringReader sr = new StringReader(s);
         OBOFormatParser p = new OBOFormatParser();
         BufferedReader br = new BufferedReader(sr);

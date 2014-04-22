@@ -5,6 +5,8 @@ import static org.junit.Assert.*;
 import java.util.Collection;
 import java.util.Iterator;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Test;
 import org.obolibrary.obo2owl.OboFormatTestBasics;
 import org.obolibrary.oboformat.model.Clause;
@@ -26,7 +28,7 @@ public class IdSpaceTest extends OboFormatTestBasics {
         checkIdSpace(doc2);
     }
 
-    private void checkIdSpace(OBODoc doc) {
+    private static void checkIdSpace(@Nonnull OBODoc doc) {
         Frame headerFrame = doc.getHeaderFrame();
         assertNotNull(headerFrame);
         Clause clause = headerFrame.getClause(OboFormatTag.TAG_IDSPACE);

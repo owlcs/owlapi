@@ -15,6 +15,8 @@ package org.semanticweb.owlapi.api.test.baseclasses;
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
+import javax.annotation.Nonnull;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -43,6 +45,7 @@ import org.semanticweb.owlapi.reasoner.structural.StructuralReasonerFactory;
 @SuppressWarnings("javadoc")
 public class ReasonerTestCase extends TestBase {
 
+    @Nonnull
     private OWLReasonerFactory reasonerFactory = new StructuralReasonerFactory();
     private OWLOntology ont;
     private OWLReasoner reasoner;

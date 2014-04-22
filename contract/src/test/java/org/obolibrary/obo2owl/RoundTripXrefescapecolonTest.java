@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Test;
 import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.parser.OBOFormatParserException;
@@ -14,6 +16,7 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 @SuppressWarnings("javadoc")
 public class RoundTripXrefescapecolonTest extends RoundTripTest {
 
+    @Nonnull
     String file = "xref_escapecolon.obo";
 
     @Test

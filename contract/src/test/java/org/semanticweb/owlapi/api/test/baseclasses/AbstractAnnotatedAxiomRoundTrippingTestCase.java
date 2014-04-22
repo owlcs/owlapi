@@ -18,6 +18,8 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -31,6 +33,7 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 public abstract class AbstractAnnotatedAxiomRoundTrippingTestCase extends
         AbstractAxiomsRoundTrippingTestCase {
 
+    @Nonnull
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         OWLAnnotationProperty prop = AnnotationProperty(getIRI("prop"));

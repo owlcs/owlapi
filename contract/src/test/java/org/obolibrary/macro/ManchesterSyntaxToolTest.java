@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 import org.junit.Test;
 import org.obolibrary.obo2owl.OWLAPIOwl2Obo;
 import org.obolibrary.obo2owl.OboFormatTestBasics;
@@ -17,7 +19,9 @@ import org.semanticweb.owlapi.model.OWLOntology;
 @SuppressWarnings("javadoc")
 public class ManchesterSyntaxToolTest extends OboFormatTestBasics {
 
+    @Nullable
     private OWLOntology owlOntology = null;
+    @Nullable
     private ManchesterSyntaxTool parser = null;
 
     @Test
@@ -43,8 +47,8 @@ public class ManchesterSyntaxToolTest extends OboFormatTestBasics {
         }
     }
 
-    private void checkIntersection(OWLClassExpression expression, String genus,
-            String relId, String differentia) {
+    private static void checkIntersection(OWLClassExpression expression,
+            String genus, String relId, String differentia) {
         OWLObjectIntersectionOf intersection = (OWLObjectIntersectionOf) expression;
         List<OWLClassExpression> list = intersection.getOperandsAsList();
         OWLClass cls = (OWLClass) list.get(0);

@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.api.test.reasoners;
 
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileTestCase;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -31,6 +33,7 @@ import org.semanticweb.owlapi.reasoner.structural.StructuralReasoner;
 @SuppressWarnings("javadoc")
 public class StructuralReasonerRecursionTestCase extends AbstractFileTestCase {
 
+    @Nonnull
     @Override
     protected String getFileName() {
         return "koala.owl";

@@ -15,6 +15,8 @@ package org.semanticweb.owlapi.api.test.syntax;
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
@@ -38,15 +40,15 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
         o = m.createOntology();
     }
 
-    private void assertCorrectResult(OWLAxiom wrongAxiom, OWLAxiom validAxiom,
-            OWLOntology reloaded) {
+    private static void assertCorrectResult(OWLAxiom wrongAxiom,
+            OWLAxiom validAxiom, @Nonnull OWLOntology reloaded) {
         assertNotNull(reloaded);
         assertTrue(reloaded.containsAxiom(validAxiom));
         assertFalse(reloaded.containsAxiom(wrongAxiom));
         assertTrue(reloaded.getAxioms().size() == 1);
     }
 
-    private void addAxioms(OWLAxiom... axioms) {
+    private void addAxioms(@Nonnull OWLAxiom... axioms) {
         for (OWLAxiom ax : axioms) {
             o.getOWLOntologyManager().addAxiom(o, ax);
         }

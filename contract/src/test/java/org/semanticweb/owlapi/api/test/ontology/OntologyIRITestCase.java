@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.api.test.ontology;
 
 import static org.junit.Assert.assertEquals;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileTestCase;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -36,6 +38,7 @@ public class OntologyIRITestCase extends AbstractFileTestCase {
                 .toString());
     }
 
+    @Nonnull
     @Override
     protected String getFileName() {
         return "ontologyIRI.rdf";

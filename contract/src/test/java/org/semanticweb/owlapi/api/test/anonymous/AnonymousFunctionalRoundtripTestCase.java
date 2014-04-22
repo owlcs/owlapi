@@ -18,6 +18,8 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormat;
@@ -35,6 +37,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 public class AnonymousFunctionalRoundtripTestCase extends TestBase {
 
     private static final String NS = "http://namespace.owl";
+    @Nonnull
     private static String broken = "<?xml version=\"1.0\"?>\n"
             + "<rdf:RDF xmlns=\"http://namespace.owl#\"\n"
             + "     xml:base=\"http://namespace.owl\"\n"
@@ -45,6 +48,7 @@ public class AnonymousFunctionalRoundtripTestCase extends TestBase {
             + "    <owl:Ontology rdf:about=\"http://namespace.owl\"/>\n"
             + "    <owl:Class rdf:about=\"http://namespace.owl#A\"/>\n"
             + "<A/></rdf:RDF>";
+    @Nonnull
     private static String fixed = "Prefix(:=<http://namespace.owl#>)\n"
             + "Prefix(owl:=<http://www.w3.org/2002/07/owl#>)\n"
             + "Prefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)\n"

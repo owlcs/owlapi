@@ -19,6 +19,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.ImpendingOWLOntologyChangeListener;
@@ -55,7 +57,7 @@ public class OntologyChangeListenerTestCase extends TestBase {
                     public
                             void
                             handleImpendingOntologyChanges(
-                                    List<? extends OWLOntologyChange<?>> impendingChanges) {
+                                    @Nonnull List<? extends OWLOntologyChange<?>> impendingChanges) {
                         for (OWLOntologyChange<?> change : impendingChanges) {
                             if (change.isAddAxiom()) {
                                 impendingAdditions.add(change.getAxiom());
@@ -69,9 +71,11 @@ public class OntologyChangeListenerTestCase extends TestBase {
                 new OWLOntologyChangeListener() {
 
                     @Override
-                    public void ontologiesChanged(
-                            List<? extends OWLOntologyChange<?>> changes)
-                            throws OWLException {
+                    public
+                            void
+                            ontologiesChanged(
+                                    @Nonnull List<? extends OWLOntologyChange<?>> changes)
+                                    throws OWLException {
                         for (OWLOntologyChange<?> change : changes) {
                             if (change.isAddAxiom()) {
                                 additions.add(change.getAxiom());

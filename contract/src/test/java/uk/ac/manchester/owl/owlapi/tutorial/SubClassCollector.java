@@ -15,6 +15,8 @@ package uk.ac.manchester.owl.owlapi.tutorial;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
@@ -31,6 +33,7 @@ import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
 public class SubClassCollector extends OWLAxiomVisitorAdapter {
 
     /* Collected axioms */
+    @Nonnull
     private final Set<OWLSubClassOfAxiom> axioms;
     /* Class to look for */
     private final OWLClass clazz;
@@ -41,12 +44,13 @@ public class SubClassCollector extends OWLAxiomVisitorAdapter {
     }
 
     @Override
-    public void visit(OWLSubClassOfAxiom axiom) {
+    public void visit(@Nonnull OWLSubClassOfAxiom axiom) {
         if (axiom.getSubClass().equals(clazz)) {
             axioms.add(axiom);
         }
     }
 
+    @Nonnull
     public Set<OWLSubClassOfAxiom> getAxioms() {
         return axioms;
     }

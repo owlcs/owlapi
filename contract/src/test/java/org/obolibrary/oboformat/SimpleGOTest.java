@@ -2,6 +2,8 @@ package org.obolibrary.oboformat;
 
 import static org.junit.Assert.*;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Test;
 import org.obolibrary.obo2owl.OboFormatTestBasics;
 import org.obolibrary.oboformat.model.Frame;
@@ -31,8 +33,8 @@ public class SimpleGOTest extends OboFormatTestBasics {
         checkFrame(obodoc, "regulates", "regulates", "gene_ontology");
     }
 
-    private void
-            checkFrame(OBODoc doc, String id, String name, String namespace) {
+    private static void checkFrame(@Nonnull OBODoc doc, String id, String name,
+            String namespace) {
         Frame frame = doc.getTermFrame(id);
         if (frame == null) {
             frame = doc.getTypedefFrame(id);

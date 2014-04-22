@@ -2,6 +2,9 @@ package org.semanticweb.owlapi.profiles.test;
 
 import static org.junit.Assert.*;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -16,32 +19,38 @@ import org.semanticweb.owlapi.profiles.OWLProfileReport;
 @SuppressWarnings("javadoc")
 public class ProfileBase {
 
+    @Nonnull
     protected String example = "<rdf:RDF xml:base=\"http://example.org/\" xmlns=\"http://example.org/\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">";
+    @Nonnull
     protected String rdf = "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\" ";
+    @Nonnull
     protected String head = "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\" ";
+    @Nonnull
     protected String head2 = "<rdf:RDF xml:base=\"urn:test\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\">";
+    @Nonnull
     protected String head3 = "<rdf:RDF xml:base=\"urn:test\" xmlns=\"urn:test#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">";
 
-    private OWLProfileReport EL(OWLOntology in) {
+    private static OWLProfileReport EL(OWLOntology in) {
         return new OWL2ELProfile().checkOntology(in);
     }
 
-    private OWLProfileReport QL(OWLOntology in) {
+    private static OWLProfileReport QL(OWLOntology in) {
         return new OWL2QLProfile().checkOntology(in);
     }
 
-    private OWLProfileReport RL(OWLOntology in) {
+    private static OWLProfileReport RL(OWLOntology in) {
         return new OWL2RLProfile().checkOntology(in);
     }
 
-    private OWLProfileReport DL(OWLOntology in) {
+    private static OWLProfileReport DL(OWLOntology in) {
         return new OWL2DLProfile().checkOntology(in);
     }
 
-    boolean in(OWLProfile p, String in) {
+    boolean in(@Nonnull OWLProfile p, String in) {
         return p.checkOntology(o(in)).isInProfile();
     }
 
+    @Nullable
     OWLOntology o(String in) {
         try {
             return OWLManager.createOWLOntologyManager()

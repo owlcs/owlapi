@@ -18,6 +18,8 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -43,6 +45,7 @@ public class ObjectMaxCardinalityTestCase extends
         assertEquals(axioms, getOnt().getAxioms());
     }
 
+    @Nonnull
     @Override
     protected String getFileName() {
         return "ObjectMaxCardinality.rdf";

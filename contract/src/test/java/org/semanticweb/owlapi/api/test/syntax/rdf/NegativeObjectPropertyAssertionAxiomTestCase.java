@@ -15,6 +15,8 @@ package org.semanticweb.owlapi.api.test.syntax.rdf;
 import java.util.Collections;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLAxiom;
 
 /**
@@ -25,11 +27,13 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 public class NegativeObjectPropertyAssertionAxiomTestCase extends
         AbstractRendererAndParser {
 
+    @Nonnull
     @Override
     protected String getClassExpression() {
         return "Negative object property assertion test case";
     }
 
+    @Nonnull
     @Override
     protected Set<OWLAxiom> getAxioms() {
         return Collections.singleton((OWLAxiom) df

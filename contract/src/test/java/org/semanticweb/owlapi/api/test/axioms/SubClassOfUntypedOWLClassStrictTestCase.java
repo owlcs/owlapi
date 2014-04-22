@@ -16,6 +16,8 @@ import static org.junit.Assert.*;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileTestCase;
 import org.semanticweb.owlapi.formats.RDFXMLOntologyFormat;
@@ -35,6 +37,7 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 public class SubClassOfUntypedOWLClassStrictTestCase extends
         AbstractFileTestCase {
 
+    @Nonnull
     @Override
     protected String getFileName() {
         return "SubClassOfUntypedOWLClass.rdf";

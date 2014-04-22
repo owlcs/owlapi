@@ -17,6 +17,8 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import java.io.File;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
@@ -28,9 +30,13 @@ import org.semanticweb.owlapi.util.AutoIRIMapper;
 @SuppressWarnings("javadoc")
 public class ManchesterImportTestCase {
 
+    @Nonnull
     private String str = "http://owlapitestontologies.com/thesuperont";
+    @Nonnull
     private String superpath = "/imports/thesuperont.omn";
+    @Nonnull
     private String subpath = "/imports/thesubont.omn";
+    @Nonnull
     private static final File RESOURCES;
     static {
         File f = new File("contract/src/test/resources/");
@@ -55,7 +61,7 @@ public class ManchesterImportTestCase {
         assertNotNull(manager.getOntology(IRI(str)));
     }
 
-    private OWLOntologyManager getManager() {
+    private static OWLOntologyManager getManager() {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         AutoIRIMapper mapper = new AutoIRIMapper(
                 new File(RESOURCES, "imports"), true);

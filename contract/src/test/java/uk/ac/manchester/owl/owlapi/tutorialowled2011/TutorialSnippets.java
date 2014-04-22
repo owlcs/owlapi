@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -111,6 +112,7 @@ import uk.ac.manchester.cs.owlapi.modularity.SyntacticLocalityModuleExtractor;
 @SuppressWarnings("javadoc")
 public class TutorialSnippets {
 
+    @Nonnull
     @Rule
     public TemporaryFolder temporaryFolder = new TemporaryFolder();
     private static Logger log = LoggerFactory.getLogger(TutorialSnippets.class);
@@ -149,6 +151,7 @@ public class TutorialSnippets {
     public static final IRI example_save_iri = IRI
             .create("file:materializedOntologies/ont1290535967123.owl");
     OWLDataFactory df = OWLManager.getOWLDataFactory();
+    @Nonnull
     OWLReasonerFactory reasonerFactory = new StructuralReasonerFactory();
 
     public OWLOntologyManager create() {
@@ -159,7 +162,7 @@ public class TutorialSnippets {
         return m;
     }
 
-    private OWLOntology loadPizzaOntology(OWLOntologyManager m)
+    private static OWLOntology loadPizzaOntology(@Nonnull OWLOntologyManager m)
             throws OWLOntologyCreationException {
         return m.loadOntologyFromOntologyDocument(new StringDocumentSource(
                 koala));
@@ -547,7 +550,9 @@ public class TutorialSnippets {
     private static class RestrictionVisitor extends
             OWLClassExpressionVisitorAdapter {
 
+        @Nonnull
         private final Set<OWLClass> processedClasses;
+        @Nonnull
         private final Set<OWLObjectPropertyExpression> restrictedProperties;
         private final Set<OWLOntology> onts;
 
@@ -557,6 +562,7 @@ public class TutorialSnippets {
             this.onts = onts;
         }
 
+        @Nonnull
         public Set<OWLObjectPropertyExpression> getRestrictedProperties() {
             return restrictedProperties;
         }
@@ -578,7 +584,7 @@ public class TutorialSnippets {
         }
 
         @Override
-        public void visit(OWLObjectSomeValuesFrom desc) {
+        public void visit(@Nonnull OWLObjectSomeValuesFrom desc) {
             // This method gets called when a class expression is an
             // existential (someValuesFrom) restriction and it asks us to visit
             // it
@@ -694,6 +700,7 @@ public class TutorialSnippets {
         OWLOntologyWalkerVisitorEx<Object> visitor = new OWLOntologyWalkerVisitorEx<Object>(
                 walker) {
 
+            @Nullable
             @Override
             public Object visit(OWLObjectSomeValuesFrom desc) {
                 assertNotNull(desc);
@@ -737,8 +744,8 @@ public class TutorialSnippets {
      * @param cls
      *        The class expression
      */
-    private void printProperties(OWLOntology o, OWLReasoner reasoner,
-            OWLClass cls) {
+    private void printProperties(@Nonnull OWLOntology o,
+            @Nonnull OWLReasoner reasoner, OWLClass cls) {
         for (OWLObjectPropertyExpression prop : o
                 .getObjectPropertiesInSignature()) {
             // To test whether an instance of A MUST have a property p with a
@@ -890,7 +897,7 @@ public class TutorialSnippets {
      * assuming this class is at the given level. Makes no attempt to deal
      * sensibly with multiple inheritance.
      */
-    public void printHierarchy(OWLOntology o, OWLClass clazz) {
+    public void printHierarchy(@Nonnull OWLOntology o, OWLClass clazz) {
         OWLReasoner reasoner = reasonerFactory.createNonBufferingReasoner(o);
         printHierarchy(reasoner, clazz, 0, new HashSet<OWLClass>());
         /* Now print out any unsatisfiable classes */
@@ -912,7 +919,8 @@ public class TutorialSnippets {
             logger = log;
         }
 
-        public LoggingReasonerProgressMonitor(Logger log, String methodName) {
+        public LoggingReasonerProgressMonitor(@Nonnull Logger log,
+                String methodName) {
             String loggerName = log.getName() + "." + methodName;
             logger = LoggerFactory.getLogger(loggerName);
         }
@@ -941,6 +949,7 @@ public class TutorialSnippets {
     class LabelExtractor extends OWLObjectVisitorExAdapter<String> implements
             OWLAnnotationObjectVisitorEx<String> {
 
+        @Nullable
         @Override
         public String visit(@Nonnull OWLAnnotation annotation) {
             /*
@@ -956,9 +965,10 @@ public class TutorialSnippets {
     }
 
     // a visitor to extract label annotations
+    @Nonnull
     LabelExtractor le = new LabelExtractor();
 
-    private String labelFor(OWLEntity clazz, OWLOntology o) {
+    private String labelFor(@Nonnull OWLEntity clazz, @Nonnull OWLOntology o) {
         Iterable<OWLAnnotation> annotations = annotations(o
                 .getAnnotationAssertionAxioms(clazz.getIRI()));
         for (OWLAnnotation anno : annotations) {
@@ -970,8 +980,8 @@ public class TutorialSnippets {
         return clazz.getIRI().toString();
     }
 
-    public void printHierarchy(OWLReasoner reasoner, OWLClass clazz, int level,
-            Set<OWLClass> visited) {
+    public void printHierarchy(@Nonnull OWLReasoner reasoner, OWLClass clazz,
+            int level, @Nonnull Set<OWLClass> visited) {
         // Only print satisfiable classes to skip Nothing
         if (!visited.contains(clazz) && reasoner.isSatisfiable(clazz)) {
             visited.add(clazz);

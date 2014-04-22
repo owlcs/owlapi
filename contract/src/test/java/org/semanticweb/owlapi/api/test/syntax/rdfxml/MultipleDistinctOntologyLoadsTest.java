@@ -16,6 +16,8 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import java.io.IOException;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -71,6 +73,7 @@ public class MultipleDistinctOntologyLoadsTest extends TestBase {
         }
     }
 
+    @Nonnull
     private OWLOntologyDocumentSource getDocument() {
         StreamDocumentSource initialDocumentSource = new StreamDocumentSource(
                 this.getClass().getResourceAsStream(
