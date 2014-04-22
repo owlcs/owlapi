@@ -39,7 +39,6 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -99,9 +98,10 @@ public class CreateValuePartition extends AbstractCompositeOntologyChange {
                         "valuePartitionProperty cannot be null"));
     }
 
-    private void generateChanges(OWLOntology targetOntology,
-            @Nonnull Set<OWLClass> valuePartionClasses, OWLClass valuePartitionClass,
-            OWLObjectProperty valuePartitionProperty) {
+    private void generateChanges(@Nonnull OWLOntology targetOntology,
+            @Nonnull Set<OWLClass> valuePartionClasses,
+            @Nonnull OWLClass valuePartitionClass,
+            @Nonnull OWLObjectProperty valuePartitionProperty) {
         // To create a value partition from a set of classes which represent the
         // values, a value partition class, a property we...
         // 1) Make the classes which represent the values, subclasses of the

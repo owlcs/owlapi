@@ -103,7 +103,7 @@ public class ConvertPropertyAssertionsToAnnotations extends
      */
     @Nonnull
     private Collection<OWLNamedIndividual> getPunnedIndividuals(
-            Collection<OWLNamedIndividual> individuals) {
+            @Nonnull Collection<OWLNamedIndividual> individuals) {
         List<OWLNamedIndividual> punned = new ArrayList<OWLNamedIndividual>();
         for (OWLNamedIndividual ind : individuals) {
             for (OWLOntology ont : ontologies) {
@@ -150,10 +150,9 @@ public class ConvertPropertyAssertionsToAnnotations extends
         }
     }
 
-    private void
-            convertDataAssertionsToAnnotations(
-                    Set<OWLDataProperty> convertedDataProperties,
-                    OWLNamedIndividual ind) {
+    private void convertDataAssertionsToAnnotations(
+            @Nonnull Set<OWLDataProperty> convertedDataProperties,
+            @Nonnull OWLNamedIndividual ind) {
         for (OWLOntology ont : ontologies) {
             for (OWLDataPropertyAssertionAxiom ax : ont
                     .getDataPropertyAssertionAxioms(ind)) {

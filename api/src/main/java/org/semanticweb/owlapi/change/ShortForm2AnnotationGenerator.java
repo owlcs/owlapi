@@ -55,7 +55,7 @@ public class ShortForm2AnnotationGenerator extends
      * @param languageTag
      *        language
      */
-    public ShortForm2AnnotationGenerator(OWLDataFactory df,
+    public ShortForm2AnnotationGenerator(@Nonnull OWLDataFactory df,
             @Nonnull OWLOntologyManager ontologyManager,
             @Nonnull OWLOntology ontology,
             @Nonnull ShortFormProvider shortFormProvider,
@@ -84,16 +84,19 @@ public class ShortForm2AnnotationGenerator extends
      * @param annotationIRI
      *        iri for annotation property
      */
-    public ShortForm2AnnotationGenerator(OWLDataFactory df,
-            OWLOntologyManager ontologyManager, OWLOntology ontology,
-            ShortFormProvider shortFormProvider, IRI annotationIRI) {
+    public ShortForm2AnnotationGenerator(@Nonnull OWLDataFactory df,
+            @Nonnull OWLOntologyManager ontologyManager,
+            @Nonnull OWLOntology ontology,
+            @Nonnull ShortFormProvider shortFormProvider,
+            @Nonnull IRI annotationIRI) {
         this(df, ontologyManager, ontology, shortFormProvider, annotationIRI,
                 null);
     }
 
     private void generateChanges(OWLOntologyManager ontologyManager,
-            OWLOntology ontology, ShortFormProvider shortFormProvider,
-            IRI annotationIRI, @Nullable String languageTag) {
+            @Nonnull OWLOntology ontology,
+            @Nonnull ShortFormProvider shortFormProvider,
+            @Nonnull IRI annotationIRI, @Nullable String languageTag) {
         ImportsStructureEntitySorter sorter = new ImportsStructureEntitySorter(
                 ontology);
         Map<OWLOntology, Set<OWLEntity>> ontology2EntityMap = sorter

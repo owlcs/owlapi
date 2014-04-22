@@ -19,7 +19,6 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -78,9 +77,10 @@ public class AddClassExpressionClosureAxiom extends
                 checkNotNull(targetOntology, "targetOntology cannot be null"));
     }
 
-    private void generateChanges(OWLClass cls,
-            OWLObjectPropertyExpression property, @Nonnull Set<OWLOntology> ontologies,
-            OWLOntology targetOntology) {
+    private void generateChanges(@Nonnull OWLClass cls,
+            @Nonnull OWLObjectPropertyExpression property,
+            @Nonnull Set<OWLOntology> ontologies,
+            @Nonnull OWLOntology targetOntology) {
         // We collect all of the fillers for existential restrictions along
         // the target property and all of the fillers for hasValue restrictions
         // as nominals
@@ -104,7 +104,9 @@ public class AddClassExpressionClosureAxiom extends
 
     private class FillerCollector extends OWLClassExpressionVisitorAdapter {
 
+        @Nonnull
         private final Set<OWLClassExpression> fillers = new HashSet<OWLClassExpression>();
+        @Nonnull
         private final OWLObjectPropertyExpression property;
 
         /**
@@ -112,7 +114,7 @@ public class AddClassExpressionClosureAxiom extends
          *        the p
          */
         public FillerCollector(@Nonnull OWLObjectPropertyExpression p) {
-            property = p;
+            property = checkNotNull(p, "p cannot be null");
         }
 
         /** @return the fillers */

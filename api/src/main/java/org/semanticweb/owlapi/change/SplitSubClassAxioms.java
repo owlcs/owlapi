@@ -68,7 +68,7 @@ public class SplitSubClassAxioms extends AbstractCompositeOntologyChange {
      *        The data factory which should be used to create new axioms.
      */
     public SplitSubClassAxioms(@Nonnull Set<OWLOntology> ontologies,
-            OWLDataFactory dataFactory) {
+            @Nonnull OWLDataFactory dataFactory) {
         super(dataFactory);
         for (OWLOntology ont : ontologies) {
             for (OWLSubClassOfAxiom ax : ont.getAxioms(AxiomType.SUBCLASS_OF)) {
