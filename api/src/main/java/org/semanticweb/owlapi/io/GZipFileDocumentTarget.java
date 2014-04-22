@@ -35,6 +35,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  */
 public class GZipFileDocumentTarget implements OWLOntologyDocumentTarget {
 
+    @Nonnull
     private final File out;
     private OutputStream outputStream;
 
@@ -42,7 +43,7 @@ public class GZipFileDocumentTarget implements OWLOntologyDocumentTarget {
      * @param os
      *        the actual file
      */
-    public GZipFileDocumentTarget(File os) {
+    public GZipFileDocumentTarget(@Nonnull File os) {
         out = os;
     }
 

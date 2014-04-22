@@ -55,6 +55,7 @@ public abstract class StreamDocumentSourceBase extends
      *        prefix for result
      * @return a fresh IRI
      */
+    @Nonnull
     protected static IRI getNextDocumentIRI(String prefix) {
         return IRI.create(prefix + COUNTER.incrementAndGet());
     }

@@ -38,7 +38,9 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 public class GZipFileDocumentSource extends OWLOntologyDocumentSourceBase {
 
     private static int counter = 0;
+    @Nonnull
     private final IRI documentIRI;
+    @Nonnull
     private final File file;
 
     /**
@@ -48,11 +50,12 @@ public class GZipFileDocumentSource extends OWLOntologyDocumentSourceBase {
      * @param is
      *        The file that the ontology representation will be read from.
      */
-    public GZipFileDocumentSource(File is) {
+    public GZipFileDocumentSource(@Nonnull File is) {
         this(is, getNextDocumentIRI(), null, null);
     }
 
     /** @return a fresh IRI */
+    @Nonnull
     public static synchronized IRI getNextDocumentIRI() {
         counter = counter + 1;
         return IRI.create("file:ontology" + counter);
@@ -71,8 +74,9 @@ public class GZipFileDocumentSource extends OWLOntologyDocumentSourceBase {
      * @param mime
      *        mime type
      */
-    public GZipFileDocumentSource(File stream, IRI documentIRI,
-            @Nullable OWLOntologyFormat format, String mime) {
+    public GZipFileDocumentSource(@Nonnull File stream,
+            @Nonnull IRI documentIRI, @Nullable OWLOntologyFormat format,
+            @Nullable String mime) {
         super(format, mime);
         this.documentIRI = documentIRI;
         file = stream;

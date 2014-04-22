@@ -22,6 +22,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.zip.GZIPInputStream;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
@@ -36,6 +37,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 public class GZipStreamDocumentSource extends OWLOntologyDocumentSourceBase {
 
     private static int counter = 0;
+    @Nonnull
     private final IRI documentIRI;
     private byte[] buffer;
 
@@ -46,11 +48,12 @@ public class GZipStreamDocumentSource extends OWLOntologyDocumentSourceBase {
      * @param is
      *        The stream that the ontology representation will be read from.
      */
-    public GZipStreamDocumentSource(InputStream is) {
+    public GZipStreamDocumentSource(@Nonnull InputStream is) {
         this(is, getNextDocumentIRI(), null, null);
     }
 
     /** @return a fresh IRI */
+    @Nonnull
     public static synchronized IRI getNextDocumentIRI() {
         counter = counter + 1;
         return IRI.create("gzipinputstream:ontology" + counter);
@@ -69,8 +72,9 @@ public class GZipStreamDocumentSource extends OWLOntologyDocumentSourceBase {
      * @param mime
      *        mime type
      */
-    public GZipStreamDocumentSource(InputStream stream, IRI documentIRI,
-            OWLOntologyFormat format, String mime) {
+    public GZipStreamDocumentSource(@Nonnull InputStream stream,
+            @Nonnull IRI documentIRI, @Nullable OWLOntologyFormat format,
+            @Nullable String mime) {
         super(format, mime);
         this.documentIRI = documentIRI;
         readIntoBuffer(stream);

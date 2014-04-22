@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
 
-
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleRenderer;
@@ -68,7 +67,7 @@ public class ToStringRenderer {
      *        the object to render
      * @return the rendering for the object
      */
-    public synchronized String getRendering(OWLObject object) {
-        return renderer.render(object);
+    public synchronized String getRendering(@Nonnull OWLObject object) {
+        return renderer.render(checkNotNull(object, "object cannot be null"));
     }
 }

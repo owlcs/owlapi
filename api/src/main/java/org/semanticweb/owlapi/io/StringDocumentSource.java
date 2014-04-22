@@ -21,7 +21,6 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import javax.annotation.Nonnull;
 
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
@@ -37,6 +36,7 @@ public class StringDocumentSource extends OWLOntologyDocumentSourceBase {
 
     @Nonnull
     private static AtomicLong counter = new AtomicLong();
+    @Nonnull
     private final IRI documentIRI;
     private final String string;
 
@@ -57,6 +57,7 @@ public class StringDocumentSource extends OWLOntologyDocumentSourceBase {
     }
 
     /** @return a fresh IRI */
+    @Nonnull
     public static IRI getNextDocumentIRI() {
         return IRI.create("string:ontology" + counter.incrementAndGet());
     }

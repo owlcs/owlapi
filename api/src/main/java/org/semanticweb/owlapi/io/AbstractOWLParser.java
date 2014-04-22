@@ -172,14 +172,17 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
         return is;
     }
 
-    private static boolean couldBeOntology(@Nonnull ZipEntry zipEntry) {
+    private static boolean couldBeOntology(@Nullable ZipEntry zipEntry) {
+        if (zipEntry == null) {
+            return false;
+        }
         return ZIP_ENTRY_ONTOLOGY_NAME_PATTERN.matcher(zipEntry.getName())
                 .matches();
     }
 
     @Nonnull
     private static InputStream getInputStreamFromContentEncoding(
-            @Nonnull URLConnection conn, @Nonnull String contentEncoding)
+            @Nonnull URLConnection conn, @Nullable String contentEncoding)
             throws IOException {
         InputStream is;
         if ("gzip".equals(contentEncoding)) {

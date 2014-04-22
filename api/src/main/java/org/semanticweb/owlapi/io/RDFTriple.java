@@ -32,8 +32,11 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 public class RDFTriple implements Serializable, Comparable<RDFTriple> {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final RDFResource subject;
+    @Nonnull
     private final RDFResourceIRI predicate;
+    @Nonnull
     private final RDFNode object;
 
     /**
@@ -71,7 +74,7 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple> {
     }
 
     @Nonnull
-    private static RDFResource getResource(IRI iri, boolean anon) {
+    private static RDFResource getResource(@Nonnull IRI iri, boolean anon) {
         if (anon) {
             return new RDFResourceBlankNode(iri);
         }
