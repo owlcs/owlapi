@@ -3,6 +3,8 @@
  */
 package org.semanticweb.owlapi.formats;
 
+import javax.annotation.Nonnull;
+
 import org.kohsuke.MetaInfServices;
 import org.openrdf.rio.RDFFormat;
 
@@ -16,6 +18,7 @@ public class RDFXMLOntologyFormatFactory extends
 
     private static final long serialVersionUID = 40000L;
 
+    @Nonnull
     @Override
     public RioRDFXMLOntologyFormat createFormat() {
         return new RioRDFXMLOntologyFormat(RDFFormat.RDFXML);

@@ -35,6 +35,7 @@
  */
 package org.semanticweb.owlapi.rio;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import info.aduna.iteration.CloseableIteration;
 import info.aduna.iteration.Iterations;
 
@@ -46,6 +47,8 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
+
+import javax.annotation.Nonnull;
 
 import org.openrdf.OpenRDFException;
 import org.openrdf.model.Model;
@@ -70,7 +73,9 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
 
     private final Map<String, String> namespaces = new LinkedHashMap<String, String>();
+    @Nonnull
     private final Iterator<Statement> statementIterator;
+    @Nonnull
     private IRI documentIRI;
     private static final AtomicInteger counter = new AtomicInteger(0);
 
@@ -82,10 +87,11 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
      *        An {@link Iterator} of {@link Statement} objects that make up this
      *        source.
      */
-    public RioMemoryTripleSource(final Iterator<Statement> statements) {
+    public RioMemoryTripleSource(@Nonnull Iterator<Statement> statements) {
         documentIRI = IRI.create("urn:rio-memory-triples:"
                 + counter.incrementAndGet());
-        statementIterator = statements;
+        statementIterator = checkNotNull(statements,
+                "statements cannot be null");
     }
 
     /**

@@ -83,7 +83,7 @@ public class OWLAPICompatibleValueComparator implements Comparator<Value> {
      *         ordered after the second param.
      */
     @Override
-    public int compare(final Value first, final Value second) {
+    public int compare(Value first, Value second) {
         if (first == null) {
             if (second == null) {
                 return OWLAPICompatibleValueComparator.EQUALS;

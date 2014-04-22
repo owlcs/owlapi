@@ -35,6 +35,8 @@
  */
 package org.semanticweb.owlapi.rio;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.formats.BinaryRdfOntologyFormatFactory;
 import org.semanticweb.owlapi.formats.RioRDFOntologyFormatFactory;
 import org.semanticweb.owlapi.io.OWLParserFactory;
@@ -48,6 +50,7 @@ public class RioBinaryRdfParserFactory extends AbstractRioParserFactory
 
     private static final long serialVersionUID = 40000L;
 
+    @Nonnull
     @Override
     public RioRDFOntologyFormatFactory getRioFormatFactory() {
         return new BinaryRdfOntologyFormatFactory();

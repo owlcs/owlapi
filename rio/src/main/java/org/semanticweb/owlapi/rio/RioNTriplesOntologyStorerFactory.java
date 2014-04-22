@@ -35,6 +35,8 @@
  */
 package org.semanticweb.owlapi.rio;
 
+import javax.annotation.Nonnull;
+
 import org.kohsuke.MetaInfServices;
 import org.semanticweb.owlapi.formats.NTriplesOntologyFormatFactory;
 import org.semanticweb.owlapi.formats.RioRDFOntologyStorerFactory;
@@ -51,6 +53,7 @@ public class RioNTriplesOntologyStorerFactory implements
 
     private static final long serialVersionUID = 40000L;
 
+    @Nonnull
     @Override
     public OWLOntologyStorer createStorer() {
         return new RioOntologyStorer(new NTriplesOntologyFormatFactory());

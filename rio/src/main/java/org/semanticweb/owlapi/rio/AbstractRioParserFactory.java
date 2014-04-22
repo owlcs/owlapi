@@ -39,6 +39,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.formats.RioRDFOntologyFormatFactory;
 import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserFactory;
@@ -51,6 +53,7 @@ public abstract class AbstractRioParserFactory implements OWLParserFactory {
 
     private static final long serialVersionUID = 40000L;
 
+    @Nonnull
     @Override
     public OWLParser createParser() {
         return new RioParserImpl(getRioFormatFactory());

@@ -39,6 +39,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Writer;
 
+import javax.annotation.Nullable;
+
 import org.openrdf.OpenRDFUtil;
 import org.openrdf.model.Resource;
 import org.openrdf.rio.RDFFormat;
@@ -108,8 +110,8 @@ public class RioOntologyStorer extends AbstractOWLOntologyStorer {
      * @return An implementation of the {@link RDFHandler} interface, based on
      *         the parameters given to this method.
      */
-    protected RDFHandler getRDFHandlerForWriter(final RDFFormat format,
-            final Writer writer) {
+    protected RDFHandler getRDFHandlerForWriter(@Nullable RDFFormat format,
+            Writer writer) {
         // by default return a StatementCollector if they did not specify a
         // format
         if (format == null) {

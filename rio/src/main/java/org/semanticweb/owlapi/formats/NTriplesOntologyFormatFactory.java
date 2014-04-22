@@ -3,6 +3,8 @@
  */
 package org.semanticweb.owlapi.formats;
 
+import javax.annotation.Nonnull;
+
 import org.kohsuke.MetaInfServices;
 import org.semanticweb.owlapi.model.OWLOntologyFormatFactory;
 
@@ -16,6 +18,7 @@ public class NTriplesOntologyFormatFactory extends
 
     private static final long serialVersionUID = 40000L;
 
+    @Nonnull
     @Override
     public RioRDFOntologyFormat createFormat() {
         return new NTriplesOntologyFormat();

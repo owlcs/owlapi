@@ -47,6 +47,8 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import javax.annotation.Nullable;
+
 import org.openrdf.model.Resource;
 import org.openrdf.model.Statement;
 import org.openrdf.model.impl.ValueFactoryImpl;
@@ -106,6 +108,7 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
         return Collections.emptySet();
     }
 
+    @Nullable
     @Override
     protected Class<? extends OWLOntologyFormat> getFormatClass() {
         // not needed for this parser

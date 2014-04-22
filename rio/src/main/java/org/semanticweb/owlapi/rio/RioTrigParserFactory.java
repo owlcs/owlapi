@@ -35,6 +35,8 @@
  */
 package org.semanticweb.owlapi.rio;
 
+import javax.annotation.Nonnull;
+
 import org.kohsuke.MetaInfServices;
 import org.semanticweb.owlapi.formats.RioRDFOntologyFormatFactory;
 import org.semanticweb.owlapi.formats.TrigOntologyFormatFactory;
@@ -49,6 +51,7 @@ public class RioTrigParserFactory extends AbstractRioParserFactory implements
 
     private static final long serialVersionUID = 40000L;
 
+    @Nonnull
     @Override
     public RioRDFOntologyFormatFactory getRioFormatFactory() {
         return new TrigOntologyFormatFactory();

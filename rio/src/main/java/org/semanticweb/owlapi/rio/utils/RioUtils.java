@@ -39,6 +39,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
+import javax.annotation.Nullable;
+
 import org.openrdf.OpenRDFUtil;
 import org.openrdf.model.Resource;
 import org.openrdf.model.Statement;
@@ -65,6 +67,7 @@ public class RioUtils {
      *        The OWLAPI {@link RDFTriple} to convert.
      * @return An OpenRDF {@link Statement} representing the given RDFTriple.
      */
+    @Nullable
     public static Statement tripleAsStatement(final RDFTriple triple) {
         Collection<Statement> statements = RioUtils.tripleAsStatements(triple);
         if (!statements.isEmpty()) {
@@ -120,8 +123,8 @@ public class RioUtils {
             }
         } else if (triple.getObject() instanceof RDFLiteral) {
             final RDFLiteral literalObject = (RDFLiteral) triple.getObject();
-            if(literalObject.isPlainLiteral()) {
-                if(literalObject.hasLang()) {
+            if (literalObject.isPlainLiteral()) {
+                if (literalObject.hasLang()) {
                     object = vf.createLiteral(literalObject.getLexicalValue(),
                             literalObject.getLang());
                 } else {

@@ -37,6 +37,8 @@ package org.semanticweb.owlapi.rio;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
+import javax.annotation.Nonnull;
+
 import org.openrdf.model.BNode;
 import org.openrdf.model.Literal;
 import org.openrdf.model.Resource;
@@ -59,6 +61,7 @@ public class RioOWLRDFConsumerAdapter extends OWLRDFConsumer implements
 
     private final Logger logger = LoggerFactory
             .getLogger(RioOWLRDFConsumerAdapter.class);
+    @Nonnull
     private AtomicInteger statementCount = new AtomicInteger(0);
 
     /**

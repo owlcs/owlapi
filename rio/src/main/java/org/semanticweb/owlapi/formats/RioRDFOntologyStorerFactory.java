@@ -3,6 +3,8 @@
  */
 package org.semanticweb.owlapi.formats;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLOntologyFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntologyStorerFactory;
 
@@ -11,6 +13,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorerFactory;
  */
 public interface RioRDFOntologyStorerFactory extends OWLOntologyStorerFactory {
 
+    @Nonnull
     @Override
     OWLOntologyFormatFactory getFormatFactory();
 }
