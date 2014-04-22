@@ -273,23 +273,25 @@ public class AxiomType<C extends OWLAxiom> implements Serializable {
                 }
             });
     /** set of tbox axiom types */
+    @Nonnull
     public static final Set<AxiomType<?>> TBoxAxiomTypes = Sets.newHashSet(
             (AxiomType<?>) SUBCLASS_OF, EQUIVALENT_CLASSES, DISJOINT_CLASSES,
             OBJECT_PROPERTY_DOMAIN, OBJECT_PROPERTY_RANGE,
             INVERSE_OBJECT_PROPERTIES, FUNCTIONAL_OBJECT_PROPERTY,
             INVERSE_FUNCTIONAL_OBJECT_PROPERTY, SYMMETRIC_OBJECT_PROPERTY,
-            ASYMMETRIC_OBJECT_PROPERTY, TRANSITIVE_OBJECT_PROPERTY,
-            REFLEXIVE_OBJECT_PROPERTY, IRREFLEXIVE_OBJECT_PROPERTY,
-            DATA_PROPERTY_DOMAIN, DATA_PROPERTY_RANGE,
-            FUNCTIONAL_DATA_PROPERTY, DATATYPE_DEFINITION, DISJOINT_UNION,
-            HAS_KEY);
+            ASYMMETRIC_OBJECT_PROPERTY, REFLEXIVE_OBJECT_PROPERTY,
+            IRREFLEXIVE_OBJECT_PROPERTY, DATA_PROPERTY_DOMAIN,
+            DATA_PROPERTY_RANGE, FUNCTIONAL_DATA_PROPERTY, DATATYPE_DEFINITION,
+            DISJOINT_UNION, HAS_KEY);
     /** set of abox axiom types */
+    @Nonnull
     public static final Set<AxiomType<?>> ABoxAxiomTypes = Sets.newHashSet(
             (AxiomType<?>) CLASS_ASSERTION, SAME_INDIVIDUAL,
             DIFFERENT_INDIVIDUALS, OBJECT_PROPERTY_ASSERTION,
             NEGATIVE_OBJECT_PROPERTY_ASSERTION, DATA_PROPERTY_ASSERTION,
             NEGATIVE_DATA_PROPERTY_ASSERTION);
     /** set of rbox axiom types */
+    @Nonnull
     public static final Set<AxiomType<?>> RBoxAxiomTypes = Sets.newHashSet(
             (AxiomType<?>) TRANSITIVE_OBJECT_PROPERTY,
             DISJOINT_DATA_PROPERTIES, SUB_DATA_PROPERTY,
@@ -297,6 +299,7 @@ public class AxiomType<C extends OWLAxiom> implements Serializable {
             SUB_OBJECT_PROPERTY, EQUIVALENT_OBJECT_PROPERTIES,
             SUB_PROPERTY_CHAIN_OF);
     /** set of tbox and rbox axiom types */
+    @Nonnull
     public static final Set<AxiomType<?>> TBoxAndRBoxAxiomTypes = Sets
             .newHashSet(Iterables.concat(TBoxAxiomTypes, RBoxAxiomTypes));
 }
