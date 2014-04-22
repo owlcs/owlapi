@@ -14,6 +14,8 @@ package org.semanticweb.owlapitools.builders;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 
@@ -27,6 +29,7 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
 public interface Builder<T> {
 
     /** @return freshly built object */
+    @Nonnull
     T buildObject();
 
     /**
@@ -39,5 +42,6 @@ public interface Builder<T> {
      *        ontology
      * @return changes the ontology to which the changes should be applied
      */
-    List<OWLOntologyChange<?>> applyChanges(OWLOntology o);
+    @Nonnull
+    List<OWLOntologyChange<?>> applyChanges(@Nonnull OWLOntology o);
 }

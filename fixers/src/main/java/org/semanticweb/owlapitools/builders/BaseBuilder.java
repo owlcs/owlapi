@@ -21,7 +21,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
 import javax.inject.Inject;
+
 
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -47,8 +49,11 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolation;
 public abstract class BaseBuilder<T extends OWLObject, Type> implements
         Builder<T> {
 
+    @Nonnull
     protected final OWLDataFactory df;
+    @Nonnull
     protected Set<OWLAnnotation> annotations = new HashSet<OWLAnnotation>();
+    @Nonnull
     private OWLProfile profile = new OWL2DLProfile();
 
     /**
@@ -65,6 +70,7 @@ public abstract class BaseBuilder<T extends OWLObject, Type> implements
      *        annotation
      * @return builder
      */
+    @Nonnull
     @SuppressWarnings("unchecked")
     public Type withAnnotation(OWLAnnotation arg) {
         annotations.add(arg);
@@ -76,8 +82,9 @@ public abstract class BaseBuilder<T extends OWLObject, Type> implements
      *        annotation
      * @return builder
      */
+    @Nonnull
     @SuppressWarnings("unchecked")
-    public Type withAnnotations(Collection<OWLAnnotation> arg) {
+    public Type withAnnotations(@Nonnull Collection<OWLAnnotation> arg) {
         annotations.addAll(arg);
         return (Type) this;
     }
@@ -85,8 +92,9 @@ public abstract class BaseBuilder<T extends OWLObject, Type> implements
     @Override
     public abstract T buildObject();
 
+    @Nonnull
     @Override
-    public final List<OWLOntologyChange<?>> applyChanges(OWLOntology o) {
+    public final List<OWLOntologyChange<?>> applyChanges(@Nonnull OWLOntology o) {
         T object = buildObject();
         if (!(object instanceof OWLAxiom)) {
             return Collections.emptyList();

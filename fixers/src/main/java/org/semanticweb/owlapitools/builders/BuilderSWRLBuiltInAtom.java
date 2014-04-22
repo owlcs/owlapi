@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.IRI;
@@ -27,7 +29,9 @@ import org.semanticweb.owlapi.model.SWRLDArgument;
 public class BuilderSWRLBuiltInAtom extends
         BaseBuilder<SWRLBuiltInAtom, BuilderSWRLBuiltInAtom> {
 
+    @Nullable
     private IRI iri = null;
+    @Nonnull
     private List<SWRLDArgument> args = new ArrayList<SWRLDArgument>();
 
     /**
@@ -38,7 +42,8 @@ public class BuilderSWRLBuiltInAtom extends
      * @param df
      *        data factory
      */
-    public BuilderSWRLBuiltInAtom(SWRLBuiltInAtom expected, OWLDataFactory df) {
+    public BuilderSWRLBuiltInAtom(@Nonnull SWRLBuiltInAtom expected,
+            OWLDataFactory df) {
         this(df);
         with(expected.getPredicate()).with(expected.getArguments());
     }
@@ -57,6 +62,7 @@ public class BuilderSWRLBuiltInAtom extends
      *        iri
      * @return builder
      */
+    @Nonnull
     public BuilderSWRLBuiltInAtom with(IRI arg) {
         iri = arg;
         return this;
@@ -67,6 +73,7 @@ public class BuilderSWRLBuiltInAtom extends
      *        argument
      * @return builder
      */
+    @Nonnull
     public BuilderSWRLBuiltInAtom with(SWRLDArgument arg) {
         args.add(arg);
         return this;
@@ -77,7 +84,8 @@ public class BuilderSWRLBuiltInAtom extends
      *        arguments
      * @return builder
      */
-    public BuilderSWRLBuiltInAtom with(Collection<SWRLDArgument> arg) {
+    @Nonnull
+    public BuilderSWRLBuiltInAtom with(@Nonnull Collection<SWRLDArgument> arg) {
         args.addAll(arg);
         return this;
     }

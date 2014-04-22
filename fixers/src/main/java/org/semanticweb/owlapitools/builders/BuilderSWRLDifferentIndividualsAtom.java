@@ -12,7 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapitools.builders;
 
+import javax.annotation.Nonnull;
 import javax.inject.Inject;
+
 
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.SWRLDifferentIndividualsAtom;
@@ -35,7 +37,7 @@ public class BuilderSWRLDifferentIndividualsAtom
      *        data factory
      */
     public BuilderSWRLDifferentIndividualsAtom(
-            SWRLDifferentIndividualsAtom expected, OWLDataFactory df) {
+            @Nonnull SWRLDifferentIndividualsAtom expected, OWLDataFactory df) {
         this(df);
         withArg0(expected.getFirstArgument()).withArg1(
                 expected.getSecondArgument());
@@ -55,6 +57,7 @@ public class BuilderSWRLDifferentIndividualsAtom
      *        arg0
      * @return builder
      */
+    @Nonnull
     public BuilderSWRLDifferentIndividualsAtom withArg0(SWRLIArgument arg) {
         arg0 = arg;
         return this;
@@ -65,6 +68,7 @@ public class BuilderSWRLDifferentIndividualsAtom
      *        arg0
      * @return builder
      */
+    @Nonnull
     public BuilderSWRLDifferentIndividualsAtom withArg1(SWRLIArgument arg) {
         arg1 = arg;
         return this;

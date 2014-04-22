@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapitools.builders;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -23,7 +25,9 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
 public class BuilderFacetRestriction extends
         BaseBuilder<OWLFacetRestriction, BuilderFacetRestriction> {
 
+    @Nullable
     private OWLLiteral literal = null;
+    @Nullable
     private OWLFacet facet = null;
 
     /**
@@ -34,7 +38,7 @@ public class BuilderFacetRestriction extends
      * @param df
      *        data factory
      */
-    public BuilderFacetRestriction(OWLFacetRestriction expected,
+    public BuilderFacetRestriction(@Nonnull OWLFacetRestriction expected,
             OWLDataFactory df) {
         this(df);
         withFacet(expected.getFacet()).withLiteral(expected.getFacetValue());
@@ -54,6 +58,7 @@ public class BuilderFacetRestriction extends
      *        int value
      * @return builder
      */
+    @Nonnull
     public BuilderFacetRestriction withLiteral(int arg) {
         literal = df.getOWLLiteral(arg);
         return this;
@@ -64,6 +69,7 @@ public class BuilderFacetRestriction extends
      *        literal value
      * @return builder
      */
+    @Nonnull
     public BuilderFacetRestriction withLiteral(OWLLiteral arg) {
         literal = arg;
         return this;
@@ -74,6 +80,7 @@ public class BuilderFacetRestriction extends
      *        double value
      * @return builder
      */
+    @Nonnull
     public BuilderFacetRestriction withLiteral(double arg) {
         literal = df.getOWLLiteral(arg);
         return this;
@@ -84,6 +91,7 @@ public class BuilderFacetRestriction extends
      *        float value
      * @return builder
      */
+    @Nonnull
     public BuilderFacetRestriction withLiteral(float arg) {
         literal = df.getOWLLiteral(arg);
         return this;
@@ -94,6 +102,7 @@ public class BuilderFacetRestriction extends
      *        facet
      * @return builder
      */
+    @Nonnull
     public BuilderFacetRestriction withFacet(OWLFacet arg) {
         facet = arg;
         return this;

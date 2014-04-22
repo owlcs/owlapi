@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapitools.builders;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -24,7 +26,9 @@ public class BuilderNegativeDataPropertyAssertion
         extends
         BaseDataPropertyBuilder<OWLNegativeDataPropertyAssertionAxiom, BuilderNegativeDataPropertyAssertion> {
 
+    @Nullable
     private OWLIndividual subject = null;
+    @Nullable
     private OWLLiteral value = null;
 
     /**
@@ -36,7 +40,8 @@ public class BuilderNegativeDataPropertyAssertion
      *        data factory
      */
     public BuilderNegativeDataPropertyAssertion(
-            OWLNegativeDataPropertyAssertionAxiom expected, OWLDataFactory df) {
+            @Nonnull OWLNegativeDataPropertyAssertionAxiom expected,
+            OWLDataFactory df) {
         this(df);
         withProperty(expected.getProperty()).withSubject(expected.getSubject())
                 .withValue(expected.getObject())
@@ -57,6 +62,7 @@ public class BuilderNegativeDataPropertyAssertion
      *        value
      * @return builder
      */
+    @Nonnull
     public BuilderNegativeDataPropertyAssertion withValue(OWLLiteral arg) {
         value = arg;
         return this;
@@ -67,6 +73,7 @@ public class BuilderNegativeDataPropertyAssertion
      *        subject
      * @return builder
      */
+    @Nonnull
     public BuilderNegativeDataPropertyAssertion withSubject(OWLIndividual arg) {
         subject = arg;
         return this;

@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapitools.builders;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.EntityType;
@@ -22,6 +24,7 @@ import org.semanticweb.owlapi.model.OWLEntity;
 /** Builder class for OWLEntity */
 public class BuilderEntity extends BaseEntityBuilder<OWLEntity, BuilderEntity> {
 
+    @Nullable
     private EntityType<?> entityType = null;
 
     /**
@@ -41,7 +44,7 @@ public class BuilderEntity extends BaseEntityBuilder<OWLEntity, BuilderEntity> {
      * @param df
      *        data factory
      */
-    public BuilderEntity(OWLClass expected, OWLDataFactory df) {
+    public BuilderEntity(@Nonnull OWLClass expected, OWLDataFactory df) {
         this(df);
         withType(EntityType.CLASS).withIRI(expected.getIRI());
     }
@@ -51,6 +54,7 @@ public class BuilderEntity extends BaseEntityBuilder<OWLEntity, BuilderEntity> {
      *        entity type
      * @return builder
      */
+    @Nonnull
     public BuilderEntity withType(EntityType<?> arg) {
         entityType = arg;
         return this;

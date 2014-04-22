@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapitools.builders;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -23,7 +25,9 @@ import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
 public class BuilderDatatypeDefinition extends
         BaseBuilder<OWLDatatypeDefinitionAxiom, BuilderDatatypeDefinition> {
 
+    @Nullable
     private OWLDataRange range = null;
+    @Nullable
     private OWLDatatype type = null;
 
     /**
@@ -34,8 +38,8 @@ public class BuilderDatatypeDefinition extends
      * @param df
      *        data factory
      */
-    public BuilderDatatypeDefinition(OWLDatatypeDefinitionAxiom expected,
-            OWLDataFactory df) {
+    public BuilderDatatypeDefinition(
+            @Nonnull OWLDatatypeDefinitionAxiom expected, OWLDataFactory df) {
         this(df);
         with(expected.getDatatype()).withType(expected.getDataRange())
                 .withAnnotations(expected.getAnnotations());
@@ -55,6 +59,7 @@ public class BuilderDatatypeDefinition extends
      *        range
      * @return builder
      */
+    @Nonnull
     public BuilderDatatypeDefinition withType(OWLDataRange arg) {
         range = arg;
         return this;
@@ -65,6 +70,7 @@ public class BuilderDatatypeDefinition extends
      *        type
      * @return builder
      */
+    @Nonnull
     public BuilderDatatypeDefinition with(OWLDatatype arg) {
         type = arg;
         return this;

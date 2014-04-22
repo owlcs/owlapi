@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapitools.builders;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
@@ -23,7 +25,9 @@ import org.semanticweb.owlapi.model.OWLIndividual;
 public class BuilderClassAssertion extends
         BaseBuilder<OWLClassAssertionAxiom, BuilderClassAssertion> {
 
+    @Nullable
     private OWLIndividual i = null;
+    @Nullable
     private OWLClassExpression ce = null;
 
     /**
@@ -43,7 +47,7 @@ public class BuilderClassAssertion extends
      * @param df
      *        data factory
      */
-    public BuilderClassAssertion(OWLClassAssertionAxiom expected,
+    public BuilderClassAssertion(@Nonnull OWLClassAssertionAxiom expected,
             OWLDataFactory df) {
         this(df);
         withClass(expected.getClassExpression()).withIndividual(
@@ -56,6 +60,7 @@ public class BuilderClassAssertion extends
      *        individual
      * @return builder
      */
+    @Nonnull
     public BuilderClassAssertion withIndividual(OWLIndividual arg) {
         i = arg;
         return this;
@@ -66,6 +71,7 @@ public class BuilderClassAssertion extends
      *        argument
      * @return builder
      */
+    @Nonnull
     public BuilderClassAssertion withClass(OWLClassExpression arg) {
         ce = arg;
         return this;

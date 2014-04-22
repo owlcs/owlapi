@@ -16,7 +16,9 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
 import javax.inject.Inject;
+
 
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObject;
@@ -35,6 +37,7 @@ import org.semanticweb.owlapi.model.OWLObject;
 public abstract class BaseSetBuilder<T extends OWLObject, Type, Item> extends
         BaseBuilder<T, Type> {
 
+    @Nonnull
     protected Set<Item> items = new HashSet<Item>();
 
     /**
@@ -51,6 +54,7 @@ public abstract class BaseSetBuilder<T extends OWLObject, Type, Item> extends
      *        item to add
      * @return builder
      */
+    @Nonnull
     @SuppressWarnings("unchecked")
     public Type withItem(Item arg) {
         items.add(arg);
@@ -62,8 +66,9 @@ public abstract class BaseSetBuilder<T extends OWLObject, Type, Item> extends
      *        items to add
      * @return builder
      */
+    @Nonnull
     @SuppressWarnings("unchecked")
-    public Type withItems(Collection<? extends Item> arg) {
+    public Type withItems(@Nonnull Collection<? extends Item> arg) {
         items.addAll(arg);
         return (Type) this;
     }
@@ -73,8 +78,9 @@ public abstract class BaseSetBuilder<T extends OWLObject, Type, Item> extends
      *        items to add
      * @return builder
      */
+    @Nonnull
     @SuppressWarnings("unchecked")
-    public Type withItems(Item... arg) {
+    public Type withItems(@Nonnull Item... arg) {
         for (Item i : arg) {
             items.add(i);
         }
