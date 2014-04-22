@@ -17,6 +17,8 @@ import static org.semanticweb.owlapi.vocab.OWLFacet.*;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -58,7 +60,9 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 @SuppressWarnings("javadoc")
 public class OWLDataFactoryTestCase {
 
+    @Nonnull
     private AtomicInteger counter = new AtomicInteger(1);
+    @Nonnull
     private OWLDataFactory testSubject = new OWLDataFactoryImpl();
 
     private IRI IRI() {
