@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -40,6 +42,7 @@ public class DublinCoreVocabularyTestCase {
         this.vocabulary = vocabulary;
     }
 
+    @Nonnull
     @Parameterized.Parameters
     public static Collection<Object[]> getData() {
         List<Object[]> data = new ArrayList<Object[]>();
