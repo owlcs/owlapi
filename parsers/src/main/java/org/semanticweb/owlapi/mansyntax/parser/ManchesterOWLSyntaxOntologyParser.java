@@ -16,6 +16,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormat;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
@@ -38,6 +40,7 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
     private static final String COMMENT_START_CHAR = "#";
     private static final String DEFAULT_FILE_ENCODING = "UTF-8";
 
+    @Nonnull
     @Override
     public String getName() {
         return "ManchesterOWLSyntaxOntologyParser";
@@ -124,7 +127,7 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
         }
     }
 
-    private boolean startsWithMagicNumber(String line) {
+    private static boolean startsWithMagicNumber(String line) {
         return line.indexOf(ManchesterOWLSyntax.PREFIX.toString()) != -1
                 || line.indexOf(ManchesterOWLSyntax.ONTOLOGY.toString()) != -1;
     }

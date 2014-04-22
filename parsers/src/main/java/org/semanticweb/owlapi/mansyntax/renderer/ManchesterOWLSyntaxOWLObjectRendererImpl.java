@@ -16,6 +16,8 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.io.OWLObjectRenderer;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.util.ShortFormProvider;
@@ -42,8 +44,9 @@ public class ManchesterOWLSyntaxOWLObjectRendererImpl implements
                 new SimpleShortFormProvider());
     }
 
+    @Nonnull
     @Override
-    public synchronized String render(OWLObject object) {
+    public synchronized String render(@Nonnull OWLObject object) {
         writerDelegate.reset();
         object.accept(ren);
         return writerDelegate.toString();
@@ -67,6 +70,7 @@ public class ManchesterOWLSyntaxOWLObjectRendererImpl implements
             delegate = new StringWriter();
         }
 
+        @Nonnull
         @Override
         public String toString() {
             return delegate.getBuffer().toString();
@@ -83,7 +87,8 @@ public class ManchesterOWLSyntaxOWLObjectRendererImpl implements
         }
 
         @Override
-        public void write(char[] cbuf, int off, int len) throws IOException {
+        public void write(@Nonnull char[] cbuf, int off, int len)
+                throws IOException {
             delegate.write(cbuf, off, len);
         }
     }

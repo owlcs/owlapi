@@ -29,6 +29,7 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.expression.OWLOntologyChecker;
@@ -126,6 +127,7 @@ public class ManchesterOWLSyntaxEditorParser implements
     private OWLEntityChecker owlEntityChecker;
     private OWLOntologyChecker owlOntologyChecker = new OWLOntologyChecker() {
 
+        @Nullable
         @Override
         public OWLOntology getOntology(String name) {
             return null;
@@ -1001,7 +1003,8 @@ public class ManchesterOWLSyntaxEditorParser implements
         return dataFactory.getOWLObjectOneOf(inds);
     }
 
-    private <F> void initialiseSection(AnnotatedListItemParser<F, ?> parser,
+    private static <F> void initialiseSection(
+            AnnotatedListItemParser<F, ?> parser,
             Map<ManchesterOWLSyntax, AnnotatedListItemParser<F, ?>> map,
             ManchesterOWLSyntax... synonyms) {
         map.put(parser.getFrameSectionKeyword(), parser);
@@ -1109,7 +1112,7 @@ public class ManchesterOWLSyntaxEditorParser implements
         return axioms;
     }
 
-    private void resetPossible(Set<ManchesterOWLSyntax> possible) {
+    private static void resetPossible(Set<ManchesterOWLSyntax> possible) {
         possible.clear();
         possible.add(ANNOTATIONS);
         possible.add(ANNOTATION_PROPERTY);
@@ -3318,7 +3321,7 @@ public class ManchesterOWLSyntaxEditorParser implements
         }
 
         @Override
-        public OWLAxiom createAxiom(OWLIndividual s,
+        public OWLAxiom createAxiom(@Nonnull OWLIndividual s,
                 OWLPropertyAssertionAxiom<?, ?> o, Set<OWLAnnotation> anns) {
             return o.getAnnotatedAxiom(anns);
         }

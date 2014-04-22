@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.mansyntax.renderer;
 
 import java.util.Map;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.formats.PrefixOWLOntologyFormat;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLEntity;
@@ -45,7 +47,8 @@ public class ManchesterOWLSyntaxPrefixNameShortFormProvider implements
      * @param ont
      *        The ontology
      */
-    public ManchesterOWLSyntaxPrefixNameShortFormProvider(OWLOntology ont) {
+    public ManchesterOWLSyntaxPrefixNameShortFormProvider(
+            @Nonnull OWLOntology ont) {
         this(ont.getOWLOntologyManager().getOntologyFormat(ont));
     }
 
@@ -99,7 +102,7 @@ public class ManchesterOWLSyntaxPrefixNameShortFormProvider implements
      *        The IRI
      * @return The short form for the specified IRI
      */
-    public String getShortForm(IRI iri) {
+    public String getShortForm(@Nonnull IRI iri) {
         return iri.toQuotedString();
     }
 

@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.mansyntax.parser;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.expression.OWLExpressionParser;
 import org.semanticweb.owlapi.expression.OWLOntologyChecker;
@@ -67,6 +69,7 @@ public class ManchesterOWLSyntaxFramesParser implements
         defaultOntology = ontology;
     }
 
+    @Nonnull
     @Override
     public Set<OntologyAxiomPair> parse(String expression) {
         ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(

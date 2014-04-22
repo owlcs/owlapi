@@ -17,6 +17,8 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
@@ -135,7 +137,7 @@ public class ParserException extends OWLParserException {
             boolean objectPropertyNameExpected,
             boolean dataPropertyNameExpected, boolean individualNameExpected,
             boolean datatypeNameExpected, boolean annotationPropertyExpected,
-            Set<String> expectedKeywords) {
+            @Nullable Set<String> expectedKeywords) {
         currentToken = tokenSequence.iterator().next();
         currentToken = tokenSequence.iterator().next();
         this.tokenSequence = tokenSequence;

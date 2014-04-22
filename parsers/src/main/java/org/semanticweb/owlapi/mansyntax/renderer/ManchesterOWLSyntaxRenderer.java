@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.mansyntax.renderer;
 
 import java.io.Writer;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.io.AbstractOWLRenderer;
 import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -26,7 +28,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 public class ManchesterOWLSyntaxRenderer extends AbstractOWLRenderer {
 
     @Override
-    public void render(OWLOntology ontology, Writer writer)
+    public void render(@Nonnull OWLOntology ontology, Writer writer)
             throws OWLRendererException {
         ManchesterOWLSyntaxFrameRenderer ren = new ManchesterOWLSyntaxFrameRenderer(
                 ontology, writer,

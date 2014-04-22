@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.mansyntax.parser;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.expression.OWLExpressionParser;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -50,6 +52,7 @@ public class ManchesterOWLSyntaxClassFrameParser implements
         checker = entityChecker;
     }
 
+    @Nonnull
     @Override
     public Set<OntologyAxiomPair> parse(String expression) {
         ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(

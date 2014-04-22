@@ -17,6 +17,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -36,6 +38,7 @@ public class ManchesterOWLSyntaxTokenizer {
         return EOF.equals(s);
     }
 
+    @Nonnull
     protected Set<Character> skip = new HashSet<Character>();
     protected Set<Character> commentDelimiters = new HashSet<Character>();
     protected Set<Character> delims = new HashSet<Character>();

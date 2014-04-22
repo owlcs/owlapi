@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
@@ -43,9 +45,9 @@ public class ManchesterOWLSyntaxOntologyHeader {
      *        the imports declarations
      */
     public ManchesterOWLSyntaxOntologyHeader(IRI ontologyIRI, IRI versionIRI,
-            Set<OWLAnnotation> annotations,
+            @Nonnull Set<OWLAnnotation> annotations,
             Set<OWLImportsDeclaration> importsDeclarations) {
-        this.ontologyID = new OWLOntologyID(ontologyIRI, versionIRI);
+        ontologyID = new OWLOntologyID(ontologyIRI, versionIRI);
         this.annotations = new ArrayList<OWLAnnotation>(annotations);
         this.importsDeclarations = new ArrayList<OWLImportsDeclaration>(
                 importsDeclarations);

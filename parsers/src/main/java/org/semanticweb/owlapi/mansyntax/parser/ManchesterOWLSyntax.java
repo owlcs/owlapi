@@ -12,6 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.mansyntax.parser;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * The vocabulary that the Manchester OWL Syntax uses.
  * 
@@ -20,6 +23,7 @@ package org.semanticweb.owlapi.mansyntax.parser;
  * @since 2.0.0
  */
 public enum ManchesterOWLSyntax {
+
 
 
     //@formatter:off
@@ -206,7 +210,7 @@ public enum ManchesterOWLSyntax {
      *        v
      * @return true if matches
      */
-    public boolean matches(String s, String v) {
+    public boolean matches(@Nonnull String s, @Nonnull String v) {
         return rendering.length() == s.length() + v.length()
                 && rendering.startsWith(s) && rendering.endsWith(v);
     }
@@ -216,6 +220,7 @@ public enum ManchesterOWLSyntax {
      *        rendering
      * @return manchester owl syntax object
      */
+    @Nullable
     public static ManchesterOWLSyntax parse(String rendering) {
         for (ManchesterOWLSyntax m : values()) {
             if (m.matches(rendering)) {
