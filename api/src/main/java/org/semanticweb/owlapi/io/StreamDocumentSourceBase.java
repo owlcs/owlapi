@@ -21,7 +21,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
@@ -43,22 +42,11 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 public abstract class StreamDocumentSourceBase extends
         OWLOntologyDocumentSourceBase {
 
-    private static final AtomicLong COUNTER = new AtomicLong();
     protected final IRI documentIRI;
     protected byte[] byteBuffer;
     private String encoding = "UTF-8";
     @Nullable
     private Boolean streamAvailable = null;
-
-    /**
-     * @param prefix
-     *        prefix for result
-     * @return a fresh IRI
-     */
-    @Nonnull
-    protected static IRI getNextDocumentIRI(String prefix) {
-        return IRI.create(prefix + COUNTER.incrementAndGet());
-    }
 
     /**
      * Constructs an input source which will read an ontology from a

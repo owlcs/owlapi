@@ -15,6 +15,7 @@ package org.semanticweb.owlapi.api.test.anonymous;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.TurtleOntologyFormat;
+import org.semanticweb.owlapi.io.OWLOntologyDocumentSourceBase;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
@@ -29,7 +30,9 @@ public class BlankNodeTestCase extends TestBase {
     @Test
     public void testBlankNodes() throws OWLOntologyCreationException {
         m.loadOntologyFromOntologyDocument(new StringDocumentSource(
-                "_:foo <http://example.com/> _:bar .", StringDocumentSource
-                        .getNextDocumentIRI(), new TurtleOntologyFormat(), null));
+                "_:foo <http://example.com/> _:bar .",
+                OWLOntologyDocumentSourceBase
+                        .getNextDocumentIRI("string:ontology"),
+                new TurtleOntologyFormat(), null));
     }
 }

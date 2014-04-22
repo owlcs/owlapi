@@ -22,10 +22,10 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicLong;
 
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.io.OWLOntologyDocumentSourceBase;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationAxiom;
@@ -508,11 +508,9 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
                 totalSatTests);
     }
 
-    private static final AtomicLong counter = new AtomicLong(System.nanoTime());
-
     @Nonnull
     private static IRI createIRI() {
-        return IRI.create("http://debugging.blackbox#",
-                "A" + counter.incrementAndGet());
+        return OWLOntologyDocumentSourceBase
+                .getNextDocumentIRI("http://debugging.blackbox#A");
     }
 }

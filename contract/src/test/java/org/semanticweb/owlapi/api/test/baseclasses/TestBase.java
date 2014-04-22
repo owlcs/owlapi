@@ -33,6 +33,7 @@ import org.semanticweb.owlapi.formats.PrefixOWLOntologyFormat;
 import org.semanticweb.owlapi.formats.RDFOntologyFormat;
 import org.semanticweb.owlapi.formats.RDFXMLOntologyFormat;
 import org.semanticweb.owlapi.io.IRIDocumentSource;
+import org.semanticweb.owlapi.io.OWLOntologyDocumentSourceBase;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.IRI;
@@ -274,7 +275,8 @@ public abstract class TestBase {
         OWLOntology ont2 = OWLManager.createOWLOntologyManager()
                 .loadOntologyFromOntologyDocument(
                         new StringDocumentSource(target.toString(),
-                                StringDocumentSource.getNextDocumentIRI(),
+                                OWLOntologyDocumentSourceBase
+                                        .getNextDocumentIRI("string:ontology"),
                                 format, null),
                         new OWLOntologyLoaderConfiguration()
                                 .setReportStackTraces(true));
@@ -356,8 +358,9 @@ public abstract class TestBase {
         OWLOntology ontology = OWLManager.createOWLOntologyManager()
                 .loadOntologyFromOntologyDocument(
                         new StringDocumentSource(input.toString(),
-                                StringDocumentSource.getNextDocumentIRI(), f,
-                                null));
+                                OWLOntologyDocumentSourceBase
+                                        .getNextDocumentIRI("string:ontology"),
+                                f, null));
         return ontology;
     }
 

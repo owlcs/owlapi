@@ -1,7 +1,11 @@
 package org.semanticweb.owlapi.io;
 
+import java.util.concurrent.atomic.AtomicLong;
+
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
 /**
@@ -12,6 +16,18 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
  */
 public abstract class OWLOntologyDocumentSourceBase implements
         OWLOntologyDocumentSource {
+
+    private static final AtomicLong COUNTER = new AtomicLong();
+
+    /**
+     * @param prefix
+     *        prefix for result
+     * @return a fresh IRI
+     */
+    @Nonnull
+    public static IRI getNextDocumentIRI(String prefix) {
+        return IRI.create(prefix + COUNTER.incrementAndGet());
+    }
 
     private final OWLOntologyFormat format;
     private final String mimeType;
