@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.reasoner;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
@@ -33,6 +35,7 @@ public interface OWLReasonerFactory {
      * @return A string that represents the name of the reasoner created by this
      *         factory.
      */
+    @Nonnull
     String getReasonerName();
 
     /**

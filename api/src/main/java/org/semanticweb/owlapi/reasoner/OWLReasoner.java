@@ -15,6 +15,8 @@ package org.semanticweb.owlapi.reasoner;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -227,6 +229,7 @@ public interface OWLReasoner {
      * 
      * @return A string that represents the name of this reasoner.
      */
+    @Nonnull
     String getReasonerName();
 
     /**

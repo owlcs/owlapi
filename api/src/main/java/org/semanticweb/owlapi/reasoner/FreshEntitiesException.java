@@ -15,6 +15,8 @@ package org.semanticweb.owlapi.reasoner;
 import java.util.Collection;
 import java.util.Collections;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLEntity;
 
 /**
@@ -79,6 +81,7 @@ public class FreshEntitiesException extends OWLReasonerRuntimeException {
         return entities;
     }
 
+    @Nonnull
     @Override
     public String getMessage() {
         return entities + " not in signature";

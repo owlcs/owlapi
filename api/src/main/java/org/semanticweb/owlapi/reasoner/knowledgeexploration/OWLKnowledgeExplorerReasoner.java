@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.reasoner.knowledgeexploration;
 
 import java.util.Collection;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataRange;
@@ -33,6 +35,7 @@ public interface OWLKnowledgeExplorerReasoner extends OWLReasoner {
          *        actual node type
          * @return inner node representation
          */
+        @Nonnull
         <T> T getNode();
     }
 

@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.reasoner;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLObject;
 
 /**
@@ -98,6 +100,7 @@ public interface Node<E extends OWLObject> extends Iterable<E> {
      * 
      * @return The set of entities contained in this {@code Node}.
      */
+    @Nonnull
     Set<E> getEntities();
 
     /**
@@ -130,6 +133,7 @@ public interface Node<E extends OWLObject> extends Iterable<E> {
      *         this node then the full set of entities returned is the same as
      *         that returned by {@link #getEntities()}
      */
+    @Nonnull
     Set<E> getEntitiesMinus(E e);
 
     /**
@@ -143,6 +147,7 @@ public interface Node<E extends OWLObject> extends Iterable<E> {
      *         of entities returned is the same as that returned by
      *         {@link #getEntities()}.
      */
+    @Nonnull
     Set<E> getEntitiesMinusTop();
 
     /**
@@ -157,6 +162,7 @@ public interface Node<E extends OWLObject> extends Iterable<E> {
      *         set of entities returned is the same as that returned by
      *         {@link #getEntities()}.
      */
+    @Nonnull
     Set<E> getEntitiesMinusBottom();
 
     /**
@@ -175,5 +181,6 @@ public interface Node<E extends OWLObject> extends Iterable<E> {
      * @throws RuntimeException
      *         if this node is empty (it does not contain any entities).
      */
+    @Nonnull
     E getRepresentativeElement();
 }

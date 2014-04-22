@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.reasoner;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLObject;
 
 /**
@@ -34,6 +36,7 @@ public interface NodeSet<E extends OWLObject> extends Iterable<Node<E>> {
      * @return The union of the entities contained in the {@code Nodes} in this
      *         {@code NodeSet}.
      */
+    @Nonnull
     Set<E> getFlattened();
 
     /** @return true if the node set is empty */
