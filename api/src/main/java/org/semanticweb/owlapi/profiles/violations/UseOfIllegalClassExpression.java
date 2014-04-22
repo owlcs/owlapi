@@ -38,8 +38,8 @@ public class UseOfIllegalClassExpression extends
      * @param classExpression
      *        classExpression
      */
-    public UseOfIllegalClassExpression(OWLOntology ontology, OWLAxiom axiom,
-            OWLClassExpression classExpression) {
+    public UseOfIllegalClassExpression(@Nonnull OWLOntology ontology,
+            @Nonnull OWLAxiom axiom, @Nonnull OWLClassExpression classExpression) {
         super(ontology, axiom, classExpression);
     }
 

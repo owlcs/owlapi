@@ -47,8 +47,8 @@ public class UseOfUndeclaredDatatype extends OWLProfileViolation<OWLDatatype>
      * @param datatype
      *        datatype
      */
-    public UseOfUndeclaredDatatype(OWLOntology ontology, OWLAxiom axiom,
-            OWLDatatype datatype) {
+    public UseOfUndeclaredDatatype(@Nonnull OWLOntology ontology,
+            @Nonnull OWLAxiom axiom, @Nonnull OWLDatatype datatype) {
         super(ontology, axiom, datatype);
     }
 

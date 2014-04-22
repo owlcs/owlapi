@@ -35,8 +35,8 @@ public class UseOfIllegalDataRange extends OWLProfileViolation<OWLDataRange> {
      * @param dataRange
      *        dataRange
      */
-    public UseOfIllegalDataRange(OWLOntology ontology, OWLAxiom axiom,
-            OWLDataRange dataRange) {
+    public UseOfIllegalDataRange(@Nonnull OWLOntology ontology,
+            @Nonnull OWLAxiom axiom, @Nonnull OWLDataRange dataRange) {
         super(ontology, axiom, dataRange);
     }
 

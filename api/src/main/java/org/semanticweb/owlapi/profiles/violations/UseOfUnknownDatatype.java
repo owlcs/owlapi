@@ -39,8 +39,8 @@ public class UseOfUnknownDatatype extends OWLProfileViolation<OWLDatatype> {
      * @param datatype
      *        datatype
      */
-    public UseOfUnknownDatatype(OWLOntology ontology, OWLAxiom axiom,
-            OWLDatatype datatype) {
+    public UseOfUnknownDatatype(@Nonnull OWLOntology ontology,
+            @Nonnull OWLAxiom axiom, @Nonnull OWLDatatype datatype) {
         super(ontology, axiom, datatype);
     }
 

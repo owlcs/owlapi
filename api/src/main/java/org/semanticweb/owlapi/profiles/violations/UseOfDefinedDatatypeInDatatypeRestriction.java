@@ -36,8 +36,9 @@ public class UseOfDefinedDatatypeInDatatypeRestriction extends
      * @param restriction
      *        restriction
      */
-    public UseOfDefinedDatatypeInDatatypeRestriction(OWLOntology ontology,
-            OWLAxiom axiom, OWLDatatypeRestriction restriction) {
+    public UseOfDefinedDatatypeInDatatypeRestriction(
+            @Nonnull OWLOntology ontology, @Nonnull OWLAxiom axiom,
+            @Nonnull OWLDatatypeRestriction restriction) {
         super(ontology, axiom, restriction);
     }
 

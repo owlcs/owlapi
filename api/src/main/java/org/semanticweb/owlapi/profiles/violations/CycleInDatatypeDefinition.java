@@ -32,7 +32,8 @@ public class CycleInDatatypeDefinition extends OWLProfileViolation<Object> {
      * @param axiom
      *        axiom
      */
-    public CycleInDatatypeDefinition(OWLOntology ontology, OWLAxiom axiom) {
+    public CycleInDatatypeDefinition(@Nonnull OWLOntology ontology,
+            @Nonnull OWLAxiom axiom) {
         super(ontology, axiom, null);
     }
 

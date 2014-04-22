@@ -46,8 +46,8 @@ public class UseOfUndeclaredObjectProperty extends
      * @param prop
      *        prop
      */
-    public UseOfUndeclaredObjectProperty(OWLOntology ontology, OWLAxiom axiom,
-            OWLObjectProperty prop) {
+    public UseOfUndeclaredObjectProperty(@Nonnull OWLOntology ontology,
+            @Nonnull OWLAxiom axiom, @Nonnull OWLObjectProperty prop) {
         super(ontology, axiom, prop);
     }
 

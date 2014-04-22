@@ -36,8 +36,8 @@ public class UseOfNonSuperClassExpression extends
      * @param classExpression
      *        classExpression
      */
-    public UseOfNonSuperClassExpression(OWLOntology ontology, OWLAxiom axiom,
-            OWLClassExpression classExpression) {
+    public UseOfNonSuperClassExpression(@Nonnull OWLOntology ontology,
+            @Nonnull OWLAxiom axiom, @Nonnull OWLClassExpression classExpression) {
         super(ontology, axiom, classExpression);
     }
 

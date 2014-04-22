@@ -15,6 +15,7 @@ package org.semanticweb.owlapi.profiles.violations;
 import java.util.List;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -52,8 +53,9 @@ public class UseOfUndeclaredAnnotationProperty extends
      * @param prop
      *        prop
      */
-    public UseOfUndeclaredAnnotationProperty(OWLOntology ontology,
-            OWLAxiom axiom, OWLAnnotation annotation, OWLAnnotationProperty prop) {
+    public UseOfUndeclaredAnnotationProperty(@Nonnull OWLOntology ontology,
+            @Nonnull OWLAxiom axiom, @Nullable OWLAnnotation annotation,
+            @Nonnull OWLAnnotationProperty prop) {
         super(ontology, axiom, prop);
         this.annotation = annotation;
     }

@@ -36,8 +36,9 @@ public class UseOfObjectPropertyInverse extends
      * @param propertyExpression
      *        propertyExpression
      */
-    public UseOfObjectPropertyInverse(OWLOntology ontology, OWLAxiom axiom,
-            OWLObjectPropertyExpression propertyExpression) {
+    public UseOfObjectPropertyInverse(@Nonnull OWLOntology ontology,
+            @Nonnull OWLAxiom axiom,
+            @Nonnull OWLObjectPropertyExpression propertyExpression) {
         super(ontology, axiom, propertyExpression);
     }
 

@@ -37,7 +37,8 @@ public class UseOfReservedVocabularyForAnnotationPropertyIRI extends
      *        property
      */
     public UseOfReservedVocabularyForAnnotationPropertyIRI(
-            OWLOntology ontology, OWLAxiom axiom, OWLAnnotationProperty property) {
+            @Nonnull OWLOntology ontology, @Nonnull OWLAxiom axiom,
+            @Nonnull OWLAnnotationProperty property) {
         super(ontology, axiom, property);
     }
 

@@ -35,8 +35,9 @@ public class UseOfObjectOneOfWithMultipleIndividuals extends
      * @param oneOf
      *        oneOf
      */
-    public UseOfObjectOneOfWithMultipleIndividuals(OWLOntology ontology,
-            OWLAxiom axiom, OWLObjectOneOf oneOf) {
+    public UseOfObjectOneOfWithMultipleIndividuals(
+            @Nonnull OWLOntology ontology, @Nonnull OWLAxiom axiom,
+            @Nonnull OWLObjectOneOf oneOf) {
         super(ontology, axiom, oneOf);
     }
 

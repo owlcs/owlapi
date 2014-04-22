@@ -36,9 +36,9 @@ public class LastPropertyInChainNotInImposedRange extends
      * @param rangeAxiom
      *        rangeAxiom
      */
-    public LastPropertyInChainNotInImposedRange(OWLOntology ontology,
-            OWLSubPropertyChainOfAxiom axiom,
-            OWLObjectPropertyRangeAxiom rangeAxiom) {
+    public LastPropertyInChainNotInImposedRange(@Nonnull OWLOntology ontology,
+            @Nonnull OWLSubPropertyChainOfAxiom axiom,
+            @Nonnull OWLObjectPropertyRangeAxiom rangeAxiom) {
         super(ontology, axiom, rangeAxiom);
     }
 

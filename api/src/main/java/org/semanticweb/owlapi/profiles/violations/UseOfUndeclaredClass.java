@@ -45,8 +45,8 @@ public class UseOfUndeclaredClass extends OWLProfileViolation<OWLClass>
      * @param cls
      *        cls
      */
-    public UseOfUndeclaredClass(OWLOntology ontology, OWLAxiom axiom,
-            OWLClass cls) {
+    public UseOfUndeclaredClass(@Nonnull OWLOntology ontology,
+            @Nonnull OWLAxiom axiom, @Nonnull OWLClass cls) {
         super(ontology, axiom, cls);
     }
 

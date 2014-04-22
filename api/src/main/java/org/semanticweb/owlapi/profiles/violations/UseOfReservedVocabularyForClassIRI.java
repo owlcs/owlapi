@@ -36,8 +36,8 @@ public class UseOfReservedVocabularyForClassIRI extends
      * @param cls
      *        cls
      */
-    public UseOfReservedVocabularyForClassIRI(OWLOntology ontology,
-            OWLAxiom axiom, OWLClass cls) {
+    public UseOfReservedVocabularyForClassIRI(@Nonnull OWLOntology ontology,
+            @Nonnull OWLAxiom axiom, @Nonnull OWLClass cls) {
         super(ontology, axiom, cls);
     }
 

@@ -36,8 +36,8 @@ public class UseOfAnonymousIndividual extends
      * @param individual
      *        individual
      */
-    public UseOfAnonymousIndividual(OWLOntology ontology, OWLAxiom axiom,
-            OWLAnonymousIndividual individual) {
+    public UseOfAnonymousIndividual(@Nonnull OWLOntology ontology,
+            @Nonnull OWLAxiom axiom, @Nonnull OWLAnonymousIndividual individual) {
         super(ontology, axiom, individual);
     }
 

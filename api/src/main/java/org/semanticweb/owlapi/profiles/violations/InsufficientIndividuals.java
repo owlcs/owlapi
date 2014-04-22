@@ -29,7 +29,8 @@ public class InsufficientIndividuals extends OWLProfileViolation<Object> {
      * @param node
      *        node
      */
-    public InsufficientIndividuals(OWLOntology currentOntology, OWLAxiom node) {
+    public InsufficientIndividuals(@Nonnull OWLOntology currentOntology,
+            @Nonnull OWLAxiom node) {
         super(currentOntology, node, null);
     }
 

@@ -37,8 +37,9 @@ public class UseOfNonSimplePropertyInDisjointPropertiesAxiom extends
      *        prop
      */
     public UseOfNonSimplePropertyInDisjointPropertiesAxiom(
-            OWLOntology ontology, OWLDisjointObjectPropertiesAxiom axiom,
-            OWLObjectPropertyExpression prop) {
+            @Nonnull OWLOntology ontology,
+            @Nonnull OWLDisjointObjectPropertiesAxiom axiom,
+            @Nonnull OWLObjectPropertyExpression prop) {
         super(ontology, axiom, prop);
     }
 

@@ -42,8 +42,8 @@ public class DatatypeIRIAlsoUsedAsClassIRI extends OWLProfileViolation<IRI> {
      * @param iri
      *        iri
      */
-    public DatatypeIRIAlsoUsedAsClassIRI(OWLOntology ontology, OWLAxiom axiom,
-            IRI iri) {
+    public DatatypeIRIAlsoUsedAsClassIRI(@Nonnull OWLOntology ontology,
+            @Nonnull OWLAxiom axiom, @Nonnull IRI iri) {
         super(ontology, axiom, iri);
     }
 

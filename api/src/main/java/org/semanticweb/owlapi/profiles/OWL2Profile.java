@@ -85,11 +85,13 @@ public class OWL2Profile implements OWLProfile {
     private static class OWL2ProfileObjectWalker extends
             OWLOntologyWalkerVisitorEx<Object> {
 
+        @Nonnull
         private final OWLOntologyManager man;
+        @Nonnull
         private final Set<OWLProfileViolation<?>> profileViolations = new HashSet<OWLProfileViolation<?>>();
 
-        public OWL2ProfileObjectWalker(OWLOntologyWalker walker,
-                OWLOntologyManager man) {
+        public OWL2ProfileObjectWalker(@Nonnull OWLOntologyWalker walker,
+                @Nonnull OWLOntologyManager man) {
             super(walker);
             this.man = man;
         }

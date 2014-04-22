@@ -32,8 +32,8 @@ public class InsufficientOperands extends OWLProfileViolation<OWLObject> {
      * @param c
      *        c
      */
-    public InsufficientOperands(OWLOntology currentOntology, OWLAxiom node,
-            OWLObject c) {
+    public InsufficientOperands(@Nonnull OWLOntology currentOntology,
+            @Nonnull OWLAxiom node, @Nonnull OWLObject c) {
         super(currentOntology, node, c);
     }
 

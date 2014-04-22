@@ -36,8 +36,9 @@ public class UseOfNonSimplePropertyInCardinalityRestriction extends
      * @param restriction
      *        restriction
      */
-    public UseOfNonSimplePropertyInCardinalityRestriction(OWLOntology ontology,
-            OWLAxiom axiom, OWLObjectCardinalityRestriction restriction) {
+    public UseOfNonSimplePropertyInCardinalityRestriction(
+            @Nonnull OWLOntology ontology, @Nonnull OWLAxiom axiom,
+            @Nonnull OWLObjectCardinalityRestriction restriction) {
         super(ontology, axiom, restriction);
     }
 

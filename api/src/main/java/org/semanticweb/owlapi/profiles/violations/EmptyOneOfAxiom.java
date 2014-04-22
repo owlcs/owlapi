@@ -29,7 +29,8 @@ public class EmptyOneOfAxiom extends OWLProfileViolation<Object> {
      * @param axiom
      *        the axiom with the violation
      */
-    public EmptyOneOfAxiom(OWLOntology ontology, OWLAxiom axiom) {
+    public EmptyOneOfAxiom(@Nonnull OWLOntology ontology,
+            @Nonnull OWLAxiom axiom) {
         super(ontology, axiom, null);
     }
 

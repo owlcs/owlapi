@@ -38,10 +38,13 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  */
 public abstract class OWLProfileViolation<T> {
 
+    @Nonnull
     protected final OWLOntology ontology;
     @Nonnull
     protected final OWLDataFactory df;
+    @Nonnull
     protected final OWLAxiom axiom;
+    @Nonnull
     protected final T expression;
 
     /**
@@ -52,7 +55,8 @@ public abstract class OWLProfileViolation<T> {
      * @param o
      *        violation expression
      */
-    public OWLProfileViolation(OWLOntology ontology, OWLAxiom axiom, T o) {
+    public OWLProfileViolation(@Nonnull OWLOntology ontology,
+            @Nonnull OWLAxiom axiom, @Nonnull T o) {
         this.axiom = axiom;
         this.ontology = ontology;
         df = ontology.getOWLOntologyManager().getOWLDataFactory();
@@ -70,6 +74,7 @@ public abstract class OWLProfileViolation<T> {
     }
 
     /** @return the expression object of this violation */
+    @Nonnull
     public T getExpression() {
         return expression;
     }
@@ -89,7 +94,7 @@ public abstract class OWLProfileViolation<T> {
         return list(new RemoveAxiom(ontology, axiom));
     }
 
-    protected AddAxiom addDeclaration(OWLEntity e) {
+    protected AddAxiom addDeclaration(@Nonnull OWLEntity e) {
         return new AddAxiom(ontology, df.getOWLDeclarationAxiom(e));
     }
 
@@ -99,7 +104,7 @@ public abstract class OWLProfileViolation<T> {
      * @param visitor
      *        visitor
      */
-    public abstract void accept(OWLProfileViolationVisitor visitor);
+    public abstract void accept(@Nonnull OWLProfileViolationVisitor visitor);
 
     /**
      * @param visitor
@@ -108,7 +113,8 @@ public abstract class OWLProfileViolation<T> {
      *        visitor return type
      * @return visitor return value
      */
-    public abstract <O> O accept(OWLProfileViolationVisitorEx<O> visitor);
+    public abstract <O> O accept(
+            @Nonnull OWLProfileViolationVisitorEx<O> visitor);
 
     protected String toString(String template) {
         return String.format(template + " [%s in %s]", axiom,

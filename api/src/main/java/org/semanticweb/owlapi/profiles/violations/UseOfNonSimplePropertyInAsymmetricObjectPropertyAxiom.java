@@ -35,7 +35,7 @@ public class UseOfNonSimplePropertyInAsymmetricObjectPropertyAxiom extends
      *        axiom
      */
     public UseOfNonSimplePropertyInAsymmetricObjectPropertyAxiom(
-            OWLOntology ontology,
+            @Nonnull OWLOntology ontology,
             @Nonnull OWLAsymmetricObjectPropertyAxiom axiom) {
         super(ontology, axiom, axiom.getProperty());
     }

@@ -119,12 +119,14 @@ public class OWL2ELProfile implements OWLProfile {
     protected class OWL2ELProfileObjectVisitor extends
             OWLOntologyWalkerVisitorEx<Object> {
 
+        @Nonnull
         private final OWLOntologyManager man;
         private OWLObjectPropertyManager propertyManager;
+        @Nonnull
         private final Set<OWLProfileViolation<?>> profileViolations = new HashSet<OWLProfileViolation<?>>();
 
-        public OWL2ELProfileObjectVisitor(OWLOntologyWalker walker,
-                OWLOntologyManager man) {
+        public OWL2ELProfileObjectVisitor(@Nonnull OWLOntologyWalker walker,
+                @Nonnull OWLOntologyManager man) {
             super(walker);
             this.man = man;
         }

@@ -36,7 +36,8 @@ public class IllegalPunning extends OWLProfileViolation<IRI> {
      * @param iri
      *        iri
      */
-    public IllegalPunning(OWLOntology currentOntology, OWLAxiom node, IRI iri) {
+    public IllegalPunning(@Nonnull OWLOntology currentOntology,
+            @Nonnull OWLAxiom node, @Nonnull IRI iri) {
         super(currentOntology, node, iri);
     }
 

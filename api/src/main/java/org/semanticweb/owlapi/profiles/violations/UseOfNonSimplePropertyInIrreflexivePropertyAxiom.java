@@ -35,7 +35,7 @@ public class UseOfNonSimplePropertyInIrreflexivePropertyAxiom extends
      *        axiom
      */
     public UseOfNonSimplePropertyInIrreflexivePropertyAxiom(
-            OWLOntology ontology,
+            @Nonnull OWLOntology ontology,
             @Nonnull OWLIrreflexiveObjectPropertyAxiom axiom) {
         super(ontology, axiom, axiom.getProperty());
     }

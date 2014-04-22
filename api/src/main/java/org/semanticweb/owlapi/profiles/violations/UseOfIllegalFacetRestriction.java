@@ -28,6 +28,7 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
  */
 public class UseOfIllegalFacetRestriction extends OWLProfileViolation<OWLFacet> {
 
+    @Nonnull
     private final OWLDatatypeRestriction datatypeRestriction;
 
     /**
@@ -40,8 +41,9 @@ public class UseOfIllegalFacetRestriction extends OWLProfileViolation<OWLFacet> 
      * @param facet
      *        facet
      */
-    public UseOfIllegalFacetRestriction(OWLOntology ontology, OWLAxiom axiom,
-            OWLDatatypeRestriction dtr, OWLFacet facet) {
+    public UseOfIllegalFacetRestriction(@Nonnull OWLOntology ontology,
+            @Nonnull OWLAxiom axiom, @Nonnull OWLDatatypeRestriction dtr,
+            @Nonnull OWLFacet facet) {
         super(ontology, axiom, facet);
         datatypeRestriction = dtr;
     }

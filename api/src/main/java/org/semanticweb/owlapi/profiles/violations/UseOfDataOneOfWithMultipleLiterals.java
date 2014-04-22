@@ -34,8 +34,8 @@ public class UseOfDataOneOfWithMultipleLiterals extends UseOfIllegalDataRange {
      * @param dataOneOf
      *        dataOneOf
      */
-    public UseOfDataOneOfWithMultipleLiterals(OWLOntology ontology,
-            OWLAxiom axiom, OWLDataOneOf dataOneOf) {
+    public UseOfDataOneOfWithMultipleLiterals(@Nonnull OWLOntology ontology,
+            @Nonnull OWLAxiom axiom, @Nonnull OWLDataOneOf dataOneOf) {
         super(ontology, axiom, dataOneOf);
     }
 

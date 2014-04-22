@@ -137,7 +137,7 @@ public class OWL2RLProfile implements OWLProfile {
 
         private final Set<OWLProfileViolation<?>> profileViolations = new HashSet<OWLProfileViolation<?>>();
 
-        OWL2RLObjectVisitor(OWLOntologyWalker walker) {
+        OWL2RLObjectVisitor(@Nonnull OWLOntologyWalker walker) {
             super(walker);
         }
 
@@ -302,6 +302,7 @@ public class OWL2RLProfile implements OWLProfile {
             return null;
         }
 
+        @SuppressWarnings("unused")
         @Override
         public Object visit(OWLDatatypeDefinitionAxiom axiom) {
             profileViolations.add(new UseOfIllegalAxiom(getCurrentOntology(),
@@ -310,6 +311,7 @@ public class OWL2RLProfile implements OWLProfile {
         }
     }
 
+    @SuppressWarnings("unused")
     private class OWL2RLSubClassExpressionChecker implements
             OWLClassExpressionVisitorEx<Boolean> {
 
@@ -417,12 +419,14 @@ public class OWL2RLProfile implements OWLProfile {
         }
     }
 
+    @Nonnull
     private final OWL2RLSubClassExpressionChecker subClassExpressionChecker = new OWL2RLSubClassExpressionChecker();
 
     protected boolean isOWL2RLSubClassExpression(OWLClassExpression ce) {
         return ce.accept(subClassExpressionChecker).booleanValue();
     }
 
+    @SuppressWarnings("unused")
     private class OWL2RLSuperClassExpressionChecker implements
             OWLClassExpressionVisitorEx<Boolean> {
 
@@ -531,6 +535,7 @@ public class OWL2RLProfile implements OWLProfile {
         }
     }
 
+    @Nonnull
     private final OWL2RLSuperClassExpressionChecker superClassExpressionChecker = new OWL2RLSuperClassExpressionChecker();
 
     /**
@@ -542,6 +547,7 @@ public class OWL2RLProfile implements OWLProfile {
         return ce.accept(superClassExpressionChecker).booleanValue();
     }
 
+    @SuppressWarnings("unused")
     private static class OWL2RLEquivalentClassExpressionChecker implements
             OWLClassExpressionVisitorEx<Boolean> {
 
@@ -643,6 +649,7 @@ public class OWL2RLProfile implements OWLProfile {
         }
     }
 
+    @Nonnull
     private final OWL2RLEquivalentClassExpressionChecker equivalentClassExpressionChecker = new OWL2RLEquivalentClassExpressionChecker();
 
     /**

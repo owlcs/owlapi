@@ -152,11 +152,13 @@ public class OWL2DLProfile implements OWLProfile {
             OWLOntologyWalkerVisitorEx<Object> {
 
         private OWLObjectPropertyManager objectPropertyManager = null;
+        @Nonnull
         private final OWLOntologyManager manager;
+        @Nonnull
         private final Set<OWLProfileViolation<?>> profileViolations = new HashSet<OWLProfileViolation<?>>();
 
-        OWL2DLProfileObjectVisitor(OWLOntologyWalker walker,
-                OWLOntologyManager manager) {
+        OWL2DLProfileObjectVisitor(@Nonnull OWLOntologyWalker walker,
+                @Nonnull OWLOntologyManager manager) {
             super(walker);
             this.manager = manager;
         }

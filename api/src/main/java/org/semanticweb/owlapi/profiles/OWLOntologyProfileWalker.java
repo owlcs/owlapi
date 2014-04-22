@@ -36,14 +36,13 @@ public class OWLOntologyProfileWalker extends OWLOntologyWalker {
      * @param objects
      *        ontologies to walk
      */
-    public OWLOntologyProfileWalker(Set<OWLOntology> objects) {
+    public OWLOntologyProfileWalker(@Nonnull Set<OWLOntology> objects) {
         super(objects);
         setStructureWalker(new StructureWalker<OWLOntology>(this) {
 
             @Override
             public void visit(@Nonnull OWLAnnotationAssertionAxiom axiom) {
                 process(axiom);
-                walkerCallback.setAxiom(axiom);
                 if (axiom.getSubject() instanceof IRI) {
                     // do not visit anonymous nodes from annotations
                     axiom.getSubject().accept(this);
@@ -54,7 +53,6 @@ public class OWLOntologyProfileWalker extends OWLOntologyWalker {
             @Override
             public void visit(OWLAnnotation node) {
                 process(node);
-                walkerCallback.setAnnotation(node);
                 node.getProperty().accept(this);
                 // only visit IRIs
                 if (node.getValue() instanceof IRI) {

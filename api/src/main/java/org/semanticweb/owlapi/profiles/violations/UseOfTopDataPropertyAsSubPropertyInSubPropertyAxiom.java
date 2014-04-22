@@ -34,7 +34,8 @@ public class UseOfTopDataPropertyAsSubPropertyInSubPropertyAxiom extends
      *        axiom
      */
     public UseOfTopDataPropertyAsSubPropertyInSubPropertyAxiom(
-            OWLOntology ontology, OWLSubDataPropertyOfAxiom axiom) {
+            @Nonnull OWLOntology ontology,
+            @Nonnull OWLSubDataPropertyOfAxiom axiom) {
         super(ontology, axiom, axiom);
     }
 

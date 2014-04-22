@@ -36,8 +36,9 @@ public class UseOfReservedVocabularyForObjectPropertyIRI extends
      * @param property
      *        property
      */
-    public UseOfReservedVocabularyForObjectPropertyIRI(OWLOntology ontology,
-            OWLAxiom axiom, OWLObjectProperty property) {
+    public UseOfReservedVocabularyForObjectPropertyIRI(
+            @Nonnull OWLOntology ontology, @Nonnull OWLAxiom axiom,
+            @Nonnull OWLObjectProperty property) {
         super(ontology, axiom, property);
     }
 

@@ -31,7 +31,8 @@ public class InsufficientPropertyExpressions extends
      * @param axiom
      *        axiom
      */
-    public InsufficientPropertyExpressions(OWLOntology ontology, OWLAxiom axiom) {
+    public InsufficientPropertyExpressions(@Nonnull OWLOntology ontology,
+            @Nonnull OWLAxiom axiom) {
         super(ontology, axiom, null);
     }
 

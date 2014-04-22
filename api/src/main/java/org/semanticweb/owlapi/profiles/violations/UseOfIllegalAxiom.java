@@ -33,7 +33,8 @@ public class UseOfIllegalAxiom extends OWLProfileViolation<AxiomType<?>> {
      * @param axiom
      *        axiom
      */
-    public UseOfIllegalAxiom(OWLOntology ontology, @Nonnull OWLAxiom axiom) {
+    public UseOfIllegalAxiom(@Nonnull OWLOntology ontology,
+            @Nonnull OWLAxiom axiom) {
         super(ontology, axiom, axiom.getAxiomType());
     }
 

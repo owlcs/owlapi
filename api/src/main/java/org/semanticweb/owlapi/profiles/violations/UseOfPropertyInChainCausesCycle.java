@@ -36,9 +36,9 @@ public class UseOfPropertyInChainCausesCycle extends
      * @param property
      *        property
      */
-    public UseOfPropertyInChainCausesCycle(OWLOntology ontology,
-            OWLSubPropertyChainOfAxiom axiom,
-            OWLObjectPropertyExpression property) {
+    public UseOfPropertyInChainCausesCycle(@Nonnull OWLOntology ontology,
+            @Nonnull OWLSubPropertyChainOfAxiom axiom,
+            @Nonnull OWLObjectPropertyExpression property) {
         super(ontology, axiom, property);
     }
 

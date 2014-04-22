@@ -25,6 +25,8 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolation;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
+import com.google.common.base.Optional;
+
 /**
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
@@ -60,7 +62,7 @@ public class OntologyVersionIRINotAbsolute extends
     public List<OWLOntologyChange<?>> repair() {
         // XXX arbitrary choice
         return list(new SetOntologyID(ontology, new OWLOntologyID(
-                IRI.create("urn:ontology#replaced"),
-                IRI.create("urn:ontology#replaced1"))));
+                Optional.of(IRI.create("urn:ontology#replaced")),
+                Optional.of(IRI.create("urn:ontology#replaced1")))));
     }
 }

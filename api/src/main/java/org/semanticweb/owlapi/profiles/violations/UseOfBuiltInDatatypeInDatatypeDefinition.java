@@ -33,8 +33,9 @@ public class UseOfBuiltInDatatypeInDatatypeDefinition extends
      * @param axiom
      *        axiom
      */
-    public UseOfBuiltInDatatypeInDatatypeDefinition(OWLOntology ontology,
-            OWLDatatypeDefinitionAxiom axiom) {
+    public UseOfBuiltInDatatypeInDatatypeDefinition(
+            @Nonnull OWLOntology ontology,
+            @Nonnull OWLDatatypeDefinitionAxiom axiom) {
         super(ontology, axiom, null);
     }
 

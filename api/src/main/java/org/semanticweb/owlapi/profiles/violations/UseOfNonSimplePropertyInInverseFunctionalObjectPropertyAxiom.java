@@ -35,7 +35,7 @@ public class UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom
      *        axiom
      */
     public UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom(
-            OWLOntology ontology,
+            @Nonnull OWLOntology ontology,
             @Nonnull OWLInverseFunctionalObjectPropertyAxiom axiom) {
         super(ontology, axiom, axiom.getProperty());
     }

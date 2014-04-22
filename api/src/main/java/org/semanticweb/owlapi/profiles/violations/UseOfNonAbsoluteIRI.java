@@ -35,7 +35,8 @@ public class UseOfNonAbsoluteIRI extends OWLProfileViolation<IRI> {
      * @param iri
      *        iri
      */
-    public UseOfNonAbsoluteIRI(OWLOntology ontology, OWLAxiom axiom, IRI iri) {
+    public UseOfNonAbsoluteIRI(@Nonnull OWLOntology ontology,
+            @Nonnull OWLAxiom axiom, IRI iri) {
         super(ontology, axiom, iri);
     }
 
