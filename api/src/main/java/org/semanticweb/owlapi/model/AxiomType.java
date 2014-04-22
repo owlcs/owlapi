@@ -247,6 +247,7 @@ public class AxiomType<C extends OWLAxiom> implements Serializable {
     /** AnnotationPropertyDomain */         @Nonnull public static final AxiomType<OWLAnnotationPropertyDomainAxiom>         ANNOTATION_PROPERTY_DOMAIN          = getInstance(37, "AnnotationPropertyDomain",        true, true, false);
   //@formatter:on
     /** axiom types */
+    @Nonnull
     public static final Set<AxiomType<?>> AXIOM_TYPES = Sets.newHashSet(
             SUBCLASS_OF, EQUIVALENT_CLASSES, DISJOINT_CLASSES, CLASS_ASSERTION,
             SAME_INDIVIDUAL, DIFFERENT_INDIVIDUALS, OBJECT_PROPERTY_ASSERTION,

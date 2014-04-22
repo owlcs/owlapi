@@ -447,9 +447,7 @@ public class Searcher {
         List<C> toReturn = new ArrayList<C>();
         for (OWLAxiom ax : axioms) {
             C c = sub(ax);
-            if (c != null) {
-                toReturn.add(c);
-            }
+            toReturn.add(c);
         }
         return toReturn;
     }
@@ -486,9 +484,7 @@ public class Searcher {
         List<C> toReturn = new ArrayList<C>();
         for (OWLAxiom ax : axioms) {
             C c = sup(ax);
-            if (c != null) {
-                toReturn.add(c);
-            }
+            toReturn.add(c);
         }
         return toReturn;
     }
@@ -555,9 +551,7 @@ public class Searcher {
         List<C> toReturn = new ArrayList<C>();
         for (OWLAxiom ax : axioms) {
             C c = domain(ax);
-            if (c != null) {
-                toReturn.add(c);
-            }
+            toReturn.add(c);
         }
         return toReturn;
     }
@@ -607,9 +601,7 @@ public class Searcher {
         List<C> toReturn = new ArrayList<C>();
         for (OWLAxiom ax : axioms) {
             C c = range(ax);
-            if (c != null) {
-                toReturn.add(c);
-            }
+            toReturn.add(c);
         }
         return toReturn;
     }
@@ -637,7 +629,7 @@ public class Searcher {
      * @return true for transitive properties
      */
     public static boolean isTransitive(@Nonnull OWLOntology o,
-            OWLObjectProperty e) {
+            @Nonnull OWLObjectProperty e) {
         return !o.getTransitiveObjectPropertyAxioms(e).isEmpty();
     }
 
@@ -651,7 +643,7 @@ public class Searcher {
      * @return true for symmetric properties
      */
     public static boolean isSymmetric(@Nonnull OWLOntology o,
-            OWLObjectProperty e) {
+            @Nonnull OWLObjectProperty e) {
         return !o.getSymmetricObjectPropertyAxioms(e).isEmpty();
     }
 
@@ -665,7 +657,7 @@ public class Searcher {
      * @return true for asymmetric properties
      */
     public static boolean isAsymmetric(@Nonnull OWLOntology o,
-            OWLObjectProperty e) {
+            @Nonnull OWLObjectProperty e) {
         return !o.getAsymmetricObjectPropertyAxioms(e).isEmpty();
     }
 
@@ -679,7 +671,7 @@ public class Searcher {
      * @return true for reflexive properties
      */
     public static boolean isReflexive(@Nonnull OWLOntology o,
-            OWLObjectProperty e) {
+            @Nonnull OWLObjectProperty e) {
         return !o.getReflexiveObjectPropertyAxioms(e).isEmpty();
     }
 
@@ -693,7 +685,7 @@ public class Searcher {
      * @return true for irreflexive properties
      */
     public static boolean isIrreflexive(@Nonnull OWLOntology o,
-            OWLObjectProperty e) {
+            @Nonnull OWLObjectProperty e) {
         return !o.getIrreflexiveObjectPropertyAxioms(e).isEmpty();
     }
 
@@ -707,7 +699,7 @@ public class Searcher {
      * @return true for inverse functional properties
      */
     public static boolean isInverseFunctional(@Nonnull OWLOntology o,
-            OWLObjectProperty e) {
+            @Nonnull OWLObjectProperty e) {
         return !o.getInverseFunctionalObjectPropertyAxioms(e).isEmpty();
     }
 
@@ -721,7 +713,7 @@ public class Searcher {
      * @return true for functional object properties
      */
     public static boolean isFunctional(@Nonnull OWLOntology o,
-            OWLObjectProperty e) {
+            @Nonnull OWLObjectProperty e) {
         return !o.getFunctionalObjectPropertyAxioms(e).isEmpty();
     }
 
@@ -734,8 +726,8 @@ public class Searcher {
      *        property
      * @return true for functional data properties
      */
-    public static boolean
-            isFunctional(@Nonnull OWLOntology o, OWLDataProperty e) {
+    public static boolean isFunctional(@Nonnull OWLOntology o,
+            @Nonnull OWLDataProperty e) {
         return !o.getFunctionalDataPropertyAxioms(e).isEmpty();
     }
 
@@ -748,7 +740,8 @@ public class Searcher {
      *        class
      * @return true for defined classes
      */
-    public static boolean isDefined(@Nonnull OWLOntology o, OWLClass c) {
+    public static boolean
+            isDefined(@Nonnull OWLOntology o, @Nonnull OWLClass c) {
         return !o.getEquivalentClassesAxioms(c).isEmpty();
     }
 }

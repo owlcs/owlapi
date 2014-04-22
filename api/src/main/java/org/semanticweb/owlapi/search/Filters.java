@@ -46,6 +46,7 @@ public class Filters {
             OWLAxiomSearchFilter {
 
         private static final long serialVersionUID = 40000L;
+        @Nonnull
         private Iterable<AxiomType<?>> types;
 
         /**
@@ -61,10 +62,11 @@ public class Filters {
          * @param types
          *        axiom types to filter on
          */
-        public AxiomFilter(Iterable<AxiomType<?>> types) {
+        public AxiomFilter(@Nonnull Iterable<AxiomType<?>> types) {
             this.types = types;
         }
 
+        @Nonnull
         @Override
         public Iterable<AxiomType<?>> getAxiomTypes() {
             return types;
@@ -72,7 +74,7 @@ public class Filters {
 
         @SuppressWarnings("unchecked")
         @Override
-        public boolean pass(OWLAxiom axiom, Object key) {
+        public boolean pass(@Nonnull OWLAxiom axiom, @Nonnull Object key) {
             return axiomValue((A) axiom).equals(key);
         }
 
@@ -84,7 +86,8 @@ public class Filters {
          *        axiom to check
          * @return Object to compare to the input key
          */
-        protected abstract Object axiomValue(A axiom);
+        @Nonnull
+        protected abstract Object axiomValue(@Nonnull A axiom);
     }
 
     /**
