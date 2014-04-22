@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.profiles.violations;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -46,7 +48,7 @@ public class DatatypeIRIAlsoUsedAsClassIRI extends OWLProfileViolation<IRI> {
     }
 
     @Override
-    public void accept(OWLProfileViolationVisitor visitor) {
+    public void accept(@Nonnull OWLProfileViolationVisitor visitor) {
         visitor.visit(this);
     }
 

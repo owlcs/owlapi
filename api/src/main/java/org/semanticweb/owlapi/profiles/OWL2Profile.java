@@ -17,6 +17,8 @@ import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
@@ -54,6 +56,7 @@ public class OWL2Profile implements OWLProfile {
         return "OWL 2";
     }
 
+    @Nonnull
     @Override
     public IRI getIRI() {
         return Profiles.OWL2_FULL.getIRI();

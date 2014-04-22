@@ -16,6 +16,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -65,12 +67,15 @@ public enum Profiles implements HasIRI, KnownFactories, OWLProfile {
     /** http://www.w3.org/ns/owl-profile/RL **/     OWL2_RL     ("RL",   new OWL2RLProfile(),                 FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe),
     /** http://www.w3.org/ns/owl-profile/Full **/   OWL2_FULL   ("Full", new OWL2DLProfile(),                 FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe);
     //@formatter:on
+    @Nonnull
     private IRI iri;
+    @Nonnull
     private List<String> supportingFactories;
+    @Nonnull
     private OWLProfile profile;
 
-    private Profiles(String name, OWLProfile profile,
-            String... supportingFactories) {
+    private Profiles(@Nonnull String name, @Nonnull OWLProfile profile,
+            @Nonnull String... supportingFactories) {
         iri = IRI.create("http://www.w3.org/ns/owl-profile/", name);
         this.profile = profile;
         this.supportingFactories = Arrays.asList(supportingFactories);
@@ -124,7 +129,8 @@ public enum Profiles implements HasIRI, KnownFactories, OWLProfile {
      *         exception raised by {@code Class.forName(factoryClassName)} is
      *         wrapped by an OWLRuntimeException.
      */
-    public OWLReasonerFactory instantiateFactory(String factoryClassName) {
+    public static OWLReasonerFactory
+            instantiateFactory(String factoryClassName) {
         try {
             Class<?> c = Class.forName(factoryClassName);
             if (OWLReasonerFactory.class.isAssignableFrom(c)) {

@@ -19,6 +19,8 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
@@ -113,6 +115,7 @@ public class OWL2DLProfile implements OWLProfile {
         return "OWL 2 DL";
     }
 
+    @Nonnull
     @Override
     public IRI getIRI() {
         return Profiles.OWL2_DL.getIRI();

@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.profiles.violations;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLEntity;
@@ -49,7 +51,7 @@ public class UseOfUndeclaredClass extends OWLProfileViolation<OWLClass>
     }
 
     @Override
-    public void accept(OWLProfileViolationVisitor visitor) {
+    public void accept(@Nonnull OWLProfileViolationVisitor visitor) {
         visitor.visit(this);
     }
 

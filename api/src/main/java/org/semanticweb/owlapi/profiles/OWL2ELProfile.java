@@ -20,6 +20,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
@@ -93,6 +95,7 @@ public class OWL2ELProfile implements OWLProfile {
         return "OWL 2 EL";
     }
 
+    @Nonnull
     @Override
     public IRI getIRI() {
         return Profiles.OWL2_EL.getIRI();

@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.profiles.violations;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
@@ -34,7 +36,7 @@ public class UseOfReservedVocabularyForVersionIRI extends
      * @param ontology
      *        ontology
      */
-    public UseOfReservedVocabularyForVersionIRI(OWLOntology ontology) {
+    public UseOfReservedVocabularyForVersionIRI(@Nonnull OWLOntology ontology) {
         super(ontology, null, ontology.getOntologyID().getVersionIRI().get());
     }
 

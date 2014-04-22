@@ -18,6 +18,8 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -115,6 +117,7 @@ public class OWL2QLProfile implements OWLProfile {
         return "OWL 2 QL";
     }
 
+    @Nonnull
     @Override
     public IRI getIRI() {
         return Profiles.OWL2_QL.getIRI();

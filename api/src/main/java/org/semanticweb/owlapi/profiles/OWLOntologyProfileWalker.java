@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.profiles;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -39,7 +41,7 @@ public class OWLOntologyProfileWalker extends OWLOntologyWalker {
         setStructureWalker(new StructureWalker<OWLOntology>(this) {
 
             @Override
-            public void visit(OWLAnnotationAssertionAxiom axiom) {
+            public void visit(@Nonnull OWLAnnotationAssertionAxiom axiom) {
                 process(axiom);
                 walkerCallback.setAxiom(axiom);
                 if (axiom.getSubject() instanceof IRI) {

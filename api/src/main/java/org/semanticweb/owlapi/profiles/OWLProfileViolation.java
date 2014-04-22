@@ -15,6 +15,8 @@ package org.semanticweb.owlapi.profiles;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -37,6 +39,7 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
 public abstract class OWLProfileViolation<T> {
 
     protected final OWLOntology ontology;
+    @Nonnull
     protected final OWLDataFactory df;
     protected final OWLAxiom axiom;
     protected final T expression;
