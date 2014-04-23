@@ -118,7 +118,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
     }
 
     @Override
-    protected OWLClassExpression getCurrentClass() throws OWLException {
+    protected OWLClassExpression getCurrentClass() {
         return currentClass;
     }
 
@@ -128,12 +128,9 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
      * @param cls
      *        the cls
      * @return the oWL class
-     * @throws OWLException
-     *         the oWL exception
      */
     @Nonnull
-    private OWLClass setupDebuggingClass(@Nonnull OWLClassExpression cls)
-            throws OWLException {
+    private OWLClass setupDebuggingClass(@Nonnull OWLClassExpression cls) {
         if (!cls.isAnonymous()) {
             return (OWLClass) cls;
         } else {
@@ -172,7 +169,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
     // Expansion
     //
     // /////////////////////////////////////////////////////////////////////////////////////////
-    private int expandAxioms() throws OWLException {
+    private int expandAxioms() {
         // We expand the axiom set using axioms that define entities that are
         // already
         // referenced in the existing set of axioms. If this fails to expand the
@@ -244,11 +241,8 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
      * @param limit
      *        the limit
      * @return the int
-     * @throws OWLException
-     *         the oWL exception
      */
-    private int expandWithDefiningAxioms(@Nonnull OWLEntity obj, int limit)
-            throws OWLException {
+    private int expandWithDefiningAxioms(@Nonnull OWLEntity obj, int limit) {
         Set<OWLAxiom> expansionAxioms = new HashSet<OWLAxiom>();
         if (obj instanceof OWLClass) {
             expansionAxioms.addAll(getOWLOntology().getAxioms((OWLClass) obj,
@@ -276,11 +270,8 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
      * @param limit
      *        the limit
      * @return the int
-     * @throws OWLException
-     *         the oWL exception
      */
-    private int expandWithReferencingAxioms(@Nonnull OWLEntity obj, int limit)
-            throws OWLException {
+    private int expandWithReferencingAxioms(@Nonnull OWLEntity obj, int limit) {
         Set<OWLAxiom> expansionAxioms = new HashSet<OWLAxiom>();
         // First expand by getting the defining axioms - if this doesn't
         // return any axioms, then get the axioms that reference the entity

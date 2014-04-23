@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.io.OWLParserException;
@@ -50,9 +51,12 @@ import org.xml.sax.helpers.DefaultHandler;
 public class OWLXMLParserHandler extends DefaultHandler {
 
     private OWLOntologyManager owlOntologyManager;
+    @Nonnull
     private OWLOntology ontology;
     private List<OWLElementHandler<?>> handlerStack;
+    @Nonnull
     private Map<String, PARSER_OWLXMLVocabulary> handlerMap = new HashMap<String, PARSER_OWLXMLVocabulary>();
+    @Nonnull
     private Map<String, String> prefixName2PrefixMap = new HashMap<String, String>();
     private Locator locator;
     private Stack<URI> bases;
@@ -325,6 +329,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
     }
 
     /** @return ontology */
+    @Nonnull
     public OWLOntology getOntology() {
         return ontology;
     }
@@ -335,10 +340,10 @@ public class OWLXMLParserHandler extends DefaultHandler {
     }
 
     @Override
-    public void startDocument() throws SAXException {}
+    public void startDocument() {}
 
     @Override
-    public void endDocument() throws SAXException {}
+    public void endDocument() {}
 
     @Override
     public void characters(char[] ch, int start, int length)
@@ -357,7 +362,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
 
     @Override
     public void startElement(String uri, String localName, String qName,
-            Attributes attributes) throws SAXException {
+            Attributes attributes) {
         processXMLBase(attributes);
         if (localName.equals(PREFIX.getShortForm())) {
             String name = attributes.getValue(NAME_ATTRIBUTE.getShortForm());
@@ -407,8 +412,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
     }
 
     @Override
-    public void endElement(String uri, String localName, String qName)
-            throws SAXException {
+    public void endElement(String uri, String localName, String qName) {
         if (localName.equals(PREFIX.getShortForm())) {
             return;
         }
@@ -420,8 +424,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
     }
 
     @Override
-    public void startPrefixMapping(String prefix, String uri)
-            throws SAXException {
+    public void startPrefixMapping(String prefix, String uri) {
         prefixName2PrefixMap.put(prefix, uri);
     }
 

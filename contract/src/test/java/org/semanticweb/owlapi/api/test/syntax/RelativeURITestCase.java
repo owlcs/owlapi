@@ -40,8 +40,7 @@ public class RelativeURITestCase extends AbstractAxiomsRoundTrippingTestCase {
 
     @Nonnull
     @Override
-    protected Set<? extends OWLAxiom> createAxioms()
-            throws OWLOntologyCreationException {
+    protected Set<? extends OWLAxiom> createAxioms() {
         OWLOntology ont = getOWLOntology("Ont");
         OWLClass cls = Class(IRI(ont.getOntologyID().getOntologyIRI().get()
                 + "/Office"));

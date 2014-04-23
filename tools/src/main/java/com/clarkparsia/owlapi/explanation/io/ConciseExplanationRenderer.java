@@ -14,7 +14,6 @@ package com.clarkparsia.owlapi.explanation.io;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Writer;
 import java.util.Set;
@@ -22,7 +21,6 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.util.SimpleRenderer;
 
 /** Explanation renderer in concise form. */
@@ -44,8 +42,7 @@ public class ConciseExplanationRenderer implements ExplanationRenderer {
 
     @Override
     public void
-            render(OWLAxiom axiom, @Nonnull Set<Set<OWLAxiom>> explanations)
-                    throws OWLException, IOException {
+            render(OWLAxiom axiom, @Nonnull Set<Set<OWLAxiom>> explanations) {
         writer.println("Axiom: "
                 + renderer.render(checkNotNull(axiom, "axiom cannot be null")));
         int expSize = checkNotNull(explanations.size());

@@ -201,8 +201,8 @@ public class TripleHandlers {
          * @param object
          *        The object of the triple that has been parsed
          */
-        public void handleStreaming(@Nonnull IRI subject,
-                @Nonnull IRI predicate, @Nonnull IRI object) {
+        public void handleStreaming(@Nullable IRI subject,
+                @Nonnull IRI predicate, @Nullable IRI object) {
             boolean consumed = false;
             if (predicate.equals(RDF_TYPE.getIRI())) {
                 BuiltInTypeHandler handler = builtInTypes.get(object);

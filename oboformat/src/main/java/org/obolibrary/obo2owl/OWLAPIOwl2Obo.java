@@ -1038,11 +1038,9 @@ public class OWLAPIOwl2Obo {
                             unprocessedQualifiers.remove(annotation);
                             String xrefAnnotation = ((OWLLiteral) owlAnnotationValue)
                                     .getLiteral();
-                            if (xrefAnnotation != null) {
-                                xrefAnnotation = xrefAnnotation.trim();
-                                if (xrefAnnotation.length() > 0) {
-                                    xref.setAnnotation(xrefAnnotation);
-                                }
+                            xrefAnnotation = xrefAnnotation.trim();
+                            if (xrefAnnotation.length() > 0) {
+                                xref.setAnnotation(xrefAnnotation);
                             }
                         }
                     }
@@ -1740,7 +1738,7 @@ public class OWLAPIOwl2Obo {
                 // 5.9.3. Special Rules for Relations
                 if (propId.equals("shorthand")) {
                     OWLAnnotationValue value = ax.getValue();
-                    if (value != null && value instanceof OWLLiteral) {
+                    if (value instanceof OWLLiteral) {
                         return ((OWLLiteral) value).getLiteral();
                     }
                     throw new UntranslatableAxiomException(

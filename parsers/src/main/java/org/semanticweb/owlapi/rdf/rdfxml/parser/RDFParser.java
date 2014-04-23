@@ -80,7 +80,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
     protected ErrorHandler m_errorHandler = new ErrorHandler() {
 
         @Override
-        public void warning(SAXParseException exception) throws SAXException {}
+        public void warning(SAXParseException exception) {}
 
         @Override
         public void fatalError(SAXParseException exception) throws SAXException {
@@ -88,25 +88,28 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
         }
 
         @Override
-        public void error(SAXParseException exception) throws SAXException {}
+        public void error(SAXParseException exception) {}
     };
     /** Stack of base IRIs. */
     protected LinkedList<IRI> m_baseIRIs = new LinkedList<IRI>();
     private Map<IRI, URI> m_baseURICache = new HashMap<IRI, URI>();
     /** IRI of the document being parsed. */
+    @Nonnull
     protected IRI m_baseIRI;
     /** The stack of languages. */
+    @Nonnull
     protected LinkedList<String> m_languages = new LinkedList<String>();
     /** The current language. */
     protected String m_language;
     /** Consumer receiving notifications about parsing events. */
     protected RDFConsumer m_consumer;
     /** Current parser's state. */
-    @Nullable
+    @Nonnull
     protected State state;
     /** Stack of parser states. */
     protected List<State> m_states = new ArrayList<State>();
     /** Document locator. */
+    @Nonnull
     protected Locator m_documentLocator;
 
     /**
@@ -154,7 +157,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
 
     @Override
     public void setDocumentLocator(Locator locator) {
-        m_documentLocator = locator;
+        m_documentLocator = checkNotNull(locator, "locator cannot be null");
     }
 
     /**
@@ -190,7 +193,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
     }
 
     @Override
-    public void endDocument() throws SAXException {
+    public void endDocument() {
         verify(state != null, "RDF content not finished.");
     }
 
@@ -217,8 +220,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
     }
 
     @Override
-    public void processingInstruction(String target, String data)
-            throws SAXException {
+    public void processingInstruction(String target, String data) {
         if ("include-rdf".equals(target)) {
             Map<String, String> arguments = parseStringArguments(data);
             verify(arguments.size() > 2,
@@ -461,7 +463,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
      * @throws RDFParserException
      *         exception thrown
      */
-    public void verify(boolean b, String message) {
+    public void verify(boolean b, @Nonnull String message) {
         if (b) {
             throw new RDFParserException(message, m_documentLocator);
         }

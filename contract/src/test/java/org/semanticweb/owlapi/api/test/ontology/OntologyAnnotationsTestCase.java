@@ -20,7 +20,6 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
@@ -30,7 +29,7 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 public class OntologyAnnotationsTestCase extends AbstractRoundTrippingTestCase {
 
     @Override
-    protected OWLOntology createOntology() throws OWLOntologyCreationException {
+    protected OWLOntology createOntology() {
         OWLOntology ont = getOWLOntology("AnnotationOntology");
         OWLAnnotationProperty prop = AnnotationProperty(IRI("http://www.semanticweb.org/ontologies/test/annotationont#prop"));
         OWLLiteral value = Literal(33);

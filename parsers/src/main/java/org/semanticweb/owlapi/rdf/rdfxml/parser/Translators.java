@@ -24,6 +24,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.EntityType;
@@ -216,33 +217,40 @@ public class Translators {
             translatedClassExpression.clear();
         }
 
+        @Nonnull
         protected List<OWLObjectPropertyExpression>
                 translateToObjectPropertyList(IRI mainNode) {
             return objectPropertyListTranslator.translateList(mainNode);
         }
 
+        @Nonnull
         protected List<OWLDataPropertyExpression> translateToDataPropertyList(
                 IRI mainNode) {
             return dataPropertyListTranslator.translateList(mainNode);
         }
 
+        @Nonnull
         protected Set<OWLLiteral> translateToConstantSet(IRI mainNode) {
             return constantListTranslator.translateToSet(mainNode);
         }
 
+        @Nonnull
         protected Set<OWLIndividual> translateToIndividualSet(IRI mainNode) {
             return individualListTranslator.translateToSet(mainNode);
         }
 
+        @Nonnull
         protected Set<OWLDataRange> translateToDataRangeSet(IRI mainNode) {
             return dataRangeListTranslator.translateToSet(mainNode);
         }
 
+        @Nonnull
         protected Set<OWLFacetRestriction> translateToFacetRestrictionSet(
                 IRI mainNode) {
             return faceRestrictionListTranslator.translateToSet(mainNode);
         }
 
+        @Nonnull
         private Map<IRI, OWLClassExpression> translatedClassExpression = new HashMap<IRI, OWLClassExpression>();
 
         protected OWLClassExpression translateClassExpression(IRI mainNode) {

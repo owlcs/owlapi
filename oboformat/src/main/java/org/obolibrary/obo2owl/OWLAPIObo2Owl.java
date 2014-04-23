@@ -1383,32 +1383,28 @@ public class OWLAPIObo2Owl {
     protected void trAnnotations(@Nonnull Clause clause,
             @Nonnull Set<OWLAnnotation> anns) {
         Collection<Xref> xrefs = clause.getXrefs();
-        if (xrefs != null) {
-            for (Xref x : xrefs) {
-                if (x.getIdref() != null && x.getIdref().length() > 0) {
-                    OWLAnnotationProperty ap = trTagToAnnotationProp(OboFormatTag.TAG_XREF
-                            .getTag());
-                    OWLAnnotation ann = fac.getOWLAnnotation(ap, trLiteral(x));
-                    anns.add(ann);
-                }
+        for (Xref x : xrefs) {
+            if (x.getIdref() != null && x.getIdref().length() > 0) {
+                OWLAnnotationProperty ap = trTagToAnnotationProp(OboFormatTag.TAG_XREF
+                        .getTag());
+                OWLAnnotation ann = fac.getOWLAnnotation(ap, trLiteral(x));
+                anns.add(ann);
             }
         }
         Collection<QualifierValue> qvs = clause.getQualifierValues();
-        if (qvs != null) {
-            for (QualifierValue qv : qvs) {
-                String qTag = qv.getQualifier();
-                if (qTag.equals("gci_relation") || qTag.equals("gci_filler")
-                        || qTag.equals("cardinality")
-                        || qTag.equals("minCardinality")
-                        || qTag.equals("maxCardinality")
-                        || qTag.equals("all_some") || qTag.equals("all_only")) {
-                    continue;
-                }
-                OWLAnnotationProperty ap = trTagToAnnotationProp(qTag);
-                OWLAnnotation ann = fac.getOWLAnnotation(ap,
-                        trLiteral(qv.getValue()));
-                anns.add(ann);
+        for (QualifierValue qv : qvs) {
+            String qTag = qv.getQualifier();
+            if (qTag.equals("gci_relation") || qTag.equals("gci_filler")
+                    || qTag.equals("cardinality")
+                    || qTag.equals("minCardinality")
+                    || qTag.equals("maxCardinality") || qTag.equals("all_some")
+                    || qTag.equals("all_only")) {
+                continue;
             }
+            OWLAnnotationProperty ap = trTagToAnnotationProp(qTag);
+            OWLAnnotation ann = fac.getOWLAnnotation(ap,
+                    trLiteral(qv.getValue()));
+            anns.add(ann);
         }
     }
 

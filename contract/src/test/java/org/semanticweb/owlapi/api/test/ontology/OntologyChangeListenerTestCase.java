@@ -26,7 +26,6 @@ import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.ImpendingOWLOntologyChangeListener;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
@@ -74,8 +73,7 @@ public class OntologyChangeListenerTestCase extends TestBase {
                     public
                             void
                             ontologiesChanged(
-                                    @Nonnull List<? extends OWLOntologyChange<?>> changes)
-                                    throws OWLException {
+                                    @Nonnull List<? extends OWLOntologyChange<?>> changes) {
                         for (OWLOntologyChange<?> change : changes) {
                             if (change.isAddAxiom()) {
                                 additions.add(change.getAxiom());

@@ -13,8 +13,11 @@ import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 public class Clause {
 
     protected String tag;
+    @Nonnull
     protected final Collection<Object> values = new ArrayList<Object>();
+    @Nonnull
     protected final Collection<Xref> xrefs = new ArrayList<Xref>();
+    @Nonnull
     protected final Collection<QualifierValue> qualifierValues = new ArrayList<QualifierValue>();
 
     /**

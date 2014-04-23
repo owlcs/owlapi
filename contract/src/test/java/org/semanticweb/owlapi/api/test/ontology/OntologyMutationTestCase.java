@@ -26,7 +26,6 @@ import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
@@ -51,8 +50,7 @@ public class OntologyMutationTestCase extends TestBase {
                     public
                             void
                             ontologiesChanged(
-                                    @Nonnull List<? extends OWLOntologyChange<?>> changes)
-                                    throws OWLException {
+                                    @Nonnull List<? extends OWLOntologyChange<?>> changes) {
                         chgs.addAll(changes);
                     }
                 });
@@ -73,8 +71,7 @@ public class OntologyMutationTestCase extends TestBase {
                     public
                             void
                             ontologiesChanged(
-                                    @Nonnull List<? extends OWLOntologyChange<?>> changes)
-                                    throws OWLException {
+                                    @Nonnull List<? extends OWLOntologyChange<?>> changes) {
                         chgs.addAll(changes);
                     }
                 });
@@ -95,8 +92,7 @@ public class OntologyMutationTestCase extends TestBase {
                     public
                             void
                             ontologiesChanged(
-                                    @Nonnull List<? extends OWLOntologyChange<?>> changes)
-                                    throws OWLException {
+                                    @Nonnull List<? extends OWLOntologyChange<?>> changes) {
                         chgs.addAll(changes);
                     }
                 });
@@ -117,8 +113,7 @@ public class OntologyMutationTestCase extends TestBase {
                     public
                             void
                             ontologiesChanged(
-                                    @Nonnull List<? extends OWLOntologyChange<?>> changes)
-                                    throws OWLException {
+                                    @Nonnull List<? extends OWLOntologyChange<?>> changes) {
                         chgs.addAll(changes);
                     }
                 });

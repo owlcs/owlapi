@@ -311,7 +311,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     @Nonnull
-    private Set<OWLAxiom> writeDeclarations(OWLEntity entity,
+    private Set<OWLAxiom> writeDeclarations(@Nonnull OWLEntity entity,
             @Nonnull Set<OWLAxiom> alreadyWrittenAxioms) {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         for (OWLAxiom ax : ontology.getDeclarationAxioms(entity)) {

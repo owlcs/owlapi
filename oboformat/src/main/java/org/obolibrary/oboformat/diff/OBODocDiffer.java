@@ -46,7 +46,7 @@ public class OBODocDiffer {
 
     // FRAME LISTS
     @Nonnull
-    private List<Diff> getDiffsAsym(String ftype,
+    private static List<Diff> getDiffsAsym(String ftype,
             @Nonnull Collection<Frame> fl1, @Nonnull Collection<Frame> fl2,
             int n, boolean isCheckFrame) {
         List<Diff> diffs = new ArrayList<Diff>();
@@ -69,8 +69,8 @@ public class OBODocDiffer {
     }
 
     @Nonnull
-    private List<Diff> getDiffs(String ftype, @Nonnull Collection<Frame> fl1,
-            @Nonnull Collection<Frame> fl2) {
+    private static List<Diff> getDiffs(String ftype,
+            @Nonnull Collection<Frame> fl1, @Nonnull Collection<Frame> fl2) {
         List<Diff> diffs = getDiffsAsym(ftype, fl1, fl2, 1, true);
         diffs.addAll(getDiffsAsym(ftype, fl1, fl2, 2, false));
         return diffs;

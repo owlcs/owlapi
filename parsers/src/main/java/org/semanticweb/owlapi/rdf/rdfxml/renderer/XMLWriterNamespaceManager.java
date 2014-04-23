@@ -111,7 +111,7 @@ public class XMLWriterNamespaceManager {
      * @return The QName representation or the input name if a QName could not
      *         be generated.
      */
-    @Nonnull
+    @Nullable
     public String getQName(@Nonnull String name) {
         checkNotNull(name, "name cannot be null");
         if (name.startsWith(defaultNamespace)) {

@@ -73,7 +73,7 @@ public class LabelFunctionalSyntaxOntologyStorer extends
                     .getAnnotationAssertionAxioms(iri)) {
                 if (annotation.getProperty().isLabel()) {
                     OWLAnnotationValue value = annotation.getValue();
-                    if (value != null && value instanceof OWLLiteral) {
+                    if (value instanceof OWLLiteral) {
                         return "<" + ((OWLLiteral) value).getLiteral() + ">";
                     }
                 }

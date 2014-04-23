@@ -32,7 +32,7 @@ public class RDFParserException extends OWLRuntimeException {
      * @param locator
      *        locator
      */
-    public RDFParserException(String message, Locator locator) {
+    public RDFParserException(@Nonnull String message, @Nonnull Locator locator) {
         this(null, message, locator);
     }
 

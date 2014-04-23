@@ -17,7 +17,6 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Information
@@ -28,7 +27,7 @@ public class AsymmetricPropertyRoundTripTestCase extends
         AbstractRoundTrippingTestCase {
 
     @Override
-    protected OWLOntology createOntology() throws OWLOntologyCreationException {
+    protected OWLOntology createOntology() {
         OWLOntology ont = getOWLOntology("Test");
         ont.getOWLOntologyManager().addAxiom(ont,
                 AsymmetricObjectProperty(ObjectProperty(getIRI("p"))));

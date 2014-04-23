@@ -23,7 +23,6 @@ import java.util.TreeSet;
 
 import javax.annotation.Nonnull;
 
-
 import org.semanticweb.owlapi.io.OWLObjectRenderer;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -88,7 +87,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
-import org.semanticweb.owlapi.model.OWLPropertyRange;
 import org.semanticweb.owlapi.model.OWLPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLQuantifiedDataRestriction;
 import org.semanticweb.owlapi.model.OWLQuantifiedObjectRestriction;
@@ -654,10 +652,8 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
         writeQuantifiedRestriction(desc, FORALL);
     }
 
-    private
-            <R extends OWLPropertyRange, P extends OWLPropertyExpression, V extends OWLObject>
-            void writeValueRestriction(OWLHasValueRestriction<V> restriction,
-                    OWLPropertyExpression p) {
+    private <V extends OWLObject> void writeValueRestriction(
+            OWLHasValueRestriction<V> restriction, OWLPropertyExpression p) {
         write(EXISTS);
         writeSpace();
         p.accept(this);

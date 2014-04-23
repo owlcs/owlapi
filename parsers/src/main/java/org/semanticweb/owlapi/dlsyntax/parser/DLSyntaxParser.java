@@ -21,6 +21,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -40,6 +42,7 @@ import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
+@SuppressWarnings("null")
 class DLSyntaxParser implements DLSyntaxParserConstants {
 
     private String defaultNamespace = "http://www.sematicweb.org/ontologies/Ontology"
@@ -91,6 +94,7 @@ class DLSyntaxParser implements DLSyntaxParserConstants {
         return desc;
     }
 
+    @Nonnull
     Set<OWLAxiom> parseAxioms() {
         OWLAxiom ax;
         Set<OWLAxiom> axioms = new LinkedHashSet<OWLAxiom>();

@@ -363,7 +363,7 @@ public class OBOFormatWriter {
         writeEmptyLine(writer);
     }
 
-    private void writeXRefClause(@Nonnull Clause clause,
+    private static void writeXRefClause(@Nonnull Clause clause,
             @Nonnull BufferedWriter writer) throws IOException {
         Xref xref = clause.getValue(Xref.class);
         if (xref != null) {
@@ -394,7 +394,7 @@ public class OBOFormatWriter {
         }
     }
 
-    private void writeSynonymtypedef(@Nonnull Clause clause,
+    private static void writeSynonymtypedef(@Nonnull Clause clause,
             @Nonnull BufferedWriter writer) throws IOException {
         StringBuilder sb = new StringBuilder();
         sb.append(clause.getTag());
@@ -439,9 +439,8 @@ public class OBOFormatWriter {
         writeLine(sb, writer);
     }
 
-    private void
-            writeIdSpace(@Nonnull Clause cl, @Nonnull BufferedWriter writer)
-                    throws IOException {
+    private static void writeIdSpace(@Nonnull Clause cl,
+            @Nonnull BufferedWriter writer) throws IOException {
         StringBuilder sb = new StringBuilder();
         sb.append(cl.getTag());
         sb.append(": ");
@@ -465,7 +464,7 @@ public class OBOFormatWriter {
         writeLine(sb, writer);
     }
 
-    private void writeClauseWithQuotedString(@Nonnull Clause clause,
+    private static void writeClauseWithQuotedString(@Nonnull Clause clause,
             @Nonnull BufferedWriter writer) throws IOException {
         StringBuilder sb = new StringBuilder();
         sb.append(clause.getTag());
@@ -491,7 +490,7 @@ public class OBOFormatWriter {
         // this location
         // not that the value may be a non-null empty list - here we still want
         // to write []
-        if (xrefs != null && !xrefs.isEmpty()) {
+        if (!xrefs.isEmpty()) {
             appendXrefs(sb, xrefs);
         } else if (OboFormatTag.TAG_DEF.getTag().equals(clause.getTag())
                 || OboFormatTag.TAG_EXPAND_EXPRESSION_TO.getTag().equals(
@@ -681,7 +680,7 @@ public class OBOFormatWriter {
             }
         }
         Collection<Xref> xrefs = clause.getXrefs();
-        if (xrefs != null && !xrefs.isEmpty()) {
+        if (!xrefs.isEmpty()) {
             appendXrefs(sb, xrefs);
         }
         appendQualifiers(sb, clause);
@@ -720,7 +719,7 @@ public class OBOFormatWriter {
     private static void appendQualifiers(@Nonnull StringBuilder sb,
             @Nonnull Clause clause) {
         Collection<QualifierValue> qvs = clause.getQualifierValues();
-        if (qvs != null && qvs.size() > 0) {
+        if (qvs.size() > 0) {
             sb.append(" {");
             Iterator<QualifierValue> qvsIterator = qvs.iterator();
             while (qvsIterator.hasNext()) {

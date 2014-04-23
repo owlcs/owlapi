@@ -44,7 +44,6 @@ import org.openrdf.model.Literal;
 import org.openrdf.model.Resource;
 import org.openrdf.model.Statement;
 import org.openrdf.rio.RDFHandler;
-import org.openrdf.rio.RDFHandlerException;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
@@ -79,22 +78,21 @@ public class RioOWLRDFConsumerAdapter extends OWLRDFConsumer implements
     }
 
     @Override
-    public void endRDF() throws RDFHandlerException {
+    public void endRDF() {
         logger.debug("Parsed {} statements", statementCount.toString());
         endModel();
     }
 
     @Override
-    public void handleComment(final String comment) throws RDFHandlerException {}
+    public void handleComment(final String comment) {}
 
     @Override
-    public void handleNamespace(final String prefix, final String uri)
-            throws RDFHandlerException {
+    public void handleNamespace(final String prefix, final String uri) {
         getOntologyFormat().setPrefix(prefix + ":", uri);
     }
 
     @Override
-    public void handleStatement(final Statement st) throws RDFHandlerException {
+    public void handleStatement(final Statement st) {
         statementCount.incrementAndGet();
         logger.trace("st{}={}", statementCount.get(), st);
         String subjectString;
@@ -142,7 +140,7 @@ public class RioOWLRDFConsumerAdapter extends OWLRDFConsumer implements
     }
 
     @Override
-    public void startRDF() throws RDFHandlerException {
+    public void startRDF() {
         statementCount = new AtomicInteger(0);
         // creating a mock IRI here. In the current implementation its value is
         // ignored

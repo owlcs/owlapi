@@ -22,11 +22,9 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
@@ -120,8 +118,7 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
     }
 
     @Override
-    public void ontologiesChanged(List<? extends OWLOntologyChange<?>> changes)
-            throws OWLException {
+    public void ontologiesChanged(List<? extends OWLOntologyChange<?>> changes) {
         for (OWLOntologyChange<?> change : changes) {
             if (!change.isAxiomChange()
                     || !ontology.getImportsClosure().contains(

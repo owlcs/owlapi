@@ -2823,7 +2823,9 @@ public class ManchesterOWLSyntaxEditorParser implements
 
         O parseItem(F s);
 
-        OWLAxiom createAxiom(F s, O o, Set<OWLAnnotation> anns);
+        @Nonnull
+        OWLAxiom createAxiom(@Nonnull F s, @Nonnull O o,
+                @Nonnull Set<OWLAnnotation> anns);
 
         ManchesterOWLSyntax getFrameSectionKeyword();
     }
@@ -3337,7 +3339,7 @@ public class ManchesterOWLSyntaxEditorParser implements
 
         @Override
         public OWLAxiom createAxiom(OWLIndividual s, OWLIndividual o,
-                Set<OWLAnnotation> anns) {
+                @Nonnull Set<OWLAnnotation> anns) {
             Set<OWLIndividual> individuals = new HashSet<OWLIndividual>();
             individuals.add(s);
             individuals.add(o);

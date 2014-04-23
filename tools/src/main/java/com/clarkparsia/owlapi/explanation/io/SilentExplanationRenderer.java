@@ -12,12 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package com.clarkparsia.owlapi.explanation.io;
 
-import java.io.IOException;
 import java.io.Writer;
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLException;
 
 /** Null implementation. */
 public class SilentExplanationRenderer implements ExplanationRenderer {
@@ -28,8 +26,7 @@ public class SilentExplanationRenderer implements ExplanationRenderer {
     }
 
     @Override
-    public void render(OWLAxiom axiom, Set<Set<OWLAxiom>> explanations)
-            throws OWLException, IOException {
+    public void render(OWLAxiom axiom, Set<Set<OWLAxiom>> explanations) {
         // do nothing
     }
 

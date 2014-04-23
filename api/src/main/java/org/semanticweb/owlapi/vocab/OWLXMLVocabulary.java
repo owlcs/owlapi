@@ -136,10 +136,12 @@ public enum OWLXMLVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
 //@formatter:on
     @Nonnull
     private final IRI iri;
+    @Nonnull
     private final String shortName;
+    @Nonnull
     private final String prefixedName;
 
-    OWLXMLVocabulary(String name) {
+    OWLXMLVocabulary(@Nonnull String name) {
         iri = IRI.create(Namespaces.OWL.toString(), name);
         shortName = name;
         prefixedName = Namespaces.OWL.getPrefixName() + ":" + name;

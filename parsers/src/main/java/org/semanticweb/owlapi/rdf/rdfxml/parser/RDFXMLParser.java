@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.rdf.rdfxml.parser;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+
 import java.io.IOException;
 
 import javax.annotation.Nonnull;
@@ -58,10 +60,14 @@ public class RDFXMLParser extends AbstractOWLParser {
             RDFParser parser = new RDFParser() {
 
                 @Override
-                public void startPrefixMapping(String prefix, String IRI)
+                public void startPrefixMapping(String prefix, String iri)
                         throws SAXException {
-                    super.startPrefixMapping(prefix, IRI);
-                    format.setPrefix(prefix, IRI);
+                    checkNotNull(prefix, "prefix cannot be null");
+                    checkNotNull(iri, "iri cannot be null");
+                    assert prefix != null;
+                    assert iri != null;
+                    super.startPrefixMapping(prefix, iri);
+                    format.setPrefix(prefix, iri);
                 }
 
                 @Override

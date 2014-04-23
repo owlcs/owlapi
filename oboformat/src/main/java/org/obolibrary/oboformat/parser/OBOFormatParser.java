@@ -1050,7 +1050,7 @@ public class OBOFormatParser {
         // check if there is a third value to parse
         parseZeroOrMoreWs();
         String s = getParseUntil(" !{");
-        if (s != null && s.length() > 0) {
+        if (s.length() > 0) {
             cl.addValue(s);
         }
     }

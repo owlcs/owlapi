@@ -111,6 +111,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
          * 
          * @return array containing all axioms in this set
          */
+        @Nonnull
         public OWLAxiom[] getAllAxioms() {
             OWLAxiom[] toReturn = new OWLAxiom[ax.length];
             System.arraycopy(ax, 0, toReturn, 0, ax.length);
@@ -126,6 +127,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
          * @return the set of axioms represented by the specified array of
          *         Booleans
          */
+        @Nonnull
         public Set<OWLAxiom> getAxiomSet(boolean[] isIn) {
             HashSet<OWLAxiom> gas = new HashSet<OWLAxiom>();
             for (int i = 0; i < isIn.length; i++) {
@@ -145,6 +147,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
          *        determines the initial value of the subset
          * @return array of Booleans representing the specified subset
          */
+        @Nonnull
         public boolean[] getSubset(boolean init) {
             boolean[] subset = new boolean[ax.length];
             for (int i = 0; i < ax.length; i++) {
@@ -160,6 +163,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
          *        an array representing the original subset
          * @return an array representing the new subset
          */
+        @Nonnull
         public boolean[] cloneSubset(boolean[] oldSubset) {
             boolean[] newSubset = new boolean[ax.length];
             System.arraycopy(oldSubset, 0, newSubset, 0, ax.length);
@@ -191,6 +195,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
          *        an array representing the subset
          * @return a set of axioms
          */
+        @Nonnull
         public Set<OWLAxiom> toSet(boolean[] subset) {
             HashSet<OWLAxiom> axs = new HashSet<OWLAxiom>();
             for (int i = 0; i < ax.length; i++) {
@@ -271,6 +276,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
         this(man, ont, asAxiomSet(ont), moduleType);
     }
 
+    @Nonnull
     private static Set<OWLAxiom> asAxiomSet(OWLOntology ont) {
         Set<OWLAxiom> axs = new HashSet<OWLAxiom>(ont.getAxioms());
         for (OWLOntology importedOnt : ont.getImportsClosure()) {

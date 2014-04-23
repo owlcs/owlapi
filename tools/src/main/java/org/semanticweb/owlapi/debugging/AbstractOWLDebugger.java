@@ -23,7 +23,6 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -97,7 +96,7 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
     protected abstract OWLClassExpression getCurrentClass() throws OWLException;
 
     @Override
-    public OWLOntology getOWLOntology() throws OWLException {
+    public OWLOntology getOWLOntology() {
         return ontology;
     }
 

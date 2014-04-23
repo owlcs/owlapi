@@ -41,7 +41,7 @@ public class PropertyValueTest extends OboFormatTestBasics {
     }
 
     @Nonnull
-    private OBODoc createPVDoc() {
+    private static OBODoc createPVDoc() {
         OBODoc oboDoc = new OBODoc();
         Frame headerFrame = new Frame(FrameType.HEADER);
         headerFrame

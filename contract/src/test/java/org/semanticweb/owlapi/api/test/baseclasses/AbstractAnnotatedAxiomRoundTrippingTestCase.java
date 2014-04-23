@@ -64,5 +64,5 @@ public abstract class AbstractAnnotatedAxiomRoundTrippingTestCase extends
     // }
     // return declarations;
     // }
-    protected abstract OWLAxiom getMainAxiom(Set<OWLAnnotation> annos);
+    protected abstract OWLAxiom getMainAxiom(@Nonnull Set<OWLAnnotation> annos);
 }

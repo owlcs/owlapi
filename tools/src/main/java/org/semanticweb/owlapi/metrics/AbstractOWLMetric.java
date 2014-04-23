@@ -20,8 +20,6 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-
-import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
@@ -103,8 +101,7 @@ public abstract class AbstractOWLMetric<M> implements OWLMetric<M>,
     }
 
     @Override
-    public void ontologiesChanged(List<? extends OWLOntologyChange<?>> changes)
-            throws OWLException {
+    public void ontologiesChanged(List<? extends OWLOntologyChange<?>> changes) {
         if (isMetricInvalidated(changes)) {
             setDirty(true);
         }

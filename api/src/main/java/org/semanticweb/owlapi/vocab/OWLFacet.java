@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.vocab;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -98,13 +100,15 @@ public enum OWLFacet implements HasShortForm, HasIRI, HasPrefixedName {
      *        facet IRI
      * @return facet for iri
      */
-    public static OWLFacet getFacet(IRI iri) {
+    @Nonnull
+    public static OWLFacet getFacet(@Nonnull IRI iri) {
+        checkNotNull(iri, "iri cannot be null");
         for (OWLFacet vocabulary : OWLFacet.values()) {
             if (vocabulary.getIRI().equals(iri)) {
                 return vocabulary;
             }
         }
-        return null;
+        throw new IllegalArgumentException("Unknown facet: " + iri);
     }
 
     /**
