@@ -8,6 +8,9 @@ package org.semanticweb.owlapi.model;
  * <p>
  * An interface to objects that have a range.
  * </p>
+ * 
+ * @param <R>
+ *        range type
  */
 public interface HasRange<R extends OWLObject> {
 

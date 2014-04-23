@@ -8,6 +8,9 @@ package org.semanticweb.owlapi.model;
  * <p>
  * An interface to objects that have objects (e.g. property assertion axioms).
  * </p>
+ * 
+ * @param <O>
+ *        object type
  */
 public interface HasObject<O> {
 

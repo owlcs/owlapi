@@ -8,6 +8,9 @@ package org.semanticweb.owlapi.model;
  * <p>
  * An interface to objects which have a property.
  * </p>
+ * 
+ * @param <P>
+ *        property type
  */
 public interface HasProperty<P extends OWLObject> {
 

@@ -1,3 +1,38 @@
+3.5.0  12 April 2014
+
+Bugs:
+#150 Property type inference fixes
+#143 Role Chain compareTo skips every other element of the role chain.
+Switching data factory IllegalArgumentExceptions to NullPointerExceptions #131
+Fix Are properties generally defined to be copies or immutable #143
+Bug in SWRL body ordering: the parsing handler uses HashSets.
+#36 trying to read an ontology from a web page url hangs
+Manchester syntax renderer (various bugs)
+#121 set turtle default prefix slash aware
+#128 Turtle parser fails to parse literal with escaped double quote right at the end of the literal
+#109 Datatypes on literals used in annotations cause profile violations
+#117 ManchesterOWLSyntaxFrameRenderer adds too many brackets
+#114 Escaping characters in default OBOParser 3.4.10 is fixed
+#116 import statement erroneously names anonymous ontology
+#47 Input with character = 0240 (octal) should fail
+annotations on datatype definitin axioms fixed in OWL/XML
+Avoid adding inferred TransitiveObjectProperty assertions if transitivity is only vacuously true.
+#53 No warning for missing xml:base causes unexpected import
+#90 DTD processing slows down XML parse
+#88 imported turtle graph does not parse correctly
+#87 URIs with genid string are considered blank node ids
+#71 Misleading message on resolving illegal IRI
+#83 RDFTranslator: ID collision for anonymous individuals
+#78 functional parser swallows ontology already exists exception
+#74 RDF/XML invalid in ManchesterOWLSyntaxParserTestCase
+Fix swrl-built-in atom rendering
+
+Features:
+Implements Add a GWT compatible method to get the pattern for an OWL2Datatype as a raw string #152
+Implement Consider retries when loading from URLs #66 with hardcoded 5 retries and increasing timeout limit.
+Added some micro interfaces for accessing ontologies and applying changes to ontologies.
+
+
 3.4.10 18 January 2014
 
 Bugs:
