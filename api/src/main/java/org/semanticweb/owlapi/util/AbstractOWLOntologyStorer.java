@@ -91,7 +91,8 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
         return os;
     }
 
-    private void store(OWLOntology ontology, OWLOntologyFormat ontologyFormat,
+    private void store(@Nonnull OWLOntology ontology,
+            @Nonnull OWLOntologyFormat ontologyFormat,
             @Nonnull OutputStream tempOutputStream)
             throws OWLOntologyStorageException, IOException {
         Writer tempWriter = new BufferedWriter(new OutputStreamWriter(
@@ -134,6 +135,7 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
     }
 
     // XXX check if Writer is the best interface here
-    protected abstract void storeOntology(OWLOntology ontology, Writer writer,
-            OWLOntologyFormat format) throws OWLOntologyStorageException;
+    protected abstract void storeOntology(@Nonnull OWLOntology ontology,
+            @Nonnull Writer writer, @Nonnull OWLOntologyFormat format)
+            throws OWLOntologyStorageException;
 }

@@ -34,6 +34,9 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
 
     @Nonnull
     private final OWLDataFactory dataFactory;
+    // obj is not null most of the time. Nullity annotations won't allow that
+    // though
+    @Nonnull
     private Object obj;
     @Nonnull
     private Map<OWLEntity, IRI> replacementMap;
@@ -67,6 +70,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         checkNotNull(iriReplacementMap, "iriReplacementMap cannot be null");
         replacementMap = new HashMap<OWLEntity, IRI>();
         for (Map.Entry<IRI, IRI> e : iriReplacementMap.entrySet()) {
+            @Nonnull
             IRI iri = e.getKey();
             IRI repIRI = e.getValue();
             replacementMap.put(dataFactory.getOWLClass(iri), repIRI);
@@ -115,7 +119,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         return (O) obj;
     }
 
-    protected void setLastObject(Object obj) {
+    protected void setLastObject(@Nonnull Object obj) {
         this.obj = obj;
     }
 

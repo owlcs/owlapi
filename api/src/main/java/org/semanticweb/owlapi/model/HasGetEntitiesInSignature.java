@@ -29,5 +29,5 @@ public interface HasGetEntitiesInSignature {
      * @return entities with IRI equal to entityIRI
      */
     @Nonnull
-    Set<OWLEntity> getEntitiesInSignature(IRI entityIRI);
+    Set<OWLEntity> getEntitiesInSignature(@Nonnull IRI entityIRI);
 }

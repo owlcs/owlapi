@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitorEx;
@@ -67,97 +69,98 @@ public class OWLClassExpressionVisitorExAdapter<O> implements
      *        visited axiom
      * @return default return value;
      */
-    protected O handleDefault(@SuppressWarnings("unused") OWLClassExpression c) {
+    @Nonnull
+    protected O doDefault(@SuppressWarnings("unused") OWLClassExpression c) {
         return object;
     }
 
     @Override
     public O visit(OWLClass ce) {
-        return handleDefault(ce);
+        return doDefault(ce);
     }
 
     @Override
     public O visit(OWLObjectIntersectionOf ce) {
-        return handleDefault(ce);
+        return doDefault(ce);
     }
 
     @Override
     public O visit(OWLObjectUnionOf ce) {
-        return handleDefault(ce);
+        return doDefault(ce);
     }
 
     @Override
     public O visit(OWLObjectComplementOf ce) {
-        return handleDefault(ce);
+        return doDefault(ce);
     }
 
     @Override
     public O visit(OWLObjectSomeValuesFrom ce) {
-        return handleDefault(ce);
+        return doDefault(ce);
     }
 
     @Override
     public O visit(OWLObjectAllValuesFrom ce) {
-        return handleDefault(ce);
+        return doDefault(ce);
     }
 
     @Override
     public O visit(OWLObjectHasValue ce) {
-        return handleDefault(ce);
+        return doDefault(ce);
     }
 
     @Override
     public O visit(OWLObjectMinCardinality ce) {
-        return handleDefault(ce);
+        return doDefault(ce);
     }
 
     @Override
     public O visit(OWLObjectExactCardinality ce) {
-        return handleDefault(ce);
+        return doDefault(ce);
     }
 
     @Override
     public O visit(OWLObjectMaxCardinality ce) {
-        return handleDefault(ce);
+        return doDefault(ce);
     }
 
     @Override
     public O visit(OWLObjectHasSelf ce) {
-        return handleDefault(ce);
+        return doDefault(ce);
     }
 
     @Override
     public O visit(OWLObjectOneOf ce) {
-        return handleDefault(ce);
+        return doDefault(ce);
     }
 
     @Override
     public O visit(OWLDataSomeValuesFrom ce) {
-        return handleDefault(ce);
+        return doDefault(ce);
     }
 
     @Override
     public O visit(OWLDataAllValuesFrom ce) {
-        return handleDefault(ce);
+        return doDefault(ce);
     }
 
     @Override
     public O visit(OWLDataHasValue ce) {
-        return handleDefault(ce);
+        return doDefault(ce);
     }
 
     @Override
     public O visit(OWLDataMinCardinality ce) {
-        return handleDefault(ce);
+        return doDefault(ce);
     }
 
     @Override
     public O visit(OWLDataExactCardinality ce) {
-        return handleDefault(ce);
+        return doDefault(ce);
     }
 
     @Override
     public O visit(OWLDataMaxCardinality ce) {
-        return handleDefault(ce);
+        return doDefault(ce);
     }
 }

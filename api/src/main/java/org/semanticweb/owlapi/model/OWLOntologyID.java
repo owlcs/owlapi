@@ -15,7 +15,7 @@ package org.semanticweb.owlapi.model;
 import java.io.Serializable;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import javax.annotation.Nullable;
+import javax.annotation.Nonnull;
 
 import com.google.common.base.Optional;
 
@@ -33,10 +33,15 @@ import com.google.common.base.Optional;
 public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private static final AtomicInteger COUNTER = new AtomicInteger();
+    @Nonnull
     private static final String ANON_PREFIX = "Anonymous-";
+    @Nonnull
     private Optional<String> internalID = Optional.absent();
+    @Nonnull
     private final Optional<IRI> ontologyIRI;
+    @Nonnull
     private final Optional<IRI> versionIRI;
     private int hashCode;
 
@@ -83,6 +88,7 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
      * @return input optional if its iri is not a blank node iri, absent
      *         otherwise
      */
+    @Nonnull
     private static Optional<IRI> opt(Optional<IRI> i) {
         if (NodeID.isAnonymousNodeIRI(i.orNull())) {
             return Optional.absent();
@@ -177,16 +183,16 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
      *         containing an ontology as identified by this ontology ID. Returns
      *         the default IRI or {@code null}.
      */
-    @Nullable
+    @Nonnull
     public Optional<IRI> getDefaultDocumentIRI() {
-        if (ontologyIRI != null) {
+        if (ontologyIRI.isPresent()) {
             if (versionIRI.isPresent()) {
                 return versionIRI;
             } else {
                 return ontologyIRI;
             }
         } else {
-            return null;
+            return Optional.absent();
         }
     }
 

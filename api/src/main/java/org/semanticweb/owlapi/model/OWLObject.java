@@ -140,6 +140,7 @@ public interface OWLObject extends Comparable<OWLObject>, Serializable,
      *        visitor return type
      * @return visitor value
      */
+    @Nonnull
     <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor);
 
     /**

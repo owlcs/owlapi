@@ -30,6 +30,7 @@ public interface OWLOntologyChangeVisitorEx<O> {
      *        change to visit
      * @return visitor value
      */
+    @Nonnull
     O visit(@Nonnull AddAxiom change);
 
     /**
@@ -39,6 +40,7 @@ public interface OWLOntologyChangeVisitorEx<O> {
      *        change to visit
      * @return visitor value
      */
+    @Nonnull
     O visit(@Nonnull RemoveAxiom change);
 
     /**
@@ -48,6 +50,7 @@ public interface OWLOntologyChangeVisitorEx<O> {
      *        change to visit
      * @return visitor value
      */
+    @Nonnull
     O visit(@Nonnull SetOntologyID change);
 
     /**
@@ -57,6 +60,7 @@ public interface OWLOntologyChangeVisitorEx<O> {
      *        change to visit
      * @return visitor value
      */
+    @Nonnull
     O visit(@Nonnull AddImport change);
 
     /**
@@ -66,6 +70,7 @@ public interface OWLOntologyChangeVisitorEx<O> {
      *        change to visit
      * @return visitor value
      */
+    @Nonnull
     O visit(@Nonnull RemoveImport change);
 
     /**
@@ -75,6 +80,7 @@ public interface OWLOntologyChangeVisitorEx<O> {
      *        change to visit
      * @return visitor value
      */
+    @Nonnull
     O visit(@Nonnull AddOntologyAnnotation change);
 
     /**
@@ -84,5 +90,6 @@ public interface OWLOntologyChangeVisitorEx<O> {
      *        change to visit
      * @return visitor value
      */
+    @Nonnull
     O visit(@Nonnull RemoveOntologyAnnotation change);
 }

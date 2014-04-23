@@ -93,6 +93,7 @@ public class OWLAxiomVisitorExAdapter<O> implements OWLAxiomVisitorEx<O>,
      *        visited axiom
      * @return default return value;
      */
+    @Nonnull
     protected O doDefault(@SuppressWarnings("unused") @Nonnull OWLAxiom axiom) {
         return object;
     }

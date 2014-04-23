@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
-import javax.annotation.Nullable;
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -36,7 +36,6 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  */
 public class OWLEntityVisitorExAdapter<O> implements OWLEntityVisitorEx<O> {
 
-    @Nullable
     private O defaultReturnValue = null;
 
     /**
@@ -48,7 +47,7 @@ public class OWLEntityVisitorExAdapter<O> implements OWLEntityVisitorEx<O> {
      *        The object that was visited.
      * @return The default return value
      */
-    @Nullable
+    @Nonnull
     protected O doDefault(@SuppressWarnings("unused") OWLEntity object) {
         return defaultReturnValue;
     }
@@ -66,37 +65,31 @@ public class OWLEntityVisitorExAdapter<O> implements OWLEntityVisitorEx<O> {
         this.defaultReturnValue = defaultReturnValue;
     }
 
-    @Nullable
     @Override
     public O visit(OWLClass desc) {
         return doDefault(desc);
     }
 
-    @Nullable
     @Override
     public O visit(OWLDatatype node) {
         return doDefault(node);
     }
 
-    @Nullable
     @Override
     public O visit(OWLDataProperty property) {
         return doDefault(property);
     }
 
-    @Nullable
     @Override
     public O visit(OWLObjectProperty property) {
         return doDefault(property);
     }
 
-    @Nullable
     @Override
     public O visit(OWLNamedIndividual individual) {
         return doDefault(individual);
     }
 
-    @Nullable
     @Override
     public O visit(OWLAnnotationProperty property) {
         return doDefault(property);

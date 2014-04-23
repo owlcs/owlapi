@@ -12,11 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-
-
 import java.util.List;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -30,11 +29,11 @@ public interface OWLMutableOntology extends OWLOntology {
      *        the change to apply
      * @param <T>
      *        type class
-     * @return the list of ontology changes NOT applied
+     * @return the change if NOT applied, else null
      * @throws OWLOntologyChangeException
      *         if errors happen
      */
-    @Nonnull
+    @Nullable
     <T> OWLOntologyChange<T> applyChange(@Nonnull OWLOntologyChange<T> change)
             throws OWLOntologyChangeException;
 

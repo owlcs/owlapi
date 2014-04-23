@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -31,7 +30,7 @@ public interface SWRLObjectVisitorEx<O> {
      *        node to visit
      * @return visitor value
      */
-    @Nullable
+    @Nonnull
     O visit(@Nonnull SWRLRule node);
 
     /**
@@ -41,7 +40,7 @@ public interface SWRLObjectVisitorEx<O> {
      *        node to visit
      * @return visitor value
      */
-    @Nullable
+    @Nonnull
     O visit(@Nonnull SWRLClassAtom node);
 
     /**
@@ -51,7 +50,7 @@ public interface SWRLObjectVisitorEx<O> {
      *        node to visit
      * @return visitor value
      */
-    @Nullable
+    @Nonnull
     O visit(@Nonnull SWRLDataRangeAtom node);
 
     /**
@@ -61,7 +60,7 @@ public interface SWRLObjectVisitorEx<O> {
      *        node to visit
      * @return visitor value
      */
-    @Nullable
+    @Nonnull
     O visit(@Nonnull SWRLObjectPropertyAtom node);
 
     /**
@@ -71,7 +70,7 @@ public interface SWRLObjectVisitorEx<O> {
      *        node to visit
      * @return visitor value
      */
-    @Nullable
+    @Nonnull
     O visit(@Nonnull SWRLDataPropertyAtom node);
 
     /**
@@ -81,7 +80,7 @@ public interface SWRLObjectVisitorEx<O> {
      *        node to visit
      * @return visitor value
      */
-    @Nullable
+    @Nonnull
     O visit(@Nonnull SWRLBuiltInAtom node);
 
     /**
@@ -91,7 +90,7 @@ public interface SWRLObjectVisitorEx<O> {
      *        node to visit
      * @return visitor value
      */
-    @Nullable
+    @Nonnull
     O visit(@Nonnull SWRLVariable node);
 
     /**
@@ -101,7 +100,7 @@ public interface SWRLObjectVisitorEx<O> {
      *        node to visit
      * @return visitor value
      */
-    @Nullable
+    @Nonnull
     O visit(@Nonnull SWRLIndividualArgument node);
 
     /**
@@ -111,7 +110,7 @@ public interface SWRLObjectVisitorEx<O> {
      *        node to visit
      * @return visitor value
      */
-    @Nullable
+    @Nonnull
     O visit(@Nonnull SWRLLiteralArgument node);
 
     /**
@@ -121,7 +120,7 @@ public interface SWRLObjectVisitorEx<O> {
      *        node to visit
      * @return visitor value
      */
-    @Nullable
+    @Nonnull
     O visit(@Nonnull SWRLSameIndividualAtom node);
 
     /**
@@ -131,6 +130,6 @@ public interface SWRLObjectVisitorEx<O> {
      *        node to visit
      * @return visitor value
      */
-    @Nullable
+    @Nonnull
     O visit(@Nonnull SWRLDifferentIndividualsAtom node);
 }

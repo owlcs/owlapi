@@ -44,6 +44,7 @@ import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 
 /** Returns true if the visited axioms are an ontology in Horn-SHIQ form. */
+@SuppressWarnings("unused")
 public class HornAxiomVisitorEx extends OWLAxiomVisitorExAdapter<Boolean> {
 
     private static final long serialVersionUID = 40000L;

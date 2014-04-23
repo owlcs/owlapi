@@ -331,6 +331,7 @@ public class StructuralTransformation {
 
         public AxiomRewriter() {}
 
+        @Nonnull
         private Set<OWLAxiom> subClassOf(@Nonnull OWLClassExpression sub,
                 @Nonnull OWLClassExpression sup) {
             return Collections.singleton((OWLAxiom) df.getOWLSubClassOfAxiom(
@@ -339,6 +340,7 @@ public class StructuralTransformation {
                             sup).getNNF()));
         }
 
+        @Nonnull
         private Set<OWLAxiom> toSet(OWLAxiom ax) {
             return Collections.singleton(ax);
         }
@@ -599,7 +601,7 @@ public class StructuralTransformation {
 
         @Override
         public Set<OWLAxiom> visit(OWLSameIndividualAxiom axiom) {
-            return null;
+            return Collections.emptySet();
         }
 
         @Override

@@ -50,8 +50,9 @@ public interface OWLAxiomIndex {
      *         data.
      */
     @Nonnull
-    <T extends OWLAxiom> Set<T> getAxioms(Class<T> type, OWLObject entity,
-            @Nonnull Imports includeImports, @Nonnull Search forSubPosition);
+    <T extends OWLAxiom> Set<T> getAxioms(@Nonnull Class<T> type,
+            @Nonnull OWLObject entity, @Nonnull Imports includeImports,
+            @Nonnull Search forSubPosition);
 
     /**
      * Generic filter type for further refining search by axiom type. The
@@ -70,7 +71,7 @@ public interface OWLAxiomIndex {
      */
     @Nonnull
     <T extends OWLAxiom> Collection<T> filterAxioms(
-            OWLAxiomSearchFilter filter, Object key,
+            @Nonnull OWLAxiomSearchFilter filter, @Nonnull Object key,
             @Nonnull Imports includeImportsClosure);
 
     /**
@@ -86,7 +87,7 @@ public interface OWLAxiomIndex {
      *        if INCLUDED, include imports closure.
      * @return true if there is at least one result matching the filter.
      */
-    boolean contains(OWLAxiomSearchFilter filter, Object key,
+    boolean contains(@Nonnull OWLAxiomSearchFilter filter, @Nonnull Object key,
             @Nonnull Imports includeImportsClosure);
 
     /**
@@ -112,9 +113,10 @@ public interface OWLAxiomIndex {
      *         data.
      */
     @Nonnull
-    <T extends OWLAxiom> Set<T> getAxioms(Class<T> type,
-            Class<? extends OWLObject> explicitClass, OWLObject entity,
-            @Nonnull Imports includeImports, @Nonnull Search forSubPosition);
+    <T extends OWLAxiom> Set<T> getAxioms(@Nonnull Class<T> type,
+            @Nonnull Class<? extends OWLObject> explicitClass,
+            @Nonnull OWLObject entity, @Nonnull Imports includeImports,
+            @Nonnull Search forSubPosition);
 
     // ////////////////////////////////////////////////////////////////////////////////////////////
     //

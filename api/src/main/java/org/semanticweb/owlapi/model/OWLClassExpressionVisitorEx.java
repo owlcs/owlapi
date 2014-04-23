@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 /**
  * An interface to objects that can visit
@@ -35,7 +34,7 @@ public interface OWLClassExpressionVisitorEx<O> {
      *        ce to visit
      * @return visitor value
      */
-    @Nullable
+    @Nonnull
     O visit(@Nonnull OWLClass ce);
 
     /**
@@ -45,7 +44,7 @@ public interface OWLClassExpressionVisitorEx<O> {
      *        ce to visit
      * @return visitor value
      */
-    @Nullable
+    @Nonnull
     O visit(@Nonnull OWLObjectIntersectionOf ce);
 
     /**
@@ -55,7 +54,7 @@ public interface OWLClassExpressionVisitorEx<O> {
      *        ce to visit
      * @return visitor value
      */
-    @Nullable
+    @Nonnull
     O visit(@Nonnull OWLObjectUnionOf ce);
 
     /**
@@ -65,7 +64,7 @@ public interface OWLClassExpressionVisitorEx<O> {
      *        ce to visit
      * @return visitor value
      */
-    @Nullable
+    @Nonnull
     O visit(@Nonnull OWLObjectComplementOf ce);
 
     /**
@@ -75,7 +74,7 @@ public interface OWLClassExpressionVisitorEx<O> {
      *        ce to visit
      * @return visitor value
      */
-    @Nullable
+    @Nonnull
     O visit(@Nonnull OWLObjectSomeValuesFrom ce);
 
     /**
@@ -85,7 +84,7 @@ public interface OWLClassExpressionVisitorEx<O> {
      *        ce to visit
      * @return visitor value
      */
-    @Nullable
+    @Nonnull
     O visit(@Nonnull OWLObjectAllValuesFrom ce);
 
     /**
@@ -95,7 +94,7 @@ public interface OWLClassExpressionVisitorEx<O> {
      *        ce to visit
      * @return visitor value
      */
-    @Nullable
+    @Nonnull
     O visit(@Nonnull OWLObjectHasValue ce);
 
     /**
@@ -105,7 +104,7 @@ public interface OWLClassExpressionVisitorEx<O> {
      *        ce to visit
      * @return visitor value
      */
-    @Nullable
+    @Nonnull
     O visit(@Nonnull OWLObjectMinCardinality ce);
 
     /**
@@ -115,7 +114,7 @@ public interface OWLClassExpressionVisitorEx<O> {
      *        ce to visit
      * @return visitor value
      */
-    @Nullable
+    @Nonnull
     O visit(@Nonnull OWLObjectExactCardinality ce);
 
     /**
@@ -125,7 +124,7 @@ public interface OWLClassExpressionVisitorEx<O> {
      *        ce to visit
      * @return visitor value
      */
-    @Nullable
+    @Nonnull
     O visit(@Nonnull OWLObjectMaxCardinality ce);
 
     /**
@@ -135,7 +134,7 @@ public interface OWLClassExpressionVisitorEx<O> {
      *        ce to visit
      * @return visitor value
      */
-    @Nullable
+    @Nonnull
     O visit(@Nonnull OWLObjectHasSelf ce);
 
     /**
@@ -145,7 +144,7 @@ public interface OWLClassExpressionVisitorEx<O> {
      *        ce to visit
      * @return visitor value
      */
-    @Nullable
+    @Nonnull
     O visit(@Nonnull OWLObjectOneOf ce);
 
     /**
@@ -155,7 +154,7 @@ public interface OWLClassExpressionVisitorEx<O> {
      *        ce to visit
      * @return visitor value
      */
-    @Nullable
+    @Nonnull
     O visit(@Nonnull OWLDataSomeValuesFrom ce);
 
     /**
@@ -165,7 +164,7 @@ public interface OWLClassExpressionVisitorEx<O> {
      *        ce to visit
      * @return visitor value
      */
-    @Nullable
+    @Nonnull
     O visit(@Nonnull OWLDataAllValuesFrom ce);
 
     /**
@@ -175,7 +174,7 @@ public interface OWLClassExpressionVisitorEx<O> {
      *        ce to visit
      * @return visitor value
      */
-    @Nullable
+    @Nonnull
     O visit(@Nonnull OWLDataHasValue ce);
 
     /**
@@ -185,7 +184,7 @@ public interface OWLClassExpressionVisitorEx<O> {
      *        ce to visit
      * @return visitor value
      */
-    @Nullable
+    @Nonnull
     O visit(@Nonnull OWLDataMinCardinality ce);
 
     /**
@@ -195,7 +194,7 @@ public interface OWLClassExpressionVisitorEx<O> {
      *        ce to visit
      * @return visitor value
      */
-    @Nullable
+    @Nonnull
     O visit(@Nonnull OWLDataExactCardinality ce);
 
     /**
@@ -205,6 +204,6 @@ public interface OWLClassExpressionVisitorEx<O> {
      *        ce to visit
      * @return visitor value
      */
-    @Nullable
+    @Nonnull
     O visit(@Nonnull OWLDataMaxCardinality ce);
 }

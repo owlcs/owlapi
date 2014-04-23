@@ -875,7 +875,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      * @throws UnknownOWLOntologyException
      *         If the specified ontology is not managed by this manager.
      */
-    @Nonnull
+    @Nullable
     OWLOntologyFormat getOntologyFormat(@Nonnull OWLOntology ontology);
 
     /**

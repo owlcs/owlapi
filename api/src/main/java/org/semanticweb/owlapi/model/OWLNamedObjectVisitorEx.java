@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -31,7 +30,7 @@ public interface OWLNamedObjectVisitorEx<O> {
      *        owlClass to visit
      * @return visitor value
      */
-    @Nullable
+    @Nonnull
     O visit(@Nonnull OWLClass owlClass);
 
     /**
@@ -41,7 +40,7 @@ public interface OWLNamedObjectVisitorEx<O> {
      *        property to visit
      * @return visitor value
      */
-    @Nullable
+    @Nonnull
     O visit(@Nonnull OWLObjectProperty property);
 
     /**
@@ -51,7 +50,7 @@ public interface OWLNamedObjectVisitorEx<O> {
      *        property to visit
      * @return visitor value
      */
-    @Nullable
+    @Nonnull
     O visit(@Nonnull OWLDataProperty property);
 
     /**
@@ -61,7 +60,7 @@ public interface OWLNamedObjectVisitorEx<O> {
      *        owlIndividual to visit
      * @return visitor value
      */
-    @Nullable
+    @Nonnull
     O visit(@Nonnull OWLNamedIndividual owlIndividual);
 
     /**
@@ -71,7 +70,7 @@ public interface OWLNamedObjectVisitorEx<O> {
      *        ontology to visit
      * @return visitor value
      */
-    @Nullable
+    @Nonnull
     O visit(@Nonnull OWLOntology ontology);
 
     /**
@@ -81,7 +80,7 @@ public interface OWLNamedObjectVisitorEx<O> {
      *        datatype to visit
      * @return visitor value
      */
-    @Nullable
+    @Nonnull
     O visit(@Nonnull OWLDatatype datatype);
 
     /**
@@ -91,6 +90,6 @@ public interface OWLNamedObjectVisitorEx<O> {
      *        property to visit
      * @return visitor value
      */
-    @Nullable
+    @Nonnull
     O visit(@Nonnull OWLAnnotationProperty property);
 }

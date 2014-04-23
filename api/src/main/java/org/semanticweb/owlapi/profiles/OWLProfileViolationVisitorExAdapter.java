@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.profiles;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.profiles.violations.CycleInDatatypeDefinition;
 import org.semanticweb.owlapi.profiles.violations.DatatypeIRIAlsoUsedAsClassIRI;
 import org.semanticweb.owlapi.profiles.violations.EmptyOneOfAxiom;
@@ -75,7 +77,9 @@ public class OWLProfileViolationVisitorExAdapter<O> implements
      *        violation
      * @return default return value
      */
-    protected O doDefault(@SuppressWarnings("unused") OWLProfileViolation<?> v) {
+    @Nonnull
+    protected O doDefault(
+            @SuppressWarnings("unused") @Nonnull OWLProfileViolation<?> v) {
         return defaultValue;
     }
 
@@ -95,233 +99,236 @@ public class OWLProfileViolationVisitorExAdapter<O> implements
     }
 
     @Override
-    public O visit(IllegalPunning v) {
+    public O visit(@Nonnull IllegalPunning v) {
         return doDefault(v);
     }
 
     @Override
-    public O visit(CycleInDatatypeDefinition v) {
+    public O visit(@Nonnull CycleInDatatypeDefinition v) {
         return doDefault(v);
     }
 
     @Override
-    public O visit(UseOfBuiltInDatatypeInDatatypeDefinition v) {
+    public O visit(@Nonnull UseOfBuiltInDatatypeInDatatypeDefinition v) {
         return doDefault(v);
     }
 
     @Override
-    public O visit(DatatypeIRIAlsoUsedAsClassIRI v) {
-        return doDefault(v);
-    }
-
-    @Override
-    public O visit(UseOfNonSimplePropertyInAsymmetricObjectPropertyAxiom v) {
-        return doDefault(v);
-    }
-
-    @Override
-    public O visit(UseOfNonSimplePropertyInCardinalityRestriction v) {
-        return doDefault(v);
-    }
-
-    @Override
-    public O visit(UseOfNonSimplePropertyInDisjointPropertiesAxiom v) {
-        return doDefault(v);
-    }
-
-    @Override
-    public O visit(UseOfNonSimplePropertyInFunctionalPropertyAxiom v) {
+    public O visit(@Nonnull DatatypeIRIAlsoUsedAsClassIRI v) {
         return doDefault(v);
     }
 
     @Override
     public O visit(
-            UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom v) {
+            @Nonnull UseOfNonSimplePropertyInAsymmetricObjectPropertyAxiom v) {
         return doDefault(v);
     }
 
     @Override
-    public O visit(UseOfNonSimplePropertyInIrreflexivePropertyAxiom v) {
+    public O visit(@Nonnull UseOfNonSimplePropertyInCardinalityRestriction v) {
         return doDefault(v);
     }
 
     @Override
-    public O visit(UseOfNonSimplePropertyInObjectHasSelf v) {
+    public O visit(@Nonnull UseOfNonSimplePropertyInDisjointPropertiesAxiom v) {
         return doDefault(v);
     }
 
     @Override
-    public O visit(UseOfPropertyInChainCausesCycle v) {
+    public O visit(@Nonnull UseOfNonSimplePropertyInFunctionalPropertyAxiom v) {
         return doDefault(v);
     }
 
     @Override
-    public O visit(UseOfReservedVocabularyForAnnotationPropertyIRI v) {
+    public
+            O
+            visit(@Nonnull UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom v) {
         return doDefault(v);
     }
 
     @Override
-    public O visit(UseOfReservedVocabularyForClassIRI v) {
+    public O visit(@Nonnull UseOfNonSimplePropertyInIrreflexivePropertyAxiom v) {
         return doDefault(v);
     }
 
     @Override
-    public O visit(UseOfReservedVocabularyForDataPropertyIRI v) {
+    public O visit(@Nonnull UseOfNonSimplePropertyInObjectHasSelf v) {
         return doDefault(v);
     }
 
     @Override
-    public O visit(UseOfReservedVocabularyForIndividualIRI v) {
+    public O visit(@Nonnull UseOfPropertyInChainCausesCycle v) {
         return doDefault(v);
     }
 
     @Override
-    public O visit(UseOfReservedVocabularyForObjectPropertyIRI v) {
+    public O visit(@Nonnull UseOfReservedVocabularyForAnnotationPropertyIRI v) {
         return doDefault(v);
     }
 
     @Override
-    public O visit(UseOfReservedVocabularyForOntologyIRI v) {
+    public O visit(@Nonnull UseOfReservedVocabularyForClassIRI v) {
         return doDefault(v);
     }
 
     @Override
-    public O visit(UseOfReservedVocabularyForVersionIRI v) {
+    public O visit(@Nonnull UseOfReservedVocabularyForDataPropertyIRI v) {
         return doDefault(v);
     }
 
     @Override
-    public O visit(UseOfTopDataPropertyAsSubPropertyInSubPropertyAxiom v) {
+    public O visit(@Nonnull UseOfReservedVocabularyForIndividualIRI v) {
         return doDefault(v);
     }
 
     @Override
-    public O visit(UseOfUndeclaredAnnotationProperty v) {
+    public O visit(@Nonnull UseOfReservedVocabularyForObjectPropertyIRI v) {
         return doDefault(v);
     }
 
     @Override
-    public O visit(UseOfUndeclaredClass v) {
+    public O visit(@Nonnull UseOfReservedVocabularyForOntologyIRI v) {
         return doDefault(v);
     }
 
     @Override
-    public O visit(UseOfUndeclaredDataProperty v) {
+    public O visit(@Nonnull UseOfReservedVocabularyForVersionIRI v) {
         return doDefault(v);
     }
 
     @Override
-    public O visit(UseOfUndeclaredDatatype v) {
+    public O visit(
+            @Nonnull UseOfTopDataPropertyAsSubPropertyInSubPropertyAxiom v) {
         return doDefault(v);
     }
 
     @Override
-    public O visit(UseOfUndeclaredObjectProperty v) {
+    public O visit(@Nonnull UseOfUndeclaredAnnotationProperty v) {
         return doDefault(v);
     }
 
     @Override
-    public O visit(InsufficientPropertyExpressions v) {
+    public O visit(@Nonnull UseOfUndeclaredClass v) {
         return doDefault(v);
     }
 
     @Override
-    public O visit(InsufficientIndividuals v) {
+    public O visit(@Nonnull UseOfUndeclaredDataProperty v) {
         return doDefault(v);
     }
 
     @Override
-    public O visit(InsufficientOperands v) {
+    public O visit(@Nonnull UseOfUndeclaredDatatype v) {
         return doDefault(v);
     }
 
     @Override
-    public O visit(EmptyOneOfAxiom v) {
+    public O visit(@Nonnull UseOfUndeclaredObjectProperty v) {
         return doDefault(v);
     }
 
     @Override
-    public O visit(LastPropertyInChainNotInImposedRange v) {
+    public O visit(@Nonnull InsufficientPropertyExpressions v) {
         return doDefault(v);
     }
 
     @Override
-    public O visit(OntologyIRINotAbsolute v) {
+    public O visit(@Nonnull InsufficientIndividuals v) {
         return doDefault(v);
     }
 
     @Override
-    public O visit(UseOfDefinedDatatypeInDatatypeRestriction v) {
+    public O visit(@Nonnull InsufficientOperands v) {
         return doDefault(v);
     }
 
     @Override
-    public O visit(UseOfIllegalClassExpression v) {
+    public O visit(@Nonnull EmptyOneOfAxiom v) {
         return doDefault(v);
     }
 
     @Override
-    public O visit(UseOfIllegalDataRange v) {
+    public O visit(@Nonnull LastPropertyInChainNotInImposedRange v) {
         return doDefault(v);
     }
 
     @Override
-    public O visit(UseOfUnknownDatatype v) {
+    public O visit(@Nonnull OntologyIRINotAbsolute v) {
         return doDefault(v);
     }
 
     @Override
-    public O visit(UseOfObjectPropertyInverse v) {
+    public O visit(@Nonnull UseOfDefinedDatatypeInDatatypeRestriction v) {
         return doDefault(v);
     }
 
     @Override
-    public O visit(UseOfNonSuperClassExpression v) {
+    public O visit(@Nonnull UseOfIllegalClassExpression v) {
         return doDefault(v);
     }
 
     @Override
-    public O visit(UseOfNonSubClassExpression v) {
+    public O visit(@Nonnull UseOfIllegalDataRange v) {
         return doDefault(v);
     }
 
     @Override
-    public O visit(UseOfNonEquivalentClassExpression v) {
+    public O visit(@Nonnull UseOfUnknownDatatype v) {
         return doDefault(v);
     }
 
     @Override
-    public O visit(UseOfNonAtomicClassExpression v) {
+    public O visit(@Nonnull UseOfObjectPropertyInverse v) {
         return doDefault(v);
     }
 
     @Override
-    public O visit(LexicalNotInLexicalSpace v) {
+    public O visit(@Nonnull UseOfNonSuperClassExpression v) {
         return doDefault(v);
     }
 
     @Override
-    public O visit(OntologyVersionIRINotAbsolute v) {
+    public O visit(@Nonnull UseOfNonSubClassExpression v) {
         return doDefault(v);
     }
 
     @Override
-    public O visit(UseOfAnonymousIndividual v) {
+    public O visit(@Nonnull UseOfNonEquivalentClassExpression v) {
         return doDefault(v);
     }
 
     @Override
-    public O visit(UseOfIllegalAxiom v) {
+    public O visit(@Nonnull UseOfNonAtomicClassExpression v) {
         return doDefault(v);
     }
 
     @Override
-    public O visit(UseOfIllegalFacetRestriction v) {
+    public O visit(@Nonnull LexicalNotInLexicalSpace v) {
         return doDefault(v);
     }
 
     @Override
-    public O visit(UseOfNonAbsoluteIRI v) {
+    public O visit(@Nonnull OntologyVersionIRINotAbsolute v) {
+        return doDefault(v);
+    }
+
+    @Override
+    public O visit(@Nonnull UseOfAnonymousIndividual v) {
+        return doDefault(v);
+    }
+
+    @Override
+    public O visit(@Nonnull UseOfIllegalAxiom v) {
+        return doDefault(v);
+    }
+
+    @Override
+    public O visit(@Nonnull UseOfIllegalFacetRestriction v) {
+        return doDefault(v);
+    }
+
+    @Override
+    public O visit(@Nonnull UseOfNonAbsoluteIRI v) {
         return doDefault(v);
     }
 }

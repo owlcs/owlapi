@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.profiles;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.profiles.violations.CycleInDatatypeDefinition;
 import org.semanticweb.owlapi.profiles.violations.DatatypeIRIAlsoUsedAsClassIRI;
 import org.semanticweb.owlapi.profiles.violations.EmptyOneOfAxiom;
@@ -64,329 +66,377 @@ import org.semanticweb.owlapi.profiles.violations.UseOfUnknownDatatype;
  *         Management Group
  * @param <T>
  *        return type
+ * @since 4.0.0
  */
 public interface OWLProfileViolationVisitorEx<T> {
 
     /**
      * @param v
      *        IllegalPunning to visit
-     * @return visitor retur value
+     * @return visitor return value
      */
-    T visit(IllegalPunning v);
+    @Nonnull
+    T visit(@Nonnull IllegalPunning v);
 
     /**
      * @param v
      *        CycleInDatatypeDefinition to visit
-     * @return visitor retur value
+     * @return visitor return value
      */
-    T visit(CycleInDatatypeDefinition v);
+    @Nonnull
+    T visit(@Nonnull CycleInDatatypeDefinition v);
 
     /**
      * @param v
      *        UseOfBuiltInDatatypeInDatatypeDefinition to visit
-     * @return visitor retur value
+     * @return visitor return value
      */
-    T visit(UseOfBuiltInDatatypeInDatatypeDefinition v);
+    @Nonnull
+    T visit(@Nonnull UseOfBuiltInDatatypeInDatatypeDefinition v);
 
     /**
      * @param v
      *        DatatypeIRIAlsoUsedAsClassIRI to visit
-     * @return visitor retur value
+     * @return visitor return value
      */
-    T visit(DatatypeIRIAlsoUsedAsClassIRI v);
+    @Nonnull
+    T visit(@Nonnull DatatypeIRIAlsoUsedAsClassIRI v);
 
     /**
      * @param v
      *        UseOfNonSimplePropertyInAsymmetricObjectPropertyAxiom to visit
-     * @return visitor retur value
+     * @return visitor return value
      */
-    T visit(UseOfNonSimplePropertyInAsymmetricObjectPropertyAxiom v);
+    @Nonnull
+    T visit(@Nonnull UseOfNonSimplePropertyInAsymmetricObjectPropertyAxiom v);
 
     /**
      * @param v
      *        UseOfNonSimplePropertyInCardinalityRestriction to visit
-     * @return visitor retur value
+     * @return visitor return value
      */
-    T visit(UseOfNonSimplePropertyInCardinalityRestriction v);
+    @Nonnull
+    T visit(@Nonnull UseOfNonSimplePropertyInCardinalityRestriction v);
 
     /**
      * @param v
      *        UseOfNonSimplePropertyInDisjointPropertiesAxiom to visit
-     * @return visitor retur value
+     * @return visitor return value
      */
-    T visit(UseOfNonSimplePropertyInDisjointPropertiesAxiom v);
+    @Nonnull
+    T visit(@Nonnull UseOfNonSimplePropertyInDisjointPropertiesAxiom v);
 
     /**
      * @param v
      *        UseOfNonSimplePropertyInFunctionalPropertyAxiom to visit
-     * @return visitor retur value
+     * @return visitor return value
      */
-    T visit(UseOfNonSimplePropertyInFunctionalPropertyAxiom v);
+    @Nonnull
+    T visit(@Nonnull UseOfNonSimplePropertyInFunctionalPropertyAxiom v);
 
     /**
      * @param v
      *        UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom to
      *        visit
-     * @return visitor retur value
+     * @return visitor return value
      */
-    T visit(UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom v);
+    @Nonnull
+            T
+            visit(@Nonnull UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom v);
 
     /**
      * @param v
      *        UseOfNonSimplePropertyInIrreflexivePropertyAxiom to visit
-     * @return visitor retur value
+     * @return visitor return value
      */
-    T visit(UseOfNonSimplePropertyInIrreflexivePropertyAxiom v);
+    @Nonnull
+    T visit(@Nonnull UseOfNonSimplePropertyInIrreflexivePropertyAxiom v);
 
     /**
      * @param v
      *        UseOfNonSimplePropertyInObjectHasSelf to visit
-     * @return visitor retur value
+     * @return visitor return value
      */
-    T visit(UseOfNonSimplePropertyInObjectHasSelf v);
+    @Nonnull
+    T visit(@Nonnull UseOfNonSimplePropertyInObjectHasSelf v);
 
     /**
      * @param v
      *        UseOfPropertyInChainCausesCycle to visit
-     * @return visitor retur value
+     * @return visitor return value
      */
-    T visit(UseOfPropertyInChainCausesCycle v);
+    @Nonnull
+    T visit(@Nonnull UseOfPropertyInChainCausesCycle v);
 
     /**
      * @param v
      *        UseOfReservedVocabularyForAnnotationPropertyIRI to visit
-     * @return visitor retur value
+     * @return visitor return value
      */
-    T visit(UseOfReservedVocabularyForAnnotationPropertyIRI v);
+    @Nonnull
+    T visit(@Nonnull UseOfReservedVocabularyForAnnotationPropertyIRI v);
 
     /**
      * @param v
      *        UseOfReservedVocabularyForClassIRI to visit
-     * @return visitor retur value
+     * @return visitor return value
      */
-    T visit(UseOfReservedVocabularyForClassIRI v);
+    @Nonnull
+    T visit(@Nonnull UseOfReservedVocabularyForClassIRI v);
 
     /**
      * @param v
      *        UseOfReservedVocabularyForDataPropertyIRI to visit
-     * @return visitor retur value
+     * @return visitor return value
      */
-    T visit(UseOfReservedVocabularyForDataPropertyIRI v);
+    @Nonnull
+    T visit(@Nonnull UseOfReservedVocabularyForDataPropertyIRI v);
 
     /**
      * @param v
      *        UseOfReservedVocabularyForIndividualIRI to visit
-     * @return visitor retur value
+     * @return visitor return value
      */
-    T visit(UseOfReservedVocabularyForIndividualIRI v);
+    @Nonnull
+    T visit(@Nonnull UseOfReservedVocabularyForIndividualIRI v);
 
     /**
      * @param v
      *        UseOfReservedVocabularyForObjectPropertyIRI to visit
-     * @return visitor retur value
+     * @return visitor return value
      */
-    T visit(UseOfReservedVocabularyForObjectPropertyIRI v);
+    @Nonnull
+    T visit(@Nonnull UseOfReservedVocabularyForObjectPropertyIRI v);
 
     /**
      * @param v
      *        UseOfReservedVocabularyForOntologyIRI to visit
-     * @return visitor retur value
+     * @return visitor return value
      */
-    T visit(UseOfReservedVocabularyForOntologyIRI v);
+    @Nonnull
+    T visit(@Nonnull UseOfReservedVocabularyForOntologyIRI v);
 
     /**
      * @param v
      *        UseOfReservedVocabularyForVersionIRI to visit
-     * @return visitor retur value
+     * @return visitor return value
      */
-    T visit(UseOfReservedVocabularyForVersionIRI v);
+    @Nonnull
+    T visit(@Nonnull UseOfReservedVocabularyForVersionIRI v);
 
     /**
      * @param v
      *        UseOfTopDataPropertyAsSubPropertyInSubPropertyAxiom to visit
-     * @return visitor retur value
+     * @return visitor return value
      */
-    T visit(UseOfTopDataPropertyAsSubPropertyInSubPropertyAxiom v);
+    @Nonnull
+    T visit(@Nonnull UseOfTopDataPropertyAsSubPropertyInSubPropertyAxiom v);
 
     /**
      * @param v
      *        UseOfUndeclaredAnnotationProperty to visit
-     * @return visitor retur value
+     * @return visitor return value
      */
-    T visit(UseOfUndeclaredAnnotationProperty v);
+    @Nonnull
+    T visit(@Nonnull UseOfUndeclaredAnnotationProperty v);
 
     /**
      * @param v
      *        UseOfUndeclaredClass to visit
-     * @return visitor retur value
+     * @return visitor return value
      */
-    T visit(UseOfUndeclaredClass v);
+    @Nonnull
+    T visit(@Nonnull UseOfUndeclaredClass v);
 
     /**
      * @param v
      *        UseOfUndeclaredDataProperty to visit
-     * @return visitor retur value
+     * @return visitor return value
      */
-    T visit(UseOfUndeclaredDataProperty v);
+    @Nonnull
+    T visit(@Nonnull UseOfUndeclaredDataProperty v);
 
     /**
      * @param v
      *        UseOfUndeclaredDatatype to visit
-     * @return visitor retur value
+     * @return visitor return value
      */
-    T visit(UseOfUndeclaredDatatype v);
+    @Nonnull
+    T visit(@Nonnull UseOfUndeclaredDatatype v);
 
     /**
      * @param v
      *        UseOfUndeclaredObjectProperty to visit
-     * @return visitor retur value
+     * @return visitor return value
      */
-    T visit(UseOfUndeclaredObjectProperty v);
+    @Nonnull
+    T visit(@Nonnull UseOfUndeclaredObjectProperty v);
 
     /**
      * @param v
      *        InsufficientPropertyExpressions to visit
-     * @return visitor retur value
+     * @return visitor return value
      */
-    T visit(InsufficientPropertyExpressions v);
+    @Nonnull
+    T visit(@Nonnull InsufficientPropertyExpressions v);
 
     /**
      * @param v
      *        InsufficientIndividuals to visit
-     * @return visitor retur value
+     * @return visitor return value
      */
-    T visit(InsufficientIndividuals v);
+    @Nonnull
+    T visit(@Nonnull InsufficientIndividuals v);
 
     /**
      * @param v
      *        InsufficientOperands to visit
-     * @return visitor retur value
+     * @return visitor return value
      */
-    T visit(InsufficientOperands v);
+    @Nonnull
+    T visit(@Nonnull InsufficientOperands v);
 
     /**
      * @param v
      *        EmptyOneOfAxiom to visit
-     * @return visitor retur value
+     * @return visitor return value
      */
-    T visit(EmptyOneOfAxiom v);
+    @Nonnull
+    T visit(@Nonnull EmptyOneOfAxiom v);
 
     /**
      * @param v
      *        LastPropertyInChainNotInImposedRange to visit
-     * @return visitor retur value
+     * @return visitor return value
      */
-    T visit(LastPropertyInChainNotInImposedRange v);
+    @Nonnull
+    T visit(@Nonnull LastPropertyInChainNotInImposedRange v);
 
     /**
      * @param v
      *        OntologyIRINotAbsolute to visit
-     * @return visitor retur value
+     * @return visitor return value
      */
-    T visit(OntologyIRINotAbsolute v);
+    @Nonnull
+    T visit(@Nonnull OntologyIRINotAbsolute v);
 
     /**
      * @param v
      *        UseOfDefinedDatatypeInDatatypeRestriction to visit
-     * @return visitor retur value
+     * @return visitor return value
      */
-    T visit(UseOfDefinedDatatypeInDatatypeRestriction v);
+    @Nonnull
+    T visit(@Nonnull UseOfDefinedDatatypeInDatatypeRestriction v);
 
     /**
      * @param v
      *        UseOfIllegalClassExpression to visit
-     * @return visitor retur value
+     * @return visitor return value
      */
-    T visit(UseOfIllegalClassExpression v);
+    @Nonnull
+    T visit(@Nonnull UseOfIllegalClassExpression v);
 
     /**
      * @param v
      *        UseOfIllegalDataRange to visit
-     * @return visitor retur value
+     * @return visitor return value
      */
-    T visit(UseOfIllegalDataRange v);
+    @Nonnull
+    T visit(@Nonnull UseOfIllegalDataRange v);
 
     /**
      * @param v
      *        UseOfUnknownDatatype to visit
-     * @return visitor retur value
+     * @return visitor return value
      */
-    T visit(UseOfUnknownDatatype v);
+    @Nonnull
+    T visit(@Nonnull UseOfUnknownDatatype v);
 
     /**
      * @param v
      *        UseOfObjectPropertyInverse to visit
-     * @return visitor retur value
+     * @return visitor return value
      */
-    T visit(UseOfObjectPropertyInverse v);
+    @Nonnull
+    T visit(@Nonnull UseOfObjectPropertyInverse v);
 
     /**
      * @param v
      *        UseOfNonSuperClassExpression to visit
-     * @return visitor retur value
+     * @return visitor return value
      */
-    T visit(UseOfNonSuperClassExpression v);
+    @Nonnull
+    T visit(@Nonnull UseOfNonSuperClassExpression v);
 
     /**
      * @param v
      *        UseOfNonSubClassExpression to visit
-     * @return visitor retur value
+     * @return visitor return value
      */
-    T visit(UseOfNonSubClassExpression v);
+    @Nonnull
+    T visit(@Nonnull UseOfNonSubClassExpression v);
 
     /**
      * @param v
      *        UseOfNonEquivalentClassExpression to visit
-     * @return visitor retur value
+     * @return visitor return value
      */
-    T visit(UseOfNonEquivalentClassExpression v);
+    @Nonnull
+    T visit(@Nonnull UseOfNonEquivalentClassExpression v);
 
     /**
      * @param v
      *        UseOfNonAtomicClassExpression to visit
-     * @return visitor retur value
+     * @return visitor return value
      */
-    T visit(UseOfNonAtomicClassExpression v);
+    @Nonnull
+    T visit(@Nonnull UseOfNonAtomicClassExpression v);
 
     /**
      * @param v
      *        LexicalNotInLexicalSpace to visit
-     * @return visitor retur value
+     * @return visitor return value
      */
-    T visit(LexicalNotInLexicalSpace v);
+    @Nonnull
+    T visit(@Nonnull LexicalNotInLexicalSpace v);
 
     /**
      * @param v
      *        OntologyVersionIRINotAbsolute to visit
-     * @return visitor retur value
+     * @return visitor return value
      */
-    T visit(OntologyVersionIRINotAbsolute v);
+    @Nonnull
+    T visit(@Nonnull OntologyVersionIRINotAbsolute v);
 
     /**
      * @param v
      *        UseOfAnonymousIndividual to visit
-     * @return visitor retur value
+     * @return visitor return value
      */
-    T visit(UseOfAnonymousIndividual v);
+    @Nonnull
+    T visit(@Nonnull UseOfAnonymousIndividual v);
 
     /**
      * @param v
      *        UseOfIllegalAxiom to visit
-     * @return visitor retur value
+     * @return visitor return value
      */
-    T visit(UseOfIllegalAxiom v);
+    @Nonnull
+    T visit(@Nonnull UseOfIllegalAxiom v);
 
     /**
      * @param v
      *        UseOfIllegalFacetRestriction to visit
-     * @return visitor retur value
+     * @return visitor return value
      */
-    T visit(UseOfIllegalFacetRestriction v);
+    @Nonnull
+    T visit(@Nonnull UseOfIllegalFacetRestriction v);
 
     /**
      * @param v
      *        UseOfNonAbsoluteIRI to visit
-     * @return visitor retur value
+     * @return visitor return value
      */
-    T visit(UseOfNonAbsoluteIRI v);
+    @Nonnull
+    T visit(@Nonnull UseOfNonAbsoluteIRI v);
 }
