@@ -15,34 +15,16 @@ package org.semanticweb.owlapi.reasoner.impl;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
-import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
-import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
-import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
-import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
-import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
-import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
 import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
@@ -50,24 +32,18 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
-import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
-import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.SWRLRule;
+import org.semanticweb.owlapi.util.OWLAxiomVisitorExAdapter;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
  * @since 3.0.0
  */
-public class SatisfiabilityReducer implements
-        OWLAxiomVisitorEx<OWLClassExpression> {
+public class SatisfiabilityReducer extends
+        OWLAxiomVisitorExAdapter<OWLClassExpression> {
 
+    private static final long serialVersionUID = 40000L;
     @Nonnull
     private final OWLDataFactory df;
 
@@ -76,6 +52,7 @@ public class SatisfiabilityReducer implements
      *        data factory to use
      */
     public SatisfiabilityReducer(@Nonnull OWLDataFactory dataFactory) {
+        super(null);
         df = checkNotNull(dataFactory, "dataFactory cannot be null");
     }
 
@@ -91,20 +68,9 @@ public class SatisfiabilityReducer implements
         return axiom.asOWLSubClassOfAxiom().accept(this);
     }
 
-    @Nullable
-    @Override
-    public OWLClassExpression visit(OWLAsymmetricObjectPropertyAxiom axiom) {
-        return null;
-    }
-
     @Override
     public OWLClassExpression visit(OWLReflexiveObjectPropertyAxiom axiom) {
         return axiom.asOWLSubClassOfAxiom().accept(this);
-    }
-
-    @Override
-    public OWLClassExpression visit(OWLDisjointClassesAxiom axiom) {
-        return null;
     }
 
     @Override
@@ -118,29 +84,9 @@ public class SatisfiabilityReducer implements
     }
 
     @Override
-    public OWLClassExpression visit(OWLEquivalentObjectPropertiesAxiom axiom) {
-        return null;
-    }
-
-    @Override
     public OWLClassExpression
             visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
         return axiom.asOWLSubClassOfAxiom().accept(this);
-    }
-
-    @Override
-    public OWLClassExpression visit(OWLDifferentIndividualsAxiom axiom) {
-        return null;
-    }
-
-    @Override
-    public OWLClassExpression visit(OWLDisjointDataPropertiesAxiom axiom) {
-        return null;
-    }
-
-    @Override
-    public OWLClassExpression visit(OWLDisjointObjectPropertiesAxiom axiom) {
-        return null;
     }
 
     @Override
@@ -159,26 +105,6 @@ public class SatisfiabilityReducer implements
     }
 
     @Override
-    public OWLClassExpression visit(OWLSubObjectPropertyOfAxiom axiom) {
-        return null;
-    }
-
-    @Override
-    public OWLClassExpression visit(OWLDisjointUnionAxiom axiom) {
-        return null;
-    }
-
-    @Override
-    public OWLClassExpression visit(OWLDeclarationAxiom axiom) {
-        return null;
-    }
-
-    @Override
-    public OWLClassExpression visit(OWLSymmetricObjectPropertyAxiom axiom) {
-        return null;
-    }
-
-    @Override
     public OWLClassExpression visit(OWLDataPropertyRangeAxiom axiom) {
         return axiom.asOWLSubClassOfAxiom().accept(this);
     }
@@ -189,18 +115,8 @@ public class SatisfiabilityReducer implements
     }
 
     @Override
-    public OWLClassExpression visit(OWLEquivalentDataPropertiesAxiom axiom) {
-        return null;
-    }
-
-    @Override
     public OWLClassExpression visit(OWLClassAssertionAxiom axiom) {
         return axiom.asOWLSubClassOfAxiom().accept(this);
-    }
-
-    @Override
-    public OWLClassExpression visit(OWLEquivalentClassesAxiom axiom) {
-        return null;
     }
 
     @Override
@@ -209,73 +125,13 @@ public class SatisfiabilityReducer implements
     }
 
     @Override
-    public OWLClassExpression visit(OWLTransitiveObjectPropertyAxiom axiom) {
-        return null;
-    }
-
-    @Override
     public OWLClassExpression visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
         return axiom.asOWLSubClassOfAxiom().accept(this);
-    }
-
-    @Override
-    public OWLClassExpression visit(OWLSubDataPropertyOfAxiom axiom) {
-        return null;
     }
 
     @Override
     public OWLClassExpression visit(
             OWLInverseFunctionalObjectPropertyAxiom axiom) {
         return axiom.asOWLSubClassOfAxiom().accept(this);
-    }
-
-    @Override
-    public OWLClassExpression visit(OWLSameIndividualAxiom axiom) {
-        return null;
-    }
-
-    @Override
-    public OWLClassExpression visit(OWLSubPropertyChainOfAxiom axiom) {
-        return null;
-    }
-
-    @Override
-    public OWLClassExpression visit(OWLInverseObjectPropertiesAxiom axiom) {
-        return null;
-    }
-
-    @Override
-    public OWLClassExpression visit(OWLHasKeyAxiom axiom) {
-        return null;
-    }
-
-    @Override
-    public OWLClassExpression visit(OWLDatatypeDefinitionAxiom axiom) {
-        return null;
-    }
-
-    @Override
-    public OWLClassExpression visit(SWRLRule rule) {
-        return null;
-    }
-
-    @Override
-    public OWLClassExpression visit(OWLAnnotationAssertionAxiom axiom) {
-        return null;
-    }
-
-    @Override
-    public OWLClassExpression visit(OWLSubAnnotationPropertyOfAxiom axiom) {
-        return null;
-    }
-
-    @Override
-    public OWLClassExpression visit(OWLAnnotationPropertyDomainAxiom axiom) {
-        return null;
-    }
-
-    @Override
-    public OWLClassExpression visit(OWLAnnotationPropertyRangeAxiom axiom) {
-        return null;
     }
 }

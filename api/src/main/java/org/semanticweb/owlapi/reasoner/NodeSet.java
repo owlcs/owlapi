@@ -53,7 +53,7 @@ public interface NodeSet<E extends OWLObject> extends Iterable<Node<E>> {
      *         {@code NodeSet} does not contain a {@code Node} that contains the
      *         entity, {@code e}.
      */
-    boolean containsEntity(E e);
+    boolean containsEntity(@Nonnull E e);
 
     /**
      * Determines if this {@code NodeSet} is a singleton. A {@code NodeSet} is a
@@ -90,5 +90,6 @@ public interface NodeSet<E extends OWLObject> extends Iterable<Node<E>> {
      * @return The set of {@code Node}s contained in this {@code NodeSet}. Note
      *         that this set will be an unmodifiable set.
      */
+    @Nonnull
     Set<Node<E>> getNodes();
 }

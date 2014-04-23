@@ -19,7 +19,6 @@ import java.util.Iterator;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -42,28 +41,42 @@ public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
 
     private static final OWLDataFactory DF = new OWLDataFactoryImpl(false,
             false);
+    @Nonnull
     protected static final OWLClass TOP_CLASS = DF.getOWLThing();
+    @Nonnull
     protected static final OWLClassNode TOP_NODE = new OWLClassNode(TOP_CLASS);
+    @Nonnull
     protected static final OWLClass BOTTOM_CLASS = DF.getOWLNothing();
+    @Nonnull
     protected static final OWLClassNode BOTTOM_NODE = new OWLClassNode(
             BOTTOM_CLASS);
+    @Nonnull
     protected static final OWLDataProperty TOP_DATA_PROPERTY = DF
             .getOWLTopDataProperty();
+    @Nonnull
     protected static final OWLDataPropertyNode TOP_DATA_NODE = new OWLDataPropertyNode(
             TOP_DATA_PROPERTY);
+    @Nonnull
     protected static final OWLDataProperty BOTTOM_DATA_PROPERTY = DF
             .getOWLBottomDataProperty();
+    @Nonnull
     protected static final OWLDataPropertyNode BOTTOM_DATA_NODE = new OWLDataPropertyNode(
             BOTTOM_DATA_PROPERTY);
+    @Nonnull
     protected static final OWLDatatype TOP_DATATYPE = DF.getTopDatatype();
+    @Nonnull
     protected static final OWLObjectProperty TOP_OBJECT_PROPERTY = DF
             .getOWLTopObjectProperty();
+    @Nonnull
     protected static final OWLObjectPropertyNode TOP_OBJECT_NODE = new OWLObjectPropertyNode(
             TOP_OBJECT_PROPERTY);
+    @Nonnull
     protected static final OWLObjectProperty BOTTOM_OBJECT_PROPERTY = DF
             .getOWLBottomObjectProperty();
+    @Nonnull
     protected static final OWLObjectPropertyNode BOTTOM_OBJECT_NODE = new OWLObjectPropertyNode(
             BOTTOM_OBJECT_PROPERTY);
+    @Nonnull
     private final Set<E> entities = new HashSet<E>(4);
 
     /**
@@ -147,14 +160,10 @@ public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
         return entities.size() == 1;
     }
 
-    @Nullable
+    @Nonnull
     @Override
     public E getRepresentativeElement() {
-        if (!entities.isEmpty()) {
-            return entities.iterator().next();
-        } else {
-            return null;
-        }
+        return entities.iterator().next();
     }
 
     @Nonnull

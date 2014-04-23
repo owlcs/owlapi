@@ -23,11 +23,9 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
@@ -63,8 +61,7 @@ public abstract class OWLReasonerBase implements OWLReasoner {
 
         @Override
         public void ontologiesChanged(
-                List<? extends OWLOntologyChange<?>> changes)
-                throws OWLException {
+                List<? extends OWLOntologyChange<?>> changes) {
             handleRawOntologyChanges(changes);
         }
     };
@@ -177,7 +174,8 @@ public abstract class OWLReasonerBase implements OWLReasoner {
      *        The logical axioms that have been removed from the imports closure
      *        of the reasoner root ontology
      */
-    private void computeDiff(@Nonnull Set<OWLAxiom> added, @Nonnull Set<OWLAxiom> removed) {
+    private void computeDiff(@Nonnull Set<OWLAxiom> added,
+            @Nonnull Set<OWLAxiom> removed) {
         if (rawChanges.isEmpty()) {
             return;
         }
@@ -225,8 +223,8 @@ public abstract class OWLReasonerBase implements OWLReasoner {
      * @param removeAxioms
      *        The axioms to be removed from the reasoner
      */
-    protected abstract void handleChanges(Set<OWLAxiom> addAxioms,
-            Set<OWLAxiom> removeAxioms);
+    protected abstract void handleChanges(@Nonnull Set<OWLAxiom> addAxioms,
+            @Nonnull Set<OWLAxiom> removeAxioms);
 
     @Override
     public void dispose() {

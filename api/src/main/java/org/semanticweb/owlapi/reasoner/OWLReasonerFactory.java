@@ -57,7 +57,8 @@ public interface OWLReasonerFactory {
      * @throws NullPointerException
      *         if the {@code manager} or {@code ontology} are {@code null}.
      */
-    OWLReasoner createNonBufferingReasoner(OWLOntology ontology);
+    @Nonnull
+    OWLReasoner createNonBufferingReasoner(@Nonnull OWLOntology ontology);
 
     /**
      * Creates a buffering reasoner that reasons over the imports closure of the
@@ -78,7 +79,8 @@ public interface OWLReasonerFactory {
      * @throws NullPointerException
      *         if the {@code manager} or {@code ontology} are {@code null}.
      */
-    OWLReasoner createReasoner(OWLOntology ontology);
+    @Nonnull
+    OWLReasoner createReasoner(@Nonnull OWLOntology ontology);
 
     /**
      * Creates an OWLReasoner that reasons over the imports closure of the
@@ -107,8 +109,9 @@ public interface OWLReasonerFactory {
      *         if any of {@code manager}, {@code ontology} or {@code config} are
      *         {@code null}.
      */
-    OWLReasoner createNonBufferingReasoner(OWLOntology ontology,
-            OWLReasonerConfiguration config);
+    @Nonnull
+    OWLReasoner createNonBufferingReasoner(@Nonnull OWLOntology ontology,
+            @Nonnull OWLReasonerConfiguration config);
 
     /**
      * Creates a buffering reasoner that reasons over the imports closure of the
@@ -137,6 +140,7 @@ public interface OWLReasonerFactory {
      *         if any of {@code manager}, {@code ontology} or {@code config} are
      *         {@code null}.
      */
-    OWLReasoner createReasoner(OWLOntology ontology,
-            OWLReasonerConfiguration config);
+    @Nonnull
+    OWLReasoner createReasoner(@Nonnull OWLOntology ontology,
+            @Nonnull OWLReasonerConfiguration config);
 }

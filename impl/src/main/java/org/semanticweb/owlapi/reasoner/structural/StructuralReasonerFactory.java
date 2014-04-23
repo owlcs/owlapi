@@ -35,25 +35,27 @@ public class StructuralReasonerFactory implements OWLReasonerFactory {
     }
 
     @Override
-    public OWLReasoner createNonBufferingReasoner(OWLOntology ontology) {
+    public OWLReasoner
+            createNonBufferingReasoner(@Nonnull OWLOntology ontology) {
         return createNonBufferingReasoner(ontology, new SimpleConfiguration());
     }
 
     @Override
-    public OWLReasoner createReasoner(OWLOntology ontology) {
+    public OWLReasoner createReasoner(@Nonnull OWLOntology ontology) {
         return createReasoner(ontology, new SimpleConfiguration());
     }
 
     @Override
-    public OWLReasoner createNonBufferingReasoner(OWLOntology ontology,
-            OWLReasonerConfiguration config) {
+    public OWLReasoner createNonBufferingReasoner(
+            @Nonnull OWLOntology ontology,
+            @Nonnull OWLReasonerConfiguration config) {
         return new StructuralReasoner(ontology, config,
                 BufferingMode.NON_BUFFERING);
     }
 
     @Override
-    public OWLReasoner createReasoner(OWLOntology ontology,
-            OWLReasonerConfiguration config) {
+    public OWLReasoner createReasoner(@Nonnull OWLOntology ontology,
+            @Nonnull OWLReasonerConfiguration config) {
         return new StructuralReasoner(ontology, config, BufferingMode.BUFFERING);
     }
 }
