@@ -587,6 +587,8 @@ public class Internals implements Serializable {
     }
 
     /**
+     * @param <K>
+     *        key type
      * @param filter
      *        filter to satisfy
      * @param key
@@ -709,6 +711,8 @@ public class Internals implements Serializable {
     }
 
     /**
+     * @param <T>
+     *        axiom type
      * @param axiomType
      *        axiom type to count
      * @return axiom count

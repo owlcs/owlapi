@@ -35,6 +35,8 @@ public interface OWLAxiomIndex {
      * instances of type, optionally including the imports closure in the
      * results.
      * 
+     * @param <T>
+     *        type of returned axioms
      * @param type
      *        type of axioms
      * @param entity
@@ -59,6 +61,8 @@ public interface OWLAxiomIndex {
      * returned axioms are both belonging to one of the types listed by the
      * filter and satisfying its pass condition.
      * 
+     * @param <T>
+     *        type of returned axioms
      * @param filter
      *        the filter to match
      * @param key
@@ -95,6 +99,8 @@ public interface OWLAxiomIndex {
      * instances of type, optionally including the imports closure in the
      * results.
      * 
+     * @param <T>
+     *        type of returned axioms
      * @param type
      *        type of axioms
      * @param explicitClass

@@ -307,6 +307,8 @@ public class Searcher {
      * entity type they contain is compatible with the return type for the
      * collection.
      * 
+     * @param <C>
+     *        returned type
      * @param axioms
      *        axioms
      * @return equivalent entities
@@ -324,6 +326,8 @@ public class Searcher {
      * entity type they contain is compatible with the return type for the
      * collection.
      * 
+     * @param <C>
+     *        returned type
      * @param axioms
      *        axioms
      * @param type
@@ -364,6 +368,8 @@ public class Searcher {
      * as the entity type they contain is compatible with the return type for
      * the collection.
      * 
+     * @param <C>
+     *        returned type
      * @param axioms
      *        axioms
      * @return disjoint entities
@@ -381,6 +387,8 @@ public class Searcher {
      * as the entity type they contain is compatible with the return type for
      * the collection.
      * 
+     * @param <C>
+     *        returned type
      * @param axioms
      *        axioms
      * @param type
@@ -403,6 +411,8 @@ public class Searcher {
      * Retrieve disjoint entities from an axiom, including individuals from
      * differentFrom axioms.
      * 
+     * @param <C>
+     *        returned type
      * @param axiom
      *        axiom
      * @return disjoint entities
@@ -418,6 +428,8 @@ public class Searcher {
      * of axiom types can be passed in, as long as the entity type they contain
      * is compatible with the return type for the collection.
      * 
+     * @param <C>
+     *        returned type
      * @param axioms
      *        axioms
      * @return sub expressions
@@ -434,6 +446,8 @@ public class Searcher {
      * of axiom types can be passed in, as long as the entity type they contain
      * is compatible with the return type for the collection.
      * 
+     * @param <C>
+     *        returned type
      * @param axioms
      *        axioms
      * @param type
@@ -457,6 +471,8 @@ public class Searcher {
      * mixture of axiom types can be passed in, as long as the entity type they
      * contain is compatible with the return type for the collection.
      * 
+     * @param <C>
+     *        returned type
      * @param axiom
      *        axiom
      * @return sub expressions
@@ -471,6 +487,8 @@ public class Searcher {
      * mixture of axiom types can be passed in, as long as the entity type they
      * contain is compatible with the return type for the collection.
      * 
+     * @param <C>
+     *        returned type
      * @param axioms
      *        axioms
      * @param type
@@ -494,6 +512,8 @@ public class Searcher {
      * mixture of axiom types can be passed in, as long as the entity type they
      * contain is compatible with the return type for the collection.
      * 
+     * @param <C>
+     *        returned type
      * @param axioms
      *        axioms
      * @return sub expressions
@@ -510,6 +530,8 @@ public class Searcher {
      * mixture of axiom types can be passed in, as long as the entity type they
      * contain is compatible with the return type for the collection.
      * 
+     * @param <C>
+     *        returned type
      * @param axiom
      *        axiom
      * @return sub expressions
@@ -523,6 +545,8 @@ public class Searcher {
      * Retrieve the domains from domain axioms. A mixture of axiom types can be
      * passed in.
      * 
+     * @param <C>
+     *        returned type
      * @param axioms
      *        axioms
      * @return sub expressions
@@ -538,6 +562,8 @@ public class Searcher {
      * Retrieve the domains from domain axioms. A mixture of axiom types can be
      * passed in.
      * 
+     * @param <C>
+     *        returned type
      * @param axioms
      *        axioms
      * @param type
@@ -560,6 +586,8 @@ public class Searcher {
      * Retrieve the domains from domain axioms. A mixture of axiom types can be
      * passed in.
      * 
+     * @param <C>
+     *        returned type
      * @param axiom
      *        axiom
      * @return sub expressions
@@ -573,6 +601,8 @@ public class Searcher {
      * Retrieve the ranges from range axioms. A mixture of axiom types can be
      * passed in.
      * 
+     * @param <C>
+     *        returned type
      * @param axioms
      *        axioms
      * @return sub expressions
@@ -588,6 +618,8 @@ public class Searcher {
      * Retrieve the ranges from range axioms. A mixture of axiom types can be
      * passed in.
      * 
+     * @param <C>
+     *        returned type
      * @param axioms
      *        axioms
      * @param type
@@ -610,6 +642,8 @@ public class Searcher {
      * Retrieve the ranges from a range axiom. A mixture of axiom types can be
      * passed in.
      * 
+     * @param <C>
+     *        returned type
      * @param axiom
      *        axiom
      * @return sub expressions
