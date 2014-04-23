@@ -24,7 +24,6 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -73,7 +72,9 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
         OWLOntology, Serializable {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     protected final OWLOntologyManager manager;
+    @Nonnull
     protected OWLOntologyID ontologyID;
 
     @Override
@@ -301,8 +302,8 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     }
 
     @Override
-    public boolean containsAxiom(@Nonnull OWLAxiom axiom, Imports includeImports,
-            Search ignoreAnnotations) {
+    public boolean containsAxiom(@Nonnull OWLAxiom axiom,
+            Imports includeImports, Search ignoreAnnotations) {
         if (includeImports == EXCLUDED) {
             if (ignoreAnnotations == Search.CONSIDER_ANNOTATIONS) {
                 return containsAxiom(axiom);
@@ -329,6 +330,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
         return false;
     }
 
+    @Nonnull
     private Set<OWLAxiom> getAxiomsIgnoreAnnotations(@Nonnull OWLAxiom axiom) {
         Set<OWLAxiom> result = createSet();
         if (containsAxiom(axiom)) {
@@ -414,7 +416,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     }
 
     @Override
-    public Set<OWLEntity> getEntitiesInSignature(IRI iri) {
+    public Set<OWLEntity> getEntitiesInSignature(@Nonnull IRI iri) {
         return getEntitiesInSignature(iri, EXCLUDED);
     }
 
@@ -445,7 +447,8 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     }
 
     @Override
-    public boolean containsReference(@Nonnull OWLEntity entity, Imports importsClosure) {
+    public boolean containsReference(@Nonnull OWLEntity entity,
+            Imports importsClosure) {
         if (importsClosure == EXCLUDED) {
             return ints.containsReference(entity);
         }
@@ -748,9 +751,10 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
 
         private static final long serialVersionUID = 40000L;
         private boolean ref;
+        @Nonnull
         private Imports includeImports;
 
-        public OWLEntityReferenceChecker(Imports b) {
+        public OWLEntityReferenceChecker(@Nonnull Imports b) {
             includeImports = b;
         }
 
@@ -938,7 +942,8 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     // OWLAxiomIndex
     @Override
     public <A extends OWLAxiom> Set<A> getAxioms(@Nonnull Class<A> type,
-            @Nonnull OWLObject entity, Imports includeImports, Search forSubPosition) {
+            @Nonnull OWLObject entity, Imports includeImports,
+            Search forSubPosition) {
         if (includeImports == EXCLUDED) {
             return getAxioms(type, entity.getClass(), entity, includeImports,
                     forSubPosition);
@@ -953,8 +958,9 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     @Override
     @SuppressWarnings("unchecked")
     public <A extends OWLAxiom> Set<A> getAxioms(@Nonnull Class<A> type,
-            Class<? extends OWLObject> explicit, OWLObject entity,
-            Imports includeImports, Search forSubPosition) {
+            @Nonnull Class<? extends OWLObject> explicit,
+            @Nonnull OWLObject entity, @Nonnull Imports includeImports,
+            @Nonnull Search forSubPosition) {
         if (includeImports == EXCLUDED) {
             return ints.get((Class<OWLObject>) explicit, type, forSubPosition)
                     .getValues(entity);
@@ -970,7 +976,8 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     @SuppressWarnings("unchecked")
     @Override
     public <T extends OWLAxiom> Collection<T> filterAxioms(
-            @Nonnull OWLAxiomSearchFilter filter, Object key, Imports includeImports) {
+            @Nonnull OWLAxiomSearchFilter filter, @Nonnull Object key,
+            Imports includeImports) {
         if (includeImports == EXCLUDED) {
             return (Collection<T>) ints.filterAxioms(filter, key);
         }
@@ -985,8 +992,8 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     }
 
     @Override
-    public boolean contains(@Nonnull OWLAxiomSearchFilter filter, Object key,
-            Imports includeImports) {
+    public boolean contains(@Nonnull OWLAxiomSearchFilter filter,
+            @Nonnull Object key, Imports includeImports) {
         if (includeImports == EXCLUDED) {
             return ints.contains(filter, key);
         }

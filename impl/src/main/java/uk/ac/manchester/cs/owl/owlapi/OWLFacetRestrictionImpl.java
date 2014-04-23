@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
 
-
 import org.semanticweb.owlapi.model.OWLDataVisitor;
 import org.semanticweb.owlapi.model.OWLDataVisitorEx;
 import org.semanticweb.owlapi.model.OWLFacetRestriction;
@@ -36,7 +35,9 @@ public class OWLFacetRestrictionImpl extends OWLObjectImpl implements
         OWLFacetRestriction {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final OWLFacet facet;
+    @Nonnull
     private final OWLLiteral facetValue;
 
     @Override

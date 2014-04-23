@@ -20,7 +20,6 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-
 import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
@@ -58,6 +57,7 @@ public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass,
         return OWLObjectTypeIndexProvider.OWL_CLASS;
     }
 
+    @Nonnull
     private final IRI iri;
     private final boolean isThing;
     private final boolean isNothing;

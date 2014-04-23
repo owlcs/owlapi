@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
 
-
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
@@ -35,6 +34,7 @@ public class SWRLLiteralArgumentImpl extends OWLObjectImpl implements
         SWRLLiteralArgument {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final OWLLiteral literal;
 
     @Override

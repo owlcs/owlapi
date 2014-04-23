@@ -15,13 +15,11 @@ package uk.ac.manchester.cs.owl.owlapi;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
-
 import org.semanticweb.owlapi.formats.RDFXMLOntologyFormat;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyBuilder;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
@@ -51,8 +49,7 @@ public class EmptyInMemOWLOntologyFactory extends
     public OWLOntology loadOWLOntology(OWLOntologyManager m,
             OWLOntologyDocumentSource documentSource,
             OWLOntologyCreationHandler handler,
-            OWLOntologyLoaderConfiguration configuration)
-            throws OWLOntologyCreationException {
+            OWLOntologyLoaderConfiguration configuration) {
         throw new OWLRuntimeException(new UnsupportedOperationException(
                 "Cannot load OWL ontologies in an empty factory."));
     }
@@ -60,8 +57,7 @@ public class EmptyInMemOWLOntologyFactory extends
     @Override
     public OWLOntology createOWLOntology(OWLOntologyManager m,
             OWLOntologyID ontologyID, IRI documentIRI,
-            OWLOntologyCreationHandler handler)
-            throws OWLOntologyCreationException {
+            OWLOntologyCreationHandler handler) {
         OWLOntology ont = super.createOWLOntology(m, ontologyID, documentIRI,
                 handler);
         handler.setOntologyFormat(ont, new RDFXMLOntologyFormat());

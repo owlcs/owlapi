@@ -19,7 +19,6 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -41,8 +40,11 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements
         OWLAnnotationAssertionAxiom {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final OWLAnnotationSubject subject;
+    @Nonnull
     private final OWLAnnotationProperty property;
+    @Nonnull
     private final OWLAnnotationValue value;
 
     /**

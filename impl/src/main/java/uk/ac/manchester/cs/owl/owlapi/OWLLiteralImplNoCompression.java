@@ -41,9 +41,11 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements
 
     private static final long serialVersionUID = 40000L;
     static final String UTF8 = "UTF-8";
+    @Nonnull
     private static final OWLDatatype RDF_PLAIN_LITERAL = new OWL2DatatypeImpl(
             OWL2Datatype.RDF_PLAIN_LITERAL);
     private final byte[] literal;
+    @Nonnull
     private final OWLDatatype datatype;
     private final String lang;
     private final int hashcode;

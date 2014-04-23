@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
 
-
 import org.semanticweb.owlapi.model.OWLAnnotationValueVisitor;
 import org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx;
 import org.semanticweb.owlapi.model.OWLDataVisitor;
@@ -37,6 +36,7 @@ public class OWLLiteralImplDouble extends OWLObjectImpl implements OWLLiteral {
 
     private static final long serialVersionUID = 40000L;
     private final double literal;
+    @Nonnull
     private final OWLDatatype datatype;
 
     @Override

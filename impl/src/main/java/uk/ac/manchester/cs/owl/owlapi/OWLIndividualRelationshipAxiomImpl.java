@@ -18,7 +18,6 @@ import java.util.Collection;
 
 import javax.annotation.Nonnull;
 
-
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObject;
@@ -39,8 +38,11 @@ public abstract class OWLIndividualRelationshipAxiomImpl<P extends OWLPropertyEx
         extends OWLLogicalAxiomImpl implements OWLPropertyAssertionAxiom<P, O> {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final OWLIndividual subject;
+    @Nonnull
     private final P property;
+    @Nonnull
     private final O object;
 
     /**

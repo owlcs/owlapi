@@ -21,7 +21,6 @@ import java.util.TreeSet;
 
 import javax.annotation.Nonnull;
 
-
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
@@ -45,6 +44,7 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements
         OWLDisjointUnionAxiom {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final OWLClass owlClass;
     @Nonnull
     private final Set<OWLClassExpression> classExpressions;

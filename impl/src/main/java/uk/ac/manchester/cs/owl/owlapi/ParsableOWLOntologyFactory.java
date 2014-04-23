@@ -202,7 +202,7 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
      *        parsers
      * @return selected parsers
      */
-    private PriorityCollection<OWLParser> getParsers(
+    private static PriorityCollection<OWLParser> getParsers(
             OWLOntologyDocumentSource documentSource,
             PriorityCollection<OWLParser> parsers) {
         PriorityCollection<OWLParser> candidateParsers = parsers;

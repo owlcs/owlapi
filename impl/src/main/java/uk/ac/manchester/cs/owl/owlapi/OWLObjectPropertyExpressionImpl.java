@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLObjectInverseOf;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
@@ -44,6 +46,7 @@ public abstract class OWLObjectPropertyExpressionImpl extends
         return super.equals(obj) && obj instanceof OWLObjectPropertyExpression;
     }
 
+    @Nonnull
     @Override
     public OWLObjectPropertyExpression getSimplified() {
         if (simplestForm == null) {
@@ -54,6 +57,7 @@ public abstract class OWLObjectPropertyExpressionImpl extends
         return simplestForm;
     }
 
+    @Nonnull
     @Override
     public OWLObjectPropertyExpression getInverseProperty() {
         if (inverse == null) {

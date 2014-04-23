@@ -19,7 +19,6 @@ import java.util.Collections;
 
 import javax.annotation.Nonnull;
 
-
 import org.semanticweb.owlapi.model.SWRLArgument;
 import org.semanticweb.owlapi.model.SWRLPredicate;
 import org.semanticweb.owlapi.model.SWRLUnaryAtom;
@@ -35,6 +34,7 @@ public abstract class SWRLUnaryAtomImpl<A extends SWRLArgument> extends
         SWRLAtomImpl implements SWRLUnaryAtom<A> {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final A arg;
 
     /**

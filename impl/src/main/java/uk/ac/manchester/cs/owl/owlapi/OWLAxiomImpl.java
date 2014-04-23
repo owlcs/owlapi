@@ -23,7 +23,6 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -134,6 +133,7 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
      *        The annotations to add to the annotations on this axiom
      * @return The annotations
      */
+    @Nonnull
     protected Set<OWLAnnotation> mergeAnnos(Set<OWLAnnotation> annos) {
         Set<OWLAnnotation> merged = new HashSet<OWLAnnotation>(annos);
         merged.addAll(annotations);

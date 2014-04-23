@@ -19,7 +19,6 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-
 import org.semanticweb.owlapi.model.DataRangeType;
 import org.semanticweb.owlapi.model.OWLDataRangeVisitor;
 import org.semanticweb.owlapi.model.OWLDataRangeVisitorEx;
@@ -44,6 +43,7 @@ public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements
         OWLDatatypeRestriction {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final OWLDatatype datatype;
     @Nonnull
     private final Set<OWLFacetRestriction> facetRestrictions;

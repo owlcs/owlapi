@@ -19,7 +19,6 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -40,7 +39,9 @@ public class OWLAnnotationPropertyDomainAxiomImpl extends OWLAxiomImpl
         implements OWLAnnotationPropertyDomainAxiom {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final OWLAnnotationProperty property;
+    @Nonnull
     private final IRI domain;
 
     /**

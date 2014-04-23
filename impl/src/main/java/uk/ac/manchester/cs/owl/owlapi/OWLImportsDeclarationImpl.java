@@ -18,7 +18,6 @@ import java.io.Serializable;
 
 import javax.annotation.Nonnull;
 
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 
@@ -31,6 +30,7 @@ public class OWLImportsDeclarationImpl implements OWLImportsDeclaration,
         Serializable {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final IRI iri;
 
     /**
@@ -64,7 +64,7 @@ public class OWLImportsDeclarationImpl implements OWLImportsDeclaration,
     }
 
     @Override
-    public int compareTo(@Nonnull OWLImportsDeclaration o) {
+    public int compareTo(OWLImportsDeclaration o) {
         return iri.compareTo(o.getIRI());
     }
 

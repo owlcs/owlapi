@@ -94,7 +94,7 @@ public interface OWLDataFactoryInternals {
      */
     @Nonnull
     OWLLiteral getOWLLiteral(@Nonnull String lexicalValue,
-            @Nullable OWLDatatype datatype);
+            @Nonnull OWLDatatype datatype);
 
     /**
      * @param value
@@ -134,7 +134,7 @@ public interface OWLDataFactoryInternals {
      * @return new literal
      */
     @Nonnull
-    OWLLiteral getOWLLiteral(String value);
+    OWLLiteral getOWLLiteral(@Nonnull String value);
 
     /**
      * @param literal

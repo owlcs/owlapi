@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
 
-
 import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -46,6 +45,7 @@ public class OWLObjectPropertyImpl extends OWLObjectPropertyExpressionImpl
         implements OWLObjectProperty {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final IRI iri;
     private final boolean builtin;
 

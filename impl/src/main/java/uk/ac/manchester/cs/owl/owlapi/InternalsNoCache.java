@@ -34,19 +34,27 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
 public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private static final OWLDatatype PLAIN = new OWL2DatatypeImpl(
             RDF_PLAIN_LITERAL);
+    @Nonnull
     private static final OWLDatatype XSDBOOLEAN = new OWL2DatatypeImpl(
             XSD_BOOLEAN);
+    @Nonnull
     private static final OWLDatatype XSDDOUBLE = new OWL2DatatypeImpl(
             XSD_DOUBLE);
+    @Nonnull
     private static final OWLDatatype XSDFLOAT = new OWL2DatatypeImpl(XSD_FLOAT);
+    @Nonnull
     private static final OWLDatatype XSDINTEGER = new OWL2DatatypeImpl(
             XSD_INTEGER);
+    @Nonnull
     private static final OWLDatatype RDFSLITERAL = new OWL2DatatypeImpl(
             RDFS_LITERAL);
+    @Nonnull
     private static final OWLLiteral trueLiteral = new OWLLiteralImplBoolean(
             true, XSDBOOLEAN);
+    @Nonnull
     private static final OWLLiteral falseLiteral = new OWLLiteralImplBoolean(
             false, XSDBOOLEAN);
     @Nullable
@@ -100,7 +108,7 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
     }
 
     @Override
-    public OWLLiteral getOWLLiteral(String value) {
+    public OWLLiteral getOWLLiteral(@Nonnull String value) {
         if (useCompression) {
             return new OWLLiteralImpl(value, "",
                     getOWLDatatype(XSDVocabulary.STRING.getIRI()));
@@ -139,7 +147,8 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
     }
 
     @Override
-    public OWLLiteral getOWLLiteral(String lexicalValue, OWLDatatype datatype) {
+    public OWLLiteral getOWLLiteral(@Nonnull String lexicalValue,
+            @Nonnull OWLDatatype datatype) {
         OWLLiteral literal;
         if (datatype.isRDFPlainLiteral()) {
             int sep = lexicalValue.lastIndexOf('@');

@@ -20,6 +20,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -47,9 +48,9 @@ public class MapPointer<K, V extends OWLAxiom> implements Serializable {
 
     private static final long serialVersionUID = 40000L;
     private final Multimap<K, V> map;
-    @Nonnull
+    @Nullable
     private final AxiomType<?> type;
-    @Nonnull
+    @Nullable
     private final OWLAxiomVisitorEx<?> visitor;
     private boolean initialized;
     @Nonnull
@@ -65,8 +66,9 @@ public class MapPointer<K, V extends OWLAxiom> implements Serializable {
      * @param i
      *        internals containing this pointer
      */
-    public MapPointer(@Nonnull AxiomType<?> t, @Nonnull OWLAxiomVisitorEx<?> v,
-            boolean initialized, @Nonnull Internals i) {
+    public MapPointer(@Nullable AxiomType<?> t,
+            @Nullable OWLAxiomVisitorEx<?> v, boolean initialized,
+            @Nonnull Internals i) {
         type = t;
         visitor = v;
         map = LinkedHashMultimap.create();
@@ -93,6 +95,7 @@ public class MapPointer<K, V extends OWLAxiom> implements Serializable {
         if (visitor == null) {
             return this;
         }
+        assert visitor != null;
         if (visitor instanceof InitVisitor) {
             for (V ax : (Set<V>) i.getAxiomsByType().getValues(type)) {
                 K key = ax.accept((InitVisitor<K>) visitor);

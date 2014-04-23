@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
 
-
 import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitorEx;
@@ -36,6 +35,7 @@ public class OWLObjectHasSelfImpl extends OWLRestrictionImpl implements
         OWLObjectHasSelf {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final OWLObjectPropertyExpression property;
 
     @Override

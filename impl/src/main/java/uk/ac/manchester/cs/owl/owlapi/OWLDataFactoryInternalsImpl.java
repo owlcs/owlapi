@@ -145,7 +145,7 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
 
             @Nonnull
             @Override
-            OWLClass build(IRI iri) {
+            OWLClass build(@Nonnull IRI iri) {
                 return new OWLClassImpl(iri);
             }
         },
@@ -169,7 +169,7 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
 
             @Nonnull
             @Override
-            OWLNamedIndividual build(IRI iri) {
+            OWLNamedIndividual build(@Nonnull IRI iri) {
                 return new OWLNamedIndividualImpl(iri);
             }
         },
@@ -185,13 +185,13 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
 
             @Nonnull
             @Override
-            OWLAnnotationProperty build(IRI iri) {
+            OWLAnnotationProperty build(@Nonnull IRI iri) {
                 return new OWLAnnotationPropertyImpl(iri);
             }
         };
 
         @Nonnull
-        abstract <K extends OWLEntity> K build(IRI iri);
+        abstract <K extends OWLEntity> K build(@Nonnull IRI iri);
     }
 
     @Nonnull

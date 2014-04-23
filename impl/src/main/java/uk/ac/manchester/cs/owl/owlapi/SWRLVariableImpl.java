@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
 
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
@@ -34,6 +33,7 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 public class SWRLVariableImpl extends OWLObjectImpl implements SWRLVariable {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final IRI iri;
 
     @Override

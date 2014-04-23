@@ -92,7 +92,7 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
     }
 
     @Override
-    public OWLAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+    public OWLAxiom getAnnotatedAxiom(@Nonnull Set<OWLAnnotation> annotations) {
         return new SWRLRuleImpl(getBody(), getHead(), annotations);
     }
 
@@ -102,8 +102,8 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
      * @param head
      *        rule head
      */
-    public SWRLRuleImpl(Set<? extends SWRLAtom> body,
-            Set<? extends SWRLAtom> head) {
+    public SWRLRuleImpl(@Nonnull Set<? extends SWRLAtom> body,
+            @Nonnull Set<? extends SWRLAtom> head) {
         this(body, head, Collections.<OWLAnnotation> emptyList());
     }
 
@@ -249,6 +249,7 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
         return diff;
     }
 
+    @Nonnull
     protected final AtomSimplifier ATOM_SIMPLIFIER = new AtomSimplifier();
 
     protected class AtomSimplifier implements SWRLObjectVisitorEx<SWRLObject> {

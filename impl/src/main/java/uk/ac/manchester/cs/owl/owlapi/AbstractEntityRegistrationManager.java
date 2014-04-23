@@ -14,7 +14,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
@@ -78,7 +77,6 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
-import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
@@ -102,11 +100,11 @@ import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
 import org.semanticweb.owlapi.model.SWRLObjectVisitor;
 import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
-import org.semanticweb.owlapi.model.SWRLVariable;
+import org.semanticweb.owlapi.util.OWLObjectVisitorAdapter;
 
 /** base for entity registration manager */
-public abstract class AbstractEntityRegistrationManager implements
-        OWLObjectVisitor, SWRLObjectVisitor {
+public abstract class AbstractEntityRegistrationManager extends
+        OWLObjectVisitorAdapter implements OWLObjectVisitor, SWRLObjectVisitor {
 
     // ////////////////////////////////////////////////////////////////////////////////////////////
     //
@@ -379,11 +377,7 @@ public abstract class AbstractEntityRegistrationManager implements
         processAxiomAnnotations(axiom);
     }
 
-    // //////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //
     // OWLClassExpressionVisitor
-    //
-    // //////////////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
     public void visit(@Nonnull OWLObjectIntersectionOf desc) {
         for (OWLClassExpression operand : desc.getOperands()) {
@@ -569,12 +563,6 @@ public abstract class AbstractEntityRegistrationManager implements
     }
 
     @Override
-    public void visit(IRI iri) {}
-
-    @Override
-    public void visit(OWLOntology ontology) {}
-
-    @Override
     public void visit(@Nonnull OWLAnnotationPropertyDomainAxiom axiom) {
         axiom.getProperty().accept(this);
         processAxiomAnnotations(axiom);
@@ -648,9 +636,6 @@ public abstract class AbstractEntityRegistrationManager implements
             obj.accept(this);
         }
     }
-
-    @Override
-    public void visit(SWRLVariable node) {}
 
     @Override
     public void visit(@Nonnull SWRLIndividualArgument node) {

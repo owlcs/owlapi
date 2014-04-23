@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
 
-
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
@@ -35,6 +34,7 @@ public class SWRLIndividualArgumentImpl extends OWLObjectImpl implements
         SWRLIndividualArgument {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final OWLIndividual individual;
 
     @Override

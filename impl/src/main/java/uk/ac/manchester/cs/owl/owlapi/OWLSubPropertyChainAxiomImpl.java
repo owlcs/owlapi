@@ -21,7 +21,6 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
@@ -43,6 +42,7 @@ public class OWLSubPropertyChainAxiomImpl extends OWLPropertyAxiomImpl
     private static final long serialVersionUID = 40000L;
     @Nonnull
     private final List<OWLObjectPropertyExpression> propertyChain;
+    @Nonnull
     private final OWLObjectPropertyExpression superProperty;
 
     /**

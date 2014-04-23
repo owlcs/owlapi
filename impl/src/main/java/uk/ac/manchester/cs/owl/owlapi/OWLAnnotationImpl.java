@@ -20,7 +20,6 @@ import java.util.TreeSet;
 
 import javax.annotation.Nonnull;
 
-
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationObjectVisitor;
 import org.semanticweb.owlapi.model.OWLAnnotationObjectVisitorEx;
@@ -41,8 +40,11 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final OWLAnnotationProperty property;
+    @Nonnull
     private final OWLAnnotationValue value;
+    @Nonnull
     private final Set<OWLAnnotation> annotations;
 
     @Override

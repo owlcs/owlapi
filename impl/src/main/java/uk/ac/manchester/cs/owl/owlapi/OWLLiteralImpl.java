@@ -55,8 +55,10 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     private static final long serialVersionUID = 40000L;
     private static final int COMPRESSION_LIMIT = 160;
     private final LiteralWrapper literal;
+    @Nonnull
     private static final OWLDatatype RDF_PLAIN_LITERAL = new OWL2DatatypeImpl(
             OWL2Datatype.RDF_PLAIN_LITERAL);
+    @Nonnull
     private final OWLDatatype datatype;
     private final String lang;
     private final int hashcode;
@@ -292,6 +294,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
             }
         }
 
+        @Nonnull
         String get() {
             if (l != null) {
                 return l;
@@ -300,11 +303,11 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
                 return decompress(bytes);
             } catch (IOException e) {
                 // some problem has happened - cannot recover from this
-                e.printStackTrace();
-                return null;
+                throw new OWLRuntimeException(e);
             }
         }
 
+        @Nonnull
         static byte[] compress(String s) throws IOException {
             ByteArrayOutputStream out = new ByteArrayOutputStream();
             GZIPOutputStream zipout;
@@ -317,6 +320,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
             return out.toByteArray();
         }
 
+        @Nonnull
         static String decompress(byte[] result) throws IOException {
             ByteArrayInputStream in = new ByteArrayInputStream(result);
             GZIPInputStream zipin = new GZIPInputStream(in);

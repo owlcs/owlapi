@@ -15,7 +15,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 import java.util.Collection;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
@@ -42,7 +42,7 @@ public class OWLEntityCollectionContainerCollector extends
         AbstractEntityRegistrationManager {
 
     private Collection<OWLEntity> objects;
-    @Nonnull
+    @Nullable
     private final Collection<OWLAnonymousIndividual> anonymousIndividuals;
     private boolean collectClasses = true;
     private boolean collectObjectProperties = true;

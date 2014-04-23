@@ -23,6 +23,7 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.io.ToStringRenderer;
@@ -51,6 +52,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
 
     private static final long serialVersionUID = 40000L;
     /** a convenience reference for an empty annotation set, saves on typing. */
+    @Nonnull
     protected static final Set<OWLAnnotation> NO_ANNOTATIONS = Collections
             .<OWLAnnotation> emptySet();
     private static final OWLObjectTypeIndexProvider owlObjectTypeIndexProvider = new OWLObjectTypeIndexProvider();
@@ -58,6 +60,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
     @Nullable
     private transient WeakReference<Set<OWLEntity>> signature = null;
     private transient WeakReference<Set<OWLAnonymousIndividual>> anons = null;
+    @Nonnull
     protected static final OWLClass OWL_THING = new OWLClassImpl(
             OWLRDFVocabulary.OWL_THING.getIRI());
 
@@ -81,7 +84,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
     }
 
     @Override
-    public boolean containsEntityInSignature(OWLEntity owlEntity) {
+    public boolean containsEntityInSignature(@Nonnull OWLEntity owlEntity) {
         return getSignature().contains(owlEntity);
     }
 
@@ -188,7 +191,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
         }
     }
 
-    protected abstract int compareObjectOfSameType(OWLObject object);
+    protected abstract int compareObjectOfSameType(@Nonnull OWLObject object);
 
     @Override
     public String toString() {
