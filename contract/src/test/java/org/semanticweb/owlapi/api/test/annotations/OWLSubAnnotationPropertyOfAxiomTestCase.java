@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.api.test.annotations;
 
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
-import java.util.Collections;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -37,6 +36,6 @@ public class OWLSubAnnotationPropertyOfAxiomTestCase extends
         OWLAnnotationProperty subProp = AnnotationProperty(IRI("http://ont.com#myLabel"));
         OWLAnnotationProperty superProp = RDFSLabel();
         OWLAxiom ax = df.getOWLSubAnnotationPropertyOfAxiom(subProp, superProp);
-        return Collections.singleton(ax);
+        return singleton(ax);
     }
 }

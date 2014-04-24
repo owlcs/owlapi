@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.api.test.baseclasses;
 
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -50,8 +49,8 @@ public abstract class AbstractAnnotatedAxiomRoundTrippingTestCase extends
         axioms.add(ax.getAnnotatedAxiom(annos));
         axioms.add(Declaration(prop));
         axioms.add(Declaration(prop2));
-        axioms.add(ax.getAnnotatedAxiom(Collections.singleton(anno1)));
-        axioms.add(ax.getAnnotatedAxiom(Collections.singleton(anno2)));
+        axioms.add(ax.getAnnotatedAxiom(singleton(anno1)));
+        axioms.add(ax.getAnnotatedAxiom(singleton(anno2)));
         // Set<OWLAxiom> declarations = getDeclarationsToAdd(ax);
         // axioms.addAll(declarations);
         return axioms;

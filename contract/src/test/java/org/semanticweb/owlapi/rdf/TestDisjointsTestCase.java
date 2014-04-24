@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.rdf;
 
 import static org.junit.Assert.assertTrue;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -52,10 +51,8 @@ public class TestDisjointsTestCase extends TestBase {
 
     @Before
     public void setUp() {
-        m.setOntologyStorers(Collections
-                .singleton((OWLOntologyStorer) new RDFXMLOntologyStorer()));
-        m.setOntologyParsers(Collections
-                .singleton((OWLParser) new RDFXMLParser()));
+        m.setOntologyStorers(singleton((OWLOntologyStorer) new RDFXMLOntologyStorer()));
+        m.setOntologyParsers(singleton((OWLParser) new RDFXMLParser()));
     }
 
     @Test

@@ -26,7 +26,6 @@ import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -780,8 +779,8 @@ public class Examples extends TestBase {
         SWRLVariable var = factory.getSWRLVariable(IRI.create(ontologyIRI
                 + "#x"));
         SWRLRule rule = factory.getSWRLRule(
-                Collections.singleton(factory.getSWRLClassAtom(clsA, var)),
-                Collections.singleton(factory.getSWRLClassAtom(clsB, var)));
+                singleton(factory.getSWRLClassAtom(clsA, var)),
+                singleton(factory.getSWRLClassAtom(clsB, var)));
         manager.applyChange(new AddAxiom(ontology, rule));
         OWLObjectProperty prop = factory.getOWLObjectProperty(IRI
                 .create(ontologyIRI + "#propA"));
@@ -881,8 +880,7 @@ public class Examples extends TestBase {
         // this case we just want to remove the individuals from the pizza
         // ontology, so pass our reference to the pizza ontology in as a
         // singleton set.
-        OWLEntityRemover remover = new OWLEntityRemover(
-                Collections.singleton(ont));
+        OWLEntityRemover remover = new OWLEntityRemover(singleton(ont));
         // System.out.println("Number of individuals: "
         // + ont.getIndividualsInSignature().size());
         // Loop through each individual that is referenced in the pizza
@@ -1183,7 +1181,7 @@ public class Examples extends TestBase {
         // Pattern for more information on this design pattern, or see
         // http://en.wikipedia.org/wiki/Visitor_pattern)
         RestrictionVisitor restrictionVisitor = new RestrictionVisitor(
-                Collections.singleton(ont));
+                singleton(ont));
         // In this case, restrictions are used as (anonymous) superclasses, so
         // to get the restrictions on margherita pizza we need to obtain the
         // subclass axioms for margherita pizza.
@@ -1419,8 +1417,7 @@ public class Examples extends TestBase {
         OWLOntology ont = loadPizza(man);
         // Create the walker. Pass in the pizza ontology - we need to put it
         // into a set though, so we just create a singleton set in this case.
-        OWLOntologyWalker walker = new OWLOntologyWalker(
-                Collections.singleton(ont));
+        OWLOntologyWalker walker = new OWLOntologyWalker(singleton(ont));
         // Now ask our walker to walk over the ontology. We specify a visitor
         // who gets visited by the various objects as the walker encounters
         // them. We need to create out visitor. This can be any ordinary
@@ -1432,7 +1429,6 @@ public class Examples extends TestBase {
         OWLOntologyWalkerVisitorEx<Object> visitor = new OWLOntologyWalkerVisitorEx<Object>(
                 walker) {
 
-            @Nullable
             @Override
             public Object visit(OWLObjectSomeValuesFrom desc) {
                 // Print out the restriction

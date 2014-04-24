@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.api.test.syntax.rdf;
 
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -49,6 +48,6 @@ public class EquivalentClassesTestCase extends AbstractRendererAndParser {
         classExpressions.add(clsA);
         classExpressions.add(descA);
         OWLAxiom ax = df.getOWLEquivalentClassesAxiom(classExpressions);
-        return Collections.singleton(ax);
+        return singleton(ax);
     }
 }

@@ -17,7 +17,6 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import javax.annotation.Nonnull;
@@ -75,7 +74,7 @@ public class OntologyMutationTestCase extends TestBase {
                         chgs.addAll(changes);
                     }
                 });
-        ont.getOWLOntologyManager().addAxioms(ont, Collections.singleton(ax));
+        ont.getOWLOntologyManager().addAxioms(ont, singleton(ax));
         assertEquals(1, chgs.size());
         assertTrue(chgs.contains(new AddAxiom(ont, ax)));
     }

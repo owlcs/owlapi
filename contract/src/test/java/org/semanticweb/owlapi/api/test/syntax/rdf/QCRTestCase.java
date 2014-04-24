@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.api.test.syntax.rdf;
 import static org.junit.Assert.assertTrue;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
 
-import java.util.Collections;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -48,7 +47,7 @@ public class QCRTestCase extends AbstractRendererAndParser {
                 .getOWLObjectMinCardinality(3, prop, filler);
         assertTrue(restriction.isQualified());
         OWLAxiom ax = df.getOWLSubClassOfAxiom(clsA, restriction);
-        return Collections.singleton(ax);
+        return singleton(ax);
     }
 
     @Nonnull

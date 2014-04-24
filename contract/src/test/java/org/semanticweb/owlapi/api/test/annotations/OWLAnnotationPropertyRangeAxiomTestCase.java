@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.api.test.annotations;
 
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
-import java.util.Collections;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -37,6 +36,6 @@ public class OWLAnnotationPropertyRangeAxiomTestCase extends
         OWLAnnotationProperty prop = RDFSComment();
         OWLAxiom ax = df.getOWLAnnotationPropertyRangeAxiom(prop,
                 IRI("http://ont.com#A"));
-        return Collections.singleton(ax);
+        return singleton(ax);
     }
 }

@@ -20,6 +20,7 @@ import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -49,7 +50,7 @@ import uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory;
  * @since 2.0.0
  */
 @SuppressWarnings("javadoc")
-public abstract class AbstractRendererAndParserTestCase {
+public abstract class AbstractRendererAndParserTestCase extends TestBase {
 
     private OWLOntologyManager man;
 
@@ -108,7 +109,7 @@ public abstract class AbstractRendererAndParserTestCase {
         // getDataFactory().getOWLOntologyAnnotationAxiom(ontA,
         // getDataFactory().getCommentAnnotation(getClassExpression()));
         // man.applyChange(new AddAxiom(ontA, anno));
-        File tempFile = File.createTempFile("Ontology", ".owlapi");
+        File tempFile = folder.newFile("Ontology.owlapi");
         man.saveOntology(ontA, IRI.create(tempFile.toURI()));
         man.removeOntology(ontA);
         OWLOntology ontB = man.loadOntologyFromOntologyDocument(IRI

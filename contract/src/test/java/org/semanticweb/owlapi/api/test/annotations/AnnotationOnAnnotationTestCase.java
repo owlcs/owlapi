@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.api.test.annotations;
 
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -50,9 +49,9 @@ public class AnnotationOnAnnotationTestCase extends
                 Literal("Outer label"), outerOuterAnnos);
         OWLAnnotation annoInner = df.getOWLAnnotation(
                 AnnotationProperty(getIRI("myLabel")), Literal("Label"),
-                Collections.singleton(annoOuter));
+                singleton(annoOuter));
         OWLAxiom ax = df.getOWLSubClassOfAxiom(Class(getIRI("A")),
-                Class(getIRI("B")), Collections.singleton(annoInner));
+                Class(getIRI("B")), singleton(annoInner));
         axioms.add(ax);
         return axioms;
     }

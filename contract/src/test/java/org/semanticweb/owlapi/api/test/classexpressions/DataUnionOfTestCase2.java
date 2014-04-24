@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.api.test.classexpressions;
 
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
-import java.util.Collections;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -54,6 +53,6 @@ public class DataUnionOfTestCase2 extends AbstractAxiomsRoundTrippingTestCase {
         OWLDataUnionOf union = DataUnionOf(disj1, disj2);
         OWLDataProperty prop = DataProperty(getIRI("prop"));
         OWLDataPropertyRangeAxiom ax = DataPropertyRange(prop, union);
-        return Collections.singleton(ax);
+        return singleton(ax);
     }
 }

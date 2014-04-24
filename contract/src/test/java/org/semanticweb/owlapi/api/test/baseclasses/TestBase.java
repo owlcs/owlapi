@@ -16,6 +16,7 @@ import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import java.net.URL;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -66,9 +67,18 @@ public abstract class TestBase {
     public Timeout timeout = new Timeout(1000000);
     @Nonnull
     protected OWLOntologyLoaderConfiguration config = new OWLOntologyLoaderConfiguration();
+    @Nonnull
     protected OWLDataFactory df = OWLManager.getOWLDataFactory();
+    @Nonnull
     protected OWLOntologyManager m = OWLManager.createOWLOntologyManager();
+    @Nonnull
     protected OWLOntologyManager m1 = OWLManager.createOWLOntologyManager();
+
+    @SuppressWarnings("null")
+    @Nonnull
+    protected <S> Set<S> singleton(S s) {
+        return Collections.singleton(s);
+    }
 
     public boolean equal(@Nonnull OWLOntology ont1, @Nonnull OWLOntology ont2) {
         if (!ont1.isAnonymous() && !ont2.isAnonymous()) {

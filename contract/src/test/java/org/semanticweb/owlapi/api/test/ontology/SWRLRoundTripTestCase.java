@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.api.test.ontology;
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
-import java.util.Collections;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -201,12 +200,12 @@ public class SWRLRoundTripTestCase extends TestBase {
         head.add(df.getSWRLClassAtom(A, X));
         OWLAnnotation ann = df.getOWLAnnotation(df.getRDFSLabel(),
                 df.getOWLLiteral("test", ""));
-        SWRLRule rule = df.getSWRLRule(body, head, Collections.singleton(ann));
+        SWRLRule rule = df.getSWRLRule(body, head, singleton(ann));
         ontology.getOWLOntologyManager().addAxiom(ontology, rule);
         OWLDatatypeDefinitionAxiom def = df.getOWLDatatypeDefinitionAxiom(
                 df.getOWLDatatype(IRI.create("urn:mydatatype")),
                 df.getOWLDatatypeMaxExclusiveRestriction(200D),
-                Collections.singleton(df.getOWLAnnotation(df.getRDFSLabel(),
+                singleton(df.getOWLAnnotation(df.getRDFSLabel(),
                         df.getOWLLiteral("datatype definition"))));
         ontology.getOWLOntologyManager().addAxiom(ontology, def);
         return ontology;
@@ -218,7 +217,7 @@ public class SWRLRoundTripTestCase extends TestBase {
         OWLDatatypeDefinitionAxiom def = df.getOWLDatatypeDefinitionAxiom(
                 df.getOWLDatatype(IRI.create("urn:mydatatype")),
                 df.getOWLDatatypeMaxExclusiveRestriction(200D),
-                Collections.singleton(df.getOWLAnnotation(df.getRDFSLabel(),
+                singleton(df.getOWLAnnotation(df.getRDFSLabel(),
                         df.getOWLLiteral("datatype definition"))));
         ontology.getOWLOntologyManager().addAxiom(ontology, def);
         return ontology;
@@ -253,7 +252,7 @@ public class SWRLRoundTripTestCase extends TestBase {
         OWLDatatypeDefinitionAxiom def = df.getOWLDatatypeDefinitionAxiom(
                 df.getOWLDatatype(IRI.create("urn:mydatatype")),
                 df.getDoubleOWLDatatype(),
-                Collections.singleton(df.getOWLAnnotation(df.getRDFSLabel(),
+                singleton(df.getOWLAnnotation(df.getRDFSLabel(),
                         df.getOWLLiteral("datatype definition", ""))));
         assertTrue(o.getAxioms().contains(def));
     }
@@ -281,7 +280,7 @@ public class SWRLRoundTripTestCase extends TestBase {
         OWLSubClassOfAxiom def = df.getOWLSubClassOfAxiom(
                 df.getOWLClass(IRI.create("urn:myClass")),
                 df.getOWLClass(IRI.create("urn:test")),
-                Collections.singleton(df.getOWLAnnotation(df.getRDFSLabel(),
+                singleton(df.getOWLAnnotation(df.getRDFSLabel(),
                         df.getOWLLiteral("datatype definition", ""))));
         assertTrue(o.getAxioms().contains(def));
     }

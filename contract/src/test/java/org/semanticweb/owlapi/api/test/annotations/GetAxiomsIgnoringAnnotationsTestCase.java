@@ -16,8 +16,6 @@ import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 
-import java.util.Collections;
-
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -40,7 +38,7 @@ public class GetAxiomsIgnoringAnnotationsTestCase extends TestBase {
         OWLAnnotationProperty annoProp = AnnotationProperty(getIRI("annoProp"));
         OWLAnnotation anno = df.getOWLAnnotation(annoProp, annoLiteral);
         OWLAxiom axiom = df.getOWLSubClassOfAxiom(Class(getIRI("A")),
-                Class(getIRI("B")), Collections.singleton(anno));
+                Class(getIRI("B")), singleton(anno));
         OWLOntology ont = getOWLOntology("testont");
         ont.getOWLOntologyManager().addAxiom(ont, axiom);
         assertTrue(ont.getAxiomsIgnoreAnnotations(axiom, EXCLUDED).contains(

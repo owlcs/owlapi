@@ -210,8 +210,7 @@ public class OWL2DatatypeImplTestCase extends TestBase {
     @Test
     public void getSignature() {
         assertNotNull(plainLiteral.getSignature());
-        assertEquals(plainLiteral.getSignature(),
-                Collections.singleton(plainLiteral));
+        assertEquals(plainLiteral.getSignature(), singleton(plainLiteral));
     }
 
     @Test

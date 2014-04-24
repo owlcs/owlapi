@@ -16,9 +16,6 @@ import static org.junit.Assert.assertTrue;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 
-import java.util.Collections;
-import java.util.Set;
-
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
@@ -57,9 +54,8 @@ public class AnnotationPropertyReferencesTestCase extends TestBase {
         OWLAnnotationProperty ap = AnnotationProperty(getIRI("prop"));
         OWLLiteral val = Literal("Test", "");
         OWLAnnotation anno = df.getOWLAnnotation(ap, val);
-        Set<OWLAnnotation> annos = Collections.singleton(anno);
         OWLSubClassOfAxiom ax = df.getOWLSubClassOfAxiom(Class(getIRI("A")),
-                Class(getIRI("B")), annos);
+                Class(getIRI("B")), singleton(anno));
         OWLOntology ont = getOWLOntology("Ont");
         ont.getOWLOntologyManager().addAxiom(ont, ax);
         assertTrue(ont.containsAnnotationPropertyInSignature(anno.getProperty()

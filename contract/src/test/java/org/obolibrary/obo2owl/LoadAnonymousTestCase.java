@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,6 +14,7 @@ import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
@@ -95,6 +95,8 @@ public class LoadAnonymousTestCase extends TestBase {
         OWLAnnotationProperty id = AnnotationProperty(IRI("http://www.geneontology.org/formats/oboInOwl#id"));
         OWLAnnotationProperty abnormal_slim = AnnotationProperty(IRI("http://purl.obolibrary.org/obo/uo#abnormal_slim"));
         OWLAnnotationProperty scalar_slim = AnnotationProperty(IRI("http://purl.obolibrary.org/obo/uo#scalar_slim"));
+        OWLLiteral literal = Literal("Wikipedia:Wikipedia",
+                OWL2Datatype.XSD_STRING);
         Set<OWLAxiom> expected = new HashSet<OWLAxiom>(
                 Arrays.asList(
                         Declaration(date),
@@ -269,19 +271,13 @@ public class LoadAnonymousTestCase extends TestBase {
                                 UO_0.getIRI(),
                                 Literal("A unit of measurement is a standardized quantity of a physical quality.",
                                         OWL2Datatype.XSD_STRING),
-                                Collections.singleton(Annotation(
-                                        hasDbXref,
-                                        Literal("Wikipedia:Wikipedia",
-                                                OWL2Datatype.XSD_STRING)))),
+                                singleton(Annotation(hasDbXref, literal))),
                         df.getOWLAnnotationAssertionAxiom(
                                 IAO_0000115,
                                 UO_1.getIRI(),
                                 Literal("A unit which is a standard measure of the distance between two points.",
                                         OWL2Datatype.XSD_STRING),
-                                Collections.singleton(Annotation(
-                                        hasDbXref,
-                                        Literal("Wikipedia:Wikipedia",
-                                                OWL2Datatype.XSD_STRING))))));
+                                singleton(Annotation(hasDbXref, literal)))));
         assertEquals(expected, ontology.getAxioms());
     }
 }
