@@ -594,7 +594,7 @@ public class Searcher {
      */
     @Nonnull
     public static <C extends OWLObject> C domain(@Nonnull OWLAxiom axiom) {
-        return axiom.accept(new DomainRangeVisitor<C>(false));
+        return axiom.accept(new DomainVisitor<C>());
     }
 
     /**
@@ -650,7 +650,7 @@ public class Searcher {
      */
     @Nonnull
     public static <C extends OWLObject> C range(@Nonnull OWLAxiom axiom) {
-        return axiom.accept(new DomainRangeVisitor<C>(true));
+        return axiom.accept(new RangeVisitor<C>());
     }
 
     /**
