@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.api.test.syntax.rdf;
 
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.IRI;
 
 /**
@@ -26,6 +28,7 @@ public class TestUtils {
 
     private static int uriCounter = 0;
 
+    @Nonnull
     public static IRI createIRI() {
         uriCounter++;
         return IRI("http://org.semanticweb.owlapi/tests#", "uri" + uriCounter);

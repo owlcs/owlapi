@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -26,7 +25,6 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.IRI;
@@ -62,16 +60,25 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
 
     private static final Logger LOGGER = LoggerFactory
             .getLogger(BlackBoxOWLDebugger.class);
-    @Nullable
+    @Nonnull
     private OWLClass currentClass;
+    @Nonnull
     private OWLOntology debuggingOntology;
+    @Nonnull
     private final Set<OWLAxiom> debuggingAxioms = new LinkedHashSet<OWLAxiom>();
+    @Nonnull
     private final Set<OWLEntity> objectsExpandedWithDefiningAxioms = new HashSet<OWLEntity>();
+    @Nonnull
     private final Set<OWLEntity> objectsExpandedWithReferencingAxioms = new HashSet<OWLEntity>();
+    @Nonnull
     private final Set<OWLAxiom> expandedWithDefiningAxioms = new HashSet<OWLAxiom>();
+    @Nonnull
     private final Set<OWLAxiom> expandedWithReferencingAxioms = new HashSet<OWLAxiom>();
+    @Nonnull
     private final OWLReasonerFactory reasonerFactory;
+    @Nonnull
     private final Set<OWLAxiom> temporaryAxioms = new HashSet<OWLAxiom>();
+    @Nonnull
     private final Map<OWLAxiom, OWLAxiom> expandedAxiomMap = new HashMap<OWLAxiom, OWLAxiom>();
     private static final int DEFAULT_INITIAL_EXPANSION_LIMIT = 50;
     private int initialExpansionLimit = DEFAULT_INITIAL_EXPANSION_LIMIT;
@@ -143,8 +150,8 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
             temporaryAxioms.add(owlOntologyManager.getOWLDataFactory()
                     .getOWLEquivalentClassesAxiom(operands));
             for (OWLAxiom ax : temporaryAxioms) {
-                owlOntologyManager.applyChanges(Arrays.asList(new AddAxiom(
-                        getOWLOntology(), ax)));
+                owlOntologyManager.applyChange(new AddAxiom(getOWLOntology(),
+                        ax));
             }
             return curCls;
         }
@@ -157,8 +164,8 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
         currentClass = setupDebuggingClass(cls);
         generateSOSAxioms();
         for (OWLAxiom ax : temporaryAxioms) {
-            owlOntologyManager.applyChanges(Arrays.asList(new RemoveAxiom(
-                    getOWLOntology(), ax)));
+            owlOntologyManager
+                    .applyChange(new RemoveAxiom(getOWLOntology(), ax));
         }
         debuggingAxioms.removeAll(temporaryAxioms);
         return new HashSet<OWLAxiom>(debuggingAxioms);
@@ -494,6 +501,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
 
     private static final AtomicLong counter = new AtomicLong(System.nanoTime());
 
+    @Nonnull
     private static IRI createIRI() {
         return IRI.create("http://debugging.blackbox#",
                 "A" + counter.incrementAndGet());

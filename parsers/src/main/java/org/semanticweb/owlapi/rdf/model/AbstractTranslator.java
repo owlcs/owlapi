@@ -162,15 +162,17 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
      * @param property
      *        property
      */
-    private void addRestrictionCommonTriplePropertyRange(OWLRestriction desc,
-            OWLPropertyExpression property) {
+    private void addRestrictionCommonTriplePropertyRange(
+            @Nonnull OWLRestriction desc,
+            @Nonnull OWLPropertyExpression property) {
         translateAnonymousNode(desc);
         addTriple(desc, RDF_TYPE.getIRI(), OWL_RESTRICTION.getIRI());
         addTriple(desc, OWL_ON_PROPERTY.getIRI(), property);
     }
 
     private void addRestrictionCommonTriplePropertyExpression(
-            OWLRestriction desc, OWLPropertyExpression property) {
+            @Nonnull OWLRestriction desc,
+            @Nonnull OWLPropertyExpression property) {
         translateAnonymousNode(desc);
         addTriple(desc, RDF_TYPE.getIRI(), OWL_RESTRICTION.getIRI());
         addTriple(desc, OWL_ON_PROPERTY.getIRI(), property);
@@ -1051,6 +1053,7 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
                 translateList(new ArrayList<OWLObject>(objects), listType));
     }
 
+    @Nonnull
     private OWLLiteral toTypedConstant(int i) {
         return manager.getOWLDataFactory().getOWLLiteral(
                 Integer.toString(i),
@@ -1160,6 +1163,7 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
     }
 
     /** Visits entities and returns their RDF type. */
+    @SuppressWarnings("unused")
     private static class OWLEntityTypeProvider implements
             OWLEntityVisitorEx<IRI> {
 

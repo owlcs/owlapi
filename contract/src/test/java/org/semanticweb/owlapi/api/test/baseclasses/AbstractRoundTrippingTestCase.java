@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.api.test.baseclasses;
 
 import java.net.URISyntaxException;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormat;
@@ -33,8 +35,10 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 @SuppressWarnings("javadoc")
 public abstract class AbstractRoundTrippingTestCase extends TestBase {
 
+    @Nonnull
     private OWLOntology ont;
 
+    @Nonnull
     protected abstract OWLOntology createOntology()
             throws OWLOntologyCreationException, URISyntaxException;
 

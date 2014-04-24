@@ -218,6 +218,7 @@ public abstract class TestBase {
         }
     }
 
+    @Nonnull
     public IRI getIRI(String name) {
         return IRI(uriBase + "#" + name);
     }

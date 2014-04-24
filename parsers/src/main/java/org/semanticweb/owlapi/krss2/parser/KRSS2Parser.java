@@ -39,7 +39,7 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-@SuppressWarnings("unused")
+@SuppressWarnings("all")
 class KRSS2Parser implements KRSS2ParserConstants {
 
     private OWLOntology ontology;
