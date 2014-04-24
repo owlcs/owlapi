@@ -40,5 +40,6 @@ public interface OWLAnnotationValue extends OWLAnnotationObject, OWLPrimitive {
      *        visitor return type
      * @return visitor value
      */
+    @Nonnull
     <O> O accept(@Nonnull OWLAnnotationValueVisitorEx<O> visitor);
 }

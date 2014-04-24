@@ -47,6 +47,7 @@ import org.semanticweb.owlapi.model.OWLIndividualAxiom;
 import org.semanticweb.owlapi.model.OWLLogicalAxiom;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLNamedObjectVisitor;
+import org.semanticweb.owlapi.model.OWLNamedObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAxiom;
@@ -721,6 +722,11 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     @Override
     public void accept(@Nonnull OWLNamedObjectVisitor visitor) {
         visitor.visit(this);
+    }
+
+    @Override
+    public <O> O accept(OWLNamedObjectVisitorEx<O> visitor) {
+        return visitor.visit(this);
     }
 
     @Override

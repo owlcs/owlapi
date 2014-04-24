@@ -50,6 +50,18 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
     void accept(@Nonnull OWLNamedObjectVisitor visitor);
 
     /**
+     * Accepts a visitor
+     * 
+     * @param <O>
+     *        visitor return type
+     * @param visitor
+     *        The visitor
+     * @return visitor return value
+     */
+    @Nonnull
+    <O> O accept(@Nonnull OWLNamedObjectVisitorEx<O> visitor);
+
+    /**
      * Gets the manager that created this ontology. The manager is used by
      * various methods on OWLOntology to resolve imports
      * 

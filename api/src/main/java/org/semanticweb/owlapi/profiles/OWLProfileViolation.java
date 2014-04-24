@@ -113,6 +113,7 @@ public abstract class OWLProfileViolation<T> {
      *        visitor return type
      * @return visitor return value
      */
+    @Nonnull
     public abstract <O> O accept(
             @Nonnull OWLProfileViolationVisitorEx<O> visitor);
 

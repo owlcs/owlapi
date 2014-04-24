@@ -40,4 +40,16 @@ public interface OWLNamedObject extends OWLObject, HasIRI {
      *        The visitor
      */
     void accept(@Nonnull OWLNamedObjectVisitor visitor);
+
+    /**
+     * Accepts a visitor
+     * 
+     * @param <O>
+     *        visitor return type
+     * @param visitor
+     *        The visitor
+     * @return visitor return value
+     */
+    @Nonnull
+    <O> O accept(@Nonnull OWLNamedObjectVisitorEx<O> visitor);
 }

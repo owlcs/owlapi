@@ -26,6 +26,7 @@ import org.semanticweb.owlapi.model.OWLEntityVisitor;
 import org.semanticweb.owlapi.model.OWLEntityVisitorEx;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLNamedObjectVisitor;
+import org.semanticweb.owlapi.model.OWLNamedObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
@@ -130,6 +131,11 @@ public class OWLObjectPropertyImpl extends OWLObjectPropertyExpressionImpl
     @Override
     public void accept(OWLNamedObjectVisitor visitor) {
         visitor.visit(this);
+    }
+
+    @Override
+    public <O> O accept(OWLNamedObjectVisitorEx<O> visitor) {
+        return visitor.visit(this);
     }
 
     @Override
