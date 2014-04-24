@@ -82,6 +82,7 @@ import org.semanticweb.owlapi.util.EscapeUtils;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
+@SuppressWarnings("all")
 class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
 
     private OWLOntologyLoaderConfiguration configuration;
@@ -154,6 +155,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         prefixMap.putAll(nsm.getPrefixName2PrefixMap());
     }
 
+    @Nonnull
     OWLFunctionalSyntaxOntologyFormat parse() {
         label_1: while (true) {
             if (jj_2_1(2)) {} else {

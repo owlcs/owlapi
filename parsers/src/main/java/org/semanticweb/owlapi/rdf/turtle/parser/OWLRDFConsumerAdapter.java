@@ -40,19 +40,23 @@ public class OWLRDFConsumerAdapter extends OWLRDFConsumer implements
         super(ontology, configuration);
     }
 
+    @SuppressWarnings("unused")
     @Override
     public void handlePrefixDirective(String prefixName, String prefix) {}
 
+    @SuppressWarnings("unused")
     @Override
     public void handleBaseDirective(IRI base) {
         // setXMLBase(base);
     }
 
+    @SuppressWarnings("unused")
     @Override
     public void handleComment(String comment) {}
 
     @Override
-    public void handleTriple(IRI subject, IRI predicate, IRI object) {
+    public void handleTriple(@Nonnull IRI subject, @Nonnull IRI predicate,
+            @Nonnull IRI object) {
         // XXX inefficient?
         statementWithResourceValue(subject, predicate, object);
     }

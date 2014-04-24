@@ -30,6 +30,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.vocab.Namespaces;
 
+@SuppressWarnings("all")
 class KRSSParser implements KRSSParserConstants {
 
     private OWLOntology ontology;

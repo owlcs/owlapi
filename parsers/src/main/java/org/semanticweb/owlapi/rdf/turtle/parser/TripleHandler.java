@@ -12,6 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.rdf.turtle.parser;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.IRI;
 
 /**
@@ -59,7 +62,8 @@ public interface TripleHandler {
      * @param object
      *        the object
      */
-    void handleTriple(IRI subject, IRI predicate, IRI object);
+    void handleTriple(@Nonnull IRI subject, @Nonnull IRI predicate,
+            @Nonnull IRI object);
 
     /**
      * Handle triple.
@@ -71,7 +75,8 @@ public interface TripleHandler {
      * @param object
      *        the object
      */
-    void handleTriple(IRI subject, IRI predicate, String object);
+    void handleTriple(@Nonnull IRI subject, @Nonnull IRI predicate,
+            @Nonnull String object);
 
     /**
      * Handle triple.
@@ -85,7 +90,8 @@ public interface TripleHandler {
      * @param lang
      *        the lang
      */
-    void handleTriple(IRI subject, IRI predicate, String object, String lang);
+    void handleTriple(@Nonnull IRI subject, @Nonnull IRI predicate,
+            @Nonnull String object, @Nullable String lang);
 
     /**
      * Handle triple.
@@ -99,7 +105,8 @@ public interface TripleHandler {
      * @param datatype
      *        the datatype
      */
-    void handleTriple(IRI subject, IRI predicate, String object, IRI datatype);
+    void handleTriple(@Nonnull IRI subject, @Nonnull IRI predicate,
+            @Nonnull String object, @Nullable IRI datatype);
 
     /** Handle end. */
     void handleEnd();
