@@ -154,6 +154,7 @@ public abstract class OWLOntologyChange<T> implements HasSignature {
      *        visitor return type
      * @return visitor value
      */
+    @Nonnull
     public abstract <O> O
             accept(@Nonnull OWLOntologyChangeVisitorEx<O> visitor);
 }

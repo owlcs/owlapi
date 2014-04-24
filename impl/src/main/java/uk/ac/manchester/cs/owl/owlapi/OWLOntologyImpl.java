@@ -12,12 +12,13 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static org.semanticweb.owlapi.model.parameters.ChangeApplied.*;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.AddImport;
@@ -31,6 +32,7 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
 import org.semanticweb.owlapi.model.RemoveImport;
 import org.semanticweb.owlapi.model.RemoveOntologyAnnotation;
 import org.semanticweb.owlapi.model.SetOntologyID;
+import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -54,9 +56,8 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements
     }
 
     @Override
-    public <T> OWLOntologyChange<T> applyChange(
-            @Nonnull OWLOntologyChange<T> change) {
-        OWLOntologyChangeFilter<OWLOntologyChange<T>> changeFilter = new OWLOntologyChangeFilter<OWLOntologyChange<T>>();
+    public <T> ChangeApplied applyChange(@Nonnull OWLOntologyChange<T> change) {
+        OWLOntologyChangeFilter changeFilter = new OWLOntologyChangeFilter();
         return change.accept(changeFilter);
     }
 
@@ -65,86 +66,77 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements
     public List<OWLOntologyChange<?>> applyChanges(
             @Nonnull List<? extends OWLOntologyChange<?>> changes) {
         List<OWLOntologyChange<?>> appliedChanges = new ArrayList<OWLOntologyChange<?>>();
-        OWLOntologyChangeFilter<OWLOntologyChange<?>> changeFilter = new OWLOntologyChangeFilter<OWLOntologyChange<?>>();
+        OWLOntologyChangeFilter changeFilter = new OWLOntologyChangeFilter();
         for (OWLOntologyChange<?> change : changes) {
-            OWLOntologyChange<?> applied = change.accept(changeFilter);
-            if (applied != null) {
-                appliedChanges.add(applied);
+            if (change.accept(changeFilter) == SUCCESSFULLY) {
+                appliedChanges.add(change);
             }
         }
         return appliedChanges;
     }
 
-    @SuppressWarnings("unchecked")
-    protected class OWLOntologyChangeFilter<T extends OWLOntologyChange<?>>
-            implements OWLOntologyChangeVisitorEx<T>, Serializable {
+    protected class OWLOntologyChangeFilter implements
+            OWLOntologyChangeVisitorEx<ChangeApplied>, Serializable {
 
         private static final long serialVersionUID = 40000L;
 
-        @Nullable
         @Override
-        public T visit(@Nonnull RemoveAxiom change) {
+        public ChangeApplied visit(@Nonnull RemoveAxiom change) {
             if (ints.removeAxiom(change.getAxiom())) {
-                return (T) change;
+                return SUCCESSFULLY;
             }
-            return null;
+            return UNSUCCESSFULLY;
         }
 
-        @Nullable
         @Override
-        public T visit(@Nonnull SetOntologyID change) {
+        public ChangeApplied visit(@Nonnull SetOntologyID change) {
             OWLOntologyID id = change.getNewOntologyID();
             if (!id.equals(ontologyID)) {
                 ontologyID = id;
-                return (T) change;
+                return SUCCESSFULLY;
             }
-            return null;
+            return UNSUCCESSFULLY;
         }
 
-        @Nullable
         @Override
-        public T visit(@Nonnull AddAxiom change) {
+        public ChangeApplied visit(@Nonnull AddAxiom change) {
             if (ints.addAxiom(change.getAxiom())) {
-                return (T) change;
+                return SUCCESSFULLY;
             }
-            return null;
+            return UNSUCCESSFULLY;
         }
 
-        @Nullable
         @Override
-        public T visit(@Nonnull AddImport change) {
+        public ChangeApplied visit(@Nonnull AddImport change) {
             // TODO change this to be done inside
             if (ints.addImportsDeclaration(change.getImportDeclaration())) {
-                return (T) change;
+                return SUCCESSFULLY;
             }
-            return null;
+            return UNSUCCESSFULLY;
         }
 
-        @Nullable
         @Override
-        public T visit(@Nonnull RemoveImport change) {
+        public ChangeApplied visit(@Nonnull RemoveImport change) {
             if (ints.removeImportsDeclaration(change.getImportDeclaration())) {
-                return (T) change;
+                return SUCCESSFULLY;
             }
-            return null;
+            return UNSUCCESSFULLY;
         }
 
-        @Nullable
         @Override
-        public T visit(@Nonnull AddOntologyAnnotation change) {
+        public ChangeApplied visit(@Nonnull AddOntologyAnnotation change) {
             if (ints.addOntologyAnnotation(change.getAnnotation())) {
-                return (T) change;
+                return SUCCESSFULLY;
             }
-            return null;
+            return UNSUCCESSFULLY;
         }
 
-        @Nullable
         @Override
-        public T visit(@Nonnull RemoveOntologyAnnotation change) {
+        public ChangeApplied visit(@Nonnull RemoveOntologyAnnotation change) {
             if (ints.removeOntologyAnnotation(change.getAnnotation())) {
-                return (T) change;
+                return SUCCESSFULLY;
             }
-            return null;
+            return UNSUCCESSFULLY;
         }
     }
 }

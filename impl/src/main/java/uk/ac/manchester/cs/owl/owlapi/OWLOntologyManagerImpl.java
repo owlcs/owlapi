@@ -89,6 +89,7 @@ import org.semanticweb.owlapi.model.RemoveImport;
 import org.semanticweb.owlapi.model.SetOntologyID;
 import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
 import org.semanticweb.owlapi.model.UnloadableImportException;
+import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 import org.semanticweb.owlapi.model.parameters.MissingImportHandlingStrategy;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.NonMappingOntologyIRIMapper;
@@ -445,13 +446,13 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
             throw new ImmutableOWLOntologyChangeException(change);
         }
         checkForOntologyIDChange(change);
-        OWLOntologyChange<T> appliedChange = ((OWLMutableOntology) ont)
+        ChangeApplied appliedChange = ((OWLMutableOntology) ont)
                 .applyChange(change);
         checkForImportsChange(change);
-        if (appliedChange == null) {
+        if (appliedChange == ChangeApplied.UNSUCCESSFULLY) {
             return Collections.emptyList();
         }
-        return Collections.singletonList(appliedChange);
+        return Collections.singletonList(change);
     }
 
     @Override

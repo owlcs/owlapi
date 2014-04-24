@@ -50,12 +50,15 @@ public final class OWLOntologyLoaderConfiguration implements Serializable {
     /** true if redirects should be followed across protocols */
     private boolean followRedirects = true;
     /** set of imports to ignore */
+    @Nonnull
     private final Set<IRI> ignoredImports = new HashSet<IRI>();
     /** true if annotations should be loaded, false if skipped */
     private boolean loadAnnotations = true;
     /** missing imports handling strategy */
+    @Nonnull
     private MissingImportHandlingStrategy missingImportHandlingStrategy = MissingImportHandlingStrategy.THROW_EXCEPTION;
     /** default missing ontology strategy. */
+    @Nonnull
     private MissingOntologyHeaderStrategy missingOntologyHeaderStrategy = MissingOntologyHeaderStrategy.INCLUDE_GRAPH;
     /** flag to enable stack traces on parsing exceptions. */
     private boolean reportStackTraces = false;
@@ -231,6 +234,7 @@ public final class OWLOntologyLoaderConfiguration implements Serializable {
      * @return An {@code OWLOntologyLoaderConfiguration} with the ignored
      *         ontology document IRI removed.
      */
+    @Nonnull
     public OWLOntologyLoaderConfiguration removeIgnoredImport(
             IRI ontologyDocumentIRI) {
         OWLOntologyLoaderConfiguration configuration = copyConfiguration();
@@ -244,6 +248,7 @@ public final class OWLOntologyLoaderConfiguration implements Serializable {
      * @return a copy of this configuration with accepting HTTP compression set
      *         to the new value
      */
+    @Nonnull
     public OWLOntologyLoaderConfiguration
             setAcceptingHTTPCompression(boolean b) {
         // do not make copies if setting the same value
@@ -262,6 +267,7 @@ public final class OWLOntologyLoaderConfiguration implements Serializable {
      * @return A {@code OWLOntologyLoaderConfiguration} with the connection
      *         timeout set to the new value.
      */
+    @Nonnull
     public OWLOntologyLoaderConfiguration setConnectionTimeout(int l) {
         if (l == connectionTimeout) {
             return this;
@@ -278,6 +284,7 @@ public final class OWLOntologyLoaderConfiguration implements Serializable {
      * @return a copy of the current object with followRedirects set to the new
      *         value.
      */
+    @Nonnull
     public OWLOntologyLoaderConfiguration setFollowRedirects(boolean value) {
         // as the objects are immutable, setting to the same value returns the
         // same object
@@ -302,6 +309,7 @@ public final class OWLOntologyLoaderConfiguration implements Serializable {
      * @return An {@code OWLOntologyLoaderConfiguration} object with the option
      *         set.
      */
+    @Nonnull
     public OWLOntologyLoaderConfiguration setLoadAnnotationAxioms(boolean b) {
         // do not make copies if setting the same value
         if (loadAnnotations == b) {
@@ -323,8 +331,11 @@ public final class OWLOntologyLoaderConfiguration implements Serializable {
      *         strategy set.
      * @since 3.3
      */
-    public OWLOntologyLoaderConfiguration setMissingImportHandlingStrategy(
-            MissingImportHandlingStrategy missingImportHandlingStrategy) {
+    @Nonnull
+    public
+            OWLOntologyLoaderConfiguration
+            setMissingImportHandlingStrategy(
+                    @Nonnull MissingImportHandlingStrategy missingImportHandlingStrategy) {
         // do not make copies if setting the same value
         if (this.missingImportHandlingStrategy == missingImportHandlingStrategy) {
             return this;
@@ -339,8 +350,11 @@ public final class OWLOntologyLoaderConfiguration implements Serializable {
      *        new value
      * @return a copy of this configuration object with a different strategy
      */
-    public OWLOntologyLoaderConfiguration setMissingOntologyHeaderStrategy(
-            MissingOntologyHeaderStrategy missingOntologyHeaderStrategy) {
+    @Nonnull
+    public
+            OWLOntologyLoaderConfiguration
+            setMissingOntologyHeaderStrategy(
+                    @Nonnull MissingOntologyHeaderStrategy missingOntologyHeaderStrategy) {
         // do not make copies if setting the same value
         if (missingOntologyHeaderStrategy == this.missingOntologyHeaderStrategy) {
             return this;
@@ -360,6 +374,7 @@ public final class OWLOntologyLoaderConfiguration implements Serializable {
      * @return A {@code OWLOntologyLoaderConfiguration} with the report flag set
      *         to the new value.
      */
+    @Nonnull
     public OWLOntologyLoaderConfiguration setReportStackTraces(boolean b) {
         if (b == reportStackTraces) {
             return this;
@@ -374,6 +389,7 @@ public final class OWLOntologyLoaderConfiguration implements Serializable {
      *        new value of retries to attempt
      * @return copy of this configuration with modified retries attempts.
      */
+    @Nonnull
     public OWLOntologyLoaderConfiguration setRetriesToAttempt(int retries) {
         // do not make copies if setting the same value
         if (retries == retriesToAttempt) {
@@ -389,6 +405,7 @@ public final class OWLOntologyLoaderConfiguration implements Serializable {
      *        new value for strict
      * @return copy of the configuration with new strict value
      */
+    @Nonnull
     public OWLOntologyLoaderConfiguration setStrict(boolean strict) {
         // do not make copies if setting the same value
         if (this.strict == strict) {
@@ -405,6 +422,7 @@ public final class OWLOntologyLoaderConfiguration implements Serializable {
      * @return a copy of the current object with treatDublinCoreAsBuiltIn set to
      *         the new value.
      */
+    @Nonnull
     public OWLOntologyLoaderConfiguration setTreatDublinCoreAsBuiltIn(
             boolean value) {
         // as the objects are immutable, setting to the same value returns the

@@ -10,44 +10,20 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.model;
-
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
-import org.semanticweb.owlapi.model.parameters.ChangeApplied;
+package org.semanticweb.owlapi.model.parameters;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
- * @since 2.0.0
+ * An enum for change application success
+ * 
+ * @author ignazio
+ * @since 4.0.0
  */
-public interface OWLMutableOntology extends OWLOntology {
-
+public enum ChangeApplied {
     /**
-     * @param change
-     *        the change to apply
-     * @param <T>
-     *        type class
-     * @return {@link ChangeApplied#SUCCESSFULLY} if the change was applied,
-     *         {@link ChangeApplied#UNSUCCESSFULLY} otherwise
-     * @throws OWLOntologyChangeException
-     *         if errors happen
+     * change applied successfully
      */
-    @Nonnull
-    <T> ChangeApplied applyChange(@Nonnull OWLOntologyChange<T> change)
-            throws OWLOntologyChangeException;
-
-    /**
-     * @param changes
-     *        the changes to apply
-     * @return the list of ontology changes NOT applied
-     * @throws OWLOntologyChangeException
-     *         if errors happen
+    SUCCESSFULLY, /**
+     * chnge not applied
      */
-    @Nonnull
-    List<OWLOntologyChange<?>> applyChanges(
-            @Nonnull List<? extends OWLOntologyChange<?>> changes)
-            throws OWLOntologyChangeException;
+    UNSUCCESSFULLY
 }
