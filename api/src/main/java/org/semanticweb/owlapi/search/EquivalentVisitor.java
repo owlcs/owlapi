@@ -28,6 +28,7 @@ class EquivalentVisitor<C extends OWLObject> extends
         this.equiv = equiv;
     }
 
+    @SuppressWarnings("null")
     @Nonnull
     @Override
     protected Set<C> doDefault(@SuppressWarnings("unused") OWLAxiom axiom) {
@@ -40,7 +41,7 @@ class EquivalentVisitor<C extends OWLObject> extends
         if (equiv) {
             return (Set<C>) axiom.getClassExpressions();
         }
-        return Collections.emptySet();
+        return doDefault(axiom);
     }
 
     @Nonnull
@@ -49,7 +50,7 @@ class EquivalentVisitor<C extends OWLObject> extends
         if (equiv) {
             return (Set<C>) axiom.getProperties();
         }
-        return Collections.emptySet();
+        return doDefault(axiom);
     }
 
     @Nonnull
@@ -58,7 +59,7 @@ class EquivalentVisitor<C extends OWLObject> extends
         if (equiv) {
             return (Set<C>) axiom.getProperties();
         }
-        return Collections.emptySet();
+        return doDefault(axiom);
     }
 
     @Nonnull
@@ -67,7 +68,7 @@ class EquivalentVisitor<C extends OWLObject> extends
         if (!equiv) {
             return (Set<C>) axiom.getIndividuals();
         }
-        return Collections.emptySet();
+        return doDefault(axiom);
     }
 
     @Nonnull
@@ -76,7 +77,7 @@ class EquivalentVisitor<C extends OWLObject> extends
         if (equiv) {
             return (Set<C>) axiom.getIndividuals();
         }
-        return Collections.emptySet();
+        return doDefault(axiom);
     }
 
     @Nonnull
@@ -85,7 +86,7 @@ class EquivalentVisitor<C extends OWLObject> extends
         if (!equiv) {
             return (Set<C>) axiom.getClassExpressions();
         }
-        return Collections.emptySet();
+        return doDefault(axiom);
     }
 
     @Nonnull
@@ -94,7 +95,7 @@ class EquivalentVisitor<C extends OWLObject> extends
         if (!equiv) {
             return (Set<C>) axiom.getProperties();
         }
-        return Collections.emptySet();
+        return doDefault(axiom);
     }
 
     @Nonnull
@@ -103,6 +104,6 @@ class EquivalentVisitor<C extends OWLObject> extends
         if (!equiv) {
             return (Set<C>) axiom.getProperties();
         }
-        return Collections.emptySet();
+        return doDefault(axiom);
     }
 }

@@ -41,6 +41,7 @@ class AnnotationVisitor<C> extends OWLAxiomVisitorExAdapter<Set<C>> {
         return toReturn;
     }
 
+    @SuppressWarnings("null")
     @Nonnull
     @Override
     public Set<C> visit(@Nonnull OWLAnnotationAssertionAxiom axiom) {

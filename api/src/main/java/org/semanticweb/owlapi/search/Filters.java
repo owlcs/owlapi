@@ -53,7 +53,7 @@ public class Filters {
          * @param type
          *        axiom type to filter on
          */
-        @SuppressWarnings({ "unchecked", "rawtypes" })
+        @SuppressWarnings({ "unchecked", "rawtypes", "null" })
         public AxiomFilter(AxiomType<?> type) {
             this.types = (Collection) Collections.singleton(type);
         }
@@ -301,6 +301,7 @@ public class Filters {
             return axiom;
         }
 
+        @SuppressWarnings("unused")
         @Override
         public boolean pass(OWLAxiom axiom, Object key) {
             // for this filter, accept all axioms
@@ -323,7 +324,8 @@ public class Filters {
         }
 
         @Override
-        public boolean pass(@Nonnull OWLAxiom axiom, Object key) {
+        public boolean pass(@Nonnull OWLAxiom axiom,
+                @SuppressWarnings("unused") Object key) {
             // for this filter, only accept the axioms whose types are not in
             // tbox or rbox
             return !AxiomType.TBoxAndRBoxAxiomTypes.contains(axiom
