@@ -102,6 +102,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
          *        a number for an axiom
          * @return the i-th axiom in this set
          */
+        @Nonnull
         public OWLAxiom getAxiom(int i) {
             return ax[i];
         }
@@ -208,11 +209,15 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
     }
 
     /** Type of module. */
+    @Nonnull
     private ModuleType moduleType;
     /** Represents the associated ontology. */
     private final OntologyAxiomSet ontologyAxiomSet;
     /** The ontology. */
-    private final OWLOntology rootOntology, ontology;
+    @Nonnull
+    private final OWLOntology rootOntology;
+    @Nonnull
+    private final OWLOntology ontology;
     /** Represents the manager for the associated ontology. */
     private final OWLOntologyManager manager;
 
@@ -467,55 +472,49 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
         }
         // Adding all entity declaration axioms
         // Adding all entity annotation axioms
-        if (ontology != null) {
-            for (OWLEntity entity : sig) {
-                Set<OWLDeclarationAxiom> declarationAxioms = ontology
-                        .getDeclarationAxioms(entity);
-                enrichedModule.addAll(declarationAxioms);
-                if (verbose) {
-                    for (OWLDeclarationAxiom declarationAxiom : declarationAxioms) {
-                        logger.info("  Added entity declaration axiom:   {}",
-                                minusOntologyURI(declarationAxiom.toString()));
-                    }
+        for (OWLEntity entity : sig) {
+            Set<OWLDeclarationAxiom> declarationAxioms = ontology
+                    .getDeclarationAxioms(entity);
+            enrichedModule.addAll(declarationAxioms);
+            if (verbose) {
+                for (OWLDeclarationAxiom declarationAxiom : declarationAxioms) {
+                    logger.info("  Added entity declaration axiom:   {}",
+                            minusOntologyURI(declarationAxiom.toString()));
                 }
-                Collection<OWLAxiom> axioms = ontology.filterAxioms(
-                        Filters.annotations, entity.getIRI(), INCLUDED);
-                enrichedModule.addAll(axioms);
-                if (verbose) {
-                    for (OWLAxiom axiom : axioms) {
-                        logger.info("  Added entity annotation axiom:   {}",
-                                minusOntologyURI(axiom.toString()));
-                    }
+            }
+            Collection<OWLAxiom> axioms = ontology.filterAxioms(
+                    Filters.annotations, entity.getIRI(), INCLUDED);
+            enrichedModule.addAll(axioms);
+            if (verbose) {
+                for (OWLAxiom axiom : axioms) {
+                    logger.info("  Added entity annotation axiom:   {}",
+                            minusOntologyURI(axiom.toString()));
                 }
             }
         }
         // Adding all same-individuals axioms
         // Adding all different-individuals axioms
-        if (ontology != null) {
-            for (OWLEntity entity : sig) {
-                if (OWLNamedIndividual.class
-                        .isAssignableFrom(entity.getClass())) {
-                    OWLIndividual individual = (OWLIndividual) entity;
-                    Set<OWLSameIndividualAxiom> sameIndividualAxioms = ontology
-                            .getSameIndividualAxioms(individual);
-                    enrichedModule.addAll(sameIndividualAxioms);
-                    if (verbose) {
-                        for (OWLSameIndividualAxiom sameIndividualAxiom : sameIndividualAxioms) {
-                            logger.info("  Added same individual axiom:   {}",
-                                    minusOntologyURI(sameIndividualAxiom
-                                            .toString()));
-                        }
+        for (OWLEntity entity : sig) {
+            if (OWLNamedIndividual.class.isAssignableFrom(entity.getClass())) {
+                OWLIndividual individual = (OWLIndividual) entity;
+                Set<OWLSameIndividualAxiom> sameIndividualAxioms = ontology
+                        .getSameIndividualAxioms(individual);
+                enrichedModule.addAll(sameIndividualAxioms);
+                if (verbose) {
+                    for (OWLSameIndividualAxiom sameIndividualAxiom : sameIndividualAxioms) {
+                        logger.info(
+                                "  Added same individual axiom:   {}",
+                                minusOntologyURI(sameIndividualAxiom.toString()));
                     }
-                    Set<OWLDifferentIndividualsAxiom> differentIndividualAxioms = ontology
-                            .getDifferentIndividualAxioms(individual);
-                    enrichedModule.addAll(differentIndividualAxioms);
-                    if (verbose) {
-                        for (OWLDifferentIndividualsAxiom differentIndividualsAxiom : differentIndividualAxioms) {
-                            logger.info(
-                                    "  Added different individual axiom:   {}",
-                                    minusOntologyURI(differentIndividualsAxiom
-                                            .toString()));
-                        }
+                }
+                Set<OWLDifferentIndividualsAxiom> differentIndividualAxioms = ontology
+                        .getDifferentIndividualAxioms(individual);
+                enrichedModule.addAll(differentIndividualAxioms);
+                if (verbose) {
+                    for (OWLDifferentIndividualsAxiom differentIndividualsAxiom : differentIndividualAxioms) {
+                        logger.info("  Added different individual axiom:   {}",
+                                minusOntologyURI(differentIndividualsAxiom
+                                        .toString()));
                     }
                 }
             }

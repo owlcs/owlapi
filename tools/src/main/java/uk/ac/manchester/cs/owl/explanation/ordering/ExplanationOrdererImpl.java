@@ -88,13 +88,20 @@ import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
 public class ExplanationOrdererImpl implements ExplanationOrderer {
 
     private Set<OWLAxiom> currentExplanation;
+    @Nonnull
     private final Map<OWLEntity, Set<OWLAxiom>> lhs2AxiomMap = new HashMap<OWLEntity, Set<OWLAxiom>>();
+    @Nonnull
     private final Map<OWLAxiom, Set<OWLEntity>> entitiesByAxiomRHS = new HashMap<OWLAxiom, Set<OWLEntity>>();
+    @Nonnull
     private final SeedExtractor seedExtractor = new SeedExtractor();
+    @Nonnull
     private final OWLOntologyManager man;
     private OWLOntology ont;
+    @Nonnull
     private final Map<OWLObject, Set<OWLAxiom>> mappedAxioms = new HashMap<OWLObject, Set<OWLAxiom>>();
+    @Nonnull
     private final Set<OWLAxiom> consumedAxioms = new HashSet<OWLAxiom>();
+    @Nonnull
     private final Set<AxiomType<?>> passTypes = new HashSet<AxiomType<?>>();
 
     /**
@@ -118,7 +125,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
     }
 
     @Override
-    public ExplanationTree getOrderedExplanation(OWLAxiom entailment,
+    public ExplanationTree getOrderedExplanation(@Nonnull OWLAxiom entailment,
             @Nonnull Set<OWLAxiom> axioms) {
         currentExplanation = new HashSet<OWLAxiom>(axioms);
         buildIndices();
@@ -425,6 +432,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
          *        the axiom
          * @return the source
          */
+        @Nonnull
         public OWLEntity getSource(@Nonnull OWLAxiom axiom) {
             axiom.accept(this);
             return source;
@@ -435,6 +443,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
          *        the axiom
          * @return the target
          */
+        @Nonnull
         public OWLEntity getTarget(@Nonnull OWLAxiom axiom) {
             axiom.accept(this);
             return target;

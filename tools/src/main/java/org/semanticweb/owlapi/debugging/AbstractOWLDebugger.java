@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.debugging;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -46,7 +45,9 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  */
 public abstract class AbstractOWLDebugger implements OWLDebugger {
 
+    @Nonnull
     protected final OWLOntologyManager owlOntologyManager;
+    @Nonnull
     private OWLOntology ontology;
 
     /**
@@ -149,8 +150,7 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
         // with edges for each axiom
         for (OWLAxiom axiom : mups) {
             // Remove the current axiom from the ontology
-            owlOntologyManager.applyChanges(Arrays.asList(new RemoveAxiom(
-                    ontology, axiom)));
+            owlOntologyManager.applyChange(new RemoveAxiom(ontology, axiom));
             currentPathContents.add(axiom);
             boolean earlyTermination = false;
             // Early path termination. If our path contents are the superset of
@@ -181,13 +181,7 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
             // Back track - go one level up the tree and run for the next axiom
             currentPathContents.remove(axiom);
             // Done with the axiom that was removed. Add it back in
-            owlOntologyManager.applyChanges(Arrays.asList(new AddAxiom(
-                    ontology, axiom)));
+            owlOntologyManager.applyChange(new AddAxiom(ontology, axiom));
         }
     }
-    // /////////////////////////////////////////////////////////////////////////////////////////////////////
-    //
-    // Stats stuff
-    //
-    // /////////////////////////////////////////////////////////////////////////////////////////////////////
 }

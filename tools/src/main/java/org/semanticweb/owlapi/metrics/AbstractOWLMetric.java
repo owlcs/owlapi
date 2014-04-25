@@ -35,9 +35,11 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 public abstract class AbstractOWLMetric<M> implements OWLMetric<M>,
         OWLOntologyChangeListener {
 
+    @Nonnull
     private OWLOntology ontology;
     private boolean dirty;
     private boolean importsClosureUsed;
+    @Nonnull
     private M value;
 
     /**
@@ -126,9 +128,7 @@ public abstract class AbstractOWLMetric<M> implements OWLMetric<M>,
     @Override
     public void setImportsClosureUsed(boolean b) {
         importsClosureUsed = b;
-        if (ontology != null) {
-            recomputeMetric();
-        }
+        recomputeMetric();
     }
 
     /**

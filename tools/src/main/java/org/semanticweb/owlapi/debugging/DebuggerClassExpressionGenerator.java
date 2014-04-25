@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.debugging;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -121,8 +120,8 @@ public class DebuggerClassExpressionGenerator extends OWLAxiomVisitorAdapter {
 
     @Override
     public void visit(OWLClassAssertionAxiom axiom) {
-        OWLClassExpression sub = dataFactory.getOWLObjectOneOf(Collections
-                .singleton(axiom.getIndividual()));
+        OWLClassExpression sub = dataFactory.getOWLObjectOneOf(axiom
+                .getIndividual());
         OWLAxiom ax = dataFactory.getOWLSubClassOfAxiom(sub,
                 axiom.getClassExpression());
         ax.accept(this);

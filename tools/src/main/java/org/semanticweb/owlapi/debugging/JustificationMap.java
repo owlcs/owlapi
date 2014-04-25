@@ -73,12 +73,19 @@ import org.semanticweb.owlapi.util.OWLEntityCollector;
  */
 public class JustificationMap {
 
+    @Nonnull
     private final Set<OWLAxiom> axioms;
+    @Nonnull
     private final Set<OWLAxiom> rootAxioms = new HashSet<OWLAxiom>();
+    @Nonnull
     private final Set<OWLAxiom> usedAxioms = new HashSet<OWLAxiom>();
+    @Nonnull
     private final Map<OWLAxiom, Set<OWLAxiom>> map = new HashMap<OWLAxiom, Set<OWLAxiom>>();
+    @Nonnull
     private final Map<OWLEntity, Set<OWLAxiom>> axiomsByRHS = new HashMap<OWLEntity, Set<OWLAxiom>>();
+    @Nonnull
     private final Map<OWLEntity, Set<OWLAxiom>> axiomsByLHS = new HashMap<OWLEntity, Set<OWLAxiom>>();
+    @Nonnull
     private final OWLClassExpression desc;
 
     /**
@@ -250,7 +257,9 @@ public class JustificationMap {
     /** The Class OWLAxiomPartExtractor. */
     private static class OWLAxiomPartExtractor extends OWLAxiomVisitorAdapter {
 
+        @Nonnull
         private Set<OWLObject> rhs = new HashSet<OWLObject>();
+        @Nonnull
         private Set<OWLObject> lhs = new HashSet<OWLObject>();
 
         /**

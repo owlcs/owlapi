@@ -86,6 +86,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
     }
 
     /** The Class AxiomLocalityVisitor. */
+    @SuppressWarnings("unused")
     private class AxiomLocalityVisitor extends OWLAxiomVisitorAdapter implements
             OWLAxiomVisitor {
 
@@ -140,6 +141,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
     }
 
     /** The Class BottomReplacer. */
+    @SuppressWarnings("unused")
     private class BottomReplacer extends OWLAxiomVisitorAdapter implements
             OWLAxiomVisitor, OWLClassExpressionVisitor {
 
@@ -389,8 +391,6 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         OWLAxiom newAxiom = bottomReplacer.replaceBottom(
                 checkNotNull(axiom, "axiom cannot be null"),
                 checkNotNull(signature, "signature cannot be null"));
-        LOGGER.info("DONE Replacing axiom by Bottom. Success: {}",
-                newAxiom != null);
-        return newAxiom != null && axiomVisitor.isLocal(newAxiom);
+        return axiomVisitor.isLocal(newAxiom);
     }
 }

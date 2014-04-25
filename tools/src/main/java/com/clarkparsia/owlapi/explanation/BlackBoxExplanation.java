@@ -25,7 +25,6 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationAxiom;
@@ -58,19 +57,25 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
     private static final Logger LOGGER = LoggerFactory
             .getLogger(BlackBoxExplanation.class.getName());
     /** The debugging ontology. */
-    @Nullable
+    @Nonnull
     private OWLOntology debuggingOntology;
     /** The debugging axioms. */
+    @Nonnull
     protected final Set<OWLAxiom> debuggingAxioms = new LinkedHashSet<OWLAxiom>();
     /** The objects expanded with defining axioms. */
+    @Nonnull
     private final Set<OWLEntity> objectsExpandedWithDefiningAxioms = new HashSet<OWLEntity>();
     /** The objects expanded with referencing axioms. */
+    @Nonnull
     private final Set<OWLEntity> objectsExpandedWithReferencingAxioms = new HashSet<OWLEntity>();
     /** The expanded with defining axioms. */
+    @Nonnull
     private final Set<OWLAxiom> expandedWithDefiningAxioms = new HashSet<OWLAxiom>();
     /** The expanded with referencing axioms. */
+    @Nonnull
     private final Set<OWLAxiom> expandedWithReferencingAxioms = new HashSet<OWLAxiom>();
     /** The expanded axiom map. */
+    @Nonnull
     private final Map<OWLAxiom, OWLAxiom> expandedAxiomMap = new HashMap<OWLAxiom, OWLAxiom>();
     /** default expansion limit. */
     public static final int DEFAULT_INITIAL_EXPANSION_LIMIT = 50;

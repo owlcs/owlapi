@@ -21,7 +21,6 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
@@ -93,8 +92,11 @@ import org.semanticweb.owlapi.model.SWRLRule;
 /** Syntactic locality evaluator. */
 public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
+    @Nonnull
     protected final LocalityClass localityCls;
+    @Nonnull
     private final AxiomLocalityVisitor axiomVisitor = new AxiomLocalityVisitor();
+    @Nonnull
     private static final EnumSet<LocalityClass> SUPPORTED_LOCALITY_CLASSES = EnumSet
             .of(LocalityClass.TOP_BOTTOM, LocalityClass.BOTTOM_BOTTOM,
                     LocalityClass.TOP_TOP);
@@ -167,11 +169,15 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
     }
 
     // TODO (TS): only visit logical axioms if possible
+    @SuppressWarnings("unused")
     private class AxiomLocalityVisitor implements OWLAxiomVisitor {
 
+        @Nonnull
         private final BottomEquivalenceEvaluator bottomEvaluator = new BottomEquivalenceEvaluator();
         private boolean isLocal;
+        @Nonnull
         private Collection<? extends OWLEntity> signature;
+        @Nonnull
         private final TopEquivalenceEvaluator topEvaluator = new TopEquivalenceEvaluator();
 
         /** Instantiates a new axiom locality visitor. */
@@ -852,8 +858,11 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
             OWLClassExpressionVisitor {
 
         private boolean isBottomEquivalent;
+        @Nonnull
         private LocalityClass localityCls;
+        @Nonnull
         private Collection<? extends OWLEntity> signature;
+        @Nonnull
         private TopEquivalenceEvaluator topEvaluator;
 
         /** Instantiates a new bottom equivalence evaluator. */
@@ -1222,12 +1231,15 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
      * Used to determine if class expressions are equivalent to \top using the
      * provided locality class.
      */
+    @SuppressWarnings("unused")
     private static class TopEquivalenceEvaluator implements
             OWLClassExpressionVisitor {
 
         private BottomEquivalenceEvaluator bottomEvaluator;
         private boolean isTopEquivalent;
+        @Nonnull
         private LocalityClass localityCls;
+        @Nonnull
         private Collection<? extends OWLEntity> signature;
 
         /** Instantiates a new top equivalence evaluator. */
