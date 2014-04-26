@@ -13,9 +13,11 @@
 package org.semanticweb.owlapi.profiles;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -42,9 +44,9 @@ public abstract class OWLProfileViolation<T> {
     protected final OWLOntology ontology;
     @Nonnull
     protected final OWLDataFactory df;
-    @Nonnull
+    @Nullable
     protected final OWLAxiom axiom;
-    @Nonnull
+    @Nullable
     protected final T expression;
 
     /**
@@ -56,7 +58,7 @@ public abstract class OWLProfileViolation<T> {
      *        violation expression
      */
     public OWLProfileViolation(@Nonnull OWLOntology ontology,
-            @Nonnull OWLAxiom axiom, @Nonnull T o) {
+            @Nullable OWLAxiom axiom, @Nullable T o) {
         this.axiom = axiom;
         this.ontology = ontology;
         df = ontology.getOWLOntologyManager().getOWLDataFactory();
@@ -74,12 +76,13 @@ public abstract class OWLProfileViolation<T> {
     }
 
     /** @return the expression object of this violation */
-    @Nonnull
+    @Nullable
     public T getExpression() {
         return expression;
     }
 
     /** @return the offending axiom */
+    @Nullable
     public OWLAxiom getAxiom() {
         return axiom;
     }
@@ -88,10 +91,13 @@ public abstract class OWLProfileViolation<T> {
      * @return a set of changes to fix the violation - it might be just an axiom
      *         removal, or a rewrite, or addition of other needed axioms.
      */
-    // public abstract Collection<OWLOntologyChange> repair();
+    @SuppressWarnings("null")
     public List<OWLOntologyChange<?>> repair() {
         // default fix is to drop the axiom
-        return list(new RemoveAxiom(ontology, axiom));
+        if (axiom != null) {
+            return list(new RemoveAxiom(ontology, axiom));
+        }
+        return Collections.emptyList();
     }
 
     protected AddAxiom addDeclaration(@Nonnull OWLEntity e) {

@@ -15,10 +15,12 @@ package org.semanticweb.owlapi.util;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Information
@@ -39,16 +41,29 @@ public class OWLOntologyWalkerVisitor extends OWLObjectVisitorAdapter {
     }
 
     /** @return current axiom from walker */
+    @Nonnull
     public OWLAxiom getCurrentAxiom() {
-        return walker.getAxiom();
+        OWLAxiom axiom = walker.getAxiom();
+        if (axiom == null) {
+            throw new OWLRuntimeException(
+                    "No current axiom; is the walker being used outside of an ontology visit?");
+        }
+        return axiom;
     }
 
     /** @return current ontology from walker */
+    @Nonnull
     public OWLOntology getCurrentOntology() {
-        return walker.getOntology();
+        OWLOntology ontology = walker.getOntology();
+        if (ontology == null) {
+            throw new OWLRuntimeException(
+                    "No current ontology; is the walker being used outside of an ontology visit?");
+        }
+        return ontology;
     }
 
     /** @return current annotation from walker */
+    @Nullable
     public OWLAnnotation getCurrentAnnotation() {
         return walker.getAnnotation();
     }

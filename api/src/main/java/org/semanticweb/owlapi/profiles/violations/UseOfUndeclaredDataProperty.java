@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.profiles.violations;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+
 import java.util.List;
 
 import javax.annotation.Nonnull;
@@ -48,7 +50,7 @@ public class UseOfUndeclaredDataProperty extends
      */
     public UseOfUndeclaredDataProperty(@Nonnull OWLOntology ontology,
             @Nonnull OWLAxiom axiom, @Nonnull OWLDataProperty prop) {
-        super(ontology, axiom, prop);
+        super(ontology, axiom, checkNotNull(prop));
     }
 
     @Override
@@ -66,6 +68,7 @@ public class UseOfUndeclaredDataProperty extends
         return toString("Use of undeclared data property: %s", getExpression());
     }
 
+    @SuppressWarnings("null")
     @Override
     public List<OWLOntologyChange<?>> repair() {
         return list(addDeclaration(getExpression()));

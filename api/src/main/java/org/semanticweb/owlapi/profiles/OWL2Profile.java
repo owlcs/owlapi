@@ -36,7 +36,7 @@ import org.semanticweb.owlapi.profiles.violations.UseOfIllegalFacetRestriction;
 import org.semanticweb.owlapi.profiles.violations.UseOfNonAbsoluteIRI;
 import org.semanticweb.owlapi.profiles.violations.UseOfUndeclaredDatatype;
 import org.semanticweb.owlapi.util.OWLOntologyWalker;
-import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitorEx;
+import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitor;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 import com.google.common.base.Optional;
@@ -83,7 +83,7 @@ public class OWL2Profile implements OWLProfile {
     }
 
     private static class OWL2ProfileObjectWalker extends
-            OWLOntologyWalkerVisitorEx<Object> {
+            OWLOntologyWalkerVisitor {
 
         @Nonnull
         private final OWLOntologyManager man;
@@ -101,7 +101,7 @@ public class OWL2Profile implements OWLProfile {
         }
 
         @Override
-        public Object visit(OWLOntology ont) {
+        public void visit(OWLOntology ont) {
             // The ontology IRI and version IRI must be absolute and must not be
             // from the reserved vocab
             OWLOntologyID id = ont.getOntologyID();
@@ -118,23 +118,20 @@ public class OWL2Profile implements OWLProfile {
                     }
                 }
             }
-            return null;
         }
 
         @Override
-        public Object visit(IRI iri) {
+        public void visit(IRI iri) {
             if (!iri.isAbsolute()) {
                 profileViolations.add(new UseOfNonAbsoluteIRI(
                         getCurrentOntology(), getCurrentAxiom(), iri));
             }
-            return null;
         }
 
         @Override
-        public Object visit(OWLLiteral node) {
+        public void visit(OWLLiteral node) {
             // Check that the lexical value of the literal is in the lexical
-            // space of the
-            // literal datatype
+            // space of the literal datatype
             if (node.getDatatype().isBuiltIn()) {
                 if (!node.getDatatype().getBuiltInDatatype()
                         .isInLexicalSpace(node.getLiteral())) {
@@ -142,11 +139,10 @@ public class OWL2Profile implements OWLProfile {
                             getCurrentOntology(), getCurrentAxiom(), node));
                 }
             }
-            return null;
         }
 
         @Override
-        public Object visit(OWLDatatypeRestriction node) {
+        public void visit(OWLDatatypeRestriction node) {
             // The datatype should not be defined with a datatype definition
             // axiom
             for (OWLOntology ont : man.getImportsClosure(getCurrentOntology())) {
@@ -169,17 +165,15 @@ public class OWL2Profile implements OWLProfile {
                                     .getFacet()));
                 }
             }
-            return null;
         }
 
         @Override
-        public Object visit(OWLDatatypeDefinitionAxiom axiom) {
+        public void visit(OWLDatatypeDefinitionAxiom axiom) {
             // The datatype MUST be declared
             if (!getCurrentOntology().isDeclared(axiom.getDatatype(), INCLUDED)) {
                 profileViolations.add(new UseOfUndeclaredDatatype(
                         getCurrentOntology(), axiom, axiom.getDatatype()));
             }
-            return null;
         }
     }
 }

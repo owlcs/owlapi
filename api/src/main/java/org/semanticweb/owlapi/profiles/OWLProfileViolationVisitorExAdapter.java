@@ -77,6 +77,7 @@ public class OWLProfileViolationVisitorExAdapter<O> implements
      *        violation
      * @return default return value
      */
+    @SuppressWarnings("null")
     @Nonnull
     protected O doDefault(
             @SuppressWarnings("unused") @Nonnull OWLProfileViolation<?> v) {

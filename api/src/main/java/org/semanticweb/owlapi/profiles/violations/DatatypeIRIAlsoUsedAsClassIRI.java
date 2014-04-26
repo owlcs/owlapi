@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.profiles.violations;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+
 import java.util.List;
 
 import javax.annotation.Nonnull;
@@ -44,7 +46,7 @@ public class DatatypeIRIAlsoUsedAsClassIRI extends OWLProfileViolation<IRI> {
      */
     public DatatypeIRIAlsoUsedAsClassIRI(@Nonnull OWLOntology ontology,
             @Nonnull OWLAxiom axiom, @Nonnull IRI iri) {
-        super(ontology, axiom, iri);
+        super(ontology, checkNotNull(axiom), iri);
     }
 
     @Override
@@ -63,6 +65,7 @@ public class DatatypeIRIAlsoUsedAsClassIRI extends OWLProfileViolation<IRI> {
                 getExpression());
     }
 
+    @SuppressWarnings("null")
     @Override
     public List<OWLOntologyChange<?>> repair() {
         // XXX arbitrary decision: drop the axiom

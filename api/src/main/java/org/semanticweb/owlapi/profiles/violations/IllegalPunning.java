@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.profiles.violations;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
@@ -38,9 +40,10 @@ public class IllegalPunning extends OWLProfileViolation<IRI> {
      */
     public IllegalPunning(@Nonnull OWLOntology currentOntology,
             @Nonnull OWLAxiom node, @Nonnull IRI iri) {
-        super(currentOntology, node, iri);
+        super(currentOntology, node, checkNotNull(iri));
     }
 
+    @SuppressWarnings("null")
     @Override
     public String toString() {
         return toString("Cannot pun between properties: %s", getExpression()
