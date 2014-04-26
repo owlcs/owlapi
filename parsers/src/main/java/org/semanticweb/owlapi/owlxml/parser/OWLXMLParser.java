@@ -29,6 +29,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.util.SAXParsers;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
@@ -59,15 +60,8 @@ public class OWLXMLParser extends AbstractOWLParser {
             throws IOException {
         InputSource isrc = null;
         try {
-            System.setProperty("entityExpansionLimit", "100000000");
             OWLXMLOntologyFormat format = new OWLXMLOntologyFormat();
-            SAXParserFactory factory = SAXParserFactory.newInstance();
-            factory.setValidating(false);
-            factory.setFeature(
-                    "http://apache.org/xml/features/nonvalidating/load-external-dtd",
-                    false);
-            factory.setFeature("http://xml.org/sax/features/validation", false);
-            factory.setNamespaceAware(true);
+            SAXParserFactory factory = SAXParsers.initFactory();
             SAXParser parser = factory.newSAXParser();
             isrc = getInputSource(documentSource, configuration);
             OWLXMLParserHandler handler = new OWLXMLParserHandler(ontology,

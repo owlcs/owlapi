@@ -33,14 +33,12 @@ import javax.xml.parsers.SAXParserFactory;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.NodeID;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.util.SAXParsers;
 import org.xml.sax.Attributes;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
-import org.xml.sax.SAXNotRecognizedException;
-import org.xml.sax.SAXNotSupportedException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 import org.xml.sax.helpers.LocatorImpl;
@@ -54,28 +52,10 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
 
     private static final String wrongResolve = "IRI '%s' cannot be resolved against current base IRI %s reason is: %s";
     protected static final Locator s_nullDocumentLocator = new LocatorImpl();
-    protected static final SAXParserFactory s_parserFactory = initFactory();
+    protected static final SAXParserFactory s_parserFactory = SAXParsers
+            .initFactory();
     private Map<String, String> resolvedIRIs = new HashMap<String, String>();
     protected Map<String, IRI> uriCache = new HashMap<String, IRI>();
-
-    static SAXParserFactory initFactory() {
-        try {
-            SAXParserFactory factory = SAXParserFactory.newInstance();
-            factory.setNamespaceAware(true);
-            factory.setValidating(false);
-            factory.setFeature(
-                    "http://apache.org/xml/features/nonvalidating/load-external-dtd",
-                    false);
-            return factory;
-        } catch (SAXNotRecognizedException e) {
-            throw new OWLRuntimeException(e);
-        } catch (SAXNotSupportedException e) {
-            throw new OWLRuntimeException(e);
-        } catch (ParserConfigurationException e) {
-            throw new OWLRuntimeException(e);
-        }
-    }
-
     /** Registered error handler. */
     protected ErrorHandler m_errorHandler = new ErrorHandler() {
 

@@ -18,7 +18,6 @@ import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -33,7 +32,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
@@ -64,8 +62,6 @@ public class AutoIRIMapper extends DefaultHandler implements
     private final Map<IRI, IRI> ontologyIRI2PhysicalURIMap = new HashMap<IRI, IRI>();
     private Map<String, IRI> oboFileMap = new HashMap<String, IRI>();
     private final String directoryPath;
-    private String currentFilePath;
-    private transient SAXParserFactory parserFactory;
     private transient File directory;
     private transient File currentFile;
 
@@ -93,27 +89,11 @@ public class AutoIRIMapper extends DefaultHandler implements
                 new OWLXMLOntologyRootElementHandler());
     }
 
-    protected SAXParserFactory getParserFactory() {
-        if (parserFactory == null) {
-            parserFactory = SAXParserFactory.newInstance();
-            parserFactory.setNamespaceAware(true);
-        }
-        return parserFactory;
-    }
-
     protected File getDirectory() {
         if (directory == null) {
             directory = new File(directoryPath);
         }
         return directory;
-    }
-
-    @Nonnull
-    protected File getCurrentFile() {
-        if (currentFile == null && currentFilePath != null) {
-            currentFile = new File(currentFilePath);
-        }
-        return currentFile;
     }
 
     /**
@@ -213,19 +193,12 @@ public class AutoIRIMapper extends DefaultHandler implements
         InputStream is = null;
         try {
             is = new BufferedInputStream(new FileInputStream(file));
-            try {
-                currentFile = file;
-                currentFilePath = file.getAbsolutePath();
-                SAXParser parser = getParserFactory().newSAXParser();
-                parser.parse(is, this);
-            } catch (ParserConfigurationException e) {
-                throw new OWLRuntimeException(e);
-            } catch (SAXException e) {
-                // if we can't parse a file, then we can't map it
-            } catch (IOException e) {
-                // if we can't parse a file, then we can't map it
-            }
-        } catch (FileNotFoundException e) {
+            currentFile = file;
+            SAXParser parser = SAXParsers.initFactory().newSAXParser();
+            parser.parse(is, this);
+        } catch (ParserConfigurationException e) {
+            throw new OWLRuntimeException(e);
+        } catch (Exception e) {
             // if we can't parse a file, then we can't map it
         } finally {
             if (is != null) {
@@ -255,8 +228,7 @@ public class AutoIRIMapper extends DefaultHandler implements
                     if (tok.startsWith("<") && tok.endsWith(">")) {
                         ontologyIRI = IRI.create(tok.substring(1,
                                 tok.length() - 1));
-                        ontologyIRI2PhysicalURIMap.put(ontologyIRI,
-                                IRI.create(file));
+                        addMapping(ontologyIRI, file);
                         break;
                     }
                 }
@@ -265,7 +237,8 @@ public class AutoIRIMapper extends DefaultHandler implements
                 }
             }
         } catch (IOException e) {
-            // if we can't parse a file, then we can't map it } finally {
+            // if we can't parse a file, then we can't map it
+        } finally {
             try {
                 if (br != null) {
                     br.close();
@@ -282,12 +255,22 @@ public class AutoIRIMapper extends DefaultHandler implements
         OntologyRootElementHandler handler = handlerMap.get(uri + localName);
         if (handler != null) {
             IRI ontologyIRI = handler.handle(attributes);
-            if (ontologyIRI != null) {
-                ontologyIRI2PhysicalURIMap.put(ontologyIRI,
-                        IRI.create(getCurrentFile()));
+            if (ontologyIRI != null && currentFile != null) {
+                addMapping(ontologyIRI, currentFile);
             }
             throw new SAXException();
         }
+    }
+
+    /**
+     * @param ontologyIRI
+     *        ontology
+     * @param file
+     *        file
+     */
+    @SuppressWarnings("null")
+    protected void addMapping(IRI ontologyIRI, File file) {
+        ontologyIRI2PhysicalURIMap.put(ontologyIRI, IRI.create(file));
     }
 
     @Override
