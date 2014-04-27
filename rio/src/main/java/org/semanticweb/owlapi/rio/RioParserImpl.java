@@ -75,7 +75,6 @@ import org.semanticweb.owlapi.rio.utils.OWLAPICompatibleComparator;
 import org.semanticweb.owlapi.util.AnonymousNodeChecker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.xml.sax.InputSource;
 
 /**
  * Author: Matthew Horridge<br>
@@ -90,28 +89,33 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
     private static final long serialVersionUID = 40000L;
     protected final Logger log = LoggerFactory.getLogger(this.getClass());
     private RioRDFOntologyFormatFactory owlFormatFactory;
+    @Nonnull
     private Set<OWLOntologyFormatFactory> supportedFormats;
 
     /**
      * @param nextFormat
      *        format factory
      */
+    @SuppressWarnings("null")
     public RioParserImpl(RioRDFOntologyFormatFactory nextFormat) {
         owlFormatFactory = nextFormat;
         supportedFormats = Collections
                 .singleton((OWLOntologyFormatFactory) owlFormatFactory);
     }
 
+    @SuppressWarnings("null")
     @Override
     public Set<Class<OWLOntologyFormat>> getSupportedFormatClasses() {
         // not needed for this parser
         return Collections.emptySet();
     }
 
+    @SuppressWarnings("null")
     @Nonnull
     @Override
     protected Class<? extends OWLOntologyFormat> getFormatClass() {
         // not needed for this parser
+        // XXX should be better designed
         return null;
     }
 
@@ -131,14 +135,7 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
             final OWLOntology ontology,
             final OWLOntologyLoaderConfiguration configuration)
             throws IOException {
-        final InputSource is = null;
         try {
-            // IRIProvider prov = new IRIProvider() {
-            // public IRI getIRI(String s) {
-            // return parser.getIRI(s);
-            // }
-            // };
-            // consumer.setIRIProvider(parser);
             RioOWLRDFConsumerAdapter consumer = new RioOWLRDFConsumerAdapter(
                     ontology, new AnonymousNodeChecker() {
 
@@ -195,7 +192,7 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
                 consumer.setOntologyFormat(owlFormatFactory.createFormat());
             }
             String baseUri = "urn:default:baseUri:";
-            if (ontology.getOntologyID() != null
+            if (!ontology.getOntologyID().isAnonymous()
                     && ontology.getOntologyID().getDefaultDocumentIRI()
                             .isPresent()) {
                 baseUri = ontology.getOntologyID().getDefaultDocumentIRI()
@@ -290,25 +287,6 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
             throw new OWLParserException(e);
         } catch (final MalformedURLException e) {
             throw new OWLParserException(e);
-        } finally {
-            try {
-                if (is != null && is.getByteStream() != null) {
-                    is.getByteStream().close();
-                }
-            } catch (final IOException ioe) {
-                log.error(
-                        "Found unexpected IOException while closing byteStream",
-                        ioe);
-            }
-            try {
-                if (is != null && is.getCharacterStream() != null) {
-                    is.getCharacterStream().close();
-                }
-            } catch (final IOException ioe) {
-                log.error(
-                        "Found unexpected IOException while closing character stream",
-                        ioe);
-            }
         }
     }
 

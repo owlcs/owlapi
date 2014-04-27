@@ -33,6 +33,7 @@ public class RioRDFOntologyFormat extends
         this.format = format;
     }
 
+    @SuppressWarnings("null")
     @Override
     public String getKey() {
         return getRioFormat().toString();

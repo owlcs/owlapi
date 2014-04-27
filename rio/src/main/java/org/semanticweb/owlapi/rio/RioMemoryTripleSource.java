@@ -105,8 +105,8 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
      *        A Map of namespaces from prefix to full URI which are to be used
      *        by this source.
      */
-    public RioMemoryTripleSource(final Iterator<Statement> statements,
-            final Map<String, String> namespaces) {
+    public RioMemoryTripleSource(@Nonnull Iterator<Statement> statements,
+            @Nonnull Map<String, String> namespaces) {
         this(statements);
         this.namespaces.putAll(namespaces);
     }
@@ -121,7 +121,8 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
      *        A {@link CloseableIteration} of {@link Statement} objects that
      *        make up this source.
      */
-    public RioMemoryTripleSource(final Iterable<Statement> statements) {
+    @SuppressWarnings("null")
+    public RioMemoryTripleSource(@Nonnull Iterable<Statement> statements) {
         documentIRI = IRI.create("urn:rio-memory-triples:"
                 + counter.incrementAndGet());
         statementIterator = statements.iterator();

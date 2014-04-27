@@ -51,17 +51,18 @@ public class RioAnonymousNodeChecker implements AnonymousNodeChecker {
     public RioAnonymousNodeChecker() {}
 
     @Override
-    public boolean isAnonymousNode(@Nonnull final IRI iri) {
+    public boolean isAnonymousNode(@Nonnull IRI iri) {
         return this.isAnonymousNode(iri.toString());
     }
 
     @Override
-    public boolean isAnonymousNode(final String iri) {
+    public boolean isAnonymousNode(String iri) {
         return iri.startsWith("_:");
     }
 
     @Override
-    public boolean isAnonymousSharedNode(final String iri) {
+    public boolean
+            isAnonymousSharedNode(@SuppressWarnings("unused") String iri) {
         return false;
     }
 }

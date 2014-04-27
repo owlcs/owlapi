@@ -71,9 +71,9 @@ public class RioOWLRDFConsumerAdapter extends OWLRDFConsumer implements
      * @param configuration
      *        loading configuration
      */
-    public RioOWLRDFConsumerAdapter(OWLOntology ontology,
-            AnonymousNodeChecker checker,
-            OWLOntologyLoaderConfiguration configuration) {
+    public RioOWLRDFConsumerAdapter(@Nonnull OWLOntology ontology,
+            @Nonnull AnonymousNodeChecker checker,
+            @Nonnull OWLOntologyLoaderConfiguration configuration) {
         super(ontology, checker, configuration);
     }
 
@@ -83,41 +83,40 @@ public class RioOWLRDFConsumerAdapter extends OWLRDFConsumer implements
         endModel();
     }
 
+    @SuppressWarnings("unused")
     @Override
-    public void handleComment(final String comment) {}
+    public void handleComment(String comment) {}
 
+    @SuppressWarnings("null")
     @Override
-    public void handleNamespace(final String prefix, final String uri) {
+    public void handleNamespace(String prefix, String uri) {
         getOntologyFormat().setPrefix(prefix + ":", uri);
     }
 
+    @SuppressWarnings("null")
     @Override
     public void handleStatement(final Statement st) {
         statementCount.incrementAndGet();
         logger.trace("st{}={}", statementCount.get(), st);
+        @Nonnull
         String subjectString;
+        @Nonnull
         String objectString;
         if (st.getSubject() instanceof BNode) {
             subjectString = st.getSubject().stringValue();
             // it is not mandatory for BNode.stringValue() to return a string
-            // prefixed with the
-            // turtle blank node syntax, so we check here to make sure
-            // if(!(subjectString.startsWith("_:genid")))
-            // {
+            // prefixed with the turtle blank node syntax, so we check here to
+            // make sure
             subjectString = "#genid-nodeid-" + subjectString;
-            // }
         } else {
             subjectString = st.getSubject().stringValue();
         }
         if (st.getObject() instanceof BNode) {
             objectString = st.getObject().stringValue();
             // it is not mandatory for BNode.stringValue() to return a string
-            // prefixed with the
-            // turtle blank node syntax, so we check here to make sure
-            // if(!(objectString.startsWith("_:genid")))
-            // {
+            // prefixed with the turtle blank node syntax, so we check here to
+            // make sure
             objectString = "#genid-nodeid-" + objectString;
-            // }
         } else {
             objectString = st.getObject().stringValue();
         }

@@ -20,6 +20,7 @@ public abstract class AbstractRioRDFOntologyFormatFactory extends
         return createFormat().getKey();
     }
 
+    @SuppressWarnings("null")
     @Override
     public List<String> getMIMETypes() {
         return getRioFormat().getMIMETypes();

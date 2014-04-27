@@ -37,12 +37,11 @@ package org.semanticweb.owlapi.rio;
 
 import java.io.IOException;
 import java.util.Collection;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import org.openrdf.OpenRDFUtil;
 import org.openrdf.model.Resource;
@@ -76,12 +75,12 @@ public class RioRenderer extends RDFRendererBase {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private RDFHandler writer;
     private DefaultPrefixManager pm;
-    @Nullable
-    private Set<RDFResource> pendingNodes;
-    @Nullable
-    private AtomicInteger renderedTriples;
-    @Nullable
-    private Set<Statement> renderedStatements;
+    @Nonnull
+    private Set<RDFResource> pendingNodes = new LinkedHashSet<RDFResource>();
+    @Nonnull
+    private AtomicInteger renderedTriples = new AtomicInteger(0);
+    @Nonnull
+    private Set<Statement> renderedStatements = new LinkedHashSet<Statement>();
     private Resource[] contexts;
 
     public RioRenderer(@Nonnull final OWLOntology ontology,
@@ -113,9 +112,9 @@ public class RioRenderer extends RDFRendererBase {
 
     @Override
     protected void beginDocument() throws IOException {
-        pendingNodes = new HashSet<RDFResource>();
-        renderedStatements = new HashSet<Statement>();
-        renderedTriples = new AtomicInteger(0);
+        pendingNodes.clear();
+        renderedStatements.clear();
+        renderedTriples.set(0);
         try {
             writer.startRDF();
         } catch (@Nonnull final RDFHandlerException e) {
@@ -133,25 +132,19 @@ public class RioRenderer extends RDFRendererBase {
         } catch (@Nonnull final RDFHandlerException e) {
             throw new IOException(e);
         }
-        // writer.flush();
-        // writer.println();
-        // writer.flush();
         if (logger.isTraceEnabled()) {
             logger.trace("pendingNodes={}", pendingNodes.size());
             logger.trace("renderedTriples={}", renderedTriples.toString());
             logger.trace("renderedStatements={}", renderedStatements.size());
         }
-        pendingNodes = null;
-        renderedTriples = null;
-        renderedStatements = null;
+        pendingNodes.clear();
+        renderedTriples.set(0);
+        renderedStatements.clear();
     }
 
     @Override
     protected void endObject() throws IOException {
         writeComment("");
-        // writeNewLine();
-        // writeNewLine();
-        // writeNewLine();
     }
 
     /**
@@ -212,7 +205,7 @@ public class RioRenderer extends RDFRendererBase {
 
     @Override
     protected void writeAnnotationPropertyComment(
-            @Nonnull final OWLAnnotationProperty prop) throws IOException {
+            @Nonnull OWLAnnotationProperty prop) throws IOException {
         writeComment(prop.getIRI().toString());
     }
 
@@ -248,22 +241,20 @@ public class RioRenderer extends RDFRendererBase {
     }
 
     @Override
-    protected void
-            writeDataPropertyComment(@Nonnull final OWLDataProperty prop)
-                    throws IOException {
+    protected void writeDataPropertyComment(@Nonnull OWLDataProperty prop)
+            throws IOException {
         writeComment(prop.getIRI().toString());
     }
 
     @Override
-    protected void writeDatatypeComment(@Nonnull final OWLDatatype datatype)
+    protected void writeDatatypeComment(@Nonnull OWLDatatype datatype)
             throws IOException {
         writeComment(datatype.getIRI().toString());
     }
 
     @Override
-    protected void
-            writeIndividualComments(@Nonnull final OWLNamedIndividual ind)
-                    throws IOException {
+    protected void writeIndividualComments(@Nonnull OWLNamedIndividual ind)
+            throws IOException {
         writeComment(ind.getIRI().toString());
     }
 
@@ -271,6 +262,7 @@ public class RioRenderer extends RDFRendererBase {
         // Send the prefixes from the prefixmanager to the RDFHandler
         // NOTE: These may be derived from a PrefixOWLOntologyFormat
         for (String prefixName : pm.getPrefixName2PrefixMap().keySet()) {
+            assert prefixName != null;
             final String prefix = pm.getPrefix(prefixName);
             // OWLAPI generally stores prefixes with a colon at the end, while
             // Sesame Rio expects

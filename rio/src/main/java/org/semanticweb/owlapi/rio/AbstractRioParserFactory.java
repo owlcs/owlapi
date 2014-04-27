@@ -81,6 +81,7 @@ public abstract class AbstractRioParserFactory implements OWLParserFactory {
                 .getDefaultMIMEType();
     }
 
+    @SuppressWarnings("null")
     @Override
     public List<String> getMIMETypes() {
         return getRioFormatFactory().createFormat().getRioFormat()

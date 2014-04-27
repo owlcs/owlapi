@@ -38,7 +38,7 @@ public abstract class AbstractOWLOntologyFormatFactory implements
 
     @Override
     public final String getDefaultMIMEType() {
-        if (getMIMETypes() == null || getMIMETypes().isEmpty()) {
+        if (getMIMETypes().isEmpty()) {
             return null;
         } else {
             return getMIMETypes().get(0);
@@ -55,14 +55,12 @@ public abstract class AbstractOWLOntologyFormatFactory implements
             type = mimeType.substring(0, mimeType.indexOf(';'));
         }
         List<String> mimeTypes = getMIMETypes();
-        if (mimeTypes != null) {
-            for (String nextMimeType : mimeTypes) {
-                if (mimeType.equalsIgnoreCase(nextMimeType)) {
-                    return true;
-                }
-                if (mimeType != type && type.equalsIgnoreCase(nextMimeType)) {
-                    return true;
-                }
+        for (String nextMimeType : mimeTypes) {
+            if (mimeType.equalsIgnoreCase(nextMimeType)) {
+                return true;
+            }
+            if (mimeType != type && type.equalsIgnoreCase(nextMimeType)) {
+                return true;
             }
         }
         return false;

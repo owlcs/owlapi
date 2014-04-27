@@ -37,8 +37,6 @@ package org.semanticweb.owlapi.rio.utils;
 
 import java.util.Comparator;
 
-import javax.annotation.Nonnull;
-
 import org.openrdf.model.Statement;
 import org.openrdf.model.Value;
 import org.openrdf.model.vocabulary.OWL;
@@ -56,7 +54,7 @@ public class OWLAPICompatibleComparator implements Comparator<Statement> {
     private final static int AFTER = 1;
 
     @Override
-    public int compare(@Nonnull Statement first, Statement second) {
+    public int compare(Statement first, Statement second) {
         if (first == second) {
             return OWLAPICompatibleComparator.EQUALS;
         }
