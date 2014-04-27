@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.reasoner;
 
+import javax.annotation.Nonnull;
+
 /**
  * An OWLReasonerConfiguration can be used to customise the setup of a reasoner
  * at reasoner creation time via an
@@ -37,6 +39,7 @@ public interface OWLReasonerConfiguration {
      * @return A progress monitor. By default this returns
      *         {@link NullReasonerProgressMonitor}
      */
+    @Nonnull
     ReasonerProgressMonitor getProgressMonitor();
 
     /**
@@ -65,6 +68,7 @@ public interface OWLReasonerConfiguration {
      * 
      * @return The fresh entity policy.
      */
+    @Nonnull
     FreshEntityPolicy getFreshEntityPolicy();
 
     /**
@@ -78,5 +82,6 @@ public interface OWLReasonerConfiguration {
      *         i.e. by default individuals that are the same as each other are
      *         not grouped into the same node within a node set.
      */
+    @Nonnull
     IndividualNodeSetPolicy getIndividualNodeSetPolicy();
 }

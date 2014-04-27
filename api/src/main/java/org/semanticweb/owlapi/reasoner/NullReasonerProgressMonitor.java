@@ -22,6 +22,7 @@ import java.io.Serializable;
  *         Management Group
  * @since 3.0.0
  */
+@SuppressWarnings("unused")
 public class NullReasonerProgressMonitor implements ReasonerProgressMonitor,
         Serializable {
 
