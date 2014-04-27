@@ -193,6 +193,7 @@ class StartRDF extends AbstractState implements State {
         super(parser);
     }
 
+    @SuppressWarnings("unused")
     @Override
     public void startElement(String namespaceIRI, String localName,
             String qName, @Nonnull Attributes atts) {
@@ -211,6 +212,7 @@ class StartRDF extends AbstractState implements State {
         parser.pushState(new NodeElementList(parser));
     }
 
+    @SuppressWarnings("unused")
     @Override
     public void endElement(String namespaceIRI, String localName, String qName) {
         parser.popState();
@@ -225,6 +227,7 @@ class StartRDF extends AbstractState implements State {
 /** Parses emptyPropertyElt production. */
 class EmptyPropertyElement extends AbstractState implements State {
 
+    @Nonnull
     protected NodeElement m_nodeElement;
     protected String m_propertyIRI;
 
@@ -234,6 +237,7 @@ class EmptyPropertyElement extends AbstractState implements State {
         m_nodeElement = nodeElement;
     }
 
+    @SuppressWarnings("unused")
     @Override
     public void startElement(String namespaceIRI, String localName,
             String qName, @Nonnull Attributes atts) throws SAXException {
@@ -250,11 +254,13 @@ class EmptyPropertyElement extends AbstractState implements State {
         propertyAttributes(objectIRI, atts, getReificationManager(atts));
     }
 
+    @SuppressWarnings("unused")
     @Override
     public void endElement(String namespaceIRI, String localName, String qName) {
         parser.popState();
     }
 
+    @SuppressWarnings("unused")
     @Override
     public void characters(char[] data, int start, int length) {
         parser.verify(true, CHARACTERS_NOT_EXPECTED);
@@ -264,13 +270,15 @@ class EmptyPropertyElement extends AbstractState implements State {
 /** Parses the nodeElement production. */
 class NodeElement extends AbstractState implements State {
 
-    @Nullable
+    @Nonnull
     protected String subjectIRI;
+    @Nonnull
     protected ReificationManager reificationManager;
     @Nonnull
     protected AtomicLong m_nextLi = new AtomicLong(1);
 
-    NodeElement(RDFParser parser) {
+    @SuppressWarnings("null")
+    NodeElement(@Nonnull RDFParser parser) {
         super(parser);
     }
 
@@ -313,6 +321,7 @@ class NodeElement extends AbstractState implements State {
         return uri;
     }
 
+    @SuppressWarnings("unused")
     @Override
     public void startElement(String namespaceIRI, String localName,
             String qName, @Nonnull Attributes atts) throws SAXException {
@@ -365,6 +374,7 @@ class NodeElement extends AbstractState implements State {
         return result;
     }
 
+    @SuppressWarnings("unused")
     @Override
     public void endElement(String namespaceIRI, String localName, String qName) {
         parser.popState();
@@ -412,7 +422,8 @@ class ParseTypeCollectionElement extends AbstractState implements State {
     protected String m_reificationID;
     protected String m_lastCellIRI;
 
-    ParseTypeCollectionElement(NodeElement nodeElement, RDFParser parser) {
+    ParseTypeCollectionElement(NodeElement nodeElement,
+            @Nonnull RDFParser parser) {
         super(parser);
         m_nodeElement = nodeElement;
     }
@@ -440,6 +451,7 @@ class ParseTypeCollectionElement extends AbstractState implements State {
         }
     }
 
+    @Nonnull
     String listCell(@Nonnull String valueIRI) {
         String listCellIRI = NodeID.nextAnonymousIRI();
         parser.statementWithResourceValue(listCellIRI, RDF_FIRST, valueIRI,
@@ -448,6 +460,7 @@ class ParseTypeCollectionElement extends AbstractState implements State {
         return listCellIRI;
     }
 
+    @SuppressWarnings("unused")
     @Override
     public void endElement(String namespaceIRI, String localName, String qName) {
         if (m_lastCellIRI == null) {
@@ -505,6 +518,7 @@ class ResourceOrLiteralElement extends AbstractState implements State {
         }
     }
 
+    @SuppressWarnings("unused")
     @Override
     public void endElement(String namespaceIRI, String localName, String qName) {
         if (innerNode != null) {
@@ -537,7 +551,7 @@ class ParseTypeLiteralElement extends AbstractState implements State {
     protected int m_depth;
     protected StringBuilder m_content;
 
-    ParseTypeLiteralElement(NodeElement nodeElement, RDFParser parser) {
+    ParseTypeLiteralElement(NodeElement nodeElement, @Nonnull RDFParser parser) {
         super(parser);
         m_nodeElement = nodeElement;
     }
@@ -566,6 +580,7 @@ class ParseTypeLiteralElement extends AbstractState implements State {
         m_depth++;
     }
 
+    @SuppressWarnings("unused")
     @Override
     public void endElement(String namespaceIRI, String localName, String qName) {
         if (m_depth == 1) {
@@ -595,11 +610,12 @@ class ParseTypeResourceElement extends AbstractState implements State {
     @Nullable
     protected String m_reificationID;
 
-    ParseTypeResourceElement(NodeElement nodeElement, RDFParser parser) {
+    ParseTypeResourceElement(NodeElement nodeElement, @Nonnull RDFParser parser) {
         super(parser);
         m_nodeElement = nodeElement;
     }
 
+    @SuppressWarnings("unused")
     @Override
     public void startElement(String namespaceIRI, String localName,
             String qName, @Nonnull Attributes atts) throws SAXException {
@@ -612,6 +628,7 @@ class ParseTypeResourceElement extends AbstractState implements State {
         parser.pushState(new PropertyElementList(anonymousNodeElement, parser));
     }
 
+    @SuppressWarnings("unused")
     @Override
     public void endElement(String namespaceIRI, String localName, String qName) {
         parser.popState();
@@ -629,9 +646,11 @@ class ParseTypeResourceElement extends AbstractState implements State {
  */
 class PropertyElementList extends AbstractState implements State {
 
+    @Nonnull
     protected NodeElement node;
 
-    PropertyElementList(NodeElement nodeElement, RDFParser parser) {
+    PropertyElementList(@Nonnull NodeElement nodeElement,
+            @Nonnull RDFParser parser) {
         super(parser);
         node = nodeElement;
     }

@@ -21,6 +21,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -114,6 +115,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
     @Nonnull
     TripleLogger tripleLogger;
     /** The configuration. */
+    @Nonnull
     private OWLOntologyLoaderConfiguration configuration;
     /** The owl ontology manager. */
     private OWLOntologyManager owlOntologyManager;
@@ -208,6 +210,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
     HandlerAccessor handlerAccessor;
     TranslatorAccessor translatorAccessor;
     private AnonymousNodeChecker nodeCheckerDelegate;
+    @SuppressWarnings("null")
     @Nonnull
     private Multimap<IRI, Class<?>> guessedDeclarations = LinkedHashMultimap
             .create();
@@ -220,8 +223,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
      * @param configuration
      *        the configuration
      */
-    public OWLRDFConsumer(OWLOntology ontology,
-            OWLOntologyLoaderConfiguration configuration) {
+    public OWLRDFConsumer(@Nonnull OWLOntology ontology,
+            @Nonnull OWLOntologyLoaderConfiguration configuration) {
         this(ontology, new AnonymousNodeCheckerImpl(), configuration);
     }
 
@@ -235,8 +238,9 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
      * @param configuration
      *        the configuration
      */
-    public OWLRDFConsumer(OWLOntology ontology, AnonymousNodeChecker checker,
-            OWLOntologyLoaderConfiguration configuration) {
+    public OWLRDFConsumer(@Nonnull OWLOntology ontology,
+            @Nonnull AnonymousNodeChecker checker,
+            @Nonnull OWLOntologyLoaderConfiguration configuration) {
         nodeCheckerDelegate = checker;
         owlOntologyManager = ontology.getOWLOntologyManager();
         this.ontology = ontology;
@@ -295,6 +299,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
         if (this.ontology.getOntologyID().getOntologyIRI().isPresent()) {
             addOntology(this.ontology.getOntologyID().getOntologyIRI().get());
         }
+        tripleLogger = new TripleLogger(ontologyFormat == null ? null
+                : ontologyFormat.asPrefixOWLOntologyFormat());
     }
 
     /**
@@ -488,6 +494,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
      * 
      * @return the ontology
      */
+    @Nonnull
     public OWLOntology getOntology() {
         return ontology;
     }
@@ -497,7 +504,13 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
      * 
      * @return the ontology format
      */
+    @SuppressWarnings("null")
+    @Nonnull
     public RDFOntologyFormat getOntologyFormat() {
+        if (ontologyFormat == null) {
+            throw new IllegalStateException(
+                    "ontology format has not been set yet");
+        }
         return ontologyFormat;
     }
 
@@ -543,14 +556,10 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
      */
     @Nonnull
     public Set<OWLAnnotation> getPendingAnnotations() {
-        if (!pendingAnnotations.isEmpty()) {
-            Set<OWLAnnotation> annos = new HashSet<OWLAnnotation>(
-                    pendingAnnotations);
-            pendingAnnotations.clear();
-            return annos;
-        } else {
-            return Collections.emptySet();
-        }
+        Set<OWLAnnotation> annos = new LinkedHashSet<OWLAnnotation>(
+                pendingAnnotations);
+        pendingAnnotations.clear();
+        return annos;
     }
 
     /**
@@ -1432,9 +1441,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
     // //////////////////////////////////////////////////////////////////////////////////////////////////////////////
     private static void append(IRI i, StringBuilder b) {
         b.append(i.getNamespace());
-        if (i.getFragment() != null) {
-            b.append(i.getFragment());
-        }
+        b.append(i.getFragment());
     }
 
     private static void printTriple(IRI subject, IRI predicate, IRI object) {
@@ -1507,11 +1514,9 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
         logger.info("done dumping remaining triples");
     }
 
+    @SuppressWarnings("unused")
     @Override
-    public void startModel(IRI string) {
-        tripleLogger = new TripleLogger(ontologyFormat == null ? null
-                : ontologyFormat.asPrefixOWLOntologyFormat());
-    }
+    public void startModel(IRI string) {}
 
     /**
      * Checks if is parsed all triples.
@@ -1620,13 +1625,17 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
         singleValuedResTriplesByPredicate.clear();
     }
 
+    @SuppressWarnings("unused")
     @Override
     public void includeModel(String string, String string1) {
         // XXX should this do nothing?
     }
 
+    @SuppressWarnings("unused")
     @Override
-    public void logicalURI(IRI string) {}
+    public void logicalURI(IRI string) {
+        // XXX what is the purpose of this?
+    }
 
     /**
      * Gets the synonym.
@@ -1667,8 +1676,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
     }
 
     @Override
-    public void statementWithResourceValue(String subject, String predicate,
-            String object) {
+    public void statementWithResourceValue(@Nonnull String subject,
+            @Nonnull String predicate, @Nonnull String object) {
         tripleLogger.logTriple(subject, predicate, object);
         IRI subjectIRI = getIRI(subject);
         IRI predicateIRI = getIRI(predicate);
@@ -2476,6 +2485,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
      * 
      * @return the configuration
      */
+    @Nonnull
     protected OWLOntologyLoaderConfiguration getConfiguration() {
         return configuration;
     }

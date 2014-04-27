@@ -21,8 +21,6 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -55,22 +53,27 @@ public abstract class DLSyntaxOntologyStorerBase extends
         beginWritingOntology(ontology, writer);
         for (OWLObjectProperty prop : new TreeSet<OWLObjectProperty>(
                 ontology.getObjectPropertiesInSignature())) {
+            assert prop != null;
             write(ontology, prop, ontology.getAxioms(prop, EXCLUDED), writer);
         }
         for (OWLDataProperty prop : new TreeSet<OWLDataProperty>(
                 ontology.getDataPropertiesInSignature())) {
+            assert prop != null;
             write(ontology, prop, ontology.getAxioms(prop, EXCLUDED), writer);
         }
         for (OWLClass cls : new TreeSet<OWLClass>(
                 ontology.getClassesInSignature())) {
+            assert cls != null;
             write(ontology, cls, ontology.getAxioms(cls, EXCLUDED), writer);
         }
         for (OWLNamedIndividual ind : new TreeSet<OWLNamedIndividual>(
                 ontology.getIndividualsInSignature())) {
+            assert ind != null;
             write(ontology, ind, ontology.getAxioms(ind, EXCLUDED), writer);
         }
         beginWritingGeneralAxioms(ontology.getGeneralClassAxioms(), writer);
         for (OWLAxiom ax : ontology.getGeneralClassAxioms()) {
+            assert ax != null;
             beginWritingAxiom(ax, writer);
             writeAxiom(null, ax, writer);
             endWritingAxiom(ax, writer);
@@ -86,6 +89,7 @@ public abstract class DLSyntaxOntologyStorerBase extends
                     @Nonnull PrintWriter writer) {
         beginWritingAxioms(entity, axioms, writer);
         for (OWLAxiom ax : new TreeSet<OWLAxiom>(axioms)) {
+            assert ax != null;
             beginWritingAxiom(ax, writer);
             writeAxiom(entity, ax, writer);
             endWritingAxiom(ax, writer);
@@ -95,6 +99,7 @@ public abstract class DLSyntaxOntologyStorerBase extends
         usages.removeAll(axioms);
         beginWritingUsage(entity, usages, writer);
         for (OWLAxiom usage : usages) {
+            assert usage != null;
             if (!axioms.contains(usage)) {
                 beginWritingAxiom(usage, writer);
                 writeAxiom(entity, usage, writer);
@@ -105,13 +110,13 @@ public abstract class DLSyntaxOntologyStorerBase extends
         endWritingAxioms(entity, axioms, writer);
     }
 
-    protected void writeAxiom(@Nullable OWLEntity subject,
+    protected void writeAxiom(@Nonnull OWLEntity subject,
             @Nonnull OWLAxiom axiom, @Nonnull PrintWriter writer) {
         writer.write(getRendering(subject, axiom));
     }
 
     @Nonnull
-    protected String getRendering(@Nullable OWLEntity subject,
+    protected String getRendering(@Nonnull OWLEntity subject,
             @Nonnull OWLAxiom axiom) {
         DLSyntaxObjectRenderer ren = new DLSyntaxObjectRenderer();
         return ren.render(axiom);

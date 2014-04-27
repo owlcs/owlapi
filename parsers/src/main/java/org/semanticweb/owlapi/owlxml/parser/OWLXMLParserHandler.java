@@ -60,13 +60,14 @@ public class OWLXMLParserHandler extends DefaultHandler {
     private Map<String, String> prefixName2PrefixMap = new HashMap<String, String>();
     private Locator locator;
     private Stack<URI> bases;
+    @Nonnull
     private OWLOntologyLoaderConfiguration configuration;
 
     /**
      * @param ontology
      *        ontology to parse into
      */
-    public OWLXMLParserHandler(OWLOntology ontology) {
+    public OWLXMLParserHandler(@Nonnull OWLOntology ontology) {
         this(ontology, null, new OWLOntologyLoaderConfiguration());
     }
 
@@ -76,8 +77,8 @@ public class OWLXMLParserHandler extends DefaultHandler {
      * @param configuration
      *        load configuration
      */
-    public OWLXMLParserHandler(OWLOntology ontology,
-            OWLOntologyLoaderConfiguration configuration) {
+    public OWLXMLParserHandler(@Nonnull OWLOntology ontology,
+            @Nonnull OWLOntologyLoaderConfiguration configuration) {
         this(ontology, null, configuration);
     }
 
@@ -122,7 +123,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
      */
     public OWLXMLParserHandler(OWLOntology ontology,
             @Nullable OWLElementHandler<?> topHandler,
-            OWLOntologyLoaderConfiguration configuration) {
+            @Nonnull OWLOntologyLoaderConfiguration configuration) {
         owlOntologyManager = ontology.getOWLOntologyManager();
         this.ontology = ontology;
         bases = new Stack<URI>();
@@ -229,6 +230,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
     }
 
     /** @return config */
+    @Nonnull
     public OWLOntologyLoaderConfiguration getConfiguration() {
         return configuration;
     }
@@ -263,6 +265,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
      *        iri
      * @return parsed, absolute iri
      */
+    @Nonnull
     public IRI getIRI(String iriStr) {
         try {
             IRI iri = iriMap.get(iriStr);
@@ -299,6 +302,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
      *        short iri
      * @return extended iri
      */
+    @Nonnull
     public IRI getAbbreviatedIRI(String abbreviatedIRI) {
         String normalisedAbbreviatedIRI = getNormalisedAbbreviatedIRI(abbreviatedIRI);
         int sepIndex = normalisedAbbreviatedIRI.indexOf(':');
@@ -335,6 +339,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
     }
 
     /** @return data factory */
+    @Nonnull
     public OWLDataFactory getDataFactory() {
         return getOWLOntologyManager().getOWLDataFactory();
     }
@@ -360,6 +365,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
         }
     }
 
+    @SuppressWarnings({ "unused", "null" })
     @Override
     public void startElement(String uri, String localName, String qName,
             Attributes attributes) {
@@ -411,6 +417,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
         return bases.peek();
     }
 
+    @SuppressWarnings("unused")
     @Override
     public void endElement(String uri, String localName, String qName) {
         if (localName.equals(PREFIX.getShortForm())) {

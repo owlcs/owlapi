@@ -35,22 +35,22 @@ import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 public class LatexObjectVisitor implements OWLObjectVisitor {
 
     //@formatter:off
-        /** AND */      private static final String AND     = "\\ensuremath{\\sqcap}";
-    /** OR */           public static final String OR       = "\\ensuremath{\\sqcup}";
-    /** NOT */          public static final String NOT      = "\\ensuremath{\\lnot}";
-    /** ALL */          public static final String ALL      = "\\ensuremath{\\forall}";
-    /** SOME */         public static final String SOME     = "\\ensuremath{\\exists}";
-    /** HASVALUE */     public static final String HASVALUE = "\\ensuremath{hasValue}";
-    /** MIN */          public static final String MIN      = "\\ensuremath{\\geq}";
-    /** MAX */          public static final String MAX      = "\\ensuremath{\\leq}";
-    /** EQUAL */        public static final String EQUAL    = "\\ensuremath{=}";
-    /** SUBCLASS */     public static final String SUBCLASS = "\\ensuremath{\\sqsubseteq}";
-    /** EQUIV */        public static final String EQUIV    = "\\ensuremath{\\equiv}";
-    /** NOT_EQUIV */    public static final String NOT_EQUIV= "\\ensuremath{\\not\\equiv}";
-    /** TOP */          public static final String TOP      = "\\ensuremath{\\top}";
-    /** BOTTOM */       public static final String BOTTOM   = "\\ensuremath{\\bot}";
-    /** SELF */         public static final String SELF     = "\\ensuremath{\\Self}";
-    /** CIRC */         public static final String CIRC     = "\\ensuremath{\\circ}";
+    /** AND */         @Nonnull  private static final String AND     = "\\ensuremath{\\sqcap}";
+    /** OR */          @Nonnull  public static final String OR       = "\\ensuremath{\\sqcup}";
+    /** NOT */         @Nonnull  public static final String NOT      = "\\ensuremath{\\lnot}";
+    /** ALL */         @Nonnull  public static final String ALL      = "\\ensuremath{\\forall}";
+    /** SOME */        @Nonnull  public static final String SOME     = "\\ensuremath{\\exists}";
+    /** HASVALUE */    @Nonnull  public static final String HASVALUE = "\\ensuremath{hasValue}";
+    /** MIN */         @Nonnull  public static final String MIN      = "\\ensuremath{\\geq}";
+    /** MAX */         @Nonnull  public static final String MAX      = "\\ensuremath{\\leq}";
+    /** EQUAL */       @Nonnull  public static final String EQUAL    = "\\ensuremath{=}";
+    /** SUBCLASS */    @Nonnull  public static final String SUBCLASS = "\\ensuremath{\\sqsubseteq}";
+    /** EQUIV */       @Nonnull  public static final String EQUIV    = "\\ensuremath{\\equiv}";
+    /** NOT_EQUIV */   @Nonnull  public static final String NOT_EQUIV= "\\ensuremath{\\not\\equiv}";
+    /** TOP */         @Nonnull  public static final String TOP      = "\\ensuremath{\\top}";
+    /** BOTTOM */      @Nonnull  public static final String BOTTOM   = "\\ensuremath{\\bot}";
+    /** SELF */        @Nonnull  public static final String SELF     = "\\ensuremath{\\Self}";
+    /** CIRC */        @Nonnull  public static final String CIRC     = "\\ensuremath{\\circ}";
     //@formatter:on
     private OWLObject subject;
     private LatexWriter writer;
@@ -91,8 +91,13 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         writer.writeSpace();
     }
 
-    private void write(Object o) {
+    private void write(@Nonnull Object o) {
         writer.write(o);
+    }
+
+    @SuppressWarnings("null")
+    private void write(int i) {
+        writer.write(Integer.toString(i));
     }
 
     private void writeOpenBrace() {
@@ -748,7 +753,7 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         write(node.getIRI());
     }
 
-    private void writeNested(OWLClassExpression classExpression) {
+    private void writeNested(@Nonnull OWLClassExpression classExpression) {
         openBracket(classExpression);
         classExpression.accept(this);
         closeBracket(classExpression);
@@ -758,24 +763,26 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         expression.accept(this);
     }
 
-    private void openBracket(OWLClassExpression classExpression) {
+    private void openBracket(@Nonnull OWLClassExpression classExpression) {
         if (LatexBracketChecker.requiresBracket(classExpression)) {
             write("(");
         }
     }
 
-    private void closeBracket(OWLClassExpression classExpression) {
+    private void closeBracket(@Nonnull OWLClassExpression classExpression) {
         if (LatexBracketChecker.requiresBracket(classExpression)) {
             write(")");
         }
     }
 
+    @SuppressWarnings("null")
+    @Nonnull
     private static String escapeName(String name) {
         return name.replace("_", "\\_");
     }
 
     @Override
-    public void visit(OWLOntology ontology) {}
+    public void visit(@SuppressWarnings("unused") OWLOntology ontology) {}
 
     @Override
     public void visit(OWLObjectInverseOf property) {
@@ -783,7 +790,6 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         write("\\ensuremath{^-}");
     }
 
-    // ////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
     public void visit(OWLDataComplementOf node) {
         write(NOT);

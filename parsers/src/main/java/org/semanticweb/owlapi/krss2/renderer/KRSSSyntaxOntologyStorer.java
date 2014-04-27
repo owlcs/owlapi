@@ -38,8 +38,10 @@ public class KRSSSyntaxOntologyStorer extends AbstractOWLOntologyStorer {
     }
 
     @Override
-    protected void storeOntology(@Nonnull OWLOntology ontology, Writer writer,
-            OWLOntologyFormat format) throws OWLOntologyStorageException {
+    protected void storeOntology(@Nonnull OWLOntology ontology,
+            @Nonnull Writer writer,
+            @SuppressWarnings("unused") OWLOntologyFormat format)
+            throws OWLOntologyStorageException {
         new KRSSSyntaxRenderer().render(ontology, writer);
     }
 }

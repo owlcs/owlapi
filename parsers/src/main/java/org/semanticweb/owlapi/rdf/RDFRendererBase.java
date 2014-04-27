@@ -169,7 +169,7 @@ public abstract class RDFRendererBase {
      *         if there was a problem writing to the output stream
      */
     protected abstract void writeAnnotationPropertyComment(
-            OWLAnnotationProperty prop) throws IOException;
+            @Nonnull OWLAnnotationProperty prop) throws IOException;
 
     /**
      * Called before a data property is rendered to give subclasses the chance
@@ -180,8 +180,8 @@ public abstract class RDFRendererBase {
      * @throws IOException
      *         if there was a problem writing to the output stream
      */
-    protected abstract void writeDataPropertyComment(OWLDataProperty prop)
-            throws IOException;
+    protected abstract void writeDataPropertyComment(
+            @Nonnull OWLDataProperty prop) throws IOException;
 
     /**
      * Called before an object property is rendered.
@@ -191,8 +191,8 @@ public abstract class RDFRendererBase {
      * @throws IOException
      *         if there was a problem writing to the output stream
      */
-    protected abstract void writeObjectPropertyComment(OWLObjectProperty prop)
-            throws IOException;
+    protected abstract void writeObjectPropertyComment(
+            @Nonnull OWLObjectProperty prop) throws IOException;
 
     /**
      * Called before a class is rendered to give subclasses the chance to prefix
@@ -203,7 +203,8 @@ public abstract class RDFRendererBase {
      * @throws IOException
      *         if there was a problem writing to the output stream
      */
-    protected abstract void writeClassComment(OWLClass cls) throws IOException;
+    protected abstract void writeClassComment(@Nonnull OWLClass cls)
+            throws IOException;
 
     /**
      * Called before a datatype is rendered to give subclasses the chance to
@@ -214,7 +215,7 @@ public abstract class RDFRendererBase {
      * @throws IOException
      *         if there was a problem writing to the output stream
      */
-    protected abstract void writeDatatypeComment(OWLDatatype datatype)
+    protected abstract void writeDatatypeComment(@Nonnull OWLDatatype datatype)
             throws IOException;
 
     /**
@@ -226,8 +227,8 @@ public abstract class RDFRendererBase {
      * @throws IOException
      *         if there was a problem writing to the output stream
      */
-    protected abstract void writeIndividualComments(OWLNamedIndividual ind)
-            throws IOException;
+    protected abstract void writeIndividualComments(
+            @Nonnull OWLNamedIndividual ind) throws IOException;
 
     /**
      * @throws IOException

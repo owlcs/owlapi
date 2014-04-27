@@ -904,10 +904,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
         write("?");
         // do not save the namespace if it's the conventional one
         if ("urn:swrl#".equals(node.getIRI().getNamespace())) {
-            String fragment = node.getIRI().getFragment();
-            if (fragment != null) {
-                write(fragment);
-            }
+            write(node.getIRI().getFragment());
         } else {
             write(node.getIRI().toQuotedString());
         }
@@ -943,6 +940,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
         write(")");
     }
 
+    @SuppressWarnings("unused")
     @Override
     public void visit(OWLDatatypeDefinitionAxiom axiom) {}
 
@@ -970,5 +968,5 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
 
     // Ontology
     @Override
-    public void visit(OWLOntology ontology) {}
+    public void visit(@SuppressWarnings("unused") OWLOntology ontology) {}
 }

@@ -35,8 +35,10 @@ public class LatexOntologyStorer extends AbstractOWLOntologyStorer {
     private static final long serialVersionUID = 40000L;
 
     @Override
-    protected void storeOntology(@Nonnull OWLOntology ontology, Writer writer,
-            OWLOntologyFormat format) throws OWLOntologyStorageException {
+    protected void storeOntology(@Nonnull OWLOntology ontology,
+            @Nonnull Writer writer,
+            @SuppressWarnings("unused") OWLOntologyFormat format)
+            throws OWLOntologyStorageException {
         try {
             new LatexRenderer().render(ontology, writer);
             writer.flush();

@@ -51,6 +51,7 @@ import org.xml.sax.helpers.LocatorImpl;
 public class RDFParser extends DefaultHandler implements IRIProvider {
 
     private static final String wrongResolve = "IRI '%s' cannot be resolved against current base IRI %s reason is: %s";
+    @Nonnull
     protected static final Locator s_nullDocumentLocator = new LocatorImpl();
     protected static final SAXParserFactory s_parserFactory = SAXParsers
             .initFactory();
@@ -60,7 +61,8 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
     protected ErrorHandler m_errorHandler = new ErrorHandler() {
 
         @Override
-        public void warning(SAXParseException exception) {}
+        public void warning(
+                @SuppressWarnings("unused") SAXParseException exception) {}
 
         @Override
         public void fatalError(SAXParseException exception) throws SAXException {
@@ -68,13 +70,13 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
         }
 
         @Override
-        public void error(SAXParseException exception) {}
+        public void error(
+                @SuppressWarnings("unused") SAXParseException exception) {}
     };
     /** Stack of base IRIs. */
     protected LinkedList<IRI> m_baseIRIs = new LinkedList<IRI>();
     private Map<IRI, URI> m_baseURICache = new HashMap<IRI, URI>();
     /** IRI of the document being parsed. */
-    @Nonnull
     protected IRI m_baseIRI;
     /** The stack of languages. */
     @Nonnull
@@ -84,13 +86,19 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
     /** Consumer receiving notifications about parsing events. */
     protected RDFConsumer m_consumer;
     /** Current parser's state. */
-    @Nonnull
     protected State state;
     /** Stack of parser states. */
     protected List<State> m_states = new ArrayList<State>();
     /** Document locator. */
+    protected Locator documentLocator;
+
     @Nonnull
-    protected Locator m_documentLocator;
+    protected Locator getDocumentLocator() {
+        if (documentLocator != null) {
+            return documentLocator;
+        }
+        return s_nullDocumentLocator;
+    }
 
     /**
      * Parses RDF from given input source.
@@ -111,13 +119,13 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
         checkNotNull(consumer, "consumer cannot be null");
         String systemID = s.getSystemId();
         try {
-            m_documentLocator = s_nullDocumentLocator;
             if (systemID != null) {
                 m_baseIRI = IRI.create(new URI(source.getSystemId()));
             } else {
                 throw new SAXException(
                         "Supplied InputSource object myst have systemId property set, which is needed for IRI resolution.");
             }
+            assert m_baseIRI != null;
             m_consumer = consumer;
             m_consumer.startModel(m_baseIRI);
             s_parserFactory.newSAXParser().parse(source, this);
@@ -130,14 +138,13 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
         } finally {
             state = null;
             m_states.clear();
-            m_documentLocator = null;
             m_baseIRIs.clear();
         }
     }
 
     @Override
     public void setDocumentLocator(Locator locator) {
-        m_documentLocator = checkNotNull(locator, "locator cannot be null");
+        documentLocator = checkNotNull(locator, "locator cannot be null");
     }
 
     /**
@@ -177,6 +184,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
         verify(state != null, "RDF content not finished.");
     }
 
+    @SuppressWarnings("null")
     @Override
     public void startElement(String namespaceIRI, String localName,
             String qName, Attributes atts) throws SAXException {
@@ -252,8 +260,11 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
         }
         // get hold of the delegate URI
         URI delegateURI = m_baseURICache.get(m_baseIRI);
+        assert delegateURI != null;
         // resolve against delegate
-        return IRI.create(delegateURI.resolve(value));
+        URI resolve = delegateURI.resolve(value);
+        assert resolve != null;
+        return IRI.create(resolve);
     }
 
     /**
@@ -262,6 +273,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
      * @param atts
      *        the attributes potentially containing xml:base declaration
      */
+    @SuppressWarnings("null")
     private void processXMLBase(@Nonnull Attributes atts) {
         checkNotNull(atts, "atts cannot be null");
         m_baseIRIs.add(0, m_baseIRI);
@@ -272,7 +284,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
                 resolvedIRIs.clear();
             } catch (IllegalArgumentException e) {
                 throw new RDFParserException(e, String.format(wrongResolve,
-                        value, m_baseIRI, e.getMessage()), m_documentLocator);
+                        value, m_baseIRI, e.getMessage()), getDocumentLocator());
             }
         }
     }
@@ -299,6 +311,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
      *        the IRI being resolved
      * @return the resolved IRI
      */
+    @SuppressWarnings("null")
     @Nonnull
     public String resolveIRI(@Nonnull String uri) {
         checkNotNull(uri, "uri cannot be null");
@@ -330,7 +343,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
                 }
             } catch (IllegalArgumentException e) {
                 throw new RDFParserException(e, String.format(wrongResolve,
-                        uri, m_baseIRI, e.getMessage()), m_documentLocator);
+                        uri, m_baseIRI, e.getMessage()), getDocumentLocator());
             }
         }
     }
@@ -423,10 +436,11 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
             }
             return result;
         } catch (IOException e) {
-            throw new RDFParserException(e, "I/O error", m_documentLocator);
+            throw new RDFParserException(e, "I/O error", getDocumentLocator());
         }
     }
 
+    @SuppressWarnings("null")
     @Override
     @Nonnull
     public IRI getIRI(@Nonnull String s) {
@@ -445,7 +459,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
      */
     public void verify(boolean b, @Nonnull String message) {
         if (b) {
-            throw new RDFParserException(message, m_documentLocator);
+            throw new RDFParserException(message, getDocumentLocator());
         }
     }
 }

@@ -160,9 +160,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
     private void writeFullIRI(@Nonnull IRI iri) {
         write("<");
         write(iri.getNamespace());
-        if (iri.getFragment() != null) {
-            write(iri.getFragment());
-        }
+        write(iri.getFragment());
         write(">");
     }
 
@@ -423,7 +421,10 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
      * @param annotation
      *        the annotation
      */
-    public void write(OWLAnnotation annotation) {}
+    @SuppressWarnings("unused")
+    public void write(OWLAnnotation annotation) {
+        // XXX should the annotation be ignored?
+    }
 
     /**
      * Write annotations.

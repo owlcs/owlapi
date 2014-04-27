@@ -164,6 +164,7 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
                 "shortFormProvider cannot be null");
     }
 
+    @SuppressWarnings("null")
     @Nonnull
     @Override
     public String render(OWLObject object) {
@@ -195,10 +196,12 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
         write(renderEntity(checkNotNull(entity, "entity cannot be null")));
     }
 
+    @SuppressWarnings("null")
     protected void write(@Nonnull DLSyntax keyword) {
         write(checkNotNull(keyword, "keyword cannot be null").toString());
     }
 
+    @SuppressWarnings("null")
     protected void write(int i) {
         write(Integer.toString(i));
     }
@@ -236,6 +239,8 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
             Iterator<? extends OWLObject> it = objects.iterator();
             OWLObject o1 = it.next();
             OWLObject o2 = it.next();
+            assert o1 != null;
+            assert o2 != null;
             if (isFocusedObject(o1) || !isFocusedObject(o2)) {
                 writeObject(o1, nest);
                 writeSpace();
@@ -253,6 +258,7 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
             for (Iterator<? extends OWLObject> it = objects.iterator(); it
                     .hasNext();) {
                 OWLObject o = it.next();
+                assert o != null;
                 writeObject(o, nest);
                 if (it.hasNext()) {
                     writeSpace();
@@ -602,8 +608,10 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
         writeNested(desc.getOperand());
     }
 
-    private void writeCardinalityRestriction(
-            OWLDataCardinalityRestriction restriction, DLSyntax keyword) {
+    private void
+            writeCardinalityRestriction(
+                    OWLDataCardinalityRestriction restriction,
+                    @Nonnull DLSyntax keyword) {
         write(keyword);
         writeSpace();
         write(restriction.getCardinality());
@@ -614,7 +622,8 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
     }
 
     private void writeCardinalityRestriction(
-            OWLObjectCardinalityRestriction restriction, DLSyntax keyword) {
+            OWLObjectCardinalityRestriction restriction,
+            @Nonnull DLSyntax keyword) {
         write(keyword);
         writeSpace();
         write(restriction.getCardinality());
@@ -624,8 +633,10 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
         writeNested(restriction.getFiller());
     }
 
-    private void writeQuantifiedRestriction(
-            OWLQuantifiedDataRestriction restriction, DLSyntax keyword) {
+    private void
+            writeQuantifiedRestriction(
+                    OWLQuantifiedDataRestriction restriction,
+                    @Nonnull DLSyntax keyword) {
         write(keyword);
         writeSpace();
         restriction.getProperty().accept(this);
@@ -634,7 +645,8 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
     }
 
     private void writeQuantifiedRestriction(
-            OWLQuantifiedObjectRestriction restriction, DLSyntax keyword) {
+            OWLQuantifiedObjectRestriction restriction,
+            @Nonnull DLSyntax keyword) {
         write(keyword);
         writeSpace();
         restriction.getProperty().accept(this);
@@ -762,7 +774,7 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
     }
 
     @Override
-    public void visit(OWLDatatypeRestriction node) {}
+    public void visit(@SuppressWarnings("unused") OWLDatatypeRestriction node) {}
 
     @Override
     public void visit(OWLLiteral node) {
@@ -770,7 +782,7 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
     }
 
     @Override
-    public void visit(OWLFacetRestriction node) {}
+    public void visit(@SuppressWarnings("unused") OWLFacetRestriction node) {}
 
     @Override
     public void visit(OWLObjectProperty property) {

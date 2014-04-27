@@ -42,7 +42,8 @@ public class OWLFunctionalSyntaxOntologyStorer extends
 
     @Override
     protected void storeOntology(@Nonnull OWLOntology ontology,
-            @Nonnull Writer writer, OWLOntologyFormat format)
+            @Nonnull Writer writer,
+            @SuppressWarnings("unused") OWLOntologyFormat format)
             throws OWLOntologyStorageException {
         try {
             ontology.accept(new FunctionalSyntaxObjectRenderer(ontology, writer));

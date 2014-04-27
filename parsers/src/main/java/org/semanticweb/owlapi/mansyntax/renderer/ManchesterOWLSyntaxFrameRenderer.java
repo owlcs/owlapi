@@ -177,6 +177,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
     /** The axiom filter. */
     private OWLAxiomFilter axiomFilter = new OWLAxiomFilter() {
 
+        @SuppressWarnings("unused")
         @Override
         public boolean passes(OWLAxiom axiom) {
             return true;
@@ -1620,6 +1621,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
         /** Instantiates a new default rendering director. */
         public DefaultRenderingDirector() {}
 
+        @SuppressWarnings("unused")
         @Override
         public boolean renderEmptyFrameSection(
                 ManchesterOWLSyntax frameSectionKeyword,

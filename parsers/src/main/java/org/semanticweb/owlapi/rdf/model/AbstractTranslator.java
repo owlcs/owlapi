@@ -896,7 +896,7 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
      * @param annotation
      *        The annotation
      */
-    private void translateAnnotation(OWLObject subject,
+    private void translateAnnotation(@Nonnull OWLObject subject,
             @Nonnull OWLAnnotation annotation) {
         // We first add the base triple
         addTriple(subject, annotation.getProperty().getIRI(),
@@ -923,12 +923,13 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
         addTriple(annotation, OWL_ANNOTATED_TARGET.getIRI(),
                 annotation.getValue());
         for (OWLAnnotation anno : annotation.getAnnotations()) {
+            assert anno != null;
             translateAnnotation(annotation, anno);
         }
     }
 
     @Override
-    public void visit(OWLAnnotation node) {
+    public void visit(@SuppressWarnings("unused") OWLAnnotation node) {
         throw new OWLRuntimeException(
                 "The translator should not be used directly on instances of OWLAnnotation because an annotation cannot be translated without a subject.");
     }
@@ -1053,6 +1054,7 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
                 translateList(new ArrayList<OWLObject>(objects), listType));
     }
 
+    @SuppressWarnings("null")
     @Nonnull
     private OWLLiteral toTypedConstant(int i) {
         return manager.getOWLDataFactory().getOWLLiteral(

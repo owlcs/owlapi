@@ -19,7 +19,6 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-
 import org.semanticweb.owlapi.formats.DLSyntaxHTMLOntologyFormat;
 import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -47,7 +46,8 @@ public class DLSyntaxHTMLOntologyStorer extends DLSyntaxOntologyStorerBase {
 
     @Nonnull
     @Override
-    protected String getRendering(final OWLEntity subject, OWLAxiom axiom) {
+    protected String getRendering(@Nonnull final OWLEntity subject,
+            OWLAxiom axiom) {
         checkNotNull(axiom, "axiom cannot be null");
         DLSyntaxObjectRenderer ren = new DLSyntaxObjectRenderer() {
 
@@ -63,6 +63,7 @@ public class DLSyntaxHTMLOntologyStorer extends DLSyntaxOntologyStorerBase {
                 }
             }
 
+            @SuppressWarnings("null")
             @Override
             protected void write(DLSyntax keyword) {
                 super.write(XMLUtils.escapeXML(checkNotNull(keyword,
@@ -76,8 +77,8 @@ public class DLSyntaxHTMLOntologyStorer extends DLSyntaxOntologyStorerBase {
     }
 
     @Override
-    protected void
-            beginWritingOntology(@Nonnull OWLOntology ontology, @Nonnull PrintWriter writer) {
+    protected void beginWritingOntology(@Nonnull OWLOntology ontology,
+            @Nonnull PrintWriter writer) {
         checkNotNull(ontology, "ontology cannot be null");
         checkNotNull(writer, "writer cannot be null").println(
                 "<html>\n<body>\n<h1>Ontology: ");
@@ -121,12 +122,14 @@ public class DLSyntaxHTMLOntologyStorer extends DLSyntaxOntologyStorerBase {
         writer.println("</a></h2>\n<div class=\"entitybox\">");
     }
 
+    @SuppressWarnings("unused")
     @Override
     protected void endWritingAxioms(OWLEntity subject,
             Set<? extends OWLAxiom> axioms, @Nonnull PrintWriter writer) {
         writer.println("</div>");
     }
 
+    @SuppressWarnings("unused")
     @Override
     protected void beginWritingGeneralAxioms(Set<? extends OWLAxiom> axioms,
             PrintWriter writer) {

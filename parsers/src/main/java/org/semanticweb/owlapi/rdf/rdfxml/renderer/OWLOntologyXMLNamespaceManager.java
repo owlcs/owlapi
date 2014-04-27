@@ -45,8 +45,11 @@ import org.semanticweb.owlapi.vocab.Namespaces;
  */
 public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
 
+    @Nonnull
     private OWLOntology ontology;
+    @Nonnull
     private NamespaceUtil namespaceUtil = new NamespaceUtil();
+    @Nonnull
     private OWLOntologyFormat ontologyFormat;
 
     /**
@@ -55,6 +58,7 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
      * @param format
      *        format
      */
+    @SuppressWarnings("null")
     public OWLOntologyXMLNamespaceManager(@Nonnull OWLOntology ontology,
             @Nonnull OWLOntologyFormat format) {
         super(getDefaultNamespace(ontology, format));
@@ -70,6 +74,7 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
         return ontology;
     }
 
+    @SuppressWarnings("null")
     private void processOntology() {
         if (ontologyFormat instanceof PrefixOWLOntologyFormat) {
             PrefixOWLOntologyFormat namespaceFormat = (PrefixOWLOntologyFormat) ontologyFormat;
@@ -121,7 +126,7 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
 
     private void processIRI(@Nonnull IRI iri) {
         String ns = checkNotNull(iri, "iri cannot be null").getNamespace();
-        if (ns != null && !(ns.equals("") || iri.getFragment() == null)) {
+        if (!(ns.equals("") || iri.getFragment().isEmpty())) {
             namespaceUtil.getPrefix(ns);
         }
     }
