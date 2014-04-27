@@ -13,12 +13,13 @@
 package org.semanticweb.owlapi.api.test.imports;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
 
 import javax.annotation.Nonnull;
 
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.semanticweb.owlapi.change.AddImportData;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
@@ -30,20 +31,21 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * @since 3.2.0
  */
 @SuppressWarnings("javadoc")
+@RunWith(MockitoJUnitRunner.class)
 public class AddImportDataTestCase {
 
+    @SuppressWarnings("null")
+    @Nonnull
+    @Mock
     private OWLImportsDeclaration mockDeclaration;
+    @SuppressWarnings("null")
+    @Nonnull
+    @Mock
     private OWLOntology mockOntology;
 
     @Nonnull
     private AddImportData createData() {
         return new AddImportData(mockDeclaration);
-    }
-
-    @Before
-    public void setUp() {
-        mockDeclaration = mock(OWLImportsDeclaration.class);
-        mockOntology = mock(OWLOntology.class);
     }
 
     @Test

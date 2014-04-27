@@ -100,32 +100,47 @@ import org.semanticweb.owlapi.profiles.violations.UseOfUnknownDatatype;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
+import com.google.common.base.Optional;
+
 @SuppressWarnings({ "javadoc", "rawtypes" })
 public class OWLProfileTestCase {
 
+    @Nonnull
     private static final String START = OWLThing().getIRI().getNamespace();
+    @Nonnull
     private static final OWLClass cl = Class(IRI("urn:test#fakeclass"));
+    @Nonnull
     private static final OWLDataProperty datap = DataProperty(IRI("urn:datatype#fakedatatypeproperty"));
+    @Nonnull
     private static final OWLDataPropertyRangeAxiom DATA_PROPERTY_RANGE2 = DataPropertyRange(
             datap,
             DatatypeRestriction(Integer(),
                     FacetRestriction(OWLFacet.LANG_RANGE, Literal(1))));
+    @Nonnull
     private static final OWLDataPropertyRangeAxiom DATA_PROPERTY_RANGE = DataPropertyRange(
             datap,
             DatatypeRestriction(Integer(),
                     FacetRestriction(OWLFacet.MAX_EXCLUSIVE, Literal(1))));
+    @Nonnull
     private static final OWLObjectProperty op = ObjectProperty(IRI("urn:datatype#fakeobjectproperty"));
+    @Nonnull
     private static final OWLDatatype unknownfakedatatype = Datatype(IRI(START
             + "unknownfakedatatype"));
+    @Nonnull
     private static final OWLDatatype fakeundeclareddatatype = Datatype(IRI("urn:datatype#fakeundeclareddatatype"));
+    @Nonnull
     private static final OWLDatatype fakedatatype = Datatype(IRI("urn:datatype#fakedatatype"));
+    @Nonnull
     private static final IRI onto = IRI.create("urn:test#ontology");
+    @Nonnull
     private static final OWLDataFactory df = OWLManager.getOWLDataFactory();
+    @Nonnull
     private static final OWLObjectProperty p = ObjectProperty(IRI("urn:test#objectproperty"));
 
     public void declare(@Nonnull OWLOntology o, @Nonnull OWLEntity... entities) {
         OWLOntologyManager m = o.getOWLOntologyManager();
         for (OWLEntity e : entities) {
+            assert e != null;
             m.addAxiom(o, Declaration(e));
         }
     }
@@ -134,7 +149,7 @@ public class OWLProfileTestCase {
     Comparator<Class> comp = new Comparator<Class>() {
 
         @Override
-        public int compare(@Nonnull Class o1, @Nonnull Class o2) {
+        public int compare(Class o1, Class o2) {
             return o1.getSimpleName().compareTo(o2.getSimpleName());
         }
     };
@@ -162,6 +177,7 @@ public class OWLProfileTestCase {
             violation.accept(new OWLProfileViolationVisitorAdapter());
             violation.accept(new OWLProfileViolationVisitorExAdapter<String>() {
 
+                @SuppressWarnings("null")
                 @Override
                 protected String doDefault(@Nonnull OWLProfileViolation<?> v) {
                     return v.toString();
@@ -331,7 +347,8 @@ public class OWLProfileTestCase {
     public void shouldCreateViolationForOWLOntologyInOWL2DLProfile()
             throws Exception {
         OWLOntology o = OWLManager.createOWLOntologyManager().createOntology(
-                new OWLOntologyID(IRI(START + "test"), IRI(START + "test1")));
+                new OWLOntologyID(Optional.of(IRI(START + "test")), Optional
+                        .of(IRI(START + "test1"))));
         OWL2DLProfile profile = new OWL2DLProfile();
         int expected = 2;
         Class[] expectedViolations = new Class[] {
@@ -760,6 +777,7 @@ public class OWLProfileTestCase {
         runAssert(o, profile, expected, expectedViolations);
     }
 
+    @SuppressWarnings("null")
     @Test
     @Tests(method = "public Object visit(OWLSubPropertyChainOfAxiom axiom)")
     public void
@@ -788,7 +806,8 @@ public class OWLProfileTestCase {
     public void shouldCreateViolationForOWLOntologyInOWL2Profile()
             throws Exception {
         OWLOntology o = OWLManager.createOWLOntologyManager().createOntology(
-                new OWLOntologyID(IRI("test"), IRI("test1")));
+                new OWLOntologyID(Optional.of(IRI("test")), Optional
+                        .of(IRI("test1"))));
         OWL2Profile profile = new OWL2Profile();
         int expected = 2;
         Class[] expectedViolations = new Class[] {
@@ -1308,7 +1327,9 @@ public class OWLProfileTestCase {
         OWLObjectProperty op2 = ObjectProperty(IRI("urn:test#op"));
         declare(o, op1, op, op2, cl);
         m.addAxiom(o, ObjectPropertyRange(op, cl));
-        m.addAxiom(o, SubPropertyChainOf(Arrays.asList(op2, op1), op));
+        List<OWLObjectProperty> asList = Arrays.asList(op2, op1);
+        assert asList != null;
+        m.addAxiom(o, SubPropertyChainOf(asList, op));
         int expected = 1;
         Class[] expectedViolations = new Class[] { LastPropertyInChainNotInImposedRange.class };
         runAssert(o, profile, expected, expectedViolations);
@@ -1442,6 +1463,7 @@ public class OWLProfileTestCase {
         runAssert(o, profile, expected, expectedViolations);
     }
 
+    @SuppressWarnings("null")
     @Test
     @Tests(method = "public Object visit(OWLSubPropertyChainOfAxiom axiom)")
     public void
@@ -2027,6 +2049,7 @@ public class OWLProfileTestCase {
         runAssert(o, profile, expected, expectedViolations);
     }
 
+    @Nonnull
     private static OWLOntology createOnto() throws OWLOntologyCreationException {
         return OWLManager.createOWLOntologyManager().createOntology(onto);
     }

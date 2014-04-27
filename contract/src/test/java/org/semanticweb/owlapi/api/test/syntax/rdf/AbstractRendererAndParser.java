@@ -76,6 +76,7 @@ public abstract class AbstractRendererAndParser extends TestBase {
             OWLOntologyStorageException {
         OWLOntology ontA = m.createOntology(IRI("http://rdfxmltests/ontology"));
         for (OWLAxiom ax : getAxioms()) {
+            assert ax != null;
             m.applyChange(new AddAxiom(ontA, ax));
         }
         OWLOntology ontB = roundTrip(ontA);

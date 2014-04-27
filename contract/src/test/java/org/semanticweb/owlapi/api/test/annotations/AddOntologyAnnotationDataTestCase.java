@@ -13,12 +13,13 @@
 package org.semanticweb.owlapi.api.test.annotations;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
 
 import javax.annotation.Nonnull;
 
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.semanticweb.owlapi.change.AddOntologyAnnotationData;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -30,20 +31,21 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * @since 3.2.0
  */
 @SuppressWarnings("javadoc")
+@RunWith(MockitoJUnitRunner.class)
 public class AddOntologyAnnotationDataTestCase {
 
+    @SuppressWarnings("null")
+    @Nonnull
+    @Mock
     private OWLAnnotation mockAnnotation;
+    @SuppressWarnings("null")
+    @Nonnull
+    @Mock
     private OWLOntology mockOntology;
 
     @Nonnull
     private AddOntologyAnnotationData createData() {
         return new AddOntologyAnnotationData(mockAnnotation);
-    }
-
-    @Before
-    public void setUp() {
-        mockAnnotation = mock(OWLAnnotation.class);
-        mockOntology = mock(OWLOntology.class);
     }
 
     @Test

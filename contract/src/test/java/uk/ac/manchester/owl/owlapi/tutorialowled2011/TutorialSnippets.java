@@ -26,7 +26,6 @@ import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -115,7 +114,10 @@ public class TutorialSnippets {
     @Nonnull
     @Rule
     public TemporaryFolder temporaryFolder = new TemporaryFolder();
+    @SuppressWarnings("null")
+    @Nonnull
     private static Logger log = LoggerFactory.getLogger(TutorialSnippets.class);
+    @Nonnull
     private final static String koala = "<?xml version=\"1.0\"?>\n"
             + "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\""
             + " xmlns=\"http://protege.stanford.edu/plugins/owl/owl-library/koala.owl#\" xml:base=\"http://protege.stanford.edu/plugins/owl/owl-library/koala.owl\">\n"
@@ -144,16 +146,21 @@ public class TutorialSnippets {
             + "  <owl:FunctionalProperty rdf:ID=\"hasGender\"><rdfs:range rdf:resource=\"#Gender\"/><rdf:type rdf:resource=\"http://www.w3.org/2002/07/owl#ObjectProperty\"/><rdfs:domain rdf:resource=\"#Animal\"/></owl:FunctionalProperty>\n"
             + "  <owl:FunctionalProperty rdf:ID=\"isHardWorking\"><rdfs:range rdf:resource=\"http://www.w3.org/2001/XMLSchema#boolean\"/><rdfs:domain rdf:resource=\"#Person\"/><rdf:type rdf:resource=\"http://www.w3.org/2002/07/owl#DatatypeProperty\"/></owl:FunctionalProperty>\n"
             + "  <Degree rdf:ID=\"MA\"/>\n</rdf:RDF>";
+    @Nonnull
     public static final IRI koala_iri = IRI
             .create("http://protege.stanford.edu/plugins/owl/owl-library/koala.owl");
+    @Nonnull
     public static final IRI example_iri = IRI
             .create("http://www.semanticweb.org/ontologies/ont.owl");
+    @Nonnull
     public static final IRI example_save_iri = IRI
             .create("file:materializedOntologies/ont1290535967123.owl");
+    @Nonnull
     OWLDataFactory df = OWLManager.getOWLDataFactory();
     @Nonnull
     OWLReasonerFactory reasonerFactory = new StructuralReasonerFactory();
 
+    @Nonnull
     public OWLOntologyManager create() {
         OWLOntologyManager m = OWLManager.createOWLOntologyManager();
         PriorityCollection<OWLOntologyIRIMapper> iriMappers = m.getIRIMappers();
@@ -162,6 +169,7 @@ public class TutorialSnippets {
         return m;
     }
 
+    @Nonnull
     private static OWLOntology loadPizzaOntology(@Nonnull OWLOntologyManager m)
             throws OWLOntologyCreationException {
         return m.loadOntologyFromOntologyDocument(new StringDocumentSource(
@@ -186,8 +194,7 @@ public class TutorialSnippets {
         // remove the ontology from the manager, so it can be loaded again
         m.removeOntology(o);
         // create a document source from a string
-        StringDocumentSource documentSource = new StringDocumentSource(
-                target.toString());
+        StringDocumentSource documentSource = new StringDocumentSource(target);
         // load the ontology from a document source
         OWLOntology o2 = m.loadOntologyFromOntologyDocument(documentSource);
         assertNotNull(o2);
@@ -212,6 +219,7 @@ public class TutorialSnippets {
         }
     }
 
+    @SuppressWarnings("null")
     @Test
     public void testSaveOntology() throws OWLException, IOException {
         OWLOntologyManager m = create();
@@ -234,6 +242,7 @@ public class TutorialSnippets {
     }
 
     @Test
+    @SuppressWarnings("null")
     public void testIRIMapper() throws OWLException, IOException {
         OWLOntologyManager m = OWLManager.createOWLOntologyManager();
         // map the ontology IRI to a physical IRI (files for example)
@@ -289,6 +298,7 @@ public class TutorialSnippets {
         assertEquals(2, classes.size());
     }
 
+    @SuppressWarnings("null")
     @Test
     public void testSWRL() throws OWLException {
         OWLOntologyManager m = create();
@@ -346,6 +356,7 @@ public class TutorialSnippets {
         m.addAxiom(o, ax);
     }
 
+    @SuppressWarnings("null")
     @Test
     public void testDelete() throws OWLException {
         // Delete individuals representing countries
@@ -462,6 +473,7 @@ public class TutorialSnippets {
         reasoner.precomputeInferences(InferenceType.CLASS_HIERARCHY);
         // Look up and print all direct subclasses for all classes
         for (OWLClass c : o.getClassesInSignature()) {
+            assert c != null;
             // the boolean argument specifies direct subclasses; false would
             // specify all subclasses
             // a NodeSet represents a set of Nodes.
@@ -493,6 +505,7 @@ public class TutorialSnippets {
         reasoner.precomputeInferences(InferenceType.CLASS_HIERARCHY);
         // for each class, look up the instances
         for (OWLClass c : o.getClassesInSignature()) {
+            assert c != null;
             // the boolean argument specifies direct subclasses; false would
             // specify all subclasses
             // a NodeSet represents a set of Nodes.
@@ -501,8 +514,10 @@ public class TutorialSnippets {
             NodeSet<OWLNamedIndividual> instances = reasoner.getInstances(c,
                     true);
             for (OWLNamedIndividual i : instances.getFlattened()) {
+                assert i != null;
                 // look up all property assertions
                 for (OWLObjectProperty op : o.getObjectPropertiesInSignature()) {
+                    assert op != null;
                     NodeSet<OWLNamedIndividual> petValuesNodeSet = reasoner
                             .getObjectPropertyValues(i, op);
                     for (OWLNamedIndividual value : petValuesNodeSet
@@ -521,6 +536,7 @@ public class TutorialSnippets {
         OWLOntology o = loadPizzaOntology(m);
         // We want to examine the restrictions on all classes.
         for (OWLClass c : o.getClassesInSignature()) {
+            assert c != null;
             // collect the properties which are used in existential restrictions
             RestrictionVisitor visitor = new RestrictionVisitor(
                     Collections.singleton(o));
@@ -687,6 +703,7 @@ public class TutorialSnippets {
         assertTrue(merged.getAxiomCount() > o2.getAxiomCount());
     }
 
+    @SuppressWarnings("null")
     @Test
     public void testOntologyWalker() throws OWLException {
         // How to use an ontology walker to walk the asserted structure of an
@@ -700,7 +717,6 @@ public class TutorialSnippets {
         OWLOntologyWalkerVisitorEx<Object> visitor = new OWLOntologyWalkerVisitorEx<Object>(
                 walker) {
 
-            @Nullable
             @Override
             public Object visit(OWLObjectSomeValuesFrom desc) {
                 assertNotNull(desc);
@@ -710,7 +726,7 @@ public class TutorialSnippets {
                 // System.out.println("         " + getCurrentAxiom());
                 // System.out.println();
                 // We don't need to return anything here.
-                return null;
+                return "";
             }
         };
         // Now ask the walker to walk over the ontology structure using our
@@ -748,9 +764,9 @@ public class TutorialSnippets {
             @Nonnull OWLReasoner reasoner, OWLClass cls) {
         for (OWLObjectPropertyExpression prop : o
                 .getObjectPropertiesInSignature()) {
+            assert prop != null;
             // To test whether an instance of A MUST have a property p with a
-            // filler,
-            // check for the satisfiability of A and not (some p Thing)
+            // filler, check for the satisfiability of A and not (some p Thing)
             // if this is satisfiable, then there might be instances with no
             // p-filler
             OWLClassExpression restriction = df.getOWLObjectSomeValuesFrom(
@@ -897,11 +913,12 @@ public class TutorialSnippets {
      * assuming this class is at the given level. Makes no attempt to deal
      * sensibly with multiple inheritance.
      */
-    public void printHierarchy(@Nonnull OWLOntology o, OWLClass clazz) {
+    public void printHierarchy(@Nonnull OWLOntology o, @Nonnull OWLClass clazz) {
         OWLReasoner reasoner = reasonerFactory.createNonBufferingReasoner(o);
         printHierarchy(reasoner, clazz, 0, new HashSet<OWLClass>());
         /* Now print out any unsatisfiable classes */
         for (OWLClass cl : o.getClassesInSignature()) {
+            assert cl != null;
             if (!reasoner.isSatisfiable(cl)) {
                 assertNotNull(labelFor(cl, o));
                 // System.out.println("XXX: " + labelFor(cl, o));
@@ -949,7 +966,6 @@ public class TutorialSnippets {
     class LabelExtractor extends OWLObjectVisitorExAdapter<String> implements
             OWLAnnotationObjectVisitorEx<String> {
 
-        @Nullable
         @Override
         public String visit(@Nonnull OWLAnnotation annotation) {
             /*
@@ -960,7 +976,7 @@ public class TutorialSnippets {
                 OWLLiteral c = (OWLLiteral) annotation.getValue();
                 return c.getLiteral();
             }
-            return null;
+            return "";
         }
     }
 
@@ -973,15 +989,16 @@ public class TutorialSnippets {
                 .getAnnotationAssertionAxioms(clazz.getIRI()));
         for (OWLAnnotation anno : annotations) {
             String result = anno.accept(le);
-            if (result != null) {
+            if (!result.isEmpty()) {
                 return result;
             }
         }
         return clazz.getIRI().toString();
     }
 
-    public void printHierarchy(@Nonnull OWLReasoner reasoner, OWLClass clazz,
-            int level, @Nonnull Set<OWLClass> visited) {
+    @SuppressWarnings("null")
+    public void printHierarchy(@Nonnull OWLReasoner reasoner,
+            @Nonnull OWLClass clazz, int level, @Nonnull Set<OWLClass> visited) {
         // Only print satisfiable classes to skip Nothing
         if (!visited.contains(clazz) && reasoner.isSatisfiable(clazz)) {
             visited.add(clazz);

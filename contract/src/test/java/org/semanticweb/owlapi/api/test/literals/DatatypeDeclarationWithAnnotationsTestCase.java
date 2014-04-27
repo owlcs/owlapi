@@ -38,7 +38,8 @@ public class DatatypeDeclarationWithAnnotationsTestCase extends
     }
 
     @Override
-    protected boolean isIgnoreDeclarationAxioms(OWLOntologyFormat format) {
+    protected boolean isIgnoreDeclarationAxioms(
+            @SuppressWarnings("unused") OWLOntologyFormat format) {
         return false;
     }
 

@@ -20,6 +20,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 
+import com.google.common.base.Optional;
+
 /**
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
@@ -31,7 +33,8 @@ public class OntologyVersionIRITestCase extends AbstractRoundTrippingTestCase {
     protected OWLOntology createOntology() throws OWLOntologyCreationException {
         IRI ontIRI = IRI("http://www.semanticweb.org/owlapi/ontology");
         IRI versionIRI = IRI("http://www.semanticweb.org/owlapi/ontology/version");
-        OWLOntologyID ontologyID = new OWLOntologyID(ontIRI, versionIRI);
+        OWLOntologyID ontologyID = new OWLOntologyID(Optional.of(ontIRI),
+                Optional.of(versionIRI));
         return m.createOntology(ontologyID);
     }
 }

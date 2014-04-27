@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.api.test;
 
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
@@ -37,6 +39,7 @@ public class TestUtils {
 
     private static int uriCounter = 0;
 
+    @Nonnull
     public static IRI createIRI() {
         uriCounter++;
         return IRI.create("http://org.semanticweb.owlapi/tests#", "uri"

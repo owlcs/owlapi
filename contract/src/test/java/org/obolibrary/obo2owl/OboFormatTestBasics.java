@@ -49,11 +49,14 @@ public class OboFormatTestBasics {
         return obodoc;
     }
 
+    @Nonnull
     protected OBODoc parseOBOFile(String fn) throws IOException,
             OBOFormatParserException {
         return parseOBOFile(fn, false);
     }
 
+    @SuppressWarnings("resource")
+    @Nonnull
     protected OBODoc parseOBOFile(String fn, boolean allowEmptyFrames)
             throws IOException, OBOFormatParserException {
         InputStream inputStream = getInputStream(fn);
@@ -78,6 +81,7 @@ public class OboFormatTestBasics {
         return obodoc;
     }
 
+    @Nonnull
     protected InputStream getInputStream(String fn) {
         InputStream inputStream = OboFormatTestBasics.class
                 .getResourceAsStream(fn);
@@ -100,9 +104,11 @@ public class OboFormatTestBasics {
         return inputStream;
     }
 
+    @Nonnull
     protected OBODoc parseOBOFile(@Nonnull File file) throws IOException,
             OBOFormatParserException {
         OBOFormatParser p = new OBOFormatParser();
+        @SuppressWarnings("null")
         OBODoc obodoc = p.parse(file.getCanonicalPath());
         return obodoc;
     }
@@ -116,6 +122,7 @@ public class OboFormatTestBasics {
         return ontology;
     }
 
+    @Nonnull
     protected OWLOntology convert(OBODoc obodoc)
             throws OWLOntologyCreationException {
         OWLAPIObo2Owl bridge = new OWLAPIObo2Owl(
@@ -124,6 +131,7 @@ public class OboFormatTestBasics {
         return ontology;
     }
 
+    @Nonnull
     protected OWLOntology convertOBOFile(String fn) throws Exception {
         OWLOntology convert = convert(parseOBOFile(fn));
         writeOWL(convert);
@@ -142,7 +150,9 @@ public class OboFormatTestBasics {
         return doc;
     }
 
-    protected String writeOBO(OBODoc obodoc) throws IOException {
+    @SuppressWarnings("null")
+    @Nonnull
+    protected String writeOBO(@Nonnull OBODoc obodoc) throws IOException {
         StringWriter target = new StringWriter();
         OBOFormatWriter oboWriter = new OBOFormatWriter();
         BufferedWriter bw = new BufferedWriter(target);
@@ -159,15 +169,18 @@ public class OboFormatTestBasics {
 
     @Nonnull
     protected StringDocumentTarget writeOWL(@Nonnull OWLOntology ontology,
-            OWLOntologyFormat format) throws OWLOntologyStorageException {
+            @Nonnull OWLOntologyFormat format)
+            throws OWLOntologyStorageException {
         StringDocumentTarget target = new StringDocumentTarget();
         OWLOntologyManager manager = ontology.getOWLOntologyManager();
         manager.saveOntology(ontology, format, target);
         return target;
     }
 
+    @SuppressWarnings("null")
     @Nonnull
-    protected static String renderOboToString(OBODoc oboDoc) throws IOException {
+    protected static String renderOboToString(@Nonnull OBODoc oboDoc)
+            throws IOException {
         OBOFormatWriter writer = new OBOFormatWriter();
         writer.setCheckStructure(true);
         StringWriter out = new StringWriter();
@@ -186,7 +199,7 @@ public class OboFormatTestBasics {
         return parsedOboDoc;
     }
 
-    protected static void renderOBO(OBODoc oboDoc) throws IOException {
+    protected static void renderOBO(@Nonnull OBODoc oboDoc) throws IOException {
         OBOFormatWriter writer = new OBOFormatWriter();
         writer.setCheckStructure(true);
         BufferedWriter stream = new BufferedWriter(new StringWriter());
@@ -202,7 +215,7 @@ public class OboFormatTestBasics {
     }
 
     protected static String renderOWL(@Nonnull OWLOntology owlOntology,
-            OWLOntologyFormat ontologyFormat)
+            @Nonnull OWLOntologyFormat ontologyFormat)
             throws OWLOntologyStorageException, IOException {
         OWLOntologyManager manager = owlOntology.getOWLOntologyManager();
         ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -230,6 +243,7 @@ public class OboFormatTestBasics {
         return null;
     }
 
+    @SuppressWarnings("null")
     @Nonnull
     protected String readResource(String resource) throws IOException {
         InputStream inputStream = getInputStream(resource);
@@ -238,8 +252,7 @@ public class OboFormatTestBasics {
         StringBuilder sb = new StringBuilder();
         String line;
         while ((line = reader.readLine()) != null) {
-            sb.append(line);
-            sb.append('\n');
+            sb.append(line).append('\n');
         }
         reader.close();
         inputStream.close();

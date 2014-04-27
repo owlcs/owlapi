@@ -217,8 +217,13 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
         assertTrue(axioms.contains(SubClassOf(man, person)));
     }
 
+    @Nonnull
     public static final String NS = "http://protege.org/ontologies/Test.owl";
+    @SuppressWarnings("null")
+    @Nonnull
     OWLDataProperty p;
+    @SuppressWarnings("null")
+    @Nonnull
     OWLDatatype date_time;
 
     @Before
@@ -245,6 +250,7 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
         m.addAxiom(o, annotation(p, "has_publication_date"));
         m.addAxiom(o, annotation(date_time, "dateTime"));
         // select a short form provider that uses annotations
+        @SuppressWarnings("null")
         ShortFormProvider sfp = new AnnotationValueShortFormProvider(
                 Arrays.asList(df.getRDFSLabel()),
                 Collections.<OWLAnnotationProperty, List<String>> emptyMap(), m);
@@ -263,7 +269,8 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
         assertEquals(expected, dsvf);
     }
 
-    public OWLAxiom annotation(@Nonnull OWLEntity e, String s) {
+    @Nonnull
+    public OWLAxiom annotation(@Nonnull OWLEntity e, @Nonnull String s) {
         return df.getOWLAnnotationAssertionAxiom(e.getIRI(),
                 df.getOWLAnnotation(df.getRDFSLabel(), df.getOWLLiteral(s)));
     }
@@ -286,6 +293,7 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
         m.addAxiom(o, df.getOWLDeclarationAxiom(d));
         m.addAxiom(o, df.getOWLSubClassOfAxiom(expected, d));
         // select a short form provider that uses annotations
+        @SuppressWarnings("null")
         ShortFormProvider sfp = new AnnotationValueShortFormProvider(
                 Arrays.asList(df.getRDFSLabel()),
                 Collections.<OWLAnnotationProperty, List<String>> emptyMap(), m);
@@ -323,6 +331,7 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
         m.addAxiom(o, df.getOWLDeclarationAxiom(decimal));
         m.addAxiom(o, annotation(p, "p"));
         // select a short form provider that uses annotations
+        @SuppressWarnings("null")
         ShortFormProvider sfp = new AnnotationValueShortFormProvider(
                 Arrays.asList(df.getRDFSLabel()),
                 Collections.<OWLAnnotationProperty, List<String>> emptyMap(), m);
@@ -374,6 +383,7 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
         m.addAxiom(o, df.getOWLDeclarationAxiom(d));
         m.addAxiom(o, df.getOWLSubClassOfAxiom(expected, d));
         // select a short form provider that uses annotations
+        @SuppressWarnings("null")
         ShortFormProvider sfp = new AnnotationValueShortFormProvider(
                 Arrays.asList(df.getRDFSLabel()),
                 Collections.<OWLAnnotationProperty, List<String>> emptyMap(), m);
@@ -403,6 +413,7 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
         OWLOntology result = roundTrip(o,
                 new ManchesterOWLSyntaxOntologyFormat());
         for (OWLAxiom ax : o.getAxioms()) {
+            assert ax != null;
             assertTrue(result.containsAxiom(ax));
         }
     }

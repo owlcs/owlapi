@@ -32,6 +32,7 @@ public abstract class AbstractFileRoundTrippingTestCase extends
         try {
             String fileName = getFileName();
             URL resource = getClass().getResource("/" + fileName);
+            @SuppressWarnings("null")
             IRI iri = IRI.create(resource.toURI());
             return m.loadOntologyFromOntologyDocument(iri);
         } catch (URISyntaxException e) {

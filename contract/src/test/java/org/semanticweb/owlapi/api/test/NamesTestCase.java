@@ -49,6 +49,8 @@ import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParser;
 import org.semanticweb.owlapi.rdf.turtle.parser.TurtleOntologyParser;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
+import com.google.common.base.Optional;
+
 @SuppressWarnings("javadoc")
 public class NamesTestCase {
 
@@ -126,17 +128,17 @@ public class NamesTestCase {
                         return super.getName();
                     }
                 }.getName());
-        assertEquals("SetOntologyIDData",
-                new SetOntologyIDData(new OWLOntologyID(
-                        IRI.create("urn:test1"), IRI.create("urn:test2"))) {
+        assertEquals("SetOntologyIDData", new SetOntologyIDData(
+                new OWLOntologyID(Optional.of(IRI.create("urn:test1")),
+                        Optional.of(IRI.create("urn:test2")))) {
 
-                    private static final long serialVersionUID = 1L;
+            private static final long serialVersionUID = 1L;
 
-                    @Override
-                    public String getName() {
-                        return super.getName();
-                    }
-                }.getName());
+            @Override
+            public String getName() {
+                return super.getName();
+            }
+        }.getName());
         assertEquals("KRSS2OWLParser", new KRSS2OWLParser().getName());
         assertEquals("KRSSOWLParser", new KRSSOWLParser().getName());
         assertEquals("OWLFunctionalSyntaxOWLParser",

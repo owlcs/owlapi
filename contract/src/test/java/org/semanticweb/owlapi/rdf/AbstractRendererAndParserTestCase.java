@@ -97,6 +97,7 @@ public abstract class AbstractRendererAndParserTestCase extends TestBase {
         return man.getOWLDataFactory();
     }
 
+    @SuppressWarnings("null")
     @Test
     public void testSaveAndReload() throws OWLOntologyCreationException,
             OWLOntologyStorageException, IOException {

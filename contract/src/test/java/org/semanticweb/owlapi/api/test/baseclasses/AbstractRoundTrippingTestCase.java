@@ -35,6 +35,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 @SuppressWarnings("javadoc")
 public abstract class AbstractRoundTrippingTestCase extends TestBase {
 
+    @SuppressWarnings("null")
     @Nonnull
     private OWLOntology ont;
 

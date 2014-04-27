@@ -18,6 +18,8 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 import java.util.Set;
 import java.util.TreeSet;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Ignore;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
@@ -185,6 +187,7 @@ public class SWRLRoundTripTestCase extends TestBase {
      * @return
      * @throws OWLOntologyCreationException
      */
+    @Nonnull
     OWLOntology prepareOntology() throws OWLOntologyCreationException {
         String NS = "urn:test";
         OWLClass A = Class(IRI(NS + "#A"));

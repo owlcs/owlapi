@@ -73,13 +73,14 @@ public class ManchesterParseErrorTestCase extends TestBase {
 
         @Nullable
         @Override
-        public OWLClass getOWLClass(String name) {
+        public OWLClass getOWLClass(@SuppressWarnings("unused") String name) {
             return null;
         }
 
         @Nullable
         @Override
-        public OWLObjectProperty getOWLObjectProperty(String name) {
+        public OWLObjectProperty getOWLObjectProperty(
+                @SuppressWarnings("unused") String name) {
             return null;
         }
 
@@ -96,13 +97,15 @@ public class ManchesterParseErrorTestCase extends TestBase {
 
         @Nullable
         @Override
-        public OWLAnnotationProperty getOWLAnnotationProperty(String name) {
+        public OWLAnnotationProperty getOWLAnnotationProperty(
+                @SuppressWarnings("unused") String name) {
             return null;
         }
 
         @Nullable
         @Override
-        public OWLNamedIndividual getOWLIndividual(String name) {
+        public OWLNamedIndividual getOWLIndividual(
+                @SuppressWarnings("unused") String name) {
             return null;
         }
 

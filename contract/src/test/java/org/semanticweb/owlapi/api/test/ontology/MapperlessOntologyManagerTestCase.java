@@ -17,6 +17,8 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import java.util.Collections;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
@@ -26,6 +28,8 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
+import com.google.common.base.Optional;
+
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health
  *         Informatics Group
@@ -34,6 +38,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 @SuppressWarnings("javadoc")
 public class MapperlessOntologyManagerTestCase {
 
+    @Nonnull
     private static final IRI ONTOLOGY_IRI = IRI("http://test.com/ont");
 
     private static OWLOntologyManager createManager() {
@@ -77,7 +82,8 @@ public class MapperlessOntologyManagerTestCase {
             throws OWLOntologyCreationException {
         OWLOntologyManager manager = createManager();
         IRI versionIRI = IRI("http://version/1");
-        OWLOntologyID id = new OWLOntologyID(ONTOLOGY_IRI, versionIRI);
+        OWLOntologyID id = new OWLOntologyID(Optional.of(ONTOLOGY_IRI),
+                Optional.of(versionIRI));
         OWLOntology ontology = manager.createOntology(id);
         assertEquals(ONTOLOGY_IRI, ontology.getOntologyID().getOntologyIRI()
                 .get());
@@ -88,7 +94,8 @@ public class MapperlessOntologyManagerTestCase {
     @Test
     public void testCreateOntologyWithId() throws OWLOntologyCreationException {
         OWLOntologyManager manager = createManager();
-        OWLOntologyID id = new OWLOntologyID(ONTOLOGY_IRI, null);
+        OWLOntologyID id = new OWLOntologyID(Optional.of(ONTOLOGY_IRI),
+                Optional.<IRI> absent());
         OWLOntology ontology = manager.createOntology(id);
         assertEquals(ONTOLOGY_IRI, ontology.getOntologyID().getOntologyIRI()
                 .get());

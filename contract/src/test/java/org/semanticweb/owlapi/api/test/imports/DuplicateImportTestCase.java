@@ -19,6 +19,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.AddImport;
@@ -30,30 +32,34 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
+import com.google.common.base.Optional;
+
 @SuppressWarnings("javadoc")
 public class DuplicateImportTestCase extends TestBase {
 
+    @SuppressWarnings("null")
     @Test
     public void shouldLoad() throws OWLOntologyStorageException,
             OWLOntologyCreationException, IOException {
-        File ontologyByName;
-        File ontologyByVersion;
-        File ontologyByOtherPath;
-        File importsBothNameAndVersion;
-        File importsBothNameAndOther;
-        ontologyByName = File.createTempFile("temp", "main.owl");
-        ontologyByVersion = File.createTempFile("temp", "version.owl");
-        ontologyByOtherPath = File.createTempFile("temp", "other.owl");
+        @Nonnull
+        File importsBothNameAndVersion = folder
+                .newFile("tempimportsNameAndVersion.owl");
+        @Nonnull
+        File importsBothNameAndOther = folder
+                .newFile("tempimportsNameAndOther.owl");
+        @Nonnull
+        File ontologyByName = folder.newFile("tempmain.owl");
+        @Nonnull
+        File ontologyByVersion = folder.newFile("tempversion.owl");
+        @Nonnull
+        File ontologyByOtherPath = folder.newFile("tempother.owl");
         OWLOntologyManager manager = m;
-        OWLOntology ontology = manager.createOntology(new OWLOntologyID(IRI
-                .create(ontologyByName), IRI.create(ontologyByVersion)));
+        OWLOntology ontology = manager.createOntology(new OWLOntologyID(
+                Optional.of(IRI.create(ontologyByName)), Optional.of(IRI
+                        .create(ontologyByVersion))));
         manager.saveOntology(ontology, IRI.create(ontologyByName));
         manager.saveOntology(ontology, IRI.create(ontologyByVersion));
         manager.saveOntology(ontology, IRI.create(ontologyByOtherPath));
-        importsBothNameAndVersion = File.createTempFile("temp",
-                "importsNameAndVersion.owl");
-        importsBothNameAndOther = File.createTempFile("temp",
-                "importsNameAndOther.owl");
         manager = m1;
         OWLDataFactory factory = manager.getOWLDataFactory();
         OWLOntology ontology1 = manager.createOntology(IRI

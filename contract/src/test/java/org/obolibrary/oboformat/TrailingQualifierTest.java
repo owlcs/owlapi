@@ -37,6 +37,7 @@ public class TrailingQualifierTest extends OboFormatTestBasics {
 
     private void checkAllTrailingQualifiers(@Nonnull OBODoc doc) {
         Frame headerFrame = doc.getHeaderFrame();
+        assert headerFrame != null;
         hasQualifierClause(headerFrame, OboFormatTag.TAG_AUTO_GENERATED_BY);
         hasQualifierClause(headerFrame, OboFormatTag.TAG_SUBSETDEF);
         hasQualifierClause(headerFrame, OboFormatTag.TAG_SYNONYMTYPEDEF);
@@ -44,6 +45,7 @@ public class TrailingQualifierTest extends OboFormatTestBasics {
         hasQualifierClause(headerFrame, OboFormatTag.TAG_IDSPACE);
         hasQualifierClauses(headerFrame, OboFormatTag.TAG_PROPERTY_VALUE);
         Frame frame = doc.getTermFrame("TEST:0001");
+        assert frame != null;
         hasQualifierClause(frame, OboFormatTag.TAG_NAME);
         hasQualifierClause(frame, OboFormatTag.TAG_NAMESPACE);
         hasQualifierClause(frame, OboFormatTag.TAG_ALT_ID);
@@ -62,12 +64,15 @@ public class TrailingQualifierTest extends OboFormatTestBasics {
         hasQualifierClause(frame, OboFormatTag.TAG_RELATIONSHIP);
         hasQualifierClause(frame, OboFormatTag.TAG_CREATED_BY);
         frame = doc.getTermFrame("TEST:0008");
+        assert frame != null;
         hasQualifierClause(frame, OboFormatTag.TAG_IS_OBSELETE);
         hasQualifierClause(frame, OboFormatTag.TAG_REPLACED_BY);
         frame = doc.getTermFrame("TEST:0009");
+        assert frame != null;
         hasQualifierClause(frame, OboFormatTag.TAG_IS_OBSELETE);
         hasQualifierClause(frame, OboFormatTag.TAG_CONSIDER);
         frame = doc.getTypedefFrame("TEST_REL:0001");
+        assert frame != null;
         hasQualifierClause(frame, OboFormatTag.TAG_DOMAIN);
         hasQualifierClause(frame, OboFormatTag.TAG_RANGE);
         hasQualifierClause(frame, OboFormatTag.TAG_IS_ANTI_SYMMETRIC);

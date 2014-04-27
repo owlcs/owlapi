@@ -25,6 +25,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.SetOntologyID;
 
+import com.google.common.base.Optional;
+
 /**
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group
@@ -40,8 +42,8 @@ public class SetOntologyIDDataTestCase {
     public void setUp() {
         mockOntology = mock(OWLOntology.class);
         when(mockOntology.getOntologyID()).thenReturn(
-                new OWLOntologyID(IRI.create("urn:test:onto1"), IRI
-                        .create("urn:test:onto1_1")));
+                new OWLOntologyID(Optional.of(IRI.create("urn:test:onto1")),
+                        Optional.of(IRI.create("urn:test:onto1_1"))));
         mockOntologyID = new OWLOntologyID();
     }
 

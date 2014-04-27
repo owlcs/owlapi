@@ -13,6 +13,7 @@ import org.obolibrary.oboformat.parser.XrefExpander;
 @SuppressWarnings("javadoc")
 public class XrefExpanderTest extends OboFormatTestBasics {
 
+    @SuppressWarnings("null")
     @Test
     public void testExpand() throws Exception {
         OBODoc obodoc = parseOBOFile("treat_xrefs_test.obo");
@@ -20,16 +21,21 @@ public class XrefExpanderTest extends OboFormatTestBasics {
         x.expandXrefs();
         OBODoc tdoc = obodoc.getImportedOBODocs().iterator().next();
         assertTrue(tdoc.getTermFrames().size() > 0);
-        assertTrue(tdoc.getTermFrame("ZFA:0001689")
-                .getClauses(OboFormatTag.TAG_INTERSECTION_OF).size() == 2);
-        assertTrue(tdoc.getTermFrame("EHDAA:571")
-                .getClause(OboFormatTag.TAG_IS_A).getValue()
+        Frame termFrame = tdoc.getTermFrame("ZFA:0001689");
+        assert termFrame != null;
+        assertTrue(termFrame.getClauses(OboFormatTag.TAG_INTERSECTION_OF)
+                .size() == 2);
+        termFrame = tdoc.getTermFrame("EHDAA:571");
+        assert termFrame != null;
+        assertTrue(termFrame.getClause(OboFormatTag.TAG_IS_A).getValue()
                 .equals("UBERON:0002539"));
-        assertTrue(tdoc.getTermFrame("UBERON:0006800")
-                .getClause(OboFormatTag.TAG_IS_A).getValue()
+        termFrame = tdoc.getTermFrame("UBERON:0006800");
+        assert termFrame != null;
+        assertTrue(termFrame.getClause(OboFormatTag.TAG_IS_A).getValue()
                 .equals("CARO:0000008"));
     }
 
+    @SuppressWarnings("null")
     @Test
     public void testExpandIntoSeparateBridges() throws Exception {
         OBODoc obodoc = parseOBOFile("treat_xrefs_test.obo");

@@ -16,13 +16,11 @@ import static org.junit.Assert.assertEquals;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
@@ -47,19 +45,24 @@ import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 @SuppressWarnings("javadoc")
 public class AnnotationShortFormProviderTestCase extends TestBase {
 
+    @Nonnull
+    PrefixManager pm = new DefaultPrefixManager(null, null,
+            "http://org.semanticweb.owlapi/ont#");
+    @Nonnull
+    OWLAnnotationProperty prop = AnnotationProperty("prop", pm);
+    @SuppressWarnings("null")
+    @Nonnull
+    List<OWLAnnotationProperty> props = Arrays.asList(prop);
+    @Nonnull
+    Map<OWLAnnotationProperty, List<String>> langMap = new HashMap<OWLAnnotationProperty, List<String>>();
+
     @Test
     public void testLiteralWithoutLanguageValue()
             throws OWLOntologyCreationException {
-        PrefixManager pm = new DefaultPrefixManager(null, null,
-                "http://org.semanticweb.owlapi/ont#");
-        OWLAnnotationProperty prop = AnnotationProperty("prop", pm);
         OWLNamedIndividual root = NamedIndividual("ind", pm);
         String shortForm = "MyLabel";
         Ontology(m,
                 AnnotationAssertion(prop, root.getIRI(), Literal(shortForm)));
-        List<OWLAnnotationProperty> props = Arrays.asList(prop);
-        Map<OWLAnnotationProperty, List<String>> langMap = Collections
-                .emptyMap();
         AnnotationValueShortFormProvider sfp = new AnnotationValueShortFormProvider(
                 props, langMap, m);
         assertEquals(sfp.getShortForm(root), shortForm);
@@ -68,9 +71,6 @@ public class AnnotationShortFormProviderTestCase extends TestBase {
     @Test
     public void testLiteralWithLanguageValue()
             throws OWLOntologyCreationException {
-        PrefixManager pm = new DefaultPrefixManager(null, null,
-                "http://org.semanticweb.owlapi/ont#");
-        OWLAnnotationProperty prop = AnnotationProperty("prop", pm);
         OWLNamedIndividual root = NamedIndividual("ind", pm);
         String label1 = "MyLabel";
         String label2 = "OtherLabel";
@@ -78,8 +78,6 @@ public class AnnotationShortFormProviderTestCase extends TestBase {
                 m,
                 AnnotationAssertion(prop, root.getIRI(), Literal(label1, "ab")),
                 AnnotationAssertion(prop, root.getIRI(), Literal(label2, "xy")));
-        List<OWLAnnotationProperty> props = Arrays.asList(prop);
-        Map<OWLAnnotationProperty, List<String>> langMap = new HashMap<OWLAnnotationProperty, List<String>>();
         langMap.put(prop, Arrays.asList("ab", "xy"));
         AnnotationValueShortFormProvider sfp = new AnnotationValueShortFormProvider(
                 props, langMap, m);
@@ -93,17 +91,11 @@ public class AnnotationShortFormProviderTestCase extends TestBase {
 
     @Test
     public void testIRIValue() throws OWLOntologyCreationException {
-        PrefixManager pm = new DefaultPrefixManager(null, null,
-                "http://org.semanticweb.owlapi/ont#");
-        OWLAnnotationProperty prop = AnnotationProperty("prop", pm);
         OWLNamedIndividual root = NamedIndividual("ind", pm);
         Ontology(
                 m,
                 AnnotationAssertion(prop, root.getIRI(),
                         IRI("http://org.semanticweb.owlapi/ont#myIRI")));
-        List<OWLAnnotationProperty> props = Arrays.asList(prop);
-        Map<OWLAnnotationProperty, List<String>> langMap = Collections
-                .emptyMap();
         AnnotationValueShortFormProvider sfp = new AnnotationValueShortFormProvider(
                 props, langMap, m);
         assertEquals(sfp.getShortForm(root), "myIRI");
@@ -112,16 +104,10 @@ public class AnnotationShortFormProviderTestCase extends TestBase {
     @Test
     public void shouldWrapWithDoubleQuotes()
             throws OWLOntologyCreationException {
-        PrefixManager pm = new DefaultPrefixManager(null, null,
-                "http://org.semanticweb.owlapi/ont#");
-        OWLAnnotationProperty prop = AnnotationProperty("prop", pm);
         OWLNamedIndividual root = NamedIndividual("ind", pm);
         String shortForm = "MyLabel";
         Ontology(m,
                 AnnotationAssertion(prop, root.getIRI(), Literal(shortForm)));
-        List<OWLAnnotationProperty> props = Arrays.asList(prop);
-        Map<OWLAnnotationProperty, List<String>> langMap = Collections
-                .emptyMap();
         AnnotationValueShortFormProvider sfp = new AnnotationValueShortFormProvider(
                 m, new SimpleShortFormProvider(),
                 new SimpleIRIShortFormProvider(), props, langMap,
@@ -133,16 +119,16 @@ public class AnnotationShortFormProviderTestCase extends TestBase {
                         return "\"" + literal.getLiteral() + "\"";
                     }
 
-                    @Nullable
+                    @SuppressWarnings("unused")
                     @Override
                     public String visit(OWLAnonymousIndividual individual) {
-                        return null;
+                        return "";
                     }
 
-                    @Nullable
+                    @SuppressWarnings("unused")
                     @Override
                     public String visit(IRI iri) {
-                        return null;
+                        return "";
                     }
                 });
         String shortForm2 = sfp.getShortForm(root);

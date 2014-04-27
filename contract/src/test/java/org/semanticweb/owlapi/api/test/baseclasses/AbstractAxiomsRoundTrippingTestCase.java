@@ -18,6 +18,8 @@ import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormat;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
@@ -33,6 +35,7 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 public abstract class AbstractAxiomsRoundTrippingTestCase extends
         AbstractRoundTrippingTestCase {
 
+    @Nonnull
     private final Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
 
     @Override

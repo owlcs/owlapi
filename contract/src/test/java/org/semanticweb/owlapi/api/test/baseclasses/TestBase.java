@@ -202,6 +202,7 @@ public abstract class TestBase {
     @Nonnull
     private String uriBase = "http://www.semanticweb.org/owlapi/test";
 
+    @Nonnull
     public OWLOntology getOWLOntology(String name) {
         try {
             IRI iri = IRI(uriBase + "/" + name);
@@ -233,7 +234,7 @@ public abstract class TestBase {
         return IRI(uriBase + "#" + name);
     }
 
-    public void addAxiom(OWLOntology ont, OWLAxiom ax) {
+    public void addAxiom(@Nonnull OWLOntology ont, @Nonnull OWLAxiom ax) {
         m.addAxiom(ont, ax);
     }
 
@@ -255,8 +256,8 @@ public abstract class TestBase {
      *        The format to use when doing the round trip.
      */
     public OWLOntology roundTripOntology(@Nonnull OWLOntology ont,
-            OWLOntologyFormat format) throws OWLOntologyStorageException,
-            OWLOntologyCreationException {
+            @Nonnull OWLOntologyFormat format)
+            throws OWLOntologyStorageException, OWLOntologyCreationException {
         StringDocumentTarget target = new StringDocumentTarget();
         OWLOntologyFormat fromFormat = m.getOntologyFormat(ont);
         if (fromFormat instanceof PrefixOWLOntologyFormat
@@ -309,7 +310,8 @@ public abstract class TestBase {
         // System.out.println(target.toString());
     }
 
-    protected OWLOntology loadOntologyFromString(String input)
+    @Nonnull
+    protected OWLOntology loadOntologyFromString(@Nonnull String input)
             throws OWLOntologyCreationException {
         OWLOntology ontology = OWLManager.createOWLOntologyManager()
                 .loadOntologyFromOntologyDocument(
@@ -317,8 +319,10 @@ public abstract class TestBase {
         return ontology;
     }
 
-    protected OWLOntology loadOntologyFromString(String input, IRI i,
-            OWLOntologyFormat f) throws OWLOntologyCreationException {
+    @Nonnull
+    protected OWLOntology loadOntologyFromString(@Nonnull String input,
+            @Nonnull IRI i, @Nonnull OWLOntologyFormat f)
+            throws OWLOntologyCreationException {
         StringDocumentSource documentSource = new StringDocumentSource(input,
                 i, f, null);
         OWLOntology ontology = OWLManager.createOWLOntologyManager()
@@ -326,14 +330,18 @@ public abstract class TestBase {
         return ontology;
     }
 
-    protected OWLOntology loadOntologyFromString(StringDocumentSource input)
+    @Nonnull
+    protected OWLOntology loadOntologyFromString(
+            @Nonnull StringDocumentSource input)
             throws OWLOntologyCreationException {
         OWLOntology ontology = OWLManager.createOWLOntologyManager()
                 .loadOntologyFromOntologyDocument(input);
         return ontology;
     }
 
-    protected OWLOntology loadOntologyFromString(StringDocumentTarget input)
+    @Nonnull
+    protected OWLOntology loadOntologyFromString(
+            @Nonnull StringDocumentTarget input)
             throws OWLOntologyCreationException {
         OWLOntology ontology = OWLManager.createOWLOntologyManager()
                 .loadOntologyFromOntologyDocument(
@@ -341,6 +349,7 @@ public abstract class TestBase {
         return ontology;
     }
 
+    @Nonnull
     protected OWLOntology loadOntologyFromString(
             @Nonnull StringDocumentTarget input, OWLOntologyFormat f)
             throws OWLOntologyCreationException {
@@ -352,20 +361,24 @@ public abstract class TestBase {
         return ontology;
     }
 
-    protected OWLOntology loadOntologyStrict(StringDocumentTarget o)
+    @Nonnull
+    protected OWLOntology loadOntologyStrict(@Nonnull StringDocumentTarget o)
             throws OWLOntologyCreationException {
         return loadOntologyWithConfig(o,
                 new OWLOntologyLoaderConfiguration().setStrict(true));
     }
 
-    protected OWLOntology loadOntologyWithConfig(StringDocumentTarget o,
-            OWLOntologyLoaderConfiguration c)
+    @Nonnull
+    protected OWLOntology loadOntologyWithConfig(
+            @Nonnull StringDocumentTarget o,
+            @Nonnull OWLOntologyLoaderConfiguration c)
             throws OWLOntologyCreationException {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         return manager.loadOntologyFromOntologyDocument(
                 new StringDocumentSource(o), c);
     }
 
+    @SuppressWarnings("null")
     @Nonnull
     protected StringDocumentTarget saveOntology(@Nonnull OWLOntology o)
             throws UnknownOWLOntologyException, OWLOntologyStorageException {
@@ -374,24 +387,29 @@ public abstract class TestBase {
 
     @Nonnull
     protected StringDocumentTarget saveOntology(@Nonnull OWLOntology o,
-            OWLOntologyFormat format) throws OWLOntologyStorageException {
+            @Nonnull OWLOntologyFormat format)
+            throws OWLOntologyStorageException {
         StringDocumentTarget t = new StringDocumentTarget();
         o.getOWLOntologyManager().saveOntology(o, format, t);
         return t;
     }
 
+    @Nonnull
     protected OWLOntology roundTrip(@Nonnull OWLOntology o,
-            OWLOntologyFormat format) throws OWLOntologyCreationException,
-            OWLOntologyStorageException {
+            @Nonnull OWLOntologyFormat format)
+            throws OWLOntologyCreationException, OWLOntologyStorageException {
         return loadOntologyFromString(saveOntology(o, format), format);
     }
 
+    @Nonnull
     protected OWLOntology roundTrip(@Nonnull OWLOntology o,
-            OWLOntologyFormat format, OWLOntologyLoaderConfiguration c)
+            @Nonnull OWLOntologyFormat format,
+            @Nonnull OWLOntologyLoaderConfiguration c)
             throws OWLOntologyCreationException, OWLOntologyStorageException {
         return loadOntologyWithConfig(saveOntology(o, format), c);
     }
 
+    @Nonnull
     protected OWLOntology roundTrip(@Nonnull OWLOntology o)
             throws UnknownOWLOntologyException, OWLOntologyCreationException,
             OWLOntologyStorageException {

@@ -29,6 +29,7 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
  */
 public abstract class AbstractFileTestCase extends TestBase {
 
+    @SuppressWarnings("null")
     protected OWLOntology createOntology() throws OWLOntologyCreationException {
         String fileName = getFileName();
         URL uri = getClass().getResource("/" + fileName);
@@ -37,6 +38,7 @@ public abstract class AbstractFileTestCase extends TestBase {
                 getConfiguration());
     }
 
+    @Nonnull
     protected OWLOntologyLoaderConfiguration getConfiguration() {
         return new OWLOntologyLoaderConfiguration();
     }

@@ -123,9 +123,11 @@ public class ForbiddenVocabularyTestCase extends TestBase {
                 df.getOWLDeclarationAxiom(brother));
         o.getOWLOntologyManager().addAxiom(o, df.getOWLDeclarationAxiom(child));
         o.getOWLOntologyManager().addAxiom(o, df.getOWLDeclarationAxiom(uncle));
+        @SuppressWarnings("null")
         OWLSubPropertyChainOfAxiom brokenAxiom1 = df
                 .getOWLSubPropertyChainOfAxiom(Arrays.asList(father, brother),
                         uncle);
+        @SuppressWarnings("null")
         OWLSubPropertyChainOfAxiom brokenAxiom2 = df
                 .getOWLSubPropertyChainOfAxiom(Arrays.asList(child, uncle),
                         brother);
@@ -142,8 +144,8 @@ public class ForbiddenVocabularyTestCase extends TestBase {
                 .getViolations();
         assertFalse(violations.isEmpty());
         for (OWLProfileViolation<?> v : violations) {
-            assertTrue(v.getAxiom().equals(brokenAxiom1)
-                    || v.getAxiom().equals(brokenAxiom2));
+            assertTrue(brokenAxiom1.equals(v.getAxiom())
+                    || brokenAxiom2.equals(v.getAxiom()));
         }
     }
 
@@ -164,6 +166,7 @@ public class ForbiddenVocabularyTestCase extends TestBase {
                 df.getOWLDeclarationAxiom(brother));
         o.getOWLOntologyManager().addAxiom(o, df.getOWLDeclarationAxiom(child));
         o.getOWLOntologyManager().addAxiom(o, df.getOWLDeclarationAxiom(uncle));
+        @SuppressWarnings("null")
         OWLSubPropertyChainOfAxiom brokenAxiom1 = df
                 .getOWLSubPropertyChainOfAxiom(Arrays.asList(father, brother),
                         uncle);
@@ -176,7 +179,7 @@ public class ForbiddenVocabularyTestCase extends TestBase {
                 .getViolations();
         assertTrue(violations.isEmpty());
         for (OWLProfileViolation<?> v : violations) {
-            assertTrue(v.getAxiom().equals(brokenAxiom1));
+            assertTrue(brokenAxiom1.equals(v.getAxiom()));
         }
     }
 

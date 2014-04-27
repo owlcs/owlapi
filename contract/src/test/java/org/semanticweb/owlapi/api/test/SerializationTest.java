@@ -55,25 +55,40 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
 @SuppressWarnings("javadoc")
 public class SerializationTest {
 
+    @Nonnull
     private static final OWLDataFactory f = OWLManager.getOWLDataFactory();
+    @Nonnull
     OWL2Datatype owl2datatype = OWL2Datatype.XSD_INT;
+    @Nonnull
     OWLDataPropertyExpression dp = f.getOWLDataProperty(IRI.create("urn:dp"));
+    @Nonnull
     OWLObjectPropertyExpression op = f.getOWLObjectProperty(IRI
             .create("urn:op"));
+    @Nonnull
     IRI iri = IRI.create("urn:iri");
+    @Nonnull
     OWLLiteral owlliteral = f.getOWLLiteral(true);
+    @Nonnull
     OWLAnnotationSubject as = IRI.create("urn:i");
+    @Nonnull
     OWLDatatype owldatatype = f.getOWLDatatype(owl2datatype.getIRI());
+    @Nonnull
     OWLDataRange dr = f.getOWLDatatypeRestriction(owldatatype);
+    @Nonnull
     OWLAnnotationProperty ap = f.getOWLAnnotationProperty(IRI.create("urn:ap"));
+    @Nonnull
     OWLFacet owlfacet = OWLFacet.MIN_EXCLUSIVE;
+    @Nonnull
     OWLAnnotation owlannotation = f.getOWLAnnotation(ap, owlliteral);
     @Nonnull
     String string = "testString";
+    @Nonnull
     OWLClassExpression c = f.getOWLClass(IRI.create("urn:classexpression"));
     @Nonnull
     PrefixManager prefixmanager = new DefaultPrefixManager();
+    @Nonnull
     OWLIndividual ai = f.getOWLAnonymousIndividual();
+    @Nonnull
     OWLAnnotationValue owlannotationvalue = owlliteral;
     @Nonnull
     Set<OWLObjectPropertyExpression> setop = new HashSet<OWLObjectPropertyExpression>();

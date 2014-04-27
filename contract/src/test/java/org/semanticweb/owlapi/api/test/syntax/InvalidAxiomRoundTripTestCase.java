@@ -33,6 +33,8 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 @SuppressWarnings("javadoc")
 public class InvalidAxiomRoundTripTestCase extends TestBase {
 
+    @SuppressWarnings("null")
+    @Nonnull
     private OWLOntology o;
 
     @Before
@@ -40,8 +42,8 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
         o = m.createOntology();
     }
 
-    private static void assertCorrectResult(OWLAxiom wrongAxiom,
-            OWLAxiom validAxiom, @Nonnull OWLOntology reloaded) {
+    private static void assertCorrectResult(@Nonnull OWLAxiom wrongAxiom,
+            @Nonnull OWLAxiom validAxiom, @Nonnull OWLOntology reloaded) {
         assertNotNull(reloaded);
         assertTrue(reloaded.containsAxiom(validAxiom));
         assertFalse(reloaded.containsAxiom(wrongAxiom));
@@ -50,6 +52,7 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
 
     private void addAxioms(@Nonnull OWLAxiom... axioms) {
         for (OWLAxiom ax : axioms) {
+            assert ax != null;
             o.getOWLOntologyManager().addAxiom(o, ax);
         }
     }

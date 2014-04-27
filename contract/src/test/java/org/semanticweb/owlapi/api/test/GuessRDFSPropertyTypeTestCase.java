@@ -8,6 +8,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
@@ -47,9 +49,15 @@ import org.semanticweb.owlapi.search.Searcher;
 @SuppressWarnings("javadoc")
 public class GuessRDFSPropertyTypeTestCase {
 
+    @Nonnull
     private static final String CIDOC_FILE = "/cidoc_crm_v5.0.4_official_release.rdfs.xml";
+    @Nonnull
     private static final String CIDOC_PREFIX = "http://www.cidoc-crm.org/cidoc-crm/";
+    @SuppressWarnings("null")
+    @Nonnull
     private OWLOntology cidocOntology;
+    @SuppressWarnings("null")
+    @Nonnull
     private PrefixOWLOntologyFormat prefixOWLOntologyFormat;
 
     @Before
@@ -83,8 +91,9 @@ public class GuessRDFSPropertyTypeTestCase {
                 "http://www.w3.org/2000/01/rdf-schema#Literal", "P3_has_note");
     }
 
-    public void testProperty(String propertyName, String expectedDomain,
-            String expectedRange, String expectedSuperProperty) {
+    public void testProperty(@Nonnull String propertyName,
+            @Nonnull String expectedDomain, @Nonnull String expectedRange,
+            @Nonnull String expectedSuperProperty) {
         IRI p11_IRI = prefixOWLOntologyFormat.getIRI(propertyName);
         Set<OWLEntity> had_participant = cidocOntology
                 .getEntitiesInSignature(p11_IRI);
@@ -103,9 +112,9 @@ public class GuessRDFSPropertyTypeTestCase {
         }
     }
 
-    private void testProperty(OWLObjectProperty p11_property,
-            String expectedDomain, String expectedRange,
-            String expectedSuperProperty) {
+    private void testProperty(@Nonnull OWLObjectProperty p11_property,
+            @Nonnull String expectedDomain, @Nonnull String expectedRange,
+            @Nonnull String expectedSuperProperty) {
         Collection<OWLClassExpression> ranges = Searcher.range(cidocOntology
                 .getObjectPropertyRangeAxioms(p11_property));
         assertEquals("should have 1 range", 1, ranges.size());
@@ -138,9 +147,9 @@ public class GuessRDFSPropertyTypeTestCase {
                 superPropertyIRI);
     }
 
-    private void testProperty(OWLDataProperty p11_property,
-            String expectedDomain, String expectedRange,
-            String expectedSuperProperty) {
+    private void testProperty(@Nonnull OWLDataProperty p11_property,
+            @Nonnull String expectedDomain, @Nonnull String expectedRange,
+            @Nonnull String expectedSuperProperty) {
         Collection<OWLClassExpression> ranges = Searcher.range(cidocOntology
                 .getDataPropertyRangeAxioms(p11_property));
         assertEquals("should have 1 range", 1, ranges.size());

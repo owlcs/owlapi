@@ -13,12 +13,13 @@
 package org.semanticweb.owlapi.api.test.dataproperties;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
 
 import javax.annotation.Nonnull;
 
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.semanticweb.owlapi.change.AddAxiomData;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -30,18 +31,17 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * @since 3.2.0
  */
 @SuppressWarnings("javadoc")
+@RunWith(MockitoJUnitRunner.class)
 public class AddAxiomDataTestCase {
 
+    @SuppressWarnings("null")
+    @Mock
     @Nonnull
     private OWLAxiom mockAxiom;
+    @SuppressWarnings("null")
+    @Mock
     @Nonnull
     private OWLOntology mockOntology;
-
-    @Before
-    public void setUp() {
-        mockAxiom = mock(OWLAxiom.class);
-        mockOntology = mock(OWLOntology.class);
-    }
 
     @Test
     public void testEquals() {

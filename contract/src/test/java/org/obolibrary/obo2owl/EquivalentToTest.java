@@ -60,6 +60,7 @@ public class EquivalentToTest extends OboFormatTestBasics {
         checkOBODoc(obodoc);
     }
 
+    @SuppressWarnings("null")
     public void checkOBODoc(@Nonnull OBODoc obodoc) {
         // OBODoc tests
         // test ECA between named classes is persisted using correct tag

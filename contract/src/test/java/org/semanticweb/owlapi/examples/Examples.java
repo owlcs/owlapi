@@ -119,6 +119,8 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import uk.ac.manchester.cs.owlapi.modularity.ModuleType;
 import uk.ac.manchester.cs.owlapi.modularity.SyntacticLocalityModuleExtractor;
 
+import com.google.common.base.Optional;
+
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -127,6 +129,7 @@ import uk.ac.manchester.cs.owlapi.modularity.SyntacticLocalityModuleExtractor;
 @SuppressWarnings({ "unused", "javadoc" })
 public class Examples extends TestBase {
 
+    @Nonnull
     private final static String koala = "<?xml version=\"1.0\"?>\n"
             + "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\" xmlns=\"http://protege.stanford.edu/plugins/owl/owl-library/koala.owl#\" xml:base=\"http://protege.stanford.edu/plugins/owl/owl-library/koala.owl\">\n"
             + "  <owl:Ontology rdf:about=\"\"/>\n"
@@ -161,6 +164,7 @@ public class Examples extends TestBase {
      * @throws Exception
      *         exception
      */
+    @SuppressWarnings("null")
     public void shouldLoad() throws Exception {
         // Get hold of an ontology manager
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
@@ -203,6 +207,7 @@ public class Examples extends TestBase {
      * @throws OWLOntologyCreationException
      *         if a problem pops up
      */
+    @Nonnull
     OWLOntology loadPizza(@Nonnull OWLOntologyManager manager)
             throws OWLOntologyCreationException {
         // Let's load an ontology from the web
@@ -224,6 +229,7 @@ public class Examples extends TestBase {
      * @throws Exception
      *         exception
      */
+    @SuppressWarnings("null")
     @Test
     public void shouldSaveOntologies() throws Exception {
         // Get hold of an ontology manager
@@ -484,6 +490,7 @@ public class Examples extends TestBase {
      * @throws Exception
      *         exception
      */
+    @SuppressWarnings("null")
     @Test
     public void shouldLoadAndSave() throws Exception {
         // A simple example of how to load and save an ontology We first need to
@@ -632,7 +639,8 @@ public class Examples extends TestBase {
         IRI versionIRI = IRI.create(ontologyIRI + "/version1");
         // Note that we MUST specify an ontology IRI if we want to specify a
         // version IRI
-        OWLOntologyID newOntologyID = new OWLOntologyID(ontologyIRI, versionIRI);
+        OWLOntologyID newOntologyID = new OWLOntologyID(
+                Optional.of(ontologyIRI), Optional.of(versionIRI));
         // Create the change that will set our version IRI
         SetOntologyID setOntologyID = new SetOntologyID(ontology, newOntologyID);
         // Apply the change
@@ -644,7 +652,8 @@ public class Examples extends TestBase {
                 .create("http://www.semanticweb.org/ontologies/myontology2");
         IRI versionIRI2 = IRI
                 .create("http://www.semanticweb.org/ontologies/myontology2/newversion");
-        OWLOntologyID ontologyID2 = new OWLOntologyID(ontologyIRI2, versionIRI2);
+        OWLOntologyID ontologyID2 = new OWLOntologyID(
+                Optional.of(ontologyIRI2), Optional.of(versionIRI2));
         // Now create the ontology
         OWLOntology ontology2 = manager.createOntology(ontologyID2);
         // Finally, if we don't want to give an ontology an IRI, in OWL 2 we
@@ -793,6 +802,7 @@ public class Examples extends TestBase {
         Set<SWRLAtom> antecedent = new HashSet<SWRLAtom>();
         antecedent.add(propAtom);
         antecedent.add(propAtom2);
+        @SuppressWarnings("null")
         SWRLRule rule2 = factory.getSWRLRule(antecedent,
                 Collections.singleton(propAtom));
         manager.applyChange(new AddAxiom(ontology, rule2));
@@ -1120,6 +1130,7 @@ public class Examples extends TestBase {
         printNode(parent);
         for (Node<OWLClass> child : reasoner.getSubClasses(
                 parent.getRepresentativeElement(), true)) {
+            assert child != null;
             // Recurse to do the children. Note that we don't have to worry
             // about cycles as there are non in the inferred class hierarchy
             // graph - a cycle gets collapsed into a single node since each
@@ -1436,7 +1447,7 @@ public class Examples extends TestBase {
                 // Print out the axiom where the restriction is used
                 // System.out.println("         " + getCurrentAxiom());
                 // We don't need to return anything here.
-                return null;
+                return "";
             }
         };
         // Now ask the walker to walk over the ontology structure using our
@@ -1506,6 +1517,7 @@ public class Examples extends TestBase {
         // System.out.println("Properties of " + cls);
         for (OWLObjectPropertyExpression prop : ont
                 .getObjectPropertiesInSignature()) {
+            assert prop != null;
             boolean sat = hasProperty(man, reasoner, cls, prop);
             if (sat) {
                 // System.out.println("Instances of " + cls
@@ -1516,7 +1528,7 @@ public class Examples extends TestBase {
 
     private static boolean hasProperty(@Nonnull OWLOntologyManager man,
             @Nonnull OWLReasoner reasoner, OWLClass cls,
-            OWLObjectPropertyExpression prop) {
+            @Nonnull OWLObjectPropertyExpression prop) {
         // To test whether the instances of a class must have a property we
         // create a some values from restriction and then ask for the
         // satisfiability of the class interesected with the complement of this
@@ -1589,6 +1601,8 @@ public class Examples extends TestBase {
         // folder and maps their IRIs to their locations in this folder We
         // specify a directory/folder where the ontologies are located. In this
         // case we've just specified the tmp directory.
+        @SuppressWarnings("null")
+        @Nonnull
         File file = folder.newFolder();
         // We can also specify a flag to indicate whether the directory should
         // be searched recursively.
@@ -1606,6 +1620,7 @@ public class Examples extends TestBase {
         printOntology(manager, ontology);
         // List the imported ontologies
         for (OWLOntology importedOntology : ontology.getImports()) {
+            assert importedOntology != null;
             // System.out.println("Imports:");
             printOntology(manager, importedOntology);
         }
@@ -1644,13 +1659,10 @@ public class Examples extends TestBase {
      *        tones iri
      * @return The document IRI of the ontology in the TONES repository.
      */
+    @Nonnull
     private static IRI
             getTONESRepositoryDocumentIRI(IRI ontologyIRI, IRI Tones) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(Tones);
-        sb.append("?ontology=");
-        sb.append(ontologyIRI);
-        return IRI.create(sb.toString());
+        return IRI.create(Tones + "?ontology=" + ontologyIRI);
     }
 
     /**

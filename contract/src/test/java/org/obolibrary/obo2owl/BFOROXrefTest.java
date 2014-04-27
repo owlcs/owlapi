@@ -31,6 +31,8 @@ public class BFOROXrefTest extends OboFormatTestBasics {
             .getOWLDataFactory()
             .getOWLAnnotationProperty(
                     IRI.create("http://www.geneontology.org/formats/oboInOwl#id"));
+    @SuppressWarnings("null")
+    @Nonnull
     private OWLOntology owlOnt;
 
     @Before
@@ -57,6 +59,7 @@ public class BFOROXrefTest extends OboFormatTestBasics {
                 OBO_ID, 2);
     }
 
+    @SuppressWarnings("null")
     @Test
     public void testRelationXrefConversion() {
         // test initial conversion
@@ -113,7 +116,7 @@ public class BFOROXrefTest extends OboFormatTestBasics {
     }
 
     private static void assertAnnotationPropertyCountEquals(
-            @Nonnull OWLOntology owlOnt, IRI subjectIRI,
+            @Nonnull OWLOntology owlOnt, @Nonnull IRI subjectIRI,
             OWLAnnotationProperty property, int expected) {
         Set<OWLAnnotationAssertionAxiom> aaas = owlOnt
                 .getAnnotationAssertionAxioms(subjectIRI);

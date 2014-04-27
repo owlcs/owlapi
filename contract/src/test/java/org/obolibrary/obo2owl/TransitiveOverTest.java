@@ -50,10 +50,12 @@ public class TransitiveOverTest extends RoundTripTest {
         // test that transitive over is converted back
         if (true) {
             Frame tf = obodoc.getTypedefFrame("regulates");
+            assert tf != null;
             assertEquals(3, tf.getClauses().size());
             assertEquals("regulates", tf.getTagValue(OboFormatTag.TAG_ID));
             assertEquals("regulates", tf.getTagValue(OboFormatTag.TAG_NAME));
             Clause clause = tf.getClause(OboFormatTag.TAG_TRANSITIVE_OVER);
+            assert clause != null;
             assertEquals(1, clause.getValues().size());
             assertEquals("part_of", clause.getValue());
             assertTrue(clause.getQualifierValues().isEmpty());

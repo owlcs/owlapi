@@ -47,6 +47,8 @@ public class ReasonerTestCase extends TestBase {
 
     @Nonnull
     private OWLReasonerFactory reasonerFactory = new StructuralReasonerFactory();
+    @SuppressWarnings("null")
+    @Nonnull
     private OWLOntology ont;
     private OWLReasoner reasoner;
 
@@ -80,50 +82,62 @@ public class ReasonerTestCase extends TestBase {
         man.addAxiom(ont, InverseObjectProperties(propR, propS));
     }
 
+    @Nonnull
     private OWLObjectProperty getPropS() {
         return ObjectProperty(getIRI("s"));
     }
 
+    @Nonnull
     private OWLObjectProperty getPropR() {
         return ObjectProperty(getIRI("r"));
     }
 
+    @Nonnull
     private OWLObjectProperty getPropQ() {
         return ObjectProperty(getIRI("q"));
     }
 
+    @Nonnull
     private OWLObjectProperty getPropP() {
         return ObjectProperty(getIRI("p"));
     }
 
+    @Nonnull
     private OWLClass getClsK() {
         return Class(getIRI("K"));
     }
 
+    @Nonnull
     private OWLClass getClsG() {
         return Class(getIRI("G"));
     }
 
+    @Nonnull
     private OWLClass getClsF() {
         return Class(getIRI("F"));
     }
 
+    @Nonnull
     private OWLClass getClsE() {
         return Class(getIRI("E"));
     }
 
+    @Nonnull
     private OWLClass getClsD() {
         return Class(getIRI("D"));
     }
 
+    @Nonnull
     private OWLClass getClsC() {
         return Class(getIRI("C"));
     }
 
+    @Nonnull
     private OWLClass getClsB() {
         return Class(getIRI("B"));
     }
 
+    @Nonnull
     private OWLClass getClsA() {
         return Class(getIRI("A"));
     }

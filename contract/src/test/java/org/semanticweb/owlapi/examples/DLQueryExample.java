@@ -59,6 +59,7 @@ import org.semanticweb.owlapi.util.SimpleShortFormProvider;
  */
 public class DLQueryExample {
 
+    @Nonnull
     private final static String koala = "<?xml version=\"1.0\"?>\n"
             + "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\" xmlns=\"http://protege.stanford.edu/plugins/owl/owl-library/koala.owl#\" xml:base=\"http://protege.stanford.edu/plugins/owl/owl-library/koala.owl\">\n"
             + "  <owl:Ontology rdf:about=\"\"/>\n"
@@ -122,6 +123,7 @@ public class DLQueryExample {
         }
     }
 
+    @SuppressWarnings("null")
     private static void doQueryLoop(@Nonnull DLQueryPrinter dlQueryPrinter)
             throws IOException {
         while (true) {
@@ -148,7 +150,9 @@ public class DLQueryExample {
         return br.readLine();
     }
 
-    private static OWLReasoner createReasoner(OWLOntology rootOntology) {
+    @Nonnull
+    private static OWLReasoner
+            createReasoner(@Nonnull OWLOntology rootOntology) {
         // We need to create an instance of OWLReasoner. An OWLReasoner provides
         // the basic query functionality that we need, for example the ability
         // obtain the subclasses of a class etc. To do this we use a reasoner
@@ -181,7 +185,7 @@ class DLQueryEngine {
      *        A short form provider.
      */
     public DLQueryEngine(@Nonnull OWLReasoner reasoner,
-            ShortFormProvider shortFormProvider) {
+            @Nonnull ShortFormProvider shortFormProvider) {
         this.reasoner = reasoner;
         OWLOntology rootOntology = reasoner.getRootOntology();
         parser = new DLQueryParser(rootOntology, shortFormProvider);
@@ -300,7 +304,7 @@ class DLQueryParser {
      *        between entities and their short names (renderings).
      */
     public DLQueryParser(@Nonnull OWLOntology rootOntology,
-            ShortFormProvider shortFormProvider) {
+            @Nonnull ShortFormProvider shortFormProvider) {
         this.rootOntology = rootOntology;
         OWLOntologyManager manager = rootOntology.getOWLOntologyManager();
         Set<OWLOntology> importsClosure = rootOntology.getImportsClosure();
@@ -319,6 +323,7 @@ class DLQueryParser {
      * @return The corresponding class expression if the class expression string
      *         is malformed or contains unknown entity names.
      */
+    @Nonnull
     public OWLClassExpression
             parseClassExpression(String classExpressionString) {
         OWLDataFactory dataFactory = rootOntology.getOWLOntologyManager()

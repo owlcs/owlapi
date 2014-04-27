@@ -18,6 +18,8 @@ import static org.semanticweb.owlapi.search.Searcher.annotations;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.IRI;
@@ -40,9 +42,11 @@ import org.semanticweb.owlapi.model.OWLOntology;
 @SuppressWarnings("javadoc")
 public class AnnotationAccessorsTestCase extends TestBase {
 
+    @Nonnull
     private static final IRI SUBJECT = IRI
             .create("http://owlapi.sourceforge.net/ontologies/test#X");
 
+    @Nonnull
     private OWLAnnotationAssertionAxiom createAnnotationAssertionAxiom() {
         OWLAnnotationProperty prop = AnnotationProperty(getIRI("prop"));
         OWLAnnotationValue value = Literal("value");
