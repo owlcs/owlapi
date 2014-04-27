@@ -15,7 +15,6 @@ package org.semanticweb.owlapitools.builders;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
-
 import org.semanticweb.owlapi.model.OWLDataAllValuesFrom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 
@@ -46,6 +45,7 @@ public class BuilderDataAllValuesFrom extends
         withProperty(expected.getProperty()).withRange(expected.getFiller());
     }
 
+    @SuppressWarnings("null")
     @Override
     public OWLDataAllValuesFrom buildObject() {
         return df.getOWLDataAllValuesFrom(property, dataRange);

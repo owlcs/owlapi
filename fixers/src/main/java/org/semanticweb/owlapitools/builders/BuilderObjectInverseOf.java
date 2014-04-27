@@ -15,7 +15,6 @@ package org.semanticweb.owlapitools.builders;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectInverseOf;
 
@@ -31,7 +30,8 @@ public class BuilderObjectInverseOf extends
      * @param df
      *        data factory
      */
-    public BuilderObjectInverseOf(@Nonnull OWLObjectInverseOf expected, OWLDataFactory df) {
+    public BuilderObjectInverseOf(@Nonnull OWLObjectInverseOf expected,
+            OWLDataFactory df) {
         this(df);
         withProperty(expected.getInverse());
     }
@@ -45,6 +45,7 @@ public class BuilderObjectInverseOf extends
         super(df);
     }
 
+    @SuppressWarnings("null")
     @Override
     public OWLObjectInverseOf buildObject() {
         return df.getOWLObjectInverseOf(property);

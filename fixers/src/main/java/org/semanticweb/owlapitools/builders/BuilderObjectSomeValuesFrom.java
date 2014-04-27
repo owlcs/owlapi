@@ -15,7 +15,6 @@ package org.semanticweb.owlapitools.builders;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 
@@ -31,8 +30,8 @@ public class BuilderObjectSomeValuesFrom extends
      * @param df
      *        data factory
      */
-    public BuilderObjectSomeValuesFrom(@Nonnull OWLObjectSomeValuesFrom expected,
-            OWLDataFactory df) {
+    public BuilderObjectSomeValuesFrom(
+            @Nonnull OWLObjectSomeValuesFrom expected, OWLDataFactory df) {
         this(df);
         withProperty(expected.getProperty()).withRange(expected.getFiller());
     }
@@ -46,6 +45,7 @@ public class BuilderObjectSomeValuesFrom extends
         super(df);
     }
 
+    @SuppressWarnings("null")
     @Override
     public OWLObjectSomeValuesFrom buildObject() {
         return df.getOWLObjectSomeValuesFrom(property, range);

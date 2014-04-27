@@ -79,6 +79,7 @@ public class BuilderNegativeDataPropertyAssertion
         return this;
     }
 
+    @SuppressWarnings("null")
     @Override
     public OWLNegativeDataPropertyAssertionAxiom buildObject() {
         return df.getOWLNegativeDataPropertyAssertionAxiom(property, subject,

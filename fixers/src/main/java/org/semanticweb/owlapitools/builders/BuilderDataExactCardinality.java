@@ -15,7 +15,6 @@ package org.semanticweb.owlapitools.builders;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
-
 import org.semanticweb.owlapi.model.OWLDataExactCardinality;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 
@@ -42,8 +41,8 @@ public class BuilderDataExactCardinality extends
      * @param df
      *        data factory
      */
-    public BuilderDataExactCardinality(@Nonnull OWLDataExactCardinality expected,
-            OWLDataFactory df) {
+    public BuilderDataExactCardinality(
+            @Nonnull OWLDataExactCardinality expected, OWLDataFactory df) {
         this(df);
         withCardinality(expected.getCardinality()).withProperty(
                 expected.getProperty()).withRange(expected.getFiller());
@@ -60,6 +59,7 @@ public class BuilderDataExactCardinality extends
         return this;
     }
 
+    @SuppressWarnings("null")
     @Override
     public OWLDataExactCardinality buildObject() {
         return df.getOWLDataExactCardinality(cardinality, property, dataRange);

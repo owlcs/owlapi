@@ -15,7 +15,6 @@ package org.semanticweb.owlapitools.builders;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
 
@@ -33,7 +32,8 @@ public class BuilderIrreflexiveObjectProperty
      *        data factory
      */
     public BuilderIrreflexiveObjectProperty(
-            @Nonnull OWLIrreflexiveObjectPropertyAxiom expected, OWLDataFactory df) {
+            @Nonnull OWLIrreflexiveObjectPropertyAxiom expected,
+            OWLDataFactory df) {
         this(df);
         withProperty(expected.getProperty()).withAnnotations(
                 expected.getAnnotations());
@@ -48,6 +48,7 @@ public class BuilderIrreflexiveObjectProperty
         super(df);
     }
 
+    @SuppressWarnings("null")
     @Override
     public OWLIrreflexiveObjectPropertyAxiom buildObject() {
         return df.getOWLIrreflexiveObjectPropertyAxiom(property, annotations);

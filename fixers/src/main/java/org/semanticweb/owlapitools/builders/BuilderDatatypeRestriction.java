@@ -64,6 +64,7 @@ public class BuilderDatatypeRestriction
         return this;
     }
 
+    @SuppressWarnings("null")
     @Override
     public OWLDatatypeRestriction buildObject() {
         return df.getOWLDatatypeRestriction(type, items);

@@ -15,7 +15,6 @@ package org.semanticweb.owlapitools.builders;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDatatype;
 
@@ -45,6 +44,7 @@ public class BuilderDatatype extends
         super(df);
     }
 
+    @SuppressWarnings("null")
     @Override
     public OWLDatatype buildObject() {
         if (pm != null && string != null) {

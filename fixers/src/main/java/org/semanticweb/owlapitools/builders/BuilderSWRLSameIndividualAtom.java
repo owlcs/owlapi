@@ -15,7 +15,6 @@ package org.semanticweb.owlapitools.builders;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.SWRLIArgument;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
@@ -35,8 +34,8 @@ public class BuilderSWRLSameIndividualAtom extends
      * @param df
      *        data factory
      */
-    public BuilderSWRLSameIndividualAtom(@Nonnull SWRLSameIndividualAtom expected,
-            OWLDataFactory df) {
+    public BuilderSWRLSameIndividualAtom(
+            @Nonnull SWRLSameIndividualAtom expected, OWLDataFactory df) {
         this(df);
         withArg0(expected.getFirstArgument()).withArg1(
                 expected.getSecondArgument());
@@ -73,6 +72,7 @@ public class BuilderSWRLSameIndividualAtom extends
         return this;
     }
 
+    @SuppressWarnings("null")
     @Override
     public SWRLSameIndividualAtom buildObject() {
         return df.getSWRLSameIndividualAtom(arg0, arg1);

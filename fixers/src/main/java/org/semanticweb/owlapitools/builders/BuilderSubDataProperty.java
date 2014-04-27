@@ -15,7 +15,6 @@ package org.semanticweb.owlapitools.builders;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
@@ -49,6 +48,7 @@ public class BuilderSubDataProperty
         super(df);
     }
 
+    @SuppressWarnings("null")
     @Override
     public OWLSubDataPropertyOfAxiom buildObject() {
         return df.getOWLSubDataPropertyOfAxiom(sub, sup, annotations);

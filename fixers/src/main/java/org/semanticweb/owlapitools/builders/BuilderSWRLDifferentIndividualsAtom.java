@@ -15,7 +15,6 @@ package org.semanticweb.owlapitools.builders;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.SWRLDifferentIndividualsAtom;
 import org.semanticweb.owlapi.model.SWRLIArgument;
@@ -74,6 +73,7 @@ public class BuilderSWRLDifferentIndividualsAtom
         return this;
     }
 
+    @SuppressWarnings("null")
     @Override
     public SWRLDifferentIndividualsAtom buildObject() {
         return df.getSWRLDifferentIndividualsAtom(arg0, arg1);

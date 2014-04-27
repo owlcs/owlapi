@@ -15,7 +15,6 @@ package org.semanticweb.owlapitools.builders;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.SWRLVariable;
@@ -59,6 +58,7 @@ public class BuilderSWRLVariable extends
         return this;
     }
 
+    @SuppressWarnings("null")
     @Override
     public SWRLVariable buildObject() {
         return df.getSWRLVariable(iri);

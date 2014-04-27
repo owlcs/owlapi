@@ -15,7 +15,6 @@ package org.semanticweb.owlapitools.builders;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.SWRLLiteralArgument;
@@ -60,6 +59,7 @@ public class BuilderSWRLLiteralArgument extends
         return this;
     }
 
+    @SuppressWarnings("null")
     @Override
     public SWRLLiteralArgument buildObject() {
         return df.getSWRLLiteralArgument(literal);

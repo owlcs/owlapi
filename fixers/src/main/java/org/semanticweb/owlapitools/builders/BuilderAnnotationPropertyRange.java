@@ -63,6 +63,7 @@ public class BuilderAnnotationPropertyRange
         return this;
     }
 
+    @SuppressWarnings("null")
     @Override
     public OWLAnnotationPropertyRangeAxiom buildObject() {
         return df

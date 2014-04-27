@@ -15,7 +15,6 @@ package org.semanticweb.owlapitools.builders;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 
@@ -42,12 +41,14 @@ public class BuilderTransitiveObjectProperty
      *        data factory
      */
     public BuilderTransitiveObjectProperty(
-            @Nonnull OWLTransitiveObjectPropertyAxiom expected, OWLDataFactory df) {
+            @Nonnull OWLTransitiveObjectPropertyAxiom expected,
+            OWLDataFactory df) {
         this(df);
         withProperty(expected.getProperty()).withAnnotations(
                 expected.getAnnotations());
     }
 
+    @SuppressWarnings("null")
     @Override
     public OWLTransitiveObjectPropertyAxiom buildObject() {
         return df.getOWLTransitiveObjectPropertyAxiom(property, annotations);

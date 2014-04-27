@@ -62,6 +62,7 @@ public class BuilderDeclaration extends
         return this;
     }
 
+    @SuppressWarnings("null")
     @Override
     public OWLDeclarationAxiom buildObject() {
         return df.getOWLDeclarationAxiom(entity, annotations);

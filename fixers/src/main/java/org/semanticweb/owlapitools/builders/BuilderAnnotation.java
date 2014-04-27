@@ -60,6 +60,7 @@ public class BuilderAnnotation extends
         return this;
     }
 
+    @SuppressWarnings("null")
     @Override
     public OWLAnnotation buildObject() {
         return df.getOWLAnnotation(property, value, annotations);

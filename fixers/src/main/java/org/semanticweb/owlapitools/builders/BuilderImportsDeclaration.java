@@ -20,7 +20,6 @@ import java.util.List;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
-
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -72,6 +71,7 @@ public class BuilderImportsDeclaration implements
         return this;
     }
 
+    @SuppressWarnings("null")
     @Override
     public OWLImportsDeclaration buildObject() {
         return df.getOWLImportsDeclaration(iri);

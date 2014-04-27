@@ -174,6 +174,7 @@ public class BuilderLiteral extends BaseBuilder<OWLLiteral, BuilderLiteral> {
         return this;
     }
 
+    @SuppressWarnings("null")
     @Override
     public OWLLiteral buildObject() {
         if (intValue != null) {

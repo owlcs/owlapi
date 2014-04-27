@@ -15,7 +15,6 @@ package org.semanticweb.owlapitools.builders;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.SWRLDArgument;
 import org.semanticweb.owlapi.model.SWRLDataPropertyAtom;
@@ -76,6 +75,7 @@ public class BuilderSWRLDataPropertyAtom
         return this;
     }
 
+    @SuppressWarnings("null")
     @Override
     public SWRLDataPropertyAtom buildObject() {
         return df.getSWRLDataPropertyAtom(property, arg0, arg1);

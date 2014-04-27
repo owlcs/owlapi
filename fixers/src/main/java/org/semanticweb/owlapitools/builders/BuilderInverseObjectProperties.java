@@ -65,6 +65,7 @@ public class BuilderInverseObjectProperties
         return this;
     }
 
+    @SuppressWarnings("null")
     @Override
     public OWLInverseObjectPropertiesAxiom buildObject() {
         return df.getOWLInverseObjectPropertiesAxiom(property, inverseProperty,

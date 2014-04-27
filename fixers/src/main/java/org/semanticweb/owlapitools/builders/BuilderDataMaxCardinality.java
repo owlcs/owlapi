@@ -15,7 +15,6 @@ package org.semanticweb.owlapitools.builders;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataMaxCardinality;
 
@@ -60,6 +59,7 @@ public class BuilderDataMaxCardinality extends
         return this;
     }
 
+    @SuppressWarnings("null")
     @Override
     public OWLDataMaxCardinality buildObject() {
         return df.getOWLDataMaxCardinality(cardinality, property, dataRange);

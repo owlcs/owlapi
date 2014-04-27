@@ -15,7 +15,6 @@ package org.semanticweb.owlapitools.builders;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectHasSelf;
 
@@ -31,7 +30,8 @@ public class BuilderObjectHasSelf extends
      * @param df
      *        data factory
      */
-    public BuilderObjectHasSelf(@Nonnull OWLObjectHasSelf expected, OWLDataFactory df) {
+    public BuilderObjectHasSelf(@Nonnull OWLObjectHasSelf expected,
+            OWLDataFactory df) {
         this(df);
         withProperty(expected.getProperty());
     }
@@ -45,6 +45,7 @@ public class BuilderObjectHasSelf extends
         super(df);
     }
 
+    @SuppressWarnings("null")
     @Override
     public OWLObjectHasSelf buildObject() {
         return df.getOWLObjectHasSelf(property);

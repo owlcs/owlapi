@@ -15,7 +15,6 @@ package org.semanticweb.owlapitools.builders;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
@@ -33,8 +32,8 @@ public class BuilderObjectPropertyDomain
      * @param df
      *        data factory
      */
-    public BuilderObjectPropertyDomain(@Nonnull OWLObjectPropertyDomainAxiom expected,
-            OWLDataFactory df) {
+    public BuilderObjectPropertyDomain(
+            @Nonnull OWLObjectPropertyDomainAxiom expected, OWLDataFactory df) {
         this(df);
         withDomain(expected.getDomain()).withProperty(expected.getProperty())
                 .withAnnotations(expected.getAnnotations());
@@ -49,6 +48,7 @@ public class BuilderObjectPropertyDomain
         super(df);
     }
 
+    @SuppressWarnings("null")
     @Override
     public OWLObjectPropertyDomainAxiom buildObject() {
         return df

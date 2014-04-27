@@ -61,6 +61,7 @@ public class BuilderObjectHasValue extends
         return this;
     }
 
+    @SuppressWarnings("null")
     @Override
     public OWLObjectHasValue buildObject() {
         return df.getOWLObjectHasValue(property, value);

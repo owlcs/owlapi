@@ -75,6 +75,7 @@ public class BuilderSWRLClassAtom extends
         return this;
     }
 
+    @SuppressWarnings("null")
     @Override
     public SWRLClassAtom buildObject() {
         return df.getSWRLClassAtom(predicate, argument);

@@ -90,6 +90,7 @@ public class BuilderSWRLBuiltInAtom extends
         return this;
     }
 
+    @SuppressWarnings("null")
     @Override
     public SWRLBuiltInAtom buildObject() {
         return df.getSWRLBuiltInAtom(iri, args);

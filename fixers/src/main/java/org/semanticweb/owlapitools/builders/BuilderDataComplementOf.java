@@ -61,6 +61,7 @@ public class BuilderDataComplementOf extends
         return this;
     }
 
+    @SuppressWarnings("null")
     @Override
     public OWLDataComplementOf buildObject() {
         return df.getOWLDataComplementOf(dataRange);

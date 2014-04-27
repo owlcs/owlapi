@@ -60,6 +60,7 @@ public class BuilderEntity extends BaseEntityBuilder<OWLEntity, BuilderEntity> {
         return this;
     }
 
+    @SuppressWarnings("null")
     @Override
     public OWLEntity buildObject() {
         if (pm != null && string != null) {

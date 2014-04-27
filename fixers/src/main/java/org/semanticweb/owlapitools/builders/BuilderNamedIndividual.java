@@ -15,7 +15,6 @@ package org.semanticweb.owlapitools.builders;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 
@@ -31,7 +30,8 @@ public class BuilderNamedIndividual extends
      * @param df
      *        data factory
      */
-    public BuilderNamedIndividual(@Nonnull OWLNamedIndividual expected, OWLDataFactory df) {
+    public BuilderNamedIndividual(@Nonnull OWLNamedIndividual expected,
+            OWLDataFactory df) {
         this(df);
         withIRI(expected.getIRI());
     }
@@ -45,6 +45,7 @@ public class BuilderNamedIndividual extends
         super(df);
     }
 
+    @SuppressWarnings("null")
     @Override
     public OWLNamedIndividual buildObject() {
         if (pm != null && string != null) {

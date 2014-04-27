@@ -78,6 +78,7 @@ public class BuilderAnnotationAssertion
         return this;
     }
 
+    @SuppressWarnings("null")
     @Override
     public OWLAnnotationAssertionAxiom buildObject() {
         return df.getOWLAnnotationAssertionAxiom(property, subject, value,

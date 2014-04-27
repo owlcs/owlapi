@@ -15,7 +15,6 @@ package org.semanticweb.owlapitools.builders;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectMinCardinality;
 
@@ -33,8 +32,8 @@ public class BuilderObjectMinCardinality extends
      * @param df
      *        data factory
      */
-    public BuilderObjectMinCardinality(@Nonnull OWLObjectMinCardinality expected,
-            OWLDataFactory df) {
+    public BuilderObjectMinCardinality(
+            @Nonnull OWLObjectMinCardinality expected, OWLDataFactory df) {
         this(df);
         withCardinality(expected.getCardinality()).withProperty(
                 expected.getProperty()).withRange(expected.getFiller());
@@ -60,6 +59,7 @@ public class BuilderObjectMinCardinality extends
         return this;
     }
 
+    @SuppressWarnings("null")
     @Override
     public OWLObjectMinCardinality buildObject() {
         return df.getOWLObjectMinCardinality(cardinality, property, range);

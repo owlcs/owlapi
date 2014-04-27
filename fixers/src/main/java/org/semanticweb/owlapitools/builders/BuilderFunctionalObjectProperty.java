@@ -15,7 +15,6 @@ package org.semanticweb.owlapitools.builders;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
 
@@ -33,7 +32,8 @@ public class BuilderFunctionalObjectProperty
      *        data factory
      */
     public BuilderFunctionalObjectProperty(
-            @Nonnull OWLFunctionalObjectPropertyAxiom expected, OWLDataFactory df) {
+            @Nonnull OWLFunctionalObjectPropertyAxiom expected,
+            OWLDataFactory df) {
         this(df);
         withProperty(expected.getProperty()).withAnnotations(
                 expected.getAnnotations());
@@ -48,6 +48,7 @@ public class BuilderFunctionalObjectProperty
         super(df);
     }
 
+    @SuppressWarnings("null")
     @Override
     public OWLFunctionalObjectPropertyAxiom buildObject() {
         return df.getOWLFunctionalObjectPropertyAxiom(property, annotations);

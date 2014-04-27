@@ -61,6 +61,7 @@ public class BuilderComplementOf extends
         return this;
     }
 
+    @SuppressWarnings("null")
     @Override
     public OWLObjectComplementOf buildObject() {
         return df.getOWLObjectComplementOf(c);

@@ -65,6 +65,7 @@ public class BuilderDisjointUnion
         return this;
     }
 
+    @SuppressWarnings("null")
     @Override
     public OWLDisjointUnionAxiom buildObject() {
         return df.getOWLDisjointUnionAxiom(ce, items, annotations);

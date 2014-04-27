@@ -15,7 +15,6 @@ package org.semanticweb.owlapitools.builders;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
-
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 
@@ -46,6 +45,7 @@ public class BuilderAnnotationProperty extends
         withIRI(expected.getIRI());
     }
 
+    @SuppressWarnings("null")
     @Override
     public OWLAnnotationProperty buildObject() {
         if (pm != null && string != null) {

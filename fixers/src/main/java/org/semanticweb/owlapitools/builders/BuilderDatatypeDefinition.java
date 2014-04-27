@@ -76,6 +76,7 @@ public class BuilderDatatypeDefinition extends
         return this;
     }
 
+    @SuppressWarnings("null")
     @Override
     public OWLDatatypeDefinitionAxiom buildObject() {
         return df.getOWLDatatypeDefinitionAxiom(type, range, annotations);

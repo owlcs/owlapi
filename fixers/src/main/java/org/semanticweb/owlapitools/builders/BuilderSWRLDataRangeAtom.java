@@ -15,7 +15,6 @@ package org.semanticweb.owlapitools.builders;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.SWRLDArgument;
@@ -73,6 +72,7 @@ public class BuilderSWRLDataRangeAtom extends
         return this;
     }
 
+    @SuppressWarnings("null")
     @Override
     public SWRLDataRangeAtom buildObject() {
         return df.getSWRLDataRangeAtom(predicate, argument);

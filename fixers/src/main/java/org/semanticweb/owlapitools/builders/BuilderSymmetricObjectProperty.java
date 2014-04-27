@@ -15,7 +15,6 @@ package org.semanticweb.owlapitools.builders;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 
@@ -48,6 +47,7 @@ public class BuilderSymmetricObjectProperty
         super(df);
     }
 
+    @SuppressWarnings("null")
     @Override
     public OWLSymmetricObjectPropertyAxiom buildObject() {
         return df.getOWLSymmetricObjectPropertyAxiom(property, annotations);

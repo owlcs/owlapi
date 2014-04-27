@@ -24,7 +24,6 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
-
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -92,9 +91,11 @@ public abstract class BaseBuilder<T extends OWLObject, Type> implements
     @Override
     public abstract T buildObject();
 
+    @SuppressWarnings("null")
     @Nonnull
     @Override
-    public final List<OWLOntologyChange<?>> applyChanges(@Nonnull OWLOntology o) {
+    public final List<OWLOntologyChange<?>>
+            applyChanges(@Nonnull OWLOntology o) {
         T object = buildObject();
         if (!(object instanceof OWLAxiom)) {
             return Collections.emptyList();

@@ -77,6 +77,7 @@ public class BuilderClassAssertion extends
         return this;
     }
 
+    @SuppressWarnings("null")
     @Override
     public OWLClassAssertionAxiom buildObject() {
         return df.getOWLClassAssertionAxiom(ce, i, annotations);

@@ -64,6 +64,7 @@ public class BuilderAnnotationPropertyDomain
         return this;
     }
 
+    @SuppressWarnings("null")
     @Override
     public OWLAnnotationPropertyDomainAxiom buildObject() {
         return df.getOWLAnnotationPropertyDomainAxiom(property, domain,

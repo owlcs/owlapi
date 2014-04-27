@@ -15,7 +15,6 @@ package org.semanticweb.owlapitools.builders;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
-
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 
@@ -42,12 +41,14 @@ public class BuilderAsymmetricObjectProperty
      *        data factory
      */
     public BuilderAsymmetricObjectProperty(
-            @Nonnull OWLAsymmetricObjectPropertyAxiom expected, OWLDataFactory df) {
+            @Nonnull OWLAsymmetricObjectPropertyAxiom expected,
+            OWLDataFactory df) {
         this(df);
         withProperty(expected.getProperty()).withAnnotations(
                 expected.getAnnotations());
     }
 
+    @SuppressWarnings("null")
     @Override
     public OWLAsymmetricObjectPropertyAxiom buildObject() {
         return df.getOWLAsymmetricObjectPropertyAxiom(property, annotations);

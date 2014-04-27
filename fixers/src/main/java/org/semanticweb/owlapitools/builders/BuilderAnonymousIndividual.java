@@ -60,6 +60,7 @@ public class BuilderAnonymousIndividual extends
         return this;
     }
 
+    @SuppressWarnings("null")
     @Override
     public OWLAnonymousIndividual buildObject() {
         if (id == null) {

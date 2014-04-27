@@ -77,6 +77,7 @@ public class BuilderObjectPropertyAssertion
         return this;
     }
 
+    @SuppressWarnings("null")
     @Override
     public OWLObjectPropertyAssertionAxiom buildObject() {
         return df.getOWLObjectPropertyAssertionAxiom(property, subject, value,

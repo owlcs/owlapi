@@ -108,6 +108,7 @@ public class BuilderFacetRestriction extends
         return this;
     }
 
+    @SuppressWarnings("null")
     @Override
     public OWLFacetRestriction buildObject() {
         return df.getOWLFacetRestriction(facet, literal);

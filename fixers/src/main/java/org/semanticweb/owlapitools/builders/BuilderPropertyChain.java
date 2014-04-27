@@ -19,7 +19,6 @@ import java.util.List;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
@@ -81,6 +80,7 @@ public class BuilderPropertyChain
         return this;
     }
 
+    @SuppressWarnings("null")
     @Override
     public OWLSubPropertyChainOfAxiom buildObject() {
         return df.getOWLSubPropertyChainOfAxiom(chain, property, annotations);
