@@ -30,6 +30,8 @@ public class EscapeUtils {
      *        The string to be escaped
      * @return The escaped string.
      */
+    @SuppressWarnings("null")
+    @Nonnull
     public static String escapeString(@Nonnull String s) {
         // We replace double quotes with a back slash followed
         // by a double quote. We replace backslashes with a double

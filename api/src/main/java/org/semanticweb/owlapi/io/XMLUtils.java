@@ -279,6 +279,8 @@ public class XMLUtils {
      *        The character sequence.
      * @return The escaped version of the character sequence.
      */
+    @SuppressWarnings("null")
+    @Nonnull
     public static String escapeXML(CharSequence s) {
         // double quote -- quot
         // ampersand -- amp

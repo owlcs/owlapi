@@ -49,14 +49,16 @@ public enum DublinCoreVocabulary
     /** http://purl.org/dc/elements/1.1/title */       TITLE      ("title"      ),
     /** http://purl.org/dc/elements/1.1/type */        TYPE       ("type"       );
 //@formatter:on
+    @Nonnull
     private final String shortName;
     private final String qname;
     @Nonnull
     private final IRI iri;
     /** Dublin Core name space */
+    @Nonnull
     public static final String NAME_SPACE = "http://purl.org/dc/elements/1.1/";
 
-    DublinCoreVocabulary(String name) {
+    DublinCoreVocabulary(@Nonnull String name) {
         shortName = name;
         qname = Namespaces.DC.getPrefixName() + ":" + name;
         iri = IRI.create(NAME_SPACE, name);

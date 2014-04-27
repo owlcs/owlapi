@@ -38,5 +38,6 @@ public interface HasAxiomsByType {
      *         Modifications to the returned set will not be reflected in this
      *         object.
      */
+    @Nonnull
     <T extends OWLAxiom> Set<T> getAxioms(@Nonnull AxiomType<T> axiomType);
 }

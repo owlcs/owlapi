@@ -29,8 +29,11 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 public class RDFLiteral extends RDFNode {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final String lexicalValue;
+    @Nonnull
     private final String lang;
+    @Nonnull
     private final IRI datatype;
     private int hashCode;
 
@@ -44,6 +47,7 @@ public class RDFLiteral extends RDFNode {
      * @param datatype
      *        datatype IRI
      */
+    @SuppressWarnings("null")
     public RDFLiteral(@Nonnull String literal, @Nullable String lang,
             @Nullable IRI datatype) {
         lexicalValue = checkNotNull(literal, "literal cannot be null");
@@ -102,7 +106,7 @@ public class RDFLiteral extends RDFNode {
 
     @Override
     public IRI getIRI() {
-        return null;
+        throw new UnsupportedOperationException("RDF Literals do not have IRIs");
     }
 
     @Override
@@ -111,16 +115,19 @@ public class RDFLiteral extends RDFNode {
     }
 
     /** @return the lexical form for this literal */
+    @Nonnull
     public String getLexicalValue() {
         return lexicalValue;
     }
 
     /** @return the lang tag for this literal */
+    @Nonnull
     public String getLang() {
         return lang;
     }
 
     /** @return the datatype for this literal */
+    @Nonnull
     public IRI getDatatype() {
         return datatype;
     }
@@ -145,30 +152,12 @@ public class RDFLiteral extends RDFNode {
         }
         int diff = 0;
         RDFLiteral lit2 = (RDFLiteral) b;
-        if (datatype != null) {
-            if (lit2.datatype != null) {
-                diff = lexicalValue.compareTo(lit2.lexicalValue);
-                if (diff == 0) {
-                    diff = getDatatype().compareTo(lit2.getDatatype());
-                }
-            } else {
-                diff = -1;
-            }
-        } else {
-            if (lit2.datatype != null) {
-                diff = 1;
-            } else {
-                if (getLang() != null) {
-                    if (lit2.getLang() != null) {
-                        diff = getLang().compareTo(lit2.getLang());
-                    }
-                } else {
-                    diff = -1;
-                }
-                if (diff == 0) {
-                    diff = lexicalValue.compareTo(lit2.lexicalValue);
-                }
-            }
+        diff = lexicalValue.compareTo(lit2.lexicalValue);
+        if (diff == 0) {
+            diff = getDatatype().compareTo(lit2.getDatatype());
+        }
+        if (diff == 0) {
+            diff = getLang().compareTo(lit2.getLang());
         }
         return diff;
     }

@@ -98,16 +98,19 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple> {
     }
 
     /** @return the subject */
+    @Nonnull
     public RDFResource getSubject() {
         return subject;
     }
 
     /** @return the predicate */
+    @Nonnull
     public RDFResourceIRI getPredicate() {
         return predicate;
     }
 
     /** @return the object */
+    @Nonnull
     public RDFNode getObject() {
         return object;
     }

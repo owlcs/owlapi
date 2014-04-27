@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.util;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -24,7 +25,9 @@ import org.semanticweb.owlapi.model.OWLOntology;
  */
 public class OntologyAxiomPair {
 
+    @Nullable
     private OWLOntology ontology;
+    @Nonnull
     private OWLAxiom axiom;
 
     /**
@@ -33,17 +36,20 @@ public class OntologyAxiomPair {
      * @param axiom
      *        axiom
      */
-    public OntologyAxiomPair(OWLOntology ontology, OWLAxiom axiom) {
+    public OntologyAxiomPair(@Nullable OWLOntology ontology,
+            @Nonnull OWLAxiom axiom) {
         this.ontology = ontology;
         this.axiom = axiom;
     }
 
     /** @return the ontology */
+    @Nullable
     public OWLOntology getOntology() {
         return ontology;
     }
 
     /** @return the axiom */
+    @Nonnull
     public OWLAxiom getAxiom() {
         return axiom;
     }

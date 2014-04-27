@@ -174,6 +174,7 @@ public interface ManchesterOWLSyntaxParser {
     Set<OWLObjectPropertyExpression> parseObjectPropertyList();
 
     /** @return data range */
+    @Nonnull
     OWLDataRange parseDataRange();
 
     /** @return property list (object or data) */
@@ -189,5 +190,6 @@ public interface ManchesterOWLSyntaxParser {
      * @throws OWLParserException
      *         if a parser exception is raised
      */
+    @Nonnull
     IRI parseVariable();
 }
