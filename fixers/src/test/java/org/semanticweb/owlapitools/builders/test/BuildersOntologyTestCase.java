@@ -92,20 +92,28 @@ public class BuildersOntologyTestCase {
 
     @Nonnull
     private OWLDataFactory df = new OWLDataFactoryImpl(true, false);
+    @Nonnull
     private OWLAnnotationProperty ap = df.getOWLAnnotationProperty(IRI
             .create("urn:test#ann"));
+    @Nonnull
     private OWLObjectProperty op = df.getOWLObjectProperty(IRI
             .create("urn:test#op"));
+    @Nonnull
     private OWLDataProperty dp = df.getOWLDataProperty(IRI
             .create("urn:test#dp"));
+    @Nonnull
     private OWLLiteral lit = df.getOWLLiteral(false);
+    @Nonnull
     private IRI iri = IRI.create("urn:test#iri");
     @Nonnull
     private Set<OWLAnnotation> annotations = new HashSet<OWLAnnotation>(
             Arrays.asList(df.getOWLAnnotation(ap, df.getOWLLiteral("test"))));
+    @Nonnull
     private OWLClass ce = df.getOWLClass(IRI.create("urn:test#c"));
+    @Nonnull
     private OWLNamedIndividual i = df.getOWLNamedIndividual(IRI
             .create("urn:test#i"));
+    @Nonnull
     private OWLDatatype d = df.getOWLDatatype(IRI.create("urn:test#datatype"));
     @Nonnull
     private Set<OWLDataProperty> dps = new HashSet<OWLDataProperty>(
@@ -119,11 +127,15 @@ public class BuildersOntologyTestCase {
     @Nonnull
     private Set<OWLIndividual> inds = new HashSet<OWLIndividual>(Arrays.asList(
             i, df.getOWLNamedIndividual(iri)));
+    @SuppressWarnings("null")
+    @Nonnull
     private SWRLAtom v1 = df.getSWRLBuiltInAtom(
             IRI.create("v1"),
             Arrays.asList(
                     (SWRLDArgument) df.getSWRLVariable(IRI.create("var3")),
                     df.getSWRLVariable(IRI.create("var4"))));
+    @SuppressWarnings("null")
+    @Nonnull
     private SWRLAtom v2 = df.getSWRLBuiltInAtom(
             IRI.create("v2"),
             Arrays.asList(

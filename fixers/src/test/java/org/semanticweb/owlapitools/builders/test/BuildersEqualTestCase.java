@@ -206,20 +206,28 @@ public class BuildersEqualTestCase {
 
     @Nonnull
     private OWLDataFactory df = new OWLDataFactoryImpl();
+    @Nonnull
     private OWLAnnotationProperty ap = df.getOWLAnnotationProperty(IRI
             .create("urn:test#ann"));
+    @Nonnull
     private OWLObjectProperty op = df.getOWLObjectProperty(IRI
             .create("urn:test#op"));
+    @Nonnull
     private OWLDataProperty dp = df.getOWLDataProperty(IRI
             .create("urn:test#dp"));
+    @Nonnull
     private OWLLiteral lit = df.getOWLLiteral(false);
+    @Nonnull
     private IRI iri = IRI.create("urn:test#iri");
     @Nonnull
     private Set<OWLAnnotation> annotations = new HashSet<OWLAnnotation>(
             Arrays.asList(df.getOWLAnnotation(ap, df.getOWLLiteral("test"))));
+    @Nonnull
     private OWLClass ce = df.getOWLClass(IRI.create("urn:test#c"));
+    @Nonnull
     private OWLNamedIndividual i = df.getOWLNamedIndividual(IRI
             .create("urn:test#i"));
+    @Nonnull
     private OWLDatatype d = df.getBooleanOWLDatatype();
     @Nonnull
     private Set<OWLDataProperty> dps = new HashSet<OWLDataProperty>(
@@ -233,13 +241,19 @@ public class BuildersEqualTestCase {
     @Nonnull
     private Set<OWLIndividual> inds = new HashSet<OWLIndividual>(Arrays.asList(
             i, df.getOWLNamedIndividual(iri)));
+    @Nonnull
     private SWRLDArgument var1 = df.getSWRLVariable(IRI.create("var1"));
+    @Nonnull
     private SWRLIArgument var2 = df.getSWRLVariable(IRI.create("var2"));
+    @SuppressWarnings("null")
+    @Nonnull
     private SWRLAtom v1 = df.getSWRLBuiltInAtom(
             IRI.create("v1"),
             Arrays.asList(
                     (SWRLDArgument) df.getSWRLVariable(IRI.create("var3")),
                     df.getSWRLVariable(IRI.create("var4"))));
+    @SuppressWarnings("null")
+    @Nonnull
     private SWRLAtom v2 = df.getSWRLBuiltInAtom(
             IRI.create("v2"),
             Arrays.asList(
@@ -1125,6 +1139,7 @@ public class BuildersEqualTestCase {
     @Test
     public void shouldBuildSWRLBuiltInAtom() {
         // given
+        @SuppressWarnings("null")
         SWRLBuiltInAtom expected = df.getSWRLBuiltInAtom(iri,
                 Arrays.asList(var1));
         BuilderSWRLBuiltInAtom builder = new BuilderSWRLBuiltInAtom(expected,
