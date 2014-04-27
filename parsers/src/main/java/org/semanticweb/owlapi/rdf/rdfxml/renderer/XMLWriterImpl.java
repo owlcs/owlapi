@@ -41,10 +41,14 @@ import org.semanticweb.owlapi.util.StringLengthComparator;
  */
 public class XMLWriterImpl implements XMLWriter {
 
+    @Nonnull
     private Stack<XMLElement> elementStack;
+    @Nonnull
     protected Writer writer;
     private String encoding = "";
+    @Nonnull
     private String xmlBase;
+    @Nonnull
     private XMLWriterNamespaceManager xmlWriterNamespaceManager;
     private Map<String, String> entities;
     private static final int TEXT_CONTENT_WRAP_LIMIT = Integer.MAX_VALUE;
@@ -75,6 +79,7 @@ public class XMLWriterImpl implements XMLWriter {
         setupEntities();
     }
 
+    @SuppressWarnings("null")
     private void setupEntities() {
         List<String> namespaces = new ArrayList<String>();
         for (String s : xmlWriterNamespaceManager.getNamespaces()) {
@@ -175,7 +180,7 @@ public class XMLWriterImpl implements XMLWriter {
     }
 
     @Override
-    public void writeAttribute(IRI attr, String val) {
+    public void writeAttribute(@Nonnull IRI attr, String val) {
         XMLElement element = elementStack.peek();
         String qName = xmlWriterNamespaceManager.getQName(attr);
         if (qName != null) {
@@ -207,7 +212,7 @@ public class XMLWriterImpl implements XMLWriter {
         }
     }
 
-    private void writeEntities(IRI rootName) throws IOException {
+    private void writeEntities(@Nonnull IRI rootName) throws IOException {
         String qName = xmlWriterNamespaceManager.getQName(rootName);
         if (qName == null) {
             throw new IOException("Cannot create valid XML: qname for "
@@ -228,8 +233,9 @@ public class XMLWriterImpl implements XMLWriter {
         writer.write("]>\n\n\n");
     }
 
+    @SuppressWarnings("null")
     @Override
-    public void startDocument(IRI rootElement) throws IOException {
+    public void startDocument(@Nonnull IRI rootElement) throws IOException {
         String encodingString = "";
         if (encoding.length() > 0) {
             encodingString = " encoding=\"" + encoding + "\"";
@@ -332,6 +338,7 @@ public class XMLWriterImpl implements XMLWriter {
                     writer.write(name);
                     writeAttributes();
                     if (textContent != null) {
+                        @SuppressWarnings("null")
                         boolean wrap = textContent.length() > TEXT_CONTENT_WRAP_LIMIT;
                         if (wrap) {
                             writeNewLine();

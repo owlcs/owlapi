@@ -20,7 +20,6 @@ import java.util.Map;
 
 import javax.annotation.Nonnull;
 
-
 import org.semanticweb.owlapi.formats.PrefixOWLOntologyFormat;
 import org.semanticweb.owlapi.io.AbstractOWLRenderer;
 import org.semanticweb.owlapi.io.OWLRendererException;
@@ -91,6 +90,7 @@ public class OWLXMLRenderer extends AbstractOWLRenderer {
         }
     }
 
+    @SuppressWarnings("null")
     @Override
     public void render(OWLOntology ontology, Writer writer)
             throws OWLRendererException {

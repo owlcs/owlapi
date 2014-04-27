@@ -18,6 +18,7 @@ import java.io.PrintWriter;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.formats.DLSyntaxHTMLOntologyFormat;
 import org.semanticweb.owlapi.io.XMLUtils;
@@ -44,9 +45,10 @@ public class DLSyntaxHTMLOntologyStorer extends DLSyntaxOntologyStorerBase {
         return ontologyFormat instanceof DLSyntaxHTMLOntologyFormat;
     }
 
+    @SuppressWarnings("null")
     @Nonnull
     @Override
-    protected String getRendering(@Nonnull final OWLEntity subject,
+    protected String getRendering(@Nullable final OWLEntity subject,
             OWLAxiom axiom) {
         checkNotNull(axiom, "axiom cannot be null");
         DLSyntaxObjectRenderer ren = new DLSyntaxObjectRenderer() {
@@ -63,7 +65,6 @@ public class DLSyntaxHTMLOntologyStorer extends DLSyntaxOntologyStorerBase {
                 }
             }
 
-            @SuppressWarnings("null")
             @Override
             protected void write(DLSyntax keyword) {
                 super.write(XMLUtils.escapeXML(checkNotNull(keyword,

@@ -66,7 +66,7 @@ public interface XMLWriter {
      * @throws IOException
      *         if there was an IO problem
      */
-    void startDocument(IRI rootElement) throws IOException;
+    void startDocument(@Nonnull IRI rootElement) throws IOException;
 
     /**
      * Causes all open elements, including the document root element, to be
@@ -124,7 +124,7 @@ public interface XMLWriter {
      * @throws IOException
      *         if there was an IO problem
      */
-    void writeAttribute(IRI attr, String val) throws IOException;
+    void writeAttribute(@Nonnull IRI attr, String val) throws IOException;
 
     /**
      * Writes a text element

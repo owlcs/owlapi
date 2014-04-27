@@ -22,6 +22,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -122,9 +123,11 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     /** Write prefixes. */
+    @SuppressWarnings("null")
     public void writePrefixes() {
-        for (String prefix : prefixManager.getPrefixName2PrefixMap().keySet()) {
-            writePrefix(prefix, prefixManager.getPrefix(prefix));
+        for (Map.Entry<String, String> e : prefixManager
+                .getPrefixName2PrefixMap().entrySet()) {
+            writePrefix(e.getKey(), e.getValue());
         }
     }
 
@@ -164,6 +167,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         write(">");
     }
 
+    @SuppressWarnings("null")
     @Override
     public void visit(@Nonnull OWLOntology ontology1) {
         writePrefixes();
@@ -298,7 +302,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
      * @return The axioms that were written out
      */
     @Nonnull
-    public Set<OWLAxiom> writeDeclarations(OWLEntity entity) {
+    public Set<OWLAxiom> writeDeclarations(@Nonnull OWLEntity entity) {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         for (OWLAxiom ax : ontology.getDeclarationAxioms(entity)) {
             ax.accept(this);
@@ -804,6 +808,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         }
     }
 
+    @SuppressWarnings("null")
     private <F extends OWLPropertyRange> void writeRestriction(
             @Nonnull OWLXMLVocabulary v,
             @Nonnull OWLCardinalityRestriction<F> restriction,
@@ -820,12 +825,12 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         writeCloseBracket();
     }
 
-    private void writeRestriction(OWLXMLVocabulary v,
+    private void writeRestriction(@Nonnull OWLXMLVocabulary v,
             @Nonnull OWLQuantifiedDataRestriction restriction) {
         writeRestriction(v, restriction.getProperty(), restriction.getFiller());
     }
 
-    private void writeRestriction(OWLXMLVocabulary v,
+    private void writeRestriction(@Nonnull OWLXMLVocabulary v,
             @Nonnull OWLQuantifiedObjectRestriction restriction) {
         writeRestriction(v, restriction.getProperty(), restriction.getFiller());
     }

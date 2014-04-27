@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.rdf.rdfxml.renderer;
 
-
-
 import java.io.Writer;
 
 import javax.annotation.Nonnull;
@@ -33,6 +31,7 @@ public class XMLWriterFactory {
     private XMLWriterFactory() {}
 
     /** @return the one and only instance of the {@code XMLWriterFactory} */
+    @Nonnull
     public static XMLWriterFactory getInstance() {
         return instance;
     }
@@ -48,6 +47,7 @@ public class XMLWriterFactory {
      *        xmlBase
      * @return xml writer
      */
+    @Nonnull
     public XMLWriter createXMLWriter(@Nonnull Writer writer,
             @Nonnull XMLWriterNamespaceManager xmlWriterNamespaceManager,
             @Nonnull String xmlBase) {

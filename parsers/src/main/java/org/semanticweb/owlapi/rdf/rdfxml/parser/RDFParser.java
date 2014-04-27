@@ -77,7 +77,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
     protected LinkedList<IRI> m_baseIRIs = new LinkedList<IRI>();
     private Map<IRI, URI> m_baseURICache = new HashMap<IRI, URI>();
     /** IRI of the document being parsed. */
-    protected IRI m_baseIRI;
+    protected IRI baseIRI;
     /** The stack of languages. */
     @Nonnull
     protected LinkedList<String> m_languages = new LinkedList<String>();
@@ -92,6 +92,16 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
     /** Document locator. */
     protected Locator documentLocator;
 
+    @SuppressWarnings("null")
+    @Nonnull
+    protected IRI getBaseIRI() {
+        if (baseIRI == null) {
+            throw new IllegalStateException("base IRI has not been set yet");
+        }
+        return baseIRI;
+    }
+
+    @SuppressWarnings("null")
     @Nonnull
     protected Locator getDocumentLocator() {
         if (documentLocator != null) {
@@ -120,14 +130,13 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
         String systemID = s.getSystemId();
         try {
             if (systemID != null) {
-                m_baseIRI = IRI.create(new URI(source.getSystemId()));
+                baseIRI = IRI.create(new URI(source.getSystemId()));
             } else {
                 throw new SAXException(
                         "Supplied InputSource object myst have systemId property set, which is needed for IRI resolution.");
             }
-            assert m_baseIRI != null;
             m_consumer = consumer;
-            m_consumer.startModel(m_baseIRI);
+            m_consumer.startModel(getBaseIRI());
             s_parserFactory.newSAXParser().parse(source, this);
             m_consumer.endModel();
         } catch (ParserConfigurationException e) {
@@ -197,7 +206,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
     public void endElement(String namespaceIRI, String localName, String qName)
             throws SAXException {
         state.endElement(namespaceIRI, localName, qName);
-        m_baseIRI = m_baseIRIs.remove(0);
+        baseIRI = m_baseIRIs.remove(0);
         m_language = m_languages.remove(0);
     }
 
@@ -255,11 +264,11 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
             return IRI.create(value, null);
         }
         // cache the delegate URI if not there already
-        if (!m_baseURICache.containsKey(m_baseIRI)) {
-            m_baseURICache.put(m_baseIRI, m_baseIRI.toURI());
+        if (!m_baseURICache.containsKey(getBaseIRI())) {
+            m_baseURICache.put(getBaseIRI(), getBaseIRI().toURI());
         }
         // get hold of the delegate URI
-        URI delegateURI = m_baseURICache.get(m_baseIRI);
+        URI delegateURI = m_baseURICache.get(getBaseIRI());
         assert delegateURI != null;
         // resolve against delegate
         URI resolve = delegateURI.resolve(value);
@@ -273,18 +282,18 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
      * @param atts
      *        the attributes potentially containing xml:base declaration
      */
-    @SuppressWarnings("null")
     private void processXMLBase(@Nonnull Attributes atts) {
         checkNotNull(atts, "atts cannot be null");
-        m_baseIRIs.add(0, m_baseIRI);
+        m_baseIRIs.add(0, getBaseIRI());
         String value = atts.getValue(XMLNS, "base");
         if (value != null) {
             try {
-                m_baseIRI = resolveFromDelegate(m_baseIRI, value);
+                baseIRI = resolveFromDelegate(getBaseIRI(), value);
                 resolvedIRIs.clear();
             } catch (IllegalArgumentException e) {
                 throw new RDFParserException(e, String.format(wrongResolve,
-                        value, m_baseIRI, e.getMessage()), getDocumentLocator());
+                        value, getBaseIRI(), e.getMessage()),
+                        getDocumentLocator());
             }
         }
     }
@@ -318,11 +327,11 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
         if (uri.length() == 0) {
             // MH - Fix for resolving a "This document" reference against base
             // IRIs.
-            String namespace = m_baseIRI.getNamespace();
+            String namespace = getBaseIRI().getNamespace();
             if (namespace.charAt(namespace.length() - 1) == '#') {
                 return namespace.substring(0, namespace.length() - 1);
             }
-            String base = m_baseIRI.toString();
+            String base = getBaseIRI().toString();
             int hashIndex = base.indexOf("#");
             if (hashIndex != -1) {
                 return base.substring(0, hashIndex);
@@ -335,7 +344,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
                 if (resolved != null) {
                     return resolved;
                 } else {
-                    IRI theIRI = resolveFromDelegate(m_baseIRI, uri);
+                    IRI theIRI = resolveFromDelegate(getBaseIRI(), uri);
                     String u = theIRI.toString();
                     uriCache.put(u, theIRI);
                     resolvedIRIs.put(uri, u);
@@ -343,7 +352,8 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
                 }
             } catch (IllegalArgumentException e) {
                 throw new RDFParserException(e, String.format(wrongResolve,
-                        uri, m_baseIRI, e.getMessage()), getDocumentLocator());
+                        uri, getBaseIRI(), e.getMessage()),
+                        getDocumentLocator());
             }
         }
     }

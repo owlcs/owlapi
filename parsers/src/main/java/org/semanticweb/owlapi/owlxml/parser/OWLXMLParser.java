@@ -54,6 +54,7 @@ public class OWLXMLParser extends AbstractOWLParser {
         return OWLXMLOntologyFormat.class;
     }
 
+    @SuppressWarnings("null")
     @Override
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
             OWLOntology ontology, OWLOntologyLoaderConfiguration configuration)
@@ -69,8 +70,8 @@ public class OWLXMLParser extends AbstractOWLParser {
             parser.parse(isrc, handler);
             Map<String, String> prefix2NamespaceMap = handler
                     .getPrefixName2PrefixMap();
-            for (String prefix : prefix2NamespaceMap.keySet()) {
-                format.setPrefix(prefix, prefix2NamespaceMap.get(prefix));
+            for (Map.Entry<String, String> e : prefix2NamespaceMap.entrySet()) {
+                format.setPrefix(e.getKey(), e.getValue());
             }
             return format;
         } catch (ParserConfigurationException e) {

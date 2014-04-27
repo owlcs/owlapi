@@ -25,7 +25,6 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-
 import org.semanticweb.owlapi.formats.RDFOntologyFormat;
 import org.semanticweb.owlapi.io.RDFLiteral;
 import org.semanticweb.owlapi.io.RDFNode;
@@ -56,7 +55,9 @@ public class RDFXMLRenderer extends RDFRendererBase {
     private RDFXMLWriter writer;
     @Nonnull
     private Set<RDFResource> pending = new HashSet<RDFResource>();
+    @Nonnull
     private RDFXMLNamespaceManager qnameManager;
+    @Nonnull
     private OWLOntologyFormat format;
 
     /**
@@ -65,6 +66,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
      * @param w
      *        writer
      */
+    @SuppressWarnings("null")
     public RDFXMLRenderer(@Nonnull OWLOntology ontology, @Nonnull Writer w) {
         this(checkNotNull(ontology, "ontology cannot be null"), checkNotNull(w,
                 "w cannot be null"), ontology.getOWLOntologyManager()
@@ -86,15 +88,22 @@ public class RDFXMLRenderer extends RDFRendererBase {
         this.format = checkNotNull(format, "format cannot be null");
         qnameManager = new RDFXMLNamespaceManager(ontology, format);
         String defaultNamespace = qnameManager.getDefaultNamespace();
+        String base = base(defaultNamespace);
+        writer = new RDFXMLWriter(XMLWriterFactory.getInstance()
+                .createXMLWriter(checkNotNull(w, "w cannot be null"),
+                        qnameManager, base));
+    }
+
+    @SuppressWarnings("null")
+    @Nonnull
+    private static String base(@Nonnull String defaultNamespace) {
         String base;
         if (defaultNamespace.endsWith("#")) {
             base = defaultNamespace.substring(0, defaultNamespace.length() - 1);
         } else {
             base = defaultNamespace;
         }
-        writer = new RDFXMLWriter(XMLWriterFactory.getInstance()
-                .createXMLWriter(checkNotNull(w, "w cannot be null"),
-                        qnameManager, base));
+        return base;
     }
 
     /** @return unserializable entities */

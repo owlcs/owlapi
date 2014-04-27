@@ -18,7 +18,6 @@ import java.io.IOException;
 
 import javax.annotation.Nonnull;
 
-
 import org.semanticweb.owlapi.io.RDFResource;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLObject;
@@ -31,17 +30,24 @@ import org.semanticweb.owlapi.vocab.Namespaces;
  */
 public class RDFXMLWriter {
 
+    @Nonnull
     private static final IRI RDF_RDF = IRI.create(
             Namespaces.RDF.getPrefixIRI(), "RDF");
+    @Nonnull
     private static final IRI RDF_RESOURCE = IRI.create(
             Namespaces.RDF.getPrefixIRI(), "resource");
+    @Nonnull
     private static final String XML_LANG = "xml:lang";
+    @Nonnull
     private static final IRI RDF_NODEID = IRI.create(
             Namespaces.RDF.getPrefixIRI(), "nodeID");
+    @Nonnull
     private static final IRI RDF_ABOUT = IRI.create(
             Namespaces.RDF.getPrefixIRI(), "about");
+    @Nonnull
     private static final IRI RDF_DATATYPE = IRI.create(
             Namespaces.RDF.getPrefixIRI(), "datatype");
+    @Nonnull
     private static final IRI PARSETYPE_IRI = IRI.create(
             Namespaces.RDF.getPrefixIRI(), "parseType");
     private XMLWriter writer;

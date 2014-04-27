@@ -37,6 +37,7 @@ public class XMLWriterNamespaceManager {
     private Map<String, String> namespacePrefixMap = new HashMap<String, String>();
     @Nonnull
     private Map<String, String> wellknownNamespaces = new HashMap<String, String>();
+    @Nonnull
     private String defaultNamespace;
 
     /**
@@ -136,12 +137,11 @@ public class XMLWriterNamespaceManager {
      */
     public String getQName(@Nonnull IRI name) {
         if (name.getNamespace().equals(defaultNamespace)) {
-            return name.getFragment() == null ? "" : name.getFragment();
+            return name.getFragment();
         }
         String candidate = namespacePrefixMap.get(name.getNamespace());
         if (candidate != null) {
-            String localName = name.getFragment() == null ? "" : name
-                    .getFragment();
+            String localName = name.getFragment();
             return candidate + ":" + localName;
         }
         return name.toString();
@@ -156,8 +156,9 @@ public class XMLWriterNamespaceManager {
         if (namespace.equals(defaultNamespace)) {
             return;
         }
-        if (wellknownNamespaces.containsKey(namespace)) {
-            setPrefix(wellknownNamespaces.get(namespace), namespace);
+        String prefix = wellknownNamespaces.get(namespace);
+        if (prefix != null) {
+            setPrefix(prefix, namespace);
         }
         if (!namespacePrefixMap.containsKey(namespace)) {
             int counter = 1;
@@ -169,17 +170,20 @@ public class XMLWriterNamespaceManager {
     }
 
     /** @return default namespace */
+    @Nonnull
     public String getDefaultNamespace() {
         return defaultNamespace;
     }
 
     /** @return iterable on prefixes */
+    @SuppressWarnings("null")
     @Nonnull
     public Iterable<String> getPrefixes() {
         return prefixNamespaceMap.keySet();
     }
 
     /** @return iterable of namespaces */
+    @SuppressWarnings("null")
     @Nonnull
     public Iterable<String> getNamespaces() {
         return namespacePrefixMap.keySet();

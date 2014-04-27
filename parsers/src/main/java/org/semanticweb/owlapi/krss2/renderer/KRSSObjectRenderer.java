@@ -15,6 +15,7 @@ package org.semanticweb.owlapi.krss2.renderer;
 import static org.semanticweb.owlapi.krss2.renderer.KRSSVocabulary.*;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.search.Searcher.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -231,9 +232,13 @@ import org.semanticweb.owlapi.util.OWLObjectVisitorAdapter;
  */
 public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
 
+    @Nonnull
     private static final String OPEN_BRACKET = "(";
+    @Nonnull
     private static final String CLOSE_BRACKET = ")";
+    @Nonnull
     private static final String NEWLINE = "\n";
+    @Nonnull
     protected final OWLOntology ontology;
     @Nonnull
     protected final Writer writer;
@@ -246,8 +251,9 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
      * @param writer
      *        writer
      */
-    public KRSSObjectRenderer(OWLOntology ontology, Writer writer) {
-        this.ontology = ontology;
+    public KRSSObjectRenderer(@Nonnull OWLOntology ontology,
+            @Nonnull Writer writer) {
+        this.ontology = checkNotNull(ontology);
         this.writer = new PrintWriter(writer);
     }
 
@@ -340,6 +346,7 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
         obj.accept(this);
     }
 
+    @SuppressWarnings("null")
     protected void flattenProperties(
             @Nonnull Iterable<OWLObjectPropertyExpression> properties,
             @Nullable KRSSVocabulary junctor) {
@@ -368,7 +375,8 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
         }
     }
 
-    protected void flatten(Iterable<OWLClassExpression> description,
+    @SuppressWarnings("null")
+    protected void flatten(@Nonnull Iterable<OWLClassExpression> description,
             @Nonnull KRSSVocabulary junctor) {
         List<OWLClassExpression> descs = sort(description);
         int size = descs.size();
@@ -390,6 +398,7 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
         writeCloseBracket();
     }
 
+    @SuppressWarnings("null")
     @Override
     public void visit(@Nonnull OWLOntology ontology1) {
         Set<OWLClass> classes = ontology1.getClassesInSignature();
@@ -459,6 +468,7 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
         }
     }
 
+    @SuppressWarnings("null")
     @Override
     public void visit(@Nonnull OWLDisjointClassesAxiom axiom) {
         List<OWLClassExpression> classes = sort(axiom.getClassExpressions());
@@ -488,6 +498,7 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
         writeln();
     }
 
+    @SuppressWarnings("null")
     @Override
     public void visit(@Nonnull OWLDifferentIndividualsAxiom axiom) {
         List<OWLIndividual> individuals = sort(axiom.getIndividuals());
@@ -547,6 +558,7 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
         writeln();
     }
 
+    @SuppressWarnings("null")
     @Override
     public void visit(@Nonnull OWLSameIndividualAxiom axiom) {
         List<OWLIndividual> individuals = sort(axiom.getIndividuals());
@@ -571,6 +583,7 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
         write(desc.getIRI());
     }
 
+    @SuppressWarnings("null")
     @Override
     public void visit(@Nonnull OWLObjectIntersectionOf desc) {
         writeOpenBracket();
@@ -589,6 +602,7 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
         writeCloseBracket();
     }
 
+    @SuppressWarnings("null")
     @Override
     public void visit(@Nonnull OWLObjectUnionOf desc) {
         writeOpenBracket();

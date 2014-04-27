@@ -20,6 +20,7 @@ import java.net.URI;
 import java.util.Map;
 import java.util.TreeMap;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.io.OWLRendererException;
@@ -53,12 +54,16 @@ import com.google.common.base.Optional;
  */
 public class OWLXMLWriter {
 
+    @Nonnull
     private static final String LANG_IRI = "xml:lang";
+    @Nonnull
     private static final IRI VERSION_IRI = IRI.create(
             Namespaces.OWL.getPrefixIRI(), "versionIRI");
+    @Nonnull
     private static final IRI ONTOLOGY_IRI = IRI.create(
             Namespaces.OWL.getPrefixIRI(), "ontologyIRI");
     private XMLWriter writer;
+    @Nonnull
     private Map<String, String> iriPrefixMap = new TreeMap<String, String>(
             new StringLengthComparator());
 
@@ -68,7 +73,7 @@ public class OWLXMLWriter {
      * @param ontology
      *        ontology
      */
-    public OWLXMLWriter(Writer writer, @Nullable OWLOntology ontology) {
+    public OWLXMLWriter(@Nonnull Writer writer, @Nullable OWLOntology ontology) {
         XMLWriterNamespaceManager nsm = new XMLWriterNamespaceManager(
                 Namespaces.OWL.toString());
         nsm.setPrefix("xsd", Namespaces.XSD.toString());
@@ -131,7 +136,7 @@ public class OWLXMLWriter {
         if (prefixName == null) {
             return iri.toString();
         }
-        if (iri.getFragment() == null) {
+        if (iri.getFragment().isEmpty()) {
             return prefixName;
         }
         return prefixName + iri.getFragment();
@@ -232,10 +237,7 @@ public class OWLXMLWriter {
             IRI attName = IRI_ATTRIBUTE.getIRI();
             String value = iri.toString();
             if (value.startsWith(writer.getXMLBase())) {
-                writer.writeAttribute(
-                        attName,
-                        value.substring(writer.getXMLBase().length(),
-                                value.length()));
+                writer.writeAttribute(attName, iriMinusBase(value));
             } else {
                 String val = getIRIString(iri);
                 if (!val.equals(iri.toString())) {
@@ -262,8 +264,7 @@ public class OWLXMLWriter {
             String iriString = iri.toString();
             if (iriString.startsWith(writer.getXMLBase())) {
                 writeStartElement(IRI_ELEMENT);
-                writeTextContent(iriString.substring(writer.getXMLBase()
-                        .length(), iriString.length()));
+                writeTextContent(iriMinusBase(iriString));
                 writeEndElement();
             } else {
                 String val = getIRIString(iri);
@@ -282,11 +283,18 @@ public class OWLXMLWriter {
         }
     }
 
+    @SuppressWarnings("null")
+    @Nonnull
+    String iriMinusBase(String iriString) {
+        return iriString.substring(writer.getXMLBase().length(),
+                iriString.length());
+    }
+
     /**
      * @param lang
      *        lang
      */
-    public void writeLangAttribute(String lang) {
+    public void writeLangAttribute(@Nonnull String lang) {
         try {
             writer.writeAttribute(LANG_IRI, lang);
         } catch (IOException e) {
@@ -311,7 +319,7 @@ public class OWLXMLWriter {
      * @param text
      *        text
      */
-    public void writeTextContent(String text) {
+    public void writeTextContent(@Nonnull String text) {
         try {
             writer.writeTextContent(text);
         } catch (IOException e) {

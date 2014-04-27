@@ -22,6 +22,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
@@ -96,13 +97,14 @@ public class TurtleRenderer extends RDFRendererBase {
         base = "";
     }
 
+    @SuppressWarnings("null")
     private void writeNamespaces() {
-        for (String prefixName : pm.getPrefixName2PrefixMap().keySet()) {
-            String prefix = pm.getPrefix(prefixName);
+        for (Map.Entry<String, String> e : pm.getPrefixName2PrefixMap()
+                .entrySet()) {
             write("@prefix ");
-            write(prefixName);
+            write(e.getKey());
             write(" ");
-            writeAsURI(prefix);
+            writeAsURI(e.getValue());
             write(" .");
             writeNewLine();
         }
@@ -140,6 +142,7 @@ public class TurtleRenderer extends RDFRendererBase {
         return getCurrentPos() - lastNewLineIndex;
     }
 
+    @SuppressWarnings("null")
     private void writeAsURI(@Nonnull String s) {
         write("<");
         if (s.startsWith(base)) {
@@ -209,7 +212,7 @@ public class TurtleRenderer extends RDFRendererBase {
         }
     }
 
-    private void writeStringLiteral(String literal) {
+    private void writeStringLiteral(@Nonnull String literal) {
         String escapedLiteral = EscapeUtils.escapeString(literal);
         if (escapedLiteral.indexOf('\n') != -1) {
             write("\"\"\"");
@@ -222,6 +225,7 @@ public class TurtleRenderer extends RDFRendererBase {
         }
     }
 
+    @SuppressWarnings("null")
     private void write(@Nonnull RDFResource node) {
         if (!node.isAnonymous()) {
             write(node.getIRI());

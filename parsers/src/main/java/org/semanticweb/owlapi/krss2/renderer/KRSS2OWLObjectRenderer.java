@@ -15,6 +15,7 @@ package org.semanticweb.owlapi.krss2.renderer;
 import static org.semanticweb.owlapi.krss2.renderer.KRSS2Vocabulary.*;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.search.Searcher.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -63,7 +64,9 @@ import org.semanticweb.owlapi.util.OWLObjectVisitorAdapter;
 /** @author Olaf Noppens */
 public class KRSS2OWLObjectRenderer extends OWLObjectVisitorAdapter {
 
+    @Nonnull
     private final OWLOntology ontology;
+    @Nonnull
     private final Writer writer;
 
     /**
@@ -72,9 +75,10 @@ public class KRSS2OWLObjectRenderer extends OWLObjectVisitorAdapter {
      * @param writer
      *        writer
      */
-    public KRSS2OWLObjectRenderer(OWLOntology ontology, Writer writer) {
-        this.ontology = ontology;
-        this.writer = writer;
+    public KRSS2OWLObjectRenderer(@Nonnull OWLOntology ontology,
+            @Nonnull Writer writer) {
+        this.ontology = checkNotNull(ontology);
+        this.writer = checkNotNull(writer);
     }
 
     private void writeOpenBracket() {
@@ -191,6 +195,7 @@ public class KRSS2OWLObjectRenderer extends OWLObjectVisitorAdapter {
     @Override
     public final void visit(OWLOntology onto) {
         for (OWLClass eachClass : onto.getClassesInSignature()) {
+            assert eachClass != null;
             boolean primitive = !isDefined(onto, eachClass);
             if (primitive) {
                 writeOpenBracket();
@@ -252,6 +257,7 @@ public class KRSS2OWLObjectRenderer extends OWLObjectVisitorAdapter {
             axiom.accept(this);
         }
         for (OWLObjectProperty property : onto.getObjectPropertiesInSignature()) {
+            assert property != null;
             writeOpenBracket();
             write(DEFINE_PRIMITIVE_ROLE);
             write(property);

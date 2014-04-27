@@ -19,7 +19,6 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
@@ -69,7 +68,7 @@ public class RDFXMLNamespaceManager extends OWLOntologyXMLNamespaceManager {
         Set<OWLEntity> result = new HashSet<OWLEntity>();
         for (OWLEntity entity : getEntitiesThatRequireNamespaces()) {
             IRI iri = entity.getIRI();
-            if (iri.getFragment() == null || iri.getFragment().isEmpty()) {
+            if (iri.getFragment().isEmpty()) {
                 result.add(entity);
             }
         }

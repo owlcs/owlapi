@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
 
-
 import org.semanticweb.owlapi.io.RDFLiteral;
 import org.semanticweb.owlapi.io.RDFNode;
 import org.semanticweb.owlapi.io.RDFResource;
@@ -82,17 +81,17 @@ public class RDFTranslator extends
     }
 
     @Override
-    protected RDFLiteral getLiteralNode(OWLLiteral literal) {
+    protected RDFLiteral getLiteralNode(@Nonnull OWLLiteral literal) {
         return new RDFLiteral(literal);
     }
 
     @Override
-    protected RDFResourceIRI getPredicateNode(IRI uri) {
+    protected RDFResourceIRI getPredicateNode(@Nonnull IRI uri) {
         return new RDFResourceIRI(uri);
     }
 
     @Override
-    protected RDFResourceIRI getResourceNode(IRI uri) {
+    protected RDFResourceIRI getResourceNode(@Nonnull IRI uri) {
         return new RDFResourceIRI(uri);
     }
 

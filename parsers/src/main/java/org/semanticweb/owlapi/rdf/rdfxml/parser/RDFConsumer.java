@@ -105,8 +105,9 @@ public interface RDFConsumer {
      * @throws OWLRuntimeException
      *         OWLRuntimeException
      */
-    void statementWithLiteralValue(IRI subject, @Nonnull IRI predicate,
-            String object, String language, IRI datatype);
+    void statementWithLiteralValue(@Nonnull IRI subject,
+            @Nonnull IRI predicate, @Nonnull String object, String language,
+            IRI datatype);
 
     /**
      * Receives the logical URI of the model.

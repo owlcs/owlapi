@@ -58,7 +58,6 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
      * @param format
      *        format
      */
-    @SuppressWarnings("null")
     public OWLOntologyXMLNamespaceManager(@Nonnull OWLOntology ontology,
             @Nonnull OWLOntologyFormat format) {
         super(getDefaultNamespace(ontology, format));

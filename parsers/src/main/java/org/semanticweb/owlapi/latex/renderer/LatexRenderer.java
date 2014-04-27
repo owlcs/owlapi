@@ -50,16 +50,20 @@ public class LatexRenderer extends AbstractOWLRenderer {
     @Nonnull
     private ShortFormProvider shortFormProvider = new SimpleShortFormProvider();
 
-    private void writeEntitySection(OWLEntity entity, LatexWriter w) {
+    private void writeEntitySection(@Nonnull OWLEntity entity,
+            @Nonnull LatexWriter w) {
         w.write("\\subsubsection*{");
         w.write(escapeName(shortFormProvider.getShortForm(entity)));
         w.write("}\n\n");
     }
 
+    @SuppressWarnings("null")
+    @Nonnull
     private static String escapeName(String name) {
         return name.replace("_", "\\_");
     }
 
+    @SuppressWarnings("null")
     @Override
     public void render(OWLOntology ontology, Writer writer)
             throws OWLRendererException {

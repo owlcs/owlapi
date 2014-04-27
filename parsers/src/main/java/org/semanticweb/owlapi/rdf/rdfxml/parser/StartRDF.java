@@ -82,6 +82,7 @@ abstract class AbstractState {
      * @throws SAXException
      *         SAXException
      */
+    @SuppressWarnings("null")
     void propertyAttributes(@Nonnull String subjectIRI,
             @Nonnull Attributes atts,
             @Nonnull ReificationManager reificationManager) throws SAXException {
@@ -204,11 +205,11 @@ class StartRDF extends AbstractState implements State {
         if (value == null) {
             logger.info(
                     "Notice: root element does not have an xml:base. Relative IRIs will be resolved against {}",
-                    parser.m_baseIRI);
+                    parser.getBaseIRI());
         }
         // the logical IRI is the current IRI that we have as the base IRI
         // at this point
-        parser.m_consumer.logicalURI(parser.m_baseIRI);
+        parser.m_consumer.logicalURI(parser.getBaseIRI());
         parser.pushState(new NodeElementList(parser));
     }
 
@@ -237,7 +238,7 @@ class EmptyPropertyElement extends AbstractState implements State {
         m_nodeElement = nodeElement;
     }
 
-    @SuppressWarnings("unused")
+    @SuppressWarnings({ "unused", "null" })
     @Override
     public void startElement(String namespaceIRI, String localName,
             String qName, @Nonnull Attributes atts) throws SAXException {
@@ -314,7 +315,8 @@ class NodeElement extends AbstractState implements State {
      *        the uri
      * @return property iri
      */
-    String getPropertyIRI(String uri) {
+    @Nonnull
+    String getPropertyIRI(@Nonnull String uri) {
         if (RDF_LI.equals(uri)) {
             return getNextLi();
         }
@@ -428,6 +430,7 @@ class ParseTypeCollectionElement extends AbstractState implements State {
         m_nodeElement = nodeElement;
     }
 
+    @SuppressWarnings("null")
     @Override
     public void startElement(String namespaceIRI, String localName,
             String qName, @Nonnull Attributes atts) throws SAXException {
@@ -460,7 +463,7 @@ class ParseTypeCollectionElement extends AbstractState implements State {
         return listCellIRI;
     }
 
-    @SuppressWarnings("unused")
+    @SuppressWarnings({ "unused", "null" })
     @Override
     public void endElement(String namespaceIRI, String localName, String qName) {
         if (m_lastCellIRI == null) {
@@ -487,6 +490,7 @@ class ResourceOrLiteralElement extends AbstractState implements State {
 
     @Nonnull
     protected NodeElement nodeElement;
+    @Nonnull
     protected String propertyIRI;
     @Nullable
     protected String reificationID;
@@ -494,12 +498,14 @@ class ResourceOrLiteralElement extends AbstractState implements State {
     protected StringBuilder text;
     protected NodeElement innerNode;
 
+    @SuppressWarnings("null")
     ResourceOrLiteralElement(@Nonnull NodeElement nodeElement,
             @Nonnull RDFParser parser) {
         super(parser);
         this.nodeElement = nodeElement;
     }
 
+    @SuppressWarnings("null")
     @Override
     public void startElement(String namespaceIRI, String localName,
             String qName, @Nonnull Attributes atts) throws SAXException {
@@ -518,7 +524,7 @@ class ResourceOrLiteralElement extends AbstractState implements State {
         }
     }
 
-    @SuppressWarnings("unused")
+    @SuppressWarnings({ "unused", "null" })
     @Override
     public void endElement(String namespaceIRI, String localName, String qName) {
         if (innerNode != null) {
@@ -580,7 +586,7 @@ class ParseTypeLiteralElement extends AbstractState implements State {
         m_depth++;
     }
 
-    @SuppressWarnings("unused")
+    @SuppressWarnings({ "unused", "null" })
     @Override
     public void endElement(String namespaceIRI, String localName, String qName) {
         if (m_depth == 1) {
@@ -615,7 +621,7 @@ class ParseTypeResourceElement extends AbstractState implements State {
         m_nodeElement = nodeElement;
     }
 
-    @SuppressWarnings("unused")
+    @SuppressWarnings({ "unused", "null" })
     @Override
     public void startElement(String namespaceIRI, String localName,
             String qName, @Nonnull Attributes atts) throws SAXException {
@@ -708,9 +714,10 @@ class ReifiedStatementBag extends ReificationManager {
 
     @Nonnull
     protected AtomicLong m_elements = new AtomicLong(1);
+    @Nonnull
     protected String m_uri;
 
-    ReifiedStatementBag(String uri, @Nonnull RDFParser parser) {
+    ReifiedStatementBag(@Nonnull String uri, @Nonnull RDFParser parser) {
         m_uri = uri;
         parser.statementWithResourceValue(m_uri, RDF_TYPE, RDF_BAG, null);
     }

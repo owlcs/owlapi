@@ -26,7 +26,6 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.io.RDFNode;
 import org.semanticweb.owlapi.io.RDFResource;
@@ -44,10 +43,12 @@ public class RDFGraph {
 
     private static final Logger logger = LoggerFactory
             .getLogger(RDFGraph.class);
-    private Map<RDFResource, Set<RDFTriple>> triplesBySubject = new HashMap<RDFResource, Set<RDFTriple>>();
-    @Nullable
-    private Set<RDFResourceBlankNode> rootAnonymousNodes = null;
-    private Set<RDFTriple> triples = new HashSet<RDFTriple>();
+    @Nonnull
+    private final Map<RDFResource, Set<RDFTriple>> triplesBySubject = new HashMap<RDFResource, Set<RDFTriple>>();
+    @Nonnull
+    private final Set<RDFResourceBlankNode> rootAnonymousNodes = new HashSet<RDFResourceBlankNode>();
+    @Nonnull
+    private final Set<RDFTriple> triples = new HashSet<RDFTriple>();
 
     /**
      * Determines if this graph is empty (i.e. whether or not it contains any
@@ -68,7 +69,7 @@ public class RDFGraph {
     public void addTriple(@Nonnull RDFTriple triple) {
         checkNotNull(triple, "triple cannot be null");
         // Reset the computation of root anon nodes
-        rootAnonymousNodes = null;
+        rootAnonymousNodes.clear();
         triples.add(triple);
         Set<RDFTriple> tripleSet = triplesBySubject.get(triple.getSubject());
         if (tripleSet == null) {
@@ -114,14 +115,14 @@ public class RDFGraph {
     /** @return root anonymous nodes */
     @Nonnull
     public Set<RDFResourceBlankNode> getRootAnonymousNodes() {
-        if (rootAnonymousNodes == null) {
+        if (rootAnonymousNodes.isEmpty()) {
             rebuildAnonRoots();
         }
         return rootAnonymousNodes;
     }
 
     private void rebuildAnonRoots() {
-        rootAnonymousNodes = new HashSet<RDFResourceBlankNode>();
+        rootAnonymousNodes.clear();
         for (RDFTriple triple : triples) {
             if (triple.getSubject() instanceof RDFResourceBlankNode) {
                 rootAnonymousNodes.add((RDFResourceBlankNode) triple

@@ -36,7 +36,7 @@ public class OWLRDFConsumerAdapter extends OWLRDFConsumer implements
      *        configuration
      */
     public OWLRDFConsumerAdapter(@Nonnull OWLOntology ontology,
-            OWLOntologyLoaderConfiguration configuration) {
+            @Nonnull OWLOntologyLoaderConfiguration configuration) {
         super(ontology, configuration);
     }
 

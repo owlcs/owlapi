@@ -284,7 +284,8 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
      * @param writer
      *        writer to render to
      */
-    public KRSS2ObjectRenderer(OWLOntology ontology, Writer writer) {
+    public KRSS2ObjectRenderer(@Nonnull OWLOntology ontology,
+            @Nonnull Writer writer) {
         super(ontology, writer);
         leftRightIdentityUsed = new HashSet<OWLSubPropertyChainOfAxiom>();
     }
@@ -301,6 +302,7 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
         write(v.toString());
     }
 
+    @SuppressWarnings("null")
     @Override
     public final void visit(OWLOntology ontology1) {
         reset();
@@ -519,6 +521,7 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
         }
     }
 
+    @SuppressWarnings("null")
     @Override
     public void visit(OWLDisjointClassesAxiom axiom) {
         List<OWLClassExpression> descs = sort(axiom.getClassExpressions());
@@ -538,6 +541,7 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
         }
     }
 
+    @SuppressWarnings("null")
     @Override
     public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
         List<OWLObjectPropertyExpression> properties = sort(axiom
@@ -555,6 +559,7 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
         }
     }
 
+    @SuppressWarnings("null")
     @Override
     public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
         List<OWLObjectPropertyExpression> properties = sort(axiom
@@ -596,6 +601,7 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
         }
     }
 
+    @SuppressWarnings("null")
     @Override
     public void visit(OWLEquivalentClassesAxiom axiom) {
         List<OWLClassExpression> descriptions = sort(axiom
@@ -631,6 +637,7 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
         writeln();
     }
 
+    @SuppressWarnings("null")
     protected void writeChain(List<OWLObjectPropertyExpression> expressions,
             int i) {
         if (i == expressions.size() - 1) {
@@ -664,6 +671,7 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
         writeOpenBracket();
         write(ONE_OF);
         for (OWLIndividual individual : desc.getIndividuals()) {
+            assert individual != null;
             write(individual);
         }
         writeCloseBracket();
