@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Hashtable;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
@@ -24,7 +25,9 @@ public class Obo2OWLConstants {
      *        date to format
      * @return formatted string
      */
-    public static synchronized String format(Date d) {
+    @SuppressWarnings("null")
+    @Nonnull
+    public static synchronized String format(@Nonnull Date d) {
         return formatter.format(d);
     }
 
@@ -64,6 +67,7 @@ public class Obo2OWLConstants {
         /**IRI_OIO_NamespaceIdRule*/    IRI_OIO_NamespaceIdRule(Obo2OWLConstants.OIOVOCAB_IRI_PREFIX, "NamespaceIdRule", "namespace-id-rule", OboFormatTag.TAG_NAMESPACE_ID_RULE.getTag()),
         /**IRI_OIO_LogicalDefinitionViewRelation*/          IRI_OIO_LogicalDefinitionViewRelation(Obo2OWLConstants.OIOVOCAB_IRI_PREFIX, "logical-definition-view-relation", "logical-definition-view-relation", OboFormatTag.TAG_LOGICAL_DEFINITION_VIEW_RELATION.getTag());
         //@formatter:on
+        @Nonnull
         IRI iri;
         String namespace;
         String shortName;

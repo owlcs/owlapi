@@ -64,12 +64,15 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLProperty;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.SetOntologyID;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.google.common.base.Optional;
 
 /** The Class OWLAPIObo2Owl. */
 public class OWLAPIObo2Owl {
@@ -319,6 +322,7 @@ public class OWLAPIObo2Owl {
      * @throws OWLOntologyCreationException
      *         the oWL ontology creation exception
      */
+    @Nonnull
     public OWLOntology convert(OBODoc doc) throws OWLOntologyCreationException {
         obodoc = doc;
         init(manager);
@@ -352,6 +356,7 @@ public class OWLAPIObo2Owl {
      * @throws OWLOntologyCreationException
      *         the oWL ontology creation exception
      */
+    @Nonnull
     protected OWLOntology tr(OWLOntology in)
             throws OWLOntologyCreationException {
         owlOntology = in;
@@ -371,7 +376,8 @@ public class OWLAPIObo2Owl {
                 String dv = dvclause.getValue().toString();
                 IRI vIRI = IRI.create(DEFAULT_IRI_PREFIX + ontOboId + "/" + dv
                         + "/" + ontOboId + ".owl");
-                OWLOntologyID oid = new OWLOntologyID(ontIRI, vIRI);
+                OWLOntologyID oid = new OWLOntologyID(Optional.of(ontIRI),
+                        Optional.of(vIRI));
                 // if the ontology being read has a differet id from the one
                 // that was passed in, update it
                 // when parsing, the original ontology is likely an anonymous,
@@ -388,14 +394,15 @@ public class OWLAPIObo2Owl {
                         || !ontIRI.equals(owlOntology.getOntologyID()
                                 .getOntologyIRI().orNull())) {
                     manager.applyChange(new SetOntologyID(owlOntology,
-                            new OWLOntologyID(ontIRI, null)));
+                            new OWLOntologyID(Optional.of(ontIRI), Optional
+                                    .<IRI> absent())));
                 }
             }
         } else {
             defaultIDSpace = "TEMP";
             manager.applyChange(new SetOntologyID(owlOntology,
-                    new OWLOntologyID(IRI.create(DEFAULT_IRI_PREFIX
-                            + defaultIDSpace), null)));
+                    new OWLOntologyID(Optional.of(IRI.create(DEFAULT_IRI_PREFIX
+                            + defaultIDSpace)), Optional.<IRI> absent())));
             // TODO - warn
         }
         trHeaderFrame(hf);
@@ -598,18 +605,16 @@ public class OWLAPIObo2Owl {
                 // but we can silently collapse multiple tags
                 Collection<String> axiomStrings = headerFrame.getTagValues(tag,
                         String.class);
-                if (axiomStrings != null) {
-                    try {
-                        for (String axiomString : axiomStrings) {
-                            Set<OWLAxiom> axioms = OwlStringTools.translate(
-                                    axiomString, manager);
-                            if (axioms != null) {
-                                manager.addAxioms(owlOntology, axioms);
-                            }
+                try {
+                    for (String axiomString : axiomStrings) {
+                        Set<OWLAxiom> axioms = OwlStringTools.translate(
+                                axiomString, manager);
+                        if (axioms != null) {
+                            manager.addAxioms(owlOntology, axioms);
                         }
-                    } catch (OwlStringException e) {
-                        throw new RuntimeException(e);
                     }
+                } catch (OwlStringException e) {
+                    throw new RuntimeException(e);
                 }
             } else {
                 Collection<Clause> clauses = headerFrame.getClauses(t);
@@ -751,9 +756,9 @@ public class OWLAPIObo2Owl {
     @Nullable
     protected OWLNamedObject trTypedefToAnnotationProperty(
             @Nonnull Frame typedefFrame) {
-        if (typedefFrame.getTagValue(OboFormatTag.TAG_IS_METADATA_TAG) != null
-                && (Boolean) typedefFrame
-                        .getTagValue(OboFormatTag.TAG_IS_METADATA_TAG)) {
+        Object tagValue = typedefFrame
+                .getTagValue(OboFormatTag.TAG_IS_METADATA_TAG);
+        if (Boolean.TRUE.equals(tagValue)) {
             String id = typedefFrame.getId();
             OWLAnnotationProperty p = trAnnotationProp(id);
             add(fac.getOWLDeclarationAxiom(p));
@@ -796,9 +801,9 @@ public class OWLAPIObo2Owl {
     @Nullable
     public OWLNamedObject trTypedefFrame(@Nonnull Frame typedefFrame) {
         // TODO - annotation props
-        if (typedefFrame.getTagValue(OboFormatTag.TAG_IS_METADATA_TAG) != null
-                && (Boolean) typedefFrame
-                        .getTagValue(OboFormatTag.TAG_IS_METADATA_TAG)) {
+        Object tagValue = typedefFrame
+                .getTagValue(OboFormatTag.TAG_IS_METADATA_TAG);
+        if (Boolean.TRUE.equals(tagValue)) {
             // already handled
             // see: trTypedefToAnnotationProperty(Frame typedefFrame)
             return null;
@@ -1240,8 +1245,8 @@ public class OWLAPIObo2Owl {
      * @return the oWL axiom
      */
     @Nullable
-    protected OWLAxiom trGenericClause(OWLAnnotationSubject sub, String tag,
-            @Nonnull Clause clause) {
+    protected OWLAxiom trGenericClause(@Nonnull OWLAnnotationSubject sub,
+            @Nonnull String tag, @Nonnull Clause clause) {
         Set<OWLAnnotation> annotations = trAnnotations(clause);
         if (clause.getValue() == null) {
             LOG.error("Problem: {}", clause);
@@ -1445,6 +1450,8 @@ public class OWLAPIObo2Owl {
         Frame relFrame = obodoc.getTypedefFrame(relId);
         OWLObjectPropertyExpression pe = trObjectProp(relId);
         OWLClassExpression ce = trClass(classId);
+        assert pe != null;
+        assert ce != null;
         Integer exact = getQVInt("cardinality", quals);
         Integer min = getQVInt("minCardinality", quals);
         Integer max = getQVInt("maxCardinality", quals);
@@ -1476,9 +1483,8 @@ public class OWLAPIObo2Owl {
         } else if (allOnly) {
             ex = fac.getOWLObjectAllValuesFrom(pe, ce);
         } else if (relFrame != null
-                && relFrame.getTagValue(OboFormatTag.TAG_IS_CLASS_LEVEL_TAG) != null
-                && (Boolean) relFrame
-                        .getTagValue(OboFormatTag.TAG_IS_CLASS_LEVEL_TAG)) {
+                && Boolean.TRUE.equals(relFrame
+                        .getTagValue(OboFormatTag.TAG_IS_CLASS_LEVEL_TAG))) {
             // pun
             ex = fac.getOWLObjectHasValue(pe, trIndividual(classId));
         } else {
@@ -1643,7 +1649,8 @@ public class OWLAPIObo2Owl {
      *        the tag
      * @return the oWL annotation property
      */
-    protected OWLAnnotationProperty trTagToAnnotationProp(String tag) {
+    @Nonnull
+    protected OWLAnnotationProperty trTagToAnnotationProp(@Nonnull String tag) {
         IRI iri = trTagToIRI(tag);
         OWLAnnotationProperty ap = fac.getOWLAnnotationProperty(iri);
         if (!apToDeclare.contains(ap)) {
@@ -1714,7 +1721,8 @@ public class OWLAPIObo2Owl {
      *        the value
      * @return the oWL annotation value
      */
-    protected OWLAnnotationValue trLiteral(Object value) {
+    @Nonnull
+    protected OWLAnnotationValue trLiteral(@Nonnull Object value) {
         if (value instanceof Xref) {
             value = ((Xref) value).getIdref();
         } else if (value instanceof Date) {
@@ -1740,7 +1748,7 @@ public class OWLAPIObo2Owl {
      *        the id
      * @return the iri
      */
-    @Nullable
+    @Nonnull
     public IRI oboIdToIRI(@Nonnull String id) {
         if (id.contains(" ")) {
             LOG.error("id contains space: \"{}\"", id);
@@ -1748,16 +1756,17 @@ public class OWLAPIObo2Owl {
             return null;
         }
         // No conversion is required if this is already an IRI (ID-as-URI rule)
-        if (id.startsWith("http:")) { // TODO - roundtrip from other schemes
+        if (id.startsWith("http:")) {
+            // TODO - roundtrip from other schemes
             return IRI.create(id);
-        } else if (id.startsWith("https:")) { // TODO - roundtrip from other
-                                              // schemes
+        } else if (id.startsWith("https:")) {
+            // TODO - roundtrip from other schemes
             return IRI.create(id);
-        } else if (id.startsWith("ftp:")) { // TODO - roundtrip from other
-                                            // schemes
+        } else if (id.startsWith("ftp:")) {
+            // TODO - roundtrip from other schemes
             return IRI.create(id);
-        } else if (id.startsWith("urn:")) { // TODO - roundtrip from other
-                                            // schemes
+        } else if (id.startsWith("urn:")) {
+            // TODO - roundtrip from other schemes
             return IRI.create(id);
         }
         // TODO - treat_xrefs_as_equivalent
@@ -1798,8 +1807,7 @@ public class OWLAPIObo2Owl {
         try {
             safeId = java.net.URLEncoder.encode(localId, "US-ASCII");
         } catch (UnsupportedEncodingException e1) {
-            // TODO Auto-generated catch block
-            return null;
+            throw new OWLRuntimeException(e1);
         }
         if (safeId.contains(" ")) {
             safeId = safeId.replace(" ", "_");
@@ -1808,9 +1816,7 @@ public class OWLAPIObo2Owl {
         try {
             iri = IRI.create(uriPrefix + safeId);
         } catch (IllegalArgumentException e) {
-            // TODO - define new exception class for this
-            // throw new UnsupportedEncodingException();
-            return null;
+            throw new OWLRuntimeException(e);
         }
         return iri;
     }

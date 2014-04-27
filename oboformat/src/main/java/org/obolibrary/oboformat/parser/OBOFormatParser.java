@@ -1187,7 +1187,7 @@ public class OBOFormatParser {
     private boolean parseXref(@Nonnull Clause cl) {
         parseZeroOrMoreWs();
         String id = getParseUntil("\",]!{", true);
-        if (id != null && !id.equals("")) {
+        if (!id.isEmpty()) {
             id = removeTrailingWS(id);
             if (id.contains(" ")) {
                 warn("accepting bad xref with spaces:" + id);
@@ -1208,22 +1208,19 @@ public class OBOFormatParser {
     private boolean parseDirectXref(@Nonnull Clause cl) {
         parseZeroOrMoreWs();
         String id = getParseUntil("\",]!{", true);
-        if (id != null) {
-            id = id.trim();
-            if (id.contains(" ")) {
-                warn("accepting bad xref with spaces:<" + id + ">");
-            }
-            id = id.replaceAll(" +\\Z", "");
-            Xref xref = new Xref(id);
-            cl.addValue(xref);
-            parseZeroOrMoreWs();
-            if (stream.peekCharIs('"')) {
-                stream.consume("\"");
-                xref.setAnnotation(getParseUntilAdv("\""));
-            }
-            return true;
+        id = id.trim();
+        if (id.contains(" ")) {
+            warn("accepting bad xref with spaces:<" + id + ">");
         }
-        return false;
+        id = id.replaceAll(" +\\Z", "");
+        Xref xref = new Xref(id);
+        cl.addValue(xref);
+        parseZeroOrMoreWs();
+        if (stream.peekCharIs('"')) {
+            stream.consume("\"");
+            xref.setAnnotation(getParseUntilAdv("\""));
+        }
+        return true;
     }
 
     // ----------------------------------------
@@ -1253,26 +1250,23 @@ public class OBOFormatParser {
             error("Missing '=' in trailing qualifier block. This might happen for not properly escaped '{', '}' chars in comments.");
         }
         String q = getParseUntilAdv("=");
-        if (q != null) {
-            parseZeroOrMoreWs();
-            String v;
-            if (stream.consume("\"")) {
-                v = getParseUntilAdv("\"");
-            } else {
-                v = getParseUntil(" ,}");
-                warn("qualifier values should be enclosed in quotes. You have: "
-                        + q + "=" + stream.rest());
-            }
-            if (v == null || v.length() == 0) {
-                warn("Empty value for qualifier in trailing qualifier block.");
-                v = "";
-            }
-            QualifierValue qv = new QualifierValue(q, v);
-            cl.addQualifierValue(qv);
-            parseZeroOrMoreWs();
-            return true;
+        parseZeroOrMoreWs();
+        String v;
+        if (stream.consume("\"")) {
+            v = getParseUntilAdv("\"");
+        } else {
+            v = getParseUntil(" ,}");
+            warn("qualifier values should be enclosed in quotes. You have: "
+                    + q + "=" + stream.rest());
         }
-        return false;
+        if (v == null || v.length() == 0) {
+            warn("Empty value for qualifier in trailing qualifier block.");
+            v = "";
+        }
+        QualifierValue qv = new QualifierValue(q, v);
+        cl.addQualifierValue(qv);
+        parseZeroOrMoreWs();
+        return true;
     }
 
     // ----------------------------------------

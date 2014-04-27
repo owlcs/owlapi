@@ -35,9 +35,13 @@ public class MacroExpansionVisitor {
 
     protected static final Logger log = LoggerFactory
             .getLogger(MacroExpansionVisitor.class);
+    @Nonnull
     private OWLOntology inputOntology;
+    @Nonnull
     private OWLOntologyManager manager;
+    @Nonnull
     private Visitor visitor;
+    @Nonnull
     protected ManchesterSyntaxTool manchesterSyntaxTool;
 
     /**
@@ -134,14 +138,14 @@ public class MacroExpansionVisitor {
 
     private class Visitor extends AbstractMacroExpansionVisitor {
 
-        Visitor(OWLOntology inputOntology) {
+        Visitor(@Nonnull OWLOntology inputOntology) {
             super(inputOntology);
         }
 
         @Nullable
         @Override
         protected OWLClassExpression expandOWLObjSomeVal(
-                OWLClassExpression filler,
+                @Nonnull OWLClassExpression filler,
                 @Nonnull OWLObjectPropertyExpression p) {
             return expandObject(filler, p);
         }

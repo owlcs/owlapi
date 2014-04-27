@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.oboformat;
 
 import java.io.Writer;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.formats.OBOOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -37,8 +39,10 @@ public class OBOFormatStorer extends AbstractOWLOntologyStorer {
     }
 
     @Override
-    protected void storeOntology(OWLOntology ontology, Writer writer,
-            OWLOntologyFormat format) throws OWLOntologyStorageException {
+    protected void storeOntology(@Nonnull OWLOntology ontology,
+            @Nonnull Writer writer,
+            @SuppressWarnings("unused") OWLOntologyFormat format)
+            throws OWLOntologyStorageException {
         OBOFormatRenderer renderer = new OBOFormatRenderer();
         renderer.render(ontology, writer);
     }

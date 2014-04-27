@@ -280,7 +280,7 @@ public class Frame {
      */
     @Nonnull
     public <T> Collection<T> getTagValues(String tag, Class<T> cls) {
-        Collection<T> vals = new Vector<T>();
+        Collection<T> vals = new ArrayList<T>();
         for (Clause c : getClauses(tag)) {
             vals.add(c.getValue(cls));
         }

@@ -194,7 +194,8 @@ public abstract class AbstractMacroExpansionVisitor implements
 
     @Nullable
     protected abstract OWLClassExpression expandOWLObjSomeVal(
-            OWLClassExpression filler, OWLObjectPropertyExpression p);
+            @Nonnull OWLClassExpression filler,
+            @Nonnull OWLObjectPropertyExpression p);
 
     @Nonnull
     @Override
@@ -214,8 +215,8 @@ public abstract class AbstractMacroExpansionVisitor implements
 
     @Nullable
     protected abstract OWLClassExpression expandOWLObjHasVal(
-            OWLObjectHasValue desc, OWLIndividual filler,
-            OWLObjectPropertyExpression p);
+            @Nonnull OWLObjectHasValue desc, @Nonnull OWLIndividual filler,
+            @Nonnull OWLObjectPropertyExpression p);
 
     @Override
     public OWLClassExpression visit(@Nonnull OWLObjectAllValuesFrom desc) {
@@ -414,9 +415,9 @@ public abstract class AbstractMacroExpansionVisitor implements
         return node;
     }
 
-    @Nullable
     @Override
-    public OWLDataRange visit(OWLFacetRestriction node) {
+    public OWLDataRange visit(
+            @SuppressWarnings("unused") OWLFacetRestriction node) {
         return null;
     }
 
@@ -565,9 +566,8 @@ public abstract class AbstractMacroExpansionVisitor implements
         return axiom;
     }
 
-    @Nullable
     @Override
-    public OWLDataRange visit(OWLLiteral node) {
+    public OWLDataRange visit(@SuppressWarnings("unused") OWLLiteral node) {
         return null;
     }
 }

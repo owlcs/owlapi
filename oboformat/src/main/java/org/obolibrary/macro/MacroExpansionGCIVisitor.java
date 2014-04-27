@@ -23,6 +23,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.util.OntologyAxiomPair;
 import org.slf4j.Logger;
@@ -35,6 +36,7 @@ public class MacroExpansionGCIVisitor {
             .getLogger(MacroExpansionGCIVisitor.class);
     private OWLOntology inputOntology;
     private OWLOntologyManager outputManager;
+    @Nonnull
     private OWLOntology outputOntology;
     protected ManchesterSyntaxTool manchesterSyntaxTool;
     private GCIVisitor visitor;
@@ -56,7 +58,7 @@ public class MacroExpansionGCIVisitor {
             outputOntology = outputManager.createOntology(inputOntology
                     .getOntologyID());
         } catch (Exception ex) {
-            log.error(ex.getMessage(), ex);
+            throw new OWLRuntimeException(ex);
         }
     }
 
@@ -114,7 +116,7 @@ public class MacroExpansionGCIVisitor {
 
     private class GCIVisitor extends AbstractMacroExpansionVisitor {
 
-        GCIVisitor(OWLOntology inputOntology) {
+        GCIVisitor(@Nonnull OWLOntology inputOntology) {
             super(inputOntology);
         }
 
@@ -136,8 +138,10 @@ public class MacroExpansionGCIVisitor {
 
         @Nullable
         @Override
-        protected OWLClassExpression expandOWLObjHasVal(OWLObjectHasValue desc,
-                OWLIndividual filler, @Nonnull OWLObjectPropertyExpression p) {
+        protected OWLClassExpression expandOWLObjHasVal(
+                @SuppressWarnings("unused") OWLObjectHasValue desc,
+                @Nonnull OWLIndividual filler,
+                @Nonnull OWLObjectPropertyExpression p) {
             OWLClassExpression gciRHS = expandObject(filler, p);
             if (gciRHS != null) {
                 OWLClassExpression gciLHS = dataFactory.getOWLObjectHasValue(p,

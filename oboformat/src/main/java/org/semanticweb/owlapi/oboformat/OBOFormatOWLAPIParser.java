@@ -65,11 +65,12 @@ public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
 
     @Nonnull
     @Override
-    public OWLOntologyFormat parse(
-            @Nonnull OWLOntologyDocumentSource documentSource,
-            @Nonnull OWLOntology ontology,
-            OWLOntologyLoaderConfiguration configuration) throws IOException,
-            OWLOntologyChangeException {
+    public
+            OWLOntologyFormat
+            parse(@Nonnull OWLOntologyDocumentSource documentSource,
+                    @Nonnull OWLOntology ontology,
+                    @SuppressWarnings("unused") OWLOntologyLoaderConfiguration configuration)
+                    throws IOException, OWLOntologyChangeException {
         // XXX configuration is not used
         try {
             parse(null, documentSource, ontology);

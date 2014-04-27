@@ -215,19 +215,17 @@ public class Clause {
         qualifierValues.add(qv);
     }
 
+    @SuppressWarnings("null")
     @Nonnull
     @Override
     public String toString() {
-        if (values == null) {
-            return tag + "=null";
-        }
         StringBuilder sb = new StringBuilder(tag);
         sb.append('(');
         for (Object ob : values) {
             sb.append(' ');
             sb.append(ob);
         }
-        if (qualifierValues != null) {
+        if (!qualifierValues.isEmpty()) {
             sb.append('{');
             for (QualifierValue qv : qualifierValues) {
                 sb.append(qv);
@@ -235,7 +233,7 @@ public class Clause {
             }
             sb.append('}');
         }
-        if (xrefs != null) {
+        if (!xrefs.isEmpty()) {
             sb.append('[');
             for (Xref x : xrefs) {
                 sb.append(x);
@@ -291,21 +289,26 @@ public class Clause {
             // special case for comparing booleans
             // this is a bit of a hack - ideally owl2obo would use the correct
             // types
-            if (!getValue().equals(other.getValue())) {
-                if (getValue().equals(Boolean.TRUE)
-                        && other.getValue().equals("true")) {
-                    // special case - OK
-                } else if (other.getValue().equals(Boolean.TRUE)
-                        && getValue().equals("true")) {
-                    // special case - OK
-                } else if (getValue().equals(Boolean.FALSE)
-                        && other.getValue().equals("false")) {
-                    // special case - OK
-                } else if (other.getValue().equals(Boolean.FALSE)
-                        && getValue().equals("false")) {
-                    // special case - OK
-                } else {
-                    return false;
+            Object _v1 = getValue();
+            Object _v2 = other.getValue();
+            if (_v1 != _v2) {
+                if (_v1 != null) {
+                    if (!_v1.equals(_v2)) {
+                        if (Boolean.TRUE.equals(_v1) && "true".equals(_v2)) {
+                            // special case - OK
+                        } else if (Boolean.TRUE.equals(_v2)
+                                && "true".equals(_v1)) {
+                            // special case - OK
+                        } else if (Boolean.FALSE.equals(_v1)
+                                && "false".equals(_v2)) {
+                            // special case - OK
+                        } else if (Boolean.FALSE.equals(_v2)
+                                && "false".equals(_v1)) {
+                            // special case - OK
+                        } else {
+                            return false;
+                        }
+                    }
                 }
             }
         } else {
@@ -322,19 +325,6 @@ public class Clause {
          * (other.getXrefs() != null && other.getXrefs().size() > 0) { return
          * false; } }
          */
-        if (qualifierValues != null) {
-            if (other.getQualifierValues() == null) {
-                return false;
-            }
-            if (!collectionsEquals(qualifierValues, other.getQualifierValues())) {
-                return false;
-            }
-        } else {
-            if (other.getQualifierValues() != null
-                    && other.getQualifierValues().size() > 0) {
-                return false;
-            }
-        }
-        return true;
+        return collectionsEquals(qualifierValues, other.getQualifierValues());
     }
 }

@@ -28,7 +28,7 @@ public class IdTranslator {
      * @return string for iri
      */
     @Nullable
-    public String translateIRI(IRI iri) {
+    public String translateIRI(@SuppressWarnings("unused") IRI iri) {
         return null;
     }
 

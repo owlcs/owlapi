@@ -274,6 +274,7 @@ public class OWLAPIOwl2Obo {
      *        the ont
      * @return the oBO doc
      */
+    @Nonnull
     public OBODoc convert(@Nullable OWLOntology ont) {
         owlOntology = ont;
         if (ont != null) {
@@ -299,6 +300,7 @@ public class OWLAPIOwl2Obo {
      * 
      * @return the oBO doc
      */
+    @Nonnull
     protected OBODoc tr() {
         obodoc = new OBODoc();
         preProcess();
@@ -897,9 +899,7 @@ public class OWLAPIOwl2Obo {
                 String tg = owlObjectToTag(axiom.getProperty());
                 if (OboFormatTag.TAG_COMMENT.getTag().equals(tg)) {
                     comment = ((OWLLiteral) axiom.getValue()).getLiteral();
-                    if (comment != null) {
-                        break;
-                    }
+                    break;
                 }
             }
             Frame hf = obodoc.getHeaderFrame();
