@@ -12,6 +12,8 @@ import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 
+import com.google.common.base.Optional;
+
 @SuppressWarnings("javadoc")
 public class OWLOntologyChangeRecordTest {
 
@@ -19,10 +21,10 @@ public class OWLOntologyChangeRecordTest {
     @Test
     public void testSerializeChangeRecord() throws IOException,
             ClassNotFoundException {
-        OWLOntologyID id1 = new OWLOntologyID(IRI.create("urn:a"),
-                IRI.create("urn:v1"));
-        OWLOntologyID id2 = new OWLOntologyID(IRI.create("urn:a"),
-                IRI.create("urn:v2"));
+        OWLOntologyID id1 = new OWLOntologyID(Optional.of(IRI.create("urn:a")),
+                Optional.of(IRI.create("urn:v1")));
+        OWLOntologyID id2 = new OWLOntologyID(Optional.of(IRI.create("urn:a")),
+                Optional.of(IRI.create("urn:v2")));
         OWLOntologyChangeRecord<OWLOntologyID> idChangeRecord = new OWLOntologyChangeRecord<OWLOntologyID>(
                 id1, new SetOntologyIDData(id2));
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();

@@ -4,6 +4,8 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
 
+import javax.annotation.Nonnull;
+
 import org.hamcrest.CoreMatchers;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,6 +19,7 @@ import org.semanticweb.owlapi.model.IRI;
 @SuppressWarnings("javadoc")
 public class OWLOntologyIRIShortFormProviderTestCase {
 
+    @Nonnull
     public static final String SCHEME_DOMAIN = "http://www.semanticweb.org";
     private OntologyIRIShortFormProvider sfp;
 
