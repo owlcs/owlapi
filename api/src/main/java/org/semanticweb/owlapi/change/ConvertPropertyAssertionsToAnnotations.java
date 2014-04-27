@@ -119,20 +119,25 @@ public class ConvertPropertyAssertionsToAnnotations extends
         Collection<OWLNamedIndividual> individuals = getPunnedIndividuals(collectIndividuals());
         Set<OWLDataProperty> convertedDataProperties = new HashSet<OWLDataProperty>();
         for (OWLNamedIndividual ind : individuals) {
+            assert ind != null;
             convertDataAssertionsToAnnotations(convertedDataProperties, ind);
             removeDeclarationsAndClassAssertions(ind);
         }
         for (OWLDataProperty prop : convertedDataProperties) {
+            assert prop != null;
             removeDeclarationsAndAxioms(prop);
         }
     }
 
     private void removeDeclarationsAndAxioms(@Nonnull OWLDataProperty prop) {
         for (OWLOntology ont : ontologies) {
+            assert ont != null;
             for (OWLAxiom ax : ont.getDeclarationAxioms(prop)) {
+                assert ax != null;
                 addChange(new RemoveAxiom(ont, ax));
             }
             for (OWLAxiom ax : ont.getAxioms(prop, EXCLUDED)) {
+                assert ax != null;
                 addChange(new RemoveAxiom(ont, ax));
             }
         }
@@ -141,10 +146,13 @@ public class ConvertPropertyAssertionsToAnnotations extends
     private void removeDeclarationsAndClassAssertions(
             @Nonnull OWLNamedIndividual ind) {
         for (OWLOntology ont : ontologies) {
+            assert ont != null;
             for (OWLAxiom ax : ont.getDeclarationAxioms(ind)) {
+                assert ax != null;
                 addChange(new RemoveAxiom(ont, ax));
             }
             for (OWLClassAssertionAxiom ax : ont.getClassAssertionAxioms(ind)) {
+                assert ax != null;
                 addChange(new RemoveAxiom(ont, ax));
             }
         }
@@ -154,6 +162,7 @@ public class ConvertPropertyAssertionsToAnnotations extends
             @Nonnull Set<OWLDataProperty> convertedDataProperties,
             @Nonnull OWLNamedIndividual ind) {
         for (OWLOntology ont : ontologies) {
+            assert ont != null;
             for (OWLDataPropertyAssertionAxiom ax : ont
                     .getDataPropertyAssertionAxioms(ind)) {
                 if (!ax.getProperty().isAnonymous()) {
