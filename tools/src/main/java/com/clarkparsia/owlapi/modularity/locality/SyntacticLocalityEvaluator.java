@@ -96,6 +96,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
     protected final LocalityClass localityCls;
     @Nonnull
     private final AxiomLocalityVisitor axiomVisitor = new AxiomLocalityVisitor();
+    @SuppressWarnings("null")
     @Nonnull
     private static final EnumSet<LocalityClass> SUPPORTED_LOCALITY_CLASSES = EnumSet
             .of(LocalityClass.TOP_BOTTOM, LocalityClass.BOTTOM_BOTTOM,
@@ -181,6 +182,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         private final TopEquivalenceEvaluator topEvaluator = new TopEquivalenceEvaluator();
 
         /** Instantiates a new axiom locality visitor. */
+        @SuppressWarnings("null")
         public AxiomLocalityVisitor() {
             topEvaluator.setBottomEvaluator(bottomEvaluator);
             bottomEvaluator.setTopEvaluator(topEvaluator);
@@ -333,6 +335,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
             } else {
                 boolean nonBottomEquivDescFound = false;
                 for (OWLClassExpression desc : disjs) {
+                    assert desc != null;
                     if (!bottomEvaluator.isBottomEquivalent(desc, signature,
                             localityCls)) {
                         if (nonBottomEquivDescFound) {
@@ -433,6 +436,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                     // because lhs could be bot
                     if (!signature.contains(lhs)) {
                         for (OWLClassExpression desc : rhs) {
+                            assert desc != null;
                             if (!bottomEvaluator.isBottomEquivalent(desc,
                                     signature, localityCls)) {
                                 isLocal = false;
@@ -451,6 +455,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                     if (!signature.contains(lhs)) {
                         boolean topEquivDescFound = false;
                         for (OWLClassExpression desc : rhs) {
+                            assert desc != null;
                             if (!bottomEvaluator.isBottomEquivalent(desc,
                                     signature, localityCls)) {
                                 if (topEvaluator.isTopEquivalent(desc,
@@ -488,6 +493,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
             Iterator<OWLClassExpression> eqs = axiom.getClassExpressions()
                     .iterator();
             OWLClassExpression first = eqs.next();
+            assert first != null;
             // axiom is local if it contains a single class expression
             if (!eqs.hasNext()) {
                 return;
@@ -508,6 +514,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                 // expressions
                 while (isLocal && eqs.hasNext()) {
                     OWLClassExpression next = eqs.next();
+                    assert next != null;
                     // first class expr. was BOTTOM, so this one should be
                     // BOTTOM too
                     if (!bottomEvaluator.isBottomEquivalent(next, signature,
@@ -520,6 +527,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                 // expressions
                 while (isLocal && eqs.hasNext()) {
                     OWLClassExpression next = eqs.next();
+                    assert next != null;
                     // first class expr. was TOP, so this one should be TOP too
                     if (!topEvaluator.isTopEquivalent(next, signature,
                             localityCls)) {
@@ -866,6 +874,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         private TopEquivalenceEvaluator topEvaluator;
 
         /** Instantiates a new bottom equivalence evaluator. */
+        @SuppressWarnings("null")
         public BottomEquivalenceEvaluator() {}
 
         /**
@@ -1107,6 +1116,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         @Override
         public void visit(OWLObjectIntersectionOf desc) {
             for (OWLClassExpression conj : desc.getOperands()) {
+                assert conj != null;
                 if (isBottomEquivalent(conj)) {
                     isBottomEquivalent = true;
                     return;
@@ -1199,6 +1209,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         @Override
         public void visit(OWLObjectUnionOf desc) {
             for (OWLClassExpression disj : desc.getOperands()) {
+                assert disj != null;
                 if (!isBottomEquivalent(disj)) {
                     isBottomEquivalent = false;
                     return;
@@ -1243,6 +1254,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         private Collection<? extends OWLEntity> signature;
 
         /** Instantiates a new top equivalence evaluator. */
+        @SuppressWarnings("null")
         public TopEquivalenceEvaluator() {}
 
         private boolean isTopEquivalent(@Nonnull OWLClassExpression desc) {
@@ -1465,6 +1477,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         @Override
         public void visit(OWLObjectIntersectionOf desc) {
             for (OWLClassExpression conj : desc.getOperands()) {
+                assert conj != null;
                 if (!isTopEquivalent(conj)) {
                     isTopEquivalent = false;
                     return;
@@ -1562,6 +1575,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         @Override
         public void visit(OWLObjectUnionOf desc) {
             for (OWLClassExpression conj : desc.getOperands()) {
+                assert conj != null;
                 if (isTopEquivalent(conj)) {
                     isTopEquivalent = true;
                     return;

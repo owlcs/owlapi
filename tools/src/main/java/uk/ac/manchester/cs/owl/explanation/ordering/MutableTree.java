@@ -169,6 +169,7 @@ public class MutableTree<N> implements Tree<N> {
         dump(writer, 0);
     }
 
+    @SuppressWarnings("null")
     @Override
     public void dump(PrintWriter writer, int indent) {
         int depth = getPathToRoot().size();
@@ -194,10 +195,10 @@ public class MutableTree<N> implements Tree<N> {
     }
 
     @Override
-    public void setNodeRenderer(NodeRenderer<N> renderer) {
+    public void setNodeRenderer(@Nonnull NodeRenderer<N> renderer) {
         this.toStringRenderer = renderer;
         for (Tree<N> child : children) {
-            child.setNodeRenderer(toStringRenderer);
+            child.setNodeRenderer(renderer);
         }
     }
 

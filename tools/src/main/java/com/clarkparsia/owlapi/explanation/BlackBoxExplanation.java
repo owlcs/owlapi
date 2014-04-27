@@ -57,7 +57,6 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
     private static final Logger LOGGER = LoggerFactory
             .getLogger(BlackBoxExplanation.class.getName());
     /** The debugging ontology. */
-    @Nonnull
     private OWLOntology debuggingOntology;
     /** The debugging axioms. */
     @Nonnull
@@ -131,6 +130,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
         expansionLimit = initialExpansionLimit;
     }
 
+    @SuppressWarnings("null")
     @Override
     public Set<OWLAxiom> getExplanation(OWLClassExpression unsatClass) {
         if (!getDefinitionTracker().isDefined(unsatClass)) {
@@ -173,6 +173,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
             }
             // Collect the entities that have been used in the axiom
             for (OWLEntity curObj : ax.getSignature()) {
+                assert curObj != null;
                 if (!objectsExpandedWithDefiningAxioms.contains(curObj)) {
                     int added = expandWithDefiningAxioms(curObj, remainingSpace);
                     axiomsAdded += added;
@@ -201,6 +202,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
             }
             // Keep track of the number of axioms that have been added
             for (OWLEntity curObj : ax.getSignature()) {
+                assert curObj != null;
                 if (!objectsExpandedWithReferencingAxioms.contains(curObj)) {
                     int added = expandWithReferencingAxioms(curObj,
                             expansionLimit);
@@ -380,6 +382,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
      * @throws OWLException
      *         the oWL exception
      */
+    @SuppressWarnings("null")
     private boolean isSatisfiable(@Nonnull OWLClassExpression unsatClass)
             throws OWLException {
         createDebuggingOntology();
@@ -396,6 +399,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
         return sat;
     }
 
+    @SuppressWarnings("null")
     private void createDebuggingOntology() throws OWLException {
         if (debuggingOntology != null) {
             owlOntologyManager.removeOntology(debuggingOntology);

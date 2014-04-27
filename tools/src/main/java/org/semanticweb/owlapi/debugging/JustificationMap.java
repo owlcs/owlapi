@@ -16,12 +16,10 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Collection;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -66,6 +64,9 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
 import org.semanticweb.owlapi.util.OWLEntityCollector;
 
+import com.google.common.collect.LinkedHashMultimap;
+import com.google.common.collect.Multimap;
+
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -79,12 +80,18 @@ public class JustificationMap {
     private final Set<OWLAxiom> rootAxioms = new HashSet<OWLAxiom>();
     @Nonnull
     private final Set<OWLAxiom> usedAxioms = new HashSet<OWLAxiom>();
+    @SuppressWarnings("null")
     @Nonnull
-    private final Map<OWLAxiom, Set<OWLAxiom>> map = new HashMap<OWLAxiom, Set<OWLAxiom>>();
+    private final Multimap<OWLAxiom, OWLAxiom> map = LinkedHashMultimap
+            .create();
+    @SuppressWarnings("null")
     @Nonnull
-    private final Map<OWLEntity, Set<OWLAxiom>> axiomsByRHS = new HashMap<OWLEntity, Set<OWLAxiom>>();
+    private final Multimap<OWLEntity, OWLAxiom> axiomsByRHS = LinkedHashMultimap
+            .create();
+    @SuppressWarnings("null")
     @Nonnull
-    private final Map<OWLEntity, Set<OWLAxiom>> axiomsByLHS = new HashMap<OWLEntity, Set<OWLAxiom>>();
+    private final Multimap<OWLEntity, OWLAxiom> axiomsByLHS = LinkedHashMultimap
+            .create();
     @Nonnull
     private final OWLClassExpression desc;
 
@@ -114,7 +121,7 @@ public class JustificationMap {
                 rhsObject.accept(rhsCollector);
             }
             for (OWLEntity rhsEntity : rhscollected) {
-                index(rhsEntity, axiomsByRHS, ax);
+                axiomsByRHS.put(rhsEntity, ax);
             }
             Set<OWLEntity> lhscollected = new HashSet<OWLEntity>();
             OWLEntityCollector lhsCollector = new OWLEntityCollector(
@@ -123,7 +130,7 @@ public class JustificationMap {
                 lhsObject.accept(lhsCollector);
             }
             for (OWLEntity lhsEntity : lhscollected) {
-                index(lhsEntity, axiomsByLHS, ax);
+                axiomsByLHS.put(lhsEntity, ax);
             }
         }
         buildChildren(desc);
@@ -138,20 +145,16 @@ public class JustificationMap {
      */
     @Nonnull
     private Set<OWLAxiom> getAxiomsByLHS(@Nonnull OWLEntity lhs) {
-        Set<OWLAxiom> axiomSet = axiomsByLHS.get(lhs);
-        if (axiomSet != null) {
-            Set<OWLAxiom> ts = new TreeSet<OWLAxiom>(new OWLAxiomComparator());
-            ts.addAll(axiomSet);
-            return ts;
-        } else {
-            return Collections.emptySet();
-        }
+        Set<OWLAxiom> ts = new TreeSet<OWLAxiom>(new OWLAxiomComparator());
+        ts.addAll(axiomsByLHS.get(lhs));
+        return ts;
     }
 
     private void buildChildren(@Nonnull OWLClassExpression seed) {
         // Return the axioms that have the entity on the LHS
         Set<OWLAxiom> result = new HashSet<OWLAxiom>();
         for (OWLEntity ent : seed.getSignature()) {
+            assert ent != null;
             Set<OWLAxiom> axs = getAxiomsByLHS(ent);
             for (OWLAxiom ax : axs) {
                 result.add(ax);
@@ -165,13 +168,15 @@ public class JustificationMap {
     private void buildChildren(@Nonnull Set<OWLAxiom> axiomSet) {
         List<Set<OWLAxiom>> axiomChildren = new ArrayList<Set<OWLAxiom>>();
         for (OWLAxiom ax : axiomSet) {
+            assert ax != null;
             Set<OWLAxiom> children = build(ax);
             for (OWLAxiom childAx : children) {
-                index(ax, map, childAx);
+                map.put(childAx, ax);
             }
             axiomChildren.add(children);
         }
         for (Set<OWLAxiom> children : axiomChildren) {
+            assert children != null;
             buildChildren(children);
         }
     }
@@ -191,6 +196,7 @@ public class JustificationMap {
         Set<OWLAxiom> result = new HashSet<OWLAxiom>();
         for (OWLObject obj : extractor.getRHS()) {
             for (OWLEntity ent : obj.getSignature()) {
+                assert ent != null;
                 Set<OWLAxiom> axs = getAxiomsByLHS(ent);
                 for (OWLAxiom ax : axs) {
                     if (!usedAxioms.contains(ax)) {
@@ -201,30 +207,6 @@ public class JustificationMap {
             }
         }
         return result;
-    }
-
-    /**
-     * Index.
-     * 
-     * @param <K>
-     *        the key type
-     * @param <V>
-     *        the value type
-     * @param key
-     *        the key
-     * @param map
-     *        the map
-     * @param value
-     *        the value
-     */
-    private static <K, V> void index(@Nonnull K key,
-            @Nonnull Map<K, Set<V>> map, @Nonnull V value) {
-        Set<V> values = map.get(key);
-        if (values == null) {
-            values = new HashSet<V>();
-            map.put(key, values);
-        }
-        values.add(value);
     }
 
     /**
@@ -244,14 +226,10 @@ public class JustificationMap {
      *        the axiom whose children are to be retrieved
      * @return children of ax
      */
+    @SuppressWarnings("null")
     @Nonnull
-    public Set<OWLAxiom> getChildAxioms(@Nonnull OWLAxiom ax) {
-        Set<OWLAxiom> result = map.get(ax);
-        if (result != null) {
-            return result;
-        } else {
-            return Collections.emptySet();
-        }
+    public Collection<OWLAxiom> getChildAxioms(@Nonnull OWLAxiom ax) {
+        return map.get(ax);
     }
 
     /** The Class OWLAxiomPartExtractor. */
@@ -468,10 +446,11 @@ public class JustificationMap {
         }
 
         @Override
-        public void visit(SWRLRule rule) {}
+        public void visit(@SuppressWarnings("unused") SWRLRule rule) {}
     }
 
     /** The Class OWLAxiomComparator. */
+    @SuppressWarnings("unused")
     private static class OWLAxiomComparator extends OWLAxiomVisitorAdapter
             implements Comparator<OWLAxiom>, Serializable {
 

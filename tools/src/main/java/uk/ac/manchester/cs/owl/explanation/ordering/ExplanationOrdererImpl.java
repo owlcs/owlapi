@@ -432,6 +432,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
          *        the axiom
          * @return the source
          */
+        @SuppressWarnings("null")
         @Nonnull
         public OWLEntity getSource(@Nonnull OWLAxiom axiom) {
             axiom.accept(this);
@@ -443,6 +444,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
          *        the axiom
          * @return the target
          */
+        @SuppressWarnings("null")
         @Nonnull
         public OWLEntity getTarget(@Nonnull OWLAxiom axiom) {
             axiom.accept(this);
@@ -508,12 +510,11 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
             }
         }
 
+        @SuppressWarnings("unused")
         @Override
         public void visit(SWRLRule rule) {}
     }
 
-    // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /** A visitor that indexes axioms by their left and right hand sides. */
     private class AxiomMapBuilder extends OWLAxiomVisitorAdapter {
 

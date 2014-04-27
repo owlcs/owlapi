@@ -258,7 +258,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
     public SyntacticLocalityModuleExtractor(@Nonnull OWLOntologyManager man,
             @Nonnull OWLOntology ont, @Nonnull Set<OWLAxiom> axs,
             @Nonnull ModuleType moduleType) {
-        setModuleType(moduleType);
+        this.moduleType = checkNotNull(moduleType, "moduleType cannot be null");
         manager = checkNotNull(man, "man cannot be null");
         rootOntology = checkNotNull(ont, "ont cannot be null");
         ontologyAxiomSet = new OntologyAxiomSet(axs);
