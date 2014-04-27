@@ -39,7 +39,7 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
         private static final long serialVersionUID = 40000L;
 
         @Nonnull
-        public V cache(IRI s, @Nonnull Buildable v) {
+        public V cache(@Nonnull IRI s, @Nonnull Buildable v) {
             WeakReference<V> w = prefixCache.get(s);
             if (w != null) {
                 V toReturn = w.get();
@@ -92,6 +92,7 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
         annotationPropertiesByURI = buildCache();
     }
 
+    @SuppressWarnings("null")
     @Override
     public OWLLiteral getOWLLiteral(float value) {
         return floatCache.cache(value, super.getOWLLiteral(value));
@@ -102,16 +103,19 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
         return stringCache.cache(value, super.getOWLLiteral(value));
     }
 
+    @SuppressWarnings("null")
     @Override
     public OWLLiteral getOWLLiteral(int value) {
         return intCache.cache(value, super.getOWLLiteral(value));
     }
 
+    @SuppressWarnings("null")
     @Override
     public OWLLiteral getOWLLiteral(double value) {
         return doubleCache.cache(value, super.getOWLLiteral(value));
     }
 
+    @SuppressWarnings("null")
     @Nonnull
     @Override
     public OWLLiteral getOWLLiteral(@Nonnull String lexicalValue,

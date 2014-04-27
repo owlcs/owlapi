@@ -18,7 +18,6 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationSubject;
@@ -87,13 +86,12 @@ public class InitVisitorFactory {
             this.named = named;
         }
 
-        @Nullable
         @Override
         public K visit(@Nonnull OWLSubClassOfAxiom axiom) {
             OWLClassExpression c = sub ? axiom.getSubClass() : axiom
                     .getSuperClass();
             if (named && c.isAnonymous()) {
-                return null;
+                return doDefault(axiom);
             }
             return (K) c;
         }
@@ -186,12 +184,11 @@ public class InitVisitorFactory {
             return (K) axiom.getProperty();
         }
 
-        @Nullable
         @Override
         public K visit(@Nonnull OWLClassAssertionAxiom axiom) {
             OWLClassExpression c = axiom.getClassExpression();
             if (named && c.isAnonymous()) {
-                return null;
+                return doDefault(axiom);
             }
             return (K) c;
         }
@@ -230,11 +227,10 @@ public class InitVisitorFactory {
             return (K) axiom.getProperty();
         }
 
-        @Nullable
         @Override
         public K visit(@Nonnull OWLHasKeyAxiom axiom) {
             if (named && axiom.getClassExpression().isAnonymous()) {
-                return null;
+                return doDefault(axiom);
             }
             return (K) axiom.getClassExpression().asOWLClass();
         }
@@ -337,6 +333,7 @@ public class InitVisitorFactory {
             return (Collection<K>) axiom.getProperties();
         }
 
+        @SuppressWarnings("null")
         @Nonnull
         @Override
         public Collection<K> visit(@Nonnull OWLDisjointUnionAxiom axiom) {

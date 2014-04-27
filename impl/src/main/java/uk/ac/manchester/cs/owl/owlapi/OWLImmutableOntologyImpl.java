@@ -96,7 +96,6 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
         this.ontologyID = checkNotNull(ontologyID, "ontologyID cannot be null");
     }
 
-    @Nonnull
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -227,6 +226,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     public Set<OWLAxiom> getTBoxAxioms(Imports includeImports) {
         Set<OWLAxiom> toReturn = new HashSet<OWLAxiom>();
         for (AxiomType<?> type : AxiomType.TBoxAxiomTypes) {
+            assert type != null;
             toReturn.addAll(getAxioms(type, includeImports));
         }
         return toReturn;
@@ -237,6 +237,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     public Set<OWLAxiom> getABoxAxioms(Imports includeImports) {
         Set<OWLAxiom> toReturn = new HashSet<OWLAxiom>();
         for (AxiomType<?> type : AxiomType.ABoxAxiomTypes) {
+            assert type != null;
             toReturn.addAll(getAxioms(type, includeImports));
         }
         return toReturn;
@@ -247,6 +248,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     public Set<OWLAxiom> getRBoxAxioms(Imports includeImports) {
         Set<OWLAxiom> toReturn = new HashSet<OWLAxiom>();
         for (AxiomType<?> type : AxiomType.RBoxAxiomTypes) {
+            assert type != null;
             toReturn.addAll(getAxioms(type, includeImports));
         }
         return toReturn;

@@ -65,31 +65,38 @@ public class OWLDataFactoryTestCase {
     @Nonnull
     private OWLDataFactory testSubject = new OWLDataFactoryImpl();
 
+    @Nonnull
     private IRI IRI() {
         return IRI.create("urn:test#", "A" + counter.getAndIncrement());
     }
 
+    @Nonnull
     private OWLIndividual I() {
         return testSubject.getOWLNamedIndividual(IRI());
     }
 
+    @Nonnull
     private OWLLiteral Literal() {
         return testSubject.getOWLLiteral("A" + counter.getAndIncrement());
     }
 
-    private OWLClass C(IRI iri) {
+    @Nonnull
+    private OWLClass C(@Nonnull IRI iri) {
         return testSubject.getOWLClass(iri);
     }
 
-    private OWLObjectProperty OP(IRI iri) {
+    @Nonnull
+    private OWLObjectProperty OP(@Nonnull IRI iri) {
         return testSubject.getOWLObjectProperty(iri);
     }
 
-    private OWLDataProperty DP(IRI iri) {
+    @Nonnull
+    private OWLDataProperty DP(@Nonnull IRI iri) {
         return testSubject.getOWLDataProperty(iri);
     }
 
-    private OWLDatatype D(IRI iri) {
+    @Nonnull
+    private OWLDatatype D(@Nonnull IRI iri) {
         return testSubject.getOWLDatatype(iri);
     }
 

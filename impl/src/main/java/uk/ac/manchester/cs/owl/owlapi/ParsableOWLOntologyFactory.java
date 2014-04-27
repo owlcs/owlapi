@@ -69,7 +69,7 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
      *        injected ontology builder
      */
     @Inject
-    public ParsableOWLOntologyFactory(OWLOntologyBuilder builder) {
+    public ParsableOWLOntologyFactory(@Nonnull OWLOntologyBuilder builder) {
         super(builder);
     }
 
@@ -82,7 +82,8 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
      * @return false
      */
     @Override
-    public boolean canCreateFromDocumentIRI(IRI documentIRI) {
+    public boolean canCreateFromDocumentIRI(
+            @SuppressWarnings("unused") IRI documentIRI) {
         return false;
     }
 

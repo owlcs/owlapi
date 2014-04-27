@@ -477,12 +477,14 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         return appliedChanges;
     }
 
+    @SuppressWarnings("null")
     @Override
     public List<OWLOntologyChange<?>> addAxiom(@Nonnull OWLOntology ont,
             @Nonnull OWLAxiom axiom) {
         return addAxioms(ont, Collections.singleton(axiom));
     }
 
+    @SuppressWarnings("null")
     @Override
     public List<OWLOntologyChange<?>> addAxioms(@Nonnull OWLOntology ont,
             @Nonnull Set<? extends OWLAxiom> axioms) {
@@ -1160,6 +1162,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         }
         for (OWLOntologyChangeListener listener : new ArrayList<OWLOntologyChangeListener>(
                 listenerMap.keySet())) {
+            assert listener != null;
             OWLOntologyChangeBroadcastStrategy strategy = listenerMap
                     .get(listener);
             if (strategy == null) {

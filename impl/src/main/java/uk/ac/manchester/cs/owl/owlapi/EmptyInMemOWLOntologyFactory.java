@@ -44,6 +44,7 @@ public class EmptyInMemOWLOntologyFactory extends
         super(builder);
     }
 
+    @SuppressWarnings("unused")
     @Nonnull
     @Override
     public OWLOntology loadOWLOntology(OWLOntologyManager m,
@@ -64,6 +65,7 @@ public class EmptyInMemOWLOntologyFactory extends
         return ont;
     }
 
+    @SuppressWarnings("unused")
     @Override
     public boolean canLoad(OWLOntologyDocumentSource documentSource) {
         return false;

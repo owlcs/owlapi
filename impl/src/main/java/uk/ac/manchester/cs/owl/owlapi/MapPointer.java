@@ -86,7 +86,7 @@ public class MapPointer<K, V extends OWLAxiom> implements Serializable {
      * 
      * @return the map pointer
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "null" })
     public MapPointer<K, V> init() {
         if (initialized) {
             return this;
@@ -99,6 +99,8 @@ public class MapPointer<K, V extends OWLAxiom> implements Serializable {
         if (visitor instanceof InitVisitor) {
             for (V ax : (Set<V>) i.getAxiomsByType().getValues(type)) {
                 K key = ax.accept((InitVisitor<K>) visitor);
+                // this can only be null because the visitor return nulls in
+                // methods that do not declare it
                 if (key != null) {
                     map.put(key, ax);
                 }
