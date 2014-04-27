@@ -56,7 +56,8 @@ public class OWLEntityURIConverter {
     // entities whose names will be converted
     @Nonnull
     private final Collection<OWLOntology> ontologies;
-    private Map<OWLEntity, IRI> replacementMap;
+    @Nonnull
+    private Map<OWLEntity, IRI> replacementMap = new HashMap<OWLEntity, IRI>();
     private Set<OWLEntity> processedEntities;
     @Nonnull
     private final OWLEntityURIConverterStrategy strategy;
@@ -88,7 +89,7 @@ public class OWLEntityURIConverter {
      *         convert the URI of entities in the specified ontologies.
      */
     public List<OWLOntologyChange<?>> getChanges() {
-        replacementMap = new HashMap<OWLEntity, IRI>();
+        replacementMap.clear();
         processedEntities = new HashSet<OWLEntity>();
         List<OWLOntologyChange<?>> changes = new ArrayList<OWLOntologyChange<?>>();
         for (OWLOntology ont : ontologies) {
@@ -98,19 +99,24 @@ public class OWLEntityURIConverter {
                 }
             }
             for (OWLObjectProperty prop : ont.getObjectPropertiesInSignature()) {
+                assert prop != null;
                 processEntity(prop);
             }
             for (OWLDataProperty prop : ont.getDataPropertiesInSignature()) {
+                assert prop != null;
                 processEntity(prop);
             }
             for (OWLNamedIndividual ind : ont.getIndividualsInSignature()) {
+                assert ind != null;
                 processEntity(ind);
             }
         }
         OWLObjectDuplicator dup = new OWLObjectDuplicator(replacementMap,
                 manager.getOWLDataFactory());
         for (OWLOntology ont : ontologies) {
+            assert ont != null;
             for (OWLAxiom ax : ont.getAxioms()) {
+                assert ax != null;
                 OWLAxiom dupAx = dup.duplicateObject(ax);
                 if (!dupAx.equals(ax)) {
                     changes.add(new RemoveAxiom(ont, ax));

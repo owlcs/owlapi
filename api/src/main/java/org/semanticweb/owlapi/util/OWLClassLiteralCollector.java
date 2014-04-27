@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -75,13 +74,12 @@ public class OWLClassLiteralCollector extends OWLObjectWalker<OWLObject> {
     }
 
     private class OWLClassLiteralCollectorVisitor extends
-            OWLObjectVisitorExAdapter<Object> {
+            OWLObjectVisitorAdapter {
 
         public OWLClassLiteralCollectorVisitor() {}
 
-        @Nullable
         @Override
-        public Object visit(OWLClass desc) {
+        public void visit(OWLClass desc) {
             List<OWLClassExpression> path = getClassExpressionPath();
             if (path.size() > 1) {
                 OWLClassExpression prev = path.get(path.size() - 2);
@@ -93,7 +91,6 @@ public class OWLClassLiteralCollector extends OWLObjectWalker<OWLObject> {
             } else {
                 pos.add(desc);
             }
-            return null;
         }
     }
 }

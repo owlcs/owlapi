@@ -64,11 +64,17 @@ public class OWLObjectPropertyManager {
     private final OWLOntologyManager man;
     @Nonnull
     private OWLOntology ontology;
+    @Nonnull
     private final Set<OWLObjectPropertyExpression> properties = new HashSet<OWLObjectPropertyExpression>();
+    @Nonnull
     private final Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> hierarchy = new HashMap<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>>();
+    @Nonnull
     private final Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> reflexiveTransitiveClosure = new HashMap<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>>();
+    @Nonnull
     private final Set<OWLObjectPropertyExpression> compositeProperties = new HashSet<OWLObjectPropertyExpression>();
+    @Nonnull
     private final Set<OWLObjectPropertyExpression> nonSimpleProperties = new HashSet<OWLObjectPropertyExpression>();
+    @Nonnull
     private final Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> partialOrdering = new HashMap<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>>();
     private boolean compositeDirty;
     private boolean hierarchyDirty;
@@ -149,6 +155,7 @@ public class OWLObjectPropertyManager {
                     for (OWLObjectPropertyExpression namedInv : inverse(
                             ontology.getInverseObjectPropertyAxioms(ax
                                     .getProperty()), ax.getProperty())) {
+                        assert namedInv != null;
                         markComposite(namedInv);
                     }
                 }
@@ -158,6 +165,7 @@ public class OWLObjectPropertyManager {
                     for (OWLObjectPropertyExpression namedInv : inverse(
                             ontology.getInverseObjectPropertyAxioms(ax
                                     .getSuperProperty()), ax.getSuperProperty())) {
+                        assert namedInv != null;
                         markComposite(namedInv);
                     }
                 }
@@ -276,6 +284,7 @@ public class OWLObjectPropertyManager {
             Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> rtcMap = new HashMap<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>>();
             Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> propertyHierarchy = getPropertyHierarchy();
             for (OWLObjectPropertyExpression prop : getReferencedProperties()) {
+                assert prop != null;
                 Set<OWLObjectPropertyExpression> processed = new HashSet<OWLObjectPropertyExpression>();
                 Set<OWLObjectPropertyExpression> rtc = new HashSet<OWLObjectPropertyExpression>();
                 getReflexiveTransitiveClosure(prop, propertyHierarchy, rtc,
@@ -337,6 +346,7 @@ public class OWLObjectPropertyManager {
             Set<OWLObjectPropertyExpression> props = getReferencedProperties();
             Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> reflexiveTransitiveClosureMap = getHierarchyReflexiveTransitiveClosure();
             for (OWLObjectPropertyExpression prop : getReferencedProperties()) {
+                assert prop != null;
                 if (isComposite(prop)) {
                     // Supers are not simple
                     Set<OWLObjectPropertyExpression> rtc = reflexiveTransitiveClosureMap
@@ -390,6 +400,7 @@ public class OWLObjectPropertyManager {
             }
             Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> ordering = new HashMap<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>>();
             for (OWLObjectPropertyExpression prop : getReferencedProperties()) {
+                assert prop != null;
                 Set<OWLObjectPropertyExpression> processed = new HashSet<OWLObjectPropertyExpression>();
                 Set<OWLObjectPropertyExpression> rtc = new HashSet<OWLObjectPropertyExpression>();
                 getReflexiveTransitiveClosure(prop, map, rtc, processed);
@@ -449,6 +460,7 @@ public class OWLObjectPropertyManager {
             properties.addAll(ont.getObjectPropertiesInSignature());
         }
         for (OWLObjectPropertyExpression prop : properties) {
+            assert prop != null;
             if (processed.contains(prop)) {
                 continue;
             }
@@ -589,6 +601,7 @@ public class OWLObjectPropertyManager {
             return;
         }
         for (OWLObjectPropertyExpression sup : supers) {
+            assert sup != null;
             getReflexiveTransitiveClosure(sup, map, rtc, processed);
         }
     }

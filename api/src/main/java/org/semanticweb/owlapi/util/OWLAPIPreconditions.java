@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.util;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import com.google.common.base.Optional;
 
@@ -33,7 +32,7 @@ public class OWLAPIPreconditions {
      *         if object is null
      */
     @Nonnull
-    public static <T> T checkNotNull(@Nullable T object) {
+    public static <T> T checkNotNull(T object) {
         return checkNotNull(object, "this variable cannot be null");
     }
 
@@ -51,8 +50,7 @@ public class OWLAPIPreconditions {
      *         if object is null
      */
     @Nonnull
-    public static <T> T
-            checkNotNull(@Nullable T object, @Nonnull String message) {
+    public static <T> T checkNotNull(T object, @Nonnull String message) {
         if (object == null) {
             throw new NullPointerException(message);
         }
@@ -101,9 +99,10 @@ public class OWLAPIPreconditions {
      * @throws IllegalArgumentException
      *         if object is null
      */
+    @SuppressWarnings("null")
     @Nonnull
-    public static <T> T checkNotNull(@Nullable Optional<T> object,
-            @Nonnull String message) {
+    public static <T> T
+            checkNotNull(Optional<T> object, @Nonnull String message) {
         if (object == null || !object.isPresent()) {
             throw new IllegalArgumentException(message);
         }

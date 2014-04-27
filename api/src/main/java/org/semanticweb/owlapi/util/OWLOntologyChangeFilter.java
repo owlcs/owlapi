@@ -135,17 +135,18 @@ public class OWLOntologyChangeFilter extends OWLAxiomVisitorAdapter implements
     }
 
     @Override
-    public void visit(SetOntologyID change) {}
+    public void visit(@SuppressWarnings("unused") SetOntologyID change) {}
 
     @Override
-    public void visit(AddImport change) {}
+    public void visit(@SuppressWarnings("unused") AddImport change) {}
 
     @Override
-    public void visit(RemoveImport change) {}
+    public void visit(@SuppressWarnings("unused") RemoveImport change) {}
 
     @Override
-    public void visit(AddOntologyAnnotation change) {}
+    public void visit(@SuppressWarnings("unused") AddOntologyAnnotation change) {}
 
     @Override
-    public void visit(RemoveOntologyAnnotation change) {}
+    public void visit(
+            @SuppressWarnings("unused") RemoveOntologyAnnotation change) {}
 }

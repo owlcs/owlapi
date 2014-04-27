@@ -19,7 +19,6 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -639,7 +638,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLAnnotation node) {}
+    public void visit(@SuppressWarnings("unused") OWLAnnotation node) {}
 
     @Override
     public void visit(SWRLClassAtom node) {

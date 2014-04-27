@@ -17,6 +17,7 @@ package org.semanticweb.owlapi.util;
  *         Informatics Group
  * @since 2.0.0
  */
+@SuppressWarnings("unused")
 public class NullProgressMonitor implements ProgressMonitor {
 
     @Override

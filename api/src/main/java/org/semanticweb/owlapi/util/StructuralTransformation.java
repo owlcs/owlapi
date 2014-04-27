@@ -334,12 +334,12 @@ public class StructuralTransformation {
         @Nonnull
         private Set<OWLAxiom> subClassOf(@Nonnull OWLClassExpression sub,
                 @Nonnull OWLClassExpression sup) {
-            return Collections.singleton((OWLAxiom) df.getOWLSubClassOfAxiom(
-                    df.getOWLThing(),
-                    df.getOWLObjectUnionOf(df.getOWLObjectComplementOf(sub),
-                            sup).getNNF()));
+            return toSet(df.getOWLSubClassOfAxiom(df.getOWLThing(), df
+                    .getOWLObjectUnionOf(df.getOWLObjectComplementOf(sub), sup)
+                    .getNNF()));
         }
 
+        @SuppressWarnings("null")
         @Nonnull
         private Set<OWLAxiom> toSet(OWLAxiom ax) {
             return Collections.singleton(ax);
@@ -405,16 +405,7 @@ public class StructuralTransformation {
         @Override
         public Set<OWLAxiom> visit(OWLDisjointClassesAxiom axiom) {
             // Explode
-            Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-            List<OWLClassExpression> classExpressions = new ArrayList<OWLClassExpression>(
-                    axiom.getClassExpressions());
-            for (int i = 0; i < classExpressions.size(); i++) {
-                for (int j = i + 1; j < classExpressions.size(); j++) {
-                    axioms.addAll(subClassOf(classExpressions.get(i),
-                            classExpressions.get(j)));
-                }
-            }
-            return axioms;
+            return new HashSet<OWLAxiom>(axiom.asOWLSubClassOfAxioms());
         }
 
         @Override
@@ -464,17 +455,8 @@ public class StructuralTransformation {
 
         @Override
         public Set<OWLAxiom> visit(OWLEquivalentClassesAxiom axiom) {
-            Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-            List<OWLClassExpression> classExpressions = new ArrayList<OWLClassExpression>(
-                    axiom.getClassExpressions());
-            for (int i = 0; i < classExpressions.size(); i++) {
-                for (int j = i + 1; j < classExpressions.size(); j++) {
-                    axioms.addAll(subClassOf(classExpressions.get(i),
-                            classExpressions.get(j)));
-                    axioms.addAll(subClassOf(classExpressions.get(j),
-                            classExpressions.get(i)));
-                }
-            }
+            Set<OWLAxiom> axioms = new HashSet<OWLAxiom>(
+                    axiom.asOWLSubClassOfAxioms());
             return axioms;
         }
 
@@ -599,8 +581,10 @@ public class StructuralTransformation {
             return toSet(axiom);
         }
 
+        @SuppressWarnings("null")
         @Override
-        public Set<OWLAxiom> visit(OWLSameIndividualAxiom axiom) {
+        public Set<OWLAxiom> visit(
+                @SuppressWarnings("unused") OWLSameIndividualAxiom axiom) {
             return Collections.emptySet();
         }
 

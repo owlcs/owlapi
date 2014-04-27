@@ -123,7 +123,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
         if (prefix == null) {
             return null;
         }
-        if (iri.getFragment() == null) {
+        if (iri.getFragment().isEmpty()) {
             return prefix;
         }
         return prefix + iri.getFragment();
@@ -139,6 +139,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
         return prefix2NamespaceMap.get(prefix) != null;
     }
 
+    @SuppressWarnings("null")
     @Override
     public void copyPrefixesFrom(PrefixManager prefixManager) {
         for (String prefixName : prefixManager.getPrefixNames()) {
@@ -147,6 +148,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
         }
     }
 
+    @SuppressWarnings("null")
     @Override
     public IRI getIRI(String curie) {
         if (curie.startsWith("<")) {
@@ -171,6 +173,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
         }
     }
 
+    @SuppressWarnings("null")
     @Override
     public Map<String, String> getPrefixName2PrefixMap() {
         return Collections.unmodifiableMap(prefix2NamespaceMap);

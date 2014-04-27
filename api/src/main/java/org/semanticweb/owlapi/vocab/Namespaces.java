@@ -88,21 +88,23 @@ public enum Namespaces {
     /** The YAGO namespace. */     YAGO        ("yago",    "http://dbpedia.org/class/yago/");
     //@formatter:on
     final String prefix;
+    @Nonnull
     final String ns;
     final Status status;
     final BuiltIn builtIn;
     final String hashless;
 
-    Namespaces(@Nonnull String prefix, String ns) {
+    Namespaces(@Nonnull String prefix, @Nonnull String ns) {
         this(prefix, ns, IN_USE, NOT_BUILT_IN);
     }
 
-    Namespaces(@Nonnull String prefix, String ns, Status status) {
+    Namespaces(@Nonnull String prefix, @Nonnull String ns, Status status) {
         this(prefix, ns, status, status == Status.LEGACY ? NOT_BUILT_IN
                 : BUILT_IN);
     }
 
-    Namespaces(@Nonnull String prefix, String ns, Status status, BuiltIn builtIn) {
+    Namespaces(@Nonnull String prefix, @Nonnull String ns, Status status,
+            BuiltIn builtIn) {
         this.prefix = prefix;
         this.ns = ns;
         this.status = status;
@@ -184,6 +186,7 @@ public enum Namespaces {
         return false;
     }
 
+    @Nonnull
     @Override
     public String toString() {
         return ns;

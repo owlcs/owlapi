@@ -43,7 +43,9 @@ public abstract class InferredEntityAxiomGenerator<E extends OWLEntity, A extend
         Set<E> processedEntities = new HashSet<E>();
         Set<A> result = new HashSet<A>();
         for (OWLOntology ont : reasoner.getRootOntology().getImportsClosure()) {
+            assert ont != null;
             for (E entity : getEntities(ont)) {
+                assert entity != null;
                 if (!processedEntities.contains(entity)) {
                     processedEntities.add(entity);
                     addAxioms(entity, reasoner, df, result);
@@ -84,6 +86,7 @@ public abstract class InferredEntityAxiomGenerator<E extends OWLEntity, A extend
     protected Set<E> getAllEntities(OWLReasoner reasoner) {
         Set<E> results = new HashSet<E>();
         for (OWLOntology ont : reasoner.getRootOntology().getImportsClosure()) {
+            assert ont != null;
             results.addAll(getEntities(ont));
         }
         return results;

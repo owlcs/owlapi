@@ -165,17 +165,17 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
                 preferredLanguageMap,
                 new OWLAnnotationValueVisitorEx<String>() {
 
-                    @Nullable
+                    @SuppressWarnings("unused")
                     @Override
                     public String visit(IRI iri) {
                         // TODO refactor the short form providers in here
-                        return null;
+                        return "";
                     }
 
-                    @Nullable
+                    @SuppressWarnings("unused")
                     @Override
                     public String visit(OWLAnonymousIndividual individual) {
-                        return null;
+                        return "";
                     }
 
                     @Override
@@ -235,8 +235,9 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
                     ax.accept(checker);
                 }
             }
-            if (checker.getMatch() != null) {
-                return getRendering(checker.getMatch());
+            OWLObject match = checker.getMatch();
+            if (match != null) {
+                return getRendering(match);
             }
         }
         return alternateShortFormProvider.getShortForm(entity);
@@ -253,7 +254,7 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
      * @return The rendering of the object.
      */
     @Nonnull
-    private String getRendering(OWLObject object) {
+    private String getRendering(@Nonnull OWLObject object) {
         // We return the literal value of constants or use the alternate
         // short form provider to render individuals.
         if (object instanceof OWLLiteral) {

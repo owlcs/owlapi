@@ -117,7 +117,9 @@ public class NNF implements OWLClassExpressionVisitorEx<OWLClassExpression>,
         negated = false;
     }
 
-    private OWLClassExpression getNegation(OWLClassExpression classExpression) {
+    @Nonnull
+    private OWLClassExpression getNegation(
+            @Nonnull OWLClassExpression classExpression) {
         return dataFactory.getOWLObjectComplementOf(classExpression);
     }
 
@@ -429,7 +431,7 @@ public class NNF implements OWLClassExpressionVisitorEx<OWLClassExpression>,
     }
 
     @Override
-    public OWLAxiom visit(OWLHasKeyAxiom axiom) {
+    public OWLAxiom visit(@SuppressWarnings("unused") OWLHasKeyAxiom axiom) {
         return null;
     }
 
@@ -443,20 +445,17 @@ public class NNF implements OWLClassExpressionVisitorEx<OWLClassExpression>,
     }
 
     @Override
-    public OWLDataRange visit(OWLLiteral node) {
+    public OWLDataRange visit(@SuppressWarnings("unused") OWLLiteral node) {
         return null;
     }
 
     @Override
-    public OWLDataRange visit(OWLFacetRestriction node) {
+    public OWLDataRange visit(
+            @SuppressWarnings("unused") OWLFacetRestriction node) {
         return null;
     }
 
-    // //////////////////////////////////////////////////////////////////////////////////////////////
-    //
     // Conversion of non-class expressions to NNF
-    //
-    // /////////////////////////////////////////////////////////////////////////////////////////////
     @Override
     public OWLAxiom visit(OWLSubClassOfAxiom axiom) {
         return dataFactory.getOWLSubClassOfAxiom(

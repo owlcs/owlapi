@@ -102,6 +102,7 @@ public class OWLOntologyMerger implements OWLAxiomFilter {
         List<AddAxiom> changes = new ArrayList<AddAxiom>();
         for (OWLOntology ont : setProvider.getOntologies()) {
             for (OWLAxiom ax : getAxioms(ont)) {
+                assert ax != null;
                 if (axiomFilter.passes(ax)) {
                     changes.add(new AddAxiom(ontology, ax));
                 }
@@ -120,7 +121,7 @@ public class OWLOntologyMerger implements OWLAxiomFilter {
     }
 
     @Override
-    public boolean passes(OWLAxiom axiom) {
+    public boolean passes(@SuppressWarnings("unused") OWLAxiom axiom) {
         return true;
     }
 }

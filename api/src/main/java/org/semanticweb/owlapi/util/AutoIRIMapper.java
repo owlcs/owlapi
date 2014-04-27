@@ -226,8 +226,7 @@ public class AutoIRIMapper extends DefaultHandler implements
                 while (tokenizer.hasMoreTokens()) {
                     String tok = tokenizer.nextToken();
                     if (tok.startsWith("<") && tok.endsWith(">")) {
-                        ontologyIRI = IRI.create(tok.substring(1,
-                                tok.length() - 1));
+                        ontologyIRI = unquote(tok);
                         addMapping(ontologyIRI, file);
                         break;
                     }
@@ -249,6 +248,20 @@ public class AutoIRIMapper extends DefaultHandler implements
         }
     }
 
+    /**
+     * @param tok
+     *        token
+     * @return IRI without quotes (&lt; and &gt;)
+     */
+    @SuppressWarnings("null")
+    @Nonnull
+    IRI unquote(String tok) {
+        IRI ontologyIRI;
+        ontologyIRI = IRI.create(tok.substring(1, tok.length() - 1));
+        return ontologyIRI;
+    }
+
+    @SuppressWarnings("unused")
     @Override
     public void startElement(String uri, String localName, String qName,
             Attributes attributes) throws SAXException {

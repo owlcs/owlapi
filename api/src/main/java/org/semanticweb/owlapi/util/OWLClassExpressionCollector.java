@@ -16,6 +16,8 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
@@ -95,7 +97,7 @@ public class OWLClassExpressionCollector extends
 
     @Override
     public Set<OWLClassExpression> visit(OWLClass ce) {
-        return Collections.<OWLClassExpression> singleton(ce);
+        return toSet(ce);
     }
 
     @Override
@@ -153,7 +155,7 @@ public class OWLClassExpressionCollector extends
 
     @Override
     public Set<OWLClassExpression> visit(OWLObjectHasValue ce) {
-        return Collections.<OWLClassExpression> singleton(ce);
+        return toSet(ce);
     }
 
     @Override
@@ -192,32 +194,32 @@ public class OWLClassExpressionCollector extends
 
     @Override
     public Set<OWLClassExpression> visit(OWLObjectHasSelf ce) {
-        return Collections.<OWLClassExpression> singleton(ce);
+        return toSet(ce);
     }
 
     @Override
     public Set<OWLClassExpression> visit(OWLObjectOneOf ce) {
-        return Collections.<OWLClassExpression> singleton(ce);
+        return toSet(ce);
     }
 
     @Override
     public Set<OWLClassExpression> visit(OWLDataSomeValuesFrom ce) {
-        return Collections.<OWLClassExpression> singleton(ce);
+        return toSet(ce);
     }
 
     @Override
     public Set<OWLClassExpression> visit(OWLDataAllValuesFrom ce) {
-        return Collections.<OWLClassExpression> singleton(ce);
+        return toSet(ce);
     }
 
     @Override
     public Set<OWLClassExpression> visit(OWLDataHasValue ce) {
-        return Collections.<OWLClassExpression> singleton(ce);
+        return toSet(ce);
     }
 
     @Override
     public Set<OWLClassExpression> visit(OWLDataMinCardinality ce) {
-        return Collections.<OWLClassExpression> singleton(ce);
+        return toSet(ce);
     }
 
     @Override
@@ -227,12 +229,12 @@ public class OWLClassExpressionCollector extends
 
     @Override
     public Set<OWLClassExpression> visit(OWLDataExactCardinality ce) {
-        return Collections.<OWLClassExpression> singleton(ce);
+        return toSet(ce);
     }
 
     @Override
     public Set<OWLClassExpression> visit(OWLDataMaxCardinality ce) {
-        return Collections.<OWLClassExpression> singleton(ce);
+        return toSet(ce);
     }
 
     @Override
@@ -279,5 +281,11 @@ public class OWLClassExpressionCollector extends
             result.addAll(atom.accept(this));
         }
         return result;
+    }
+
+    @SuppressWarnings("null")
+    @Nonnull
+    private static Set<OWLClassExpression> toSet(OWLClassExpression t) {
+        return Collections.singleton(t);
     }
 }

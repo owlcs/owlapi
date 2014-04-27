@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -234,6 +236,7 @@ public class CollectionFactory {
             return backingMap.isEmpty();
         }
 
+        @SuppressWarnings("null")
         @Nonnull
         @Override
         public Iterator<T> iterator() {
@@ -271,12 +274,14 @@ public class CollectionFactory {
             return toReturn;
         }
 
+        @SuppressWarnings("null")
         @Nonnull
         @Override
         public Object[] toArray() {
             return backingMap.keySet().toArray();
         }
 
+        @SuppressWarnings("null")
         @Nonnull
         @Override
         public <Type> Type[] toArray(Type[] a) {
@@ -329,6 +334,7 @@ public class CollectionFactory {
      * @param <T>
      *        axiom type
      */
+    @SuppressWarnings("null")
     @Nonnull
     public static <T> Set<T> getCopyOnRequestSetFromMutableCollection(
             @Nullable Collection<T> source) {
@@ -345,6 +351,7 @@ public class CollectionFactory {
      * @param <T>
      *        axiom type
      */
+    @SuppressWarnings("null")
     @Nonnull
     public static <T> Set<T> getCopyOnRequestSetFromImmutableCollection(
             @Nullable Collection<T> source) {
@@ -503,6 +510,7 @@ public class CollectionFactory {
             return delegate.isEmpty();
         }
 
+        @SuppressWarnings("null")
         @Nonnull
         @Override
         public Iterator<T> iterator() {
@@ -541,12 +549,14 @@ public class CollectionFactory {
             return delegate.size();
         }
 
+        @SuppressWarnings("null")
         @Nonnull
         @Override
         public Object[] toArray() {
             return delegate.toArray();
         }
 
+        @SuppressWarnings("null")
         @Nonnull
         @Override
         public <Type> Type[] toArray(Type[] arg0) {
@@ -566,6 +576,7 @@ public class CollectionFactory {
 
         private static final int maxContains = 10;
         private final AtomicBoolean copyDone = new AtomicBoolean(false);
+        @Nonnull
         private Collection<T> delegate;
         private final ReadWriteLock lock = new ReentrantReadWriteLock();
         private final Lock readLock = lock.readLock();
@@ -577,7 +588,7 @@ public class CollectionFactory {
          *        initial values
          */
         public ThreadSafeConditionalCopySet(@Nonnull Collection<T> source) {
-            this.delegate = new ArrayList<T>(source);
+            this.delegate = new ArrayList<T>(checkNotNull(source));
         }
 
         @Override
@@ -737,6 +748,7 @@ public class CollectionFactory {
             }
         }
 
+        @SuppressWarnings("null")
         @Nonnull
         @Override
         public Iterator<T> iterator() {
@@ -797,6 +809,7 @@ public class CollectionFactory {
             }
         }
 
+        @SuppressWarnings("null")
         @Nonnull
         @Override
         public Object[] toArray() {
@@ -808,6 +821,7 @@ public class CollectionFactory {
             }
         }
 
+        @SuppressWarnings("null")
         @Nonnull
         @Override
         public <Type> Type[] toArray(Type[] arg0) {

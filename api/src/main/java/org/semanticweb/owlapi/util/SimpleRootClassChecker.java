@@ -111,7 +111,7 @@ public class SimpleRootClassChecker implements RootClassChecker {
         }
 
         @Override
-        public void visit(OWLClass desc) {
+        public void visit(@SuppressWarnings("unused") OWLClass desc) {
             namedSuper = true;
         }
 

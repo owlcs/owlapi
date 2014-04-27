@@ -31,17 +31,17 @@ public class SimpleIRIShortFormProvider implements IRIShortFormProvider,
 
     private static final long serialVersionUID = 40000L;
 
+    @SuppressWarnings("null")
     @Override
     public String getShortForm(@Nonnull IRI iri) {
         String rendering = iri.getFragment();
-        if (rendering != null && rendering.length() > 0) {
+        if (!rendering.isEmpty()) {
             return rendering;
-        } else {
-            String s = iri.toString();
-            int lastSlashIndex = s.lastIndexOf('/');
-            if (lastSlashIndex != -1 && lastSlashIndex != s.length() - 1) {
-                return s.substring(lastSlashIndex + 1);
-            }
+        }
+        String s = iri.toString();
+        int lastSlashIndex = s.lastIndexOf('/');
+        if (lastSlashIndex != -1 && lastSlashIndex != s.length() - 1) {
+            return s.substring(lastSlashIndex + 1);
         }
         return iri.toQuotedString();
     }

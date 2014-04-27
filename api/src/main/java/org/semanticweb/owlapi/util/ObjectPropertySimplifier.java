@@ -82,6 +82,8 @@ public class ObjectPropertySimplifier {
             property = null;
         }
 
+        @SuppressWarnings("null")
+        @Nonnull
         public OWLObjectProperty getProperty() {
             return property;
         }
@@ -102,9 +104,9 @@ public class ObjectPropertySimplifier {
         }
 
         @Override
-        public void visit(OWLDataProperty p) {}
+        public void visit(@SuppressWarnings("unused") OWLDataProperty p) {}
 
         @Override
-        public void visit(OWLAnnotationProperty p) {}
+        public void visit(@SuppressWarnings("unused") OWLAnnotationProperty p) {}
     }
 }

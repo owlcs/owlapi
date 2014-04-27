@@ -47,14 +47,18 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 @SuppressWarnings("unused")
 public class MaximumModalDepthFinder extends OWLObjectVisitorExAdapter<Integer> {
 
+    @SuppressWarnings("null")
     @Nonnull
-    private static final Integer _1 = Integer.valueOf(1);
+    static Integer i(int b) {
+        return b;
+    }
+
     @Nonnull
-    private static final Integer _0 = Integer.valueOf(0);
+    private static final Integer _1 = i(1);
 
     /** default constructor, setting default value to 0 */
     public MaximumModalDepthFinder() {
-        super(_0);
+        super(0);
     }
 
     @Override
@@ -62,8 +66,7 @@ public class MaximumModalDepthFinder extends OWLObjectVisitorExAdapter<Integer> 
         int subClassModalDepth = axiom.getSubClass().accept(this).intValue();
         int superClassModalDepth = axiom.getSuperClass().accept(this)
                 .intValue();
-        return Integer.valueOf(Math.max(subClassModalDepth,
-                superClassModalDepth));
+        return i(Math.max(subClassModalDepth, superClassModalDepth));
     }
 
     @Override
@@ -75,7 +78,7 @@ public class MaximumModalDepthFinder extends OWLObjectVisitorExAdapter<Integer> 
                 max = depth;
             }
         }
-        return Integer.valueOf(max);
+        return i(max);
     }
 
     @Override
@@ -87,7 +90,7 @@ public class MaximumModalDepthFinder extends OWLObjectVisitorExAdapter<Integer> 
                 max = depth;
             }
         }
-        return Integer.valueOf(max);
+        return i(max);
     }
 
     @Override
@@ -99,7 +102,7 @@ public class MaximumModalDepthFinder extends OWLObjectVisitorExAdapter<Integer> 
                 max = depth;
             }
         }
-        return Integer.valueOf(max);
+        return i(max);
     }
 
     @Override
@@ -109,12 +112,12 @@ public class MaximumModalDepthFinder extends OWLObjectVisitorExAdapter<Integer> 
 
     @Override
     public Integer visit(OWLObjectSomeValuesFrom ce) {
-        return Integer.valueOf(1 + ce.getFiller().accept(this).intValue());
+        return i(1 + ce.getFiller().accept(this).intValue());
     }
 
     @Override
     public Integer visit(OWLObjectAllValuesFrom ce) {
-        return Integer.valueOf(1 + ce.getFiller().accept(this).intValue());
+        return i(1 + ce.getFiller().accept(this).intValue());
     }
 
     @Override
@@ -126,7 +129,7 @@ public class MaximumModalDepthFinder extends OWLObjectVisitorExAdapter<Integer> 
                 max = depth;
             }
         }
-        return Integer.valueOf(max);
+        return i(max);
     }
 
     @Override
@@ -136,7 +139,7 @@ public class MaximumModalDepthFinder extends OWLObjectVisitorExAdapter<Integer> 
 
     @Override
     public Integer visit(OWLObjectMinCardinality ce) {
-        return Integer.valueOf(1 + ce.getFiller().accept(this).intValue());
+        return i(1 + ce.getFiller().accept(this).intValue());
     }
 
     @Override
@@ -146,12 +149,12 @@ public class MaximumModalDepthFinder extends OWLObjectVisitorExAdapter<Integer> 
 
     @Override
     public Integer visit(OWLObjectExactCardinality ce) {
-        return Integer.valueOf(1 + ce.getFiller().accept(this).intValue());
+        return i(1 + ce.getFiller().accept(this).intValue());
     }
 
     @Override
     public Integer visit(OWLObjectMaxCardinality ce) {
-        return Integer.valueOf(1 + ce.getFiller().accept(this).intValue());
+        return i(1 + ce.getFiller().accept(this).intValue());
     }
 
     @Override
@@ -203,6 +206,6 @@ public class MaximumModalDepthFinder extends OWLObjectVisitorExAdapter<Integer> 
                 max = depth;
             }
         }
-        return Integer.valueOf(max);
+        return i(max);
     }
 }

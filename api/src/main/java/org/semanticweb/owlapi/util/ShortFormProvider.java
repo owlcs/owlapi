@@ -36,8 +36,9 @@ public interface ShortFormProvider {
      * 
      * @param entity
      *        The entity.
-     * @return A string which represents a short rendering of the speicified
-     *         entity.
+     * @return A string which represents a short rendering of the specified
+     *         entity. The returned value will not be null but might be an empty
+     *         string.
      */
     @Nonnull
     String getShortForm(@Nonnull OWLEntity entity);

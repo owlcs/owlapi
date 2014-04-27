@@ -19,7 +19,6 @@ import java.util.Map;
 
 import javax.annotation.Nonnull;
 
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLEntity;
 
@@ -52,7 +51,7 @@ public class OWLEntityURIUnderscores2CamelBackConverterStrategy implements
     private static IRI convert(@Nonnull IRI iri) {
         checkNotNull(iri, "iri cannot be null");
         String fragment = iri.getFragment();
-        if (fragment != null) {
+        if (!fragment.isEmpty()) {
             String base = iri.getNamespace();
             String camelCaseFragment = toCamelCase(fragment);
             return IRI.create(base, camelCaseFragment);

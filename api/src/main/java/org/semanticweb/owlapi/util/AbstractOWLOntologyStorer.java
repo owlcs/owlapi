@@ -88,6 +88,7 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
             URLConnection conn = url.openConnection();
             os = conn.getOutputStream();
         }
+        assert os != null;
         return os;
     }
 
