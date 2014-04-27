@@ -137,6 +137,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
         }
 
         /** @return sections */
+        @SuppressWarnings("null")
         @Nonnull
         public Collection<O> getSectionObjects() {
             return object2Axioms.keySet();
@@ -198,8 +199,9 @@ public class ManchesterOWLSyntaxFrameRenderer extends
      * @param entityShortFormProvider
      *        the entity short form provider
      */
+    @SuppressWarnings("null")
     public ManchesterOWLSyntaxFrameRenderer(OWLOntology ontology,
-            Writer writer, ShortFormProvider entityShortFormProvider) {
+            Writer writer, @Nonnull ShortFormProvider entityShortFormProvider) {
         this(Collections.singleton(ontology), writer, entityShortFormProvider);
     }
 
@@ -215,7 +217,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
      */
     public ManchesterOWLSyntaxFrameRenderer(
             @Nonnull Set<OWLOntology> ontologies, Writer writer,
-            ShortFormProvider entityShortFormProvider) {
+            @Nonnull ShortFormProvider entityShortFormProvider) {
         super(writer, entityShortFormProvider);
         this.ontologies = new LinkedHashSet<OWLOntology>(ontologies);
         owlObjectComparator = new OWLObjectComparator(entityShortFormProvider);
@@ -306,17 +308,21 @@ public class ManchesterOWLSyntaxFrameRenderer extends
             throw new OWLRuntimeException("Can only render one ontology");
         }
         OWLOntology ontology = ontologies.iterator().next();
+        assert ontology != null;
         writePrefixMap();
         writeNewLine();
         writeOntologyHeader(ontology);
         for (OWLAnnotationProperty prop : ontology
                 .getAnnotationPropertiesInSignature(EXCLUDED)) {
+            assert prop != null;
             write(prop);
         }
         for (OWLDatatype datatype : ontology.getDatatypesInSignature()) {
+            assert datatype != null;
             write(datatype);
         }
         for (OWLObjectProperty prop : ontology.getObjectPropertiesInSignature()) {
+            assert prop != null;
             write(prop);
             OWLObjectPropertyExpression invProp = prop.getInverseProperty();
             if (!ontology.getAxioms(invProp, EXCLUDED).isEmpty()) {
@@ -324,16 +330,20 @@ public class ManchesterOWLSyntaxFrameRenderer extends
             }
         }
         for (OWLDataProperty prop : ontology.getDataPropertiesInSignature()) {
+            assert prop != null;
             write(prop);
         }
         for (OWLClass cls : ontology.getClassesInSignature()) {
+            assert cls != null;
             write(cls);
         }
         for (OWLNamedIndividual ind : ontology.getIndividualsInSignature()) {
+            assert ind != null;
             write(ind);
         }
         for (OWLAnonymousIndividual ind : ontology
                 .getReferencedAnonymousIndividuals(EXCLUDED)) {
+            assert ind != null;
             write(ind);
         }
         // Nary disjoint classes axioms
@@ -401,7 +411,10 @@ public class ManchesterOWLSyntaxFrameRenderer extends
             }
         }
         for (SWRLRule rule : ontology.getAxioms(AxiomType.SWRL_RULE)) {
-            writeSection(RULE, Collections.singleton(rule), ", ", false);
+            @SuppressWarnings("null")
+            @Nonnull
+            Set<SWRLRule> singleton = Collections.singleton(rule);
+            writeSection(RULE, singleton, ", ", false);
         }
         flush();
     }
@@ -1160,8 +1173,9 @@ public class ManchesterOWLSyntaxFrameRenderer extends
      *        the rule
      * @return written axioms
      */
+    @SuppressWarnings("null")
     @Nonnull
-    public Set<OWLAxiom> write(SWRLRule rule) {
+    public Set<OWLAxiom> write(@Nonnull SWRLRule rule) {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>(1);
         for (OWLOntology ontology : ontologies) {
             if (ontology.containsAxiom(rule)) {
@@ -1271,7 +1285,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
      */
     @Nonnull
     public Set<OWLAnnotationAssertionAxiom> writeAnnotations(
-            OWLAnnotationSubject subject) {
+            @Nonnull OWLAnnotationSubject subject) {
         Set<OWLAnnotationAssertionAxiom> axioms = new HashSet<OWLAnnotationAssertionAxiom>();
         if (!isFiltered(AxiomType.ANNOTATION_ASSERTION)) {
             for (OWLOntology ontology : ontologies) {
@@ -1303,7 +1317,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
 
     private void writeSection(@Nonnull ManchesterOWLSyntax keyword,
             @Nonnull SectionMap<Object, OWLAxiom> content, String delimeter,
-            boolean newline, OWLOntology... ontologiesList) {
+            boolean newline, @Nonnull OWLOntology... ontologiesList) {
         String sec = keyword.toString();
         if (content.isNotEmpty()
                 || renderingDirector.renderEmptyFrameSection(keyword,
@@ -1392,16 +1406,16 @@ public class ManchesterOWLSyntaxFrameRenderer extends
      *        the keyword
      * @param content
      *        the content
-     * @param delimeter
-     *        the delimeter
+     * @param delimiter
+     *        the delimiter
      * @param newline
      *        the newline
      * @param ontologiesList
      *        the ontologies list
      */
     public void writeSection(@Nonnull ManchesterOWLSyntax keyword,
-            @Nonnull Collection<?> content, String delimeter, boolean newline,
-            OWLOntology... ontologiesList) {
+            @Nonnull Collection<?> content, String delimiter, boolean newline,
+            @Nonnull OWLOntology... ontologiesList) {
         String sec = keyword.toString();
         if (!content.isEmpty()
                 || renderingDirector.renderEmptyFrameSection(keyword,
@@ -1421,7 +1435,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
                     write(obj.toString());
                 }
                 if (it.hasNext()) {
-                    write(delimeter);
+                    write(delimiter);
                     fireSectionItemFinished(sec);
                     if (newline) {
                         writeNewLine();

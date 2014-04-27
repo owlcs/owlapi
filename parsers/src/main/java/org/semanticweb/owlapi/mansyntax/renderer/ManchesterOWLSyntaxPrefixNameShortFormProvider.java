@@ -85,6 +85,7 @@ public class ManchesterOWLSyntaxPrefixNameShortFormProvider implements
         return prefixManager.getPrefixName2PrefixMap();
     }
 
+    @SuppressWarnings("null")
     @Override
     public String getShortForm(OWLEntity entity) {
         String sf = prefixManager.getShortForm(entity);

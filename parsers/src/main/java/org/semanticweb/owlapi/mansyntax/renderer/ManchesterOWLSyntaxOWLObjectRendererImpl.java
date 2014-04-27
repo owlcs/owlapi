@@ -34,7 +34,9 @@ import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 public class ManchesterOWLSyntaxOWLObjectRendererImpl implements
         OWLObjectRenderer {
 
+    @Nonnull
     private ManchesterOWLSyntaxObjectRenderer ren;
+    @Nonnull
     private WriterDelegate writerDelegate;
 
     /** default constructor */
@@ -70,6 +72,7 @@ public class ManchesterOWLSyntaxOWLObjectRendererImpl implements
             delegate = new StringWriter();
         }
 
+        @SuppressWarnings("null")
         @Nonnull
         @Override
         public String toString() {
@@ -87,7 +90,7 @@ public class ManchesterOWLSyntaxOWLObjectRendererImpl implements
         }
 
         @Override
-        public void write(@Nonnull char[] cbuf, int off, int len) {
+        public void write(char[] cbuf, int off, int len) {
             delegate.write(cbuf, off, len);
         }
     }

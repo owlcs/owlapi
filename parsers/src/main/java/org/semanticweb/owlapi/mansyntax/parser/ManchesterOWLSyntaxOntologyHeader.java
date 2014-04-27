@@ -32,8 +32,11 @@ import com.google.common.base.Optional;
  */
 public class ManchesterOWLSyntaxOntologyHeader {
 
+    @Nonnull
     private OWLOntologyID ontologyID;
+    @Nonnull
     private Collection<OWLAnnotation> annotations;
+    @Nonnull
     private Collection<OWLImportsDeclaration> importsDeclarations;
 
     /**
@@ -57,16 +60,19 @@ public class ManchesterOWLSyntaxOntologyHeader {
     }
 
     /** @return the ontology ID */
+    @Nonnull
     public OWLOntologyID getOntologyID() {
         return ontologyID;
     }
 
     /** @return the annotations */
+    @Nonnull
     public Collection<OWLAnnotation> getAnnotations() {
         return annotations;
     }
 
     /** @return the imports declarations */
+    @Nonnull
     public Collection<OWLImportsDeclaration> getImportsDeclarations() {
         return importsDeclarations;
     }

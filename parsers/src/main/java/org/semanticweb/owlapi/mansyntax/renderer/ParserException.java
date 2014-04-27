@@ -17,6 +17,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.io.OWLParserException;
@@ -186,7 +187,7 @@ public class ParserException extends OWLParserException {
             boolean objectPropertyNameExpected,
             boolean dataPropertyNameExpected, boolean individualNameExpected,
             boolean datatypeNameExpected, boolean annotationPropertyExpected,
-            String... keywords) {
+            @Nonnull String... keywords) {
         this(tokenSeqence, startPos, lineNumber, columnNumber,
                 classNameExpected, objectPropertyNameExpected,
                 dataPropertyNameExpected, individualNameExpected,
@@ -230,7 +231,7 @@ public class ParserException extends OWLParserException {
      *        the keywords
      */
     public ParserException(List<String> tokenSequence, int startPos,
-            int lineNumber, int columnNumber, String... keywords) {
+            int lineNumber, int columnNumber, @Nonnull String... keywords) {
         this(tokenSequence, startPos, lineNumber, columnNumber, false, false,
                 false, false, false, false, keywords);
     }
