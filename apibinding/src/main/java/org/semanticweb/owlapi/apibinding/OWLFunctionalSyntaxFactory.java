@@ -17,6 +17,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -110,8 +111,6 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
-import javax.annotation.Nonnull;
-
 /**
  * A utility class whose methods may be statically imported so that OWL API
  * objects can be constructed by writing code that looks like the OWL 2
@@ -147,7 +146,8 @@ public class OWLFunctionalSyntaxFactory {
     }
 
     @Nonnull
-    public static OWLClass Class(@Nonnull String abbreviatedIRI, @Nonnull PrefixManager pm) {
+    public static OWLClass Class(@Nonnull String abbreviatedIRI,
+            @Nonnull PrefixManager pm) {
         return DF.getOWLClass(abbreviatedIRI, pm);
     }
 
@@ -202,8 +202,8 @@ public class OWLFunctionalSyntaxFactory {
     }
 
     @Nonnull
-    public static OWLObjectProperty ObjectProperty(@Nonnull String abbreviatedIRI,
-            @Nonnull PrefixManager pm) {
+    public static OWLObjectProperty ObjectProperty(
+            @Nonnull String abbreviatedIRI, @Nonnull PrefixManager pm) {
         return DF.getOWLObjectProperty(abbreviatedIRI, pm);
     }
 
@@ -246,13 +246,14 @@ public class OWLFunctionalSyntaxFactory {
     }
 
     @Nonnull
-    public static OWLAnonymousIndividual AnonymousIndividual(@Nonnull String id) {
+    public static OWLAnonymousIndividual
+            AnonymousIndividual(@Nonnull String id) {
         return DF.getOWLAnonymousIndividual(id);
     }
 
     @Nonnull
-    public static OWLNamedIndividual NamedIndividual(@Nonnull String abbreviatedIRI,
-            @Nonnull PrefixManager pm) {
+    public static OWLNamedIndividual NamedIndividual(
+            @Nonnull String abbreviatedIRI, @Nonnull PrefixManager pm) {
         return DF.getOWLNamedIndividual(abbreviatedIRI, pm);
     }
 
@@ -281,13 +282,13 @@ public class OWLFunctionalSyntaxFactory {
     // ////////////////////////////////////////////////////////////////////////////////////////////////////////
     @Nonnull
     public static OWLObjectIntersectionOf ObjectIntersectionOf(
-            OWLClassExpression... classExpressions) {
+            @Nonnull OWLClassExpression... classExpressions) {
         return DF.getOWLObjectIntersectionOf(classExpressions);
     }
 
     @Nonnull
     public static OWLObjectUnionOf ObjectUnionOf(
-            OWLClassExpression... classExpressions) {
+            @Nonnull OWLClassExpression... classExpressions) {
         return DF.getOWLObjectUnionOf(classExpressions);
     }
 
@@ -299,31 +300,36 @@ public class OWLFunctionalSyntaxFactory {
 
     @Nonnull
     public static OWLObjectSomeValuesFrom ObjectSomeValuesFrom(
-            @Nonnull OWLObjectPropertyExpression pe, @Nonnull OWLClassExpression ce) {
+            @Nonnull OWLObjectPropertyExpression pe,
+            @Nonnull OWLClassExpression ce) {
         return DF.getOWLObjectSomeValuesFrom(pe, ce);
     }
 
     @Nonnull
     public static OWLObjectAllValuesFrom ObjectAllValuesFrom(
-            @Nonnull OWLObjectPropertyExpression pe, @Nonnull OWLClassExpression ce) {
+            @Nonnull OWLObjectPropertyExpression pe,
+            @Nonnull OWLClassExpression ce) {
         return DF.getOWLObjectAllValuesFrom(pe, ce);
     }
 
     @Nonnull
     public static OWLObjectHasValue ObjectHasValue(
-            @Nonnull OWLObjectPropertyExpression pe, @Nonnull OWLIndividual individual) {
+            @Nonnull OWLObjectPropertyExpression pe,
+            @Nonnull OWLIndividual individual) {
         return DF.getOWLObjectHasValue(pe, individual);
     }
 
     @Nonnull
     public static OWLObjectMinCardinality ObjectMinCardinality(int cardinality,
-            @Nonnull OWLObjectPropertyExpression pe, @Nonnull OWLClassExpression ce) {
+            @Nonnull OWLObjectPropertyExpression pe,
+            @Nonnull OWLClassExpression ce) {
         return DF.getOWLObjectMinCardinality(cardinality, pe, ce);
     }
 
     @Nonnull
     public static OWLObjectMaxCardinality ObjectMaxCardinality(int cardinality,
-            @Nonnull OWLObjectPropertyExpression pe, @Nonnull OWLClassExpression ce) {
+            @Nonnull OWLObjectPropertyExpression pe,
+            @Nonnull OWLClassExpression ce) {
         return DF.getOWLObjectMaxCardinality(cardinality, pe, ce);
     }
 
@@ -335,13 +341,14 @@ public class OWLFunctionalSyntaxFactory {
     }
 
     @Nonnull
-    public static OWLObjectHasSelf
-            ObjectHasSelf(@Nonnull OWLObjectPropertyExpression pe) {
+    public static OWLObjectHasSelf ObjectHasSelf(
+            @Nonnull OWLObjectPropertyExpression pe) {
         return DF.getOWLObjectHasSelf(pe);
     }
 
     @Nonnull
-    public static OWLObjectOneOf ObjectOneOf(OWLIndividual... individuals) {
+    public static OWLObjectOneOf ObjectOneOf(
+            @Nonnull OWLIndividual... individuals) {
         return DF.getOWLObjectOneOf(individuals);
     }
 
@@ -358,8 +365,8 @@ public class OWLFunctionalSyntaxFactory {
     }
 
     @Nonnull
-    public static OWLDataHasValue DataHasValue(@Nonnull OWLDataPropertyExpression pe,
-            @Nonnull OWLLiteral literal) {
+    public static OWLDataHasValue DataHasValue(
+            @Nonnull OWLDataPropertyExpression pe, @Nonnull OWLLiteral literal) {
         return DF.getOWLDataHasValue(pe, literal);
     }
 
@@ -390,28 +397,31 @@ public class OWLFunctionalSyntaxFactory {
     // ////////////////////////////////////////////////////////////////////////////////////////////////////////
     @Nonnull
     public static OWLDataIntersectionOf DataIntersectionOf(
-            OWLDataRange... dataRanges) {
+            @Nonnull OWLDataRange... dataRanges) {
         return DF.getOWLDataIntersectionOf(dataRanges);
     }
 
     @Nonnull
-    public static OWLDataUnionOf DataUnionOf(OWLDataRange... dataRanges) {
+    public static OWLDataUnionOf DataUnionOf(
+            @Nonnull OWLDataRange... dataRanges) {
         return DF.getOWLDataUnionOf(dataRanges);
     }
 
     @Nonnull
-    public static OWLDataComplementOf DataComplementOf(@Nonnull OWLDataRange dataRange) {
+    public static OWLDataComplementOf DataComplementOf(
+            @Nonnull OWLDataRange dataRange) {
         return DF.getOWLDataComplementOf(dataRange);
     }
 
     @Nonnull
-    public static OWLDataOneOf DataOneOf(OWLLiteral... literals) {
+    public static OWLDataOneOf DataOneOf(@Nonnull OWLLiteral... literals) {
         return DF.getOWLDataOneOf(literals);
     }
 
     @Nonnull
     public static OWLDatatypeRestriction DatatypeRestriction(
-            @Nonnull OWLDatatype datatype, OWLFacetRestriction... facetRestrictions) {
+            @Nonnull OWLDatatype datatype,
+            @Nonnull OWLFacetRestriction... facetRestrictions) {
         return DF.getOWLDatatypeRestriction(datatype, facetRestrictions);
     }
 
@@ -429,33 +439,37 @@ public class OWLFunctionalSyntaxFactory {
     // ////////////////////////////////////////////////////////////////////////////////////////////////////////
     // ////////////////////////////////////////////////////////////////////////////////////////////////////////
     @Nonnull
-    public static OWLSubClassOfAxiom SubClassOf(@Nonnull OWLClassExpression subClass,
+    public static OWLSubClassOfAxiom SubClassOf(
+            @Nonnull OWLClassExpression subClass,
             @Nonnull OWLClassExpression superClass) {
         return DF.getOWLSubClassOfAxiom(subClass, superClass);
     }
 
     @Nonnull
-    public static OWLSubClassOfAxiom SubClassOf(@Nonnull OWLClassExpression subClass,
-            @Nonnull OWLClassExpression superClass, @Nonnull Set<OWLAnnotation> a) {
+    public static OWLSubClassOfAxiom SubClassOf(
+            @Nonnull OWLClassExpression subClass,
+            @Nonnull OWLClassExpression superClass,
+            @Nonnull Set<OWLAnnotation> a) {
         return DF.getOWLSubClassOfAxiom(subClass, superClass, a);
     }
 
     @Nonnull
     public static OWLEquivalentClassesAxiom EquivalentClasses(
-            OWLClassExpression... classExpressions) {
+            @Nonnull OWLClassExpression... classExpressions) {
         return DF.getOWLEquivalentClassesAxiom(classExpressions);
     }
 
     @Nonnull
     public static OWLEquivalentClassesAxiom EquivalentClasses(
-            @Nonnull Set<OWLAnnotation> a, OWLClassExpression... classExpressions) {
+            @Nonnull Set<OWLAnnotation> a,
+            OWLClassExpression... classExpressions) {
         return DF.getOWLEquivalentClassesAxiom(new HashSet<OWLClassExpression>(
                 Arrays.asList(classExpressions)), a);
     }
 
     @Nonnull
     public static OWLDisjointClassesAxiom DisjointClasses(
-            OWLClassExpression... classExpressions) {
+            @Nonnull OWLClassExpression... classExpressions) {
         return DF.getOWLDisjointClassesAxiom(classExpressions);
     }
 
@@ -467,19 +481,21 @@ public class OWLFunctionalSyntaxFactory {
 
     @Nonnull
     public static OWLDisjointClassesAxiom DisjointClasses(
-            @Nonnull Set<OWLClassExpression> classExpressions, @Nonnull Set<OWLAnnotation> a) {
+            @Nonnull Set<OWLClassExpression> classExpressions,
+            @Nonnull Set<OWLAnnotation> a) {
         return DF.getOWLDisjointClassesAxiom(classExpressions, a);
     }
 
     @Nonnull
     public static OWLDisjointUnionAxiom DisjointUnion(@Nonnull OWLClass cls,
-            OWLClassExpression... classExpressions) {
+            @Nonnull OWLClassExpression... classExpressions) {
         return DF.getOWLDisjointUnionAxiom(cls,
                 CollectionFactory.createSet(classExpressions));
     }
 
     @Nonnull
-    public static OWLDisjointClassesAxiom DisjointClasses(@Nonnull Set<OWLAnnotation> a,
+    public static OWLDisjointClassesAxiom DisjointClasses(
+            @Nonnull Set<OWLAnnotation> a,
             OWLClassExpression... classExpressions) {
         return DF.getOWLDisjointClassesAxiom(new HashSet<OWLClassExpression>(
                 Arrays.asList(classExpressions)), a);
@@ -502,21 +518,23 @@ public class OWLFunctionalSyntaxFactory {
     @Nonnull
     public static OWLSubPropertyChainOfAxiom SubPropertyChainOf(
             @Nonnull List<? extends OWLObjectPropertyExpression> chain,
-            @Nonnull OWLObjectPropertyExpression superProperty, @Nonnull Set<OWLAnnotation> a) {
+            @Nonnull OWLObjectPropertyExpression superProperty,
+            @Nonnull Set<OWLAnnotation> a) {
         return DF.getOWLSubPropertyChainOfAxiom(chain, superProperty, a);
     }
 
     @Nonnull
     public static OWLSubObjectPropertyOfAxiom SubObjectPropertyOf(
             @Nonnull OWLObjectPropertyExpression subProperty,
-            @Nonnull OWLObjectPropertyExpression superProperty, @Nonnull Set<OWLAnnotation> a) {
+            @Nonnull OWLObjectPropertyExpression superProperty,
+            @Nonnull Set<OWLAnnotation> a) {
         return DF.getOWLSubObjectPropertyOfAxiom(subProperty, superProperty, a);
     }
 
     @Nonnull
     public static OWLEquivalentObjectPropertiesAxiom
             EquivalentObjectProperties(
-                    OWLObjectPropertyExpression... properties) {
+                    @Nonnull OWLObjectPropertyExpression... properties) {
         return DF.getOWLEquivalentObjectPropertiesAxiom(properties);
     }
 
@@ -531,13 +549,14 @@ public class OWLFunctionalSyntaxFactory {
 
     @Nonnull
     public static OWLDisjointObjectPropertiesAxiom DisjointObjectProperties(
-            OWLObjectPropertyExpression... properties) {
+            @Nonnull OWLObjectPropertyExpression... properties) {
         return DF.getOWLDisjointObjectPropertiesAxiom(properties);
     }
 
     @Nonnull
     public static OWLDisjointObjectPropertiesAxiom DisjointObjectProperties(
-            @Nonnull Set<OWLAnnotation> a, OWLObjectPropertyExpression... properties) {
+            @Nonnull Set<OWLAnnotation> a,
+            OWLObjectPropertyExpression... properties) {
         return DF.getOWLDisjointObjectPropertiesAxiom(
                 new HashSet<OWLObjectPropertyExpression>(Arrays
                         .asList(properties)), a);
@@ -545,33 +564,36 @@ public class OWLFunctionalSyntaxFactory {
 
     @Nonnull
     public static OWLInverseObjectPropertiesAxiom InverseObjectProperties(
-            @Nonnull OWLObjectPropertyExpression peA, @Nonnull OWLObjectPropertyExpression peB) {
+            @Nonnull OWLObjectPropertyExpression peA,
+            @Nonnull OWLObjectPropertyExpression peB) {
         return DF.getOWLInverseObjectPropertiesAxiom(peA, peB);
     }
 
     @Nonnull
     public static OWLObjectPropertyDomainAxiom ObjectPropertyDomain(
-            @Nonnull OWLObjectPropertyExpression property, @Nonnull OWLClassExpression domain) {
+            @Nonnull OWLObjectPropertyExpression property,
+            @Nonnull OWLClassExpression domain) {
         return DF.getOWLObjectPropertyDomainAxiom(property, domain);
     }
 
     @Nonnull
     public static OWLObjectPropertyDomainAxiom ObjectPropertyDomain(
-            @Nonnull OWLObjectPropertyExpression property, @Nonnull OWLClassExpression domain,
-            @Nonnull Set<OWLAnnotation> a) {
+            @Nonnull OWLObjectPropertyExpression property,
+            @Nonnull OWLClassExpression domain, @Nonnull Set<OWLAnnotation> a) {
         return DF.getOWLObjectPropertyDomainAxiom(property, domain, a);
     }
 
     @Nonnull
     public static OWLObjectPropertyRangeAxiom ObjectPropertyRange(
-            @Nonnull OWLObjectPropertyExpression property, @Nonnull OWLClassExpression range) {
+            @Nonnull OWLObjectPropertyExpression property,
+            @Nonnull OWLClassExpression range) {
         return DF.getOWLObjectPropertyRangeAxiom(property, range);
     }
 
     @Nonnull
     public static OWLObjectPropertyRangeAxiom ObjectPropertyRange(
-            @Nonnull OWLObjectPropertyExpression property, @Nonnull OWLClassExpression range,
-            @Nonnull Set<OWLAnnotation> a) {
+            @Nonnull OWLObjectPropertyExpression property,
+            @Nonnull OWLClassExpression range, @Nonnull Set<OWLAnnotation> a) {
         return DF.getOWLObjectPropertyRangeAxiom(property, range, a);
     }
 
@@ -583,21 +605,23 @@ public class OWLFunctionalSyntaxFactory {
 
     @Nonnull
     public static OWLFunctionalObjectPropertyAxiom FunctionalObjectProperty(
-            @Nonnull OWLObjectPropertyExpression property, @Nonnull Set<OWLAnnotation> a) {
+            @Nonnull OWLObjectPropertyExpression property,
+            @Nonnull Set<OWLAnnotation> a) {
         return DF.getOWLFunctionalObjectPropertyAxiom(property, a);
     }
 
     @Nonnull
-    public static
-            OWLInverseFunctionalObjectPropertyAxiom
-            InverseFunctionalObjectProperty(@Nonnull OWLObjectPropertyExpression property) {
+    public static OWLInverseFunctionalObjectPropertyAxiom
+            InverseFunctionalObjectProperty(
+                    @Nonnull OWLObjectPropertyExpression property) {
         return DF.getOWLInverseFunctionalObjectPropertyAxiom(property);
     }
 
     @Nonnull
     public static OWLInverseFunctionalObjectPropertyAxiom
             InverseFunctionalObjectProperty(
-                    @Nonnull OWLObjectPropertyExpression property, @Nonnull Set<OWLAnnotation> a) {
+                    @Nonnull OWLObjectPropertyExpression property,
+                    @Nonnull Set<OWLAnnotation> a) {
         return DF.getOWLInverseFunctionalObjectPropertyAxiom(property, a);
     }
 
@@ -609,7 +633,8 @@ public class OWLFunctionalSyntaxFactory {
 
     @Nonnull
     public static OWLReflexiveObjectPropertyAxiom ReflexiveObjectProperty(
-            @Nonnull OWLObjectPropertyExpression property, @Nonnull Set<OWLAnnotation> a) {
+            @Nonnull OWLObjectPropertyExpression property,
+            @Nonnull Set<OWLAnnotation> a) {
         return DF.getOWLReflexiveObjectPropertyAxiom(property, a);
     }
 
@@ -621,7 +646,8 @@ public class OWLFunctionalSyntaxFactory {
 
     @Nonnull
     public static OWLIrreflexiveObjectPropertyAxiom IrreflexiveObjectProperty(
-            @Nonnull OWLObjectPropertyExpression property, @Nonnull Set<OWLAnnotation> a) {
+            @Nonnull OWLObjectPropertyExpression property,
+            @Nonnull Set<OWLAnnotation> a) {
         return DF.getOWLIrreflexiveObjectPropertyAxiom(property, a);
     }
 
@@ -633,7 +659,8 @@ public class OWLFunctionalSyntaxFactory {
 
     @Nonnull
     public static OWLSymmetricObjectPropertyAxiom SymmetricObjectProperty(
-            @Nonnull OWLObjectPropertyExpression property, @Nonnull Set<OWLAnnotation> a) {
+            @Nonnull OWLObjectPropertyExpression property,
+            @Nonnull Set<OWLAnnotation> a) {
         return DF.getOWLSymmetricObjectPropertyAxiom(property, a);
     }
 
@@ -645,7 +672,8 @@ public class OWLFunctionalSyntaxFactory {
 
     @Nonnull
     public static OWLAsymmetricObjectPropertyAxiom AsymmetricObjectProperty(
-            @Nonnull OWLObjectPropertyExpression property, @Nonnull Set<OWLAnnotation> a) {
+            @Nonnull OWLObjectPropertyExpression property,
+            @Nonnull Set<OWLAnnotation> a) {
         return DF.getOWLAsymmetricObjectPropertyAxiom(property, a);
     }
 
@@ -657,7 +685,8 @@ public class OWLFunctionalSyntaxFactory {
 
     @Nonnull
     public static OWLTransitiveObjectPropertyAxiom TransitiveObjectProperty(
-            @Nonnull OWLObjectPropertyExpression property, @Nonnull Set<OWLAnnotation> a) {
+            @Nonnull OWLObjectPropertyExpression property,
+            @Nonnull Set<OWLAnnotation> a) {
         return DF.getOWLTransitiveObjectPropertyAxiom(property, a);
     }
 
@@ -671,19 +700,21 @@ public class OWLFunctionalSyntaxFactory {
     @Nonnull
     public static OWLSubDataPropertyOfAxiom SubDataPropertyOf(
             @Nonnull OWLDataPropertyExpression subProperty,
-            @Nonnull OWLDataPropertyExpression superProperty, @Nonnull Set<OWLAnnotation> a) {
+            @Nonnull OWLDataPropertyExpression superProperty,
+            @Nonnull Set<OWLAnnotation> a) {
         return DF.getOWLSubDataPropertyOfAxiom(subProperty, superProperty, a);
     }
 
     @Nonnull
     public static OWLEquivalentDataPropertiesAxiom EquivalentDataProperties(
-            OWLDataPropertyExpression... properties) {
+            @Nonnull OWLDataPropertyExpression... properties) {
         return DF.getOWLEquivalentDataPropertiesAxiom(properties);
     }
 
     @Nonnull
     public static OWLEquivalentDataPropertiesAxiom EquivalentDataProperties(
-            @Nonnull Set<OWLAnnotation> a, OWLDataPropertyExpression... properties) {
+            @Nonnull Set<OWLAnnotation> a,
+            OWLDataPropertyExpression... properties) {
         return DF.getOWLEquivalentDataPropertiesAxiom(
                 new HashSet<OWLDataPropertyExpression>(Arrays
                         .asList(properties)), a);
@@ -691,13 +722,14 @@ public class OWLFunctionalSyntaxFactory {
 
     @Nonnull
     public static OWLDisjointDataPropertiesAxiom DisjointDataProperties(
-            OWLDataPropertyExpression... properties) {
+            @Nonnull OWLDataPropertyExpression... properties) {
         return DF.getOWLDisjointDataPropertiesAxiom(properties);
     }
 
     @Nonnull
     public static OWLDisjointDataPropertiesAxiom DisjointDataProperties(
-            @Nonnull Set<OWLAnnotation> a, OWLDataPropertyExpression... properties) {
+            @Nonnull Set<OWLAnnotation> a,
+            OWLDataPropertyExpression... properties) {
         return DF.getOWLDisjointDataPropertiesAxiom(
                 new HashSet<OWLDataPropertyExpression>(Arrays
                         .asList(properties)), a);
@@ -705,27 +737,29 @@ public class OWLFunctionalSyntaxFactory {
 
     @Nonnull
     public static OWLDataPropertyDomainAxiom DataPropertyDomain(
-            @Nonnull OWLDataPropertyExpression property, @Nonnull OWLClassExpression domain) {
+            @Nonnull OWLDataPropertyExpression property,
+            @Nonnull OWLClassExpression domain) {
         return DF.getOWLDataPropertyDomainAxiom(property, domain);
     }
 
     @Nonnull
     public static OWLDataPropertyDomainAxiom DataPropertyDomain(
-            @Nonnull OWLDataPropertyExpression property, @Nonnull OWLClassExpression domain,
-            @Nonnull Set<OWLAnnotation> a) {
+            @Nonnull OWLDataPropertyExpression property,
+            @Nonnull OWLClassExpression domain, @Nonnull Set<OWLAnnotation> a) {
         return DF.getOWLDataPropertyDomainAxiom(property, domain, a);
     }
 
     @Nonnull
     public static OWLDataPropertyRangeAxiom DataPropertyRange(
-            @Nonnull OWLDataPropertyExpression property, @Nonnull OWLDataRange range) {
+            @Nonnull OWLDataPropertyExpression property,
+            @Nonnull OWLDataRange range) {
         return DF.getOWLDataPropertyRangeAxiom(property, range);
     }
 
     @Nonnull
     public static OWLDataPropertyRangeAxiom DataPropertyRange(
-            @Nonnull OWLDataPropertyExpression property, @Nonnull OWLDataRange range,
-            @Nonnull Set<OWLAnnotation> a) {
+            @Nonnull OWLDataPropertyExpression property,
+            @Nonnull OWLDataRange range, @Nonnull Set<OWLAnnotation> a) {
         return DF.getOWLDataPropertyRangeAxiom(property, range, a);
     }
 
@@ -737,7 +771,8 @@ public class OWLFunctionalSyntaxFactory {
 
     @Nonnull
     public static OWLFunctionalDataPropertyAxiom FunctionalDataProperty(
-            @Nonnull OWLDataPropertyExpression property, @Nonnull Set<OWLAnnotation> a) {
+            @Nonnull OWLDataPropertyExpression property,
+            @Nonnull Set<OWLAnnotation> a) {
         return DF.getOWLFunctionalDataPropertyAxiom(property, a);
     }
 
@@ -748,8 +783,9 @@ public class OWLFunctionalSyntaxFactory {
     }
 
     @Nonnull
-    public static OWLHasKeyAxiom HasKey(@Nonnull OWLClassExpression classExpression,
-            OWLPropertyExpression... propertyExpressions) {
+    public static OWLHasKeyAxiom HasKey(
+            @Nonnull OWLClassExpression classExpression,
+            @Nonnull OWLPropertyExpression... propertyExpressions) {
         return DF.getOWLHasKeyAxiom(classExpression, propertyExpressions);
     }
 
@@ -765,56 +801,61 @@ public class OWLFunctionalSyntaxFactory {
 
     @Nonnull
     public static OWLSameIndividualAxiom SameIndividual(
-            OWLIndividual... individuals) {
+            @Nonnull OWLIndividual... individuals) {
         return DF.getOWLSameIndividualAxiom(individuals);
     }
 
     @Nonnull
     public static OWLDifferentIndividualsAxiom DifferentIndividuals(
-            OWLIndividual... individuals) {
+            @Nonnull OWLIndividual... individuals) {
         return DF.getOWLDifferentIndividualsAxiom(individuals);
     }
 
     @Nonnull
-    public static OWLClassAssertionAxiom ClassAssertion(@Nonnull OWLClassExpression ce,
-            @Nonnull OWLIndividual ind, @Nonnull Set<OWLAnnotation> a) {
+    public static OWLClassAssertionAxiom ClassAssertion(
+            @Nonnull OWLClassExpression ce, @Nonnull OWLIndividual ind,
+            @Nonnull Set<OWLAnnotation> a) {
         return DF.getOWLClassAssertionAxiom(ce, ind, a);
     }
 
     @Nonnull
-    public static OWLClassAssertionAxiom ClassAssertion(@Nonnull OWLClassExpression ce,
-            @Nonnull OWLIndividual ind) {
+    public static OWLClassAssertionAxiom ClassAssertion(
+            @Nonnull OWLClassExpression ce, @Nonnull OWLIndividual ind) {
         return DF.getOWLClassAssertionAxiom(ce, ind);
     }
 
     @Nonnull
     public static OWLObjectPropertyAssertionAxiom ObjectPropertyAssertion(
-            @Nonnull OWLObjectPropertyExpression property, @Nonnull OWLIndividual source,
-            @Nonnull OWLIndividual target) {
+            @Nonnull OWLObjectPropertyExpression property,
+            @Nonnull OWLIndividual source, @Nonnull OWLIndividual target) {
         return DF.getOWLObjectPropertyAssertionAxiom(property, source, target);
     }
 
     @Nonnull
     public static OWLObjectPropertyAssertionAxiom ObjectPropertyAssertion(
-            @Nonnull OWLObjectPropertyExpression property, @Nonnull OWLIndividual source,
-            @Nonnull OWLIndividual target, @Nonnull Set<OWLAnnotation> a) {
+            @Nonnull OWLObjectPropertyExpression property,
+            @Nonnull OWLIndividual source, @Nonnull OWLIndividual target,
+            @Nonnull Set<OWLAnnotation> a) {
         return DF.getOWLObjectPropertyAssertionAxiom(property, source, target,
                 a);
     }
 
     @Nonnull
-    public static OWLNegativeObjectPropertyAssertionAxiom
+    public static
+            OWLNegativeObjectPropertyAssertionAxiom
             NegativeObjectPropertyAssertion(
-                    @Nonnull OWLObjectPropertyExpression property, @Nonnull OWLIndividual source,
-                    @Nonnull OWLIndividual target) {
+                    @Nonnull OWLObjectPropertyExpression property,
+                    @Nonnull OWLIndividual source, @Nonnull OWLIndividual target) {
         return DF.getOWLNegativeObjectPropertyAssertionAxiom(property, source,
                 target);
     }
 
     @Nonnull
-    public static OWLNegativeObjectPropertyAssertionAxiom
+    public static
+            OWLNegativeObjectPropertyAssertionAxiom
             NegativeObjectPropertyAssertion(
-                    @Nonnull OWLObjectPropertyExpression property, @Nonnull OWLIndividual source,
+                    @Nonnull OWLObjectPropertyExpression property,
+                    @Nonnull OWLIndividual source,
                     @Nonnull OWLIndividual target, @Nonnull Set<OWLAnnotation> a) {
         return DF.getOWLNegativeObjectPropertyAssertionAxiom(property, source,
                 target, a);
@@ -822,21 +863,23 @@ public class OWLFunctionalSyntaxFactory {
 
     @Nonnull
     public static OWLDataPropertyAssertionAxiom DataPropertyAssertion(
-            @Nonnull OWLDataPropertyExpression property, @Nonnull OWLIndividual source,
-            @Nonnull OWLLiteral target) {
+            @Nonnull OWLDataPropertyExpression property,
+            @Nonnull OWLIndividual source, @Nonnull OWLLiteral target) {
         return DF.getOWLDataPropertyAssertionAxiom(property, source, target);
     }
 
     @Nonnull
     public static OWLDataPropertyAssertionAxiom DataPropertyAssertion(
-            @Nonnull OWLDataPropertyExpression property, @Nonnull OWLIndividual source,
-            @Nonnull OWLLiteral target, @Nonnull Set<OWLAnnotation> a) {
+            @Nonnull OWLDataPropertyExpression property,
+            @Nonnull OWLIndividual source, @Nonnull OWLLiteral target,
+            @Nonnull Set<OWLAnnotation> a) {
         return DF.getOWLDataPropertyAssertionAxiom(property, source, target, a);
     }
 
     @Nonnull
     public static OWLNegativeDataPropertyAssertionAxiom
-            NegativeDataPropertyAssertion(@Nonnull OWLDataPropertyExpression property,
+            NegativeDataPropertyAssertion(
+                    @Nonnull OWLDataPropertyExpression property,
                     @Nonnull OWLIndividual source, @Nonnull OWLLiteral target) {
         return DF.getOWLNegativeDataPropertyAssertionAxiom(property, source,
                 target);
@@ -844,7 +887,8 @@ public class OWLFunctionalSyntaxFactory {
 
     @Nonnull
     public static OWLNegativeDataPropertyAssertionAxiom
-            NegativeDataPropertyAssertion(@Nonnull OWLDataPropertyExpression property,
+            NegativeDataPropertyAssertion(
+                    @Nonnull OWLDataPropertyExpression property,
                     @Nonnull OWLIndividual source, @Nonnull OWLLiteral target,
                     @Nonnull Set<OWLAnnotation> a) {
         return DF.getOWLNegativeDataPropertyAssertionAxiom(property, source,
@@ -853,13 +897,15 @@ public class OWLFunctionalSyntaxFactory {
 
     @Nonnull
     public static OWLAnnotationAssertionAxiom AnnotationAssertion(
-            @Nonnull OWLAnnotationProperty property, @Nonnull OWLAnnotationSubject subject,
+            @Nonnull OWLAnnotationProperty property,
+            @Nonnull OWLAnnotationSubject subject,
             @Nonnull OWLAnnotationValue value) {
         return DF.getOWLAnnotationAssertionAxiom(property, subject, value);
     }
 
     @Nonnull
-    public static OWLAnnotation Annotation(@Nonnull OWLAnnotationProperty property,
+    public static OWLAnnotation Annotation(
+            @Nonnull OWLAnnotationProperty property,
             @Nonnull OWLAnnotationValue value) {
         return DF.getOWLAnnotation(property, value);
     }
@@ -922,12 +968,14 @@ public class OWLFunctionalSyntaxFactory {
     }
 
     @Nonnull
-    public static OWLLiteral Literal(@Nonnull String literal, @Nonnull OWLDatatype type) {
+    public static OWLLiteral Literal(@Nonnull String literal,
+            @Nonnull OWLDatatype type) {
         return DF.getOWLLiteral(literal, type);
     }
 
     @Nonnull
-    public static OWLLiteral Literal(@Nonnull String literal, @Nonnull OWL2Datatype type) {
+    public static OWLLiteral Literal(@Nonnull String literal,
+            @Nonnull OWL2Datatype type) {
         return DF.getOWLLiteral(literal, type);
     }
 
@@ -958,7 +1006,7 @@ public class OWLFunctionalSyntaxFactory {
 
     @Nonnull
     public static OWLOntology Ontology(@Nonnull OWLOntologyManager man,
-            OWLAxiom... axioms) throws OWLOntologyCreationException {
+            @Nonnull OWLAxiom... axioms) throws OWLOntologyCreationException {
         return man.createOntology(CollectionFactory.createSet(axioms));
     }
 }
