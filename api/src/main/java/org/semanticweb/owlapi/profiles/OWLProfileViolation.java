@@ -92,6 +92,7 @@ public abstract class OWLProfileViolation<T> {
      *         removal, or a rewrite, or addition of other needed axioms.
      */
     @SuppressWarnings("null")
+    @Nonnull
     public List<OWLOntologyChange<?>> repair() {
         // default fix is to drop the axiom
         if (axiom != null) {
