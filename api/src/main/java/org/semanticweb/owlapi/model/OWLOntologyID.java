@@ -207,6 +207,7 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
         return !ontologyIRI.isPresent();
     }
 
+    @Nonnull
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("OntologyID(");

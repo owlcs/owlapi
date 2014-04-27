@@ -142,6 +142,7 @@ public class NodeID implements Comparable<NodeID>, Serializable {
         }
     }
 
+    @Nonnull
     @Override
     public String toString() {
         return id;

@@ -50,9 +50,10 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
      * 
      * @return The URI
      */
+    @SuppressWarnings("null")
     @Nonnull
     public URI toURI() {
-        if (remainder != null) {
+        if (!remainder.isEmpty()) {
             StringBuilder sb = new StringBuilder();
             sb.append(prefix);
             sb.append(remainder);
@@ -105,6 +106,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
      * @return s resolved against this IRI (with the URI::resolve() method,
      *         unless this IRI is opaque)
      */
+    @SuppressWarnings("null")
     @Nonnull
     public IRI resolve(@Nonnull String s) {
         // shortcut: checking absolute and opaque here saves the creation of an
@@ -143,8 +145,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
      *         {@code false}
      */
     public boolean isThing() {
-        return remainder != null && remainder.equals("Thing")
-                && Namespaces.OWL.inNamespace(prefix);
+        return remainder.equals("Thing") && Namespaces.OWL.inNamespace(prefix);
     }
 
     /**
@@ -168,17 +169,17 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
      *         otherwise {@code false}
      */
     public boolean isPlainLiteral() {
-        return remainder != null && remainder.equals("PlainLiteral")
+        return remainder.equals("PlainLiteral")
                 && Namespaces.RDF.inNamespace(prefix);
     }
 
     /**
      * Gets the fragment of the IRI.
      * 
-     * @return The IRI fragment, or {@code null} if the IRI does not have a
+     * @return The IRI fragment, or the empty string if the IRI does not have a
      *         fragment
      */
-    @Nullable
+    @Nonnull
     public String getFragment() {
         return remainder;
     }
@@ -190,14 +191,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
      */
     @Nonnull
     public String toQuotedString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("<");
-        sb.append(prefix);
-        if (remainder != null) {
-            sb.append(remainder);
-        }
-        sb.append(">");
-        return sb.toString();
+        return "<" + prefix + remainder + ">";
     }
 
     /**
@@ -207,13 +201,14 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
      *        The String that specifies the IRI
      * @return The IRI that has the specified string representation.
      */
+    @SuppressWarnings("null")
     @Nonnull
     public static IRI create(@Nonnull String str) {
         checkNotNull(str, "str cannot be null");
         int index = XMLUtils.getNCNameSuffixIndex(str);
         if (index < 0) {
             // no ncname
-            return new IRI(str, null);
+            return new IRI(str, "");
         }
         return new IRI(str.substring(0, index), str.substring(index));
     }
@@ -266,6 +261,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
      *        the file to create the IRI from
      * @return file.toURI() IRI
      */
+    @SuppressWarnings("null")
     @Nonnull
     public static IRI create(@Nonnull File file) {
         checkNotNull(file, "file cannot be null");
@@ -290,6 +286,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
      * @throws OWLRuntimeException
      *         if the URL is ill formed
      */
+    @SuppressWarnings("null")
     @Nonnull
     public static IRI create(@Nonnull URL url) {
         checkNotNull(url, "url cannot be null");
@@ -312,14 +309,8 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
     }
 
     private static final AtomicLong COUNTER = new AtomicLong(System.nanoTime());
-    // ///////////////////////////////////////////////////////////////////////////////////////////////////////
-    // ///////////////////////////////////////////////////////////////////////////////////////////////////////
-    // //
-    // // Impl - All constructors are private - factory methods are used for
+    // Impl - All constructors are private - factory methods are used for
     // public creation
-    // //
-    // ///////////////////////////////////////////////////////////////////////////////////////////////////////
-    // ///////////////////////////////////////////////////////////////////////////////////////////////////////
     private static final long serialVersionUID = 40000L;
     private static final LoadingCache<String, String> prefixCache = CacheBuilder
             .newBuilder().concurrencyLevel(8).maximumSize(1024)
@@ -331,6 +322,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
                 }
             });
 
+    @SuppressWarnings("null")
     @Nonnull
     private static final String cache(String s) {
         try {
@@ -341,7 +333,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
         return s;
     }
 
-    @Nullable
+    @Nonnull
     private final String remainder;
     @Nonnull
     private final String prefix;
@@ -358,20 +350,21 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
      */
     protected IRI(@Nonnull String prefix, @Nullable String fragment) {
         this.prefix = cache(prefix);
-        remainder = fragment;
+        remainder = fragment == null ? "" : fragment;
     }
 
     protected IRI(@Nonnull String s) {
         this(XMLUtils.getNCNamePrefix(s), XMLUtils.getNCNameSuffix(s));
     }
 
+    @SuppressWarnings("null")
     protected IRI(@Nonnull URI uri) {
         this(checkNotNull(uri, "uri cannot be null").toString());
     }
 
     @Override
     public int length() {
-        return prefix.length() + (remainder == null ? 0 : remainder.length());
+        return prefix.length() + remainder.length();
     }
 
     @Override
@@ -384,9 +377,6 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
         }
         if (index < prefix.length()) {
             return prefix.charAt(index);
-        }
-        if (remainder == null) {
-            throw new ArrayIndexOutOfBoundsException();
         }
         return remainder.charAt(index - prefix.length());
     }
@@ -419,30 +409,35 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
         return visitor.visit(this);
     }
 
+    @SuppressWarnings("null")
     @Nonnull
     @Override
     public Set<OWLClass> getClassesInSignature() {
         return Collections.emptySet();
     }
 
+    @SuppressWarnings("null")
     @Nonnull
     @Override
     public Set<OWLDataProperty> getDataPropertiesInSignature() {
         return Collections.emptySet();
     }
 
+    @SuppressWarnings("null")
     @Nonnull
     @Override
     public Set<OWLNamedIndividual> getIndividualsInSignature() {
         return Collections.emptySet();
     }
 
+    @SuppressWarnings("null")
     @Nonnull
     @Override
     public Set<OWLObjectProperty> getObjectPropertiesInSignature() {
         return Collections.emptySet();
     }
 
+    @SuppressWarnings("null")
     @Nonnull
     @Override
     public Set<OWLEntity> getSignature() {
@@ -450,22 +445,26 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
     }
 
     @Override
-    public boolean containsEntityInSignature(OWLEntity owlEntity) {
+    public boolean containsEntityInSignature(
+            @SuppressWarnings("unused") OWLEntity owlEntity) {
         return false;
     }
 
+    @SuppressWarnings("null")
     @Nonnull
     @Override
     public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
         return Collections.emptySet();
     }
 
+    @SuppressWarnings("null")
     @Nonnull
     @Override
     public Set<OWLDatatype> getDatatypesInSignature() {
         return Collections.emptySet();
     }
 
+    @SuppressWarnings("null")
     @Nonnull
     @Override
     public Set<OWLClassExpression> getNestedClassExpressions() {
@@ -485,40 +484,22 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
         if (diff != 0) {
             return diff;
         }
-        String otherRemainder = other.remainder;
-        if (remainder == null) {
-            if (otherRemainder == null) {
-                return 0;
-            } else {
-                return -1;
-            }
-        } else {
-            if (otherRemainder == null) {
-                return 1;
-            } else {
-                return remainder.compareTo(otherRemainder);
-            }
-        }
+        return remainder.compareTo(other.remainder);
     }
 
     @Nonnull
     @Override
     public String toString() {
-        if (remainder != null) {
-            StringBuilder sb = new StringBuilder();
-            sb.append(prefix);
-            sb.append(remainder);
-            return sb.toString();
-        } else {
+        if (remainder.isEmpty()) {
             return prefix;
         }
+        return prefix + remainder;
     }
 
     @Override
     public int hashCode() {
         if (hashCode == 0) {
-            hashCode = prefix.hashCode()
-                    + (remainder != null ? remainder.hashCode() : 0);
+            hashCode = prefix.hashCode() + remainder.hashCode();
         }
         return hashCode;
     }
@@ -555,12 +536,6 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
             return false;
         }
         IRI other = (IRI) obj;
-        String otherRemainder = other.remainder;
-        if (remainder == null) {
-            return otherRemainder == null && prefix.equals(other.prefix);
-        } else {
-            return otherRemainder != null && remainder.equals(otherRemainder)
-                    && other.prefix.equals(prefix);
-        }
+        return remainder.equals(other.remainder) && other.prefix.equals(prefix);
     }
 }

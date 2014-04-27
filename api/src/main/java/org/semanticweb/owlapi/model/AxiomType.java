@@ -37,7 +37,7 @@ import com.google.common.collect.Sets;
  * @param <C>
  *        axiom type
  */
-@SuppressWarnings("unchecked")
+@SuppressWarnings({ "unchecked", "unused" })
 public class AxiomType<C extends OWLAxiom> implements Serializable {
 
     private static final long serialVersionUID = 40000L;
@@ -247,6 +247,7 @@ public class AxiomType<C extends OWLAxiom> implements Serializable {
     /** AnnotationPropertyDomain */         @Nonnull public static final AxiomType<OWLAnnotationPropertyDomainAxiom>         ANNOTATION_PROPERTY_DOMAIN          = getInstance(37, "AnnotationPropertyDomain",        true, true, false);
   //@formatter:on
     /** axiom types */
+    @SuppressWarnings("null")
     @Nonnull
     public static final Set<AxiomType<?>> AXIOM_TYPES = Sets.newHashSet(
             SUBCLASS_OF, EQUIVALENT_CLASSES, DISJOINT_CLASSES, CLASS_ASSERTION,
@@ -268,12 +269,14 @@ public class AxiomType<C extends OWLAxiom> implements Serializable {
     private static final Map<String, AxiomType<?>> NAME_TYPE_MAP = Maps
             .uniqueIndex(AXIOM_TYPES, new Function<AxiomType<?>, String>() {
 
+                @SuppressWarnings("null")
                 @Override
                 public String apply(AxiomType<?> input) {
                     return input.getName();
                 }
             });
     /** set of tbox axiom types */
+    @SuppressWarnings("null")
     @Nonnull
     public static final Set<AxiomType<?>> TBoxAxiomTypes = Sets.newHashSet(
             (AxiomType<?>) SUBCLASS_OF, EQUIVALENT_CLASSES, DISJOINT_CLASSES,
@@ -285,6 +288,7 @@ public class AxiomType<C extends OWLAxiom> implements Serializable {
             DATA_PROPERTY_RANGE, FUNCTIONAL_DATA_PROPERTY, DATATYPE_DEFINITION,
             DISJOINT_UNION, HAS_KEY);
     /** set of abox axiom types */
+    @SuppressWarnings("null")
     @Nonnull
     public static final Set<AxiomType<?>> ABoxAxiomTypes = Sets.newHashSet(
             (AxiomType<?>) CLASS_ASSERTION, SAME_INDIVIDUAL,
@@ -292,6 +296,7 @@ public class AxiomType<C extends OWLAxiom> implements Serializable {
             NEGATIVE_OBJECT_PROPERTY_ASSERTION, DATA_PROPERTY_ASSERTION,
             NEGATIVE_DATA_PROPERTY_ASSERTION);
     /** set of rbox axiom types */
+    @SuppressWarnings("null")
     @Nonnull
     public static final Set<AxiomType<?>> RBoxAxiomTypes = Sets.newHashSet(
             (AxiomType<?>) TRANSITIVE_OBJECT_PROPERTY,
@@ -300,6 +305,7 @@ public class AxiomType<C extends OWLAxiom> implements Serializable {
             SUB_OBJECT_PROPERTY, EQUIVALENT_OBJECT_PROPERTIES,
             SUB_PROPERTY_CHAIN_OF);
     /** set of tbox and rbox axiom types */
+    @SuppressWarnings("null")
     @Nonnull
     public static final Set<AxiomType<?>> TBoxAndRBoxAxiomTypes = Sets
             .newHashSet(Iterables.concat(TBoxAxiomTypes, RBoxAxiomTypes));
