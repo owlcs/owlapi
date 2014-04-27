@@ -15,6 +15,7 @@ package uk.ac.manchester.owl.owlapi.tutorialowled2011;
 import java.io.IOException;
 import java.io.Writer;
 
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -22,8 +23,6 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
-
-import javax.annotation.Nonnull;
 
 /**
  * @author Sean Bechhofer, The University Of Manchester, Information Management
@@ -41,8 +40,10 @@ public class OWLTutorialSyntaxOntologyStorer extends AbstractOWLOntologyStorer {
     }
 
     @Override
-    protected void storeOntology(@Nonnull OWLOntology ontology, @Nonnull Writer writer,
-            OWLOntologyFormat format) throws OWLOntologyStorageException {
+    protected void storeOntology(@Nonnull OWLOntology ontology,
+            @Nonnull Writer writer,
+            @SuppressWarnings("unused") OWLOntologyFormat format)
+            throws OWLOntologyStorageException {
         try {
             OWLTutorialSyntaxRenderer renderer = new OWLTutorialSyntaxRenderer();
             renderer.render(ontology, writer);

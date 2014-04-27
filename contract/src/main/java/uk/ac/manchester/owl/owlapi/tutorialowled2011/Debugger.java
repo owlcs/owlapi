@@ -16,6 +16,7 @@ import java.io.PrintWriter;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.debugging.BlackBoxOWLDebugger;
 import org.semanticweb.owlapi.debugging.OWLDebugger;
@@ -26,8 +27,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
-
-import javax.annotation.Nonnull;
 
 /**
  * This class demonstrates some aspects of the OWL API. It expects three
@@ -57,7 +56,8 @@ public class Debugger {
     @Nonnull
     private final OWLClass bottom;
 
-    public Debugger(@Nonnull OWLOntologyManager manager, @Nonnull OWLOntology ontology,
+    public Debugger(@Nonnull OWLOntologyManager manager,
+            @Nonnull OWLOntology ontology,
             @Nonnull OWLReasonerFactory reasonerFactory) {
         this.ontology = ontology;
         checker = reasonerFactory.createNonBufferingReasoner(ontology);
@@ -74,6 +74,7 @@ public class Debugger {
         renderer.header();
         Set<OWLClass> unsatisfiables = new HashSet<OWLClass>();
         for (OWLClass clazz : ontology.getClassesInSignature()) {
+            assert clazz != null;
             /* Collect the unsatisfiable classes that aren't bottom. */
             if (!checker.isSatisfiable(clazz) && !clazz.equals(bottom)) {
                 unsatisfiables.add(clazz);
