@@ -36,6 +36,7 @@ public class StringDocumentTarget implements OWLOntologyDocumentTarget {
         writer = new StringWriter();
     }
 
+    @Nonnull
     @Override
     public String toString() {
         return writer.getBuffer().toString();
