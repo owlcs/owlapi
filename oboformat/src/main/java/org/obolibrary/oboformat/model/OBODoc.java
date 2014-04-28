@@ -54,18 +54,21 @@ public class OBODoc {
     }
 
     /** @return the term frames */
+    @SuppressWarnings("null")
     @Nonnull
     public Collection<Frame> getTermFrames() {
         return termFrameMap.values();
     }
 
     /** @return the typedef frames */
+    @SuppressWarnings("null")
     @Nonnull
     public Collection<Frame> getTypedefFrames() {
         return typedefFrameMap.values();
     }
 
     /** @return the instance frames */
+    @SuppressWarnings("null")
     @Nonnull
     public Collection<Frame> getInstanceFrames() {
         return instanceFrameMap.values();
@@ -323,12 +326,15 @@ public class OBODoc {
     public void mergeContents(@Nonnull OBODoc extDoc)
             throws FrameMergeException {
         for (Frame f : extDoc.getTermFrames()) {
+            assert f != null;
             addTermFrame(f);
         }
         for (Frame f : extDoc.getTypedefFrames()) {
+            assert f != null;
             addTypedefFrame(f);
         }
         for (Frame f : extDoc.getInstanceFrames()) {
+            assert f != null;
             addInstanceFrame(f);
         }
     }

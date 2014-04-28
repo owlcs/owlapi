@@ -92,6 +92,7 @@ public class MacroExpansionGCIVisitor {
         return outputOntology;
     }
 
+    @SuppressWarnings("null")
     private void expand(@Nonnull OWLAnnotationAssertionAxiom ax) {
         OWLAnnotationProperty prop = ax.getProperty();
         String expandTo = visitor.expandAssertionToMap.get(prop.getIRI());
@@ -153,6 +154,7 @@ public class MacroExpansionGCIVisitor {
             return gciRHS;
         }
 
+        @SuppressWarnings("null")
         @Nullable
         private OWLClassExpression expandObject(Object filler,
                 @Nonnull OWLObjectPropertyExpression p) {

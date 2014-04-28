@@ -415,6 +415,7 @@ public abstract class AbstractMacroExpansionVisitor implements
         return node;
     }
 
+    @SuppressWarnings("null")
     @Override
     public OWLDataRange visit(
             @SuppressWarnings("unused") OWLFacetRestriction node) {
@@ -566,6 +567,7 @@ public abstract class AbstractMacroExpansionVisitor implements
         return axiom;
     }
 
+    @SuppressWarnings("null")
     @Override
     public OWLDataRange visit(@SuppressWarnings("unused") OWLLiteral node) {
         return null;

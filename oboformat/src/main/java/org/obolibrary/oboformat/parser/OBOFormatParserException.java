@@ -67,13 +67,8 @@ public class OBOFormatParserException extends OBOFormatException {
     @Nonnull
     @Override
     public String getMessage() {
-        StringBuilder sb = new StringBuilder("LINENO: ");
-        sb.append(lineNo);
-        sb.append(" - ");
-        sb.append(super.getMessage());
-        sb.append("\nLINE: ");
-        sb.append(line);
-        return sb.toString();
+        return "LINENO: " + lineNo + " - " + super.getMessage() + "\nLINE: "
+                + line;
     }
 
     @Nonnull

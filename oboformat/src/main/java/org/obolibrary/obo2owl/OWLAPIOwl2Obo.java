@@ -105,11 +105,12 @@ public class OWLAPIOwl2Obo {
     /**
      * The manager.
      */
+    @Nonnull
     protected OWLOntologyManager manager;
     /**
      * The owl ontology.
      */
-    @Nullable
+    @Nonnull
     protected OWLOntology owlOntology;
     /**
      * The fac.
@@ -118,6 +119,7 @@ public class OWLAPIOwl2Obo {
     /**
      * The obodoc.
      */
+    @Nonnull
     protected OBODoc obodoc;
     /**
      * The untranslatable axioms.
@@ -171,7 +173,8 @@ public class OWLAPIOwl2Obo {
      * @param translationManager
      *        the translation manager
      */
-    public OWLAPIOwl2Obo(OWLOntologyManager translationManager) {
+    @SuppressWarnings("null")
+    public OWLAPIOwl2Obo(@Nonnull OWLOntologyManager translationManager) {
         manager = translationManager;
         init();
     }
@@ -244,7 +247,7 @@ public class OWLAPIOwl2Obo {
      * @param manager
      *        the new manager
      */
-    public void setManager(OWLOntologyManager manager) {
+    public void setManager(@Nonnull OWLOntologyManager manager) {
         this.manager = manager;
     }
 
@@ -263,7 +266,7 @@ public class OWLAPIOwl2Obo {
      * @param obodoc
      *        the new obodoc
      */
-    public void setObodoc(OBODoc obodoc) {
+    public void setObodoc(@Nonnull OBODoc obodoc) {
         this.obodoc = obodoc;
     }
 
@@ -275,13 +278,9 @@ public class OWLAPIOwl2Obo {
      * @return the oBO doc
      */
     @Nonnull
-    public OBODoc convert(@Nullable OWLOntology ont) {
+    public OBODoc convert(@Nonnull OWLOntology ont) {
         owlOntology = ont;
-        if (ont != null) {
-            ontologyId = getOntologyId(ont);
-        } else {
-            ontologyId = "TODO";
-        }
+        ontologyId = getOntologyId(ont);
         init();
         return tr();
     }
@@ -376,6 +375,7 @@ public class OWLAPIOwl2Obo {
     /**
      * Pre process.
      */
+    @SuppressWarnings("null")
     protected void preProcess() {
         // converse of postProcess in obo2owl
         String viewRel = null;
@@ -453,6 +453,7 @@ public class OWLAPIOwl2Obo {
      *        the annotations
      * @return true, if successful
      */
+    @SuppressWarnings("null")
     protected boolean trObjectProperty(@Nullable OWLObjectProperty prop,
             @Nullable String tag, @Nullable String value,
             @Nonnull Set<OWLAnnotation> annotations) {
@@ -820,12 +821,7 @@ public class OWLAPIOwl2Obo {
         error(ax, false);
     }
 
-    /**
-     * Tr.
-     * 
-     * @param ax
-     *        the ax
-     */
+    @SuppressWarnings("null")
     protected void tr(@Nonnull OWLSubObjectPropertyOfAxiom ax) {
         OWLObjectPropertyExpression sup = ax.getSuperProperty();
         OWLObjectPropertyExpression sub = ax.getSubProperty();
@@ -850,12 +846,7 @@ public class OWLAPIOwl2Obo {
         }
     }
 
-    /**
-     * Tr.
-     * 
-     * @param ax
-     *        the ax
-     */
+    @SuppressWarnings("null")
     protected void tr(@Nonnull OWLSubAnnotationPropertyOfAxiom ax) {
         OWLAnnotationProperty sup = ax.getSuperProperty();
         OWLAnnotationProperty sub = ax.getSubProperty();
@@ -964,6 +955,7 @@ public class OWLAPIOwl2Obo {
      *        the frame
      * @return true, if successful
      */
+    @SuppressWarnings("null")
     protected boolean tr(OWLAnnotationProperty prop,
             @Nonnull OWLAnnotationValue annVal,
             @Nonnull Set<OWLAnnotation> qualifiers, @Nonnull Frame frame) {
@@ -1152,6 +1144,7 @@ public class OWLAPIOwl2Obo {
      *        the frame
      * @return true, if successful
      */
+    @SuppressWarnings("null")
     protected boolean trGenericPropertyValue(OWLAnnotationProperty prop,
             OWLAnnotationValue annVal, @Nonnull Set<OWLAnnotation> qualifiers,
             @Nonnull Frame frame) {
@@ -1195,6 +1188,7 @@ public class OWLAPIOwl2Obo {
      *        the tag
      * @return the value
      */
+    @SuppressWarnings("null")
     @Nullable
     protected String getValue(@Nonnull OWLAnnotationValue annVal, String tag) {
         String value = annVal.toString();
@@ -1258,6 +1252,7 @@ public class OWLAPIOwl2Obo {
      *        the ontology
      * @return The OBO ID of the ontology
      */
+    @SuppressWarnings("null")
     public static String getOntologyId(@Nonnull OWLOntology ontology) {
         return getOntologyId(ontology.getOntologyID().getOntologyIRI().get());
     }
@@ -1586,7 +1581,7 @@ public class OWLAPIOwl2Obo {
         if (entity.isBottomEntity() || entity.isTopEntity()) {
             return;
         }
-        Collection<OWLAxiom> set = owlOntology.filterAxioms(
+        Collection<OWLAnnotationAssertionAxiom> set = owlOntology.filterAxioms(
                 Filters.annotations, entity.getIRI(), INCLUDED);
         if (set.isEmpty()) {
             return;
@@ -1608,8 +1603,9 @@ public class OWLAPIOwl2Obo {
             }
         }
         if (f != null) {
-            for (OWLAxiom a : set) {
-                tr((OWLAnnotationAssertionAxiom) a, f);
+            for (OWLAnnotationAssertionAxiom a : set) {
+                assert a != null;
+                tr(a, f);
             }
             add(f);
             return;
@@ -1722,6 +1718,7 @@ public class OWLAPIOwl2Obo {
      *         the untranslatable axiom exception
      *         {@link UntranslatableAxiomException} is thrown.
      */
+    @SuppressWarnings("null")
     @Nullable
     public static String getIdentifierFromObject(OWLObject obj,
             @Nonnull OWLOntology ont) throws UntranslatableAxiomException {
@@ -1926,6 +1923,7 @@ public class OWLAPIOwl2Obo {
      * @param ax
      *        the ax
      */
+    @SuppressWarnings("null")
     protected void tr(@Nonnull OWLClassAssertionAxiom ax) {
         OWLObject cls = ax.getClassExpression();
         if (!(cls instanceof OWLClass)) {
@@ -2163,7 +2161,7 @@ public class OWLAPIOwl2Obo {
     @Nonnull
     protected Clause createRelationshipClauseWithRestrictions(
             @Nonnull OWLQuantifiedObjectRestriction r, String fillerId,
-            Set<QualifierValue> qvs, @Nonnull OWLSubClassOfAxiom ax) {
+            @Nonnull Set<QualifierValue> qvs, @Nonnull OWLSubClassOfAxiom ax) {
         Clause c = new Clause(OboFormatTag.TAG_RELATIONSHIP.getTag());
         c.addValue(this.getIdentifier(r.getProperty()));
         c.addValue(fillerId);
@@ -2188,7 +2186,7 @@ public class OWLAPIOwl2Obo {
     @Nonnull
     protected Clause createRelationshipClauseWithCardinality(
             @Nonnull OWLObjectCardinalityRestriction restriction,
-            String fillerId, Set<QualifierValue> qvs,
+            String fillerId, @Nonnull Set<QualifierValue> qvs,
             @Nonnull OWLSubClassOfAxiom ax) {
         Clause c = new Clause(OboFormatTag.TAG_RELATIONSHIP.getTag());
         c.addValue(this.getIdentifier(restriction.getProperty()));
@@ -2223,6 +2221,7 @@ public class OWLAPIOwl2Obo {
         List<Clause> normalized = new ArrayList<Clause>();
         while (!clauses.isEmpty()) {
             Clause target = clauses.remove(0);
+            assert target != null;
             List<Clause> similar = findSimilarClauses(clauses, target);
             normalized.add(target);
             mergeSimilarIntoTarget(target, similar);
@@ -2239,6 +2238,7 @@ public class OWLAPIOwl2Obo {
      *        the target
      * @return the list
      */
+    @SuppressWarnings("null")
     @Nonnull
     static List<Clause> findSimilarClauses(@Nonnull List<Clause> clauses,
             @Nonnull Clause target) {

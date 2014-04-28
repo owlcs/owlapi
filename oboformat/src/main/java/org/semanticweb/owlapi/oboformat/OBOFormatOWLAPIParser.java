@@ -83,10 +83,16 @@ public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
         return format;
     }
 
-    private OWLOntology parse(@Nullable IRI iri,
-            @Nonnull OWLOntologyDocumentSource source, @Nonnull OWLOntology in)
-            throws MalformedURLException, IOException,
-            OWLOntologyCreationException {
+    @SuppressWarnings("null")
+    private OWLOntology
+            parse(@Nullable IRI iri,
+                    @Nullable OWLOntologyDocumentSource source,
+                    @Nonnull OWLOntology in) throws MalformedURLException,
+                    IOException, OWLOntologyCreationException {
+        if (iri == null && source == null) {
+            throw new IllegalArgumentException(
+                    "iri and source annot both be null");
+        }
         OBOFormatParser p = new OBOFormatParser();
         OBODoc obodoc = null;
         if (iri != null) {
@@ -117,13 +123,14 @@ public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
     }
 
     @Nonnull
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "null" })
     @Override
     public Set<Class<OWLOntologyFormat>> getSupportedFormatClasses() {
         return Collections
                 .singleton((Class<OWLOntologyFormat>) (Class<? extends OWLOntologyFormat>) OBOOntologyFormat.class);
     }
 
+    @SuppressWarnings("null")
     @Nonnull
     @Override
     public Set<OWLOntologyFormatFactory> getSupportedFormats() {

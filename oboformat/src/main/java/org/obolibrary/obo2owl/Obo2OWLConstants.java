@@ -16,8 +16,10 @@ import org.semanticweb.owlapi.model.OWLEntity;
 public class Obo2OWLConstants {
 
     /** default iri */
+    @Nonnull
     public static final String DEFAULT_IRI_PREFIX = "http://purl.obolibrary.org/obo/";
     /** OIO vocabulary prefix */
+    @Nonnull
     public static final String OIOVOCAB_IRI_PREFIX = "http://www.geneontology.org/formats/oboInOwl#";
 
     /**
@@ -69,13 +71,17 @@ public class Obo2OWLConstants {
         //@formatter:on
         @Nonnull
         IRI iri;
+        @Nonnull
         String namespace;
+        @Nonnull
         String shortName;
+        @Nonnull
         String label;
+        @Nonnull
         String mappedTag;
 
-        Obo2OWLVocabulary(String namespce, String shortName, String label,
-                String mappedTag) {
+        Obo2OWLVocabulary(@Nonnull String namespce, @Nonnull String shortName,
+                @Nonnull String label, @Nonnull String mappedTag) {
             iri = IRI.create(namespce + shortName);
             this.shortName = shortName;
             namespace = namespce;
@@ -84,11 +90,13 @@ public class Obo2OWLConstants {
         }
 
         /** @return short name */
+        @Nonnull
         public String getShortName() {
             return shortName;
         }
 
         /** @return namespace */
+        @Nonnull
         public String getNamespace() {
             return namespace;
         }
@@ -99,11 +107,13 @@ public class Obo2OWLConstants {
         }
 
         /** @return label */
+        @Nonnull
         public String getLabel() {
             return label;
         }
 
         /** @return mapped tag */
+        @Nonnull
         public String getMappedTag() {
             return mappedTag;
         }

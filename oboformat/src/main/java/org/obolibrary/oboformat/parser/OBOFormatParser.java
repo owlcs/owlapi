@@ -13,7 +13,6 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Vector;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -238,7 +237,11 @@ public class OBOFormatParser {
         BufferedReader in = new BufferedReader(new InputStreamReader(
                 new FileInputStream(file),
                 OBOFormatConstants.DEFAULT_CHARACTER_ENCODING));
-        return parse(in);
+        try {
+            return parse(in);
+        } finally {
+            in.close();
+        }
     }
 
     /**
@@ -278,8 +281,10 @@ public class OBOFormatParser {
         return parse(url);
     }
 
+    @SuppressWarnings("null")
     @Nonnull
-    private String resolvePath(@Nonnull String path) {
+    private String resolvePath(@Nonnull String _path) {
+        String path = _path;
         if (!(path.startsWith("http:") || path.startsWith("file:") || path
                 .startsWith("https:"))) {
             // path is not absolue then guess it.
@@ -318,6 +323,7 @@ public class OBOFormatParser {
         List<OBODoc> imports = new LinkedList<OBODoc>();
         if (hf != null) {
             for (Clause cl : hf.getClauses(OboFormatTag.TAG_IMPORT)) {
+                @SuppressWarnings("null")
                 String path = resolvePath(cl.getValue(String.class));
                 // TBD -- changing the relative path to absolute
                 cl.setValue(path);
@@ -390,6 +396,7 @@ public class OBOFormatParser {
      * @throws OBOFormatDanglingReferenceException
      *         dangling reference error
      */
+    @SuppressWarnings("null")
     @Nonnull
     public List<String> checkDanglingReferences(@Nonnull OBODoc doc) {
         List<String> danglingReferences = new ArrayList<String>();
@@ -430,6 +437,7 @@ public class OBOFormatParser {
             for (String tag : f.getTags()) {
                 OboFormatTag _tag = OBOFormatConstants.getTag(tag);
                 Clause c = f.getClause(tag);
+                assert c != null;
                 if (_tag == OboFormatTag.TAG_IS_A
                         || _tag == OboFormatTag.TAG_INTERSECTION_OF
                         || _tag == OboFormatTag.TAG_UNION_OF
@@ -522,9 +530,6 @@ public class OBOFormatParser {
 
     protected void parseHeaderClause(@Nonnull Frame h) {
         String t = getParseTag();
-        if (t == null) {
-            error("Could not extract tag from line.");
-        }
         Clause cl = new Clause(t);
         OboFormatTag tag = OBOFormatConstants.getTag(t);
         h.addClause(cl);
@@ -633,9 +638,6 @@ public class OBOFormatParser {
     @Nonnull
     public Clause parseTermFrameClause() {
         String t = getParseTag();
-        if (t == null) {
-            error("Could not find tag in clause.");
-        }
         Clause cl = new Clause(t);
         if (parseDeprecatedSynonym(t, cl)) {
             return cl;
@@ -704,7 +706,7 @@ public class OBOFormatParser {
         } else if (tag == OboFormatTag.TAG_CONSIDER) {
             parseIdRef(cl);
         } else {
-            error("Unexpected tag " + tag.getTag() + " in term frame.");
+            error("Unexpected tag " + tag + " in term frame.");
         }
         return cl;
     }
@@ -774,9 +776,6 @@ public class OBOFormatParser {
     @Nonnull
     public Clause parseTypedefFrameClause() {
         String t = getParseTag();
-        if (t == null) {
-            error("Could not find tag in clause.");
-        }
         if (t.equals("is_metadata")) {
             LOG.info("is_metadata DEPRECATED; switching to is_metadata_tag");
             t = OboFormatTag.TAG_IS_METADATA_TAG.getTag();
@@ -872,7 +871,7 @@ public class OBOFormatParser {
         } else if (tag == OboFormatTag.TAG_EXPAND_EXPRESSION_TO) {
             parseOwlDef(cl);
         } else {
-            error("Unexpected tag " + tag.getTag() + " in type def frame.");
+            error("Unexpected tag " + tag + " in type def frame.");
         }
         return cl;
     }
@@ -883,6 +882,8 @@ public class OBOFormatParser {
     // ----------------------------------------
     // TVP
     // ----------------------------------------
+    @SuppressWarnings("null")
+    @Nonnull
     private String getParseTag() {
         if (stream.eof()) {
             error("Expected an id tag, not end of file.");
@@ -914,7 +915,7 @@ public class OBOFormatParser {
     private void parseIdRef(@Nonnull Clause cl, boolean optional) {
         String id = getParseUntil(" !{");
         if (!optional) {
-            if (id == null || id.length() < 1) {
+            if (id.length() < 1) {
                 error("");
             }
         }
@@ -1124,10 +1125,6 @@ public class OBOFormatParser {
                 }
             }
             parseXrefList(cl, false);
-            Collection<Xref> xrefs = cl.getXrefs();
-            if (xrefs == null) {
-                cl.setXrefs(new Vector<Xref>(0));
-            }
         } else {
             error("The synonym is always a quoted string.");
         }
@@ -1213,6 +1210,7 @@ public class OBOFormatParser {
             warn("accepting bad xref with spaces:<" + id + ">");
         }
         id = id.replaceAll(" +\\Z", "");
+        @SuppressWarnings("null")
         Xref xref = new Xref(id);
         cl.addValue(xref);
         parseZeroOrMoreWs();
@@ -1246,6 +1244,7 @@ public class OBOFormatParser {
     private boolean parseQual(@Nonnull Clause cl) {
         parseZeroOrMoreWs();
         String rest = stream.rest();
+        assert rest != null;
         if (rest.contains("=") == false) {
             error("Missing '=' in trailing qualifier block. This might happen for not properly escaped '{', '}' chars in comments.");
         }
@@ -1259,7 +1258,7 @@ public class OBOFormatParser {
             warn("qualifier values should be enclosed in quotes. You have: "
                     + q + "=" + stream.rest());
         }
-        if (v == null || v.length() == 0) {
+        if (v.length() == 0) {
             warn("Empty value for qualifier in trailing qualifier block.");
             v = "";
         }
@@ -1291,7 +1290,7 @@ public class OBOFormatParser {
         Clause cl = new Clause(t);
         f.addClause(cl);
         String id = getParseUntil(" !{");
-        if (id == null || id.length() == 0) {
+        if (id.length() == 0) {
             error("Could not find an valid id, id is empty.");
         }
         cl.addValue(id);
@@ -1409,10 +1408,12 @@ public class OBOFormatParser {
         return getParseUntil(compl, false);
     }
 
+    @SuppressWarnings("null")
     @Nonnull
     private String
             getParseUntil(@Nonnull String compl, boolean commaWhitespace) {
         String r = stream.rest();
+        assert r != null;
         int i = 0;
         boolean hasEscapedChars = false;
         while (i < r.length()) {
@@ -1478,6 +1479,7 @@ public class OBOFormatParser {
         return ret;
     }
 
+    @Nonnull
     private static String mapDeprecatedTag(@Nonnull String tag) {
         if (tag.equals("inverse_of_on_instance_level")) {
             return OboFormatTag.TAG_INVERSE_OF.getTag();

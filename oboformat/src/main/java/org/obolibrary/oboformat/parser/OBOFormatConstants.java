@@ -8,10 +8,13 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 /** oboformat constants */
+@SuppressWarnings("null")
 public class OBOFormatConstants {
 
     /** oboformat tags */
     public enum OboFormatTag {
+
+
 
 
 
@@ -94,13 +97,13 @@ public class OBOFormatConstants {
         TAG_EXACT("EXACT"),
         /**related*/
         TAG_RELATED("RELATED");
-        private String tag;
+        @Nonnull   private String tag;
 
-        OboFormatTag(String tag) {
+        OboFormatTag(@Nonnull String tag) {
             this.tag = tag;
         }
 
-        /** @return tag */
+        /** @return tag */@Nonnull 
         public String getTag() {
             return tag;
         }
