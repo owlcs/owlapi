@@ -48,6 +48,7 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
         this.ontology = checkNotNull(ontology, "ontology cannot be null");
         for (OWLOntology importOnt : ontology.getImportsClosure()) {
             for (OWLAxiom axiom : importOnt.getAxioms()) {
+                assert axiom != null;
                 addAxiom(axiom);
             }
         }
@@ -110,6 +111,7 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
     public boolean isDefined(@Nonnull OWLClassExpression classExpression) {
         for (OWLEntity entity : checkNotNull(classExpression,
                 "classExpression cannot be null").getSignature()) {
+            assert entity != null;
             if (!isDefined(entity)) {
                 return false;
             }
@@ -125,7 +127,8 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
                             change.getOntology())) {
                 continue;
             }
-            final OWLAxiom axiom = change.getAxiom();
+            OWLAxiom axiom = change.getAxiom();
+            assert axiom != null;
             if (change.isAddAxiom()) {
                 addAxiom(axiom);
             } else if (change.isRemoveAxiom()) {

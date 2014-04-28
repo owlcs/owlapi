@@ -63,6 +63,7 @@ public class AlphaExplanationOrderer implements ExplanationOrderer {
             }
         });
         for (OWLAxiom ax : sortedAxioms) {
+            assert ax != null;
             root.addChild(new ExplanationTree(ax));
         }
         return root;

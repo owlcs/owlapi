@@ -33,6 +33,7 @@ public class NullExplanationOrderer implements ExplanationOrderer {
             @Nonnull Set<OWLAxiom> axioms) {
         ExplanationTree root = new ExplanationTree(entailment);
         for (OWLAxiom ax : axioms) {
+            assert ax != null;
             root.addChild(new ExplanationTree(ax));
         }
         return root;

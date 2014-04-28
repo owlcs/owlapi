@@ -49,6 +49,7 @@ public class OntologyUtils {
         checkNotNull(ontology, "ontology cannot be null");
         for (OWLEntity entity : checkNotNull(desc, "desc cannot be null")
                 .getSignature()) {
+            assert entity != null;
             if (!ontology.containsEntityInSignature(entity)) {
                 if (entity instanceof OWLClass
                         && (((OWLClass) entity).isOWLThing() || ((OWLClass) entity)
@@ -105,6 +106,7 @@ public class OntologyUtils {
             @Nonnull OWLOntologyManager manager) {
         for (OWLOntology ont : checkNotNull(ontologies,
                 "ontologies cannot be null")) {
+            assert ont != null;
             checkNotNull(manager, "manager cannot be null").applyChange(
                     new AddAxiom(ont, checkNotNull(axiom,
                             "axiom cannot be null")));

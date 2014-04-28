@@ -33,6 +33,7 @@ public class ConciseExplanationRenderer implements ExplanationRenderer {
     /** The writer. */
     private PrintWriter writer;
 
+    @SuppressWarnings("resource")
     @Override
     public void startRendering(Writer w) {
         checkNotNull(w, "w cannot be null");
@@ -73,6 +74,7 @@ public class ConciseExplanationRenderer implements ExplanationRenderer {
         String header = _header;
         boolean first = true;
         for (OWLAxiom axiom : axioms) {
+            assert axiom != null;
             if (first) {
                 first = false;
             } else {

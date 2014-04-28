@@ -119,6 +119,7 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
         singleExplanationGenerator.dispose();
     }
 
+    @SuppressWarnings("null")
     @Override
     public Set<Set<OWLAxiom>> getExplanations(OWLClassExpression unsatClass,
             @Nonnegative int maxExplanations) {
@@ -263,6 +264,7 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
                 return;
             }
             OWLAxiom axiom = orderedMups.get(0);
+            assert axiom != null;
             orderedMups.remove(0);
             if (allMups.size() == maxExplanations) {
                 LOGGER.info("Computed {} explanations", maxExplanations);
@@ -360,7 +362,7 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
                     currentPathContents, maxExplanations);
             // We have found a new MUPS, so recalculate the ordering
             // axioms in the MUPS at the current level
-            orderedMups = getOrderedMUPS(orderedMups, allMups);
+            return getOrderedMUPS(orderedMups, allMups);
         } else {
             LOGGER.info("Stop - satisfiable");
             // End of current path - add it to the list of paths
@@ -378,6 +380,7 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
         LOGGER.info("Restoring axiom: {}", axiom);
         // Remove any temporary declarations
         for (OWLDeclarationAxiom decl : temporaryDeclarations) {
+            assert decl != null;
             OntologyUtils.removeAxiom(decl, getReasoner().getRootOntology()
                     .getImportsClosure(), getOntologyManager());
         }
@@ -435,6 +438,7 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
                 getOntologyManager());
         collectTemporaryDeclarations(axiom, temporaryDeclarations);
         for (OWLDeclarationAxiom decl : temporaryDeclarations) {
+            assert decl != null;
             OntologyUtils.addAxiom(decl, getReasoner().getRootOntology()
                     .getImportsClosure(), getOntologyManager());
         }
@@ -444,6 +448,7 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
     private void collectTemporaryDeclarations(@Nonnull OWLAxiom axiom,
             @Nonnull List<OWLDeclarationAxiom> temporaryDeclarations) {
         for (OWLEntity e : getSignature(axiom)) {
+            assert e != null;
             boolean referenced = getReasoner().getRootOntology().isDeclared(e,
                     INCLUDED);
             if (!referenced) {

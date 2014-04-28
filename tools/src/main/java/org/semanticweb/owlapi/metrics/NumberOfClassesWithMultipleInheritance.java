@@ -20,7 +20,6 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -51,6 +50,7 @@ public class NumberOfClassesWithMultipleInheritance extends IntegerValuedMetric 
         return "Number of classes with asserted multiple inheritance";
     }
 
+    @SuppressWarnings("null")
     @Override
     public Integer recomputeMetric() {
         Set<OWLClass> processed = new HashSet<OWLClass>();
@@ -58,6 +58,7 @@ public class NumberOfClassesWithMultipleInheritance extends IntegerValuedMetric 
         NamedConjunctChecker checker = new NamedConjunctChecker();
         for (OWLOntology ont : getOntologies()) {
             for (OWLClass cls : ont.getClassesInSignature()) {
+                assert cls != null;
                 if (processed.contains(cls)) {
                     continue;
                 }
@@ -66,6 +67,7 @@ public class NumberOfClassesWithMultipleInheritance extends IntegerValuedMetric 
                 for (OWLClassExpression sup : equivalent(
                         ont.getEquivalentClassesAxioms(cls),
                         OWLClassExpression.class)) {
+                    assert sup != null;
                     if (checker.hasNamedConjunct(sup)) {
                         count++;
                     }

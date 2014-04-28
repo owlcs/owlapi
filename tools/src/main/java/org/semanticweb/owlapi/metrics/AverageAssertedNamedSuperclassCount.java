@@ -20,7 +20,6 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -57,6 +56,7 @@ public class AverageAssertedNamedSuperclassCount extends DoubleValuedMetric {
         Set<OWLClass> processedClasses = new HashSet<OWLClass>();
         for (OWLOntology ont : getOntologies()) {
             for (OWLClass cls : ont.getClassesInSignature()) {
+                assert cls != null;
                 if (!processedClasses.contains(cls)) {
                     count++;
                     int prevTotal = total;

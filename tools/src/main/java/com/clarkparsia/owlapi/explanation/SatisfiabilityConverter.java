@@ -21,7 +21,6 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -77,6 +76,7 @@ public class SatisfiabilityConverter {
             return factory.getOWLObjectComplementOf(desc);
         }
 
+        @SuppressWarnings("null")
         @Nonnull
         private OWLObjectOneOf oneOf(@Nonnull OWLIndividual ind) {
             return factory.getOWLObjectOneOf(Collections.singleton(ind));
@@ -135,6 +135,7 @@ public class SatisfiabilityConverter {
         public OWLClassExpression visit(OWLDifferentIndividualsAxiom axiom) {
             Set<OWLClassExpression> nominals = new HashSet<OWLClassExpression>();
             for (OWLIndividual ind : axiom.getIndividuals()) {
+                assert ind != null;
                 nominals.add(oneOf(ind));
             }
             return factory.getOWLObjectIntersectionOf(nominals);
@@ -145,6 +146,7 @@ public class SatisfiabilityConverter {
             return and(axiom.getClassExpressions());
         }
 
+        @SuppressWarnings("null")
         @Override
         public OWLClassExpression visit(OWLEquivalentClassesAxiom axiom) {
             Iterator<OWLClassExpression> classes = axiom.getClassExpressions()
@@ -212,6 +214,7 @@ public class SatisfiabilityConverter {
         public OWLClassExpression visit(OWLSameIndividualAxiom axiom) {
             Set<OWLClassExpression> nominals = new HashSet<OWLClassExpression>();
             for (OWLIndividual ind : axiom.getIndividuals()) {
+                assert ind != null;
                 nominals.add(not(oneOf(ind)));
             }
             return and(nominals);
@@ -233,7 +236,9 @@ public class SatisfiabilityConverter {
 
     protected static final Logger LOGGER = LoggerFactory
             .getLogger(SatisfiabilityConverter.class);
-    private final AxiomConverter converter;
+    @Nonnull
+    private final AxiomConverter converter = new AxiomConverter();
+    @Nonnull
     protected final OWLDataFactory factory;
 
     /**
@@ -244,7 +249,6 @@ public class SatisfiabilityConverter {
      */
     public SatisfiabilityConverter(@Nonnull OWLDataFactory factory) {
         this.factory = checkNotNull(factory, "factory cannot be null");
-        converter = new AxiomConverter();
     }
 
     /**

@@ -18,7 +18,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
@@ -145,14 +144,14 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
     private class BottomReplacer extends OWLAxiomVisitorAdapter implements
             OWLAxiomVisitor, OWLClassExpressionVisitor {
 
-        @Nullable
         private OWLAxiom newAxiom;
         private OWLClassExpression newClassExpression;
         private Set<? extends OWLEntity> signature;
 
         public BottomReplacer() {}
 
-        /** @return the result */
+        @SuppressWarnings("null")
+        /** @return the result */@Nonnull
         public OWLAxiom getResult() {
             return newAxiom;
         }
@@ -182,6 +181,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
          *        the desc
          * @return the modified OWL class expression
          */
+        @SuppressWarnings("null")
         @Nonnull
         public OWLClassExpression
                 replaceBottom(@Nonnull OWLClassExpression desc) {
@@ -205,6 +205,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
             Set<OWLClassExpression> result = new HashSet<OWLClassExpression>();
             for (OWLClassExpression desc : checkNotNull(classExpressions,
                     "classExpressions cannot be null")) {
+                assert desc != null;
                 result.add(replaceBottom(desc));
             }
             return result;

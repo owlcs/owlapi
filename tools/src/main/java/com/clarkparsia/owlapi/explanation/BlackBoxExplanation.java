@@ -116,6 +116,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
         getReasoner().dispose();
     }
 
+    @SuppressWarnings("null")
     private void reset() {
         if (debuggingOntology != null) {
             owlOntologyManager.removeOntology(debuggingOntology);

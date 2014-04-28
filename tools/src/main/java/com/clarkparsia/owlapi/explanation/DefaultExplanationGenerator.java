@@ -36,7 +36,9 @@ import com.clarkparsia.owlapi.explanation.util.ExplanationProgressMonitor;
  */
 public class DefaultExplanationGenerator implements ExplanationGenerator {
 
+    @Nonnull
     private final OWLDataFactory dataFactory;
+    @Nonnull
     private final MultipleExplanationGenerator gen;
 
     /**

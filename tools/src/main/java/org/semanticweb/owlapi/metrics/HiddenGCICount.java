@@ -18,7 +18,6 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -64,12 +63,14 @@ public class HiddenGCICount extends IntegerValuedMetric {
         return false;
     }
 
+    @SuppressWarnings("null")
     @Override
     protected Integer recomputeMetric() {
         Set<OWLClass> processed = new HashSet<OWLClass>();
         Set<OWLClass> result = new HashSet<OWLClass>();
         for (OWLOntology ont : getOntologies()) {
             for (OWLClass cls : ont.getClassesInSignature()) {
+                assert cls != null;
                 if (!processed.contains(cls)) {
                     processed.add(cls);
                 } else {
