@@ -1454,7 +1454,6 @@ public class ManchesterOWLSyntaxEditorParser implements
         String subj = consumeToken();
         OWLAnnotationProperty prop = getOWLAnnotationProperty(subj);
         for (OWLOntology ont : getOntologies()) {
-            assert ont != null;
             axioms.add(new OntologyAxiomPair(ont, dataFactory
                     .getOWLDeclarationAxiom(prop)));
         }
@@ -2893,7 +2892,6 @@ public class ManchesterOWLSyntaxEditorParser implements
             O item = itemParser.parseItem(s);
             OWLAxiom axiom = itemParser.createAxiom(s, item, annotations);
             for (OWLOntology ontology : ontologies) {
-                assert ontology != null;
                 result.add(new OntologyAxiomPair(ontology, axiom));
             }
             sep = peekToken();
