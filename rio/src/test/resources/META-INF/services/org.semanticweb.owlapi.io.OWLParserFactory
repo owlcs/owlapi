@@ -1,3 +1,4 @@
+org.semanticweb.owlapi.rio.RioJsonLDParserFactory
 org.semanticweb.owlapi.rio.RioJsonParserFactory
 org.semanticweb.owlapi.rio.RioN3ParserFactory
 org.semanticweb.owlapi.rio.RioNQuadsParserFactory
