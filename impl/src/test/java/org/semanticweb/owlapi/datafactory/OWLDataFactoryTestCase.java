@@ -67,7 +67,7 @@ public class OWLDataFactoryTestCase {
     private OWLDataFactory testSubject = new OWLDataFactoryImpl();
 
     @Nonnull
-    private IRI IRI() {
+    private static IRI IRI() {
         return OWLOntologyDocumentSourceBase.getNextDocumentIRI("urn:test#A");
     }
 
