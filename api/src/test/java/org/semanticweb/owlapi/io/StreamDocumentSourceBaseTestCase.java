@@ -51,6 +51,7 @@ public class StreamDocumentSourceBaseTestCase {
                 new InputStreamReader(
                         new ByteArrayInputStream(input.getBytes()), "UTF-8"),
                 IRI.create("urn:test"), null, null) {};
+        @SuppressWarnings("resource")
         Reader r = source.getReader();
         StringWriter w = new StringWriter();
         int i = r.read();
