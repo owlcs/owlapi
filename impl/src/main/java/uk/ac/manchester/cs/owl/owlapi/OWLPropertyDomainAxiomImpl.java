@@ -18,7 +18,6 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObject;
@@ -37,6 +36,7 @@ public abstract class OWLPropertyDomainAxiomImpl<P extends OWLPropertyExpression
         OWLPropertyDomainAxiom<P> {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final OWLClassExpression domain;
 
     /**

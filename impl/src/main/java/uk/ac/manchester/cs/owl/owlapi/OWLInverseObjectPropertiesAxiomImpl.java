@@ -68,6 +68,7 @@ public class OWLInverseObjectPropertiesAxiomImpl extends
         this.second = second;
     }
 
+    @SuppressWarnings("null")
     @Override
     public Set<OWLInverseObjectPropertiesAxiom> asPairwiseAxioms() {
         return Collections.<OWLInverseObjectPropertiesAxiom> singleton(this);
@@ -140,6 +141,7 @@ public class OWLInverseObjectPropertiesAxiomImpl extends
         return axs;
     }
 
+    @SuppressWarnings("null")
     @Override
     public <T> Collection<T> walkPairwise(
             OWLPairwiseVisitor<T, OWLObjectPropertyExpression> visitor) {

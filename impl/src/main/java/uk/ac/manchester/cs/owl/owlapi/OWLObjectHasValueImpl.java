@@ -101,6 +101,7 @@ public class OWLObjectHasValueImpl extends
         return false;
     }
 
+    @SuppressWarnings("null")
     @Nonnull
     @Override
     @Deprecated

@@ -149,6 +149,7 @@ public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass,
         return this;
     }
 
+    @SuppressWarnings("null")
     @Override
     public Set<OWLClassExpression> asConjunctSet() {
         return Collections.singleton((OWLClassExpression) this);
@@ -159,6 +160,7 @@ public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass,
         return ce.equals(this);
     }
 
+    @SuppressWarnings("null")
     @Override
     public Set<OWLClassExpression> asDisjunctSet() {
         return Collections.singleton((OWLClassExpression) this);

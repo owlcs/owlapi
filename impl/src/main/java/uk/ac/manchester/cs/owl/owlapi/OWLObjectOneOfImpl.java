@@ -20,7 +20,6 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-
 import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
@@ -75,6 +74,7 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl
         return false;
     }
 
+    @SuppressWarnings("null")
     @Override
     public OWLClassExpression asObjectUnionOf() {
         if (values.size() == 1) {

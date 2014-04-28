@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.lang.ref.WeakReference;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -104,7 +103,7 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
      */
     public SWRLRuleImpl(@Nonnull Set<? extends SWRLAtom> body,
             @Nonnull Set<? extends SWRLAtom> head) {
-        this(body, head, Collections.<OWLAnnotation> emptyList());
+        this(body, head, NO_ANNOTATIONS);
     }
 
     @Nonnull

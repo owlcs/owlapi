@@ -17,7 +17,6 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
@@ -68,6 +67,7 @@ public class OWLObjectPropertyAssertionAxiomImpl
                 getProperty(), getObject(), NO_ANNOTATIONS);
     }
 
+    @SuppressWarnings("null")
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
         return new OWLSubClassOfAxiomImpl(new OWLObjectOneOfImpl(

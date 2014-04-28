@@ -106,11 +106,8 @@ import org.semanticweb.owlapi.util.OWLObjectVisitorAdapter;
 public abstract class AbstractEntityRegistrationManager extends
         OWLObjectVisitorAdapter implements OWLObjectVisitor, SWRLObjectVisitor {
 
-    // ////////////////////////////////////////////////////////////////////////////////////////////
-    //
     // Axiom Visitor stuff
-    //
-    // ////////////////////////////////////////////////////////////////////////////////////////////
+    @Nonnull
     private final CollectionContainerVisitor<OWLAnnotation> annotationVisitor = new CollectionContainerVisitor<OWLAnnotation>() {
 
         @Override

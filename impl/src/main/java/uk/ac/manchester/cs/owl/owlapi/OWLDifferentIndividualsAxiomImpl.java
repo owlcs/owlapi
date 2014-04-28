@@ -21,7 +21,6 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
@@ -102,6 +101,7 @@ public class OWLDifferentIndividualsAxiomImpl extends
         return super.equals(obj) && obj instanceof OWLDifferentIndividualsAxiom;
     }
 
+    @SuppressWarnings("null")
     @Override
     public Set<OWLSubClassOfAxiom> asOWLSubClassOfAxioms() {
         List<OWLClassExpression> nominalsList = new ArrayList<OWLClassExpression>();

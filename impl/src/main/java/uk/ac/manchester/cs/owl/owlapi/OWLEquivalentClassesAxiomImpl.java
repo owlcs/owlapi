@@ -115,6 +115,7 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl
         return false;
     }
 
+    @SuppressWarnings("null")
     @Override
     public Set<OWLClass> getNamedClasses() {
         Set<OWLClass> toReturn = null;
@@ -136,6 +137,7 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl
         return toReturn;
     }
 
+    @SuppressWarnings("null")
     @Override
     public Set<OWLSubClassOfAxiom> asOWLSubClassOfAxioms() {
         Set<OWLSubClassOfAxiom> result = new HashSet<OWLSubClassOfAxiom>();

@@ -222,6 +222,7 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
      *        parsers
      * @return candidate parsers
      */
+    @SuppressWarnings("null")
     private static PriorityCollection<OWLParser> getParsersByFormat(
             OWLOntologyDocumentSource documentSource,
             PriorityCollection<OWLParser> parsers) {
@@ -251,6 +252,7 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
      *        parsers
      * @return candidate parsers
      */
+    @SuppressWarnings("null")
     private static PriorityCollection<OWLParser> getParserCandidatesByMIME(
             OWLOntologyDocumentSource documentSource,
             PriorityCollection<OWLParser> parsers) {

@@ -54,6 +54,7 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
      * @param annotations
      *        annotations on the axiom
      */
+    @SuppressWarnings("null")
     public OWLAxiomImpl(@Nonnull Collection<? extends OWLAnnotation> annotations) {
         checkNotNull(annotations, "annotations cannot be null");
         if (!annotations.isEmpty()) {
@@ -71,6 +72,7 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
 
     // TODO when processing annotations on OWLOntology:: add axiom, needs
     // optimizing
+    @SuppressWarnings("null")
     @Override
     public Set<OWLAnnotation> getAnnotations() {
         if (annotations.isEmpty()) {
@@ -80,6 +82,7 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
                 .getCopyOnRequestSetFromImmutableCollection(annotations);
     }
 
+    @SuppressWarnings("null")
     @Override
     public void accept(CollectionContainerVisitor<OWLAnnotation> t) {
         int size = annotations.size();
@@ -88,6 +91,7 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
         }
     }
 
+    @SuppressWarnings("null")
     @Override
     public Set<OWLAnnotation> getAnnotations(
             OWLAnnotationProperty annotationProperty) {
@@ -152,6 +156,7 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
         return getAnnotations().equals(other.getAnnotations());
     }
 
+    @SuppressWarnings("null")
     @Override
     public OWLAxiom getNNF() {
         if (nnf == null) {

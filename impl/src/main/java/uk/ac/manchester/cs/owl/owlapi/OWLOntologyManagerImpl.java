@@ -333,6 +333,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         }
         Set<OWLOntology> imports = new HashSet<OWLOntology>();
         for (OWLImportsDeclaration axiom : ontology.getImportsDeclarations()) {
+            assert axiom != null;
             OWLOntology importedOntology = getImportedOntology(axiom);
             if (importedOntology != null) {
                 imports.add(importedOntology);
@@ -363,6 +364,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     private void getImports(@Nonnull OWLOntology ont,
             @Nonnull Set<OWLOntology> result) {
         for (OWLOntology directImport : getDirectImports(ont)) {
+            assert directImport != null;
             if (result.add(directImport)) {
                 getImports(directImport, result);
             }
@@ -398,6 +400,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
             @Nonnull Set<OWLOntology> ontologies) {
         ontologies.add(ontology);
         for (OWLOntology ont : getDirectImports(ontology)) {
+            assert ont != null;
             if (!ontologies.contains(ont)) {
                 getImportsClosure(ont, ontologies);
             }
@@ -456,6 +459,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         return Collections.singletonList(change);
     }
 
+    @SuppressWarnings("null")
     @Override
     public List<OWLOntologyChange<?>> applyChanges(
             List<? extends OWLOntologyChange<?>> changes) {
@@ -496,6 +500,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         return applyChanges(changes);
     }
 
+    @SuppressWarnings("null")
     @Override
     public List<OWLOntologyChange<?>> removeAxiom(@Nonnull OWLOntology ont,
             @Nonnull OWLAxiom axiom) {
@@ -508,11 +513,13 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         List<RemoveAxiom> changes = new ArrayList<RemoveAxiom>(
                 axioms.size() + 2);
         for (OWLAxiom ax : axioms) {
+            assert ax != null;
             changes.add(new RemoveAxiom(ont, ax));
         }
         return applyChanges(changes);
     }
 
+    @SuppressWarnings("null")
     @Override
     public List<OWLOntologyChange<?>> applyChange(
             @Nonnull OWLOntologyChange<?> change) {
@@ -604,6 +611,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         ontologyFormatsByOntology.put(ontologyID, format);
     }
 
+    @SuppressWarnings("null")
     @Nonnull
     @Override
     public OWLOntologyFormat getOntologyFormat(@Nonnull OWLOntology ontology) {
@@ -764,6 +772,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
 
     private OWLOntology getOntologyByDocumentIRI(IRI documentIRI) {
         for (OWLOntologyID ontID : documentIRIsByID.keySet()) {
+            assert ontID != null;
             IRI docIRI = documentIRIsByID.get(ontID);
             if (docIRI != null && docIRI.equals(documentIRI)) {
                 return getOntology(ontID);
@@ -912,6 +921,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         resetImportsClosureCache();
     }
 
+    @SuppressWarnings("null")
     @Override
     public IRI getOntologyDocumentIRI(OWLOntology ontology) {
         if (!contains(ontology)) {
@@ -1103,6 +1113,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
      * @return The document IRI that corresponds to the ontology IRI, or
      *         {@code null} if no physical URI can be found.
      */
+    @SuppressWarnings("null")
     @Nullable
     private IRI getDocumentIRIFromMappers(OWLOntologyID ontologyID,
             boolean quiet) {
@@ -1193,6 +1204,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         }
         for (ImpendingOWLOntologyChangeListener listener : new ArrayList<ImpendingOWLOntologyChangeListener>(
                 impendingChangeListenerMap.keySet())) {
+            assert listener != null;
             ImpendingOWLOntologyChangeBroadcastStrategy strategy = impendingChangeListenerMap
                     .get(listener);
             if (strategy != null) {
@@ -1259,7 +1271,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     //
     // //////////////////////////////////////////////////////////////////////////////////////////////////////////
     protected OWLOntology loadImports(OWLImportsDeclaration declaration,
-            OWLOntologyLoaderConfiguration configuration)
+            @Nonnull OWLOntologyLoaderConfiguration configuration)
             throws OWLOntologyCreationException {
         importsLoadCount++;
         OWLOntology ont = null;

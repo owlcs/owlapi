@@ -47,6 +47,7 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements
     private final byte[] literal;
     @Nonnull
     private final OWLDatatype datatype;
+    @Nonnull
     private final String lang;
     private final int hashcode;
 
@@ -104,6 +105,8 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements
         hashcode = getHashCode();
     }
 
+    @SuppressWarnings("null")
+    @Nonnull
     private static byte[] getBytes(String literal) {
         try {
             return literal.getBytes(UTF8);
@@ -202,13 +205,10 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements
     @Override
     public boolean hasLang(String _l) {
         String l = _l;
-        if (l == null && lang == null) {
-            return true;
-        }
         if (l == null) {
-            l = "";
+            return lang.isEmpty();
         }
-        return lang != null && lang.equalsIgnoreCase(l.trim());
+        return lang.equalsIgnoreCase(l.trim());
     }
 
     @Override

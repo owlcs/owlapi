@@ -91,6 +91,7 @@ public class Internals implements Serializable {
 
     private static final long serialVersionUID = 40000L;
 
+    @SuppressWarnings("null")
     private class ReferenceChecker implements OWLEntityVisitorEx<Boolean>,
             Serializable {
 
@@ -578,6 +579,7 @@ public class Internals implements Serializable {
         Collection<OWLAxiom> toReturn = new ArrayList<OWLAxiom>();
         for (AxiomType<?> at : filter.getAxiomTypes()) {
             for (OWLAxiom t : getAxiomsByType().getValues(at)) {
+                assert t != null;
                 if (filter.pass(t, key)) {
                     toReturn.add(t);
                 }
@@ -599,6 +601,7 @@ public class Internals implements Serializable {
             @Nonnull K key) {
         for (AxiomType<?> at : filter.getAxiomTypes()) {
             for (OWLAxiom t : getAxiomsByType().getValues(at)) {
+                assert t != null;
                 if (filter.pass(t, key)) {
                     return true;
                 }
@@ -1316,6 +1319,7 @@ public class Internals implements Serializable {
         }
     }
 
+    @SuppressWarnings("null")
     @Nonnull
     @Override
     public String toString() {

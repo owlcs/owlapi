@@ -927,6 +927,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
         return result;
     }
 
+    @SuppressWarnings("null")
     @Override
     public Set<OWLAxiom> getReferencingAxioms(OWLPrimitive owlEntity,
             Imports includeImports) {
@@ -948,6 +949,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     }
 
     // OWLAxiomIndex
+    @SuppressWarnings("null")
     @Override
     public <A extends OWLAxiom> Set<A> getAxioms(@Nonnull Class<A> type,
             @Nonnull OWLObject entity, Imports includeImports,

@@ -100,6 +100,7 @@ public class OWLDataHasValueImpl extends OWLValueRestrictionImpl<OWLLiteral>
         return value.compareTo(other.getFiller());
     }
 
+    @SuppressWarnings("null")
     @Nonnull
     @Override
     public OWLClassExpression asSomeValuesFrom() {

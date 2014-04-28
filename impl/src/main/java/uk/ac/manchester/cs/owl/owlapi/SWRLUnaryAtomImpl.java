@@ -53,6 +53,7 @@ public abstract class SWRLUnaryAtomImpl<A extends SWRLArgument> extends
         return arg;
     }
 
+    @SuppressWarnings("null")
     @Nonnull
     @Override
     public Collection<SWRLArgument> getAllArguments() {

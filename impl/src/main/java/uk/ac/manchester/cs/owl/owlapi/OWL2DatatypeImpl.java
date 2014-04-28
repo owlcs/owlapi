@@ -350,6 +350,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
         return false;
     }
 
+    @SuppressWarnings("null")
     @Override
     public int compareTo(OWLObject o) {
         if (!(o instanceof OWLDatatype)) {

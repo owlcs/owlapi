@@ -102,6 +102,7 @@ public class OWLClassAssertionAxiomImpl extends OWLIndividualAxiomImpl
         return false;
     }
 
+    @SuppressWarnings("null")
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
         return new OWLSubClassOfAxiomImpl(new OWLObjectOneOfImpl(

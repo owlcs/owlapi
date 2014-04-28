@@ -52,6 +52,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
 
     private static final long serialVersionUID = 40000L;
     /** a convenience reference for an empty annotation set, saves on typing. */
+    @SuppressWarnings("null")
     @Nonnull
     protected static final Set<OWLAnnotation> NO_ANNOTATIONS = Collections
             .<OWLAnnotation> emptySet();
@@ -64,6 +65,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
     protected static final OWLClass OWL_THING = new OWLClassImpl(
             OWLRDFVocabulary.OWL_THING.getIRI());
 
+    @SuppressWarnings("null")
     @Override
     public Set<OWLEntity> getSignature() {
         Set<OWLEntity> set = null;
@@ -88,6 +90,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
         return getSignature().contains(owlEntity);
     }
 
+    @SuppressWarnings("null")
     @Override
     public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
         if (signature == null || signature.get() == null) {
@@ -173,6 +176,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
 
     protected abstract int index();
 
+    @SuppressWarnings("null")
     @Override
     public int compareTo(OWLObject o) {
         int thisTypeIndex = index();

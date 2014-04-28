@@ -72,6 +72,7 @@ public abstract class OWLAnonymousClassExpressionImpl extends
                 "Not an OWLClass.  This method should only be called if the isAnonymous method returns false!");
     }
 
+    @SuppressWarnings("null")
     @Override
     public Set<OWLClassExpression> asConjunctSet() {
         return Collections.singleton((OWLClassExpression) this);
@@ -82,6 +83,7 @@ public abstract class OWLAnonymousClassExpressionImpl extends
         return ce.equals(this);
     }
 
+    @SuppressWarnings("null")
     @Override
     public Set<OWLClassExpression> asDisjunctSet() {
         return Collections.singleton((OWLClassExpression) this);

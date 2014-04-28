@@ -372,6 +372,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
         return new OWLDatatypeRestrictionImpl(datatype, facets);
     }
 
+    @SuppressWarnings("null")
     @Nonnull
     @Override
     public OWLDatatypeRestriction getOWLDatatypeRestriction(
@@ -1875,6 +1876,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
                 getOWLObjectProperty(OWLRDFVocabulary.OWL_SAME_AS.getIRI()),
                 arg0, arg1);
     }
+    @SuppressWarnings("null")
     @Nonnull 
     private static final Set<OWLAnnotation> EMPTY_ANNOTATIONS_SET = Collections
             .emptySet();

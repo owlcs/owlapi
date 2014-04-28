@@ -79,6 +79,7 @@ public class OWLEntityCollectionContainerCollector extends
      *        the set that will contain the results
      */
     // XXX not in the interface
+    @SuppressWarnings("null")
     public void reset(Set<OWLEntity> toReturn) {
         objects = toReturn;
         if (anonymousIndividuals != null) {
@@ -165,6 +166,7 @@ public class OWLEntityCollectionContainerCollector extends
         }
     }
 
+    @SuppressWarnings("null")
     @Override
     public void visit(OWLAnonymousIndividual individual) {
         // Anon individuals aren't entities

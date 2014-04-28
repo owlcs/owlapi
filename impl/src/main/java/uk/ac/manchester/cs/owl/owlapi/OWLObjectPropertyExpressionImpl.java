@@ -46,6 +46,7 @@ public abstract class OWLObjectPropertyExpressionImpl extends
         return super.equals(obj) && obj instanceof OWLObjectPropertyExpression;
     }
 
+    @SuppressWarnings("null")
     @Nonnull
     @Override
     public OWLObjectPropertyExpression getSimplified() {
@@ -57,6 +58,7 @@ public abstract class OWLObjectPropertyExpressionImpl extends
         return simplestForm;
     }
 
+    @SuppressWarnings("null")
     @Nonnull
     @Override
     public OWLObjectPropertyExpression getInverseProperty() {

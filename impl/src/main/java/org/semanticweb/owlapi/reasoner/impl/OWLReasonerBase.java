@@ -192,6 +192,7 @@ public abstract class OWLReasonerBase implements OWLReasoner {
             }
         }
         for (OWLAxiom ax : reasonerAxioms) {
+            assert ax != null;
             if (!rootOntology.containsAxiom(ax, Imports.INCLUDED,
                     Search.CONSIDER_ANNOTATIONS)) {
                 removed.add(ax);

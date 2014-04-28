@@ -60,6 +60,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
             OWL2Datatype.RDF_PLAIN_LITERAL);
     @Nonnull
     private final OWLDatatype datatype;
+    @Nonnull
     private final String lang;
     private final int hashcode;
 
@@ -179,13 +180,10 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     @Override
     public boolean hasLang(String _l) {
         String l = _l;
-        if (l == null && lang == null) {
-            return true;
-        }
         if (l == null) {
-            l = "";
+            return lang.isEmpty();
         }
-        return lang != null && lang.equalsIgnoreCase(l.trim());
+        return lang.equalsIgnoreCase(l.trim());
     }
 
     @Override
@@ -294,6 +292,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
             }
         }
 
+        @SuppressWarnings("null")
         @Nonnull
         String get() {
             if (l != null) {
@@ -307,6 +306,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
             }
         }
 
+        @SuppressWarnings("null")
         @Nonnull
         static byte[] compress(String s) throws IOException {
             ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -320,6 +320,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
             return out.toByteArray();
         }
 
+        @SuppressWarnings("null")
         @Nonnull
         static String decompress(byte[] result) throws IOException {
             ByteArrayInputStream in = new ByteArrayInputStream(result);
