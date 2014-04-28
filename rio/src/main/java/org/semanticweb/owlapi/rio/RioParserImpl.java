@@ -250,8 +250,8 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
      *        An {@link OWLOntologyDocumentSource} containing RDF statements.
      * @param baseUri
      *        The base URI to use when parsing the document source.
-     * @return A {@link StatementCollector} containing the statements from the
-     *         source.
+     * @param handler
+     *        rdf handler
      * @throws UnsupportedRDFormatException
      *         If the document contains a format which is currently unsupported,
      *         based on the parsers that are currently available.
@@ -308,13 +308,13 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
         }
 
         @Override
-        public void startRDF() throws RDFHandlerException {
+        public void startRDF() {
             owlParseStart = System.currentTimeMillis();
             consumer.startRDF();
         }
 
         @Override
-        public void endRDF() throws RDFHandlerException {
+        public void endRDF() {
             consumer.endRDF();
             if (log.isDebugEnabled()) {
                 log.debug("owlParse: timing={}", System.currentTimeMillis()
@@ -323,14 +323,12 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
         }
 
         @Override
-        public void handleNamespace(String prefix, String uri)
-                throws RDFHandlerException {
+        public void handleNamespace(String prefix, String uri) {
             consumer.handleNamespace(prefix, uri);
         }
 
         @Override
-        public void handleStatement(Statement nextStatement)
-                throws RDFHandlerException {
+        public void handleStatement(Statement nextStatement) {
             if (nextStatement.getPredicate().equals(RDF.FIRST)
                     || nextStatement.getPredicate().equals(RDF.REST)) {
                 if (!typedLists.contains(nextStatement.getSubject())) {
@@ -354,7 +352,7 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
         }
 
         @Override
-        public void handleComment(String comment) throws RDFHandlerException {
+        public void handleComment(@SuppressWarnings("unused") String comment) {
             // do nothing
         }
     }

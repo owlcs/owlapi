@@ -45,6 +45,9 @@ import org.semanticweb.owlapi.model.OWLOntologyStorer;
 public abstract class AbstractRioOntologyStorerFactory implements
         RioRDFOntologyStorerFactory {
 
+    private static final long serialVersionUID = 40000L;
+
+    @Override
     public abstract RioRDFOntologyFormatFactory getFormatFactory();
 
     @Override
