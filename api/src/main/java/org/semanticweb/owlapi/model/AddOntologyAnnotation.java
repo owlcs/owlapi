@@ -73,13 +73,7 @@ public class AddOntologyAnnotation extends AnnotationChange {
     @Nonnull
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("AddOntologyAnnotation(");
-        sb.append(getAnnotation().toString());
-        sb.append(" OntologyID(");
-        sb.append(getOntology().getOntologyID());
-        sb.append(")");
-        sb.append(")");
-        return sb.toString();
+        return "AddOntologyAnnotation(" + getAnnotation() + " OntologyID("
+                + getOntology().getOntologyID() + "))";
     }
 }

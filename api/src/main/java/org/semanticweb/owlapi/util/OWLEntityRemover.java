@@ -22,7 +22,6 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -87,11 +86,14 @@ public class OWLEntityRemover implements OWLEntityVisitor {
     private void generateChanges(@Nonnull OWLEntity entity) {
         checkNotNull(entity, "entity cannot be null");
         for (OWLOntology ont : ontologies) {
+            assert ont != null;
             for (OWLAxiom ax : ont.getReferencingAxioms(entity, EXCLUDED)) {
+                assert ax != null;
                 changes.add(new RemoveAxiom(ont, ax));
             }
             for (OWLAnnotationAssertionAxiom ax : ont
                     .getAnnotationAssertionAxioms(entity.getIRI())) {
+                assert ax != null;
                 changes.add(new RemoveAxiom(ont, ax));
             }
         }

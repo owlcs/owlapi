@@ -42,6 +42,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 public abstract class StreamDocumentSourceBase extends
         OWLOntologyDocumentSourceBase {
 
+    @Nonnull
     protected final IRI documentIRI;
     protected byte[] byteBuffer;
     private String encoding = "UTF-8";

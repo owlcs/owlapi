@@ -69,6 +69,7 @@ public class OWLAxiomVisitorExAdapter<O> implements OWLAxiomVisitorEx<O>,
         Serializable {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private O object;
 
     /** adapter with null default */
@@ -82,6 +83,7 @@ public class OWLAxiomVisitorExAdapter<O> implements OWLAxiomVisitorEx<O>,
      * @param object
      *        default return value
      */
+    @SuppressWarnings("null")
     public OWLAxiomVisitorExAdapter(O object) {
         this.object = object;
     }

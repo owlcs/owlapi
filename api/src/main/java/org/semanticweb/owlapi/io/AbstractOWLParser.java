@@ -70,7 +70,7 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
     protected AbstractOWLParser() {}
 
     @Nonnull
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "null" })
     @Override
     public Set<Class<OWLOntologyFormat>> getSupportedFormatClasses() {
         return Collections
@@ -255,13 +255,14 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
                 new OWLOntologyLoaderConfiguration());
     }
 
+    @SuppressWarnings("null")
     @Override
     public String getName() {
         return this.getClass().getSimpleName();
     }
 
     @Nonnull
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "null" })
     @Override
     public Set<OWLOntologyFormatFactory> getSupportedFormats() {
         return Collections

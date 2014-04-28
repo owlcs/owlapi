@@ -114,7 +114,8 @@ import org.semanticweb.owlapi.model.SWRLVariable;
  */
 public class OWLObjectVisitorExAdapter<O> implements OWLObjectVisitorEx<O> {
 
-    private O defaultReturnValue = null;
+    @Nonnull
+    private O defaultReturnValue;
 
     /**
      * Gets the default return value for this visitor. By default, the default
@@ -141,6 +142,7 @@ public class OWLObjectVisitorExAdapter<O> implements OWLObjectVisitorEx<O> {
      * @param defaultReturnValue
      *        default return value
      */
+    @SuppressWarnings("null")
     public OWLObjectVisitorExAdapter(O defaultReturnValue) {
         this.defaultReturnValue = defaultReturnValue;
     }

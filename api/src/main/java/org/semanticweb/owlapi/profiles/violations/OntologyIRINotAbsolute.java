@@ -54,6 +54,7 @@ public class OntologyIRINotAbsolute extends OWLProfileViolation<OWLOntologyID> {
         return toString("Ontology IRI not absolute: %s", getExpression());
     }
 
+    @SuppressWarnings("null")
     @Override
     public List<OWLOntologyChange<?>> repair() {
         // XXX arbitrary choice

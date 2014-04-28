@@ -32,8 +32,11 @@ public enum PrimitiveType implements Serializable, HasShortForm {
     /** LITERAL             */  LITERAL             ("Literal", "Literal", "Literals"), 
     /** IRI                 */  IRI                 ("IRI", "IRI", "IRIs");
     //@formatter:on
+    @Nonnull
     private final String shortForm;
+    @Nonnull
     private final String printName;
+    @Nonnull
     private final String pluralPrintName;
 
     PrimitiveType(@Nonnull EntityType<?> entityType) {
@@ -41,7 +44,8 @@ public enum PrimitiveType implements Serializable, HasShortForm {
                 .getPluralPrintName());
     }
 
-    PrimitiveType(String shortForm, String printName, String pluralPrintName) {
+    PrimitiveType(@Nonnull String shortForm, @Nonnull String printName,
+            @Nonnull String pluralPrintName) {
         this.shortForm = shortForm;
         this.printName = printName;
         this.pluralPrintName = pluralPrintName;

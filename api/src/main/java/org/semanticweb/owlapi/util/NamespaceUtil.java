@@ -73,6 +73,7 @@ public class NamespaceUtil {
     }
 
     /** @return namespace to prefix map */
+    @SuppressWarnings("null")
     @Nonnull
     public Map<String, String> getNamespace2PrefixMap() {
         return Collections.unmodifiableMap(namespace2PrefixMap);
@@ -89,6 +90,7 @@ public class NamespaceUtil {
      * @return The generated prefix. Note that this method will not store the
      *         namespace to prefix mapping.
      */
+    @SuppressWarnings("null")
     @Nonnull
     private String generatePrefix(@Nonnull String namespace) {
         checkNotNull(namespace, "namespace cannot be null");

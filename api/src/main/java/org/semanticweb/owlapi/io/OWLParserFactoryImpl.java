@@ -32,6 +32,7 @@ public class OWLParserFactoryImpl<T extends OWLParser> implements
         this.type = type;
     }
 
+    @SuppressWarnings("null")
     @Override
     public OWLParser createParser() {
         try {
@@ -64,6 +65,7 @@ public class OWLParserFactoryImpl<T extends OWLParser> implements
         return null;
     }
 
+    @SuppressWarnings("null")
     @Override
     public List<String> getMIMETypes() {
         SupportsMIMEType annotation = type

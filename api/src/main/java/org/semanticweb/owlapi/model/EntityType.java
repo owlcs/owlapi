@@ -46,13 +46,17 @@ public final class EntityType<E extends OWLEntity> implements Serializable,
     @SuppressWarnings("unchecked")
     private static List<EntityType<?>> values = Collections.<EntityType<?>> unmodifiableList(Arrays.asList(CLASS, OBJECT_PROPERTY, DATA_PROPERTY, ANNOTATION_PROPERTY, NAMED_INDIVIDUAL, DATATYPE));
   //@formatter:on
+    @Nonnull
     private final String name;
+    @Nonnull
     private final OWLRDFVocabulary vocabulary;
+    @Nonnull
     private final String printName;
+    @Nonnull
     private final String pluralPrintName;
 
-    private EntityType(String name, String print, String pluralPrint,
-            OWLRDFVocabulary vocabulary) {
+    private EntityType(@Nonnull String name, @Nonnull String print,
+            @Nonnull String pluralPrint, @Nonnull OWLRDFVocabulary vocabulary) {
         this.name = name;
         this.vocabulary = vocabulary;
         printName = print;
@@ -80,11 +84,13 @@ public final class EntityType<E extends OWLEntity> implements Serializable,
     }
 
     /** @return printable name */
+    @Nonnull
     public String getPrintName() {
         return printName;
     }
 
     /** @return plural printable name */
+    @Nonnull
     public String getPluralPrintName() {
         return pluralPrintName;
     }

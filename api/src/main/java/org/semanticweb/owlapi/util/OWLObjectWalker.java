@@ -62,6 +62,7 @@ public class OWLObjectWalker<O extends OWLObject> {
         this(objects, true);
     }
 
+    @SuppressWarnings("null")
     protected Object passToVisitor(OWLObject o) {
         if (visitor != null) {
             o.accept(visitor);

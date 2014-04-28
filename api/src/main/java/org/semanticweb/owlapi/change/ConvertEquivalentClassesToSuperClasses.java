@@ -115,16 +115,20 @@ public class ConvertEquivalentClassesToSuperClasses extends
     private void generateChanges() {
         Set<OWLClassExpression> supers = new HashSet<OWLClassExpression>();
         for (OWLOntology o : ontologies) {
+            assert o != null;
             for (OWLEquivalentClassesAxiom ax : o
                     .getEquivalentClassesAxioms(cls)) {
+                assert ax != null;
                 addChange(new RemoveAxiom(o, ax));
                 for (OWLClassExpression equivCls : ax.getClassExpressions()) {
+                    assert equivCls != null;
                     supers.addAll(getClassExpressions(equivCls));
                 }
             }
         }
         supers.remove(cls);
         for (OWLClassExpression sup : supers) {
+            assert sup != null;
             addChange(new AddAxiom(targetOntology, getDataFactory()
                     .getOWLSubClassOfAxiom(cls, sup)));
         }

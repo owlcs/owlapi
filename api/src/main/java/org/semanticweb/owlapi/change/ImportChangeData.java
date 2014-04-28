@@ -68,6 +68,7 @@ public abstract class ImportChangeData extends
         return getDeclaration();
     }
 
+    @SuppressWarnings("null")
     @Override
     public Set<OWLEntity> getSignature() {
         return Collections.emptySet();

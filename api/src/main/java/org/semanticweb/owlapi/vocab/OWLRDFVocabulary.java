@@ -33,6 +33,7 @@ public enum OWLRDFVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
 
 
 
+
     //@formatter:off
     // OWL Vocab
     /** http://www.w3.org/2002/07/owl#Thing                 **/    OWL_THING(Namespaces.OWL, "Thing"),
@@ -167,11 +168,13 @@ public enum OWLRDFVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     //@formatter:on
     @Nonnull
     final IRI iri;
+    @Nonnull
     final Namespaces namespace;
+    @Nonnull
     final String shortName;
     private final String prefixedName;
 
-    OWLRDFVocabulary(Namespaces namespace, String shortName) {
+    OWLRDFVocabulary(@Nonnull Namespaces namespace, @Nonnull String shortName) {
         this.namespace = namespace;
         this.shortName = shortName;
         prefixedName = namespace.getPrefixName() + ":" + shortName;

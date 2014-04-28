@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-
 import org.semanticweb.owlapi.change.AddAxiomData;
 
 /**
@@ -78,13 +77,7 @@ public class AddAxiom extends OWLAxiomChange {
     @Nonnull
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("AddAxiom(");
-        sb.append(getAxiom().toString());
-        sb.append(" OntologyID(");
-        sb.append(getOntology().getOntologyID());
-        sb.append(")");
-        sb.append(")");
-        return sb.toString();
+        return "AddAxiom(" + getAxiom() + " OntologyID("
+                + getOntology().getOntologyID() + "))";
     }
 }

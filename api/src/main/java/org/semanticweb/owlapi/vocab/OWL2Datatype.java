@@ -48,11 +48,6 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
 
 
-
-
-
-
-
 //@formatter:off
     /** RDF_XML_LITERAL */          RDF_XML_LITERAL          (RDF,  "XMLLiteral",   Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, false, ".*"), 
     /** RDFS_LITERAL */             RDFS_LITERAL             (RDFS, "Literal",      Category.CAT_UNIVERSAL,                   false, ".*"),
@@ -90,13 +85,16 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
     /** XSD_DATE_TIME_STAMP */      XSD_DATE_TIME_STAMP      (DATE_TIME_STAMP,      Category.CAT_TIME,    false, "-?([1-9][0-9]{3,}|0[0-9]{3})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T(([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\\\\.[0-9]+)?|(24:00:00(\\\\.0+)?))(Z|(\\\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))");
 //@formatter:on
     @Nonnull
-    private static final Set<IRI> ALL_IRIS;
-    static {
+    private static final Set<IRI> ALL_IRIS = init();
+
+    @SuppressWarnings("null")
+    @Nonnull
+    static Set<IRI> init() {
         List<IRI> iris = new ArrayList<IRI>();
         for (OWL2Datatype v : OWL2Datatype.values()) {
             iris.add(v.iri);
         }
-        ALL_IRIS = Collections.unmodifiableSet(new TreeSet<IRI>(iris));
+        return Collections.unmodifiableSet(new TreeSet<IRI>(iris));
     }
 
     /**
@@ -167,18 +165,23 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
         throw new OWLRuntimeException(datatype + " is not a built in datatype!");
     }
 
+    @Nonnull
     private final String shortForm;
     @Nonnull
     private final IRI iri;
+    @Nonnull
     private final Category category;
     private final boolean finite;
+    @Nonnull
     private Pattern pattern;
     @Nonnull
     private final String regExpression;
+    @Nonnull
     private final String prefixedName;
 
+    @SuppressWarnings("null")
     OWL2Datatype(@Nonnull Namespaces namespace, @Nonnull String shortForm,
-            Category category, boolean finite, @Nonnull String regEx) {
+            @Nonnull Category category, boolean finite, @Nonnull String regEx) {
         iri = IRI.create(namespace.toString(), shortForm);
         this.shortForm = shortForm;
         prefixedName = namespace.getPrefixName() + ":" + shortForm;
@@ -188,8 +191,9 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
         pattern = Pattern.compile(regEx, Pattern.DOTALL);
     }
 
-    OWL2Datatype(@Nonnull XSDVocabulary xsd, Category category, boolean finite,
-            @Nonnull String regEx) {
+    @SuppressWarnings("null")
+    OWL2Datatype(@Nonnull XSDVocabulary xsd, @Nonnull Category category,
+            boolean finite, @Nonnull String regEx) {
         iri = xsd.getIRI();
         shortForm = xsd.getShortForm();
         prefixedName = xsd.getPrefixedName();

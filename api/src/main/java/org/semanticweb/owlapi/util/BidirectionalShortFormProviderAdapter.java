@@ -135,6 +135,7 @@ public class BidirectionalShortFormProviderAdapter extends
                 if (chg.isAddAxiom()) {
                     AddAxiom addAx = (AddAxiom) chg;
                     for (OWLEntity ent : addAx.getSignature()) {
+                        assert ent != null;
                         if (!processed.contains(ent)) {
                             processed.add(ent);
                             add(ent);
@@ -143,6 +144,7 @@ public class BidirectionalShortFormProviderAdapter extends
                 } else if (chg.isRemoveAxiom()) {
                     RemoveAxiom remAx = (RemoveAxiom) chg;
                     for (OWLEntity ent : remAx.getSignature()) {
+                        assert ent != null;
                         if (!processed.contains(ent)) {
                             processed.add(ent);
                             boolean stillRef = false;

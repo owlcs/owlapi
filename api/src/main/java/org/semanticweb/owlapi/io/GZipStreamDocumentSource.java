@@ -36,6 +36,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  */
 public class GZipStreamDocumentSource extends OWLOntologyDocumentSourceBase {
 
+    @Nonnull
     private final IRI documentIRI;
     private byte[] buffer;
 

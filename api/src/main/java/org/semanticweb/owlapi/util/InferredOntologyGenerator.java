@@ -68,7 +68,7 @@ public class InferredOntologyGenerator {
     }
 
     @Nonnull
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "null" })
     private static List<InferredAxiomGenerator<? extends OWLAxiom>>
             generators() {
         return Arrays.<InferredAxiomGenerator<? extends OWLAxiom>> asList(
@@ -134,6 +134,7 @@ public class InferredOntologyGenerator {
         List<AddAxiom> changes = new ArrayList<AddAxiom>();
         for (InferredAxiomGenerator<? extends OWLAxiom> axiomGenerator : axiomGenerators) {
             for (OWLAxiom ax : axiomGenerator.createAxioms(df, reasoner)) {
+                assert ax != null;
                 changes.add(new AddAxiom(ontology, ax));
             }
         }

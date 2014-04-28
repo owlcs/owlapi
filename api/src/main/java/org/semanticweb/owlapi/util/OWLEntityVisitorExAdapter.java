@@ -36,7 +36,8 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  */
 public class OWLEntityVisitorExAdapter<O> implements OWLEntityVisitorEx<O> {
 
-    private O defaultReturnValue = null;
+    @Nonnull
+    private O defaultReturnValue;
 
     /**
      * Gets the default return value for this visitor. A fixed value
@@ -61,6 +62,7 @@ public class OWLEntityVisitorExAdapter<O> implements OWLEntityVisitorEx<O> {
      * @param defaultReturnValue
      *        default return value
      */
+    @SuppressWarnings("null")
     public OWLEntityVisitorExAdapter(O defaultReturnValue) {
         this.defaultReturnValue = defaultReturnValue;
     }

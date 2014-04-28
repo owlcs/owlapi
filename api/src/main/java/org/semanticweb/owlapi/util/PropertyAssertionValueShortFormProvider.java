@@ -186,6 +186,7 @@ public class PropertyAssertionValueShortFormProvider implements
      *        The object to the rendered
      * @return The rendering of the object.
      */
+    @Nonnull
     private String getRendering(@Nonnull OWLObject object) {
         // We return the literal value of constants or use the alternate
         // short form provider to render individuals.

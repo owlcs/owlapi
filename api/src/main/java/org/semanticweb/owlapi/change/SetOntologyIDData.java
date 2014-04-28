@@ -73,6 +73,7 @@ public class SetOntologyIDData extends OWLOntologyChangeData<OWLOntologyID> {
         return visitor.visit(this);
     }
 
+    @SuppressWarnings("null")
     @Override
     public Set<OWLEntity> getSignature() {
         return Collections.emptySet();

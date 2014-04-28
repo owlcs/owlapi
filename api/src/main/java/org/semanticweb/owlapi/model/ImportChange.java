@@ -53,6 +53,7 @@ public abstract class ImportChange extends
         return declaration;
     }
 
+    @SuppressWarnings("null")
     @Override
     public Set<OWLEntity> getSignature() {
         return Collections.emptySet();

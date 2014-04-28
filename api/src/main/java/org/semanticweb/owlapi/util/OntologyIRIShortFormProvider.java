@@ -54,6 +54,7 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
             } else {
                 iri = iriPrefix;
             }
+            assert iri != null;
             map.put(IRI.create(iri), ns.getPrefixName().toLowerCase());
             map.put(IRI.create(iri + "/"), ns.getPrefixName().toLowerCase());
         }
@@ -65,6 +66,7 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
      *        ontology to use
      * @return short form of the ontology IRI
      */
+    @SuppressWarnings("null")
     public String getShortForm(OWLOntology ont) {
         OWLOntologyID ontologyID = ont.getOntologyID();
         if (ontologyID.getOntologyIRI().isPresent()) {
@@ -119,6 +121,8 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
      * @return The short form with the extension removed if it was present, or
      *         the original short form if no extension was present.
      */
+    @SuppressWarnings("null")
+    @Nonnull
     private static String stripExtensionIfPresent(String shortForm) {
         String lowerCaseShortForm = shortForm.toLowerCase();
         for (String extension : EXTENSIONS) {

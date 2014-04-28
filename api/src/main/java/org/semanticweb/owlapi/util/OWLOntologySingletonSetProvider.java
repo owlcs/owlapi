@@ -19,7 +19,6 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologySetProvider;
 
@@ -44,6 +43,7 @@ public class OWLOntologySingletonSetProvider implements OWLOntologySetProvider {
      *        The one and only ontology which should be contained in the sets
      *        provided by this provider.
      */
+    @SuppressWarnings("null")
     public OWLOntologySingletonSetProvider(@Nonnull OWLOntology ontology) {
         ontologySingletonSet = Collections.singleton(checkNotNull(ontology,
                 "ontology cannot be null"));

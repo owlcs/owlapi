@@ -67,6 +67,7 @@ public class GZipFileDocumentTarget implements OWLOntologyDocumentTarget {
         return true;
     }
 
+    @SuppressWarnings("null")
     @Override
     public OutputStream getOutputStream() {
         if (outputStream == null) {

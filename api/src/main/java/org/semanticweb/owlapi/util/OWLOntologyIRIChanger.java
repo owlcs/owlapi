@@ -71,6 +71,7 @@ public class OWLOntologyIRIChanger {
         changes.add(new SetOntologyID(ontology, new OWLOntologyID(Optional
                 .of(newIRI), ontology.getOntologyID().getVersionIRI())));
         for (OWLOntology ont : owlOntologyManager.getOntologies()) {
+            assert ont != null;
             for (OWLImportsDeclaration decl : ont.getImportsDeclarations()) {
                 if (decl.getIRI().equals(
                         ontology.getOntologyID().getOntologyIRI().get())) {

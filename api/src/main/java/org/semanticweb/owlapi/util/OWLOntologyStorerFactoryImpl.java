@@ -41,6 +41,7 @@ public class OWLOntologyStorerFactoryImpl<T extends OWLOntologyStorer>
         this.type = type;
     }
 
+    @SuppressWarnings("null")
     @Override
     public OWLOntologyStorer createStorer() {
         try {

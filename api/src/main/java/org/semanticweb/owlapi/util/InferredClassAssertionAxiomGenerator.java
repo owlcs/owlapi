@@ -37,6 +37,7 @@ public class InferredClassAssertionAxiomGenerator extends
             @Nonnull OWLReasoner reasoner, @Nonnull OWLDataFactory dataFactory,
             @Nonnull Set<OWLClassAssertionAxiom> result) {
         for (OWLClass type : reasoner.getTypes(entity, false).getFlattened()) {
+            assert type != null;
             result.add(dataFactory.getOWLClassAssertionAxiom(type, entity));
         }
     }

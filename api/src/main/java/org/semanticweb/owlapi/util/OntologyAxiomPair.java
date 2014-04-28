@@ -54,6 +54,7 @@ public class OntologyAxiomPair {
         return axiom;
     }
 
+    @SuppressWarnings("null")
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {
@@ -65,15 +66,14 @@ public class OntologyAxiomPair {
         OntologyAxiomPair other = (OntologyAxiomPair) obj;
         if (ontology != null && other.ontology != null) {
             return ontology.equals(other.ontology) && axiom.equals(other.axiom);
-        } else if (ontology != null && other.ontology == null) {
-            return false;
-        } else if (ontology == null && other.ontology != null) {
+        } else if (ontology != other.ontology) {
             return false;
         } else {
             return axiom.equals(other.axiom);
         }
     }
 
+    @SuppressWarnings("null")
     @Override
     public int hashCode() {
         if (ontology != null) {
@@ -83,6 +83,7 @@ public class OntologyAxiomPair {
         }
     }
 
+    @SuppressWarnings("null")
     @Nonnull
     @Override
     public String toString() {

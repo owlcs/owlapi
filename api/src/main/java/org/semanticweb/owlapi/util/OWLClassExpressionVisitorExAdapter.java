@@ -45,6 +45,7 @@ import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 public class OWLClassExpressionVisitorExAdapter<O> implements
         OWLClassExpressionVisitorEx<O> {
 
+    @Nonnull
     private O object;
 
     /** constructor for null default value. */
@@ -58,6 +59,7 @@ public class OWLClassExpressionVisitorExAdapter<O> implements
      * @param object
      *        default return value
      */
+    @SuppressWarnings("null")
     public OWLClassExpressionVisitorExAdapter(O object) {
         this.object = object;
     }

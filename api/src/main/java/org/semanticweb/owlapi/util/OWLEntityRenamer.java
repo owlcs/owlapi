@@ -98,6 +98,7 @@ public class OWLEntityRenamer {
      * @return A list of ontology changes that should be applied to change the
      *         specified entity IRI.
      */
+    @Nonnull
     public List<OWLOntologyChange<?>> changeIRI(@Nonnull OWLEntity entity,
             @Nonnull IRI newIRI) {
         Map<OWLEntity, IRI> iriMap = new HashMap<OWLEntity, IRI>();

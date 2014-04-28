@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-
 import org.semanticweb.owlapi.change.AddImportData;
 
 /**
@@ -62,6 +61,7 @@ public class AddImport extends ImportChange {
         return getImportDeclaration().equals(other.getImportDeclaration());
     }
 
+    @SuppressWarnings("null")
     @Nonnull
     @Override
     public String toString() {

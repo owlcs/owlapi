@@ -83,6 +83,7 @@ public class ImportsStructureObjectSorter<O> {
         Set<O> processed = new HashSet<O>();
         for (int i = imports.size() - 1; i > -1; i--) {
             OWLOntology currentOnt = imports.get(i);
+            assert currentOnt != null;
             Set<O> objects = new HashSet<O>();
             for (O obj : objectSelector.getObjects(currentOnt)) {
                 if (!processed.contains(obj)) {

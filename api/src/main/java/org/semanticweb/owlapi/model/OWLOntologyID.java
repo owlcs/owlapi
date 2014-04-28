@@ -37,6 +37,7 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
     private static final AtomicInteger COUNTER = new AtomicInteger();
     @Nonnull
     private static final String ANON_PREFIX = "Anonymous-";
+    @SuppressWarnings("null")
     @Nonnull
     private Optional<String> internalID = Optional.absent();
     @Nonnull
@@ -88,6 +89,7 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
      * @return input optional if its iri is not a blank node iri, absent
      *         otherwise
      */
+    @SuppressWarnings("null")
     @Nonnull
     private static Optional<IRI> opt(Optional<IRI> i) {
         if (NodeID.isAnonymousNodeIRI(i.orNull())) {
@@ -105,6 +107,7 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
      * @param version
      *        The version IRI (must be absent if the ontologyIRI is absent)
      */
+    @SuppressWarnings("null")
     public OWLOntologyID(Optional<IRI> iri, Optional<IRI> version) {
         ontologyIRI = opt(iri);
         hashCode = 17;
@@ -183,6 +186,7 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
      *         containing an ontology as identified by this ontology ID. Returns
      *         the default IRI or {@code null}.
      */
+    @SuppressWarnings("null")
     @Nonnull
     public Optional<IRI> getDefaultDocumentIRI() {
         if (ontologyIRI.isPresent()) {
@@ -207,6 +211,7 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
         return !ontologyIRI.isPresent();
     }
 
+    @SuppressWarnings("null")
     @Nonnull
     @Override
     public String toString() {

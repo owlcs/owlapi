@@ -34,6 +34,7 @@ import org.semanticweb.owlapi.model.SetOntologyID;
 public class OWLOntologyChangeVisitorExAdapter<O> implements
         OWLOntologyChangeVisitorEx<O> {
 
+    @Nonnull
     private O object;
 
     /** adapter with null default */
@@ -47,6 +48,7 @@ public class OWLOntologyChangeVisitorExAdapter<O> implements
      * @param object
      *        default return value
      */
+    @SuppressWarnings("null")
     public OWLOntologyChangeVisitorExAdapter(O object) {
         this.object = object;
     }

@@ -102,7 +102,9 @@ public class ShortForm2AnnotationGenerator extends
         Map<OWLOntology, Set<OWLEntity>> ontology2EntityMap = sorter
                 .getObjects();
         for (OWLOntology ont : ontology2EntityMap.keySet()) {
+            assert ont != null;
             for (OWLEntity ent : ontology2EntityMap.get(ont)) {
+                assert ent != null;
                 String shortForm = shortFormProvider.getShortForm(ent);
                 OWLLiteral con;
                 if (languageTag != null) {

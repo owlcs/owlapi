@@ -102,7 +102,9 @@ public enum SWRLBuiltInsVocabulary
     /** SUBTRACT_DATE_TIMES_YIELDING_YEAR_MONTH_DURATION */ SUBTRACT_DATE_TIMES_YIELDING_YEAR_MONTH_DURATION("subtractDateTimesYieldingYearMonthDuration", 3),    
     /** SUBTRACT_DATE_TIMES_YIELDING_DAY_TIME_DURATION */   SUBTRACT_DATE_TIMES_YIELDING_DAY_TIME_DURATION("subtractDateTimesYieldingDayTimeDuration", 3);
 //@formatter:on
+    @Nonnull
     private final String shortName;
+    @Nonnull
     private final String prefixedName;
     @Nonnull
     private final IRI iri;
@@ -110,11 +112,11 @@ public enum SWRLBuiltInsVocabulary
     private final int minArity;
     private final int maxArity;
 
-    SWRLBuiltInsVocabulary(String name, int arity) {
+    SWRLBuiltInsVocabulary(@Nonnull String name, int arity) {
         this(name, arity, arity);
     }
 
-    SWRLBuiltInsVocabulary(String name, int minArity, int maxArity) {
+    SWRLBuiltInsVocabulary(@Nonnull String name, int minArity, int maxArity) {
         shortName = name;
         prefixedName = Namespaces.SWRLB.getPrefixName() + ":" + name;
         iri = IRI.create(Namespaces.SWRLB.toString(), name);

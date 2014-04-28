@@ -67,6 +67,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         checkNotNull(iriReplacementMap, "iriReplacementMap cannot be null");
         replacementMap = new HashMap<OWLEntity, IRI>();
         for (Map.Entry<IRI, IRI> e : iriReplacementMap.entrySet()) {
+            @SuppressWarnings("null")
             @Nonnull
             IRI iri = e.getKey();
             IRI repIRI = e.getValue();
@@ -874,6 +875,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
     public void visit(IRI iri) {
         obj = iri;
         for (EntityType<?> entityType : EntityType.values()) {
+            assert entityType != null;
             OWLEntity entity = dataFactory.getOWLEntity(entityType, iri);
             IRI replacementIRI = replacementMap.get(entity);
             if (replacementIRI != null) {

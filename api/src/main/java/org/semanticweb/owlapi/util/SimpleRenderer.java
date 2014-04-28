@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.util;
 
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -185,16 +186,15 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         copyPrefixes(format);
     }
 
+    @SuppressWarnings("null")
     private void copyPrefixes(OWLOntologyFormat ontologyFormat) {
         if (!(ontologyFormat instanceof PrefixOWLOntologyFormat)) {
             return;
         }
         PrefixOWLOntologyFormat prefixFormat = (PrefixOWLOntologyFormat) ontologyFormat;
-        for (String prefixName : prefixFormat.getPrefixName2PrefixMap()
-                .keySet()) {
-            String prefix = prefixFormat.getPrefixName2PrefixMap().get(
-                    prefixName);
-            setPrefix(prefixName, prefix);
+        for (Map.Entry<String, String> e : prefixFormat
+                .getPrefixName2PrefixMap().entrySet()) {
+            setPrefix(e.getKey(), e.getValue());
         }
     }
 
@@ -229,6 +229,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         return iriShortFormProvider.getShortForm(iri);
     }
 
+    @SuppressWarnings("null")
     @Override
     public String render(OWLObject object) {
         reset();

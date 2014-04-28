@@ -77,12 +77,14 @@ public enum XSDVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     /** UNSIGNED_SHORT */       UNSIGNED_SHORT  ("unsignedShort"),
     /** UNSIGNED_BYTE */        UNSIGNED_BYTE   ("unsignedByte");
     // @formatter:on
+    @Nonnull
     private final String shortName;
     @Nonnull
     private final IRI iri;
+    @Nonnull
     private final String prefixedName;
 
-    XSDVocabulary(String name) {
+    XSDVocabulary(@Nonnull String name) {
         shortName = name;
         prefixedName = Namespaces.XSD.getPrefixName() + ":" + name;
         iri = IRI.create(Namespaces.XSD.toString(), name);

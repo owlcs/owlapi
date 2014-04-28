@@ -73,6 +73,7 @@ public abstract class CachingBidirectionalShortFormProvider implements
         shortForm2EntityMap.clear();
         entity2ShortFormMap.clear();
         for (OWLEntity entity : entitySetProvider.getEntities()) {
+            assert entity != null;
             add(entity);
         }
     }
@@ -109,6 +110,7 @@ public abstract class CachingBidirectionalShortFormProvider implements
         }
     }
 
+    @SuppressWarnings("null")
     @Override
     public Set<OWLEntity> getEntities(String shortForm) {
         Set<OWLEntity> entities = shortForm2EntityMap.get(shortForm);

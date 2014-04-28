@@ -82,6 +82,7 @@ public class OWLOntologyFormatFactoryImpl<T extends OWLOntologyFormat>
         return types.defaultMIMEType();
     }
 
+    @SuppressWarnings("null")
     @Override
     public List<String> getMIMETypes() {
         SupportsMIMEType types = this.type

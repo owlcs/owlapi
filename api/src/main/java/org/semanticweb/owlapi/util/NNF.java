@@ -430,6 +430,7 @@ public class NNF implements OWLClassExpressionVisitorEx<OWLClassExpression>,
         }
     }
 
+    @SuppressWarnings("null")
     @Override
     public OWLAxiom visit(@SuppressWarnings("unused") OWLHasKeyAxiom axiom) {
         return null;
@@ -444,11 +445,13 @@ public class NNF implements OWLClassExpressionVisitorEx<OWLClassExpression>,
         }
     }
 
+    @SuppressWarnings("null")
     @Override
     public OWLDataRange visit(@SuppressWarnings("unused") OWLLiteral node) {
         return null;
     }
 
+    @SuppressWarnings("null")
     @Override
     public OWLDataRange visit(
             @SuppressWarnings("unused") OWLFacetRestriction node) {

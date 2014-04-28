@@ -93,13 +93,16 @@ public enum SKOSVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
             ALL_IRIS.add(v.getIRI());
         }
     }
+    @Nonnull
     private final String localName;
     @Nonnull
     private final IRI iri;
+    @Nonnull
     private final EntityType<?> entityType;
+    @Nonnull
     private final String prefixedName;
 
-    SKOSVocabulary(String localname, EntityType<?> entityType) {
+    SKOSVocabulary(@Nonnull String localname, @Nonnull EntityType<?> entityType) {
         localName = localname;
         prefixedName = Namespaces.SKOS.getPrefixName() + ":" + localname;
         this.entityType = entityType;
@@ -185,6 +188,7 @@ public enum SKOSVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     }
 
     @Override
+    @Nonnull
     public String getShortForm() {
         return localName;
     }
