@@ -49,6 +49,7 @@ public class OWLDataFactoryImplTestCase {
         this.dataFactory = dataFactory;
     }
 
+    @SuppressWarnings("null")
     @Nonnull
     @Parameterized.Parameters
     public static Collection<Object[]> parameters() {

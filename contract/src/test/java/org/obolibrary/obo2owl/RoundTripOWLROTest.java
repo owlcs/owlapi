@@ -40,6 +40,7 @@ public class RoundTripOWLROTest extends RoundTripTest {
                 .parse(new BufferedReader(new StringReader(oboString)));
         // check that the annotations are pre-served on the property values
         Frame typedefFrame = oboDoc2.getTypedefFrame("RO:0002224");
+        @SuppressWarnings("null")
         Collection<Clause> propertyValues = typedefFrame
                 .getClauses(OboFormatTag.TAG_PROPERTY_VALUE);
         boolean found = false;

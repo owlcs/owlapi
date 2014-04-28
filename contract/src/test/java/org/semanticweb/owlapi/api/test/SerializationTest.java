@@ -115,6 +115,7 @@ public class SerializationTest {
     @Nonnull
     OWLPropertyExpression[] owlpropertyexpression = new OWLPropertyExpression[] {};
 
+    @SuppressWarnings("null")
     @Test
     public void testrun() throws Exception {
         OWLOntologyManager m = OWLManager.createOWLOntologyManager();

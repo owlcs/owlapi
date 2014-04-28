@@ -23,6 +23,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 @SuppressWarnings("javadoc")
 public class RelationShorthandTest extends OboFormatTestBasics {
 
+    @SuppressWarnings("null")
     @Test
     public void testConvert() throws Exception {
         // PARSE TEST FILE, CONVERT TO OWL, AND WRITE TO OWL FILE

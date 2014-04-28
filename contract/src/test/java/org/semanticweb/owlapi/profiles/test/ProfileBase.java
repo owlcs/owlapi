@@ -3,12 +3,12 @@ package org.semanticweb.owlapi.profiles.test;
 import static org.junit.Assert.*;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.profiles.OWL2DLProfile;
 import org.semanticweb.owlapi.profiles.OWL2ELProfile;
 import org.semanticweb.owlapi.profiles.OWL2QLProfile;
@@ -46,29 +46,28 @@ public class ProfileBase {
         return new OWL2DLProfile().checkOntology(in);
     }
 
-    boolean in(@Nonnull OWLProfile p, String in) {
+    boolean in(@Nonnull OWLProfile p, @Nonnull String in) {
         return p.checkOntology(o(in)).isInProfile();
     }
 
-    @Nullable
-    OWLOntology o(String in) {
+    @Nonnull
+    OWLOntology o(@Nonnull String in) {
         try {
             return OWLManager.createOWLOntologyManager()
                     .loadOntologyFromOntologyDocument(
                             new StringDocumentSource(in));
         } catch (OWLOntologyCreationException e) {
-            e.printStackTrace();
+            throw new OWLRuntimeException(e);
         }
-        return null;
     }
 
-    void compareOntologies(String in1, String in2) {
+    void compareOntologies(@Nonnull String in1, @Nonnull String in2) {
         OWLOntology o1 = o(in1);
         OWLOntology o2 = o(in2);
         assertEquals(o1.getAxioms(), o2.getAxioms());
     }
 
-    protected void test(String in, boolean el, boolean ql, boolean rl,
+    protected void test(@Nonnull String in, boolean el, boolean ql, boolean rl,
             boolean dl) {
         OWLOntology o = o(in);
         assertTrue("empty ontology", o.getAxioms().size() > 0);

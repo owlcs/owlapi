@@ -16,6 +16,7 @@ import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 @SuppressWarnings("javadoc")
 public class OboEscapeCharsTest extends OboFormatTestBasics {
 
+    @SuppressWarnings("null")
     @Test
     public void testEscapeChars() throws Exception {
         OBODoc obodoc = parseOBOFile("escape_chars_test.obo");

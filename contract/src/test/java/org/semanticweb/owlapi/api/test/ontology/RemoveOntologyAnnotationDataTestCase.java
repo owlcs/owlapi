@@ -17,7 +17,6 @@ import static org.mockito.Mockito.mock;
 
 import javax.annotation.Nonnull;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.change.RemoveOntologyAnnotationData;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -32,18 +31,16 @@ import org.semanticweb.owlapi.model.RemoveOntologyAnnotation;
 @SuppressWarnings("javadoc")
 public class RemoveOntologyAnnotationDataTestCase {
 
-    private OWLAnnotation mockAnnotation;
-    private OWLOntology mockOntology;
+    @SuppressWarnings("null")
+    @Nonnull
+    private OWLAnnotation mockAnnotation = mock(OWLAnnotation.class);
+    @SuppressWarnings("null")
+    @Nonnull
+    private OWLOntology mockOntology = mock(OWLOntology.class);
 
     @Nonnull
     private RemoveOntologyAnnotationData createData() {
         return new RemoveOntologyAnnotationData(mockAnnotation);
-    }
-
-    @Before
-    public void setUp() {
-        mockAnnotation = mock(OWLAnnotation.class);
-        mockOntology = mock(OWLOntology.class);
     }
 
     @Test

@@ -14,6 +14,8 @@ package uk.ac.manchester.owl.owlapi.tutorial.examples;
 
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -52,8 +54,9 @@ public class ClosureAxiomsExample {
      * @throws OWLException
      *         if an exception is raised
      */
-    public void closure(String inputOntology, String outputOntology,
-            String classToClose) throws OWLException {
+    public void closure(@Nonnull String inputOntology,
+            @Nonnull String outputOntology, @Nonnull String classToClose)
+            throws OWLException {
         /* Create and Ontology Manager */
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         IRI documentIRI = IRI.create(inputOntology);

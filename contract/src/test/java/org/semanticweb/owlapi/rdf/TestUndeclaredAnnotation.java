@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.RDFXMLOntologyFormat;
@@ -32,6 +34,8 @@ public class TestUndeclaredAnnotation extends TestBase {
                 + "    <rdf:Description rdf:about=\"&ns;test\"><ns:rel><rdf:Description ns:pred =\"Not visible\"/></ns:rel></rdf:Description>\n"
                 + "</rdf:RDF>";
         OWLOntology oo = loadOntologyFromString(input);
+        @SuppressWarnings("null")
+        @Nonnull
         RDFXMLOntologyFormat format = (RDFXMLOntologyFormat) oo
                 .getOWLOntologyManager().getOntologyFormat(oo);
         assertEquals("Should have no unparsed triples", 0, format
@@ -48,6 +52,8 @@ public class TestUndeclaredAnnotation extends TestBase {
                 .getAnonymousIndividuals();
         assertEquals("should be one anonymous individual", 1,
                 anonymousIndividualSet.size());
+        @SuppressWarnings("null")
+        @Nonnull
         OWLAnonymousIndividual anonymousIndividual = anonymousIndividualSet
                 .iterator().next();
         OWLAnnotationAssertionAxiom relAx = df.getOWLAnnotationAssertionAxiom(

@@ -20,6 +20,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
@@ -27,7 +29,6 @@ import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
@@ -37,28 +38,30 @@ import org.semanticweb.owlapi.model.SWRLVariable;
 @SuppressWarnings("javadoc")
 public class SWRLAnnotationTestCase extends TestBase {
 
+    @Nonnull
     private static final String NS = "http://protege.org/ontologies/SWRLAnnotation.owl";
-    OWLClass a;
-    OWLClass b;
+    @Nonnull
+    OWLClass a = Class(IRI(NS + "#A"));
+    @Nonnull
+    OWLClass b = Class(IRI(NS + "#B"));
+    @SuppressWarnings("null")
+    @Nonnull
     OWLAxiom axiom;
 
     @Before
     public void setUp() {
-        OWLDataFactory factory = df;
-        a = Class(IRI(NS + "#A"));
-        b = Class(IRI(NS + "#B"));
-        SWRLVariable x = factory.getSWRLVariable(IRI(NS + "#x"));
-        SWRLAtom atom1 = factory.getSWRLClassAtom(a, x);
-        SWRLAtom atom2 = factory.getSWRLClassAtom(b, x);
+        SWRLVariable x = df.getSWRLVariable(IRI(NS + "#x"));
+        SWRLAtom atom1 = df.getSWRLClassAtom(a, x);
+        SWRLAtom atom2 = df.getSWRLClassAtom(b, x);
         Set<SWRLAtom> consequent = new TreeSet<SWRLAtom>();
         consequent.add(atom1);
-        OWLAnnotation annotation = factory.getOWLAnnotation(RDFSComment(),
+        OWLAnnotation annotation = df.getOWLAnnotation(RDFSComment(),
                 Literal("Not a great rule"));
         Set<OWLAnnotation> annotations = new TreeSet<OWLAnnotation>();
         annotations.add(annotation);
         Set<SWRLAtom> body = new TreeSet<SWRLAtom>();
         body.add(atom2);
-        axiom = factory.getSWRLRule(body, consequent, annotations);
+        axiom = df.getSWRLRule(body, consequent, annotations);
     }
 
     @Test

@@ -37,7 +37,9 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 @SuppressWarnings("javadoc")
 public class SubClassOfUntypedOWLClassTestCase extends AbstractFileTestCase {
 
+    @Nonnull
     public static final IRI SUBCLASS_IRI = IRI("http://www.semanticweb.org/owlapi/test#A");
+    @Nonnull
     public static final IRI SUPERCLASS_IRI = IRI("http://www.semanticweb.org/owlapi/test#B");
 
     @Override

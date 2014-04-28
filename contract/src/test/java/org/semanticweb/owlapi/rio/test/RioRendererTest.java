@@ -10,6 +10,8 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.HashSet;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.openrdf.model.Statement;
@@ -41,9 +43,15 @@ public class RioRendererTest {
 
     private ValueFactory vf;
     private OWLOntologyManager testManager;
+    @SuppressWarnings("null")
+    @Nonnull
     private OWLOntology testOntologyEmpty;
+    @SuppressWarnings("null")
+    @Nonnull
     private OWLOntology testOntologyKoala;
     private Statement testOntologyEmptyStatement;
+    @SuppressWarnings("null")
+    @Nonnull
     private IRI testOntologyUri1;
     private StatementCollector testHandlerStatementCollector;
     private StringWriter testRdfXmlStringWriter;
@@ -53,6 +61,7 @@ public class RioRendererTest {
     private StringWriter testNTriplesStringWriter;
     private RDFWriter testNTriplesRioWriter;
 
+    @SuppressWarnings("null")
     @Before
     public void setUp() throws Exception {
         vf = new ValueFactoryImpl();

@@ -15,6 +15,8 @@ package org.semanticweb.owlapi.api.test.classexpressions;
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -25,9 +27,13 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 @SuppressWarnings("javadoc")
 public class DisjointUnionTestCase extends TestBase {
 
+    @Nonnull
     public static final String NS = "http://protege.org/protege/DisjointUnion.owl";
+    @Nonnull
     public static final OWLClass A = Class(IRI(NS + "#A"));
+    @Nonnull
     public static final OWLClass B = Class(IRI(NS + "#B"));
+    @Nonnull
     public static final OWLClass C = Class(IRI(NS + "#C"));
 
     /**

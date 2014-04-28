@@ -14,7 +14,6 @@ import org.obolibrary.oboformat.model.Frame;
 import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 import org.obolibrary.oboformat.parser.OBOFormatParser;
-import org.obolibrary.oboformat.parser.OBOFormatParserException;
 
 @SuppressWarnings("javadoc")
 public class TagTest extends OboFormatTestBasics {
@@ -36,6 +35,7 @@ public class TagTest extends OboFormatTestBasics {
         assertEquals(1, obodoc.getTypedefFrames().size());
     }
 
+    @SuppressWarnings("null")
     @Test
     public void testParseOBODoc() {
         OBODoc obodoc = parseOBODoc("[Term]\nid: x\nname: foo\n\n\n[Term]\nid: y\nname: y");
@@ -73,6 +73,7 @@ public class TagTest extends OboFormatTestBasics {
         assertEquals(OboFormatTag.TAG_CREATION_DATE.getTag(), cl.getTag());
     }
 
+    @SuppressWarnings("null")
     @Test
     public void testParseNameTag() {
         Clause cl = parseLine("name: a b c");
@@ -87,6 +88,7 @@ public class TagTest extends OboFormatTestBasics {
         assertEquals("a b c", cl.getValue());
     }
 
+    @SuppressWarnings("null")
     @Test
     public void testParseNamespaceTag() {
         Clause cl = parseLine("namespace: foo");
@@ -107,13 +109,7 @@ public class TagTest extends OboFormatTestBasics {
         OBOFormatParser p = new OBOFormatParser();
         BufferedReader br = new BufferedReader(sr);
         p.setReader(br);
-        try {
-            Clause cl = p.parseTermFrameClause();
-            return cl;
-        } catch (OBOFormatParserException e) {
-            fail(e.getMessage());
-            return null;
-        }
+        return p.parseTermFrameClause();
     }
 
     @Nonnull
@@ -122,14 +118,9 @@ public class TagTest extends OboFormatTestBasics {
         OBOFormatParser p = new OBOFormatParser();
         BufferedReader br = new BufferedReader(sr);
         p.setReader(br);
-        try {
-            OBODoc obodoc = new OBODoc();
-            p.parseTermFrame(obodoc);
-            return obodoc;
-        } catch (OBOFormatParserException e) {
-            fail(e.getMessage());
-            return null;
-        }
+        OBODoc obodoc = new OBODoc();
+        p.parseTermFrame(obodoc);
+        return obodoc;
     }
 
     @Nonnull
@@ -138,13 +129,8 @@ public class TagTest extends OboFormatTestBasics {
         OBOFormatParser p = new OBOFormatParser();
         BufferedReader br = new BufferedReader(sr);
         p.setReader(br);
-        try {
-            OBODoc obodoc = new OBODoc();
-            p.parseOBODoc(obodoc);
-            return obodoc;
-        } catch (OBOFormatParserException e) {
-            fail(e.getMessage());
-            return null;
-        }
+        OBODoc obodoc = new OBODoc();
+        p.parseOBODoc(obodoc);
+        return obodoc;
     }
 }

@@ -201,6 +201,8 @@ class DLQueryEngine {
      * @return The superclasses of the specified class expression If there was a
      *         problem parsing the class expression.
      */
+    @SuppressWarnings("null")
+    @Nonnull
     public Set<OWLClass> getSuperClasses(@Nonnull String classExpressionString,
             boolean direct) {
         if (classExpressionString.trim().length() == 0) {
@@ -221,6 +223,8 @@ class DLQueryEngine {
      * @return The equivalent classes of the specified class expression If there
      *         was a problem parsing the class expression.
      */
+    @SuppressWarnings("null")
+    @Nonnull
     public Set<OWLClass> getEquivalentClasses(
             @Nonnull String classExpressionString) {
         if (classExpressionString.trim().length() == 0) {
@@ -250,6 +254,8 @@ class DLQueryEngine {
      * @return The subclasses of the specified class expression If there was a
      *         problem parsing the class expression.
      */
+    @SuppressWarnings("null")
+    @Nonnull
     public Set<OWLClass> getSubClasses(@Nonnull String classExpressionString,
             boolean direct) {
         if (classExpressionString.trim().length() == 0) {
@@ -272,6 +278,8 @@ class DLQueryEngine {
      * @return The instances of the specified class expression If there was a
      *         problem parsing the class expression.
      */
+    @SuppressWarnings("null")
+    @Nonnull
     public Set<OWLNamedIndividual> getInstances(
             @Nonnull String classExpressionString, boolean direct) {
         if (classExpressionString.trim().length() == 0) {
@@ -324,8 +332,8 @@ class DLQueryParser {
      *         is malformed or contains unknown entity names.
      */
     @Nonnull
-    public OWLClassExpression
-            parseClassExpression(String classExpressionString) {
+    public OWLClassExpression parseClassExpression(
+            @Nonnull String classExpressionString) {
         OWLDataFactory dataFactory = rootOntology.getOWLOntologyManager()
                 .getOWLDataFactory();
         // Set up the real parser
@@ -402,6 +410,7 @@ class DLQueryPrinter {
         sb.append("\n\n");
         if (!entities.isEmpty()) {
             for (OWLEntity entity : entities) {
+                assert entity != null;
                 sb.append("\t");
                 sb.append(shortFormProvider.getShortForm(entity));
                 sb.append("\n");

@@ -33,6 +33,7 @@ public class PrefixOntologyFormatTestCase extends AbstractRoundTrippingTestCase 
         OWLOntology ont = m.createOntology();
         PrefixOWLOntologyFormat format = (PrefixOWLOntologyFormat) ont
                 .getOWLOntologyManager().getOntologyFormat(ont);
+        assert format != null;
         format.setDefaultPrefix("http://default.com");
         format.setPrefix("a", "http://ontology.com/a#");
         format.setPrefix("b", "http://ontology.com/b#");
@@ -52,6 +53,7 @@ public class PrefixOntologyFormatTestCase extends AbstractRoundTrippingTestCase 
             prefixFormat.getPrefixName2PrefixMap();
             PrefixOWLOntologyFormat prefixFormat2 = (PrefixOWLOntologyFormat) ont2Format;
             for (String prefixName : prefixFormat.getPrefixNames()) {
+                assert prefixName != null;
                 assertTrue(prefixFormat2.containsPrefixMapping(prefixName));
                 assertEquals(prefixFormat.getPrefix(prefixName),
                         prefixFormat2.getPrefix(prefixName));

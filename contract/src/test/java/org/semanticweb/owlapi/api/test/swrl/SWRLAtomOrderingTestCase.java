@@ -34,6 +34,7 @@ public class SWRLAtomOrderingTestCase {
     private SWRLRuleImpl rule;
     private Set<SWRLAtom> body;
 
+    @SuppressWarnings("null")
     @Before
     public void setUp() {
         when(atomA.compareTo(atomB)).thenReturn(-1);

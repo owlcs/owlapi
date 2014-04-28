@@ -18,6 +18,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
@@ -52,6 +54,8 @@ import uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory;
 @SuppressWarnings("javadoc")
 public abstract class AbstractRendererAndParserTestCase extends TestBase {
 
+    @SuppressWarnings("null")
+    @Nonnull
     private OWLOntologyManager man;
 
     @Before
@@ -65,34 +69,41 @@ public abstract class AbstractRendererAndParserTestCase extends TestBase {
         man.getOntologyParsers().add(new RDFXMLParser());
     }
 
+    @Nonnull
     public OWLClass createClass() {
         return man.getOWLDataFactory().getOWLClass(TestUtils.createIRI());
     }
 
+    @Nonnull
     public OWLAnnotationProperty createAnnotationProperty() {
         return getManager().getOWLDataFactory().getOWLAnnotationProperty(
                 TestUtils.createIRI());
     }
 
+    @Nonnull
     public OWLObjectProperty createObjectProperty() {
         return man.getOWLDataFactory().getOWLObjectProperty(
                 TestUtils.createIRI());
     }
 
+    @Nonnull
     public OWLDataProperty createDataProperty() {
         return man.getOWLDataFactory()
                 .getOWLDataProperty(TestUtils.createIRI());
     }
 
+    @Nonnull
     public OWLIndividual createIndividual() {
         return man.getOWLDataFactory().getOWLNamedIndividual(
                 TestUtils.createIRI());
     }
 
+    @Nonnull
     public OWLOntologyManager getManager() {
         return man;
     }
 
+    @Nonnull
     protected OWLDataFactory getDataFactory() {
         return man.getOWLDataFactory();
     }

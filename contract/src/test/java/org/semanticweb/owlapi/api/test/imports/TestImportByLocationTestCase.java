@@ -32,6 +32,8 @@ public class TestImportByLocationTestCase extends TestBase {
 
     @Test
     public void testImportOntologyByLocation() throws Exception {
+        @SuppressWarnings("null")
+        @Nonnull
         File f = folder.newFile("a.owl");
         createOntologyFile(IRI("http://a.com"), f);
         // have to load an ontology for it to get a document IRI
@@ -46,7 +48,7 @@ public class TestImportByLocationTestCase extends TestBase {
         assertEquals(1, b.getImports().size());
     }
 
-    private OWLOntology createOntologyFile(IRI iri, @Nonnull File f)
+    private OWLOntology createOntologyFile(@Nonnull IRI iri, @Nonnull File f)
             throws Exception {
         OWLOntology a = m1.createOntology(iri);
         OutputStream out = new FileOutputStream(f);

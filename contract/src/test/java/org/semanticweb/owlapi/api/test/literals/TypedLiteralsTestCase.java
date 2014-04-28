@@ -44,7 +44,7 @@ public class TypedLiteralsTestCase extends AbstractAxiomsRoundTrippingTestCase {
         return axioms;
     }
 
-    private void addAxiomForLiteral(OWLLiteral lit,
+    private void addAxiomForLiteral(@Nonnull OWLLiteral lit,
             @Nonnull Set<OWLAxiom> axioms) {
         OWLDataProperty prop = DataProperty(getIRI("p"));
         OWLNamedIndividual ind = NamedIndividual(getIRI("i"));

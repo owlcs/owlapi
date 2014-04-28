@@ -24,6 +24,7 @@ public class CurlyBracesInCommentsTest extends OboFormatTestBasics {
         parseOBOFile("fbbt_comment_test.obo");
     }
 
+    @SuppressWarnings("null")
     @Test
     public void writeCurlyBracesInComments() throws Exception {
         OBODoc doc = new OBODoc();

@@ -15,7 +15,7 @@ package org.semanticweb.owlapi.api.test.ontology;
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
-import java.util.Collections;
+import java.util.HashSet;
 
 import javax.annotation.Nonnull;
 
@@ -60,8 +60,7 @@ public class MapperlessOntologyManagerTestCase {
     public void testCreateOntologyWithAxioms()
             throws OWLOntologyCreationException {
         OWLOntologyManager manager = createManager();
-        OWLOntology ontology = manager.createOntology(Collections
-                .<OWLAxiom> emptySet());
+        OWLOntology ontology = manager.createOntology(new HashSet<OWLAxiom>());
         assertNotNull("ontology should not be null",
                 manager.getOntologyDocumentIRI(ontology));
     }
@@ -70,8 +69,8 @@ public class MapperlessOntologyManagerTestCase {
     public void testCreateOntologyWithAxiomsAndIRI()
             throws OWLOntologyCreationException {
         OWLOntologyManager manager = createManager();
-        OWLOntology ontology = manager.createOntology(
-                Collections.<OWLAxiom> emptySet(), ONTOLOGY_IRI);
+        OWLOntology ontology = manager.createOntology(new HashSet<OWLAxiom>(),
+                ONTOLOGY_IRI);
         assertEquals(ONTOLOGY_IRI, ontology.getOntologyID().getOntologyIRI()
                 .get());
         assertEquals(ONTOLOGY_IRI, manager.getOntologyDocumentIRI(ontology));

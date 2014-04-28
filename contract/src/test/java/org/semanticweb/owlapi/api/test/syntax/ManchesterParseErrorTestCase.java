@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.api.test.syntax;
 
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.junit.Test;
@@ -47,7 +48,7 @@ public class ManchesterParseErrorTestCase extends TestBase {
         parse(text1);
     }
 
-    private OWLClassExpression parse(String text) {
+    private OWLClassExpression parse(@Nonnull String text) {
         MockEntityChecker checker = new MockEntityChecker(df);
         ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(
                 df, text);

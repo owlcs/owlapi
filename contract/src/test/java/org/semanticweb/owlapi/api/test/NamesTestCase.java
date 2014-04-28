@@ -54,7 +54,7 @@ import com.google.common.base.Optional;
 @SuppressWarnings("javadoc")
 public class NamesTestCase {
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "null" })
     @Test
     public void shoudReturnRightName() throws OWLOntologyCreationException {
         assertEquals("AddAxiomData", new AddAxiomData(mock(OWLAxiom.class)) {

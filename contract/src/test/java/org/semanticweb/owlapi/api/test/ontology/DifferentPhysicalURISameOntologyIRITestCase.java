@@ -34,6 +34,7 @@ public class DifferentPhysicalURISameOntologyIRITestCase extends TestBase {
     private static final String ONTOLOGY_A = "ImportsTestOntologyA.owl";
     private static final String ONTOLOGY_A_EMPTY = "ImportsTestOntologyAEmpty.owl";
 
+    @SuppressWarnings("null")
     @Test(expected = OWLOntologyAlreadyExistsException.class)
     public void testDifferentPhysicalURISameOntologyIRI()
             throws OWLOntologyCreationException, URISyntaxException {

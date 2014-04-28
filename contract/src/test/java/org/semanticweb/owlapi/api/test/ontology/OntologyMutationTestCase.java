@@ -16,7 +16,6 @@ import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.Nonnull;
@@ -116,8 +115,7 @@ public class OntologyMutationTestCase extends TestBase {
                         chgs.addAll(changes);
                     }
                 });
-        ont.getOWLOntologyManager().applyChanges(
-                Arrays.asList(new AddAxiom(ont, ax)));
+        ont.getOWLOntologyManager().applyChange(new AddAxiom(ont, ax));
         assertEquals(1, chgs.size());
         assertTrue(chgs.contains(new AddAxiom(ont, ax)));
     }

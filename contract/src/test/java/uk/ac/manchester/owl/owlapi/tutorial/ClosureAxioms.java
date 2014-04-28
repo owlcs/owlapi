@@ -46,17 +46,18 @@ public class ClosureAxioms {
 
     @Nonnull
     private final OWLOntologyManager manager;
+    @Nonnull
     private final OWLOntology ontology;
     private final OWLDataFactory factory;
 
     public ClosureAxioms(@Nonnull OWLOntologyManager manager,
-            OWLOntology ontology) {
+            @Nonnull OWLOntology ontology) {
         this.manager = manager;
         this.ontology = ontology;
         factory = manager.getOWLDataFactory();
     }
 
-    public void addClosureAxioms(OWLClass clazz) {
+    public void addClosureAxioms(@Nonnull OWLClass clazz) {
         /* Get the class axioms */
         Set<OWLSubClassOfAxiom> axioms = ontology
                 .getAxioms(AxiomType.SUBCLASS_OF);
@@ -76,6 +77,7 @@ public class ClosureAxioms {
         }
         /* For any existentials.... */
         for (OWLObjectPropertyExpression prop : restrictions.keySet()) {
+            assert prop != null;
             System.out.println("prop: " + prop);
             Set<OWLClassExpression> fillers = restrictions.get(prop);
             for (OWLClassExpression filler : fillers) {

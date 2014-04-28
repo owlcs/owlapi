@@ -4,8 +4,9 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
-import javax.annotation.Nullable;
+import javax.annotation.Nonnull;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.obolibrary.obo2owl.OWLAPIOwl2Obo;
 import org.obolibrary.obo2owl.OboFormatTestBasics;
@@ -19,32 +20,31 @@ import org.semanticweb.owlapi.model.OWLOntology;
 @SuppressWarnings("javadoc")
 public class ManchesterSyntaxToolTest extends OboFormatTestBasics {
 
-    @Nullable
-    private OWLOntology owlOntology = null;
-    @Nullable
-    private ManchesterSyntaxTool parser = null;
+    @SuppressWarnings("null")
+    @Nonnull
+    private OWLOntology owlOntology;
+    @SuppressWarnings("null")
+    @Nonnull
+    private ManchesterSyntaxTool parser;
 
     @Test
-    public void testParseManchesterIds() throws Exception {
-        setup();
+    public void testParseManchesterIds() {
         OWLClassExpression expression = parser
                 .parseManchesterExpression("GO_0018901 AND BFO:0000050 some GO_0055124");
         checkIntersection(expression, "GO:0018901", "BFO:0000050", "GO:0055124");
     }
 
     @Test
-    public void testParseManchesterNames() throws Exception {
-        setup();
+    public void testParseManchesterNames() {
         OWLClassExpression expression = parser
                 .parseManchesterExpression("'2,4-dichlorophenoxyacetic acid metabolic process' AND 'part_of' some 'premature neural plate formation'");
         checkIntersection(expression, "GO:0018901", "BFO:0000050", "GO:0055124");
     }
 
-    private synchronized void setup() throws Exception {
-        if (owlOntology == null) {
-            owlOntology = convert(parseOBOFile("simplego.obo"));
-            parser = new ManchesterSyntaxTool(owlOntology);
-        }
+    @Before
+    public void setup() throws Exception {
+        owlOntology = convert(parseOBOFile("simplego.obo"));
+        parser = new ManchesterSyntaxTool(owlOntology);
     }
 
     private static void checkIntersection(OWLClassExpression expression,

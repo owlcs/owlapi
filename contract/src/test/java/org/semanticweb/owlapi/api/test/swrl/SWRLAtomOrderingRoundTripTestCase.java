@@ -10,6 +10,8 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
@@ -44,14 +46,16 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 @SuppressWarnings("javadoc")
 public class SWRLAtomOrderingRoundTripTestCase {
 
-    private Set<SWRLAtom> body;
-    private Set<SWRLAtom> head;
+    @Nonnull
+    private Set<SWRLAtom> body = new LinkedHashSet<SWRLAtom>();
+    @Nonnull
+    private Set<SWRLAtom> head = new LinkedHashSet<SWRLAtom>();
+    @SuppressWarnings("null")
+    @Nonnull
     private SWRLRule rule;
 
     @Before
     public void setUp() {
-        body = new LinkedHashSet<SWRLAtom>();
-        head = new LinkedHashSet<SWRLAtom>();
         OWLDataFactory dataFactory = new OWLDataFactoryImpl();
         PrefixManager pm = new DefaultPrefixManager(null, null,
                 "http://stuff.com/A/");
@@ -80,7 +84,7 @@ public class SWRLAtomOrderingRoundTripTestCase {
         roundTrip(new RDFXMLOntologyFormat());
     }
 
-    private void roundTrip(OWLOntologyFormat ontologyFormat)
+    private void roundTrip(@Nonnull OWLOntologyFormat ontologyFormat)
             throws OWLOntologyCreationException, OWLOntologyStorageException {
         OWLOntologyManager man = OWLManager.createOWLOntologyManager();
         OWLOntology ont = man.createOntology();

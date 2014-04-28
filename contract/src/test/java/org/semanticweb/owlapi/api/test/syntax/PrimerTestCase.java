@@ -4,6 +4,8 @@ import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
@@ -25,6 +27,8 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolation;
 @SuppressWarnings("javadoc")
 public class PrimerTestCase extends TestBase {
 
+    @SuppressWarnings("null")
+    @Nonnull
     OWLOntology func;
     OWL2DLProfile profile;
 
@@ -130,6 +134,7 @@ public class PrimerTestCase extends TestBase {
         equal(func, turt);
     }
 
+    @Nonnull
     private static final String rdfxml = "<!DOCTYPE rdf:RDF [\n"
             + "    <!ENTITY owl \"http://www.w3.org/2002/07/owl#\" >\n"
             + "    <!ENTITY xsd \"http://www.w3.org/2001/XMLSchema#\" >\n"
@@ -212,6 +217,7 @@ public class PrimerTestCase extends TestBase {
             + "   <owl:NegativePropertyAssertion><owl:sourceIndividual rdf:resource=\"Jack\"/><owl:assertionProperty rdf:resource=\"hasAge\"/><owl:targetValue rdf:datatype=\"&xsd;integer\">53</owl:targetValue></owl:NegativePropertyAssertion>\n"
             + "   <owl:NegativePropertyAssertion><owl:sourceIndividual rdf:resource=\"Bill\"/><owl:assertionProperty rdf:resource=\"hasDaughter\"/><owl:targetIndividual rdf:resource=\"Susan\"/></owl:NegativePropertyAssertion>\n"
             + " </rdf:RDF>";
+    @Nonnull
     private static final String owlxml = "<!DOCTYPE Ontology [\n"
             + "        <!ENTITY xsd \"http://www.w3.org/2001/XMLSchema#\" >\n"
             + "        <!ENTITY rdfs \"http://www.w3.org/2000/01/rdf-schema#\" >\n"
@@ -354,6 +360,7 @@ public class PrimerTestCase extends TestBase {
             + "    <NegativeDataPropertyAssertion><DataProperty IRI=\"hasAge\"/><NamedIndividual IRI=\"Jack\"/><Literal datatypeIRI=\"&xsd;integer\">53</Literal></NegativeDataPropertyAssertion>\n"
             + "    <NegativeObjectPropertyAssertion><ObjectProperty IRI=\"hasDaughter\"/><NamedIndividual IRI=\"Bill\"/><NamedIndividual IRI=\"Susan\"/></NegativeObjectPropertyAssertion>\n"
             + "\n" + "</Ontology>";
+    @Nonnull
     private static final String functional = " Prefix(:=<http://example.com/owl/families/>)\n"
             + " Prefix(otherOnt:=<http://example.org/otherOntologies/families/>)\n"
             + " Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)\n"
@@ -490,6 +497,7 @@ public class PrimerTestCase extends TestBase {
             + "   SameIndividual( :John otherOnt:JohnBrown )\n"
             + "   SameIndividual( :Mary otherOnt:MaryBrown )\n"
             + "   DifferentIndividuals( :John :Bill )\n" + " )";
+    @Nonnull
     private static final String manchester = "Prefix: : <http://example.com/owl/families/>\n"
             + "Prefix: xsd: <http://www.w3.org/2001/XMLSchema#>\n"
             + "Prefix: owl: <http://www.w3.org/2002/07/owl#>\n"
@@ -631,6 +639,7 @@ public class PrimerTestCase extends TestBase {
             + "\n"
             + "SameIndividual: John, otherOnt:JohnBrown\n"
             + "SameIndividual: Mary, otherOnt:MaryBrown";
+    @Nonnull
     private static final String turtle = "@prefix : <http://example.com/owl/families/> .\n"
             + "@prefix otherOnt: <http://example.org/otherOntologies/families/> .\n"
             + "@prefix owl: <http://www.w3.org/2002/07/owl#> .\n"

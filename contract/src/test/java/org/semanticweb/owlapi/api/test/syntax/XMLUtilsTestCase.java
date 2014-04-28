@@ -29,11 +29,14 @@ public class XMLUtilsTestCase {
 
     private static final int CODE_POINT = 0xEFFFF;
     @Nonnull
-    private static final String CODE_POINT_STRING;
-    static {
+    private static final String CODE_POINT_STRING = init();
+
+    @SuppressWarnings("null")
+    @Nonnull
+    static String init() {
         StringBuilder sb = new StringBuilder();
         sb.appendCodePoint(CODE_POINT);
-        CODE_POINT_STRING = sb.toString();
+        return sb.toString();
     }
 
     @Test

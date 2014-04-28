@@ -15,6 +15,8 @@ package org.semanticweb.owlapi.api.test.syntax;
 import static org.junit.Assert.assertEquals;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.OWLXMLOntologyFormat;
@@ -38,7 +40,9 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 @SuppressWarnings("javadoc")
 public class OWLXMLNullPointerTestCase extends TestBase {
 
+    @Nonnull
     private static final String NS = "urn:test";
+    @Nonnull
     public static final String ANONYMOUS_INDIVIDUAL_ANNOTATION = "Anonymous individual for testing";
 
     @Test

@@ -25,6 +25,7 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.AutoIRIMapper;
 import org.semanticweb.owlapi.util.SimpleIRIMapper;
 
@@ -47,9 +48,8 @@ public class MultiImportsTestCase extends TestBase {
             if (f.exists()) {
                 RESOURCES = f;
             } else {
-                RESOURCES = null;
-                System.out
-                        .println("MultiImportsTestCase: NO RESOURCE FOLDER ACCESSIBLE");
+                throw new OWLRuntimeException(
+                        "MultiImportsTestCase: NO RESOURCE FOLDER ACCESSIBLE");
             }
         }
     }

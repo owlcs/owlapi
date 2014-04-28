@@ -41,6 +41,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 @SuppressWarnings("javadoc")
 public class OboFormatTestBasics {
 
+    @Nonnull
     protected OBODoc parseOBOURL(String fn) throws IOException,
             OBOFormatParserException {
         OBOFormatParser p = new OBOFormatParser();
@@ -70,6 +71,7 @@ public class OboFormatTestBasics {
         return obodoc;
     }
 
+    @Nonnull
     protected OBODoc parseOBOFile(@Nonnull Reader fn, boolean allowEmptyFrames)
             throws IOException, OBOFormatParserException {
         OBOFormatParser p = new OBOFormatParser();
@@ -81,6 +83,7 @@ public class OboFormatTestBasics {
         return obodoc;
     }
 
+    @SuppressWarnings("resource")
     @Nonnull
     protected InputStream getInputStream(String fn) {
         InputStream inputStream = OboFormatTestBasics.class
@@ -113,6 +116,7 @@ public class OboFormatTestBasics {
         return obodoc;
     }
 
+    @Nonnull
     protected OWLOntology parseOWLFile(String fn)
             throws OWLOntologyCreationException {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
@@ -138,11 +142,13 @@ public class OboFormatTestBasics {
         return convert;
     }
 
-    protected OBODoc convert(OWLOntology ontology) {
+    @Nonnull
+    protected OBODoc convert(@Nonnull OWLOntology ontology) {
         return convert(ontology, false);
     }
 
-    protected OBODoc convert(OWLOntology ontology, boolean strictness) {
+    @Nonnull
+    protected OBODoc convert(@Nonnull OWLOntology ontology, boolean strictness) {
         OWLAPIOwl2Obo bridge = new OWLAPIOwl2Obo(
                 OWLManager.createOWLOntologyManager());
         bridge.setStrictConversion(strictness);
@@ -190,6 +196,7 @@ public class OboFormatTestBasics {
         return out.getBuffer().toString();
     }
 
+    @Nonnull
     protected static OBODoc parseOboToString(@Nonnull String oboString)
             throws IOException, OBOFormatParserException {
         OBOFormatParser p = new OBOFormatParser();

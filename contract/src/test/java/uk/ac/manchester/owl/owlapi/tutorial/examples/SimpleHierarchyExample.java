@@ -42,12 +42,14 @@ import uk.ac.manchester.owl.owlapi.tutorial.LabelExtractor;
 public class SimpleHierarchyExample {
 
     private static final int INDENT = 4;
+    @Nonnull
     private final OWLReasonerFactory reasonerFactory;
+    @Nonnull
     private final OWLOntology ontology;
     private final PrintStream out;
 
-    private SimpleHierarchyExample(OWLReasonerFactory reasonerFactory,
-            OWLOntology _ontology) {
+    private SimpleHierarchyExample(@Nonnull OWLReasonerFactory reasonerFactory,
+            @Nonnull OWLOntology _ontology) {
         this.reasonerFactory = reasonerFactory;
         ontology = _ontology;
         out = System.out;
@@ -64,6 +66,7 @@ public class SimpleHierarchyExample {
         printHierarchy(reasoner, clazz, 0);
         /* Now print out any unsatisfiable classes */
         for (OWLClass cl : ontology.getClassesInSignature()) {
+            assert cl != null;
             if (!reasoner.isSatisfiable(cl)) {
                 out.println("XXX: " + labelFor(cl));
             }
@@ -82,7 +85,7 @@ public class SimpleHierarchyExample {
         }
         /* Print out the label if there is one. If not, just use the class URI */
         if (le.getResult() != null) {
-            return le.getResult().toString();
+            return le.getResult();
         } else {
             return clazz.getIRI().toString();
         }
@@ -124,8 +127,11 @@ public class SimpleHierarchyExample {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         // We load an ontology from the URI specified
         // on the command line
-        System.out.println(args[0]);
-        IRI documentIRI = IRI.create(args[0]);
+        @SuppressWarnings("null")
+        @Nonnull
+        String x = args[0];
+        System.out.println(x);
+        IRI documentIRI = IRI.create(x);
         // Now load the ontology.
         OWLOntology ontology = manager
                 .loadOntologyFromOntologyDocument(documentIRI);
@@ -136,6 +142,7 @@ public class SimpleHierarchyExample {
         System.out.println("Format      : "
                 + manager.getOntologyFormat(ontology));
         // / Create a new SimpleHierarchy object with the given reasoner.
+        @SuppressWarnings("null")
         SimpleHierarchyExample simpleHierarchy = new SimpleHierarchyExample(
                 (OWLReasonerFactory) Class.forName(reasonerFactoryClassName)
                         .newInstance(), ontology);

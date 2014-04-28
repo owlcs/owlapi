@@ -203,6 +203,7 @@ public abstract class TestBase {
     @Nonnull
     private String uriBase = "http://www.semanticweb.org/owlapi/test";
 
+    @SuppressWarnings("null")
     @Nonnull
     public OWLOntology getOWLOntology(String name) {
         try {
@@ -217,6 +218,7 @@ public abstract class TestBase {
         }
     }
 
+    @SuppressWarnings("null")
     public OWLOntology loadOntology(String fileName) {
         try {
             URL url = getClass().getResource("/" + fileName);

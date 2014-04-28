@@ -47,8 +47,11 @@ public class SubClassOfUntypedSomeValuesFromTestCase extends
         return "SubClassOfUntypedSomeValuesFrom.rdf";
     }
 
+    @Nonnull
     public static final IRI SUBCLASS_IRI = IRI("http://www.semanticweb.org/owlapi/test#A");
+    @Nonnull
     public static final IRI PROPERTY_IRI = IRI("http://www.semanticweb.org/owlapi/test#P");
+    @Nonnull
     public static final IRI FILLER_IRI = IRI("http://www.semanticweb.org/owlapi/test#C");
 
     @Override

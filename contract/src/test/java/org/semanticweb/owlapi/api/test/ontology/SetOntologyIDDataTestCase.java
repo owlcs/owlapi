@@ -35,16 +35,17 @@ import com.google.common.base.Optional;
 @SuppressWarnings("javadoc")
 public class SetOntologyIDDataTestCase {
 
-    private OWLOntology mockOntology;
-    private OWLOntologyID mockOntologyID;
+    @SuppressWarnings("null")
+    @Nonnull
+    private OWLOntology mockOntology = mock(OWLOntology.class);
+    @Nonnull
+    private OWLOntologyID mockOntologyID = new OWLOntologyID();
 
     @Before
     public void setUp() {
-        mockOntology = mock(OWLOntology.class);
         when(mockOntology.getOntologyID()).thenReturn(
                 new OWLOntologyID(Optional.of(IRI.create("urn:test:onto1")),
                         Optional.of(IRI.create("urn:test:onto1_1"))));
-        mockOntologyID = new OWLOntologyID();
     }
 
     @Nonnull

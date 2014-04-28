@@ -42,10 +42,11 @@ public class UnmappableExpressionsTest extends OboFormatTestBasics {
         // OBODoc tests
         if (true) {
             Frame tf = obodoc.getTermFrame("x1"); // TODO - may change
+            @SuppressWarnings("null")
             Collection<Clause> cs = tf
                     .getClauses(OboFormatTag.TAG_INTERSECTION_OF);
-            assertTrue(cs.size() != 1); // there should NEVER be a situation
-                                        // with single intersection tags
+            assertTrue(cs.size() != 1);
+            // there should NEVER be a situation with single intersection tags
             // TODO - add validation step prior to saving
         }
     }

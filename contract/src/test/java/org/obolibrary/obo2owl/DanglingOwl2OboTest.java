@@ -13,6 +13,7 @@ import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 @SuppressWarnings("javadoc")
 public class DanglingOwl2OboTest extends OboFormatTestBasics {
 
+    @SuppressWarnings("null")
     @Test
     public void testConversion() throws Exception {
         OBODoc doc = convert(parseOWLFile("dangling_owl2_obo_test.owl"));

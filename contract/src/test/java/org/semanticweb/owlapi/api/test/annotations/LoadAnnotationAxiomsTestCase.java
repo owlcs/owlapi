@@ -79,10 +79,9 @@ public class LoadAnnotationAxiomsTestCase extends TestBase {
         reload(ont, new OWLFunctionalSyntaxOntologyFormat());
     }
 
-    private void
-            reload(@Nonnull OWLOntology ontology, OWLOntologyFormat format)
-                    throws OWLOntologyStorageException,
-                    OWLOntologyCreationException {
+    private void reload(@Nonnull OWLOntology ontology,
+            @Nonnull OWLOntologyFormat format)
+            throws OWLOntologyStorageException, OWLOntologyCreationException {
         Set<OWLAxiom> annotationAxioms = new HashSet<OWLAxiom>();
         Set<OWLAxiom> axioms = ontology.getAxioms();
         for (OWLAxiom ax : axioms) {
@@ -107,8 +106,9 @@ public class LoadAnnotationAxiomsTestCase extends TestBase {
                 reloadedWithoutAnnoAxioms.getAxioms());
     }
 
-    private OWLOntology reload(OWLOntology ontology, OWLOntologyFormat format,
-            OWLOntologyLoaderConfiguration configuration)
+    private OWLOntology reload(@Nonnull OWLOntology ontology,
+            @Nonnull OWLOntologyFormat format,
+            @Nonnull OWLOntologyLoaderConfiguration configuration)
             throws OWLOntologyStorageException, OWLOntologyCreationException {
         OWLOntology reloaded = loadOntologyWithConfig(
                 saveOntology(ontology, format), configuration);

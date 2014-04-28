@@ -17,6 +17,8 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
@@ -51,22 +53,27 @@ public abstract class AbstractRendererAndParser extends TestBase {
         m.getOntologyStorers().add(new RDFXMLOntologyStorer());
     }
 
+    @Nonnull
     protected OWLClass createClass() {
         return Class(TestUtils.createIRI());
     }
 
+    @Nonnull
     protected OWLAnnotationProperty createAnnotationProperty() {
         return df.getOWLAnnotationProperty(TestUtils.createIRI());
     }
 
+    @Nonnull
     protected OWLObjectProperty createObjectProperty() {
         return df.getOWLObjectProperty(TestUtils.createIRI());
     }
 
+    @Nonnull
     protected OWLDataProperty createDataProperty() {
         return df.getOWLDataProperty(TestUtils.createIRI());
     }
 
+    @Nonnull
     protected OWLIndividual createIndividual() {
         return df.getOWLNamedIndividual(TestUtils.createIRI());
     }

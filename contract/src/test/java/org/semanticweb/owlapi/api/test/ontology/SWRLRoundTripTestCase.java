@@ -214,6 +214,7 @@ public class SWRLRoundTripTestCase extends TestBase {
         return ontology;
     }
 
+    @Nonnull
     OWLOntology prepareOntology1() throws OWLOntologyCreationException {
         String NS = "urn:test";
         OWLOntology ontology = m.createOntology(IRI(NS));

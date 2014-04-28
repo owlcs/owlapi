@@ -28,6 +28,7 @@ public class IdSpaceTest extends OboFormatTestBasics {
         checkIdSpace(doc2);
     }
 
+    @SuppressWarnings("null")
     private static void checkIdSpace(@Nonnull OBODoc doc) {
         Frame headerFrame = doc.getHeaderFrame();
         assertNotNull(headerFrame);

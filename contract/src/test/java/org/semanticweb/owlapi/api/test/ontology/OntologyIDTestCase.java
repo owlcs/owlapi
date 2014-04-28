@@ -15,6 +15,8 @@ package org.semanticweb.owlapi.api.test.ontology;
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyID;
@@ -24,6 +26,7 @@ import com.google.common.base.Optional;
 @SuppressWarnings("javadoc")
 public class OntologyIDTestCase {
 
+    @Nonnull
     private static final String TEST_ONTOLOGY_IRI_STRING = "http://test.it/check1";
 
     @Test

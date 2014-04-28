@@ -58,6 +58,7 @@ public class RioUtilsTest {
     private Statement testSesameTripleObjectBNode;
     private Statement testSesameTripleSubjectObjectBNode;
 
+    @SuppressWarnings("null")
     @Before
     public void setUp() {
         testOwlApiSubjectUri1 = new RDFResourceIRI(

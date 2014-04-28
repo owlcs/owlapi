@@ -34,8 +34,8 @@ public class RoundTripTest extends OboFormatTestBasics {
         return roundTripOBODoc(obodoc, isExpectRoundtrip);
     }
 
-    public List<Diff> roundTripOBODoc(OBODoc obodoc, boolean isExpectRoundtrip)
-            throws Exception {
+    public List<Diff> roundTripOBODoc(@Nonnull OBODoc obodoc,
+            boolean isExpectRoundtrip) throws Exception {
         OWLOntology oo = convert(obodoc);
         OBODoc obodoc2 = convert(oo);
         obodoc2.check();

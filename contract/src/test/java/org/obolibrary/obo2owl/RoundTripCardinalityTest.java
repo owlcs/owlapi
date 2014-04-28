@@ -23,6 +23,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 @SuppressWarnings("javadoc")
 public class RoundTripCardinalityTest extends RoundTripTest {
 
+    @SuppressWarnings("null")
     @Test
     public void testRoundTripCardinality() throws Exception {
         // create minimal ontology

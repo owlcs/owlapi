@@ -116,11 +116,16 @@ public class OntologyContainsAxiomTestCase extends TestBase {
         return format;
     }
 
+    @SuppressWarnings("resource")
     private void runTestOntologyContainsAxioms1(
             @Nonnull OWLOntologyFormat format) throws Exception {
         OWLOntology ont1 = getOWLOntology("testont1A");
+        @SuppressWarnings("null")
+        @Nonnull
         IRI ont1_iri = ont1.getOntologyID().getOntologyIRI().get();
         OWLOntology ont2 = getOWLOntology("testont2A");
+        @SuppressWarnings("null")
+        @Nonnull
         IRI ont2_iri = ont2.getOntologyID().getOntologyIRI().get();
         OWLImportsDeclaration ont2_import = ImportsDeclaration(ont1_iri);
         ont1.getOWLOntologyManager().applyChange(
@@ -165,10 +170,14 @@ public class OntologyContainsAxiomTestCase extends TestBase {
                 .containsAxiom(ax_AsubB, INCLUDED, CONSIDER_ANNOTATIONS));
         assertTrue(ont2.containsAxiom(ax_AsubB, EXCLUDED, CONSIDER_ANNOTATIONS));
         assertTrue(ont2.containsAxiom(ax_AsubB, INCLUDED, CONSIDER_ANNOTATIONS));
+        @SuppressWarnings("null")
+        @Nonnull
         File savedLocation1 = folder.newFile("testont1A.owl");
         FileOutputStream out1 = new FileOutputStream(savedLocation1);
         StreamDocumentTarget writer1 = new StreamDocumentTarget(out1);
         ont1.getOWLOntologyManager().saveOntology(ont1, format, writer1);
+        @SuppressWarnings("null")
+        @Nonnull
         File savedLocation2 = folder.newFile("testont2A.owl");
         FileOutputStream out2 = new FileOutputStream(savedLocation2);
         StreamDocumentTarget writer2 = new StreamDocumentTarget(out2);
@@ -229,6 +238,7 @@ public class OntologyContainsAxiomTestCase extends TestBase {
         runTestOntologyContainsAxioms2(createTurtleOntologyFormat());
     }
 
+    @SuppressWarnings("resource")
     private void runTestOntologyContainsAxioms2(
             @Nonnull OWLOntologyFormat format) throws Exception {
         OWLOntology ont1 = getOWLOntology("testont1B");
@@ -280,10 +290,14 @@ public class OntologyContainsAxiomTestCase extends TestBase {
                 .containsAxiom(ax_AsubB, INCLUDED, CONSIDER_ANNOTATIONS));
         assertTrue(ont2.containsAxiom(ax_AsubB, EXCLUDED, CONSIDER_ANNOTATIONS));
         assertTrue(ont2.containsAxiom(ax_AsubB, INCLUDED, CONSIDER_ANNOTATIONS));
+        @SuppressWarnings("null")
+        @Nonnull
         File savedLocation1 = folder.newFile("testont1B.owl");
         FileOutputStream out1 = new FileOutputStream(savedLocation1);
         StreamDocumentTarget writer1 = new StreamDocumentTarget(out1);
         ont1.getOWLOntologyManager().saveOntology(ont1, format, writer1);
+        @SuppressWarnings("null")
+        @Nonnull
         File savedLocation2 = folder.newFile("testont2B.owl");
         FileOutputStream out2 = new FileOutputStream(savedLocation2);
         StreamDocumentTarget writer2 = new StreamDocumentTarget(out2);
@@ -296,6 +310,7 @@ public class OntologyContainsAxiomTestCase extends TestBase {
                 .loadOntologyFromOntologyDocument(savedLocation2);
         for (OWLOntology importedOntology : ont2L.getImports()) {
             for (OWLAxiom importedAxiom : importedOntology.getAxioms()) {
+                assert importedAxiom != null;
                 assertTrue(importedOntology.containsAxiom(importedAxiom,
                         EXCLUDED, CONSIDER_ANNOTATIONS));
                 assertFalse(ont2L.containsAxiom(importedAxiom, EXCLUDED,

@@ -14,6 +14,7 @@ import com.google.common.base.Optional;
 @SuppressWarnings("javadoc")
 public class GetLoadedOntologyTest {
 
+    @SuppressWarnings("null")
     @Test
     public void testConvert() throws Exception {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();

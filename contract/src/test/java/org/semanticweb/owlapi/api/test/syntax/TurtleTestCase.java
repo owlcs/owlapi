@@ -50,14 +50,17 @@ public class TurtleTestCase extends TestBase {
     @Test
     public void testLoadingUTF8BOM() throws URISyntaxException,
             OWLOntologyCreationException {
+        @SuppressWarnings("null")
         IRI uri = IRI.create(getClass().getResource("/ttl-with-bom.ttl")
                 .toURI());
         m.loadOntologyFromOntologyDocument(uri);
     }
 
+    @Nonnull
     private IRI iri = IRI.create("urn:testliterals");
     @Nonnull
     private TurtleOntologyFormat tf = new TurtleOntologyFormat();
+    @Nonnull
     private IRI s = IRI.create("urn:test#s");
 
     @Test

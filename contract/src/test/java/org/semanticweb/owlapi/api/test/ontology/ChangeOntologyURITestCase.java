@@ -34,6 +34,7 @@ import org.semanticweb.owlapi.util.OWLOntologyIRIChanger;
 @SuppressWarnings("javadoc")
 public class ChangeOntologyURITestCase extends TestBase {
 
+    @SuppressWarnings("null")
     @Test
     public void testChangeURI() throws OWLOntologyCreationException {
         IRI oldIRI = IRI("http://www.semanticweb.org/ontologies/ontA");
@@ -51,10 +52,10 @@ public class ChangeOntologyURITestCase extends TestBase {
         assertTrue(m.contains(newIRI));
         assertTrue(m.getOntologies().contains(ont));
         assertTrue(m.getDirectImports(importingOnt).contains(ont));
-        assertNotNull("ontology should not be null", m.getOntology(newIRI));
-        assertEquals(m.getOntology(newIRI), ont);
-        assertEquals(m.getOntology(newIRI).getOntologyID().getOntologyIRI()
-                .get(), newIRI);
+        OWLOntology ontology = m.getOntology(newIRI);
+        assertNotNull("ontology should not be null", ontology);
+        assertEquals(ontology, ont);
+        assertEquals(ontology.getOntologyID().getOntologyIRI().get(), newIRI);
         assertTrue(m.getImportsClosure(importingOnt).contains(ont));
         assertNotNull("ontology should not be null",
                 m.getOntologyDocumentIRI(ont));

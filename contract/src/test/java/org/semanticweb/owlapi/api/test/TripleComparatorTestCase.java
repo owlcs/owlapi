@@ -36,8 +36,11 @@ public class TripleComparatorTestCase {
 
     @Nonnull
     String ns = "http://www.co-ode.org/roberts/pto.owl#";
+    @Nonnull
     RDFResourceIRI g = r(Class(IRI(ns + "MoleOfGoldAtom")));
+    @Nonnull
     RDFResourceIRI d = r(ObjectProperty(OWL_DISJOINT_WITH.getIRI()));
+    @Nonnull
     RDFResourceIRI subtype = r(RDFS_SUBCLASS_OF.getIRI());
 
     @Test
@@ -136,7 +139,7 @@ public class TripleComparatorTestCase {
     }
 
     @Nonnull
-    private static RDFResourceIRI r(IRI e) {
+    private static RDFResourceIRI r(@Nonnull IRI e) {
         return new RDFResourceIRI(e);
     }
 

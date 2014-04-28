@@ -47,7 +47,7 @@ public class AnonymousIndividualsNormaliser extends OWLObjectDuplicator {
      * @param dataFactory
      *        The data factory to be used for the duplication.
      */
-    public AnonymousIndividualsNormaliser(OWLDataFactory dataFactory) {
+    public AnonymousIndividualsNormaliser(@Nonnull OWLDataFactory dataFactory) {
         super(dataFactory);
     }
 
@@ -57,6 +57,7 @@ public class AnonymousIndividualsNormaliser extends OWLObjectDuplicator {
         Collections.sort(axiomsList);
         Set<OWLAxiom> normalised = new HashSet<OWLAxiom>();
         for (OWLAxiom ax : axiomsList) {
+            assert ax != null;
             OWLAxiom dup = duplicateObject(ax);
             normalised.add(dup);
         }

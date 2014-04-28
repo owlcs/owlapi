@@ -25,6 +25,7 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.AutoIRIMapper;
 
 @SuppressWarnings("javadoc")
@@ -47,9 +48,8 @@ public class ManchesterImportTestCase {
             if (f.exists()) {
                 RESOURCES = f;
             } else {
-                RESOURCES = null;
-                System.out
-                        .println("ManchesterImportTestCase: NO RESOURCE FOLDER ACCESSIBLE");
+                throw new OWLRuntimeException(
+                        "ManchesterImportTestCase: NO RESOURCE FOLDER ACCESSIBLE");
             }
         }
     }

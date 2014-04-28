@@ -36,6 +36,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 @SuppressWarnings("javadoc")
 public class AnonymousFunctionalRoundtripTestCase extends TestBase {
 
+    @Nonnull
     private static final String NS = "http://namespace.owl";
     @Nonnull
     private static String broken = "<?xml version=\"1.0\"?>\n"

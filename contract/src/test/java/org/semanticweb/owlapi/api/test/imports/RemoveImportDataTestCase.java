@@ -17,7 +17,6 @@ import static org.mockito.Mockito.mock;
 
 import javax.annotation.Nonnull;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.change.RemoveImportData;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
@@ -32,18 +31,16 @@ import org.semanticweb.owlapi.model.RemoveImport;
 @SuppressWarnings("javadoc")
 public class RemoveImportDataTestCase {
 
-    private OWLImportsDeclaration mockDeclaration;
-    private OWLOntology mockOntology;
+    @SuppressWarnings("null")
+    @Nonnull
+    private OWLImportsDeclaration mockDeclaration = mock(OWLImportsDeclaration.class);
+    @SuppressWarnings("null")
+    @Nonnull
+    private OWLOntology mockOntology = mock(OWLOntology.class);
 
     @Nonnull
     private RemoveImportData createData() {
         return new RemoveImportData(mockDeclaration);
-    }
-
-    @Before
-    public void setUp() {
-        mockDeclaration = mock(OWLImportsDeclaration.class);
-        mockOntology = mock(OWLOntology.class);
     }
 
     @Test

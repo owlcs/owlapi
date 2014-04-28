@@ -29,6 +29,7 @@ public class OBOFormatWriterTest extends OboFormatTestBasics {
      * 
      * @throws Exception
      */
+    @SuppressWarnings("null")
     @Test
     public void testSortTermClausesIntersection_of() throws Exception {
         OBODoc oboDoc = parseOBOFile("equivtest.obo");
@@ -77,6 +78,7 @@ public class OBOFormatWriterTest extends OboFormatTestBasics {
                 writeObsolete(Boolean.TRUE.toString()));
     }
 
+    @SuppressWarnings("null")
     @Nonnull
     private static String writeObsolete(Object value) throws Exception {
         Clause cl = new Clause(OboFormatTag.TAG_IS_OBSELETE);
@@ -145,6 +147,7 @@ public class OBOFormatWriterTest extends OboFormatTestBasics {
         }
         reader.close();
         String input = sb.toString();
+        @SuppressWarnings("null")
         OBODoc obodoc = parseOboToString(input);
         String written = renderOboToString(obodoc);
         assertEquals(input, written);

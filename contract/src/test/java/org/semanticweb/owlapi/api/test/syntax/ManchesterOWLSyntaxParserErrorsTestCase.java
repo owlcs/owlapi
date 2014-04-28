@@ -35,7 +35,9 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 @SuppressWarnings("javadoc")
 public class ManchesterOWLSyntaxParserErrorsTestCase {
 
+    @SuppressWarnings("null")
     @Mock
+    @Nonnull
     protected OWLEntityChecker entityChecker;
     private ParserWrapper parser;
 
@@ -571,7 +573,7 @@ public class ManchesterOWLSyntaxParserErrorsTestCase {
         checkForExceptionAt("Class: C Rule: oP(x, ?y)", 18, "x");
     }
 
-    private void checkForExceptionAt(String input, int index,
+    private void checkForExceptionAt(@Nonnull String input, int index,
             String currentToken) {
         try {
             parser.parse(input);
@@ -596,7 +598,7 @@ public class ManchesterOWLSyntaxParserErrorsTestCase {
 
         public ParserWrapper() {}
 
-        public void parse(String input) {
+        public void parse(@Nonnull String input) {
             OWLDataFactory dataFactory = new OWLDataFactoryImpl();
             ManchesterOWLSyntaxEditorParser actualParser = new ManchesterOWLSyntaxEditorParser(
                     dataFactory, input);

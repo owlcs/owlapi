@@ -32,6 +32,7 @@ public class GCIQualifierTest extends OboFormatTestBasics {
         OBODoc obodoc = convert(ontology);
         // test that relation IDs are converted back to symbolic form
         Frame tf = obodoc.getTermFrame("X:1");
+        @SuppressWarnings("null")
         Collection<Clause> clauses = tf
                 .getClauses(OboFormatTag.TAG_RELATIONSHIP);
         assertEquals(2, clauses.size());

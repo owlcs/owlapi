@@ -43,6 +43,7 @@ public class OWLImportsClosureTestCase extends TestBase {
         OWLOntology ontA = m.createOntology(TestUtils.createIRI());
         OWLOntology ontB = m.createOntology(TestUtils.createIRI());
         assertTrue(m.getImportsClosure(ontA).contains(ontA));
+        @SuppressWarnings("null")
         OWLImportsDeclaration importsDeclaration = ImportsDeclaration(ontB
                 .getOntologyID().getOntologyIRI().get());
         m.applyChange(new AddImport(ontA, importsDeclaration));

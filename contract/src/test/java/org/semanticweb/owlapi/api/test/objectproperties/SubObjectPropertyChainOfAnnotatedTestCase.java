@@ -39,6 +39,7 @@ import com.google.common.collect.Lists;
 public class SubObjectPropertyChainOfAnnotatedTestCase extends
         AbstractAnnotatedAxiomRoundTrippingTestCase {
 
+    @SuppressWarnings("null")
     @Override
     protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
         List<OWLObjectProperty> props = Arrays.asList(
@@ -46,6 +47,7 @@ public class SubObjectPropertyChainOfAnnotatedTestCase extends
         return SubPropertyChainOf(props, ObjectProperty(getIRI("r")), annos);
     }
 
+    @SuppressWarnings("null")
     @Test
     public void testCompareRoleChains() {
         OWLObjectPropertyExpression p = df.getOWLObjectProperty(IRI.create(

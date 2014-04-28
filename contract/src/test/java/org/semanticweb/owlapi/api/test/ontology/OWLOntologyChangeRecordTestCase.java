@@ -15,7 +15,8 @@ package org.semanticweb.owlapi.api.test.ontology;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 
-import org.junit.Before;
+import javax.annotation.Nonnull;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.change.AddAxiomData;
@@ -37,17 +38,14 @@ import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
 @SuppressWarnings("javadoc")
 public class OWLOntologyChangeRecordTestCase {
 
-    private OWLOntologyID mockOntologyID;
-    private OWLOntologyChangeData<OWLAxiom> mockChangeData;
-    private OWLAxiom mockAxiom;
-
-    @SuppressWarnings("unchecked")
-    @Before
-    public void setUp() {
-        mockOntologyID = new OWLOntologyID();
-        mockChangeData = mock(OWLOntologyChangeData.class);
-        mockAxiom = mock(OWLAxiom.class);
-    }
+    @Nonnull
+    private OWLOntologyID mockOntologyID = new OWLOntologyID();
+    @SuppressWarnings({ "null", "unchecked" })
+    @Nonnull
+    private OWLOntologyChangeData<OWLAxiom> mockChangeData = mock(OWLOntologyChangeData.class);
+    @SuppressWarnings("null")
+    @Nonnull
+    private OWLAxiom mockAxiom = mock(OWLAxiom.class);
 
     @Test
     public void testEquals() {
