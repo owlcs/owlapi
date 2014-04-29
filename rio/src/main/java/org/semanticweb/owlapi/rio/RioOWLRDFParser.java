@@ -45,9 +45,16 @@ import org.openrdf.rio.RDFHandler;
 import org.openrdf.rio.RDFHandlerException;
 import org.openrdf.rio.RDFParseException;
 import org.openrdf.rio.helpers.RDFParserBase;
+import org.semanticweb.owlapi.io.ReaderDocumentSource;
+import org.semanticweb.owlapi.io.StreamDocumentSource;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 /**
- * Parses {@link OWLAPIRDFFormat} parsers straight to Sesame {@link RDFHandler}s.
+ * Parses {@link OWLAPIRDFFormat} parsers straight to Sesame {@link RDFHandler}
+ * s.
  * 
  * @author Peter Ansell p_ansell@yahoo.com
  */
@@ -76,12 +83,28 @@ public class RioOWLRDFParser extends RDFParserBase {
     @Override
     public void parse(InputStream in, String baseURI) throws IOException,
             RDFParseException, RDFHandlerException {
-        // TODO Auto-generated method stub
+        OWLOntologyFormat nextFormat = getRDFFormat().getOWLFormat();
+        StreamDocumentSource source = new StreamDocumentSource(in,
+                IRI.create(baseURI), nextFormat, getRDFFormat()
+                        .getDefaultMIMEType());
+        OWLOntology ontology = null;
+        // FIXME: Need to get access to an OWLOntologyManager instance here
+        final RioRenderer ren = new RioRenderer(ontology, getRDFHandler(),
+                getRDFFormat().getOWLFormat());
+        ren.render();
     }
 
     @Override
     public void parse(Reader reader, String baseURI) throws IOException,
             RDFParseException, RDFHandlerException {
-        // TODO Auto-generated method stub
+        OWLOntologyFormat nextFormat = getRDFFormat().getOWLFormat();
+        ReaderDocumentSource source = new ReaderDocumentSource(reader,
+                IRI.create(baseURI), nextFormat, getRDFFormat()
+                        .getDefaultMIMEType());
+        OWLOntology ontology = null;
+        // FIXME: Need to get access to an OWLOntologyManager instance here
+        final RioRenderer ren = new RioRenderer(ontology, getRDFHandler(),
+                getRDFFormat().getOWLFormat());
+        ren.render();
     }
 }
