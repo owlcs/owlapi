@@ -37,16 +37,13 @@ package org.semanticweb.owlapi.rio;
 
 import javax.annotation.Nonnull;
 
-import org.kohsuke.MetaInfServices;
 import org.semanticweb.owlapi.formats.RioRDFOntologyFormatFactory;
 import org.semanticweb.owlapi.formats.RioRDFOntologyStorerFactory;
-import org.semanticweb.owlapi.formats.TurtleOntologyFormatFactory;
-import org.semanticweb.owlapi.model.OWLOntologyStorerFactory;
+import org.semanticweb.owlapi.formats.RioTurtleOntologyFormatFactory;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com
  */
-@MetaInfServices(OWLOntologyStorerFactory.class)
 public class RioTurtleOntologyStorerFactory extends
         AbstractRioOntologyStorerFactory implements RioRDFOntologyStorerFactory {
 
@@ -55,6 +52,6 @@ public class RioTurtleOntologyStorerFactory extends
     @Nonnull
     @Override
     public RioRDFOntologyFormatFactory getFormatFactory() {
-        return new TurtleOntologyFormatFactory();
+        return new RioTurtleOntologyFormatFactory();
     }
 }

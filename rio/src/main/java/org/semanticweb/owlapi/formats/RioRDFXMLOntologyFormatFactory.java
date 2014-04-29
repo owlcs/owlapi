@@ -5,14 +5,10 @@ package org.semanticweb.owlapi.formats;
 
 import javax.annotation.Nonnull;
 
-import org.kohsuke.MetaInfServices;
-import org.semanticweb.owlapi.model.OWLOntologyFormatFactory;
-
 /**
  * @author Peter Ansell p_ansell@yahoo.com
  */
-@MetaInfServices(OWLOntologyFormatFactory.class)
-public class RdfJsonOntologyFormatFactory extends
+public class RioRDFXMLOntologyFormatFactory extends
         AbstractRioRDFOntologyFormatFactory implements
         RioRDFOntologyFormatFactory {
 
@@ -20,7 +16,7 @@ public class RdfJsonOntologyFormatFactory extends
 
     @Nonnull
     @Override
-    public RioRDFOntologyFormat createFormat() {
-        return new RdfJsonOntologyFormat();
+    public RioRDFXMLOntologyFormat createFormat() {
+        return new RioRDFXMLOntologyFormat();
     }
 }

@@ -28,11 +28,6 @@
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>owlapitools-fixers</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
 			<groupId>org.openrdf.sesame</groupId>
 			<artifactId>sesame-model</artifactId>
 			<version>${sesame.version}</version>
@@ -103,11 +98,9 @@
 			<version>0.4.1</version>
 		</dependency>
 		<dependency>
-			<groupId>org.kohsuke.metainf-services</groupId>
-			<artifactId>metainf-services</artifactId>
-			<version>1.5</version>
-			<scope>compile</scope>
-			<optional>true</optional>
+		    <groupId>org.semarglproject</groupId>
+		    <artifactId>semargl-sesame</artifactId>
+		    <version>0.6.1</version>
 		</dependency>
 	</dependencies>
 	
