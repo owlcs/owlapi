@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitorEx;
@@ -42,11 +40,9 @@ import org.semanticweb.owlapi.model.OWLObjectUnionOf;
  * @param <O>
  *        return type
  */
-public class OWLClassExpressionVisitorExAdapter<O> implements
+public class OWLClassExpressionVisitorExAdapter<O> extends
+        OWLBaseVisitorExAdapter<O, OWLClassExpression> implements
         OWLClassExpressionVisitorEx<O> {
-
-    @Nonnull
-    private O object;
 
     /** constructor for null default value. */
     public OWLClassExpressionVisitorExAdapter() {
@@ -59,21 +55,8 @@ public class OWLClassExpressionVisitorExAdapter<O> implements
      * @param object
      *        default return value
      */
-    @SuppressWarnings("null")
     public OWLClassExpressionVisitorExAdapter(O object) {
-        this.object = object;
-    }
-
-    /**
-     * override to change default behaviour.
-     * 
-     * @param c
-     *        visited axiom
-     * @return default return value;
-     */
-    @Nonnull
-    protected O doDefault(@SuppressWarnings("unused") OWLClassExpression c) {
-        return object;
+        super(object);
     }
 
     @Override

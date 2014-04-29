@@ -22,7 +22,7 @@ public class PropertyValueTest extends OboFormatTestBasics {
 
     @SuppressWarnings("null")
     @Test
-    public void testExpand() throws Exception {
+    public void testExpand() {
         OBODoc obodoc = parseOBOFile("property_value_test.obo");
         Clause propertyValue = obodoc.getTermFrame("UBERON:0004657").getClause(
                 OboFormatTag.TAG_PROPERTY_VALUE);

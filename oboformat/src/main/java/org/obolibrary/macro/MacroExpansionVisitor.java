@@ -151,8 +151,6 @@ public class MacroExpansionVisitor {
             return expandObject(filler, p);
         }
 
-        @SuppressWarnings("null")
-        @Nonnull
         @Override
         protected OWLClassExpression expandOWLObjHasVal(
                 @Nonnull OWLObjectHasValue desc, OWLIndividual filler,

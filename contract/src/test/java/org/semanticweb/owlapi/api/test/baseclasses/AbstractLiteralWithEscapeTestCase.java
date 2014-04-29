@@ -21,7 +21,6 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health
@@ -32,7 +31,7 @@ public abstract class AbstractLiteralWithEscapeTestCase extends
         AbstractRoundTrippingTestCase {
 
     @Override
-    protected OWLOntology createOntology() throws OWLOntologyCreationException {
+    protected OWLOntology createOntology() {
         OWLClass cls = Class(IRI("http://owlapi.sourceforge.net/ontology#A"));
         OWLAnnotationProperty prop = AnnotationProperty(IRI("http://owlapi.sourceforge.net/ontology#prop"));
         OWLLiteral lit1 = Literal(getEscape());

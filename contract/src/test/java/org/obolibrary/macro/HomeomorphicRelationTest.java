@@ -10,7 +10,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 public class HomeomorphicRelationTest extends OboFormatTestBasics {
 
     @Test
-    public void testExpand() throws Exception {
+    public void testExpand() {
         OWLOntology owlOnt = convertOBOFile("homrel.obo");
         assertNotNull(owlOnt);
     }

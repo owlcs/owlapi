@@ -94,7 +94,7 @@ public class TripleHandlers {
         protected final Map<IRI, BuiltInTypeHandler> axiomTypes;
         /** Handlers for build in predicates */
         @Nonnull
-        private final Map<IRI, TriplePredicateHandler> predicates;
+        protected final Map<IRI, TriplePredicateHandler> predicates;
         /**
          * Handlers for general literal triples (i.e. triples which have
          * predicates that are not part of the built in OWL/RDFS/RDF vocabulary.
@@ -118,11 +118,12 @@ public class TripleHandlers {
         @Nonnull
         protected OWLRDFConsumer consumer;
 
-        @SuppressWarnings("null")
         public HandlerAccessor(@Nonnull OWLRDFConsumer r) {
             consumer = r;
             builtInTypes = getBasicTypeHandlers(r, r.getConfiguration());
             axiomTypes = getAxiomTypeHandlers(r);
+            inverseOf = new TPInverseOfHandler(r);
+            nonBuiltInTypes = new TPTypeHandler(r);
             predicates = getPredicateHandlers(r);
             literals = getLiteralTripleHandlers(r);
             // General resource/object triples - i.e. triples which have a
@@ -359,8 +360,8 @@ public class TripleHandlers {
                 @Override
                 public void handleResourceTriple(@Nonnull IRI subject,
                         @Nonnull IRI predicate, @Nonnull IRI object) {
-                    TriplePredicateHandler propertyRangeHandler = getPredicateHandlers(
-                            consumer).get(RDFS_RANGE.getIRI());
+                    TriplePredicateHandler propertyRangeHandler = predicates
+                            .get(RDFS_RANGE.getIRI());
                     if (propertyRangeHandler.canHandle(subject, predicate,
                             object)) {
                         propertyRangeHandler.handleTriple(subject, predicate,
@@ -451,7 +452,6 @@ public class TripleHandlers {
             add(predicateHandlers, new TPSameAsHandler(r));
             add(predicateHandlers, new TPSubClassOfHandler(r));
             add(predicateHandlers, new TPSubPropertyOfHandler(r));
-            nonBuiltInTypes = new TPTypeHandler(r);
             add(predicateHandlers, nonBuiltInTypes);
             add(predicateHandlers, new TPDistinctMembersHandler(r));
             add(predicateHandlers, new TPImportsHandler(r));
@@ -471,7 +471,6 @@ public class TripleHandlers {
             add(predicateHandlers, new TPAnnotatedPropertyHandler(r));
             add(predicateHandlers, new TPAnnotatedTargetHandler(r));
             add(predicateHandlers, new TPPropertyDisjointWithHandler(r));
-            inverseOf = new TPInverseOfHandler(r);
             add(predicateHandlers, inverseOf);
             add(predicateHandlers, new TPOnPropertyHandler(r));
             add(predicateHandlers, new TPOnClassHandler(r));
@@ -747,7 +746,6 @@ public class TripleHandlers {
             return consumer.translateIndividual(IRI);
         }
 
-        // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         protected boolean isAnonymous(@Nonnull IRI node) {
             return consumer.isAnonymousNode(node);
         }

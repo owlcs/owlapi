@@ -1,5 +1,6 @@
 package org.semanticweb.owlapi.api.test.syntax;
 
+import static org.junit.Assert.assertTrue;
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 
 import java.util.Set;
@@ -20,33 +21,25 @@ import org.semanticweb.owlapi.model.OWLClassAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.profiles.OWL2DLProfile;
 import org.semanticweb.owlapi.profiles.OWLProfileViolation;
 
 @SuppressWarnings("javadoc")
 public class PrimerTestCase extends TestBase {
 
-    @SuppressWarnings("null")
     @Nonnull
-    OWLOntology func;
-    OWL2DLProfile profile;
+    OWLOntology func = loadOntologyFromString(functional,
+            IRI.create("urn:primer#functional"),
+            new OWLFunctionalSyntaxOntologyFormat());
+    OWL2DLProfile profile = new OWL2DLProfile();
 
     @Before
-    public void setUp() throws OWLOntologyCreationException {
-        profile = new OWL2DLProfile();
-        func = loadOntologyFromString(functional,
-                IRI.create("urn:primer#functional"),
-                new OWLFunctionalSyntaxOntologyFormat());
-        for (OWLProfileViolation<?> v : profile.checkOntology(func)
-                .getViolations()) {
-            System.out.println("PrimerTestCase.shouldallBeEquivalent() func "
-                    + v);
-        }
+    public void setUp() {
+        assertTrue(profile.checkOntology(func).isInProfile());
     }
 
     @Test
-    public void shouldManchBeEquivalent() throws OWLOntologyCreationException {
+    public void shouldManchBeEquivalent() {
         OWLOntology manch = loadOntologyFromString(manchester,
                 IRI.create("urn:primer#manchester"),
                 new ManchesterOWLSyntaxOntologyFormat());
@@ -90,7 +83,7 @@ public class PrimerTestCase extends TestBase {
     }
 
     @Test
-    public void shouldRDFXMLBeEquivalent() throws OWLOntologyCreationException {
+    public void shouldRDFXMLBeEquivalent() {
         OWLOntology rdf = loadOntologyFromString(rdfxml,
                 IRI.create("urn:primer#rdfxml"), new RDFXMLOntologyFormat());
         for (OWLProfileViolation<?> v : profile.checkOntology(rdf)
@@ -102,7 +95,7 @@ public class PrimerTestCase extends TestBase {
     }
 
     @Test
-    public void shouldOWLXMLBeEquivalent() throws OWLOntologyCreationException {
+    public void shouldOWLXMLBeEquivalent() {
         OWLOntology owl = loadOntologyFromString(owlxml,
                 IRI.create("urn:primer#owlxml"), new OWLXMLOntologyFormat());
         for (OWLProfileViolation<?> v : profile.checkOntology(owl)
@@ -114,7 +107,7 @@ public class PrimerTestCase extends TestBase {
     }
 
     @Test
-    public void shouldTURTLEBeEquivalent() throws OWLOntologyCreationException {
+    public void shouldTURTLEBeEquivalent() {
         OWLOntology turt = loadOntologyFromString(turtle,
                 IRI.create("urn:primer#turtle"), new TurtleOntologyFormat());
         for (OWLProfileViolation<?> v : profile.checkOntology(turt)

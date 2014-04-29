@@ -20,7 +20,7 @@ import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 public class IgnoreImportAnnotationsTest extends OboFormatTestBasics {
 
     @Test
-    public void testIgnoreAnnotations() throws Exception {
+    public void testIgnoreAnnotations() {
         OBODoc oboDoc = parseOBOFile("annotated_import.obo");
         Frame headerFrame = oboDoc.getHeaderFrame();
         Collection<Clause> imports = headerFrame

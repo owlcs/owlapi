@@ -12,11 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.baseclasses;
 
-import java.net.URISyntaxException;
-
 import javax.annotation.Nonnull;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormat;
 import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormat;
@@ -35,22 +32,14 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 @SuppressWarnings("javadoc")
 public abstract class AbstractRoundTrippingTestCase extends TestBase {
 
-    @SuppressWarnings("null")
     @Nonnull
-    private OWLOntology ont;
+    private OWLOntology ont = createOntology();
 
     @Nonnull
-    protected abstract OWLOntology createOntology()
-            throws OWLOntologyCreationException, URISyntaxException;
+    protected abstract OWLOntology createOntology();
 
     protected OWLOntology getOnt() {
         return ont;
-    }
-
-    @Before
-    public void setUpOntology() throws OWLOntologyCreationException,
-            URISyntaxException {
-        ont = createOntology();
     }
 
     @Test

@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.obolibrary.obo2owl.OWLAPIOwl2Obo;
 import org.obolibrary.obo2owl.OboFormatTestBasics;
@@ -20,12 +19,10 @@ import org.semanticweb.owlapi.model.OWLOntology;
 @SuppressWarnings("javadoc")
 public class ManchesterSyntaxToolTest extends OboFormatTestBasics {
 
-    @SuppressWarnings("null")
     @Nonnull
-    private OWLOntology owlOntology;
-    @SuppressWarnings("null")
+    private OWLOntology owlOntology = convert(parseOBOFile("simplego.obo"));
     @Nonnull
-    private ManchesterSyntaxTool parser;
+    private ManchesterSyntaxTool parser = new ManchesterSyntaxTool(owlOntology);
 
     @Test
     public void testParseManchesterIds() {
@@ -39,12 +36,6 @@ public class ManchesterSyntaxToolTest extends OboFormatTestBasics {
         OWLClassExpression expression = parser
                 .parseManchesterExpression("'2,4-dichlorophenoxyacetic acid metabolic process' AND 'part_of' some 'premature neural plate formation'");
         checkIntersection(expression, "GO:0018901", "BFO:0000050", "GO:0055124");
-    }
-
-    @Before
-    public void setup() throws Exception {
-        owlOntology = convert(parseOBOFile("simplego.obo"));
-        parser = new ManchesterSyntaxTool(owlOntology);
     }
 
     private static void checkIntersection(OWLClassExpression expression,

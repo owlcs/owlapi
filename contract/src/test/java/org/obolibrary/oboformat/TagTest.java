@@ -19,7 +19,7 @@ import org.obolibrary.oboformat.parser.OBOFormatParser;
 public class TagTest extends OboFormatTestBasics {
 
     @Test
-    public void testParseOBOFile() throws Exception {
+    public void testParseOBOFile() {
         OBODoc obodoc = parseOBOFile("tag_test.obo");
         assertEquals(4, obodoc.getTermFrames().size());
         assertEquals(1, obodoc.getTypedefFrames().size());
@@ -29,7 +29,7 @@ public class TagTest extends OboFormatTestBasics {
     }
 
     @Test
-    public void testParseOBOFile2() throws Exception {
+    public void testParseOBOFile2() {
         OBODoc obodoc = parseOBOFile("testqvs.obo");
         assertEquals(4, obodoc.getTermFrames().size());
         assertEquals(1, obodoc.getTypedefFrames().size());

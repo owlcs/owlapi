@@ -31,7 +31,7 @@ public class OBOFormatWriterTest extends OboFormatTestBasics {
      */
     @SuppressWarnings("null")
     @Test
-    public void testSortTermClausesIntersection_of() throws Exception {
+    public void testSortTermClausesIntersection_of() {
         OBODoc oboDoc = parseOBOFile("equivtest.obo");
         Frame frame = oboDoc.getTermFrame("X:1");
         List<Clause> clauses = new ArrayList<Clause>(

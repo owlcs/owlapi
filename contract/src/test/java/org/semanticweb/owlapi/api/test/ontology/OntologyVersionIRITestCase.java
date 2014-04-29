@@ -19,6 +19,7 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 import com.google.common.base.Optional;
 
@@ -30,11 +31,15 @@ import com.google.common.base.Optional;
 public class OntologyVersionIRITestCase extends AbstractRoundTrippingTestCase {
 
     @Override
-    protected OWLOntology createOntology() throws OWLOntologyCreationException {
+    protected OWLOntology createOntology() {
         IRI ontIRI = IRI("http://www.semanticweb.org/owlapi/ontology");
         IRI versionIRI = IRI("http://www.semanticweb.org/owlapi/ontology/version");
         OWLOntologyID ontologyID = new OWLOntologyID(Optional.of(ontIRI),
                 Optional.of(versionIRI));
-        return m.createOntology(ontologyID);
+        try {
+            return m.createOntology(ontologyID);
+        } catch (OWLOntologyCreationException e) {
+            throw new OWLRuntimeException(e);
+        }
     }
 }

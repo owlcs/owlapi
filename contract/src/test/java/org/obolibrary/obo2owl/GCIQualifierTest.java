@@ -19,7 +19,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 public class GCIQualifierTest extends OboFormatTestBasics {
 
     @Test
-    public void testConvert() throws Exception {
+    public void testConvert() {
         // PARSE TEST FILE, CONVERT TO OWL, AND WRITE TO OWL FILE
         OWLOntology ontology = convert(parseOBOFile("gci_qualifier_test.obo"));
         if (true) {

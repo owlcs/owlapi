@@ -8,7 +8,7 @@ import org.junit.Test;
 public class PropertyChainTest extends OboFormatTestBasics {
 
     @Test
-    public void testConvertXPs() throws Exception {
+    public void testConvertXPs() {
         assertNotNull(parseOBOFile("chaintest.obo", true));
     }
 }

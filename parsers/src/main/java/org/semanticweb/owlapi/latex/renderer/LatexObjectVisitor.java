@@ -842,7 +842,6 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         write(node.getDatatype().getIRI());
     }
 
-    // ////////////////////////////////////////////////////////////////////////////////////////////
     @Override
     public void visit(SWRLLiteralArgument node) {
         node.getLiteral().accept(this);

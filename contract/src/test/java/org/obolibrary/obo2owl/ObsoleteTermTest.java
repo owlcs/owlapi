@@ -22,7 +22,7 @@ public class ObsoleteTermTest extends OboFormatTestBasics {
 
     @SuppressWarnings("null")
     @Test
-    public void testConvert() throws Exception {
+    public void testConvert() {
         // PARSE TEST FILE
         OWLOntology ontology = convert(parseOBOFile("obsolete_term_test.obo"));
         // TEST CONTENTS OF OWL ONTOLOGY

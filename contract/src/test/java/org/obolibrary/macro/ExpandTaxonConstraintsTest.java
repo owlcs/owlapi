@@ -25,7 +25,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 public class ExpandTaxonConstraintsTest extends RoundTripTest {
 
     @Test
-    public void testExpand() throws Exception {
+    public void testExpand() {
         OWLOntology ontology = convert(parseOBOFile("taxon_constraints.obo"));
         MacroExpansionVisitor mev = new MacroExpansionVisitor(ontology);
         OWLOntology outputOntology = mev.expandAll();

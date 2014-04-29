@@ -39,7 +39,6 @@ public abstract class AbstractOWLMetric<M> implements OWLMetric<M>,
     private OWLOntology ontology;
     private boolean dirty;
     private boolean importsClosureUsed;
-    @Nonnull
     private M value;
 
     /**
@@ -48,7 +47,6 @@ public abstract class AbstractOWLMetric<M> implements OWLMetric<M>,
      * @param o
      *        the ontology to use
      */
-    @SuppressWarnings("null")
     public AbstractOWLMetric(@Nonnull OWLOntology o) {
         this.ontology = checkNotNull(o, "o cannot be null");
         ontology.getOWLOntologyManager().addOntologyChangeListener(this);
@@ -77,6 +75,7 @@ public abstract class AbstractOWLMetric<M> implements OWLMetric<M>,
     @Nonnull
     protected abstract M recomputeMetric();
 
+    @SuppressWarnings("null")
     @Override
     public M getValue() {
         if (dirty) {

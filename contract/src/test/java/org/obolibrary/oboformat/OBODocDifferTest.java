@@ -14,7 +14,7 @@ import org.obolibrary.oboformat.model.OBODoc;
 public class OBODocDifferTest extends OboFormatTestBasics {
 
     @Test
-    public void testIdentical() throws Exception {
+    public void testIdentical() {
         OBODoc obodoc1 = parseOBOFile("caro.obo");
         OBODoc obodoc2 = parseOBOFile("caro.obo");
         OBODocDiffer dd = new OBODocDiffer();
@@ -23,7 +23,7 @@ public class OBODocDifferTest extends OboFormatTestBasics {
     }
 
     @Test
-    public void testDiff() throws Exception {
+    public void testDiff() {
         OBODoc obodoc1 = parseOBOFile("caro.obo");
         OBODoc obodoc2 = parseOBOFile("caro_modified.obo");
         OBODocDiffer dd = new OBODocDiffer();

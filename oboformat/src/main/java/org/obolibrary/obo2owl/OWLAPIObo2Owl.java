@@ -1,6 +1,7 @@
 package org.obolibrary.obo2owl;
 
 import static org.obolibrary.obo2owl.Obo2OWLConstants.DEFAULT_IRI_PREFIX;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import java.io.File;
 import java.io.IOException;
@@ -35,7 +36,6 @@ import org.obolibrary.oboformat.parser.OBOFormatException;
 import org.obolibrary.oboformat.parser.OBOFormatParser;
 import org.obolibrary.oboformat.parser.OBOFormatParserException;
 import org.semanticweb.owlapi.formats.RDFXMLOntologyFormat;
-import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi.model.AxiomType;
@@ -88,7 +88,6 @@ public class OWLAPIObo2Owl {
     /** The manager. */
     protected OWLOntologyManager manager;
     /** The owl ontology. */
-    @Nonnull
     protected OWLOntology owlOntology;
     /** The fac. */
     protected OWLDataFactory fac;
@@ -116,7 +115,6 @@ public class OWLAPIObo2Owl {
      * @param manager
      *        the manager
      */
-    @SuppressWarnings("null")
     public OWLAPIObo2Owl(OWLOntologyManager manager) {
         idSpaceMap = new HashMap<String, String>();
         apToDeclare = new HashSet<OWLAnnotationProperty>();
@@ -276,8 +274,9 @@ public class OWLAPIObo2Owl {
      * 
      * @return the owlOntology
      */
+    @Nonnull
     protected OWLOntology getOwlOntology() {
-        return owlOntology;
+        return verifyNotNull(owlOntology);
     }
 
     /**
@@ -360,9 +359,9 @@ public class OWLAPIObo2Owl {
      */
     @SuppressWarnings("null")
     @Nonnull
-    protected OWLOntology tr(OWLOntology in)
+    protected OWLOntology tr(@Nonnull OWLOntology in)
             throws OWLOntologyCreationException {
-        owlOntology = in;
+        setOwlOntology(in);
         Frame hf = obodoc.getHeaderFrame();
         Clause ontClause = hf.getClause(OboFormatTag.TAG_ONTOLOGY);
         if (ontClause != null) {
@@ -385,25 +384,24 @@ public class OWLAPIObo2Owl {
                 // that was passed in, update it
                 // when parsing, the original ontology is likely an anonymous,
                 // empty one
-                if (!oid.equals(owlOntology.getOntologyID())) {
-                    manager.applyChange(new SetOntologyID(owlOntology, oid));
+                if (!oid.equals(in.getOntologyID())) {
+                    manager.applyChange(new SetOntologyID(in, oid));
                 }
             } else {
                 // if the ontology being read has a differet id from the one
                 // that was passed in, update it
                 // when parsing, the original ontology is likely an anonymous,
                 // empty one
-                if (owlOntology.getOntologyID() == null
-                        || !ontIRI.equals(owlOntology.getOntologyID()
-                                .getOntologyIRI().orNull())) {
-                    manager.applyChange(new SetOntologyID(owlOntology,
+                if (!ontIRI
+                        .equals(in.getOntologyID().getOntologyIRI().orNull())) {
+                    manager.applyChange(new SetOntologyID(in,
                             new OWLOntologyID(Optional.of(ontIRI), Optional
                                     .<IRI> absent())));
                 }
             }
         } else {
             defaultIDSpace = "TEMP";
-            manager.applyChange(new SetOntologyID(owlOntology,
+            manager.applyChange(new SetOntologyID(in,
                     new OWLOntologyID(Optional.of(IRI.create(DEFAULT_IRI_PREFIX
                             + defaultIDSpace)), Optional.<IRI> absent())));
             // TODO - warn
@@ -423,12 +421,12 @@ public class OWLAPIObo2Owl {
             String path = getURI(cl.getValue().toString());
             IRI importIRI = IRI.create(path);
             manager.loadOntology(importIRI);
-            AddImport ai = new AddImport(owlOntology,
+            AddImport ai = new AddImport(in,
                     fac.getOWLImportsDeclaration(importIRI));
             manager.applyChange(ai);
         }
-        postProcess(owlOntology);
-        return owlOntology;
+        postProcess(in);
+        return in;
     }
 
     /**
@@ -615,7 +613,7 @@ public class OWLAPIObo2Owl {
                         Set<OWLAxiom> axioms = OwlStringTools.translate(
                                 axiomString, manager);
                         if (axioms != null) {
-                            manager.addAxioms(owlOntology, axioms);
+                            manager.addAxioms(getOwlOntology(), axioms);
                         }
                     }
                 } catch (OwlStringException e) {
@@ -655,7 +653,7 @@ public class OWLAPIObo2Owl {
                 OWLAnnotation ontAnn = fac.getOWLAnnotation(prop, value,
                         annotations);
                 AddOntologyAnnotation addAnn = new AddOntologyAnnotation(
-                        owlOntology, ontAnn);
+                        getOwlOntology(), ontAnn);
                 apply(addAnn);
             } else if (values.size() == 3) {
                 // property_value(Rel-ID Value XSD-Type Qualifiers)
@@ -676,7 +674,7 @@ public class OWLAPIObo2Owl {
                 OWLAnnotation ontAnn = fac.getOWLAnnotation(prop, value,
                         annotations);
                 AddOntologyAnnotation addAnn = new AddOntologyAnnotation(
-                        owlOntology, ontAnn);
+                        getOwlOntology(), ontAnn);
                 apply(addAnn);
             } else {
                 LOG.error("Cannot translate: {}", clause);
@@ -699,8 +697,8 @@ public class OWLAPIObo2Owl {
             @Nonnull OWLAnnotationValue v,
             @Nonnull Set<OWLAnnotation> annotations) {
         OWLAnnotation ontAnn = fac.getOWLAnnotation(ap, v, annotations);
-        AddOntologyAnnotation addAnn = new AddOntologyAnnotation(owlOntology,
-                ontAnn);
+        AddOntologyAnnotation addAnn = new AddOntologyAnnotation(
+                getOwlOntology(), ontAnn);
         apply(addAnn);
     }
 
@@ -1013,14 +1011,7 @@ public class OWLAPIObo2Owl {
             LOG.error("no axiom");
             return;
         }
-        List<OWLOntologyChange<OWLAxiom>> changes = new ArrayList<OWLOntologyChange<OWLAxiom>>(
-                axioms.size());
-        for (OWLAxiom axiom : axioms) {
-            assert axiom != null;
-            AddAxiom addAx = new AddAxiom(owlOntology, axiom);
-            changes.add(addAx);
-        }
-        apply(changes);
+        manager.addAxioms(getOwlOntology(), axioms);
     }
 
     /**

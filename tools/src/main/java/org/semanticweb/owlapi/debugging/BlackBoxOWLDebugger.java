@@ -176,11 +176,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
         return new HashSet<OWLAxiom>(debuggingAxioms);
     }
 
-    // /////////////////////////////////////////////////////////////////////////////////////////
-    //
     // Expansion
-    //
-    // /////////////////////////////////////////////////////////////////////////////////////////
     private int expandAxioms() {
         // We expand the axiom set using axioms that define entities that are
         // already
@@ -324,12 +320,8 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
         return count;
     }
 
-    // /////////////////////////////////////////////////////////////////////////////////////////
-    //
     // Contraction/Pruning - Fast pruning is performed and then slow pruning is
     // performed.
-    //
-    // /////////////////////////////////////////////////////////////////////////////////////////
     private void performFastPruning() throws OWLException {
         Set<OWLAxiom> axiomWindow = new HashSet<OWLAxiom>();
         Object[] axioms = debuggingAxioms.toArray();
@@ -382,11 +374,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
         }
     }
 
-    // //////////////////////////////////////////////////////////////////////////////////////////
-    //
     // Creation of debugging ontology and satisfiability testing
-    //
-    // /////////////////////////////////////////////////////////////////////////////////////////
     private int satTestCount = 0;
 
     /**

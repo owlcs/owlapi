@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.util;
 
 import java.io.Serializable;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
@@ -65,12 +63,11 @@ import org.semanticweb.owlapi.model.SWRLRule;
  * @param <O>
  *        return type
  */
-public class OWLAxiomVisitorExAdapter<O> implements OWLAxiomVisitorEx<O>,
+public class OWLAxiomVisitorExAdapter<O> extends
+        OWLBaseVisitorExAdapter<O, OWLAxiom> implements OWLAxiomVisitorEx<O>,
         Serializable {
 
     private static final long serialVersionUID = 40000L;
-    @Nonnull
-    private O object;
 
     /** adapter with null default */
     public OWLAxiomVisitorExAdapter() {
@@ -83,21 +80,8 @@ public class OWLAxiomVisitorExAdapter<O> implements OWLAxiomVisitorEx<O>,
      * @param object
      *        default return value
      */
-    @SuppressWarnings("null")
     public OWLAxiomVisitorExAdapter(O object) {
-        this.object = object;
-    }
-
-    /**
-     * override to change default behaviour
-     * 
-     * @param axiom
-     *        visited axiom
-     * @return default return value;
-     */
-    @Nonnull
-    protected O doDefault(@SuppressWarnings("unused") @Nonnull OWLAxiom axiom) {
-        return object;
+        super(object);
     }
 
     @Override

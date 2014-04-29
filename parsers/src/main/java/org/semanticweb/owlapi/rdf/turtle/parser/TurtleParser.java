@@ -97,7 +97,6 @@ class TurtleParser implements TurtleParserConstants {
         return iri;
     }
 
-    // ///////////////////////////////////////////////////////////////////////////////////////////
     // TOKEN:
     // {
     // <LONG_STRING: (<QUOTE><QUOTE><QUOTE>~["\""]<QUOTE><QUOTE><QUOTE>)>

@@ -420,7 +420,9 @@ public class Internals implements Serializable {
                 return (MapPointer<T, A>) hasKeyAxiomsByClass;
             }
         }
-        return null;
+        throw new IllegalArgumentException(
+                "Cannot match the arguments to an existing index: " + type
+                        + " " + axiom + " " + position);
     }
 
     @Nonnull

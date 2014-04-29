@@ -18,6 +18,7 @@ import java.io.Writer;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.annotations.HasPriority;
+import org.semanticweb.owlapi.annotations.SupportsFormat;
 import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
@@ -30,6 +31,7 @@ import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
  * @since 2.0.0
  */
 @HasPriority(value = 2)
+@SupportsFormat(OWLFunctionalSyntaxOntologyFormat.class)
 public class OWLFunctionalSyntaxOntologyStorer extends
         AbstractOWLOntologyStorer {
 

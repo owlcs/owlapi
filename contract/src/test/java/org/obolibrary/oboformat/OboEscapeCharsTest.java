@@ -18,7 +18,7 @@ public class OboEscapeCharsTest extends OboFormatTestBasics {
 
     @SuppressWarnings("null")
     @Test
-    public void testEscapeChars() throws Exception {
+    public void testEscapeChars() {
         OBODoc obodoc = parseOBOFile("escape_chars_test.obo");
         assertEquals(3, obodoc.getTermFrames().size());
         Frame f1 = obodoc.getTermFrame("GO:0033942");

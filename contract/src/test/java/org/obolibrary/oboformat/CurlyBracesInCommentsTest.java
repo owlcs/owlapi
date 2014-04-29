@@ -15,7 +15,7 @@ import org.obolibrary.oboformat.parser.OBOFormatParserException;
 public class CurlyBracesInCommentsTest extends OboFormatTestBasics {
 
     @Test(expected = OBOFormatParserException.class)
-    public void testCurlyBracesInComments() throws Exception {
+    public void testCurlyBracesInComments() {
         /*
          * Expect an parser exception, as the comment line contains '{' and '}'.
          * This will lead the parser to try and parse it as a trailing

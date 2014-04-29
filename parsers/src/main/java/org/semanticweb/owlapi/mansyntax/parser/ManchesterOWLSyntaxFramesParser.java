@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.mansyntax.parser;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -35,9 +37,7 @@ public class ManchesterOWLSyntaxFramesParser implements
     private OWLDataFactory dataFactory;
     @Nonnull
     private OWLEntityChecker checker;
-    @Nonnull
     private OWLOntologyChecker ontologyChecker;
-    @Nonnull
     private OWLOntology defaultOntology;
 
     /**
@@ -46,7 +46,6 @@ public class ManchesterOWLSyntaxFramesParser implements
      * @param checker
      *        the entity checker
      */
-    @SuppressWarnings("null")
     public ManchesterOWLSyntaxFramesParser(@Nonnull OWLDataFactory dataFactory,
             @Nonnull OWLEntityChecker checker) {
         this.dataFactory = dataFactory;
@@ -81,8 +80,8 @@ public class ManchesterOWLSyntaxFramesParser implements
         ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(
                 dataFactory, expression);
         parser.setOWLEntityChecker(checker);
-        parser.setDefaultOntology(defaultOntology);
-        parser.setOWLOntologyChecker(ontologyChecker);
+        parser.setDefaultOntology(verifyNotNull(defaultOntology));
+        parser.setOWLOntologyChecker(verifyNotNull(ontologyChecker));
         return parser.parseFrames();
     }
 }

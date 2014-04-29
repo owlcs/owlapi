@@ -13,13 +13,11 @@
 package org.semanticweb.owlapi.api.test.dataproperties;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
 
 import javax.annotation.Nonnull;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
 import org.semanticweb.owlapi.change.RemoveAxiomData;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -31,17 +29,14 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  * @since 3.2.0
  */
 @SuppressWarnings("javadoc")
-@RunWith(MockitoJUnitRunner.class)
 public class RemoveAxiomDataTestCase {
 
     @SuppressWarnings("null")
-    @Mock
     @Nonnull
-    private OWLAxiom mockAxiom;
+    private OWLAxiom mockAxiom = mock(OWLAxiom.class);
     @SuppressWarnings("null")
-    @Mock
     @Nonnull
-    private OWLOntology mockOntology;
+    private OWLOntology mockOntology = mock(OWLOntology.class);
 
     @Test
     public void testEquals() {

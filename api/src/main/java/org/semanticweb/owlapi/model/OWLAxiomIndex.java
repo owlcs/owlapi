@@ -124,11 +124,7 @@ public interface OWLAxiomIndex {
             @Nonnull OWLObject entity, @Nonnull Imports includeImports,
             @Nonnull Search forSubPosition);
 
-    // ////////////////////////////////////////////////////////////////////////////////////////////
-    //
     // Annotation axioms
-    //
-    // ////////////////////////////////////////////////////////////////////////////////////////////
     /**
      * Gets the {@code SubAnnotationPropertyOfAxiom}s where the specified
      * property is the sub-property.
@@ -165,15 +161,9 @@ public interface OWLAxiomIndex {
     Set<OWLAnnotationPropertyRangeAxiom> getAnnotationPropertyRangeAxioms(
             @Nonnull OWLAnnotationProperty property);
 
-    // ////////////////////////////////////////////////////////////////////////////////////////////
-    //
     // Various methods that provide axioms relating to specific entities that
-    // allow
-    // frame style views to be composed for a particular entity. Such
-    // functionality is
-    // useful for ontology editors and browsers.
-    //
-    // ////////////////////////////////////////////////////////////////////////////////////////////
+    // allow frame style views to be composed for a particular entity. Such
+    // functionality is useful for ontology editors and browsers.
     /**
      * Gets the declaration axioms for specified entity.
      * 
@@ -195,11 +185,7 @@ public interface OWLAxiomIndex {
     Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxioms(
             @Nonnull OWLAnnotationSubject entity);
 
-    // ////////////////////////////////////////////////////////////////////////////////////////////
-    //
     // Classes
-    //
-    // ////////////////////////////////////////////////////////////////////////////////////////////
     /**
      * Gets all of the subclass axioms where the left hand side (the subclass)
      * is equal to the specified class.
@@ -272,11 +258,7 @@ public interface OWLAxiomIndex {
     @Nonnull
     Set<OWLHasKeyAxiom> getHasKeyAxioms(@Nonnull OWLClass cls);
 
-    // ////////////////////////////////////////////////////////////////////////////////////////////
-    //
     // Object properties
-    //
-    // ////////////////////////////////////////////////////////////////////////////////////////////
     /**
      * Gets the {@link OWLSubObjectPropertyOfAxiom} s where the sub-property is
      * equal to the specified property.
@@ -458,11 +440,7 @@ public interface OWLAxiomIndex {
     Set<OWLTransitiveObjectPropertyAxiom> getTransitiveObjectPropertyAxioms(
             @Nonnull OWLObjectPropertyExpression property);
 
-    // ////////////////////////////////////////////////////////////////////////////////////////////
-    //
     // Data properties
-    //
-    // ////////////////////////////////////////////////////////////////////////////////////////////
     /**
      * Gets the {@link OWLSubDataPropertyOfAxiom}s where the sub-property is
      * equal to the specified property.
@@ -553,11 +531,7 @@ public interface OWLAxiomIndex {
     Set<OWLFunctionalDataPropertyAxiom> getFunctionalDataPropertyAxioms(
             @Nonnull OWLDataPropertyExpression property);
 
-    // ////////////////////////////////////////////////////////////////////////////////////////////
-    //
     // Individuals
-    //
-    // ////////////////////////////////////////////////////////////////////////////////////////////
     /**
      * Gets the {@link OWLClassAssertionAxiom}s contained in this ontology that
      * make the specified {@code individual} an instance of some class

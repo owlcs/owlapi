@@ -60,6 +60,7 @@ import org.semanticweb.owlapi.profiles.violations.UseOfUndeclaredDataProperty;
 import org.semanticweb.owlapi.profiles.violations.UseOfUndeclaredDatatype;
 import org.semanticweb.owlapi.profiles.violations.UseOfUndeclaredObjectProperty;
 import org.semanticweb.owlapi.profiles.violations.UseOfUnknownDatatype;
+import org.semanticweb.owlapi.util.OWLBaseVisitorExAdapter;
 
 /**
  * adapter class
@@ -67,24 +68,9 @@ import org.semanticweb.owlapi.profiles.violations.UseOfUnknownDatatype;
  * @param <O>
  *        return type
  */
-public class OWLProfileViolationVisitorExAdapter<O> implements
+public class OWLProfileViolationVisitorExAdapter<O> extends
+        OWLBaseVisitorExAdapter<O, OWLProfileViolation<?>> implements
         OWLProfileViolationVisitorEx<O> {
-
-    /**
-     * override this method in subclasses to change default behaviour
-     * 
-     * @param v
-     *        violation
-     * @return default return value
-     */
-    @SuppressWarnings("null")
-    @Nonnull
-    protected O doDefault(
-            @SuppressWarnings("unused") @Nonnull OWLProfileViolation<?> v) {
-        return defaultValue;
-    }
-
-    private O defaultValue;
 
     /** default returned value is null */
     public OWLProfileViolationVisitorExAdapter() {
@@ -96,7 +82,7 @@ public class OWLProfileViolationVisitorExAdapter<O> implements
      *        default return value
      */
     public OWLProfileViolationVisitorExAdapter(O o) {
-        defaultValue = o;
+        super(o);
     }
 
     @Override

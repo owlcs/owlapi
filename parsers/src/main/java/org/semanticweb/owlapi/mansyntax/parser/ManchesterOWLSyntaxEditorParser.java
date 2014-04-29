@@ -152,7 +152,6 @@ public class ManchesterOWLSyntaxEditorParser implements
     protected DefaultPrefixManager pm = new DefaultPrefixManager();
     @Nonnull
     protected Set<ManchesterOWLSyntax> potentialKeywords = new HashSet<ManchesterOWLSyntax>();
-    @Nonnull
     private OWLOntology defaultOntology;
     private boolean allowEmptyFrameSections = false;
     private Map<ManchesterOWLSyntax, AnnotatedListItemParser<OWLDataProperty, ?>> dataPropertyFrameSections = new HashMap<ManchesterOWLSyntax, AnnotatedListItemParser<OWLDataProperty, ?>>();
@@ -176,7 +175,6 @@ public class ManchesterOWLSyntaxEditorParser implements
      * @param s
      *        s
      */
-    @SuppressWarnings("null")
     public ManchesterOWLSyntaxEditorParser(
             @Nonnull OWLOntologyLoaderConfiguration configuration,
             @Nonnull OWLDataFactory dataFactory, @Nonnull String s) {
@@ -2174,7 +2172,8 @@ public class ManchesterOWLSyntaxEditorParser implements
     }
 
     @Override
-    public ManchesterOWLSyntaxOntologyFormat parseOntology(OWLOntology ont) {
+    public ManchesterOWLSyntaxOntologyFormat parseOntology(
+            @Nonnull OWLOntology ont) {
         Set<OntologyAxiomPair> axioms = new HashSet<OntologyAxiomPair>();
         OWLOntologyID ontologyID = new OWLOntologyID();
         Set<AddImport> imports = new HashSet<AddImport>();

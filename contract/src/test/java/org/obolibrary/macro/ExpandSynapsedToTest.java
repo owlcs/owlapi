@@ -14,7 +14,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 public class ExpandSynapsedToTest extends OboFormatTestBasics {
 
     @Test
-    public void testExpand() throws Exception {
+    public void testExpand() {
         OWLOntology ontology = convert(parseOBOFile("synapsed_to.obo"));
         MacroExpansionGCIVisitor mev = new MacroExpansionGCIVisitor(ontology,
                 OWLManager.createOWLOntologyManager());

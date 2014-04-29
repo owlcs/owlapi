@@ -151,11 +151,7 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
         }
     }
 
-    // //////////////////////////////////////////////////////////////////////////////////////////
-    //
     // Hitting Set Stuff
-    //
-    // /////////////////////////////////////////////////////////////////////////////////////////
     /**
      * Orders the axioms in a single MUPS by the frequency of which they appear
      * in all MUPS.

@@ -21,6 +21,7 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health
@@ -31,14 +32,18 @@ public class AnonymousOntologyAnnotationsTestCase extends
         AbstractRoundTrippingTestCase {
 
     @Override
-    protected OWLOntology createOntology() throws OWLOntologyCreationException {
-        OWLOntology ont = m.createOntology();
-        OWLAnnotationProperty prop = AnnotationProperty(IRI("http://www.semanticweb.org/ontologies/test/annotationont#prop"));
-        OWLLiteral value = Literal(33);
-        OWLAnnotation annotation = df.getOWLAnnotation(prop, value);
-        ont.getOWLOntologyManager().applyChange(
-                new AddOntologyAnnotation(ont, annotation));
-        ont.getOWLOntologyManager().addAxiom(ont, Declaration(prop));
-        return ont;
+    protected OWLOntology createOntology() {
+        try {
+            OWLOntology ont = m.createOntology();
+            OWLAnnotationProperty prop = AnnotationProperty(IRI("http://www.semanticweb.org/ontologies/test/annotationont#prop"));
+            OWLLiteral value = Literal(33);
+            OWLAnnotation annotation = df.getOWLAnnotation(prop, value);
+            ont.getOWLOntologyManager().applyChange(
+                    new AddOntologyAnnotation(ont, annotation));
+            ont.getOWLOntologyManager().addAxiom(ont, Declaration(prop));
+            return ont;
+        } catch (OWLOntologyCreationException e) {
+            throw new OWLRuntimeException(e);
+        }
     }
 }

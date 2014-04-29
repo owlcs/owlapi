@@ -9,13 +9,13 @@ import org.semanticweb.owlapi.model.OWLOntology;
 public class Obo2OwlTest extends OboFormatTestBasics {
 
     @Test
-    public void testConvertCARO() throws Exception {
+    public void testConvertCARO() {
         OWLOntology owlOnt = convertOBOFile("caro.obo");
         assertNotNull(owlOnt);
     }
 
     @Test
-    public void testConvertXPWithQV() throws Exception {
+    public void testConvertXPWithQV() {
         OWLOntology owlOnt = convertOBOFile("testqvs.obo");
         assertNotNull(owlOnt);
     }

@@ -54,13 +54,12 @@ import uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory;
 @SuppressWarnings("javadoc")
 public abstract class AbstractRendererAndParserTestCase extends TestBase {
 
-    @SuppressWarnings("null")
     @Nonnull
-    private OWLOntologyManager man;
+    private OWLOntologyManager man = new OWLOntologyManagerImpl(
+            new OWLDataFactoryImpl());
 
     @Before
     public void setUp() {
-        man = new OWLOntologyManagerImpl(new OWLDataFactoryImpl());
         OWLOntologyBuilderImpl builder = new OWLOntologyBuilderImpl();
         man.getOntologyFactories().add(
                 new EmptyInMemOWLOntologyFactory(builder),

@@ -210,7 +210,6 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
         }
     }
 
-    // ////////////////////////////////////////////////////////////////////////////////////
     @Override
     public void visit(@Nonnull OWLObjectSomeValuesFrom desc) {
         addRestrictionCommonTriplePropertyRange(desc, desc.getProperty());
@@ -323,13 +322,7 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
         }
     }
 
-    // ////////////////////////////////////////////////////////////////////////////////////
-    // ////////////////////////////////////////////////////////////////////////////////////
-    // //
-    // // Axioms
-    // //
-    // ////////////////////////////////////////////////////////////////////////////////////
-    // ////////////////////////////////////////////////////////////////////////////////////
+    // Axioms
     @Override
     public void visit(@Nonnull OWLSubClassOfAxiom axiom) {
         addSingleTripleAxiom(axiom, axiom.getSubClass(),
@@ -808,29 +801,26 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
         nodeMap.put(node, nodeMap.get(node.getLiteral()));
     }
 
-    // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //
     // Methods to add triples
-    //
-    // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /** Maps Objects to nodes. */
     @Nonnull
     private Map<OWLObject, N> nodeMap = new IdentityHashMap<OWLObject, N>();
 
     private void addSingleTripleAxiom(@Nonnull OWLAxiom ax,
-            @Nonnull OWLObject subject, @Nonnull IRI pred, @Nonnull OWLObject obj) {
+            @Nonnull OWLObject subject, @Nonnull IRI pred,
+            @Nonnull OWLObject obj) {
         addSingleTripleAxiom(ax, getResourceNode(subject),
                 getPredicateNode(pred), getNode(obj));
     }
 
     private void addSingleTripleAxiom(@Nonnull OWLAxiom ax,
-            @Nonnull OWLObject subject,@Nonnull  IRI pred,@Nonnull  IRI obj) {
+            @Nonnull OWLObject subject, @Nonnull IRI pred, @Nonnull IRI obj) {
         addSingleTripleAxiom(ax, getResourceNode(subject),
                 getPredicateNode(pred), getResourceNode(obj));
     }
 
     private void addSingleTripleAxiom(@Nonnull OWLAxiom ax,
-            @Nonnull OWLObject subj,@Nonnull  IRI pred,
+            @Nonnull OWLObject subj, @Nonnull IRI pred,
             @Nonnull Collection<? extends OWLObject> obj) {
         addSingleTripleAxiom(ax, getResourceNode(subj), getPredicateNode(pred),
                 translateList(new ArrayList<OWLObject>(obj)));

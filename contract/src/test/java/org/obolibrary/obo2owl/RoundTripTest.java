@@ -17,7 +17,6 @@ import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 @SuppressWarnings("javadoc")
 public class RoundTripTest extends OboFormatTestBasics {
@@ -49,15 +48,13 @@ public class RoundTripTest extends OboFormatTestBasics {
     }
 
     public boolean roundTripOWLFile(String fn, boolean isExpectRoundtrip)
-            throws IOException, OWLOntologyCreationException,
-            OWLOntologyStorageException {
+            throws IOException, OWLOntologyCreationException {
         OWLOntology oo = parseOWLFile(fn);
         return roundTripOWLOOntology(oo, isExpectRoundtrip);
     }
 
     public boolean roundTripOWLOOntology(@Nonnull OWLOntology oo,
-            boolean isExpectRoundtrip) throws IOException,
-            OWLOntologyCreationException, OWLOntologyStorageException {
+            boolean isExpectRoundtrip) throws IOException {
         OWLAPIOwl2Obo bridge = new OWLAPIOwl2Obo(
                 OWLManager.createOWLOntologyManager());
         OBODoc obodoc = bridge.convert(oo);

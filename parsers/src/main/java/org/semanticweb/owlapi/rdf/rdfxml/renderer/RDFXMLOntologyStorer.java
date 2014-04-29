@@ -18,6 +18,7 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.annotations.SupportsFormat;
 import org.semanticweb.owlapi.formats.RDFXMLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -30,6 +31,7 @@ import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
  *         Informatics Group
  * @since 2.0.0
  */
+@SupportsFormat(RDFXMLOntologyFormat.class)
 public class RDFXMLOntologyStorer extends AbstractOWLOntologyStorer {
 
     private static final long serialVersionUID = 40000L;

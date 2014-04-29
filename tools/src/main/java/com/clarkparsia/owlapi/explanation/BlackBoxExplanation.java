@@ -152,11 +152,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
         }
     }
 
-    // /////////////////////////////////////////////////////////////////////////////////////////
-    //
     // Expansion
-    //
-    // /////////////////////////////////////////////////////////////////////////////////////////
     private int expandAxioms() {
         /*
          * We expand the axiom set using axioms that define entities that are
@@ -306,12 +302,8 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
         return count;
     }
 
-    // /////////////////////////////////////////////////////////////////////////////////////////
-    //
     // Contraction/Pruning - Fast pruning is performed and then slow pruning is
     // performed.
-    //
-    // /////////////////////////////////////////////////////////////////////////////////////////
     private void performFastPruning(@Nonnull OWLClassExpression unsatClass)
             throws OWLException {
         Set<OWLAxiom> axiomWindow = new HashSet<OWLAxiom>();
@@ -366,11 +358,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
         }
     }
 
-    // //////////////////////////////////////////////////////////////////////////////////////////
-    //
     // Creation of debugging ontology and satisfiability testing
-    //
-    // /////////////////////////////////////////////////////////////////////////////////////////
     private int satTestCount = 0;
 
     /**

@@ -9,7 +9,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 public class XPBridgeFileTest extends OboFormatTestBasics {
 
     @Test
-    public void testConvertXPs() throws Exception {
+    public void testConvertXPs() {
         OWLOntology owlOnt = convertOBOFile("xptest.obo");
         assertNotNull(owlOnt);
     }

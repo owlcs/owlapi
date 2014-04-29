@@ -22,7 +22,7 @@ import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 public class TransitiveOverTest extends RoundTripTest {
 
     @Test
-    public void testConvert() throws Exception {
+    public void testConvert() {
         // PARSE TEST FILE, CONVERT TO OWL
         OWLOntology ontology = convert(parseOBOFile("relation_shorthand_test.obo"));
         // TEST CONTENTS OF OWL ONTOLOGY

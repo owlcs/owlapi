@@ -19,7 +19,7 @@ import org.obolibrary.oboformat.model.OBODoc;
 public class EmptyLinesTest extends OboFormatTestBasics {
 
     @Test
-    public void testEmptyFirstLine() throws Exception {
+    public void testEmptyFirstLine() {
         OBODoc obodoc = parseOBOFile("empty_lines.obo");
         Collection<Frame> frames = obodoc.getTermFrames();
         assertEquals(1, frames.size());

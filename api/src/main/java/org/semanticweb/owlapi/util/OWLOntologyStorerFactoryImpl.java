@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.util;
 
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.annotations.SupportsFormat;
+import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntologyStorer;
 import org.semanticweb.owlapi.model.OWLOntologyStorerFactory;
@@ -58,7 +60,13 @@ public class OWLOntologyStorerFactoryImpl<T extends OWLOntologyStorer>
     @Nonnull
     @Override
     public OWLOntologyFormatFactory getFormatFactory() {
-        return null;
+        return factory(type.getAnnotation(SupportsFormat.class).value());
+    }
+
+    @Nonnull
+    private static <F extends OWLOntologyFormat> OWLOntologyFormatFactory
+            factory(Class<F> c) {
+        return new OWLOntologyFormatFactoryImpl<F>(c);
     }
 
     @Override

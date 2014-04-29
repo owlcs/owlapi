@@ -15,7 +15,7 @@ public class RoundTripVersionIRITest extends RoundTripTest {
     }
 
     @Test
-    public void testConvert() throws Exception {
+    public void testConvert() {
         OWLOntology owlOnt = convertOBOFile("version_iri_test.obo");
         assertNotNull(owlOnt);
         IRI v = owlOnt.getOntologyID().getVersionIRI().get();

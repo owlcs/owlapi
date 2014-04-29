@@ -30,7 +30,6 @@ import org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.util.AnnotationValueShortFormProvider;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
@@ -57,8 +56,7 @@ public class AnnotationShortFormProviderTestCase extends TestBase {
     Map<OWLAnnotationProperty, List<String>> langMap = new HashMap<OWLAnnotationProperty, List<String>>();
 
     @Test
-    public void testLiteralWithoutLanguageValue()
-            throws OWLOntologyCreationException {
+    public void testLiteralWithoutLanguageValue() {
         OWLNamedIndividual root = NamedIndividual("ind", pm);
         String shortForm = "MyLabel";
         Ontology(m,
@@ -69,8 +67,7 @@ public class AnnotationShortFormProviderTestCase extends TestBase {
     }
 
     @Test
-    public void testLiteralWithLanguageValue()
-            throws OWLOntologyCreationException {
+    public void testLiteralWithLanguageValue() {
         OWLNamedIndividual root = NamedIndividual("ind", pm);
         String label1 = "MyLabel";
         String label2 = "OtherLabel";
@@ -90,7 +87,7 @@ public class AnnotationShortFormProviderTestCase extends TestBase {
     }
 
     @Test
-    public void testIRIValue() throws OWLOntologyCreationException {
+    public void testIRIValue() {
         OWLNamedIndividual root = NamedIndividual("ind", pm);
         Ontology(
                 m,
@@ -102,8 +99,7 @@ public class AnnotationShortFormProviderTestCase extends TestBase {
     }
 
     @Test
-    public void shouldWrapWithDoubleQuotes()
-            throws OWLOntologyCreationException {
+    public void shouldWrapWithDoubleQuotes() {
         OWLNamedIndividual root = NamedIndividual("ind", pm);
         String shortForm = "MyLabel";
         Ontology(m,

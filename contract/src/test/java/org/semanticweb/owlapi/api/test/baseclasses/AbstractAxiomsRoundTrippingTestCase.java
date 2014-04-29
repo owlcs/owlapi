@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.api.test.baseclasses;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Declaration;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -24,7 +23,6 @@ import org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormat;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
 /**
@@ -35,15 +33,10 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 public abstract class AbstractAxiomsRoundTrippingTestCase extends
         AbstractRoundTrippingTestCase {
 
-    @Nonnull
-    private final Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-
     @Override
-    protected OWLOntology createOntology() throws OWLOntologyCreationException {
+    protected OWLOntology createOntology() {
         OWLOntology ont = getOWLOntology("Ont");
-        axioms.clear();
-        axioms.addAll(createAxioms());
-        ont.getOWLOntologyManager().addAxioms(ont, axioms);
+        ont.getOWLOntologyManager().addAxioms(ont, createAxioms());
         for (OWLEntity entity : ont.getSignature()) {
             if (!entity.isBuiltIn() && !ont.isDeclared(entity, INCLUDED)) {
                 ont.getOWLOntologyManager().addAxiom(ont, Declaration(entity));
@@ -52,8 +45,8 @@ public abstract class AbstractAxiomsRoundTrippingTestCase extends
         return ont;
     }
 
-    protected abstract Set<? extends OWLAxiom> createAxioms()
-            throws OWLOntologyCreationException;
+    @Nonnull
+    protected abstract Set<? extends OWLAxiom> createAxioms();
 
     @Override
     protected boolean isIgnoreDeclarationAxioms(OWLOntologyFormat format) {

@@ -54,7 +54,6 @@ import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLFacetRestriction;
 import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
@@ -93,6 +92,7 @@ import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.search.Filters;
+import org.semanticweb.owlapi.util.OWLDataVisitorExAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -101,7 +101,8 @@ import org.slf4j.LoggerFactory;
  * code in the actual visitors, as they only need to overwrite the relevant
  * methods.
  */
-public abstract class AbstractMacroExpansionVisitor implements
+public abstract class AbstractMacroExpansionVisitor extends
+        OWLDataVisitorExAdapter<OWLDataRange> implements
         OWLClassExpressionVisitorEx<OWLClassExpression>,
         OWLDataVisitorEx<OWLDataRange>, OWLAxiomVisitorEx<OWLAxiom> {
 
@@ -308,11 +309,7 @@ public abstract class AbstractMacroExpansionVisitor implements
         return dataFactory.getOWLDataUnionOf(ops);
     }
 
-    // //////////////////////////////////////////////////////////////////////////////////////////////
-    //
     // Conversion of non-class expressions to MacroExpansionVisitor
-    //
-    // /////////////////////////////////////////////////////////////////////////////////////////////
     @Override
     public OWLAxiom visit(@Nonnull OWLSubClassOfAxiom axiom) {
         return dataFactory.getOWLSubClassOfAxiom(
@@ -413,13 +410,6 @@ public abstract class AbstractMacroExpansionVisitor implements
     @Override
     public OWLDataRange visit(OWLDatatypeRestriction node) {
         return node;
-    }
-
-    @SuppressWarnings("null")
-    @Override
-    public OWLDataRange visit(
-            @SuppressWarnings("unused") OWLFacetRestriction node) {
-        return null;
     }
 
     @Override
@@ -565,11 +555,5 @@ public abstract class AbstractMacroExpansionVisitor implements
     @Override
     public OWLAxiom visit(OWLDatatypeDefinitionAxiom axiom) {
         return axiom;
-    }
-
-    @SuppressWarnings("null")
-    @Override
-    public OWLDataRange visit(@SuppressWarnings("unused") OWLLiteral node) {
-        return null;
     }
 }

@@ -325,13 +325,15 @@ public abstract class TestBase {
 
     @Nonnull
     protected OWLOntology loadOntologyFromString(@Nonnull String input,
-            @Nonnull IRI i, @Nonnull OWLOntologyFormat f)
-            throws OWLOntologyCreationException {
+            @Nonnull IRI i, @Nonnull OWLOntologyFormat f) {
         StringDocumentSource documentSource = new StringDocumentSource(input,
                 i, f, null);
-        OWLOntology ontology = OWLManager.createOWLOntologyManager()
-                .loadOntologyFromOntologyDocument(documentSource);
-        return ontology;
+        try {
+            return OWLManager.createOWLOntologyManager()
+                    .loadOntologyFromOntologyDocument(documentSource);
+        } catch (OWLOntologyCreationException e) {
+            throw new OWLRuntimeException(e);
+        }
     }
 
     @Nonnull

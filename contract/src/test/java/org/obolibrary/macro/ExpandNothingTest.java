@@ -14,7 +14,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 public class ExpandNothingTest extends OboFormatTestBasics {
 
     @Test
-    public void testExpand() throws Exception {
+    public void testExpand() {
         OWLOntology ontology = convert(parseOBOFile("nothing_expansion_test.obo"));
         MacroExpansionGCIVisitor mev = new MacroExpansionGCIVisitor(ontology,
                 OWLManager.createOWLOntologyManager());

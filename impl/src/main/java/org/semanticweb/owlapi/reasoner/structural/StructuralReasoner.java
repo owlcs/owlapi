@@ -14,7 +14,7 @@ package org.semanticweb.owlapi.reasoner.structural;
 
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.search.Searcher.*;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -1134,9 +1134,7 @@ public class StructuralReasoner extends OWLReasonerBase {
 
         @Nonnull
         private HierarchyInfo<T> hierarchyInfo;
-        @Nonnull
         private Node<T> topNode;
-        @Nonnull
         private Node<T> bottomNode;
         @Nonnull
         private Map<T, Node<T>> map = new HashMap<T, Node<T>>();
@@ -1187,12 +1185,12 @@ public class StructuralReasoner extends OWLReasonerBase {
 
         @Nonnull
         public Node<T> getTopNode() {
-            return topNode;
+            return verifyNotNull(topNode);
         }
 
         @Nonnull
         public Node<T> getBottomNode() {
-            return bottomNode;
+            return verifyNotNull(bottomNode);
         }
 
         @SuppressWarnings("null")
@@ -1376,9 +1374,6 @@ public class StructuralReasoner extends OWLReasonerBase {
         }
     }
 
-    // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /**
      * An interface for objects who can provide the parents and children of some
      * object.

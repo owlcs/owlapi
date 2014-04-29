@@ -15,7 +15,7 @@ public class XrefExpanderTest extends OboFormatTestBasics {
 
     @SuppressWarnings("null")
     @Test
-    public void testExpand() throws Exception {
+    public void testExpand() {
         OBODoc obodoc = parseOBOFile("treat_xrefs_test.obo");
         XrefExpander x = new XrefExpander(obodoc);
         x.expandXrefs();
@@ -37,7 +37,7 @@ public class XrefExpanderTest extends OboFormatTestBasics {
 
     @SuppressWarnings("null")
     @Test
-    public void testExpandIntoSeparateBridges() throws Exception {
+    public void testExpandIntoSeparateBridges() {
         OBODoc obodoc = parseOBOFile("treat_xrefs_test.obo");
         XrefExpander x = new XrefExpander(obodoc, "bridge");
         x.expandXrefs();

@@ -12,7 +12,9 @@ import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 @SuppressWarnings("javadoc")
 public class HeaderLostBugTest extends OboFormatTestBasics {
@@ -25,7 +27,7 @@ public class HeaderLostBugTest extends OboFormatTestBasics {
      * @throws Exception
      */
     @Test
-    public void testHeaderLog() throws Exception {
+    public void testHeaderLog() {
         OWLOntology ontology = convertOBOFile("header_lost_bug.obo");
         IRI ontologyIRI = IRI.create("http://purl.obolibrary.org/obo/test.owl");
         Set<OWLAnnotation> ontAnns = ontology.getAnnotations();
@@ -39,14 +41,18 @@ public class HeaderLostBugTest extends OboFormatTestBasics {
     }
 
     @Override
-    protected OWLOntology convertOBOFile(String fn) throws Exception {
+    protected OWLOntology convertOBOFile(String fn) {
         OWLOntology ontology = convert(parseOBOFile(fn));
         StringDocumentTarget target = new StringDocumentTarget();
-        ontology.getOWLOntologyManager().saveOntology(ontology,
-                new RDFXMLOntologyFormat(), target);
-        OWLOntology in = OWLManager.createOWLOntologyManager()
-                .loadOntologyFromOntologyDocument(
-                        new StringDocumentSource(target));
-        return in;
+        try {
+            ontology.getOWLOntologyManager().saveOntology(ontology,
+                    new RDFXMLOntologyFormat(), target);
+            OWLOntology in = OWLManager.createOWLOntologyManager()
+                    .loadOntologyFromOntologyDocument(
+                            new StringDocumentSource(target));
+            return in;
+        } catch (OWLException e) {
+            throw new OWLRuntimeException(e);
+        }
     }
 }

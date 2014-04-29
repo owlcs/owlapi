@@ -12,14 +12,16 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDataComplementOf;
+import org.semanticweb.owlapi.model.OWLDataIntersectionOf;
+import org.semanticweb.owlapi.model.OWLDataOneOf;
+import org.semanticweb.owlapi.model.OWLDataUnionOf;
+import org.semanticweb.owlapi.model.OWLDataVisitorEx;
 import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLEntityVisitorEx;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
+import org.semanticweb.owlapi.model.OWLFacetRestriction;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLObject;
 
 /**
  * Provides a default implementation of {@code OWLObjectVisitorEx}. Only the
@@ -32,11 +34,11 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  * @param <O>
  *        visitor return type
  */
-public class OWLEntityVisitorExAdapter<O> extends
-        OWLBaseVisitorExAdapter<O, OWLEntity> implements OWLEntityVisitorEx<O> {
+public class OWLDataVisitorExAdapter<O> extends
+        OWLBaseVisitorExAdapter<O, OWLObject> implements OWLDataVisitorEx<O> {
 
-    /** default constructor with null return value. */
-    public OWLEntityVisitorExAdapter() {
+    /** default constructor */
+    public OWLDataVisitorExAdapter() {
         this(null);
     }
 
@@ -44,13 +46,23 @@ public class OWLEntityVisitorExAdapter<O> extends
      * @param defaultReturnValue
      *        default return value
      */
-    public OWLEntityVisitorExAdapter(O defaultReturnValue) {
+    public OWLDataVisitorExAdapter(O defaultReturnValue) {
         super(defaultReturnValue);
     }
 
     @Override
-    public O visit(OWLClass desc) {
-        return doDefault(desc);
+    public O visit(OWLDataComplementOf node) {
+        return doDefault(node);
+    }
+
+    @Override
+    public O visit(OWLDataIntersectionOf node) {
+        return doDefault(node);
+    }
+
+    @Override
+    public O visit(OWLDataOneOf node) {
+        return doDefault(node);
     }
 
     @Override
@@ -59,22 +71,22 @@ public class OWLEntityVisitorExAdapter<O> extends
     }
 
     @Override
-    public O visit(OWLDataProperty property) {
-        return doDefault(property);
+    public O visit(OWLDatatypeRestriction node) {
+        return doDefault(node);
     }
 
     @Override
-    public O visit(OWLObjectProperty property) {
-        return doDefault(property);
+    public O visit(OWLDataUnionOf node) {
+        return doDefault(node);
     }
 
     @Override
-    public O visit(OWLNamedIndividual individual) {
-        return doDefault(individual);
+    public O visit(OWLFacetRestriction node) {
+        return doDefault(node);
     }
 
     @Override
-    public O visit(OWLAnnotationProperty property) {
-        return doDefault(property);
+    public O visit(OWLLiteral literal) {
+        return doDefault(literal);
     }
 }

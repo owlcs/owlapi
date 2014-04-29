@@ -2,8 +2,6 @@ package org.obolibrary.obo2owl;
 
 import static org.junit.Assert.assertEquals;
 
-import java.io.IOException;
-
 import javax.annotation.Nonnull;
 
 import org.junit.Test;
@@ -11,7 +9,6 @@ import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.parser.OBOFormatParserException;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 @SuppressWarnings("javadoc")
 public class RoundTripXrefescapecolonTest extends RoundTripTest {
@@ -26,8 +23,7 @@ public class RoundTripXrefescapecolonTest extends RoundTripTest {
 
     @Test
     public void shouldContainExpectedAnnotation()
-            throws OBOFormatParserException, IOException,
-            OWLOntologyCreationException {
+            throws OBOFormatParserException {
         OBODoc oboFile = parseOBOFile(file);
         OWLOntology o = convert(oboFile);
         IRI expected = IRI

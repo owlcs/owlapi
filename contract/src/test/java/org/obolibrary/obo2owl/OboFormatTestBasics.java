@@ -37,6 +37,7 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 @SuppressWarnings("javadoc")
 public class OboFormatTestBasics {
@@ -51,24 +52,27 @@ public class OboFormatTestBasics {
     }
 
     @Nonnull
-    protected OBODoc parseOBOFile(String fn) throws IOException,
-            OBOFormatParserException {
+    protected OBODoc parseOBOFile(String fn) {
         return parseOBOFile(fn, false);
     }
 
     @SuppressWarnings("resource")
     @Nonnull
-    protected OBODoc parseOBOFile(String fn, boolean allowEmptyFrames)
-            throws IOException, OBOFormatParserException {
+    protected OBODoc parseOBOFile(String fn, boolean allowEmptyFrames) {
         InputStream inputStream = getInputStream(fn);
         OBOFormatParser p = new OBOFormatParser();
-        OBODoc obodoc = p.parse(new BufferedReader(new InputStreamReader(
-                inputStream)));
-        assertNotNull("The obodoc should not be null", obodoc);
-        if (obodoc.getTermFrames().size() == 0 && !allowEmptyFrames) {
-            fail("Term frames should not be empty.");
+        OBODoc obodoc;
+        try {
+            obodoc = p.parse(new BufferedReader(new InputStreamReader(
+                    inputStream)));
+            assertNotNull("The obodoc should not be null", obodoc);
+            if (obodoc.getTermFrames().size() == 0 && !allowEmptyFrames) {
+                fail("Term frames should not be empty.");
+            }
+            return obodoc;
+        } catch (IOException e) {
+            throw new OWLRuntimeException(e);
         }
-        return obodoc;
     }
 
     @Nonnull
@@ -127,16 +131,20 @@ public class OboFormatTestBasics {
     }
 
     @Nonnull
-    protected OWLOntology convert(OBODoc obodoc)
-            throws OWLOntologyCreationException {
+    protected OWLOntology convert(OBODoc obodoc) {
         OWLAPIObo2Owl bridge = new OWLAPIObo2Owl(
                 OWLManager.createOWLOntologyManager());
-        OWLOntology ontology = bridge.convert(obodoc);
-        return ontology;
+        OWLOntology ontology;
+        try {
+            ontology = bridge.convert(obodoc);
+            return ontology;
+        } catch (OWLOntologyCreationException e) {
+            throw new OWLRuntimeException(e);
+        }
     }
 
     @Nonnull
-    protected OWLOntology convertOBOFile(String fn) throws Exception {
+    protected OWLOntology convertOBOFile(String fn) {
         OWLOntology convert = convert(parseOBOFile(fn));
         writeOWL(convert);
         return convert;
@@ -168,18 +176,20 @@ public class OboFormatTestBasics {
     }
 
     @Nonnull
-    protected StringDocumentTarget writeOWL(@Nonnull OWLOntology ontology)
-            throws OWLOntologyStorageException {
+    protected StringDocumentTarget writeOWL(@Nonnull OWLOntology ontology) {
         return writeOWL(ontology, new OWLXMLOntologyFormat());
     }
 
     @Nonnull
     protected StringDocumentTarget writeOWL(@Nonnull OWLOntology ontology,
-            @Nonnull OWLOntologyFormat format)
-            throws OWLOntologyStorageException {
+            @Nonnull OWLOntologyFormat format) {
         StringDocumentTarget target = new StringDocumentTarget();
         OWLOntologyManager manager = ontology.getOWLOntologyManager();
-        manager.saveOntology(ontology, format, target);
+        try {
+            manager.saveOntology(ontology, format, target);
+        } catch (OWLOntologyStorageException e) {
+            throw new OWLRuntimeException(e);
+        }
         return target;
     }
 

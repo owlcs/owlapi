@@ -9,7 +9,6 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.obolibrary.oboformat.model.Clause;
 import org.obolibrary.oboformat.model.Frame;
@@ -31,14 +30,8 @@ public class BFOROXrefTest extends OboFormatTestBasics {
             .getOWLDataFactory()
             .getOWLAnnotationProperty(
                     IRI.create("http://www.geneontology.org/formats/oboInOwl#id"));
-    @SuppressWarnings("null")
     @Nonnull
-    private OWLOntology owlOnt;
-
-    @Before
-    public void setup() throws Exception {
-        owlOnt = convertOBOFile("rel_xref_test.obo");
-    }
+    private OWLOntology owlOnt = convertOBOFile("rel_xref_test.obo");
 
     @Test
     public void testCorrectIdAnnotationCount() {

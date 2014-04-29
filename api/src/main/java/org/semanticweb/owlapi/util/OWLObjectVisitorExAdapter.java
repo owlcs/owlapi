@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -25,22 +23,16 @@ import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDataAllValuesFrom;
-import org.semanticweb.owlapi.model.OWLDataComplementOf;
 import org.semanticweb.owlapi.model.OWLDataExactCardinality;
 import org.semanticweb.owlapi.model.OWLDataHasValue;
-import org.semanticweb.owlapi.model.OWLDataIntersectionOf;
 import org.semanticweb.owlapi.model.OWLDataMaxCardinality;
 import org.semanticweb.owlapi.model.OWLDataMinCardinality;
-import org.semanticweb.owlapi.model.OWLDataOneOf;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
-import org.semanticweb.owlapi.model.OWLDataUnionOf;
-import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
-import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
 import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
 import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
@@ -50,18 +42,15 @@ import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLFacetRestriction;
 import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
 import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectComplementOf;
 import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
@@ -112,26 +101,8 @@ import org.semanticweb.owlapi.model.SWRLVariable;
  * @param <O>
  *        visitor return type
  */
-public class OWLObjectVisitorExAdapter<O> implements OWLObjectVisitorEx<O> {
-
-    @Nonnull
-    private O defaultReturnValue;
-
-    /**
-     * Gets the default return value for this visitor. By default, the default
-     * is {@code null}, but a fixed value (independent of the specified
-     * {@code OWLObject} {@code object}) can be specified in the constructor
-     * {@link org.semanticweb.owlapi.util.OWLObjectVisitorExAdapter#OWLObjectVisitorExAdapter(Object)}
-     * 
-     * @param object
-     *        The object that was visited.
-     * @return The default return value
-     */
-    @Nonnull
-    protected O
-            doDefault(@SuppressWarnings("unused") @Nonnull OWLObject object) {
-        return defaultReturnValue;
-    }
+public class OWLObjectVisitorExAdapter<O> extends OWLDataVisitorExAdapter<O>
+        implements OWLObjectVisitorEx<O> {
 
     /** default constructor */
     public OWLObjectVisitorExAdapter() {
@@ -142,9 +113,8 @@ public class OWLObjectVisitorExAdapter<O> implements OWLObjectVisitorEx<O> {
      * @param defaultReturnValue
      *        default return value
      */
-    @SuppressWarnings("null")
     public OWLObjectVisitorExAdapter(O defaultReturnValue) {
-        this.defaultReturnValue = defaultReturnValue;
+        super(defaultReturnValue);
     }
 
     @Override
@@ -413,41 +383,6 @@ public class OWLObjectVisitorExAdapter<O> implements OWLObjectVisitorEx<O> {
     }
 
     @Override
-    public O visit(OWLDataComplementOf node) {
-        return doDefault(node);
-    }
-
-    @Override
-    public O visit(OWLDataIntersectionOf node) {
-        return doDefault(node);
-    }
-
-    @Override
-    public O visit(OWLDataOneOf node) {
-        return doDefault(node);
-    }
-
-    @Override
-    public O visit(OWLDatatype node) {
-        return doDefault(node);
-    }
-
-    @Override
-    public O visit(OWLDatatypeRestriction node) {
-        return doDefault(node);
-    }
-
-    @Override
-    public O visit(OWLDataUnionOf node) {
-        return doDefault(node);
-    }
-
-    @Override
-    public O visit(OWLFacetRestriction node) {
-        return doDefault(node);
-    }
-
-    @Override
     public O visit(OWLDataProperty property) {
         return doDefault(property);
     }
@@ -500,11 +435,6 @@ public class OWLObjectVisitorExAdapter<O> implements OWLObjectVisitorEx<O> {
     @Override
     public O visit(IRI iri) {
         return doDefault(iri);
-    }
-
-    @Override
-    public O visit(OWLLiteral literal) {
-        return doDefault(literal);
     }
 
     @Override

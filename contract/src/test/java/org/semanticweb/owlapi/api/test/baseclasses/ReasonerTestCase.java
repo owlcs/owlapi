@@ -47,13 +47,13 @@ public class ReasonerTestCase extends TestBase {
 
     @Nonnull
     private OWLReasonerFactory reasonerFactory = new StructuralReasonerFactory();
-    @SuppressWarnings("null")
     @Nonnull
-    private OWLOntology ont;
+    private OWLOntology ont = createOntology();
     private OWLReasoner reasoner;
 
-    private void createOntology() {
-        ont = getOWLOntology("ont");
+    @Nonnull
+    private OWLOntology createOntology() {
+        OWLOntology o = getOWLOntology("ont");
         OWLClass clsA = getClsA();
         OWLClass clsB = getClsB();
         OWLClass clsC = getClsC();
@@ -62,24 +62,25 @@ public class ReasonerTestCase extends TestBase {
         OWLClass clsF = getClsF();
         OWLClass clsG = getClsG();
         OWLClass clsK = getClsK();
-        OWLOntologyManager man = ont.getOWLOntologyManager();
-        man.addAxiom(ont, SubClassOf(clsG, OWLThing()));
-        man.addAxiom(ont, SubClassOf(OWLThing(), clsG));
-        man.addAxiom(ont, EquivalentClasses(clsA, clsB));
-        man.addAxiom(ont, SubClassOf(clsC, clsB));
-        man.addAxiom(ont, SubClassOf(clsD, clsA));
-        man.addAxiom(ont, SubClassOf(clsD, clsF));
-        man.addAxiom(ont, SubClassOf(clsF, clsD));
-        man.addAxiom(ont, SubClassOf(clsE, clsC));
-        man.addAxiom(ont, SubClassOf(clsK, clsD));
-        man.addAxiom(ont, EquivalentClasses(clsK, OWLNothing()));
+        OWLOntologyManager man = o.getOWLOntologyManager();
+        man.addAxiom(o, SubClassOf(clsG, OWLThing()));
+        man.addAxiom(o, SubClassOf(OWLThing(), clsG));
+        man.addAxiom(o, EquivalentClasses(clsA, clsB));
+        man.addAxiom(o, SubClassOf(clsC, clsB));
+        man.addAxiom(o, SubClassOf(clsD, clsA));
+        man.addAxiom(o, SubClassOf(clsD, clsF));
+        man.addAxiom(o, SubClassOf(clsF, clsD));
+        man.addAxiom(o, SubClassOf(clsE, clsC));
+        man.addAxiom(o, SubClassOf(clsK, clsD));
+        man.addAxiom(o, EquivalentClasses(clsK, OWLNothing()));
         OWLObjectPropertyExpression propP = getPropP();
         OWLObjectPropertyExpression propQ = getPropQ();
         OWLObjectPropertyExpression propR = getPropR();
         OWLObjectPropertyExpression propS = getPropS();
-        man.addAxiom(ont, EquivalentObjectProperties(propP, propQ));
-        man.addAxiom(ont, SubObjectPropertyOf(propP, propR));
-        man.addAxiom(ont, InverseObjectProperties(propR, propS));
+        man.addAxiom(o, EquivalentObjectProperties(propP, propQ));
+        man.addAxiom(o, SubObjectPropertyOf(propP, propR));
+        man.addAxiom(o, InverseObjectProperties(propR, propS));
+        return o;
     }
 
     @Nonnull

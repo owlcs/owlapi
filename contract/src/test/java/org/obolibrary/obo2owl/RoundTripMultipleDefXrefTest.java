@@ -19,7 +19,7 @@ public class RoundTripMultipleDefXrefTest extends RoundTripTest {
     }
 
     @Test
-    public void testDefinitions() throws Exception {
+    public void testDefinitions() {
         OWLOntology owlOnt = convertOBOFile("multiple_def_xref_test.obo");
         int n = 0;
         for (OWLAxiom ax : owlOnt.getAxioms()) {

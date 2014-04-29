@@ -18,6 +18,7 @@ import java.io.Writer;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.annotations.HasPriority;
+import org.semanticweb.owlapi.annotations.SupportsFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
@@ -30,6 +31,7 @@ import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
  * @since 2.0.0
  */
 @HasPriority(value = -1)
+@SupportsFormat(OWLTutorialSyntaxOntologyFormat.class)
 public class OWLTutorialSyntaxOntologyStorer extends AbstractOWLOntologyStorer {
 
     private static final long serialVersionUID = 40000L;

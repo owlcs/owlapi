@@ -100,11 +100,7 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
     @Override
     Set<OWLAnnotation> getAnnotations();
 
-    // ////////////////////////////////////////////////////////////////////////////////////////////
-    //
     // Imported ontologies
-    //
-    // ////////////////////////////////////////////////////////////////////////////////////////////
     /**
      * Gets the set of document IRIs that are directly imported by this
      * ontology. This corresponds to the IRIs defined by the
@@ -196,11 +192,7 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
     @Nonnull
     Set<OWLImportsDeclaration> getImportsDeclarations();
 
-    // /////////////////////////////////////////////////////////////////////////////////////////////
-    //
     // Methods to retrive class, property and individual axioms
-    //
-    // /////////////////////////////////////////////////////////////////////////////////////////////
     /**
      * Determines if this ontology is empty - an ontology is empty if it does
      * not contain any axioms (i.e. {@link #getAxioms()} returns the empty set),
@@ -271,11 +263,7 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
     @Nonnull
     Set<OWLClassAxiom> getGeneralClassAxioms();
 
-    // ////////////////////////////////////////////////////////////////////////////////////////////
-    //
     // References/usage
-    //
-    // ////////////////////////////////////////////////////////////////////////////////////////////
     /**
      * Gets the entities that are in the signature of this ontology. The
      * signature of an ontology is the set of entities that are used to build

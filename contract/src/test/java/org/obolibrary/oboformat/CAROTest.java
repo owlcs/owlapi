@@ -16,7 +16,7 @@ import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 public class CAROTest extends OboFormatTestBasics {
 
     @Test
-    public void testParseCARO() throws Exception {
+    public void testParseCARO() {
         OBODoc obodoc = parseOBOFile("caro.obo");
         assertTrue(obodoc.getTermFrames().size() > 2);
         Frame cc = obodoc.getTermFrame("CARO:0000014");

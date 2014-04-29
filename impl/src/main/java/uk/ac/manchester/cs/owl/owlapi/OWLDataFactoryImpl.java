@@ -1644,7 +1644,6 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
                 superProperty, annotations);
     }
 
-    // ////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Annotations
     @Override
     public OWLAnnotationProperty getOWLAnnotationProperty(IRI iri) {
@@ -1759,11 +1758,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
                 EMPTY_ANNOTATIONS_SET);
     }
 
-    // ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //
     // SWRL
-    //
-    // ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     @Nonnull
     @Override
     public SWRLRule getSWRLRule(@Nonnull Set<? extends SWRLAtom> body,

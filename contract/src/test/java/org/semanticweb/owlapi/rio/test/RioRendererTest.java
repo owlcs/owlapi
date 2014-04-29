@@ -50,9 +50,8 @@ public class RioRendererTest {
     @Nonnull
     private OWLOntology testOntologyKoala;
     private Statement testOntologyEmptyStatement;
-    @SuppressWarnings("null")
     @Nonnull
-    private IRI testOntologyUri1;
+    private IRI testOntologyUri1 = IRI.create("urn:test:ontology:uri:1");
     private StatementCollector testHandlerStatementCollector;
     private StringWriter testRdfXmlStringWriter;
     private RDFWriter testRdfXmlRioWriter;
@@ -80,7 +79,6 @@ public class RioRendererTest {
                 new RioNTriplesOntologyStorerFactory().get(),
                 new RioRDFXMLOntologyStorerFactory().get(),
                 new RioTurtleOntologyStorerFactory().get());
-        testOntologyUri1 = IRI.create("urn:test:ontology:uri:1");
         testOntologyEmpty = testManager.createOntology(testOntologyUri1);
         testOntologyKoala = testManager.loadOntologyFromOntologyDocument(this
                 .getClass().getResourceAsStream("/koala.owl"));

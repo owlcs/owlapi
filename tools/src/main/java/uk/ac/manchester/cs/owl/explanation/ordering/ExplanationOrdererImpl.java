@@ -376,8 +376,6 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
     /** The properties first comparator. */
     private static PropertiesFirstComparator propertiesFirstComparator = new PropertiesFirstComparator();
 
-    // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /** tree comparator. */
     private static final class OWLAxiomTreeComparator implements
             Comparator<Tree<OWLAxiom>>, Serializable {

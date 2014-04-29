@@ -57,7 +57,6 @@ import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLFacetRestriction;
 import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
@@ -97,7 +96,8 @@ import org.semanticweb.owlapi.model.SWRLRule;
  *         Management Group
  * @since 2.2.0
  */
-public class NNF implements OWLClassExpressionVisitorEx<OWLClassExpression>,
+public class NNF extends OWLDataVisitorExAdapter<OWLDataRange> implements
+        OWLClassExpressionVisitorEx<OWLClassExpression>,
         OWLDataVisitorEx<OWLDataRange>, OWLAxiomVisitorEx<OWLAxiom> {
 
     private boolean negated;
@@ -366,7 +366,6 @@ public class NNF implements OWLClassExpressionVisitorEx<OWLClassExpression>,
         return nnf;
     }
 
-    // /////////////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
     public OWLDataRange visit(OWLDatatype node) {
         if (negated) {
@@ -430,10 +429,9 @@ public class NNF implements OWLClassExpressionVisitorEx<OWLClassExpression>,
         }
     }
 
-    @SuppressWarnings("null")
     @Override
-    public OWLAxiom visit(@SuppressWarnings("unused") OWLHasKeyAxiom axiom) {
-        return null;
+    public OWLAxiom visit(OWLHasKeyAxiom axiom) {
+        return axiom;
     }
 
     @Override
@@ -443,19 +441,6 @@ public class NNF implements OWLClassExpressionVisitorEx<OWLClassExpression>,
         } else {
             return node;
         }
-    }
-
-    @SuppressWarnings("null")
-    @Override
-    public OWLDataRange visit(@SuppressWarnings("unused") OWLLiteral node) {
-        return null;
-    }
-
-    @SuppressWarnings("null")
-    @Override
-    public OWLDataRange visit(
-            @SuppressWarnings("unused") OWLFacetRestriction node) {
-        return null;
     }
 
     // Conversion of non-class expressions to NNF

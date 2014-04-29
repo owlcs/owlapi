@@ -10,7 +10,7 @@ import org.obolibrary.oboformat.model.OBODoc;
 public class ChebiXRefTest extends OboFormatTestBasics {
 
     @Test
-    public void testExpand() throws Exception {
+    public void testExpand() {
         OBODoc obodoc = parseOBOFile("chebi_problematic_xref.obo");
         assertNotNull(obodoc);
     }

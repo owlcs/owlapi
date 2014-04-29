@@ -14,7 +14,7 @@ import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 public class SimpleGOTest extends OboFormatTestBasics {
 
     @Test
-    public void testParseOBOFile() throws Exception {
+    public void testParseOBOFile() {
         OBODoc obodoc = parseOBOFile("simplego.obo");
         assertEquals(3, obodoc.getTermFrames().size());
         assertEquals(5, obodoc.getTypedefFrames().size());

@@ -591,11 +591,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         }
     }
 
-    // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //
     // Methods to create, load and reload ontologies
-    //
-    // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
     public void ontologyCreated(OWLOntology ontology) {
         // This method is called when a factory that we have asked to create or
@@ -970,11 +966,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         importsClosureCache.clear();
     }
 
-    // /////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //
     // Methods to save ontologies
-    //
-    // /////////////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
     public void saveOntology(OWLOntology ontology)
             throws OWLOntologyStorageException {
@@ -1146,11 +1138,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         // ontologies from http:// and file:// URIs
     }
 
-    // //////////////////////////////////////////////////////////////////////////////////////////////////
-    //
     // Listener stuff - methods to add/remove listeners
-    //
-    // //////////////////////////////////////////////////////////////////////////////////////////////////
     private final Map<OWLOntologyChangeListener, OWLOntologyChangeBroadcastStrategy> listenerMap = new ConcurrentHashMap<OWLOntologyChangeListener, OWLOntologyChangeBroadcastStrategy>();
     private final Map<ImpendingOWLOntologyChangeListener, ImpendingOWLOntologyChangeBroadcastStrategy> impendingChangeListenerMap = new ConcurrentHashMap<ImpendingOWLOntologyChangeListener, ImpendingOWLOntologyChangeBroadcastStrategy>();
     private final List<OWLOntologyChangesVetoedListener> vetoListeners = new ArrayList<OWLOntologyChangesVetoedListener>();
@@ -1265,11 +1253,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         }
     }
 
-    // //////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //
     // Imports etc.
-    //
-    // //////////////////////////////////////////////////////////////////////////////////////////////////////////
     protected OWLOntology loadImports(OWLImportsDeclaration declaration,
             @Nonnull OWLOntologyLoaderConfiguration configuration)
             throws OWLOntologyCreationException {
@@ -1329,11 +1313,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         }
     }
 
-    // //////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //
     // Other listeners etc.
-    //
-    // //////////////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
     public void addOntologyLoaderListener(OWLOntologyLoaderListener listener) {
         loaderListeners.add(listener);

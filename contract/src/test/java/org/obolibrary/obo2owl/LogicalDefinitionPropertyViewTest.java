@@ -24,7 +24,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 public class LogicalDefinitionPropertyViewTest extends OboFormatTestBasics {
 
     @Test
-    public void testConvert() throws Exception {
+    public void testConvert() {
         // PARSE TEST FILE
         OWLOntology owlOntology = convert(parseOBOFile("logical-definition-view-relation-test.obo"));
         boolean ok = false;

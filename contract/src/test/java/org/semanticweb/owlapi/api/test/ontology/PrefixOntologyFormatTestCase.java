@@ -20,6 +20,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health
@@ -29,15 +30,20 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 public class PrefixOntologyFormatTestCase extends AbstractRoundTrippingTestCase {
 
     @Override
-    protected OWLOntology createOntology() throws OWLOntologyCreationException {
-        OWLOntology ont = m.createOntology();
-        PrefixOWLOntologyFormat format = (PrefixOWLOntologyFormat) ont
-                .getOWLOntologyManager().getOntologyFormat(ont);
-        assert format != null;
-        format.setDefaultPrefix("http://default.com");
-        format.setPrefix("a", "http://ontology.com/a#");
-        format.setPrefix("b", "http://ontology.com/b#");
-        return ont;
+    protected OWLOntology createOntology() {
+        OWLOntology ont;
+        try {
+            ont = m.createOntology();
+            PrefixOWLOntologyFormat format = (PrefixOWLOntologyFormat) ont
+                    .getOWLOntologyManager().getOntologyFormat(ont);
+            assert format != null;
+            format.setDefaultPrefix("http://default.com");
+            format.setPrefix("a", "http://ontology.com/a#");
+            format.setPrefix("b", "http://ontology.com/b#");
+            return ont;
+        } catch (OWLOntologyCreationException e) {
+            throw new OWLRuntimeException(e);
+        }
     }
 
     @Override

@@ -16,7 +16,6 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-
 import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.model.parameters.Search;
 
@@ -234,11 +233,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
     Set<OWLAxiom> getReferencingAxioms(@Nonnull OWLPrimitive owlEntity,
             @Nonnull Imports includeImportsClosure);
 
-    // ////////////////////////////////////////////////////////////////////////////////////////////
-    //
     // Axioms that form part of a description of a named entity
-    //
-    // ////////////////////////////////////////////////////////////////////////////////////////////
     /**
      * Gets the axioms that form the definition/description of a class.
      * 

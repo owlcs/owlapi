@@ -9,7 +9,7 @@ import org.junit.Test;
 public class SynonymTest extends OboFormatTestBasics {
 
     @Test
-    public void testConvert() throws Exception {
+    public void testConvert() {
         // PARSE TEST FILE
         assertNotNull(convert(parseOBOFile("synonym_test.obo")));
     }

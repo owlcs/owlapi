@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
@@ -31,11 +29,9 @@ import org.semanticweb.owlapi.model.SetOntologyID;
  * @param <O>
  *        return type
  */
-public class OWLOntologyChangeVisitorExAdapter<O> implements
+public class OWLOntologyChangeVisitorExAdapter<O> extends
+        OWLBaseVisitorExAdapter<O, OWLOntologyChange<?>> implements
         OWLOntologyChangeVisitorEx<O> {
-
-    @Nonnull
-    private O object;
 
     /** adapter with null default */
     public OWLOntologyChangeVisitorExAdapter() {
@@ -48,22 +44,8 @@ public class OWLOntologyChangeVisitorExAdapter<O> implements
      * @param object
      *        default return value
      */
-    @SuppressWarnings("null")
     public OWLOntologyChangeVisitorExAdapter(O object) {
-        this.object = object;
-    }
-
-    /**
-     * override to change default behaviour
-     * 
-     * @param change
-     *        visited change
-     * @return default return value;
-     */
-    @Nonnull
-    protected O doDefault(
-            @SuppressWarnings("unused") OWLOntologyChange<?> change) {
-        return object;
+        super(object);
     }
 
     @Override

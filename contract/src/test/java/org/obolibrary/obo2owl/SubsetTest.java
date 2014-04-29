@@ -15,7 +15,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 public class SubsetTest extends OboFormatTestBasics {
 
     @Test
-    public void testConvert() throws Exception {
+    public void testConvert() {
         // PARSE TEST FILE
         OWLOntology ontology = convert(parseOBOFile("subset_test.obo"));
         OWLAnnotationSubject subj = IRI

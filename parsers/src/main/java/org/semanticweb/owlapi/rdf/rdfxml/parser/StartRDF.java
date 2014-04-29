@@ -13,7 +13,7 @@
 package org.semanticweb.owlapi.rdf.rdfxml.parser;
 
 import static org.semanticweb.owlapi.rdf.rdfxml.parser.RDFConstants.*;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -271,14 +271,11 @@ class EmptyPropertyElement extends AbstractState implements State {
 /** Parses the nodeElement production. */
 class NodeElement extends AbstractState implements State {
 
-    @Nonnull
     protected String subjectIRI;
-    @Nonnull
     protected ReificationManager reificationManager;
     @Nonnull
     protected AtomicLong m_nextLi = new AtomicLong(1);
 
-    @SuppressWarnings("null")
     NodeElement(@Nonnull RDFParser parser) {
         super(parser);
     }
@@ -331,8 +328,8 @@ class NodeElement extends AbstractState implements State {
         boolean isRDFNS = RDFNS.equals(namespaceIRI);
         reificationManager = getReificationManager(atts);
         if (!isRDFNS || !ELT_DESCRIPTION.equals(localName)) {
-            parser.statementWithResourceValue(subjectIRI, RDF_TYPE,
-                    namespaceIRI + localName,
+            parser.statementWithResourceValue(verifyNotNull(subjectIRI),
+                    RDF_TYPE, namespaceIRI + localName,
                     reificationManager.getReificationID(null, parser));
         }
         // Checks if attribute list contains some of the unsupported attributes.
@@ -340,7 +337,8 @@ class NodeElement extends AbstractState implements State {
                 ABOUT_EACH_UNSUPPORTED);
         parser.verify(atts.getIndex(RDFNS, ATTR_ABOUT_EACH_PREFIX) != -1,
                 ABOUT_EACH_PREFIX_UNSUPPORTED);
-        propertyAttributes(subjectIRI, atts, reificationManager);
+        propertyAttributes(verifyNotNull(subjectIRI), atts,
+                verifyNotNull(reificationManager));
         parser.pushState(new PropertyElementList(this, parser));
     }
 
@@ -490,7 +488,6 @@ class ResourceOrLiteralElement extends AbstractState implements State {
 
     @Nonnull
     protected NodeElement nodeElement;
-    @Nonnull
     protected String propertyIRI;
     @Nullable
     protected String reificationID;
@@ -498,7 +495,6 @@ class ResourceOrLiteralElement extends AbstractState implements State {
     protected StringBuilder text;
     protected NodeElement innerNode;
 
-    @SuppressWarnings("null")
     ResourceOrLiteralElement(@Nonnull NodeElement nodeElement,
             @Nonnull RDFParser parser) {
         super(parser);

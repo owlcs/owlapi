@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.examples;
 
+import static org.junit.Assert.assertNotNull;
 import static org.semanticweb.owlapi.model.parameters.Imports.*;
 import static org.semanticweb.owlapi.search.Searcher.*;
 import static org.semanticweb.owlapi.vocab.OWLFacet.*;
@@ -1149,17 +1150,14 @@ public class Examples extends TestBase {
         DefaultPrefixManager pm = new DefaultPrefixManager(null, null,
                 "http://owl.man.ac.uk/2005/07/sssw/people#");
         // Print out a node as a list of class names in curly brackets
-        // System.out.print("{");
         for (Iterator<OWLClass> it = node.getEntities().iterator(); it
                 .hasNext();) {
             OWLClass cls = it.next();
             // User a prefix manager to provide a slightly nicer shorter name
-            // System.out.print(pm.getShortForm(cls));
-            // if (it.hasNext()) {
-            // System.out.print(" ");
-            // }
+            @SuppressWarnings("null")
+            String shortForm = pm.getShortForm(cls);
+            assertNotNull(shortForm);
         }
-        // System.out.println("}");
     }
 
     /**
