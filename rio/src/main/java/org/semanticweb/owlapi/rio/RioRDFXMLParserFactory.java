@@ -37,15 +37,13 @@ package org.semanticweb.owlapi.rio;
 
 import javax.annotation.Nonnull;
 
-import org.kohsuke.MetaInfServices;
-import org.semanticweb.owlapi.formats.RDFXMLOntologyFormatFactory;
+import org.semanticweb.owlapi.formats.RioRDFXMLOntologyFormatFactory;
 import org.semanticweb.owlapi.formats.RioRDFOntologyFormatFactory;
 import org.semanticweb.owlapi.io.OWLParserFactory;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com
  */
-@MetaInfServices(OWLParserFactory.class)
 public class RioRDFXMLParserFactory extends AbstractRioParserFactory implements
         OWLParserFactory {
 
@@ -54,6 +52,6 @@ public class RioRDFXMLParserFactory extends AbstractRioParserFactory implements
     @Nonnull
     @Override
     public RioRDFOntologyFormatFactory getRioFormatFactory() {
-        return new RDFXMLOntologyFormatFactory();
+        return new RioRDFXMLOntologyFormatFactory();
     }
 }

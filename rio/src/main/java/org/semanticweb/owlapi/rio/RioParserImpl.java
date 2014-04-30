@@ -78,11 +78,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 08-Dec-2006<br>
- * <br>
  */
 @HasPriority(value = 7)
 public class RioParserImpl extends AbstractOWLParser implements RioParser {
@@ -100,8 +95,12 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
     @SuppressWarnings("null")
     public RioParserImpl(RioRDFOntologyFormatFactory nextFormat) {
         owlFormatFactory = nextFormat;
-        supportedFormats = Collections
-                .singleton((OWLOntologyFormatFactory) owlFormatFactory);
+        if (owlFormatFactory != null) {
+            supportedFormats = Collections
+                    .singleton((OWLOntologyFormatFactory) owlFormatFactory);
+        } else {
+            supportedFormats = Collections.emptySet();
+        }
     }
 
     @SuppressWarnings("null")
@@ -193,6 +192,7 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
                 consumer.setOntologyFormat(owlFormatFactory.createFormat());
             }
             String baseUri = "urn:default:baseUri:";
+            // Override the default baseUri for non-anonymous ontologies
             if (!ontology.getOntologyID().isAnonymous()
                     && ontology.getOntologyID().getDefaultDocumentIRI()
                             .isPresent()) {
@@ -200,14 +200,10 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
                         .get().toString();
             }
             RioParserRDFHandler handler = new RioParserRDFHandler(consumer);
-            // Get a statement iterator, either from an in-memory source, or
-            // from the fully parsed document
-            Iterator<Statement> statementsIterator;
-            Map<String, String> namespaces;
             if (documentSource instanceof RioMemoryTripleSource) {
-                namespaces = ((RioMemoryTripleSource) documentSource)
-                        .getNamespaces();
-                statementsIterator = ((RioMemoryTripleSource) documentSource)
+                RioMemoryTripleSource tripleSource = (RioMemoryTripleSource) documentSource;
+                Map<String, String> namespaces = tripleSource.getNamespaces();
+                Iterator<Statement> statementsIterator = tripleSource
                         .getStatementIterator();
                 handler.startRDF();
                 for (Entry<String, String> nextNamespace : namespaces
@@ -298,12 +294,12 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
     private static class RioParserRDFHandler implements RDFHandler {
 
         private final Logger log = LoggerFactory.getLogger(this.getClass());
-        private RioOWLRDFConsumerAdapter consumer;
+        private final RDFHandler consumer;
         private long owlParseStart;
-        private Set<Resource> typedLists = new HashSet<Resource>();
-        private ValueFactory vf = ValueFactoryImpl.getInstance();
+        private final Set<Resource> typedLists = new HashSet<Resource>();
+        private final ValueFactory vf = ValueFactoryImpl.getInstance();
 
-        public RioParserRDFHandler(RioOWLRDFConsumerAdapter consumer) {
+        public RioParserRDFHandler(RDFHandler consumer) {
             this.consumer = consumer;
         }
 

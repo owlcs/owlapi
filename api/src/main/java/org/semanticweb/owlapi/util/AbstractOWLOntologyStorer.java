@@ -45,98 +45,118 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
 
-    private static final long serialVersionUID = 40000L;
-    private static final String UTF_8 = "UTF-8";
-    protected static final Logger LOGGER = LoggerFactory
-            .getLogger(OWLOntologyStorer.class);
+	private static final long serialVersionUID = 40000L;
+	protected static final String UTF_8 = "UTF-8";
+	protected static final Logger LOGGER = LoggerFactory
+			.getLogger(OWLOntologyStorer.class);
 
-    @Override
-    public final void storeOntology(OWLOntology ontology,
-            @Nonnull IRI documentIRI, OWLOntologyFormat ontologyFormat)
-            throws OWLOntologyStorageException {
-        if (!documentIRI.isAbsolute()) {
-            throw new OWLOntologyStorageException(
-                    "Document IRI must be absolute: " + documentIRI);
-        }
-        try {
-            OutputStream os = null;
-            try {
-                // prepare actual output
-                os = prepareActualOutput(documentIRI);
-                store(ontology, ontologyFormat, os);
-            } finally {
-                if (os != null) {
-                    os.close();
-                }
-            }
-        } catch (IOException e) {
-            throw new OWLOntologyStorageException(e);
-        }
-    }
+	@Override
+	public final void storeOntology(OWLOntology ontology,
+			@Nonnull IRI documentIRI, OWLOntologyFormat ontologyFormat)
+			throws OWLOntologyStorageException {
+		if (!documentIRI.isAbsolute()) {
+			throw new OWLOntologyStorageException(
+					"Document IRI must be absolute: " + documentIRI);
+		}
+		try {
+			OutputStream os = null;
+			try {
+				// prepare actual output
+				os = prepareActualOutput(documentIRI);
+				store(ontology, ontologyFormat, os);
+			} finally {
+				if (os != null) {
+					os.close();
+				}
+			}
+		} catch (IOException e) {
+			throw new OWLOntologyStorageException(e);
+		}
+	}
 
-    @Nonnull
-    private static OutputStream prepareActualOutput(@Nonnull IRI documentIRI)
-            throws FileNotFoundException, MalformedURLException, IOException {
-        OutputStream os;
-        if ("file".equals(documentIRI.getScheme())) {
-            File file = new File(documentIRI.toURI());
-            // Ensure that the necessary directories exist.
-            file.getParentFile().mkdirs();
-            os = new FileOutputStream(file);
-        } else {
-            URL url = documentIRI.toURI().toURL();
-            URLConnection conn = url.openConnection();
-            os = conn.getOutputStream();
-        }
-        assert os != null;
-        return os;
-    }
+	@Nonnull
+	private static OutputStream prepareActualOutput(@Nonnull IRI documentIRI)
+			throws FileNotFoundException, MalformedURLException, IOException {
+		OutputStream os;
+		if ("file".equals(documentIRI.getScheme())) {
+			File file = new File(documentIRI.toURI());
+			// Ensure that the necessary directories exist.
+			file.getParentFile().mkdirs();
+			os = new FileOutputStream(file);
+		} else {
+			URL url = documentIRI.toURI().toURL();
+			URLConnection conn = url.openConnection();
+			os = conn.getOutputStream();
+		}
+		assert os != null;
+		return os;
+	}
 
-    private void store(@Nonnull OWLOntology ontology,
-            @Nonnull OWLOntologyFormat ontologyFormat,
-            @Nonnull OutputStream tempOutputStream)
-            throws OWLOntologyStorageException, IOException {
-        Writer tempWriter = new BufferedWriter(new OutputStreamWriter(
-                tempOutputStream, UTF_8));
-        storeOntology(ontology, tempWriter, ontologyFormat);
-        tempWriter.flush();
-        tempWriter.close();
-    }
+	private void store(@Nonnull OWLOntology ontology,
+			@Nonnull OWLOntologyFormat ontologyFormat,
+			@Nonnull OutputStream tempOutputStream)
+			throws OWLOntologyStorageException, IOException {
+		Writer tempWriter = new BufferedWriter(new OutputStreamWriter(
+				tempOutputStream, UTF_8));
+		storeOntology(ontology, tempWriter, ontologyFormat);
+		tempWriter.flush();
+		tempWriter.close();
+	}
 
-    @Override
-    public final void
-            storeOntology(OWLOntology ontology,
-                    @Nonnull OWLOntologyDocumentTarget target,
-                    OWLOntologyFormat format)
-                    throws OWLOntologyStorageException {
-        if (target.isWriterAvailable()) {
-            try {
-                Writer writer = target.getWriter();
-                storeOntology(ontology, writer, format);
-                writer.flush();
-            } catch (IOException e) {
-                throw new OWLOntologyStorageException(e);
-            }
-        } else if (target.isOutputStreamAvailable()) {
-            Writer writer = null;
-            try {
-                writer = new BufferedWriter(new OutputStreamWriter(
-                        target.getOutputStream(), UTF_8));
-                storeOntology(ontology, writer, format);
-                writer.flush();
-            } catch (IOException e) {
-                throw new OWLOntologyStorageException(e);
-            }
-        } else if (target.isDocumentIRIAvailable()) {
-            storeOntology(ontology, target.getDocumentIRI(), format);
-        } else {
-            throw new OWLOntologyStorageException(
-                    "Neither a Writer, OutputStream or Document IRI could be obtained to store the ontology");
-        }
-    }
+	@Override
+	public final void storeOntology(OWLOntology ontology,
+			@Nonnull OWLOntologyDocumentTarget target, OWLOntologyFormat format)
+			throws OWLOntologyStorageException {
+		if (format.isTextual() && target.isWriterAvailable()) {
+			try {
+				Writer writer = target.getWriter();
+				storeOntology(ontology, writer, format);
+				writer.flush();
+			} catch (IOException e) {
+				throw new OWLOntologyStorageException(e);
+			}
+		} else if (target.isOutputStreamAvailable()) {
+			try {
+				storeOntology(ontology, target.getOutputStream(), format);
+			} catch (IOException e) {
+				throw new OWLOntologyStorageException(e);
+			}
+		} else if (target.isDocumentIRIAvailable()) {
+			storeOntology(ontology, target.getDocumentIRI(), format);
+		} else {
+			throw new OWLOntologyStorageException(
+					"Neither a Writer, OutputStream or Document IRI could be obtained to store the ontology in this format: "
+							+ format.getKey());
+		}
+	}
 
-    // XXX check if Writer is the best interface here
-    protected abstract void storeOntology(@Nonnull OWLOntology ontology,
-            @Nonnull Writer writer, @Nonnull OWLOntologyFormat format)
-            throws OWLOntologyStorageException;
+	/*
+	 * Override this to support textual serialisation.
+	 */
+	protected abstract void storeOntology(@Nonnull OWLOntology ontology,
+			@Nonnull Writer writer, @Nonnull OWLOntologyFormat format)
+			throws OWLOntologyStorageException;
+
+	/*
+	 * Override this to support direct binary serialisation without the UTF-8
+	 * encoding being applied.
+	 */
+	protected void storeOntology(@Nonnull OWLOntology ontology,
+			@Nonnull OutputStream outputStream,
+			@Nonnull OWLOntologyFormat format)
+			throws OWLOntologyStorageException {
+		if (!format.isTextual()) {
+			throw new OWLOntologyStorageException(
+					"This method must be overriden to support this binary format: "
+							+ format.getKey());
+		}
+		try {
+			Writer writer = new BufferedWriter(new OutputStreamWriter(
+					outputStream, UTF_8));
+			storeOntology(ontology, writer, format);
+			writer.flush();
+		} catch (IOException e) {
+			throw new OWLOntologyStorageException(e);
+		}
+	}
 }

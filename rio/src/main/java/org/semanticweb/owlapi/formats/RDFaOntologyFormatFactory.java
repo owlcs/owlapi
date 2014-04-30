@@ -3,7 +3,7 @@
  * 
  * The contents of this file are subject to the LGPL License, Version 3.0.
  * 
- * Copyright (C) 2011, The University of Queensland
+ * Copyright (C) 2014, Commonwealth Scientific and Industrial Research Organisation
  * 
  * This program is free software: you can redistribute it and/or modify it under the terms of the
  * GNU General Public License as published by the Free Software Foundation, either version 3 of the
@@ -21,7 +21,7 @@
  * Version 2.0 in which case, the provisions of the Apache License Version 2.0 are applicable
  * instead of those above.
  * 
- * Copyright 2011, The University of Queensland
+ * Copyright 2014, Commonwealth Scientific and Industrial Research Organisation
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
@@ -33,25 +33,19 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.semanticweb.owlapi.rio;
-
-import javax.annotation.Nonnull;
-
-import org.semanticweb.owlapi.formats.N3OntologyFormatFactory;
-import org.semanticweb.owlapi.formats.RioRDFOntologyFormatFactory;
-import org.semanticweb.owlapi.formats.RioRDFOntologyStorerFactory;
+package org.semanticweb.owlapi.formats;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com
  */
-public class RioN3OntologyStorerFactory extends
-        AbstractRioOntologyStorerFactory implements RioRDFOntologyStorerFactory {
+public class RDFaOntologyFormatFactory extends
+        AbstractRioRDFOntologyFormatFactory implements
+        RioRDFOntologyFormatFactory {
 
     private static final long serialVersionUID = 40000L;
 
-    @Nonnull
     @Override
-    public RioRDFOntologyFormatFactory getFormatFactory() {
-        return new N3OntologyFormatFactory();
+    public RioRDFOntologyFormat createFormat() {
+        return new RDFaOntologyFormat();
     }
 }

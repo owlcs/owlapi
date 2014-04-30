@@ -33,21 +33,27 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.semanticweb.owlapi.formats;
+package org.semanticweb.owlapi.rio;
 
-import org.openrdf.rio.RDFFormat;
+import org.openrdf.rio.RDFParser;
+import org.openrdf.rio.RDFParserFactory;
+import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormat;
 
 /**
+ * {@link RDFParserFactory} that creates RDF statements from
+ * {@link OWLFunctionalSyntaxOntologyFormat} documents.
+ * 
  * @author Peter Ansell p_ansell@yahoo.com
  */
-public class RdfJsonLDOntologyFormat extends RioRDFOntologyFormat {
+public class RioFunctionalSyntaxParserFactory implements RDFParserFactory {
 
-    private static final long serialVersionUID = -2440786029449269231L;
+    @Override
+    public OWLAPIRDFFormat getRDFFormat() {
+        return OWLAPIRDFFormat.OWL_FUNCTIONAL;
+    }
 
-    /**
-     * RDF format for {@link RDFFormat#JSONLD} documents.
-     */
-    public RdfJsonLDOntologyFormat() {
-        super(RDFFormat.JSONLD);
+    @Override
+    public RDFParser getParser() {
+        return new RioOWLRDFParser(getRDFFormat());
     }
 }

@@ -35,8 +35,6 @@
  */
 package org.semanticweb.owlapi.rio;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 import javax.annotation.Nonnull;
 
 import org.openrdf.model.BNode;
@@ -53,6 +51,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * An {@link OWLRDFConsumer} implementation that implements the Sesame
+ * {@link RDFHandler} interface.
+ * 
  * @author Peter Ansell p_ansell@yahoo.com
  */
 public class RioOWLRDFConsumerAdapter extends OWLRDFConsumer implements
@@ -60,8 +61,6 @@ public class RioOWLRDFConsumerAdapter extends OWLRDFConsumer implements
 
     private final Logger logger = LoggerFactory
             .getLogger(RioOWLRDFConsumerAdapter.class);
-    @Nonnull
-    private AtomicInteger statementCount = new AtomicInteger(0);
 
     /**
      * @param ontology
@@ -79,11 +78,9 @@ public class RioOWLRDFConsumerAdapter extends OWLRDFConsumer implements
 
     @Override
     public void endRDF() {
-        logger.debug("Parsed {} statements", statementCount.toString());
         endModel();
     }
 
-    @SuppressWarnings("unused")
     @Override
     public void handleComment(String comment) {}
 
@@ -96,8 +93,6 @@ public class RioOWLRDFConsumerAdapter extends OWLRDFConsumer implements
     @SuppressWarnings("null")
     @Override
     public void handleStatement(final Statement st) {
-        statementCount.incrementAndGet();
-        logger.trace("st{}={}", statementCount.get(), st);
         @Nonnull
         String subjectString;
         @Nonnull
@@ -128,6 +123,8 @@ public class RioOWLRDFConsumerAdapter extends OWLRDFConsumer implements
             final Literal literalObject = (Literal) st.getObject();
             String literalDatatype = null;
             final String literalLanguage = literalObject.getLanguage();
+            // TODO: When updating to Sesame-2.8 with RDF-1.1 support, the
+            // following if condition will always be true
             if (literalObject.getDatatype() != null) {
                 literalDatatype = literalObject.getDatatype().stringValue();
             }
@@ -140,7 +137,6 @@ public class RioOWLRDFConsumerAdapter extends OWLRDFConsumer implements
 
     @Override
     public void startRDF() {
-        statementCount = new AtomicInteger(0);
         // creating a mock IRI here. In the current implementation its value is
         // ignored
         startModel(IRI.create("urn:unused"));
