@@ -23,12 +23,19 @@ import org.semanticweb.owlapi.model.HasPrefixedName;
 import org.semanticweb.owlapi.model.HasShortForm;
 import org.semanticweb.owlapi.model.IRI;
 
+import com.google.common.base.Function;
+import com.google.common.collect.Collections2;
+import com.google.common.collect.Sets;
+
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0
  */
 public enum OWLRDFVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
+
+
+
 
 
 
@@ -207,36 +214,39 @@ public enum OWLRDFVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
         return shortName;
     }
 
+    private static Function<HasIRI, IRI> asIRI = new Function<HasIRI, IRI>() {
+
+        @SuppressWarnings("null")
+        @Override
+        public IRI apply(HasIRI input) {
+            return input.getIRI();
+        }
+    };
+
+    /**
+     * @param i
+     *        collection of HasIRI to convert to IRI
+     * @return unmodifiable set of IRIs
+     */
+    @SuppressWarnings("null")
+    @Nonnull
+    public static Set<IRI> asIRISet(HasIRI... i) {
+        return Collections.unmodifiableSet(new HashSet<IRI>(Collections2
+                .transform(Sets.newHashSet(i), asIRI)));
+    }
+
     /** Set of all IRIs for this enum values */
     @Nonnull
-    public static final Set<IRI> BUILT_IN_VOCABULARY_IRIS;
-    static {
-        Set<IRI> set = new HashSet<IRI>();
-        for (OWLRDFVocabulary v : OWLRDFVocabulary.values()) {
-            set.add(v.getIRI());
-        }
-        BUILT_IN_VOCABULARY_IRIS = Collections.unmodifiableSet(set);
-    }
+    public static final Set<IRI> BUILT_IN_VOCABULARY_IRIS = asIRISet(values());
     /**
      * label , comment , versionInfo , backwardCompatibleWith , priorVersion ,
      * seeAlso , isDefinedBy , incompatibleWith , deprecated
      */
     @Nonnull
-    public static final Set<IRI> BUILT_IN_ANNOTATION_PROPERTY_IRIS;
-    static {
-        Set<IRI> set = new HashSet<IRI>();
-        set.add(RDFS_LABEL.getIRI());
-        set.add(RDFS_COMMENT.getIRI());
-        set.add(OWL_VERSION_INFO.getIRI());
-        set.add(OWL_BACKWARD_COMPATIBLE_WITH
-                .getIRI());
-        set.add(OWL_PRIOR_VERSION.getIRI());
-        set.add(RDFS_SEE_ALSO.getIRI());
-        set.add(RDFS_IS_DEFINED_BY.getIRI());
-        set.add(OWL_INCOMPATIBLE_WITH.getIRI());
-        set.add(OWL_DEPRECATED.getIRI());
-        BUILT_IN_ANNOTATION_PROPERTY_IRIS =  Collections.unmodifiableSet(set);
-    }
+    public static final Set<IRI> BUILT_IN_ANNOTATION_PROPERTY_IRIS = asIRISet(
+            RDFS_LABEL, RDFS_COMMENT, OWL_VERSION_INFO,
+            OWL_BACKWARD_COMPATIBLE_WITH, OWL_PRIOR_VERSION, RDFS_SEE_ALSO,
+            RDFS_IS_DEFINED_BY, OWL_INCOMPATIBLE_WITH, OWL_DEPRECATED);
 
     @Nonnull
     @Override
