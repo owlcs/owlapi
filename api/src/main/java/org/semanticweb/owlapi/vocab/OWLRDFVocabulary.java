@@ -131,6 +131,7 @@ public enum OWLRDFVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     /** http://www.w3.org/2002/07/owl#minQualifiedCardinality         **/    OWL_MIN_QUALIFIED_CARDINALITY(Namespaces.OWL, "minQualifiedCardinality"),
     /** http://www.w3.org/2002/07/owl#maxQualifiedCardinality         **/    OWL_MAX_QUALIFIED_CARDINALITY(Namespaces.OWL, "maxQualifiedCardinality"),
     /** http://www.w3.org/2002/07/owl#NegativePropertyAssertion       **/    OWL_NEGATIVE_PROPERTY_ASSERTION(Namespaces.OWL, "NegativePropertyAssertion"),
+    /** http://www.w3.org/1999/02/22-rdf-syntax-ns#langString         **/    RDF_LANG_STRING(Namespaces.RDF, "langString"),
     /** http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral       **/    RDF_PLAIN_LITERAL(Namespaces.RDF, "PlainLiteral"),
     /** http://www.w3.org/1999/02/22-rdf-syntax-ns#Description        **/    RDF_DESCRIPTION(Namespaces.RDF, "Description"),
     /** http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral         **/    RDF_XML_LITERAL(Namespaces.RDF, "XMLLiteral"),
@@ -172,6 +173,7 @@ public enum OWLRDFVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     final Namespaces namespace;
     @Nonnull
     final String shortName;
+    @Nonnull
     private final String prefixedName;
 
     OWLRDFVocabulary(@Nonnull Namespaces namespace, @Nonnull String shortName) {
@@ -181,27 +183,32 @@ public enum OWLRDFVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
         iri = IRI.create(namespace.toString(), shortName);
     }
 
+    @Nonnull
     @Override
     public IRI getIRI() {
         return iri;
     }
 
     /** @return the entry namespace */
+    @Nonnull
     public Namespaces getNamespace() {
         return namespace;
     }
 
+    @Nonnull
     @Override
     public String getPrefixedName() {
         return prefixedName;
     }
 
+    @Nonnull
     @Override
     public String getShortForm() {
         return shortName;
     }
 
     /** Set of all IRIs for this enum values */
+    @Nonnull
     public static final Set<IRI> BUILT_IN_VOCABULARY_IRIS;
     static {
         Set<IRI> set = new HashSet<IRI>();
@@ -214,21 +221,24 @@ public enum OWLRDFVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
      * label , comment , versionInfo , backwardCompatibleWith , priorVersion ,
      * seeAlso , isDefinedBy , incompatibleWith , deprecated
      */
+    @Nonnull
     public static final Set<IRI> BUILT_IN_ANNOTATION_PROPERTY_IRIS;
     static {
-        BUILT_IN_ANNOTATION_PROPERTY_IRIS = new HashSet<IRI>();
-        BUILT_IN_ANNOTATION_PROPERTY_IRIS.add(RDFS_LABEL.getIRI());
-        BUILT_IN_ANNOTATION_PROPERTY_IRIS.add(RDFS_COMMENT.getIRI());
-        BUILT_IN_ANNOTATION_PROPERTY_IRIS.add(OWL_VERSION_INFO.getIRI());
-        BUILT_IN_ANNOTATION_PROPERTY_IRIS.add(OWL_BACKWARD_COMPATIBLE_WITH
+        Set<IRI> set = new HashSet<IRI>();
+        set.add(RDFS_LABEL.getIRI());
+        set.add(RDFS_COMMENT.getIRI());
+        set.add(OWL_VERSION_INFO.getIRI());
+        set.add(OWL_BACKWARD_COMPATIBLE_WITH
                 .getIRI());
-        BUILT_IN_ANNOTATION_PROPERTY_IRIS.add(OWL_PRIOR_VERSION.getIRI());
-        BUILT_IN_ANNOTATION_PROPERTY_IRIS.add(RDFS_SEE_ALSO.getIRI());
-        BUILT_IN_ANNOTATION_PROPERTY_IRIS.add(RDFS_IS_DEFINED_BY.getIRI());
-        BUILT_IN_ANNOTATION_PROPERTY_IRIS.add(OWL_INCOMPATIBLE_WITH.getIRI());
-        BUILT_IN_ANNOTATION_PROPERTY_IRIS.add(OWL_DEPRECATED.getIRI());
+        set.add(OWL_PRIOR_VERSION.getIRI());
+        set.add(RDFS_SEE_ALSO.getIRI());
+        set.add(RDFS_IS_DEFINED_BY.getIRI());
+        set.add(OWL_INCOMPATIBLE_WITH.getIRI());
+        set.add(OWL_DEPRECATED.getIRI());
+        BUILT_IN_ANNOTATION_PROPERTY_IRIS =  Collections.unmodifiableSet(set);
     }
 
+    @Nonnull
     @Override
     public String toString() {
         return iri.toString();
