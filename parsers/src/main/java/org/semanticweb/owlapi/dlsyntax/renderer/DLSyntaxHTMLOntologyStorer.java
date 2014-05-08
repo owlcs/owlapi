@@ -125,14 +125,12 @@ public class DLSyntaxHTMLOntologyStorer extends DLSyntaxOntologyStorerBase {
         writer.println("</a></h2>\n<div class=\"entitybox\">");
     }
 
-    @SuppressWarnings("unused")
     @Override
     protected void endWritingAxioms(OWLEntity subject,
             Set<? extends OWLAxiom> axioms, @Nonnull PrintWriter writer) {
         writer.println("</div>");
     }
 
-    @SuppressWarnings("unused")
     @Override
     protected void beginWritingGeneralAxioms(Set<? extends OWLAxiom> axioms,
             PrintWriter writer) {

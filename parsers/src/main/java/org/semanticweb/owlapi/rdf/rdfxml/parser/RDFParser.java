@@ -13,7 +13,7 @@
 package org.semanticweb.owlapi.rdf.rdfxml.parser;
 
 import static org.semanticweb.owlapi.rdf.rdfxml.parser.RDFConstants.*;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.io.IOException;
 import java.io.StreamTokenizer;
@@ -61,8 +61,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
     protected ErrorHandler m_errorHandler = new ErrorHandler() {
 
         @Override
-        public void warning(
-                @SuppressWarnings("unused") SAXParseException exception) {}
+        public void warning(SAXParseException exception) {}
 
         @Override
         public void fatalError(SAXParseException exception) throws SAXException {
@@ -70,8 +69,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
         }
 
         @Override
-        public void error(
-                @SuppressWarnings("unused") SAXParseException exception) {}
+        public void error(SAXParseException exception) {}
     };
     /** Stack of base IRIs. */
     protected LinkedList<IRI> m_baseIRIs = new LinkedList<IRI>();
@@ -92,20 +90,15 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
     /** Document locator. */
     protected Locator documentLocator;
 
-    @SuppressWarnings("null")
     @Nonnull
     protected IRI getBaseIRI() {
-        if (baseIRI == null) {
-            throw new IllegalStateException("base IRI has not been set yet");
-        }
-        return baseIRI;
+        return verifyNotNull(baseIRI, "base IRI has not been set yet");
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     protected Locator getDocumentLocator() {
         if (documentLocator != null) {
-            return documentLocator;
+            return verifyNotNull(documentLocator);
         }
         return s_nullDocumentLocator;
     }
@@ -450,7 +443,6 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
         }
     }
 
-    @SuppressWarnings("null")
     @Override
     @Nonnull
     public IRI getIRI(@Nonnull String s) {

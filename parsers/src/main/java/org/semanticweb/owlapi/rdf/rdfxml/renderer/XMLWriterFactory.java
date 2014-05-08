@@ -26,7 +26,7 @@ import javax.annotation.Nonnull;
 public class XMLWriterFactory {
 
     @Nonnull
-    private static XMLWriterFactory instance = new XMLWriterFactory();
+    private static final XMLWriterFactory instance = new XMLWriterFactory();
 
     private XMLWriterFactory() {}
 

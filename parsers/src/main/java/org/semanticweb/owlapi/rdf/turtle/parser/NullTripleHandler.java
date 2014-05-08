@@ -21,7 +21,6 @@ import org.semanticweb.owlapi.model.IRI;
  *         Informatics Group
  * @since 2.2.0
  */
-@SuppressWarnings("unused")
 public class NullTripleHandler implements TripleHandler {
 
     @Override

@@ -940,7 +940,6 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
         write(")");
     }
 
-    @SuppressWarnings("unused")
     @Override
     public void visit(OWLDatatypeDefinitionAxiom axiom) {}
 
@@ -968,5 +967,5 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
 
     // Ontology
     @Override
-    public void visit(@SuppressWarnings("unused") OWLOntology ontology) {}
+    public void visit(OWLOntology ontology) {}
 }

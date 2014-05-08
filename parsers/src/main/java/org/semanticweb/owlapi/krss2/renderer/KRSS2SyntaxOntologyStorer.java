@@ -41,8 +41,7 @@ public class KRSS2SyntaxOntologyStorer extends AbstractOWLOntologyStorer {
 
     @Override
     protected void storeOntology(@Nonnull OWLOntology ontology, Writer writer,
-            @SuppressWarnings("unused") OWLOntologyFormat format)
-            throws OWLOntologyStorageException {
+            OWLOntologyFormat format) throws OWLOntologyStorageException {
         new KRSS2SyntaxRenderer().render(ontology, writer);
     }
 }

@@ -14,7 +14,6 @@
 package org.semanticweb.owlapi.functional.parser;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -78,6 +77,7 @@ import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
 import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SetOntologyID;
+import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.EscapeUtils;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWLFacet;
@@ -1041,7 +1041,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
 
     private OWLPropertyAxiom FunctionalObjectProperty() {
         OWLObjectPropertyExpression prop;
-        Set<OWLAnnotation> axiomAnnos = Collections.emptySet();
+        Set<OWLAnnotation> axiomAnnos = CollectionFactory.emptySet();
         jj_consume_token(FUNCTIONALOBJECTPROPERTY);
         jj_consume_token(OPENPAR);
         axiomAnnos = AxiomAnnotationSet();
@@ -1487,7 +1487,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
             annos.add(anno);
         }
         if (annos == null) {
-            annos = Collections.emptySet();
+            annos = CollectionFactory.emptySet();
         }
         return annos;
     }

@@ -25,7 +25,7 @@ class TokenMgrError extends OWLRuntimeException {
     static final int LOOP_DETECTED = 3;
     int errorCode;
 
-    static final String addEscapes(String str) {
+    static String addEscapes(String str) {
         StringBuffer retval = new StringBuffer();
         char ch;
         for (int i = 0; i < str.length(); i++) {

@@ -13,12 +13,11 @@
 package org.semanticweb.owlapi.rdf.rdfxml.parser;
 
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -504,14 +503,10 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
      * 
      * @return the ontology format
      */
-    @SuppressWarnings("null")
     @Nonnull
     public RDFOntologyFormat getOntologyFormat() {
-        if (ontologyFormat == null) {
-            throw new IllegalStateException(
-                    "ontology format has not been set yet");
-        }
-        return ontologyFormat;
+        return verifyNotNull(ontologyFormat,
+                "ontology format has not been set yet");
     }
 
     /**
@@ -1144,7 +1139,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
         if (mainNodes != null) {
             return mainNodes;
         } else {
-            return Collections.emptySet();
+            return CollectionFactory.emptySet();
         }
     }
 
@@ -1497,7 +1492,6 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
         logger.info("done dumping remaining triples");
     }
 
-    @SuppressWarnings("unused")
     @Override
     public void startModel(IRI string) {}
 
@@ -1611,13 +1605,11 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
         singleValuedResTriplesByPredicate.clear();
     }
 
-    @SuppressWarnings("unused")
     @Override
     public void includeModel(String string, String string1) {
         // XXX should this do nothing?
     }
 
-    @SuppressWarnings("unused")
     @Override
     public void logicalURI(IRI string) {
         // XXX what is the purpose of this?

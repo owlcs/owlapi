@@ -230,6 +230,7 @@ import org.semanticweb.owlapi.util.OWLObjectVisitorAdapter;
  * 
  * @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence
  */
+@SuppressWarnings("null")
 public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
 
     @Nonnull
@@ -346,7 +347,6 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
         obj.accept(this);
     }
 
-    @SuppressWarnings("null")
     protected void flattenProperties(
             @Nonnull Iterable<OWLObjectPropertyExpression> properties,
             @Nullable KRSSVocabulary junctor) {
@@ -375,7 +375,6 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
         }
     }
 
-    @SuppressWarnings("null")
     protected void flatten(@Nonnull Iterable<OWLClassExpression> description,
             @Nonnull KRSSVocabulary junctor) {
         List<OWLClassExpression> descs = sort(description);
@@ -398,7 +397,6 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
         writeCloseBracket();
     }
 
-    @SuppressWarnings("null")
     @Override
     public void visit(@Nonnull OWLOntology ontology1) {
         Set<OWLClass> classes = ontology1.getClassesInSignature();
@@ -464,11 +462,10 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
         try {
             writer.flush();
         } catch (IOException io) {
-            io.printStackTrace();
+            throw new OWLRuntimeException(io);
         }
     }
 
-    @SuppressWarnings("null")
     @Override
     public void visit(@Nonnull OWLDisjointClassesAxiom axiom) {
         List<OWLClassExpression> classes = sort(axiom.getClassExpressions());
@@ -498,7 +495,6 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
         writeln();
     }
 
-    @SuppressWarnings("null")
     @Override
     public void visit(@Nonnull OWLDifferentIndividualsAxiom axiom) {
         List<OWLIndividual> individuals = sort(axiom.getIndividuals());
@@ -558,7 +554,6 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
         writeln();
     }
 
-    @SuppressWarnings("null")
     @Override
     public void visit(@Nonnull OWLSameIndividualAxiom axiom) {
         List<OWLIndividual> individuals = sort(axiom.getIndividuals());
@@ -583,7 +578,6 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
         write(desc.getIRI());
     }
 
-    @SuppressWarnings("null")
     @Override
     public void visit(@Nonnull OWLObjectIntersectionOf desc) {
         writeOpenBracket();
@@ -602,7 +596,6 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
         writeCloseBracket();
     }
 
-    @SuppressWarnings("null")
     @Override
     public void visit(@Nonnull OWLObjectUnionOf desc) {
         writeOpenBracket();

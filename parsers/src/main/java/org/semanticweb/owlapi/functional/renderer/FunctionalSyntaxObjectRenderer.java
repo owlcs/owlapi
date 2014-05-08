@@ -425,7 +425,6 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
      * @param annotation
      *        the annotation
      */
-    @SuppressWarnings("unused")
     public void write(OWLAnnotation annotation) {
         // XXX should the annotation be ignored?
     }

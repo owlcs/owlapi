@@ -42,12 +42,11 @@ import org.semanticweb.owlapi.model.OWLObjectUnionOf;
  *         Group
  * @since 2.0.0
  */
-@SuppressWarnings("unused")
 public class LatexBracketChecker implements OWLClassExpressionVisitor {
 
     private boolean requiresBracket;
     @Nonnull
-    private static LatexBracketChecker instance = new LatexBracketChecker();
+    private static final LatexBracketChecker instance = new LatexBracketChecker();
 
     private LatexBracketChecker() {}
 
@@ -65,6 +64,7 @@ public class LatexBracketChecker implements OWLClassExpressionVisitor {
      * @param node
      *        node
      */
+    @SuppressWarnings("unused")
     public void visit(OWLDataCardinalityRestriction node) {
         requiresBracket = true;
     }
@@ -88,6 +88,7 @@ public class LatexBracketChecker implements OWLClassExpressionVisitor {
      * @param node
      *        node
      */
+    @SuppressWarnings("unused")
     public void visit(OWLObjectCardinalityRestriction node) {
         requiresBracket = true;
     }

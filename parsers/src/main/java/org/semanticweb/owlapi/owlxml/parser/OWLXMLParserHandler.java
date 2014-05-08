@@ -320,6 +320,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
     }
 
     /** @return prefix name to prefix */
+    @Nonnull
     public Map<String, String> getPrefixName2PrefixMap() {
         return prefixName2PrefixMap;
     }
@@ -365,7 +366,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
         }
     }
 
-    @SuppressWarnings({ "unused", "null" })
+    @SuppressWarnings("null")
     @Override
     public void startElement(String uri, String localName, String qName,
             Attributes attributes) {
@@ -417,7 +418,6 @@ public class OWLXMLParserHandler extends DefaultHandler {
         return bases.peek();
     }
 
-    @SuppressWarnings("unused")
     @Override
     public void endElement(String uri, String localName, String qName) {
         if (localName.equals(PREFIX.getShortForm())) {

@@ -13,7 +13,7 @@
 package org.semanticweb.owlapi.rdf.rdfxml.renderer;
 
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -73,7 +73,6 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
         return ontology;
     }
 
-    @SuppressWarnings("null")
     private void processOntology() {
         if (ontologyFormat instanceof PrefixOWLOntologyFormat) {
             PrefixOWLOntologyFormat namespaceFormat = (PrefixOWLOntologyFormat) ontologyFormat;
@@ -87,7 +86,8 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
                 String xmlnsPrefixName = prefixName.substring(0,
                         prefixName.length() - 1);
                 String xmlnsPrefix = namespacesByPrefix.get(prefixName);
-                namespaceUtil.setPrefix(xmlnsPrefix, xmlnsPrefixName);
+                namespaceUtil.setPrefix(verifyNotNull(xmlnsPrefix),
+                        verifyNotNull(xmlnsPrefixName));
             }
         }
         if (ontology.getAxiomCount(AxiomType.SWRL_RULE) != 0) {
@@ -96,14 +96,18 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
         }
         Set<OWLEntity> entities = getEntitiesThatRequireNamespaces();
         for (OWLEntity ent : entities) {
+            assert ent != null;
             processEntity(ent);
         }
         Map<String, String> ns2prefixMap = namespaceUtil
                 .getNamespace2PrefixMap();
         for (String ns : ns2prefixMap.keySet()) {
+            assert ns != null;
             if (!Namespaces.OWL11.inNamespace(ns)
                     && !Namespaces.OWL11XML.inNamespace(ns)) {
-                setPrefix(ns2prefixMap.get(ns), ns);
+                String prefix = ns2prefixMap.get(ns);
+                assert prefix != null;
+                setPrefix(prefix, ns);
             }
         }
     }

@@ -106,7 +106,7 @@ public class RDFGraph {
             }
             // otherwise print a warning and leave the list unsorted
             logger.warn(
-                    "Misbehaving triple comparator, leaving triples unsorted: {}",
+                    "Misbehaving triple comparator, leaving triples unsorted: {} {}",
                     e, toReturn);
         }
         return toReturn;

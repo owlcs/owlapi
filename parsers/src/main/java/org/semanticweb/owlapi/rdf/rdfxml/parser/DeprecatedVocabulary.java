@@ -46,5 +46,7 @@ class DeprecatedVocabulary {
     /** http://www.w3.org/2002/07/owl#FunctionalDataProperty **/            public static final IRI OWL_FUNCTIONAL_DATA_PROPERTY            = IRI.create(OWL, "FunctionalDataProperty");
     /** http://www.w3.org/2002/07/owl#FunctionalObjectProperty **/          public static final IRI OWL_FUNCTIONAL_OBJECT_PROPERTY          = IRI.create(OWL, "FunctionalObjectProperty");
     /** http://www.w3.org/2002/07/owl#propertyChain **/                     public static final IRI OWL_PROPERTY_CHAIN                      = IRI.create(OWL, "propertyChain");
+
+    private DeprecatedVocabulary () {}
     //@formatter:on
 }

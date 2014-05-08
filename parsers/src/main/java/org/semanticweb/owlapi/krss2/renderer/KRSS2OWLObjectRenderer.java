@@ -101,7 +101,7 @@ public class KRSS2OWLObjectRenderer extends OWLObjectVisitorAdapter {
         try {
             writer.write(" " + i);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new OWLRuntimeException(e);
         }
     }
 
@@ -109,7 +109,7 @@ public class KRSS2OWLObjectRenderer extends OWLObjectVisitorAdapter {
         try {
             writer.write(iri.toString());
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new OWLRuntimeException(e);
         }
     }
 
@@ -119,7 +119,7 @@ public class KRSS2OWLObjectRenderer extends OWLObjectVisitorAdapter {
             writer.write(":");
             writer.write(v.toString());
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new OWLRuntimeException(e);
         }
     }
 
@@ -127,7 +127,7 @@ public class KRSS2OWLObjectRenderer extends OWLObjectVisitorAdapter {
         try {
             writer.write(v.toString());
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new OWLRuntimeException(e);
         }
     }
 
@@ -135,7 +135,7 @@ public class KRSS2OWLObjectRenderer extends OWLObjectVisitorAdapter {
         try {
             writer.write(" ");
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new OWLRuntimeException(e);
         }
     }
 
@@ -143,7 +143,7 @@ public class KRSS2OWLObjectRenderer extends OWLObjectVisitorAdapter {
         try {
             writer.write("\n");
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new OWLRuntimeException(e);
         }
     }
 
@@ -167,8 +167,7 @@ public class KRSS2OWLObjectRenderer extends OWLObjectVisitorAdapter {
         obj.accept(this);
     }
 
-    private final void
-            flatten(Collection<OWLClassExpression> _classExpressions) {
+    private void flatten(Collection<OWLClassExpression> _classExpressions) {
         List<OWLClassExpression> classExpressions;
         if (_classExpressions instanceof List) {
             classExpressions = (List<OWLClassExpression>) _classExpressions;
@@ -300,7 +299,7 @@ public class KRSS2OWLObjectRenderer extends OWLObjectVisitorAdapter {
         try {
             writer.flush();
         } catch (IOException io) {
-            io.printStackTrace();
+            throw new OWLRuntimeException(io);
         }
     }
 

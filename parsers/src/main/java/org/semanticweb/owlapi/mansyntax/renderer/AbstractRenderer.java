@@ -24,6 +24,7 @@ import javax.annotation.Nullable;
 import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.io.OWLRendererIOException;
 import org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntax;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 
 /**
@@ -133,7 +134,7 @@ public class AbstractRenderer {
         try {
             writer.write(s);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new OWLRuntimeException(e);
         }
     }
 

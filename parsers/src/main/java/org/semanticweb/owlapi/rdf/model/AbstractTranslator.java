@@ -925,7 +925,7 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
     }
 
     @Override
-    public void visit(@SuppressWarnings("unused") OWLAnnotation node) {
+    public void visit(OWLAnnotation node) {
         throw new OWLRuntimeException(
                 "The translator should not be used directly on instances of OWLAnnotation because an annotation cannot be translated without a subject.");
     }
@@ -1118,7 +1118,7 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
 
     @SuppressWarnings("null")
     private void addPairwise(@Nonnull OWLAxiom axiom,
-            @Nonnull Collection<? extends OWLObject> objects, IRI IRI) {
+            @Nonnull Collection<? extends OWLObject> objects, @Nonnull IRI IRI) {
         List<? extends OWLObject> objectList = new ArrayList<OWLObject>(objects);
         for (int i = 0; i < objectList.size(); i++) {
             for (int j = i; j < objectList.size(); j++) {
@@ -1145,8 +1145,10 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
      *        The IRI which describes the relationship between pairs of class
      *        expressions.
      */
-    private void addPairwiseClassExpressions(@Nonnull OWLAxiom axiom,
-            @Nonnull Set<OWLClassExpression> classExpressions, IRI IRI) {
+    private void
+            addPairwiseClassExpressions(@Nonnull OWLAxiom axiom,
+                    @Nonnull Set<OWLClassExpression> classExpressions,
+                    @Nonnull IRI IRI) {
         List<OWLClassExpression> classExpressionList = new ArrayList<OWLClassExpression>(
                 classExpressions);
         addPairwise(axiom, classExpressionList, IRI);
@@ -1172,12 +1174,11 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
     }
 
     /** Visits entities and returns their RDF type. */
-    @SuppressWarnings("unused")
     private static class OWLEntityTypeProvider implements
             OWLEntityVisitorEx<IRI> {
 
         @Nonnull
-        public static OWLEntityTypeProvider INSTANCE = new OWLEntityTypeProvider();
+        public static final OWLEntityTypeProvider INSTANCE = new OWLEntityTypeProvider();
 
         @Override
         public IRI visit(OWLClass cls) {

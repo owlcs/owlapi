@@ -14,11 +14,11 @@ package org.semanticweb.owlapi.mansyntax.parser;
 
 import static org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntax.*;
 import static org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxTokenizer.*;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -83,6 +83,7 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.model.SetOntologyID;
+import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.NamespaceUtil;
 import org.semanticweb.owlapi.util.OntologyAxiomPair;
@@ -130,7 +131,7 @@ public class ManchesterOWLSyntaxEditorParser implements
 
         @Nullable
         @Override
-        public OWLOntology getOntology(@SuppressWarnings("unused") String name) {
+        public OWLOntology getOntology(String name) {
             return null;
         }
     };
@@ -467,13 +468,11 @@ public class ManchesterOWLSyntaxEditorParser implements
         }
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     private String peekToken() {
         return getToken().getToken();
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     private String consumeToken() {
         String token = getToken().getToken();
@@ -952,7 +951,6 @@ public class ManchesterOWLSyntaxEditorParser implements
                 .build();
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     private String unquoteLiteral(String tok) {
         String lit = "";
@@ -963,7 +961,7 @@ public class ManchesterOWLSyntaxEditorParser implements
         if (tok.length() > 2) {
             lit = tok.substring(1, tok.length() - 1);
         }
-        return lit;
+        return verifyNotNull(lit);
     }
 
     @SuppressWarnings("null")
@@ -1219,9 +1217,8 @@ public class ManchesterOWLSyntaxEditorParser implements
     @Nonnull
     private Set<OWLAnnotation> parseAnnotations() {
         String next = peekToken();
-        @SuppressWarnings("null")
         @Nonnull
-        Set<OWLAnnotation> annotations = Collections.emptySet();
+        Set<OWLAnnotation> annotations = CollectionFactory.emptySet();
         if (ANNOTATIONS.matches(next)) {
             consumeToken();
             annotations = parseAnnotationList();
@@ -1347,13 +1344,12 @@ public class ManchesterOWLSyntaxEditorParser implements
         return onts;
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     private Set<OWLOntology> getOntologies() {
         if (peekToken().equals(OPENBRACKET.keyword())) {
             return parseOntologyList();
         } else {
-            return Collections.singleton(defaultOntology);
+            return CollectionFactory.createSet(defaultOntology);
         }
     }
 
@@ -2486,7 +2482,7 @@ public class ManchesterOWLSyntaxEditorParser implements
 
         private Map<String, OWLDatatype> dataTypeNameMap = new HashMap<String, OWLDatatype>();
 
-        public DefaultEntityChecker() {
+        DefaultEntityChecker() {
             for (XSDVocabulary v : XSDVocabulary.values()) {
                 IRI iri = v.getIRI();
                 dataTypeNameMap.put(iri.getFragment(),
@@ -2916,7 +2912,6 @@ public class ManchesterOWLSyntaxEditorParser implements
     abstract class AnnotatedClassExpressionListItemParser<F> implements
             AnnotatedListItemParser<F, OWLClassExpression> {
 
-        @SuppressWarnings("unused")
         @Override
         public OWLClassExpression parseItem(F s) {
             return parseUnion();
@@ -2926,7 +2921,6 @@ public class ManchesterOWLSyntaxEditorParser implements
     abstract class AnnotatedClassExpressionSetListItemParser<F> implements
             AnnotatedListItemParser<F, Set<OWLClassExpression>> {
 
-        @SuppressWarnings("unused")
         @Override
         public Set<OWLClassExpression> parseItem(F s) {
             return parseClassExpressionList();
@@ -2936,7 +2930,6 @@ public class ManchesterOWLSyntaxEditorParser implements
     abstract class AnnotatedPropertyListListItemParser<F> implements
             AnnotatedListItemParser<F, Set<OWLPropertyExpression>> {
 
-        @SuppressWarnings("unused")
         @Override
         public Set<OWLPropertyExpression> parseItem(F s) {
             return parsePropertyList();
@@ -2946,7 +2939,6 @@ public class ManchesterOWLSyntaxEditorParser implements
     abstract class AnnotatedIndividualsListItemParser<F> implements
             AnnotatedListItemParser<F, OWLIndividual> {
 
-        @SuppressWarnings("unused")
         @Override
         public OWLIndividual parseItem(F s) {
             return parseIndividual();
@@ -2956,7 +2948,6 @@ public class ManchesterOWLSyntaxEditorParser implements
     abstract class AnnotationListItemParser<F> implements
             AnnotatedListItemParser<F, OWLAnnotation> {
 
-        @SuppressWarnings("unused")
         @Override
         public OWLAnnotation parseItem(F s) {
             return parseAnnotation();
@@ -3015,7 +3006,6 @@ public class ManchesterOWLSyntaxEditorParser implements
     class ClassDisjointClassesListItemParser extends
             AnnotatedClassExpressionSetListItemParser<OWLClass> {
 
-        @SuppressWarnings("unused")
         @Override
         public OWLAxiom createAxiom(OWLClass s, Set<OWLClassExpression> o,
                 Set<OWLAnnotation> anns) {
@@ -3108,7 +3098,6 @@ public class ManchesterOWLSyntaxEditorParser implements
     abstract class ObjectPropertyExpressionListItemParser<F> implements
             AnnotatedListItemParser<F, OWLObjectPropertyExpression> {
 
-        @SuppressWarnings("unused")
         @Override
         public OWLObjectPropertyExpression parseItem(F s) {
             return parseObjectPropertyExpression(false);
@@ -3229,7 +3218,6 @@ public class ManchesterOWLSyntaxEditorParser implements
             implements
             AnnotatedListItemParser<OWLObjectProperty, List<OWLObjectPropertyExpression>> {
 
-        @SuppressWarnings("unused")
         @Override
         public List<OWLObjectPropertyExpression> parseItem(OWLObjectProperty s) {
             return parseObjectPropertyChain();
@@ -3257,7 +3245,6 @@ public class ManchesterOWLSyntaxEditorParser implements
             return parseObjectPropertyCharacteristic(s);
         }
 
-        @SuppressWarnings("unused")
         @Override
         public OWLAxiom
                 createAxiom(OWLObjectProperty s,
@@ -3275,7 +3262,6 @@ public class ManchesterOWLSyntaxEditorParser implements
     abstract class DataPropertyExpressionListItemParser<F> implements
             AnnotatedListItemParser<F, OWLDataPropertyExpression> {
 
-        @SuppressWarnings("unused")
         @Override
         public OWLDataProperty parseItem(F s) {
             return parseDataProperty();
@@ -3349,7 +3335,6 @@ public class ManchesterOWLSyntaxEditorParser implements
     abstract class AnnotatedDataRangeListItemParser<F> implements
             AnnotatedListItemParser<F, OWLDataRange> {
 
-        @SuppressWarnings("unused")
         @Override
         public OWLDataRange parseItem(F s) {
             return parseDataRange();
@@ -3380,7 +3365,6 @@ public class ManchesterOWLSyntaxEditorParser implements
             return parseDataPropertyCharacteristic(s);
         }
 
-        @SuppressWarnings("unused")
         @Override
         public OWLAxiom createAxiom(OWLDataProperty s,
                 OWLDataPropertyCharacteristicAxiom o, Set<OWLAnnotation> anns) {
@@ -3417,7 +3401,6 @@ public class ManchesterOWLSyntaxEditorParser implements
             return parseFact(s);
         }
 
-        @SuppressWarnings("unused")
         @Override
         public OWLAxiom createAxiom(@Nonnull OWLIndividual s,
                 OWLPropertyAssertionAxiom<?, ?> o, Set<OWLAnnotation> anns) {
@@ -3470,7 +3453,6 @@ public class ManchesterOWLSyntaxEditorParser implements
     class IndividualDifferentIndividualsItemParser implements
             AnnotatedListItemParser<OWLIndividual, Set<OWLIndividual>> {
 
-        @SuppressWarnings("unused")
         @Override
         public Set<OWLIndividual> parseItem(OWLIndividual s) {
             return parseIndividualList();
@@ -3495,7 +3477,6 @@ public class ManchesterOWLSyntaxEditorParser implements
     class IndividualAnnotationItemParser implements
             AnnotatedListItemParser<OWLIndividual, OWLAnnotation> {
 
-        @SuppressWarnings("unused")
         @Override
         public OWLAnnotation parseItem(OWLIndividual s) {
             return parseAnnotation();
@@ -3522,7 +3503,6 @@ public class ManchesterOWLSyntaxEditorParser implements
     abstract class AnnotatedIRIListItemParser<F> implements
             AnnotatedListItemParser<F, IRI> {
 
-        @SuppressWarnings("unused")
         @Override
         public IRI parseItem(F s) {
             return parseIRI();
@@ -3533,7 +3513,6 @@ public class ManchesterOWLSyntaxEditorParser implements
             implements
             AnnotatedListItemParser<OWLAnnotationProperty, OWLAnnotationProperty> {
 
-        @SuppressWarnings("unused")
         @Override
         public OWLAnnotationProperty parseItem(OWLAnnotationProperty s) {
             return parseAnnotationProperty();

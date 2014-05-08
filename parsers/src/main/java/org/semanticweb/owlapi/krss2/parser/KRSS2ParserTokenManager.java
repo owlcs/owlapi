@@ -1919,8 +1919,8 @@ class KRSS2ParserTokenManager implements KRSS2ParserConstants {
 
     static final int[] jjnextStates = { 36, 43, 49, 21, 31, };
 
-    private static final boolean jjCanMove_0(int hiByte, int i1, int i2,
-            long l1, long l2) {
+    private static boolean jjCanMove_0(int hiByte, int i1, int i2, long l1,
+            long l2) {
         switch (hiByte) {
             case 0:
                 return (jjbitVec2[i2] & l2) != 0L;
@@ -1942,8 +1942,8 @@ class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         }
     }
 
-    private static final boolean jjCanMove_1(int hiByte, int i1, int i2,
-            long l1, long l2) {
+    private static boolean jjCanMove_1(int hiByte, int i1, int i2, long l1,
+            long l2) {
         switch (hiByte) {
             case 0:
                 return (jjbitVec8[i2] & l2) != 0L;

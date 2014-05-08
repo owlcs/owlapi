@@ -774,7 +774,7 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
     }
 
     @Override
-    public void visit(@SuppressWarnings("unused") OWLDatatypeRestriction node) {}
+    public void visit(OWLDatatypeRestriction node) {}
 
     @Override
     public void visit(OWLLiteral node) {
@@ -782,7 +782,7 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
     }
 
     @Override
-    public void visit(@SuppressWarnings("unused") OWLFacetRestriction node) {}
+    public void visit(OWLFacetRestriction node) {}
 
     @Override
     public void visit(OWLObjectProperty property) {

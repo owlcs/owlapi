@@ -44,6 +44,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
@@ -268,6 +269,7 @@ import org.semanticweb.owlapi.search.Filters;
  * 
  * @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence
  */
+@SuppressWarnings("null")
 public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
 
     @Nonnull
@@ -302,7 +304,6 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
         write(v.toString());
     }
 
-    @SuppressWarnings("null")
     @Override
     public final void visit(OWLOntology ontology1) {
         reset();
@@ -504,7 +505,7 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
         try {
             writer.flush();
         } catch (IOException io) {
-            io.printStackTrace();
+            throw new OWLRuntimeException(io);
         }
     }
 
@@ -521,7 +522,6 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
         }
     }
 
-    @SuppressWarnings("null")
     @Override
     public void visit(OWLDisjointClassesAxiom axiom) {
         List<OWLClassExpression> descs = sort(axiom.getClassExpressions());
@@ -541,7 +541,6 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
         }
     }
 
-    @SuppressWarnings("null")
     @Override
     public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
         List<OWLObjectPropertyExpression> properties = sort(axiom
@@ -559,7 +558,6 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
         }
     }
 
-    @SuppressWarnings("null")
     @Override
     public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
         List<OWLObjectPropertyExpression> properties = sort(axiom
@@ -601,7 +599,6 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
         }
     }
 
-    @SuppressWarnings("null")
     @Override
     public void visit(OWLEquivalentClassesAxiom axiom) {
         List<OWLClassExpression> descriptions = sort(axiom
@@ -637,7 +634,6 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
         writeln();
     }
 
-    @SuppressWarnings("null")
     protected void writeChain(List<OWLObjectPropertyExpression> expressions,
             int i) {
         if (i == expressions.size() - 1) {

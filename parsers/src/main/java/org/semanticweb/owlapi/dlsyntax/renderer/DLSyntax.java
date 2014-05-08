@@ -41,7 +41,7 @@ public enum DLSyntax {
     /** COMMA */            COMMA(","), 
     /** SELF */             SELF("self");
     //@formatter:on
-    private String unicodeSymbol;
+    private final String unicodeSymbol;
 
     DLSyntax(String unicode) {
         unicodeSymbol = unicode;

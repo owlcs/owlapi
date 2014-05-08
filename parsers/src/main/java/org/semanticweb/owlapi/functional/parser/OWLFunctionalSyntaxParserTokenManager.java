@@ -15,6 +15,7 @@ package org.semanticweb.owlapi.functional.parser;
 
 import org.semanticweb.owlapi.BOMSafeJavaCharStream;
 
+@SuppressWarnings("all")
 class OWLFunctionalSyntaxParserTokenManager implements
         OWLFunctionalSyntaxParserConstants {
 
@@ -3356,8 +3357,8 @@ class OWLFunctionalSyntaxParserTokenManager implements
 
     static final int[] jjnextStates = { 18, 19, 20, 21, 22, 23, 27, 28, 5, 6, };
 
-    private static final boolean jjCanMove_0(int hiByte, int i1, int i2,
-            long l1, long l2) {
+    private static boolean jjCanMove_0(int hiByte, int i1, int i2, long l1,
+            long l2) {
         switch (hiByte) {
             case 0:
                 return (jjbitVec2[i2] & l2) != 0L;
@@ -3634,7 +3635,6 @@ class OWLFunctionalSyntaxParserTokenManager implements
     int jjmatchedPos;
     int jjmatchedKind;
 
-    @SuppressWarnings("incomplete-switch")
     public Token getNextToken() {
         Token matchedToken;
         int curPos = 0;

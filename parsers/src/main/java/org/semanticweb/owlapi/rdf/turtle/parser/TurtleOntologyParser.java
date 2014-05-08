@@ -53,7 +53,7 @@ public class TurtleOntologyParser extends AbstractOWLParser {
         return TurtleOntologyFormat.class;
     }
 
-    @SuppressWarnings("all")
+    @SuppressWarnings("null")
     @Override
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
             OWLOntology ontology, OWLOntologyLoaderConfiguration configuration)
@@ -97,7 +97,8 @@ public class TurtleOntologyParser extends AbstractOWLParser {
         } finally {
             if (is != null) {
                 is.close();
-            } else if (reader != null) {
+            }
+            if (reader != null) {
                 reader.close();
             }
         }

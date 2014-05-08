@@ -64,7 +64,7 @@ public enum KRSS2Vocabulary {
     /** TRANSITIVE_ATTR */      TRANSITIVE_ATTR(":transitive");
     //@formatter:on
     @Nonnull
-    private String shortName;
+    private final String shortName;
 
     KRSS2Vocabulary(@Nonnull String name) {
         shortName = name;

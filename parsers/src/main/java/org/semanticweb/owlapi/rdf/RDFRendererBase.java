@@ -763,7 +763,7 @@ public abstract class RDFRendererBase {
 
         private static final long serialVersionUID = 40000L;
 
-        public OWLEntityIRIComparator() {}
+        OWLEntityIRIComparator() {}
 
         @Override
         public int compare(OWLEntity o1, OWLEntity o2) {

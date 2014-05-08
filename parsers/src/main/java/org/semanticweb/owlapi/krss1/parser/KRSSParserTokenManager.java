@@ -15,6 +15,7 @@ package org.semanticweb.owlapi.krss1.parser;
 
 import org.semanticweb.owlapi.BOMSafeJavaCharStream;
 
+@SuppressWarnings("all")
 class KRSSParserTokenManager implements KRSSParserConstants {
 
     java.io.PrintStream debugStream = System.out;
@@ -393,7 +394,7 @@ class KRSSParserTokenManager implements KRSSParserConstants {
         }
     }
 
-    private final int jjStartNfa_0(int pos, long active0) {
+    private int jjStartNfa_0(int pos, long active0) {
         return jjMoveNfa_0(jjStopStringLiteralDfa_0(pos, active0), pos + 1);
     }
 
@@ -1403,7 +1404,6 @@ class KRSSParserTokenManager implements KRSSParserConstants {
     int jjmatchedPos;
     int jjmatchedKind;
 
-    @SuppressWarnings("incomplete-switch")
     Token getNextToken() {
         Token matchedToken;
         int curPos = 0;

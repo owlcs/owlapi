@@ -66,7 +66,7 @@ public class ManchesterOWLSyntaxOWLObjectRendererImpl implements
         private StringWriter delegate;
 
         /** default constructor */
-        public WriterDelegate() {}
+        WriterDelegate() {}
 
         protected void reset() {
             delegate = new StringWriter();

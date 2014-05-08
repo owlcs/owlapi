@@ -42,7 +42,7 @@ import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-@SuppressWarnings("null")
+@SuppressWarnings("all")
 class DLSyntaxParser implements DLSyntaxParserConstants {
 
     private String defaultNamespace = "http://www.sematicweb.org/ontologies/Ontology"
@@ -2252,7 +2252,7 @@ class DLSyntaxParser implements DLSyntaxParserConstants {
 
     static private final class LookaheadSuccess extends java.lang.Error {
 
-        public LookaheadSuccess() {}
+        LookaheadSuccess() {}
 
         private static final long serialVersionUID = 40000L;
     }
@@ -2382,7 +2382,6 @@ class DLSyntaxParser implements DLSyntaxParserConstants {
         return new ParseException(token, exptokseq, tokenImage);
     }
 
-    @SuppressWarnings("incomplete-switch")
     private void jj_rescan_token() {
         jj_rescan = true;
         for (int i = 0; i < 50; i++) {

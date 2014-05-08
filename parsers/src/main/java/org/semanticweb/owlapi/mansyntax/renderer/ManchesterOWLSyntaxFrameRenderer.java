@@ -86,6 +86,7 @@ import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLRule;
+import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLAxiomFilter;
 import org.semanticweb.owlapi.util.OWLObjectComparator;
 import org.semanticweb.owlapi.util.OntologyIRIShortFormProvider;
@@ -178,7 +179,6 @@ public class ManchesterOWLSyntaxFrameRenderer extends
     /** The axiom filter. */
     private OWLAxiomFilter axiomFilter = new OWLAxiomFilter() {
 
-        @SuppressWarnings("unused")
         @Override
         public boolean passes(OWLAxiom axiom) {
             return true;
@@ -199,10 +199,11 @@ public class ManchesterOWLSyntaxFrameRenderer extends
      * @param entityShortFormProvider
      *        the entity short form provider
      */
-    @SuppressWarnings("null")
-    public ManchesterOWLSyntaxFrameRenderer(OWLOntology ontology,
-            Writer writer, @Nonnull ShortFormProvider entityShortFormProvider) {
-        this(Collections.singleton(ontology), writer, entityShortFormProvider);
+    public ManchesterOWLSyntaxFrameRenderer(@Nonnull OWLOntology ontology,
+            @Nonnull Writer writer,
+            @Nonnull ShortFormProvider entityShortFormProvider) {
+        this(CollectionFactory.createSet(ontology), writer,
+                entityShortFormProvider);
     }
 
     /**
@@ -545,7 +546,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
         if (entity.isOWLDatatype()) {
             return write(entity.asOWLDatatype());
         }
-        return Collections.emptySet();
+        return CollectionFactory.emptySet();
     }
 
     /**
@@ -1173,13 +1174,12 @@ public class ManchesterOWLSyntaxFrameRenderer extends
      *        the rule
      * @return written axioms
      */
-    @SuppressWarnings("null")
     @Nonnull
     public Set<OWLAxiom> write(@Nonnull SWRLRule rule) {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>(1);
         for (OWLOntology ontology : ontologies) {
             if (ontology.containsAxiom(rule)) {
-                writeSection(RULE, Collections.singleton(rule), "", true,
+                writeSection(RULE, CollectionFactory.createSet(rule), "", true,
                         ontology);
                 axioms.add(rule);
             }
@@ -1273,7 +1273,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
         } else if (entity instanceof OWLAnonymousIndividual) {
             return writeAnnotations((OWLAnonymousIndividual) entity);
         }
-        return Collections.emptySet();
+        return CollectionFactory.emptySet();
     }
 
     /**
@@ -1633,9 +1633,8 @@ public class ManchesterOWLSyntaxFrameRenderer extends
     private static class DefaultRenderingDirector implements RenderingDirector {
 
         /** Instantiates a new default rendering director. */
-        public DefaultRenderingDirector() {}
+        DefaultRenderingDirector() {}
 
-        @SuppressWarnings("unused")
         @Override
         public boolean renderEmptyFrameSection(
                 ManchesterOWLSyntax frameSectionKeyword,

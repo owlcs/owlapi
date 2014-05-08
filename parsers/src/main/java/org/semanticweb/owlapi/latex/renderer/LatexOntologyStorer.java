@@ -38,8 +38,7 @@ public class LatexOntologyStorer extends AbstractOWLOntologyStorer {
 
     @Override
     protected void storeOntology(@Nonnull OWLOntology ontology,
-            @Nonnull Writer writer,
-            @SuppressWarnings("unused") OWLOntologyFormat format)
+            @Nonnull Writer writer, OWLOntologyFormat format)
             throws OWLOntologyStorageException {
         try {
             new LatexRenderer().render(ontology, writer);
