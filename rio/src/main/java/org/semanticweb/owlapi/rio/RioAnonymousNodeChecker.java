@@ -61,8 +61,7 @@ public class RioAnonymousNodeChecker implements AnonymousNodeChecker {
     }
 
     @Override
-    public boolean
-            isAnonymousSharedNode(@SuppressWarnings("unused") String iri) {
+    public boolean isAnonymousSharedNode(String iri) {
         return false;
     }
 }

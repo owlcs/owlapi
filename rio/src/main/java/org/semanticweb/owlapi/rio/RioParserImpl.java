@@ -35,12 +35,13 @@
  */
 package org.semanticweb.owlapi.rio;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
@@ -74,6 +75,7 @@ import org.semanticweb.owlapi.model.OWLOntologyFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.util.AnonymousNodeChecker;
+import org.semanticweb.owlapi.util.CollectionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -89,6 +91,7 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
 
     private static final long serialVersionUID = 40000L;
     protected final Logger log = LoggerFactory.getLogger(this.getClass());
+    @Nonnull
     private RioRDFOntologyFormatFactory owlFormatFactory;
     @Nonnull
     private Set<OWLOntologyFormatFactory> supportedFormats;
@@ -97,21 +100,18 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
      * @param nextFormat
      *        format factory
      */
-    @SuppressWarnings("null")
-    public RioParserImpl(RioRDFOntologyFormatFactory nextFormat) {
-        owlFormatFactory = nextFormat;
-        supportedFormats = Collections
-                .singleton((OWLOntologyFormatFactory) owlFormatFactory);
+    public RioParserImpl(@Nonnull RioRDFOntologyFormatFactory nextFormat) {
+        owlFormatFactory = verifyNotNull(nextFormat);
+        supportedFormats = CollectionFactory
+                .createSet((OWLOntologyFormatFactory) owlFormatFactory);
     }
 
-    @SuppressWarnings("null")
     @Override
     public Set<Class<OWLOntologyFormat>> getSupportedFormatClasses() {
         // not needed for this parser
-        return Collections.emptySet();
+        return CollectionFactory.emptySet();
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     @Override
     protected Class<? extends OWLOntologyFormat> getFormatClass() {
@@ -269,7 +269,7 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
     protected void parseDocumentSource(
             final OWLOntologyDocumentSource documentSource,
             final String baseUri, final RDFHandler handler) throws IOException,
-            RDFParseException, RDFHandlerException, MalformedURLException {
+            RDFParseException, RDFHandlerException {
         final RDFParser createParser = Rio.createParser(owlFormatFactory
                 .getRioFormat());
         createParser.setRDFHandler(handler);
@@ -303,7 +303,7 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
         private Set<Resource> typedLists = new HashSet<Resource>();
         private ValueFactory vf = ValueFactoryImpl.getInstance();
 
-        public RioParserRDFHandler(RioOWLRDFConsumerAdapter consumer) {
+        RioParserRDFHandler(RioOWLRDFConsumerAdapter consumer) {
             this.consumer = consumer;
         }
 
@@ -352,7 +352,7 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
         }
 
         @Override
-        public void handleComment(@SuppressWarnings("unused") String comment) {
+        public void handleComment(String comment) {
             // do nothing
         }
     }

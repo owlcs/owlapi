@@ -69,7 +69,6 @@ import org.slf4j.LoggerFactory;
 /**
  * @author Peter Ansell p_ansell@yahoo.com
  */
-@SuppressWarnings("javadoc")
 public class RioRenderer extends RDFRendererBase {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -83,6 +82,16 @@ public class RioRenderer extends RDFRendererBase {
     private Set<Statement> renderedStatements = new LinkedHashSet<Statement>();
     private Resource[] contexts;
 
+    /**
+     * @param ontology
+     *        ontology
+     * @param writer
+     *        writer
+     * @param format
+     *        format
+     * @param contexts
+     *        contexts
+     */
     public RioRenderer(@Nonnull final OWLOntology ontology,
             final RDFHandler writer, final OWLOntologyFormat format,
             final Resource... contexts) {

@@ -60,6 +60,8 @@ public class RioUtils {
 
     private static final Logger log = LoggerFactory.getLogger(RioUtils.class);
 
+    private RioUtils() {}
+
     /**
      * Create a Statement based on the given RDFTriple, with an empty context.
      * 

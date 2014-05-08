@@ -169,7 +169,7 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
                         try {
                             statements.close();
                         } catch (OpenRDFException e) {
-                            e.printStackTrace();
+                            throw new OWLRuntimeException(e);
                         }
                     }
                 }
@@ -189,7 +189,7 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
                         try {
                             statements.close();
                         } catch (OpenRDFException e) {
-                            e.printStackTrace();
+                            throw new OWLRuntimeException(e);
                         }
                     }
                 }

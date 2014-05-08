@@ -83,7 +83,6 @@ public class RioOWLRDFConsumerAdapter extends OWLRDFConsumer implements
         endModel();
     }
 
-    @SuppressWarnings("unused")
     @Override
     public void handleComment(String comment) {}
 
