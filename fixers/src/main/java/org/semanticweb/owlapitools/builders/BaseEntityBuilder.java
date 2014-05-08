@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapitools.builders;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
@@ -34,7 +36,7 @@ public abstract class BaseEntityBuilder<T extends OWLEntity, Type> extends
         BaseBuilder<T, Type> {
 
     @Nullable
-    protected IRI iri = null;
+    private IRI iri = null;
     @Nullable
     protected String string = null;
     @Nullable
@@ -83,5 +85,27 @@ public abstract class BaseEntityBuilder<T extends OWLEntity, Type> extends
     public Type withPrefixedIRI(String arg) {
         string = arg;
         return (Type) this;
+    }
+
+    /** @return iri */
+    @Nonnull
+    public IRI getIRI() {
+        return verifyNotNull(iri);
+    }
+
+    /**
+     * @return string
+     */
+    @Nonnull
+    public String getString() {
+        return verifyNotNull(string);
+    }
+
+    /**
+     * @return prefix manager
+     */
+    @Nonnull
+    public PrefixManager getPM() {
+        return verifyNotNull(pm);
     }
 }

@@ -47,9 +47,9 @@ public class BuilderSymmetricObjectProperty
         super(df);
     }
 
-    @SuppressWarnings("null")
     @Override
     public OWLSymmetricObjectPropertyAxiom buildObject() {
-        return df.getOWLSymmetricObjectPropertyAxiom(property, annotations);
+        return df
+                .getOWLSymmetricObjectPropertyAxiom(getProperty(), annotations);
     }
 }

@@ -59,9 +59,9 @@ public class BuilderObjectMinCardinality extends
         return this;
     }
 
-    @SuppressWarnings("null")
     @Override
     public OWLObjectMinCardinality buildObject() {
-        return df.getOWLObjectMinCardinality(cardinality, property, range);
+        return df.getOWLObjectMinCardinality(cardinality, getProperty(),
+                getRange());
     }
 }

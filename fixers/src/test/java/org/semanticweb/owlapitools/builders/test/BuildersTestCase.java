@@ -129,7 +129,7 @@ import org.semanticweb.owlapitools.builders.BuilderUnionOf;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 
-@SuppressWarnings("javadoc")
+@SuppressWarnings({ "javadoc", "null" })
 public class BuildersTestCase {
 
     @Nonnull
@@ -173,14 +173,12 @@ public class BuildersTestCase {
     private SWRLDArgument var1 = df.getSWRLVariable(IRI.create("var1"));
     @Nonnull
     private SWRLIArgument var2 = df.getSWRLVariable(IRI.create("var2"));
-    @SuppressWarnings("null")
     @Nonnull
     private SWRLAtom v1 = df.getSWRLBuiltInAtom(
             IRI.create("v1"),
             Arrays.asList(
                     (SWRLDArgument) df.getSWRLVariable(IRI.create("var3")),
                     df.getSWRLVariable(IRI.create("var4"))));
-    @SuppressWarnings("null")
     @Nonnull
     private SWRLAtom v2 = df.getSWRLBuiltInAtom(
             IRI.create("v2"),
@@ -1086,7 +1084,6 @@ public class BuildersTestCase {
         // given
         BuilderSWRLBuiltInAtom builder = new BuilderSWRLBuiltInAtom(df).with(
                 iri).with(var1);
-        @SuppressWarnings("null")
         OWLObject expected = df.getSWRLBuiltInAtom(iri, Arrays.asList(var1));
         // when
         OWLObject built = builder.buildObject();

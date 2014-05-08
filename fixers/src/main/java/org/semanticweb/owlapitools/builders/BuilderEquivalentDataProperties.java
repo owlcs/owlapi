@@ -15,7 +15,6 @@ package org.semanticweb.owlapitools.builders;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
@@ -34,7 +33,8 @@ public class BuilderEquivalentDataProperties
      *        data factory
      */
     public BuilderEquivalentDataProperties(
-            @Nonnull OWLEquivalentDataPropertiesAxiom expected, OWLDataFactory df) {
+            @Nonnull OWLEquivalentDataPropertiesAxiom expected,
+            OWLDataFactory df) {
         this(df);
         withItems(expected.getProperties()).withAnnotations(
                 expected.getAnnotations());

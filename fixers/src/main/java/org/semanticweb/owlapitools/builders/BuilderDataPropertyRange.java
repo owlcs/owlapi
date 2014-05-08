@@ -46,10 +46,9 @@ public class BuilderDataPropertyRange extends
                 .withAnnotations(expected.getAnnotations());
     }
 
-    @SuppressWarnings("null")
     @Override
     public OWLDataPropertyRangeAxiom buildObject() {
-        return df
-                .getOWLDataPropertyRangeAxiom(property, dataRange, annotations);
+        return df.getOWLDataPropertyRangeAxiom(getProperty(), getDataRange(),
+                annotations);
     }
 }

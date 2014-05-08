@@ -80,9 +80,9 @@ public class BuilderPropertyChain
         return this;
     }
 
-    @SuppressWarnings("null")
     @Override
     public OWLSubPropertyChainOfAxiom buildObject() {
-        return df.getOWLSubPropertyChainOfAxiom(chain, property, annotations);
+        return df.getOWLSubPropertyChainOfAxiom(chain, getProperty(),
+                annotations);
     }
 }

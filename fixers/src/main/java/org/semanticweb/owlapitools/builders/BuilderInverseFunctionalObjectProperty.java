@@ -48,10 +48,9 @@ public class BuilderInverseFunctionalObjectProperty
         super(df);
     }
 
-    @SuppressWarnings("null")
     @Override
     public OWLInverseFunctionalObjectPropertyAxiom buildObject() {
-        return df.getOWLInverseFunctionalObjectPropertyAxiom(property,
+        return df.getOWLInverseFunctionalObjectPropertyAxiom(getProperty(),
                 annotations);
     }
 }

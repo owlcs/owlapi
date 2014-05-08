@@ -48,9 +48,9 @@ public class BuilderAsymmetricObjectProperty
                 expected.getAnnotations());
     }
 
-    @SuppressWarnings("null")
     @Override
     public OWLAsymmetricObjectPropertyAxiom buildObject() {
-        return df.getOWLAsymmetricObjectPropertyAxiom(property, annotations);
+        return df.getOWLAsymmetricObjectPropertyAxiom(getProperty(),
+                annotations);
     }
 }

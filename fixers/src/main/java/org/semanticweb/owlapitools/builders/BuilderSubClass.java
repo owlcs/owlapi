@@ -47,9 +47,8 @@ public class BuilderSubClass extends
         super(df);
     }
 
-    @SuppressWarnings("null")
     @Override
     public OWLSubClassOfAxiom buildObject() {
-        return df.getOWLSubClassOfAxiom(sub, sup, annotations);
+        return df.getOWLSubClassOfAxiom(getSub(), getSup(), annotations);
     }
 }

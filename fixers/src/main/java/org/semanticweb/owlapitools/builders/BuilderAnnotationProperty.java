@@ -45,12 +45,11 @@ public class BuilderAnnotationProperty extends
         withIRI(expected.getIRI());
     }
 
-    @SuppressWarnings("null")
     @Override
     public OWLAnnotationProperty buildObject() {
         if (pm != null && string != null) {
-            return df.getOWLAnnotationProperty(string, pm);
+            return df.getOWLAnnotationProperty(getString(), getPM());
         }
-        return df.getOWLAnnotationProperty(iri);
+        return df.getOWLAnnotationProperty(getIRI());
     }
 }

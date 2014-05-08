@@ -45,9 +45,8 @@ public class BuilderObjectSomeValuesFrom extends
         super(df);
     }
 
-    @SuppressWarnings("null")
     @Override
     public OWLObjectSomeValuesFrom buildObject() {
-        return df.getOWLObjectSomeValuesFrom(property, range);
+        return df.getOWLObjectSomeValuesFrom(getProperty(), getRange());
     }
 }

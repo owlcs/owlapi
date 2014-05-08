@@ -45,9 +45,8 @@ public class BuilderDataAllValuesFrom extends
         withProperty(expected.getProperty()).withRange(expected.getFiller());
     }
 
-    @SuppressWarnings("null")
     @Override
     public OWLDataAllValuesFrom buildObject() {
-        return df.getOWLDataAllValuesFrom(property, dataRange);
+        return df.getOWLDataAllValuesFrom(getProperty(), getDataRange());
     }
 }

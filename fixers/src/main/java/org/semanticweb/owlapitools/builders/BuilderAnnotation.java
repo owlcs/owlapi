@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapitools.builders;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
@@ -60,9 +62,16 @@ public class BuilderAnnotation extends
         return this;
     }
 
-    @SuppressWarnings("null")
     @Override
     public OWLAnnotation buildObject() {
-        return df.getOWLAnnotation(property, value, annotations);
+        return df.getOWLAnnotation(getProperty(), getValue(), annotations);
+    }
+
+    /**
+     * @return value
+     */
+    @Nonnull
+    public OWLAnnotationValue getValue() {
+        return verifyNotNull(value);
     }
 }

@@ -48,9 +48,9 @@ public class BuilderFunctionalObjectProperty
         super(df);
     }
 
-    @SuppressWarnings("null")
     @Override
     public OWLFunctionalObjectPropertyAxiom buildObject() {
-        return df.getOWLFunctionalObjectPropertyAxiom(property, annotations);
+        return df.getOWLFunctionalObjectPropertyAxiom(getProperty(),
+                annotations);
     }
 }

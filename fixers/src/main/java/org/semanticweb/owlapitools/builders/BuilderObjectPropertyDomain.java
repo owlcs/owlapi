@@ -48,10 +48,9 @@ public class BuilderObjectPropertyDomain
         super(df);
     }
 
-    @SuppressWarnings("null")
     @Override
     public OWLObjectPropertyDomainAxiom buildObject() {
-        return df
-                .getOWLObjectPropertyDomainAxiom(property, domain, annotations);
+        return df.getOWLObjectPropertyDomainAxiom(getProperty(), getDomain(),
+                annotations);
     }
 }

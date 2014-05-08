@@ -48,9 +48,9 @@ public class BuilderDataPropertyDomain
                 .withAnnotations(expected.getAnnotations());
     }
 
-    @SuppressWarnings("null")
     @Override
     public OWLDataPropertyDomainAxiom buildObject() {
-        return df.getOWLDataPropertyDomainAxiom(property, domain, annotations);
+        return df.getOWLDataPropertyDomainAxiom(getProperty(), getDomain(),
+                annotations);
     }
 }

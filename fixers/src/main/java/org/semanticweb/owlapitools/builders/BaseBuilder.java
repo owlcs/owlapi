@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -35,6 +34,7 @@ import org.semanticweb.owlapi.profiles.OWL2DLProfile;
 import org.semanticweb.owlapi.profiles.OWLProfile;
 import org.semanticweb.owlapi.profiles.OWLProfileReport;
 import org.semanticweb.owlapi.profiles.OWLProfileViolation;
+import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
  * Base builder class, providing annotations storage
@@ -91,14 +91,13 @@ public abstract class BaseBuilder<T extends OWLObject, Type> implements
     @Override
     public abstract T buildObject();
 
-    @SuppressWarnings("null")
     @Nonnull
     @Override
     public final List<OWLOntologyChange<?>>
             applyChanges(@Nonnull OWLOntology o) {
         T object = buildObject();
         if (!(object instanceof OWLAxiom)) {
-            return Collections.emptyList();
+            return CollectionFactory.emptyList();
         }
         // create and apply the new change
         AddAxiom change = new AddAxiom(o, (OWLAxiom) object);

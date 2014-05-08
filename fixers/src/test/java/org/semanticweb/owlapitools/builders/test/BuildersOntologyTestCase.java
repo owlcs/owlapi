@@ -87,7 +87,7 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyBuilderImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
 
-@SuppressWarnings("javadoc")
+@SuppressWarnings({ "javadoc", "null" })
 public class BuildersOntologyTestCase {
 
     @Nonnull
@@ -127,14 +127,12 @@ public class BuildersOntologyTestCase {
     @Nonnull
     private Set<OWLIndividual> inds = new HashSet<OWLIndividual>(Arrays.asList(
             i, df.getOWLNamedIndividual(iri)));
-    @SuppressWarnings("null")
     @Nonnull
     private SWRLAtom v1 = df.getSWRLBuiltInAtom(
             IRI.create("v1"),
             Arrays.asList(
                     (SWRLDArgument) df.getSWRLVariable(IRI.create("var3")),
                     df.getSWRLVariable(IRI.create("var4"))));
-    @SuppressWarnings("null")
     @Nonnull
     private SWRLAtom v2 = df.getSWRLBuiltInAtom(
             IRI.create("v2"),

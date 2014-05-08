@@ -45,12 +45,11 @@ public class BuilderObjectProperty extends
         super(df);
     }
 
-    @SuppressWarnings("null")
     @Override
     public OWLObjectProperty buildObject() {
         if (pm != null && string != null) {
-            return df.getOWLObjectProperty(string, pm);
+            return df.getOWLObjectProperty(getString(), getPM());
         }
-        return df.getOWLObjectProperty(iri);
+        return df.getOWLObjectProperty(getIRI());
     }
 }

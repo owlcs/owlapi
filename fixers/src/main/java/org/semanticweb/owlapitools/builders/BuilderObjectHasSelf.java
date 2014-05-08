@@ -45,9 +45,8 @@ public class BuilderObjectHasSelf extends
         super(df);
     }
 
-    @SuppressWarnings("null")
     @Override
     public OWLObjectHasSelf buildObject() {
-        return df.getOWLObjectHasSelf(property);
+        return df.getOWLObjectHasSelf(getProperty());
     }
 }

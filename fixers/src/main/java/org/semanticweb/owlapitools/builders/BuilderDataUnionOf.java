@@ -15,7 +15,6 @@ package org.semanticweb.owlapitools.builders;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLDataUnionOf;
@@ -32,7 +31,8 @@ public class BuilderDataUnionOf extends
      * @param df
      *        data factory
      */
-    public BuilderDataUnionOf(@Nonnull OWLDataUnionOf expected, OWLDataFactory df) {
+    public BuilderDataUnionOf(@Nonnull OWLDataUnionOf expected,
+            OWLDataFactory df) {
         this(df);
         withItems(expected.getOperands());
     }

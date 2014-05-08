@@ -59,9 +59,9 @@ public class BuilderDataMaxCardinality extends
         return this;
     }
 
-    @SuppressWarnings("null")
     @Override
     public OWLDataMaxCardinality buildObject() {
-        return df.getOWLDataMaxCardinality(cardinality, property, dataRange);
+        return df.getOWLDataMaxCardinality(cardinality, getProperty(),
+                getDataRange());
     }
 }

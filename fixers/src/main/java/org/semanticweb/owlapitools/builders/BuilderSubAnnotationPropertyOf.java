@@ -48,9 +48,9 @@ public class BuilderSubAnnotationPropertyOf
         super(df);
     }
 
-    @SuppressWarnings("null")
     @Override
     public OWLSubAnnotationPropertyOfAxiom buildObject() {
-        return df.getOWLSubAnnotationPropertyOfAxiom(sub, sup, annotations);
+        return df.getOWLSubAnnotationPropertyOfAxiom(getSub(), getSup(),
+                annotations);
     }
 }

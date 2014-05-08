@@ -43,12 +43,11 @@ public class BuilderClass extends BaseEntityBuilder<OWLClass, BuilderClass> {
         withIRI(expected.getIRI());
     }
 
-    @SuppressWarnings("null")
     @Override
     public OWLClass buildObject() {
         if (pm != null && string != null) {
-            return df.getOWLClass(string, pm);
+            return df.getOWLClass(getString(), getPM());
         }
-        return df.getOWLClass(iri);
+        return df.getOWLClass(getIRI());
     }
 }

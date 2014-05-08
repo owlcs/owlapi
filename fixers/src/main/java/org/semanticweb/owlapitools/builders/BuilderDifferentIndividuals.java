@@ -15,7 +15,6 @@ package org.semanticweb.owlapitools.builders;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
 import org.semanticweb.owlapi.model.OWLIndividual;
@@ -33,8 +32,8 @@ public class BuilderDifferentIndividuals
      * @param df
      *        data factory
      */
-    public BuilderDifferentIndividuals(@Nonnull OWLDifferentIndividualsAxiom expected,
-            OWLDataFactory df) {
+    public BuilderDifferentIndividuals(
+            @Nonnull OWLDifferentIndividualsAxiom expected, OWLDataFactory df) {
         this(df);
         withItems(expected.getIndividuals()).withAnnotations(
                 expected.getAnnotations());

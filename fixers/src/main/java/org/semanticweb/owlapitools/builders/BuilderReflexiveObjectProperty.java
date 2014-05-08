@@ -47,9 +47,9 @@ public class BuilderReflexiveObjectProperty
         super(df);
     }
 
-    @SuppressWarnings("null")
     @Override
     public OWLReflexiveObjectPropertyAxiom buildObject() {
-        return df.getOWLReflexiveObjectPropertyAxiom(property, annotations);
+        return df
+                .getOWLReflexiveObjectPropertyAxiom(getProperty(), annotations);
     }
 }

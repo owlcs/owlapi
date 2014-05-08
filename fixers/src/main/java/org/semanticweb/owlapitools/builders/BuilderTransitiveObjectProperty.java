@@ -48,9 +48,9 @@ public class BuilderTransitiveObjectProperty
                 expected.getAnnotations());
     }
 
-    @SuppressWarnings("null")
     @Override
     public OWLTransitiveObjectPropertyAxiom buildObject() {
-        return df.getOWLTransitiveObjectPropertyAxiom(property, annotations);
+        return df.getOWLTransitiveObjectPropertyAxiom(getProperty(),
+                annotations);
     }
 }

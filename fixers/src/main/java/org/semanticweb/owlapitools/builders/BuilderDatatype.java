@@ -44,12 +44,11 @@ public class BuilderDatatype extends
         super(df);
     }
 
-    @SuppressWarnings("null")
     @Override
     public OWLDatatype buildObject() {
         if (pm != null && string != null) {
-            return df.getOWLDatatype(string, pm);
+            return df.getOWLDatatype(getString(), getPM());
         }
-        return df.getOWLDatatype(iri);
+        return df.getOWLDatatype(getIRI());
     }
 }

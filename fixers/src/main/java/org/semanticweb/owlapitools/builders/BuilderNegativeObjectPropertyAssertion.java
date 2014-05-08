@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapitools.builders;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
@@ -62,7 +64,8 @@ public class BuilderNegativeObjectPropertyAssertion
      * @return builder
      */
     @Nonnull
-    public BuilderNegativeObjectPropertyAssertion withValue(OWLIndividual arg) {
+    public BuilderNegativeObjectPropertyAssertion withValue(
+            @Nonnull OWLIndividual arg) {
         value = arg;
         return this;
     }
@@ -73,16 +76,31 @@ public class BuilderNegativeObjectPropertyAssertion
      * @return builder
      */
     @Nonnull
-    public BuilderNegativeObjectPropertyAssertion
-            withSubject(OWLIndividual arg) {
+    public BuilderNegativeObjectPropertyAssertion withSubject(
+            @Nonnull OWLIndividual arg) {
         subject = arg;
         return this;
     }
 
-    @SuppressWarnings("null")
     @Override
     public OWLNegativeObjectPropertyAssertionAxiom buildObject() {
-        return df.getOWLNegativeObjectPropertyAssertionAxiom(property, subject,
-                value, annotations);
+        return df.getOWLNegativeObjectPropertyAssertionAxiom(getProperty(),
+                getSubject(), getValue(), annotations);
+    }
+
+    /**
+     * @return individual
+     */
+    @Nonnull
+    public OWLIndividual getSubject() {
+        return verifyNotNull(subject);
+    }
+
+    /**
+     * @return individual
+     */
+    @Nonnull
+    public OWLIndividual getValue() {
+        return verifyNotNull(value);
     }
 }

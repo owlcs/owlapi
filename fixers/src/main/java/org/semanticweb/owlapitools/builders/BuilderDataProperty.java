@@ -45,12 +45,11 @@ public class BuilderDataProperty extends
         withIRI(expected.getIRI());
     }
 
-    @SuppressWarnings("null")
     @Override
     public OWLDataProperty buildObject() {
         if (pm != null && string != null) {
-            return df.getOWLDataProperty(string, pm);
+            return df.getOWLDataProperty(getString(), getPM());
         }
-        return df.getOWLDataProperty(iri);
+        return df.getOWLDataProperty(getIRI());
     }
 }

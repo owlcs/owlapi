@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapitools.builders;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
@@ -33,9 +35,9 @@ public abstract class BaseSubBuilder<T extends OWLObject, Type, Item> extends
         BaseBuilder<T, Type> {
 
     @Nullable
-    protected Item sub = null;
+    private Item sub = null;
     @Nullable
-    protected Item sup = null;
+    private Item sup = null;
 
     /**
      * @param df
@@ -68,5 +70,21 @@ public abstract class BaseSubBuilder<T extends OWLObject, Type, Item> extends
     public Type withSup(Item arg) {
         sup = arg;
         return (Type) this;
+    }
+
+    /**
+     * @return the sub
+     */
+    @Nonnull
+    public Item getSub() {
+        return verifyNotNull(sub);
+    }
+
+    /**
+     * @return the sup
+     */
+    @Nonnull
+    public Item getSup() {
+        return verifyNotNull(sup);
     }
 }

@@ -45,12 +45,11 @@ public class BuilderNamedIndividual extends
         super(df);
     }
 
-    @SuppressWarnings("null")
     @Override
     public OWLNamedIndividual buildObject() {
         if (pm != null && string != null) {
-            return df.getOWLNamedIndividual(string, pm);
+            return df.getOWLNamedIndividual(getString(), getPM());
         }
-        return df.getOWLNamedIndividual(iri);
+        return df.getOWLNamedIndividual(getIRI());
     }
 }

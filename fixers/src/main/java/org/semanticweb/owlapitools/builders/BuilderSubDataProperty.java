@@ -48,9 +48,8 @@ public class BuilderSubDataProperty
         super(df);
     }
 
-    @SuppressWarnings("null")
     @Override
     public OWLSubDataPropertyOfAxiom buildObject() {
-        return df.getOWLSubDataPropertyOfAxiom(sub, sup, annotations);
+        return df.getOWLSubDataPropertyOfAxiom(getSub(), getSup(), annotations);
     }
 }

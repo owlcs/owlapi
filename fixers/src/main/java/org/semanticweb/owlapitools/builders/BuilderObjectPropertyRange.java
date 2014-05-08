@@ -47,9 +47,9 @@ public class BuilderObjectPropertyRange
         super(df);
     }
 
-    @SuppressWarnings("null")
     @Override
     public OWLObjectPropertyRangeAxiom buildObject() {
-        return df.getOWLObjectPropertyRangeAxiom(property, range, annotations);
+        return df.getOWLObjectPropertyRangeAxiom(getProperty(), getRange(),
+                annotations);
     }
 }

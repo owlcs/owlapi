@@ -45,9 +45,8 @@ public class BuilderObjectInverseOf extends
         super(df);
     }
 
-    @SuppressWarnings("null")
     @Override
     public OWLObjectInverseOf buildObject() {
-        return df.getOWLObjectInverseOf(property);
+        return df.getOWLObjectInverseOf(getProperty());
     }
 }

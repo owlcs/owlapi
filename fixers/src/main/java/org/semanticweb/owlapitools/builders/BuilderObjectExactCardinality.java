@@ -60,9 +60,9 @@ public class BuilderObjectExactCardinality
         return this;
     }
 
-    @SuppressWarnings("null")
     @Override
     public OWLObjectExactCardinality buildObject() {
-        return df.getOWLObjectExactCardinality(cardinality, property, range);
+        return df.getOWLObjectExactCardinality(cardinality, getProperty(),
+                getRange());
     }
 }
