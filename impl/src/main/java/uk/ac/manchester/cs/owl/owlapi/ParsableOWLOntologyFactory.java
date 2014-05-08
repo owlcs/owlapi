@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -82,8 +84,7 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
      * @return false
      */
     @Override
-    public boolean canCreateFromDocumentIRI(
-            @SuppressWarnings("unused") IRI documentIRI) {
+    public boolean canCreateFromDocumentIRI(IRI documentIRI) {
         return false;
     }
 
@@ -222,7 +223,6 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
      *        parsers
      * @return candidate parsers
      */
-    @SuppressWarnings("null")
     private static PriorityCollection<OWLParser> getParsersByFormat(
             OWLOntologyDocumentSource documentSource,
             PriorityCollection<OWLParser> parsers) {
@@ -232,7 +232,7 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
         PriorityCollection<OWLParser> candidateParsers = new PriorityCollection<OWLParser>();
         for (OWLParser parser : parsers) {
             if (parser.getSupportedFormatClasses().contains(
-                    documentSource.getFormat().getClass())) {
+                    verifyNotNull(documentSource.getFormat()).getClass())) {
                 candidateParsers.add(parser);
             }
         }
@@ -252,7 +252,6 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
      *        parsers
      * @return candidate parsers
      */
-    @SuppressWarnings("null")
     private static PriorityCollection<OWLParser> getParserCandidatesByMIME(
             OWLOntologyDocumentSource documentSource,
             PriorityCollection<OWLParser> parsers) {
@@ -260,7 +259,7 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
             return parsers;
         }
         PriorityCollection<OWLParser> candidateParsers = parsers
-                .getByMIMEType(documentSource.getMIMEType());
+                .getByMIMEType(verifyNotNull(documentSource.getMIMEType()));
         if (candidateParsers.size() == 0) {
             // if no parsers match the MIME type, ignore it
             return parsers;

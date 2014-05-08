@@ -224,7 +224,7 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements
     private int getHashCode() {
         int hashCode = 277;
         hashCode = hashCode * 37 + getDatatype().hashCode();
-        hashCode = hashCode * 37;
+        hashCode *= 37;
         try {
             if (isInteger()) {
                 hashCode += parseInteger() * 65536;

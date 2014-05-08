@@ -12,10 +12,11 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+
 import java.io.Serializable;
 import java.lang.ref.WeakReference;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -52,10 +53,9 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
 
     private static final long serialVersionUID = 40000L;
     /** a convenience reference for an empty annotation set, saves on typing. */
-    @SuppressWarnings("null")
     @Nonnull
-    protected static final Set<OWLAnnotation> NO_ANNOTATIONS = Collections
-            .<OWLAnnotation> emptySet();
+    protected static final Set<OWLAnnotation> NO_ANNOTATIONS = CollectionFactory
+            .emptySet();
     private static final OWLObjectTypeIndexProvider owlObjectTypeIndexProvider = new OWLObjectTypeIndexProvider();
     private int hashCode = 0;
     @Nullable
@@ -65,12 +65,11 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
     protected static final OWLClass OWL_THING = new OWLClassImpl(
             OWLRDFVocabulary.OWL_THING.getIRI());
 
-    @SuppressWarnings("null")
     @Override
     public Set<OWLEntity> getSignature() {
         Set<OWLEntity> set = null;
         if (signature != null) {
-            set = signature.get();
+            set = verifyNotNull(signature).get();
         }
         if (set == null) {
             set = new HashSet<OWLEntity>();
@@ -90,10 +89,9 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
         return getSignature().contains(owlEntity);
     }
 
-    @SuppressWarnings("null")
     @Override
     public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
-        if (signature == null || signature.get() == null) {
+        if (signature == null || verifyNotNull(signature).get() == null) {
             getSignature();
         }
         return CollectionFactory
@@ -197,7 +195,9 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
 
     protected abstract int compareObjectOfSameType(@Nonnull OWLObject object);
 
+    @SuppressWarnings("null")
     @Override
+    @Nonnull
     public String toString() {
         return ToStringRenderer.getInstance().getRendering(this);
     }

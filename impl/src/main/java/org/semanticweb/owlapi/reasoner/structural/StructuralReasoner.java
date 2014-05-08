@@ -18,7 +18,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -186,14 +185,12 @@ public class StructuralReasoner extends OWLReasonerBase {
     }
 
     @Override
-    public void precomputeInferences(
-            @SuppressWarnings("unused") InferenceType... inferenceTypes) {
+    public void precomputeInferences(InferenceType... inferenceTypes) {
         prepareReasoner();
     }
 
     @Override
-    public boolean isPrecomputed(
-            @SuppressWarnings("unused") InferenceType inferenceType) {
+    public boolean isPrecomputed(InferenceType inferenceType) {
         return true;
     }
 
@@ -248,8 +245,7 @@ public class StructuralReasoner extends OWLReasonerBase {
     }
 
     @Override
-    public boolean isEntailmentCheckingSupported(
-            @SuppressWarnings("unused") AxiomType<?> axiomType) {
+    public boolean isEntailmentCheckingSupported(AxiomType<?> axiomType) {
         return false;
     }
 
@@ -367,7 +363,7 @@ public class StructuralReasoner extends OWLReasonerBase {
     @Nonnull
     @Override
     public NodeSet<OWLObjectPropertyExpression> getDisjointObjectProperties(
-            @SuppressWarnings("unused") OWLObjectPropertyExpression pe) {
+            OWLObjectPropertyExpression pe) {
         return new OWLObjectPropertyNodeSet();
     }
 
@@ -685,7 +681,7 @@ public class StructuralReasoner extends OWLReasonerBase {
     @Nonnull
     @Override
     public NodeSet<OWLNamedIndividual> getDifferentIndividuals(
-            @SuppressWarnings("unused") OWLNamedIndividual ind) {
+            OWLNamedIndividual ind) {
         return new OWLNamedIndividualNodeSet();
     }
 
@@ -776,8 +772,10 @@ public class StructuralReasoner extends OWLReasonerBase {
 
         private RawHierarchyProvider<T> rawParentChildProvider;
         /** The entity that always appears in the top node in the hierarchy. */
+        @Nonnull
         T topEntity;
         /** The entity that always appears as the bottom node in the hierarchy. */
+        @Nonnull
         T bottomEntity;
         @Nonnull
         private Set<T> directChildrenOfTopNode = new HashSet<T>();
@@ -787,7 +785,8 @@ public class StructuralReasoner extends OWLReasonerBase {
         private String name;
         private int classificationSize;
 
-        public HierarchyInfo(String name, T topEntity, T bottomEntity,
+        HierarchyInfo(String name, @Nonnull T topEntity,
+                @Nonnull T bottomEntity,
                 RawHierarchyProvider<T> rawParentChildProvider) {
             this.topEntity = topEntity;
             this.bottomEntity = bottomEntity;
@@ -999,7 +998,7 @@ public class StructuralReasoner extends OWLReasonerBase {
             pm.reasonerTaskProgressChanged(processed.size(), classificationSize);
             indexMap.put(entity, index);
             lowlinkMap.put(entity, index);
-            index = index + 1;
+            index += 1;
             stack.push(entity);
             stackEntities.add(entity);
             // Get the raw parents - cache if necessary
@@ -1139,7 +1138,6 @@ public class StructuralReasoner extends OWLReasonerBase {
         @Nonnull
         private Map<T, Node<T>> map = new HashMap<T, Node<T>>();
 
-        @SuppressWarnings("null")
         protected NodeCache(@Nonnull HierarchyInfo<T> hierarchyInfo) {
             this.hierarchyInfo = hierarchyInfo;
             clearTopNode();
@@ -1167,15 +1165,14 @@ public class StructuralReasoner extends OWLReasonerBase {
             return result;
         }
 
-        @SuppressWarnings("null")
         @Nonnull
         public Node<T> getNode(@Nonnull T containing) {
             Node<T> parentNode = map.get(containing);
             if (parentNode != null) {
                 return parentNode;
             } else {
-                return hierarchyInfo.createNode(Collections
-                        .singleton(containing));
+                return hierarchyInfo.createNode(CollectionFactory
+                        .createSet(containing));
             }
         }
 
@@ -1193,20 +1190,18 @@ public class StructuralReasoner extends OWLReasonerBase {
             return verifyNotNull(bottomNode);
         }
 
-        @SuppressWarnings("null")
         public void clearTopNode() {
             removeNode(hierarchyInfo.topEntity);
-            topNode = hierarchyInfo.createNode(Collections
-                    .singleton(hierarchyInfo.topEntity));
-            addNode(topNode);
+            topNode = hierarchyInfo.createNode(CollectionFactory
+                    .createSet(hierarchyInfo.topEntity));
+            addNode(getTopNode());
         }
 
-        @SuppressWarnings("null")
         public void clearBottomNode() {
             removeNode(hierarchyInfo.bottomEntity);
-            bottomNode = hierarchyInfo.createNode(Collections
-                    .singleton(hierarchyInfo.bottomEntity));
-            addNode(bottomNode);
+            bottomNode = hierarchyInfo.createNode(CollectionFactory
+                    .createSet(hierarchyInfo.bottomEntity));
+            addNode(getBottomNode());
         }
 
         public void clearNodes(@Nonnull Set<T> containing) {
@@ -1233,7 +1228,7 @@ public class StructuralReasoner extends OWLReasonerBase {
 
     private class ClassHierarchyInfo extends HierarchyInfo<OWLClass> {
 
-        public ClassHierarchyInfo() {
+        ClassHierarchyInfo() {
             super("class", getDataFactory().getOWLThing(), getDataFactory()
                     .getOWLNothing(), new RawClassHierarchyProvider());
         }
@@ -1267,7 +1262,7 @@ public class StructuralReasoner extends OWLReasonerBase {
     private class ObjectPropertyHierarchyInfo extends
             HierarchyInfo<OWLObjectPropertyExpression> {
 
-        public ObjectPropertyHierarchyInfo() {
+        ObjectPropertyHierarchyInfo() {
             super("object property",
                     getDataFactory().getOWLTopObjectProperty(),
                     getDataFactory().getOWLBottomObjectProperty(),
@@ -1343,7 +1338,7 @@ public class StructuralReasoner extends OWLReasonerBase {
     private class DataPropertyHierarchyInfo extends
             HierarchyInfo<OWLDataProperty> {
 
-        public DataPropertyHierarchyInfo() {
+        DataPropertyHierarchyInfo() {
             super("data property", getDataFactory().getOWLTopDataProperty(),
                     getDataFactory().getOWLBottomDataProperty(),
                     new RawDataPropertyHierarchyProvider());
@@ -1409,7 +1404,7 @@ public class StructuralReasoner extends OWLReasonerBase {
     private class RawClassHierarchyProvider implements
             RawHierarchyProvider<OWLClass> {
 
-        public RawClassHierarchyProvider() {}
+        RawClassHierarchyProvider() {}
 
         @Nonnull
         @Override
@@ -1492,7 +1487,7 @@ public class StructuralReasoner extends OWLReasonerBase {
         private Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> sub2Super;
         private Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> super2Sub;
 
-        public RawObjectPropertyHierarchyProvider() {
+        RawObjectPropertyHierarchyProvider() {
             rebuild();
         }
 
@@ -1514,36 +1509,34 @@ public class StructuralReasoner extends OWLReasonerBase {
             }
         }
 
-        @SuppressWarnings("null")
         @Nonnull
         @Override
         public Collection<OWLObjectPropertyExpression> getParents(
                 @Nonnull OWLObjectPropertyExpression child) {
             if (child.isBottomEntity()) {
-                return Collections.emptySet();
+                return CollectionFactory.emptySet();
             }
             Set<OWLObjectPropertyExpression> propertyExpressions = sub2Super
                     .get(child);
             if (propertyExpressions == null) {
-                return Collections.emptySet();
+                return CollectionFactory.emptySet();
             } else {
                 return new HashSet<OWLObjectPropertyExpression>(
                         propertyExpressions);
             }
         }
 
-        @SuppressWarnings("null")
         @Nonnull
         @Override
         public Collection<OWLObjectPropertyExpression> getChildren(
                 @Nonnull OWLObjectPropertyExpression parent) {
             if (parent.isTopEntity()) {
-                return Collections.emptySet();
+                return CollectionFactory.emptySet();
             }
             Set<OWLObjectPropertyExpression> propertyExpressions = super2Sub
                     .get(parent);
             if (propertyExpressions == null) {
-                return Collections.emptySet();
+                return CollectionFactory.emptySet();
             } else {
                 return new HashSet<OWLObjectPropertyExpression>(
                         propertyExpressions);
@@ -1554,7 +1547,7 @@ public class StructuralReasoner extends OWLReasonerBase {
     private class RawDataPropertyHierarchyProvider implements
             RawHierarchyProvider<OWLDataProperty> {
 
-        public RawDataPropertyHierarchyProvider() {}
+        RawDataPropertyHierarchyProvider() {}
 
         @Nonnull
         @Override

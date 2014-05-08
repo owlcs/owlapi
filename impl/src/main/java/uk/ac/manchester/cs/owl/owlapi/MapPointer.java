@@ -187,9 +187,11 @@ public class MapPointer<K, V extends OWLAxiom> implements Serializable {
      *        key to look up
      * @return true if there are values for key
      */
-    public boolean containsKey(K key) {
+    @SuppressWarnings("null")
+    @Nonnull
+    public Boolean containsKey(K key) {
         init();
-        return map.containsKey(key);
+        return Boolean.valueOf(map.containsKey(key));
     }
 
     /**

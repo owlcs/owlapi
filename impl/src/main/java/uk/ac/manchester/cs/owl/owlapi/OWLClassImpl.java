@@ -15,7 +15,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.Serializable;
-import java.util.Collections;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -40,6 +39,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
@@ -149,10 +149,9 @@ public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass,
         return this;
     }
 
-    @SuppressWarnings("null")
     @Override
     public Set<OWLClassExpression> asConjunctSet() {
-        return Collections.singleton((OWLClassExpression) this);
+        return CollectionFactory.createSet((OWLClassExpression) this);
     }
 
     @Override
@@ -160,10 +159,9 @@ public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass,
         return ce.equals(this);
     }
 
-    @SuppressWarnings("null")
     @Override
     public Set<OWLClassExpression> asDisjunctSet() {
-        return Collections.singleton((OWLClassExpression) this);
+        return CollectionFactory.createSet((OWLClassExpression) this);
     }
 
     @Override

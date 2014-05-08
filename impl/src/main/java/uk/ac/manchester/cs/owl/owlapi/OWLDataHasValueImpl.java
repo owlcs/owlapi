@@ -14,8 +14,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.util.Collections;
-
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.ClassExpressionType;
@@ -29,6 +27,7 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
+import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 /**
@@ -100,12 +99,11 @@ public class OWLDataHasValueImpl extends OWLValueRestrictionImpl<OWLLiteral>
         return value.compareTo(other.getFiller());
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     @Override
     public OWLClassExpression asSomeValuesFrom() {
         return new OWLDataSomeValuesFromImpl(getProperty(),
-                new OWLDataOneOfImpl(Collections.singleton(getFiller())));
+                new OWLDataOneOfImpl(CollectionFactory.createSet(getFiller())));
     }
 
     @Override

@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+
 import java.lang.ref.WeakReference;
 
 import javax.annotation.Nonnull;
@@ -92,10 +94,10 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
         annotationPropertiesByURI = buildCache();
     }
 
-    @SuppressWarnings("null")
     @Override
     public OWLLiteral getOWLLiteral(float value) {
-        return floatCache.cache(value, super.getOWLLiteral(value));
+        return floatCache.cache(verifyNotNull(value),
+                super.getOWLLiteral(value));
     }
 
     @Override
@@ -103,19 +105,17 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
         return stringCache.cache(value, super.getOWLLiteral(value));
     }
 
-    @SuppressWarnings("null")
     @Override
     public OWLLiteral getOWLLiteral(int value) {
-        return intCache.cache(value, super.getOWLLiteral(value));
+        return intCache.cache(verifyNotNull(value), super.getOWLLiteral(value));
     }
 
-    @SuppressWarnings("null")
     @Override
     public OWLLiteral getOWLLiteral(double value) {
-        return doubleCache.cache(value, super.getOWLLiteral(value));
+        return doubleCache.cache(verifyNotNull(value),
+                super.getOWLLiteral(value));
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     @Override
     public OWLLiteral getOWLLiteral(@Nonnull String lexicalValue,
@@ -126,16 +126,19 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
             return literal;
         }
         if (literal instanceof OWLLiteralImplFloat) {
-            return floatCache.cache(
-                    ((OWLLiteralImplFloat) literal).parseFloat(), literal);
+            return floatCache
+                    .cache(verifyNotNull(((OWLLiteralImplFloat) literal)
+                            .parseFloat()), literal);
         }
         if (literal instanceof OWLLiteralImplDouble) {
             return doubleCache.cache(
-                    ((OWLLiteralImplDouble) literal).parseDouble(), literal);
+                    verifyNotNull(((OWLLiteralImplDouble) literal)
+                            .parseDouble()), literal);
         }
         if (literal instanceof OWLLiteralImplInteger) {
             return intCache.cache(
-                    ((OWLLiteralImplInteger) literal).parseInteger(), literal);
+                    verifyNotNull(((OWLLiteralImplInteger) literal)
+                            .parseInteger()), literal);
         }
         if (datatype.isString()) {
             return stringCache.cache(literal.getLiteral(), literal);

@@ -18,7 +18,6 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
@@ -30,6 +29,8 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
  * @since 3.0.0
  */
 public class NodeFactory {
+
+    private NodeFactory() {}
 
     /** @return a class node */
     @Nonnull
@@ -92,9 +93,9 @@ public class NodeFactory {
      * @return an object property node with some elements
      */
     @Nonnull
-    public static
-            DefaultNode<OWLObjectPropertyExpression>
-            getOWLObjectPropertyNode(@Nonnull Set<OWLObjectPropertyExpression> properties) {
+    public static DefaultNode<OWLObjectPropertyExpression>
+            getOWLObjectPropertyNode(
+                    @Nonnull Set<OWLObjectPropertyExpression> properties) {
         return new OWLObjectPropertyNode(properties);
     }
 

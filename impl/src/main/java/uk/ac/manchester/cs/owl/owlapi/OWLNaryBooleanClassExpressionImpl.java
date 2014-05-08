@@ -21,7 +21,6 @@ import java.util.TreeSet;
 
 import javax.annotation.Nonnull;
 
-
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLNaryBooleanClassExpression;
 import org.semanticweb.owlapi.model.OWLObject;

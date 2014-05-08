@@ -15,7 +15,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -31,6 +30,7 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -102,12 +102,11 @@ public class OWLClassAssertionAxiomImpl extends OWLIndividualAxiomImpl
         return false;
     }
 
-    @SuppressWarnings("null")
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
         return new OWLSubClassOfAxiomImpl(new OWLObjectOneOfImpl(
-                Collections.singleton(getIndividual())), getClassExpression(),
-                NO_ANNOTATIONS);
+                CollectionFactory.createSet(getIndividual())),
+                getClassExpression(), NO_ANNOTATIONS);
     }
 
     @Override

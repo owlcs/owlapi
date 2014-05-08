@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -54,14 +54,13 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
      * @param annotations
      *        annotations on the axiom
      */
-    @SuppressWarnings("null")
     public OWLAxiomImpl(@Nonnull Collection<? extends OWLAnnotation> annotations) {
         checkNotNull(annotations, "annotations cannot be null");
         if (!annotations.isEmpty()) {
             this.annotations = new ArrayList<OWLAnnotation>(annotations);
             Collections.sort(this.annotations);
         } else {
-            this.annotations = Collections.emptyList();
+            this.annotations = CollectionFactory.emptyList();
         }
     }
 
@@ -72,11 +71,10 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
 
     // TODO when processing annotations on OWLOntology:: add axiom, needs
     // optimizing
-    @SuppressWarnings("null")
     @Override
     public Set<OWLAnnotation> getAnnotations() {
         if (annotations.isEmpty()) {
-            return Collections.emptySet();
+            return CollectionFactory.emptySet();
         }
         return CollectionFactory
                 .getCopyOnRequestSetFromImmutableCollection(annotations);
@@ -91,12 +89,11 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
         }
     }
 
-    @SuppressWarnings("null")
     @Override
     public Set<OWLAnnotation> getAnnotations(
             OWLAnnotationProperty annotationProperty) {
         if (annotations.isEmpty()) {
-            return Collections.emptySet();
+            return CollectionFactory.emptySet();
         } else {
             Set<OWLAnnotation> result = new HashSet<OWLAnnotation>();
             for (OWLAnnotation anno : annotations) {
@@ -156,13 +153,12 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
         return getAnnotations().equals(other.getAnnotations());
     }
 
-    @SuppressWarnings("null")
     @Override
     public OWLAxiom getNNF() {
         if (nnf == null) {
             NNF con = new NNF(new OWLDataFactoryImpl());
             nnf = accept(con);
         }
-        return nnf;
+        return verifyNotNull(nnf);
     }
 }

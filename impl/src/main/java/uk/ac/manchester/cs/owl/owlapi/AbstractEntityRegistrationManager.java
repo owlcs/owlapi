@@ -111,9 +111,7 @@ public abstract class AbstractEntityRegistrationManager extends
     private final CollectionContainerVisitor<OWLAnnotation> annotationVisitor = new CollectionContainerVisitor<OWLAnnotation>() {
 
         @Override
-        public
-                void
-                visit(@SuppressWarnings("unused") CollectionContainer<OWLAnnotation> c) {}
+        public void visit(CollectionContainer<OWLAnnotation> c) {}
 
         @Override
         public void visitItem(@Nonnull OWLAnnotation c) {

@@ -14,7 +14,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 import javax.annotation.Nonnull;
@@ -58,10 +57,13 @@ import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLAxiomVisitorExAdapter;
 
 /** @author ignazio */
 public class InitVisitorFactory {
+
+    private InitVisitorFactory() {}
 
     /**
      * @author ignazio
@@ -333,11 +335,10 @@ public class InitVisitorFactory {
             return (Collection<K>) axiom.getProperties();
         }
 
-        @SuppressWarnings("null")
         @Nonnull
         @Override
         public Collection<K> visit(@Nonnull OWLDisjointUnionAxiom axiom) {
-            return (Collection<K>) Collections.singleton(axiom.getOWLClass());
+            return CollectionFactory.createSet((K) axiom.getOWLClass());
         }
 
         @Nonnull

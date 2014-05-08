@@ -14,7 +14,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -31,6 +30,7 @@ import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -101,13 +101,13 @@ public class OWLDifferentIndividualsAxiomImpl extends
         return super.equals(obj) && obj instanceof OWLDifferentIndividualsAxiom;
     }
 
-    @SuppressWarnings("null")
     @Override
     public Set<OWLSubClassOfAxiom> asOWLSubClassOfAxioms() {
         List<OWLClassExpression> nominalsList = new ArrayList<OWLClassExpression>();
         for (OWLIndividual individual : getIndividuals()) {
-            nominalsList.add(new OWLObjectOneOfImpl(Collections
-                    .singleton(individual)));
+            assert individual != null;
+            nominalsList.add(new OWLObjectOneOfImpl(CollectionFactory
+                    .createSet(individual)));
         }
         Set<OWLSubClassOfAxiom> result = new HashSet<OWLSubClassOfAxiom>();
         for (int i = 0; i < nominalsList.size() - 1; i++) {
@@ -115,6 +115,8 @@ public class OWLDifferentIndividualsAxiomImpl extends
                 OWLClassExpression ceI = nominalsList.get(i);
                 OWLClassExpression ceJ = nominalsList.get(j)
                         .getObjectComplementOf();
+                assert ceI != null;
+                assert ceJ != null;
                 result.add(new OWLSubClassOfAxiomImpl(ceI, ceJ, NO_ANNOTATIONS));
             }
         }

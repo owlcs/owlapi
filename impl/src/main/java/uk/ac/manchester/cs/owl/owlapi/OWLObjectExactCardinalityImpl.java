@@ -17,7 +17,6 @@ import java.util.HashSet;
 
 import javax.annotation.Nonnull;
 
-
 import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;

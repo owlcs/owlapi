@@ -17,7 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -372,7 +371,6 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
         return new OWLDatatypeRestrictionImpl(datatype, facets);
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     @Override
     public OWLDatatypeRestriction getOWLDatatypeRestriction(
@@ -381,7 +379,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
         checkNotNull(facet, "facet cannot be null");
         checkNotNull(typedConstant, "typedConstant cannot be null");
         return new OWLDatatypeRestrictionImpl(datatype,
-                Collections.singleton(getOWLFacetRestriction(facet,
+                CollectionFactory.createSet(getOWLFacetRestriction(facet,
                         typedConstant)));
     }
 
@@ -1871,9 +1869,8 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
                 getOWLObjectProperty(OWLRDFVocabulary.OWL_SAME_AS.getIRI()),
                 arg0, arg1);
     }
-    @SuppressWarnings("null")
-    @Nonnull 
-    private static final Set<OWLAnnotation> EMPTY_ANNOTATIONS_SET = Collections
+    @Nonnull
+    private static final Set<OWLAnnotation> EMPTY_ANNOTATIONS_SET = CollectionFactory
             .emptySet();
 
     @Nonnull

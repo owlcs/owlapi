@@ -18,7 +18,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -61,6 +60,7 @@ import org.semanticweb.owlapi.model.OWLPrimitive;
 import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
 import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.model.parameters.Search;
+import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
@@ -96,6 +96,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
         this.ontologyID = checkNotNull(ontologyID, "ontologyID cannot be null");
     }
 
+    @SuppressWarnings("null")
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -762,7 +763,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
         @Nonnull
         private Imports includeImports;
 
-        public OWLEntityReferenceChecker(@Nonnull Imports b) {
+        OWLEntityReferenceChecker(@Nonnull Imports b) {
             includeImports = b;
         }
 
@@ -927,7 +928,6 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
         return result;
     }
 
-    @SuppressWarnings("null")
     @Override
     public Set<OWLAxiom> getReferencingAxioms(OWLPrimitive owlEntity,
             Imports includeImports) {
@@ -945,7 +945,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
                     .getValues((OWLAnonymousIndividual) owlEntity);
         }
         // TODO add support for looking up by IRI, OWLLiteral, etc.
-        return Collections.emptySet();
+        return CollectionFactory.emptySet();
     }
 
     // OWLAxiomIndex

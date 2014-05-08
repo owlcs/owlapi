@@ -91,13 +91,12 @@ public class Internals implements Serializable {
 
     private static final long serialVersionUID = 40000L;
 
-    @SuppressWarnings("null")
     private class ReferenceChecker implements OWLEntityVisitorEx<Boolean>,
             Serializable {
 
         private static final long serialVersionUID = 40000L;
 
-        public ReferenceChecker() {}
+        ReferenceChecker() {}
 
         @Override
         public Boolean visit(OWLClass cls) {
@@ -1357,7 +1356,7 @@ public class Internals implements Serializable {
 
         private static final long serialVersionUID = 40000L;
 
-        public ReferencedAxiomsCollector() {}
+        ReferencedAxiomsCollector() {}
 
         @Override
         public Set<OWLAxiom> visit(OWLClass cls) {

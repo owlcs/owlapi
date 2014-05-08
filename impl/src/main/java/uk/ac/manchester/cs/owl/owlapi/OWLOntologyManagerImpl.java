@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -459,7 +459,6 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         return Collections.singletonList(change);
     }
 
-    @SuppressWarnings("null")
     @Override
     public List<OWLOntologyChange<?>> applyChanges(
             List<? extends OWLOntologyChange<?>> changes) {
@@ -468,12 +467,13 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         } catch (OWLOntologyChangeVetoException e) {
             // Some listener blocked the changes.
             broadcastOntologyChangesVetoed(changes, e);
-            return Collections.emptyList();
+            return CollectionFactory.emptyList();
         }
         List<OWLOntologyChange<?>> appliedChanges = new ArrayList<OWLOntologyChange<?>>(
                 changes.size() + 2);
         fireBeginChanges(changes.size());
         for (OWLOntologyChange<?> change : changes) {
+            assert change != null;
             appliedChanges.addAll(enactChangeApplication(change));
             fireChangeApplied(change);
         }
@@ -482,29 +482,27 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         return appliedChanges;
     }
 
-    @SuppressWarnings("null")
     @Override
     public List<OWLOntologyChange<?>> addAxiom(@Nonnull OWLOntology ont,
             @Nonnull OWLAxiom axiom) {
-        return addAxioms(ont, Collections.singleton(axiom));
+        return addAxioms(ont, CollectionFactory.createSet(axiom));
     }
 
-    @SuppressWarnings("null")
     @Override
     public List<OWLOntologyChange<?>> addAxioms(@Nonnull OWLOntology ont,
             @Nonnull Set<? extends OWLAxiom> axioms) {
         List<AddAxiom> changes = new ArrayList<AddAxiom>(axioms.size() + 2);
         for (OWLAxiom ax : axioms) {
+            assert ax != null;
             changes.add(new AddAxiom(ont, ax));
         }
         return applyChanges(changes);
     }
 
-    @SuppressWarnings("null")
     @Override
     public List<OWLOntologyChange<?>> removeAxiom(@Nonnull OWLOntology ont,
             @Nonnull OWLAxiom axiom) {
-        return removeAxioms(ont, Collections.singleton(axiom));
+        return removeAxioms(ont, CollectionFactory.createSet(axiom));
     }
 
     @Override
@@ -519,11 +517,10 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         return applyChanges(changes);
     }
 
-    @SuppressWarnings("null")
     @Override
     public List<OWLOntologyChange<?>> applyChange(
             @Nonnull OWLOntologyChange<?> change) {
-        return applyChanges(Collections.singletonList(change));
+        return applyChanges(CollectionFactory.list(change));
     }
 
     private void checkForImportsChange(OWLOntologyChange<?> change) {
@@ -607,7 +604,6 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         ontologyFormatsByOntology.put(ontologyID, format);
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     @Override
     public OWLOntologyFormat getOntologyFormat(@Nonnull OWLOntology ontology) {
@@ -917,13 +913,12 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         resetImportsClosureCache();
     }
 
-    @SuppressWarnings("null")
     @Override
     public IRI getOntologyDocumentIRI(OWLOntology ontology) {
         if (!contains(ontology)) {
             throw new UnknownOWLOntologyException(ontology.getOntologyID());
         }
-        return documentIRIsByID.get(ontology.getOntologyID());
+        return verifyNotNull(documentIRIsByID.get(ontology.getOntologyID()));
     }
 
     @Override
@@ -1105,7 +1100,6 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
      * @return The document IRI that corresponds to the ontology IRI, or
      *         {@code null} if no physical URI can be found.
      */
-    @SuppressWarnings("null")
     @Nullable
     private IRI getDocumentIRIFromMappers(OWLOntologyID ontologyID,
             boolean quiet) {
@@ -1114,14 +1108,15 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
             return null;
         }
         for (OWLOntologyIRIMapper mapper : documentMappers) {
-            IRI documentIRI = mapper.getDocumentIRI(defIRI.get());
+            IRI documentIRI = mapper
+                    .getDocumentIRI(verifyNotNull(defIRI.get()));
             if (documentIRI != null) {
                 return documentIRI;
             }
         }
         if (!quiet) {
-            throw new OWLOntologyIRIMappingNotFoundException(ontologyID
-                    .getDefaultDocumentIRI().get());
+            throw new OWLOntologyIRIMappingNotFoundException(
+                    verifyNotNull(ontologyID.getDefaultDocumentIRI().get()));
         } else {
             return null;
         }

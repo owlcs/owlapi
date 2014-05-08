@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
@@ -33,6 +32,7 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLPairwiseVisitor;
 import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
+import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -68,10 +68,10 @@ public class OWLInverseObjectPropertiesAxiomImpl extends
         this.second = second;
     }
 
-    @SuppressWarnings("null")
     @Override
     public Set<OWLInverseObjectPropertiesAxiom> asPairwiseAxioms() {
-        return Collections.<OWLInverseObjectPropertiesAxiom> singleton(this);
+        return CollectionFactory
+                .createSet((OWLInverseObjectPropertiesAxiom) this);
     }
 
     @Override
@@ -141,14 +141,13 @@ public class OWLInverseObjectPropertiesAxiomImpl extends
         return axs;
     }
 
-    @SuppressWarnings("null")
     @Override
     public <T> Collection<T> walkPairwise(
             OWLPairwiseVisitor<T, OWLObjectPropertyExpression> visitor) {
         T t = visitor.visit(first, second);
         if (t != null) {
-            return Collections.singleton(t);
+            return CollectionFactory.createSet(t);
         }
-        return Collections.emptyList();
+        return CollectionFactory.emptyList();
     }
 }

@@ -14,7 +14,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -74,7 +73,6 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl
         return false;
     }
 
-    @SuppressWarnings("null")
     @Override
     public OWLClassExpression asObjectUnionOf() {
         if (values.size() == 1) {
@@ -82,7 +80,8 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl
         } else {
             Set<OWLClassExpression> ops = new HashSet<OWLClassExpression>();
             for (OWLIndividual ind : values) {
-                ops.add(new OWLObjectOneOfImpl(Collections.singleton(ind)));
+                assert ind != null;
+                ops.add(new OWLObjectOneOfImpl(CollectionFactory.createSet(ind)));
             }
             return new OWLObjectUnionOfImpl(ops);
         }

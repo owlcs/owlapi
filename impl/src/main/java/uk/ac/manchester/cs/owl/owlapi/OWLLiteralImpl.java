@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -199,7 +199,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     private int getHashCode() {
         int hashCode = 277;
         hashCode = hashCode * 37 + getDatatype().hashCode();
-        hashCode = hashCode * 37;
+        hashCode *= 37;
         if (literal.l != null) {
             hashCode += literal.l.hashCode();
         } else {
@@ -292,11 +292,10 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
             }
         }
 
-        @SuppressWarnings("null")
         @Nonnull
         String get() {
             if (l != null) {
-                return l;
+                return verifyNotNull(l);
             }
             try {
                 return decompress(bytes);

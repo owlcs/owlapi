@@ -294,35 +294,35 @@ public class OWL2DatatypeImpl implements OWLDatatype {
     @Override
     public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
         return CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(Collections
+                .getCopyOnRequestSetFromImmutableCollection(CollectionFactory
                         .<OWLAnonymousIndividual> emptySet());
     }
 
     @Override
     public Set<OWLClass> getClassesInSignature() {
         return CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(Collections
+                .getCopyOnRequestSetFromImmutableCollection(CollectionFactory
                         .<OWLClass> emptySet());
     }
 
     @Override
     public Set<OWLDataProperty> getDataPropertiesInSignature() {
         return CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(Collections
+                .getCopyOnRequestSetFromImmutableCollection(CollectionFactory
                         .<OWLDataProperty> emptySet());
     }
 
     @Override
     public Set<OWLObjectProperty> getObjectPropertiesInSignature() {
         return CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(Collections
+                .getCopyOnRequestSetFromImmutableCollection(CollectionFactory
                         .<OWLObjectProperty> emptySet());
     }
 
     @Override
     public Set<OWLNamedIndividual> getIndividualsInSignature() {
         return CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(Collections
+                .getCopyOnRequestSetFromImmutableCollection(CollectionFactory
                         .<OWLNamedIndividual> emptySet());
     }
 
@@ -336,7 +336,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
     @Override
     public Set<OWLClassExpression> getNestedClassExpressions() {
         return CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(Collections
+                .getCopyOnRequestSetFromImmutableCollection(CollectionFactory
                         .<OWLClassExpression> emptySet());
     }
 

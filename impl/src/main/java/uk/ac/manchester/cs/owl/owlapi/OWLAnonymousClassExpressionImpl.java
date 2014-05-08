@@ -12,7 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import java.util.Collections;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -21,6 +20,7 @@ import org.semanticweb.owlapi.model.OWLAnonymousClassExpression;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.NNF;
 
 /**
@@ -72,10 +72,9 @@ public abstract class OWLAnonymousClassExpressionImpl extends
                 "Not an OWLClass.  This method should only be called if the isAnonymous method returns false!");
     }
 
-    @SuppressWarnings("null")
     @Override
     public Set<OWLClassExpression> asConjunctSet() {
-        return Collections.singleton((OWLClassExpression) this);
+        return CollectionFactory.createSet((OWLClassExpression) this);
     }
 
     @Override
@@ -83,9 +82,8 @@ public abstract class OWLAnonymousClassExpressionImpl extends
         return ce.equals(this);
     }
 
-    @SuppressWarnings("null")
     @Override
     public Set<OWLClassExpression> asDisjunctSet() {
-        return Collections.singleton((OWLClassExpression) this);
+        return CollectionFactory.createSet((OWLClassExpression) this);
     }
 }

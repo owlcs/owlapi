@@ -15,13 +15,13 @@ package uk.ac.manchester.cs.owl.owlapi;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Collection;
-import java.util.Collections;
 
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.SWRLArgument;
 import org.semanticweb.owlapi.model.SWRLPredicate;
 import org.semanticweb.owlapi.model.SWRLUnaryAtom;
+import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -53,10 +53,9 @@ public abstract class SWRLUnaryAtomImpl<A extends SWRLArgument> extends
         return arg;
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     @Override
     public Collection<SWRLArgument> getAllArguments() {
-        return Collections.singleton((SWRLArgument) arg);
+        return CollectionFactory.createSet((SWRLArgument) arg);
     }
 }
