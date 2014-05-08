@@ -62,7 +62,7 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
                 if (count == null) {
                     count = ONE;
                 } else {
-                    count = count + 1;
+                    count += 1;
                 }
                 referenceCounts.put(entity, count);
             }

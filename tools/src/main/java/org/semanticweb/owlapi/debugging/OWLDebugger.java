@@ -49,7 +49,7 @@ public interface OWLDebugger {
      *         if there is any problem
      */
     @Nonnull
-    Set<OWLAxiom> getSOSForIncosistentClass(@Nonnull OWLClassExpression cls)
+    Set<OWLAxiom> getSOSForInconsistentClass(@Nonnull OWLClassExpression cls)
             throws OWLException;
 
     /**
@@ -63,7 +63,7 @@ public interface OWLDebugger {
      *         if there is any problem
      */
     @Nonnull
-    Set<Set<OWLAxiom>> getAllSOSForIncosistentClass(
+    Set<Set<OWLAxiom>> getAllSOSForInconsistentClass(
             @Nonnull OWLClassExpression cls) throws OWLException;
 
     /** dispose of resources locked such as reasoners. */

@@ -23,7 +23,6 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  *         Group
  * @since 2.2.0
  */
-@SuppressWarnings("unused")
 public class SilentExplanationProgressMonitor implements
         ExplanationProgressMonitor {
 

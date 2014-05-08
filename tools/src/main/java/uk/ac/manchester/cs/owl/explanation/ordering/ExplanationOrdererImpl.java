@@ -13,7 +13,7 @@
 package uk.ac.manchester.cs.owl.explanation.ordering;
 
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -75,6 +75,7 @@ import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
+import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
 
 /**
@@ -111,7 +112,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
      *        the manager to use
      */
     public ExplanationOrdererImpl(@Nonnull OWLOntologyManager m) {
-        currentExplanation = Collections.emptySet();
+        currentExplanation = CollectionFactory.emptySet();
         man = checkNotNull(m, "m cannot be null");
         // I'm not sure what to do with disjoint classes yet. At the
         // moment, we just shove them at the end at the top level.
@@ -189,7 +190,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
             @Nonnull ExplanationTree tree) {
         Set<OWLAxiom> currentPath = new HashSet<OWLAxiom>(
                 tree.getUserObjectPathToRoot());
-        Set<? extends OWLAxiom> axioms = Collections.emptySet();
+        Set<? extends OWLAxiom> axioms = CollectionFactory.emptySet();
         if (entity.isOWLClass()) {
             axioms = ont.getAxioms(entity.asOWLClass(), EXCLUDED);
         } else if (entity.isOWLObjectProperty()) {
@@ -222,16 +223,15 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
 
     /** The comparator. */
     @Nonnull
-    private static Comparator<Tree<OWLAxiom>> comparator = new OWLAxiomTreeComparator();
+    private static final Comparator<Tree<OWLAxiom>> comparator = new OWLAxiomTreeComparator();
 
     private static void sortChildrenAxioms(@Nonnull ExplanationTree tree) {
         tree.sortChildren(comparator);
     }
 
-    private static AtomicLong randomstart = new AtomicLong(
+    private static final AtomicLong randomstart = new AtomicLong(
             System.currentTimeMillis());
 
-    @SuppressWarnings("null")
     private void buildIndices() {
         reset();
         AxiomMapBuilder builder = new AxiomMapBuilder();
@@ -240,14 +240,14 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
         }
         try {
             if (ont != null) {
-                man.removeOntology(ont);
+                man.removeOntology(verifyNotNull(ont));
             }
             ont = man.createOntology(IRI.create("http://www.semanticweb.org/",
                     "ontology" + randomstart.incrementAndGet()));
             List<AddAxiom> changes = new ArrayList<AddAxiom>();
             for (OWLAxiom ax : currentExplanation) {
                 assert ax != null;
-                changes.add(new AddAxiom(ont, ax));
+                changes.add(new AddAxiom(verifyNotNull(ont), ax));
                 ax.accept(builder);
             }
             man.applyChanges(changes);
@@ -358,7 +358,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
     private static final class PropertiesFirstComparator implements
             Comparator<OWLObject> {
 
-        public PropertiesFirstComparator() {}
+        PropertiesFirstComparator() {}
 
         @Override
         public int compare(OWLObject o1, OWLObject o2) {
@@ -374,7 +374,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
     }
 
     /** The properties first comparator. */
-    private static PropertiesFirstComparator propertiesFirstComparator = new PropertiesFirstComparator();
+    private static final PropertiesFirstComparator propertiesFirstComparator = new PropertiesFirstComparator();
 
     /** tree comparator. */
     private static final class OWLAxiomTreeComparator implements
@@ -382,7 +382,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
 
         private static final long serialVersionUID = 40000L;
 
-        public OWLAxiomTreeComparator() {}
+        OWLAxiomTreeComparator() {}
 
         @Override
         public int compare(Tree<OWLAxiom> o1, Tree<OWLAxiom> o2) {
@@ -427,18 +427,17 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
         private OWLEntity source;
         private OWLEntity target;
 
-        public SeedExtractor() {}
+        SeedExtractor() {}
 
         /**
          * @param axiom
          *        the axiom
          * @return the source
          */
-        @SuppressWarnings("null")
         @Nonnull
         public OWLEntity getSource(@Nonnull OWLAxiom axiom) {
             axiom.accept(this);
-            return source;
+            return verifyNotNull(source);
         }
 
         /**
@@ -446,11 +445,10 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
          *        the axiom
          * @return the target
          */
-        @SuppressWarnings("null")
         @Nonnull
         public OWLEntity getTarget(@Nonnull OWLAxiom axiom) {
             axiom.accept(this);
-            return target;
+            return verifyNotNull(target);
         }
 
         @Override
@@ -512,7 +510,6 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
             }
         }
 
-        @SuppressWarnings("unused")
         @Override
         public void visit(SWRLRule rule) {}
     }
@@ -520,7 +517,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
     /** A visitor that indexes axioms by their left and right hand sides. */
     private class AxiomMapBuilder extends OWLAxiomVisitorAdapter {
 
-        public AxiomMapBuilder() {}
+        AxiomMapBuilder() {}
 
         @Override
         public void visit(OWLSubClassOfAxiom axiom) {

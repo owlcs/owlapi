@@ -139,8 +139,7 @@ public class MacroExpansionGCIVisitor {
 
         @Nullable
         @Override
-        protected OWLClassExpression expandOWLObjHasVal(
-                @SuppressWarnings("unused") OWLObjectHasValue desc,
+        protected OWLClassExpression expandOWLObjHasVal(OWLObjectHasValue desc,
                 @Nonnull OWLIndividual filler,
                 @Nonnull OWLObjectPropertyExpression p) {
             OWLClassExpression gciRHS = expandObject(filler, p);

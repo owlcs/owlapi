@@ -27,6 +27,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
  */
 public class AxiomTypeCountMetricFactory {
 
+    private AxiomTypeCountMetricFactory() {}
+
     /**
      * Creates a new AxiomTypeCountMetric object.
      * 

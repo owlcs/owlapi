@@ -33,7 +33,6 @@ public class ConciseExplanationRenderer implements ExplanationRenderer {
     /** The writer. */
     private PrintWriter writer;
 
-    @SuppressWarnings("resource")
     @Override
     public void startRendering(Writer w) {
         checkNotNull(w, "w cannot be null");

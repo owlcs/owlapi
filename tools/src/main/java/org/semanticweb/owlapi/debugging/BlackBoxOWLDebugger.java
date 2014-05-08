@@ -13,7 +13,7 @@
 package org.semanticweb.owlapi.debugging;
 
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -162,7 +162,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
     }
 
     @Override
-    public Set<OWLAxiom> getSOSForIncosistentClass(OWLClassExpression cls)
+    public Set<OWLAxiom> getSOSForInconsistentClass(OWLClassExpression cls)
             throws OWLException {
         reset();
         currentClass = setupDebuggingClass(cls);
@@ -199,7 +199,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
                 if (!objectsExpandedWithDefiningAxioms.contains(curObj)) {
                     int added = expandWithDefiningAxioms(curObj, remainingSpace);
                     axiomsAdded += added;
-                    remainingSpace = remainingSpace - added;
+                    remainingSpace -= added;
                     if (remainingSpace == 0) {
                         expansionLimit *= expansionFactor;
                         return axiomsAdded;
@@ -377,6 +377,11 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
     // Creation of debugging ontology and satisfiability testing
     private int satTestCount = 0;
 
+    @Nonnull
+    protected OWLOntology getDebuggingOntology() {
+        return verifyNotNull(debuggingOntology);
+    }
+
     /**
      * Tests the satisfiability of the test class. The ontology is recreated
      * before the test is performed.
@@ -385,21 +390,19 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
      * @throws OWLException
      *         the oWL exception
      */
-    @SuppressWarnings("null")
     private boolean isSatisfiable() throws OWLException {
         createDebuggingOntology();
         OWLReasoner reasoner = reasonerFactory
-                .createNonBufferingReasoner(debuggingOntology);
+                .createNonBufferingReasoner(getDebuggingOntology());
         satTestCount++;
-        boolean sat = reasoner.isSatisfiable(currentClass);
+        boolean sat = reasoner.isSatisfiable(verifyNotNull(currentClass));
         reasoner.dispose();
         return sat;
     }
 
-    @SuppressWarnings("null")
     private void createDebuggingOntology() throws OWLException {
         if (debuggingOntology != null) {
-            owlOntologyManager.removeOntology(debuggingOntology);
+            owlOntologyManager.removeOntology(getDebuggingOntology());
         }
         IRI iri = createIRI();
         SimpleIRIMapper mapper = new SimpleIRIMapper(iri, iri);
@@ -408,17 +411,19 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
         owlOntologyManager.getIRIMappers().remove(mapper);
         List<AddAxiom> changes = new ArrayList<AddAxiom>();
         for (OWLAxiom ax : debuggingAxioms) {
-            changes.add(new AddAxiom(debuggingOntology, ax));
+            assert ax != null;
+            changes.add(new AddAxiom(getDebuggingOntology(), ax));
         }
         for (OWLAxiom ax : temporaryAxioms) {
-            changes.add(new AddAxiom(debuggingOntology, ax));
+            assert ax != null;
+            changes.add(new AddAxiom(getDebuggingOntology(), ax));
         }
         // Ensure the ontology contains the signature of the class which is
         // being debugged
         OWLDataFactory factory = owlOntologyManager.getOWLDataFactory();
-        OWLAxiom ax = factory.getOWLSubClassOfAxiom(currentClass,
-                factory.getOWLThing());
-        changes.add(new AddAxiom(debuggingOntology, ax));
+        OWLAxiom ax = factory.getOWLSubClassOfAxiom(
+                verifyNotNull(currentClass), factory.getOWLThing());
+        changes.add(new AddAxiom(getDebuggingOntology(), ax));
         owlOntologyManager.applyChanges(changes);
     }
 
@@ -465,7 +470,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
                         fastPruningCounter, debuggingAxioms.size());
                 fastPruningCounter++;
                 performFastPruning();
-                fastPruningWindowSize = fastPruningWindowSize / 3;
+                fastPruningWindowSize /= 3;
                 if (fastPruningWindowSize < 1) {
                     fastPruningWindowSize = 1;
                 }

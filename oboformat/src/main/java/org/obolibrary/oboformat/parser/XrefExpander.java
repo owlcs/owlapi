@@ -242,7 +242,6 @@ public class XrefExpander {
     /** equivalence expansion */
     public class EquivalenceExpansion extends Rule {
 
-        @SuppressWarnings("unused")
         @Override
         public void expand(@Nonnull Frame sf, String id, String xRef) {
             Clause c = new Clause(OboFormatTag.TAG_EQUIVALENT_TO, xRef);
@@ -253,7 +252,6 @@ public class XrefExpander {
     /** subclass expansion */
     public class HasSubClassExpansion extends Rule {
 
-        @SuppressWarnings("unused")
         @Override
         public void expand(Frame sf, String id, String xRef) {
             Clause c = new Clause(OboFormatTag.TAG_IS_A, id);
@@ -278,7 +276,6 @@ public class XrefExpander {
             this.tgt = tgt;
         }
 
-        @SuppressWarnings("unused")
         @Override
         public void expand(Frame sf, String id, String xRef) {
             Clause gc = new Clause(OboFormatTag.TAG_INTERSECTION_OF, xRef);
@@ -307,7 +304,6 @@ public class XrefExpander {
             this.tgt = tgt;
         }
 
-        @SuppressWarnings("unused")
         @Override
         public void expand(Frame sf, String id, String xRef) {
             Clause gc = new Clause(OboFormatTag.TAG_INTERSECTION_OF, id);
@@ -322,7 +318,6 @@ public class XrefExpander {
     /** is a expansion */
     public class IsaExpansion extends Rule {
 
-        @SuppressWarnings("unused")
         @Override
         public void expand(Frame sf, String id, String xRef) {
             Clause c = new Clause(OboFormatTag.TAG_IS_A, xRef);
@@ -343,7 +338,6 @@ public class XrefExpander {
             this.rel = rel;
         }
 
-        @SuppressWarnings("unused")
         @Override
         public void expand(Frame sf, String id, String xRef) {
             Clause c = new Clause(OboFormatTag.TAG_RELATIONSHIP, rel);

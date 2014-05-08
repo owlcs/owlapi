@@ -129,6 +129,8 @@ public class OWLFunctionalSyntaxFactory {
 
     private static final OWLDataFactory DF = OWLManager.getOWLDataFactory();
 
+    private OWLFunctionalSyntaxFactory() {}
+
     @Nonnull
     public static OWLImportsDeclaration ImportsDeclaration(@Nonnull IRI i) {
         return DF.getOWLImportsDeclaration(i);

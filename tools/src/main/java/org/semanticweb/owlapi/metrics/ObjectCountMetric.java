@@ -87,10 +87,8 @@ public abstract class ObjectCountMetric<E extends Object> extends
     }
 
     @Override
-    protected
-            boolean
-            isMetricInvalidated(
-                    @SuppressWarnings("unused") List<? extends OWLOntologyChange<?>> changes) {
+    protected boolean isMetricInvalidated(
+            List<? extends OWLOntologyChange<?>> changes) {
         return true;
     }
 

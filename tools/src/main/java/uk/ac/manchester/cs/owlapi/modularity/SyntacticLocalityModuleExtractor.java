@@ -83,7 +83,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
          *        the set of axioms representing the ontology
          */
         @SuppressWarnings("null")
-        public OntologyAxiomSet(@Nonnull Set<OWLAxiom> axs) {
+        OntologyAxiomSet(@Nonnull Set<OWLAxiom> axs) {
             ax = axs.toArray(new OWLAxiom[axs.size()]);
         }
 
@@ -333,7 +333,6 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      *        a flag for verbose output (test purposes)
      * @return an array of Booleans representing the module
      */
-    @SuppressWarnings("null")
     @Nonnull
     boolean[] extractLogicalAxioms(@Nonnull boolean[] subOnt,
             @Nonnull Set<OWLEntity> signature,
@@ -350,7 +349,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
             if (verbose) {
                 logger.info("  Loop {}", loopNumber);
             }
-            for (int i = 0; i < q2.length; i = i + 1) {
+            for (int i = 0; i < q2.length; i += 1) {
                 if (q2[i]) {
                     if (!sle.isLocal(ontologyAxiomSet.getAxiom(i), signature)) {
                         if (verbose) {
@@ -467,7 +466,6 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      *        a flag for verbose output (test purposes)
      * @return a set of axioms representing the enriched module
      */
-    @SuppressWarnings("null")
     @Nonnull
     Set<OWLAxiom> enrich(@Nonnull Set<OWLAxiom> module,
             @Nonnull Set<OWLEntity> sig, boolean verbose) {
@@ -553,7 +551,6 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      * @param verbose
      *        the verbose
      */
-    @SuppressWarnings("null")
     void outputSignature(@Nonnull String preamble, @Nonnull Set<OWLEntity> sig,
             boolean verbose) {
         if (verbose) {
@@ -813,7 +810,6 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      * @throws OWLOntologyCreationException
      *         the oWL ontology creation exception
      */
-    @SuppressWarnings("null")
     @Nonnull
     OWLOntology extractAsOntology(@Nonnull Set<OWLEntity> signature,
             @Nonnull IRI iri, int superClassLevel, int subClassLevel,
@@ -824,6 +820,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
         OWLOntology newOnt = manager.createOntology(iri);
         LinkedList<AddAxiom> addaxs = new LinkedList<AddAxiom>();
         for (OWLAxiom ax : axs) {
+            assert ax != null;
             addaxs.add(new AddAxiom(newOnt, ax));
         }
         manager.applyChanges(addaxs);

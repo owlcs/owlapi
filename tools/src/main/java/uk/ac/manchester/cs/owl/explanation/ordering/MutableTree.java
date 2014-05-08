@@ -34,6 +34,7 @@ import javax.annotation.Nullable;
  * @param <N>
  *        type of elements
  */
+@SuppressWarnings("null")
 public class MutableTree<N> implements Tree<N> {
 
     private final N userObject;
@@ -43,7 +44,6 @@ public class MutableTree<N> implements Tree<N> {
     private final Map<Tree<N>, Object> child2EdgeMap = new HashMap<Tree<N>, Object>();
     private NodeRenderer<N> toStringRenderer = new NodeRenderer<N>() {
 
-        @SuppressWarnings("null")
         @Override
         public String render(@Nonnull Tree<N> object) {
             return object.toString();
@@ -60,7 +60,6 @@ public class MutableTree<N> implements Tree<N> {
         this.userObject = checkNotNull(userObject, "userObject cannot be null");
     }
 
-    @SuppressWarnings("null")
     @Override
     public N getUserObject() {
         return userObject;
@@ -84,7 +83,6 @@ public class MutableTree<N> implements Tree<N> {
         child.parent = null;
     }
 
-    @SuppressWarnings("null")
     @Override
     public Object getEdge(@Nonnull Tree<N> child) {
         return child2EdgeMap.get(child);
@@ -95,7 +93,6 @@ public class MutableTree<N> implements Tree<N> {
         Collections.sort(children, comparator);
     }
 
-    @SuppressWarnings("null")
     @Override
     public Tree<N> getParent() {
         return parent;
@@ -121,7 +118,6 @@ public class MutableTree<N> implements Tree<N> {
         return children.isEmpty();
     }
 
-    @SuppressWarnings("null")
     @Override
     public Tree<N> getRoot() {
         if (parent == null) {
@@ -175,7 +171,6 @@ public class MutableTree<N> implements Tree<N> {
         dump(writer, 0);
     }
 
-    @SuppressWarnings("null")
     @Override
     public void dump(PrintWriter writer, int indent) {
         int depth = getPathToRoot().size();

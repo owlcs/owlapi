@@ -13,10 +13,9 @@
 package com.clarkparsia.owlapi.explanation;
 
 import static org.semanticweb.owlapi.model.parameters.Imports.*;
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -44,6 +43,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
+import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -116,10 +116,9 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
         getReasoner().dispose();
     }
 
-    @SuppressWarnings("null")
     private void reset() {
         if (debuggingOntology != null) {
-            owlOntologyManager.removeOntology(debuggingOntology);
+            owlOntologyManager.removeOntology(verifyNotNull(debuggingOntology));
             debuggingOntology = null;
         }
         debuggingAxioms.clear();
@@ -131,16 +130,15 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
         expansionLimit = initialExpansionLimit;
     }
 
-    @SuppressWarnings("null")
     @Override
     public Set<OWLAxiom> getExplanation(OWLClassExpression unsatClass) {
         if (!getDefinitionTracker().isDefined(unsatClass)) {
-            return Collections.emptySet();
+            return CollectionFactory.emptySet();
         }
         try {
             satTestCount++;
             if (isFirstExplanation() && getReasoner().isSatisfiable(unsatClass)) {
-                return Collections.emptySet();
+                return CollectionFactory.emptySet();
             }
             reset();
             expandUntilUnsatisfiable(unsatClass);
@@ -174,7 +172,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
                 if (!objectsExpandedWithDefiningAxioms.contains(curObj)) {
                     int added = expandWithDefiningAxioms(curObj, remainingSpace);
                     axiomsAdded += added;
-                    remainingSpace = remainingSpace - added;
+                    remainingSpace -= added;
                     if (remainingSpace == 0) {
                         expansionLimit *= expansionFactor;
                         return axiomsAdded;
@@ -371,14 +369,13 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
      * @throws OWLException
      *         the oWL exception
      */
-    @SuppressWarnings("null")
     private boolean isSatisfiable(@Nonnull OWLClassExpression unsatClass)
             throws OWLException {
         createDebuggingOntology();
         OWLReasoner reasoner = getReasonerFactory().createNonBufferingReasoner(
-                debuggingOntology);
-        if (OntologyUtils.containsUnreferencedEntity(debuggingOntology,
-                unsatClass)) {
+                verifyNotNull(debuggingOntology));
+        if (OntologyUtils.containsUnreferencedEntity(
+                verifyNotNull(debuggingOntology), unsatClass)) {
             reasoner.dispose();
             return true;
         }
@@ -388,15 +385,15 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
         return sat;
     }
 
-    @SuppressWarnings("null")
     private void createDebuggingOntology() throws OWLException {
         if (debuggingOntology != null) {
-            owlOntologyManager.removeOntology(debuggingOntology);
+            owlOntologyManager.removeOntology(verifyNotNull(debuggingOntology));
         }
         debuggingOntology = owlOntologyManager.createOntology();
         List<AddAxiom> changes = new ArrayList<AddAxiom>();
         for (OWLAxiom ax : debuggingAxioms) {
-            changes.add(new AddAxiom(debuggingOntology, ax));
+            assert ax != null;
+            changes.add(new AddAxiom(verifyNotNull(debuggingOntology), ax));
         }
         owlOntologyManager.applyChanges(changes);
     }
@@ -465,11 +462,11 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
                     fastPruningWindowSize);
             int fastPruningCounter = 0;
             while (fastPruningWindowSize != 1) {
-                LOGGER.info("    Round: %s (axioms to prune: {})",
+                LOGGER.info("    Round: {} (axioms to prune: {})",
                         fastPruningCounter, debuggingAxioms.size());
                 fastPruningCounter++;
                 performFastPruning(unsatClass);
-                fastPruningWindowSize = fastPruningWindowSize / 3;
+                fastPruningWindowSize /= 3;
                 if (fastPruningWindowSize < 1) {
                     fastPruningWindowSize = 1;
                 }

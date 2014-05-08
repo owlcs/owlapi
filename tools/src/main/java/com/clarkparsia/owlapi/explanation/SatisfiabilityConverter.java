@@ -12,9 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package com.clarkparsia.owlapi.explanation;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -44,6 +43,7 @@ import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLAxiomVisitorExAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,7 +57,7 @@ public class SatisfiabilityConverter {
 
         private static final long serialVersionUID = 40000L;
 
-        public AxiomConverter() {}
+        AxiomConverter() {}
 
         @Nonnull
         private OWLObjectIntersectionOf and(@Nonnull OWLClassExpression desc1,
@@ -76,10 +76,9 @@ public class SatisfiabilityConverter {
             return factory.getOWLObjectComplementOf(desc);
         }
 
-        @SuppressWarnings("null")
         @Nonnull
         private OWLObjectOneOf oneOf(@Nonnull OWLIndividual ind) {
-            return factory.getOWLObjectOneOf(Collections.singleton(ind));
+            return factory.getOWLObjectOneOf(CollectionFactory.createSet(ind));
         }
 
         @Nonnull
@@ -146,7 +145,6 @@ public class SatisfiabilityConverter {
             return and(axiom.getClassExpressions());
         }
 
-        @SuppressWarnings("null")
         @Override
         public OWLClassExpression visit(OWLEquivalentClassesAxiom axiom) {
             Iterator<OWLClassExpression> classes = axiom.getClassExpressions()
@@ -159,7 +157,7 @@ public class SatisfiabilityConverter {
             // apply simplification for the cases where either concept is
             // owl:Thing or owlapi:Nothing
             if (c1.isOWLNothing()) {
-                return c2;
+                return verifyNotNull(c2);
             } else if (c2.isOWLNothing()) {
                 return c1;
             } else if (c1.isOWLThing()) {

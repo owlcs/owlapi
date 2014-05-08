@@ -170,7 +170,6 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
     }
 
     // TODO (TS): only visit logical axioms if possible
-    @SuppressWarnings("unused")
     private class AxiomLocalityVisitor implements OWLAxiomVisitor {
 
         @Nonnull
@@ -181,7 +180,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         private final TopEquivalenceEvaluator topEvaluator = new TopEquivalenceEvaluator();
 
         /** Instantiates a new axiom locality visitor. */
-        public AxiomLocalityVisitor() {
+        AxiomLocalityVisitor() {
             topEvaluator.setBottomEvaluator(bottomEvaluator);
             bottomEvaluator.setTopEvaluator(topEvaluator);
         }
@@ -189,11 +188,6 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         @Nonnull
         protected Collection<? extends OWLEntity> getSignature() {
             return verifyNotNull(signature);
-        }
-
-        @Nonnull
-        protected LocalityClass getLocality() {
-            return verifyNotNull(localityCls);
         }
 
         /**
@@ -880,7 +874,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         private TopEquivalenceEvaluator topEvaluator;
 
         /** Instantiates a new bottom equivalence evaluator. */
-        public BottomEquivalenceEvaluator() {}
+        BottomEquivalenceEvaluator() {}
 
         /**
          * Checks if is bottom equivalent.
@@ -1259,19 +1253,16 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
      * Used to determine if class expressions are equivalent to \top using the
      * provided locality class.
      */
-    @SuppressWarnings("unused")
     private static class TopEquivalenceEvaluator implements
             OWLClassExpressionVisitor {
 
         private BottomEquivalenceEvaluator bottomEvaluator;
         private boolean isTopEquivalent;
         private LocalityClass localityCls;
-        @Nonnull
         private Collection<? extends OWLEntity> signature;
 
         /** Instantiates a new top equivalence evaluator. */
-        @SuppressWarnings("null")
-        public TopEquivalenceEvaluator() {}
+        TopEquivalenceEvaluator() {}
 
         private boolean isTopEquivalent(@Nonnull OWLClassExpression desc) {
             checkNotNull(desc, "desc cannot be null").accept(this);
@@ -1475,7 +1466,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         @Override
         public void visit(OWLObjectComplementOf desc) {
             isTopEquivalent = bottomEvaluator.isBottomEquivalent(
-                    desc.getOperand(), signature, getLocality());
+                    desc.getOperand(), getSignature(), getLocality());
         }
 
         // BUGFIX: (TS) added the cases where this is top-equiv, including n==0
@@ -1488,12 +1479,13 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                             && (!signature.contains(desc.getProperty()
                                     .getNamedProperty()) || bottomEvaluator
                                     .isBottomEquivalent(desc.getFiller(),
-                                            signature, getLocality()));
+                                            getSignature(), getLocality()));
                     break;
                 case TOP_TOP:
                     isTopEquivalent = desc.getCardinality() == 0
                             && bottomEvaluator.isBottomEquivalent(
-                                    desc.getFiller(), signature, getLocality());
+                                    desc.getFiller(), getSignature(),
+                                    getLocality());
                     break;
                 default:
                     break;
@@ -1524,11 +1516,12 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                     isTopEquivalent = !signature.contains(desc.getProperty()
                             .getNamedProperty())
                             || bottomEvaluator.isBottomEquivalent(
-                                    desc.getFiller(), signature, getLocality());
+                                    desc.getFiller(), getSignature(),
+                                    getLocality());
                     break;
                 case TOP_TOP:
                     isTopEquivalent = bottomEvaluator.isBottomEquivalent(
-                            desc.getFiller(), signature, getLocality());
+                            desc.getFiller(), getSignature(), getLocality());
                     break;
                 default:
                     break;

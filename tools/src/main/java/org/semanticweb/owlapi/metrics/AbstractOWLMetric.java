@@ -12,9 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.metrics;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -24,6 +23,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -75,13 +75,12 @@ public abstract class AbstractOWLMetric<M> implements OWLMetric<M>,
     @Nonnull
     protected abstract M recomputeMetric();
 
-    @SuppressWarnings("null")
     @Override
     public M getValue() {
         if (dirty) {
             value = recomputeMetric();
         }
-        return value;
+        return verifyNotNull(value);
     }
 
     private void setDirty(boolean dirty) {
@@ -93,13 +92,12 @@ public abstract class AbstractOWLMetric<M> implements OWLMetric<M>,
      * 
      * @return ontologies as a set
      */
-    @SuppressWarnings("null")
     @Nonnull
     public Set<OWLOntology> getOntologies() {
         if (importsClosureUsed) {
             return ontology.getImportsClosure();
         } else {
-            return Collections.singleton(ontology);
+            return CollectionFactory.createSet(ontology);
         }
     }
 

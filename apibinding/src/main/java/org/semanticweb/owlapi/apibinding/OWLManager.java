@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.apibinding;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.OWLAPIParsersModule;
@@ -35,9 +37,11 @@ import com.google.inject.Injector;
  */
 public class OWLManager {
 
-    private static Injector injector = Guice.createInjector(
+    private static final Injector injector = Guice.createInjector(
             new OWLAPIImplModule(), new OWLAPIParsersModule(),
             new OWLAPIOBOModule(), new OWLAPIServiceLoaderModule());
+
+    private OWLManager() {}
 
     /**
      * Creates an OWL ontology manager that is configured with standard parsers,
@@ -45,13 +49,12 @@ public class OWLManager {
      * 
      * @return The new manager.
      */
-    @SuppressWarnings("null")
     @Nonnull
     public static OWLOntologyManager createOWLOntologyManager() {
         OWLOntologyManager instance = injector
                 .getInstance(OWLOntologyManager.class);
         injector.injectMembers(instance);
-        return instance;
+        return verifyNotNull(instance);
     }
 
     /**
@@ -59,9 +62,8 @@ public class OWLManager {
      * 
      * @return An OWLDataFactory that can be used for creating OWL API objects.
      */
-    @SuppressWarnings("null")
     @Nonnull
     public static OWLDataFactory getOWLDataFactory() {
-        return injector.getInstance(OWLDataFactory.class);
+        return verifyNotNull(injector.getInstance(OWLDataFactory.class));
     }
 }

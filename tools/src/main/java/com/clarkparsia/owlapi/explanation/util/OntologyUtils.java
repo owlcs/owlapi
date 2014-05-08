@@ -31,6 +31,8 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
 /** Some ontology utils methods. */
 public class OntologyUtils {
 
+    private OntologyUtils() {}
+
     /**
      * Determines if a class description contains any unreferenced entities with
      * respect to the ontology that contains the entailments which are being

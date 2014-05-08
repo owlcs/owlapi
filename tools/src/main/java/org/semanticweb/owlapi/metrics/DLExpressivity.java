@@ -53,7 +53,6 @@ public class DLExpressivity extends AbstractOWLMetric<String> {
         return "DL expressivity";
     }
 
-    @SuppressWarnings("null")
     @Override
     protected boolean isMetricInvalidated(
             List<? extends OWLOntologyChange<?>> changes) {

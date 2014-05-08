@@ -37,8 +37,7 @@ public class LabelFunctionalSyntaxOntologyStorer extends
 
     @Override
     protected void storeOntology(@Nonnull OWLOntology ontology,
-            @Nonnull Writer writer,
-            @SuppressWarnings("unused") OWLOntologyFormat format)
+            @Nonnull Writer writer, OWLOntologyFormat format)
             throws OWLOntologyStorageException {
         try {
             FunctionalSyntaxObjectRenderer renderer = new FunctionalSyntaxObjectRenderer(
@@ -124,28 +123,30 @@ public class LabelFunctionalSyntaxOntologyStorer extends
             delegate.setPrefixComparator(comparator);
         }
 
-        @SuppressWarnings("unused")
         @Override
         public void setDefaultPrefix(String defaultPrefix) {
             // do not propagate changes to the original manager
             // there should be no changes during rendering anyway
         }
 
-        @SuppressWarnings("unused")
         @Override
         public void setPrefix(String prefixName, String prefix) {
             // do not propagate changes to the original manager
             // there should be no changes during rendering anyway
         }
 
-        @SuppressWarnings("unused")
         @Override
         public void copyPrefixesFrom(PrefixManager from) {
             // do not propagate changes to the original manager
             // there should be no changes during rendering anyway
         }
 
-        @SuppressWarnings("unused")
+        @Override
+        public void copyPrefixesFrom(Map<String, String> from) {
+            // do not propagate changes to the original manager
+            // there should be no changes during rendering anyway
+        }
+
         @Override
         public void unregisterNamespace(String namespace) {
             // do not propagate changes to the original manager

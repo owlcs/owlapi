@@ -72,6 +72,7 @@ import com.google.common.collect.Multimap;
  *         Informatics Group
  * @since 2.0.0
  */
+@SuppressWarnings("null")
 public class JustificationMap {
 
     @Nonnull
@@ -80,15 +81,12 @@ public class JustificationMap {
     private final Set<OWLAxiom> rootAxioms = new HashSet<OWLAxiom>();
     @Nonnull
     private final Set<OWLAxiom> usedAxioms = new HashSet<OWLAxiom>();
-    @SuppressWarnings("null")
     @Nonnull
     private final Multimap<OWLAxiom, OWLAxiom> map = LinkedHashMultimap
             .create();
-    @SuppressWarnings("null")
     @Nonnull
     private final Multimap<OWLEntity, OWLAxiom> axiomsByRHS = LinkedHashMultimap
             .create();
-    @SuppressWarnings("null")
     @Nonnull
     private final Multimap<OWLEntity, OWLAxiom> axiomsByLHS = LinkedHashMultimap
             .create();
@@ -226,7 +224,6 @@ public class JustificationMap {
      *        the axiom whose children are to be retrieved
      * @return children of ax
      */
-    @SuppressWarnings("null")
     @Nonnull
     public Collection<OWLAxiom> getChildAxioms(@Nonnull OWLAxiom ax) {
         return map.get(ax);
@@ -261,7 +258,7 @@ public class JustificationMap {
         }
 
         /** Instantiates a new oWL axiom part extractor. */
-        public OWLAxiomPartExtractor() {}
+        OWLAxiomPartExtractor() {}
 
         @Override
         public void visit(OWLSubClassOfAxiom axiom) {
@@ -446,11 +443,10 @@ public class JustificationMap {
         }
 
         @Override
-        public void visit(@SuppressWarnings("unused") SWRLRule rule) {}
+        public void visit(SWRLRule rule) {}
     }
 
     /** The Class OWLAxiomComparator. */
-    @SuppressWarnings("unused")
     private static class OWLAxiomComparator extends OWLAxiomVisitorAdapter
             implements Comparator<OWLAxiom>, Serializable {
 
@@ -458,7 +454,7 @@ public class JustificationMap {
         private int result;
 
         /** Instantiates a new oWL axiom comparator. */
-        public OWLAxiomComparator() {}
+        OWLAxiomComparator() {}
 
         @Override
         public void visit(OWLSubClassOfAxiom axiom) {

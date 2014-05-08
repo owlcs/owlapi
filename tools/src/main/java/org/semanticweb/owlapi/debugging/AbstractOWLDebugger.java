@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.debugging;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -32,6 +31,7 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.RemoveAxiom;
+import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
  * An abstract debugger which provides common infrastructure for finding
@@ -102,14 +102,13 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
         return ontology;
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     @Override
-    public Set<Set<OWLAxiom>> getAllSOSForIncosistentClass(
+    public Set<Set<OWLAxiom>> getAllSOSForInconsistentClass(
             OWLClassExpression cls) throws OWLException {
-        Set<OWLAxiom> firstMups = getSOSForIncosistentClass(cls);
+        Set<OWLAxiom> firstMups = getSOSForInconsistentClass(cls);
         if (firstMups.isEmpty()) {
-            return Collections.emptySet();
+            return CollectionFactory.emptySet();
         }
         Set<Set<OWLAxiom>> allMups = new HashSet<Set<OWLAxiom>>();
         allMups.add(firstMups);
@@ -163,7 +162,7 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
             if (!earlyTermination) {
                 // Generate a new node - i.e. a new justification set
                 // generateSOSAxioms();
-                Set<OWLAxiom> newMUPS = getSOSForIncosistentClass(getCurrentClass());
+                Set<OWLAxiom> newMUPS = getSOSForInconsistentClass(getCurrentClass());
                 if (!newMUPS.isEmpty()) {
                     // We have a new justification set, and a new node
                     if (!allMups.contains(newMUPS)) {

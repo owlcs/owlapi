@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package com.clarkparsia.owlapi.modularity.locality;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -85,13 +85,12 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
     }
 
     /** The Class AxiomLocalityVisitor. */
-    @SuppressWarnings("unused")
     private class AxiomLocalityVisitor extends OWLAxiomVisitorAdapter implements
             OWLAxiomVisitor {
 
         private boolean isLocal;
 
-        public AxiomLocalityVisitor() {}
+        AxiomLocalityVisitor() {}
 
         /** @return true, if is local */
         public boolean isLocal() {
@@ -140,7 +139,6 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
     }
 
     /** The Class BottomReplacer. */
-    @SuppressWarnings("unused")
     private class BottomReplacer extends OWLAxiomVisitorAdapter implements
             OWLAxiomVisitor, OWLClassExpressionVisitor {
 
@@ -148,12 +146,12 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         private OWLClassExpression newClassExpression;
         private Set<? extends OWLEntity> signature;
 
-        public BottomReplacer() {}
+        BottomReplacer() {}
 
-        @SuppressWarnings("null")
-        /** @return the result */@Nonnull
+        /** @return the result */
+        @Nonnull
         public OWLAxiom getResult() {
-            return newAxiom;
+            return verifyNotNull(newAxiom);
         }
 
         /**
@@ -181,7 +179,6 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
          *        the desc
          * @return the modified OWL class expression
          */
-        @SuppressWarnings("null")
         @Nonnull
         public OWLClassExpression
                 replaceBottom(@Nonnull OWLClassExpression desc) {
@@ -191,7 +188,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
                 throw new OWLRuntimeException("Unsupported class expression "
                         + desc);
             }
-            return newClassExpression;
+            return verifyNotNull(newClassExpression);
         }
 
         /**

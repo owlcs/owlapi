@@ -36,6 +36,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
+import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLAPIPreconditions;
 import org.semanticweb.owlapi.util.OWLEntityCollector;
 import org.slf4j.Logger;
@@ -119,7 +120,6 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
         singleExplanationGenerator.dispose();
     }
 
-    @SuppressWarnings("null")
     @Override
     public Set<Set<OWLAxiom>> getExplanations(OWLClassExpression unsatClass,
             @Nonnegative int maxExplanations) {
@@ -130,7 +130,7 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
         try {
             Set<OWLAxiom> firstMups = getExplanation(unsatClass);
             if (firstMups.isEmpty()) {
-                return Collections.emptySet();
+                return CollectionFactory.emptySet();
             }
             Set<Set<OWLAxiom>> allMups = new LinkedHashSet<Set<OWLAxiom>>();
             progressMonitor.foundExplanation(firstMups);
