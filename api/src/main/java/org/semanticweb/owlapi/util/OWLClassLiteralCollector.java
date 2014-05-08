@@ -76,7 +76,7 @@ public class OWLClassLiteralCollector extends OWLObjectWalker<OWLObject> {
     private class OWLClassLiteralCollectorVisitor extends
             OWLObjectVisitorAdapter {
 
-        public OWLClassLiteralCollectorVisitor() {}
+        OWLClassLiteralCollectorVisitor() {}
 
         @Override
         public void visit(OWLClass desc) {

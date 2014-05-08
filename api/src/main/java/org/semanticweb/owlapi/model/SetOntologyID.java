@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.model;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.util.Collections;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -75,7 +74,7 @@ public class SetOntologyID extends OWLOntologyChange<OWLOntologyID> {
     @Override
     public Set<OWLEntity> getSignature() {
         return CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(Collections
+                .getCopyOnRequestSetFromImmutableCollection(CollectionFactory
                         .<OWLEntity> emptySet());
     }
 
@@ -96,7 +95,8 @@ public class SetOntologyID extends OWLOntologyChange<OWLOntologyID> {
 
     @Override
     public OWLAxiom getAxiom() {
-        throw new UnsupportedOperationException("Not an axiom change");
+        throw new UnsupportedOperationException(
+                "This is an ontology id change, not an axiom change: " + this);
     }
 
     /**

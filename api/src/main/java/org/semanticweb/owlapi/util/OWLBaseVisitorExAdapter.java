@@ -55,8 +55,7 @@ public class OWLBaseVisitorExAdapter<O, I> {
      * @param defaultReturnValue
      *        default return value
      */
-    @SuppressWarnings("null")
-    public OWLBaseVisitorExAdapter(O defaultReturnValue) {
+    public OWLBaseVisitorExAdapter(@Nonnull O defaultReturnValue) {
         this.defaultReturnValue = defaultReturnValue;
     }
 }

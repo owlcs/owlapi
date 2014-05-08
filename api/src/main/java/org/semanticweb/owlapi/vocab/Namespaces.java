@@ -155,8 +155,8 @@ public enum Namespaces {
     }
 
     /** ignored imports */
-    public static EnumSet<Namespaces> defaultIgnoredImports = EnumSet.of(OWL,
-            RDF, RDFS, SWRL, SWRLB, XML, XSD);
+    public static final EnumSet<Namespaces> defaultIgnoredImports = EnumSet.of(
+            OWL, RDF, RDFS, SWRL, SWRLB, XML, XSD);
 
     /**
      * @param i

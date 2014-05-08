@@ -68,7 +68,6 @@ public class UseOfUndeclaredDataProperty extends
         return toString("Use of undeclared data property: %s", getExpression());
     }
 
-    @SuppressWarnings("null")
     @Override
     public List<OWLOntologyChange<?>> repair() {
         return list(addDeclaration(getExpression()));

@@ -1,7 +1,7 @@
 package org.semanticweb.owlapi.io;
 
-import java.util.Arrays;
-import java.util.Collections;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+
 import java.util.List;
 import java.util.Set;
 
@@ -10,6 +10,7 @@ import javax.annotation.Nullable;
 import org.semanticweb.owlapi.annotations.SupportsMIMEType;
 import org.semanticweb.owlapi.model.OWLOntologyFormatFactory;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
  * Generic parser factory.
@@ -32,11 +33,10 @@ public class OWLParserFactoryImpl<T extends OWLParser> implements
         this.type = type;
     }
 
-    @SuppressWarnings("null")
     @Override
     public OWLParser createParser() {
         try {
-            return type.newInstance();
+            return verifyNotNull(type.newInstance());
         } catch (InstantiationException e) {
             throw new OWLRuntimeException(e);
         } catch (IllegalAccessException e) {
@@ -65,15 +65,14 @@ public class OWLParserFactoryImpl<T extends OWLParser> implements
         return null;
     }
 
-    @SuppressWarnings("null")
     @Override
     public List<String> getMIMETypes() {
         SupportsMIMEType annotation = type
                 .getAnnotation(SupportsMIMEType.class);
         if (annotation != null) {
-            return Arrays.asList(annotation.supportedMIMEtypes());
+            return CollectionFactory.list(annotation.supportedMIMEtypes());
         }
-        return Collections.emptyList();
+        return CollectionFactory.emptyList();
     }
 
     @Override

@@ -139,12 +139,16 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
         return prefix2NamespaceMap.get(prefix) != null;
     }
 
-    @SuppressWarnings("null")
     @Override
     public void copyPrefixesFrom(PrefixManager prefixManager) {
-        for (String prefixName : prefixManager.getPrefixNames()) {
-            String prefix = prefixManager.getPrefix(prefixName);
-            setPrefix(prefixName, prefix);
+        copyPrefixesFrom(prefixManager.getPrefixName2PrefixMap());
+    }
+
+    @SuppressWarnings("null")
+    @Override
+    public void copyPrefixesFrom(Map<String, String> from) {
+        for (Map.Entry<String, String> e : from.entrySet()) {
+            setPrefix(e.getKey(), e.getValue());
         }
     }
 
@@ -190,7 +194,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
         checkNotNull(prefix, "prefix cannot be null");
         String _prefixName = prefixName;
         if (!_prefixName.endsWith(":")) {
-            _prefixName = _prefixName + ":";
+            _prefixName += ":";
         }
         prefix2NamespaceMap.put(_prefixName, prefix);
         reverseprefix2NamespaceMap.put(prefix, _prefixName);

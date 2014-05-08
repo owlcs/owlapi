@@ -16,7 +16,6 @@ import java.io.Serializable;
 
 import javax.annotation.Nonnull;
 
-
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 
 /**

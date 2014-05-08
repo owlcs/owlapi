@@ -59,7 +59,6 @@ public class UseOfReservedVocabularyForVersionIRI extends
                 getExpression());
     }
 
-    @SuppressWarnings("null")
     @Override
     public List<OWLOntologyChange<?>> repair() {
         // XXX arbitrary replacement

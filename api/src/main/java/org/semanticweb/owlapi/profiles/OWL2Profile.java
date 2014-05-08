@@ -90,7 +90,7 @@ public class OWL2Profile implements OWLProfile {
         @Nonnull
         private final Set<OWLProfileViolation<?>> profileViolations = new HashSet<OWLProfileViolation<?>>();
 
-        public OWL2ProfileObjectWalker(@Nonnull OWLOntologyWalker walker,
+        OWL2ProfileObjectWalker(@Nonnull OWLOntologyWalker walker,
                 @Nonnull OWLOntologyManager man) {
             super(walker);
             this.man = man;

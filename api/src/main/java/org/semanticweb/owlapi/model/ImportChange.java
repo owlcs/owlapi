@@ -14,10 +14,11 @@ package org.semanticweb.owlapi.model;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.util.Collections;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+
+import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
@@ -53,10 +54,9 @@ public abstract class ImportChange extends
         return declaration;
     }
 
-    @SuppressWarnings("null")
     @Override
     public Set<OWLEntity> getSignature() {
-        return Collections.emptySet();
+        return CollectionFactory.emptySet();
     }
 
     @Override
@@ -76,6 +76,7 @@ public abstract class ImportChange extends
 
     @Override
     public OWLAxiom getAxiom() {
-        throw new UnsupportedOperationException("Not an axiom");
+        throw new UnsupportedOperationException(
+                "This is an import change, not an axiom change: " + this);
     }
 }

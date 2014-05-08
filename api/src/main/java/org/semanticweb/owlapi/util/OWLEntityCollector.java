@@ -658,13 +658,12 @@ public class OWLEntityCollector implements
     }
 
     @Override
-    public Collection<OWLEntity> visit(
-            @SuppressWarnings("unused") OWLAnonymousIndividual individual) {
+    public Collection<OWLEntity> visit(OWLAnonymousIndividual individual) {
         return objects;
     }
 
     @Override
-    public Collection<OWLEntity> visit(@SuppressWarnings("unused") IRI iri) {
+    public Collection<OWLEntity> visit(IRI iri) {
         return objects;
     }
 
@@ -762,8 +761,7 @@ public class OWLEntityCollector implements
     }
 
     @Override
-    public Collection<OWLEntity> visit(
-            @SuppressWarnings("unused") SWRLVariable node) {
+    public Collection<OWLEntity> visit(SWRLVariable node) {
         return objects;
     }
 

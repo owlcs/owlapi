@@ -47,11 +47,10 @@ public class RDFLiteral extends RDFNode {
      * @param datatype
      *        datatype IRI
      */
-    @SuppressWarnings("null")
-    public RDFLiteral(@Nonnull String literal, @Nullable String lang,
+    public RDFLiteral(@Nonnull String literal, @Nonnull String lang,
             @Nullable IRI datatype) {
         lexicalValue = checkNotNull(literal, "literal cannot be null");
-        this.lang = lang == null ? "" : lang.trim();
+        this.lang = lang;
         this.datatype = datatype == null ? OWL2Datatype.RDF_PLAIN_LITERAL
                 .getIRI() : datatype;
     }

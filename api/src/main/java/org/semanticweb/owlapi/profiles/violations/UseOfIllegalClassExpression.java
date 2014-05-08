@@ -55,7 +55,6 @@ public class UseOfIllegalClassExpression extends
         return visitor.visit(this);
     }
 
-    @SuppressWarnings("null")
     @Override
     public String toString() {
         return toString("Class expressions not allowed in profile: %s",

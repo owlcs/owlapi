@@ -22,6 +22,8 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  */
 public class SAXParsers {
 
+    private SAXParsers() {}
+
     /**
      * @return a new factory, set up to be namespace aware, non validating and
      *         not loading external dtds.

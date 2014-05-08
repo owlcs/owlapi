@@ -12,8 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.profiles;
 
-import java.util.Arrays;
-import java.util.Collections;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+
 import java.util.List;
 
 import javax.annotation.Nonnull;
@@ -27,6 +27,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.RemoveAxiom;
+import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
  * Describes a violation of an OWLProfile by an axiom. Ultimately, there may be
@@ -76,29 +77,28 @@ public abstract class OWLProfileViolation<T> {
     }
 
     /** @return the expression object of this violation */
-    @Nullable
+    @Nonnull
     public T getExpression() {
-        return expression;
+        return verifyNotNull(expression);
     }
 
     /** @return the offending axiom */
-    @Nullable
+    @Nonnull
     public OWLAxiom getAxiom() {
-        return axiom;
+        return verifyNotNull(axiom);
     }
 
     /**
      * @return a set of changes to fix the violation - it might be just an axiom
      *         removal, or a rewrite, or addition of other needed axioms.
      */
-    @SuppressWarnings("null")
     @Nonnull
     public List<OWLOntologyChange<?>> repair() {
         // default fix is to drop the axiom
         if (axiom != null) {
-            return list(new RemoveAxiom(ontology, axiom));
+            return list(new RemoveAxiom(ontology, getAxiom()));
         }
-        return Collections.emptyList();
+        return CollectionFactory.emptyList();
     }
 
     protected AddAxiom addDeclaration(@Nonnull OWLEntity e) {
@@ -139,7 +139,8 @@ public abstract class OWLProfileViolation<T> {
                 ontology.getOntologyID());
     }
 
+    @Nonnull
     protected List<OWLOntologyChange<?>> list(OWLOntologyChange<?>... changes) {
-        return Arrays.asList(changes);
+        return CollectionFactory.list(changes);
     }
 }

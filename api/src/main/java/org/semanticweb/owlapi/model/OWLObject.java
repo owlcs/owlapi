@@ -162,4 +162,8 @@ public interface OWLObject extends Comparable<OWLObject>, Serializable,
      *         entities.
      */
     boolean isBottomEntity();
+
+    @Nonnull
+    @Override
+    public String toString();
 }

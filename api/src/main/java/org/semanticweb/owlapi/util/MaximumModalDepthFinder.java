@@ -44,7 +44,6 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  *         Informatics Group
  * @since 3.1.0
  */
-@SuppressWarnings("unused")
 public class MaximumModalDepthFinder extends OWLObjectVisitorExAdapter<Integer> {
 
     @SuppressWarnings("null")

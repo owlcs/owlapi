@@ -55,7 +55,6 @@ public class UseOfReservedVocabularyForOntologyIRI extends
         return visitor.visit(this);
     }
 
-    @SuppressWarnings("null")
     @Override
     public List<OWLOntologyChange<?>> repair() {
         // XXX arbitrary replacement

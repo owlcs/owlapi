@@ -638,7 +638,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(@SuppressWarnings("unused") OWLAnnotation node) {}
+    public void visit(OWLAnnotation node) {}
 
     @Override
     public void visit(SWRLClassAtom node) {

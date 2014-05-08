@@ -94,10 +94,10 @@ public class SWRLVariableExtractor implements SWRLObjectVisitor {
     }
 
     @Override
-    public void visit(@SuppressWarnings("unused") SWRLIndividualArgument node) {}
+    public void visit(SWRLIndividualArgument node) {}
 
     @Override
-    public void visit(@SuppressWarnings("unused") SWRLLiteralArgument node) {}
+    public void visit(SWRLLiteralArgument node) {}
 
     @Override
     public void visit(SWRLSameIndividualAtom node) {

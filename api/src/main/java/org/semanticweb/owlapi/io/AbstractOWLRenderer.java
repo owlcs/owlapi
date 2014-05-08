@@ -20,7 +20,6 @@ import java.io.Writer;
 
 import javax.annotation.Nonnull;
 
-
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**

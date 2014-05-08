@@ -113,7 +113,7 @@ public class AddClassExpressionClosureAxiom extends
          * @param p
          *        the p
          */
-        public FillerCollector(@Nonnull OWLObjectPropertyExpression p) {
+        FillerCollector(@Nonnull OWLObjectPropertyExpression p) {
             property = checkNotNull(p, "p cannot be null");
         }
 

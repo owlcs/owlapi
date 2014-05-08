@@ -43,7 +43,6 @@ public class IllegalPunning extends OWLProfileViolation<IRI> {
         super(currentOntology, node, checkNotNull(iri));
     }
 
-    @SuppressWarnings("null")
     @Override
     public String toString() {
         return toString("Cannot pun between properties: %s", getExpression()

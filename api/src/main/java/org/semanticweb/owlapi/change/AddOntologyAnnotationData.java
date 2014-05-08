@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.change;
 
 import javax.annotation.Nonnull;
 
-
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLOntology;

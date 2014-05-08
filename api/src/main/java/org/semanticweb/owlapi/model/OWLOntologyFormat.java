@@ -163,6 +163,6 @@ public abstract class OWLOntologyFormat implements Serializable {
 
         private static final long serialVersionUID = 40000L;
 
-        public NullLoaderMetaData() {}
+        NullLoaderMetaData() {}
     }
 }

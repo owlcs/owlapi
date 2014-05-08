@@ -50,6 +50,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
  */
 public class Searcher {
 
+    private Searcher() {}
+
     /**
      * Retrieve literals from a collection of assertions.
      * 

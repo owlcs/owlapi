@@ -313,12 +313,11 @@ public class OWL2QLProfile implements OWLProfile {
         }
     }
 
-    @SuppressWarnings("unused")
     private static class OWL2QLSubClassExpressionChecker extends
             OWLClassExpressionVisitorExAdapter<Boolean> {
 
-        public OWL2QLSubClassExpressionChecker() {
-            super(Boolean.FALSE);
+        OWL2QLSubClassExpressionChecker() {
+            super(b(false));
         }
 
         @Override
@@ -344,12 +343,11 @@ public class OWL2QLProfile implements OWLProfile {
         return ce.accept(subClassExpressionChecker).booleanValue();
     }
 
-    @SuppressWarnings("unused")
     private class OWL2QLSuperClassExpressionChecker extends
             OWLClassExpressionVisitorExAdapter<Boolean> {
 
-        public OWL2QLSuperClassExpressionChecker() {
-            super(Boolean.FALSE);
+        OWL2QLSuperClassExpressionChecker() {
+            super(b(false));
         }
 
         @Override

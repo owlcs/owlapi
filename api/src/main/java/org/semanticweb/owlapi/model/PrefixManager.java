@@ -151,6 +151,14 @@ public interface PrefixManager extends Serializable {
     void copyPrefixesFrom(@Nonnull PrefixManager from);
 
     /**
+     * Copies the prefix from another prefix manager into this one
+     * 
+     * @param from
+     *        The map containing the prefixes
+     */
+    void copyPrefixesFrom(@Nonnull Map<String, String> from);
+
+    /**
      * Removes a previously registerd prefix namespace mapping
      * 
      * @param namespace

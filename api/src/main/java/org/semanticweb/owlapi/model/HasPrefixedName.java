@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group, Date: 18/02/2014
@@ -26,8 +28,9 @@ public interface HasPrefixedName {
     /**
      * Gets the prefixed name.
      * 
-     * @return The prefixed name. Not {@code null}.
+     * @return The prefixed name.
      * @since 3.5
      */
+    @Nonnull
     String getPrefixedName();
 }

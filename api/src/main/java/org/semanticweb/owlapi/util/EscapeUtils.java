@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+
 import javax.annotation.Nonnull;
 
 /**
@@ -20,6 +22,8 @@ import javax.annotation.Nonnull;
  * @since 2.2.0
  */
 public class EscapeUtils {
+
+    private EscapeUtils() {}
 
     /**
      * Escapes quotes and backslashes in a string. Double quotes are replaced
@@ -30,7 +34,6 @@ public class EscapeUtils {
      *        The string to be escaped
      * @return The escaped string.
      */
-    @SuppressWarnings("null")
     @Nonnull
     public static String escapeString(@Nonnull String s) {
         // We replace double quotes with a back slash followed
@@ -43,16 +46,14 @@ public class EscapeUtils {
         for (int i = 0; i < s.length(); i++) {
             char ch = s.charAt(i);
             if (ch == '\\') {
-                sb.append('\\');
-                sb.append('\\');
+                sb.append("\\\\");
             } else if (ch == '\"') {
-                sb.append('\\');
-                sb.append('\"');
+                sb.append("\\\"");
             } else {
                 sb.append(ch);
             }
         }
-        return sb.toString();
+        return verifyNotNull(sb.toString());
     }
 
     /**

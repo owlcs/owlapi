@@ -20,6 +20,8 @@ import com.google.common.base.Optional;
 /** a set of personalized preconditions */
 public class OWLAPIPreconditions {
 
+    private OWLAPIPreconditions() {}
+
     /**
      * Check that the argument is not null; if the argument is null, throw an
      * IllegalStateException. This method is meant to be used to verify
@@ -140,13 +142,12 @@ public class OWLAPIPreconditions {
      * @throws IllegalArgumentException
      *         if object is null
      */
-    @SuppressWarnings("null")
     @Nonnull
     public static <T> T
             checkNotNull(Optional<T> object, @Nonnull String message) {
         if (object == null || !object.isPresent()) {
             throw new IllegalArgumentException(message);
         }
-        return object.get();
+        return verifyNotNull(object.get());
     }
 }

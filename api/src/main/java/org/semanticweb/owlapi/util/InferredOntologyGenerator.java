@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.util;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.Nonnull;
@@ -68,21 +67,21 @@ public class InferredOntologyGenerator {
     }
 
     @Nonnull
-    @SuppressWarnings({ "unchecked", "null" })
     private static List<InferredAxiomGenerator<? extends OWLAxiom>>
             generators() {
-        return Arrays.<InferredAxiomGenerator<? extends OWLAxiom>> asList(
-                new InferredClassAssertionAxiomGenerator(),
-                new InferredDataPropertyCharacteristicAxiomGenerator(),
-                new InferredEquivalentClassAxiomGenerator(),
-                new InferredEquivalentDataPropertiesAxiomGenerator(),
-                new InferredEquivalentObjectPropertyAxiomGenerator(),
-                new InferredInverseObjectPropertiesAxiomGenerator(),
-                new InferredObjectPropertyCharacteristicAxiomGenerator(),
-                new InferredPropertyAssertionGenerator(),
-                new InferredSubClassAxiomGenerator(),
-                new InferredSubDataPropertyAxiomGenerator(),
-                new InferredSubObjectPropertyAxiomGenerator());
+        return CollectionFactory
+                .<InferredAxiomGenerator<? extends OWLAxiom>> list(
+                        new InferredClassAssertionAxiomGenerator(),
+                        new InferredDataPropertyCharacteristicAxiomGenerator(),
+                        new InferredEquivalentClassAxiomGenerator(),
+                        new InferredEquivalentDataPropertiesAxiomGenerator(),
+                        new InferredEquivalentObjectPropertyAxiomGenerator(),
+                        new InferredInverseObjectPropertiesAxiomGenerator(),
+                        new InferredObjectPropertyCharacteristicAxiomGenerator(),
+                        new InferredPropertyAssertionGenerator(),
+                        new InferredSubClassAxiomGenerator(),
+                        new InferredSubDataPropertyAxiomGenerator(),
+                        new InferredSubObjectPropertyAxiomGenerator());
     }
 
     /** @return the axiom generators */

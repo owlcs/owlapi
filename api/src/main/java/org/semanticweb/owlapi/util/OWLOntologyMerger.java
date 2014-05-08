@@ -121,7 +121,7 @@ public class OWLOntologyMerger implements OWLAxiomFilter {
     }
 
     @Override
-    public boolean passes(@SuppressWarnings("unused") OWLAxiom axiom) {
+    public boolean passes(OWLAxiom axiom) {
         return true;
     }
 }

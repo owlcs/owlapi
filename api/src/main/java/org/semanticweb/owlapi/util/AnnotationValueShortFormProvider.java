@@ -165,14 +165,12 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
                 preferredLanguageMap,
                 new OWLAnnotationValueVisitorEx<String>() {
 
-                    @SuppressWarnings("unused")
                     @Override
                     public String visit(IRI iri) {
                         // TODO refactor the short form providers in here
                         return "";
                     }
 
-                    @SuppressWarnings("unused")
                     @Override
                     public String visit(OWLAnonymousIndividual individual) {
                         return "";

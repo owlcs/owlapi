@@ -275,7 +275,6 @@ public class OWL2RLProfile implements OWLProfile {
                     getCurrentAxiom(), node));
         }
 
-        @SuppressWarnings("unused")
         @Override
         public void visit(OWLDatatypeDefinitionAxiom axiom) {
             violations.add(new UseOfIllegalAxiom(getCurrentOntology(),
@@ -283,12 +282,11 @@ public class OWL2RLProfile implements OWLProfile {
         }
     }
 
-    @SuppressWarnings("unused")
     private class OWL2RLSubClassExpressionChecker extends
             OWLClassExpressionVisitorExAdapter<Boolean> {
 
-        public OWL2RLSubClassExpressionChecker() {
-            super(Boolean.FALSE);
+        OWL2RLSubClassExpressionChecker() {
+            super(b(false));
         }
 
         @Override
@@ -350,12 +348,11 @@ public class OWL2RLProfile implements OWLProfile {
         return ce.accept(subClassExpressionChecker).booleanValue();
     }
 
-    @SuppressWarnings("unused")
     private class OWL2RLSuperClassExpressionChecker extends
             OWLClassExpressionVisitorExAdapter<Boolean> {
 
-        public OWL2RLSuperClassExpressionChecker() {
-            super(Boolean.FALSE);
+        OWL2RLSuperClassExpressionChecker() {
+            super(b(false));
         }
 
         @Override
@@ -424,12 +421,11 @@ public class OWL2RLProfile implements OWLProfile {
         return ce.accept(superClassExpressionChecker).booleanValue();
     }
 
-    @SuppressWarnings("unused")
     private static class OWL2RLEquivalentClassExpressionChecker extends
             OWLClassExpressionVisitorExAdapter<Boolean> {
 
-        public OWL2RLEquivalentClassExpressionChecker() {
-            super(Boolean.FALSE);
+        OWL2RLEquivalentClassExpressionChecker() {
+            super(b(false));
         }
 
         @Override

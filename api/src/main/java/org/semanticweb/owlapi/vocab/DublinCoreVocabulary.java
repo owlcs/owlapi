@@ -51,6 +51,7 @@ public enum DublinCoreVocabulary
 //@formatter:on
     @Nonnull
     private final String shortName;
+    @Nonnull
     private final String qname;
     @Nonnull
     private final IRI iri;

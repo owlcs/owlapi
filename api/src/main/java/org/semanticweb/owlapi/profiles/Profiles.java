@@ -12,7 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.profiles;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -23,6 +22,7 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
+import org.semanticweb.owlapi.util.CollectionFactory;
 
 import com.google.inject.Provides;
 
@@ -68,18 +68,17 @@ public enum Profiles implements HasIRI, KnownFactories, OWLProfile {
     /** http://www.w3.org/ns/owl-profile/Full **/   OWL2_FULL   ("Full", new OWL2DLProfile(),                 FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe);
     //@formatter:on
     @Nonnull
-    private IRI iri;
+    private final IRI iri;
     @Nonnull
-    private List<String> supportingFactories;
+    private final List<String> supportingFactories;
     @Nonnull
-    private OWLProfile profile;
+    private final OWLProfile profile;
 
-    @SuppressWarnings("null")
     private Profiles(@Nonnull String name, @Nonnull OWLProfile profile,
             @Nonnull String... supportingFactories) {
         iri = IRI.create("http://www.w3.org/ns/owl-profile/", name);
         this.profile = profile;
-        this.supportingFactories = Arrays.asList(supportingFactories);
+        this.supportingFactories = CollectionFactory.list(supportingFactories);
     }
 
     @Override

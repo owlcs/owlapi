@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.vocab;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -33,6 +35,8 @@ import com.google.common.collect.Sets;
  * @since 2.0.0
  */
 public enum OWLRDFVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
+
+
 
 
 
@@ -214,12 +218,11 @@ public enum OWLRDFVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
         return shortName;
     }
 
-    private static Function<HasIRI, IRI> asIRI = new Function<HasIRI, IRI>() {
+    private static final Function<HasIRI, IRI> asIRI = new Function<HasIRI, IRI>() {
 
-        @SuppressWarnings("null")
         @Override
         public IRI apply(HasIRI input) {
-            return input.getIRI();
+            return checkNotNull(input).getIRI();
         }
     };
 

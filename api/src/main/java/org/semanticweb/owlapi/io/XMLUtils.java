@@ -40,6 +40,8 @@ public class XMLUtils {
     /** owl processing instruction */
     public static final String OWL_PROCESSING_INSTRUCTION_NAME = "owl";
 
+    private XMLUtils() {}
+
     /**
      * Determines if a character is an XML name start character.
      * 

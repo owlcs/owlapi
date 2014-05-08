@@ -79,7 +79,6 @@ public class UseOfUndeclaredAnnotationProperty extends
                 getExpression(), annotation);
     }
 
-    @SuppressWarnings("null")
     @Override
     public List<OWLOntologyChange<?>> repair() {
         return list(new AddAxiom(ontology,

@@ -67,7 +67,6 @@ public class UseOfUndeclaredClass extends OWLProfileViolation<OWLClass>
         return toString("Use of undeclared class: %s", getExpression());
     }
 
-    @SuppressWarnings("null")
     @Override
     public List<OWLOntologyChange<?>> repair() {
         return list(addDeclaration(getExpression()));

@@ -104,14 +104,14 @@ public class SimpleRootClassChecker implements RootClassChecker {
 
         protected boolean namedSuper;
 
-        public NamedSuperChecker() {}
+        NamedSuperChecker() {}
 
         public void reset() {
             namedSuper = false;
         }
 
         @Override
-        public void visit(@SuppressWarnings("unused") OWLClass desc) {
+        public void visit(OWLClass desc) {
             namedSuper = true;
         }
 
@@ -135,7 +135,7 @@ public class SimpleRootClassChecker implements RootClassChecker {
         private boolean isRoot;
         private OWLClass cls;
 
-        public RootClassCheckerHelper() {}
+        RootClassCheckerHelper() {}
 
         public void setOWLClass(OWLClass cls) {
             // Start off with the assumption that the class is

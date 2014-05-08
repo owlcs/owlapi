@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.expression;
 
 import javax.annotation.Nonnull;
 
-
 import org.semanticweb.owlapi.io.OWLParserException;
 
 /**

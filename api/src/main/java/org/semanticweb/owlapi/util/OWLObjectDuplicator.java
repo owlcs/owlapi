@@ -120,7 +120,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         this.obj = obj;
     }
 
-    @SuppressWarnings({ "null", "unchecked" })
+    @SuppressWarnings({ "unchecked", "null" })
     @Nonnull
     protected <O> O getLastObject() {
         return (O) obj;

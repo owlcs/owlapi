@@ -215,19 +215,12 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
     @Nonnull
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("OntologyID(");
         if (ontologyIRI.isPresent()) {
-            sb.append("OntologyIRI(")
-                    .append(ontologyIRI.get().toQuotedString()).append(")");
-            if (versionIRI.isPresent()) {
-                sb.append(" VersionIRI(")
-                        .append(versionIRI.get().toQuotedString()).append(")");
-            }
-        } else {
-            sb.append(internalID.get().toString());
+            String template = "OntologyID(OntologyIRI(<%s>) VersionIRI(<%s>))";
+            return String.format(template, ontologyIRI.get(),
+                    versionIRI.orNull());
         }
-        sb.append(")");
-        return sb.toString();
+        return "OntologyID(" + internalID.orNull() + ")";
     }
 
     @Override

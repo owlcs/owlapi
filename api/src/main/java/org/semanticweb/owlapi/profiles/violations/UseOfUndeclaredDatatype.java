@@ -64,7 +64,6 @@ public class UseOfUndeclaredDatatype extends OWLProfileViolation<OWLDatatype>
         return visitor.visit(this);
     }
 
-    @SuppressWarnings("null")
     @Override
     public List<OWLOntologyChange<?>> repair() {
         return list(addDeclaration(getExpression()));

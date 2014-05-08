@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -54,7 +56,6 @@ public class OntologyAxiomPair {
         return axiom;
     }
 
-    @SuppressWarnings("null")
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {
@@ -65,7 +66,8 @@ public class OntologyAxiomPair {
         }
         OntologyAxiomPair other = (OntologyAxiomPair) obj;
         if (ontology != null && other.ontology != null) {
-            return ontology.equals(other.ontology) && axiom.equals(other.axiom);
+            return verifyNotNull(ontology).equals(other.ontology)
+                    && axiom.equals(other.axiom);
         } else if (ontology != other.ontology) {
             return false;
         } else {
@@ -73,21 +75,19 @@ public class OntologyAxiomPair {
         }
     }
 
-    @SuppressWarnings("null")
     @Override
     public int hashCode() {
         if (ontology != null) {
-            return ontology.hashCode() + axiom.hashCode();
+            return verifyNotNull(ontology).hashCode() + axiom.hashCode();
         } else {
             return 37 + axiom.hashCode();
         }
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     @Override
     public String toString() {
         return axiom.toString() + " in "
-                + (ontology != null ? ontology.toString() : "");
+                + (ontology != null ? verifyNotNull(ontology).toString() : "");
     }
 }

@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -205,7 +205,7 @@ public class AutoIRIMapper extends DefaultHandler implements
                 try {
                     is.close();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    // nothing to do here
                 }
             }
         }
@@ -243,7 +243,7 @@ public class AutoIRIMapper extends DefaultHandler implements
                     br.close();
                 }
             } catch (IOException e2) {
-                e2.printStackTrace();
+                // not to do here
             }
         }
     }
@@ -261,7 +261,6 @@ public class AutoIRIMapper extends DefaultHandler implements
         return ontologyIRI;
     }
 
-    @SuppressWarnings("unused")
     @Override
     public void startElement(String uri, String localName, String qName,
             Attributes attributes) throws SAXException {
@@ -269,7 +268,7 @@ public class AutoIRIMapper extends DefaultHandler implements
         if (handler != null) {
             IRI ontologyIRI = handler.handle(attributes);
             if (ontologyIRI != null && currentFile != null) {
-                addMapping(ontologyIRI, currentFile);
+                addMapping(ontologyIRI, verifyNotNull(currentFile));
             }
             throw new SAXException();
         }
@@ -281,8 +280,7 @@ public class AutoIRIMapper extends DefaultHandler implements
      * @param file
      *        file
      */
-    @SuppressWarnings("null")
-    protected void addMapping(IRI ontologyIRI, File file) {
+    protected void addMapping(@Nonnull IRI ontologyIRI, @Nonnull File file) {
         ontologyIRI2PhysicalURIMap.put(ontologyIRI, IRI.create(file));
     }
 
@@ -328,7 +326,7 @@ public class AutoIRIMapper extends DefaultHandler implements
 
         private static final long serialVersionUID = 40000L;
 
-        public RDFXMLOntologyRootElementHandler() {}
+        RDFXMLOntologyRootElementHandler() {}
 
         @Nullable
         @Override
@@ -348,7 +346,7 @@ public class AutoIRIMapper extends DefaultHandler implements
 
         private static final long serialVersionUID = 40000L;
 
-        public OWLXMLOntologyRootElementHandler() {}
+        OWLXMLOntologyRootElementHandler() {}
 
         @Override
         public IRI handle(Attributes attributes) {

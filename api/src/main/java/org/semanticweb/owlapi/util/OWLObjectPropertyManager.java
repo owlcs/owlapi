@@ -515,7 +515,6 @@ public class OWLObjectPropertyManager {
      * @param stackProps
      *        stack entities
      */
-    @SuppressWarnings("boxing")
     public static void tarjan(@Nonnull Set<OWLOntology> ontologies,
             @Nonnull OWLObjectPropertyExpression prop, int index,
             @Nonnull Stack<OWLObjectPropertyExpression> stack,

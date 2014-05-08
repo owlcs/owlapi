@@ -26,10 +26,12 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
+/**
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
+ *         Research Group
+ * @since 3.5.0
+ */
 @SuppressWarnings("javadoc")
-/** @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group 
- @since 3.5.0 */
 @RunWith(Parameterized.class)
 public class OWLRDFVocabularyTestCase {
 

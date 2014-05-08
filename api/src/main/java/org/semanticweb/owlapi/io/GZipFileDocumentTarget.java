@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.io;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -67,7 +69,6 @@ public class GZipFileDocumentTarget implements OWLOntologyDocumentTarget {
         return true;
     }
 
-    @SuppressWarnings("null")
     @Override
     public OutputStream getOutputStream() {
         if (outputStream == null) {
@@ -79,7 +80,7 @@ public class GZipFileDocumentTarget implements OWLOntologyDocumentTarget {
                 throw new OWLRuntimeException(e);
             }
         }
-        return outputStream;
+        return verifyNotNull(outputStream);
     }
 
     @Override

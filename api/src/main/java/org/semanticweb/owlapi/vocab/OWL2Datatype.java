@@ -48,6 +48,8 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
 
 
+
+
 //@formatter:off
     /** RDF_XML_LITERAL */          RDF_XML_LITERAL          (RDF,  "XMLLiteral",   Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, false, ".*"), 
     /** RDFS_LITERAL */             RDFS_LITERAL             (RDFS, "Literal",      Category.CAT_UNIVERSAL,                   false, ".*"),
@@ -173,7 +175,7 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
     private final Category category;
     private final boolean finite;
     @Nonnull
-    private Pattern pattern;
+    private final Pattern pattern;
     @Nonnull
     private final String regExpression;
     @Nonnull

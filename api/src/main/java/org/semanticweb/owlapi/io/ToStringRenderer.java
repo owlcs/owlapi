@@ -33,7 +33,7 @@ import org.semanticweb.owlapi.util.SimpleRenderer;
 public class ToStringRenderer {
 
     @Nonnull
-    private static ToStringRenderer instance = new ToStringRenderer();
+    private static final ToStringRenderer instance = new ToStringRenderer();
     private OWLObjectRenderer renderer;
 
     private ToStringRenderer() {

@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.util;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import javax.annotation.Nullable;
@@ -82,13 +81,12 @@ public class OWLOntologyFormatFactoryImpl<T extends OWLOntologyFormat>
         return types.defaultMIMEType();
     }
 
-    @SuppressWarnings("null")
     @Override
     public List<String> getMIMETypes() {
         SupportsMIMEType types = this.type
                 .getAnnotation(SupportsMIMEType.class);
         if (types == null) {
-            return Collections.emptyList();
+            return CollectionFactory.emptyList();
         }
         List<String> mimeTypes = new ArrayList<String>();
         mimeTypes.add(types.defaultMIMEType());

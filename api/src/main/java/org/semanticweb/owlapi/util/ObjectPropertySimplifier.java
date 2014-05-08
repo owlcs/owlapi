@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import javax.annotation.Nonnull;
 
@@ -75,17 +75,16 @@ public class ObjectPropertySimplifier {
         private OWLObjectProperty property;
         private int depth;
 
-        public Simplifier() {}
+        Simplifier() {}
 
         public void reset() {
             depth = 0;
             property = null;
         }
 
-        @SuppressWarnings("null")
         @Nonnull
         public OWLObjectProperty getProperty() {
-            return property;
+            return verifyNotNull(property);
         }
 
         public boolean isInverse() {
@@ -104,9 +103,9 @@ public class ObjectPropertySimplifier {
         }
 
         @Override
-        public void visit(@SuppressWarnings("unused") OWLDataProperty p) {}
+        public void visit(OWLDataProperty p) {}
 
         @Override
-        public void visit(@SuppressWarnings("unused") OWLAnnotationProperty p) {}
+        public void visit(OWLAnnotationProperty p) {}
     }
 }

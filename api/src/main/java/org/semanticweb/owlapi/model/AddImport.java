@@ -61,18 +61,11 @@ public class AddImport extends ImportChange {
         return getImportDeclaration().equals(other.getImportDeclaration());
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("AddImport(");
-        sb.append(getImportDeclaration().toString());
-        sb.append(" OntologyID(");
-        sb.append(getOntology().getOntologyID());
-        sb.append(")");
-        sb.append(")");
-        return sb.toString();
+        return "AddImport(" + getImportDeclaration() + " OntologyID("
+                + getOntology().getOntologyID() + "))";
     }
 
     @Override

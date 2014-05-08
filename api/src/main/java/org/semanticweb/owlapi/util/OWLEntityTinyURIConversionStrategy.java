@@ -91,7 +91,6 @@ public class OWLEntityTinyURIConversionStrategy implements
         return iri;
     }
 
-    @SuppressWarnings("unused")
     private static class OWLEntityFragmentProvider implements OWLEntityVisitor {
 
         private String name;
@@ -102,7 +101,7 @@ public class OWLEntityTinyURIConversionStrategy implements
         private int annotationPropertyCount = 0;
         private int datatypeCount = 0;
 
-        public OWLEntityFragmentProvider() {}
+        OWLEntityFragmentProvider() {}
 
         public String getName(OWLEntity entity) {
             if (entity.isBuiltIn()) {

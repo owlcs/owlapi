@@ -111,7 +111,7 @@ public class NamedConjunctChecker {
     private class NamedConjunctCheckerVisitor extends
             OWLClassExpressionVisitorAdapter {
 
-        public NamedConjunctCheckerVisitor() {}
+        NamedConjunctCheckerVisitor() {}
 
         @Override
         public void visit(OWLClass desc) {

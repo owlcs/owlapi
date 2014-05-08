@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.util;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -157,7 +156,7 @@ public class StructuralTransformation {
         private final Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         private final OWLClassExpression rhs;
 
-        public AxiomFlattener(OWLDataFactory df, OWLClassExpression rhs) {
+        AxiomFlattener(OWLDataFactory df, OWLClassExpression rhs) {
             ldf = df;
             this.rhs = rhs;
         }
@@ -329,7 +328,7 @@ public class StructuralTransformation {
      */
     private class AxiomRewriter implements OWLAxiomVisitorEx<Set<OWLAxiom>> {
 
-        public AxiomRewriter() {}
+        AxiomRewriter() {}
 
         @Nonnull
         private Set<OWLAxiom> subClassOf(@Nonnull OWLClassExpression sub,
@@ -339,10 +338,9 @@ public class StructuralTransformation {
                     .getNNF()));
         }
 
-        @SuppressWarnings("null")
         @Nonnull
-        private Set<OWLAxiom> toSet(OWLAxiom ax) {
-            return Collections.singleton(ax);
+        private Set<OWLAxiom> toSet(@Nonnull OWLAxiom ax) {
+            return CollectionFactory.createSet(ax);
         }
 
         @Override
@@ -581,11 +579,9 @@ public class StructuralTransformation {
             return toSet(axiom);
         }
 
-        @SuppressWarnings("null")
         @Override
-        public Set<OWLAxiom> visit(
-                @SuppressWarnings("unused") OWLSameIndividualAxiom axiom) {
-            return Collections.emptySet();
+        public Set<OWLAxiom> visit(OWLSameIndividualAxiom axiom) {
+            return CollectionFactory.emptySet();
         }
 
         @Override

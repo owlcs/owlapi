@@ -69,7 +69,6 @@ public class UseOfUndeclaredObjectProperty extends
                 getExpression());
     }
 
-    @SuppressWarnings("null")
     @Override
     public List<OWLOntologyChange<?>> repair() {
         return list(addDeclaration(getExpression()));

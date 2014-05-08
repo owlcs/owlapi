@@ -18,7 +18,6 @@ import java.io.Reader;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 

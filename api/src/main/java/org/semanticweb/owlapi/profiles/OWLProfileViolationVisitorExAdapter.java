@@ -81,7 +81,7 @@ public class OWLProfileViolationVisitorExAdapter<O> extends
      * @param o
      *        default return value
      */
-    public OWLProfileViolationVisitorExAdapter(O o) {
+    public OWLProfileViolationVisitorExAdapter(@Nonnull O o) {
         super(o);
     }
 

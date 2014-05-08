@@ -108,7 +108,6 @@ import org.semanticweb.owlapi.model.SWRLVariable;
  *         Informatics Group
  * @since 2.2.0
  */
-@SuppressWarnings("unused")
 public class OWLObjectTypeIndexProvider implements OWLObjectVisitor {
 
 //@formatter:off

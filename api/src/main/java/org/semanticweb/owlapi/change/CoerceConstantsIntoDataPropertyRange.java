@@ -102,7 +102,7 @@ public class CoerceConstantsIntoDataPropertyRange extends
          * @param m
          *        the m
          */
-        public OWLConstantReplacer(@Nonnull OWLDataFactory dataFactory,
+        OWLConstantReplacer(@Nonnull OWLDataFactory dataFactory,
                 @Nonnull Map<OWLDataPropertyExpression, OWLDatatype> m) {
             super(dataFactory);
             map = m;

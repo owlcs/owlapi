@@ -36,6 +36,8 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.google.common.collect.Lists;
+
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -44,6 +46,19 @@ import javax.annotation.Nullable;
 public class CollectionFactory {
 
     private static final AtomicInteger expectedThreads = new AtomicInteger(8);
+
+    private CollectionFactory() {}
+
+    /**
+     * Wrapper for Collections.emptySet() to allow nullity annotations.
+     * 
+     * @return empty set
+     */
+    @SuppressWarnings("null")
+    @Nonnull
+    public static <T> Set<T> emptySet() {
+        return Collections.emptySet();
+    }
 
     /**
      * @param value
@@ -79,6 +94,56 @@ public class CollectionFactory {
     @Nonnull
     public static <T> List<T> createList() {
         return new ArrayList<T>();
+    }
+
+    /**
+     * @param i
+     *        iterable
+     * @return list from iterable
+     * @param <T>
+     *        type
+     */
+    @SuppressWarnings("null")
+    @Nonnull
+    public static <T> List<T> list(Iterable<T> i) {
+        return Lists.newArrayList(i);
+    }
+
+    /**
+     * @param i
+     *        iterable
+     * @return list from iterable
+     * @param <T>
+     *        type
+     */
+    @SuppressWarnings("null")
+    @Nonnull
+    public static <T> List<T> list(T... i) {
+        return Lists.newArrayList(i);
+    }
+
+    /**
+     * @param i
+     *        iterable
+     * @return list from iterable
+     * @param <T>
+     *        type
+     */
+    @SuppressWarnings("null")
+    @Nonnull
+    public static <T> List<T> list(T i) {
+        return Collections.singletonList(i);
+    }
+
+    /**
+     * @return empty list
+     * @param <T>
+     *        type
+     */
+    @SuppressWarnings("null")
+    @Nonnull
+    public static <T> List<T> emptyList() {
+        return Collections.emptyList();
     }
 
     /**
@@ -146,6 +211,20 @@ public class CollectionFactory {
     }
 
     /**
+     * @param element
+     *        value to add to the set
+     * @return fresh non threadsafe set
+     * @param <T>
+     *        axiom type
+     */
+    @Nonnull
+    public static <T> Set<T> createSet(@Nonnull T element) {
+        Set<T> result = createSet();
+        result.add(element);
+        return result;
+    }
+
+    /**
      * @return fresh threadsafe set
      * @param <T>
      *        set type
@@ -180,15 +259,15 @@ public class CollectionFactory {
 
         private final ConcurrentHashMap<T, Set<T>> backingMap;
 
-        public SyncSet(ConcurrentHashMap<T, Set<T>> map) {
+        SyncSet(ConcurrentHashMap<T, Set<T>> map) {
             backingMap = map;
         }
 
-        public SyncSet() {
+        SyncSet() {
             this(new ConcurrentHashMap<T, Set<T>>());
         }
 
-        public SyncSet(@Nonnull Collection<T> delegate) {
+        SyncSet(@Nonnull Collection<T> delegate) {
             this();
             for (T d : delegate) {
                 add(d);
@@ -288,7 +367,6 @@ public class CollectionFactory {
             return backingMap.keySet().toArray(a);
         }
 
-        @SuppressWarnings("rawtypes")
         @Override
         public boolean equals(Object obj) {
             if (obj == null) {
@@ -299,7 +377,7 @@ public class CollectionFactory {
             }
             if (obj instanceof SyncSet) {
                 return this.backingMap.keySet().equals(
-                        ((SyncSet) obj).backingMap.keySet());
+                        ((SyncSet<?>) obj).backingMap.keySet());
             }
             if (obj instanceof Collection) {
                 return new HashSet<T>(this).equals(obj);
@@ -334,12 +412,11 @@ public class CollectionFactory {
      * @param <T>
      *        axiom type
      */
-    @SuppressWarnings("null")
     @Nonnull
     public static <T> Set<T> getCopyOnRequestSetFromMutableCollection(
             @Nullable Collection<T> source) {
         if (source == null || source.isEmpty()) {
-            return Collections.emptySet();
+            return emptySet();
         }
         return new ConditionalCopySet<T>(source, true);
     }
@@ -351,12 +428,11 @@ public class CollectionFactory {
      * @param <T>
      *        axiom type
      */
-    @SuppressWarnings("null")
     @Nonnull
     public static <T> Set<T> getCopyOnRequestSetFromImmutableCollection(
             @Nullable Collection<T> source) {
         if (source == null || source.isEmpty()) {
-            return Collections.emptySet();
+            return emptySet();
         }
         return new ConditionalCopySet<T>(source, false);
     }
@@ -419,7 +495,6 @@ public class CollectionFactory {
             }
         }
 
-        @SuppressWarnings("rawtypes")
         @Override
         public boolean equals(Object obj) {
             if (obj == null) {
@@ -430,7 +505,7 @@ public class CollectionFactory {
             }
             if (obj instanceof ConditionalCopySet) {
                 return delegate
-                        .containsAll(((ConditionalCopySet) obj).delegate)
+                        .containsAll(((ConditionalCopySet<?>) obj).delegate)
                         && ((ConditionalCopySet<?>) obj).delegate
                                 .containsAll(delegate);
             }

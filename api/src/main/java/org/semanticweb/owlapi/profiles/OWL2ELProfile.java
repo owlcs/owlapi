@@ -373,7 +373,7 @@ public class OWL2ELProfile implements OWLProfile {
         }
 
         @Override
-        public void visit(@SuppressWarnings("unused") OWLOntology ontology) {
+        public void visit(OWLOntology ontology) {
             propertyManager = null;
         }
     }

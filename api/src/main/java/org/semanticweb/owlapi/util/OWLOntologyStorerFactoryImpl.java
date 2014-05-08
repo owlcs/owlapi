@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.annotations.SupportsFormat;
@@ -43,11 +45,10 @@ public class OWLOntologyStorerFactoryImpl<T extends OWLOntologyStorer>
         this.type = type;
     }
 
-    @SuppressWarnings("null")
     @Override
     public OWLOntologyStorer createStorer() {
         try {
-            return type.newInstance();
+            return verifyNotNull(type.newInstance());
         } catch (InstantiationException e) {
             throw new RuntimeException(
                     "Cannot instantiate an OWLOntologyStorer of type " + type);

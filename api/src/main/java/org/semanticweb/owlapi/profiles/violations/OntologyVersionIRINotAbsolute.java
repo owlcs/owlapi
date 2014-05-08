@@ -58,7 +58,6 @@ public class OntologyVersionIRINotAbsolute extends
                 getExpression());
     }
 
-    @SuppressWarnings("null")
     @Override
     public List<OWLOntologyChange<?>> repair() {
         // XXX arbitrary choice

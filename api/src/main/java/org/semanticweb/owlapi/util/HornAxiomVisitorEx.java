@@ -44,7 +44,6 @@ import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 
 /** Returns true if the visited axioms are an ontology in Horn-SHIQ form. */
-@SuppressWarnings("unused")
 public class HornAxiomVisitorEx extends OWLAxiomVisitorExAdapter<Boolean> {
 
     private static final long serialVersionUID = 40000L;
@@ -56,13 +55,13 @@ public class HornAxiomVisitorEx extends OWLAxiomVisitorExAdapter<Boolean> {
     }
 
     @Nonnull
-    final PositiveAppearanceVisitorEx positive = new PositiveAppearanceVisitorEx();
+    protected final PositiveAppearanceVisitorEx positive = new PositiveAppearanceVisitorEx();
     @Nonnull
-    final NegativeAppearanceVisitorEx negative = new NegativeAppearanceVisitorEx();
+    protected final NegativeAppearanceVisitorEx negative = new NegativeAppearanceVisitorEx();
 
     /** default constructor */
     public HornAxiomVisitorEx() {
-        super(Boolean.FALSE);
+        super(b(false));
     }
 
     @Override
@@ -181,8 +180,8 @@ public class HornAxiomVisitorEx extends OWLAxiomVisitorExAdapter<Boolean> {
     private class PositiveAppearanceVisitorEx extends
             OWLClassExpressionVisitorExAdapter<Boolean> {
 
-        public PositiveAppearanceVisitorEx() {
-            super(Boolean.FALSE);
+        PositiveAppearanceVisitorEx() {
+            super(b(false));
         }
 
         @Override
@@ -237,8 +236,8 @@ public class HornAxiomVisitorEx extends OWLAxiomVisitorExAdapter<Boolean> {
     private class NegativeAppearanceVisitorEx extends
             OWLClassExpressionVisitorExAdapter<Boolean> {
 
-        public NegativeAppearanceVisitorEx() {
-            super(Boolean.FALSE);
+        NegativeAppearanceVisitorEx() {
+            super(b(false));
         }
 
         @Override

@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
@@ -19,8 +18,7 @@ public class OWLOntologyChangeRecordTest {
 
     @SuppressWarnings("unchecked")
     @Test
-    public void testSerializeChangeRecord() throws IOException,
-            ClassNotFoundException {
+    public void testSerializeChangeRecord() throws Exception {
         OWLOntologyID id1 = new OWLOntologyID(Optional.of(IRI.create("urn:a")),
                 Optional.of(IRI.create("urn:v1")));
         OWLOntologyID id2 = new OWLOntologyID(Optional.of(IRI.create("urn:a")),
