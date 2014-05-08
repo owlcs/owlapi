@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.api.test.syntax.rdfxml;
 
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
-import java.io.IOException;
-
 import javax.annotation.Nonnull;
 
 import org.junit.Assert;
@@ -27,10 +25,8 @@ import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.StreamDocumentSource;
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyAlreadyExistsException;
-import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParser;
@@ -44,7 +40,7 @@ import com.google.common.base.Optional;
  * 
  * @author Peter Ansell p_ansell@yahoo.com
  */
-@SuppressWarnings("javadoc")
+@SuppressWarnings({ "javadoc", "null" })
 public class MultipleDistinctOntologyLoadsTest extends TestBase {
 
     private OWLOntologyManager manager;
@@ -58,8 +54,7 @@ public class MultipleDistinctOntologyLoadsTest extends TestBase {
     }
 
     @Test(expected = OWLOntologyAlreadyExistsException.class)
-    public void testMultipleVersionLoadChangeIRI() throws OWLException,
-            OWLOntologyChangeException, IOException {
+    public void testMultipleVersionLoadChangeIRI() throws Exception {
         OWLOntologyDocumentSource initialDocumentSource = getDocument();
         OWLOntologyID initialUniqueOWLOntologyID = new OWLOntologyID(
                 Optional.of(jb), Optional.of(v2));
@@ -79,7 +74,6 @@ public class MultipleDistinctOntologyLoadsTest extends TestBase {
         }
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     private OWLOntologyDocumentSource getDocument() {
         StreamDocumentSource initialDocumentSource = new StreamDocumentSource(
@@ -89,8 +83,7 @@ public class MultipleDistinctOntologyLoadsTest extends TestBase {
     }
 
     @Test(expected = OWLOntologyAlreadyExistsException.class)
-    public void testMultipleVersionLoadNoChange() throws OWLException,
-            OWLOntologyChangeException, IOException {
+    public void testMultipleVersionLoadNoChange() throws Exception {
         OWLOntologyDocumentSource documentSource = getDocument();
         OWLOntologyID expected = new OWLOntologyID(Optional.of(jb),
                 Optional.of(v1));
@@ -111,8 +104,7 @@ public class MultipleDistinctOntologyLoadsTest extends TestBase {
     }
 
     @Test
-    public void testMultipleVersionLoadsExplicitOntologyIDs()
-            throws OWLException, OWLOntologyChangeException, IOException {
+    public void testMultipleVersionLoadsExplicitOntologyIDs() throws Exception {
         OWLOntologyDocumentSource documentSource = getDocument();
         OWLOntologyID initialUniqueOWLOntologyID = new OWLOntologyID(
                 Optional.of(jb), Optional.of(v1));
@@ -139,7 +131,7 @@ public class MultipleDistinctOntologyLoadsTest extends TestBase {
 
     @Test
     public void testMultipleVersionLoadsNoOntologyIDFirstTime()
-            throws OWLException, OWLOntologyChangeException, IOException {
+            throws Exception {
         OWLOntologyDocumentSource documentSource = getDocument();
         OWLOntology initialOntology = manager.createOntology();
         OWLParser parser = new RDFXMLParser();
@@ -163,7 +155,7 @@ public class MultipleDistinctOntologyLoadsTest extends TestBase {
 
     @Test
     public void testMultipleVersionLoadsNoOntologyVersionIRIFirstTime()
-            throws OWLException, OWLOntologyChangeException, IOException {
+            throws Exception {
         OWLOntologyDocumentSource documentSource = getDocument();
         OWLOntologyID initialUniqueOWLOntologyID = new OWLOntologyID(
                 Optional.of(jb), Optional.<IRI> absent());
@@ -193,8 +185,7 @@ public class MultipleDistinctOntologyLoadsTest extends TestBase {
     }
 
     @Test
-    public void testSingleVersionLoadChangeIRI() throws OWLException,
-            OWLOntologyChangeException, IOException {
+    public void testSingleVersionLoadChangeIRI() throws Exception {
         OWLOntologyDocumentSource secondDocumentSource = getDocument();
         OWLOntologyID secondUniqueOWLOntologyID = new OWLOntologyID(
                 Optional.of(jb), Optional.of(v2));
@@ -210,8 +201,7 @@ public class MultipleDistinctOntologyLoadsTest extends TestBase {
     }
 
     @Test
-    public void testSingleVersionLoadNoChange() throws OWLException,
-            OWLOntologyChangeException, IOException {
+    public void testSingleVersionLoadNoChange() throws Exception {
         OWLOntologyDocumentSource documentSource = getDocument();
         OWLOntologyID initialUniqueOWLOntologyID = new OWLOntologyID(
                 Optional.of(jb), Optional.of(v1));

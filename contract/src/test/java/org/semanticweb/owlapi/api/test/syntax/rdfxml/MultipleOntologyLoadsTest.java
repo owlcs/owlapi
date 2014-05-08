@@ -26,11 +26,8 @@ import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.io.StreamDocumentSource;
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyAlreadyExistsException;
-import org.semanticweb.owlapi.model.OWLOntologyChangeException;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParser;
@@ -44,7 +41,7 @@ import com.google.common.base.Optional;
  * 
  * @author Peter Ansell p_ansell@yahoo.com
  */
-@SuppressWarnings("javadoc")
+@SuppressWarnings({ "javadoc", "null" })
 public class MultipleOntologyLoadsTest extends TestBase {
 
     private static final IRI CREATEV1 = IRI("http://test.example.org/ontology/0139/version:1");
@@ -52,9 +49,7 @@ public class MultipleOntologyLoadsTest extends TestBase {
     private static final IRI CREATE0139 = IRI("http://test.example.org/ontology/0139");
 
     @Test(expected = OWLOntologyAlreadyExistsException.class)
-    public void testMultipleVersionLoadChangeIRI()
-            throws OWLOntologyCreationException, OWLOntologyChangeException,
-            OWLParserException, IOException {
+    public void testMultipleVersionLoadChangeIRI() throws Exception {
         // given
         OWLOntologyDocumentSource initialDocumentSource = getDocumentSource();
         OWLOntologyID expected = new OWLOntologyID(Optional.of(CREATE0139),
@@ -77,8 +72,7 @@ public class MultipleOntologyLoadsTest extends TestBase {
     }
 
     @Test(expected = OWLOntologyAlreadyExistsException.class)
-    public void testMultipleVersionLoadNoChange() throws OWLException,
-            IOException {
+    public void testMultipleVersionLoadNoChange() throws Exception {
         // given
         OWLOntologyDocumentSource documentSource = getDocumentSource();
         OWLOntologyID expected = new OWLOntologyID(Optional.of(CREATE0139),
@@ -101,8 +95,7 @@ public class MultipleOntologyLoadsTest extends TestBase {
     }
 
     @Test
-    public void testMultipleVersionLoadsExplicitOntologyIDs()
-            throws OWLException, IOException {
+    public void testMultipleVersionLoadsExplicitOntologyIDs() throws Exception {
         // given
         OWLOntologyDocumentSource documentSource = getDocumentSource();
         OWLOntologyID initialUniqueOWLOntologyID = new OWLOntologyID(
@@ -130,7 +123,7 @@ public class MultipleOntologyLoadsTest extends TestBase {
 
     @Test
     public void testMultipleVersionLoadsNoOntologyIDFirstTime()
-            throws OWLException, IOException {
+            throws Exception {
         // given
         OWLOntologyDocumentSource documentSource = getDocumentSource();
         OWLOntologyDocumentSource secondDocumentSource = getDocumentSource();
@@ -155,7 +148,7 @@ public class MultipleOntologyLoadsTest extends TestBase {
 
     @Test
     public void testMultipleVersionLoadsNoOntologyVersionIRIFirstTime()
-            throws OWLException, IOException {
+            throws Exception {
         // given
         OWLOntologyDocumentSource documentSource = getDocumentSource();
         OWLOntologyID initialUniqueOWLOntologyID = new OWLOntologyID(
@@ -182,8 +175,7 @@ public class MultipleOntologyLoadsTest extends TestBase {
     }
 
     @Test
-    public void testSingleVersionLoadChangeIRI() throws OWLException,
-            IOException {
+    public void testSingleVersionLoadChangeIRI() throws Exception {
         // given
         OWLOntologyDocumentSource secondDocumentSource = getDocumentSource();
         OWLOntologyID secondUniqueOWLOntologyID = new OWLOntologyID(
@@ -200,8 +192,7 @@ public class MultipleOntologyLoadsTest extends TestBase {
     }
 
     @Test
-    public void testSingleVersionLoadNoChange() throws OWLException,
-            IOException {
+    public void testSingleVersionLoadNoChange() throws Exception {
         // given
         OWLOntologyDocumentSource documentSource = getDocumentSource();
         OWLOntologyID initialUniqueOWLOntologyID = new OWLOntologyID(
@@ -225,7 +216,6 @@ public class MultipleOntologyLoadsTest extends TestBase {
         initialParser.parse(initialDocumentSource, initialOntology, config);
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     private OWLOntologyDocumentSource getDocumentSource() {
         StreamDocumentSource documentSource = new StreamDocumentSource(this

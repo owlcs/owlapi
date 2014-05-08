@@ -26,14 +26,12 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 @SuppressWarnings("javadoc")
 public class MissingDeclarationRoundTripTestCase extends TestBase {
 
     @Test
-    public void shouldFindOneAxiom() throws OWLOntologyCreationException,
-            OWLOntologyStorageException {
+    public void shouldFindOneAxiom() throws Exception {
         OWLAnnotationProperty p = AnnotationProperty(IRI("http://test.org/MissingDeclaration.owl#p"));
         OWLOntology ontology = createOntology(p);
         assertTrue(ontology.containsAnnotationPropertyInSignature(p.getIRI(),

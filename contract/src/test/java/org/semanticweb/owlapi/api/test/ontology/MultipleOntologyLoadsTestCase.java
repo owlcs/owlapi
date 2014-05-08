@@ -15,20 +15,15 @@ package org.semanticweb.owlapi.api.test.ontology;
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
-import java.io.IOException;
-
 import javax.annotation.Nonnull;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.io.OWLParser;
-import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyAlreadyExistsException;
-import org.semanticweb.owlapi.model.OWLOntologyChangeException;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParser;
 
@@ -57,9 +52,7 @@ public class MultipleOntologyLoadsTestCase extends TestBase {
             + "  </rdf:Description>  \n" + "</rdf:RDF>";
 
     @Test
-    public void testMultipleVersionLoadChangeIRI()
-            throws OWLOntologyChangeException, OWLParserException, IOException,
-            OWLOntologyCreationException {
+    public void testMultipleVersionLoadChangeIRI() throws Exception {
         OWLOntologyID initialUniqueOWLOntologyID = new OWLOntologyID(
                 Optional.of(i139), Optional.of(v2));
         OWLOntology initialOntology = m
@@ -79,9 +72,7 @@ public class MultipleOntologyLoadsTestCase extends TestBase {
     }
 
     @Test
-    public void testMultipleVersionLoadNoChange()
-            throws OWLOntologyCreationException, OWLOntologyChangeException,
-            OWLParserException, IOException {
+    public void testMultipleVersionLoadNoChange() throws Exception {
         OWLOntologyID initialUniqueOWLOntologyID = new OWLOntologyID(
                 Optional.of(i139), Optional.of(v1));
         OWLOntology initialOntology = m
@@ -100,9 +91,7 @@ public class MultipleOntologyLoadsTestCase extends TestBase {
     }
 
     @Test
-    public void testMultipleVersionLoadsExplicitOntologyIDs()
-            throws OWLOntologyCreationException, OWLOntologyChangeException,
-            OWLParserException, IOException {
+    public void testMultipleVersionLoadsExplicitOntologyIDs() throws Exception {
         OWLOntologyID initialUniqueOWLOntologyID = new OWLOntologyID(
                 Optional.of(i139), Optional.of(v1));
         OWLOntology initialOntology = m
@@ -126,8 +115,7 @@ public class MultipleOntologyLoadsTestCase extends TestBase {
 
     @Test
     public void testMultipleVersionLoadsNoOntologyIDFirstTime()
-            throws OWLOntologyCreationException, OWLOntologyChangeException,
-            OWLParserException, IOException {
+            throws Exception {
         OWLOntology initialOntology = m.createOntology();
         OWLParser parser = new RDFXMLParser();
         parser.parse(new StringDocumentSource(input), initialOntology, config);
@@ -148,8 +136,7 @@ public class MultipleOntologyLoadsTestCase extends TestBase {
 
     @Test
     public void testMultipleVersionLoadsNoOntologyVersionIRIFirstTime()
-            throws OWLOntologyCreationException, OWLOntologyChangeException,
-            OWLParserException, IOException {
+            throws Exception {
         OWLOntologyID initialUniqueOWLOntologyID = new OWLOntologyID(
                 Optional.of(i139), Optional.<IRI> absent());
         OWLOntology initialOntology = m
@@ -172,9 +159,7 @@ public class MultipleOntologyLoadsTestCase extends TestBase {
     }
 
     @Test
-    public void testSingleVersionLoadChangeIRI()
-            throws OWLOntologyChangeException, OWLParserException, IOException,
-            OWLOntologyCreationException {
+    public void testSingleVersionLoadChangeIRI() throws Exception {
         OWLOntologyID secondUniqueOWLOntologyID = new OWLOntologyID(
                 Optional.of(i139), Optional.of(v2));
         OWLOntology secondOntology = m
@@ -189,9 +174,7 @@ public class MultipleOntologyLoadsTestCase extends TestBase {
     }
 
     @Test
-    public void testSingleVersionLoadNoChange()
-            throws OWLOntologyCreationException, OWLOntologyChangeException,
-            OWLParserException, IOException {
+    public void testSingleVersionLoadNoChange() throws Exception {
         OWLOntologyID initialUniqueOWLOntologyID = new OWLOntologyID(
                 Optional.of(i139), Optional.of(v1));
         OWLOntology initialOntology = m

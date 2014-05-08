@@ -32,7 +32,6 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.owlxml.parser.OWLXMLParser;
 
@@ -40,8 +39,7 @@ import org.semanticweb.owlapi.owlxml.parser.OWLXMLParser;
 public class Utf8TestCase extends TestBase {
 
     @Test
-    public void testUTF8roundTrip() throws OWLOntologyStorageException,
-            OWLOntologyCreationException {
+    public void testUTF8roundTrip() throws Exception {
         String onto = "Ontology(<http://protege.org/UTF8.owl>"
                 + "Declaration(Class(<http://protege.org/UTF8.owl#A>))"
                 + "AnnotationAssertion(<http://www.w3.org/2000/01/rdf-schema#label> <http://protege.org/UTF8.owl#A> "
@@ -119,8 +117,7 @@ public class Utf8TestCase extends TestBase {
     }
 
     @Test
-    public void testPositiveUTF8roundTrip()
-            throws OWLOntologyCreationException, OWLOntologyStorageException {
+    public void testPositiveUTF8roundTrip() throws Exception {
         String NS = "http://protege.org/UTF8.owl";
         OWLOntology ontology = m.createOntology(IRI(NS));
         OWLClass a = Class(IRI(NS + "#A"));
@@ -133,8 +130,7 @@ public class Utf8TestCase extends TestBase {
     }
 
     @Test
-    public void testRoundTrip() throws OWLOntologyStorageException,
-            OWLOntologyCreationException {
+    public void testRoundTrip() throws Exception {
         String NS = "http://protege.org/ontologies/UTF8RoundTrip.owl";
         OWLClass C = Class(IRI(NS + "#C"));
         /*

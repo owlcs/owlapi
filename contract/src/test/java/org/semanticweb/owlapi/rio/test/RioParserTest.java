@@ -5,8 +5,6 @@ package org.semanticweb.owlapi.rio.test;
 
 import static org.junit.Assert.assertEquals;
 
-import java.io.IOException;
-
 import javax.annotation.Nonnull;
 
 import org.junit.Before;
@@ -17,11 +15,9 @@ import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.formats.RDFXMLOntologyFormat;
 import org.semanticweb.owlapi.formats.RDFXMLOntologyFormatFactory;
 import org.semanticweb.owlapi.formats.RioRDFXMLOntologyFormat;
-import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.io.StreamDocumentSource;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParser;
 import org.semanticweb.owlapi.rio.RioParserImpl;
@@ -30,7 +26,7 @@ import org.semanticweb.owlapi.rio.RioRDFXMLParserFactory;
 /**
  * @author Peter Ansell p_ansell@yahoo.com
  */
-@SuppressWarnings("javadoc")
+@SuppressWarnings({ "javadoc", "null" })
 public class RioParserTest extends TestBase {
 
     @Before
@@ -52,8 +48,7 @@ public class RioParserTest extends TestBase {
      * {@link org.semanticweb.owlapi.rio.RioParserImpl#parse(org.semanticweb.owlapi.io.OWLOntologyDocumentSource, org.semanticweb.owlapi.model.OWLOntology)}
      */
     @Test
-    public void testParse() throws OWLParserException, IOException,
-            OWLOntologyCreationException {
+    public void testParse() throws Exception {
         OWLOntology owlapiOntologyPrimer = m.createOntology();
         RDFXMLParser owlapiParser = new RDFXMLParser();
         OWLOntologyFormat owlapiOntologyFormat = owlapiParser.parse(
@@ -80,8 +75,7 @@ public class RioParserTest extends TestBase {
      * {@link org.semanticweb.owlapi.rio.RioParserImpl#parse(org.semanticweb.owlapi.io.OWLOntologyDocumentSource, org.semanticweb.owlapi.model.OWLOntology)}
      */
     @Test
-    public void testParsePrimer() throws OWLParserException, IOException,
-            OWLOntologyCreationException {
+    public void testParsePrimer() throws Exception {
         OWLOntology owlapiOntologyPrimer = m.createOntology();
         RDFXMLParser owlapiParser = new RDFXMLParser();
         OWLOntologyFormat owlapiOntologyFormat = owlapiParser.parse(
@@ -105,7 +99,6 @@ public class RioParserTest extends TestBase {
     /**
      * @return stream
      */
-    @SuppressWarnings("null")
     @Nonnull
     StreamDocumentSource getStream(String name) {
         return new StreamDocumentSource(this.getClass().getResourceAsStream(
@@ -117,8 +110,7 @@ public class RioParserTest extends TestBase {
      * {@link org.semanticweb.owlapi.rio.RioParserImpl#parse(org.semanticweb.owlapi.io.OWLOntologyDocumentSource, org.semanticweb.owlapi.model.OWLOntology)}
      */
     @Test
-    public void testParsePrimerSubset() throws OWLParserException, IOException,
-            OWLOntologyCreationException {
+    public void testParsePrimerSubset() throws Exception {
         // XXX this test does not work yet
         // output:
         // Rio:
@@ -156,8 +148,7 @@ public class RioParserTest extends TestBase {
      * {@link org.semanticweb.owlapi.rio.RioParserImpl#parse(org.semanticweb.owlapi.io.OWLOntologyDocumentSource, org.semanticweb.owlapi.model.OWLOntology)}
      */
     @Test
-    public void testParsePrimerMinimalSubset() throws OWLParserException,
-            IOException, OWLOntologyCreationException {
+    public void testParsePrimerMinimalSubset() throws Exception {
         OWLOntology owlapiOntologyPrimer = m.createOntology();
         RDFXMLParser owlapiParser = new RDFXMLParser();
         OWLOntologyFormat owlapiOntologyFormat = owlapiParser.parse(

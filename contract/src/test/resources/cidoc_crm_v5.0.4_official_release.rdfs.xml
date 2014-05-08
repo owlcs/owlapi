@@ -898,7 +898,7 @@ If a person is killed, their death should be instantiated as E69 Death and as E7
 	<rdfs:subClassOf rdf:resource="E64_End_of_Existence"/>
 </rdfs:Class>
 <rdfs:Class rdf:about="E70_Thing">
-<rdfs:label xml:lang="ru"></rdfs:label>    
+<rdfs:label xml:lang="ru"/>
    <rdfs:label xml:lang="fr">Chose</rdfs:label>
     <rdfs:label xml:lang="en">Thing</rdfs:label>
     <rdfs:label xml:lang="el">Πράγμα</rdfs:label>

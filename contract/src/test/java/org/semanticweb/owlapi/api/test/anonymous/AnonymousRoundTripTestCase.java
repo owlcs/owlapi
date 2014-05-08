@@ -23,15 +23,12 @@ import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 @SuppressWarnings("javadoc")
 public class AnonymousRoundTripTestCase extends TestBase {
 
     @Test
-    public void testRoundTrip() throws OWLOntologyCreationException,
-            OWLOntologyStorageException {
+    public void testRoundTrip() throws Exception {
         String NS = "http://smi-protege.stanford.edu/ontologies/AnonymousIndividuals.owl";
         OWLClass a = Class(IRI(NS + "#A"));
         OWLAnonymousIndividual h = AnonymousIndividual();

@@ -32,10 +32,9 @@ import com.google.common.base.Optional;
  *         Research Group
  * @since 3.2.0
  */
-@SuppressWarnings("javadoc")
+@SuppressWarnings({ "javadoc", "null" })
 public class SetOntologyIDDataTestCase {
 
-    @SuppressWarnings("null")
     @Nonnull
     private OWLOntology mockOntology = mock(OWLOntology.class);
     @Nonnull

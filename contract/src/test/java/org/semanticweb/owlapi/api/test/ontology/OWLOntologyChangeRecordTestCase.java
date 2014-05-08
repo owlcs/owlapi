@@ -35,15 +35,14 @@ import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
  *         Research Group
  * @since 3.2.0
  */
-@SuppressWarnings("javadoc")
+@SuppressWarnings({ "javadoc", "null" })
 public class OWLOntologyChangeRecordTestCase {
 
     @Nonnull
     private OWLOntologyID mockOntologyID = new OWLOntologyID();
-    @SuppressWarnings({ "null", "unchecked" })
+    @SuppressWarnings({ "unchecked" })
     @Nonnull
     private OWLOntologyChangeData<OWLAxiom> mockChangeData = mock(OWLOntologyChangeData.class);
-    @SuppressWarnings("null")
     @Nonnull
     private OWLAxiom mockAxiom = mock(OWLAxiom.class);
 

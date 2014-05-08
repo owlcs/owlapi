@@ -34,6 +34,7 @@ import org.semanticweb.owlapi.profiles.OWLProfileReport;
 import org.semanticweb.owlapi.profiles.OWLProfileViolation;
 import org.semanticweb.owlapi.profiles.violations.UseOfReservedVocabularyForAnnotationPropertyIRI;
 import org.semanticweb.owlapi.profiles.violations.UseOfUndeclaredAnnotationProperty;
+import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLObjectPropertyManager;
 
 @SuppressWarnings("javadoc")
@@ -166,10 +167,9 @@ public class ForbiddenVocabularyTestCase extends TestBase {
                 df.getOWLDeclarationAxiom(brother));
         o.getOWLOntologyManager().addAxiom(o, df.getOWLDeclarationAxiom(child));
         o.getOWLOntologyManager().addAxiom(o, df.getOWLDeclarationAxiom(uncle));
-        @SuppressWarnings("null")
         OWLSubPropertyChainOfAxiom brokenAxiom1 = df
-                .getOWLSubPropertyChainOfAxiom(Arrays.asList(father, brother),
-                        uncle);
+                .getOWLSubPropertyChainOfAxiom(
+                        CollectionFactory.list(father, brother), uncle);
         OWLObjectPropertyManager manager = new OWLObjectPropertyManager(
                 o.getOWLOntologyManager(), o);
         o.getOWLOntologyManager().addAxiom(o, brokenAxiom1);

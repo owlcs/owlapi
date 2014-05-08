@@ -34,7 +34,7 @@ import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
  *         Group
  * @since 2.0.0
  */
-@SuppressWarnings({ "unused", "javadoc" })
+@SuppressWarnings("javadoc")
 public class LabelExtractor implements OWLAnnotationObjectVisitor {
 
     @Nullable
@@ -73,8 +73,10 @@ public class LabelExtractor implements OWLAnnotationObjectVisitor {
     @Override
     public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {}
 
+    @SuppressWarnings("unused")
     public void visit(OWLAnnotationProperty property) {}
 
+    @SuppressWarnings("unused")
     public void visit(OWLAnnotationValue value) {}
 
     @Nullable

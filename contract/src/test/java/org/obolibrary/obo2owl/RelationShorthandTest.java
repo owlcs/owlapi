@@ -20,10 +20,9 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /** @author cjm see 5.9.3 and 8.2.2 of spec */
-@SuppressWarnings("javadoc")
+@SuppressWarnings({ "javadoc", "null" })
 public class RelationShorthandTest extends OboFormatTestBasics {
 
-    @SuppressWarnings("null")
     @Test
     public void testConvert() {
         // PARSE TEST FILE, CONVERT TO OWL, AND WRITE TO OWL FILE

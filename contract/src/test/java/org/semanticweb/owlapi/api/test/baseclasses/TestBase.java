@@ -55,7 +55,7 @@ import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
  *         Informatics Group
  * @since 2.2.0
  */
-@SuppressWarnings("javadoc")
+@SuppressWarnings({ "javadoc", "null" })
 public abstract class TestBase {
 
     @Nonnull
@@ -75,7 +75,6 @@ public abstract class TestBase {
     @Nonnull
     protected OWLOntologyManager m1 = OWLManager.createOWLOntologyManager();
 
-    @SuppressWarnings("null")
     @Nonnull
     protected <S> Set<S> singleton(S s) {
         return Collections.singleton(s);
@@ -203,7 +202,6 @@ public abstract class TestBase {
     @Nonnull
     private String uriBase = "http://www.semanticweb.org/owlapi/test";
 
-    @SuppressWarnings("null")
     @Nonnull
     public OWLOntology getOWLOntology(String name) {
         try {
@@ -218,7 +216,6 @@ public abstract class TestBase {
         }
     }
 
-    @SuppressWarnings("null")
     public OWLOntology loadOntology(String fileName) {
         try {
             URL url = getClass().getResource("/" + fileName);
@@ -385,7 +382,6 @@ public abstract class TestBase {
                 new StringDocumentSource(o), c);
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     protected StringDocumentTarget saveOntology(@Nonnull OWLOntology o)
             throws UnknownOWLOntologyException, OWLOntologyStorageException {

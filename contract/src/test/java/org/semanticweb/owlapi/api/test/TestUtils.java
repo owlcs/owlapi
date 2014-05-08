@@ -28,6 +28,8 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 @SuppressWarnings("javadoc")
 public class TestUtils {
 
+    private TestUtils() {}
+
     public static OWLIndividual createOWLIndividual() {
         return NamedIndividual(createIRI());
     }

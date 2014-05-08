@@ -68,20 +68,19 @@ public class ManchesterParseErrorTestCase extends TestBase {
 
         private final OWLDataFactory factory;
 
-        public MockEntityChecker(OWLDataFactory factory) {
+        MockEntityChecker(OWLDataFactory factory) {
             this.factory = factory;
         }
 
         @Nullable
         @Override
-        public OWLClass getOWLClass(@SuppressWarnings("unused") String name) {
+        public OWLClass getOWLClass(String name) {
             return null;
         }
 
         @Nullable
         @Override
-        public OWLObjectProperty getOWLObjectProperty(
-                @SuppressWarnings("unused") String name) {
+        public OWLObjectProperty getOWLObjectProperty(String name) {
             return null;
         }
 
@@ -98,15 +97,13 @@ public class ManchesterParseErrorTestCase extends TestBase {
 
         @Nullable
         @Override
-        public OWLAnnotationProperty getOWLAnnotationProperty(
-                @SuppressWarnings("unused") String name) {
+        public OWLAnnotationProperty getOWLAnnotationProperty(String name) {
             return null;
         }
 
         @Nullable
         @Override
-        public OWLNamedIndividual getOWLIndividual(
-                @SuppressWarnings("unused") String name) {
+        public OWLNamedIndividual getOWLIndividual(String name) {
             return null;
         }
 

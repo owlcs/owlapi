@@ -10,10 +10,9 @@ import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 import org.obolibrary.oboformat.parser.XrefExpander;
 
-@SuppressWarnings("javadoc")
+@SuppressWarnings({ "javadoc", "null" })
 public class XrefExpanderTest extends OboFormatTestBasics {
 
-    @SuppressWarnings("null")
     @Test
     public void testExpand() {
         OBODoc obodoc = parseOBOFile("treat_xrefs_test.obo");
@@ -35,7 +34,6 @@ public class XrefExpanderTest extends OboFormatTestBasics {
                 .equals("CARO:0000008"));
     }
 
-    @SuppressWarnings("null")
     @Test
     public void testExpandIntoSeparateBridges() {
         OBODoc obodoc = parseOBOFile("treat_xrefs_test.obo");
@@ -48,9 +46,9 @@ public class XrefExpanderTest extends OboFormatTestBasics {
                 continue;
             }
             Clause impClause = hf.getClause(OboFormatTag.TAG_ONTOLOGY);
-            if (impClause == null) {
-                continue;
-            }
+            // if (impClause == null) {
+            // continue;
+            // }
             String tid = impClause.getValue(String.class)
                     .replace("bridge-", "");
             if (tid.equals("zfa")) {

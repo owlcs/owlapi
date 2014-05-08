@@ -38,8 +38,7 @@ public class ObjectPropertyDeclarationWithAnnotationsTestCase extends
     }
 
     @Override
-    protected boolean isIgnoreDeclarationAxioms(
-            @SuppressWarnings("unused") OWLOntologyFormat format) {
+    protected boolean isIgnoreDeclarationAxioms(OWLOntologyFormat format) {
         return false;
     }
 

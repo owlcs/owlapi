@@ -26,6 +26,8 @@ public class TestUtils {
 
     private static int uriCounter = 0;
 
+    private TestUtils() {}
+
     @Nonnull
     public static IRI createIRI() {
         uriCounter++;

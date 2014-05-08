@@ -39,7 +39,6 @@ import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLRule;
@@ -50,8 +49,7 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
 public class SWRLRoundTripTestCase extends TestBase {
 
     @Test
-    public void shouldDoCompleteRoundtrip()
-            throws OWLOntologyCreationException, OWLOntologyStorageException {
+    public void shouldDoCompleteRoundtrip() throws Exception {
         String NS = "urn:test";
         OWLClass A = Class(IRI(NS + "#A"));
         OWLDataProperty P = df.getOWLDataProperty(IRI(NS + "#P"));
@@ -72,8 +70,7 @@ public class SWRLRoundTripTestCase extends TestBase {
     }
 
     @Test
-    public void shouldDoCompleteRoundtripManchesterOWLSyntax()
-            throws OWLOntologyCreationException, OWLOntologyStorageException {
+    public void shouldDoCompleteRoundtripManchesterOWLSyntax() throws Exception {
         String NS = "urn:test";
         OWLClass A = Class(IRI(NS + "#A"));
         OWLDataProperty P = df.getOWLDataProperty(IRI(NS + "#P"));
@@ -96,7 +93,7 @@ public class SWRLRoundTripTestCase extends TestBase {
 
     @Test
     public void shouldDoCompleteRoundtripWithAnnotationsOWLXML()
-            throws OWLOntologyCreationException, OWLOntologyStorageException {
+            throws Exception {
         OWLOntology ontology = prepareOntology();
         OWLXMLOntologyFormat f = new OWLXMLOntologyFormat();
         OWLOntology ontology2 = loadOntologyFromString(saveOntology(ontology, f));
@@ -111,7 +108,7 @@ public class SWRLRoundTripTestCase extends TestBase {
 
     @Test
     public void shouldDoCompleteRoundtripWithAnnotationsTurtle()
-            throws OWLOntologyCreationException, OWLOntologyStorageException {
+            throws Exception {
         OWLOntology ontology = prepareOntology();
         OWLOntologyFormat f = new TurtleOntologyFormat();
         OWLOntology ontology2 = loadOntologyFromString(saveOntology(ontology, f));
@@ -126,7 +123,7 @@ public class SWRLRoundTripTestCase extends TestBase {
 
     @Test
     public void shouldDoCompleteRoundtripWithAnnotationsFunctional()
-            throws OWLOntologyCreationException, OWLOntologyStorageException {
+            throws Exception {
         OWLOntology ontology = prepareOntology();
         OWLOntologyFormat f = new OWLFunctionalSyntaxOntologyFormat();
         OWLOntology ontology2 = loadOntologyFromString(saveOntology(ontology, f));
@@ -141,7 +138,7 @@ public class SWRLRoundTripTestCase extends TestBase {
 
     @Test
     public void shouldDoCompleteRoundtripWithAnnotationsRDFXML()
-            throws OWLOntologyCreationException, OWLOntologyStorageException {
+            throws Exception {
         OWLOntology ontology = prepareOntology();
         OWLOntologyFormat f = new RDFXMLOntologyFormat();
         OWLOntology ontology2 = loadOntologyFromString(saveOntology(ontology, f));
@@ -156,7 +153,7 @@ public class SWRLRoundTripTestCase extends TestBase {
 
     @Test
     public void shouldDoCompleteRoundtripWithAnnotations_datatypeRDFXML()
-            throws OWLOntologyCreationException, OWLOntologyStorageException {
+            throws Exception {
         OWLOntology ontology = prepareOntology1();
         OWLOntologyFormat f = new RDFXMLOntologyFormat();
         OWLOntology ontology2 = loadOntologyFromString(saveOntology(ontology, f));
@@ -168,8 +165,7 @@ public class SWRLRoundTripTestCase extends TestBase {
 
     @Ignore("man syntax does not like annotations")
     @Test
-    public void shouldDoCompleteRoundtripWithAnnotationsMan()
-            throws OWLOntologyCreationException, OWLOntologyStorageException {
+    public void shouldDoCompleteRoundtripWithAnnotationsMan() throws Exception {
         OWLOntology ontology = prepareOntology();
         OWLOntologyFormat f = new ManchesterOWLSyntaxOntologyFormat();
         StringDocumentTarget save = saveOntology(ontology, f);

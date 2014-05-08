@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.api.test.imports;
 import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,20 +26,16 @@ import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 import com.google.common.base.Optional;
 
-@SuppressWarnings("javadoc")
+@SuppressWarnings({ "javadoc", "null" })
 public class DuplicateImportTestCase extends TestBase {
 
-    @SuppressWarnings("null")
     @Test
-    public void shouldLoad() throws OWLOntologyStorageException,
-            OWLOntologyCreationException, IOException {
+    public void shouldLoad() throws Exception {
         @Nonnull
         File importsBothNameAndVersion = folder
                 .newFile("tempimportsNameAndVersion.owl");

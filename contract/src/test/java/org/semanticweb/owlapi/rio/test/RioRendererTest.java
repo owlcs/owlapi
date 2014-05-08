@@ -20,8 +20,6 @@ import org.openrdf.model.impl.ValueFactoryImpl;
 import org.openrdf.model.vocabulary.OWL;
 import org.openrdf.model.vocabulary.RDF;
 import org.openrdf.rio.RDFFormat;
-import org.openrdf.rio.RDFHandlerException;
-import org.openrdf.rio.RDFParseException;
 import org.openrdf.rio.RDFParser;
 import org.openrdf.rio.RDFWriter;
 import org.openrdf.rio.Rio;
@@ -38,15 +36,13 @@ import org.semanticweb.owlapi.rio.RioTurtleOntologyStorerFactory;
 /**
  * @author Peter Ansell p_ansell@yahoo.com
  */
-@SuppressWarnings("javadoc")
+@SuppressWarnings({ "javadoc", "null" })
 public class RioRendererTest {
 
     private ValueFactory vf;
     private OWLOntologyManager testManager;
-    @SuppressWarnings("null")
     @Nonnull
     private OWLOntology testOntologyEmpty;
-    @SuppressWarnings("null")
     @Nonnull
     private OWLOntology testOntologyKoala;
     private Statement testOntologyEmptyStatement;
@@ -60,7 +56,6 @@ public class RioRendererTest {
     private StringWriter testNTriplesStringWriter;
     private RDFWriter testNTriplesRioWriter;
 
-    @SuppressWarnings("null")
     @Before
     public void setUp() throws Exception {
         vf = new ValueFactoryImpl();
@@ -190,8 +185,7 @@ public class RioRendererTest {
      * {@link org.semanticweb.owlapi.rio.RioRenderer#render(org.semanticweb.owlapi.io.RDFResource)}
      */
     @Test
-    public void testRenderKoalaRdfXmlWriter() throws IOException,
-            RDFParseException, RDFHandlerException {
+    public void testRenderKoalaRdfXmlWriter() throws Exception {
         RioRenderer testRenderer = new RioRenderer(testOntologyKoala,
                 testRdfXmlRioWriter, null);
         testRenderer.render();
@@ -227,8 +221,7 @@ public class RioRendererTest {
      * {@link org.semanticweb.owlapi.rio.RioRenderer#render(org.semanticweb.owlapi.io.RDFResource)}
      */
     @Test
-    public void testRenderKoalaTurtleWriter() throws IOException,
-            RDFParseException, RDFHandlerException {
+    public void testRenderKoalaTurtleWriter() throws Exception {
         RioRenderer testRenderer = new RioRenderer(testOntologyKoala,
                 testTurtleRioWriter, null);
         testRenderer.render();
@@ -258,8 +251,7 @@ public class RioRendererTest {
      * {@link org.semanticweb.owlapi.rio.RioRenderer#render(org.semanticweb.owlapi.io.RDFResource)}
      */
     @Test
-    public void testRenderKoalaNTriplesWriter() throws IOException,
-            RDFParseException, RDFHandlerException {
+    public void testRenderKoalaNTriplesWriter() throws Exception {
         RioRenderer testRenderer = new RioRenderer(testOntologyKoala,
                 testNTriplesRioWriter, null);
         testRenderer.render();

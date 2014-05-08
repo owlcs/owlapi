@@ -11,10 +11,9 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 import com.google.common.base.Optional;
 
-@SuppressWarnings("javadoc")
+@SuppressWarnings({ "javadoc", "null" })
 public class GetLoadedOntologyTest {
 
-    @SuppressWarnings("null")
     @Test
     public void testConvert() throws Exception {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();

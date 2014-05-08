@@ -28,13 +28,11 @@ import org.semanticweb.owlapi.model.RemoveImport;
  *         Research Group
  * @since 3.2.0
  */
-@SuppressWarnings("javadoc")
+@SuppressWarnings({ "javadoc", "null" })
 public class RemoveImportDataTestCase {
 
-    @SuppressWarnings("null")
     @Nonnull
     private OWLImportsDeclaration mockDeclaration = mock(OWLImportsDeclaration.class);
-    @SuppressWarnings("null")
     @Nonnull
     private OWLOntology mockOntology = mock(OWLOntology.class);
 

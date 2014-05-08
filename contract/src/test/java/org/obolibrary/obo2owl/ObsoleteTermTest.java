@@ -17,10 +17,9 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-@SuppressWarnings("javadoc")
+@SuppressWarnings({ "javadoc", "null" })
 public class ObsoleteTermTest extends OboFormatTestBasics {
 
-    @SuppressWarnings("null")
     @Test
     public void testConvert() {
         // PARSE TEST FILE

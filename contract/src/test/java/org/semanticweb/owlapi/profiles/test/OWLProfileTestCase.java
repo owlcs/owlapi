@@ -102,7 +102,7 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
 
 import com.google.common.base.Optional;
 
-@SuppressWarnings({ "javadoc", "rawtypes" })
+@SuppressWarnings({ "javadoc", "rawtypes", "null" })
 public class OWLProfileTestCase {
 
     @Nonnull
@@ -177,7 +177,6 @@ public class OWLProfileTestCase {
             violation.accept(new OWLProfileViolationVisitorAdapter());
             violation.accept(new OWLProfileViolationVisitorExAdapter<String>() {
 
-                @SuppressWarnings("null")
                 @Override
                 protected String doDefault(@Nonnull OWLProfileViolation<?> v) {
                     return v.toString();
@@ -777,7 +776,6 @@ public class OWLProfileTestCase {
         runAssert(o, profile, expected, expectedViolations);
     }
 
-    @SuppressWarnings("null")
     @Test
     @Tests(method = "public Object visit(OWLSubPropertyChainOfAxiom axiom)")
     public void
@@ -1463,7 +1461,6 @@ public class OWLProfileTestCase {
         runAssert(o, profile, expected, expectedViolations);
     }
 
-    @SuppressWarnings("null")
     @Test
     @Tests(method = "public Object visit(OWLSubPropertyChainOfAxiom axiom)")
     public void

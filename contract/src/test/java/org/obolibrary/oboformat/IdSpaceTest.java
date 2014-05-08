@@ -14,7 +14,7 @@ import org.obolibrary.oboformat.model.Frame;
 import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 
-@SuppressWarnings("javadoc")
+@SuppressWarnings({ "javadoc", "null" })
 public class IdSpaceTest extends OboFormatTestBasics {
 
     @Test
@@ -28,7 +28,6 @@ public class IdSpaceTest extends OboFormatTestBasics {
         checkIdSpace(doc2);
     }
 
-    @SuppressWarnings("null")
     private static void checkIdSpace(@Nonnull OBODoc doc) {
         Frame headerFrame = doc.getHeaderFrame();
         assertNotNull(headerFrame);

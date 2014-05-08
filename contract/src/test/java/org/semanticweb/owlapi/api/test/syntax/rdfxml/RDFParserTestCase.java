@@ -49,8 +49,7 @@ public class RDFParserTestCase {
     }
 
     @Test
-    public void testOWLAPI() throws OWLOntologyCreationException,
-            URISyntaxException {
+    public void testOWLAPI() throws Exception {
         parseFiles("/owlapi/");
     }
 

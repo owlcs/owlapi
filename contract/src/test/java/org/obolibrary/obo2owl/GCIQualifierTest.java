@@ -15,7 +15,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /** @author cjm see 5.9.3 and 8.2.2 of spec */
-@SuppressWarnings("javadoc")
+@SuppressWarnings({ "javadoc", "null" })
 public class GCIQualifierTest extends OboFormatTestBasics {
 
     @Test
@@ -32,7 +32,6 @@ public class GCIQualifierTest extends OboFormatTestBasics {
         OBODoc obodoc = convert(ontology);
         // test that relation IDs are converted back to symbolic form
         Frame tf = obodoc.getTermFrame("X:1");
-        @SuppressWarnings("null")
         Collection<Clause> clauses = tf
                 .getClauses(OboFormatTag.TAG_RELATIONSHIP);
         assertEquals(2, clauses.size());

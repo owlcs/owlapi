@@ -31,11 +31,10 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
-@SuppressWarnings("javadoc")
+@SuppressWarnings({ "javadoc", "null" })
 public class SWRLAnnotationTestCase extends TestBase {
 
     @Nonnull
@@ -44,7 +43,6 @@ public class SWRLAnnotationTestCase extends TestBase {
     OWLClass a = Class(IRI(NS + "#A"));
     @Nonnull
     OWLClass b = Class(IRI(NS + "#B"));
-    @SuppressWarnings("null")
     @Nonnull
     OWLAxiom axiom;
 
@@ -65,8 +63,7 @@ public class SWRLAnnotationTestCase extends TestBase {
     }
 
     @Test
-    public void shouldRoundTripAnnotation()
-            throws OWLOntologyCreationException, OWLOntologyStorageException {
+    public void shouldRoundTripAnnotation() throws Exception {
         OWLOntology ontology = createOntology();
         assertTrue(ontology.containsAxiom(axiom));
         ontology = loadOntologyFromString(saveOntology(ontology));

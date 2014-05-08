@@ -32,6 +32,7 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.util.AnnotationValueShortFormProvider;
+import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.SimpleIRIShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleShortFormProvider;
@@ -49,9 +50,8 @@ public class AnnotationShortFormProviderTestCase extends TestBase {
             "http://org.semanticweb.owlapi/ont#");
     @Nonnull
     OWLAnnotationProperty prop = AnnotationProperty("prop", pm);
-    @SuppressWarnings("null")
     @Nonnull
-    List<OWLAnnotationProperty> props = Arrays.asList(prop);
+    List<OWLAnnotationProperty> props = CollectionFactory.list(prop);
     @Nonnull
     Map<OWLAnnotationProperty, List<String>> langMap = new HashMap<OWLAnnotationProperty, List<String>>();
 
@@ -115,13 +115,11 @@ public class AnnotationShortFormProviderTestCase extends TestBase {
                         return "\"" + literal.getLiteral() + "\"";
                     }
 
-                    @SuppressWarnings("unused")
                     @Override
                     public String visit(OWLAnonymousIndividual individual) {
                         return "";
                     }
 
-                    @SuppressWarnings("unused")
                     @Override
                     public String visit(IRI iri) {
                         return "";

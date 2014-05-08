@@ -25,7 +25,6 @@ import org.semanticweb.owlapi.api.test.baseclasses.AbstractAxiomsRoundTrippingTe
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.rdf.rdfxml.renderer.IllegalElementNameException;
 
@@ -49,8 +48,7 @@ public class NoQNameTestCase extends AbstractAxiomsRoundTrippingTestCase {
 
     @Override
     @Test
-    public void testRDFXML() throws OWLOntologyStorageException,
-            OWLOntologyCreationException {
+    public void testRDFXML() throws Exception {
         try {
             super.testRDFXML();
             fail("Expected an exception specifying that a QName could not be generated");

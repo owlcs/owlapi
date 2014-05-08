@@ -14,30 +14,25 @@ package org.semanticweb.owlapi.api.test.ontology;
 
 import static org.junit.Assert.*;
 
-import java.net.URISyntaxException;
-
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyAlreadyExistsException;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
  * @since 3.0.0
  */
-@SuppressWarnings("javadoc")
+@SuppressWarnings({ "javadoc", "null" })
 public class DifferentPhysicalURISameOntologyIRITestCase extends TestBase {
 
     private static final String ONTOLOGY_A = "ImportsTestOntologyA.owl";
     private static final String ONTOLOGY_A_EMPTY = "ImportsTestOntologyAEmpty.owl";
 
-    @SuppressWarnings("null")
     @Test(expected = OWLOntologyAlreadyExistsException.class)
-    public void testDifferentPhysicalURISameOntologyIRI()
-            throws OWLOntologyCreationException, URISyntaxException {
+    public void testDifferentPhysicalURISameOntologyIRI() throws Exception {
         IRI ontologyADocumentIRI = IRI
                 .create(DifferentPhysicalURISameOntologyIRITestCase.class
                         .getResource("/" + ONTOLOGY_A).toURI());

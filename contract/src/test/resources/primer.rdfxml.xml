@@ -5,7 +5,9 @@
     <!ENTITY otherOnt "http://example.org/otherOntologies/families/" >
 ]>
 
- <rdf:RDF xml:base="http://example.com/owl/families/" xmlns="http://example.com/owl/families/" xmlns:otherOnt="http://example.org/otherOntologies/families/" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
+<rdf:RDF xml:base="http://example.com/owl/families/" xmlns="http://example.com/owl/families/"
+         xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
    <owl:Ontology rdf:about="http://example.com/owl/families"/>
    <owl:ObjectProperty rdf:about="hasWife"><rdfs:subPropertyOf rdf:resource="hasSpouse"/><rdfs:domain rdf:resource="Man"/><rdfs:range rdf:resource="Woman"/></owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="hasParent"><owl:inverseOf rdf:resource="hasChild"/><owl:propertyDisjointWith rdf:resource="hasSpouse"/></owl:ObjectProperty>

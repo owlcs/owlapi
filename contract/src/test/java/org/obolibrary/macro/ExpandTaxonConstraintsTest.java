@@ -20,8 +20,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  relationship: never_in_taxon NCBITaxon:554915 {id="GOTAX:0000504", source="PMID:21311032"} ! Amoebozoa
 
  * 
- */
-@SuppressWarnings("javadoc")
+ */@SuppressWarnings("javadoc")
 public class ExpandTaxonConstraintsTest extends RoundTripTest {
 
     @Test

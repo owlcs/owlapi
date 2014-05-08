@@ -30,15 +30,12 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 @SuppressWarnings("javadoc")
 public class AnonymousTestCase extends TestBase {
 
     @Test
-    public void shouldRoundTrip() throws OWLOntologyCreationException,
-            OWLOntologyStorageException {
+    public void shouldRoundTrip() throws Exception {
         OWLClass C = Class(IRI("urn:test#C"));
         OWLClass D = Class(IRI("urn:test#D"));
         OWLObjectProperty P = ObjectProperty(IRI("urn:test#p"));

@@ -24,14 +24,13 @@ import org.semanticweb.owlapi.io.XMLUtils;
  *         Informatics Group
  * @since 3.3.0
  */
-@SuppressWarnings("javadoc")
+@SuppressWarnings({ "javadoc", "null" })
 public class XMLUtilsTestCase {
 
     private static final int CODE_POINT = 0xEFFFF;
     @Nonnull
     private static final String CODE_POINT_STRING = init();
 
-    @SuppressWarnings("null")
     @Nonnull
     static String init() {
         StringBuilder sb = new StringBuilder();

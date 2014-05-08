@@ -16,7 +16,6 @@ import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 
-import java.net.URISyntaxException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -40,7 +39,6 @@ import org.semanticweb.owlapi.model.OWLLogicalAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
@@ -48,8 +46,7 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 public class TurtleTestCase extends TestBase {
 
     @Test
-    public void testLoadingUTF8BOM() throws URISyntaxException,
-            OWLOntologyCreationException {
+    public void testLoadingUTF8BOM() throws Exception {
         @SuppressWarnings("null")
         IRI uri = IRI.create(getClass().getResource("/ttl-with-bom.ttl")
                 .toURI());
@@ -160,8 +157,7 @@ public class TurtleTestCase extends TestBase {
 
     // test for 3543488
     @Test
-    public void shouldRoundTripTurtleWithsharedBnodes()
-            throws OWLOntologyCreationException, OWLOntologyStorageException {
+    public void shouldRoundTripTurtleWithsharedBnodes() throws Exception {
         String input = "@prefix ex: <http://example.com/test> .\n ex:ex1 a ex:Something ; ex:prop1 _:a .\n _:a a ex:Something1 ; ex:prop2 _:b .\n _:b a ex:Something ; ex:prop3 _:a .";
         OWLOntology ontology = loadOntologyFromString(input);
         OWLOntology onto2 = roundTrip(ontology, new TurtleOntologyFormat());
@@ -223,8 +219,7 @@ public class TurtleTestCase extends TestBase {
     }
 
     @Test
-    public void shouldRoundTripAxiomAnnotation()
-            throws OWLOntologyCreationException, OWLOntologyStorageException {
+    public void shouldRoundTripAxiomAnnotation() throws Exception {
         String input = "@prefix : <urn:fm2#> .\n"
                 + "@prefix fm:    <urn:fm2#> .\n"
                 + "@prefix owl: <http://www.w3.org/2002/07/owl#> .\n"
@@ -264,7 +259,7 @@ public class TurtleTestCase extends TestBase {
 
     @Test
     public void shouldRoundTripAxiomAnnotationWithSlashOntologyIRI()
-            throws OWLOntologyCreationException, OWLOntologyStorageException {
+            throws Exception {
         String input = "@prefix : <urn:test#test.owl/> .\n"
                 + "@prefix owl: <http://www.w3.org/2002/07/owl#> .\n"
                 + "@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n"

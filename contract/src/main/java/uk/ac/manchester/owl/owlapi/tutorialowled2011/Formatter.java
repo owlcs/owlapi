@@ -22,8 +22,10 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@SuppressWarnings({ "javadoc" })
+@SuppressWarnings("javadoc")
 public class Formatter {
+
+    private Formatter() {}
 
     public static void main(String[] args) throws Exception {
         System.out.println("Formatter.main() " + Long.MAX_VALUE

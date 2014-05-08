@@ -33,7 +33,7 @@ public class OWLTutorialSyntaxRenderer extends AbstractOWLRenderer {
             throws OWLRendererIOException {
         try {
             OWLTutorialSyntaxObjectRenderer ren = new OWLTutorialSyntaxObjectRenderer(
-                    ontology, writer);
+                    writer);
             ontology.accept(ren);
             writer.flush();
         } catch (IOException ex) {

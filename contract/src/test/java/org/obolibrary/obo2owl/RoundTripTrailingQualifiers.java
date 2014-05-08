@@ -11,7 +11,6 @@ public class RoundTripTrailingQualifiers extends RoundTripTest {
      * modified test file. Idspace tags do not survive the obo2owl translation.
      * They are only directives for the translation.
      * 
-     * @throws Exception
      * @see TrailingQualifierTest
      */
     @Test

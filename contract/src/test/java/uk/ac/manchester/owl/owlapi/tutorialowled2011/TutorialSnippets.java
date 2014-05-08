@@ -17,7 +17,6 @@ import static org.semanticweb.owlapi.search.Searcher.annotations;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -108,15 +107,15 @@ import org.slf4j.LoggerFactory;
 import uk.ac.manchester.cs.owlapi.modularity.ModuleType;
 import uk.ac.manchester.cs.owlapi.modularity.SyntacticLocalityModuleExtractor;
 
-@SuppressWarnings("javadoc")
+@SuppressWarnings({ "javadoc", "null" })
 public class TutorialSnippets {
 
     @Nonnull
     @Rule
     public TemporaryFolder temporaryFolder = new TemporaryFolder();
-    @SuppressWarnings("null")
     @Nonnull
-    private static Logger log = LoggerFactory.getLogger(TutorialSnippets.class);
+    private static final Logger log = LoggerFactory
+            .getLogger(TutorialSnippets.class);
     @Nonnull
     private final static String koala = "<?xml version=\"1.0\"?>\n"
             + "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\""
@@ -219,9 +218,8 @@ public class TutorialSnippets {
         }
     }
 
-    @SuppressWarnings("null")
     @Test
-    public void testSaveOntology() throws OWLException, IOException {
+    public void testSaveOntology() throws Exception {
         OWLOntologyManager m = create();
         OWLOntology o = loadPizzaOntology(m);
         assertNotNull(o);
@@ -242,8 +240,7 @@ public class TutorialSnippets {
     }
 
     @Test
-    @SuppressWarnings("null")
-    public void testIRIMapper() throws OWLException, IOException {
+    public void testIRIMapper() throws Exception {
         OWLOntologyManager m = OWLManager.createOWLOntologyManager();
         // map the ontology IRI to a physical IRI (files for example)
         // Create the document IRI for our ontology
@@ -298,7 +295,6 @@ public class TutorialSnippets {
         assertEquals(2, classes.size());
     }
 
-    @SuppressWarnings("null")
     @Test
     public void testSWRL() throws OWLException {
         OWLOntologyManager m = create();
@@ -356,7 +352,6 @@ public class TutorialSnippets {
         m.addAxiom(o, ax);
     }
 
-    @SuppressWarnings("null")
     @Test
     public void testDelete() throws OWLException {
         // Delete individuals representing countries
@@ -572,7 +567,7 @@ public class TutorialSnippets {
         private final Set<OWLObjectPropertyExpression> restrictedProperties;
         private final Set<OWLOntology> onts;
 
-        public RestrictionVisitor(Set<OWLOntology> onts) {
+        RestrictionVisitor(Set<OWLOntology> onts) {
             restrictedProperties = new HashSet<OWLObjectPropertyExpression>();
             processedClasses = new HashSet<OWLClass>();
             this.onts = onts;
@@ -703,7 +698,6 @@ public class TutorialSnippets {
         assertTrue(merged.getAxiomCount() > o2.getAxiomCount());
     }
 
-    @SuppressWarnings("null")
     @Test
     public void testOntologyWalker() throws OWLException {
         // How to use an ontology walker to walk the asserted structure of an
@@ -996,7 +990,6 @@ public class TutorialSnippets {
         return clazz.getIRI().toString();
     }
 
-    @SuppressWarnings("null")
     public void printHierarchy(@Nonnull OWLReasoner reasoner,
             @Nonnull OWLClass clazz, int level, @Nonnull Set<OWLClass> visited) {
         // Only print satisfiable classes to skip Nothing

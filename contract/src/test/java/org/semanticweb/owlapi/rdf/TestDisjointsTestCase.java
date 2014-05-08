@@ -28,8 +28,6 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLOntologyStorer;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParser;
 import org.semanticweb.owlapi.rdf.rdfxml.renderer.RDFXMLOntologyStorer;
@@ -56,8 +54,7 @@ public class TestDisjointsTestCase extends TestBase {
     }
 
     @Test
-    public void testAnonDisjoints() throws OWLOntologyCreationException,
-            OWLOntologyStorageException {
+    public void testAnonDisjoints() throws Exception {
         OWLOntology ontA = m.createOntology(TestUtils.createIRI());
         OWLClass clsA = df.getOWLClass(TestUtils.createIRI());
         OWLClass clsB = df.getOWLClass(TestUtils.createIRI());

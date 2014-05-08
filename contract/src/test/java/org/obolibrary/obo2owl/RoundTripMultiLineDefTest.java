@@ -18,10 +18,9 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-@SuppressWarnings("javadoc")
+@SuppressWarnings({ "javadoc", "null" })
 public class RoundTripMultiLineDefTest extends OboFormatTestBasics {
 
-    @SuppressWarnings("null")
     @Test
     public void testMultiLineDefinitions() throws Exception {
         // create minimal ontology

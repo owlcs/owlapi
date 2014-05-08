@@ -11,7 +11,7 @@ import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 import org.obolibrary.oboformat.parser.OBOFormatParserException;
 
-@SuppressWarnings("javadoc")
+@SuppressWarnings({ "javadoc", "null" })
 public class CurlyBracesInCommentsTest extends OboFormatTestBasics {
 
     @Test(expected = OBOFormatParserException.class)
@@ -24,7 +24,6 @@ public class CurlyBracesInCommentsTest extends OboFormatTestBasics {
         parseOBOFile("fbbt_comment_test.obo");
     }
 
-    @SuppressWarnings("null")
     @Test
     public void writeCurlyBracesInComments() throws Exception {
         OBODoc doc = new OBODoc();

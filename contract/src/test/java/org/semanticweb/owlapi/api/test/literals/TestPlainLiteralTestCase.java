@@ -28,7 +28,6 @@ import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 @SuppressWarnings("javadoc")
@@ -67,8 +66,7 @@ public class TestPlainLiteralTestCase extends TestBase {
     }
 
     @Test
-    public void testPlainLiteralSerialization()
-            throws OWLOntologyCreationException, OWLOntologyStorageException {
+    public void testPlainLiteralSerialization() throws Exception {
         OWLOntology o = m.createOntology();
         OWLDataProperty p = m.getOWLDataFactory().getOWLDataProperty(
                 IRI("urn:test#p"));
@@ -85,8 +83,7 @@ public class TestPlainLiteralTestCase extends TestBase {
     }
 
     @Test
-    public void testPlainLiteralSerializationComments()
-            throws OWLOntologyCreationException, OWLOntologyStorageException {
+    public void testPlainLiteralSerializationComments() throws Exception {
         OWLOntology o = m.createOntology();
         OWLIndividual i = df.getOWLNamedIndividual(IRI("urn:test#ind"));
         OWLLiteral l = m.getOWLDataFactory().getOWLLiteral("test",
@@ -98,8 +95,7 @@ public class TestPlainLiteralTestCase extends TestBase {
     }
 
     @Test
-    public void testPlainLiteralSerializationComments2()
-            throws OWLOntologyCreationException, OWLOntologyStorageException {
+    public void testPlainLiteralSerializationComments2() throws Exception {
         OWLOntology o = m.createOntology();
         OWLLiteral l = m.getOWLDataFactory().getOWLLiteral("test",
                 OWL2Datatype.RDF_PLAIN_LITERAL);

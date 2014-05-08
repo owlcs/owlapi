@@ -29,7 +29,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * @author cjm see 5.9.3 and 8.2.2 of spec See
  *         http://code.google.com/p/oboformat/issues/detail?id=13
  */
-@SuppressWarnings("javadoc")
+@SuppressWarnings({ "javadoc", "null" })
 public class EquivalentToTest extends OboFormatTestBasics {
 
     @Test
@@ -60,7 +60,6 @@ public class EquivalentToTest extends OboFormatTestBasics {
         checkOBODoc(obodoc);
     }
 
-    @SuppressWarnings("null")
     public void checkOBODoc(@Nonnull OBODoc obodoc) {
         // OBODoc tests
         // test ECA between named classes is persisted using correct tag
@@ -93,7 +92,7 @@ public class EquivalentToTest extends OboFormatTestBasics {
                         okGenus = true;
                     }
                 } else {
-                    assertTrue(false);
+                    fail();
                 }
             }
             assertTrue(okGenus);

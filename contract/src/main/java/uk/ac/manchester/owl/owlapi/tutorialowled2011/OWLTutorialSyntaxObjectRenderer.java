@@ -102,10 +102,9 @@ import org.semanticweb.owlapi.util.ShortFormProvider;
  *         Group
  * @since 2.0.0
  */
-@SuppressWarnings({ "unused", "javadoc" })
+@SuppressWarnings({ "javadoc", "null" })
 public class OWLTutorialSyntaxObjectRenderer extends OWLObjectVisitorAdapter {
 
-    private final OWLOntology ontology;
     @Nonnull
     private final ShortFormProvider shortForms;
     private final Writer writer;
@@ -119,8 +118,7 @@ public class OWLTutorialSyntaxObjectRenderer extends OWLObjectVisitorAdapter {
         return shortForms.getShortForm(entity);
     }
 
-    public OWLTutorialSyntaxObjectRenderer(OWLOntology ontology, Writer writer) {
-        this.ontology = ontology;
+    public OWLTutorialSyntaxObjectRenderer(Writer writer) {
         this.writer = writer;
         shortForms = new QNameShortFormProvider();
     }
@@ -178,7 +176,6 @@ public class OWLTutorialSyntaxObjectRenderer extends OWLObjectVisitorAdapter {
         write("</html>\n");
     }
 
-    @SuppressWarnings("null")
     private <T extends OWLObject> void writeCollection(
             @Nonnull Collection<T> objects) {
         if (tables) {
@@ -338,6 +335,7 @@ public class OWLTutorialSyntaxObjectRenderer extends OWLObjectVisitorAdapter {
         write("</li>\n");
     }
 
+    @SuppressWarnings("unused")
     public void writePropertyCharacteristic(String str, OWLAxiom ax,
             @Nonnull OWLPropertyExpression prop) throws OWLRuntimeException {
         write(keyword(str));

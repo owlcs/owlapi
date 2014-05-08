@@ -45,7 +45,7 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
  *         Group
  * @since 2.0.0
  */
-@SuppressWarnings({ "javadoc" })
+@SuppressWarnings("javadoc")
 public class Debugger {
 
     @Nonnull
@@ -69,7 +69,7 @@ public class Debugger {
 
     public void report(@Nonnull PrintWriter writer) throws OWLException {
         OWLTutorialSyntaxObjectRenderer renderer = new OWLTutorialSyntaxObjectRenderer(
-                ontology, writer);
+                writer);
         /* Write a header */
         renderer.header();
         Set<OWLClass> unsatisfiables = new HashSet<OWLClass>();
@@ -97,7 +97,7 @@ public class Debugger {
                  * return us a collection of axioms
                  */
                 Set<OWLAxiom> sos = debugger
-                        .getSOSForIncosistentClass(unsatisfiable);
+                        .getSOSForInconsistentClass(unsatisfiable);
                 /* Print the axioms. */
                 for (OWLAxiom axiom : sos) {
                     writer.println("<li>");

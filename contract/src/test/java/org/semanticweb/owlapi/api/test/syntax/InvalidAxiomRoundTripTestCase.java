@@ -28,12 +28,10 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
-@SuppressWarnings("javadoc")
+@SuppressWarnings({ "javadoc", "null" })
 public class InvalidAxiomRoundTripTestCase extends TestBase {
 
-    @SuppressWarnings("null")
     @Nonnull
     private OWLOntology o;
 
@@ -58,8 +56,7 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
     }
 
     @Test
-    public void shouldRoundTripInvalidDifferentIndividuals()
-            throws OWLOntologyCreationException, OWLOntologyStorageException {
+    public void shouldRoundTripInvalidDifferentIndividuals() throws Exception {
         // given
         OWLNamedIndividual e1 = NamedIndividual(IRI("urn:test1"));
         OWLNamedIndividual e2 = NamedIndividual(IRI("urn:test2"));
@@ -75,8 +72,7 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
     }
 
     @Test
-    public void shouldRoundTripInvalidDisjointClasses()
-            throws OWLOntologyCreationException, OWLOntologyStorageException {
+    public void shouldRoundTripInvalidDisjointClasses() throws Exception {
         // given
         OWLClass e1 = Class(IRI("urn:test1"));
         OWLClass e2 = Class(IRI("urn:test2"));
@@ -97,7 +93,7 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
 
     @Test
     public void shouldRoundTripInvalidDisjointObjectProperties()
-            throws OWLOntologyCreationException, OWLOntologyStorageException {
+            throws Exception {
         // given
         OWLObjectProperty e1 = ObjectProperty(IRI("urn:test1"));
         OWLObjectProperty e2 = ObjectProperty(IRI("urn:test2"));
@@ -117,8 +113,7 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
     }
 
     @Test
-    public void shouldRoundTripInvalidDisjointDataProperties()
-            throws OWLOntologyCreationException, OWLOntologyStorageException {
+    public void shouldRoundTripInvalidDisjointDataProperties() throws Exception {
         // given
         OWLDataProperty e1 = DataProperty(IRI("urn:test1"));
         OWLDataProperty e2 = DataProperty(IRI("urn:test2"));
@@ -138,8 +133,7 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
     }
 
     @Test
-    public void shouldRoundTripInvalidSameIndividuals()
-            throws OWLOntologyCreationException, OWLOntologyStorageException {
+    public void shouldRoundTripInvalidSameIndividuals() throws Exception {
         // given
         OWLNamedIndividual e1 = NamedIndividual(IRI("urn:test1"));
         OWLNamedIndividual e2 = NamedIndividual(IRI("urn:test2"));
@@ -155,8 +149,7 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
     }
 
     @Test
-    public void shouldRoundTripInvalidEquivalentClasses()
-            throws OWLOntologyCreationException, OWLOntologyStorageException {
+    public void shouldRoundTripInvalidEquivalentClasses() throws Exception {
         // given
         OWLClass e1 = Class(IRI("urn:test1"));
         OWLClass e2 = Class(IRI("urn:test2"));
@@ -177,7 +170,7 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
 
     @Test
     public void shouldRoundTripInvalidEquivalentObjectProperties()
-            throws OWLOntologyCreationException, OWLOntologyStorageException {
+            throws Exception {
         // given
         OWLObjectProperty e1 = ObjectProperty(IRI("urn:test1"));
         OWLObjectProperty e2 = ObjectProperty(IRI("urn:test2"));
@@ -198,7 +191,7 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
 
     @Test
     public void shouldRoundTripInvalidEquivalentDataProperties()
-            throws OWLOntologyCreationException, OWLOntologyStorageException {
+            throws Exception {
         // given
         OWLDataProperty e1 = DataProperty(IRI("urn:test1"));
         OWLDataProperty e2 = DataProperty(IRI("urn:test2"));

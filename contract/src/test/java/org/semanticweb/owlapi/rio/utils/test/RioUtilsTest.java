@@ -23,10 +23,10 @@ import org.semanticweb.owlapi.rio.utils.RioUtils;
 /**
  * @author Peter Ansell p_ansell@yahoo.com
  */
-@SuppressWarnings("javadoc")
+@SuppressWarnings({ "javadoc", "null" })
 public class RioUtilsTest {
 
-    private static ValueFactory vf = ValueFactoryImpl.getInstance();
+    private static final ValueFactory vf = ValueFactoryImpl.getInstance();
     private RDFResourceIRI testOwlApiSubjectUri1;
     private RDFResourceIRI testOwlApiPredicateUri1;
     private RDFResourceIRI testOwlApiObjectUri1;
@@ -58,7 +58,6 @@ public class RioUtilsTest {
     private Statement testSesameTripleObjectBNode;
     private Statement testSesameTripleSubjectObjectBNode;
 
-    @SuppressWarnings("null")
     @Before
     public void setUp() {
         testOwlApiSubjectUri1 = new RDFResourceIRI(

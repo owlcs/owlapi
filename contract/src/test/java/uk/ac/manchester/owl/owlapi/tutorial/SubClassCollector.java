@@ -29,7 +29,7 @@ import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
  *         Group
  * @since 2.0.0
  */
-@SuppressWarnings({ "javadoc" })
+@SuppressWarnings("javadoc")
 public class SubClassCollector extends OWLAxiomVisitorAdapter {
 
     /* Collected axioms */

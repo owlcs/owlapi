@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.api.test.syntax;
 
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
-import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,7 +25,6 @@ import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFXMLParserException;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParser;
 
@@ -50,8 +48,7 @@ public class RelativeURITestCase extends AbstractAxiomsRoundTrippingTestCase {
     }
 
     @Test
-    public void shouldThrowMeaningfulException()
-            throws OWLOntologyCreationException, IOException {
+    public void shouldThrowMeaningfulException() throws Exception {
         expectedException.expect(OWLRDFXMLParserException.class);
         expectedException
                 .expectMessage("[line=1:column=378] IRI 'http://example.com/#1#2' cannot be resolved against current base IRI ");

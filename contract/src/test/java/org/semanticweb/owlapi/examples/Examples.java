@@ -13,7 +13,7 @@
 package org.semanticweb.owlapi.examples;
 
 import static org.junit.Assert.assertNotNull;
-import static org.semanticweb.owlapi.model.parameters.Imports.*;
+import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.search.Searcher.*;
 import static org.semanticweb.owlapi.vocab.OWLFacet.*;
 
@@ -83,7 +83,6 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.model.PrefixManager;
@@ -127,7 +126,7 @@ import com.google.common.base.Optional;
  *         Informatics Group
  * @since 2.0.0
  */
-@SuppressWarnings({ "unused", "javadoc" })
+@SuppressWarnings({ "javadoc", "unused", "null" })
 public class Examples extends TestBase {
 
     @Nonnull
@@ -165,7 +164,6 @@ public class Examples extends TestBase {
      * @throws Exception
      *         exception
      */
-    @SuppressWarnings("null")
     public void shouldLoad() throws Exception {
         // Get hold of an ontology manager
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
@@ -230,7 +228,6 @@ public class Examples extends TestBase {
      * @throws Exception
      *         exception
      */
-    @SuppressWarnings("null")
     @Test
     public void shouldSaveOntologies() throws Exception {
         // Get hold of an ontology manager
@@ -491,7 +488,6 @@ public class Examples extends TestBase {
      * @throws Exception
      *         exception
      */
-    @SuppressWarnings("null")
     @Test
     public void shouldLoadAndSave() throws Exception {
         // A simple example of how to load and save an ontology We first need to
@@ -803,7 +799,6 @@ public class Examples extends TestBase {
         Set<SWRLAtom> antecedent = new HashSet<SWRLAtom>();
         antecedent.add(propAtom);
         antecedent.add(propAtom2);
-        @SuppressWarnings("null")
         SWRLRule rule2 = factory.getSWRLRule(antecedent,
                 Collections.singleton(propAtom));
         manager.applyChange(new AddAxiom(ontology, rule2));
@@ -1154,7 +1149,6 @@ public class Examples extends TestBase {
                 .hasNext();) {
             OWLClass cls = it.next();
             // User a prefix manager to provide a slightly nicer shorter name
-            @SuppressWarnings("null")
             String shortForm = pm.getShortForm(cls);
             assertNotNull(shortForm);
         }
@@ -1225,15 +1219,10 @@ public class Examples extends TestBase {
         private final Set<OWLObjectPropertyExpression> restrictedProperties;
         private final Set<OWLOntology> onts;
 
-        public RestrictionVisitor(Set<OWLOntology> onts) {
+        RestrictionVisitor(Set<OWLOntology> onts) {
             restrictedProperties = new HashSet<OWLObjectPropertyExpression>();
             processedClasses = new HashSet<OWLClass>();
             this.onts = onts;
-        }
-
-        @Nonnull
-        public Set<OWLObjectPropertyExpression> getRestrictedProperties() {
-            return restrictedProperties;
         }
 
         @Override
@@ -1490,40 +1479,6 @@ public class Examples extends TestBase {
         }
     }
 
-    /**
-     * Prints out the properties that instances of a class expression must have.
-     * 
-     * @param man
-     *        The manager
-     * @param ont
-     *        The ontology
-     * @param reasoner
-     *        The reasoner
-     * @param cls
-     *        The class expression
-     */
-    private static void printProperties(@Nonnull OWLOntologyManager man,
-            @Nonnull OWLOntology ont, @Nonnull OWLReasoner reasoner,
-            @Nonnull OWLClass cls) {
-        if (!ont.containsClassInSignature(cls.getIRI(), EXCLUDED)) {
-            throw new OWLRuntimeException(
-                    "Class not in signature of the ontology");
-        }
-        // Note that the following code could be optimised... if we find that
-        // instances of the specified class do not have a property, then we
-        // don't need to check the sub properties of this property
-        // System.out.println("Properties of " + cls);
-        for (OWLObjectPropertyExpression prop : ont
-                .getObjectPropertiesInSignature()) {
-            assert prop != null;
-            boolean sat = hasProperty(man, reasoner, cls, prop);
-            if (sat) {
-                // System.out.println("Instances of " + cls
-                // + " necessarily have the property " + prop);
-            }
-        }
-    }
-
     private static boolean hasProperty(@Nonnull OWLOntologyManager man,
             @Nonnull OWLReasoner reasoner, OWLClass cls,
             @Nonnull OWLObjectPropertyExpression prop) {
@@ -1599,7 +1554,6 @@ public class Examples extends TestBase {
         // folder and maps their IRIs to their locations in this folder We
         // specify a directory/folder where the ontologies are located. In this
         // case we've just specified the tmp directory.
-        @SuppressWarnings("null")
         @Nonnull
         File file = folder.newFolder();
         // We can also specify a flag to indicate whether the directory should

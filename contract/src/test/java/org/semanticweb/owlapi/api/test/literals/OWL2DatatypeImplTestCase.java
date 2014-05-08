@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.api.test.literals;
 
 import static org.junit.Assert.*;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -215,38 +214,32 @@ public class OWL2DatatypeImplTestCase extends TestBase {
 
     @Test
     public void getAnonymousIndividuals() {
-        assertEquals(Collections.emptySet(),
-                plainLiteral.getAnonymousIndividuals());
+        assertTrue(plainLiteral.getAnonymousIndividuals().isEmpty());
     }
 
     @Test
     public void getClassesInSignature() {
-        assertEquals(Collections.emptySet(),
-                plainLiteral.getClassesInSignature());
+        assertTrue(plainLiteral.getClassesInSignature().isEmpty());
     }
 
     @Test
     public void getObjectPropertiesInSignature() {
-        assertEquals(Collections.emptySet(),
-                plainLiteral.getObjectPropertiesInSignature());
+        assertTrue(plainLiteral.getObjectPropertiesInSignature().isEmpty());
     }
 
     @Test
     public void getDataPropertiesInSignature() {
-        assertEquals(Collections.emptySet(),
-                plainLiteral.getDataPropertiesInSignature());
+        assertTrue(plainLiteral.getDataPropertiesInSignature().isEmpty());
     }
 
     @Test
     public void getIndividualsInSignature() {
-        assertEquals(Collections.emptySet(),
-                plainLiteral.getIndividualsInSignature());
+        assertTrue(plainLiteral.getIndividualsInSignature().isEmpty());
     }
 
     @Test
     public void getNestedClassExpressions() {
-        assertEquals(Collections.emptySet(),
-                plainLiteral.getNestedClassExpressions());
+        assertTrue(plainLiteral.getNestedClassExpressions().isEmpty());
     }
 
     @Test

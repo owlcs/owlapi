@@ -31,7 +31,6 @@ import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 @SuppressWarnings("javadoc")
 public class AnonymousFunctionalRoundtripTestCase extends TestBase {
@@ -39,7 +38,7 @@ public class AnonymousFunctionalRoundtripTestCase extends TestBase {
     @Nonnull
     private static final String NS = "http://namespace.owl";
     @Nonnull
-    private static String broken = "<?xml version=\"1.0\"?>\n"
+    private static final String broken = "<?xml version=\"1.0\"?>\n"
             + "<rdf:RDF xmlns=\"http://namespace.owl#\"\n"
             + "     xml:base=\"http://namespace.owl\"\n"
             + "     xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"\n"
@@ -50,7 +49,7 @@ public class AnonymousFunctionalRoundtripTestCase extends TestBase {
             + "    <owl:Class rdf:about=\"http://namespace.owl#A\"/>\n"
             + "<A/></rdf:RDF>";
     @Nonnull
-    private static String fixed = "Prefix(:=<http://namespace.owl#>)\n"
+    private static final String fixed = "Prefix(:=<http://namespace.owl#>)\n"
             + "Prefix(owl:=<http://www.w3.org/2002/07/owl#>)\n"
             + "Prefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)\n"
             + "Prefix(xml:=<http://www.w3.org/XML/1998/namespace>)\n"
@@ -71,8 +70,7 @@ public class AnonymousFunctionalRoundtripTestCase extends TestBase {
     }
 
     @Test
-    public void shouldRoundTripBroken() throws OWLOntologyCreationException,
-            OWLOntologyStorageException {
+    public void shouldRoundTripBroken() throws Exception {
         OWLOntology o = loadOntologyFromString(broken);
         OWLFunctionalSyntaxOntologyFormat format = new OWLFunctionalSyntaxOntologyFormat();
         format.setDefaultPrefix(NS + "#");
@@ -81,8 +79,7 @@ public class AnonymousFunctionalRoundtripTestCase extends TestBase {
     }
 
     @Test
-    public void shouldRoundTrip() throws OWLOntologyCreationException,
-            OWLOntologyStorageException {
+    public void shouldRoundTrip() throws Exception {
         OWLClass C = Class(IRI(NS + "#C"));
         OWLClass D = Class(IRI(NS + "#D"));
         OWLObjectProperty P = ObjectProperty(IRI(NS + "#p"));

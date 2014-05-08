@@ -20,7 +20,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * @author cjm see 5.9.3 and 8.2.2 of spec See
  *         http://code.google.com/p/oboformat/issues/detail?id=13
  */
-@SuppressWarnings("javadoc")
+@SuppressWarnings({ "javadoc", "null" })
 public class LogicalDefinitionPropertyViewTest extends OboFormatTestBasics {
 
     @Test
@@ -47,7 +47,6 @@ public class LogicalDefinitionPropertyViewTest extends OboFormatTestBasics {
         // reverse translation
         OBODoc obodoc = this.convert(owlOntology);
         Frame fr = obodoc.getTermFrame("X:1");
-        @SuppressWarnings("null")
         Collection<Clause> clauses = fr
                 .getClauses(OboFormatTag.TAG_INTERSECTION_OF);
         assertTrue(clauses.size() == 2);

@@ -24,15 +24,12 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 @SuppressWarnings("javadoc")
 public class FunctionalSyntaxIRIProblemTestCase extends TestBase {
 
     @Test
-    public void testmain() throws OWLOntologyStorageException,
-            OWLOntologyCreationException {
+    public void testmain() throws Exception {
         OWLDataFactory factory = m.getOWLDataFactory();
         OWLOntology ontology = m.createOntology(IRI("urn:testontology:o1"));
         OWLObjectProperty p = factory

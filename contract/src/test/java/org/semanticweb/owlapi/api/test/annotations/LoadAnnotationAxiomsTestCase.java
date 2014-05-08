@@ -51,8 +51,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 public class LoadAnnotationAxiomsTestCase extends TestBase {
 
     @Test
-    public void testIgnoreAnnotations() throws OWLOntologyStorageException,
-            OWLOntologyCreationException {
+    public void testIgnoreAnnotations() throws Exception {
         OWLOntology ont = m.createOntology();
         OWLClass clsA = Class(IRI("http://ont.com#A"));
         OWLClass clsB = Class(IRI("http://ont.com#B"));

@@ -39,7 +39,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-@SuppressWarnings("javadoc")
+@SuppressWarnings({ "javadoc", "null" })
 public class OboFormatTestBasics {
 
     @Nonnull
@@ -115,7 +115,6 @@ public class OboFormatTestBasics {
     protected OBODoc parseOBOFile(@Nonnull File file) throws IOException,
             OBOFormatParserException {
         OBOFormatParser p = new OBOFormatParser();
-        @SuppressWarnings("null")
         OBODoc obodoc = p.parse(file.getCanonicalPath());
         return obodoc;
     }
@@ -164,7 +163,6 @@ public class OboFormatTestBasics {
         return doc;
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     protected String writeOBO(@Nonnull OBODoc obodoc) throws IOException {
         StringWriter target = new StringWriter();
@@ -193,7 +191,6 @@ public class OboFormatTestBasics {
         return target;
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     protected static String renderOboToString(@Nonnull OBODoc oboDoc)
             throws IOException {
@@ -260,7 +257,6 @@ public class OboFormatTestBasics {
         return null;
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     protected String readResource(String resource) throws IOException {
         InputStream inputStream = getInputStream(resource);

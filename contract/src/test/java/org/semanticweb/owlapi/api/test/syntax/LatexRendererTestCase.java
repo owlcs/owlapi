@@ -18,15 +18,12 @@ import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.LatexOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 @SuppressWarnings("javadoc")
 public class LatexRendererTestCase extends TestBase {
 
     @Test
-    public void shouldRenderEscapingUnderscores()
-            throws OWLOntologyCreationException, OWLOntologyStorageException {
+    public void shouldRenderEscapingUnderscores() throws Exception {
         String input = "<?xml version=\"1.0\"?>\n"
                 + "<rdf:RDF xmlns=\"http://namespace.owl#\"\n"
                 + "     xml:base=\"http://namespace.owl\"\n"

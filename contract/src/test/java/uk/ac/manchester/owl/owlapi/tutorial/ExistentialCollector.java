@@ -36,12 +36,12 @@ import org.semanticweb.owlapi.util.OWLClassExpressionVisitorAdapter;
  *         Group
  * @since 2.0.0
  */
+@SuppressWarnings("javadoc")
 public class ExistentialCollector extends OWLClassExpressionVisitorAdapter {
 
     /* Collected axioms */
     private final Map<OWLObjectPropertyExpression, Set<OWLClassExpression>> restrictions;
 
-    @SuppressWarnings("javadoc")
     public ExistentialCollector(
             Map<OWLObjectPropertyExpression, Set<OWLClassExpression>> restrictions) {
         this.restrictions = restrictions;

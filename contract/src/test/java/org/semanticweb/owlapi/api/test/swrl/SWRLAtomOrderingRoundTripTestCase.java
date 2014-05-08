@@ -43,14 +43,13 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group, Date: 04/04/2014
  */
-@SuppressWarnings("javadoc")
+@SuppressWarnings({ "javadoc", "null" })
 public class SWRLAtomOrderingRoundTripTestCase {
 
     @Nonnull
     private Set<SWRLAtom> body = new LinkedHashSet<SWRLAtom>();
     @Nonnull
     private Set<SWRLAtom> head = new LinkedHashSet<SWRLAtom>();
-    @SuppressWarnings("null")
     @Nonnull
     private SWRLRule rule;
 
@@ -79,8 +78,7 @@ public class SWRLAtomOrderingRoundTripTestCase {
     }
 
     @Test
-    public void shouldPreserveOrderingInRDFXMLRoundTrip()
-            throws OWLOntologyCreationException, OWLOntologyStorageException {
+    public void shouldPreserveOrderingInRDFXMLRoundTrip() throws Exception {
         roundTrip(new RDFXMLOntologyFormat());
     }
 
@@ -113,20 +111,18 @@ public class SWRLAtomOrderingRoundTripTestCase {
     }
 
     @Test
-    public void shouldPreserveOrderingInTurtleRoundTrip()
-            throws OWLOntologyCreationException, OWLOntologyStorageException {
+    public void shouldPreserveOrderingInTurtleRoundTrip() throws Exception {
         roundTrip(new TurtleOntologyFormat());
     }
 
     @Test
     public void shouldPreserveOrderingInManchesterSyntaxRoundTrip()
-            throws OWLOntologyCreationException, OWLOntologyStorageException {
+            throws Exception {
         roundTrip(new ManchesterOWLSyntaxOntologyFormat());
     }
 
     @Test
-    public void shouldPreserveOrderingInOWLXMLRoundTrip()
-            throws OWLOntologyCreationException, OWLOntologyStorageException {
+    public void shouldPreserveOrderingInOWLXMLRoundTrip() throws Exception {
         roundTrip(new OWLXMLOntologyFormat());
     }
 }

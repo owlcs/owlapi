@@ -35,7 +35,7 @@ import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
  *         Informatics Group
  * @since 2.0.0
  */
-@SuppressWarnings("javadoc")
+@SuppressWarnings({ "javadoc", "null" })
 public class OWLOntologyManagerImplTestCase {
 
     private OWLOntologyManager manager;
@@ -66,7 +66,6 @@ public class OWLOntologyManagerImplTestCase {
     public void testImports() throws OWLOntologyCreationException {
         OWLOntology ontA = manager.createOntology(TestUtils.createIRI());
         OWLOntology ontB = manager.createOntology(TestUtils.createIRI());
-        @SuppressWarnings("null")
         OWLImportsDeclaration decl = manager.getOWLDataFactory()
                 .getOWLImportsDeclaration(
                         ontB.getOntologyID().getOntologyIRI().get());
@@ -76,7 +75,6 @@ public class OWLOntologyManagerImplTestCase {
         assertFalse(manager.getDirectImports(ontA).contains(ontB));
     }
 
-    @SuppressWarnings("null")
     @Test
     public void testImportsClosure() throws OWLException {
         // OntA -> OntB -> OntC (-> means imports)

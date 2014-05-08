@@ -25,8 +25,6 @@ public class RoundTripOWLROTest extends RoundTripTest {
     /**
      * Test that the converted RO from OWL to OBO can be written and parsed back
      * into OBO, and also round-trip back into OWL.
-     * 
-     * @throws Exception
      */
     @Test
     public void testRoundTrip() throws Exception {

@@ -41,7 +41,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  *         Group
  * @since 2.0.0
  */
-@SuppressWarnings({ "javadoc" })
+@SuppressWarnings("javadoc")
 public class ClosureAxioms {
 
     @Nonnull

@@ -31,10 +31,9 @@ import org.semanticweb.owlapi.util.OWLOntologyIRIChanger;
  *         Informatics Group
  * @since 2.0.0
  */
-@SuppressWarnings("javadoc")
+@SuppressWarnings({ "javadoc", "null" })
 public class ChangeOntologyURITestCase extends TestBase {
 
-    @SuppressWarnings("null")
     @Test
     public void testChangeURI() throws OWLOntologyCreationException {
         IRI oldIRI = IRI("http://www.semanticweb.org/ontologies/ontA");

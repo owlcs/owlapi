@@ -33,9 +33,9 @@ import org.semanticweb.owlapi.reasoner.structural.StructuralReasoner;
  *         Informatics Group
  * @since 3.1.0
  */
+@SuppressWarnings("javadoc")
 public class StructuralReasonerTestCase extends TestBase {
 
-    @SuppressWarnings("javadoc")
     @Test
     public void testClassHierarchy() {
         OWLClass clsX = Class(getIRI("X"));

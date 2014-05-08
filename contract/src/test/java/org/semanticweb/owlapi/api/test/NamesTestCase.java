@@ -51,10 +51,10 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
 import com.google.common.base.Optional;
 
-@SuppressWarnings("javadoc")
+@SuppressWarnings({ "javadoc", "null" })
 public class NamesTestCase {
 
-    @SuppressWarnings({ "unchecked", "null" })
+    @SuppressWarnings({ "unchecked" })
     @Test
     public void shoudReturnRightName() throws OWLOntologyCreationException {
         assertEquals("AddAxiomData", new AddAxiomData(mock(OWLAxiom.class)) {

@@ -22,16 +22,13 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 /** test for 3178902 adapted from the report Thimoty provided. */
 @SuppressWarnings("javadoc")
 public class ThreeEquivalentsRoundTripTestCase extends TestBase {
 
     @Test
-    public void shouldRoundTrip() throws OWLOntologyCreationException,
-            OWLOntologyStorageException {
+    public void shouldRoundTrip() throws Exception {
         // given
         String NS = "http://protege.org/ontologies";
         OWLClass b = Class(IRI(NS + "#B"));

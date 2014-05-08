@@ -11,10 +11,9 @@ import org.obolibrary.oboformat.writer.OBOFormatWriter;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-@SuppressWarnings("javadoc")
+@SuppressWarnings({ "javadoc", "null" })
 public class DanglingRoundTripTest extends OboFormatTestBasics {
 
-    @SuppressWarnings("null")
     @Test
     public void testConvertXPs() throws Exception {
         OWLOntology owlOnt = convertOBOFile("dangling_roundtrip_test.obo");

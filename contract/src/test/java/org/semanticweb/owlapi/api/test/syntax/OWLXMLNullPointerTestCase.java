@@ -28,8 +28,6 @@ import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /**
@@ -46,8 +44,7 @@ public class OWLXMLNullPointerTestCase extends TestBase {
     public static final String ANONYMOUS_INDIVIDUAL_ANNOTATION = "Anonymous individual for testing";
 
     @Test
-    public void testRoundTrip() throws OWLOntologyStorageException,
-            OWLOntologyCreationException {
+    public void testRoundTrip() throws Exception {
         OWLOntology ontology = m.createOntology(IRI(NS));
         OWLClass cheesy = Class(IRI(NS + "#CheeseyPizza"));
         OWLClass cheese = Class(IRI(NS + "#CheeseTopping"));

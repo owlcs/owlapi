@@ -20,9 +20,7 @@ import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormat;
 import org.semanticweb.owlapi.formats.OWLXMLOntologyFormat;
 import org.semanticweb.owlapi.formats.TurtleOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -43,32 +41,27 @@ public abstract class AbstractRoundTrippingTestCase extends TestBase {
     }
 
     @Test
-    public void testRDFXML() throws OWLOntologyStorageException,
-            OWLOntologyCreationException {
+    public void testRDFXML() throws Exception {
         roundTripOntology(ont);
     }
 
     @Test
-    public void testOWLXML() throws OWLOntologyStorageException,
-            OWLOntologyCreationException {
+    public void testOWLXML() throws Exception {
         roundTripOntology(ont, new OWLXMLOntologyFormat());
     }
 
     @Test
-    public void testFunctionalSyntax() throws OWLOntologyStorageException,
-            OWLOntologyCreationException {
+    public void testFunctionalSyntax() throws Exception {
         roundTripOntology(ont, new OWLFunctionalSyntaxOntologyFormat());
     }
 
     @Test
-    public void testTurtle() throws OWLOntologyStorageException,
-            OWLOntologyCreationException {
+    public void testTurtle() throws Exception {
         roundTripOntology(ont, new TurtleOntologyFormat());
     }
 
     @Test
-    public void testManchesterOWLSyntax() throws OWLOntologyStorageException,
-            OWLOntologyCreationException {
+    public void testManchesterOWLSyntax() throws Exception {
         roundTripOntology(ont, new ManchesterOWLSyntaxOntologyFormat());
     }
 

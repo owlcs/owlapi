@@ -24,7 +24,6 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 @SuppressWarnings("javadoc")
 public class TestCornerCasesTestCase extends TestBase {
@@ -155,8 +154,7 @@ public class TestCornerCasesTestCase extends TestBase {
     }
 
     @Test
-    public void testMinusInf() throws OWLOntologyCreationException,
-            OWLOntologyStorageException {
+    public void testMinusInf() throws Exception {
         String input = "Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)\n"
                 + "Prefix(owl:=<http://www.w3.org/2002/07/owl#>)\n"
                 + "Prefix(:=<http://test.org/test#>)\n"
@@ -175,8 +173,7 @@ public class TestCornerCasesTestCase extends TestBase {
     }
 
     @Test
-    public void testLargeInteger() throws OWLOntologyStorageException,
-            OWLOntologyCreationException {
+    public void testLargeInteger() throws Exception {
         String input = "Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)\n"
                 + "Prefix(owl:=<http://www.w3.org/2002/07/owl#>)\n"
                 + "Prefix(:=<http://test.org/test#>)\n"
