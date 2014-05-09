@@ -35,7 +35,7 @@
  */
 package org.semanticweb.owlapi.rio;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -96,7 +96,7 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
      *        format factory
      */
     public RioParserImpl(@Nonnull RioRDFOntologyFormatFactory nextFormat) {
-        owlFormatFactory = verifyNotNull(nextFormat);
+        owlFormatFactory = checkNotNull(nextFormat, "nextFormat cannot be null");
         supportedFormats = CollectionFactory
                 .createSet((OWLOntologyFormatFactory) owlFormatFactory);
     }
@@ -184,9 +184,7 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
                             }
                         }
                     }, configuration);
-            if (owlFormatFactory != null) {
-                consumer.setOntologyFormat(owlFormatFactory.createFormat());
-            }
+            consumer.setOntologyFormat(owlFormatFactory.createFormat());
             String baseUri = "urn:default:baseUri:";
             // Override the default baseUri for non-anonymous ontologies
             if (!ontology.getOntologyID().isAnonymous()
