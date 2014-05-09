@@ -35,25 +35,53 @@
  */
 package org.semanticweb.owlapi.rio;
 
-import org.openrdf.rio.RDFParser;
-import org.openrdf.rio.RDFParserFactory;
-import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormat;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.Reader;
+
+import org.openrdf.model.ValueFactory;
+import org.openrdf.rio.RDFHandler;
+import org.openrdf.rio.RDFHandlerException;
+import org.openrdf.rio.RDFParseException;
+import org.openrdf.rio.helpers.RDFParserBase;
 
 /**
- * {@link RDFParserFactory} that creates RDF statements from
- * {@link OWLFunctionalSyntaxOntologyFormat} documents.
+ * Parses {@link OWLAPIRDFFormat} parsers straight to Sesame {@link RDFHandler}
+ * s.
  * 
  * @author Peter Ansell p_ansell@yahoo.com
  */
-public class RioFunctionalSyntaxParserFactory implements RDFParserFactory {
+public class RioOWLRDFParser extends RDFParserBase {
 
-    @Override
-    public OWLAPIRDFFormat getRDFFormat() {
-        return OWLAPIRDFFormat.OWL_FUNCTIONAL;
+    private OWLAPIRDFFormat owlFormat;
+
+    public RioOWLRDFParser(OWLAPIRDFFormat owlFormat) {
+        super();
+        this.owlFormat = owlFormat;
+    }
+
+    /**
+     * @param valueFactory
+     */
+    public RioOWLRDFParser(OWLAPIRDFFormat owlFormat, ValueFactory valueFactory) {
+        super(valueFactory);
+        this.owlFormat = owlFormat;
     }
 
     @Override
-    public RDFParser getParser() {
-        return new RioOWLRDFParser(getRDFFormat());
+    public OWLAPIRDFFormat getRDFFormat() {
+        return owlFormat;
+    }
+
+    @Override
+    public void parse(InputStream in, String baseURI) throws IOException,
+            RDFParseException, RDFHandlerException {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void parse(Reader reader, String baseURI) throws IOException,
+            RDFParseException, RDFHandlerException {
+        // TODO Auto-generated method stub
     }
 }

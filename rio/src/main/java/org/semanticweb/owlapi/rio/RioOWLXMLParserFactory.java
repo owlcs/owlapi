@@ -35,7 +35,6 @@
  */
 package org.semanticweb.owlapi.rio;
 
-import org.openrdf.rio.RDFFormat;
 import org.openrdf.rio.RDFParser;
 import org.openrdf.rio.RDFParserFactory;
 import org.semanticweb.owlapi.formats.OWLXMLOntologyFormat;
@@ -49,12 +48,12 @@ import org.semanticweb.owlapi.formats.OWLXMLOntologyFormat;
 public class RioOWLXMLParserFactory implements RDFParserFactory {
 
     @Override
-    public RDFFormat getRDFFormat() {
+    public OWLAPIRDFFormat getRDFFormat() {
         return OWLAPIRDFFormat.OWL_XML;
     }
 
     @Override
     public RDFParser getParser() {
-        throw new UnsupportedOperationException("TODO: Implement me!");
+        return new RioOWLRDFParser(getRDFFormat());
     }
 }
