@@ -44,7 +44,7 @@ import org.slf4j.LoggerFactory;
 public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
 
     private static final long serialVersionUID = 40000L;
-    private static final String UTF_8 = "UTF-8";
+    protected static final String UTF_8 = "UTF-8";
     protected static final Logger LOGGER = LoggerFactory
             .getLogger(AbstractOWLOntologyStorer.class);
 
@@ -107,7 +107,7 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
                     @Nonnull OWLOntologyDocumentTarget target,
                     OWLOntologyFormat format)
                     throws OWLOntologyStorageException {
-        if (target.isWriterAvailable()) {
+        if (format.isTextual() && target.isWriterAvailable()) {
             try {
                 Writer writer = target.getWriter();
                 storeOntology(ontology, writer, format);
@@ -116,12 +116,8 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
                 throw new OWLOntologyStorageException(e);
             }
         } else if (target.isOutputStreamAvailable()) {
-            Writer writer = null;
             try {
-                writer = new BufferedWriter(new OutputStreamWriter(
-                        target.getOutputStream(), UTF_8));
-                storeOntology(ontology, writer, format);
-                writer.flush();
+                storeOntology(ontology, target.getOutputStream(), format);
             } catch (IOException e) {
                 throw new OWLOntologyStorageException(e);
             }
@@ -129,12 +125,38 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
             storeOntology(ontology, target.getDocumentIRI(), format);
         } else {
             throw new OWLOntologyStorageException(
-                    "Neither a Writer, OutputStream or Document IRI could be obtained to store the ontology");
+                    "Neither a Writer, OutputStream or Document IRI could be obtained to store the ontology in this format: "
+                            + format.getKey());
         }
     }
 
-    // XXX check if Writer is the best interface here
+    /*
+     * Override this to support textual serialisation.
+     */
     protected abstract void storeOntology(@Nonnull OWLOntology ontology,
             @Nonnull Writer writer, @Nonnull OWLOntologyFormat format)
             throws OWLOntologyStorageException;
+
+    /*
+     * Override this to support direct binary serialisation without the UTF-8
+     * encoding being applied.
+     */
+    protected void storeOntology(@Nonnull OWLOntology ontology,
+            @Nonnull OutputStream outputStream,
+            @Nonnull OWLOntologyFormat format)
+            throws OWLOntologyStorageException {
+        if (!format.isTextual()) {
+            throw new OWLOntologyStorageException(
+                    "This method must be overriden to support this binary format: "
+                            + format.getKey());
+        }
+        try {
+            Writer writer = new BufferedWriter(new OutputStreamWriter(
+                    outputStream, UTF_8));
+            storeOntology(ontology, writer, format);
+            writer.flush();
+        } catch (IOException e) {
+            throw new OWLOntologyStorageException(e);
+        }
+    }
 }

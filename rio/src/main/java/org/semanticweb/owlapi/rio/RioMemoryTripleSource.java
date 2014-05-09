@@ -45,7 +45,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.annotation.Nonnull;
 
@@ -55,6 +54,7 @@ import org.openrdf.model.Namespace;
 import org.openrdf.model.Statement;
 import org.openrdf.model.util.Namespaces;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
+import org.semanticweb.owlapi.io.OWLOntologyDocumentSourceBase;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
@@ -74,7 +74,6 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
     private final Iterator<Statement> statementIterator;
     @Nonnull
     private IRI documentIRI;
-    private static final AtomicInteger counter = new AtomicInteger(0);
 
     /**
      * Creates a RioMemoryTripleSource using an {@link Iterable} of
@@ -85,8 +84,7 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
      *        source.
      */
     public RioMemoryTripleSource(@Nonnull Iterator<Statement> statements) {
-        documentIRI = IRI.create("urn:rio-memory-triples:"
-                + counter.incrementAndGet());
+        documentIRI = OWLOntologyDocumentSourceBase.getNextDocumentIRI("rio-memory-triples:");
         statementIterator = checkNotNull(statements,
                 "statements cannot be null");
     }
@@ -120,8 +118,7 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
      */
     @SuppressWarnings("null")
     public RioMemoryTripleSource(@Nonnull Iterable<Statement> statements) {
-        documentIRI = IRI.create("urn:rio-memory-triples:"
-                + counter.incrementAndGet());
+        documentIRI = OWLOntologyDocumentSourceBase.getNextDocumentIRI("rio-memory-triples:");
         statementIterator = statements.iterator();
         if (statements instanceof Model) {
             namespaces.putAll(Namespaces.asMap(((Model) statements)
@@ -140,8 +137,7 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
      */
     public RioMemoryTripleSource(
             final CloseableIteration<Statement, ? extends OpenRDFException> statements) {
-        documentIRI = IRI.create("urn:rio-memory-triples:"
-                + counter.incrementAndGet());
+        documentIRI = OWLOntologyDocumentSourceBase.getNextDocumentIRI("rio-memory-triples:");
         statementIterator = new Iterator<Statement>() {
 
             @Override
