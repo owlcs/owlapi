@@ -44,12 +44,20 @@ import org.openrdf.rio.RDFHandler;
 import org.openrdf.rio.RDFHandlerException;
 import org.openrdf.rio.RDFParseException;
 import org.openrdf.rio.helpers.RDFParserBase;
+import org.semanticweb.owlapi.OWLAPIServiceLoaderModule;
+import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.ReaderDocumentSource;
 import org.semanticweb.owlapi.io.StreamDocumentSource;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
+
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.google.inject.Provider;
 
 /**
  * Parses {@link OWLAPIRDFFormat} parsers straight to Sesame {@link RDFHandler}
@@ -59,6 +67,10 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
  */
 public class RioOWLRDFParser extends RDFParserBase {
 
+    // XXX not entirely sure if this is the best location to create an injector;
+    // it could be better in the factory, or in the code creating the factory.
+    private static final Injector injector = Guice
+            .createInjector(new OWLAPIServiceLoaderModule());
     private OWLAPIRDFFormat owlFormat;
 
     public RioOWLRDFParser(OWLAPIRDFFormat owlFormat) {
@@ -86,11 +98,24 @@ public class RioOWLRDFParser extends RDFParserBase {
         StreamDocumentSource source = new StreamDocumentSource(in,
                 IRI.create(baseURI), nextFormat, getRDFFormat()
                         .getDefaultMIMEType());
-        OWLOntology ontology = null;
-        // FIXME: Need to get access to an OWLOntologyManager instance here
-        final RioRenderer ren = new RioRenderer(ontology, getRDFHandler(),
-                getRDFFormat().getOWLFormat());
-        ren.render();
+        render(source);
+    }
+
+    /**
+     * @param source
+     * @throws IOException
+     */
+    protected void render(OWLOntologyDocumentSource source) throws IOException {
+        try {
+            Provider<OWLOntologyManager> managerProvider = injector
+                    .getProvider(OWLOntologyManager.class);
+            OWLOntology ontology = managerProvider.get()
+                    .loadOntologyFromOntologyDocument(source);
+            new RioRenderer(ontology, getRDFHandler(), getRDFFormat()
+                    .getOWLFormat()).render();
+        } catch (OWLOntologyCreationException e) {
+            throw new OWLRuntimeException(e);
+        }
     }
 
     @Override
@@ -100,10 +125,6 @@ public class RioOWLRDFParser extends RDFParserBase {
         ReaderDocumentSource source = new ReaderDocumentSource(reader,
                 IRI.create(baseURI), nextFormat, getRDFFormat()
                         .getDefaultMIMEType());
-        OWLOntology ontology = null;
-        // FIXME: Need to get access to an OWLOntologyManager instance here
-        final RioRenderer ren = new RioRenderer(ontology, getRDFHandler(),
-                getRDFFormat().getOWLFormat());
-        ren.render();
+        render(source);
     }
 }
