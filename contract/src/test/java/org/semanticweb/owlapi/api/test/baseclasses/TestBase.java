@@ -297,7 +297,7 @@ public abstract class TestBase {
         ax2.add(df.getOWLDataPropertyAssertionAxiom(t,
                 df.getOWLAnonymousIndividual(), df.getOWLLiteral("test2")));
         assertFalse(ax1.equals(ax2));
-        assertTrue(TestBase.verifyErrorIsDueToBlankNodesId(ax1, ax2));
+        assertTrue(verifyErrorIsDueToBlankNodesId(ax1, ax2));
     }
 
     @SuppressWarnings("unused")

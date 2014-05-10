@@ -73,7 +73,7 @@ public class RioUtils {
      */
     @Nullable
     public static Statement tripleAsStatement(final RDFTriple triple) {
-        Collection<Statement> statements = RioUtils.tripleAsStatements(triple);
+        Collection<Statement> statements = tripleAsStatements(triple);
         if (!statements.isEmpty()) {
             return statements.iterator().next();
         } else {

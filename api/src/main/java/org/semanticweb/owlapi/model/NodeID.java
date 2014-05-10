@@ -88,7 +88,7 @@ public class NodeID implements Comparable<NodeID>, Serializable {
      */
     public static boolean isAnonymousNodeIRI(String uri) {
         return uri != null && uri.startsWith(PREFIX)
-                && uri.contains(NodeID.NODE_ID_PREFIX);
+                && uri.contains(NODE_ID_PREFIX);
     }
 
     /**
