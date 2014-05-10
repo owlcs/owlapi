@@ -26,7 +26,7 @@ import org.semanticweb.owlapi.io.OWLParserException;
  *         Informatics Group
  * @since 2.2.0
  */
-public interface OWLExpressionParser<O extends Object> {
+public interface OWLExpressionParser<O> {
 
     /**
      * @param entityChecker

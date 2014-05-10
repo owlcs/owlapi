@@ -317,7 +317,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
     @Nonnull
     public String resolveIRI(@Nonnull String uri) {
         checkNotNull(uri, "uri cannot be null");
-        if (uri.length() == 0) {
+        if (uri.isEmpty()) {
             // MH - Fix for resolving a "This document" reference against base
             // IRIs.
             String namespace = getBaseIRI().getNamespace();

@@ -152,7 +152,7 @@ public class AbstractRenderer {
                 writeTab();
             }
             currentLineLength += curToken.length();
-            if (currentLineLength > lineLen && curToken.trim().length() != 0
+            if (currentLineLength > lineLen && !curToken.trim().isEmpty()
                     && tokenizer.hasMoreTokens()) {
                 writeNewLine();
                 currentLineLength = 0;

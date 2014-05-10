@@ -72,17 +72,17 @@ public class BFOROXrefTest extends OboFormatTestBasics {
                 }
             }
         }
-        assertTrue(aaas.size() > 0);
+        assertTrue(!aaas.isEmpty());
         assertTrue(ok);
         aaas = owlOnt.getAnnotationAssertionAxioms(IRI
                 .create("http://purl.obolibrary.org/obo/BFO_0000050"));
-        assertTrue(aaas.size() > 0);
+        assertTrue(!aaas.isEmpty());
         aaas = owlOnt.getAnnotationAssertionAxioms(IRI
                 .create("http://purl.obolibrary.org/obo/RO_0002111"));
-        assertTrue(aaas.size() > 0);
+        assertTrue(!aaas.isEmpty());
         aaas = owlOnt.getAnnotationAssertionAxioms(IRI
                 .create("http://purl.obolibrary.org/obo/BAR_0000001"));
-        assertTrue(aaas.size() > 0);
+        assertTrue(!aaas.isEmpty());
         OWLAPIOwl2Obo revbridge = new OWLAPIOwl2Obo(
                 OWLManager.createOWLOntologyManager());
         OBODoc d2 = revbridge.convert(owlOnt);

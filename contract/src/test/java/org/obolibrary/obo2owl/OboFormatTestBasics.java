@@ -47,7 +47,7 @@ public class OboFormatTestBasics {
             OBOFormatParserException {
         OBOFormatParser p = new OBOFormatParser();
         OBODoc obodoc = p.parseURL(fn);
-        assertTrue(obodoc.getTermFrames().size() > 0);
+        assertTrue(!obodoc.getTermFrames().isEmpty());
         return obodoc;
     }
 
@@ -66,7 +66,7 @@ public class OboFormatTestBasics {
             obodoc = p.parse(new BufferedReader(new InputStreamReader(
                     inputStream)));
             assertNotNull("The obodoc should not be null", obodoc);
-            if (obodoc.getTermFrames().size() == 0 && !allowEmptyFrames) {
+            if (obodoc.getTermFrames().isEmpty() && !allowEmptyFrames) {
                 fail("Term frames should not be empty.");
             }
             return obodoc;
@@ -81,7 +81,7 @@ public class OboFormatTestBasics {
         OBOFormatParser p = new OBOFormatParser();
         OBODoc obodoc = p.parse(new BufferedReader(fn));
         assertNotNull("The obodoc should not be null", obodoc);
-        if (obodoc.getTermFrames().size() == 0 && !allowEmptyFrames) {
+        if (obodoc.getTermFrames().isEmpty() && !allowEmptyFrames) {
             fail("Term frames should not be empty.");
         }
         return obodoc;

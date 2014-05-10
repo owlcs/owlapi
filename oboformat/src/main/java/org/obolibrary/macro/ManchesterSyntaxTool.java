@@ -375,7 +375,7 @@ public class ManchesterSyntaxTool {
             for (OWLOntology o : ontologies) {
                 OWLClass c = o.getOWLOntologyManager().getOWLDataFactory()
                         .getOWLClass(iri);
-                if (o.getDeclarationAxioms(c).size() > 0) {
+                if (!o.getDeclarationAxioms(c).isEmpty()) {
                     return c;
                 }
                 if (o.getOWLOntologyManager().getOWLDataFactory()
@@ -423,7 +423,7 @@ public class ManchesterSyntaxTool {
                 OWLDataFactory dataFactory = o.getOWLOntologyManager()
                         .getOWLDataFactory();
                 OWLObjectProperty p = dataFactory.getOWLObjectProperty(iri);
-                if (o.getDeclarationAxioms(p).size() > 0) {
+                if (!o.getDeclarationAxioms(p).isEmpty()) {
                     return p;
                 }
             }

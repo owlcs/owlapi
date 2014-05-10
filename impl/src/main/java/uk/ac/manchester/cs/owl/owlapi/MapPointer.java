@@ -222,6 +222,6 @@ public class MapPointer<K, V extends OWLAxiom> implements Serializable {
     /** @return true if empty */
     public boolean isEmpty() {
         init();
-        return map.size() == 0;
+        return map.isEmpty();
     }
 }

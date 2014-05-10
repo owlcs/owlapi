@@ -550,7 +550,7 @@ public class OWLAPIObo2Owl {
                             .getTag());
                     add(fac.getOWLAnnotationAssertionAxiom(ap, childIRI,
                             trLiteral(values[1])));
-                    if (values.length > 2 && values[2].toString().length() > 0) {
+                    if (values.length > 2 && !values[2].toString().isEmpty()) {
                         ap = trTagToAnnotationProp(OboFormatTag.TAG_SCOPE
                                 .getTag());
                         add(fac.getOWLAnnotationAssertionAxiom(ap, childIRI,
@@ -942,7 +942,7 @@ public class OWLAPIObo2Owl {
         // out.println(cls+" CL:"+clauses+" I:"+iSet+" E:"+eSet);
         eSet.add(fac.getOWLObjectUnionOf(iSet));
         // TODO - fix this
-        if (annotations.size() == 0) {
+        if (annotations.isEmpty()) {
             return fac.getOWLEquivalentClassesAxiom(eSet);
         } else {
             return fac.getOWLEquivalentClassesAxiom(eSet, annotations);
@@ -979,7 +979,7 @@ public class OWLAPIObo2Owl {
         // out.println(cls+" CL:"+clauses+" I:"+iSet+" E:"+eSet);
         eSet.add(fac.getOWLObjectIntersectionOf(iSet));
         // TODO - fix this
-        if (annotations.size() == 0) {
+        if (annotations.isEmpty()) {
             return fac.getOWLEquivalentClassesAxiom(eSet);
         } else {
             return fac.getOWLEquivalentClassesAxiom(eSet, annotations);
@@ -1400,7 +1400,7 @@ public class OWLAPIObo2Owl {
             @Nonnull Set<OWLAnnotation> anns) {
         Collection<Xref> xrefs = clause.getXrefs();
         for (Xref x : xrefs) {
-            if (x.getIdref() != null && x.getIdref().length() > 0) {
+            if (x.getIdref() != null && !x.getIdref().isEmpty()) {
                 OWLAnnotationProperty ap = trTagToAnnotationProp(OboFormatTag.TAG_XREF
                         .getTag());
                 OWLAnnotation ann = fac.getOWLAnnotation(ap, trLiteral(x));

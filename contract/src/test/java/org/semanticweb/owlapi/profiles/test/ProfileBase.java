@@ -70,7 +70,7 @@ public class ProfileBase {
     protected void test(@Nonnull String in, boolean el, boolean ql, boolean rl,
             boolean dl) {
         OWLOntology o = o(in);
-        assertTrue("empty ontology", o.getAxioms().size() > 0);
+        assertTrue("empty ontology", !o.getAxioms().isEmpty());
         OWLProfileReport elReport = EL(o);
         assertEquals(elReport.toString(), el, elReport.isInProfile());
         OWLProfileReport qlReport = QL(o);

@@ -42,7 +42,7 @@ public class Formatter {
                                 "../OWLAPI3/tutorial2011/uk/ac/manchester/owl/owlapi/tutorialowled2011/TutorialSnippets.java")));
         String line = r.readLine();
         while (line != null) {
-            if (line.trim().length() == 0) {
+            if (line.trim().isEmpty()) {
                 System.out.println("\\end{beamerboxesrounded}\n\n");
             } else {
                 line = line.replace("{", "\\{").replace("}", "\\}")

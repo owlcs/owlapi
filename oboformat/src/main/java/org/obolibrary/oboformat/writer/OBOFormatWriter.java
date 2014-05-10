@@ -682,7 +682,7 @@ public class OBOFormatWriter {
         appendQualifiers(sb, clause);
         if (idsLabel != null && idsLabel.length() > 0) {
             String trimmed = idsLabel.toString().trim();
-            if (trimmed.length() > 0) {
+            if (!trimmed.isEmpty()) {
                 sb.append(" ! ");
                 sb.append(trimmed);
             }
@@ -692,7 +692,7 @@ public class OBOFormatWriter {
 
     private static boolean isOpaqueIdentifier(@Nullable String value) {
         boolean result = false;
-        if (value != null && value.length() > 0) {
+        if (value != null && !value.isEmpty()) {
             // check for colon
             int colonPos = value.indexOf(':');
             if (colonPos > 0) {
@@ -716,7 +716,7 @@ public class OBOFormatWriter {
     private static void appendQualifiers(@Nonnull StringBuilder sb,
             @Nonnull Clause clause) {
         Collection<QualifierValue> qvs = clause.getQualifierValues();
-        if (qvs.size() > 0) {
+        if (!qvs.isEmpty()) {
             sb.append(" {");
             Iterator<QualifierValue> qvsIterator = qvs.iterator();
             while (qvsIterator.hasNext()) {

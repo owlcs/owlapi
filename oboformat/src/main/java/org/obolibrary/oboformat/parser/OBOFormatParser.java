@@ -1051,7 +1051,7 @@ public class OBOFormatParser {
         // check if there is a third value to parse
         parseZeroOrMoreWs();
         String s = getParseUntil(" !{");
-        if (s.length() > 0) {
+        if (!s.isEmpty()) {
             cl.addValue(s);
         }
     }
@@ -1258,7 +1258,7 @@ public class OBOFormatParser {
             warn("qualifier values should be enclosed in quotes. You have: "
                     + q + "=" + stream.rest());
         }
-        if (v.length() == 0) {
+        if (v.isEmpty()) {
             warn("Empty value for qualifier in trailing qualifier block.");
             v = "";
         }
@@ -1290,7 +1290,7 @@ public class OBOFormatParser {
         Clause cl = new Clause(t);
         f.addClause(cl);
         String id = getParseUntil(" !{");
-        if (id.length() == 0) {
+        if (id.isEmpty()) {
             error("Could not find an valid id, id is empty.");
         }
         cl.addValue(id);

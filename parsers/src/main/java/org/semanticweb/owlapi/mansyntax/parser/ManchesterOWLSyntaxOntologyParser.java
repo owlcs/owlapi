@@ -80,7 +80,7 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
                     sb.append("\n");
                     if (!foundMagicNumber) {
                         String trimmedLine = line.trim();
-                        if (trimmedLine.length() > 0
+                        if (!trimmedLine.isEmpty()
                                 && !trimmedLine.startsWith(COMMENT_START_CHAR)) {
                             // Non-empty line, that is not a comment. The
                             // trimmed line MUST start with our magic

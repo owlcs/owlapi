@@ -83,7 +83,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
             @Nullable OWLDatatype datatype) {
         this.literal = new LiteralWrapper(checkNotNull(literal,
                 "literal cannot be null"));
-        if (lang == null || lang.length() == 0) {
+        if (lang == null || lang.isEmpty()) {
             this.lang = "";
             if (datatype == null) {
                 this.datatype = RDF_PLAIN_LITERAL;

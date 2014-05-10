@@ -985,7 +985,7 @@ public class OWLAPIOwl2Obo {
                 // TODO - xsd types
                 frame.addClause(clause);
             }
-        } else if (value.trim().length() > 0) {
+        } else if (!value.trim().isEmpty()) {
             if (tag == OboFormatTag.TAG_ID) {
                 if (frame.getId().equals(value) == false) {
                     warn("Conflicting id definitions: 1) " + frame.getId()
@@ -1035,7 +1035,7 @@ public class OWLAPIOwl2Obo {
                             String xrefAnnotation = ((OWLLiteral) owlAnnotationValue)
                                     .getLiteral();
                             xrefAnnotation = xrefAnnotation.trim();
-                            if (xrefAnnotation.length() > 0) {
+                            if (!xrefAnnotation.isEmpty()) {
                                 xref.setAnnotation(xrefAnnotation);
                             }
                         }
@@ -1516,8 +1516,7 @@ public class OWLAPIOwl2Obo {
                                 allOnly.toString()));
                     }
                     addQualifiers(c, ax.getAnnotations());
-                } else if (f.getClauses(OboFormatTag.TAG_INTERSECTION_OF)
-                        .size() > 0) {
+                } else if (!f.getClauses(OboFormatTag.TAG_INTERSECTION_OF).isEmpty()) {
                     error("The axiom is not translated (maximimum one IntersectionOf EquivalenceAxiom)",
                             ax, false);
                 } else {
@@ -1822,7 +1821,7 @@ public class OWLAPIOwl2Obo {
             }
         }
         if (s.length > 2 && !id.contains("#")) {
-            if (s[s.length - 1].replaceAll("[0-9]", "").length() == 0) {
+            if (s[s.length - 1].replaceAll("[0-9]", "").isEmpty()) {
                 StringBuffer sb = new StringBuffer();
                 for (int i = 0; i < s.length; i++) {
                     if (i > 0) {

@@ -205,7 +205,7 @@ class DLQueryEngine {
     @Nonnull
     public Set<OWLClass> getSuperClasses(@Nonnull String classExpressionString,
             boolean direct) {
-        if (classExpressionString.trim().length() == 0) {
+        if (classExpressionString.trim().isEmpty()) {
             return CollectionFactory.emptySet();
         }
         OWLClassExpression classExpression = parser
@@ -226,7 +226,7 @@ class DLQueryEngine {
     @Nonnull
     public Set<OWLClass> getEquivalentClasses(
             @Nonnull String classExpressionString) {
-        if (classExpressionString.trim().length() == 0) {
+        if (classExpressionString.trim().isEmpty()) {
             return CollectionFactory.emptySet();
         }
         OWLClassExpression classExpression = parser
@@ -256,7 +256,7 @@ class DLQueryEngine {
     @Nonnull
     public Set<OWLClass> getSubClasses(@Nonnull String classExpressionString,
             boolean direct) {
-        if (classExpressionString.trim().length() == 0) {
+        if (classExpressionString.trim().isEmpty()) {
             return CollectionFactory.emptySet();
         }
         OWLClassExpression classExpression = parser
@@ -279,7 +279,7 @@ class DLQueryEngine {
     @Nonnull
     public Set<OWLNamedIndividual> getInstances(
             @Nonnull String classExpressionString, boolean direct) {
-        if (classExpressionString.trim().length() == 0) {
+        if (classExpressionString.trim().isEmpty()) {
             return CollectionFactory.emptySet();
         }
         OWLClassExpression classExpression = parser
@@ -368,7 +368,7 @@ class DLQueryPrinter {
      *        the class expression to use for interrogation
      */
     public void askQuery(@Nonnull String classExpression) {
-        if (classExpression.length() == 0) {
+        if (classExpression.isEmpty()) {
             System.out.println("No class expression specified");
         } else {
             StringBuilder sb = new StringBuilder();
