@@ -152,8 +152,7 @@ public class XrefExpander {
                         try {
                             tgt.addTypedefFrame(tdf);
                         } catch (FrameMergeException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
+                            LOG.debug("frame merge failed",e);
                         }
                     }
                 }
