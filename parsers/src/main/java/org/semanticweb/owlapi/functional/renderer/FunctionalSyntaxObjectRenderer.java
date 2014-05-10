@@ -374,7 +374,8 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
             Iterator<? extends OWLObject> it = objects.iterator();
             OWLObject objA = it.next();
             OWLObject objB = it.next();
-            OWLObject lhs, rhs;
+            OWLObject lhs;
+            OWLObject rhs;
             if (objA.equals(focusedObject)) {
                 lhs = objA;
                 rhs = objB;

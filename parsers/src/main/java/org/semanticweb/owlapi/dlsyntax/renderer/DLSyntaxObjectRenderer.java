@@ -556,7 +556,8 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
     public void visit(OWLInverseObjectPropertiesAxiom axiom) {
         OWLObject o1 = axiom.getFirstProperty();
         OWLObject o2 = axiom.getSecondProperty();
-        OWLObject first, second;
+        OWLObject first;
+        OWLObject second;
         if (isFocusedObject(o1) || !isFocusedObject(o2)) {
             first = o1;
             second = o2;

@@ -76,7 +76,7 @@ public class OWL2RLProfile implements OWLProfile {
         return b;
     }
 
-    protected final static Set<IRI> allowedDatatypes = new HashSet<IRI>(
+    protected static final Set<IRI> allowedDatatypes = new HashSet<IRI>(
             Arrays.asList(RDF_PLAIN_LITERAL.getIRI(), RDF_XML_LITERAL.getIRI(),
                     RDFS_LITERAL.getIRI(), XSD_DECIMAL.getIRI(),
                     XSD_INTEGER.getIRI(), XSD_NON_NEGATIVE_INTEGER.getIRI(),

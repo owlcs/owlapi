@@ -32,7 +32,13 @@ import uk.ac.manchester.cs.owl.owlapi.SWRLRuleImpl;
 public class SWRLAtomOrderingTestCase {
 
     @Mock
-    protected SWRLAtom atomA, atomB, atomC, atomD;
+    protected SWRLAtom atomA;
+    @Mock
+    protected SWRLAtom atomB;
+    @Mock
+    protected SWRLAtom atomC;
+    @Mock
+    protected SWRLAtom atomD;
     private SWRLRuleImpl rule;
     @Nonnull
     private Set<SWRLAtom> body = new LinkedHashSet<SWRLAtom>();

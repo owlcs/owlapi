@@ -49,7 +49,7 @@ public enum OWLFacet implements HasShortForm, HasIRI, HasPrefixedName {
     /** LANG_RANGE */       LANG_RANGE      (Namespaces.RDF, "langRange",       "langRange");
 //@formatter:on
     /** all facet iris */
-    public final static Set<IRI> FACET_IRIS;
+    public static final Set<IRI> FACET_IRIS;
     static {
         Set<IRI> iris = new HashSet<IRI>();
         for (OWLFacet v : values()) {

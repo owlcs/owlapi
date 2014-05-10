@@ -2468,7 +2468,7 @@ public class ManchesterOWLSyntaxEditorParser implements
             index = 0;
         }
         while (index < tokens.size() && seq.size() < 4
-                && seq.indexOf(EOF) == -1) {
+                && !seq.contains(EOF)) {
             seq.add(tokens.get(index).getToken());
             index++;
         }

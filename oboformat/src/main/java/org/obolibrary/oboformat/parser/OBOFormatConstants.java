@@ -119,7 +119,7 @@ public class OBOFormatConstants {
 
     /** tags */
     @Nonnull
-    public final static Set<String> TAGS;
+    public static final Set<String> TAGS;
     private static Map<String, OboFormatTag> tagsTable;
     static {
         tagsTable = new HashMap<String, OboFormatTag>();

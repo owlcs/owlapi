@@ -42,7 +42,7 @@ public class Filters {
      * @param <A>
      *        axiom type
      */
-    public static abstract class AxiomFilter<A extends OWLAxiom> implements
+    public abstract static class AxiomFilter<A extends OWLAxiom> implements
             OWLAxiomSearchFilter {
 
         private static final long serialVersionUID = 40000L;

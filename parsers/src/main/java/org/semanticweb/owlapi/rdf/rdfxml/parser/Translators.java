@@ -273,7 +273,7 @@ public class Translators {
         }
     }
 
-    static abstract class AbstractClassExpressionTranslator implements
+    abstract static class AbstractClassExpressionTranslator implements
             ClassExpressionTranslator {
 
         private OWLRDFConsumer consumer;

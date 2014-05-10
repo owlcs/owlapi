@@ -117,7 +117,7 @@ public class TutorialSnippets {
     private static final Logger log = LoggerFactory
             .getLogger(TutorialSnippets.class);
     @Nonnull
-    private final static String koala = "<?xml version=\"1.0\"?>\n"
+    private static final String koala = "<?xml version=\"1.0\"?>\n"
             + "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\""
             + " xmlns=\"http://protege.stanford.edu/plugins/owl/owl-library/koala.owl#\" xml:base=\"http://protege.stanford.edu/plugins/owl/owl-library/koala.owl\">\n"
             + "  <owl:Ontology rdf:about=\"\"/>\n"
