@@ -35,19 +35,32 @@
  */
 package org.semanticweb.owlapi.rio;
 
+import org.openrdf.rio.RDFParser;
 import org.openrdf.rio.RDFParserFactory;
-import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormat;
+import org.semanticweb.owlapi.OWLAPIServiceLoaderModule;
+import org.semanticweb.owlapi.formats.OWLXMLOntologyFormat;
+
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 
 /**
  * {@link RDFParserFactory} that creates RDF statements from
- * {@link OWLFunctionalSyntaxOntologyFormat} documents.
+ * {@link OWLXMLOntologyFormat} documents.
  * 
  * @author Peter Ansell p_ansell@yahoo.com
  */
-public class RioFunctionalSyntaxParserFactory extends RioAbstractParserFactory {
+public abstract class RioAbstractParserFactory implements RDFParserFactory {
+
+    private static final Injector injector = Guice
+            .createInjector(new OWLAPIServiceLoaderModule());
 
     @Override
-    public OWLAPIRDFFormat getRDFFormat() {
-        return OWLAPIRDFFormat.OWL_FUNCTIONAL;
+    public abstract OWLAPIRDFFormat getRDFFormat();
+
+    @Override
+    public RDFParser getParser() {
+        RioOWLRDFParser rioOWLRDFParser = new RioOWLRDFParser(getRDFFormat());
+        injector.injectMembers(rioOWLRDFParser);
+        return rioOWLRDFParser;
     }
 }

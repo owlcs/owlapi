@@ -40,13 +40,15 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.annotation.Nonnull;
+import javax.inject.Inject;
 
 import org.openrdf.model.ValueFactory;
 import org.openrdf.rio.RDFHandler;
 import org.openrdf.rio.helpers.RDFParserBase;
-import org.semanticweb.owlapi.OWLAPIServiceLoaderModule;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.ReaderDocumentSource;
 import org.semanticweb.owlapi.io.StreamDocumentSource;
@@ -54,12 +56,8 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLOntologyManagerFactory;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
-
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import com.google.inject.Provider;
 
 /**
  * Parses {@link OWLAPIRDFFormat} parsers straight to Sesame {@link RDFHandler}
@@ -69,11 +67,8 @@ import com.google.inject.Provider;
  */
 public class RioOWLRDFParser extends RDFParserBase {
 
-    // XXX not entirely sure if this is the best location to create an injector;
-    // it could be better in the factory, or in the code creating the factory.
-    private static final Injector injector = Guice
-            .createInjector(new OWLAPIServiceLoaderModule());
     private OWLAPIRDFFormat owlFormat;
+    private Set<OWLOntologyManagerFactory> ontologyManagerFactories = new HashSet<OWLOntologyManagerFactory>();
 
     /**
      * @param owlFormat
@@ -93,6 +88,13 @@ public class RioOWLRDFParser extends RDFParserBase {
     public RioOWLRDFParser(OWLAPIRDFFormat owlFormat, ValueFactory valueFactory) {
         super(valueFactory);
         this.owlFormat = owlFormat;
+    }
+
+    @Inject
+    public void setOntologyManagerFactories(
+            Set<OWLOntologyManagerFactory> factories) {
+        ontologyManagerFactories.clear();
+        ontologyManagerFactories.addAll(factories);
     }
 
     @Override
@@ -118,13 +120,21 @@ public class RioOWLRDFParser extends RDFParserBase {
      */
     protected void render(@Nonnull OWLOntologyDocumentSource source)
             throws IOException {
+        if (ontologyManagerFactories.isEmpty()) {
+            throw new OWLRuntimeException(
+                    "No ontology manager factories available, parsing is impossible");
+        }
+        // it is expected that only one implementation of
+        // OWLOntologyManagerFactory will be available, but if there is more
+        // than one, no harm done
         try {
-            Provider<OWLOntologyManager> managerProvider = injector
-                    .getProvider(OWLOntologyManager.class);
-            OWLOntology ontology = managerProvider.get()
-                    .loadOntologyFromOntologyDocument(source);
-            new RioRenderer(ontology, getRDFHandler(), getRDFFormat()
-                    .getOWLFormat()).render();
+            for (OWLOntologyManagerFactory f : ontologyManagerFactories) {
+                OWLOntology ontology = f.get()
+                        .loadOntologyFromOntologyDocument(source);
+                new RioRenderer(ontology, getRDFHandler(), getRDFFormat()
+                        .getOWLFormat()).render();
+                return;
+            }
         } catch (OWLOntologyCreationException e) {
             throw new OWLRuntimeException(e);
         }

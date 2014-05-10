@@ -35,7 +35,6 @@
  */
 package org.semanticweb.owlapi.rio;
 
-import org.openrdf.rio.RDFParser;
 import org.openrdf.rio.RDFParserFactory;
 import org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormat;
 
@@ -45,15 +44,10 @@ import org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormat;
  * 
  * @author Peter Ansell p_ansell@yahoo.com
  */
-public class RioManchesterSyntaxParserFactory implements RDFParserFactory {
+public class RioManchesterSyntaxParserFactory extends RioAbstractParserFactory {
 
     @Override
     public OWLAPIRDFFormat getRDFFormat() {
         return OWLAPIRDFFormat.MANCHESTER_OWL;
-    }
-
-    @Override
-    public RDFParser getParser() {
-        return new RioOWLRDFParser(getRDFFormat());
     }
 }

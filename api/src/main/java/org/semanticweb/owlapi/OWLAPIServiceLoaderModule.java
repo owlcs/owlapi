@@ -48,7 +48,7 @@ public class OWLAPIServiceLoaderModule extends AbstractModule {
         loadFactories(OWLOntologyFormatFactory.class, OWLOntologyFormat.class);
         loadFactories(OWLParserFactory.class, OWLParser.class);
         loadFactories(OWLOntologyStorerFactory.class, OWLOntologyStorer.class);
-        loadFactories(OWLOntologyManagerFactory.class);
+        loadOntologyManagerFactory();
     }
 
     protected <T> void loadInstancesFromServiceLoader(Class<T> type) {
@@ -80,17 +80,18 @@ public class OWLAPIServiceLoaderModule extends AbstractModule {
         }
     }
 
-    protected <T, F extends Provider<T>> void loadFactories(Class<F> factory) {
+    protected void loadOntologyManagerFactory() {
         try {
-            Multibinder<F> factoryBinder = Multibinder.newSetBinder(binder(),
-                    factory);
-            for (F o : ServiceLoader.load(factory)) {
-                factoryBinder.addBinding().toInstance(o);
+            Multibinder<OWLOntologyManagerFactory> binder = Multibinder
+                    .newSetBinder(binder(), OWLOntologyManagerFactory.class);
+            for (OWLOntologyManagerFactory o : ServiceLoader
+                    .load(OWLOntologyManagerFactory.class)) {
+                binder.addBinding().toInstance(o);
             }
         } catch (ServiceConfigurationError e) {
             e.printStackTrace(System.out);
-            throw new OWLRuntimeException("Injection failed for factory: "
-                    + factory, e);
+            throw new OWLRuntimeException(
+                    "Injection failed for OWLOntologyManager factory", e);
         }
     }
 }
