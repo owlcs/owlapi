@@ -26,7 +26,7 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 /** Builder class for OWLAnnotationAssertionAxiom */
 public class BuilderAnnotationAssertion
         extends
-        BaseAnnotationtPropertyBuilder<OWLAnnotationAssertionAxiom, BuilderAnnotationAssertion> {
+        BaseAnnotationPropertyBuilder<OWLAnnotationAssertionAxiom, BuilderAnnotationAssertion> {
 
     @Nullable
     private OWLAnnotationSubject subject = null;

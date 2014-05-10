@@ -462,7 +462,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
             if (fastPruningWindowSize < DEFAULT_FAST_PRUNING_WINDOW_SIZE) {
                 fastPruningWindowSize = DEFAULT_FAST_PRUNING_WINDOW_SIZE;
             }
-            LOGGER.info("    Initial fast prunung window size: {}",
+            LOGGER.info("    Initial fast pruning window size: {}",
                     fastPruningWindowSize);
             int fastPruningCounter = 0;
             while (fastPruningWindowSize != 1) {

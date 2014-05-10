@@ -288,7 +288,7 @@ public class OWLEntityCollector implements
 
     @Override
     public Collection<OWLEntity> visit(OWLDisjointUnionAxiom axiom) {
-        axiom.getOWLClass().accept((OWLEntityVisitor) this);
+        axiom.getOWLClass().accept(this);
         for (OWLClassExpression desc : axiom.getClassExpressions()) {
             desc.accept(this);
         }

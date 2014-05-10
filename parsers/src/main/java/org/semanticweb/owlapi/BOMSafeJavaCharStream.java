@@ -288,7 +288,7 @@ public class BOMSafeJavaCharStream {
                 UpdateLineColumn(c);
                 backSlashCnt++;
             }
-            // Here, we have seen an odd number of backslash's followed by a 'u'
+            // Here, we have seen an odd number of backslashes followed by a 'u'
             try {
                 while ((c = ReadByte()) == 'u') {
                     ++column;

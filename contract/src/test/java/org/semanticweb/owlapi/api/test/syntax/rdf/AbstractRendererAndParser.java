@@ -90,7 +90,7 @@ public abstract class AbstractRendererAndParser extends TestBase {
         BminusA.removeAll(ontA.getAxioms());
         StringBuilder msg = new StringBuilder();
         if (AminusB.isEmpty() && BminusA.isEmpty()) {
-            msg.append("Ontology save/load roundtripp OK.\n");
+            msg.append("Ontology save/load roundtrip OK.\n");
         } else {
             msg.append("Ontology save/load roundtripping error.\n");
             msg.append("=> " + AminusB.size()

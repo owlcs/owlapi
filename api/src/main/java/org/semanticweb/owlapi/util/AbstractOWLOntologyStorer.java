@@ -147,7 +147,7 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
             throws OWLOntologyStorageException {
         if (!format.isTextual()) {
             throw new OWLOntologyStorageException(
-                    "This method must be overriden to support this binary format: "
+                    "This method must be overridden to support this binary format: "
                             + format.getKey());
         }
         try {

@@ -30,7 +30,7 @@ import org.semanticweb.owlapi.model.OWLObject;
  * @param <Type>
  *        builder type
  */
-public abstract class BaseAnnotationtPropertyBuilder<T extends OWLObject, Type>
+public abstract class BaseAnnotationPropertyBuilder<T extends OWLObject, Type>
         extends BaseBuilder<T, Type> {
 
     @Nullable
@@ -41,7 +41,7 @@ public abstract class BaseAnnotationtPropertyBuilder<T extends OWLObject, Type>
      *        data factory
      */
     @Inject
-    public BaseAnnotationtPropertyBuilder(OWLDataFactory df) {
+    public BaseAnnotationPropertyBuilder(OWLDataFactory df) {
         super(df);
     }
 
