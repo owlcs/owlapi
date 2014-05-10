@@ -362,7 +362,7 @@ public class Examples extends TestBase {
         // Now create the restriction. The OWLFacet enum provides an enumeration
         // of the various facets that can be used
         OWLDatatypeRestriction integerGE18 = factory.getOWLDatatypeRestriction(
-                integer, OWLFacet.MIN_INCLUSIVE, eighteen);
+                integer, MIN_INCLUSIVE, eighteen);
         // We could use this datatype in restriction, as the range of data
         // properties etc. For example, if we want to restrict the range of the
         // :hasAge data property to 18 or more we specify its range as this data
@@ -441,7 +441,7 @@ public class Examples extends TestBase {
         OWLLiteral eighteenConstant = factory.getOWLLiteral(18);
         // Now create our custom datarange, which is int greater than or equal
         // to 18. To do this, we need the minInclusive facet
-        OWLFacet facet = OWLFacet.MIN_INCLUSIVE;
+        OWLFacet facet = MIN_INCLUSIVE;
         // Create the restricted data range by applying the facet restriction
         // with a value of 18 to int
         OWLDataRange intGreaterThan18 = factory.getOWLDatatypeRestriction(

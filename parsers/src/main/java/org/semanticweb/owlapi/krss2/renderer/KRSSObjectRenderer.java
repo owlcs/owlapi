@@ -414,7 +414,7 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
                 Iterable<OWLClassExpression> supclasses = sup(
                         ontology1.getSubClassAxiomsForSubClass(eachClass),
                         OWLClassExpression.class);
-                flatten(supclasses, KRSSVocabulary.AND);
+                flatten(supclasses, AND);
                 writeCloseBracket();
                 writeln();
             } else {
@@ -423,7 +423,7 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
                 write(eachClass);
                 Iterable<OWLClassExpression> equivalentClasses = equivalent(ontology1
                         .getEquivalentClassesAxioms(eachClass));
-                flatten(equivalentClasses, KRSSVocabulary.AND);
+                flatten(equivalentClasses, AND);
                 writeCloseBracket();
                 writeln();
             }

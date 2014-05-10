@@ -1003,7 +1003,7 @@ public class ManchesterOWLSyntaxEditorParser implements
         // owl:Thing. But there are many ways in which it could be missing. Hard
         // to tell what sort of lookahead is needed.
         // The next two checks should cover most cases.
-        for (ManchesterOWLSyntax x : ManchesterOWLSyntax.values()) {
+        for (ManchesterOWLSyntax x : values()) {
             if (x.matches(tok)) {
                 return dataFactory.getOWLThing();
             }
