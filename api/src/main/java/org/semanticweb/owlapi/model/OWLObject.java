@@ -165,5 +165,5 @@ public interface OWLObject extends Comparable<OWLObject>, Serializable,
 
     @Nonnull
     @Override
-    public String toString();
+    String toString ();
 }

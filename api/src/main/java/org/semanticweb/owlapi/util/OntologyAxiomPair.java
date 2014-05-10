@@ -87,7 +87,7 @@ public class OntologyAxiomPair {
     @Nonnull
     @Override
     public String toString() {
-        return axiom.toString() + " in "
+        return axiom + " in "
                 + (ontology != null ? verifyNotNull(ontology).toString() : "");
     }
 }

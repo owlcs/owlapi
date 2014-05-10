@@ -536,7 +536,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
     @SuppressWarnings("null")
     @Nonnull
     String minusOntologyURI(@Nonnull String s) {
-        String uri = manager.getOntologyDocumentIRI(rootOntology).toString()
+        String uri = manager.getOntologyDocumentIRI(rootOntology)
                 + "#";
         return s.replace(uri, "").replace("<", "").replace(">", "");
     }
@@ -734,15 +734,13 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
         Set<OWLEntity> enrichedSig = enrichSignature(sig, superClassLevel,
                 subClassLevel, reasoner);
         switch (moduleType) {
-            case TOP: {
+            case TOP:
                 return extractUnnestedModule(enrichedSig,
                         LocalityClass.TOP_TOP, verbose);
-            }
-            case BOT: {
+            case BOT:
                 return extractUnnestedModule(enrichedSig,
                         LocalityClass.BOTTOM_BOTTOM, verbose);
-            }
-            case STAR: {
+            case STAR:
                 boolean[] subOnt = ontologyAxiomSet.getSubset(true);
                 boolean nextStepNecessary = true;
                 boolean inFirstStep = true;
@@ -770,7 +768,6 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
                 }
                 Set<OWLAxiom> moduleAsSet = ontologyAxiomSet.toSet(subOnt);
                 return enrich(moduleAsSet, seedSig, verbose);
-            }
             default:
                 throw new OWLRuntimeException("Unsupported module type: "
                         + moduleType);

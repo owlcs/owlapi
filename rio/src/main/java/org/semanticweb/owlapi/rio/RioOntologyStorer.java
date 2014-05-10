@@ -198,7 +198,8 @@ public class RioOntologyStorer extends AbstractOWLOntologyStorer {
         if (!(format instanceof RioRDFOntologyFormat)) {
             throw new OWLOntologyStorageException(
                     "Unable to use RioOntologyStorer to store this format as it is not recognised as a RioRDFOntologyFormat: "
-                            + format.toString());
+                            + format
+            );
         }
             final RioRDFOntologyFormat rioFormat = (RioRDFOntologyFormat) format;
             if (format.isTextual()) {
@@ -207,7 +208,8 @@ public class RioOntologyStorer extends AbstractOWLOntologyStorer {
             } else {
                 throw new OWLOntologyStorageException(
                         "Unable to use storeOntology with a Writer as the desired format is not textual. Format was "
-                                + format.toString());
+                                + format
+                );
             }
         }
         try {
@@ -231,7 +233,8 @@ public class RioOntologyStorer extends AbstractOWLOntologyStorer {
             if (!(format instanceof RioRDFOntologyFormat)) {
                 throw new OWLOntologyStorageException(
                         "Unable to use RioOntologyStorer to store this format as it is not recognised as a RioRDFOntologyFormat: "
-                                + format.toString());
+                                + format
+                );
             }
             final RioRDFOntologyFormat rioFormat = (RioRDFOntologyFormat) format;
             if (format.isTextual()) {

@@ -87,7 +87,7 @@ public class ManchesterParseErrorTestCase extends TestBase {
         @Nullable
         @Override
         public OWLDataProperty getOWLDataProperty(@Nullable String name) {
-            if (name != null && name.equals("p")) {
+            if ("p".equals(name)) {
                 return factory
                         .getOWLDataProperty(IRI("http://protege.org/Test.owl#p"));
             } else {
@@ -110,7 +110,7 @@ public class ManchesterParseErrorTestCase extends TestBase {
         @Nullable
         @Override
         public OWLDatatype getOWLDatatype(@Nullable String name) {
-            if (name != null && name.equals("rdfs:Literal")) {
+            if ("rdfs:Literal".equals(name)) {
                 return factory.getTopDatatype();
             } else {
                 return null;

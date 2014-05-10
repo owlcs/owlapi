@@ -72,7 +72,7 @@ public class RemoveImport extends ImportChange {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("RemoveImport(");
-        sb.append(getImportDeclaration().toString());
+        sb.append(getImportDeclaration());
         sb.append(")");
         return sb.toString();
     }

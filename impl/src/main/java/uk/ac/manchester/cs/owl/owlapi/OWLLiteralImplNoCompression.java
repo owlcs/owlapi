@@ -81,7 +81,6 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements
      */
     public OWLLiteralImplNoCompression(@Nonnull byte[] bytes,
             @Nullable String lang, @Nullable OWLDatatype datatype) {
-        super();
         literal = new byte[bytes.length];
         System.arraycopy(bytes, 0, literal, 0, bytes.length);
         if (lang == null || lang.isEmpty()) {

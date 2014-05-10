@@ -8,7 +8,6 @@ public class InvalidXrefMapException extends OBOFormatException {
 
     /** Instantiates a new invalid xref map exception. */
     public InvalidXrefMapException() {
-        super();
     }
 
     /**

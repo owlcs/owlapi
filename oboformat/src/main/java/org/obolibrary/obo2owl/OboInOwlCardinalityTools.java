@@ -43,7 +43,7 @@ public class OboInOwlCardinalityTools {
      * Functor for resolving conflicts for an annotation property and its
      * cardinality constraint.
      */
-    public static interface AnnotationCardinalityConfictHandler {
+    public interface AnnotationCardinalityConfictHandler {
 
         /**
          * Resolve a conflict for a given annotation property and axioms. The
@@ -61,10 +61,7 @@ public class OboInOwlCardinalityTools {
          *         AnnotationCardinalityException
          */
         @Nonnull
-        public List<OWLAnnotationAssertionAxiom> handleConflict(
-                @Nonnull OWLEntity entity,
-                @Nonnull OWLAnnotationProperty property,
-                @Nonnull Collection<OWLAnnotationAssertionAxiom> axioms)
+        List<OWLAnnotationAssertionAxiom> handleConflict (@Nonnull OWLEntity entity, @Nonnull OWLAnnotationProperty property, @Nonnull Collection<OWLAnnotationAssertionAxiom> axioms)
                 throws AnnotationCardinalityException;
 
         /**
@@ -81,9 +78,7 @@ public class OboInOwlCardinalityTools {
          *         AnnotationCardinalityException
          */
         @Nonnull
-        public List<OWLAnnotation> handleConflict(
-                @Nonnull OWLAnnotationProperty property,
-                @Nonnull Collection<OWLAnnotation> ontologyAnnotations)
+        List<OWLAnnotation> handleConflict (@Nonnull OWLAnnotationProperty property, @Nonnull Collection<OWLAnnotation> ontologyAnnotations)
                 throws AnnotationCardinalityException;
     }
 
@@ -91,7 +86,7 @@ public class OboInOwlCardinalityTools {
      * Functor for reporting conflicts for an annotation property and its
      * cardinality constraint.
      */
-    public static interface AnnotationCardinalityReporter {
+    public interface AnnotationCardinalityReporter {
 
         /**
          * Report a conflict for a given annotation property and axioms.
@@ -103,9 +98,7 @@ public class OboInOwlCardinalityTools {
          * @param axioms
          *        axioms
          */
-        public void reportConflict(@Nonnull OWLEntity entity,
-                @Nonnull OWLAnnotationProperty property,
-                @Nonnull Collection<OWLAnnotationAssertionAxiom> axioms);
+        void reportConflict (@Nonnull OWLEntity entity, @Nonnull OWLAnnotationProperty property, @Nonnull Collection<OWLAnnotationAssertionAxiom> axioms);
 
         /**
          * Report a conflict for a given annotation property and ontology
@@ -116,8 +109,7 @@ public class OboInOwlCardinalityTools {
          * @param ontologyAnnotations
          *        ontologyAnnotations
          */
-        public void reportConflict(@Nonnull OWLAnnotationProperty property,
-                @Nonnull Collection<OWLAnnotation> ontologyAnnotations);
+        void reportConflict (@Nonnull OWLAnnotationProperty property, @Nonnull Collection<OWLAnnotation> ontologyAnnotations);
     }
 
     /**

@@ -1265,7 +1265,7 @@ public class Examples extends TestBase {
         // We want to add a comment to the pizza class. First, we need to obtain
         // a reference to the pizza class
         OWLClass pizzaCls = df.getOWLClass(IRI.create(ont.getOntologyID()
-                .getOntologyIRI().get().toString()
+                .getOntologyIRI().get()
                 + "#Pizza"));
         // Now we create the content of our comment. In this case we simply want
         // a plain string literal. We'll attach a language to the comment to
@@ -1634,7 +1634,7 @@ public class Examples extends TestBase {
         // subclasses. We start by creating a signature that consists of
         // "PizzaTopping".
         OWLClass toppingCls = df.getOWLClass(IRI.create(ont.getOntologyID()
-                .getOntologyIRI().get().toString()
+                .getOntologyIRI().get()
                 + "#PizzaTopping"));
         Set<OWLEntity> sig = new HashSet<OWLEntity>();
         sig.add(toppingCls);

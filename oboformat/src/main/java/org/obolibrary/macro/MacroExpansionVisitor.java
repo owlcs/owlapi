@@ -49,7 +49,6 @@ public class MacroExpansionVisitor {
      *        inputOntology
      */
     public MacroExpansionVisitor(@Nonnull OWLOntology inputOntology) {
-        super();
         this.inputOntology = inputOntology;
         visitor = new Visitor(inputOntology);
         manchesterSyntaxTool = new ManchesterSyntaxTool(inputOntology);

@@ -90,7 +90,7 @@ public class UnparsableOntologyException extends OWLOntologyCreationException {
                             && stackDepth < stackTrace.length; stackDepth++) {
                         StackTraceElement element = stackTrace[stackDepth];
                         msg.append("        ");
-                        msg.append(element.toString());
+                        msg.append(element);
                         msg.append("\n");
                     }
                     if (current.getCause() != null

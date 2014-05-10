@@ -36,7 +36,7 @@ public class OWLOntologyToStringTestCase {
         IRI ontIRI = IRI("http://owlapi.sourceforge.net/ont");
         OWLOntology ont = man.createOntology(ontIRI);
         String s = ont.toString();
-        String expected = "Ontology(" + ont.getOntologyID().toString()
+        String expected = "Ontology(" + ont.getOntologyID()
                 + ") [Axioms: " + ont.getAxiomCount() + " Logical Axioms: "
                 + ont.getLogicalAxiomCount() + "] First 20 axioms: {}";
         assertEquals(expected, s);

@@ -47,7 +47,6 @@ public class SWRLIndividualArgumentImpl extends OWLObjectImpl implements
      *        individual for argument
      */
     public SWRLIndividualArgumentImpl(@Nonnull OWLIndividual individual) {
-        super();
         this.individual = checkNotNull(individual, "individual cannot be null");
     }
 

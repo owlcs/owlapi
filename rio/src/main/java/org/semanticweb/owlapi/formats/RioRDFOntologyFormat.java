@@ -57,7 +57,6 @@ public class RioRDFOntologyFormat extends
      *        The {@link RDFFormat} that this instance supports.
      */
     public RioRDFOntologyFormat(RDFFormat format) {
-        super();
         this.format = format;
     }
 

@@ -1438,7 +1438,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
         b.append(" -> ");
         append(predicate, b);
         b.append(" -> ");
-        b.append(object.toString());
+        b.append(object);
         logger.info(b.toString());
     }
 

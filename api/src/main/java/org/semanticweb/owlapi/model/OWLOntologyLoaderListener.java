@@ -46,7 +46,7 @@ public interface OWLOntologyLoaderListener {
     void finishedLoadingOntology(@Nonnull LoadingFinishedEvent event);
 
     /** loading event */
-    static class LoadingEvent {
+    class LoadingEvent {
 
         private final OWLOntologyID ontologyID;
         private final IRI documentIRI;
@@ -93,7 +93,7 @@ public interface OWLOntologyLoaderListener {
     }
 
     /** loading start event */
-    static class LoadingStartedEvent extends LoadingEvent {
+    class LoadingStartedEvent extends LoadingEvent {
 
         public LoadingStartedEvent(OWLOntologyID ontologyID, IRI documentIRI,
                 boolean imported) {
@@ -105,7 +105,7 @@ public interface OWLOntologyLoaderListener {
      * Describes the situation when the loading process for an ontology has
      * finished.
      */
-    static class LoadingFinishedEvent extends LoadingEvent {
+    class LoadingFinishedEvent extends LoadingEvent {
 
         private final Exception ex;
 

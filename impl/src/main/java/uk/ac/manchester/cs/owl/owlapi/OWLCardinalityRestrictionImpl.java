@@ -35,7 +35,6 @@ public abstract class OWLCardinalityRestrictionImpl<F extends OWLPropertyRange>
     private final F filler;
 
     protected OWLCardinalityRestrictionImpl(int cardinality, @Nonnull F filler) {
-        super();
         this.cardinality = cardinality;
         this.filler = checkNotNull(filler, "filler cannot be null");
     }

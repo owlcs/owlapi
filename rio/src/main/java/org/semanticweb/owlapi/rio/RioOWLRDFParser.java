@@ -75,7 +75,6 @@ public class RioOWLRDFParser extends RDFParserBase {
      *        OWL format
      */
     public RioOWLRDFParser(OWLAPIRDFFormat owlFormat) {
-        super();
         this.owlFormat = owlFormat;
     }
 

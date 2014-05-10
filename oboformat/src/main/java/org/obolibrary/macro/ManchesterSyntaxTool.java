@@ -100,7 +100,6 @@ public class ManchesterSyntaxTool {
     public ManchesterSyntaxTool(@Nonnull OWLOntology inputOntology,
             @Nullable Collection<OWLOntology> auxiliaryOntologies,
             boolean resolveEntities) {
-        super();
         OWLOntologyManager manager = inputOntology.getOWLOntologyManager();
         dataFactory = manager.getOWLDataFactory();
         Set<OWLOntology> ontologies;
@@ -241,7 +240,6 @@ public class ManchesterSyntaxTool {
          */
         AdvancedEntityChecker(OWLEntityChecker defaultInstance,
                 Set<OWLOntology> ontologies, OWLOntologyManager manager) {
-            super();
             this.defaultInstance = defaultInstance;
             this.ontologies = ontologies;
             this.manager = manager;

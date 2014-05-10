@@ -132,7 +132,7 @@ public class SetOntologyID extends OWLOntologyChange<OWLOntologyID> {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("SetOntologyID(");
-        sb.append(getNewOntologyID().toString());
+        sb.append(getNewOntologyID());
         sb.append(" OntologyID(");
         sb.append(getOntology().getOntologyID());
         sb.append(")");

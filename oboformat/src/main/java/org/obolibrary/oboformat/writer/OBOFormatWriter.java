@@ -431,7 +431,7 @@ public class OBOFormatWriter {
             if (LOG.isWarnEnabled()) {
                 LOG.warn("Unknown datatype ('{}') for value in clause: {}",
                         value.getClass().getName(), clause);
-                sb.append(value.toString());
+                sb.append(value);
             }
         }
         writeLine(sb, writer);
@@ -1151,7 +1151,6 @@ public class OBOFormatWriter {
          *        the obo doc
          */
         public OBODocNameProvider(@Nonnull OBODoc oboDoc) {
-            super();
             this.oboDoc = oboDoc;
             Frame headerFrame = oboDoc.getHeaderFrame();
             if (headerFrame != null) {

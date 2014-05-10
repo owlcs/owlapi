@@ -38,7 +38,6 @@ public class Frame {
 
     /** Instantiates a new frame. */
     public Frame() {
-        super();
         init();
     }
 
@@ -49,7 +48,6 @@ public class Frame {
      *        the type
      */
     public Frame(FrameType type) {
-        super();
         init();
         this.type = type;
     }
@@ -165,7 +163,7 @@ public class Frame {
         sb.append(id);
         sb.append(' ');
         for (Clause cl : clauses) {
-            sb.append(cl.toString());
+            sb.append(cl);
         }
         sb.append(')');
         return sb.toString();

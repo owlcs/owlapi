@@ -391,7 +391,7 @@ class DLQueryPrinter {
             Set<OWLNamedIndividual> individuals = dlQueryEngine.getInstances(
                     classExpression, true);
             printEntities("Instances", individuals, sb);
-            System.out.println(sb.toString());
+            System.out.println(sb);
         }
     }
 

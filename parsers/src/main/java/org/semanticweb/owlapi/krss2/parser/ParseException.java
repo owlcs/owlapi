@@ -30,7 +30,6 @@ class ParseException extends OWLParserException {
     }
 
     ParseException() {
-        super();
     }
 
     ParseException(String message) {

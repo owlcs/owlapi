@@ -76,7 +76,7 @@ public class RemoveOntologyAnnotation extends AnnotationChange {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("RemoveOntologyAnnotation(");
-        sb.append(getAnnotation().toString());
+        sb.append(getAnnotation());
         sb.append(" OntologyID(");
         sb.append(getOntology().getOntologyID());
         sb.append(")");

@@ -37,7 +37,6 @@ public class OBODoc {
 
     /** default constructor. */
     public OBODoc() {
-        super();
     }
 
     /** @return the header frame */
@@ -309,7 +308,7 @@ public class OBODoc {
      * @return true, if is treat xrefs as equivalent
      */
     public boolean isTreatXrefsAsEquivalent(@Nullable String prefix) {
-        if (prefix != null && prefix.equals("RO")) {
+        if ("RO".equals(prefix)) {
             return true;
         }
         return false;

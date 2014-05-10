@@ -214,7 +214,7 @@ public enum Namespaces {
      * Indicates that a prefix is builtin - i.e. that it is either owl, rdf,
      * rdfs, or xsd
      */
-    public static enum BuiltIn {
+    public enum BuiltIn {
         /** built in flag. */
         BUILT_IN,
         /** not built in flag. */
@@ -222,7 +222,7 @@ public enum Namespaces {
     }
 
     /** Indicates whether a prefix is a legacy prefix or not. */
-    public static enum Status {
+    public enum Status {
         /** legacy flag. */
         LEGACY,
         /** in use flag. */

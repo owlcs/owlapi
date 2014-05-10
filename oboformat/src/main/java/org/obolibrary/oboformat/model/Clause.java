@@ -33,7 +33,6 @@ public class Clause {
      *        tag
      */
     public Clause(String tag) {
-        super();
         this.tag = tag;
     }
 
@@ -66,7 +65,6 @@ public class Clause {
      */
     @Deprecated
     public Clause() {
-        super();
     }
 
     /** @return tag */

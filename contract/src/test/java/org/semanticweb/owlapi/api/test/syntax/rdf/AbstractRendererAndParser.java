@@ -96,12 +96,12 @@ public abstract class AbstractRendererAndParser extends TestBase {
             msg.append("=> " + AminusB.size()
                     + " axioms lost in roundtripping.\n");
             for (OWLAxiom axiom : AminusB) {
-                msg.append(axiom.toString() + "\n");
+                msg.append(axiom + "\n");
             }
             msg.append("=> " + BminusA.size()
                     + " axioms added after roundtripping.\n");
             for (OWLAxiom axiom : BminusA) {
-                msg.append(axiom.toString() + "\n");
+                msg.append(axiom + "\n");
             }
         }
         assertTrue(msg.toString(), AminusB.isEmpty() && BminusA.isEmpty());

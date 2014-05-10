@@ -176,7 +176,6 @@ public class OBOFormatParser {
     }
 
     protected OBOFormatParser(MyStream s) {
-        super();
         stream = s;
     }
 

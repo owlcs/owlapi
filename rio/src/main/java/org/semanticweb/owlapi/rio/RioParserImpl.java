@@ -282,7 +282,7 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
 
     @Override
     public String toString() {
-        return this.getClass().getName() + " : " + owlFormatFactory.toString();
+        return this.getClass().getName() + " : " + owlFormatFactory;
     }
 
     private static class RioParserRDFHandler implements RDFHandler {
