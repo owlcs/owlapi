@@ -2,7 +2,9 @@ package org.obolibrary.oboformat.parser;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -118,9 +120,9 @@ public class OBOFormatConstants {
     /** tags */
     @Nonnull
     public final static Set<String> TAGS;
-    private static Hashtable<String, OboFormatTag> tagsTable;
+    private static Map<String, OboFormatTag> tagsTable;
     static {
-        tagsTable = new Hashtable<String, OBOFormatConstants.OboFormatTag>();
+        tagsTable = new HashMap<String, OboFormatTag>();
         for (OboFormatTag tag : OboFormatTag.values()) {
             tagsTable.put(tag.getTag(), tag);
         }

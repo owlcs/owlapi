@@ -2,8 +2,9 @@ package org.obolibrary.obo2owl;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Hashtable;
-
+import java.util.Map;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -133,9 +134,9 @@ public class Obo2OWLConstants {
         }
     }
 
-    private static Hashtable<String, Obo2OWLVocabulary> tagsToVocab;
+    private static Map<String, Obo2OWLVocabulary> tagsToVocab;
     static {
-        tagsToVocab = new Hashtable<String, Obo2OWLVocabulary>();
+        tagsToVocab = new HashMap<String, Obo2OWLVocabulary>();
         for (Obo2OWLVocabulary vocab : Obo2OWLVocabulary.values()) {
             tagsToVocab.put(vocab.mappedTag, vocab);
         }

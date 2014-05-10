@@ -9,17 +9,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Hashtable;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-
+import java.util.*;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -815,11 +805,11 @@ public class OBOFormatWriter {
 
         static final HeaderTagsComparator instance = new HeaderTagsComparator();
         @Nonnull
-        private static Hashtable<String, Integer> tagsPriorities = buildTagsPriorities();
+        private static Map<String, Integer> tagsPriorities = buildTagsPriorities();
 
         @Nonnull
-        private static Hashtable<String, Integer> buildTagsPriorities() {
-            Hashtable<String, Integer> table = new Hashtable<String, Integer>();
+        private static Map<String, Integer> buildTagsPriorities() {
+            Map<String, Integer> table = new HashMap<String, Integer>();
             table.put(OboFormatTag.TAG_FORMAT_VERSION.getTag(), 0);
             table.put(OboFormatTag.TAG_DATA_VERSION.getTag(), 10);
             table.put(OboFormatTag.TAG_DATE.getTag(), 15);
@@ -865,11 +855,11 @@ public class OBOFormatWriter {
 
         static final TermsTagsComparator instance = new TermsTagsComparator();
         @Nonnull
-        private static Hashtable<String, Integer> tagsPriorities = buildTagsPriorities();
+        private static Map<String, Integer> tagsPriorities = buildTagsPriorities();
 
         @Nonnull
-        private static Hashtable<String, Integer> buildTagsPriorities() {
-            Hashtable<String, Integer> table = new Hashtable<String, Integer>();
+        private static Map<String, Integer> buildTagsPriorities() {
+            Map<String, Integer> table = new HashMap<String, Integer>();
             table.put(OboFormatTag.TAG_ID.getTag(), 5);
             table.put(OboFormatTag.TAG_IS_ANONYMOUS.getTag(), 10);
             table.put(OboFormatTag.TAG_NAME.getTag(), 15);
@@ -945,11 +935,11 @@ public class OBOFormatWriter {
 
         static final TypeDefTagsComparator instance = new TypeDefTagsComparator();
         @Nonnull
-        private static Hashtable<String, Integer> tagsPriorities = buildTagsPriorities();
+        private static Map<String, Integer> tagsPriorities = buildTagsPriorities();
 
         @Nonnull
-        private static Hashtable<String, Integer> buildTagsPriorities() {
-            Hashtable<String, Integer> table = new Hashtable<String, Integer>();
+        private static Map<String, Integer> buildTagsPriorities() {
+            Map<String, Integer> table = new HashMap<String, Integer>();
             table.put(OboFormatTag.TAG_ID.getTag(), 5);
             table.put(OboFormatTag.TAG_IS_ANONYMOUS.getTag(), 10);
             table.put(OboFormatTag.TAG_NAME.getTag(), 15);

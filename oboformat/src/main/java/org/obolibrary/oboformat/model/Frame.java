@@ -248,7 +248,7 @@ public class Frame {
      */
     @Nonnull
     public Collection<Object> getTagValues(String tag) {
-        Collection<Object> vals = new Vector<Object>();
+        Collection<Object> vals = new ArrayList<Object>();
         for (Clause c : getClauses(tag)) {
             vals.add(c.getValue());
         }

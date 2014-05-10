@@ -118,8 +118,8 @@ public class OWLAPIObo2Owl {
     public OWLAPIObo2Owl(OWLOntologyManager manager) {
         idSpaceMap = new HashMap<String, String>();
         apToDeclare = new HashSet<OWLAnnotationProperty>();
-        clsToDeclar = new Hashtable<String, OWLClass>();
-        typedefToAnnotationProperty = new Hashtable<String, OWLAnnotationProperty>();
+        clsToDeclar = new HashMap<String, OWLClass>();
+        typedefToAnnotationProperty = new HashMap<String, OWLAnnotationProperty>();
         init(manager);
     }
 
@@ -1179,7 +1179,7 @@ public class OWLAPIObo2Owl {
                 annotations.add(ann);
                 // isReversiblePropertyChain
             }
-            List<OWLObjectPropertyExpression> chain = new Vector<OWLObjectPropertyExpression>();
+            List<OWLObjectPropertyExpression> chain = new ArrayList<OWLObjectPropertyExpression>();
             chain.add(trObjectProp(v));
             chain.add(trObjectProp(clause.getValue2()));
             ax = fac.getOWLSubPropertyChainOfAxiom(chain, p, annotations);
