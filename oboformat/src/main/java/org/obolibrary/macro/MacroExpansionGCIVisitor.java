@@ -34,12 +34,12 @@ public class MacroExpansionGCIVisitor {
 
     protected static final Logger log = LoggerFactory
             .getLogger(MacroExpansionGCIVisitor.class);
-    private OWLOntology inputOntology;
-    private OWLOntologyManager outputManager;
+    private final OWLOntology inputOntology;
+    private final OWLOntologyManager outputManager;
     @Nonnull
-    private OWLOntology outputOntology;
+    private final OWLOntology outputOntology;
     protected ManchesterSyntaxTool manchesterSyntaxTool;
-    private GCIVisitor visitor;
+    private final GCIVisitor visitor;
 
     /**
      * @param inputOntology

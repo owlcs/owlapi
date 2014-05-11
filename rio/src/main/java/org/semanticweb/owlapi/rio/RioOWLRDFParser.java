@@ -67,8 +67,8 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  */
 public class RioOWLRDFParser extends RDFParserBase {
 
-    private OWLAPIRDFFormat owlFormat;
-    private Set<OWLOntologyManagerFactory> ontologyManagerFactories = new HashSet<OWLOntologyManagerFactory>();
+    private final OWLAPIRDFFormat owlFormat;
+    private final Set<OWLOntologyManagerFactory> ontologyManagerFactories = new HashSet<OWLOntologyManagerFactory>();
 
     /**
      * @param owlFormat

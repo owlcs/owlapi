@@ -62,9 +62,9 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 public class OWLDataFactoryTestCase {
 
     @Nonnull
-    private AtomicInteger counter = new AtomicInteger(1);
+    private final AtomicInteger counter = new AtomicInteger(1);
     @Nonnull
-    private OWLDataFactory testSubject = new OWLDataFactoryImpl();
+    private final OWLDataFactory testSubject = new OWLDataFactoryImpl();
 
     @Nonnull
     private static IRI IRI() {

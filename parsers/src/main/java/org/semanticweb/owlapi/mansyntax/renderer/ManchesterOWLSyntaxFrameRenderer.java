@@ -107,7 +107,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
     static class SectionMap<O, V extends OWLAxiom> {
 
         @Nonnull
-        private Map<O, Set<V>> object2Axioms = new LinkedHashMap<O, Set<V>>();
+        private final Map<O, Set<V>> object2Axioms = new LinkedHashMap<O, Set<V>>();
 
         /** @return true if empty */
         public boolean isNotEmpty() {
@@ -165,17 +165,17 @@ public class ManchesterOWLSyntaxFrameRenderer extends
     }
 
     /** The ontologies. */
-    private Set<OWLOntology> ontologies;
+    private final Set<OWLOntology> ontologies;
     /** The short form provider. */
     private OntologyIRIShortFormProvider shortFormProvider = new OntologyIRIShortFormProvider();
     /** The filtered axiom types. */
     @Nonnull
-    private Set<AxiomType<?>> filteredAxiomTypes = new HashSet<AxiomType<?>>();
+    private final Set<AxiomType<?>> filteredAxiomTypes = new HashSet<AxiomType<?>>();
     /** The render extensions. */
     private boolean renderExtensions = false;
     /** The listeners. */
     @Nonnull
-    private List<RendererListener> listeners = new ArrayList<RendererListener>();
+    private final List<RendererListener> listeners = new ArrayList<RendererListener>();
     /** The axiom filter. */
     private OWLAxiomFilter axiomFilter = new OWLAxiomFilter() {
 

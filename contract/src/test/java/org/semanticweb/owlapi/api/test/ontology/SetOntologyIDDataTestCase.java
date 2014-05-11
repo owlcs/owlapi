@@ -36,9 +36,9 @@ import com.google.common.base.Optional;
 public class SetOntologyIDDataTestCase {
 
     @Nonnull
-    private OWLOntology mockOntology = mock(OWLOntology.class);
+    private final OWLOntology mockOntology = mock(OWLOntology.class);
     @Nonnull
-    private OWLOntologyID mockOntologyID = new OWLOntologyID();
+    private final OWLOntologyID mockOntologyID = new OWLOntologyID();
 
     @Before
     public void setUp() {

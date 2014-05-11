@@ -29,7 +29,7 @@ public class BuilderPropertyChain
         BaseObjectPropertyBuilder<OWLSubPropertyChainOfAxiom, BuilderPropertyChain> {
 
     @Nonnull
-    private List<OWLObjectPropertyExpression> chain = new ArrayList<OWLObjectPropertyExpression>();
+    private final List<OWLObjectPropertyExpression> chain = new ArrayList<OWLObjectPropertyExpression>();
 
     /**
      * builder initialized from an existing object

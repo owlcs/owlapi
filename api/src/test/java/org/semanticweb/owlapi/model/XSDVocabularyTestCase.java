@@ -35,7 +35,7 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
 @RunWith(Parameterized.class)
 public class XSDVocabularyTestCase {
 
-    private XSDVocabulary vocabulary;
+    private final XSDVocabulary vocabulary;
 
     public XSDVocabularyTestCase(XSDVocabulary vocabulary) {
         this.vocabulary = vocabulary;

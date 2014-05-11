@@ -55,7 +55,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
     protected static final Locator s_nullDocumentLocator = new LocatorImpl();
     protected static final SAXParserFactory s_parserFactory = SAXParsers
             .initFactory();
-    private Map<String, String> resolvedIRIs = new HashMap<String, String>();
+    private final Map<String, String> resolvedIRIs = new HashMap<String, String>();
     protected Map<String, IRI> uriCache = new HashMap<String, IRI>();
     /** Registered error handler. */
     protected ErrorHandler m_errorHandler = new ErrorHandler() {
@@ -73,7 +73,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
     };
     /** Stack of base IRIs. */
     protected LinkedList<IRI> m_baseIRIs = new LinkedList<IRI>();
-    private Map<IRI, URI> m_baseURICache = new HashMap<IRI, URI>();
+    private final Map<IRI, URI> m_baseURICache = new HashMap<IRI, URI>();
     /** IRI of the document being parsed. */
     protected IRI baseIRI;
     /** The stack of languages. */

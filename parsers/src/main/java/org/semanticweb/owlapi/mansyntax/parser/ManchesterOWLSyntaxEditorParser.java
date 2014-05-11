@@ -123,7 +123,7 @@ public class ManchesterOWLSyntaxEditorParser implements
     // are specific to the Manchester OWL Syntax and are such that it should
     // be easy to use this parser in tools such as editors.
     @Nonnull
-    private OWLOntologyLoaderConfiguration configuration;
+    private final OWLOntologyLoaderConfiguration configuration;
     protected OWLDataFactory dataFactory;
     private List<Token> tokens;
     private int tokenIndex;
@@ -149,14 +149,14 @@ public class ManchesterOWLSyntaxEditorParser implements
     @Nonnull
     protected Set<String> annotationPropertyNames = new HashSet<String>();
     @Nonnull
-    private Map<String, SWRLBuiltInsVocabulary> ruleBuiltIns = new TreeMap<String, SWRLBuiltInsVocabulary>();
+    private final Map<String, SWRLBuiltInsVocabulary> ruleBuiltIns = new TreeMap<String, SWRLBuiltInsVocabulary>();
     @Nonnull
     protected DefaultPrefixManager pm = new DefaultPrefixManager();
     @Nonnull
     protected Set<ManchesterOWLSyntax> potentialKeywords = new HashSet<ManchesterOWLSyntax>();
     private OWLOntology defaultOntology;
-    private boolean allowEmptyFrameSections = false;
-    private Map<ManchesterOWLSyntax, AnnotatedListItemParser<OWLDataProperty, ?>> dataPropertyFrameSections = new HashMap<ManchesterOWLSyntax, AnnotatedListItemParser<OWLDataProperty, ?>>();
+    private final boolean allowEmptyFrameSections = false;
+    private final Map<ManchesterOWLSyntax, AnnotatedListItemParser<OWLDataProperty, ?>> dataPropertyFrameSections = new HashMap<ManchesterOWLSyntax, AnnotatedListItemParser<OWLDataProperty, ?>>();
 
     /**
      * @param dataFactory
@@ -224,7 +224,7 @@ public class ManchesterOWLSyntaxEditorParser implements
         return new ManchesterOWLSyntaxTokenizer(s);
     }
 
-    private Map<ManchesterOWLSyntax, AnnotatedListItemParser<OWLClass, ?>> classFrameSections = new HashMap<ManchesterOWLSyntax, AnnotatedListItemParser<OWLClass, ?>>();
+    private final Map<ManchesterOWLSyntax, AnnotatedListItemParser<OWLClass, ?>> classFrameSections = new HashMap<ManchesterOWLSyntax, AnnotatedListItemParser<OWLClass, ?>>();
 
     private void initialiseClassFrameSections() {
         initialiseSection(new EntityAnnotationsListItemParser<OWLClass>(),
@@ -247,7 +247,7 @@ public class ManchesterOWLSyntaxEditorParser implements
                 classFrameSections);
     }
 
-    private Map<ManchesterOWLSyntax, AnnotatedListItemParser<OWLObjectProperty, ?>> objectPropertyFrameSections = new HashMap<ManchesterOWLSyntax, AnnotatedListItemParser<OWLObjectProperty, ?>>();
+    private final Map<ManchesterOWLSyntax, AnnotatedListItemParser<OWLObjectProperty, ?>> objectPropertyFrameSections = new HashMap<ManchesterOWLSyntax, AnnotatedListItemParser<OWLObjectProperty, ?>>();
 
     private void initialiseObjectPropertyFrameSections() {
         initialiseSection(
@@ -292,7 +292,7 @@ public class ManchesterOWLSyntaxEditorParser implements
                 dataPropertyFrameSections);
     }
 
-    private Map<ManchesterOWLSyntax, AnnotatedListItemParser<OWLAnnotationProperty, ?>> annotationPropertyFrameSections = new HashMap<ManchesterOWLSyntax, AnnotatedListItemParser<OWLAnnotationProperty, ?>>();
+    private final Map<ManchesterOWLSyntax, AnnotatedListItemParser<OWLAnnotationProperty, ?>> annotationPropertyFrameSections = new HashMap<ManchesterOWLSyntax, AnnotatedListItemParser<OWLAnnotationProperty, ?>>();
 
     private void initialiseAnnotationPropertyFrameSections() {
         initialiseSection(new AnnotationPropertySubPropertyOfListItemParser(),
@@ -306,7 +306,7 @@ public class ManchesterOWLSyntaxEditorParser implements
                 annotationPropertyFrameSections);
     }
 
-    private Map<ManchesterOWLSyntax, AnnotatedListItemParser<OWLIndividual, ?>> individualFrameSections = new HashMap<ManchesterOWLSyntax, AnnotatedListItemParser<OWLIndividual, ?>>();
+    private final Map<ManchesterOWLSyntax, AnnotatedListItemParser<OWLIndividual, ?>> individualFrameSections = new HashMap<ManchesterOWLSyntax, AnnotatedListItemParser<OWLIndividual, ?>>();
 
     private void initialiseIndividualFrameSections() {
         initialiseSection(new IndividualAnnotationItemParser(),
@@ -2480,7 +2480,7 @@ public class ManchesterOWLSyntaxEditorParser implements
 
     class DefaultEntityChecker implements OWLEntityChecker {
 
-        private Map<String, OWLDatatype> dataTypeNameMap = new HashMap<String, OWLDatatype>();
+        private final Map<String, OWLDatatype> dataTypeNameMap = new HashMap<String, OWLDatatype>();
 
         DefaultEntityChecker() {
             for (XSDVocabulary v : XSDVocabulary.values()) {
@@ -2545,7 +2545,7 @@ public class ManchesterOWLSyntaxEditorParser implements
         }
     }
 
-    private Map<String, IRI> nameIRIMap = new HashMap<String, IRI>();
+    private final Map<String, IRI> nameIRIMap = new HashMap<String, IRI>();
 
     @Nonnull
     protected IRI getIRI(@Nonnull String _name) {

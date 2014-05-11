@@ -54,11 +54,11 @@ public class TurtleTestCase extends TestBase {
     }
 
     @Nonnull
-    private IRI iri = IRI.create("urn:testliterals");
+    private final IRI iri = IRI.create("urn:testliterals");
     @Nonnull
-    private TurtleOntologyFormat tf = new TurtleOntologyFormat();
+    private final TurtleOntologyFormat tf = new TurtleOntologyFormat();
     @Nonnull
-    private IRI s = IRI.create("urn:test#s");
+    private final IRI s = IRI.create("urn:test#s");
 
     @Test
     public void shouldParseFixedQuotesLiterals1()

@@ -52,13 +52,13 @@ import org.semanticweb.owlapi.util.VersionInfo;
  */
 public class RDFXMLRenderer extends RDFRendererBase {
 
-    private RDFXMLWriter writer;
+    private final RDFXMLWriter writer;
     @Nonnull
-    private Set<RDFResource> pending = new HashSet<RDFResource>();
+    private final Set<RDFResource> pending = new HashSet<RDFResource>();
     @Nonnull
-    private RDFXMLNamespaceManager qnameManager;
+    private final RDFXMLNamespaceManager qnameManager;
     @Nonnull
-    private OWLOntologyFormat format;
+    private final OWLOntologyFormat format;
 
     /**
      * @param ontology

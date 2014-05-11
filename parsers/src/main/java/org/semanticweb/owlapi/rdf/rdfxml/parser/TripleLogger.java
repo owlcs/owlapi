@@ -22,7 +22,7 @@ public class TripleLogger {
             .getLogger(TripleLogger.class);
     private final PrefixManager prefixManager;
     // Debug stuff
-    private AtomicInteger count = new AtomicInteger();
+    private final AtomicInteger count = new AtomicInteger();
 
     /**
      * @param prefixManager

@@ -60,7 +60,7 @@ public class AutoIRIMapper extends DefaultHandler implements
     private final boolean recursive;
     private final Map<String, OntologyRootElementHandler> handlerMap = new HashMap<String, OntologyRootElementHandler>();
     private final Map<IRI, IRI> ontologyIRI2PhysicalURIMap = new HashMap<IRI, IRI>();
-    private Map<String, IRI> oboFileMap = new HashMap<String, IRI>();
+    private final Map<String, IRI> oboFileMap = new HashMap<String, IRI>();
     private final String directoryPath;
     private transient File directory;
     private transient File currentFile;

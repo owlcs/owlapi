@@ -22,7 +22,7 @@ class EquivalentVisitor<C extends OWLObject> extends
         OWLAxiomVisitorExAdapter<Set<C>> {
 
     private static final long serialVersionUID = 40000L;
-    private boolean equiv;
+    private final boolean equiv;
 
     EquivalentVisitor(boolean equiv) {
         this.equiv = equiv;

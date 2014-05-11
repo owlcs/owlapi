@@ -47,7 +47,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
 
     private PrefixManager prefixManager;
     protected OWLOntology ontology;
-    private Writer writer;
+    private final Writer writer;
     private boolean writeEntitiesAsURIs = true;
     private OWLObject focusedObject;
 

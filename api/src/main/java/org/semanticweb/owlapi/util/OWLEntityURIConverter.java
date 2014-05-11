@@ -57,7 +57,7 @@ public class OWLEntityURIConverter {
     @Nonnull
     private final Collection<OWLOntology> ontologies;
     @Nonnull
-    private Map<OWLEntity, IRI> replacementMap = new HashMap<OWLEntity, IRI>();
+    private final Map<OWLEntity, IRI> replacementMap = new HashMap<OWLEntity, IRI>();
     private Set<OWLEntity> processedEntities;
     @Nonnull
     private final OWLEntityURIConverterStrategy strategy;

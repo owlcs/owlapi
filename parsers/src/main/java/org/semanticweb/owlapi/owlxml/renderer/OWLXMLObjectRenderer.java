@@ -121,7 +121,7 @@ import org.semanticweb.owlapi.model.SWRLVariable;
  */
 public class OWLXMLObjectRenderer implements OWLObjectVisitor {
 
-    private OWLXMLWriter writer;
+    private final OWLXMLWriter writer;
 
     /**
      * @param writer

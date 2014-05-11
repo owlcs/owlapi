@@ -36,11 +36,11 @@ public class ParserException extends OWLParserException {
     /** The current token. */
     private String currentToken;
     /** The line number. */
-    private int lineNumber;
+    private final int lineNumber;
     /** The column number. */
-    private int columnNumber;
+    private final int columnNumber;
     /** The token sequence. */
-    private List<String> tokenSequence;
+    private final List<String> tokenSequence;
     /** The class name expected. */
     private boolean classNameExpected = false;
     /** The object property name expected. */
@@ -58,9 +58,9 @@ public class ParserException extends OWLParserException {
     /** The ontology name expected. */
     private boolean ontologyNameExpected = false;
     /** The expected keywords. */
-    private Set<String> expectedKeywords = new LinkedHashSet<String>();
+    private final Set<String> expectedKeywords = new LinkedHashSet<String>();
     /** The start pos. */
-    private int startPos;
+    private final int startPos;
 
     /**
      * Instantiates a new parser exception.

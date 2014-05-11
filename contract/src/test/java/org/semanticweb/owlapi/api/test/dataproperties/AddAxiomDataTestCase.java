@@ -32,9 +32,9 @@ import org.semanticweb.owlapi.model.OWLOntology;
 public class AddAxiomDataTestCase {
 
     @Nonnull
-    private OWLAxiom mockAxiom = mock(OWLAxiom.class);
+    private final OWLAxiom mockAxiom = mock(OWLAxiom.class);
     @Nonnull
-    private OWLOntology mockOntology = mock(OWLOntology.class);
+    private final OWLOntology mockOntology = mock(OWLOntology.class);
 
     @Test
     public void testEquals() {

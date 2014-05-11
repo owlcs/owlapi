@@ -28,9 +28,9 @@ import org.semanticweb.owlapi.model.OWLOntology;
 public class OntologyAxiomPair {
 
     @Nullable
-    private OWLOntology ontology;
+    private final OWLOntology ontology;
     @Nonnull
-    private OWLAxiom axiom;
+    private final OWLAxiom axiom;
 
     /**
      * @param ontology

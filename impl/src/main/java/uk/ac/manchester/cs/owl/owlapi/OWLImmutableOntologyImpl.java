@@ -760,7 +760,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
         private static final long serialVersionUID = 40000L;
         private boolean ref;
         @Nonnull
-        private Imports includeImports;
+        private final Imports includeImports;
 
         OWLEntityReferenceChecker(@Nonnull Imports b) {
             includeImports = b;

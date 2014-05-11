@@ -53,7 +53,7 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
     @Nonnull
     private final ShortFormProvider alternateShortFormProvider;
     @Nonnull
-    private IRIShortFormProvider alternateIRIShortFormProvider;
+    private final IRIShortFormProvider alternateIRIShortFormProvider;
     @Nonnull
     private final List<OWLAnnotationProperty> annotationProperties;
     @Nonnull

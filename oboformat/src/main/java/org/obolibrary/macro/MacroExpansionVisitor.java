@@ -36,11 +36,11 @@ public class MacroExpansionVisitor {
     protected static final Logger log = LoggerFactory
             .getLogger(MacroExpansionVisitor.class);
     @Nonnull
-    private OWLOntology inputOntology;
+    private final OWLOntology inputOntology;
     @Nonnull
-    private OWLOntologyManager manager;
+    private final OWLOntologyManager manager;
     @Nonnull
-    private Visitor visitor;
+    private final Visitor visitor;
     @Nonnull
     protected ManchesterSyntaxTool manchesterSyntaxTool;
 

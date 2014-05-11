@@ -33,11 +33,11 @@ import com.google.common.base.Optional;
 public class ManchesterOWLSyntaxOntologyHeader {
 
     @Nonnull
-    private OWLOntologyID ontologyID;
+    private final OWLOntologyID ontologyID;
     @Nonnull
-    private Collection<OWLAnnotation> annotations;
+    private final Collection<OWLAnnotation> annotations;
     @Nonnull
-    private Collection<OWLImportsDeclaration> importsDeclarations;
+    private final Collection<OWLImportsDeclaration> importsDeclarations;
 
     /**
      * @param ontologyIRI

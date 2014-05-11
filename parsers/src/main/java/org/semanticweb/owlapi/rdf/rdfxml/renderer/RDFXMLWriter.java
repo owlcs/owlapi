@@ -50,7 +50,7 @@ public class RDFXMLWriter {
     @Nonnull
     private static final IRI PARSETYPE_IRI = IRI.create(
             Namespaces.RDF.getPrefixIRI(), "parseType");
-    private XMLWriter writer;
+    private final XMLWriter writer;
 
     protected RDFXMLWriter(@Nonnull XMLWriter writer) {
         this.writer = checkNotNull(writer, "writer cannot be null");

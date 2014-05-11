@@ -233,9 +233,9 @@ public class JustificationMap {
     private static class OWLAxiomPartExtractor extends OWLAxiomVisitorAdapter {
 
         @Nonnull
-        private Set<OWLObject> rhs = new HashSet<OWLObject>();
+        private final Set<OWLObject> rhs = new HashSet<OWLObject>();
         @Nonnull
-        private Set<OWLObject> lhs = new HashSet<OWLObject>();
+        private final Set<OWLObject> lhs = new HashSet<OWLObject>();
 
         /**
          * Gets the rhs.

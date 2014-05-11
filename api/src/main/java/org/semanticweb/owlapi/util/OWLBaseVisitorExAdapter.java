@@ -29,7 +29,7 @@ import javax.annotation.Nonnull;
 public class OWLBaseVisitorExAdapter<O, I> {
 
     @Nonnull
-    private O defaultReturnValue;
+    private final O defaultReturnValue;
 
     /**
      * Gets the default return value for this visitor. By default, the default

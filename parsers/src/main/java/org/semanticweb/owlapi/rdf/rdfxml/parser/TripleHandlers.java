@@ -116,7 +116,7 @@ public class TripleHandlers {
         protected TPInverseOfHandler inverseOf;
         /** The non built in type handler. */
         @Nonnull
-        private TPTypeHandler nonBuiltInTypes;
+        private final TPTypeHandler nonBuiltInTypes;
         @Nonnull
         protected OWLRDFConsumer consumer;
 
@@ -664,11 +664,11 @@ public class TripleHandlers {
         @Nonnull
         protected final OWLRDFConsumer consumer;
         @Nonnull
-        private ClassExpressionMatcher classExpressionMatcher = new ClassExpressionMatcher();
+        private final ClassExpressionMatcher classExpressionMatcher = new ClassExpressionMatcher();
         @Nonnull
-        private DataRangeMatcher dataRangeMatcher = new DataRangeMatcher();
+        private final DataRangeMatcher dataRangeMatcher = new DataRangeMatcher();
         @Nonnull
-        private IndividualMatcher individualMatcher = new IndividualMatcher();
+        private final IndividualMatcher individualMatcher = new IndividualMatcher();
         protected final OWLDataFactory df;
 
         protected AbstractTripleHandler(@Nonnull OWLRDFConsumer consumer) {
@@ -980,7 +980,7 @@ public class TripleHandlers {
     abstract static class AbstractBuiltInTypeHandler extends
             AbstractTriplePredicateHandler implements BuiltInTypeHandler {
 
-        private IRI typeIRI;
+        private final IRI typeIRI;
 
         protected AbstractBuiltInTypeHandler(@Nonnull OWLRDFConsumer consumer,
                 IRI typeIRI) {
@@ -1718,7 +1718,7 @@ public class TripleHandlers {
 
     static class TPHasKeyHandler extends AbstractTriplePredicateHandler {
 
-        private OptimisedListTranslator<OWLPropertyExpression> listTranslator;
+        private final OptimisedListTranslator<OWLPropertyExpression> listTranslator;
 
         TPHasKeyHandler(@Nonnull OWLRDFConsumer consumer) {
             super(consumer, OWL_HAS_KEY.getIRI());
@@ -2500,7 +2500,7 @@ public class TripleHandlers {
     abstract static class AbstractTriplePredicateHandler extends
             AbstractResourceTripleHandler implements TriplePredicateHandler {
 
-        private IRI predicateIRI;
+        private final IRI predicateIRI;
 
         AbstractTriplePredicateHandler(@Nonnull OWLRDFConsumer consumer,
                 IRI predicateIRI) {

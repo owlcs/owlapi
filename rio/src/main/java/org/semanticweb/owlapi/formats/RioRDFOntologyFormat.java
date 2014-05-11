@@ -47,7 +47,7 @@ public class RioRDFOntologyFormat extends
         org.semanticweb.owlapi.formats.RDFOntologyFormat {
 
     private static final long serialVersionUID = 4211005024818991313L;
-    private RDFFormat format;
+    private final RDFFormat format;
 
     /**
      * Constructor for super-classes to specify which {@link RDFFormat} they

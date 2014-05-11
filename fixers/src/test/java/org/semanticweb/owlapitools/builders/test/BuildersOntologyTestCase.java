@@ -91,60 +91,60 @@ import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
 public class BuildersOntologyTestCase {
 
     @Nonnull
-    private OWLDataFactory df = new OWLDataFactoryImpl(true, false);
+    private final OWLDataFactory df = new OWLDataFactoryImpl(true, false);
     @Nonnull
-    private OWLAnnotationProperty ap = df.getOWLAnnotationProperty(IRI
+    private final OWLAnnotationProperty ap = df.getOWLAnnotationProperty(IRI
             .create("urn:test#ann"));
     @Nonnull
-    private OWLObjectProperty op = df.getOWLObjectProperty(IRI
+    private final OWLObjectProperty op = df.getOWLObjectProperty(IRI
             .create("urn:test#op"));
     @Nonnull
-    private OWLDataProperty dp = df.getOWLDataProperty(IRI
+    private final OWLDataProperty dp = df.getOWLDataProperty(IRI
             .create("urn:test#dp"));
     @Nonnull
-    private OWLLiteral lit = df.getOWLLiteral(false);
+    private final OWLLiteral lit = df.getOWLLiteral(false);
     @Nonnull
-    private IRI iri = IRI.create("urn:test#iri");
+    private final IRI iri = IRI.create("urn:test#iri");
     @Nonnull
-    private Set<OWLAnnotation> annotations = new HashSet<OWLAnnotation>(
+    private final Set<OWLAnnotation> annotations = new HashSet<OWLAnnotation>(
             Arrays.asList(df.getOWLAnnotation(ap, df.getOWLLiteral("test"))));
     @Nonnull
-    private OWLClass ce = df.getOWLClass(IRI.create("urn:test#c"));
+    private final OWLClass ce = df.getOWLClass(IRI.create("urn:test#c"));
     @Nonnull
-    private OWLNamedIndividual i = df.getOWLNamedIndividual(IRI
+    private final OWLNamedIndividual i = df.getOWLNamedIndividual(IRI
             .create("urn:test#i"));
     @Nonnull
-    private OWLDatatype d = df.getOWLDatatype(IRI.create("urn:test#datatype"));
+    private final OWLDatatype d = df.getOWLDatatype(IRI.create("urn:test#datatype"));
     @Nonnull
-    private Set<OWLDataProperty> dps = new HashSet<OWLDataProperty>(
+    private final Set<OWLDataProperty> dps = new HashSet<OWLDataProperty>(
             Arrays.asList(df.getOWLDataProperty(iri), dp));
     @Nonnull
-    private Set<OWLObjectProperty> ops = new HashSet<OWLObjectProperty>(
+    private final Set<OWLObjectProperty> ops = new HashSet<OWLObjectProperty>(
             Arrays.asList(df.getOWLObjectProperty(iri), op));
     @Nonnull
-    private Set<OWLClass> classes = new HashSet<OWLClass>(Arrays.asList(
+    private final Set<OWLClass> classes = new HashSet<OWLClass>(Arrays.asList(
             df.getOWLClass(iri), ce));
     @Nonnull
-    private Set<OWLIndividual> inds = new HashSet<OWLIndividual>(Arrays.asList(
+    private final Set<OWLIndividual> inds = new HashSet<OWLIndividual>(Arrays.asList(
             i, df.getOWLNamedIndividual(iri)));
     @Nonnull
-    private SWRLAtom v1 = df.getSWRLBuiltInAtom(
+    private final SWRLAtom v1 = df.getSWRLBuiltInAtom(
             IRI.create("v1"),
             Arrays.asList(
                     (SWRLDArgument) df.getSWRLVariable(IRI.create("var3")),
                     df.getSWRLVariable(IRI.create("var4"))));
     @Nonnull
-    private SWRLAtom v2 = df.getSWRLBuiltInAtom(
+    private final SWRLAtom v2 = df.getSWRLBuiltInAtom(
             IRI.create("v2"),
             Arrays.asList(
                     (SWRLDArgument) df.getSWRLVariable(IRI.create("var5")),
                     df.getSWRLVariable(IRI.create("var6"))));
     @Nonnull
-    private Set<SWRLAtom> body = new HashSet<SWRLAtom>(Arrays.asList(v1));
+    private final Set<SWRLAtom> body = new HashSet<SWRLAtom>(Arrays.asList(v1));
     @Nonnull
-    private Set<SWRLAtom> head = new HashSet<SWRLAtom>(Arrays.asList(v2));
+    private final Set<SWRLAtom> head = new HashSet<SWRLAtom>(Arrays.asList(v2));
     @Nonnull
-    private OWLOntologyManager m = getManager();
+    private final OWLOntologyManager m = getManager();
 
     // no parsers and storers injected
     @Nonnull

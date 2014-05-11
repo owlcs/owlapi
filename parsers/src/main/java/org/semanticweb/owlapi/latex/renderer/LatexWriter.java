@@ -27,7 +27,7 @@ import javax.annotation.Nonnull;
 public class LatexWriter {
 
     /** The writer. */
-    private PrintWriter writer;
+    private final PrintWriter writer;
 
     /**
      * Instantiates a new latex writer.

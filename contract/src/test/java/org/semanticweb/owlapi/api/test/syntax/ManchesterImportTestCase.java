@@ -32,9 +32,9 @@ import org.semanticweb.owlapi.util.AutoIRIMapper;
 public class ManchesterImportTestCase {
 
     @Nonnull
-    private String str = "http://owlapitestontologies.com/thesuperont";
+    private final String str = "http://owlapitestontologies.com/thesuperont";
     @Nonnull
-    private String superpath = "/imports/thesuperont.omn";
+    private final String superpath = "/imports/thesuperont.omn";
     @Nonnull
     private static final File RESOURCES;
     static {

@@ -106,7 +106,7 @@ public abstract class RDFRendererBase {
     protected RDFGraph graph;
     @Nonnull
     protected Set<IRI> prettyPrintedTypes = initPrettyTypes();
-    private OWLOntologyFormat format;
+    private final OWLOntologyFormat format;
 
     @Nonnull
     protected Set<IRI> initPrettyTypes() {

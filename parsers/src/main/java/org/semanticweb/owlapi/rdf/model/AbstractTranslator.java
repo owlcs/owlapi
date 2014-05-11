@@ -55,8 +55,8 @@ import com.google.common.base.Optional;
 public abstract class AbstractTranslator<N, R extends N, P extends N, L extends N>
         implements OWLObjectVisitor, SWRLObjectVisitor {
 
-    private OWLOntologyManager manager;
-    private OWLOntology ontology;
+    private final OWLOntologyManager manager;
+    private final OWLOntology ontology;
     private boolean useStrongTyping = true;
 
     /**
@@ -804,7 +804,7 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
     // Methods to add triples
     /** Maps Objects to nodes. */
     @Nonnull
-    private Map<OWLObject, N> nodeMap = new IdentityHashMap<OWLObject, N>();
+    private final Map<OWLObject, N> nodeMap = new IdentityHashMap<OWLObject, N>();
 
     private void addSingleTripleAxiom(@Nonnull OWLAxiom ax,
             @Nonnull OWLObject subject, @Nonnull IRI pred,
@@ -1077,7 +1077,7 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
     }
 
     @Nonnull
-    private Set<OWLIndividual> currentIndividuals = new HashSet<OWLIndividual>();
+    private final Set<OWLIndividual> currentIndividuals = new HashSet<OWLIndividual>();
 
     private void processIfAnonymous(@Nonnull OWLIndividual ind,
             @Nullable OWLAxiom root) {

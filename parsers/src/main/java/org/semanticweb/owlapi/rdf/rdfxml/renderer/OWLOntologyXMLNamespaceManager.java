@@ -46,11 +46,11 @@ import org.semanticweb.owlapi.vocab.Namespaces;
 public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
 
     @Nonnull
-    private OWLOntology ontology;
+    private final OWLOntology ontology;
     @Nonnull
-    private NamespaceUtil namespaceUtil = new NamespaceUtil();
+    private final NamespaceUtil namespaceUtil = new NamespaceUtil();
     @Nonnull
-    private OWLOntologyFormat ontologyFormat;
+    private final OWLOntologyFormat ontologyFormat;
 
     /**
      * @param ontology

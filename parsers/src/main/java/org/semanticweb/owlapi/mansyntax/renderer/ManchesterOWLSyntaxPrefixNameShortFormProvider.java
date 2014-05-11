@@ -37,7 +37,7 @@ import org.semanticweb.owlapi.util.ShortFormProvider;
 public class ManchesterOWLSyntaxPrefixNameShortFormProvider implements
         ShortFormProvider {
 
-    private DefaultPrefixManager prefixManager;
+    private final DefaultPrefixManager prefixManager;
 
     /**
      * Constructs a short form provider that reuses any prefix name mappings

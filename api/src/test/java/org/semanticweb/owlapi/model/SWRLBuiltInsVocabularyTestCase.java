@@ -35,7 +35,7 @@ import org.semanticweb.owlapi.vocab.SWRLBuiltInsVocabulary;
 @RunWith(Parameterized.class)
 public class SWRLBuiltInsVocabularyTestCase {
 
-    private SWRLBuiltInsVocabulary vocabulary;
+    private final SWRLBuiltInsVocabulary vocabulary;
 
     public SWRLBuiltInsVocabularyTestCase(SWRLBuiltInsVocabulary vocabulary) {
         this.vocabulary = vocabulary;

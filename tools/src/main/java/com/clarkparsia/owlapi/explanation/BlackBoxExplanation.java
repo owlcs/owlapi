@@ -79,7 +79,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
     /** default expansion limit. */
     public static final int DEFAULT_INITIAL_EXPANSION_LIMIT = 50;
     /** The initial expansion limit. */
-    private int initialExpansionLimit = DEFAULT_INITIAL_EXPANSION_LIMIT;
+    private final int initialExpansionLimit = DEFAULT_INITIAL_EXPANSION_LIMIT;
     /** The expansion limit. */
     private int expansionLimit = initialExpansionLimit;
     /** The Constant DEFAULT_FAST_PRUNING_WINDOW_SIZE. */

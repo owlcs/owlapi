@@ -52,12 +52,12 @@ public class ManchesterSyntaxTool {
     @Nonnull
     protected IRIShortFormProvider iriShortFormProvider;
     @Nonnull
-    private OWLDataFactory dataFactory;
+    private final OWLDataFactory dataFactory;
     @Nonnull
     private final OWLEntityChecker entityChecker;
     @Nonnull
-    private ShortFormProvider shortFormProvider;
-    private AtomicBoolean disposed = new AtomicBoolean(false);
+    private final ShortFormProvider shortFormProvider;
+    private final AtomicBoolean disposed = new AtomicBoolean(false);
 
     /**
      * Create a new parser instance for the given ontology. By default, this
@@ -228,7 +228,7 @@ public class ManchesterSyntaxTool {
 
         private final OWLEntityChecker defaultInstance;
         private final Set<OWLOntology> ontologies;
-        private OWLOntologyManager manager;
+        private final OWLOntologyManager manager;
 
         /**
          * @param defaultInstance

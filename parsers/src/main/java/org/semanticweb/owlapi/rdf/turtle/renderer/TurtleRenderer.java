@@ -59,11 +59,11 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
  */
 public class TurtleRenderer extends RDFRendererBase {
 
-    private PrintWriter writer;
-    private PrefixManager pm;
-    private Set<RDFResource> pending;
-    private String base;
-    private OWLOntologyFormat format;
+    private final PrintWriter writer;
+    private final PrefixManager pm;
+    private final Set<RDFResource> pending;
+    private final String base;
+    private final OWLOntologyFormat format;
 
     /**
      * @param ontology

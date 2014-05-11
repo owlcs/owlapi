@@ -23,7 +23,7 @@ public class OWLParserFactoryImpl<T extends OWLParser> implements
         OWLParserFactory {
 
     private static final long serialVersionUID = 40000L;
-    private Class<T> type;
+    private final Class<T> type;
 
     /**
      * @param type

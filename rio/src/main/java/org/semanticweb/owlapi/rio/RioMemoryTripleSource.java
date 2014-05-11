@@ -73,7 +73,7 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
     @Nonnull
     private final Iterator<Statement> statementIterator;
     @Nonnull
-    private IRI documentIRI;
+    private final IRI documentIRI;
 
     /**
      * Creates a RioMemoryTripleSource using an {@link Iterable} of

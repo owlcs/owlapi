@@ -96,8 +96,8 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
  */
 public class DLExpressivityChecker extends OWLObjectVisitorAdapter {
 
-    private Set<Construct> constructs;
-    private Set<OWLOntology> ontologies;
+    private final Set<Construct> constructs;
+    private final Set<OWLOntology> ontologies;
 
     /** @return ordered constructs */
     public List<Construct> getConstructs() {

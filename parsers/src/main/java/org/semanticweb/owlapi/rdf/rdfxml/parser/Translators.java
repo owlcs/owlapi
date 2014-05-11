@@ -97,25 +97,25 @@ public class Translators {
          * A translator for lists of class expressions (such lists are used in
          * intersections, unions etc.)
          */
-        private OptimisedListTranslator<OWLClassExpression> classExpressionListTranslator;
+        private final OptimisedListTranslator<OWLClassExpression> classExpressionListTranslator;
         /** The class expression translators. */
-        private List<ClassExpressionTranslator> classExpressionTranslators = new ArrayList<ClassExpressionTranslator>();
+        private final List<ClassExpressionTranslator> classExpressionTranslators = new ArrayList<ClassExpressionTranslator>();
         /**
          * A translator for individual lists (such lists are used in object
          * oneOf constructs)
          */
-        private OptimisedListTranslator<OWLIndividual> individualListTranslator;
+        private final OptimisedListTranslator<OWLIndividual> individualListTranslator;
         /** The object property list translator. */
-        private OptimisedListTranslator<OWLObjectPropertyExpression> objectPropertyListTranslator;
+        private final OptimisedListTranslator<OWLObjectPropertyExpression> objectPropertyListTranslator;
         /** The constant list translator. */
-        private OptimisedListTranslator<OWLLiteral> constantListTranslator;
+        private final OptimisedListTranslator<OWLLiteral> constantListTranslator;
         /** The data property list translator. */
-        private OptimisedListTranslator<OWLDataPropertyExpression> dataPropertyListTranslator;
+        private final OptimisedListTranslator<OWLDataPropertyExpression> dataPropertyListTranslator;
         /** The data range list translator. */
-        private OptimisedListTranslator<OWLDataRange> dataRangeListTranslator;
+        private final OptimisedListTranslator<OWLDataRange> dataRangeListTranslator;
         /** The face restriction list translator. */
-        private OptimisedListTranslator<OWLFacetRestriction> faceRestrictionListTranslator;
-        private OWLRDFConsumer consumer;
+        private final OptimisedListTranslator<OWLFacetRestriction> faceRestrictionListTranslator;
+        private final OWLRDFConsumer consumer;
 
         TranslatorAccessor(OWLRDFConsumer r) {
             consumer = r;
@@ -259,7 +259,7 @@ public class Translators {
         }
 
         @Nonnull
-        private Map<IRI, OWLClassExpression> translatedClassExpression = new HashMap<IRI, OWLClassExpression>();
+        private final Map<IRI, OWLClassExpression> translatedClassExpression = new HashMap<IRI, OWLClassExpression>();
 
         @Nonnull
         protected OWLClassExpression translateClassExpression(
@@ -276,10 +276,10 @@ public class Translators {
     abstract static class AbstractClassExpressionTranslator implements
             ClassExpressionTranslator {
 
-        private OWLRDFConsumer consumer;
-        private ClassExpressionMatcher classExpressionMatcher = new ClassExpressionMatcher();
-        private DataRangeMatcher dataRangeMatcher = new DataRangeMatcher();
-        private IndividualMatcher individualMatcher = new IndividualMatcher();
+        private final OWLRDFConsumer consumer;
+        private final ClassExpressionMatcher classExpressionMatcher = new ClassExpressionMatcher();
+        private final DataRangeMatcher dataRangeMatcher = new DataRangeMatcher();
+        private final IndividualMatcher individualMatcher = new IndividualMatcher();
         protected TranslatorAccessor accessor;
 
         protected AbstractClassExpressionTranslator(OWLRDFConsumer consumer,
@@ -542,7 +542,7 @@ public class Translators {
     static class ClassExpressionListItemTranslator implements
             ListItemTranslator<OWLClassExpression> {
 
-        private OWLRDFConsumer consumer;
+        private final OWLRDFConsumer consumer;
         protected TranslatorAccessor accessor;
 
         ClassExpressionListItemTranslator(OWLRDFConsumer consumer,
@@ -917,7 +917,7 @@ public class Translators {
     static class DataPropertyListItemTranslator implements
             ListItemTranslator<OWLDataPropertyExpression> {
 
-        private OWLRDFConsumer consumer;
+        private final OWLRDFConsumer consumer;
 
         DataPropertyListItemTranslator(OWLRDFConsumer consumer) {
             this.consumer = consumer;
@@ -981,7 +981,7 @@ public class Translators {
     static class DataRangeListItemTranslator implements
             ListItemTranslator<OWLDataRange> {
 
-        private OWLRDFConsumer consumer;
+        private final OWLRDFConsumer consumer;
 
         DataRangeListItemTranslator(OWLRDFConsumer consumer) {
             this.consumer = consumer;
@@ -1041,7 +1041,7 @@ public class Translators {
     static class HasKeyListItemTranslator implements
             ListItemTranslator<OWLPropertyExpression> {
 
-        private OWLRDFConsumer consumer;
+        private final OWLRDFConsumer consumer;
 
         HasKeyListItemTranslator(OWLRDFConsumer consumer) {
             this.consumer = consumer;
@@ -1109,7 +1109,7 @@ public class Translators {
     static class IndividualListItemTranslator implements
             ListItemTranslator<OWLIndividual> {
 
-        private OWLRDFConsumer consumer;
+        private final OWLRDFConsumer consumer;
 
         IndividualListItemTranslator(OWLRDFConsumer consumer) {
             this.consumer = consumer;
@@ -1191,7 +1191,7 @@ public class Translators {
     static class OWLFacetRestrictionListItemTranslator implements
             ListItemTranslator<OWLFacetRestriction> {
 
-        private OWLRDFConsumer consumer;
+        private final OWLRDFConsumer consumer;
 
         OWLFacetRestrictionListItemTranslator(OWLRDFConsumer consumer) {
             this.consumer = consumer;
@@ -1219,7 +1219,7 @@ public class Translators {
     static class OWLObjectPropertyExpressionListItemTranslator implements
             ListItemTranslator<OWLObjectPropertyExpression> {
 
-        private OWLRDFConsumer consumer;
+        private final OWLRDFConsumer consumer;
 
         OWLObjectPropertyExpressionListItemTranslator(OWLRDFConsumer consumer) {
             this.consumer = consumer;
@@ -1722,7 +1722,7 @@ public class Translators {
     static class ObjectPropertyListItemTranslator implements
             ListItemTranslator<OWLObjectPropertyExpression> {
 
-        private OWLRDFConsumer consumer;
+        private final OWLRDFConsumer consumer;
 
         ObjectPropertyListItemTranslator(OWLRDFConsumer consumer) {
             this.consumer = consumer;
@@ -1885,7 +1885,7 @@ public class Translators {
     static class SWRLAtomListItemTranslator implements
             ListItemTranslator<SWRLAtom> {
 
-        private OWLRDFConsumer consumer;
+        private final OWLRDFConsumer consumer;
         protected OWLDataFactory dataFactory;
         protected TranslatorAccessor accessor;
 
@@ -2054,8 +2054,8 @@ public class Translators {
 
     static class SWRLRuleTranslator {
 
-        private OWLRDFConsumer consumer;
-        private OptimisedListTranslator<SWRLAtom> listTranslator;
+        private final OWLRDFConsumer consumer;
+        private final OptimisedListTranslator<SWRLAtom> listTranslator;
 
         SWRLRuleTranslator(OWLRDFConsumer consumer, TranslatorAccessor accessor) {
             this.consumer = consumer;

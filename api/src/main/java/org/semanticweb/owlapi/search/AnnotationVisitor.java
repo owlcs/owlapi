@@ -16,7 +16,7 @@ import org.semanticweb.owlapi.util.OWLAxiomVisitorExAdapter;
 class AnnotationVisitor<C> extends OWLAxiomVisitorExAdapter<Set<C>> {
 
     private static final long serialVersionUID = 40000L;
-    private boolean value;
+    private final boolean value;
 
     AnnotationVisitor(boolean value) {
         this.value = value;

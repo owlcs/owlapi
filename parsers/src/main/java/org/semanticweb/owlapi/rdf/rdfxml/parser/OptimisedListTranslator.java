@@ -30,8 +30,8 @@ class OptimisedListTranslator<O extends OWLObject> {
 
     private static final Logger logger = LoggerFactory
             .getLogger(OptimisedListTranslator.class);
-    private OWLRDFConsumer consumer;
-    private ListItemTranslator<O> translator;
+    private final OWLRDFConsumer consumer;
+    private final ListItemTranslator<O> translator;
 
     /**
      * @param consumer

@@ -200,7 +200,7 @@ public abstract class TestBase {
     }
 
     @Nonnull
-    private String uriBase = "http://www.semanticweb.org/owlapi/test";
+    private final String uriBase = "http://www.semanticweb.org/owlapi/test";
 
     @Nonnull
     public OWLOntology getOWLOntology(String name) {

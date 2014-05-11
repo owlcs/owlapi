@@ -32,9 +32,9 @@ import org.semanticweb.owlapi.model.OWLOntology;
 public class AddImportDataTestCase {
 
     @Nonnull
-    private OWLImportsDeclaration mockDeclaration = mock(OWLImportsDeclaration.class);
+    private final OWLImportsDeclaration mockDeclaration = mock(OWLImportsDeclaration.class);
     @Nonnull
-    private OWLOntology mockOntology = mock(OWLOntology.class);
+    private final OWLOntology mockOntology = mock(OWLOntology.class);
 
     @Nonnull
     private AddImportData createData() {

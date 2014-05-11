@@ -32,9 +32,9 @@ import org.semanticweb.owlapi.model.RemoveOntologyAnnotation;
 public class RemoveOntologyAnnotationDataTestCase {
 
     @Nonnull
-    private OWLAnnotation mockAnnotation = mock(OWLAnnotation.class);
+    private final OWLAnnotation mockAnnotation = mock(OWLAnnotation.class);
     @Nonnull
-    private OWLOntology mockOntology = mock(OWLOntology.class);
+    private final OWLOntology mockOntology = mock(OWLOntology.class);
 
     @Nonnull
     private RemoveOntologyAnnotationData createData() {

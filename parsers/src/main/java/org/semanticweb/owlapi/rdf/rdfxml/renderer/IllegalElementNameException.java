@@ -25,7 +25,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 public class IllegalElementNameException extends OWLRuntimeException {
 
     private static final long serialVersionUID = 40000L;
-    private String elementName;
+    private final String elementName;
 
     /**
      * @param elementName

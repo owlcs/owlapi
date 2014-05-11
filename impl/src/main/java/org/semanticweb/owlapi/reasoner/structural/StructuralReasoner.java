@@ -770,7 +770,7 @@ public class StructuralReasoner extends OWLReasonerBase {
     // HierarchyInfo
     private abstract class HierarchyInfo<T extends OWLObject> {
 
-        private RawHierarchyProvider<T> rawParentChildProvider;
+        private final RawHierarchyProvider<T> rawParentChildProvider;
         /** The entity that always appears in the top node in the hierarchy. */
         @Nonnull
         T topEntity;
@@ -778,11 +778,11 @@ public class StructuralReasoner extends OWLReasonerBase {
         @Nonnull
         T bottomEntity;
         @Nonnull
-        private Set<T> directChildrenOfTopNode = new HashSet<T>();
+        private final Set<T> directChildrenOfTopNode = new HashSet<T>();
         @Nonnull
-        private Set<T> directParentsOfBottomNode = new HashSet<T>();
-        private NodeCache<T> nodeCache;
-        private String name;
+        private final Set<T> directParentsOfBottomNode = new HashSet<T>();
+        private final NodeCache<T> nodeCache;
+        private final String name;
         private int classificationSize;
 
         HierarchyInfo(String name, @Nonnull T topEntity,
@@ -1132,11 +1132,11 @@ public class StructuralReasoner extends OWLReasonerBase {
     private static class NodeCache<T extends OWLObject> {
 
         @Nonnull
-        private HierarchyInfo<T> hierarchyInfo;
+        private final HierarchyInfo<T> hierarchyInfo;
         private Node<T> topNode;
         private Node<T> bottomNode;
         @Nonnull
-        private Map<T, Node<T>> map = new HashMap<T, Node<T>>();
+        private final Map<T, Node<T>> map = new HashMap<T, Node<T>>();
 
         protected NodeCache(@Nonnull HierarchyInfo<T> hierarchyInfo) {
             this.hierarchyInfo = hierarchyInfo;

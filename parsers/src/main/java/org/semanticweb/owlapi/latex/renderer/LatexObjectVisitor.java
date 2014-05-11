@@ -53,9 +53,9 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     /** CIRC */        @Nonnull  public static final String CIRC     = "\\ensuremath{\\circ}";
     //@formatter:on
     private OWLObject subject;
-    private LatexWriter writer;
+    private final LatexWriter writer;
     private boolean prettyPrint = true;
-    private OWLDataFactory df;
+    private final OWLDataFactory df;
     private ShortFormProvider shortFormProvider;
 
     /**

@@ -49,7 +49,7 @@ public class RioRendererTest {
     private OWLOntology testOntologyKoala;
     private Statement testOntologyEmptyStatement;
     @Nonnull
-    private IRI testOntologyUri1 = IRI.create("urn:test:ontology:uri:1");
+    private final IRI testOntologyUri1 = IRI.create("urn:test:ontology:uri:1");
     private StatementCollector testHandlerStatementCollector;
     private StringWriter testRdfXmlStringWriter;
     private RDFWriter testRdfXmlRioWriter;

@@ -79,7 +79,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
     @Nonnull
     private final Map<OWLAxiom, OWLAxiom> expandedAxiomMap = new HashMap<OWLAxiom, OWLAxiom>();
     private static final int DEFAULT_INITIAL_EXPANSION_LIMIT = 50;
-    private int initialExpansionLimit = DEFAULT_INITIAL_EXPANSION_LIMIT;
+    private final int initialExpansionLimit = DEFAULT_INITIAL_EXPANSION_LIMIT;
     private int expansionLimit = initialExpansionLimit;
     private static final int DEFAULT_FAST_PRUNING_WINDOW_SIZE = 10;
     private int fastPruningWindowSize = 0;

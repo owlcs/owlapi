@@ -20,9 +20,9 @@ import org.semanticweb.owlapi.model.OWLOntology;
 public class ManchesterSyntaxToolTest extends OboFormatTestBasics {
 
     @Nonnull
-    private OWLOntology owlOntology = convert(parseOBOFile("simplego.obo"));
+    private final OWLOntology owlOntology = convert(parseOBOFile("simplego.obo"));
     @Nonnull
-    private ManchesterSyntaxTool parser = new ManchesterSyntaxTool(owlOntology);
+    private final ManchesterSyntaxTool parser = new ManchesterSyntaxTool(owlOntology);
 
     @Test
     public void testParseManchesterIds() {

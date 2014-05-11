@@ -31,7 +31,7 @@ public class OWLObjectComparator implements Comparator<OWLObject>, Serializable 
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
-    private OWLEntityComparator entityComparator;
+    private final OWLEntityComparator entityComparator;
 
     /**
      * @param shortFormProvider

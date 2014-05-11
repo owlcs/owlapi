@@ -31,7 +31,7 @@ import org.semanticweb.owlapi.util.ShortFormProvider;
 public class LatexOWLObjectRenderer implements OWLObjectRenderer {
 
     @Nonnull
-    private OWLDataFactory dataFactory;
+    private final OWLDataFactory dataFactory;
     private ShortFormProvider shortFormProvider;
 
     /**

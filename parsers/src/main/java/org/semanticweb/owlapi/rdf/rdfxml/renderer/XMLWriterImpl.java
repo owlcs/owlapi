@@ -43,14 +43,14 @@ import com.google.common.collect.Lists;
 public class XMLWriterImpl implements XMLWriter {
 
     @Nonnull
-    private Stack<XMLElement> elementStack;
+    private final Stack<XMLElement> elementStack;
     @Nonnull
     protected Writer writer;
     private String encoding = "";
     @Nonnull
-    private String xmlBase;
+    private final String xmlBase;
     @Nonnull
-    private XMLWriterNamespaceManager xmlWriterNamespaceManager;
+    private final XMLWriterNamespaceManager xmlWriterNamespaceManager;
     private Map<String, String> entities;
     private static final int TEXT_CONTENT_WRAP_LIMIT = Integer.MAX_VALUE;
     private boolean preambleWritten;
@@ -274,8 +274,8 @@ public class XMLWriterImpl implements XMLWriter {
     /** xml element */
     public class XMLElement {
 
-        private String name;
-        private Map<String, String> attributes;
+        private final String name;
+        private final Map<String, String> attributes;
         @Nullable
         String textContent;
         private boolean startWritten;

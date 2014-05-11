@@ -35,7 +35,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 @RunWith(Parameterized.class)
 public class OWLRDFVocabularyTestCase {
 
-    private OWLRDFVocabulary vocabulary;
+    private final OWLRDFVocabulary vocabulary;
 
     public OWLRDFVocabularyTestCase(OWLRDFVocabulary vocabulary) {
         this.vocabulary = vocabulary;

@@ -34,7 +34,7 @@ public class ManchesterOWLSyntaxFramesParser implements
         OWLExpressionParser<Set<OntologyAxiomPair>> {
 
     @Nonnull
-    private OWLDataFactory dataFactory;
+    private final OWLDataFactory dataFactory;
     @Nonnull
     private OWLEntityChecker checker;
     private OWLOntologyChecker ontologyChecker;

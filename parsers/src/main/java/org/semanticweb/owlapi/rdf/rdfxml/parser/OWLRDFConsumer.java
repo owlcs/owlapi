@@ -115,55 +115,55 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
     TripleLogger tripleLogger;
     /** The configuration. */
     @Nonnull
-    private OWLOntologyLoaderConfiguration configuration;
+    private final OWLOntologyLoaderConfiguration configuration;
     /** The owl ontology manager. */
-    private OWLOntologyManager owlOntologyManager;
+    private final OWLOntologyManager owlOntologyManager;
     // The set of IRIs that are either explicitly typed
     // an an owl:Class, or are inferred to be an owl:Class
     // because they are used in some triple whose predicate
     // has the domain or range of owl:Class
     /** The class expression iris. */
-    private Set<IRI> classExpressionIRIs;
+    private final Set<IRI> classExpressionIRIs;
     /** Same as classExpressionIRIs but for object properties */
-    private Set<IRI> objectPropertyExpressionIRIs;
+    private final Set<IRI> objectPropertyExpressionIRIs;
     /** Same as classExpressionIRIs but for data properties */
-    private Set<IRI> dataPropertyExpressionIRIs;
+    private final Set<IRI> dataPropertyExpressionIRIs;
     /**
      * Same as classExpressionIRIs but for rdf properties things neither typed
      * as a data or object property - bad!
      */
-    private Set<IRI> propertyIRIs;
+    private final Set<IRI> propertyIRIs;
     /** Set of IRIs that are typed by non-system types and also owl:Thing */
-    private Set<IRI> individualIRIs;
+    private final Set<IRI> individualIRIs;
     /** Same as classExpressionIRIs but for annotation properties */
-    private Set<IRI> annotationPropertyIRIs;
+    private final Set<IRI> annotationPropertyIRIs;
     /** The annotation iris. */
-    private Set<IRI> annotationIRIs;
+    private final Set<IRI> annotationIRIs;
     /** IRIs that had a type triple to rdfs:Datatange */
-    private Set<IRI> dataRangeIRIs;
+    private final Set<IRI> dataRangeIRIs;
     /** The IRI of the first reource that is typed as an ontology */
     private IRI firstOntologyIRI;
     /** IRIs that had a type triple to owl:Ontology */
-    private Set<IRI> ontologyIRIs;
+    private final Set<IRI> ontologyIRIs;
     /** IRIs that had a type triple to owl:Restriction */
-    private Set<IRI> restrictionIRIs;
+    private final Set<IRI> restrictionIRIs;
     /** Maps rdf:next triple subjects to objects */
-    private Map<IRI, IRI> listRestTripleMap;
+    private final Map<IRI, IRI> listRestTripleMap;
     /** The list first resource triple map. */
-    private Map<IRI, IRI> listFirstResourceTripleMap;
+    private final Map<IRI, IRI> listFirstResourceTripleMap;
     /** The list first literal triple map. */
-    private Map<IRI, OWLLiteral> listFirstLiteralTripleMap;
+    private final Map<IRI, OWLLiteral> listFirstLiteralTripleMap;
     /** The axioms. */
-    private Set<IRI> axioms = new HashSet<IRI>();
+    private final Set<IRI> axioms = new HashSet<IRI>();
     /** The shared anonymous nodes. */
-    private Map<IRI, Object> sharedAnonymousNodes = new HashMap<IRI, Object>();
+    private final Map<IRI, Object> sharedAnonymousNodes = new HashMap<IRI, Object>();
     /** The pending annotations. */
-    private Set<OWLAnnotation> pendingAnnotations = new HashSet<OWLAnnotation>();
+    private final Set<OWLAnnotation> pendingAnnotations = new HashSet<OWLAnnotation>();
     /** The annotated anon source2 annotation map. */
-    private Map<IRI, Set<IRI>> annotatedAnonSource2AnnotationMap = new HashMap<IRI, Set<IRI>>();
+    private final Map<IRI, Set<IRI>> annotatedAnonSource2AnnotationMap = new HashMap<IRI, Set<IRI>>();
     /** The ontology that the RDF will be parsed into. */
     @Nonnull
-    private OWLOntology ontology;
+    private final OWLOntology ontology;
     /** The expected axioms. */
     private int expectedAxioms = -1;
     /** The parsed axioms. */
@@ -171,47 +171,47 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
     /** The ontology format. */
     private RDFOntologyFormat ontologyFormat;
     /** The data factory. */
-    private OWLDataFactory dataFactory;
+    private final OWLDataFactory dataFactory;
     /** The last added axiom. */
     private OWLAxiom lastAddedAxiom;
     /** The synonym map. */
     private Map<IRI, IRI> synonymMap;
     // SWRL Stuff
     /** The swrl rules. */
-    private Set<IRI> swrlRules;
+    private final Set<IRI> swrlRules;
     /** The swrl individual property atoms. */
-    private Set<IRI> swrlIndividualPropertyAtoms;
+    private final Set<IRI> swrlIndividualPropertyAtoms;
     /** The swrl data valued property atoms. */
-    private Set<IRI> swrlDataValuedPropertyAtoms;
+    private final Set<IRI> swrlDataValuedPropertyAtoms;
     /** The swrl class atoms. */
-    private Set<IRI> swrlClassAtoms;
+    private final Set<IRI> swrlClassAtoms;
     /** The swrl data range atoms. */
-    private Set<IRI> swrlDataRangeAtoms;
+    private final Set<IRI> swrlDataRangeAtoms;
     /** The swrl built in atoms. */
-    private Set<IRI> swrlBuiltInAtoms;
+    private final Set<IRI> swrlBuiltInAtoms;
     /** The swrl variables. */
-    private Set<IRI> swrlVariables;
+    private final Set<IRI> swrlVariables;
     /** The swrl same as atoms. */
-    private Set<IRI> swrlSameAsAtoms;
+    private final Set<IRI> swrlSameAsAtoms;
     /** The swrl different from atoms. */
-    private Set<IRI> swrlDifferentFromAtoms;
+    private final Set<IRI> swrlDifferentFromAtoms;
     /** The iri provider. */
     private IRIProvider iriProvider;
     /**
      * A cache of annotation axioms to be added at the end - saves some peek
      * memory doing this.
      */
-    private Collection<OWLAnnotationAxiom> parsedAnnotationAxioms = new ArrayList<OWLAnnotationAxiom>();
+    private final Collection<OWLAnnotationAxiom> parsedAnnotationAxioms = new ArrayList<OWLAnnotationAxiom>();
     /** The axioms to be removed. */
-    private Collection<OWLAxiom> axiomsToBeRemoved = new ArrayList<OWLAxiom>();
+    private final Collection<OWLAxiom> axiomsToBeRemoved = new ArrayList<OWLAxiom>();
     /** The parsed all triples. */
     private boolean parsedAllTriples = false;
     HandlerAccessor handlerAccessor;
     TranslatorAccessor translatorAccessor;
-    private AnonymousNodeChecker nodeCheckerDelegate;
+    private final AnonymousNodeChecker nodeCheckerDelegate;
     @SuppressWarnings("null")
     @Nonnull
-    private Multimap<IRI, Class<?>> guessedDeclarations = LinkedHashMultimap
+    private final Multimap<IRI, Class<?>> guessedDeclarations = LinkedHashMultimap
             .create();
 
     /**
@@ -539,7 +539,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
     }
 
     // We cache IRIs to save memory!!
-    private Map<String, IRI> IRIMap = CollectionFactory.createMap();
+    private final Map<String, IRI> IRIMap = CollectionFactory.createMap();
     /** The current base count. */
     int currentBaseCount = 0;
 
@@ -1797,7 +1797,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
 
     // Basic node translation - translation of entities
     /** The translated properties. */
-    private Map<IRI, OWLObjectPropertyExpression> translatedProperties = new HashMap<IRI, OWLObjectPropertyExpression>();
+    private final Map<IRI, OWLObjectPropertyExpression> translatedProperties = new HashMap<IRI, OWLObjectPropertyExpression>();
 
     /**
      * Translate object property expression.
@@ -2530,16 +2530,16 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
      */
     // Resource triples
     /** Subject, predicate, object */
-    private Map<IRI, Map<IRI, Collection<IRI>>> resTriplesBySubject = CollectionFactory
+    private final Map<IRI, Map<IRI, Collection<IRI>>> resTriplesBySubject = CollectionFactory
             .createMap();
     /** Predicate, subject, object */
-    private Map<IRI, Map<IRI, IRI>> singleValuedResTriplesByPredicate = CollectionFactory
+    private final Map<IRI, Map<IRI, IRI>> singleValuedResTriplesByPredicate = CollectionFactory
             .createMap();
     /** Literal triples */
-    private Map<IRI, Map<IRI, Collection<OWLLiteral>>> litTriplesBySubject = CollectionFactory
+    private final Map<IRI, Map<IRI, Collection<OWLLiteral>>> litTriplesBySubject = CollectionFactory
             .createMap();
     /** Predicate, subject, object */
-    private Map<IRI, Map<IRI, OWLLiteral>> singleValuedLitTriplesByPredicate = CollectionFactory
+    private final Map<IRI, Map<IRI, OWLLiteral>> singleValuedLitTriplesByPredicate = CollectionFactory
             .createMap();
 
     protected void addTriple(IRI subject, IRI predicate, IRI object) {

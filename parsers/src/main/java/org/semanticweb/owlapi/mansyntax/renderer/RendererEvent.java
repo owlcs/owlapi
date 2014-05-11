@@ -21,8 +21,8 @@ import org.semanticweb.owlapi.model.OWLObject;
  */
 public class RendererEvent {
 
-    private ManchesterOWLSyntaxFrameRenderer frameRenderer;
-    private OWLObject frameSubject;
+    private final ManchesterOWLSyntaxFrameRenderer frameRenderer;
+    private final OWLObject frameSubject;
 
     /**
      * @param frameRenderer

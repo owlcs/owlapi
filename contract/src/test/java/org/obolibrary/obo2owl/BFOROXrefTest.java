@@ -31,7 +31,7 @@ public class BFOROXrefTest extends OboFormatTestBasics {
             .getOWLAnnotationProperty(
                     IRI.create("http://www.geneontology.org/formats/oboInOwl#id"));
     @Nonnull
-    private OWLOntology owlOnt = convertOBOFile("rel_xref_test.obo");
+    private final OWLOntology owlOnt = convertOBOFile("rel_xref_test.obo");
 
     @Test
     public void testCorrectIdAnnotationCount() {

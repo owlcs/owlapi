@@ -39,12 +39,12 @@ import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
 public class OWLOntologyChangeRecordTestCase {
 
     @Nonnull
-    private OWLOntologyID mockOntologyID = new OWLOntologyID();
+    private final OWLOntologyID mockOntologyID = new OWLOntologyID();
     @SuppressWarnings({ "unchecked" })
     @Nonnull
-    private OWLOntologyChangeData<OWLAxiom> mockChangeData = mock(OWLOntologyChangeData.class);
+    private final OWLOntologyChangeData<OWLAxiom> mockChangeData = mock(OWLOntologyChangeData.class);
     @Nonnull
-    private OWLAxiom mockAxiom = mock(OWLAxiom.class);
+    private final OWLAxiom mockAxiom = mock(OWLAxiom.class);
 
     @Test
     public void testEquals() {

@@ -47,7 +47,7 @@ import uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory;
 public abstract class AbstractRendererAndParserTestCase extends TestBase {
 
     @Nonnull
-    private OWLOntologyManager man = new OWLOntologyManagerImpl(
+    private final OWLOntologyManager man = new OWLOntologyManagerImpl(
             new OWLDataFactoryImpl());
 
     @Before

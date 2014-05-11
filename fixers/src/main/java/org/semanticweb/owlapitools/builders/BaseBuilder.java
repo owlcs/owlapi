@@ -53,7 +53,7 @@ public abstract class BaseBuilder<T extends OWLObject, Type> implements
     @Nonnull
     protected Set<OWLAnnotation> annotations = new HashSet<OWLAnnotation>();
     @Nonnull
-    private OWLProfile profile = new OWL2DLProfile();
+    private final OWLProfile profile = new OWL2DLProfile();
 
     /**
      * @param df

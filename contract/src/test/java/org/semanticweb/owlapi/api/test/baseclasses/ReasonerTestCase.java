@@ -46,9 +46,9 @@ import org.semanticweb.owlapi.reasoner.structural.StructuralReasonerFactory;
 public class ReasonerTestCase extends TestBase {
 
     @Nonnull
-    private OWLReasonerFactory reasonerFactory = new StructuralReasonerFactory();
+    private final OWLReasonerFactory reasonerFactory = new StructuralReasonerFactory();
     @Nonnull
-    private OWLOntology ont = createOntology();
+    private final OWLOntology ont = createOntology();
     private OWLReasoner reasoner;
 
     @Nonnull

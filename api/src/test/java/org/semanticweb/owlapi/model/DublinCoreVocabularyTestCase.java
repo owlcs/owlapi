@@ -36,7 +36,7 @@ import org.semanticweb.owlapi.vocab.Namespaces;
 @RunWith(Parameterized.class)
 public class DublinCoreVocabularyTestCase {
 
-    private DublinCoreVocabulary vocabulary;
+    private final DublinCoreVocabulary vocabulary;
 
     public DublinCoreVocabularyTestCase(DublinCoreVocabulary vocabulary) {
         this.vocabulary = vocabulary;

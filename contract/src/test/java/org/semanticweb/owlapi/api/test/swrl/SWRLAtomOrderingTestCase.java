@@ -41,7 +41,7 @@ public class SWRLAtomOrderingTestCase {
     protected SWRLAtom atomD;
     private SWRLRuleImpl rule;
     @Nonnull
-    private Set<SWRLAtom> body = new LinkedHashSet<SWRLAtom>();
+    private final Set<SWRLAtom> body = new LinkedHashSet<SWRLAtom>();
 
     @Before
     public void setUp() {

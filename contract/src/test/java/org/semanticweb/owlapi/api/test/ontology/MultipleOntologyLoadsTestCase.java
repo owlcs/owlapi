@@ -34,11 +34,11 @@ import com.google.common.base.Optional;
 public class MultipleOntologyLoadsTestCase extends TestBase {
 
     @Nonnull
-    private IRI v2 = IRI("http://test.example.org/ontology/0139/version:2");
+    private final IRI v2 = IRI("http://test.example.org/ontology/0139/version:2");
     @Nonnull
-    private IRI v1 = IRI("http://test.example.org/ontology/0139/version:1");
+    private final IRI v1 = IRI("http://test.example.org/ontology/0139/version:1");
     @Nonnull
-    private IRI i139 = IRI("http://test.example.org/ontology/0139");
+    private final IRI i139 = IRI("http://test.example.org/ontology/0139");
     @Nonnull
     private static final String input = "<?xml version=\"1.0\"?>\n"
             + "<rdf:RDF\n"

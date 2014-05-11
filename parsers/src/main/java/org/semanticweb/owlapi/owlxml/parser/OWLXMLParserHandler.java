@@ -50,18 +50,18 @@ import org.xml.sax.helpers.DefaultHandler;
  */
 public class OWLXMLParserHandler extends DefaultHandler {
 
-    private OWLOntologyManager owlOntologyManager;
+    private final OWLOntologyManager owlOntologyManager;
     @Nonnull
-    private OWLOntology ontology;
-    private List<OWLElementHandler<?>> handlerStack;
+    private final OWLOntology ontology;
+    private final List<OWLElementHandler<?>> handlerStack;
     @Nonnull
-    private Map<String, PARSER_OWLXMLVocabulary> handlerMap = new HashMap<String, PARSER_OWLXMLVocabulary>();
+    private final Map<String, PARSER_OWLXMLVocabulary> handlerMap = new HashMap<String, PARSER_OWLXMLVocabulary>();
     @Nonnull
     private Map<String, String> prefixName2PrefixMap = new HashMap<String, String>();
     private Locator locator;
-    private Stack<URI> bases;
+    private final Stack<URI> bases;
     @Nonnull
-    private OWLOntologyLoaderConfiguration configuration;
+    private final OWLOntologyLoaderConfiguration configuration;
 
     /**
      * @param ontology
@@ -258,7 +258,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
         }
     }
 
-    private Map<String, IRI> iriMap = new HashMap<String, IRI>();
+    private final Map<String, IRI> iriMap = new HashMap<String, IRI>();
 
     /**
      * @param iriStr

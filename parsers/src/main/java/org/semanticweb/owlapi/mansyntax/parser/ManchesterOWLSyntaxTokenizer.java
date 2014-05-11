@@ -43,7 +43,7 @@ public class ManchesterOWLSyntaxTokenizer {
     protected Set<Character> skip = new HashSet<Character>();
     protected Set<Character> commentDelimiters = new HashSet<Character>();
     protected Set<Character> delims = new HashSet<Character>();
-    private String buffer;
+    private final String buffer;
     private int pos;
     private int col;
     private int row;
@@ -220,10 +220,10 @@ public class ManchesterOWLSyntaxTokenizer {
     public static class Token {
 
         @Nonnull
-        private String token;
-        private int pos;
-        private int col;
-        private int row;
+        private final String token;
+        private final int pos;
+        private final int col;
+        private final int row;
 
         /**
          * @param token

@@ -158,17 +158,17 @@ public class NNFTestCase extends TestBase {
     }
 
     @Nonnull
-    private OWLClass clsA = Class(IRI("A"));
+    private final OWLClass clsA = Class(IRI("A"));
     @Nonnull
-    private OWLClass clsB = Class(IRI("B"));
+    private final OWLClass clsB = Class(IRI("B"));
     @Nonnull
-    private OWLClass clsC = Class(IRI("C"));
+    private final OWLClass clsC = Class(IRI("C"));
     @Nonnull
-    private OWLClass clsD = Class(IRI("D"));
+    private final OWLClass clsD = Class(IRI("D"));
     @Nonnull
-    private OWLObjectProperty propP = ObjectProperty(IRI("p"));
+    private final OWLObjectProperty propP = ObjectProperty(IRI("p"));
     @Nonnull
-    private OWLNamedIndividual indA = NamedIndividual(IRI("a"));
+    private final OWLNamedIndividual indA = NamedIndividual(IRI("a"));
 
     private OWLClassExpression getNNF(
             @Nonnull OWLClassExpression classExpression) {

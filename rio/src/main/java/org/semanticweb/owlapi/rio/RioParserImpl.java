@@ -87,9 +87,9 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
     private static final long serialVersionUID = 40000L;
     protected final Logger log = LoggerFactory.getLogger(this.getClass());
     @Nonnull
-    private RioRDFOntologyFormatFactory owlFormatFactory;
+    private final RioRDFOntologyFormatFactory owlFormatFactory;
     @Nonnull
-    private Set<OWLOntologyFormatFactory> supportedFormats;
+    private final Set<OWLOntologyFormatFactory> supportedFormats;
 
     /**
      * @param nextFormat

@@ -31,7 +31,7 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 public abstract class AbstractRoundTrippingTestCase extends TestBase {
 
     @Nonnull
-    private OWLOntology ont = createOntology();
+    private final OWLOntology ont = createOntology();
 
     @Nonnull
     protected abstract OWLOntology createOntology();

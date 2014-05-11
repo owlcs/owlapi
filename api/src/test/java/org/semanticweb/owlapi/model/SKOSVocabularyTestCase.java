@@ -35,7 +35,7 @@ import org.semanticweb.owlapi.vocab.SKOSVocabulary;
 @SuppressWarnings("javadoc")
 public class SKOSVocabularyTestCase {
 
-    private SKOSVocabulary vocabulary;
+    private final SKOSVocabulary vocabulary;
 
     public SKOSVocabularyTestCase(SKOSVocabulary vocabulary) {
         this.vocabulary = vocabulary;

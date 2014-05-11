@@ -27,9 +27,9 @@ import org.semanticweb.owlapi.model.SWRLRule;
 public class BuilderSWRLRule extends BaseBuilder<SWRLRule, BuilderSWRLRule> {
 
     @Nonnull
-    private Set<SWRLAtom> body = new HashSet<SWRLAtom>();
+    private final Set<SWRLAtom> body = new HashSet<SWRLAtom>();
     @Nonnull
-    private Set<SWRLAtom> head = new HashSet<SWRLAtom>();
+    private final Set<SWRLAtom> head = new HashSet<SWRLAtom>();
 
     /**
      * builder initialized from an existing object

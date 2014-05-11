@@ -48,7 +48,7 @@ import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 public class LatexRenderer extends AbstractOWLRenderer {
 
     @Nonnull
-    private ShortFormProvider shortFormProvider = new SimpleShortFormProvider();
+    private final ShortFormProvider shortFormProvider = new SimpleShortFormProvider();
 
     private void writeEntitySection(@Nonnull OWLEntity entity,
             @Nonnull LatexWriter w) {

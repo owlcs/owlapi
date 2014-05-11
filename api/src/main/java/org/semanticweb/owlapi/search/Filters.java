@@ -47,7 +47,7 @@ public class Filters {
 
         private static final long serialVersionUID = 40000L;
         @Nonnull
-        private Iterable<AxiomType<?>> types;
+        private final Iterable<AxiomType<?>> types;
 
         /**
          * @param type

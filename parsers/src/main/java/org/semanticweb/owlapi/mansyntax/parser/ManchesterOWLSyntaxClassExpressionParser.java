@@ -33,7 +33,7 @@ public class ManchesterOWLSyntaxClassExpressionParser implements
         OWLExpressionParser<OWLClassExpression> {
 
     @Nonnull
-    private OWLDataFactory dataFactory;
+    private final OWLDataFactory dataFactory;
     @Nonnull
     private OWLEntityChecker checker;
 

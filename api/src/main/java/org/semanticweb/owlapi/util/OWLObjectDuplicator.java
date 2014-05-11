@@ -36,7 +36,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
     private final OWLDataFactory dataFactory;
     private Object obj;
     @Nonnull
-    private Map<OWLEntity, IRI> replacementMap;
+    private final Map<OWLEntity, IRI> replacementMap;
 
     /**
      * Creates an object duplicator that duplicates objects using the specified

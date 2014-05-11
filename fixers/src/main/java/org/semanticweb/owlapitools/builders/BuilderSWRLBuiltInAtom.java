@@ -34,7 +34,7 @@ public class BuilderSWRLBuiltInAtom extends
     @Nullable
     private IRI iri = null;
     @Nonnull
-    private List<SWRLDArgument> args = new ArrayList<SWRLDArgument>();
+    private final List<SWRLDArgument> args = new ArrayList<SWRLDArgument>();
 
     /**
      * builder initialized from an existing object

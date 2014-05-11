@@ -15,8 +15,8 @@ package org.semanticweb.owlapi.functional.parser;
 
 class JJTOWLFunctionalSyntaxParserState {
 
-    private java.util.List<Node> nodes;
-    private java.util.List<Integer> marks;
+    private final java.util.List<Node> nodes;
+    private final java.util.List<Integer> marks;
     // number of nodes on stack
     private int sp;
     // current mark

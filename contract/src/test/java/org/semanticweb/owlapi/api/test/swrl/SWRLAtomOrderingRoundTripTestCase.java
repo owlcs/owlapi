@@ -47,9 +47,9 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 public class SWRLAtomOrderingRoundTripTestCase {
 
     @Nonnull
-    private Set<SWRLAtom> body = new LinkedHashSet<SWRLAtom>();
+    private final Set<SWRLAtom> body = new LinkedHashSet<SWRLAtom>();
     @Nonnull
-    private Set<SWRLAtom> head = new LinkedHashSet<SWRLAtom>();
+    private final Set<SWRLAtom> head = new LinkedHashSet<SWRLAtom>();
     @Nonnull
     private SWRLRule rule;
 
