@@ -28,16 +28,16 @@ import org.semanticweb.owlapi.model.OWLObject;
  * @author ignazio
  * @param <T>
  *        type built
- * @param <Type>
+ * @param <B>
  *        builder type
- * @param <Item>
+ * @param <I>
  *        contained items type
  */
-public abstract class BaseSetBuilder<T extends OWLObject, Type, Item> extends
-        BaseBuilder<T, Type> {
+public abstract class BaseSetBuilder<T extends OWLObject, B, I> extends
+        BaseBuilder<T, B> {
 
     @Nonnull
-    protected Set<Item> items = new HashSet<Item>();
+    protected Set<I> items = new HashSet<I>();
 
     /**
      * @param df
@@ -55,9 +55,9 @@ public abstract class BaseSetBuilder<T extends OWLObject, Type, Item> extends
      */
     @Nonnull
     @SuppressWarnings("unchecked")
-    public Type withItem(Item arg) {
+    public B withItem(I arg) {
         items.add(arg);
-        return (Type) this;
+        return (B) this;
     }
 
     /**
@@ -67,9 +67,9 @@ public abstract class BaseSetBuilder<T extends OWLObject, Type, Item> extends
      */
     @Nonnull
     @SuppressWarnings("unchecked")
-    public Type withItems(@Nonnull Collection<? extends Item> arg) {
+    public B withItems(@Nonnull Collection<? extends I> arg) {
         items.addAll(arg);
-        return (Type) this;
+        return (B) this;
     }
 
     /**
@@ -79,10 +79,10 @@ public abstract class BaseSetBuilder<T extends OWLObject, Type, Item> extends
      */
     @Nonnull
     @SuppressWarnings("unchecked")
-    public Type withItems(@Nonnull Item... arg) {
-        for (Item i : arg) {
+    public B withItems(@Nonnull I... arg) {
+        for (I i : arg) {
             items.add(i);
         }
-        return (Type) this;
+        return (B) this;
     }
 }

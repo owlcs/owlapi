@@ -29,11 +29,11 @@ import org.semanticweb.owlapi.model.PrefixManager;
  * @author ignazio
  * @param <T>
  *        OWL type
- * @param <Type>
+ * @param <B>
  *        builder type
  */
-public abstract class BaseEntityBuilder<T extends OWLEntity, Type> extends
-        BaseBuilder<T, Type> {
+public abstract class BaseEntityBuilder<T extends OWLEntity, B> extends
+        BaseBuilder<T, B> {
 
     @Nullable
     private IRI iri = null;
@@ -58,9 +58,9 @@ public abstract class BaseEntityBuilder<T extends OWLEntity, Type> extends
      */
     @Nonnull
     @SuppressWarnings("unchecked")
-    public Type withIRI(IRI arg) {
+    public B withIRI(IRI arg) {
         iri = arg;
-        return (Type) this;
+        return (B) this;
     }
 
     /**
@@ -70,9 +70,9 @@ public abstract class BaseEntityBuilder<T extends OWLEntity, Type> extends
      */
     @Nonnull
     @SuppressWarnings("unchecked")
-    public Type withPrefixManager(PrefixManager arg) {
+    public B withPrefixManager(PrefixManager arg) {
         pm = arg;
-        return (Type) this;
+        return (B) this;
     }
 
     /**
@@ -82,9 +82,9 @@ public abstract class BaseEntityBuilder<T extends OWLEntity, Type> extends
      */
     @Nonnull
     @SuppressWarnings("unchecked")
-    public Type withPrefixedIRI(String arg) {
+    public B withPrefixedIRI(String arg) {
         string = arg;
-        return (Type) this;
+        return (B) this;
     }
 
     /** @return iri */

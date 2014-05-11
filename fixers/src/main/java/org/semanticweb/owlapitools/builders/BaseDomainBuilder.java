@@ -27,16 +27,16 @@ import org.semanticweb.owlapi.model.OWLObject;
  * 
  * @param <T>
  *        type built
- * @param <Type>
+ * @param <B>
  *        builder type
- * @param <Property>
+ * @param <P>
  *        contained items type
  */
-public abstract class BaseDomainBuilder<T extends OWLObject, Type, Property>
-        extends BaseBuilder<T, Type> {
+public abstract class BaseDomainBuilder<T extends OWLObject, B, P>
+        extends BaseBuilder<T, B> {
 
     @Nullable
-    private Property property = null;
+    private P property = null;
     @Nullable
     private OWLClassExpression domain = null;
 
@@ -56,9 +56,9 @@ public abstract class BaseDomainBuilder<T extends OWLObject, Type, Property>
      */
     @Nonnull
     @SuppressWarnings("unchecked")
-    public Type withDomain(OWLClassExpression arg) {
+    public B withDomain(OWLClassExpression arg) {
         domain = arg;
-        return (Type) this;
+        return (B) this;
     }
 
     /**
@@ -68,16 +68,16 @@ public abstract class BaseDomainBuilder<T extends OWLObject, Type, Property>
      */
     @Nonnull
     @SuppressWarnings("unchecked")
-    public Type withProperty(Property arg) {
+    public B withProperty(P arg) {
         property = arg;
-        return (Type) this;
+        return (B) this;
     }
 
     /**
      * @return the property
      */
     @Nonnull
-    public Property getProperty() {
+    public P getProperty() {
         return verifyNotNull(property);
     }
 

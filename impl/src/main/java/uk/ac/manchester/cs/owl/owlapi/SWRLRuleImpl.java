@@ -249,9 +249,9 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
     }
 
     @Nonnull
-    protected final AtomSimplifier ATOM_SIMPLIFIER = new AtomSimplifier();
+    protected static final AtomSimplifier ATOM_SIMPLIFIER = new AtomSimplifier();
 
-    protected class AtomSimplifier implements SWRLObjectVisitorEx<SWRLObject> {
+    protected static class AtomSimplifier implements SWRLObjectVisitorEx<SWRLObject> {
 
         @Override
         public SWRLRule visit(SWRLRule node) {

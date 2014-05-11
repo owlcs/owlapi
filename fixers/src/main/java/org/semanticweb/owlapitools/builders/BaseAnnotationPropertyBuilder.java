@@ -27,11 +27,11 @@ import org.semanticweb.owlapi.model.OWLObject;
  * 
  * @param <T>
  *        type built
- * @param <Type>
+ * @param <B>
  *        builder type
  */
-public abstract class BaseAnnotationPropertyBuilder<T extends OWLObject, Type>
-        extends BaseBuilder<T, Type> {
+public abstract class BaseAnnotationPropertyBuilder<T extends OWLObject, B>
+        extends BaseBuilder<T, B> {
 
     @Nullable
     private OWLAnnotationProperty property = null;
@@ -52,9 +52,9 @@ public abstract class BaseAnnotationPropertyBuilder<T extends OWLObject, Type>
      */
     @Nonnull
     @SuppressWarnings("unchecked")
-    public Type withProperty(OWLAnnotationProperty arg) {
+    public B withProperty(OWLAnnotationProperty arg) {
         property = arg;
-        return (Type) this;
+        return (B) this;
     }
 
     /**

@@ -42,10 +42,10 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  * @author ignazio
  * @param <T>
  *        built type
- * @param <Type>
+ * @param <B>
  *        builder type
  */
-public abstract class BaseBuilder<T extends OWLObject, Type> implements
+public abstract class BaseBuilder<T extends OWLObject, B> implements
         Builder<T> {
 
     @Nonnull
@@ -71,9 +71,9 @@ public abstract class BaseBuilder<T extends OWLObject, Type> implements
      */
     @Nonnull
     @SuppressWarnings("unchecked")
-    public Type withAnnotation(OWLAnnotation arg) {
+    public B withAnnotation(OWLAnnotation arg) {
         annotations.add(arg);
-        return (Type) this;
+        return (B) this;
     }
 
     /**
@@ -83,9 +83,9 @@ public abstract class BaseBuilder<T extends OWLObject, Type> implements
      */
     @Nonnull
     @SuppressWarnings("unchecked")
-    public Type withAnnotations(@Nonnull Collection<OWLAnnotation> arg) {
+    public B withAnnotations(@Nonnull Collection<OWLAnnotation> arg) {
         annotations.addAll(arg);
-        return (Type) this;
+        return (B) this;
     }
 
     @Override

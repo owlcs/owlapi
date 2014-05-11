@@ -16,7 +16,6 @@ import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.TestUtils;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
@@ -61,8 +60,7 @@ public class BuiltInClassTestCase {
 
     @Test
     public void testAnonymousClass() {
-        OWLClassExpression desc = ObjectHasSelf(ObjectProperty(TestUtils
-                .createIRI()));
+        OWLClassExpression desc = ObjectHasSelf(createObjectProperty());
         assertFalse(desc.isOWLThing());
         assertFalse(desc.isOWLNothing());
     }

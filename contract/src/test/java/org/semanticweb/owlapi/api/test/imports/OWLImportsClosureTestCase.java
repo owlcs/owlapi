@@ -16,8 +16,8 @@ import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ImportsDeclaration;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.TestUtils;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi.io.OWLOntologyDocumentSourceBase;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -40,8 +40,10 @@ public class OWLImportsClosureTestCase extends TestBase {
      */
     @Test
     public void testImportsClosure() throws OWLOntologyCreationException {
-        OWLOntology ontA = m.createOntology(TestUtils.createIRI());
-        OWLOntology ontB = m.createOntology(TestUtils.createIRI());
+        OWLOntology ontA = m.createOntology(OWLOntologyDocumentSourceBase
+                .getNextDocumentIRI("urn:testontology"));
+        OWLOntology ontB = m.createOntology(OWLOntologyDocumentSourceBase
+                .getNextDocumentIRI("urn:testontology"));
         assertTrue(m.getImportsClosure(ontA).contains(ontA));
         @SuppressWarnings("null")
         OWLImportsDeclaration importsDeclaration = ImportsDeclaration(ontB

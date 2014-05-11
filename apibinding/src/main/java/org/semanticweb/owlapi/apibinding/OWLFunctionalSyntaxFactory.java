@@ -161,13 +161,18 @@ public class OWLFunctionalSyntaxFactory {
     }
 
     @Nonnull
-    public static OWLIndividual createIndividual() {
+    public static OWLNamedIndividual createIndividual() {
         return NamedIndividual(getNextDocumentIRI(URNTESTS_URI));
     }
 
     @Nonnull
     public static OWLAnnotationProperty createAnnotationProperty() {
         return AnnotationProperty(getNextDocumentIRI(URNTESTS_URI));
+    }
+
+    public static OWLLiteral createOWLLiteral() {
+        return Literal("Test" + System.currentTimeMillis(),
+                Datatype(getNextDocumentIRI(URNTESTS_URI)));
     }
 
     @Nonnull

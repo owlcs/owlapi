@@ -27,11 +27,11 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
  * 
  * @param <T>
  *        type built
- * @param <Type>
+ * @param <B>
  *        builder type
  */
-public abstract class BaseObjectPropertyBuilder<T extends OWLObject, Type>
-        extends BaseBuilder<T, Type> {
+public abstract class BaseObjectPropertyBuilder<T extends OWLObject, B>
+        extends BaseBuilder<T, B> {
 
     @Nullable
     private OWLObjectPropertyExpression property = null;
@@ -52,9 +52,9 @@ public abstract class BaseObjectPropertyBuilder<T extends OWLObject, Type>
      */
     @Nonnull
     @SuppressWarnings("unchecked")
-    public Type withProperty(OWLObjectPropertyExpression arg) {
+    public B withProperty(OWLObjectPropertyExpression arg) {
         property = arg;
-        return (Type) this;
+        return (B) this;
     }
 
     /**

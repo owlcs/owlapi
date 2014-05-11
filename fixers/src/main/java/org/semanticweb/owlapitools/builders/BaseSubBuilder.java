@@ -26,18 +26,18 @@ import org.semanticweb.owlapi.model.OWLObject;
  * 
  * @param <T>
  *        type built
- * @param <Type>
+ * @param <B>
  *        builder type
- * @param <Item>
+ * @param <I>
  *        contained items type
  */
-public abstract class BaseSubBuilder<T extends OWLObject, Type, Item> extends
-        BaseBuilder<T, Type> {
+public abstract class BaseSubBuilder<T extends OWLObject, B, I> extends
+        BaseBuilder<T, B> {
 
     @Nullable
-    private Item sub = null;
+    private I sub = null;
     @Nullable
-    private Item sup = null;
+    private I sup = null;
 
     /**
      * @param df
@@ -55,9 +55,9 @@ public abstract class BaseSubBuilder<T extends OWLObject, Type, Item> extends
      */
     @Nonnull
     @SuppressWarnings("unchecked")
-    public Type withSub(Item arg) {
+    public B withSub(I arg) {
         sub = arg;
-        return (Type) this;
+        return (B) this;
     }
 
     /**
@@ -67,16 +67,16 @@ public abstract class BaseSubBuilder<T extends OWLObject, Type, Item> extends
      */
     @Nonnull
     @SuppressWarnings("unchecked")
-    public Type withSup(Item arg) {
+    public B withSup(I arg) {
         sup = arg;
-        return (Type) this;
+        return (B) this;
     }
 
     /**
      * @return the sub
      */
     @Nonnull
-    public Item getSub() {
+    public I getSub() {
         return verifyNotNull(sub);
     }
 
@@ -84,7 +84,7 @@ public abstract class BaseSubBuilder<T extends OWLObject, Type, Item> extends
      * @return the sup
      */
     @Nonnull
-    public Item getSup() {
+    public I getSup() {
         return verifyNotNull(sup);
     }
 }
