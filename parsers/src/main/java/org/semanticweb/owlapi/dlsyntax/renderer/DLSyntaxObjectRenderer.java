@@ -583,30 +583,30 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
     }
 
     @Override
-    public void visit(OWLClass desc) {
-        if (desc.isOWLThing()) {
+    public void visit(OWLClass ce) {
+        if (ce.isOWLThing()) {
             write(TOP);
-        } else if (desc.isOWLNothing()) {
+        } else if (ce.isOWLNothing()) {
             write(BOTTOM);
         } else {
-            writeEntity(desc);
+            writeEntity(ce);
         }
     }
 
     @Override
-    public void visit(OWLObjectIntersectionOf desc) {
-        write(desc.getOperands(), AND, true);
+    public void visit(OWLObjectIntersectionOf ce) {
+        write(ce.getOperands(), AND, true);
     }
 
     @Override
-    public void visit(OWLObjectUnionOf desc) {
-        write(desc.getOperands(), OR, true);
+    public void visit(OWLObjectUnionOf ce) {
+        write(ce.getOperands(), OR, true);
     }
 
     @Override
-    public void visit(OWLObjectComplementOf desc) {
+    public void visit(OWLObjectComplementOf ce) {
         write(NOT);
-        writeNested(desc.getOperand());
+        writeNested(ce.getOperand());
     }
 
     private void
@@ -656,13 +656,13 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
     }
 
     @Override
-    public void visit(OWLObjectSomeValuesFrom desc) {
-        writeQuantifiedRestriction(desc, EXISTS);
+    public void visit(OWLObjectSomeValuesFrom ce) {
+        writeQuantifiedRestriction(ce, EXISTS);
     }
 
     @Override
-    public void visit(OWLObjectAllValuesFrom desc) {
-        writeQuantifiedRestriction(desc, FORALL);
+    public void visit(OWLObjectAllValuesFrom ce) {
+        writeQuantifiedRestriction(ce, FORALL);
     }
 
     private <V extends OWLObject> void writeValueRestriction(
@@ -677,37 +677,37 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
     }
 
     @Override
-    public void visit(OWLObjectHasValue desc) {
-        writeValueRestriction(desc, desc.getProperty());
+    public void visit(OWLObjectHasValue ce) {
+        writeValueRestriction(ce, ce.getProperty());
     }
 
     @Override
-    public void visit(OWLObjectMinCardinality desc) {
-        writeCardinalityRestriction(desc, MIN);
+    public void visit(OWLObjectMinCardinality ce) {
+        writeCardinalityRestriction(ce, MIN);
     }
 
     @Override
-    public void visit(OWLObjectExactCardinality desc) {
-        writeCardinalityRestriction(desc, EQUAL);
+    public void visit(OWLObjectExactCardinality ce) {
+        writeCardinalityRestriction(ce, EQUAL);
     }
 
     @Override
-    public void visit(OWLObjectMaxCardinality desc) {
-        writeCardinalityRestriction(desc, MAX);
+    public void visit(OWLObjectMaxCardinality ce) {
+        writeCardinalityRestriction(ce, MAX);
     }
 
     @Override
-    public void visit(OWLObjectHasSelf desc) {
+    public void visit(OWLObjectHasSelf ce) {
         write(EXISTS);
         writeSpace();
-        desc.getProperty().accept(this);
+        ce.getProperty().accept(this);
         write(" .");
         write(SELF);
     }
 
     @Override
-    public void visit(OWLObjectOneOf desc) {
-        for (Iterator<OWLIndividual> it = desc.getIndividuals().iterator(); it
+    public void visit(OWLObjectOneOf ce) {
+        for (Iterator<OWLIndividual> it = ce.getIndividuals().iterator(); it
                 .hasNext();) {
             write("{");
             it.next().accept(this);
@@ -721,33 +721,33 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
     }
 
     @Override
-    public void visit(OWLDataSomeValuesFrom desc) {
-        writeQuantifiedRestriction(desc, EXISTS);
+    public void visit(OWLDataSomeValuesFrom ce) {
+        writeQuantifiedRestriction(ce, EXISTS);
     }
 
     @Override
-    public void visit(OWLDataAllValuesFrom desc) {
-        writeQuantifiedRestriction(desc, FORALL);
+    public void visit(OWLDataAllValuesFrom ce) {
+        writeQuantifiedRestriction(ce, FORALL);
     }
 
     @Override
-    public void visit(OWLDataHasValue desc) {
-        writeValueRestriction(desc, desc.getProperty());
+    public void visit(OWLDataHasValue ce) {
+        writeValueRestriction(ce, ce.getProperty());
     }
 
     @Override
-    public void visit(OWLDataMinCardinality desc) {
-        writeCardinalityRestriction(desc, MIN);
+    public void visit(OWLDataMinCardinality ce) {
+        writeCardinalityRestriction(ce, MIN);
     }
 
     @Override
-    public void visit(OWLDataExactCardinality desc) {
-        writeCardinalityRestriction(desc, EQUAL);
+    public void visit(OWLDataExactCardinality ce) {
+        writeCardinalityRestriction(ce, EQUAL);
     }
 
     @Override
-    public void visit(OWLDataMaxCardinality desc) {
-        writeCardinalityRestriction(desc, MAX);
+    public void visit(OWLDataMaxCardinality ce) {
+        writeCardinalityRestriction(ce, MAX);
     }
 
     @Override

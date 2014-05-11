@@ -114,23 +114,23 @@ public class NamedConjunctChecker {
         NamedConjunctCheckerVisitor() {}
 
         @Override
-        public void visit(OWLClass desc) {
+        public void visit(OWLClass ce) {
             if (conjunct == null) {
                 found = true;
                 if (collect) {
-                    conjuncts.add(desc);
+                    conjuncts.add(ce);
                 }
-            } else if (desc.equals(conjunct)) {
+            } else if (ce.equals(conjunct)) {
                 found = true;
                 if (collect) {
-                    conjuncts.add(desc);
+                    conjuncts.add(ce);
                 }
             }
         }
 
         @Override
-        public void visit(OWLObjectIntersectionOf desc) {
-            for (OWLClassExpression op : desc.getOperands()) {
+        public void visit(OWLObjectIntersectionOf ce) {
+            for (OWLClassExpression op : ce.getOperands()) {
                 op.accept(this);
                 // Early termination if we have found a named conjunct
                 // and we don't need to collect

@@ -30,7 +30,7 @@ class EquivalentVisitor<C extends OWLObject> extends
 
     @Nonnull
     @Override
-    protected Set<C> doDefault(OWLAxiom axiom) {
+    protected Set<C> doDefault(OWLAxiom object) {
         return CollectionFactory.emptySet();
     }
 

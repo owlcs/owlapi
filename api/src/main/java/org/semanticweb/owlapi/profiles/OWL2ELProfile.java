@@ -163,72 +163,72 @@ public class OWL2ELProfile implements OWLProfile {
         }
 
         @Override
-        public void visit(OWLDataAllValuesFrom desc) {
+        public void visit(OWLDataAllValuesFrom ce) {
             profileViolations.add(new UseOfIllegalClassExpression(
-                    getCurrentOntology(), getCurrentAxiom(), desc));
+                    getCurrentOntology(), getCurrentAxiom(), ce));
         }
 
         @Override
-        public void visit(OWLDataExactCardinality desc) {
+        public void visit(OWLDataExactCardinality ce) {
             profileViolations.add(new UseOfIllegalClassExpression(
-                    getCurrentOntology(), getCurrentAxiom(), desc));
+                    getCurrentOntology(), getCurrentAxiom(), ce));
         }
 
         @Override
-        public void visit(OWLDataMaxCardinality desc) {
+        public void visit(OWLDataMaxCardinality ce) {
             profileViolations.add(new UseOfIllegalClassExpression(
-                    getCurrentOntology(), getCurrentAxiom(), desc));
+                    getCurrentOntology(), getCurrentAxiom(), ce));
         }
 
         @Override
-        public void visit(OWLDataMinCardinality desc) {
+        public void visit(OWLDataMinCardinality ce) {
             profileViolations.add(new UseOfIllegalClassExpression(
-                    getCurrentOntology(), getCurrentAxiom(), desc));
+                    getCurrentOntology(), getCurrentAxiom(), ce));
         }
 
         @Override
-        public void visit(OWLObjectAllValuesFrom desc) {
+        public void visit(OWLObjectAllValuesFrom ce) {
             profileViolations.add(new UseOfIllegalClassExpression(
-                    getCurrentOntology(), getCurrentAxiom(), desc));
+                    getCurrentOntology(), getCurrentAxiom(), ce));
         }
 
         @Override
-        public void visit(OWLObjectComplementOf desc) {
+        public void visit(OWLObjectComplementOf ce) {
             profileViolations.add(new UseOfIllegalClassExpression(
-                    getCurrentOntology(), getCurrentAxiom(), desc));
+                    getCurrentOntology(), getCurrentAxiom(), ce));
         }
 
         @Override
-        public void visit(OWLObjectExactCardinality desc) {
+        public void visit(OWLObjectExactCardinality ce) {
             profileViolations.add(new UseOfIllegalClassExpression(
-                    getCurrentOntology(), getCurrentAxiom(), desc));
+                    getCurrentOntology(), getCurrentAxiom(), ce));
         }
 
         @Override
-        public void visit(OWLObjectMaxCardinality desc) {
+        public void visit(OWLObjectMaxCardinality ce) {
             profileViolations.add(new UseOfIllegalClassExpression(
-                    getCurrentOntology(), getCurrentAxiom(), desc));
+                    getCurrentOntology(), getCurrentAxiom(), ce));
         }
 
         @Override
-        public void visit(OWLObjectMinCardinality desc) {
+        public void visit(OWLObjectMinCardinality ce) {
             profileViolations.add(new UseOfIllegalClassExpression(
-                    getCurrentOntology(), getCurrentAxiom(), desc));
+                    getCurrentOntology(), getCurrentAxiom(), ce));
         }
 
         @Override
-        public void visit(OWLObjectOneOf desc) {
-            if (desc.getIndividuals().size() != 1) {
+        public void visit(OWLObjectOneOf ce) {
+            if (ce.getIndividuals().size() != 1) {
                 profileViolations
                         .add(new UseOfObjectOneOfWithMultipleIndividuals(
-                                getCurrentOntology(), getCurrentAxiom(), desc));
+                                getCurrentOntology(), getCurrentAxiom(), ce));
             }
         }
 
         @Override
-        public void visit(OWLObjectUnionOf desc) {
+        public void visit(OWLObjectUnionOf ce) {
             profileViolations.add(new UseOfIllegalClassExpression(
-                    getCurrentOntology(), getCurrentAxiom(), desc));
+                    getCurrentOntology(), getCurrentAxiom(), ce));
         }
 
         @Override

@@ -599,9 +599,9 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
 
     @Override
     public void
-            setOntologyFormat(OWLOntology ontology, OWLOntologyFormat format) {
+            setOntologyFormat(OWLOntology ontology, OWLOntologyFormat ontologyFormat) {
         OWLOntologyID ontologyID = ontology.getOntologyID();
-        ontologyFormatsByOntology.put(ontologyID, format);
+        ontologyFormatsByOntology.put(ontologyID, ontologyFormat);
     }
 
     @Nonnull
@@ -686,13 +686,13 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     }
 
     @Override
-    public OWLOntology createOntology(Set<OWLAxiom> axioms, IRI iri)
+    public OWLOntology createOntology(Set<OWLAxiom> axioms, IRI ontologyIRI)
             throws OWLOntologyCreationException {
-        if (contains(iri)) {
+        if (contains(ontologyIRI)) {
             throw new OWLOntologyAlreadyExistsException(new OWLOntologyID(
-                    Optional.fromNullable(iri), Optional.<IRI> absent()));
+                    Optional.fromNullable(ontologyIRI), Optional.<IRI> absent()));
         }
-        OWLOntology ont = createOntology(iri);
+        OWLOntology ont = createOntology(ontologyIRI);
         addAxioms(ont, axioms);
         return ont;
     }

@@ -220,164 +220,164 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         }
 
         @Override
-        public void visit(OWLClass desc) {
-            if (signature.contains(desc)) {
-                newClassExpression = desc;
+        public void visit(OWLClass ce) {
+            if (signature.contains(ce)) {
+                newClassExpression = ce;
             } else {
                 newClassExpression = df.getOWLNothing();
             }
         }
 
         @Override
-        public void visit(OWLDataAllValuesFrom desc) {
-            if (signature.contains(desc.getProperty().asOWLDataProperty())) {
-                newClassExpression = desc;
+        public void visit(OWLDataAllValuesFrom ce) {
+            if (signature.contains(ce.getProperty().asOWLDataProperty())) {
+                newClassExpression = ce;
             } else {
                 newClassExpression = df.getOWLThing();
             }
         }
 
         @Override
-        public void visit(OWLDataExactCardinality desc) {
-            if (signature.contains(desc.getProperty().asOWLDataProperty())) {
-                newClassExpression = desc;
+        public void visit(OWLDataExactCardinality ce) {
+            if (signature.contains(ce.getProperty().asOWLDataProperty())) {
+                newClassExpression = ce;
             } else {
                 newClassExpression = df.getOWLNothing();
             }
         }
 
         @Override
-        public void visit(OWLDataMaxCardinality desc) {
-            if (signature.contains(desc.getProperty().asOWLDataProperty())) {
-                newClassExpression = desc;
+        public void visit(OWLDataMaxCardinality ce) {
+            if (signature.contains(ce.getProperty().asOWLDataProperty())) {
+                newClassExpression = ce;
             } else {
                 newClassExpression = df.getOWLThing();
             }
         }
 
         @Override
-        public void visit(OWLDataMinCardinality desc) {
-            if (signature.contains(desc.getProperty().asOWLDataProperty())) {
-                newClassExpression = desc;
+        public void visit(OWLDataMinCardinality ce) {
+            if (signature.contains(ce.getProperty().asOWLDataProperty())) {
+                newClassExpression = ce;
             } else {
                 newClassExpression = df.getOWLNothing();
             }
         }
 
         @Override
-        public void visit(OWLDataSomeValuesFrom desc) {
-            if (signature.contains(desc.getProperty().asOWLDataProperty())) {
-                newClassExpression = desc;
+        public void visit(OWLDataSomeValuesFrom ce) {
+            if (signature.contains(ce.getProperty().asOWLDataProperty())) {
+                newClassExpression = ce;
             } else {
                 newClassExpression = df.getOWLNothing();
             }
         }
 
         @Override
-        public void visit(OWLDataHasValue desc) {
+        public void visit(OWLDataHasValue ce) {
             newClassExpression = df.getOWLNothing();
         }
 
         @Override
-        public void visit(OWLDisjointClassesAxiom ax) {
-            Set<OWLClassExpression> disjointclasses = replaceBottom(ax
+        public void visit(OWLDisjointClassesAxiom axiom) {
+            Set<OWLClassExpression> disjointclasses = replaceBottom(axiom
                     .getClassExpressions());
             newAxiom = df.getOWLDisjointClassesAxiom(disjointclasses);
         }
 
         @Override
-        public void visit(OWLEquivalentClassesAxiom ax) {
-            Set<OWLClassExpression> eqclasses = replaceBottom(ax
+        public void visit(OWLEquivalentClassesAxiom axiom) {
+            Set<OWLClassExpression> eqclasses = replaceBottom(axiom
                     .getClassExpressions());
             newAxiom = df.getOWLEquivalentClassesAxiom(eqclasses);
         }
 
         @Override
-        public void visit(OWLObjectAllValuesFrom desc) {
-            if (signature.contains(desc.getProperty().getNamedProperty())) {
+        public void visit(OWLObjectAllValuesFrom ce) {
+            if (signature.contains(ce.getProperty().getNamedProperty())) {
                 newClassExpression = df.getOWLObjectAllValuesFrom(
-                        desc.getProperty(), replaceBottom(desc.getFiller()));
+                        ce.getProperty(), replaceBottom(ce.getFiller()));
             } else {
                 newClassExpression = df.getOWLThing();
             }
         }
 
         @Override
-        public void visit(OWLObjectComplementOf desc) {
-            newClassExpression = df.getOWLObjectComplementOf(replaceBottom(desc
+        public void visit(OWLObjectComplementOf ce) {
+            newClassExpression = df.getOWLObjectComplementOf(replaceBottom(ce
                     .getOperand()));
         }
 
         @Override
-        public void visit(OWLObjectExactCardinality desc) {
-            if (signature.contains(desc.getProperty().getNamedProperty())) {
-                newClassExpression = desc;
+        public void visit(OWLObjectExactCardinality ce) {
+            if (signature.contains(ce.getProperty().getNamedProperty())) {
+                newClassExpression = ce;
             } else {
                 newClassExpression = df.getOWLNothing();
             }
         }
 
         @Override
-        public void visit(OWLObjectIntersectionOf desc) {
-            Set<OWLClassExpression> operands = desc.getOperands();
+        public void visit(OWLObjectIntersectionOf ce) {
+            Set<OWLClassExpression> operands = ce.getOperands();
             newClassExpression = df
                     .getOWLObjectIntersectionOf(replaceBottom(operands));
         }
 
         @Override
-        public void visit(OWLObjectMaxCardinality desc) {
-            if (signature.contains(desc.getProperty().getNamedProperty())) {
-                newClassExpression = desc;
+        public void visit(OWLObjectMaxCardinality ce) {
+            if (signature.contains(ce.getProperty().getNamedProperty())) {
+                newClassExpression = ce;
             } else {
                 newClassExpression = df.getOWLThing();
             }
         }
 
         @Override
-        public void visit(OWLObjectMinCardinality desc) {
-            if (signature.contains(desc.getProperty().getNamedProperty())) {
-                newClassExpression = desc;
+        public void visit(OWLObjectMinCardinality ce) {
+            if (signature.contains(ce.getProperty().getNamedProperty())) {
+                newClassExpression = ce;
             } else {
                 newClassExpression = df.getOWLNothing();
             }
         }
 
         @Override
-        public void visit(OWLObjectOneOf desc) {
+        public void visit(OWLObjectOneOf ce) {
             newClassExpression = df.getOWLNothing();
         }
 
         @Override
-        public void visit(OWLObjectHasSelf desc) {
+        public void visit(OWLObjectHasSelf ce) {
             newClassExpression = df.getOWLNothing();
         }
 
         @Override
-        public void visit(OWLObjectSomeValuesFrom desc) {
-            if (signature.contains(desc.getProperty().getNamedProperty())) {
+        public void visit(OWLObjectSomeValuesFrom ce) {
+            if (signature.contains(ce.getProperty().getNamedProperty())) {
                 newClassExpression = df.getOWLObjectSomeValuesFrom(
-                        desc.getProperty(), replaceBottom(desc.getFiller()));
+                        ce.getProperty(), replaceBottom(ce.getFiller()));
             } else {
                 newClassExpression = df.getOWLNothing();
             }
         }
 
         @Override
-        public void visit(OWLObjectUnionOf desc) {
-            Set<OWLClassExpression> operands = desc.getOperands();
+        public void visit(OWLObjectUnionOf ce) {
+            Set<OWLClassExpression> operands = ce.getOperands();
             newClassExpression = df
                     .getOWLObjectUnionOf(replaceBottom(operands));
         }
 
         @Override
-        public void visit(OWLObjectHasValue desc) {
+        public void visit(OWLObjectHasValue ce) {
             newClassExpression = df.getOWLNothing();
         }
 
         @Override
-        public void visit(OWLSubClassOfAxiom ax) {
-            OWLClassExpression sup = replaceBottom(ax.getSuperClass());
-            OWLClassExpression sub = replaceBottom(ax.getSubClass());
+        public void visit(OWLSubClassOfAxiom axiom) {
+            OWLClassExpression sup = replaceBottom(axiom.getSuperClass());
+            OWLClassExpression sub = replaceBottom(axiom.getSubClass());
             newAxiom = df.getOWLSubClassOfAxiom(sub, sup);
         }
     }

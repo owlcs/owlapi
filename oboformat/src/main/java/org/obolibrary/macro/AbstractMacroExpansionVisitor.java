@@ -153,40 +153,40 @@ public abstract class AbstractMacroExpansionVisitor extends
     }
 
     @Override
-    public OWLClassExpression visit(@Nonnull OWLObjectIntersectionOf desc) {
+    public OWLClassExpression visit(@Nonnull OWLObjectIntersectionOf ce) {
         Set<OWLClassExpression> ops = new HashSet<OWLClassExpression>();
-        for (OWLClassExpression op : desc.getOperands()) {
+        for (OWLClassExpression op : ce.getOperands()) {
             ops.add(op.accept(this));
         }
         return dataFactory.getOWLObjectIntersectionOf(ops);
     }
 
     @Override
-    public OWLClassExpression visit(@Nonnull OWLObjectUnionOf desc) {
+    public OWLClassExpression visit(@Nonnull OWLObjectUnionOf ce) {
         Set<OWLClassExpression> ops = new HashSet<OWLClassExpression>();
-        for (OWLClassExpression op : desc.getOperands()) {
+        for (OWLClassExpression op : ce.getOperands()) {
             ops.add(op.accept(this));
         }
         return dataFactory.getOWLObjectUnionOf(ops);
     }
 
     @Override
-    public OWLClassExpression visit(@Nonnull OWLObjectComplementOf desc) {
-        return dataFactory.getOWLObjectComplementOf(desc.getOperand().accept(
+    public OWLClassExpression visit(@Nonnull OWLObjectComplementOf ce) {
+        return dataFactory.getOWLObjectComplementOf(ce.getOperand().accept(
                 this));
     }
 
     @Nonnull
     @Override
-    public OWLClassExpression visit(@Nonnull OWLObjectSomeValuesFrom desc) {
-        OWLClassExpression filler = desc.getFiller();
-        OWLObjectPropertyExpression p = desc.getProperty();
+    public OWLClassExpression visit(@Nonnull OWLObjectSomeValuesFrom ce) {
+        OWLClassExpression filler = ce.getFiller();
+        OWLObjectPropertyExpression p = ce.getProperty();
         OWLClassExpression result = null;
         if (p instanceof OWLObjectProperty) {
             result = expandOWLObjSomeVal(filler, p);
         }
         if (result == null) {
-            result = dataFactory.getOWLObjectSomeValuesFrom(desc.getProperty(),
+            result = dataFactory.getOWLObjectSomeValuesFrom(ce.getProperty(),
                     filler.accept(this));
         }
         return result;
@@ -199,15 +199,15 @@ public abstract class AbstractMacroExpansionVisitor extends
 
     @Nonnull
     @Override
-    public OWLClassExpression visit(@Nonnull OWLObjectHasValue desc) {
+    public OWLClassExpression visit(@Nonnull OWLObjectHasValue ce) {
         OWLClassExpression result = null;
-        OWLIndividual filler = desc.getFiller();
-        OWLObjectPropertyExpression p = desc.getProperty();
+        OWLIndividual filler = ce.getFiller();
+        OWLObjectPropertyExpression p = ce.getProperty();
         if (p instanceof OWLObjectProperty) {
-            result = expandOWLObjHasVal(desc, filler, p);
+            result = expandOWLObjHasVal(ce, filler, p);
         }
         if (result == null) {
-            result = dataFactory.getOWLObjectHasValue(desc.getProperty(),
+            result = dataFactory.getOWLObjectHasValue(ce.getProperty(),
                     filler);
         }
         return result;
@@ -219,64 +219,64 @@ public abstract class AbstractMacroExpansionVisitor extends
             @Nonnull OWLObjectPropertyExpression p);
 
     @Override
-    public OWLClassExpression visit(@Nonnull OWLObjectAllValuesFrom desc) {
-        return desc.getFiller().accept(this);
+    public OWLClassExpression visit(@Nonnull OWLObjectAllValuesFrom ce) {
+        return ce.getFiller().accept(this);
     }
 
     @Override
-    public OWLClassExpression visit(@Nonnull OWLObjectMinCardinality desc) {
-        OWLClassExpression filler = desc.getFiller().accept(this);
-        return dataFactory.getOWLObjectMinCardinality(desc.getCardinality(),
-                desc.getProperty(), filler);
+    public OWLClassExpression visit(@Nonnull OWLObjectMinCardinality ce) {
+        OWLClassExpression filler = ce.getFiller().accept(this);
+        return dataFactory.getOWLObjectMinCardinality(ce.getCardinality(),
+                ce.getProperty(), filler);
     }
 
     @Override
-    public OWLClassExpression visit(@Nonnull OWLObjectExactCardinality desc) {
-        return desc.asIntersectionOfMinMax().accept(this);
+    public OWLClassExpression visit(@Nonnull OWLObjectExactCardinality ce) {
+        return ce.asIntersectionOfMinMax().accept(this);
     }
 
     @Override
-    public OWLClassExpression visit(@Nonnull OWLObjectMaxCardinality desc) {
-        OWLClassExpression filler = desc.getFiller().accept(this);
-        return dataFactory.getOWLObjectMaxCardinality(desc.getCardinality(),
-                desc.getProperty(), filler);
+    public OWLClassExpression visit(@Nonnull OWLObjectMaxCardinality ce) {
+        OWLClassExpression filler = ce.getFiller().accept(this);
+        return dataFactory.getOWLObjectMaxCardinality(ce.getCardinality(),
+                ce.getProperty(), filler);
     }
 
     @Override
-    public OWLClassExpression visit(@Nonnull OWLDataSomeValuesFrom desc) {
-        OWLDataRange filler = desc.getFiller().accept(this);
-        return dataFactory.getOWLDataSomeValuesFrom(desc.getProperty(), filler);
+    public OWLClassExpression visit(@Nonnull OWLDataSomeValuesFrom ce) {
+        OWLDataRange filler = ce.getFiller().accept(this);
+        return dataFactory.getOWLDataSomeValuesFrom(ce.getProperty(), filler);
     }
 
     @Override
-    public OWLClassExpression visit(@Nonnull OWLDataAllValuesFrom desc) {
-        OWLDataRange filler = desc.getFiller().accept(this);
-        return dataFactory.getOWLDataAllValuesFrom(desc.getProperty(), filler);
+    public OWLClassExpression visit(@Nonnull OWLDataAllValuesFrom ce) {
+        OWLDataRange filler = ce.getFiller().accept(this);
+        return dataFactory.getOWLDataAllValuesFrom(ce.getProperty(), filler);
     }
 
     @Override
-    public OWLClassExpression visit(@Nonnull OWLDataHasValue desc) {
-        return desc.asSomeValuesFrom().accept(this);
+    public OWLClassExpression visit(@Nonnull OWLDataHasValue ce) {
+        return ce.asSomeValuesFrom().accept(this);
     }
 
     @Override
-    public OWLClassExpression visit(@Nonnull OWLDataExactCardinality desc) {
-        return desc.asIntersectionOfMinMax().accept(this);
+    public OWLClassExpression visit(@Nonnull OWLDataExactCardinality ce) {
+        return ce.asIntersectionOfMinMax().accept(this);
     }
 
     @Override
-    public OWLClassExpression visit(@Nonnull OWLDataMaxCardinality desc) {
-        int card = desc.getCardinality();
-        OWLDataRange filler = desc.getFiller().accept(this);
-        return dataFactory.getOWLDataMaxCardinality(card, desc.getProperty(),
+    public OWLClassExpression visit(@Nonnull OWLDataMaxCardinality ce) {
+        int card = ce.getCardinality();
+        OWLDataRange filler = ce.getFiller().accept(this);
+        return dataFactory.getOWLDataMaxCardinality(card, ce.getProperty(),
                 filler);
     }
 
     @Override
-    public OWLClassExpression visit(@Nonnull OWLDataMinCardinality desc) {
-        int card = desc.getCardinality();
-        OWLDataRange filler = desc.getFiller().accept(this);
-        return dataFactory.getOWLDataMinCardinality(card, desc.getProperty(),
+    public OWLClassExpression visit(@Nonnull OWLDataMinCardinality ce) {
+        int card = ce.getCardinality();
+        OWLDataRange filler = ce.getFiller().accept(this);
+        return dataFactory.getOWLDataMinCardinality(card, ce.getProperty(),
                 filler);
     }
 
@@ -377,18 +377,18 @@ public abstract class AbstractMacroExpansionVisitor extends
     }
 
     @Override
-    public OWLClassExpression visit(OWLClass desc) {
-        return desc;
+    public OWLClassExpression visit(OWLClass ce) {
+        return ce;
     }
 
     @Override
-    public OWLClassExpression visit(OWLObjectHasSelf desc) {
-        return desc;
+    public OWLClassExpression visit(OWLObjectHasSelf ce) {
+        return ce;
     }
 
     @Override
-    public OWLClassExpression visit(OWLObjectOneOf desc) {
-        return desc;
+    public OWLClassExpression visit(OWLObjectOneOf ce) {
+        return ce;
     }
 
     @Override

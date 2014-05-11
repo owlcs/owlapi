@@ -272,14 +272,14 @@ public class Clause {
     }
 
     @Override
-    public boolean equals(Object e) {
-        if (e == null || !(e instanceof Clause)) {
+    public boolean equals(Object obj) {
+        if (obj == null || !(obj instanceof Clause)) {
             return false;
         }
-        if (e == this) {
+        if (obj == this) {
             return true;
         }
-        Clause other = (Clause) e;
+        Clause other = (Clause) obj;
         if (!getTag().equals(other.getTag())) {
             return false;
         }

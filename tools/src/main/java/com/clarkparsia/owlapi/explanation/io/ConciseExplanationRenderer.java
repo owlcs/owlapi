@@ -34,10 +34,10 @@ public class ConciseExplanationRenderer implements ExplanationRenderer {
     private PrintWriter writer;
 
     @Override
-    public void startRendering(Writer w) {
-        checkNotNull(w, "w cannot be null");
-        writer = w instanceof PrintWriter ? (PrintWriter) w
-                : new PrintWriter(w);
+    public void startRendering(Writer writer) {
+        checkNotNull(writer, "w cannot be null");
+        this.writer = writer instanceof PrintWriter ? (PrintWriter) writer
+                : new PrintWriter(writer);
     }
 
     @Override

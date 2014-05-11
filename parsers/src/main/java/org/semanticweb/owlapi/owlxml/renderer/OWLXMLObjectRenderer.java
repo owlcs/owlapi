@@ -459,158 +459,158 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLClass desc) {
+    public void visit(OWLClass ce) {
         writer.writeStartElement(CLASS);
-        writer.writeIRIAttribute(desc.getIRI());
+        writer.writeIRIAttribute(ce.getIRI());
         writer.writeEndElement();
     }
 
     @Override
-    public void visit(OWLDataAllValuesFrom desc) {
+    public void visit(OWLDataAllValuesFrom ce) {
         writer.writeStartElement(DATA_ALL_VALUES_FROM);
-        desc.getProperty().accept(this);
-        desc.getFiller().accept(this);
+        ce.getProperty().accept(this);
+        ce.getFiller().accept(this);
         writer.writeEndElement();
     }
 
     @Override
-    public void visit(OWLDataExactCardinality desc) {
+    public void visit(OWLDataExactCardinality ce) {
         writer.writeStartElement(DATA_EXACT_CARDINALITY);
-        writer.writeCardinalityAttribute(desc.getCardinality());
-        desc.getProperty().accept(this);
-        if (desc.isQualified()) {
-            desc.getFiller().accept(this);
+        writer.writeCardinalityAttribute(ce.getCardinality());
+        ce.getProperty().accept(this);
+        if (ce.isQualified()) {
+            ce.getFiller().accept(this);
         }
         writer.writeEndElement();
     }
 
     @Override
-    public void visit(OWLDataMaxCardinality desc) {
+    public void visit(OWLDataMaxCardinality ce) {
         writer.writeStartElement(DATA_MAX_CARDINALITY);
-        writer.writeCardinalityAttribute(desc.getCardinality());
-        desc.getProperty().accept(this);
-        if (desc.isQualified()) {
-            desc.getFiller().accept(this);
+        writer.writeCardinalityAttribute(ce.getCardinality());
+        ce.getProperty().accept(this);
+        if (ce.isQualified()) {
+            ce.getFiller().accept(this);
         }
         writer.writeEndElement();
     }
 
     @Override
-    public void visit(OWLDataMinCardinality desc) {
+    public void visit(OWLDataMinCardinality ce) {
         writer.writeStartElement(DATA_MIN_CARDINALITY);
-        writer.writeCardinalityAttribute(desc.getCardinality());
-        desc.getProperty().accept(this);
-        if (desc.isQualified()) {
-            desc.getFiller().accept(this);
+        writer.writeCardinalityAttribute(ce.getCardinality());
+        ce.getProperty().accept(this);
+        if (ce.isQualified()) {
+            ce.getFiller().accept(this);
         }
         writer.writeEndElement();
     }
 
     @Override
-    public void visit(OWLDataSomeValuesFrom desc) {
+    public void visit(OWLDataSomeValuesFrom ce) {
         writer.writeStartElement(DATA_SOME_VALUES_FROM);
-        desc.getProperty().accept(this);
-        desc.getFiller().accept(this);
+        ce.getProperty().accept(this);
+        ce.getFiller().accept(this);
         writer.writeEndElement();
     }
 
     @Override
-    public void visit(OWLDataHasValue desc) {
+    public void visit(OWLDataHasValue ce) {
         writer.writeStartElement(DATA_HAS_VALUE);
-        desc.getProperty().accept(this);
-        desc.getFiller().accept(this);
+        ce.getProperty().accept(this);
+        ce.getFiller().accept(this);
         writer.writeEndElement();
     }
 
     @Override
-    public void visit(OWLObjectAllValuesFrom desc) {
+    public void visit(OWLObjectAllValuesFrom ce) {
         writer.writeStartElement(OBJECT_ALL_VALUES_FROM);
-        desc.getProperty().accept(this);
-        desc.getFiller().accept(this);
+        ce.getProperty().accept(this);
+        ce.getFiller().accept(this);
         writer.writeEndElement();
     }
 
     @Override
-    public void visit(OWLObjectComplementOf desc) {
+    public void visit(OWLObjectComplementOf ce) {
         writer.writeStartElement(OBJECT_COMPLEMENT_OF);
-        desc.getOperand().accept(this);
+        ce.getOperand().accept(this);
         writer.writeEndElement();
     }
 
     @Override
-    public void visit(OWLObjectExactCardinality desc) {
+    public void visit(OWLObjectExactCardinality ce) {
         writer.writeStartElement(OBJECT_EXACT_CARDINALITY);
-        writer.writeCardinalityAttribute(desc.getCardinality());
-        desc.getProperty().accept(this);
-        if (desc.isQualified()) {
-            desc.getFiller().accept(this);
+        writer.writeCardinalityAttribute(ce.getCardinality());
+        ce.getProperty().accept(this);
+        if (ce.isQualified()) {
+            ce.getFiller().accept(this);
         }
         writer.writeEndElement();
     }
 
     @Override
-    public void visit(OWLObjectIntersectionOf desc) {
+    public void visit(OWLObjectIntersectionOf ce) {
         writer.writeStartElement(OBJECT_INTERSECTION_OF);
-        render(desc.getOperands());
+        render(ce.getOperands());
         writer.writeEndElement();
     }
 
     @Override
-    public void visit(OWLObjectMaxCardinality desc) {
+    public void visit(OWLObjectMaxCardinality ce) {
         writer.writeStartElement(OBJECT_MAX_CARDINALITY);
-        writer.writeCardinalityAttribute(desc.getCardinality());
-        desc.getProperty().accept(this);
-        if (desc.isQualified()) {
-            desc.getFiller().accept(this);
+        writer.writeCardinalityAttribute(ce.getCardinality());
+        ce.getProperty().accept(this);
+        if (ce.isQualified()) {
+            ce.getFiller().accept(this);
         }
         writer.writeEndElement();
     }
 
     @Override
-    public void visit(OWLObjectMinCardinality desc) {
+    public void visit(OWLObjectMinCardinality ce) {
         writer.writeStartElement(OBJECT_MIN_CARDINALITY);
-        writer.writeCardinalityAttribute(desc.getCardinality());
-        desc.getProperty().accept(this);
-        if (desc.isQualified()) {
-            desc.getFiller().accept(this);
+        writer.writeCardinalityAttribute(ce.getCardinality());
+        ce.getProperty().accept(this);
+        if (ce.isQualified()) {
+            ce.getFiller().accept(this);
         }
         writer.writeEndElement();
     }
 
     @Override
-    public void visit(OWLObjectOneOf desc) {
+    public void visit(OWLObjectOneOf ce) {
         writer.writeStartElement(OBJECT_ONE_OF);
-        render(desc.getIndividuals());
+        render(ce.getIndividuals());
         writer.writeEndElement();
     }
 
     @Override
-    public void visit(OWLObjectHasSelf desc) {
+    public void visit(OWLObjectHasSelf ce) {
         writer.writeStartElement(OBJECT_HAS_SELF);
-        desc.getProperty().accept(this);
+        ce.getProperty().accept(this);
         writer.writeEndElement();
     }
 
     @Override
-    public void visit(OWLObjectSomeValuesFrom desc) {
+    public void visit(OWLObjectSomeValuesFrom ce) {
         writer.writeStartElement(OBJECT_SOME_VALUES_FROM);
-        desc.getProperty().accept(this);
-        desc.getFiller().accept(this);
+        ce.getProperty().accept(this);
+        ce.getFiller().accept(this);
         writer.writeEndElement();
     }
 
     @Override
-    public void visit(OWLObjectUnionOf desc) {
+    public void visit(OWLObjectUnionOf ce) {
         writer.writeStartElement(OBJECT_UNION_OF);
-        render(desc.getOperands());
+        render(ce.getOperands());
         writer.writeEndElement();
     }
 
     @Override
-    public void visit(OWLObjectHasValue desc) {
+    public void visit(OWLObjectHasValue ce) {
         writer.writeStartElement(OBJECT_HAS_VALUE);
-        desc.getProperty().accept(this);
-        desc.getFiller().accept(this);
+        ce.getProperty().accept(this);
+        ce.getFiller().accept(this);
         writer.writeEndElement();
     }
 
@@ -722,13 +722,13 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLAnnotation annotation) {
+    public void visit(OWLAnnotation node) {
         writer.writeStartElement(ANNOTATION);
-        for (OWLAnnotation anno : annotation.getAnnotations()) {
+        for (OWLAnnotation anno : node.getAnnotations()) {
             anno.accept(this);
         }
-        annotation.getProperty().accept(this);
-        annotation.getValue().accept(this);
+        node.getProperty().accept(this);
+        node.getValue().accept(this);
         writer.writeEndElement();
     }
 

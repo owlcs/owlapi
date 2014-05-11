@@ -366,9 +366,9 @@ public class OboInOwlCardinalityTools {
         public List<OWLAnnotationAssertionAxiom> handleConflict(
                 @Nonnull OWLEntity entity,
                 @Nonnull OWLAnnotationProperty property,
-                @Nonnull Collection<OWLAnnotationAssertionAxiom> annotations)
+                @Nonnull Collection<OWLAnnotationAssertionAxiom> axioms)
                 throws AnnotationCardinalityException {
-            if (annotations.size() > 1) {
+            if (axioms.size() > 1) {
                 String tag = OWLAPIOwl2Obo.owlObjectToTag(property);
                 if (tag == null) {
                     tag = property.getIRI().toString();
@@ -377,7 +377,7 @@ public class OboInOwlCardinalityTools {
                 // (may be random)
                 LOGGER.info("Fixing multiple {} tags for entity: {}", tag,
                         entity.getIRI());
-                return listOfFirst(annotations);
+                return listOfFirst(axioms);
             }
             throw new AnnotationCardinalityException(
                     "Could not resolve conflict for property: " + property);

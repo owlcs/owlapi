@@ -96,9 +96,9 @@ public class SatisfiabilityConverter {
         }
 
         @Override
-        protected OWLClassExpression doDefault(OWLAxiom axiom) {
+        protected OWLClassExpression doDefault(OWLAxiom object) {
             throw new OWLRuntimeException(
-                    "Not implemented: Cannot generate explanation for " + axiom);
+                    "Not implemented: Cannot generate explanation for " + object);
         }
 
         @Override

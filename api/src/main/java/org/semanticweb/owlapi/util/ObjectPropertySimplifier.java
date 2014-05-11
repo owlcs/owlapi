@@ -92,20 +92,20 @@ public class ObjectPropertySimplifier {
         }
 
         @Override
-        public void visit(OWLObjectProperty p) {
-            property = p;
+        public void visit(OWLObjectProperty property) {
+            this.property = property;
         }
 
         @Override
-        public void visit(OWLObjectInverseOf p) {
+        public void visit(OWLObjectInverseOf property) {
             depth++;
-            p.getInverse().accept(this);
+            property.getInverse().accept(this);
         }
 
         @Override
-        public void visit(OWLDataProperty p) {}
+        public void visit(OWLDataProperty property) {}
 
         @Override
-        public void visit(OWLAnnotationProperty p) {}
+        public void visit(OWLAnnotationProperty property) {}
     }
 }

@@ -376,106 +376,106 @@ public abstract class AbstractEntityRegistrationManager extends
 
     // OWLClassExpressionVisitor
     @Override
-    public void visit(@Nonnull OWLObjectIntersectionOf desc) {
-        for (OWLClassExpression operand : desc.getOperands()) {
+    public void visit(@Nonnull OWLObjectIntersectionOf ce) {
+        for (OWLClassExpression operand : ce.getOperands()) {
             operand.accept(this);
         }
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectUnionOf desc) {
-        for (OWLClassExpression operand : desc.getOperands()) {
+    public void visit(@Nonnull OWLObjectUnionOf ce) {
+        for (OWLClassExpression operand : ce.getOperands()) {
             operand.accept(this);
         }
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectComplementOf desc) {
-        desc.getOperand().accept(this);
+    public void visit(@Nonnull OWLObjectComplementOf ce) {
+        ce.getOperand().accept(this);
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectSomeValuesFrom desc) {
-        desc.getProperty().accept(this);
-        desc.getFiller().accept(this);
+    public void visit(@Nonnull OWLObjectSomeValuesFrom ce) {
+        ce.getProperty().accept(this);
+        ce.getFiller().accept(this);
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectAllValuesFrom desc) {
-        desc.getProperty().accept(this);
-        desc.getFiller().accept(this);
+    public void visit(@Nonnull OWLObjectAllValuesFrom ce) {
+        ce.getProperty().accept(this);
+        ce.getFiller().accept(this);
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectHasValue desc) {
-        desc.getProperty().accept(this);
-        desc.getFiller().accept(this);
+    public void visit(@Nonnull OWLObjectHasValue ce) {
+        ce.getProperty().accept(this);
+        ce.getFiller().accept(this);
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectMinCardinality desc) {
-        desc.getProperty().accept(this);
-        desc.getFiller().accept(this);
+    public void visit(@Nonnull OWLObjectMinCardinality ce) {
+        ce.getProperty().accept(this);
+        ce.getFiller().accept(this);
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectExactCardinality desc) {
-        desc.getProperty().accept(this);
-        desc.getFiller().accept(this);
+    public void visit(@Nonnull OWLObjectExactCardinality ce) {
+        ce.getProperty().accept(this);
+        ce.getFiller().accept(this);
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectMaxCardinality desc) {
-        desc.getProperty().accept(this);
-        desc.getFiller().accept(this);
+    public void visit(@Nonnull OWLObjectMaxCardinality ce) {
+        ce.getProperty().accept(this);
+        ce.getFiller().accept(this);
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectHasSelf desc) {
-        desc.getProperty().accept(this);
+    public void visit(@Nonnull OWLObjectHasSelf ce) {
+        ce.getProperty().accept(this);
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectOneOf desc) {
-        for (OWLIndividual ind : desc.getIndividuals()) {
+    public void visit(@Nonnull OWLObjectOneOf ce) {
+        for (OWLIndividual ind : ce.getIndividuals()) {
             ind.accept(this);
         }
     }
 
     @Override
-    public void visit(@Nonnull OWLDataSomeValuesFrom desc) {
-        desc.getProperty().accept(this);
-        desc.getFiller().accept(this);
+    public void visit(@Nonnull OWLDataSomeValuesFrom ce) {
+        ce.getProperty().accept(this);
+        ce.getFiller().accept(this);
     }
 
     @Override
-    public void visit(@Nonnull OWLDataAllValuesFrom desc) {
-        desc.getProperty().accept(this);
-        desc.getFiller().accept(this);
+    public void visit(@Nonnull OWLDataAllValuesFrom ce) {
+        ce.getProperty().accept(this);
+        ce.getFiller().accept(this);
     }
 
     @Override
-    public void visit(@Nonnull OWLDataHasValue desc) {
-        desc.getProperty().accept(this);
-        desc.getFiller().accept(this);
+    public void visit(@Nonnull OWLDataHasValue ce) {
+        ce.getProperty().accept(this);
+        ce.getFiller().accept(this);
     }
 
     @Override
-    public void visit(@Nonnull OWLDataMinCardinality desc) {
-        desc.getProperty().accept(this);
-        desc.getFiller().accept(this);
+    public void visit(@Nonnull OWLDataMinCardinality ce) {
+        ce.getProperty().accept(this);
+        ce.getFiller().accept(this);
     }
 
     @Override
-    public void visit(@Nonnull OWLDataExactCardinality desc) {
-        desc.getProperty().accept(this);
-        desc.getFiller().accept(this);
+    public void visit(@Nonnull OWLDataExactCardinality ce) {
+        ce.getProperty().accept(this);
+        ce.getFiller().accept(this);
     }
 
     @Override
-    public void visit(@Nonnull OWLDataMaxCardinality desc) {
-        desc.getProperty().accept(this);
-        desc.getFiller().accept(this);
+    public void visit(@Nonnull OWLDataMaxCardinality ce) {
+        ce.getProperty().accept(this);
+        ce.getFiller().accept(this);
     }
 
     // Data visitor
@@ -525,16 +525,16 @@ public abstract class AbstractEntityRegistrationManager extends
 
     // Property expression visitor
     @Override
-    public void visit(@Nonnull OWLObjectInverseOf expression) {
-        expression.getInverse().accept(this);
+    public void visit(@Nonnull OWLObjectInverseOf property) {
+        property.getInverse().accept(this);
     }
 
     // Entity visitor
     @Override
-    public void visit(@Nonnull OWLAnnotation annotation) {
-        annotation.getProperty().accept(this);
-        annotation.getValue().accept(this);
-        for (OWLAnnotation anno : annotation.getAnnotations()) {
+    public void visit(@Nonnull OWLAnnotation node) {
+        node.getProperty().accept(this);
+        node.getValue().accept(this);
+        for (OWLAnnotation anno : node.getAnnotations()) {
             anno.accept(this);
         }
     }

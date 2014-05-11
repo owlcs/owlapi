@@ -44,42 +44,42 @@ public abstract class DLSyntaxOntologyStorerBase extends
     private static final long serialVersionUID = 40000L;
 
     @Override
-    protected void storeOntology(@Nonnull OWLOntology ontology, Writer w,
+    protected void storeOntology(@Nonnull OWLOntology ontology, Writer writer,
             OWLOntologyFormat format) {
         checkNotNull(ontology, "ontology cannot be null");
-        PrintWriter writer = new PrintWriter(
-                checkNotNull(w, "w cannot be null"));
-        beginWritingOntology(ontology, writer);
+        PrintWriter printWriter = new PrintWriter(
+                checkNotNull(writer, "writer cannot be null"));
+        beginWritingOntology(ontology, printWriter);
         for (OWLObjectProperty prop : new TreeSet<OWLObjectProperty>(
                 ontology.getObjectPropertiesInSignature())) {
             assert prop != null;
-            write(ontology, prop, ontology.getAxioms(prop, EXCLUDED), writer);
+            write(ontology, prop, ontology.getAxioms(prop, EXCLUDED), printWriter);
         }
         for (OWLDataProperty prop : new TreeSet<OWLDataProperty>(
                 ontology.getDataPropertiesInSignature())) {
             assert prop != null;
-            write(ontology, prop, ontology.getAxioms(prop, EXCLUDED), writer);
+            write(ontology, prop, ontology.getAxioms(prop, EXCLUDED), printWriter);
         }
         for (OWLClass cls : new TreeSet<OWLClass>(
                 ontology.getClassesInSignature())) {
             assert cls != null;
-            write(ontology, cls, ontology.getAxioms(cls, EXCLUDED), writer);
+            write(ontology, cls, ontology.getAxioms(cls, EXCLUDED), printWriter);
         }
         for (OWLNamedIndividual ind : new TreeSet<OWLNamedIndividual>(
                 ontology.getIndividualsInSignature())) {
             assert ind != null;
-            write(ontology, ind, ontology.getAxioms(ind, EXCLUDED), writer);
+            write(ontology, ind, ontology.getAxioms(ind, EXCLUDED), printWriter);
         }
-        beginWritingGeneralAxioms(ontology.getGeneralClassAxioms(), writer);
+        beginWritingGeneralAxioms(ontology.getGeneralClassAxioms(), printWriter);
         for (OWLAxiom ax : ontology.getGeneralClassAxioms()) {
             assert ax != null;
-            beginWritingAxiom(ax, writer);
-            writeAxiom(null, ax, writer);
-            endWritingAxiom(ax, writer);
+            beginWritingAxiom(ax, printWriter);
+            writeAxiom(null, ax, printWriter);
+            endWritingAxiom(ax, printWriter);
         }
-        endWritingGeneralAxioms(ontology.getGeneralClassAxioms(), writer);
-        endWritingOntology(ontology, writer);
-        writer.flush();
+        endWritingGeneralAxioms(ontology.getGeneralClassAxioms(), printWriter);
+        endWritingOntology(ontology, printWriter);
+        printWriter.flush();
     }
 
     private void

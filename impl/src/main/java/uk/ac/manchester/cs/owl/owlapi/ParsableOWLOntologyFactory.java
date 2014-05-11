@@ -121,9 +121,9 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
     }
 
     @Override
-    public OWLOntology loadOWLOntology(OWLOntologyManager m,
+    public OWLOntology loadOWLOntology(OWLOntologyManager manager,
             OWLOntologyDocumentSource documentSource,
-            OWLOntologyCreationHandler mediator,
+            OWLOntologyCreationHandler handler,
             OWLOntologyLoaderConfiguration configuration)
             throws OWLOntologyCreationException {
         // Attempt to parse the ontology by looping through the parsers. If the
@@ -140,47 +140,47 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
         // we throw an exception if someone tries to create an ontology directly
         OWLOntology existingOntology = null;
         IRI iri = documentSource.getDocumentIRI();
-        if (m.contains(iri)) {
-            existingOntology = m.getOntology(iri);
+        if (manager.contains(iri)) {
+            existingOntology = manager.getOntology(iri);
         }
         OWLOntologyID ontologyID = new OWLOntologyID();
-        OWLOntology ont = createOWLOntology(m, ontologyID, documentSource.getDocumentIRI(), mediator);
+        OWLOntology ont = createOWLOntology(manager, ontologyID, documentSource.getDocumentIRI(), handler);
         // Now parse the input into the empty ontology that we created
         // select a parser if the input source has format information and MIME
         // information
         PriorityCollection<OWLParser> parsers = getParsers(documentSource,
-                m.getOntologyParsers());
+                manager.getOntologyParsers());
         for (OWLParser parser : parsers) {
             try {
                 if (existingOntology == null && !ont.isEmpty()) {
                     // Junk from a previous parse. We should clear the ont
-                    m.removeOntology(ont);
-                    ont = createOWLOntology(m, ontologyID, documentSource.getDocumentIRI(), mediator);
+                    manager.removeOntology(ont);
+                    ont = createOWLOntology(manager, ontologyID, documentSource.getDocumentIRI(), handler);
                 }
                 OWLOntologyFormat format = parser.parse(documentSource, ont,
                         configuration);
-                mediator.setOntologyFormat(ont, format);
+                handler.setOntologyFormat(ont, format);
                 return ont;
             } catch (IOException e) {
                 // No hope of any parsers working?
                 // First clean up
-                m.removeOntology(ont);
+                manager.removeOntology(ont);
                 throw new OWLOntologyCreationIOException(e);
             } catch (UnloadableImportException e) {
                 // First clean up
-                m.removeOntology(ont);
+                manager.removeOntology(ont);
                 throw e;
             } catch (OWLParserException e) {
                 // Record this attempts and continue trying to parse.
                 exceptions.put(parser, e);
             } catch (RuntimeException e) {
                 // Clean up and rethrow
-                m.removeOntology(ont);
+                manager.removeOntology(ont);
                 throw e;
             }
         }
         if (existingOntology == null) {
-            m.removeOntology(ont);
+            manager.removeOntology(ont);
         }
         // We haven't found a parser that could parse the ontology properly.
         // Throw an

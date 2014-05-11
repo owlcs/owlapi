@@ -169,9 +169,9 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLClass cls) {
-        handleObject(cls);
-        cls.getIRI().accept(this);
+    public void visit(OWLClass ce) {
+        handleObject(ce);
+        ce.getIRI().accept(this);
     }
 
     @Override
@@ -193,119 +193,119 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLDatatype datatype) {
-        handleObject(datatype);
-        datatype.getIRI().accept(this);
+    public void visit(OWLDatatype node) {
+        handleObject(node);
+        node.getIRI().accept(this);
     }
 
     @Override
-    public void visit(OWLObjectIntersectionOf desc) {
-        handleObject(desc);
-        for (OWLClassExpression op : desc.getOperands()) {
+    public void visit(OWLObjectIntersectionOf ce) {
+        handleObject(ce);
+        for (OWLClassExpression op : ce.getOperands()) {
             op.accept(this);
         }
     }
 
     @Override
-    public void visit(OWLObjectUnionOf desc) {
-        handleObject(desc);
-        process(desc.getOperands());
+    public void visit(OWLObjectUnionOf ce) {
+        handleObject(ce);
+        process(ce.getOperands());
     }
 
     @Override
-    public void visit(OWLObjectComplementOf desc) {
-        handleObject(desc);
-        desc.getOperand().accept(this);
+    public void visit(OWLObjectComplementOf ce) {
+        handleObject(ce);
+        ce.getOperand().accept(this);
     }
 
     @Override
-    public void visit(OWLObjectSomeValuesFrom desc) {
-        handleObject(desc);
-        desc.getProperty().accept(this);
-        desc.getFiller().accept(this);
+    public void visit(OWLObjectSomeValuesFrom ce) {
+        handleObject(ce);
+        ce.getProperty().accept(this);
+        ce.getFiller().accept(this);
     }
 
     @Override
-    public void visit(OWLObjectAllValuesFrom desc) {
-        handleObject(desc);
-        desc.getProperty().accept(this);
-        desc.getFiller().accept(this);
+    public void visit(OWLObjectAllValuesFrom ce) {
+        handleObject(ce);
+        ce.getProperty().accept(this);
+        ce.getFiller().accept(this);
     }
 
     @Override
-    public void visit(OWLObjectHasValue desc) {
-        handleObject(desc);
-        desc.getProperty().accept(this);
-        desc.getFiller().accept(this);
+    public void visit(OWLObjectHasValue ce) {
+        handleObject(ce);
+        ce.getProperty().accept(this);
+        ce.getFiller().accept(this);
     }
 
     @Override
-    public void visit(OWLObjectMinCardinality desc) {
-        handleObject(desc);
-        desc.getProperty().accept(this);
-        desc.getFiller().accept(this);
+    public void visit(OWLObjectMinCardinality ce) {
+        handleObject(ce);
+        ce.getProperty().accept(this);
+        ce.getFiller().accept(this);
     }
 
     @Override
-    public void visit(OWLObjectExactCardinality desc) {
-        handleObject(desc);
-        desc.getProperty().accept(this);
-        desc.getFiller().accept(this);
+    public void visit(OWLObjectExactCardinality ce) {
+        handleObject(ce);
+        ce.getProperty().accept(this);
+        ce.getFiller().accept(this);
     }
 
     @Override
-    public void visit(OWLObjectMaxCardinality desc) {
-        handleObject(desc);
-        desc.getProperty().accept(this);
-        desc.getFiller().accept(this);
+    public void visit(OWLObjectMaxCardinality ce) {
+        handleObject(ce);
+        ce.getProperty().accept(this);
+        ce.getFiller().accept(this);
     }
 
     @Override
-    public void visit(OWLObjectHasSelf desc) {
-        handleObject(desc);
-        desc.getProperty().accept(this);
+    public void visit(OWLObjectHasSelf ce) {
+        handleObject(ce);
+        ce.getProperty().accept(this);
     }
 
     @Override
-    public void visit(OWLObjectOneOf desc) {
-        handleObject(desc);
-        process(desc.getIndividuals());
+    public void visit(OWLObjectOneOf ce) {
+        handleObject(ce);
+        process(ce.getIndividuals());
     }
 
     @Override
-    public void visit(OWLDataSomeValuesFrom desc) {
-        handleObject(desc);
-        desc.getProperty().accept(this);
+    public void visit(OWLDataSomeValuesFrom ce) {
+        handleObject(ce);
+        ce.getProperty().accept(this);
     }
 
     @Override
-    public void visit(OWLDataAllValuesFrom desc) {
-        handleObject(desc);
-        desc.getProperty().accept(this);
+    public void visit(OWLDataAllValuesFrom ce) {
+        handleObject(ce);
+        ce.getProperty().accept(this);
     }
 
     @Override
-    public void visit(OWLDataHasValue desc) {
-        handleObject(desc);
-        desc.getProperty().accept(this);
+    public void visit(OWLDataHasValue ce) {
+        handleObject(ce);
+        ce.getProperty().accept(this);
     }
 
     @Override
-    public void visit(OWLDataMinCardinality desc) {
-        handleObject(desc);
-        desc.getProperty().accept(this);
+    public void visit(OWLDataMinCardinality ce) {
+        handleObject(ce);
+        ce.getProperty().accept(this);
     }
 
     @Override
-    public void visit(OWLDataExactCardinality desc) {
-        handleObject(desc);
-        desc.getProperty().accept(this);
+    public void visit(OWLDataExactCardinality ce) {
+        handleObject(ce);
+        ce.getProperty().accept(this);
     }
 
     @Override
-    public void visit(OWLDataMaxCardinality desc) {
-        handleObject(desc);
-        desc.getProperty().accept(this);
+    public void visit(OWLDataMaxCardinality ce) {
+        handleObject(ce);
+        ce.getProperty().accept(this);
     }
 
     @Override
@@ -527,10 +527,10 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(SWRLRule node) {
-        handleObject(node);
-        process(node.getBody());
-        process(node.getHead());
+    public void visit(SWRLRule rule) {
+        handleObject(rule);
+        process(rule.getBody());
+        process(rule.getHead());
     }
 
     @Override

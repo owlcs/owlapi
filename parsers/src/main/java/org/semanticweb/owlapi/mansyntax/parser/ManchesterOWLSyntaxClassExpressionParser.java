@@ -59,7 +59,7 @@ public class ManchesterOWLSyntaxClassExpressionParser implements
     }
 
     @Override
-    public void setOWLEntityChecker(OWLEntityChecker checker) {
-        this.checker = checker;
+    public void setOWLEntityChecker(OWLEntityChecker entityChecker) {
+        this.checker = entityChecker;
     }
 }

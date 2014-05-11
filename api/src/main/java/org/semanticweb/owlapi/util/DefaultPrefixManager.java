@@ -135,13 +135,13 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
     }
 
     @Override
-    public boolean containsPrefixMapping(String prefix) {
-        return prefix2NamespaceMap.get(prefix) != null;
+    public boolean containsPrefixMapping(String prefixName) {
+        return prefix2NamespaceMap.get(prefixName) != null;
     }
 
     @Override
-    public void copyPrefixesFrom(PrefixManager prefixManager) {
-        copyPrefixesFrom(prefixManager.getPrefixName2PrefixMap());
+    public void copyPrefixesFrom(PrefixManager from) {
+        copyPrefixesFrom(from.getPrefixName2PrefixMap());
     }
 
     @SuppressWarnings("null")
@@ -154,25 +154,25 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
 
     @SuppressWarnings("null")
     @Override
-    public IRI getIRI(String curie) {
-        if (curie.startsWith("<")) {
-            return IRI.create(curie.substring(1, curie.length() - 1));
+    public IRI getIRI(String prefixIRI) {
+        if (prefixIRI.startsWith("<")) {
+            return IRI.create(prefixIRI.substring(1, prefixIRI.length() - 1));
         }
-        int sep = curie.indexOf(':');
+        int sep = prefixIRI.indexOf(':');
         if (sep == -1) {
             if (getDefaultPrefix() != null) {
-                return IRI.create(getDefaultPrefix() + curie);
+                return IRI.create(getDefaultPrefix() + prefixIRI);
             } else {
-                return IRI.create(curie);
+                return IRI.create(prefixIRI);
             }
         } else {
-            String prefixName = curie.substring(0, sep + 1);
+            String prefixName = prefixIRI.substring(0, sep + 1);
             if (!containsPrefixMapping(prefixName)) {
                 throw new OWLRuntimeException(
                         "Prefix not registered for prefix name: " + prefixName);
             }
             String prefix = getPrefix(prefixName);
-            String localName = curie.substring(sep + 1);
+            String localName = prefixIRI.substring(sep + 1);
             return IRI.create(prefix, localName);
         }
     }

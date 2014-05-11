@@ -111,13 +111,13 @@ public class SimpleRootClassChecker implements RootClassChecker {
         }
 
         @Override
-        public void visit(OWLClass desc) {
+        public void visit(OWLClass ce) {
             namedSuper = true;
         }
 
         @Override
-        public void visit(OWLObjectIntersectionOf desc) {
-            for (OWLClassExpression op : desc.getOperands()) {
+        public void visit(OWLObjectIntersectionOf ce) {
+            for (OWLClassExpression op : ce.getOperands()) {
                 op.accept(this);
                 if (namedSuper) {
                     break;

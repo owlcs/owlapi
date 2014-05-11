@@ -122,14 +122,14 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple> {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (o == this) {
+    public boolean equals(Object obj) {
+        if (obj == this) {
             return true;
         }
-        if (!(o instanceof RDFTriple)) {
+        if (!(obj instanceof RDFTriple)) {
             return false;
         }
-        RDFTriple other = (RDFTriple) o;
+        RDFTriple other = (RDFTriple) obj;
         return subject.equals(other.subject)
                 && predicate.equals(other.predicate)
                 && object.equals(other.object);
@@ -162,15 +162,15 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple> {
     }
 
     @Override
-    public int compareTo(RDFTriple b) {
+    public int compareTo(RDFTriple o) {
         // compare by predicate, then subject, then object
         int diff = getIndex(predicate.getIRI())
-                - getIndex(b.predicate.getIRI());
+                - getIndex(o.predicate.getIRI());
         if (diff == 0) {
-            diff = subject.compareTo(b.subject);
+            diff = subject.compareTo(o.subject);
         }
         if (diff == 0) {
-            diff = object.compareTo(b.object);
+            diff = object.compareTo(o.object);
         }
         return diff;
     }

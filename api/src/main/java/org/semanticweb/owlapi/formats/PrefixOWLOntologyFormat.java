@@ -77,13 +77,13 @@ public abstract class PrefixOWLOntologyFormat extends OWLOntologyFormat
     }
 
     @Override
-    public void setDefaultPrefix(String namespace) {
-        nsm.setDefaultPrefix(namespace);
+    public void setDefaultPrefix(String defaultPrefix) {
+        nsm.setDefaultPrefix(defaultPrefix);
     }
 
     @Override
-    public boolean containsPrefixMapping(String prefix) {
-        return nsm.containsPrefixMapping(prefix);
+    public boolean containsPrefixMapping(String prefixName) {
+        return nsm.containsPrefixMapping(prefixName);
     }
 
     @Override
@@ -102,8 +102,8 @@ public abstract class PrefixOWLOntologyFormat extends OWLOntologyFormat
     }
 
     @Override
-    public IRI getIRI(String iri) {
-        return nsm.getIRI(iri);
+    public IRI getIRI(String prefixIRI) {
+        return nsm.getIRI(prefixIRI);
     }
 
     @Override
@@ -112,8 +112,8 @@ public abstract class PrefixOWLOntologyFormat extends OWLOntologyFormat
     }
 
     @Override
-    public void copyPrefixesFrom(PrefixManager prefixManager) {
-        nsm.copyPrefixesFrom(prefixManager);
+    public void copyPrefixesFrom(PrefixManager from) {
+        nsm.copyPrefixesFrom(from);
     }
 
     @Override

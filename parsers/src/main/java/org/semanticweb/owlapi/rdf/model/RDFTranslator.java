@@ -86,13 +86,13 @@ public class RDFTranslator extends
     }
 
     @Override
-    protected RDFResourceIRI getPredicateNode(@Nonnull IRI uri) {
-        return new RDFResourceIRI(uri);
+    protected RDFResourceIRI getPredicateNode(@Nonnull IRI IRI) {
+        return new RDFResourceIRI(IRI);
     }
 
     @Override
-    protected RDFResourceIRI getResourceNode(@Nonnull IRI uri) {
-        return new RDFResourceIRI(uri);
+    protected RDFResourceIRI getResourceNode(@Nonnull IRI IRI) {
+        return new RDFResourceIRI(IRI);
     }
 
     /** clear the graph */

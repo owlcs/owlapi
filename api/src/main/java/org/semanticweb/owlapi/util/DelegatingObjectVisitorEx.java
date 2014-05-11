@@ -294,93 +294,93 @@ public class DelegatingObjectVisitorEx<O> implements OWLObjectVisitorEx<O> {
     }
 
     @Override
-    public O visit(OWLClass desc) {
-        return delegate.visit(desc);
+    public O visit(OWLClass ce) {
+        return delegate.visit(ce);
     }
 
     @Override
-    public O visit(OWLDataAllValuesFrom desc) {
-        return delegate.visit(desc);
+    public O visit(OWLDataAllValuesFrom ce) {
+        return delegate.visit(ce);
     }
 
     @Override
-    public O visit(OWLDataExactCardinality desc) {
-        return delegate.visit(desc);
+    public O visit(OWLDataExactCardinality ce) {
+        return delegate.visit(ce);
     }
 
     @Override
-    public O visit(OWLDataMaxCardinality desc) {
-        return delegate.visit(desc);
+    public O visit(OWLDataMaxCardinality ce) {
+        return delegate.visit(ce);
     }
 
     @Override
-    public O visit(OWLDataMinCardinality desc) {
-        return delegate.visit(desc);
+    public O visit(OWLDataMinCardinality ce) {
+        return delegate.visit(ce);
     }
 
     @Override
-    public O visit(OWLDataSomeValuesFrom desc) {
-        return delegate.visit(desc);
+    public O visit(OWLDataSomeValuesFrom ce) {
+        return delegate.visit(ce);
     }
 
     @Override
-    public O visit(OWLDataHasValue desc) {
-        return delegate.visit(desc);
+    public O visit(OWLDataHasValue ce) {
+        return delegate.visit(ce);
     }
 
     @Override
-    public O visit(OWLObjectAllValuesFrom desc) {
-        return delegate.visit(desc);
+    public O visit(OWLObjectAllValuesFrom ce) {
+        return delegate.visit(ce);
     }
 
     @Override
-    public O visit(OWLObjectComplementOf desc) {
-        return delegate.visit(desc);
+    public O visit(OWLObjectComplementOf ce) {
+        return delegate.visit(ce);
     }
 
     @Override
-    public O visit(OWLObjectExactCardinality desc) {
-        return delegate.visit(desc);
+    public O visit(OWLObjectExactCardinality ce) {
+        return delegate.visit(ce);
     }
 
     @Override
-    public O visit(OWLObjectIntersectionOf desc) {
-        return delegate.visit(desc);
+    public O visit(OWLObjectIntersectionOf ce) {
+        return delegate.visit(ce);
     }
 
     @Override
-    public O visit(OWLObjectMaxCardinality desc) {
-        return delegate.visit(desc);
+    public O visit(OWLObjectMaxCardinality ce) {
+        return delegate.visit(ce);
     }
 
     @Override
-    public O visit(OWLObjectMinCardinality desc) {
-        return delegate.visit(desc);
+    public O visit(OWLObjectMinCardinality ce) {
+        return delegate.visit(ce);
     }
 
     @Override
-    public O visit(OWLObjectOneOf desc) {
-        return delegate.visit(desc);
+    public O visit(OWLObjectOneOf ce) {
+        return delegate.visit(ce);
     }
 
     @Override
-    public O visit(OWLObjectHasSelf desc) {
-        return delegate.visit(desc);
+    public O visit(OWLObjectHasSelf ce) {
+        return delegate.visit(ce);
     }
 
     @Override
-    public O visit(OWLObjectSomeValuesFrom desc) {
-        return delegate.visit(desc);
+    public O visit(OWLObjectSomeValuesFrom ce) {
+        return delegate.visit(ce);
     }
 
     @Override
-    public O visit(OWLObjectUnionOf desc) {
-        return delegate.visit(desc);
+    public O visit(OWLObjectUnionOf ce) {
+        return delegate.visit(ce);
     }
 
     @Override
-    public O visit(OWLObjectHasValue desc) {
-        return delegate.visit(desc);
+    public O visit(OWLObjectHasValue ce) {
+        return delegate.visit(ce);
     }
 
     @Override
@@ -484,8 +484,8 @@ public class DelegatingObjectVisitorEx<O> implements OWLObjectVisitorEx<O> {
     }
 
     @Override
-    public O visit(OWLAnnotation annotation) {
-        return delegate.visit(annotation);
+    public O visit(OWLAnnotation node) {
+        return delegate.visit(node);
     }
 
     @Override

@@ -133,9 +133,9 @@ public class OWLEntityCollectionContainerCollector extends
     }
 
     @Override
-    public void visit(OWLClass desc) {
+    public void visit(OWLClass ce) {
         if (collectClasses) {
-            objects.add(desc);
+            objects.add(ce);
         }
     }
 
@@ -161,9 +161,9 @@ public class OWLEntityCollectionContainerCollector extends
     }
 
     @Override
-    public void visit(OWLDatatype datatype) {
+    public void visit(OWLDatatype node) {
         if (collectDatatypes) {
-            objects.add(datatype);
+            objects.add(node);
         }
     }
 

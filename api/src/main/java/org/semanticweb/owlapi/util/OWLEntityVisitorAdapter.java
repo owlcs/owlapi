@@ -38,13 +38,13 @@ public class OWLEntityVisitorAdapter implements OWLEntityVisitor {
     protected void handleDefault(OWLEntity owlObject) {}
 
     @Override
-    public void visit(OWLClass desc) {
-        handleDefault(desc);
+    public void visit(OWLClass cls) {
+        handleDefault(cls);
     }
 
     @Override
-    public void visit(OWLDatatype node) {
-        handleDefault(node);
+    public void visit(OWLDatatype datatype) {
+        handleDefault(datatype);
     }
 
     @Override

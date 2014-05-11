@@ -137,9 +137,9 @@ public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
 
     @Nonnull
     @Override
-    public Set<E> getEntitiesMinus(E E) {
+    public Set<E> getEntitiesMinus(E e) {
         HashSet<E> result = new HashSet<E>(entities);
-        result.remove(E);
+        result.remove(e);
         return result;
     }
 

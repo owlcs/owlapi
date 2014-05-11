@@ -78,93 +78,93 @@ public class OWLObjectVisitorAdapter extends OWLAxiomVisitorAdapter implements
     }
 
     @Override
-    public void visit(OWLClass desc) {
-        handleDefault(desc);
+    public void visit(OWLClass ce) {
+        handleDefault(ce);
     }
 
     @Override
-    public void visit(OWLDataAllValuesFrom desc) {
-        handleDefault(desc);
+    public void visit(OWLDataAllValuesFrom ce) {
+        handleDefault(ce);
     }
 
     @Override
-    public void visit(OWLDataExactCardinality desc) {
-        handleDefault(desc);
+    public void visit(OWLDataExactCardinality ce) {
+        handleDefault(ce);
     }
 
     @Override
-    public void visit(OWLDataMaxCardinality desc) {
-        handleDefault(desc);
+    public void visit(OWLDataMaxCardinality ce) {
+        handleDefault(ce);
     }
 
     @Override
-    public void visit(OWLDataMinCardinality desc) {
-        handleDefault(desc);
+    public void visit(OWLDataMinCardinality ce) {
+        handleDefault(ce);
     }
 
     @Override
-    public void visit(OWLDataSomeValuesFrom desc) {
-        handleDefault(desc);
+    public void visit(OWLDataSomeValuesFrom ce) {
+        handleDefault(ce);
     }
 
     @Override
-    public void visit(OWLDataHasValue desc) {
-        handleDefault(desc);
+    public void visit(OWLDataHasValue ce) {
+        handleDefault(ce);
     }
 
     @Override
-    public void visit(OWLObjectAllValuesFrom desc) {
-        handleDefault(desc);
+    public void visit(OWLObjectAllValuesFrom ce) {
+        handleDefault(ce);
     }
 
     @Override
-    public void visit(OWLObjectComplementOf desc) {
-        handleDefault(desc);
+    public void visit(OWLObjectComplementOf ce) {
+        handleDefault(ce);
     }
 
     @Override
-    public void visit(OWLObjectExactCardinality desc) {
-        handleDefault(desc);
+    public void visit(OWLObjectExactCardinality ce) {
+        handleDefault(ce);
     }
 
     @Override
-    public void visit(OWLObjectHasSelf desc) {
-        handleDefault(desc);
+    public void visit(OWLObjectHasSelf ce) {
+        handleDefault(ce);
     }
 
     @Override
-    public void visit(OWLObjectHasValue desc) {
-        handleDefault(desc);
+    public void visit(OWLObjectHasValue ce) {
+        handleDefault(ce);
     }
 
     @Override
-    public void visit(OWLObjectIntersectionOf desc) {
-        handleDefault(desc);
+    public void visit(OWLObjectIntersectionOf ce) {
+        handleDefault(ce);
     }
 
     @Override
-    public void visit(OWLObjectMaxCardinality desc) {
-        handleDefault(desc);
+    public void visit(OWLObjectMaxCardinality ce) {
+        handleDefault(ce);
     }
 
     @Override
-    public void visit(OWLObjectMinCardinality desc) {
-        handleDefault(desc);
+    public void visit(OWLObjectMinCardinality ce) {
+        handleDefault(ce);
     }
 
     @Override
-    public void visit(OWLObjectOneOf desc) {
-        handleDefault(desc);
+    public void visit(OWLObjectOneOf ce) {
+        handleDefault(ce);
     }
 
     @Override
-    public void visit(OWLObjectSomeValuesFrom desc) {
-        handleDefault(desc);
+    public void visit(OWLObjectSomeValuesFrom ce) {
+        handleDefault(ce);
     }
 
     @Override
-    public void visit(OWLObjectUnionOf desc) {
-        handleDefault(desc);
+    public void visit(OWLObjectUnionOf ce) {
+        handleDefault(ce);
     }
 
     @Override

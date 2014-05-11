@@ -98,95 +98,95 @@ public class SplitSubClassAxioms extends AbstractCompositeOntologyChange {
         ConjunctSplitter() {}
 
         @Override
-        public void visit(OWLClass desc) {
-            result.add(desc);
+        public void visit(OWLClass ce) {
+            result.add(ce);
         }
 
         @Override
-        public void visit(OWLDataAllValuesFrom desc) {
-            result.add(desc);
+        public void visit(OWLDataAllValuesFrom ce) {
+            result.add(ce);
         }
 
         @Override
-        public void visit(OWLDataExactCardinality desc) {
-            result.add(desc);
+        public void visit(OWLDataExactCardinality ce) {
+            result.add(ce);
         }
 
         @Override
-        public void visit(OWLDataMaxCardinality desc) {
-            result.add(desc);
+        public void visit(OWLDataMaxCardinality ce) {
+            result.add(ce);
         }
 
         @Override
-        public void visit(OWLDataMinCardinality desc) {
-            result.add(desc);
+        public void visit(OWLDataMinCardinality ce) {
+            result.add(ce);
         }
 
         @Override
-        public void visit(OWLDataSomeValuesFrom desc) {
-            result.add(desc);
+        public void visit(OWLDataSomeValuesFrom ce) {
+            result.add(ce);
         }
 
         @Override
-        public void visit(OWLDataHasValue desc) {
-            result.add(desc);
+        public void visit(OWLDataHasValue ce) {
+            result.add(ce);
         }
 
         @Override
-        public void visit(OWLObjectAllValuesFrom desc) {
-            result.add(desc);
+        public void visit(OWLObjectAllValuesFrom ce) {
+            result.add(ce);
         }
 
         @Override
-        public void visit(OWLObjectComplementOf desc) {
-            result.add(desc);
+        public void visit(OWLObjectComplementOf ce) {
+            result.add(ce);
         }
 
         @Override
-        public void visit(OWLObjectExactCardinality desc) {
-            result.add(desc);
+        public void visit(OWLObjectExactCardinality ce) {
+            result.add(ce);
         }
 
         @Override
-        public void visit(OWLObjectIntersectionOf desc) {
-            for (OWLClassExpression op : desc.getOperands()) {
+        public void visit(OWLObjectIntersectionOf ce) {
+            for (OWLClassExpression op : ce.getOperands()) {
                 op.accept(this);
             }
         }
 
         @Override
-        public void visit(OWLObjectMaxCardinality desc) {
-            result.add(desc);
+        public void visit(OWLObjectMaxCardinality ce) {
+            result.add(ce);
         }
 
         @Override
-        public void visit(OWLObjectMinCardinality desc) {
-            result.add(desc);
+        public void visit(OWLObjectMinCardinality ce) {
+            result.add(ce);
         }
 
         @Override
-        public void visit(OWLObjectOneOf desc) {
-            result.add(desc);
+        public void visit(OWLObjectOneOf ce) {
+            result.add(ce);
         }
 
         @Override
-        public void visit(OWLObjectHasSelf desc) {
-            result.add(desc);
+        public void visit(OWLObjectHasSelf ce) {
+            result.add(ce);
         }
 
         @Override
-        public void visit(OWLObjectSomeValuesFrom desc) {
-            result.add(desc);
+        public void visit(OWLObjectSomeValuesFrom ce) {
+            result.add(ce);
         }
 
         @Override
-        public void visit(OWLObjectUnionOf desc) {
-            result.add(desc);
+        public void visit(OWLObjectUnionOf ce) {
+            result.add(ce);
         }
 
         @Override
-        public void visit(OWLObjectHasValue desc) {
-            result.add(desc);
+        public void visit(OWLObjectHasValue ce) {
+            result.add(ce);
         }
     }
 }

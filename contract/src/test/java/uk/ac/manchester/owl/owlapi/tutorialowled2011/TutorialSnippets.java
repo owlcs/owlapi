@@ -579,15 +579,15 @@ public class TutorialSnippets {
         }
 
         @Override
-        public void visit(OWLClass desc) {
+        public void visit(OWLClass ce) {
             // avoid cycles
-            if (!processedClasses.contains(desc)) {
+            if (!processedClasses.contains(ce)) {
                 // If we are processing inherited restrictions then
                 // we recursively visit named supers.
-                processedClasses.add(desc);
+                processedClasses.add(ce);
                 for (OWLOntology ont : onts) {
                     for (OWLSubClassOfAxiom ax : ont
-                            .getSubClassAxiomsForSubClass(desc)) {
+                            .getSubClassAxiomsForSubClass(ce)) {
                         ax.getSuperClass().accept(this);
                     }
                 }
@@ -595,11 +595,11 @@ public class TutorialSnippets {
         }
 
         @Override
-        public void visit(@Nonnull OWLObjectSomeValuesFrom desc) {
+        public void visit(@Nonnull OWLObjectSomeValuesFrom ce) {
             // This method gets called when a class expression is an
             // existential (someValuesFrom) restriction and it asks us to visit
             // it
-            restrictedProperties.add(desc.getProperty());
+            restrictedProperties.add(ce.getProperty());
         }
     }
 
@@ -711,8 +711,8 @@ public class TutorialSnippets {
                 walker) {
 
             @Override
-            public Object visit(OWLObjectSomeValuesFrom desc) {
-                assertNotNull(desc);
+            public Object visit(OWLObjectSomeValuesFrom ce) {
+                assertNotNull(ce);
                 // Print out the restriction
                 // System.out.println(desc);
                 // Print out the axiom where the restriction is used
@@ -960,13 +960,13 @@ public class TutorialSnippets {
             OWLAnnotationObjectVisitorEx<String> {
 
         @Override
-        public String visit(@Nonnull OWLAnnotation annotation) {
+        public String visit(@Nonnull OWLAnnotation node) {
             /*
              * If it's a label, grab it as the result. Note that if there are
              * multiple labels, the last one will be used.
              */
-            if (annotation.getProperty().isLabel()) {
-                OWLLiteral c = (OWLLiteral) annotation.getValue();
+            if (node.getProperty().isLabel()) {
+                OWLLiteral c = (OWLLiteral) node.getValue();
                 return c.getLiteral();
             }
             return "";

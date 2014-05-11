@@ -169,19 +169,19 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
 
     // Class expressions
     @Override
-    public void visit(OWLClass desc) {
-        write(getShortFormProvider().getShortForm(desc));
+    public void visit(OWLClass ce) {
+        write(getShortFormProvider().getShortForm(ce));
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectIntersectionOf desc) {
-        write(desc.getOperands(), true);
+    public void visit(@Nonnull OWLObjectIntersectionOf ce) {
+        write(ce.getOperands(), true);
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectUnionOf desc) {
+    public void visit(@Nonnull OWLObjectUnionOf ce) {
         boolean first = true;
-        for (Iterator<? extends OWLClassExpression> it = desc.getOperands()
+        for (Iterator<? extends OWLClassExpression> it = ce.getOperands()
                 .iterator(); it.hasNext();) {
             OWLClassExpression op = it.next();
             if (!first) {
@@ -199,89 +199,89 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectComplementOf desc) {
-        write("", NOT, desc.isAnonymous() ? " " : "");
-        if (desc.isAnonymous()) {
+    public void visit(@Nonnull OWLObjectComplementOf ce) {
+        write("", NOT, ce.isAnonymous() ? " " : "");
+        if (ce.isAnonymous()) {
             write("(");
         }
-        desc.getOperand().accept(this);
-        if (desc.isAnonymous()) {
+        ce.getOperand().accept(this);
+        if (ce.isAnonymous()) {
             write(")");
         }
     }
 
     @Override
-    public void visit(OWLObjectSomeValuesFrom desc) {
-        writeRestriction(desc, SOME);
+    public void visit(OWLObjectSomeValuesFrom ce) {
+        writeRestriction(ce, SOME);
     }
 
     @Override
-    public void visit(OWLObjectAllValuesFrom desc) {
-        writeRestriction(desc, ONLY);
+    public void visit(OWLObjectAllValuesFrom ce) {
+        writeRestriction(ce, ONLY);
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectHasValue desc) {
-        writeRestriction(desc, desc.getProperty());
+    public void visit(@Nonnull OWLObjectHasValue ce) {
+        writeRestriction(ce, ce.getProperty());
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectMinCardinality desc) {
-        writeRestriction(desc, MIN, desc.getProperty());
+    public void visit(@Nonnull OWLObjectMinCardinality ce) {
+        writeRestriction(ce, MIN, ce.getProperty());
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectExactCardinality desc) {
-        writeRestriction(desc, EXACTLY, desc.getProperty());
+    public void visit(@Nonnull OWLObjectExactCardinality ce) {
+        writeRestriction(ce, EXACTLY, ce.getProperty());
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectMaxCardinality desc) {
-        writeRestriction(desc, MAX, desc.getProperty());
+    public void visit(@Nonnull OWLObjectMaxCardinality ce) {
+        writeRestriction(ce, MAX, ce.getProperty());
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectHasSelf desc) {
-        desc.getProperty().accept(this);
+    public void visit(@Nonnull OWLObjectHasSelf ce) {
+        ce.getProperty().accept(this);
         write(SOME);
         write(SELF);
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectOneOf desc) {
+    public void visit(@Nonnull OWLObjectOneOf ce) {
         write("{");
-        write(desc.getIndividuals(), ONE_OF_DELIMETER, false);
+        write(ce.getIndividuals(), ONE_OF_DELIMETER, false);
         write("}");
     }
 
     @Override
-    public void visit(OWLDataSomeValuesFrom desc) {
-        writeRestriction(desc, SOME);
+    public void visit(OWLDataSomeValuesFrom ce) {
+        writeRestriction(ce, SOME);
     }
 
     @Override
-    public void visit(OWLDataAllValuesFrom desc) {
-        writeRestriction(desc, ONLY);
+    public void visit(OWLDataAllValuesFrom ce) {
+        writeRestriction(ce, ONLY);
     }
 
     @Override
-    public void visit(@Nonnull OWLDataHasValue desc) {
-        writeRestriction(desc, desc.getProperty());
+    public void visit(@Nonnull OWLDataHasValue ce) {
+        writeRestriction(ce, ce.getProperty());
     }
 
     @Override
-    public void visit(@Nonnull OWLDataMinCardinality desc) {
-        writeRestriction(desc, MIN, desc.getProperty());
+    public void visit(@Nonnull OWLDataMinCardinality ce) {
+        writeRestriction(ce, MIN, ce.getProperty());
     }
 
     @Override
-    public void visit(@Nonnull OWLDataExactCardinality desc) {
-        writeRestriction(desc, EXACTLY, desc.getProperty());
+    public void visit(@Nonnull OWLDataExactCardinality ce) {
+        writeRestriction(ce, EXACTLY, ce.getProperty());
     }
 
     @Override
-    public void visit(@Nonnull OWLDataMaxCardinality desc) {
-        writeRestriction(desc, MAX, desc.getProperty());
+    public void visit(@Nonnull OWLDataMaxCardinality ce) {
+        writeRestriction(ce, MAX, ce.getProperty());
     }
 
     // Entities stuff
@@ -306,8 +306,8 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     }
 
     @Override
-    public void visit(OWLDatatype datatype) {
-        write(getShortFormProvider().getShortForm(datatype));
+    public void visit(OWLDatatype node) {
+        write(getShortFormProvider().getShortForm(node));
     }
 
     @Override

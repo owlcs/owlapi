@@ -62,14 +62,14 @@ public class RDFResourceBlankNode extends RDFResource {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (o == this) {
+    public boolean equals(Object obj) {
+        if (obj == this) {
             return true;
         }
-        if (!(o instanceof RDFResourceBlankNode)) {
+        if (!(obj instanceof RDFResourceBlankNode)) {
             return false;
         }
-        RDFResourceBlankNode other = (RDFResourceBlankNode) o;
+        RDFResourceBlankNode other = (RDFResourceBlankNode) obj;
         return resource.equals(other.resource);
     }
 

@@ -63,46 +63,46 @@ public class OWLObjectComplementOfExtractor extends
     }
 
     @Override
-    public void visit(OWLObjectAllValuesFrom desc) {
-        desc.getFiller().accept(this);
+    public void visit(OWLObjectAllValuesFrom ce) {
+        ce.getFiller().accept(this);
     }
 
     @Override
-    public void visit(OWLObjectComplementOf desc) {
-        result.add(desc.getOperand());
-        desc.getOperand().accept(this);
+    public void visit(OWLObjectComplementOf ce) {
+        result.add(ce.getOperand());
+        ce.getOperand().accept(this);
     }
 
     @Override
-    public void visit(OWLObjectExactCardinality desc) {
-        desc.getFiller().accept(this);
+    public void visit(OWLObjectExactCardinality ce) {
+        ce.getFiller().accept(this);
     }
 
     @Override
-    public void visit(OWLObjectIntersectionOf desc) {
-        for (OWLClassExpression op : desc.getOperands()) {
+    public void visit(OWLObjectIntersectionOf ce) {
+        for (OWLClassExpression op : ce.getOperands()) {
             op.accept(this);
         }
     }
 
     @Override
-    public void visit(OWLObjectMaxCardinality desc) {
-        desc.getFiller().accept(this);
+    public void visit(OWLObjectMaxCardinality ce) {
+        ce.getFiller().accept(this);
     }
 
     @Override
-    public void visit(OWLObjectMinCardinality desc) {
-        desc.getFiller().accept(this);
+    public void visit(OWLObjectMinCardinality ce) {
+        ce.getFiller().accept(this);
     }
 
     @Override
-    public void visit(OWLObjectSomeValuesFrom desc) {
-        desc.getFiller().accept(this);
+    public void visit(OWLObjectSomeValuesFrom ce) {
+        ce.getFiller().accept(this);
     }
 
     @Override
-    public void visit(OWLObjectUnionOf desc) {
-        for (OWLClassExpression op : desc.getOperands()) {
+    public void visit(OWLObjectUnionOf ce) {
+        for (OWLClassExpression op : ce.getOperands()) {
             op.accept(this);
         }
     }

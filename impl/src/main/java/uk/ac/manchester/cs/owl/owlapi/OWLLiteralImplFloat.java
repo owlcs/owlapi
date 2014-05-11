@@ -136,7 +136,7 @@ public class OWLLiteralImplFloat extends OWLObjectImpl implements OWLLiteral {
     }
 
     @Override
-    public boolean hasLang(String l) {
+    public boolean hasLang(String lang) {
         return false;
     }
 

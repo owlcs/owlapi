@@ -552,9 +552,9 @@ public class Translators {
         }
 
         @Override
-        public OWLClassExpression translate(IRI iri) {
-            consumer.addClassExpression(iri, false);
-            return accessor.translateClassExpression(iri);
+        public OWLClassExpression translate(IRI firstObject) {
+            consumer.addClassExpression(firstObject, false);
+            return accessor.translateClassExpression(firstObject);
         }
 
         @Override
@@ -1116,8 +1116,8 @@ public class Translators {
         }
 
         @Override
-        public OWLIndividual translate(IRI IRI) {
-            return consumer.translateIndividual(IRI);
+        public OWLIndividual translate(IRI firstObject) {
+            return consumer.translateIndividual(firstObject);
         }
 
         @Override
@@ -1226,8 +1226,8 @@ public class Translators {
         }
 
         @Override
-        public OWLObjectPropertyExpression translate(IRI IRI) {
-            return consumer.translateObjectPropertyExpression(IRI);
+        public OWLObjectPropertyExpression translate(IRI firstObject) {
+            return consumer.translateObjectPropertyExpression(firstObject);
         }
 
         @Override

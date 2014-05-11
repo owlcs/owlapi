@@ -239,17 +239,17 @@ public class DLExpressivityChecker extends OWLObjectVisitorAdapter {
 
     // class expressions
     @Override
-    public void visit(OWLObjectIntersectionOf desc) {
+    public void visit(OWLObjectIntersectionOf ce) {
         constructs.add(AL);
-        for (OWLClassExpression operands : desc.getOperands()) {
+        for (OWLClassExpression operands : ce.getOperands()) {
             operands.accept(this);
         }
     }
 
     @Override
-    public void visit(OWLObjectUnionOf desc) {
+    public void visit(OWLObjectUnionOf ce) {
         constructs.add(U);
-        for (OWLClassExpression operands : desc.getOperands()) {
+        for (OWLClassExpression operands : ce.getOperands()) {
             operands.accept(this);
         }
     }
@@ -273,38 +273,38 @@ public class DLExpressivityChecker extends OWLObjectVisitorAdapter {
     }
 
     @Override
-    public void visit(OWLObjectComplementOf desc) {
-        if (isAtomic(desc)) {
+    public void visit(OWLObjectComplementOf ce) {
+        if (isAtomic(ce)) {
             constructs.add(AL);
         } else {
             constructs.add(C);
         }
-        desc.getOperand().accept(this);
+        ce.getOperand().accept(this);
     }
 
     @Override
-    public void visit(OWLObjectSomeValuesFrom desc) {
-        if (isTop(desc.getFiller())) {
+    public void visit(OWLObjectSomeValuesFrom ce) {
+        if (isTop(ce.getFiller())) {
             constructs.add(AL);
         } else {
             constructs.add(E);
         }
-        desc.getProperty().accept(this);
-        desc.getFiller().accept(this);
+        ce.getProperty().accept(this);
+        ce.getFiller().accept(this);
     }
 
     @Override
-    public void visit(OWLObjectAllValuesFrom desc) {
+    public void visit(OWLObjectAllValuesFrom ce) {
         constructs.add(AL);
-        desc.getProperty().accept(this);
-        desc.getFiller().accept(this);
+        ce.getProperty().accept(this);
+        ce.getFiller().accept(this);
     }
 
     @Override
-    public void visit(OWLObjectHasValue desc) {
+    public void visit(OWLObjectHasValue ce) {
         constructs.add(O);
         constructs.add(E);
-        desc.getProperty().accept(this);
+        ce.getProperty().accept(this);
     }
 
     private void checkCardinality(OWLDataCardinalityRestriction restriction) {
@@ -328,64 +328,64 @@ public class DLExpressivityChecker extends OWLObjectVisitorAdapter {
     }
 
     @Override
-    public void visit(OWLObjectMinCardinality desc) {
-        checkCardinality(desc);
+    public void visit(OWLObjectMinCardinality ce) {
+        checkCardinality(ce);
     }
 
     @Override
-    public void visit(OWLObjectExactCardinality desc) {
-        checkCardinality(desc);
+    public void visit(OWLObjectExactCardinality ce) {
+        checkCardinality(ce);
     }
 
     @Override
-    public void visit(OWLObjectMaxCardinality desc) {
-        checkCardinality(desc);
+    public void visit(OWLObjectMaxCardinality ce) {
+        checkCardinality(ce);
     }
 
     @Override
-    public void visit(OWLObjectHasSelf desc) {
-        desc.getProperty().accept(this);
+    public void visit(OWLObjectHasSelf ce) {
+        ce.getProperty().accept(this);
         constructs.add(R);
     }
 
     @Override
-    public void visit(OWLObjectOneOf desc) {
+    public void visit(OWLObjectOneOf ce) {
         constructs.add(U);
         constructs.add(O);
     }
 
     @Override
-    public void visit(OWLDataSomeValuesFrom desc) {
+    public void visit(OWLDataSomeValuesFrom ce) {
         constructs.add(E);
-        desc.getFiller().accept(this);
-        desc.getProperty().accept(this);
+        ce.getFiller().accept(this);
+        ce.getProperty().accept(this);
     }
 
     @Override
-    public void visit(OWLDataAllValuesFrom desc) {
-        desc.getFiller().accept(this);
-        desc.getProperty().accept(this);
+    public void visit(OWLDataAllValuesFrom ce) {
+        ce.getFiller().accept(this);
+        ce.getProperty().accept(this);
     }
 
     @Override
-    public void visit(OWLDataHasValue desc) {
+    public void visit(OWLDataHasValue ce) {
         constructs.add(D);
-        desc.getProperty().accept(this);
+        ce.getProperty().accept(this);
     }
 
     @Override
-    public void visit(OWLDataMinCardinality desc) {
-        checkCardinality(desc);
+    public void visit(OWLDataMinCardinality ce) {
+        checkCardinality(ce);
     }
 
     @Override
-    public void visit(OWLDataExactCardinality desc) {
-        checkCardinality(desc);
+    public void visit(OWLDataExactCardinality ce) {
+        checkCardinality(ce);
     }
 
     @Override
-    public void visit(OWLDataMaxCardinality desc) {
-        checkCardinality(desc);
+    public void visit(OWLDataMaxCardinality ce) {
+        checkCardinality(ce);
     }
 
     // Axioms

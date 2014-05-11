@@ -527,21 +527,21 @@ public class CollectionFactory {
         }
 
         @Override
-        public boolean add(T arg0) {
+        public boolean add(T e) {
             if (!copyDone) {
                 copyDone = true;
                 delegate = new LinkedHashSet<T>(delegate);
             }
-            return delegate.add(arg0);
+            return delegate.add(e);
         }
 
         @Override
-        public boolean addAll(Collection<? extends T> arg0) {
+        public boolean addAll(Collection<? extends T> c) {
             if (!copyDone) {
                 copyDone = true;
                 delegate = new LinkedHashSet<T>(delegate);
             }
-            return delegate.addAll(arg0);
+            return delegate.addAll(c);
         }
 
         @Override
@@ -554,12 +554,12 @@ public class CollectionFactory {
         }
 
         @Override
-        public boolean contains(Object arg0) {
+        public boolean contains(Object o) {
             containsCounter++;
             if (containsCounter >= maxContains && !copyDone) {
                 checkDelegate();
             }
-            return delegate.contains(arg0);
+            return delegate.contains(o);
         }
 
         private void checkDelegate() {
@@ -572,12 +572,12 @@ public class CollectionFactory {
         }
 
         @Override
-        public boolean containsAll(Collection<?> arg0) {
+        public boolean containsAll(Collection<?> c) {
             containsCounter++;
             if (containsCounter >= maxContains && !copyDone) {
                 checkDelegate();
             }
-            return delegate.containsAll(arg0);
+            return delegate.containsAll(c);
         }
 
         @Override
@@ -593,30 +593,30 @@ public class CollectionFactory {
         }
 
         @Override
-        public boolean remove(Object arg0) {
+        public boolean remove(Object o) {
             if (!copyDone) {
                 copyDone = true;
                 delegate = new LinkedHashSet<T>(delegate);
             }
-            return delegate.remove(arg0);
+            return delegate.remove(o);
         }
 
         @Override
-        public boolean removeAll(Collection<?> arg0) {
+        public boolean removeAll(Collection<?> c) {
             if (!copyDone) {
                 copyDone = true;
                 delegate = new LinkedHashSet<T>(delegate);
             }
-            return delegate.removeAll(arg0);
+            return delegate.removeAll(c);
         }
 
         @Override
-        public boolean retainAll(Collection<?> arg0) {
+        public boolean retainAll(Collection<?> c) {
             if (!copyDone) {
                 copyDone = true;
                 delegate = new LinkedHashSet<T>(delegate);
             }
-            return delegate.retainAll(arg0);
+            return delegate.retainAll(c);
         }
 
         @Override
@@ -634,8 +634,8 @@ public class CollectionFactory {
         @SuppressWarnings("null")
         @Nonnull
         @Override
-        public <Type> Type[] toArray(Type[] arg0) {
-            return delegate.toArray(arg0);
+        public <Type> Type[] toArray(Type[] a) {
+            return delegate.toArray(a);
         }
     }
 
@@ -700,26 +700,26 @@ public class CollectionFactory {
         }
 
         @Override
-        public boolean add(T arg0) {
+        public boolean add(T e) {
             try {
                 writeLock.lock();
                 if (!copyDone.getAndSet(true)) {
                     delegate = new SyncSet<T>(delegate);
                 }
-                return delegate.add(arg0);
+                return delegate.add(e);
             } finally {
                 writeLock.unlock();
             }
         }
 
         @Override
-        public boolean addAll(Collection<? extends T> arg0) {
+        public boolean addAll(Collection<? extends T> c) {
             try {
                 writeLock.lock();
                 if (!copyDone.getAndSet(true)) {
                     delegate = new SyncSet<T>(delegate);
                 }
-                return delegate.addAll(arg0);
+                return delegate.addAll(c);
             } finally {
                 writeLock.unlock();
             }
@@ -739,7 +739,7 @@ public class CollectionFactory {
         }
 
         @Override
-        public boolean contains(Object arg0) {
+        public boolean contains(Object o) {
             /*
              * note: the check on the number of contains and on the copyDone
              * flag is intentionally not made inside a lock; these operations
@@ -767,21 +767,21 @@ public class CollectionFactory {
                     // skip the second portion of the method: no need to
                     // reacquire
                     // the lock, it's already a write lock
-                    return delegate.contains(arg0);
+                    return delegate.contains(o);
                 } finally {
                     writeLock.unlock();
                 }
             }
             try {
                 readLock.lock();
-                return delegate.contains(arg0);
+                return delegate.contains(o);
             } finally {
                 readLock.unlock();
             }
         }
 
         @Override
-        public boolean containsAll(Collection<?> arg0) {
+        public boolean containsAll(Collection<?> c) {
             if (containsCounter.incrementAndGet() >= maxContains
                     && !copyDone.get()) {
                 try {
@@ -800,14 +800,14 @@ public class CollectionFactory {
                     // skip the second portion of the method: no need to
                     // reacquire
                     // the lock, it's already a write lock
-                    return delegate.containsAll(arg0);
+                    return delegate.containsAll(c);
                 } finally {
                     writeLock.unlock();
                 }
             }
             try {
                 readLock.lock();
-                return delegate.containsAll(arg0);
+                return delegate.containsAll(c);
             } finally {
                 readLock.unlock();
             }
@@ -836,39 +836,39 @@ public class CollectionFactory {
         }
 
         @Override
-        public boolean remove(Object arg0) {
+        public boolean remove(Object o) {
             try {
                 writeLock.lock();
                 if (!copyDone.getAndSet(true)) {
                     delegate = new SyncSet<T>(delegate);
                 }
-                return delegate.remove(arg0);
+                return delegate.remove(o);
             } finally {
                 writeLock.unlock();
             }
         }
 
         @Override
-        public boolean removeAll(Collection<?> arg0) {
+        public boolean removeAll(Collection<?> c) {
             try {
                 writeLock.lock();
                 if (!copyDone.getAndSet(true)) {
                     delegate = new SyncSet<T>(delegate);
                 }
-                return delegate.removeAll(arg0);
+                return delegate.removeAll(c);
             } finally {
                 writeLock.unlock();
             }
         }
 
         @Override
-        public boolean retainAll(Collection<?> arg0) {
+        public boolean retainAll(Collection<?> c) {
             try {
                 writeLock.lock();
                 if (!copyDone.getAndSet(true)) {
                     delegate = new SyncSet<T>(delegate);
                 }
-                return delegate.retainAll(arg0);
+                return delegate.retainAll(c);
             } finally {
                 writeLock.unlock();
             }
@@ -899,10 +899,10 @@ public class CollectionFactory {
         @SuppressWarnings("null")
         @Nonnull
         @Override
-        public <Type> Type[] toArray(Type[] arg0) {
+        public <Type> Type[] toArray(Type[] a) {
             try {
                 readLock.lock();
-                return delegate.toArray(arg0);
+                return delegate.toArray(a);
             } finally {
                 readLock.unlock();
             }

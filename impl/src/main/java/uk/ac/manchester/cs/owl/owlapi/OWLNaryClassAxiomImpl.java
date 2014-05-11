@@ -75,11 +75,11 @@ public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
 
     @Override
     public Set<OWLClassExpression> getClassExpressionsMinus(
-            OWLClassExpression... descs) {
+            OWLClassExpression... desc) {
         Set<OWLClassExpression> result = new HashSet<OWLClassExpression>(
                 classExpressions);
-        for (OWLClassExpression desc : descs) {
-            result.remove(desc);
+        for (OWLClassExpression d : desc) {
+            result.remove(d);
         }
         return result;
     }

@@ -398,21 +398,21 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
     }
 
     @Override
-    public void visit(@Nonnull OWLOntology ontology1) {
-        Set<OWLClass> classes = ontology1.getClassesInSignature();
-        classes.remove(ontology1.getOWLOntologyManager().getOWLDataFactory()
+    public void visit(@Nonnull OWLOntology ontology) {
+        Set<OWLClass> classes = ontology.getClassesInSignature();
+        classes.remove(ontology.getOWLOntologyManager().getOWLDataFactory()
                 .getOWLThing());
-        classes.remove(ontology1.getOWLOntologyManager().getOWLDataFactory()
+        classes.remove(ontology.getOWLOntologyManager().getOWLDataFactory()
                 .getOWLNothing());
         for (OWLClass eachClass : sort(classes)) {
-            boolean primitive = !isDefined(ontology1, eachClass);
+            boolean primitive = !isDefined(ontology, eachClass);
             if (primitive) {
                 writeOpenBracket();
                 write(DEFINE_PRIMITIVE_CONCEPT);
                 write(eachClass);
                 writeSpace();
                 Iterable<OWLClassExpression> supclasses = sup(
-                        ontology1.getSubClassAxiomsForSubClass(eachClass),
+                        ontology.getSubClassAxiomsForSubClass(eachClass),
                         OWLClassExpression.class);
                 flatten(supclasses, AND);
                 writeCloseBracket();
@@ -421,17 +421,17 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
                 writeOpenBracket();
                 write(DEFINE_CONCEPT);
                 write(eachClass);
-                Iterable<OWLClassExpression> equivalentClasses = equivalent(ontology1
+                Iterable<OWLClassExpression> equivalentClasses = equivalent(ontology
                         .getEquivalentClassesAxioms(eachClass));
                 flatten(equivalentClasses, AND);
                 writeCloseBracket();
                 writeln();
             }
         }
-        for (OWLObjectProperty property : sort(ontology1
+        for (OWLObjectProperty property : sort(ontology
                 .getObjectPropertiesInSignature())) {
             writeOpenBracket();
-            Collection<OWLObjectPropertyExpression> properties = equivalent(ontology1
+            Collection<OWLObjectPropertyExpression> properties = equivalent(ontology
                     .getEquivalentObjectPropertiesAxioms(property));
             boolean isDefined = !properties.isEmpty();
             if (isDefined) {
@@ -446,7 +446,7 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
                 write(DEFINE_PRIMITIVE_ROLE);
                 write(property);
                 writeSpace();
-                Collection<OWLAxiom> axioms = ontology1.filterAxioms(
+                Collection<OWLAxiom> axioms = ontology.filterAxioms(
                         Filters.subObjectPropertyWithSub, property, INCLUDED);
                 properties = sup(axioms, OWLObjectPropertyExpression.class);
                 if (!properties.isEmpty()) {
@@ -456,7 +456,7 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
             writeCloseBracket();
             writeln();
         }
-        for (OWLAxiom axiom : ontology1.getAxioms()) {
+        for (OWLAxiom axiom : ontology.getAxioms()) {
             axiom.accept(this);
         }
         try {
@@ -574,15 +574,15 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
     }
 
     @Override
-    public void visit(@Nonnull OWLClass desc) {
-        write(desc.getIRI());
+    public void visit(@Nonnull OWLClass ce) {
+        write(ce.getIRI());
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectIntersectionOf desc) {
+    public void visit(@Nonnull OWLObjectIntersectionOf ce) {
         writeOpenBracket();
         write(AND);
-        List<OWLClassExpression> operands = sort(desc.getOperands());
+        List<OWLClassExpression> operands = sort(ce.getOperands());
         int size = operands.size();
         if (size > 0) {
             int indent = getIndent();
@@ -597,10 +597,10 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectUnionOf desc) {
+    public void visit(@Nonnull OWLObjectUnionOf ce) {
         writeOpenBracket();
         write(OR);
-        List<OWLClassExpression> operands = sort(desc.getOperands());
+        List<OWLClassExpression> operands = sort(ce.getOperands());
         int size = operands.size();
         if (size > 0) {
             int indent = getIndent();
@@ -615,117 +615,117 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectComplementOf desc) {
+    public void visit(@Nonnull OWLObjectComplementOf ce) {
         writeOpenBracket();
         write(NOT);
-        write(desc.getOperand());
+        write(ce.getOperand());
         writeCloseBracket();
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectSomeValuesFrom desc) {
+    public void visit(@Nonnull OWLObjectSomeValuesFrom ce) {
         writeOpenBracket();
         write(SOME);
-        write(desc.getProperty());
-        write(desc.getFiller());
+        write(ce.getProperty());
+        write(ce.getFiller());
         writeCloseBracket();
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectAllValuesFrom desc) {
+    public void visit(@Nonnull OWLObjectAllValuesFrom ce) {
         writeOpenBracket();
         write(ALL);
-        write(desc.getProperty());
-        write(desc.getFiller());
+        write(ce.getProperty());
+        write(ce.getFiller());
         writeCloseBracket();
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectMinCardinality desc) {
+    public void visit(@Nonnull OWLObjectMinCardinality ce) {
         writeOpenBracket();
         write(AT_LEAST);
-        write(desc.getCardinality());
-        write(desc.getProperty());
-        if (desc.isQualified()) {
-            write(desc.getFiller());
+        write(ce.getCardinality());
+        write(ce.getProperty());
+        if (ce.isQualified()) {
+            write(ce.getFiller());
         }
         writeCloseBracket();
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectExactCardinality desc) {
+    public void visit(@Nonnull OWLObjectExactCardinality ce) {
         writeOpenBracket();
         write(EXACTLY);
-        write(desc.getCardinality());
-        write(desc.getProperty());
-        if (desc.isQualified()) {
-            write(desc.getFiller());
+        write(ce.getCardinality());
+        write(ce.getProperty());
+        if (ce.isQualified()) {
+            write(ce.getFiller());
         }
         writeCloseBracket();
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectMaxCardinality desc) {
+    public void visit(@Nonnull OWLObjectMaxCardinality ce) {
         writeOpenBracket();
         write(AT_MOST);
-        write(desc.getCardinality());
-        write(desc.getProperty());
-        if (desc.isQualified()) {
-            write(desc.getFiller());
+        write(ce.getCardinality());
+        write(ce.getProperty());
+        if (ce.isQualified()) {
+            write(ce.getFiller());
         }
         writeCloseBracket();
     }
 
     @Override
-    public void visit(@Nonnull OWLDataSomeValuesFrom desc) {
+    public void visit(@Nonnull OWLDataSomeValuesFrom ce) {
         writeOpenBracket();
         write(SOME);
-        write(desc.getProperty());
-        write(desc.getFiller());
+        write(ce.getProperty());
+        write(ce.getFiller());
         writeCloseBracket();
     }
 
     @Override
-    public void visit(@Nonnull OWLDataAllValuesFrom desc) {
+    public void visit(@Nonnull OWLDataAllValuesFrom ce) {
         writeOpenBracket();
         write(ALL);
-        write(desc.getProperty());
-        write(desc.getFiller());
+        write(ce.getProperty());
+        write(ce.getFiller());
         writeCloseBracket();
     }
 
     @Override
-    public void visit(@Nonnull OWLDataMinCardinality desc) {
+    public void visit(@Nonnull OWLDataMinCardinality ce) {
         writeOpenBracket();
         write(AT_LEAST);
-        write(desc.getCardinality());
-        write(desc.getProperty());
-        if (desc.isQualified()) {
-            write(desc.getFiller());
+        write(ce.getCardinality());
+        write(ce.getProperty());
+        if (ce.isQualified()) {
+            write(ce.getFiller());
         }
         writeCloseBracket();
     }
 
     @Override
-    public void visit(@Nonnull OWLDataExactCardinality desc) {
+    public void visit(@Nonnull OWLDataExactCardinality ce) {
         writeOpenBracket();
         write(EXACTLY);
-        write(desc.getCardinality());
-        write(desc.getProperty());
-        if (desc.isQualified()) {
-            write(desc.getFiller());
+        write(ce.getCardinality());
+        write(ce.getProperty());
+        if (ce.isQualified()) {
+            write(ce.getFiller());
         }
         writeCloseBracket();
     }
 
     @Override
-    public void visit(@Nonnull OWLDataMaxCardinality desc) {
+    public void visit(@Nonnull OWLDataMaxCardinality ce) {
         writeOpenBracket();
         write(AT_MOST);
-        write(desc.getCardinality());
-        write(desc.getProperty());
-        if (desc.isQualified()) {
-            write(desc.getFiller());
+        write(ce.getCardinality());
+        write(ce.getProperty());
+        if (ce.isQualified()) {
+            write(ce.getFiller());
         }
         writeCloseBracket();
     }

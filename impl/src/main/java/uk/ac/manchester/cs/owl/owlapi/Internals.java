@@ -458,8 +458,8 @@ public class Internals implements Serializable {
             axiom.accept(new AbstractEntityRegistrationManager() {
 
                 @Override
-                public void visit(OWLClass owlClass) {
-                    owlClassReferences.put(owlClass, axiom);
+                public void visit(OWLClass ce) {
+                    owlClassReferences.put(ce, axiom);
                 }
 
                 @Override
@@ -473,8 +473,8 @@ public class Internals implements Serializable {
                 }
 
                 @Override
-                public void visit(OWLNamedIndividual owlIndividual) {
-                    owlIndividualReferences.put(owlIndividual, axiom);
+                public void visit(OWLNamedIndividual individual) {
+                    owlIndividualReferences.put(individual, axiom);
                 }
 
                 @Override
@@ -483,8 +483,8 @@ public class Internals implements Serializable {
                 }
 
                 @Override
-                public void visit(OWLDatatype datatype) {
-                    owlDatatypeReferences.put(datatype, axiom);
+                public void visit(OWLDatatype node) {
+                    owlDatatypeReferences.put(node, axiom);
                 }
 
                 @Override
@@ -509,8 +509,8 @@ public class Internals implements Serializable {
             AbstractEntityRegistrationManager referenceRemover = new AbstractEntityRegistrationManager() {
 
                 @Override
-                public void visit(OWLClass owlClass) {
-                    owlClassReferences.remove(owlClass, axiom);
+                public void visit(OWLClass ce) {
+                    owlClassReferences.remove(ce, axiom);
                 }
 
                 @Override
@@ -524,8 +524,8 @@ public class Internals implements Serializable {
                 }
 
                 @Override
-                public void visit(OWLNamedIndividual owlIndividual) {
-                    owlIndividualReferences.remove(owlIndividual, axiom);
+                public void visit(OWLNamedIndividual individual) {
+                    owlIndividualReferences.remove(individual, axiom);
                 }
 
                 @Override
@@ -534,8 +534,8 @@ public class Internals implements Serializable {
                 }
 
                 @Override
-                public void visit(OWLDatatype datatype) {
-                    owlDatatypeReferences.remove(datatype, axiom);
+                public void visit(OWLDatatype node) {
+                    owlDatatypeReferences.remove(node, axiom);
                 }
 
                 @Override

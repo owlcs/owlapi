@@ -384,129 +384,129 @@ public class HashCode implements OWLObjectVisitor, SWRLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLClass desc) {
+    public void visit(OWLClass ce) {
         hashCode = 157;
-        hashCode = hashCode * MULT + desc.getIRI().hashCode();
+        hashCode = hashCode * MULT + ce.getIRI().hashCode();
     }
 
     @Override
-    public void visit(OWLDataAllValuesFrom desc) {
+    public void visit(OWLDataAllValuesFrom ce) {
         hashCode = 163;
-        hashCode = hashCode * MULT + desc.getProperty().hashCode();
-        hashCode = hashCode * MULT + desc.getFiller().hashCode();
+        hashCode = hashCode * MULT + ce.getProperty().hashCode();
+        hashCode = hashCode * MULT + ce.getFiller().hashCode();
     }
 
     @Override
-    public void visit(OWLDataExactCardinality desc) {
+    public void visit(OWLDataExactCardinality ce) {
         hashCode = 167;
-        hashCode = hashCode * MULT + desc.getProperty().hashCode();
-        hashCode = hashCode * MULT + desc.getCardinality();
-        hashCode = hashCode * MULT + desc.getFiller().hashCode();
+        hashCode = hashCode * MULT + ce.getProperty().hashCode();
+        hashCode = hashCode * MULT + ce.getCardinality();
+        hashCode = hashCode * MULT + ce.getFiller().hashCode();
     }
 
     @Override
-    public void visit(OWLDataMaxCardinality desc) {
+    public void visit(OWLDataMaxCardinality ce) {
         hashCode = 173;
-        hashCode = hashCode * MULT + desc.getProperty().hashCode();
-        hashCode = hashCode * MULT + desc.getCardinality();
-        hashCode = hashCode * MULT + desc.getFiller().hashCode();
+        hashCode = hashCode * MULT + ce.getProperty().hashCode();
+        hashCode = hashCode * MULT + ce.getCardinality();
+        hashCode = hashCode * MULT + ce.getFiller().hashCode();
     }
 
     @Override
-    public void visit(OWLDataMinCardinality desc) {
+    public void visit(OWLDataMinCardinality ce) {
         hashCode = 179;
-        hashCode = hashCode * MULT + desc.getProperty().hashCode();
-        hashCode = hashCode * MULT + desc.getCardinality();
-        hashCode = hashCode * MULT + desc.getFiller().hashCode();
+        hashCode = hashCode * MULT + ce.getProperty().hashCode();
+        hashCode = hashCode * MULT + ce.getCardinality();
+        hashCode = hashCode * MULT + ce.getFiller().hashCode();
     }
 
     @Override
-    public void visit(OWLDataSomeValuesFrom desc) {
+    public void visit(OWLDataSomeValuesFrom ce) {
         hashCode = 181;
-        hashCode = hashCode * MULT + desc.getProperty().hashCode();
-        hashCode = hashCode * MULT + desc.getFiller().hashCode();
+        hashCode = hashCode * MULT + ce.getProperty().hashCode();
+        hashCode = hashCode * MULT + ce.getFiller().hashCode();
     }
 
     @Override
-    public void visit(OWLDataHasValue desc) {
+    public void visit(OWLDataHasValue ce) {
         hashCode = 191;
-        hashCode = hashCode * MULT + desc.getProperty().hashCode();
-        hashCode = hashCode * MULT + desc.getFiller().hashCode();
+        hashCode = hashCode * MULT + ce.getProperty().hashCode();
+        hashCode = hashCode * MULT + ce.getFiller().hashCode();
     }
 
     @Override
-    public void visit(OWLObjectAllValuesFrom desc) {
+    public void visit(OWLObjectAllValuesFrom ce) {
         hashCode = 193;
-        hashCode = hashCode * MULT + desc.getProperty().hashCode();
-        hashCode = hashCode * MULT + desc.getFiller().hashCode();
+        hashCode = hashCode * MULT + ce.getProperty().hashCode();
+        hashCode = hashCode * MULT + ce.getFiller().hashCode();
     }
 
     @Override
-    public void visit(OWLObjectComplementOf desc) {
+    public void visit(OWLObjectComplementOf ce) {
         hashCode = 197;
-        hashCode = hashCode * MULT + desc.getOperand().hashCode();
+        hashCode = hashCode * MULT + ce.getOperand().hashCode();
     }
 
     @Override
-    public void visit(OWLObjectExactCardinality desc) {
+    public void visit(OWLObjectExactCardinality ce) {
         hashCode = 199;
-        hashCode = hashCode * MULT + desc.getProperty().hashCode();
-        hashCode = hashCode * MULT + desc.getCardinality();
-        hashCode = hashCode * MULT + desc.getFiller().hashCode();
+        hashCode = hashCode * MULT + ce.getProperty().hashCode();
+        hashCode = hashCode * MULT + ce.getCardinality();
+        hashCode = hashCode * MULT + ce.getFiller().hashCode();
     }
 
     @Override
-    public void visit(OWLObjectIntersectionOf desc) {
+    public void visit(OWLObjectIntersectionOf ce) {
         hashCode = 211;
-        hashCode = hashCode * MULT + desc.getOperands().hashCode();
+        hashCode = hashCode * MULT + ce.getOperands().hashCode();
     }
 
     @Override
-    public void visit(OWLObjectMaxCardinality desc) {
+    public void visit(OWLObjectMaxCardinality ce) {
         hashCode = 223;
-        hashCode = hashCode * MULT + desc.getProperty().hashCode();
-        hashCode = hashCode * MULT + desc.getCardinality();
-        hashCode = hashCode * MULT + desc.getFiller().hashCode();
+        hashCode = hashCode * MULT + ce.getProperty().hashCode();
+        hashCode = hashCode * MULT + ce.getCardinality();
+        hashCode = hashCode * MULT + ce.getFiller().hashCode();
     }
 
     @Override
-    public void visit(OWLObjectMinCardinality desc) {
+    public void visit(OWLObjectMinCardinality ce) {
         hashCode = 227;
-        hashCode = hashCode * MULT + desc.getProperty().hashCode();
-        hashCode = hashCode * MULT + desc.getCardinality();
-        hashCode = hashCode * MULT + desc.getFiller().hashCode();
+        hashCode = hashCode * MULT + ce.getProperty().hashCode();
+        hashCode = hashCode * MULT + ce.getCardinality();
+        hashCode = hashCode * MULT + ce.getFiller().hashCode();
     }
 
     @Override
-    public void visit(OWLObjectOneOf desc) {
+    public void visit(OWLObjectOneOf ce) {
         hashCode = 229;
-        hashCode = hashCode * MULT + desc.getIndividuals().hashCode();
+        hashCode = hashCode * MULT + ce.getIndividuals().hashCode();
     }
 
     @Override
-    public void visit(OWLObjectHasSelf desc) {
+    public void visit(OWLObjectHasSelf ce) {
         hashCode = 233;
-        hashCode = hashCode * MULT + desc.getProperty().hashCode();
+        hashCode = hashCode * MULT + ce.getProperty().hashCode();
     }
 
     @Override
-    public void visit(OWLObjectSomeValuesFrom desc) {
+    public void visit(OWLObjectSomeValuesFrom ce) {
         hashCode = 239;
-        hashCode = hashCode * MULT + desc.getProperty().hashCode();
-        hashCode = hashCode * MULT + desc.getFiller().hashCode();
+        hashCode = hashCode * MULT + ce.getProperty().hashCode();
+        hashCode = hashCode * MULT + ce.getFiller().hashCode();
     }
 
     @Override
-    public void visit(OWLObjectUnionOf desc) {
+    public void visit(OWLObjectUnionOf ce) {
         hashCode = 241;
-        hashCode = hashCode * MULT + desc.getOperands().hashCode();
+        hashCode = hashCode * MULT + ce.getOperands().hashCode();
     }
 
     @Override
-    public void visit(OWLObjectHasValue desc) {
+    public void visit(OWLObjectHasValue ce) {
         hashCode = 251;
-        hashCode = hashCode * MULT + desc.getProperty().hashCode();
-        hashCode = hashCode * MULT + desc.getFiller().hashCode();
+        hashCode = hashCode * MULT + ce.getProperty().hashCode();
+        hashCode = hashCode * MULT + ce.getFiller().hashCode();
     }
 
     @Override

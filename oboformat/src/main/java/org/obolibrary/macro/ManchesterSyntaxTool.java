@@ -122,8 +122,8 @@ public class ManchesterSyntaxTool {
             }
 
             @Override
-            public String getShortForm(@Nonnull OWLEntity owlEntity) {
-                return iriShortFormProvider.getShortForm(owlEntity.getIRI());
+            public String getShortForm(@Nonnull OWLEntity entity) {
+                return iriShortFormProvider.getShortForm(entity.getIRI());
             }
         };
         ShortFormEntityChecker defaultInstance = new ShortFormEntityChecker(

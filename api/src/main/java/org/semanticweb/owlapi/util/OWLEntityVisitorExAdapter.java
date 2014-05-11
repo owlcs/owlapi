@@ -51,13 +51,13 @@ public class OWLEntityVisitorExAdapter<O> extends
     }
 
     @Override
-    public O visit(OWLClass desc) {
-        return doDefault(desc);
+    public O visit(OWLClass cls) {
+        return doDefault(cls);
     }
 
     @Override
-    public O visit(OWLDatatype node) {
-        return doDefault(node);
+    public O visit(OWLDatatype datatype) {
+        return doDefault(datatype);
     }
 
     @Override

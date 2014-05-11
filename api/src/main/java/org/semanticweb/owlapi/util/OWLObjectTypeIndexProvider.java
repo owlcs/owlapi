@@ -146,7 +146,7 @@ public class OWLObjectTypeIndexProvider implements OWLObjectVisitor {
 
     // Entities
     @Override
-    public void visit(OWLClass desc) {
+    public void visit(OWLClass ce) {
         type = OWL_CLASS;
     }
 
@@ -383,87 +383,87 @@ public class OWLObjectTypeIndexProvider implements OWLObjectVisitor {
 
     // Anon class expressions
     @Override
-    public void visit(OWLObjectIntersectionOf desc) {
+    public void visit(OWLObjectIntersectionOf ce) {
         type = CLASS_EXPRESSION_TYPE_INDEX_BASE + 1;
     }
 
     @Override
-    public void visit(OWLObjectUnionOf desc) {
+    public void visit(OWLObjectUnionOf ce) {
         type = CLASS_EXPRESSION_TYPE_INDEX_BASE + 2;
     }
 
     @Override
-    public void visit(OWLObjectComplementOf desc) {
+    public void visit(OWLObjectComplementOf ce) {
         type = CLASS_EXPRESSION_TYPE_INDEX_BASE + 3;
     }
 
     @Override
-    public void visit(OWLObjectOneOf desc) {
+    public void visit(OWLObjectOneOf ce) {
         type = CLASS_EXPRESSION_TYPE_INDEX_BASE + 4;
     }
 
     @Override
-    public void visit(OWLObjectSomeValuesFrom desc) {
+    public void visit(OWLObjectSomeValuesFrom ce) {
         type = CLASS_EXPRESSION_TYPE_INDEX_BASE + 5;
     }
 
     @Override
-    public void visit(OWLObjectAllValuesFrom desc) {
+    public void visit(OWLObjectAllValuesFrom ce) {
         type = CLASS_EXPRESSION_TYPE_INDEX_BASE + 6;
     }
 
     @Override
-    public void visit(OWLObjectHasValue desc) {
+    public void visit(OWLObjectHasValue ce) {
         type = CLASS_EXPRESSION_TYPE_INDEX_BASE + 7;
     }
 
     @Override
-    public void visit(OWLObjectMinCardinality desc) {
+    public void visit(OWLObjectMinCardinality ce) {
         type = CLASS_EXPRESSION_TYPE_INDEX_BASE + 8;
     }
 
     @Override
-    public void visit(OWLObjectExactCardinality desc) {
+    public void visit(OWLObjectExactCardinality ce) {
         type = CLASS_EXPRESSION_TYPE_INDEX_BASE + 9;
     }
 
     @Override
-    public void visit(OWLObjectMaxCardinality desc) {
+    public void visit(OWLObjectMaxCardinality ce) {
         type = CLASS_EXPRESSION_TYPE_INDEX_BASE + 10;
     }
 
     @Override
-    public void visit(OWLObjectHasSelf desc) {
+    public void visit(OWLObjectHasSelf ce) {
         type = CLASS_EXPRESSION_TYPE_INDEX_BASE + 11;
     }
 
     @Override
-    public void visit(OWLDataSomeValuesFrom desc) {
+    public void visit(OWLDataSomeValuesFrom ce) {
         type = CLASS_EXPRESSION_TYPE_INDEX_BASE + 12;
     }
 
     @Override
-    public void visit(OWLDataAllValuesFrom desc) {
+    public void visit(OWLDataAllValuesFrom ce) {
         type = CLASS_EXPRESSION_TYPE_INDEX_BASE + 13;
     }
 
     @Override
-    public void visit(OWLDataHasValue desc) {
+    public void visit(OWLDataHasValue ce) {
         type = CLASS_EXPRESSION_TYPE_INDEX_BASE + 14;
     }
 
     @Override
-    public void visit(OWLDataMinCardinality desc) {
+    public void visit(OWLDataMinCardinality ce) {
         type = CLASS_EXPRESSION_TYPE_INDEX_BASE + 15;
     }
 
     @Override
-    public void visit(OWLDataExactCardinality desc) {
+    public void visit(OWLDataExactCardinality ce) {
         type = CLASS_EXPRESSION_TYPE_INDEX_BASE + 16;
     }
 
     @Override
-    public void visit(OWLDataMaxCardinality desc) {
+    public void visit(OWLDataMaxCardinality ce) {
         type = CLASS_EXPRESSION_TYPE_INDEX_BASE + 17;
     }
 

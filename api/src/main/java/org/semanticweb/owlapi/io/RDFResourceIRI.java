@@ -59,14 +59,14 @@ public class RDFResourceIRI extends RDFResource {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (o == this) {
+    public boolean equals(Object obj) {
+        if (obj == this) {
             return true;
         }
-        if (!(o instanceof RDFResourceIRI)) {
+        if (!(obj instanceof RDFResourceIRI)) {
             return false;
         }
-        RDFResourceIRI other = (RDFResourceIRI) o;
+        RDFResourceIRI other = (RDFResourceIRI) obj;
         return resource.equals(other.resource);
     }
 

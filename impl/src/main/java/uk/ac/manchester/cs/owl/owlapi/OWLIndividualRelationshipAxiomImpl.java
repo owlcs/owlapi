@@ -94,8 +94,8 @@ public abstract class OWLIndividualRelationshipAxiomImpl<P extends OWLPropertyEx
     }
 
     @Override
-    protected int compareObjectOfSameType(OWLObject o) {
-        OWLPropertyAssertionAxiom<?, ?> other = (OWLPropertyAssertionAxiom<?, ?>) o;
+    protected int compareObjectOfSameType(OWLObject object) {
+        OWLPropertyAssertionAxiom<?, ?> other = (OWLPropertyAssertionAxiom<?, ?>) object;
         int diff = subject.compareTo(other.getSubject());
         if (diff != 0) {
             return diff;
@@ -104,6 +104,6 @@ public abstract class OWLIndividualRelationshipAxiomImpl<P extends OWLPropertyEx
         if (diff != 0) {
             return diff;
         }
-        return o.compareTo(other.getObject());
+        return object.compareTo(other.getObject());
     }
 }

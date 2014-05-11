@@ -2396,8 +2396,8 @@ class OWLObjectIntersectionOfElementHandler extends
 
     @Override
     OWLClassExpression createClassExpression(
-            @Nonnull Set<OWLClassExpression> ops) {
-        return df.getOWLObjectIntersectionOf(ops);
+            @Nonnull Set<OWLClassExpression> expressions) {
+        return df.getOWLObjectIntersectionOf(expressions);
     }
 }
 
@@ -2570,8 +2570,8 @@ class OWLObjectUnionOfElementHandler extends
     }
 
     @Override
-    OWLClassExpression createClassExpression(Set<OWLClassExpression> ops) {
-        return df.getOWLObjectUnionOf(ops);
+    OWLClassExpression createClassExpression(Set<OWLClassExpression> expressions) {
+        return df.getOWLObjectUnionOf(expressions);
     }
 }
 
@@ -2933,13 +2933,13 @@ class SWRLDataPropertyAtomElementHandler extends SWRLAtomElementHandler {
     }
 
     @Override
-    void handleChild(@Nonnull OWLIndividualElementHandler _handler) {
-        arg0 = df.getSWRLIndividualArgument(_handler.getOWLObject());
+    void handleChild(@Nonnull OWLIndividualElementHandler h) {
+        arg0 = df.getSWRLIndividualArgument(h.getOWLObject());
     }
 
     @Override
-    void handleChild(@Nonnull OWLAnonymousIndividualElementHandler _handler) {
-        arg0 = df.getSWRLIndividualArgument(_handler.getOWLObject());
+    void handleChild(@Nonnull OWLAnonymousIndividualElementHandler h) {
+        arg0 = df.getSWRLIndividualArgument(h.getOWLObject());
     }
 
     @Override
@@ -2960,8 +2960,8 @@ class SWRLDataRangeAtomElementHandler extends SWRLAtomElementHandler {
     }
 
     @Override
-    void handleChild(@Nonnull AbstractOWLDataRangeHandler _handler) {
-        prop = _handler.getOWLObject();
+    void handleChild(@Nonnull AbstractOWLDataRangeHandler h) {
+        prop = h.getOWLObject();
     }
 
     @Override
@@ -3154,15 +3154,15 @@ class OWLOntologyHandler extends OWLElementHandler<OWLOntology> {
     void startElement(String name) {}
 
     @Override
-    void attribute(@Nonnull String name, String value) {
-        if (name.equals("ontologyIRI")) {
+    void attribute(@Nonnull String localName, String value) {
+        if (localName.equals("ontologyIRI")) {
             OWLOntologyID newID = new OWLOntologyID(Optional.of(IRI
                     .create(value)), handler.getOntology().getOntologyID()
                     .getVersionIRI());
             handler.getOWLOntologyManager().applyChange(
                     new SetOntologyID(handler.getOntology(), newID));
         }
-        if (name.equals("versionIRI")) {
+        if (localName.equals("versionIRI")) {
             OWLOntologyID newID = new OWLOntologyID(handler.getOntology()
                     .getOntologyID().getOntologyIRI(), Optional.of(IRI
                     .create(value)));

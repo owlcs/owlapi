@@ -680,14 +680,14 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
     }
 
     @Override
-    public Set<OWLAxiom> extract(Set<OWLEntity> sig) {
-        return extract(sig, 0, 0, null, false);
+    public Set<OWLAxiom> extract(Set<OWLEntity> signature) {
+        return extract(signature, 0, 0, null, false);
     }
 
     @Override
-    public Set<OWLAxiom> extract(Set<OWLEntity> sig, int superClassLevel,
+    public Set<OWLAxiom> extract(Set<OWLEntity> signature, int superClassLevel,
             int subClassLevel, OWLReasoner reasoner) {
-        return extract(sig, superClassLevel, subClassLevel, reasoner, false);
+        return extract(signature, superClassLevel, subClassLevel, reasoner, false);
     }
 
     /**

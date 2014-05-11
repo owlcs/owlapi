@@ -88,7 +88,7 @@ public class OWLDataVisitorExAdapter<O> extends
     }
 
     @Override
-    public O visit(OWLLiteral literal) {
-        return doDefault(literal);
+    public O visit(OWLLiteral node) {
+        return doDefault(node);
     }
 }

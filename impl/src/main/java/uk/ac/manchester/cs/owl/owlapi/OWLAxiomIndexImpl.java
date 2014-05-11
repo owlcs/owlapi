@@ -71,16 +71,16 @@ public abstract class OWLAxiomIndexImpl extends OWLObjectImpl implements
     protected Internals ints = new Internals();
 
     @Override
-    public Set<OWLDeclarationAxiom> getDeclarationAxioms(OWLEntity entity) {
-        return getAxioms(OWLDeclarationAxiom.class, entity, EXCLUDED,
+    public Set<OWLDeclarationAxiom> getDeclarationAxioms(OWLEntity subject) {
+        return getAxioms(OWLDeclarationAxiom.class, subject, EXCLUDED,
                 IN_SUB_POSITION);
     }
 
     @Override
     public Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxioms(
-            OWLAnnotationSubject subject) {
+            OWLAnnotationSubject entity) {
         return getAxioms(OWLAnnotationAssertionAxiom.class,
-                OWLAnnotationSubject.class, subject, EXCLUDED, IN_SUB_POSITION);
+                OWLAnnotationSubject.class, entity, EXCLUDED, IN_SUB_POSITION);
     }
 
     @Override
@@ -166,18 +166,18 @@ public abstract class OWLAxiomIndexImpl extends OWLObjectImpl implements
     @Override
     public Set<OWLSubObjectPropertyOfAxiom>
             getObjectSubPropertyAxiomsForSubProperty(
-                    OWLObjectPropertyExpression property) {
+                    OWLObjectPropertyExpression subProperty) {
         return getAxioms(OWLSubObjectPropertyOfAxiom.class,
-                OWLObjectPropertyExpression.class, property, EXCLUDED,
+                OWLObjectPropertyExpression.class, subProperty, EXCLUDED,
                 IN_SUB_POSITION);
     }
 
     @Override
     public Set<OWLSubObjectPropertyOfAxiom>
             getObjectSubPropertyAxiomsForSuperProperty(
-                    OWLObjectPropertyExpression property) {
+                    OWLObjectPropertyExpression superProperty) {
         return getAxioms(OWLSubObjectPropertyOfAxiom.class,
-                OWLObjectPropertyExpression.class, property, EXCLUDED,
+                OWLObjectPropertyExpression.class, superProperty, EXCLUDED,
                 IN_SUPER_POSITION);
     }
 
@@ -296,18 +296,18 @@ public abstract class OWLAxiomIndexImpl extends OWLObjectImpl implements
 
     @Override
     public Set<OWLSubDataPropertyOfAxiom>
-            getDataSubPropertyAxiomsForSubProperty(OWLDataProperty lhsProperty) {
+            getDataSubPropertyAxiomsForSubProperty(OWLDataProperty subProperty) {
         return getAxioms(OWLSubDataPropertyOfAxiom.class,
-                OWLDataPropertyExpression.class, lhsProperty, EXCLUDED,
+                OWLDataPropertyExpression.class, subProperty, EXCLUDED,
                 IN_SUB_POSITION);
     }
 
     @Override
     public Set<OWLSubDataPropertyOfAxiom>
             getDataSubPropertyAxiomsForSuperProperty(
-                    OWLDataPropertyExpression property) {
+                    OWLDataPropertyExpression superProperty) {
         return getAxioms(OWLSubDataPropertyOfAxiom.class,
-                OWLDataPropertyExpression.class, property, EXCLUDED,
+                OWLDataPropertyExpression.class, superProperty, EXCLUDED,
                 IN_SUPER_POSITION);
     }
 
@@ -352,9 +352,9 @@ public abstract class OWLAxiomIndexImpl extends OWLObjectImpl implements
 
     @Override
     public Set<OWLClassAssertionAxiom> getClassAssertionAxioms(
-            OWLClassExpression type) {
+            OWLClassExpression ce) {
         return getAxioms(OWLClassAssertionAxiom.class,
-                OWLClassExpression.class, type, EXCLUDED, IN_SUB_POSITION);
+                OWLClassExpression.class, ce, EXCLUDED, IN_SUB_POSITION);
     }
 
     @Override

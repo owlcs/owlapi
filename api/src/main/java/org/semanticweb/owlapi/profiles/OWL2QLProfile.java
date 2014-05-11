@@ -321,17 +321,17 @@ public class OWL2QLProfile implements OWLProfile {
         }
 
         @Override
-        public Boolean visit(OWLClass desc) {
+        public Boolean visit(OWLClass ce) {
             return b(true);
         }
 
         @Override
-        public Boolean visit(OWLObjectSomeValuesFrom desc) {
-            return b(desc.getFiller().isOWLThing());
+        public Boolean visit(OWLObjectSomeValuesFrom ce) {
+            return b(ce.getFiller().isOWLThing());
         }
 
         @Override
-        public Boolean visit(OWLDataSomeValuesFrom desc) {
+        public Boolean visit(OWLDataSomeValuesFrom ce) {
             return b(true);
         }
     }
@@ -351,14 +351,14 @@ public class OWL2QLProfile implements OWLProfile {
         }
 
         @Override
-        public Boolean visit(OWLClass desc) {
+        public Boolean visit(OWLClass ce) {
             return b(true);
         }
 
         @Override
-        public Boolean visit(OWLObjectIntersectionOf desc) {
-            for (OWLClassExpression ce : desc.getOperands()) {
-                if (!ce.accept(this).booleanValue()) {
+        public Boolean visit(OWLObjectIntersectionOf ce) {
+            for (OWLClassExpression e : ce.getOperands()) {
+                if (!e.accept(this).booleanValue()) {
                     return b(false);
                 }
             }
@@ -366,17 +366,17 @@ public class OWL2QLProfile implements OWLProfile {
         }
 
         @Override
-        public Boolean visit(OWLObjectComplementOf desc) {
-            return b(isOWL2QLSubClassExpression(desc.getOperand()));
+        public Boolean visit(OWLObjectComplementOf ce) {
+            return b(isOWL2QLSubClassExpression(ce.getOperand()));
         }
 
         @Override
-        public Boolean visit(OWLObjectSomeValuesFrom desc) {
-            return b(!desc.getFiller().isAnonymous());
+        public Boolean visit(OWLObjectSomeValuesFrom ce) {
+            return b(!ce.getFiller().isAnonymous());
         }
 
         @Override
-        public Boolean visit(OWLDataSomeValuesFrom desc) {
+        public Boolean visit(OWLDataSomeValuesFrom ce) {
             return b(true);
         }
     }

@@ -45,8 +45,8 @@ public class SimpleIRIMapper implements OWLOntologyIRIMapper {
 
     @Nullable
     @Override
-    public IRI getDocumentIRI(IRI iri) {
-        if (ontologyIRI.equals(iri)) {
+    public IRI getDocumentIRI(IRI ontologyIRI) {
+        if (this.ontologyIRI.equals(ontologyIRI)) {
             return documentIRI;
         } else {
             return null;

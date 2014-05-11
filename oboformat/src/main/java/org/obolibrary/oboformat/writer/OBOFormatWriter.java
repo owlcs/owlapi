@@ -908,12 +908,12 @@ public class OBOFormatWriter {
         protected static final ClauseListComparator instance = new ClauseListComparator();
 
         @Override
-        public int compare(Clause c1, Clause c2) {
-            String t1 = c1.getTag();
-            String t2 = c2.getTag();
+        public int compare(Clause o1, Clause o2) {
+            String t1 = o1.getTag();
+            String t2 = o2.getTag();
             int compare = TermsTagsComparator.instance.compare(t1, t2);
             if (compare == 0) {
-                compare = ClauseComparator.instance.compare(c1, c2);
+                compare = ClauseComparator.instance.compare(o1, o2);
             }
             return compare;
         }
@@ -1004,8 +1004,8 @@ public class OBOFormatWriter {
         static final FramesComparator instance = new FramesComparator();
 
         @Override
-        public int compare(Frame f1, Frame f2) {
-            return f1.getId().compareTo(f2.getId());
+        public int compare(Frame o1, Frame o2) {
+            return o1.getId().compareTo(o2.getId());
         }
     }
 
@@ -1100,9 +1100,9 @@ public class OBOFormatWriter {
         static final XrefComparator instance = new XrefComparator();
 
         @Override
-        public int compare(Xref x1, Xref x2) {
-            String idref1 = x1.getIdref();
-            String idref2 = x2.getIdref();
+        public int compare(Xref o1, Xref o2) {
+            String idref1 = o1.getIdref();
+            String idref2 = o2.getIdref();
             return idref1.compareToIgnoreCase(idref2);
         }
     }

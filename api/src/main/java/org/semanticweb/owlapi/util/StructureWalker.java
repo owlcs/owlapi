@@ -154,14 +154,14 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLOntology ontologyToVisit) {
-        walkerCallback.ontology = ontologyToVisit;
+    public void visit(OWLOntology ontology) {
+        walkerCallback.ontology = ontology;
         walkerCallback.ax = null;
-        process(ontologyToVisit);
-        for (OWLAnnotation anno : ontologyToVisit.getAnnotations()) {
+        process(ontology);
+        for (OWLAnnotation anno : ontology.getAnnotations()) {
             anno.accept(this);
         }
-        for (OWLAxiom a : ontologyToVisit.getAxioms()) {
+        for (OWLAxiom a : ontology.getAxioms()) {
             a.accept(this);
         }
     }
@@ -499,164 +499,164 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLClass desc) {
-        walkerCallback.pushClassExpression(desc);
-        process(desc);
-        desc.getIRI().accept(this);
+    public void visit(OWLClass ce) {
+        walkerCallback.pushClassExpression(ce);
+        process(ce);
+        ce.getIRI().accept(this);
         walkerCallback.popClassExpression();
     }
 
     @Override
-    public void visit(OWLDataAllValuesFrom desc) {
-        walkerCallback.pushClassExpression(desc);
-        process(desc);
-        desc.getProperty().accept(this);
-        desc.getFiller().accept(this);
+    public void visit(OWLDataAllValuesFrom ce) {
+        walkerCallback.pushClassExpression(ce);
+        process(ce);
+        ce.getProperty().accept(this);
+        ce.getFiller().accept(this);
         walkerCallback.popClassExpression();
     }
 
     @Override
-    public void visit(OWLDataExactCardinality desc) {
-        walkerCallback.pushClassExpression(desc);
-        process(desc);
-        desc.getProperty().accept(this);
-        desc.getFiller().accept(this);
+    public void visit(OWLDataExactCardinality ce) {
+        walkerCallback.pushClassExpression(ce);
+        process(ce);
+        ce.getProperty().accept(this);
+        ce.getFiller().accept(this);
         walkerCallback.popClassExpression();
     }
 
     @Override
-    public void visit(OWLDataMaxCardinality desc) {
-        walkerCallback.pushClassExpression(desc);
-        process(desc);
-        desc.getProperty().accept(this);
-        desc.getFiller().accept(this);
+    public void visit(OWLDataMaxCardinality ce) {
+        walkerCallback.pushClassExpression(ce);
+        process(ce);
+        ce.getProperty().accept(this);
+        ce.getFiller().accept(this);
         walkerCallback.popClassExpression();
     }
 
     @Override
-    public void visit(OWLDataMinCardinality desc) {
-        walkerCallback.pushClassExpression(desc);
-        process(desc);
-        desc.getProperty().accept(this);
-        desc.getFiller().accept(this);
+    public void visit(OWLDataMinCardinality ce) {
+        walkerCallback.pushClassExpression(ce);
+        process(ce);
+        ce.getProperty().accept(this);
+        ce.getFiller().accept(this);
         walkerCallback.popClassExpression();
     }
 
     @Override
-    public void visit(OWLDataSomeValuesFrom desc) {
-        walkerCallback.pushClassExpression(desc);
-        process(desc);
-        desc.getProperty().accept(this);
-        desc.getFiller().accept(this);
+    public void visit(OWLDataSomeValuesFrom ce) {
+        walkerCallback.pushClassExpression(ce);
+        process(ce);
+        ce.getProperty().accept(this);
+        ce.getFiller().accept(this);
         walkerCallback.popClassExpression();
     }
 
     @Override
-    public void visit(OWLDataHasValue desc) {
-        walkerCallback.pushClassExpression(desc);
-        process(desc);
-        desc.getProperty().accept(this);
-        desc.getFiller().accept(this);
+    public void visit(OWLDataHasValue ce) {
+        walkerCallback.pushClassExpression(ce);
+        process(ce);
+        ce.getProperty().accept(this);
+        ce.getFiller().accept(this);
         walkerCallback.popClassExpression();
     }
 
     @Override
-    public void visit(OWLObjectAllValuesFrom desc) {
-        walkerCallback.pushClassExpression(desc);
-        process(desc);
-        desc.getProperty().accept(this);
-        desc.getFiller().accept(this);
+    public void visit(OWLObjectAllValuesFrom ce) {
+        walkerCallback.pushClassExpression(ce);
+        process(ce);
+        ce.getProperty().accept(this);
+        ce.getFiller().accept(this);
         walkerCallback.popClassExpression();
     }
 
     @Override
-    public void visit(OWLObjectComplementOf desc) {
-        walkerCallback.pushClassExpression(desc);
-        process(desc);
-        desc.getOperand().accept(this);
+    public void visit(OWLObjectComplementOf ce) {
+        walkerCallback.pushClassExpression(ce);
+        process(ce);
+        ce.getOperand().accept(this);
         walkerCallback.popClassExpression();
     }
 
     @Override
-    public void visit(OWLObjectExactCardinality desc) {
-        walkerCallback.pushClassExpression(desc);
-        process(desc);
-        desc.getProperty().accept(this);
-        desc.getFiller().accept(this);
+    public void visit(OWLObjectExactCardinality ce) {
+        walkerCallback.pushClassExpression(ce);
+        process(ce);
+        ce.getProperty().accept(this);
+        ce.getFiller().accept(this);
         walkerCallback.popClassExpression();
     }
 
     @Override
-    public void visit(OWLObjectIntersectionOf desc) {
-        walkerCallback.pushClassExpression(desc);
-        process(desc);
-        for (OWLClassExpression op : desc.getOperands()) {
+    public void visit(OWLObjectIntersectionOf ce) {
+        walkerCallback.pushClassExpression(ce);
+        process(ce);
+        for (OWLClassExpression op : ce.getOperands()) {
             op.accept(this);
         }
         walkerCallback.popClassExpression();
     }
 
     @Override
-    public void visit(OWLObjectMaxCardinality desc) {
-        walkerCallback.pushClassExpression(desc);
-        process(desc);
-        desc.getProperty().accept(this);
-        desc.getFiller().accept(this);
+    public void visit(OWLObjectMaxCardinality ce) {
+        walkerCallback.pushClassExpression(ce);
+        process(ce);
+        ce.getProperty().accept(this);
+        ce.getFiller().accept(this);
         walkerCallback.popClassExpression();
     }
 
     @Override
-    public void visit(OWLObjectMinCardinality desc) {
-        walkerCallback.pushClassExpression(desc);
-        process(desc);
-        desc.getProperty().accept(this);
-        desc.getFiller().accept(this);
+    public void visit(OWLObjectMinCardinality ce) {
+        walkerCallback.pushClassExpression(ce);
+        process(ce);
+        ce.getProperty().accept(this);
+        ce.getFiller().accept(this);
         walkerCallback.popClassExpression();
     }
 
     @Override
-    public void visit(OWLObjectOneOf desc) {
-        walkerCallback.pushClassExpression(desc);
-        process(desc);
-        for (OWLIndividual ind : desc.getIndividuals()) {
+    public void visit(OWLObjectOneOf ce) {
+        walkerCallback.pushClassExpression(ce);
+        process(ce);
+        for (OWLIndividual ind : ce.getIndividuals()) {
             ind.accept(this);
         }
         walkerCallback.popClassExpression();
     }
 
     @Override
-    public void visit(OWLObjectHasSelf desc) {
-        walkerCallback.pushClassExpression(desc);
-        process(desc);
-        desc.getProperty().accept(this);
+    public void visit(OWLObjectHasSelf ce) {
+        walkerCallback.pushClassExpression(ce);
+        process(ce);
+        ce.getProperty().accept(this);
         walkerCallback.popClassExpression();
     }
 
     @Override
-    public void visit(OWLObjectSomeValuesFrom desc) {
-        walkerCallback.pushClassExpression(desc);
-        process(desc);
-        desc.getProperty().accept(this);
-        desc.getFiller().accept(this);
+    public void visit(OWLObjectSomeValuesFrom ce) {
+        walkerCallback.pushClassExpression(ce);
+        process(ce);
+        ce.getProperty().accept(this);
+        ce.getFiller().accept(this);
         walkerCallback.popClassExpression();
     }
 
     @Override
-    public void visit(OWLObjectUnionOf desc) {
-        walkerCallback.pushClassExpression(desc);
-        process(desc);
-        for (OWLClassExpression op : desc.getOperands()) {
+    public void visit(OWLObjectUnionOf ce) {
+        walkerCallback.pushClassExpression(ce);
+        process(ce);
+        for (OWLClassExpression op : ce.getOperands()) {
             op.accept(this);
         }
         walkerCallback.popClassExpression();
     }
 
     @Override
-    public void visit(OWLObjectHasValue desc) {
-        walkerCallback.pushClassExpression(desc);
-        process(desc);
-        desc.getProperty().accept(this);
-        desc.getFiller().accept(this);
+    public void visit(OWLObjectHasValue ce) {
+        walkerCallback.pushClassExpression(ce);
+        process(ce);
+        ce.getProperty().accept(this);
+        ce.getFiller().accept(this);
         walkerCallback.popClassExpression();
     }
 

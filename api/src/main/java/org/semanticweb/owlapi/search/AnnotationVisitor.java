@@ -24,8 +24,8 @@ class AnnotationVisitor<C> extends OWLAxiomVisitorExAdapter<Set<C>> {
 
     @Nonnull
     @Override
-    protected Set<C> doDefault(@Nonnull OWLAxiom axiom) {
-        return get(axiom.getAnnotations());
+    protected Set<C> doDefault(@Nonnull OWLAxiom object) {
+        return get(object.getAnnotations());
     }
 
     @Nonnull

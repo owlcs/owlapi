@@ -45,8 +45,8 @@ public class MutableTree<N> implements Tree<N> {
     private NodeRenderer<N> toStringRenderer = new NodeRenderer<N>() {
 
         @Override
-        public String render(@Nonnull Tree<N> object) {
-            return object.toString();
+        public String render(@Nonnull Tree<N> node) {
+            return node.toString();
         }
     };
 

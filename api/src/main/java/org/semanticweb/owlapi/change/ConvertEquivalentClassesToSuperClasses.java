@@ -144,8 +144,8 @@ public class ConvertEquivalentClassesToSuperClasses extends
 
                         @Override
                         public Set<OWLClassExpression> visit(
-                                OWLObjectIntersectionOf intersection) {
-                            return intersection.getOperands();
+                                OWLObjectIntersectionOf ce) {
+                            return ce.getOperands();
                         }
                     });
         }

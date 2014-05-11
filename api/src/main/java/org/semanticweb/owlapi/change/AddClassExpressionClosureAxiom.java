@@ -124,17 +124,17 @@ public class AddClassExpressionClosureAxiom extends
         }
 
         @Override
-        public void visit(@Nonnull OWLObjectSomeValuesFrom desc) {
-            if (desc.getProperty().equals(property)) {
-                fillers.add(desc.getFiller());
+        public void visit(@Nonnull OWLObjectSomeValuesFrom ce) {
+            if (ce.getProperty().equals(property)) {
+                fillers.add(ce.getFiller());
             }
         }
 
         @Override
-        public void visit(@Nonnull OWLObjectHasValue desc) {
-            if (desc.getProperty().equals(property)) {
+        public void visit(@Nonnull OWLObjectHasValue ce) {
+            if (ce.getProperty().equals(property)) {
                 fillers.add(getDataFactory().getOWLObjectOneOf(
-                        CollectionFactory.createSet(desc.getFiller())));
+                        CollectionFactory.createSet(ce.getFiller())));
             }
         }
     }

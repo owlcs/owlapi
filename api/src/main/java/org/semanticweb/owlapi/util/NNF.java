@@ -124,24 +124,24 @@ public class NNF extends OWLDataVisitorExAdapter<OWLDataRange> implements
     }
 
     @Override
-    public OWLClassExpression visit(OWLClass desc) {
+    public OWLClassExpression visit(OWLClass ce) {
         if (negated) {
-            if (desc.isOWLNothing()) {
+            if (ce.isOWLNothing()) {
                 return dataFactory.getOWLThing();
-            } else if (desc.isOWLThing()) {
+            } else if (ce.isOWLThing()) {
                 return dataFactory.getOWLNothing();
             } else {
-                return getNegation(desc);
+                return getNegation(ce);
             }
         } else {
-            return desc;
+            return ce;
         }
     }
 
     @Override
-    public OWLClassExpression visit(OWLObjectIntersectionOf desc) {
+    public OWLClassExpression visit(OWLObjectIntersectionOf ce) {
         Set<OWLClassExpression> ops = new HashSet<OWLClassExpression>();
-        for (OWLClassExpression op : desc.getOperands()) {
+        for (OWLClassExpression op : ce.getOperands()) {
             ops.add(op.accept(this));
         }
         if (negated) {
@@ -152,9 +152,9 @@ public class NNF extends OWLDataVisitorExAdapter<OWLDataRange> implements
     }
 
     @Override
-    public OWLClassExpression visit(OWLObjectUnionOf desc) {
+    public OWLClassExpression visit(OWLObjectUnionOf ce) {
         Set<OWLClassExpression> ops = new HashSet<OWLClassExpression>();
-        for (OWLClassExpression op : desc.getOperands()) {
+        for (OWLClassExpression op : ce.getOperands()) {
             ops.add(op.accept(this));
         }
         if (negated) {
@@ -166,201 +166,201 @@ public class NNF extends OWLDataVisitorExAdapter<OWLDataRange> implements
     }
 
     @Override
-    public OWLClassExpression visit(OWLObjectComplementOf desc) {
+    public OWLClassExpression visit(OWLObjectComplementOf ce) {
         if (negated) {
             // Cancels out.
             // Save and then restore.
             boolean neg = negated;
             negated = false;
-            OWLClassExpression negDesc = desc.getOperand().accept(this);
+            OWLClassExpression negDesc = ce.getOperand().accept(this);
             negated = neg;
             return negDesc;
         } else {
             // Save and then restore
             boolean neg = negated;
             negated = true;
-            OWLClassExpression negDesc = desc.getOperand().accept(this);
+            OWLClassExpression negDesc = ce.getOperand().accept(this);
             negated = neg;
             return negDesc;
         }
     }
 
     @Override
-    public OWLClassExpression visit(OWLObjectSomeValuesFrom desc) {
-        OWLClassExpression filler = desc.getFiller().accept(this);
+    public OWLClassExpression visit(OWLObjectSomeValuesFrom ce) {
+        OWLClassExpression filler = ce.getFiller().accept(this);
         if (negated) {
-            return dataFactory.getOWLObjectAllValuesFrom(desc.getProperty(),
+            return dataFactory.getOWLObjectAllValuesFrom(ce.getProperty(),
                     filler);
         } else {
-            return dataFactory.getOWLObjectSomeValuesFrom(desc.getProperty(),
+            return dataFactory.getOWLObjectSomeValuesFrom(ce.getProperty(),
                     filler);
         }
     }
 
     @Override
-    public OWLClassExpression visit(OWLObjectAllValuesFrom desc) {
-        OWLClassExpression filler = desc.getFiller().accept(this);
+    public OWLClassExpression visit(OWLObjectAllValuesFrom ce) {
+        OWLClassExpression filler = ce.getFiller().accept(this);
         if (negated) {
-            return dataFactory.getOWLObjectSomeValuesFrom(desc.getProperty(),
+            return dataFactory.getOWLObjectSomeValuesFrom(ce.getProperty(),
                     filler);
         } else {
-            return dataFactory.getOWLObjectAllValuesFrom(desc.getProperty(),
+            return dataFactory.getOWLObjectAllValuesFrom(ce.getProperty(),
                     filler);
         }
     }
 
     @Override
-    public OWLClassExpression visit(OWLObjectHasValue desc) {
-        return desc.asSomeValuesFrom().accept(this);
+    public OWLClassExpression visit(OWLObjectHasValue ce) {
+        return ce.asSomeValuesFrom().accept(this);
     }
 
     @Nonnull
     @Override
-    public OWLClassExpression visit(OWLObjectMinCardinality desc) {
+    public OWLClassExpression visit(OWLObjectMinCardinality ce) {
         boolean neg = negated;
-        int card = desc.getCardinality();
+        int card = ce.getCardinality();
         if (negated) {
-            card = desc.getCardinality() - 1;
+            card = ce.getCardinality() - 1;
             if (card < 0) {
                 card = 0;
             }
         }
         negated = false;
-        OWLClassExpression filler = desc.getFiller().accept(this);
+        OWLClassExpression filler = ce.getFiller().accept(this);
         OWLClassExpression nnf = null;
         if (neg) {
             nnf = dataFactory.getOWLObjectMaxCardinality(card,
-                    desc.getProperty(), filler);
+                    ce.getProperty(), filler);
         } else {
             nnf = dataFactory.getOWLObjectMinCardinality(card,
-                    desc.getProperty(), filler);
+                    ce.getProperty(), filler);
         }
         negated = neg;
         return nnf;
     }
 
     @Override
-    public OWLClassExpression visit(OWLObjectExactCardinality desc) {
-        return desc.asIntersectionOfMinMax().accept(this);
+    public OWLClassExpression visit(OWLObjectExactCardinality ce) {
+        return ce.asIntersectionOfMinMax().accept(this);
     }
 
     @Override
-    public OWLClassExpression visit(OWLObjectMaxCardinality desc) {
+    public OWLClassExpression visit(OWLObjectMaxCardinality ce) {
         boolean neg = negated;
-        int card = desc.getCardinality();
+        int card = ce.getCardinality();
         if (negated) {
-            card = desc.getCardinality() + 1;
+            card = ce.getCardinality() + 1;
         }
         negated = false;
-        OWLClassExpression filler = desc.getFiller().accept(this);
+        OWLClassExpression filler = ce.getFiller().accept(this);
         OWLClassExpression nnf = null;
         if (neg) {
             nnf = dataFactory.getOWLObjectMinCardinality(card,
-                    desc.getProperty(), filler);
+                    ce.getProperty(), filler);
         } else {
             nnf = dataFactory.getOWLObjectMaxCardinality(card,
-                    desc.getProperty(), filler);
+                    ce.getProperty(), filler);
         }
         negated = neg;
         return nnf;
     }
 
     @Override
-    public OWLClassExpression visit(OWLObjectHasSelf desc) {
+    public OWLClassExpression visit(OWLObjectHasSelf ce) {
         if (negated) {
-            return getNegation(desc);
+            return getNegation(ce);
         } else {
-            return desc;
+            return ce;
         }
     }
 
     @Override
-    public OWLClassExpression visit(OWLObjectOneOf desc) {
-        if (desc.getIndividuals().size() == 1) {
+    public OWLClassExpression visit(OWLObjectOneOf ce) {
+        if (ce.getIndividuals().size() == 1) {
             if (negated) {
-                return getNegation(desc);
+                return getNegation(ce);
             } else {
-                return desc;
+                return ce;
             }
         } else {
-            return desc.asObjectUnionOf().accept(this);
+            return ce.asObjectUnionOf().accept(this);
         }
     }
 
     @Override
-    public OWLClassExpression visit(OWLDataSomeValuesFrom desc) {
-        OWLDataRange filler = desc.getFiller().accept(this);
+    public OWLClassExpression visit(OWLDataSomeValuesFrom ce) {
+        OWLDataRange filler = ce.getFiller().accept(this);
         if (negated) {
-            return dataFactory.getOWLDataAllValuesFrom(desc.getProperty(),
+            return dataFactory.getOWLDataAllValuesFrom(ce.getProperty(),
                     filler);
         } else {
-            return dataFactory.getOWLDataSomeValuesFrom(desc.getProperty(),
+            return dataFactory.getOWLDataSomeValuesFrom(ce.getProperty(),
                     filler);
         }
     }
 
     @Override
-    public OWLClassExpression visit(OWLDataAllValuesFrom desc) {
-        OWLDataRange filler = desc.getFiller().accept(this);
+    public OWLClassExpression visit(OWLDataAllValuesFrom ce) {
+        OWLDataRange filler = ce.getFiller().accept(this);
         if (negated) {
-            return dataFactory.getOWLDataSomeValuesFrom(desc.getProperty(),
+            return dataFactory.getOWLDataSomeValuesFrom(ce.getProperty(),
                     filler);
         } else {
-            return dataFactory.getOWLDataAllValuesFrom(desc.getProperty(),
+            return dataFactory.getOWLDataAllValuesFrom(ce.getProperty(),
                     filler);
         }
     }
 
     @Override
-    public OWLClassExpression visit(OWLDataHasValue desc) {
-        return desc.asSomeValuesFrom().accept(this);
+    public OWLClassExpression visit(OWLDataHasValue ce) {
+        return ce.asSomeValuesFrom().accept(this);
     }
 
     @Override
-    public OWLClassExpression visit(OWLDataExactCardinality desc) {
-        return desc.asIntersectionOfMinMax().accept(this);
+    public OWLClassExpression visit(OWLDataExactCardinality ce) {
+        return ce.asIntersectionOfMinMax().accept(this);
     }
 
     @Override
-    public OWLClassExpression visit(OWLDataMaxCardinality desc) {
+    public OWLClassExpression visit(OWLDataMaxCardinality ce) {
         boolean neg = negated;
-        int card = desc.getCardinality();
+        int card = ce.getCardinality();
         if (negated) {
-            card = desc.getCardinality() + 1;
+            card = ce.getCardinality() + 1;
         }
         negated = false;
-        OWLDataRange filler = desc.getFiller().accept(this);
+        OWLDataRange filler = ce.getFiller().accept(this);
         OWLClassExpression nnf = null;
         if (neg) {
             nnf = dataFactory.getOWLDataMinCardinality(card,
-                    desc.getProperty(), filler);
+                    ce.getProperty(), filler);
         } else {
             nnf = dataFactory.getOWLDataMaxCardinality(card,
-                    desc.getProperty(), filler);
+                    ce.getProperty(), filler);
         }
         negated = neg;
         return nnf;
     }
 
     @Override
-    public OWLClassExpression visit(OWLDataMinCardinality desc) {
+    public OWLClassExpression visit(OWLDataMinCardinality ce) {
         boolean neg = negated;
-        int card = desc.getCardinality();
+        int card = ce.getCardinality();
         if (negated) {
-            card = desc.getCardinality() - 1;
+            card = ce.getCardinality() - 1;
             if (card < 0) {
                 card = 0;
             }
         }
         negated = false;
-        OWLDataRange filler = desc.getFiller().accept(this);
+        OWLDataRange filler = ce.getFiller().accept(this);
         OWLClassExpression nnf = null;
         if (neg) {
             nnf = dataFactory.getOWLDataMaxCardinality(card,
-                    desc.getProperty(), filler);
+                    ce.getProperty(), filler);
         } else {
             nnf = dataFactory.getOWLDataMinCardinality(card,
-                    desc.getProperty(), filler);
+                    ce.getProperty(), filler);
         }
         negated = neg;
         return nnf;

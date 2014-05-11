@@ -217,35 +217,35 @@ public class OWLTutorialSyntaxObjectRenderer extends OWLObjectVisitorAdapter {
     }
 
     @Override
-    public void visit(@Nonnull OWLOntology ontology1) {
+    public void visit(@Nonnull OWLOntology ontology) {
         header();
         write("<h1>");
-        write(ontology1.getOntologyID().toString());
+        write(ontology.getOntologyID().toString());
         write("</h1>\n");
         write("<div>");
         write("<div class='box'>\n");
-        for (OWLImportsDeclaration decl : ontology1.getImportsDeclarations()) {
+        for (OWLImportsDeclaration decl : ontology.getImportsDeclarations()) {
             write("Imports: ");
             write(decl.getIRI().toString());
             write("\n");
         }
         write("<h2>Classes</h2>\n");
-        writeCollection(ontology1.getClassesInSignature());
+        writeCollection(ontology.getClassesInSignature());
         write("</div>\n");
         write("<div class='box'>\n");
         write("<h2>Properties</h2>\n");
-        writeCollection(ontology1.getObjectPropertiesInSignature());
-        writeCollection(ontology1.getDataPropertiesInSignature());
+        writeCollection(ontology.getObjectPropertiesInSignature());
+        writeCollection(ontology.getDataPropertiesInSignature());
         write("</div>\n");
         write("<div class='box'>\n");
         write("<h2>Individuals</h2>\n");
-        writeCollection(ontology1.getIndividualsInSignature());
+        writeCollection(ontology.getIndividualsInSignature());
         write("</div>");
         write("<div>");
         write("<div class='box'>");
         write("<h2>Axioms</h2>\n");
         writeListStart();
-        for (OWLAxiom ax : ontology1.getAxioms()) {
+        for (OWLAxiom ax : ontology.getAxioms()) {
             writeListItemStart();
             ax.accept(this);
             writeListEnd();
@@ -573,8 +573,8 @@ public class OWLTutorialSyntaxObjectRenderer extends OWLObjectVisitorAdapter {
     }
 
     @Override
-    public void visit(OWLClass desc) {
-        write("<span class='cl'>" + labelFor(desc) + "</span>");
+    public void visit(OWLClass ce) {
+        write("<span class='cl'>" + labelFor(ce) + "</span>");
     }
 
     private void writeRestriction(@Nonnull String str,
@@ -616,95 +616,95 @@ public class OWLTutorialSyntaxObjectRenderer extends OWLObjectVisitorAdapter {
     }
 
     @Override
-    public void visit(OWLDataAllValuesFrom desc) {
-        writeRestriction(operator("only"), desc);
+    public void visit(OWLDataAllValuesFrom ce) {
+        writeRestriction(operator("only"), ce);
     }
 
     @Override
-    public void visit(@Nonnull OWLDataExactCardinality desc) {
-        writeRestriction("exact", desc, desc.getProperty());
+    public void visit(@Nonnull OWLDataExactCardinality ce) {
+        writeRestriction("exact", ce, ce.getProperty());
     }
 
     @Override
-    public void visit(@Nonnull OWLDataMaxCardinality desc) {
-        writeRestriction("atmost", desc, desc.getProperty());
+    public void visit(@Nonnull OWLDataMaxCardinality ce) {
+        writeRestriction("atmost", ce, ce.getProperty());
     }
 
     @Override
-    public void visit(@Nonnull OWLDataMinCardinality desc) {
-        writeRestriction("atleast", desc, desc.getProperty());
+    public void visit(@Nonnull OWLDataMinCardinality ce) {
+        writeRestriction("atleast", ce, ce.getProperty());
     }
 
     @Override
-    public void visit(OWLDataSomeValuesFrom desc) {
-        writeRestriction(operator("some"), desc);
+    public void visit(OWLDataSomeValuesFrom ce) {
+        writeRestriction(operator("some"), ce);
     }
 
     @Override
-    public void visit(@Nonnull OWLDataHasValue desc) {
-        writeRestriction("has-value", desc.getProperty(), desc.getFiller());
+    public void visit(@Nonnull OWLDataHasValue ce) {
+        writeRestriction("has-value", ce.getProperty(), ce.getFiller());
     }
 
     @Override
-    public void visit(OWLObjectAllValuesFrom desc) {
-        writeRestriction(operator("only"), desc);
+    public void visit(OWLObjectAllValuesFrom ce) {
+        writeRestriction(operator("only"), ce);
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectComplementOf desc) {
-        write(operator("not"), desc.getOperand());
+    public void visit(@Nonnull OWLObjectComplementOf ce) {
+        write(operator("not"), ce.getOperand());
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectExactCardinality desc) {
-        writeRestriction("exact", desc, desc.getProperty());
+    public void visit(@Nonnull OWLObjectExactCardinality ce) {
+        writeRestriction("exact", ce, ce.getProperty());
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectIntersectionOf desc) {
+    public void visit(@Nonnull OWLObjectIntersectionOf ce) {
         writeOpenBracket();
-        write(desc.getOperands(), keyword("and"));
+        write(ce.getOperands(), keyword("and"));
         writeCloseBracket();
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectMaxCardinality desc) {
-        writeRestriction("atmost", desc, desc.getProperty());
+    public void visit(@Nonnull OWLObjectMaxCardinality ce) {
+        writeRestriction("atmost", ce, ce.getProperty());
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectMinCardinality desc) {
-        writeRestriction("atleast", desc, desc.getProperty());
+    public void visit(@Nonnull OWLObjectMinCardinality ce) {
+        writeRestriction("atleast", ce, ce.getProperty());
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectOneOf desc) {
+    public void visit(@Nonnull OWLObjectOneOf ce) {
         write(operator("one-of"));
         writeOpenBracket();
-        write(desc.getIndividuals());
+        write(ce.getIndividuals());
         writeCloseBracket();
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectHasSelf desc) {
-        write("self", desc.getProperty());
+    public void visit(@Nonnull OWLObjectHasSelf ce) {
+        write("self", ce.getProperty());
     }
 
     @Override
-    public void visit(OWLObjectSomeValuesFrom desc) {
-        writeRestriction(operator("some"), desc);
+    public void visit(OWLObjectSomeValuesFrom ce) {
+        writeRestriction(operator("some"), ce);
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectUnionOf desc) {
+    public void visit(@Nonnull OWLObjectUnionOf ce) {
         writeOpenBracket();
-        write(desc.getOperands(), " or ");
+        write(ce.getOperands(), " or ");
         writeCloseBracket();
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectHasValue desc) {
-        writeRestriction("hasValue", desc.getProperty(), desc.getFiller());
+    public void visit(@Nonnull OWLObjectHasValue ce) {
+        writeRestriction("hasValue", ce.getProperty(), ce.getFiller());
     }
 
     @Override

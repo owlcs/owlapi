@@ -465,153 +465,153 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
     }
 
     @Override
-    public void visit(@Nonnull OWLClass desc) {
-        IRI uri = getIRI(desc);
+    public void visit(@Nonnull OWLClass ce) {
+        IRI uri = getIRI(ce);
         obj = dataFactory.getOWLClass(uri);
     }
 
     @Override
-    public void visit(@Nonnull OWLDataAllValuesFrom desc) {
-        desc.getProperty().accept(this);
+    public void visit(@Nonnull OWLDataAllValuesFrom ce) {
+        ce.getProperty().accept(this);
         OWLDataPropertyExpression prop = getLastObject();
-        desc.getFiller().accept(this);
+        ce.getFiller().accept(this);
         OWLDataRange filler = getLastObject();
         obj = dataFactory.getOWLDataAllValuesFrom(prop, filler);
     }
 
     @Override
-    public void visit(@Nonnull OWLDataExactCardinality desc) {
-        desc.getProperty().accept(this);
+    public void visit(@Nonnull OWLDataExactCardinality ce) {
+        ce.getProperty().accept(this);
         OWLDataPropertyExpression prop = getLastObject();
-        desc.getFiller().accept(this);
+        ce.getFiller().accept(this);
         OWLDataRange filler = getLastObject();
-        obj = dataFactory.getOWLDataExactCardinality(desc.getCardinality(),
+        obj = dataFactory.getOWLDataExactCardinality(ce.getCardinality(),
                 prop, filler);
     }
 
     @Override
-    public void visit(@Nonnull OWLDataMaxCardinality desc) {
-        desc.getProperty().accept(this);
+    public void visit(@Nonnull OWLDataMaxCardinality ce) {
+        ce.getProperty().accept(this);
         OWLDataPropertyExpression prop = getLastObject();
-        desc.getFiller().accept(this);
+        ce.getFiller().accept(this);
         OWLDataRange filler = getLastObject();
-        obj = dataFactory.getOWLDataMaxCardinality(desc.getCardinality(), prop,
+        obj = dataFactory.getOWLDataMaxCardinality(ce.getCardinality(), prop,
                 filler);
     }
 
     @Override
-    public void visit(@Nonnull OWLDataMinCardinality desc) {
-        desc.getProperty().accept(this);
+    public void visit(@Nonnull OWLDataMinCardinality ce) {
+        ce.getProperty().accept(this);
         OWLDataPropertyExpression prop = getLastObject();
-        desc.getFiller().accept(this);
+        ce.getFiller().accept(this);
         OWLDataRange filler = getLastObject();
-        obj = dataFactory.getOWLDataMinCardinality(desc.getCardinality(), prop,
+        obj = dataFactory.getOWLDataMinCardinality(ce.getCardinality(), prop,
                 filler);
     }
 
     @Override
-    public void visit(@Nonnull OWLDataSomeValuesFrom desc) {
-        desc.getProperty().accept(this);
+    public void visit(@Nonnull OWLDataSomeValuesFrom ce) {
+        ce.getProperty().accept(this);
         OWLDataPropertyExpression prop = getLastObject();
-        desc.getFiller().accept(this);
+        ce.getFiller().accept(this);
         OWLDataRange filler = getLastObject();
         obj = dataFactory.getOWLDataSomeValuesFrom(prop, filler);
     }
 
     @Override
-    public void visit(@Nonnull OWLDataHasValue desc) {
-        desc.getProperty().accept(this);
+    public void visit(@Nonnull OWLDataHasValue ce) {
+        ce.getProperty().accept(this);
         OWLDataPropertyExpression prop = getLastObject();
-        desc.getFiller().accept(this);
+        ce.getFiller().accept(this);
         OWLLiteral val = getLastObject();
         obj = dataFactory.getOWLDataHasValue(prop, val);
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectAllValuesFrom desc) {
-        desc.getProperty().accept(this);
+    public void visit(@Nonnull OWLObjectAllValuesFrom ce) {
+        ce.getProperty().accept(this);
         OWLObjectPropertyExpression prop = getLastObject();
-        desc.getFiller().accept(this);
+        ce.getFiller().accept(this);
         OWLClassExpression filler = getLastObject();
         obj = dataFactory.getOWLObjectAllValuesFrom(prop, filler);
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectComplementOf desc) {
-        desc.getOperand().accept(this);
+    public void visit(@Nonnull OWLObjectComplementOf ce) {
+        ce.getOperand().accept(this);
         OWLClassExpression op = getLastObject();
         obj = dataFactory.getOWLObjectComplementOf(op);
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectExactCardinality desc) {
-        desc.getProperty().accept(this);
+    public void visit(@Nonnull OWLObjectExactCardinality ce) {
+        ce.getProperty().accept(this);
         OWLObjectPropertyExpression prop = getLastObject();
-        desc.getFiller().accept(this);
+        ce.getFiller().accept(this);
         OWLClassExpression filler = getLastObject();
-        obj = dataFactory.getOWLObjectExactCardinality(desc.getCardinality(),
+        obj = dataFactory.getOWLObjectExactCardinality(ce.getCardinality(),
                 prop, filler);
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectIntersectionOf desc) {
-        Set<OWLClassExpression> ops = duplicateSet(desc.getOperands());
+    public void visit(@Nonnull OWLObjectIntersectionOf ce) {
+        Set<OWLClassExpression> ops = duplicateSet(ce.getOperands());
         obj = dataFactory.getOWLObjectIntersectionOf(ops);
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectMaxCardinality desc) {
-        desc.getProperty().accept(this);
+    public void visit(@Nonnull OWLObjectMaxCardinality ce) {
+        ce.getProperty().accept(this);
         OWLObjectPropertyExpression prop = getLastObject();
-        desc.getFiller().accept(this);
+        ce.getFiller().accept(this);
         OWLClassExpression filler = getLastObject();
-        obj = dataFactory.getOWLObjectMaxCardinality(desc.getCardinality(),
+        obj = dataFactory.getOWLObjectMaxCardinality(ce.getCardinality(),
                 prop, filler);
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectMinCardinality desc) {
-        desc.getProperty().accept(this);
+    public void visit(@Nonnull OWLObjectMinCardinality ce) {
+        ce.getProperty().accept(this);
         OWLObjectPropertyExpression prop = getLastObject();
-        desc.getFiller().accept(this);
+        ce.getFiller().accept(this);
         OWLClassExpression filler = getLastObject();
-        obj = dataFactory.getOWLObjectMinCardinality(desc.getCardinality(),
+        obj = dataFactory.getOWLObjectMinCardinality(ce.getCardinality(),
                 prop, filler);
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectOneOf desc) {
-        Set<OWLIndividual> inds = duplicateSet(desc.getIndividuals());
+    public void visit(@Nonnull OWLObjectOneOf ce) {
+        Set<OWLIndividual> inds = duplicateSet(ce.getIndividuals());
         obj = dataFactory.getOWLObjectOneOf(inds);
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectHasSelf desc) {
-        desc.getProperty().accept(this);
+    public void visit(@Nonnull OWLObjectHasSelf ce) {
+        ce.getProperty().accept(this);
         OWLObjectPropertyExpression prop = getLastObject();
         obj = dataFactory.getOWLObjectHasSelf(prop);
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectSomeValuesFrom desc) {
-        desc.getProperty().accept(this);
+    public void visit(@Nonnull OWLObjectSomeValuesFrom ce) {
+        ce.getProperty().accept(this);
         OWLObjectPropertyExpression prop = getLastObject();
-        desc.getFiller().accept(this);
+        ce.getFiller().accept(this);
         OWLClassExpression filler = getLastObject();
         obj = dataFactory.getOWLObjectSomeValuesFrom(prop, filler);
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectUnionOf desc) {
-        Set<OWLClassExpression> ops = duplicateSet(desc.getOperands());
+    public void visit(@Nonnull OWLObjectUnionOf ce) {
+        Set<OWLClassExpression> ops = duplicateSet(ce.getOperands());
         obj = dataFactory.getOWLObjectUnionOf(ops);
     }
 
     @Override
-    public void visit(@Nonnull OWLObjectHasValue desc) {
-        desc.getProperty().accept(this);
+    public void visit(@Nonnull OWLObjectHasValue ce) {
+        ce.getProperty().accept(this);
         OWLObjectPropertyExpression prop = getLastObject();
-        desc.getFiller().accept(this);
+        ce.getFiller().accept(this);
         OWLIndividual value = getLastObject();
         obj = dataFactory.getOWLObjectHasValue(prop, value);
     }
@@ -780,8 +780,8 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
     }
 
     @Override
-    public void visit(@Nonnull SWRLVariable variable) {
-        variable.getIRI().accept(this);
+    public void visit(@Nonnull SWRLVariable node) {
+        node.getIRI().accept(this);
         IRI iri = getLastObject();
         obj = dataFactory.getSWRLVariable(iri);
     }

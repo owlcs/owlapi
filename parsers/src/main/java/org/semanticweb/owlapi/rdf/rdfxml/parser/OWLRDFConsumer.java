@@ -1494,7 +1494,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
     }
 
     @Override
-    public void startModel(IRI string) {}
+    public void startModel(IRI physicalURI) {}
 
     /**
      * Checks if is parsed all triples.
@@ -1607,12 +1607,12 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
     }
 
     @Override
-    public void includeModel(String string, String string1) {
+    public void includeModel(String logicalURI, String physicalURI) {
         // XXX should this do nothing?
     }
 
     @Override
-    public void logicalURI(IRI string) {
+    public void logicalURI(IRI logicalURI) {
         // XXX what is the purpose of this?
     }
 
@@ -1637,22 +1637,22 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
     @Override
     public void statementWithLiteralValue(@Nonnull String subject,
             @Nonnull String predicate, @Nonnull String object,
-            @Nullable String lang, @Nullable String datatype) {
-        tripleLogger.logTriple(subject, predicate, object, lang, datatype);
+            @Nullable String language, @Nullable String datatype) {
+        tripleLogger.logTriple(subject, predicate, object, language, datatype);
         IRI subjectIRI = getIRI(subject);
         IRI predicateIRI = getIRI(predicate);
         predicateIRI = getSynonym(predicateIRI);
         handlerAccessor.handleStreaming(subjectIRI, predicateIRI, object,
-                getIRINullable(datatype), lang);
+                getIRINullable(datatype), language);
     }
 
     @Override
     public void statementWithLiteralValue(@Nonnull IRI subject,
-            @Nonnull IRI predicate, @Nonnull String object, String lang,
+            @Nonnull IRI predicate, @Nonnull String object, String language,
             IRI datatype) {
-        tripleLogger.logTriple(subject, predicate, object, lang, datatype);
+        tripleLogger.logTriple(subject, predicate, object, language, datatype);
         handlerAccessor.handleStreaming(subject, getSynonym(predicate), object,
-                datatype, lang);
+                datatype, language);
     }
 
     @Override

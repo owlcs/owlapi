@@ -131,68 +131,68 @@ public class CoerceConstantsIntoDataPropertyRange extends
         }
 
         @Override
-        public void visit(@Nonnull OWLDataHasValue desc) {
-            super.visit(desc);
+        public void visit(@Nonnull OWLDataHasValue ce) {
+            super.visit(ce);
             setLastObject(getDataFactory().getOWLDataHasValue(
-                    desc.getProperty(),
-                    process(desc.getProperty(), desc.getFiller())));
+                    ce.getProperty(),
+                    process(ce.getProperty(), ce.getFiller())));
         }
 
         @Override
-        public void visit(OWLDataSomeValuesFrom desc) {
-            super.visit(desc);
-            if (desc instanceof OWLDataOneOf) {
+        public void visit(OWLDataSomeValuesFrom ce) {
+            super.visit(ce);
+            if (ce instanceof OWLDataOneOf) {
                 setLastObject(getDataFactory().getOWLDataSomeValuesFrom(
-                        desc.getProperty(),
-                        process(desc.getProperty(),
-                                (OWLDataOneOf) desc.getFiller())));
+                        ce.getProperty(),
+                        process(ce.getProperty(),
+                                (OWLDataOneOf) ce.getFiller())));
             }
         }
 
         @Override
-        public void visit(OWLDataMinCardinality desc) {
-            super.visit(desc);
-            if (desc instanceof OWLDataOneOf) {
+        public void visit(OWLDataMinCardinality ce) {
+            super.visit(ce);
+            if (ce instanceof OWLDataOneOf) {
                 setLastObject(getDataFactory().getOWLDataMinCardinality(
-                        desc.getCardinality(),
-                        desc.getProperty(),
-                        process(desc.getProperty(),
-                                (OWLDataOneOf) desc.getFiller())));
+                        ce.getCardinality(),
+                        ce.getProperty(),
+                        process(ce.getProperty(),
+                                (OWLDataOneOf) ce.getFiller())));
             }
         }
 
         @Override
-        public void visit(OWLDataMaxCardinality desc) {
-            super.visit(desc);
-            if (desc instanceof OWLDataOneOf) {
+        public void visit(OWLDataMaxCardinality ce) {
+            super.visit(ce);
+            if (ce instanceof OWLDataOneOf) {
                 setLastObject(getDataFactory().getOWLDataMaxCardinality(
-                        desc.getCardinality(),
-                        desc.getProperty(),
-                        process(desc.getProperty(),
-                                (OWLDataOneOf) desc.getFiller())));
+                        ce.getCardinality(),
+                        ce.getProperty(),
+                        process(ce.getProperty(),
+                                (OWLDataOneOf) ce.getFiller())));
             }
         }
 
         @Override
-        public void visit(OWLDataExactCardinality desc) {
-            super.visit(desc);
-            if (desc instanceof OWLDataOneOf) {
+        public void visit(OWLDataExactCardinality ce) {
+            super.visit(ce);
+            if (ce instanceof OWLDataOneOf) {
                 setLastObject(getDataFactory().getOWLDataExactCardinality(
-                        desc.getCardinality(),
-                        desc.getProperty(),
-                        process(desc.getProperty(),
-                                (OWLDataOneOf) desc.getFiller())));
+                        ce.getCardinality(),
+                        ce.getProperty(),
+                        process(ce.getProperty(),
+                                (OWLDataOneOf) ce.getFiller())));
             }
         }
 
         @Override
-        public void visit(OWLDataAllValuesFrom desc) {
-            super.visit(desc);
-            if (desc instanceof OWLDataOneOf) {
+        public void visit(OWLDataAllValuesFrom ce) {
+            super.visit(ce);
+            if (ce instanceof OWLDataOneOf) {
                 setLastObject(getDataFactory().getOWLDataAllValuesFrom(
-                        desc.getProperty(),
-                        process(desc.getProperty(),
-                                (OWLDataOneOf) desc.getFiller())));
+                        ce.getProperty(),
+                        process(ce.getProperty(),
+                                (OWLDataOneOf) ce.getFiller())));
             }
         }
 

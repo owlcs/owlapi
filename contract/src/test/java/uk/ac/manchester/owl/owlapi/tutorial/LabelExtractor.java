@@ -50,13 +50,13 @@ public class LabelExtractor implements OWLAnnotationObjectVisitor {
     public void visit(OWLLiteral literal) {}
 
     @Override
-    public void visit(@Nonnull OWLAnnotation annotation) {
+    public void visit(@Nonnull OWLAnnotation node) {
         /*
          * If it's a label, grab it as the result. Note that if there are
          * multiple labels, the last one will be used.
          */
-        if (annotation.getProperty().isLabel()) {
-            OWLLiteral c = (OWLLiteral) annotation.getValue();
+        if (node.getProperty().isLabel()) {
+            OWLLiteral c = (OWLLiteral) node.getValue();
             result = c.getLiteral();
         }
     }

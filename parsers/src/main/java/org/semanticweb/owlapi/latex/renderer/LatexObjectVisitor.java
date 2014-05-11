@@ -122,8 +122,8 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLObjectIntersectionOf node) {
-        for (Iterator<OWLClassExpression> it = node.getOperands().iterator(); it
+    public void visit(OWLObjectIntersectionOf ce) {
+        for (Iterator<OWLClassExpression> it = ce.getOperands().iterator(); it
                 .hasNext();) {
             it.next().accept(this);
             if (it.hasNext()) {
@@ -135,126 +135,126 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLDataAllValuesFrom node) {
+    public void visit(OWLDataAllValuesFrom ce) {
         write(ALL);
         writeSpace();
-        node.getProperty().accept(this);
+        ce.getProperty().accept(this);
         writeSpace();
-        node.getFiller().accept(this);
+        ce.getFiller().accept(this);
     }
 
     @Override
-    public void visit(OWLDataExactCardinality desc) {
+    public void visit(OWLDataExactCardinality ce) {
         write(EQUAL);
         writeSpace();
-        desc.getProperty().accept(this);
+        ce.getProperty().accept(this);
     }
 
     @Override
-    public void visit(OWLDataMaxCardinality desc) {
+    public void visit(OWLDataMaxCardinality ce) {
         write(MAX);
         writeSpace();
-        write(desc.getCardinality());
+        write(ce.getCardinality());
         writeSpace();
-        desc.getProperty().accept(this);
+        ce.getProperty().accept(this);
     }
 
     @Override
-    public void visit(OWLDataMinCardinality desc) {
+    public void visit(OWLDataMinCardinality ce) {
         write(MIN);
         writeSpace();
-        write(desc.getCardinality());
+        write(ce.getCardinality());
         writeSpace();
-        desc.getProperty().accept(this);
+        ce.getProperty().accept(this);
     }
 
     @Override
-    public void visit(OWLDataSomeValuesFrom node) {
+    public void visit(OWLDataSomeValuesFrom ce) {
         write(SOME);
         writeSpace();
-        node.getProperty().accept(this);
+        ce.getProperty().accept(this);
         writeSpace();
-        node.getFiller().accept(this);
+        ce.getFiller().accept(this);
     }
 
     @Override
-    public void visit(OWLDataHasValue node) {
+    public void visit(OWLDataHasValue ce) {
         write(HASVALUE);
         writeSpace();
-        node.getProperty().accept(this);
+        ce.getProperty().accept(this);
         writeSpace();
-        node.getFiller().accept(this);
+        ce.getFiller().accept(this);
     }
 
     @Override
-    public void visit(OWLObjectAllValuesFrom node) {
+    public void visit(OWLObjectAllValuesFrom ce) {
         write(ALL);
         writeSpace();
-        node.getProperty().accept(this);
+        ce.getProperty().accept(this);
         writeSpace();
-        writeNested(node.getFiller());
+        writeNested(ce.getFiller());
     }
 
     @Override
-    public void visit(OWLObjectExactCardinality desc) {
+    public void visit(OWLObjectExactCardinality ce) {
         write(EQUAL);
         writeSpace();
-        desc.getProperty().accept(this);
+        ce.getProperty().accept(this);
         writeSpace();
-        writeNested(desc.getFiller());
+        writeNested(ce.getFiller());
     }
 
     @Override
-    public void visit(OWLObjectMaxCardinality desc) {
+    public void visit(OWLObjectMaxCardinality ce) {
         write(MAX);
         writeSpace();
-        write(desc.getCardinality());
+        write(ce.getCardinality());
         writeSpace();
-        desc.getProperty().accept(this);
+        ce.getProperty().accept(this);
         writeSpace();
-        writeNested(desc.getFiller());
+        writeNested(ce.getFiller());
     }
 
     @Override
-    public void visit(OWLObjectMinCardinality desc) {
+    public void visit(OWLObjectMinCardinality ce) {
         write(MIN);
         writeSpace();
-        write(desc.getCardinality());
+        write(ce.getCardinality());
         writeSpace();
-        desc.getProperty().accept(this);
+        ce.getProperty().accept(this);
         writeSpace();
-        writeNested(desc.getFiller());
+        writeNested(ce.getFiller());
     }
 
     @Override
-    public void visit(OWLObjectSomeValuesFrom node) {
+    public void visit(OWLObjectSomeValuesFrom ce) {
         write(SOME);
         writeSpace();
-        node.getProperty().accept(this);
+        ce.getProperty().accept(this);
         writeSpace();
-        writeNested(node.getFiller());
+        writeNested(ce.getFiller());
     }
 
     @Override
-    public void visit(OWLObjectHasValue node) {
+    public void visit(OWLObjectHasValue ce) {
         write(SOME);
         writeSpace();
-        node.getProperty().accept(this);
+        ce.getProperty().accept(this);
         writeSpace();
         writeOpenBrace();
-        node.getFiller().accept(this);
+        ce.getFiller().accept(this);
         writeCloseBrace();
     }
 
     @Override
-    public void visit(OWLObjectComplementOf node) {
+    public void visit(OWLObjectComplementOf ce) {
         write(NOT);
-        writeNested(node.getOperand());
+        writeNested(ce.getOperand());
     }
 
     @Override
-    public void visit(OWLObjectUnionOf node) {
-        for (Iterator<OWLClassExpression> it = node.getOperands().iterator(); it
+    public void visit(OWLObjectUnionOf ce) {
+        for (Iterator<OWLClassExpression> it = ce.getOperands().iterator(); it
                 .hasNext();) {
             it.next().accept(this);
             if (it.hasNext()) {
@@ -266,13 +266,13 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLClass node) {
-        write(escapeName(shortFormProvider.getShortForm(node)));
+    public void visit(OWLClass ce) {
+        write(escapeName(shortFormProvider.getShortForm(ce)));
     }
 
     @Override
-    public void visit(OWLObjectOneOf node) {
-        for (Iterator<OWLIndividual> it = node.getIndividuals().iterator(); it
+    public void visit(OWLObjectOneOf ce) {
+        for (Iterator<OWLIndividual> it = ce.getIndividuals().iterator(); it
                 .hasNext();) {
             writeOpenBrace();
             it.next().accept(this);
@@ -286,25 +286,25 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLDataProperty entity) {
-        write(escapeName(shortFormProvider.getShortForm(entity)));
+    public void visit(OWLDataProperty property) {
+        write(escapeName(shortFormProvider.getShortForm(property)));
     }
 
     @Override
-    public void visit(OWLObjectProperty entity) {
-        write(escapeName(shortFormProvider.getShortForm(entity)));
+    public void visit(OWLObjectProperty property) {
+        write(escapeName(shortFormProvider.getShortForm(property)));
     }
 
     @Override
-    public void visit(OWLNamedIndividual entity) {
-        write(escapeName(shortFormProvider.getShortForm(entity)));
+    public void visit(OWLNamedIndividual individual) {
+        write(escapeName(shortFormProvider.getShortForm(individual)));
     }
 
     @Override
-    public void visit(OWLObjectHasSelf desc) {
+    public void visit(OWLObjectHasSelf ce) {
         write(SOME);
         writeSpace();
-        desc.getProperty().accept(this);
+        ce.getProperty().accept(this);
         writeSpace();
         write(SELF);
     }
@@ -904,10 +904,10 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     }
 
     @Override
-    public void visit(OWLAnnotation annotation) {
+    public void visit(OWLAnnotation node) {
         write("Annotation");
-        annotation.getProperty().getIRI().accept(this);
-        annotation.getValue().accept(this);
+        node.getProperty().getIRI().accept(this);
+        node.getValue().accept(this);
     }
 
     @Override

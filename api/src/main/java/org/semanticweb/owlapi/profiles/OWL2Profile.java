@@ -101,20 +101,20 @@ public class OWL2Profile implements OWLProfile {
         }
 
         @Override
-        public void visit(OWLOntology ont) {
+        public void visit(OWLOntology ontology) {
             // The ontology IRI and version IRI must be absolute and must not be
             // from the reserved vocab
-            OWLOntologyID id = ont.getOntologyID();
+            OWLOntologyID id = ontology.getOntologyID();
             if (!id.isAnonymous()) {
                 IRI ontologyIRI = id.getOntologyIRI().get();
                 if (!ontologyIRI.isAbsolute()) {
-                    profileViolations.add(new OntologyIRINotAbsolute(ont));
+                    profileViolations.add(new OntologyIRINotAbsolute(ontology));
                 }
                 Optional<IRI> versionIRI = id.getVersionIRI();
                 if (versionIRI.isPresent()) {
                     if (!versionIRI.get().isAbsolute()) {
                         profileViolations
-                                .add(new OntologyVersionIRINotAbsolute(ont));
+                                .add(new OntologyVersionIRINotAbsolute(ontology));
                     }
                 }
             }

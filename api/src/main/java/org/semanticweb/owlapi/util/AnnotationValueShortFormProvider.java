@@ -301,10 +301,10 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
         }
 
         @Override
-        public void visit(@Nonnull OWLAnnotationAssertionAxiom anno) {
-            if (lastLangMatchIndex > 0 && anno.getProperty().equals(prop)) {
+        public void visit(@Nonnull OWLAnnotationAssertionAxiom axiom) {
+            if (lastLangMatchIndex > 0 && axiom.getProperty().equals(prop)) {
                 // a perfect match - no need to carry on search
-                anno.getValue().accept(this);
+                axiom.getValue().accept(this);
             }
         }
 

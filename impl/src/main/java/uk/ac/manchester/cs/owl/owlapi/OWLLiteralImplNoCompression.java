@@ -202,12 +202,12 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements
     }
 
     @Override
-    public boolean hasLang(String _l) {
-        String l = _l;
+    public boolean hasLang(String lang) {
+        String l = lang;
         if (l == null) {
-            return lang.isEmpty();
+            return this.lang.isEmpty();
         }
-        return lang.equalsIgnoreCase(l.trim());
+        return this.lang.equalsIgnoreCase(l.trim());
     }
 
     @Override

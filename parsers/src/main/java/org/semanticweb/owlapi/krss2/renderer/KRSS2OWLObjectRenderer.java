@@ -192,16 +192,16 @@ public class KRSS2OWLObjectRenderer extends OWLObjectVisitorAdapter {
     }
 
     @Override
-    public void visit(OWLOntology onto) {
-        for (OWLClass eachClass : onto.getClassesInSignature()) {
+    public void visit(OWLOntology ontology) {
+        for (OWLClass eachClass : ontology.getClassesInSignature()) {
             assert eachClass != null;
-            boolean primitive = !isDefined(onto, eachClass);
+            boolean primitive = !isDefined(ontology, eachClass);
             if (primitive) {
                 writeOpenBracket();
                 write(DEFINE_PRIMITIVE_CONCEPT);
                 write(eachClass);
                 writeSpace();
-                Collection<OWLAxiom> axioms = onto.filterAxioms(
+                Collection<OWLAxiom> axioms = ontology.filterAxioms(
                         Filters.subClassWithSub, eachClass, INCLUDED);
                 Collection<OWLClassExpression> superClasses = sup(axioms,
                         OWLClassExpression.class);
@@ -209,7 +209,7 @@ public class KRSS2OWLObjectRenderer extends OWLObjectVisitorAdapter {
                 writeCloseBracket(); // ==> end definition of primitive-concept
                 writeln();
                 Collection<OWLClassExpression> classes = equivalent(
-                        onto.getEquivalentClassesAxioms(eachClass),
+                        ontology.getEquivalentClassesAxioms(eachClass),
                         OWLClassExpression.class);
                 for (OWLClassExpression classExpression : classes) {
                     writeOpenBracket();
@@ -225,7 +225,7 @@ public class KRSS2OWLObjectRenderer extends OWLObjectVisitorAdapter {
                 write(DEFINE_CONCEPT);
                 write(eachClass);
                 Collection<OWLClassExpression> classes = equivalent(
-                        onto.getEquivalentClassesAxioms(eachClass),
+                        ontology.getEquivalentClassesAxioms(eachClass),
                         OWLClassExpression.class);
                 if (classes.isEmpty()) {
                     // ?
@@ -252,37 +252,37 @@ public class KRSS2OWLObjectRenderer extends OWLObjectVisitorAdapter {
                 }
             }
         }
-        for (OWLClassAxiom axiom : onto.getGeneralClassAxioms()) {
+        for (OWLClassAxiom axiom : ontology.getGeneralClassAxioms()) {
             axiom.accept(this);
         }
-        for (OWLObjectProperty property : onto.getObjectPropertiesInSignature()) {
+        for (OWLObjectProperty property : ontology.getObjectPropertiesInSignature()) {
             assert property != null;
             writeOpenBracket();
             write(DEFINE_PRIMITIVE_ROLE);
             write(property);
-            if (isTransitive(onto, property)) {
+            if (isTransitive(ontology, property)) {
                 writeAttribute(TRANSITIVE_ATTR);
                 writeSpace();
                 write(TRUE);
             }
-            if (isSymmetric(ontology, property)) {
+            if (isSymmetric(this.ontology, property)) {
                 writeAttribute(SYMMETRIC_ATTR);
                 writeSpace();
                 write(TRUE);
             }
-            Collection<OWLClassExpression> domains = domain(onto
+            Collection<OWLClassExpression> domains = domain(ontology
                     .getObjectPropertyDomainAxioms(property));
             if (!domains.isEmpty()) {
                 writeAttribute(DOMAIN);
                 flatten(domains);
             }
-            Collection<OWLClassExpression> ranges = range(onto
+            Collection<OWLClassExpression> ranges = range(ontology
                     .getObjectPropertyRangeAxioms(property));
             if (!ranges.isEmpty()) {
                 writeAttribute(RANGE_ATTR);
                 flatten(ranges);
             }
-            Collection<OWLAxiom> axioms = onto.filterAxioms(
+            Collection<OWLAxiom> axioms = ontology.filterAxioms(
                     Filters.subObjectPropertyWithSub, property, INCLUDED);
             Collection<OWLObjectPropertyExpression> superProperties = sup(
                     axioms, OWLObjectPropertyExpression.class);
@@ -339,142 +339,142 @@ public class KRSS2OWLObjectRenderer extends OWLObjectVisitorAdapter {
     }
 
     @Override
-    public void visit(OWLClass desc) {
-        write(desc.getIRI());
+    public void visit(OWLClass ce) {
+        write(ce.getIRI());
     }
 
     @Override
-    public void visit(OWLObjectIntersectionOf desc) {
+    public void visit(OWLObjectIntersectionOf ce) {
         writeOpenBracket();
         write(AND);
-        for (OWLClassExpression des : desc.getOperands()) {
+        for (OWLClassExpression des : ce.getOperands()) {
             write(des);
         }
         writeCloseBracket();
     }
 
     @Override
-    public void visit(OWLObjectUnionOf desc) {
+    public void visit(OWLObjectUnionOf ce) {
         writeOpenBracket();
         write(OR);
-        for (OWLClassExpression des : desc.getOperands()) {
+        for (OWLClassExpression des : ce.getOperands()) {
             write(des);
         }
         writeCloseBracket();
     }
 
     @Override
-    public void visit(OWLObjectComplementOf desc) {
+    public void visit(OWLObjectComplementOf ce) {
         writeOpenBracket();
         write(NOT);
-        write(desc.getOperand());
+        write(ce.getOperand());
         writeCloseBracket();
     }
 
     @Override
-    public void visit(OWLObjectSomeValuesFrom desc) {
+    public void visit(OWLObjectSomeValuesFrom ce) {
         writeOpenBracket();
         write(SOME);
-        write(desc.getProperty());
-        write(desc.getFiller());
+        write(ce.getProperty());
+        write(ce.getFiller());
         writeCloseBracket();
     }
 
     @Override
-    public void visit(OWLObjectAllValuesFrom desc) {
+    public void visit(OWLObjectAllValuesFrom ce) {
         writeOpenBracket();
         write(ALL);
-        write(desc.getProperty());
-        write(desc.getFiller());
+        write(ce.getProperty());
+        write(ce.getFiller());
         writeCloseBracket();
     }
 
     @Override
-    public void visit(OWLObjectMinCardinality desc) {
+    public void visit(OWLObjectMinCardinality ce) {
         writeOpenBracket();
         write(AT_LEAST);
-        write(desc.getCardinality());
-        write(desc.getProperty());
-        if (desc.isQualified()) {
-            write(desc.getFiller());
+        write(ce.getCardinality());
+        write(ce.getProperty());
+        if (ce.isQualified()) {
+            write(ce.getFiller());
         }
         writeCloseBracket();
     }
 
     @Override
-    public void visit(OWLObjectExactCardinality desc) {
+    public void visit(OWLObjectExactCardinality ce) {
         writeOpenBracket();
         write(EXACTLY);
-        write(desc.getCardinality());
-        write(desc.getProperty());
-        if (desc.isQualified()) {
-            write(desc.getFiller());
+        write(ce.getCardinality());
+        write(ce.getProperty());
+        if (ce.isQualified()) {
+            write(ce.getFiller());
         }
         writeCloseBracket();
     }
 
     @Override
-    public void visit(OWLObjectMaxCardinality desc) {
+    public void visit(OWLObjectMaxCardinality ce) {
         writeOpenBracket();
         write(AT_MOST);
-        write(desc.getCardinality());
-        write(desc.getProperty());
-        if (desc.isQualified()) {
-            write(desc.getFiller());
+        write(ce.getCardinality());
+        write(ce.getProperty());
+        if (ce.isQualified()) {
+            write(ce.getFiller());
         }
         writeCloseBracket();
     }
 
     @Override
-    public void visit(OWLDataSomeValuesFrom desc) {
+    public void visit(OWLDataSomeValuesFrom ce) {
         writeOpenBracket();
         write(SOME);
-        write(desc.getProperty());
-        write(desc.getFiller());
+        write(ce.getProperty());
+        write(ce.getFiller());
         writeCloseBracket();
     }
 
     @Override
-    public void visit(OWLDataAllValuesFrom desc) {
+    public void visit(OWLDataAllValuesFrom ce) {
         writeOpenBracket();
         write(ALL);
-        write(desc.getProperty());
-        write(desc.getFiller());
+        write(ce.getProperty());
+        write(ce.getFiller());
         writeCloseBracket();
     }
 
     @Override
-    public void visit(OWLDataMinCardinality desc) {
+    public void visit(OWLDataMinCardinality ce) {
         writeOpenBracket();
         write(AT_LEAST);
-        write(desc.getCardinality());
-        write(desc.getProperty());
-        if (desc.isQualified()) {
-            write(desc.getFiller());
+        write(ce.getCardinality());
+        write(ce.getProperty());
+        if (ce.isQualified()) {
+            write(ce.getFiller());
         }
         writeCloseBracket();
     }
 
     @Override
-    public void visit(OWLDataExactCardinality desc) {
+    public void visit(OWLDataExactCardinality ce) {
         writeOpenBracket();
         write(EXACTLY);
-        write(desc.getCardinality());
-        write(desc.getProperty());
-        if (desc.isQualified()) {
-            write(desc.getFiller());
+        write(ce.getCardinality());
+        write(ce.getProperty());
+        if (ce.isQualified()) {
+            write(ce.getFiller());
         }
         writeCloseBracket();
     }
 
     @Override
-    public void visit(OWLDataMaxCardinality desc) {
+    public void visit(OWLDataMaxCardinality ce) {
         writeOpenBracket();
         write(AT_MOST);
-        write(desc.getCardinality());
-        write(desc.getProperty());
-        if (desc.isQualified()) {
-            write(desc.getFiller());
+        write(ce.getCardinality());
+        write(ce.getProperty());
+        if (ce.isQualified()) {
+            write(ce.getFiller());
         }
         writeCloseBracket();
     }

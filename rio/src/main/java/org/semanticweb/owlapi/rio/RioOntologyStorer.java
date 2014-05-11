@@ -102,8 +102,8 @@ public class RioOntologyStorer extends AbstractOWLOntologyStorer {
     }
 
     @Override
-    public boolean canStoreOntology(OWLOntologyFormat format) {
-        return ontologyFormat.createFormat().equals(format);
+    public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {
+        return this.ontologyFormat.createFormat().equals(ontologyFormat);
     }
 
     /**

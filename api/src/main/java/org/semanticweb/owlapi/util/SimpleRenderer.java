@@ -589,162 +589,162 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
     @Override
-    public void visit(OWLClass desc) {
-        sb.append(shortFormProvider.getShortForm(desc));
+    public void visit(OWLClass ce) {
+        sb.append(shortFormProvider.getShortForm(ce));
     }
 
     @Override
-    public void visit(OWLObjectIntersectionOf desc) {
+    public void visit(OWLObjectIntersectionOf ce) {
         sb.append("ObjectIntersectionOf(");
-        render(desc.getOperands());
+        render(ce.getOperands());
         sb.append(")");
     }
 
     @Override
-    public void visit(OWLObjectUnionOf desc) {
+    public void visit(OWLObjectUnionOf ce) {
         sb.append("ObjectUnionOf(");
-        render(desc.getOperands());
+        render(ce.getOperands());
         sb.append(")");
     }
 
     @Override
-    public void visit(OWLObjectComplementOf desc) {
+    public void visit(OWLObjectComplementOf ce) {
         sb.append("ObjectComplementOf(");
-        desc.getOperand().accept(this);
+        ce.getOperand().accept(this);
         sb.append(")");
     }
 
     @Override
-    public void visit(OWLObjectSomeValuesFrom desc) {
+    public void visit(OWLObjectSomeValuesFrom ce) {
         sb.append("ObjectSomeValuesFrom(");
-        desc.getProperty().accept(this);
+        ce.getProperty().accept(this);
         insertSpace();
-        desc.getFiller().accept(this);
+        ce.getFiller().accept(this);
         sb.append(")");
     }
 
     @Override
-    public void visit(OWLObjectAllValuesFrom desc) {
+    public void visit(OWLObjectAllValuesFrom ce) {
         sb.append("ObjectAllValuesFrom(");
-        desc.getProperty().accept(this);
+        ce.getProperty().accept(this);
         insertSpace();
-        desc.getFiller().accept(this);
+        ce.getFiller().accept(this);
         sb.append(")");
     }
 
     @Override
-    public void visit(OWLObjectHasValue desc) {
+    public void visit(OWLObjectHasValue ce) {
         sb.append("ObjectHasValue(");
-        desc.getProperty().accept(this);
+        ce.getProperty().accept(this);
         insertSpace();
-        desc.getFiller().accept(this);
+        ce.getFiller().accept(this);
         sb.append(")");
     }
 
     @Override
-    public void visit(OWLObjectMinCardinality desc) {
+    public void visit(OWLObjectMinCardinality ce) {
         sb.append("ObjectMinCardinality(");
-        sb.append(desc.getCardinality());
+        sb.append(ce.getCardinality());
         insertSpace();
-        desc.getProperty().accept(this);
+        ce.getProperty().accept(this);
         insertSpace();
-        desc.getFiller().accept(this);
+        ce.getFiller().accept(this);
         sb.append(")");
     }
 
     @Override
-    public void visit(OWLObjectExactCardinality desc) {
+    public void visit(OWLObjectExactCardinality ce) {
         sb.append("ObjectExactCardinality(");
-        sb.append(desc.getCardinality());
+        sb.append(ce.getCardinality());
         insertSpace();
-        desc.getProperty().accept(this);
+        ce.getProperty().accept(this);
         insertSpace();
-        desc.getFiller().accept(this);
+        ce.getFiller().accept(this);
         sb.append(")");
     }
 
     @Override
-    public void visit(OWLObjectMaxCardinality desc) {
+    public void visit(OWLObjectMaxCardinality ce) {
         sb.append("ObjectMaxCardinality(");
-        sb.append(desc.getCardinality());
+        sb.append(ce.getCardinality());
         insertSpace();
-        desc.getProperty().accept(this);
+        ce.getProperty().accept(this);
         insertSpace();
-        desc.getFiller().accept(this);
+        ce.getFiller().accept(this);
         sb.append(")");
     }
 
     @Override
-    public void visit(OWLObjectHasSelf desc) {
+    public void visit(OWLObjectHasSelf ce) {
         sb.append("ObjectHasSelf(");
-        desc.getProperty().accept(this);
+        ce.getProperty().accept(this);
         sb.append(")");
     }
 
     @Override
-    public void visit(OWLObjectOneOf desc) {
+    public void visit(OWLObjectOneOf ce) {
         sb.append("ObjectOneOf(");
-        render(desc.getIndividuals());
+        render(ce.getIndividuals());
         sb.append(")");
     }
 
     @Override
-    public void visit(OWLDataSomeValuesFrom desc) {
+    public void visit(OWLDataSomeValuesFrom ce) {
         sb.append("DataSomeValuesFrom(");
-        desc.getProperty().accept(this);
+        ce.getProperty().accept(this);
         insertSpace();
-        desc.getFiller().accept(this);
+        ce.getFiller().accept(this);
         sb.append(")");
     }
 
     @Override
-    public void visit(OWLDataAllValuesFrom desc) {
+    public void visit(OWLDataAllValuesFrom ce) {
         sb.append("DataAllValuesFrom(");
-        desc.getProperty().accept(this);
+        ce.getProperty().accept(this);
         insertSpace();
-        desc.getFiller().accept(this);
+        ce.getFiller().accept(this);
         sb.append(")");
     }
 
     @Override
-    public void visit(OWLDataHasValue desc) {
+    public void visit(OWLDataHasValue ce) {
         sb.append("DataHasValue(");
-        desc.getProperty().accept(this);
+        ce.getProperty().accept(this);
         insertSpace();
-        desc.getFiller().accept(this);
+        ce.getFiller().accept(this);
         sb.append(")");
     }
 
     @Override
-    public void visit(OWLDataMinCardinality desc) {
+    public void visit(OWLDataMinCardinality ce) {
         sb.append("DataMinCardinality(");
-        sb.append(desc.getCardinality());
+        sb.append(ce.getCardinality());
         insertSpace();
-        desc.getProperty().accept(this);
+        ce.getProperty().accept(this);
         insertSpace();
-        desc.getFiller().accept(this);
+        ce.getFiller().accept(this);
         sb.append(")");
     }
 
     @Override
-    public void visit(OWLDataExactCardinality desc) {
+    public void visit(OWLDataExactCardinality ce) {
         sb.append("DataExactCardinality(");
-        sb.append(desc.getCardinality());
+        sb.append(ce.getCardinality());
         insertSpace();
-        desc.getProperty().accept(this);
+        ce.getProperty().accept(this);
         insertSpace();
-        desc.getFiller().accept(this);
+        ce.getFiller().accept(this);
         sb.append(")");
     }
 
     @Override
-    public void visit(OWLDataMaxCardinality desc) {
+    public void visit(OWLDataMaxCardinality ce) {
         sb.append("DataMaxCardinality(");
-        sb.append(desc.getCardinality());
+        sb.append(ce.getCardinality());
         insertSpace();
-        desc.getProperty().accept(this);
+        ce.getProperty().accept(this);
         insertSpace();
-        desc.getFiller().accept(this);
+        ce.getFiller().accept(this);
         sb.append(")");
     }
 

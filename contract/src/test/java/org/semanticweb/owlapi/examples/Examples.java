@@ -1226,16 +1226,16 @@ public class Examples extends TestBase {
         }
 
         @Override
-        public void visit(OWLClass desc) {
-            if (!processedClasses.contains(desc)) {
+        public void visit(OWLClass ce) {
+            if (!processedClasses.contains(ce)) {
                 // If we are processing inherited restrictions then we
                 // recursively visit named supers. Note that we need to keep
                 // track of the classes that we have processed so that we don't
                 // get caught out by cycles in the taxonomy
-                processedClasses.add(desc);
+                processedClasses.add(ce);
                 for (OWLOntology ont : onts) {
                     for (OWLSubClassOfAxiom ax : ont
-                            .getSubClassAxiomsForSubClass(desc)) {
+                            .getSubClassAxiomsForSubClass(ce)) {
                         ax.getSuperClass().accept(this);
                     }
                 }
@@ -1243,10 +1243,10 @@ public class Examples extends TestBase {
         }
 
         @Override
-        public void visit(@Nonnull OWLObjectSomeValuesFrom desc) {
+        public void visit(@Nonnull OWLObjectSomeValuesFrom ce) {
             // This method gets called when a class expression is an existential
             // (someValuesFrom) restriction and it asks us to visit it
-            restrictedProperties.add(desc.getProperty());
+            restrictedProperties.add(ce.getProperty());
         }
     }
 
@@ -1428,7 +1428,7 @@ public class Examples extends TestBase {
                 walker) {
 
             @Override
-            public Object visit(OWLObjectSomeValuesFrom desc) {
+            public Object visit(OWLObjectSomeValuesFrom ce) {
                 // Print out the restriction
                 // System.out.println(desc);
                 // Print out the axiom where the restriction is used

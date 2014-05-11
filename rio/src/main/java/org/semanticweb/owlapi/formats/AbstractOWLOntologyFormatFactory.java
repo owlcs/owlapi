@@ -57,17 +57,17 @@ public abstract class AbstractOWLOntologyFormatFactory implements
     }
 
     @Override
-    public boolean equals(Object other) {
-        if (null == other) {
+    public boolean equals(Object obj) {
+        if (null == obj) {
             return false;
         }
-        if (other == this) {
+        if (obj == this) {
             return true;
         }
-        if (!(other instanceof OWLOntologyFormatFactory)) {
+        if (!(obj instanceof OWLOntologyFormatFactory)) {
             return false;
         }
-        OWLOntologyFormatFactory otherFactory = (OWLOntologyFormatFactory) other;
+        OWLOntologyFormatFactory otherFactory = (OWLOntologyFormatFactory) obj;
         return getKey().equals(otherFactory.getKey());
     }
 
