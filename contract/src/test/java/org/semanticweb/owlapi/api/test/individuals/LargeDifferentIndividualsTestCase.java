@@ -37,7 +37,7 @@ public class LargeDifferentIndividualsTestCase extends
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         OWLNamedIndividual[] inds = new OWLNamedIndividual[1000];
         for (int i = 0; i < 1000; i++) {
-            inds[i] = NamedIndividual(getIRI("i" + i));
+            inds[i] = createIndividual();
         }
         axioms.add(DifferentIndividuals(inds));
         return axioms;

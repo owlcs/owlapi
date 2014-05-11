@@ -21,8 +21,8 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.io.OWLOntologyDocumentSourceBase;
 import org.semanticweb.owlapi.model.AddAxiom;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLException;
@@ -70,9 +70,9 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
     private void mergeImportsClosure() {
         OWLOntology originalOntology = ontology;
         try {
-            ontology = owlOntologyManager.createOntology(IRI.create(
-                    "http://debugger.semanticweb.org/",
-                    "ontolog" + System.nanoTime()));
+            ontology = owlOntologyManager
+                    .createOntology(OWLOntologyDocumentSourceBase
+                            .getNextDocumentIRI("http://debugger.semanticweb.org/ontolog"));
         } catch (OWLOntologyCreationException e) {
             throw new OWLRuntimeException(e);
         }

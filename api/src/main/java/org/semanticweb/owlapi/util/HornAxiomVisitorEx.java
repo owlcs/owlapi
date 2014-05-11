@@ -192,7 +192,7 @@ public class HornAxiomVisitorEx extends OWLAxiomVisitorExAdapter<Boolean> {
         @Override
         public Boolean visit(OWLObjectIntersectionOf ce) {
             for (OWLClassExpression c : ce.getOperands()) {
-                if (c.accept(this) == Boolean.FALSE) {
+                if (c.accept(this).equals( Boolean.FALSE)) {
                     return b(false);
                 }
             }
@@ -248,7 +248,7 @@ public class HornAxiomVisitorEx extends OWLAxiomVisitorExAdapter<Boolean> {
         @Override
         public Boolean visit(OWLObjectIntersectionOf ce) {
             for (OWLClassExpression c : ce.getOperands()) {
-                if (c.accept(this) == Boolean.FALSE) {
+                if (c.accept(this).equals(Boolean.FALSE)) {
                     return b(false);
                 }
             }
@@ -258,7 +258,7 @@ public class HornAxiomVisitorEx extends OWLAxiomVisitorExAdapter<Boolean> {
         @Override
         public Boolean visit(OWLObjectUnionOf ce) {
             for (OWLClassExpression c : ce.getOperands()) {
-                if (c.accept(this) == Boolean.FALSE) {
+                if (c.accept(this).equals(Boolean.FALSE)) {
                     return b(false);
                 }
             }

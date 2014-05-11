@@ -71,7 +71,7 @@ public class RioOntologyStorer extends AbstractOWLOntologyStorer {
 
     private static final long serialVersionUID = -5659188693033814975L;
     private RDFHandler rioHandler;
-    private final RioRDFOntologyFormatFactory ontologyFormat;
+    private final RioRDFOntologyFormatFactory ontFormat;
     private final Resource[] contexts;
 
     /**
@@ -97,13 +97,13 @@ public class RioOntologyStorer extends AbstractOWLOntologyStorer {
     public RioOntologyStorer(RioRDFOntologyFormatFactory ontologyFormat,
             Resource... contexts) {
         OpenRDFUtil.verifyContextNotNull(contexts);
-        this.ontologyFormat = ontologyFormat;
+        ontFormat = ontologyFormat;
         this.contexts = contexts;
     }
 
     @Override
     public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {
-        return this.ontologyFormat.createFormat().equals(ontologyFormat);
+        return ontFormat.createFormat().equals(ontologyFormat);
     }
 
     /**
@@ -132,7 +132,7 @@ public class RioOntologyStorer extends AbstractOWLOntologyStorer {
             return new StatementCollector();
         } else {
             try {
-            return Rio.createWriter(format, writer);
+                return Rio.createWriter(format, writer);
             } catch (final UnsupportedRDFormatException e) {
                 throw new OWLOntologyStorageException(e);
             }
@@ -165,7 +165,7 @@ public class RioOntologyStorer extends AbstractOWLOntologyStorer {
             return new StatementCollector();
         } else {
             try {
-            return Rio.createWriter(format, outputStream);
+                return Rio.createWriter(format, outputStream);
             } catch (final UnsupportedRDFormatException e) {
                 throw new OWLOntologyStorageException(e);
             }
@@ -195,12 +195,11 @@ public class RioOntologyStorer extends AbstractOWLOntologyStorer {
         // example, it could store the triples in memory without serialising
         // them to any particular format.
         if (rioHandler == null) {
-        if (!(format instanceof RioRDFOntologyFormat)) {
-            throw new OWLOntologyStorageException(
-                    "Unable to use RioOntologyStorer to store this format as it is not recognised as a RioRDFOntologyFormat: "
-                            + format
-            );
-        }
+            if (!(format instanceof RioRDFOntologyFormat)) {
+                throw new OWLOntologyStorageException(
+                        "Unable to use RioOntologyStorer to store this format as it is not recognised as a RioRDFOntologyFormat: "
+                                + format);
+            }
             final RioRDFOntologyFormat rioFormat = (RioRDFOntologyFormat) format;
             if (format.isTextual()) {
                 rioHandler = getRDFHandlerForWriter(rioFormat.getRioFormat(),
@@ -208,8 +207,7 @@ public class RioOntologyStorer extends AbstractOWLOntologyStorer {
             } else {
                 throw new OWLOntologyStorageException(
                         "Unable to use storeOntology with a Writer as the desired format is not textual. Format was "
-                                + format
-                );
+                                + format);
             }
         }
         try {
@@ -233,8 +231,7 @@ public class RioOntologyStorer extends AbstractOWLOntologyStorer {
             if (!(format instanceof RioRDFOntologyFormat)) {
                 throw new OWLOntologyStorageException(
                         "Unable to use RioOntologyStorer to store this format as it is not recognised as a RioRDFOntologyFormat: "
-                                + format
-                );
+                                + format);
             }
             final RioRDFOntologyFormat rioFormat = (RioRDFOntologyFormat) format;
             if (format.isTextual()) {

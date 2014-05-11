@@ -72,19 +72,19 @@ public class ObjectPropertySimplifier {
 
     private static class Simplifier implements OWLPropertyExpressionVisitor {
 
-        private OWLObjectProperty property;
+        private OWLObjectProperty p;
         private int depth;
 
         Simplifier() {}
 
         public void reset() {
             depth = 0;
-            property = null;
+            p = null;
         }
 
         @Nonnull
         public OWLObjectProperty getProperty() {
-            return verifyNotNull(property);
+            return verifyNotNull(p);
         }
 
         public boolean isInverse() {
@@ -93,7 +93,7 @@ public class ObjectPropertySimplifier {
 
         @Override
         public void visit(OWLObjectProperty property) {
-            this.property = property;
+            p = property;
         }
 
         @Override

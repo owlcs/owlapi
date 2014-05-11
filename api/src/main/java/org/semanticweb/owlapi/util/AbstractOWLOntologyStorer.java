@@ -49,8 +49,8 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
             .getLogger(AbstractOWLOntologyStorer.class);
 
     @Override
-    public void storeOntology(OWLOntology ontology,
-            @Nonnull IRI documentIRI, OWLOntologyFormat ontologyFormat)
+    public void storeOntology(OWLOntology ontology, @Nonnull IRI documentIRI,
+            OWLOntologyFormat ontologyFormat)
             throws OWLOntologyStorageException {
         if (!documentIRI.isAbsolute()) {
             throw new OWLOntologyStorageException(
@@ -109,9 +109,9 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
                     throws OWLOntologyStorageException {
         if (format.isTextual() && target.isWriterAvailable()) {
             try {
-                Writer writer = target.getWriter();
-                storeOntology(ontology, writer, format);
-                writer.flush();
+                Writer w = target.getWriter();
+                storeOntology(ontology, w, format);
+                w.flush();
             } catch (IOException e) {
                 throw new OWLOntologyStorageException(e);
             }

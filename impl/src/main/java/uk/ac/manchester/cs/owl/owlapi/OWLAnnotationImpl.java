@@ -45,7 +45,7 @@ public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
     @Nonnull
     private final OWLAnnotationValue value;
     @Nonnull
-    private final Set<OWLAnnotation> annotations;
+    private final Set<OWLAnnotation> anns;
 
     @Override
     protected int index() {
@@ -65,14 +65,14 @@ public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
             @Nonnull Set<? extends OWLAnnotation> annotations) {
         this.property = checkNotNull(property, "property cannot be null");
         this.value = checkNotNull(value, "value cannot be null");
-        this.annotations = CollectionFactory
+        anns = CollectionFactory
                 .getCopyOnRequestSetFromMutableCollection(new TreeSet<OWLAnnotation>(
                         checkNotNull(annotations, "annotations cannot be null")));
     }
 
     @Override
     public Set<OWLAnnotation> getAnnotations() {
-        return annotations;
+        return anns;
     }
 
     @Override
@@ -91,7 +91,7 @@ public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
         if (annotations.isEmpty()) {
             return this;
         }
-        Set<OWLAnnotation> merged = new HashSet<OWLAnnotation>(this.annotations);
+        Set<OWLAnnotation> merged = new HashSet<OWLAnnotation>(anns);
         merged.addAll(annotations);
         return new OWLAnnotationImpl(property, value, merged);
     }
@@ -118,7 +118,7 @@ public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
             OWLAnnotation other = (OWLAnnotation) obj;
             return other.getProperty().equals(property)
                     && other.getValue().equals(value)
-                    && other.getAnnotations().equals(annotations);
+                    && other.getAnnotations().equals(anns);
         }
         return false;
     }

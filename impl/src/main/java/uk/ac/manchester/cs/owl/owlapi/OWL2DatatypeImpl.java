@@ -159,7 +159,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
 
     @Override
     public boolean isType(EntityType<?> entityType) {
-        return entityType == EntityType.DATATYPE;
+        return EntityType.DATATYPE.equals(entityType);
     }
 
     @Override

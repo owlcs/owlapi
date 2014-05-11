@@ -65,7 +65,7 @@ import org.semanticweb.owlapi.util.OWLObjectVisitorAdapter;
 public class KRSS2OWLObjectRenderer extends OWLObjectVisitorAdapter {
 
     @Nonnull
-    private final OWLOntology ontology;
+    private final OWLOntology ont;
     @Nonnull
     private final Writer writer;
 
@@ -77,7 +77,7 @@ public class KRSS2OWLObjectRenderer extends OWLObjectVisitorAdapter {
      */
     public KRSS2OWLObjectRenderer(@Nonnull OWLOntology ontology,
             @Nonnull Writer writer) {
-        this.ontology = checkNotNull(ontology);
+        ont = checkNotNull(ontology);
         this.writer = checkNotNull(writer);
     }
 
@@ -255,7 +255,8 @@ public class KRSS2OWLObjectRenderer extends OWLObjectVisitorAdapter {
         for (OWLClassAxiom axiom : ontology.getGeneralClassAxioms()) {
             axiom.accept(this);
         }
-        for (OWLObjectProperty property : ontology.getObjectPropertiesInSignature()) {
+        for (OWLObjectProperty property : ontology
+                .getObjectPropertiesInSignature()) {
             assert property != null;
             writeOpenBracket();
             write(DEFINE_PRIMITIVE_ROLE);
@@ -265,7 +266,7 @@ public class KRSS2OWLObjectRenderer extends OWLObjectVisitorAdapter {
                 writeSpace();
                 write(TRUE);
             }
-            if (isSymmetric(this.ontology, property)) {
+            if (isSymmetric(ont, property)) {
                 writeAttribute(SYMMETRIC_ATTR);
                 writeSpace();
                 write(TRUE);

@@ -267,7 +267,6 @@ public class Examples extends TestBase {
         }
         manager.saveOntology(pizzaOntology, manSyntaxFormat,
                 new StreamDocumentTarget(new ByteArrayOutputStream()));
-        file.delete();
     }
 
     /**
@@ -520,7 +519,6 @@ public class Examples extends TestBase {
         manager.saveOntology(ontology, new OWLXMLOntologyFormat(), documentIRI2);
         // Remove the ontology from the manager
         manager.removeOntology(ontology);
-        f.delete();
     }
 
     @Test

@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.anonymous;
 
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.NamedIndividual;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -34,7 +34,7 @@ public class AnonymousRootRoundTrippingTestCase extends
         OWLOntology ont = getOWLOntology("OntA");
         Set<OWLIndividual> inds = new HashSet<OWLIndividual>();
         for (int i = 0; i < 10; i++) {
-            inds.add(NamedIndividual(getIRI("Ind" + i)));
+            inds.add(createIndividual());
         }
         addAxiom(ont, df.getOWLDifferentIndividualsAxiom(inds));
         return ont;

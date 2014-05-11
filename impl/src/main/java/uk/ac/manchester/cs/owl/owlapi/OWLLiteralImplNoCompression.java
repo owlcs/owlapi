@@ -48,7 +48,7 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements
     @Nonnull
     private final OWLDatatype datatype;
     @Nonnull
-    private final String lang;
+    private final String language;
     private final int hashcode;
 
     @Override
@@ -84,7 +84,7 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements
         literal = new byte[bytes.length];
         System.arraycopy(bytes, 0, literal, 0, bytes.length);
         if (lang == null || lang.isEmpty()) {
-            this.lang = "";
+            language = "";
             if (datatype == null) {
                 this.datatype = RDF_PLAIN_LITERAL;
             } else {
@@ -98,7 +98,7 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements
                         "Error: cannot build a literal with type: "
                                 + datatype.getIRI() + " and language: " + lang);
             }
-            this.lang = lang;
+            language = lang;
             this.datatype = RDF_PLAIN_LITERAL;
         }
         hashcode = getHashCode();
@@ -133,7 +133,7 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements
 
     @Override
     public boolean hasLang() {
-        return !lang.equals("");
+        return !language.equals("");
     }
 
     @Override
@@ -198,16 +198,15 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements
 
     @Override
     public String getLang() {
-        return lang;
+        return language;
     }
 
     @Override
     public boolean hasLang(String lang) {
-        String l = lang;
-        if (l == null) {
-            return this.lang.isEmpty();
+        if (lang == null) {
+            return language.isEmpty();
         }
-        return this.lang.equalsIgnoreCase(l.trim());
+        return language.equalsIgnoreCase(lang.trim());
     }
 
     @Override
@@ -259,11 +258,11 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements
                 return Arrays.equals(literal,
                         ((OWLLiteralImplNoCompression) other).literal)
                         && datatype.equals(other.getDatatype())
-                        && lang.equals(other.getLang());
+                        && language.equals(other.getLang());
             }
             return getLiteral().equals(other.getLiteral())
                     && datatype.equals(other.getDatatype())
-                    && lang.equals(other.getLang());
+                    && language.equals(other.getLang());
         }
         return false;
     }
@@ -299,7 +298,7 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements
         if (diff != 0) {
             return diff;
         }
-        return lang.compareTo(other.getLang());
+        return language.compareTo(other.getLang());
     }
 
     @Override

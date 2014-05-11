@@ -46,7 +46,7 @@ import com.google.common.base.Optional;
 public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
 
     private PrefixManager prefixManager;
-    protected OWLOntology ontology;
+    protected OWLOntology ont;
     private final Writer writer;
     private boolean writeEntitiesAsURIs = true;
     private OWLObject focusedObject;
@@ -59,7 +59,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
      */
     public FunctionalSyntaxObjectRenderer(@Nonnull OWLOntology ontology,
             Writer writer) {
-        this.ontology = ontology;
+        ont = ontology;
         this.writer = writer;
         prefixManager = new DefaultPrefixManager();
         OWLOntologyFormat ontologyFormat = ontology.getOWLOntologyManager()
@@ -176,8 +176,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         write("(");
         if (!ontology.isAnonymous()) {
             writeFullIRI(ontology.getOntologyID().getOntologyIRI().get());
-            Optional<IRI> versionIRI = ontology.getOntologyID()
-                    .getVersionIRI();
+            Optional<IRI> versionIRI = ontology.getOntologyID().getVersionIRI();
             if (versionIRI.isPresent()) {
                 write("\n");
                 writeFullIRI(versionIRI.get());
@@ -241,36 +240,36 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
 
                     @Override
                     public Set<? extends OWLAxiom> visit(OWLClass cls) {
-                        return ontology.getAxioms(cls, Imports.EXCLUDED);
+                        return ont.getAxioms(cls, Imports.EXCLUDED);
                     }
 
                     @Override
                     public Set<? extends OWLAxiom> visit(
                             OWLObjectProperty property) {
-                        return ontology.getAxioms(property, Imports.EXCLUDED);
+                        return ont.getAxioms(property, Imports.EXCLUDED);
                     }
 
                     @Override
                     public Set<? extends OWLAxiom> visit(
                             OWLDataProperty property) {
-                        return ontology.getAxioms(property, Imports.EXCLUDED);
+                        return ont.getAxioms(property, Imports.EXCLUDED);
                     }
 
                     @Override
                     public Set<? extends OWLAxiom> visit(
                             OWLNamedIndividual individual) {
-                        return ontology.getAxioms(individual, Imports.EXCLUDED);
+                        return ont.getAxioms(individual, Imports.EXCLUDED);
                     }
 
                     @Override
                     public Set<? extends OWLAxiom> visit(OWLDatatype datatype) {
-                        return ontology.getAxioms(datatype, Imports.EXCLUDED);
+                        return ont.getAxioms(datatype, Imports.EXCLUDED);
                     }
 
                     @Override
                     public Set<? extends OWLAxiom> visit(
                             OWLAnnotationProperty property) {
-                        return ontology.getAxioms(property, Imports.EXCLUDED);
+                        return ont.getAxioms(property, Imports.EXCLUDED);
                     }
                 }));
         Collections.sort(axs);
@@ -304,7 +303,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
     @Nonnull
     public Set<OWLAxiom> writeDeclarations(@Nonnull OWLEntity entity) {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        for (OWLAxiom ax : ontology.getDeclarationAxioms(entity)) {
+        for (OWLAxiom ax : ont.getDeclarationAxioms(entity)) {
             ax.accept(this);
             axioms.add(ax);
             write("\n");
@@ -316,7 +315,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
     private Set<OWLAxiom> writeDeclarations(@Nonnull OWLEntity entity,
             @Nonnull Set<OWLAxiom> alreadyWrittenAxioms) {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        for (OWLAxiom ax : ontology.getDeclarationAxioms(entity)) {
+        for (OWLAxiom ax : ont.getDeclarationAxioms(entity)) {
             if (!alreadyWrittenAxioms.contains(ax)) {
                 ax.accept(this);
                 axioms.add(ax);
@@ -337,8 +336,8 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
     @Nonnull
     public Set<OWLAxiom> writeAnnotations(@Nonnull OWLEntity entity) {
         Set<OWLAxiom> annotationAssertions = new HashSet<OWLAxiom>();
-        for (OWLAnnotationAxiom ax : ontology
-                .getAnnotationAssertionAxioms(entity.getIRI())) {
+        for (OWLAnnotationAxiom ax : ont.getAnnotationAssertionAxioms(entity
+                .getIRI())) {
             ax.accept(this);
             annotationAssertions.add(ax);
             write("\n");

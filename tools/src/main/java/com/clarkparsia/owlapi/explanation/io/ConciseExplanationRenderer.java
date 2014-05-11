@@ -31,34 +31,34 @@ public class ConciseExplanationRenderer implements ExplanationRenderer {
     /** The renderer. */
     private final SimpleRenderer renderer = new SimpleRenderer();
     /** The writer. */
-    private PrintWriter writer;
+    private PrintWriter printWriter;
 
     @Override
     public void startRendering(Writer writer) {
         checkNotNull(writer, "w cannot be null");
-        this.writer = writer instanceof PrintWriter ? (PrintWriter) writer
+        printWriter = writer instanceof PrintWriter ? (PrintWriter) writer
                 : new PrintWriter(writer);
     }
 
     @Override
     public void
             render(OWLAxiom axiom, @Nonnull Set<Set<OWLAxiom>> explanations) {
-        writer.println("Axiom: "
+        printWriter.println("Axiom: "
                 + renderer.render(checkNotNull(axiom, "axiom cannot be null")));
         int expSize = checkNotNull(explanations.size());
         if (expSize == 0) {
-            writer.println("Explanation: AXIOM IS NOT ENTAILED!");
+            printWriter.println("Explanation: AXIOM IS NOT ENTAILED!");
             return;
         }
         if (expSize == 1) {
-            writer.println("Explanation: ");
+            printWriter.println("Explanation: ");
             Set<OWLAxiom> explanation = explanations.iterator().next();
             renderSingleExplanation(INDENT, explanation);
         } else {
-            writer.println("Explanations (" + expSize + "): ");
+            printWriter.println("Explanations (" + expSize + "): ");
             renderMultipleExplanations(explanations);
         }
-        writer.println();
+        printWriter.println();
     }
 
     private void renderMultipleExplanations(Set<Set<OWLAxiom>> explanations) {
@@ -79,12 +79,12 @@ public class ConciseExplanationRenderer implements ExplanationRenderer {
             } else {
                 header = INDENT;
             }
-            writer.println(header + renderer.render(axiom));
+            printWriter.println(header + renderer.render(axiom));
         }
     }
 
     @Override
     public void endRendering() {
-        writer.flush();
+        printWriter.flush();
     }
 }

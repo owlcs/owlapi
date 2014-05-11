@@ -56,7 +56,7 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
         implements OWLObjectVisitor, SWRLObjectVisitor {
 
     private final OWLOntologyManager manager;
-    private final OWLOntology ontology;
+    private final OWLOntology ont;
     private boolean useStrongTyping = true;
 
     /**
@@ -69,7 +69,7 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
      */
     public AbstractTranslator(@Nonnull OWLOntologyManager manager,
             @Nonnull OWLOntology ontology, boolean useStrongTyping) {
-        this.ontology = checkNotNull(ontology, "ontology cannot be null");
+        this.ont = checkNotNull(ontology, "ontology cannot be null");
         this.manager = checkNotNull(manager, "manager cannot be null");
         this.useStrongTyping = useStrongTyping;
     }
@@ -682,8 +682,7 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
     @SuppressWarnings("null")
     @Override
     public void visit(@Nonnull OWLOntology ontology) {
-        Optional<IRI> ontologyIRI = ontology.getOntologyID()
-                .getOntologyIRI();
+        Optional<IRI> ontologyIRI = ontology.getOntologyID().getOntologyIRI();
         if (ontologyIRI.isPresent()) {
             if (!nodeMap.containsKey(ontology)) {
                 nodeMap.put(ontology, getResourceNode(ontologyIRI.get()));
@@ -1084,12 +1083,12 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
         if (!currentIndividuals.contains(ind)) {
             currentIndividuals.add(ind);
             if (ind.isAnonymous()) {
-                for (OWLAxiom ax : ontology.getAxioms(ind, Imports.EXCLUDED)) {
+                for (OWLAxiom ax : ont.getAxioms(ind, Imports.EXCLUDED)) {
                     if (root == null || !root.equals(ax)) {
                         ax.accept(this);
                     }
                 }
-                for (OWLAnnotationAssertionAxiom ax : ontology
+                for (OWLAnnotationAssertionAxiom ax : ont
                         .getAnnotationAssertionAxioms(ind
                                 .asOWLAnonymousIndividual())) {
                     ax.accept(this);
@@ -1103,10 +1102,10 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
         if (!currentIndividuals.contains(ind)) {
             currentIndividuals.add(ind);
             if (ind.isAnonymous()) {
-                for (OWLAxiom ax : ontology.getAxioms(ind, Imports.EXCLUDED)) {
+                for (OWLAxiom ax : ont.getAxioms(ind, Imports.EXCLUDED)) {
                     ax.accept(this);
                 }
-                for (OWLAnnotationAssertionAxiom ax : ontology
+                for (OWLAnnotationAssertionAxiom ax : ont
                         .getAnnotationAssertionAxioms(ind
                                 .asOWLAnonymousIndividual())) {
                     ax.accept(this);
@@ -1166,7 +1165,7 @@ public abstract class AbstractTranslator<N, R extends N, P extends N, L extends 
         if (!useStrongTyping) {
             return;
         }
-        if (!RDFOntologyFormat.isMissingType(entity, ontology)) {
+        if (!RDFOntologyFormat.isMissingType(entity, ont)) {
             return;
         }
         addTriple(entity, RDF_TYPE.getIRI(),

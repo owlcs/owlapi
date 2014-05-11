@@ -446,8 +446,8 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
                 write(TRUE);
             }
             Iterator<OWLObjectPropertyExpression> inverses = inverse(
-                    ontology.getInverseObjectPropertyAxioms(property),
-                    property).iterator();
+                    ontology.getInverseObjectPropertyAxioms(property), property)
+                    .iterator();
             if (!inverses.hasNext()) {
                 writeSpace();
                 write(INVERSE_ATTR);
@@ -725,7 +725,7 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
             Set<OWLSubPropertyChainOfAxiom>
             getPropertyChainSubPropertyAxiomsFor(OWLPropertyExpression property) {
         Set<OWLSubPropertyChainOfAxiom> axioms = new HashSet<OWLSubPropertyChainOfAxiom>();
-        for (OWLSubPropertyChainOfAxiom axiom : ontology
+        for (OWLSubPropertyChainOfAxiom axiom : ont
                 .getAxioms(AxiomType.SUB_PROPERTY_CHAIN_OF)) {
             if (axiom.getSuperProperty().equals(property)) {
                 axioms.add(axiom);

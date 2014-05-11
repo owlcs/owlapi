@@ -456,7 +456,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
 
     @Override
     public int compareTo(OWLObject o) {
-        if (o == this) {
+        if (o == this || this.equals(o)) {
             return 0;
         }
         if (!(o instanceof IRI)) {

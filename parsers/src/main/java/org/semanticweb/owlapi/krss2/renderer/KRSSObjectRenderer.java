@@ -240,7 +240,7 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
     @Nonnull
     private static final String NEWLINE = "\n";
     @Nonnull
-    protected final OWLOntology ontology;
+    protected final OWLOntology ont;
     @Nonnull
     protected final Writer writer;
     private int pos = 0;
@@ -254,7 +254,7 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
      */
     public KRSSObjectRenderer(@Nonnull OWLOntology ontology,
             @Nonnull Writer writer) {
-        this.ontology = checkNotNull(ontology);
+        ont = checkNotNull(ontology);
         this.writer = new PrintWriter(writer);
     }
 

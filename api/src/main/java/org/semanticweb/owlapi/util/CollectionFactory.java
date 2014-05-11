@@ -363,7 +363,7 @@ public class CollectionFactory {
         @SuppressWarnings("null")
         @Nonnull
         @Override
-        public <T> T[] toArray(T[] a) {
+        public <A> A[] toArray(A[] a) {
             return backingMap.keySet().toArray(a);
         }
 

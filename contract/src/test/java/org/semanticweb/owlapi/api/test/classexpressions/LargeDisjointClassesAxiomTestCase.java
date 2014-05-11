@@ -37,7 +37,7 @@ public class LargeDisjointClassesAxiomTestCase extends
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         Set<OWLClass> clses = new HashSet<OWLClass>();
         for (int i = 0; i < 1000; i++) {
-            clses.add(Class(getIRI("Cls" + i)));
+            clses.add(createClass());
         }
         axioms.add(DisjointClasses(clses));
         return axioms;

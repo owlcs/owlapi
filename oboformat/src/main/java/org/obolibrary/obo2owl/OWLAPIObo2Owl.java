@@ -1646,7 +1646,6 @@ public class OWLAPIObo2Owl {
     public static IRI trTagToIRI(String tag) {
         IRI iri = annotationPropertyMap.get(tag);
         if (iri == null) {
-            // iri = IRI.create(Obo2OWLConstants.DEFAULT_IRI_PREFIX+"IAO_"+tag);
             iri = IRI.create(Obo2OWLConstants.OIOVOCAB_IRI_PREFIX + tag);
         }
         return iri;

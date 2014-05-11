@@ -43,7 +43,7 @@ public abstract class OWLIndividualRelationshipAxiomImpl<P extends OWLPropertyEx
     @Nonnull
     private final P property;
     @Nonnull
-    private final O object;
+    private final O o;
 
     /**
      * @param subject
@@ -61,7 +61,7 @@ public abstract class OWLIndividualRelationshipAxiomImpl<P extends OWLPropertyEx
         super(annotations);
         this.subject = checkNotNull(subject, "subject cannot be null");
         this.property = checkNotNull(property, "property cannot be null");
-        this.object = checkNotNull(object, "object cannot be null");
+        this.o = checkNotNull(object, "object cannot be null");
     }
 
     @Override
@@ -76,7 +76,7 @@ public abstract class OWLIndividualRelationshipAxiomImpl<P extends OWLPropertyEx
 
     @Override
     public O getObject() {
-        return object;
+        return o;
     }
 
     @Override
@@ -88,7 +88,7 @@ public abstract class OWLIndividualRelationshipAxiomImpl<P extends OWLPropertyEx
             OWLPropertyAssertionAxiom<?, ?> other = (OWLPropertyAssertionAxiom<?, ?>) obj;
             return other.getSubject().equals(subject)
                     && other.getProperty().equals(property)
-                    && other.getObject().equals(object);
+                    && other.getObject().equals(o);
         }
         return false;
     }
@@ -104,6 +104,6 @@ public abstract class OWLIndividualRelationshipAxiomImpl<P extends OWLPropertyEx
         if (diff != 0) {
             return diff;
         }
-        return object.compareTo(other.getObject());
+        return o.compareTo(other.getObject());
     }
 }

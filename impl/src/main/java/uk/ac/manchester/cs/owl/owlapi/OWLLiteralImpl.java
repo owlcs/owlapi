@@ -61,7 +61,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     @Nonnull
     private final OWLDatatype datatype;
     @Nonnull
-    private final String lang;
+    private final String language;
     private final int hashcode;
 
     @Override
@@ -84,7 +84,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
         this.literal = new LiteralWrapper(checkNotNull(literal,
                 "literal cannot be null"));
         if (lang == null || lang.isEmpty()) {
-            this.lang = "";
+            language = "";
             if (datatype == null) {
                 this.datatype = RDF_PLAIN_LITERAL;
             } else {
@@ -98,7 +98,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
                         "Error: cannot build a literal with type: "
                                 + datatype.getIRI() + " and language: " + lang);
             }
-            this.lang = lang;
+            language = lang;
             this.datatype = RDF_PLAIN_LITERAL;
         }
         hashcode = getHashCode();
@@ -117,7 +117,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
 
     @Override
     public boolean hasLang() {
-        return !lang.equals("");
+        return !language.equals("");
     }
 
     @Override
@@ -174,16 +174,15 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
 
     @Override
     public String getLang() {
-        return lang;
+        return language;
     }
 
     @Override
     public boolean hasLang(String lang) {
-        String l = lang;
-        if (l == null) {
-            return this.lang.isEmpty();
+        if (lang == null) {
+            return language.isEmpty();
         }
-        return this.lang.equalsIgnoreCase(l.trim());
+        return language.equalsIgnoreCase(lang.trim());
     }
 
     @Override
@@ -220,7 +219,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
             OWLLiteral other = (OWLLiteral) obj;
             return literal.get().equals(other.getLiteral())
                     && datatype.equals(other.getDatatype())
-                    && lang.equals(other.getLang());
+                    && language.equals(other.getLang());
         }
         return false;
     }
@@ -256,7 +255,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
         if (diff != 0) {
             return diff;
         }
-        return lang.compareTo(other.getLang());
+        return language.compareTo(other.getLang());
     }
 
     @Override
@@ -270,7 +269,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     }
 
     // Literal Wrapper
-    private static  class LiteralWrapper implements Serializable {
+    private static class LiteralWrapper implements Serializable {
 
         private static final long serialVersionUID = 40000L;
         String l;
