@@ -1257,7 +1257,7 @@ ignore the owl-axioms headers.
 </p>
 
 <table border="1" cellspacing="0">
-<caption><a id="translation" name="translationDL" /></a>
+<caption><a id="translation" name="translationDL" />
 	Translation of Term frames to OWL</caption>
 
 <thead>
@@ -2842,7 +2842,7 @@ import: http://purl.obolibrary.org/obo/go/extensions/cl_import.owl
 import: http://purl.obolibrary.org/obo/go/extensions/po_import.owl
 ontology: go
 </pre>
-
+<p>
 The onus is on the OBO parser to be able to handle these OWL documents
 - either by translating them or mapping the URIs to OBO documents that
 have been translated in advance
@@ -2884,6 +2884,7 @@ http://purl.obolibrary.org/obo/go/extensions/cl_import.owl ../extensions/cl_impo
 http://purl.obolibrary.org/obo/go/extensions/po_import.owl ../extensions/po_import.obo
 </pre>
 
+<p>
 When an OBO parser encounters an import directive it may choose to
 load the document obtained via mapping the URI on the left with the
 OBO document found in the file on the right.
