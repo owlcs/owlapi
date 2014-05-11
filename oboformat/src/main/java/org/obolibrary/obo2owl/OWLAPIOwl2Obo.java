@@ -14,7 +14,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -98,7 +97,8 @@ public class OWLAPIOwl2Obo {
     /**
      * The log.
      */
-    private static Logger LOG = LoggerFactory.getLogger(OWLAPIOwl2Obo.class);
+    private static final Logger LOG = LoggerFactory
+            .getLogger(OWLAPIOwl2Obo.class);
     private static final String IRI_CLASS_SYNONYMTYPEDEF = Obo2OWLConstants.DEFAULT_IRI_PREFIX
             + "IAO_synonymtypedef";
     private static final String IRI_CLASS_SUBSETDEF = Obo2OWLConstants.DEFAULT_IRI_PREFIX
@@ -132,7 +132,7 @@ public class OWLAPIOwl2Obo {
      * The annotation property map.
      */
     @Nonnull
-    public static Map<String, String> annotationPropertyMap = initAnnotationPropertyMap();
+    public static final Map<String, String> annotationPropertyMap = initAnnotationPropertyMap();
     /**
      * The ap to declare.
      */
@@ -1516,7 +1516,8 @@ public class OWLAPIOwl2Obo {
                                 allOnly.toString()));
                     }
                     addQualifiers(c, ax.getAnnotations());
-                } else if (!f.getClauses(OboFormatTag.TAG_INTERSECTION_OF).isEmpty()) {
+                } else if (!f.getClauses(OboFormatTag.TAG_INTERSECTION_OF)
+                        .isEmpty()) {
                     error("The axiom is not translated (maximimum one IntersectionOf EquivalenceAxiom)",
                             ax, false);
                 } else {

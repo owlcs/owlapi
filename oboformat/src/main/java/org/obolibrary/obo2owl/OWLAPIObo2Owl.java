@@ -13,12 +13,10 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.Vector;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -78,7 +76,8 @@ import com.google.common.base.Optional;
 public class OWLAPIObo2Owl {
 
     /** The log. */
-    private static Logger LOG = LoggerFactory.getLogger(OWLAPIObo2Owl.class);
+    private static final Logger LOG = LoggerFactory
+            .getLogger(OWLAPIObo2Owl.class);
     /** The Constant IRI_PROP_isReversiblePropertyChain. */
     public static final String IRI_PROP_isReversiblePropertyChain = DEFAULT_IRI_PREFIX
             + "IAO_isReversiblePropertyChain";
@@ -98,13 +97,13 @@ public class OWLAPIObo2Owl {
     protected final Map<String, String> idSpaceMap;
     /** The annotation property map. */
     @Nonnull
-    public static Map<String, IRI> annotationPropertyMap = initAnnotationPropertyMap();
+    public static final Map<String, IRI> annotationPropertyMap = initAnnotationPropertyMap();
     /** The ap to declare. */
     @Nonnull
     protected final Set<OWLAnnotationProperty> apToDeclare;
     /** The cls to declar. */
     @Nonnull
-    protected final Map<String, OWLClass> clsToDeclar;
+    protected final Map<String, OWLClass> clsToDeclare;
     /** The typedef to annotation property. */
     @Nonnull
     protected final Map<String, OWLAnnotationProperty> typedefToAnnotationProperty;
@@ -118,7 +117,7 @@ public class OWLAPIObo2Owl {
     public OWLAPIObo2Owl(OWLOntologyManager manager) {
         idSpaceMap = new HashMap<String, String>();
         apToDeclare = new HashSet<OWLAnnotationProperty>();
-        clsToDeclar = new HashMap<String, OWLClass>();
+        clsToDeclare = new HashMap<String, OWLClass>();
         typedefToAnnotationProperty = new HashMap<String, OWLAnnotationProperty>();
         init(manager);
     }
@@ -136,7 +135,7 @@ public class OWLAPIObo2Owl {
         // clear all internal maps.
         idSpaceMap.clear();
         apToDeclare.clear();
-        clsToDeclar.clear();
+        clsToDeclare.clear();
         typedefToAnnotationProperty.clear();
     }
 

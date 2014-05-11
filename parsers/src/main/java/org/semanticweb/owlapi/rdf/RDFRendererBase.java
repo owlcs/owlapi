@@ -758,7 +758,7 @@ public abstract class RDFRendererBase {
     }
 
     /** Comparator that uses IRI ordering to order entities. */
-    private static final class OWLEntityIRIComparator implements
+    private static class OWLEntityIRIComparator implements
             Comparator<OWLEntity>, Serializable {
 
         private static final long serialVersionUID = 40000L;

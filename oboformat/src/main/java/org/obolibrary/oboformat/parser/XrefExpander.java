@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory;
 /** xref expander */
 public class XrefExpander {
 
-    protected static Logger LOG = LoggerFactory.getLogger(XrefExpander.class);
+    protected static final Logger LOG = LoggerFactory.getLogger(XrefExpander.class);
     OBODoc sourceOBODoc;
     OBODoc targetOBODoc;
     String targetBase;

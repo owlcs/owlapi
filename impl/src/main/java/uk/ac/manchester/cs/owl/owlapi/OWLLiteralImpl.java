@@ -269,8 +269,8 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
         return visitor.visit(this);
     }
 
-    // Literal Wraper
-    private static final class LiteralWrapper implements Serializable {
+    // Literal Wrapper
+    private static  class LiteralWrapper implements Serializable {
 
         private static final long serialVersionUID = 40000L;
         String l;

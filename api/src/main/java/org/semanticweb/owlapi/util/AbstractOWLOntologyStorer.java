@@ -49,7 +49,7 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
             .getLogger(AbstractOWLOntologyStorer.class);
 
     @Override
-    public final void storeOntology(OWLOntology ontology,
+    public void storeOntology(OWLOntology ontology,
             @Nonnull IRI documentIRI, OWLOntologyFormat ontologyFormat)
             throws OWLOntologyStorageException {
         if (!documentIRI.isAbsolute()) {
@@ -102,7 +102,7 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
     }
 
     @Override
-    public final void
+    public void
             storeOntology(OWLOntology ontology,
                     @Nonnull OWLOntologyDocumentTarget target,
                     OWLOntologyFormat format)

@@ -47,22 +47,22 @@ public abstract class OWLOntologyDocumentSourceBase implements
     }
 
     @Override
-    public final OWLOntologyFormat getFormat() {
+    public OWLOntologyFormat getFormat() {
         return format;
     }
 
     @Override
-    public final boolean isFormatKnown() {
+    public boolean isFormatKnown() {
         return format != null;
     }
 
     @Override
-    public final String getMIMEType() {
+    public String getMIMEType() {
         return mimeType;
     }
 
     @Override
-    public final boolean isMIMETypeKnown() {
+    public boolean isMIMETypeKnown() {
         return mimeType != null && !mimeType.isEmpty();
     }
 }

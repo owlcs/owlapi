@@ -255,7 +255,7 @@ public class CollectionFactory {
      * @param <T>
      *        type of collection
      */
-    private static final class SyncSet<T> implements Set<T> {
+    private static class SyncSet<T> implements Set<T> {
 
         private final ConcurrentHashMap<T, Set<T>> backingMap;
 

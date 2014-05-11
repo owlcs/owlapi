@@ -33,9 +33,9 @@ import org.slf4j.LoggerFactory;
  */
 public class OBOFormatWriter {
 
-    private static Logger LOG = LoggerFactory.getLogger(OBOFormatWriter.class);
+    private static final Logger LOG = LoggerFactory.getLogger(OBOFormatWriter.class);
     @Nonnull
-    private static HashSet<String> tagsInformative = buildTagsInformative();
+    private static final Set<String> tagsInformative = buildTagsInformative();
     private boolean isCheckStructure = true;
 
     /** @return true, if is check structure */
@@ -805,7 +805,7 @@ public class OBOFormatWriter {
 
         static final HeaderTagsComparator instance = new HeaderTagsComparator();
         @Nonnull
-        private static Map<String, Integer> tagsPriorities = buildTagsPriorities();
+        private static final Map<String, Integer> tagsPriorities = buildTagsPriorities();
 
         @Nonnull
         private static Map<String, Integer> buildTagsPriorities() {
@@ -855,7 +855,7 @@ public class OBOFormatWriter {
 
         static final TermsTagsComparator instance = new TermsTagsComparator();
         @Nonnull
-        private static Map<String, Integer> tagsPriorities = buildTagsPriorities();
+        private static final Map<String, Integer> tagsPriorities = buildTagsPriorities();
 
         @Nonnull
         private static Map<String, Integer> buildTagsPriorities() {
@@ -902,7 +902,7 @@ public class OBOFormatWriter {
     }
 
     /** The Class ClauseListComparator. */
-    private static final class ClauseListComparator implements
+    private static  class ClauseListComparator implements
             Comparator<Clause> {
 
         protected static final ClauseListComparator instance = new ClauseListComparator();
@@ -935,7 +935,7 @@ public class OBOFormatWriter {
 
         static final TypeDefTagsComparator instance = new TypeDefTagsComparator();
         @Nonnull
-        private static Map<String, Integer> tagsPriorities = buildTagsPriorities();
+        private static final Map<String, Integer> tagsPriorities = buildTagsPriorities();
 
         @Nonnull
         private static Map<String, Integer> buildTagsPriorities() {

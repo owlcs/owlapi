@@ -60,7 +60,7 @@ public abstract class AbstractRioParserFactory implements OWLParserFactory {
     }
 
     @Override
-    public final Set<OWLOntologyFormatFactory> getSupportedFormats() {
+    public Set<OWLOntologyFormatFactory> getSupportedFormats() {
         return Collections
                 .<OWLOntologyFormatFactory> singleton(getRioFormatFactory());
     }

@@ -13,7 +13,7 @@
 package org.semanticweb.owlapi.api.test.syntax.rdf;
 
 import static org.junit.Assert.assertTrue;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -21,6 +21,7 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi.io.OWLOntologyDocumentSourceBase;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -56,10 +57,11 @@ public class DisjointsTestCase extends TestBase {
 
     @Test
     public void testAnonDisjoints() throws Exception {
-        OWLOntology ontA = m.createOntology(TestUtils.createIRI());
-        OWLClass clsA = Class(TestUtils.createIRI());
-        OWLClass clsB = Class(TestUtils.createIRI());
-        OWLObjectProperty prop = df.getOWLObjectProperty(TestUtils.createIRI());
+        OWLOntology ontA = m.createOntology(OWLOntologyDocumentSourceBase
+                .getNextDocumentIRI("urntests#uri"));
+        OWLClass clsA = createClass();
+        OWLClass clsB = createClass();
+        OWLObjectProperty prop = createObjectProperty();
         OWLClassExpression descA = df.getOWLObjectSomeValuesFrom(prop, clsA);
         OWLClassExpression descB = df.getOWLObjectSomeValuesFrom(prop, clsB);
         Set<OWLClassExpression> classExpressions = new HashSet<OWLClassExpression>();

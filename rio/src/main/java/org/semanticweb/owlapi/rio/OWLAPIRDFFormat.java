@@ -109,31 +109,95 @@ public class OWLAPIRDFFormat extends RDFFormat {
     private OWLOntologyFormat owlFormat;
     private OWLOntologyFormatFactory owlFormatFactory;
 
+    /**
+     * @param name
+     *        name
+     * @param mimeType
+     *        mimeType
+     * @param charset
+     *        charset
+     * @param fileExtension
+     *        fileExtension
+     * @param supportsNamespaces
+     *        supportsNamespaces
+     * @param supportsContexts
+     *        supportsContexts
+     * @param owlFormat
+     *        owlFormat
+     */
     public OWLAPIRDFFormat(String name, String mimeType, Charset charset,
             String fileExtension, boolean supportsNamespaces,
             boolean supportsContexts, OWLOntologyFormatFactory owlFormat) {
         super(name, mimeType, charset, fileExtension, supportsNamespaces,
                 supportsContexts);
-        this.owlFormatFactory = owlFormat;
+        owlFormatFactory = owlFormat;
     }
 
+    /**
+     * @param name
+     *        name
+     * @param mimeType
+     *        mimeType
+     * @param charset
+     *        charset
+     * @param fileExtensions
+     *        fileExtensions
+     * @param supportsNamespaces
+     *        supportsNamespaces
+     * @param supportsContexts
+     *        supportsContexts
+     * @param owlFormat
+     *        owlFormat
+     */
     public OWLAPIRDFFormat(String name, String mimeType, Charset charset,
             Collection<String> fileExtensions, boolean supportsNamespaces,
             boolean supportsContexts, OWLOntologyFormatFactory owlFormat) {
         super(name, mimeType, charset, fileExtensions, supportsNamespaces,
                 supportsContexts);
-        this.owlFormatFactory = owlFormat;
+        owlFormatFactory = owlFormat;
     }
 
+    /**
+     * @param name
+     *        name
+     * @param mimeTypes
+     *        mimeTypes
+     * @param charset
+     *        charset
+     * @param fileExtensions
+     *        fileExtensions
+     * @param supportsNamespaces
+     *        supportsNamespaces
+     * @param supportsContexts
+     *        supportsContexts
+     * @param owlFormat
+     *        owlFormat
+     */
     public OWLAPIRDFFormat(String name, Collection<String> mimeTypes,
             Charset charset, Collection<String> fileExtensions,
             boolean supportsNamespaces, boolean supportsContexts,
             OWLOntologyFormatFactory owlFormat) {
         super(name, mimeTypes, charset, fileExtensions, supportsNamespaces,
                 supportsContexts);
-        this.owlFormatFactory = owlFormat;
+        owlFormatFactory = owlFormat;
     }
 
+    /**
+     * @param name
+     *        name
+     * @param mimeType
+     *        mimeType
+     * @param charset
+     *        charset
+     * @param fileExtension
+     *        fileExtension
+     * @param supportsNamespaces
+     *        supportsNamespaces
+     * @param supportsContexts
+     *        supportsContexts
+     * @param owlFormat
+     *        owlFormat
+     */
     public OWLAPIRDFFormat(String name, String mimeType, Charset charset,
             String fileExtension, boolean supportsNamespaces,
             boolean supportsContexts, OWLOntologyFormat owlFormat) {
@@ -142,6 +206,22 @@ public class OWLAPIRDFFormat extends RDFFormat {
         this.owlFormat = owlFormat;
     }
 
+    /**
+     * @param name
+     *        name
+     * @param mimeType
+     *        mimeType
+     * @param charset
+     *        charset
+     * @param fileExtensions
+     *        fileExtensions
+     * @param supportsNamespaces
+     *        supportsNamespaces
+     * @param supportsContexts
+     *        supportsContexts
+     * @param owlFormat
+     *        owlFormat
+     */
     public OWLAPIRDFFormat(String name, String mimeType, Charset charset,
             Collection<String> fileExtensions, boolean supportsNamespaces,
             boolean supportsContexts, OWLOntologyFormat owlFormat) {
@@ -150,6 +230,22 @@ public class OWLAPIRDFFormat extends RDFFormat {
         this.owlFormat = owlFormat;
     }
 
+    /**
+     * @param name
+     *        name
+     * @param mimeTypes
+     *        mimeTypes
+     * @param charset
+     *        charset
+     * @param fileExtensions
+     *        fileExtensions
+     * @param supportsNamespaces
+     *        supportsNamespaces
+     * @param supportsContexts
+     *        supportsContexts
+     * @param owlFormat
+     *        owlFormat
+     */
     public OWLAPIRDFFormat(String name, Collection<String> mimeTypes,
             Charset charset, Collection<String> fileExtensions,
             boolean supportsNamespaces, boolean supportsContexts,
@@ -164,11 +260,11 @@ public class OWLAPIRDFFormat extends RDFFormat {
      *         this OWLAPIRDFFormat.
      */
     public OWLOntologyFormat getOWLFormat() {
-        if (this.owlFormatFactory != null) {
-            return this.owlFormatFactory.createFormat();
+        if (owlFormatFactory != null) {
+            return owlFormatFactory.createFormat();
         } else {
             try {
-                return this.owlFormat.getClass().newInstance();
+                return owlFormat.getClass().newInstance();
             } catch (InstantiationException e) {
                 throw new RuntimeException(
                         "Format did not have a factory or a public default constructor");

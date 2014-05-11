@@ -48,7 +48,7 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
  */
 public class OWLObjectPropertyManager {
 
-    static final class SetSizeComparator implements
+    static class SetSizeComparator implements
             Comparator<Set<OWLObjectPropertyExpression>>, Serializable {
 
         private static final long serialVersionUID = 40000L;

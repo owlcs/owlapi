@@ -3,8 +3,8 @@ package org.obolibrary.obo2owl;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.Map;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -71,15 +71,15 @@ public class Obo2OWLConstants {
         /**IRI_OIO_LogicalDefinitionViewRelation*/          IRI_OIO_LogicalDefinitionViewRelation(OIOVOCAB_IRI_PREFIX, "logical-definition-view-relation", "logical-definition-view-relation", OboFormatTag.TAG_LOGICAL_DEFINITION_VIEW_RELATION.getTag());
         //@formatter:on
         @Nonnull
-        IRI iri;
+        final IRI iri;
         @Nonnull
-        String namespace;
+        final String namespace;
         @Nonnull
-        String shortName;
+        final String shortName;
         @Nonnull
-        String label;
+        final String label;
         @Nonnull
-        String mappedTag;
+        final String mappedTag;
 
         Obo2OWLVocabulary(@Nonnull String namespce, @Nonnull String shortName,
                 @Nonnull String label, @Nonnull String mappedTag) {
@@ -134,12 +134,14 @@ public class Obo2OWLConstants {
         }
     }
 
-    private static Map<String, Obo2OWLVocabulary> tagsToVocab;
-    static {
-        tagsToVocab = new HashMap<String, Obo2OWLVocabulary>();
+    private static final Map<String, Obo2OWLVocabulary> tagsToVocab = initTagsToVocab();
+
+    static Map<String, Obo2OWLVocabulary> initTagsToVocab() {
+        Map<String, Obo2OWLVocabulary> tags = new HashMap<String, Obo2OWLVocabulary>();
         for (Obo2OWLVocabulary vocab : Obo2OWLVocabulary.values()) {
-            tagsToVocab.put(vocab.mappedTag, vocab);
+            tags.put(vocab.mappedTag, vocab);
         }
+        return tags;
     }
 
     /**

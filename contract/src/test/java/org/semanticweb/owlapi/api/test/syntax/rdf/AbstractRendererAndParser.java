@@ -13,23 +13,16 @@
 package org.semanticweb.owlapi.api.test.syntax.rdf;
 
 import static org.junit.Assert.assertTrue;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import java.util.Set;
-
-import javax.annotation.Nonnull;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.AddAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLogicalAxiom;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.rdf.rdfxml.renderer.RDFXMLOntologyStorer;
 
@@ -49,26 +42,6 @@ public abstract class AbstractRendererAndParser extends TestBase {
         m.getOntologyFactories().add(
                 new ParsableOWLOntologyFactory(new OWLOntologyBuilderImpl()));
         m.getOntologyStorers().add(new RDFXMLOntologyStorer());
-    }
-
-    @Nonnull
-    protected OWLClass createClass() {
-        return Class(TestUtils.createIRI());
-    }
-
-    @Nonnull
-    protected OWLObjectProperty createObjectProperty() {
-        return df.getOWLObjectProperty(TestUtils.createIRI());
-    }
-
-    @Nonnull
-    protected OWLDataProperty createDataProperty() {
-        return df.getOWLDataProperty(TestUtils.createIRI());
-    }
-
-    @Nonnull
-    protected OWLIndividual createIndividual() {
-        return df.getOWLNamedIndividual(TestUtils.createIRI());
     }
 
     @Test

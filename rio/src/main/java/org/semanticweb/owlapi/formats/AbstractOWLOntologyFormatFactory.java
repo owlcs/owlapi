@@ -72,7 +72,7 @@ public abstract class AbstractOWLOntologyFormatFactory implements
     }
 
     @Override
-    public final String getDefaultMIMEType() {
+    public String getDefaultMIMEType() {
         if (getMIMETypes().isEmpty()) {
             return null;
         } else {
@@ -81,7 +81,7 @@ public abstract class AbstractOWLOntologyFormatFactory implements
     }
 
     @Override
-    public final boolean handlesMimeType(String mimeType) {
+    public boolean handlesMimeType(String mimeType) {
         if (mimeType == null) {
             return false;
         }

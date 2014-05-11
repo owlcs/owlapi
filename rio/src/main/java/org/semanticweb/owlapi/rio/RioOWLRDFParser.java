@@ -89,6 +89,11 @@ public class RioOWLRDFParser extends RDFParserBase {
         this.owlFormat = owlFormat;
     }
 
+    /**
+     * @param factories
+     *        factories for ontology managers. This method is used for Guice
+     *        injection.
+     */
     @Inject
     public void setOntologyManagerFactories(
             Set<OWLOntologyManagerFactory> factories) {
