@@ -86,7 +86,7 @@ public class GZipFileDocumentSource extends OWLOntologyDocumentSourceBase {
             return new GZIPInputStream(new FileInputStream(file));
         } catch (FileNotFoundException e) {
             throw new OWLRuntimeException(
-                    "File not found - check that the file is available before calling this method.");
+                    "File not found - check that the file is available before calling this method.", e);
         } catch (IOException e) {
             throw new OWLRuntimeException(e);
         }

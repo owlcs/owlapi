@@ -267,10 +267,10 @@ public class OWLAPIRDFFormat extends RDFFormat {
                 return owlFormat.getClass().newInstance();
             } catch (InstantiationException e) {
                 throw new RuntimeException(
-                        "Format did not have a factory or a public default constructor");
+                        "Format did not have a factory or a public default constructor", e);
             } catch (IllegalAccessException e) {
                 throw new RuntimeException(
-                        "Format did not have a factory or a public default constructor");
+                        "Format did not have a factory or a public default constructor", e);
             }
         }
     }

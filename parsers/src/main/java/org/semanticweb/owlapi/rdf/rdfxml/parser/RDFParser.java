@@ -136,7 +136,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
             throw new SAXException("Parser configuration exception", e);
         } catch (URISyntaxException e) {
             throw new SAXException("Invalid SystemID '" + systemID
-                    + "'of the supplied input source.");
+                    + "'of the supplied input source.", e);
         } finally {
             state = null;
             m_states.clear();

@@ -51,10 +51,10 @@ public class OWLOntologyStorerFactoryImpl<T extends OWLOntologyStorer>
             return verifyNotNull(type.newInstance());
         } catch (InstantiationException e) {
             throw new RuntimeException(
-                    "Cannot instantiate an OWLOntologyStorer of type " + type);
+                    "Cannot instantiate an OWLOntologyStorer of type " + type, e);
         } catch (IllegalAccessException e) {
             throw new RuntimeException(
-                    "Cannot instantiate an OWLOntologyStorer of type " + type);
+                    "Cannot instantiate an OWLOntologyStorer of type " + type, e);
         }
     }
 

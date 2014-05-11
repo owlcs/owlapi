@@ -86,7 +86,7 @@ class ParseException extends OWLParserException {
         return retval;
     }
 
-    String eol = System.getProperty("line.separator", "\n");
+    final String eol = System.getProperty("line.separator", "\n");
 
     static String add_escapes(String str) {
         StringBuffer retval = new StringBuffer();
