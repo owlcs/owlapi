@@ -1219,11 +1219,6 @@ class OWLAnnotationElementHandler extends OWLElementHandler<OWLAnnotation> {
         return df.getOWLAnnotation(verifyNotNull(property),
                 verifyNotNull(object), annotations);
     }
-
-    @Override
-    boolean isTextContentPossible() {
-        return false;
-    }
 }
 
 class OWLAnnotationPropertyDomainElementHandler extends

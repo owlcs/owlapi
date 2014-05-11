@@ -20,7 +20,7 @@ public class TripleLogger {
 
     private static final Logger log = LoggerFactory
             .getLogger(TripleLogger.class);
-    private final PrefixManager prefixManager;
+    private PrefixManager prefixManager;
     // Debug stuff
     private final AtomicInteger count = new AtomicInteger();
 
@@ -28,7 +28,7 @@ public class TripleLogger {
      * @param prefixManager
      *        prefix manager
      */
-    public TripleLogger(@Nullable PrefixManager prefixManager) {
+    public void setPrefixManager(@Nullable PrefixManager prefixManager) {
         this.prefixManager = prefixManager;
     }
 

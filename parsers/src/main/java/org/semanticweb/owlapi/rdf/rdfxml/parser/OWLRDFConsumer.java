@@ -298,8 +298,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
         if (this.ontology.getOntologyID().getOntologyIRI().isPresent()) {
             addOntology(this.ontology.getOntologyID().getOntologyIRI().get());
         }
-        tripleLogger = new TripleLogger(ontologyFormat == null ? null
-                : ontologyFormat.asPrefixOWLOntologyFormat());
+        tripleLogger = new TripleLogger();
     }
 
     /**
@@ -517,6 +516,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
      */
     public void setOntologyFormat(RDFOntologyFormat format) {
         ontologyFormat = format;
+        tripleLogger.setPrefixManager(ontologyFormat == null ? null
+                : ontologyFormat.asPrefixOWLOntologyFormat());
     }
 
     /**

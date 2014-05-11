@@ -87,11 +87,6 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements
     }
 
     @Override
-    public boolean isLogicalAxiom() {
-        return true;
-    }
-
-    @Override
     public OWLClassExpression getClassExpression() {
         return expression;
     }

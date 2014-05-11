@@ -76,11 +76,6 @@ public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
     }
 
     @Override
-    public boolean isBottomEntity() {
-        return false;
-    }
-
-    @Override
     public boolean isRDFPlainLiteral() {
         return iri.isPlainLiteral();
     }

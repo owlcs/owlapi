@@ -3284,12 +3284,6 @@ public class TripleHandlers {
         }
 
         @Override
-        public boolean
-                canHandleStreaming(IRI subject, IRI predicate, IRI object) {
-            return true;
-        }
-
-        @Override
         public void handleTriple(IRI subject, IRI predicate, IRI object) {
             consumeTriple(subject, predicate, object);
             // Add a type triple for an annotation property (Table 6 in Mapping
