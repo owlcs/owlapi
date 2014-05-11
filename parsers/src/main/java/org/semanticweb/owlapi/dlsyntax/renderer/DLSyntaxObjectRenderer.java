@@ -126,7 +126,7 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
         OWLObjectRenderer, OWLObjectVisitor {
 
     private ShortFormProvider shortFormProvider;
-    private IRIShortFormProvider iriShortFormProvider;
+    private final IRIShortFormProvider iriShortFormProvider;
     private StringBuilder buffer;
     private OWLObject focusedObject;
 

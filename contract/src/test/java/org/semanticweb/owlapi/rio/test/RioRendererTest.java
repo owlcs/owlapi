@@ -43,7 +43,6 @@ import org.semanticweb.owlapi.rio.RioTurtleOntologyStorerFactory;
 public class RioRendererTest {
 
     private ValueFactory vf;
-    private OWLOntologyManager testManager;
     @Nonnull
     private OWLOntology testOntologyEmpty;
     @Nonnull
@@ -72,14 +71,13 @@ public class RioRendererTest {
         // .createOWLOntologyManager(
         // OWLOntologyManagerFactoryRegistry.getOWLDataFactory(),
         // storerRegistry, parserRegistry);
-        testManager = OWLManager.createOWLOntologyManager();
+        OWLOntologyManager testManager = OWLManager.createOWLOntologyManager();
         testManager.getOntologyStorers().set(
                 new RioNTriplesOntologyStorerFactory().get(),
                 new RioRDFXMLOntologyStorerFactory().get(),
                 new RioTurtleOntologyStorerFactory().get());
         testOntologyEmpty = testManager.createOntology(testOntologyUri1);
-        testOntologyKoala = testManager.loadOntologyFromOntologyDocument(this
-                .getClass().getResourceAsStream("/koala.owl"));
+        testOntologyKoala = testManager.loadOntologyFromOntologyDocument(this.getClass().getResourceAsStream("/koala.owl"));
         assertEquals(70, testOntologyKoala.getAxiomCount());
         testHandlerStatementCollector = new StatementCollector();
         testOntologyEmptyStatement = vf

@@ -37,7 +37,7 @@ public class AbstractRenderer {
     private ShortFormProvider shortFormProvider;
     private int lastNewLinePos = -1;
     private int currentPos;
-    private Writer writer;
+    private final Writer writer;
     private final List<Integer> tabs = new ArrayList<Integer>();
     private boolean useTabbing = true;
     private boolean useWrapping = true;

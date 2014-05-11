@@ -82,14 +82,10 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
     private int initialExpansionLimit = DEFAULT_INITIAL_EXPANSION_LIMIT;
     /** The expansion limit. */
     private int expansionLimit = initialExpansionLimit;
-    /** The expansion factor. */
-    private double expansionFactor = 1.25;
     /** The Constant DEFAULT_FAST_PRUNING_WINDOW_SIZE. */
     private static final int DEFAULT_FAST_PRUNING_WINDOW_SIZE = 10;
     /** The fast pruning window size. */
     private int fastPruningWindowSize = 0;
-    /** The perform repeated fast pruning. */
-    private boolean performRepeatedFastPruning = false;
     /** The owl ontology manager. */
     private final OWLOntologyManager owlOntologyManager;
 
@@ -161,6 +157,8 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
         // Keep track of the number of axioms that have been added
         int axiomsAdded = 0;
         int remainingSpace = expansionLimit;
+        /* The expansion factor. */
+        double expansionFactor = 1.25;
         for (OWLAxiom ax : debuggingAxioms) {
             if (expandedWithDefiningAxioms.contains(ax)) {
                 // Skip if already done
@@ -452,6 +450,8 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
         resetSatisfiabilityTestCounter();
         LOGGER.info("Fast pruning...");
         // fastPruningWindowSize = 0;
+        /* The perform repeated fast pruning. */
+        boolean performRepeatedFastPruning = false;
         if (performRepeatedFastPruning) {
             // Base the initial fast pruning window size on the number of axioms
             fastPruningWindowSize = debuggingAxioms.size() / 6;

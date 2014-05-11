@@ -65,8 +65,6 @@ public class OWLObjectPropertyManager {
     @Nonnull
     private OWLOntology ontology;
     @Nonnull
-    private final Set<OWLObjectPropertyExpression> properties = new HashSet<OWLObjectPropertyExpression>();
-    @Nonnull
     private final Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> hierarchy = new HashMap<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>>();
     @Nonnull
     private final Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> reflexiveTransitiveClosure = new HashMap<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>>();
@@ -94,6 +92,7 @@ public class OWLObjectPropertyManager {
         ontology = checkNotNull(ont, "ontology cannot be null");
         for (OWLOntology o : man.getImportsClosure(ontology)) {
             for (OWLObjectProperty prop : o.getObjectPropertiesInSignature()) {
+                Set<OWLObjectPropertyExpression> properties = new HashSet<OWLObjectPropertyExpression>();
                 properties.add(prop);
                 properties.add(prop.getInverseProperty());
             }
