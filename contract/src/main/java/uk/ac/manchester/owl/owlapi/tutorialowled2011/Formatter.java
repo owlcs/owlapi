@@ -33,7 +33,7 @@ public class Formatter {
         Map<String, String> specials = new HashMap<String, String>();
         specials.put("public void test", "\\begin{beamerboxesrounded}{");
         specials.put("() throws Exception \\{", "}\n\\scriptsize");
-        String[] keywords = new String[] { " class ", " void ", " extends ",
+        String[] keywords = { " class ", " void ", " extends ",
                 "public", " static final", "return", "throws" };
         Pattern stringPattern = Pattern.compile("(\"[\\w\\.\\:\\s\\#/\\-]*\")");
         BufferedReader r = new BufferedReader(

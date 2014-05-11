@@ -103,17 +103,17 @@ public class SerializationTest {
     @Nonnull
     Set<OWLPropertyExpression> setowlpropertyexpression = new HashSet<OWLPropertyExpression>();
     @Nonnull
-    OWLFacetRestriction[] lowlfacetrestriction = new OWLFacetRestriction[] { f
+    OWLFacetRestriction[] lowlfacetrestriction = { f
             .getOWLFacetRestriction(owlfacet, 1) };
     @Nonnull
-    OWLFacetRestriction[] nulllowlfacetrestriction = new OWLFacetRestriction[] { f
+    OWLFacetRestriction[] nulllowlfacetrestriction = { f
             .getOWLFacetRestriction(owlfacet, 1) };
     @Nonnull
     Set<OWLClassExpression> setowlclassexpression = new HashSet<OWLClassExpression>();
     @Nonnull
     Set<OWLFacetRestriction> setowlfacetrestriction = new HashSet<OWLFacetRestriction>();
     @Nonnull
-    OWLPropertyExpression[] owlpropertyexpression = new OWLPropertyExpression[] {};
+    OWLPropertyExpression[] owlpropertyexpression = {};
 
     @Test
     public void testrun() throws Exception {
