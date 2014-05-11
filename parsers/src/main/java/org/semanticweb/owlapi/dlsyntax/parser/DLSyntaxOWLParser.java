@@ -54,7 +54,7 @@ public class DLSyntaxOWLParser extends AbstractOWLParser {
     @Override
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
             OWLOntology ontology, OWLOntologyLoaderConfiguration configuration)
-            throws IOException, OWLOntologyChangeException {
+            throws IOException {
         Reader reader = null;
         InputStream is = null;
         try {

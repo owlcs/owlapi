@@ -50,8 +50,7 @@ public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
     @Nonnull
     @Override
     public OWLOntologyFormat parse(IRI documentIRI,
-            @Nonnull OWLOntology ontology) throws IOException,
-            OWLOntologyChangeException {
+            @Nonnull OWLOntology ontology) throws IOException {
         try {
             parse(documentIRI, null, ontology);
         } catch (OBOFormatParserException e) {
@@ -68,8 +67,7 @@ public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
     public OWLOntologyFormat parse(
             @Nonnull OWLOntologyDocumentSource documentSource,
             @Nonnull OWLOntology ontology,
-            OWLOntologyLoaderConfiguration configuration) throws IOException,
-            OWLOntologyChangeException {
+            OWLOntologyLoaderConfiguration configuration) throws IOException {
         // XXX configuration is not used
         try {
             parse(null, documentSource, ontology);

@@ -43,8 +43,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 public class OboFormatTestBasics {
 
     @Nonnull
-    protected OBODoc parseOBOURL(String fn) throws IOException,
-            OBOFormatParserException {
+    protected OBODoc parseOBOURL(String fn) throws IOException {
         OBOFormatParser p = new OBOFormatParser();
         OBODoc obodoc = p.parseURL(fn);
         assertTrue(!obodoc.getTermFrames().isEmpty());
@@ -77,7 +76,7 @@ public class OboFormatTestBasics {
 
     @Nonnull
     protected OBODoc parseOBOFile(@Nonnull Reader fn, boolean allowEmptyFrames)
-            throws IOException, OBOFormatParserException {
+            throws IOException {
         OBOFormatParser p = new OBOFormatParser();
         OBODoc obodoc = p.parse(new BufferedReader(fn));
         assertNotNull("The obodoc should not be null", obodoc);
@@ -112,8 +111,7 @@ public class OboFormatTestBasics {
     }
 
     @Nonnull
-    protected OBODoc parseOBOFile(@Nonnull File file) throws IOException,
-            OBOFormatParserException {
+    protected OBODoc parseOBOFile(@Nonnull File file) throws IOException {
         OBOFormatParser p = new OBOFormatParser();
         OBODoc obodoc = p.parse(file.getCanonicalPath());
         return obodoc;
@@ -205,7 +203,7 @@ public class OboFormatTestBasics {
 
     @Nonnull
     protected static OBODoc parseOboToString(@Nonnull String oboString)
-            throws IOException, OBOFormatParserException {
+            throws IOException {
         OBOFormatParser p = new OBOFormatParser();
         BufferedReader reader = new BufferedReader(new StringReader(oboString));
         OBODoc parsedOboDoc = p.parse(reader);

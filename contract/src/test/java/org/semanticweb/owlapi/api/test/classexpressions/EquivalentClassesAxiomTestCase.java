@@ -54,7 +54,7 @@ public class EquivalentClassesAxiomTestCase extends TestBase {
         OWLClassExpression desc = ObjectSomeValuesFrom(propP, clsB);
         OWLEquivalentClassesAxiom ax = EquivalentClasses(clsA, desc);
         Set<OWLClass> clses = ax.getNamedClasses();
-        assertEquals(clses.size(), 1);
+        assertEquals(1, clses.size());
         assertTrue(clses.contains(clsA));
     }
 
@@ -89,7 +89,7 @@ public class EquivalentClassesAxiomTestCase extends TestBase {
         OWLClass clsC = Class(getIRI("C"));
         OWLEquivalentClassesAxiom ax = EquivalentClasses(clsA, clsB, clsC);
         Set<OWLSubClassOfAxiom> scas = ax.asOWLSubClassOfAxioms();
-        assertEquals(scas.size(), 6);
+        assertEquals(6, scas.size());
         assertTrue(scas.contains(SubClassOf(clsA, clsB)));
         assertTrue(scas.contains(SubClassOf(clsB, clsA)));
         assertTrue(scas.contains(SubClassOf(clsA, clsC)));

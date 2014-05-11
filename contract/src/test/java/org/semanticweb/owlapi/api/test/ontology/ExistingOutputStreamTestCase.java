@@ -56,8 +56,7 @@ public class ExistingOutputStreamTestCase extends TestBase {
     @Nonnull
     @Override
     protected StringDocumentTarget saveOntology(@Nonnull OWLOntology o,
-            OWLOntologyFormat format) throws UnknownOWLOntologyException,
-            OWLOntologyStorageException {
+            OWLOntologyFormat format) throws OWLOntologyStorageException {
         BufferedOutputStream os = new BufferedOutputStream(
                 new ByteArrayOutputStream());
         o.getOWLOntologyManager().saveOntology(o, format, os);

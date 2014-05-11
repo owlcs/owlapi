@@ -22,8 +22,7 @@ public class RoundTripXrefescapecolonTest extends RoundTripTest {
     }
 
     @Test
-    public void shouldContainExpectedAnnotation()
-            throws OBOFormatParserException {
+    public void shouldContainExpectedAnnotation() {
         OBODoc oboFile = parseOBOFile(file);
         OWLOntology o = convert(oboFile);
         IRI expected = IRI

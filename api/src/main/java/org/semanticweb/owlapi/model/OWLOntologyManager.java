@@ -257,8 +257,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
     @Nonnull
     @Override
     List<OWLOntologyChange<?>> applyChanges(
-            @Nonnull List<? extends OWLOntologyChange<?>> changes)
-            throws OWLOntologyRenameException;
+            @Nonnull List<? extends OWLOntologyChange<?>> changes);
 
     /**
      * A convenience method that adds a set of axioms to an ontology. The
@@ -347,8 +346,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      */
     @Nonnull
     List<OWLOntologyChange<?>>
-            applyChange(@Nonnull OWLOntologyChange<?> change)
-                    throws OWLOntologyRenameException;
+            applyChange(@Nonnull OWLOntologyChange<?> change);
 
     // Ontology creation
     /**
@@ -1195,8 +1193,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      *         thrown.
      */
     void makeLoadImportRequest(@Nonnull OWLImportsDeclaration declaration,
-            @Nonnull OWLOntologyLoaderConfiguration configuration)
-            throws UnloadableImportException;
+            @Nonnull OWLOntologyLoaderConfiguration configuration);
 
     /**
      * In the case where silent missing imports handling is enabled, a listener

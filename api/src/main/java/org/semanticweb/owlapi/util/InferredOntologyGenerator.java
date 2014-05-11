@@ -127,7 +127,7 @@ public class InferredOntologyGenerator {
      *         specified ontology.
      */
     public void fillOntology(@Nonnull OWLDataFactory df,
-            @Nonnull OWLOntology ontology) throws OWLOntologyChangeException {
+            @Nonnull OWLOntology ontology) {
         checkNotNull(df, "df cannot be null");
         checkNotNull(ontology, "ontology cannot be null");
         List<AddAxiom> changes = new ArrayList<AddAxiom>();

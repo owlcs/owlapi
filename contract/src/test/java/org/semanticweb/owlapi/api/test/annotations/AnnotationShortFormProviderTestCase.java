@@ -95,7 +95,7 @@ public class AnnotationShortFormProviderTestCase extends TestBase {
                         IRI("http://org.semanticweb.owlapi/ont#myIRI")));
         AnnotationValueShortFormProvider sfp = new AnnotationValueShortFormProvider(
                 props, langMap, m);
-        assertEquals(sfp.getShortForm(root), "myIRI");
+        assertEquals("myIRI", sfp.getShortForm(root));
     }
 
     @Test

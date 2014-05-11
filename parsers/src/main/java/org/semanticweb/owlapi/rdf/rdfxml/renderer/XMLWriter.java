@@ -88,8 +88,7 @@ public interface XMLWriter {
      * @throws IllegalElementNameException
      *         if the specified name is not a valid QName
      */
-    void writeStartElement(@Nonnull IRI name) throws IOException,
-            IllegalElementNameException;
+    void writeStartElement(@Nonnull IRI name) throws IOException;
 
     /**
      * Writes the closing tag of the last element to be started.

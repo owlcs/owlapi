@@ -1180,8 +1180,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     }
 
     protected void broadcastImpendingChanges(
-            @Nonnull List<? extends OWLOntologyChange<?>> changes)
-            throws OWLOntologyChangeVetoException {
+            @Nonnull List<? extends OWLOntologyChange<?>> changes) {
         if (!broadcastChanges) {
             return;
         }

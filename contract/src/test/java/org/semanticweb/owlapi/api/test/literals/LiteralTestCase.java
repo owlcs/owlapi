@@ -62,15 +62,15 @@ public class LiteralTestCase extends AbstractAxiomsRoundTrippingTestCase {
     @Test
     public void testGetLangMethod() {
         OWLLiteral literalWithLang = Literal("abc", "en");
-        assertEquals(literalWithLang.getLang(), "en");
+        assertEquals("en", literalWithLang.getLang());
         OWLLiteral literalWithoutLang = Literal("abc", "");
-        assertEquals(literalWithoutLang.getLang(), "");
+        assertEquals("", literalWithoutLang.getLang());
     }
 
     @Test
     public void testNormalisation() {
         OWLLiteral literalWithLang = Literal("abc", "EN");
-        assertEquals(literalWithLang.getLang(), "en");
+        assertEquals("en", literalWithLang.getLang());
         assertTrue(literalWithLang.hasLang("EN"));
     }
 
@@ -85,23 +85,23 @@ public class LiteralTestCase extends AbstractAxiomsRoundTrippingTestCase {
     public void testPlainLiteralWithEmbeddedLang() {
         OWLLiteral literal = Literal("abc@en", PlainLiteral());
         assertTrue(literal.hasLang());
-        assertEquals(literal.getLang(), "en");
-        assertEquals(literal.getLiteral(), "abc");
+        assertEquals("en", literal.getLang());
+        assertEquals("abc", literal.getLiteral());
         assertEquals(literal.getDatatype(), PlainLiteral());
     }
 
     public void tesPlainLiteralWithEmbeddedEmptyLang() {
         OWLLiteral literal = Literal("abc@", PlainLiteral());
         assertFalse(literal.hasLang());
-        assertEquals(literal.getLang(), "");
-        assertEquals(literal.getLiteral(), "abc");
+        assertEquals("", literal.getLang());
+        assertEquals("abc", literal.getLiteral());
         assertEquals(literal.getDatatype(), PlainLiteral());
     }
 
     public void tesPlainLiteralWithDoubleSep() {
         OWLLiteral literal = Literal("abc@@en", PlainLiteral());
-        assertEquals(literal.getLang(), "en");
-        assertEquals(literal.getLiteral(), "abc@");
+        assertEquals("en", literal.getLang());
+        assertEquals("abc@", literal.getLiteral());
         assertEquals(literal.getDatatype(), PlainLiteral());
     }
 

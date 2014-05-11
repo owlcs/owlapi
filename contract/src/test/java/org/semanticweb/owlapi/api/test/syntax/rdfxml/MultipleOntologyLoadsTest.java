@@ -210,8 +210,7 @@ public class MultipleOntologyLoadsTest extends TestBase {
 
     private void parseOnto(
             @Nonnull OWLOntologyDocumentSource initialDocumentSource,
-            @Nonnull OWLOntology initialOntology) throws OWLParserException,
-            IOException, UnloadableImportException {
+            @Nonnull OWLOntology initialOntology) throws IOException {
         OWLParser initialParser = new RDFXMLParser();
         initialParser.parse(initialDocumentSource, initialOntology, config);
     }

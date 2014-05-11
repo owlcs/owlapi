@@ -14,7 +14,7 @@ public class SingleIntersectionOfTagTest extends OboFormatTestBasics {
     @Test(expected = FrameStructureException.class)
     public void testParseOBOFile() throws Exception {
         OBODoc obodoc = parseOBOFile("single_intersection_of_tag_test.obo");
-        assertTrue(obodoc.getTermFrames().size() == 2);
+        assertEquals(2, obodoc.getTermFrames().size());
         Frame frame = obodoc.getTermFrames().iterator().next();
         assertNotNull(frame);
         renderOboToString(obodoc); // throws FrameStructureException

@@ -34,7 +34,7 @@ public class ExpandExpressionGCITest extends OboFormatTestBasics {
                 .create("http://purl.obolibrary.org/obo/TEST_2"));
         Set<OWLDisjointClassesAxiom> dcas = gciOntology
                 .getDisjointClassesAxioms(cls);
-        assertTrue(dcas.size() == 1);
+        assertEquals(1, dcas.size());
         Set<OWLEquivalentClassesAxiom> equivalentClassesAxioms = gciOntology
                 .getAxioms(AxiomType.EQUIVALENT_CLASSES);
         assertEquals(2, equivalentClassesAxioms.size());

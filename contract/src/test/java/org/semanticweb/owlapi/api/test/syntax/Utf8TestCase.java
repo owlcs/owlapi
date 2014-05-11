@@ -52,8 +52,7 @@ public class Utf8TestCase extends TestBase {
     }
 
     @Test
-    public void testInvalidUTF8roundTripOWLXML()
-            throws UnloadableImportException {
+    public void testInvalidUTF8roundTripOWLXML() {
         // this test checks for the condition described in issue #47
         // Input with character = 0240 (octal) should fail parsing but is read
         // in as an owl/xml file
@@ -86,7 +85,7 @@ public class Utf8TestCase extends TestBase {
     }
 
     @Test
-    public void testInvalidUTF8roundTrip() throws UnloadableImportException {
+    public void testInvalidUTF8roundTrip() {
         // this test checks for the condition described in issue #47
         // Input with character = 0240 (octal) should fail parsing but is read
         // in as an owl/xml file

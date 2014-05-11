@@ -161,8 +161,7 @@ public class OWLAPIObo2Owl {
      */
     public static void convertURL(@Nonnull String iri, @Nonnull String outFile,
             @Nonnull OWLOntologyManager manager) throws IOException,
-            OWLOntologyCreationException, OWLOntologyStorageException,
-            OBOFormatParserException {
+            OWLOntologyCreationException, OWLOntologyStorageException {
         OWLAPIObo2Owl bridge = new OWLAPIObo2Owl(manager);
         OBOFormatParser p = new OBOFormatParser();
         OBODoc obodoc = p.parse(new URL(iri));
@@ -198,7 +197,7 @@ public class OWLAPIObo2Owl {
     public static void convertURL(String iri, @Nonnull String outFile,
             String defaultOnt, @Nonnull OWLOntologyManager manager)
             throws IOException, OWLOntologyCreationException,
-            OWLOntologyStorageException, OBOFormatParserException {
+            OWLOntologyStorageException {
         OWLAPIObo2Owl bridge = new OWLAPIObo2Owl(manager);
         OBOFormatParser p = new OBOFormatParser();
         OBODoc obodoc = p.parse(new URL(iri));

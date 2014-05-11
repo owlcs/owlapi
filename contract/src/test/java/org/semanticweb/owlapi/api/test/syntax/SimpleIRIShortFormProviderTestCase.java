@@ -32,7 +32,7 @@ public class SimpleIRIShortFormProviderTestCase {
         IRI iri = IRI("http://owl.cs.manchester.ac.uk/ontology/x#A");
         SimpleIRIShortFormProvider sfp = new SimpleIRIShortFormProvider();
         String shortForm = sfp.getShortForm(iri);
-        assertEquals(shortForm, "A");
+        assertEquals("A", shortForm);
     }
 
     @Test
@@ -40,7 +40,7 @@ public class SimpleIRIShortFormProviderTestCase {
         IRI iri = IRI("http://owl.cs.manchester.ac.uk/ontology/x");
         SimpleIRIShortFormProvider sfp = new SimpleIRIShortFormProvider();
         String shortForm = sfp.getShortForm(iri);
-        assertEquals(shortForm, "x");
+        assertEquals("x", shortForm);
     }
 
     @Test

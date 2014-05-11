@@ -384,7 +384,7 @@ public abstract class TestBase {
 
     @Nonnull
     protected StringDocumentTarget saveOntology(@Nonnull OWLOntology o)
-            throws UnknownOWLOntologyException, OWLOntologyStorageException {
+            throws OWLOntologyStorageException {
         return saveOntology(o, o.getOWLOntologyManager().getOntologyFormat(o));
     }
 
@@ -414,7 +414,7 @@ public abstract class TestBase {
 
     @Nonnull
     protected OWLOntology roundTrip(@Nonnull OWLOntology o)
-            throws UnknownOWLOntologyException, OWLOntologyCreationException,
+            throws OWLOntologyCreationException,
             OWLOntologyStorageException {
         return loadOntologyFromString(saveOntology(o));
     }

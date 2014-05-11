@@ -45,7 +45,7 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
         assertNotNull(reloaded);
         assertTrue(reloaded.containsAxiom(validAxiom));
         assertFalse(reloaded.containsAxiom(wrongAxiom));
-        assertTrue(reloaded.getAxioms().size() == 1);
+        assertEquals(1, reloaded.getAxioms().size());
     }
 
     private void addAxioms(@Nonnull OWLAxiom... axioms) {
@@ -88,7 +88,7 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
         assertNotNull(reloaded);
         assertTrue(reloaded.containsAxiom(validAxiom));
         assertFalse(reloaded.containsAxiom(wrongAxiom));
-        assertTrue(reloaded.getAxioms().size() == 1);
+        assertEquals(1, reloaded.getAxioms().size());
     }
 
     @Test
@@ -109,7 +109,7 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
         assertNotNull(reloaded);
         assertTrue(reloaded.containsAxiom(validAxiom));
         assertFalse(reloaded.containsAxiom(wrongAxiom));
-        assertTrue(reloaded.getAxioms().size() == 1);
+        assertEquals(1, reloaded.getAxioms().size());
     }
 
     @Test
@@ -129,7 +129,7 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
         assertNotNull(reloaded);
         assertTrue(reloaded.containsAxiom(validAxiom));
         assertFalse(reloaded.containsAxiom(wrongAxiom));
-        assertTrue(reloaded.getAxioms().size() == 1);
+        assertEquals(1, reloaded.getAxioms().size());
     }
 
     @Test
@@ -165,7 +165,7 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
         assertNotNull(reloaded);
         assertTrue(reloaded.containsAxiom(validAxiom));
         assertFalse(reloaded.containsAxiom(wrongAxiom));
-        assertTrue(reloaded.getAxioms().size() == 1);
+        assertEquals(1, reloaded.getAxioms().size());
     }
 
     @Test
@@ -186,7 +186,7 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
         assertNotNull(reloaded);
         assertTrue(reloaded.containsAxiom(validAxiom));
         assertFalse(reloaded.containsAxiom(wrongAxiom));
-        assertTrue(reloaded.getAxioms().size() == 1);
+        assertEquals(1, reloaded.getAxioms().size());
     }
 
     @Test
@@ -207,6 +207,6 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
         assertNotNull(reloaded);
         assertTrue(reloaded.containsAxiom(validAxiom));
         assertFalse(reloaded.containsAxiom(wrongAxiom));
-        assertTrue(reloaded.getAxioms().size() == 1);
+        assertEquals(1, reloaded.getAxioms().size());
     }
 }

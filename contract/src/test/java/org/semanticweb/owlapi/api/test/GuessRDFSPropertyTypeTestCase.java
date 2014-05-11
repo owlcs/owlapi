@@ -60,8 +60,7 @@ public class GuessRDFSPropertyTypeTestCase {
 
     @Before
     public void setUp()
-            throws org.semanticweb.owlapi.model.UnknownOWLOntologyException,
-            OWLOntologyCreationException {
+            throws OWLOntologyCreationException {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         OWLOntologyLoaderConfiguration config = new OWLOntologyLoaderConfiguration()
                 .setStrict(false);

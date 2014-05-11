@@ -337,7 +337,7 @@ public class OWLTutorialSyntaxObjectRenderer extends OWLObjectVisitorAdapter {
 
     @SuppressWarnings("unused")
     public void writePropertyCharacteristic(String str, OWLAxiom ax,
-            @Nonnull OWLPropertyExpression prop) throws OWLRuntimeException {
+            @Nonnull OWLPropertyExpression prop) {
         write(keyword(str));
         writeSpace();
         prop.accept(this);
@@ -605,8 +605,7 @@ public class OWLTutorialSyntaxObjectRenderer extends OWLObjectVisitorAdapter {
     }
 
     private void writeRestriction(@Nonnull String str,
-            @Nonnull OWLPropertyExpression prop, @Nonnull OWLObject filler)
-            throws OWLRuntimeException {
+            @Nonnull OWLPropertyExpression prop, @Nonnull OWLObject filler) {
         write(str);
         writeOpenBracket();
         prop.accept(this);
