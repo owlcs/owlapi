@@ -28,12 +28,6 @@ public class NegativeObjectPropertyAssertionAxiomTestCase extends
 
     @Nonnull
     @Override
-    protected String getClassExpression() {
-        return "Negative object property assertion test case";
-    }
-
-    @Nonnull
-    @Override
     protected Set<OWLAxiom> getAxioms() {
         return singleton((OWLAxiom) df
                 .getOWLNegativeObjectPropertyAssertionAxiom(

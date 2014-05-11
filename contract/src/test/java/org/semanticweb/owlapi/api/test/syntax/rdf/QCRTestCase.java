@@ -49,10 +49,4 @@ public class QCRTestCase extends AbstractRendererAndParser {
         OWLAxiom ax = df.getOWLSubClassOfAxiom(clsA, restriction);
         return singleton(ax);
     }
-
-    @Nonnull
-    @Override
-    protected String getClassExpression() {
-        return "Qualified Cardinality";
-    }
 }

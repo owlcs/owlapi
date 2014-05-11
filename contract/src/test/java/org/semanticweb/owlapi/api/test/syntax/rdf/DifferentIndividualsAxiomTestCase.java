@@ -30,12 +30,6 @@ public class DifferentIndividualsAxiomTestCase extends
 
     @Nonnull
     @Override
-    protected String getClassExpression() {
-        return "Different individuals axioms test case";
-    }
-
-    @Nonnull
-    @Override
     protected Set<OWLAxiom> getAxioms() {
         Set<OWLIndividual> individuals = new HashSet<OWLIndividual>();
         for (int i = 0; i < 5; i++) {

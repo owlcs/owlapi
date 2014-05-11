@@ -138,7 +138,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
      *         {@code false}
      */
     public boolean isThing() {
-        return remainder.equals("Thing") && Namespaces.OWL.inNamespace(prefix);
+        return equals(OWLRDFVocabulary.OWL_THING.getIRI());
     }
 
     /**

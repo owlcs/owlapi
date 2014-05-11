@@ -33,12 +33,6 @@ public class EquivalentClassesTestCase extends AbstractRendererAndParser {
 
     @Nonnull
     @Override
-    protected String getClassExpression() {
-        return "Equivalent classes axioms test case";
-    }
-
-    @Nonnull
-    @Override
     protected Set<OWLAxiom> getAxioms() {
         OWLClass clsA = Class(TestUtils.createIRI());
         OWLObjectProperty prop = df.getOWLObjectProperty(TestUtils.createIRI());

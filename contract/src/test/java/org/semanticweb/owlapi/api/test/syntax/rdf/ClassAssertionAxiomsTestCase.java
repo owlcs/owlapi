@@ -29,12 +29,6 @@ public class ClassAssertionAxiomsTestCase extends AbstractRendererAndParser {
 
     @Nonnull
     @Override
-    protected String getClassExpression() {
-        return "Class assertion axioms test case";
-    }
-
-    @Nonnull
-    @Override
     protected Set<OWLAxiom> getAxioms() {
         OWLIndividual ind = createIndividual();
         OWLClass cls = createClass();

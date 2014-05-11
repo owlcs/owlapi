@@ -31,12 +31,6 @@ public class NegativeDataPropertyAssertionAxiomTestCase extends
 
     @Nonnull
     @Override
-    protected String getClassExpression() {
-        return "Negative data property assertion test case";
-    }
-
-    @Nonnull
-    @Override
     protected Set<OWLAxiom> getAxioms() {
         OWLIndividual subj = createIndividual();
         OWLDataProperty prop = createDataProperty();

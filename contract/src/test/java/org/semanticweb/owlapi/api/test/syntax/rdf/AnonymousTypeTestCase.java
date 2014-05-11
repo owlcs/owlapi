@@ -40,10 +40,4 @@ public class AnonymousTypeTestCase extends AbstractRendererAndParser {
         axioms.add(df.getOWLClassAssertionAxiom(desc, ind));
         return axioms;
     }
-
-    @Nonnull
-    @Override
-    protected String getClassExpression() {
-        return "Anonymous type test case";
-    }
 }

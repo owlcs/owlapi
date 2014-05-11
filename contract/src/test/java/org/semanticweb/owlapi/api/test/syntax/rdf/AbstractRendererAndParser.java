@@ -57,11 +57,6 @@ public abstract class AbstractRendererAndParser extends TestBase {
     }
 
     @Nonnull
-    protected OWLAnnotationProperty createAnnotationProperty() {
-        return df.getOWLAnnotationProperty(TestUtils.createIRI());
-    }
-
-    @Nonnull
     protected OWLObjectProperty createObjectProperty() {
         return df.getOWLObjectProperty(TestUtils.createIRI());
     }
@@ -108,6 +103,4 @@ public abstract class AbstractRendererAndParser extends TestBase {
     }
 
     protected abstract Set<OWLAxiom> getAxioms();
-
-    protected abstract String getClassExpression();
 }

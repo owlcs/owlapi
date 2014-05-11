@@ -142,24 +142,6 @@ public class AbstractRenderer {
         write(Character.toString(ch));
     }
 
-    protected void write(String s, int lineLen) {
-        StringTokenizer tokenizer = new StringTokenizer(s, " \n\t-", true);
-        int currentLineLength = 0;
-        while (tokenizer.hasMoreTokens()) {
-            String curToken = tokenizer.nextToken();
-            write(curToken);
-            if (curToken.equals("\n")) {
-                writeTab();
-            }
-            currentLineLength += curToken.length();
-            if (currentLineLength > lineLen && !curToken.trim().isEmpty()
-                    && tokenizer.hasMoreTokens()) {
-                writeNewLine();
-                currentLineLength = 0;
-            }
-        }
-    }
-
     protected void writeSpace() {
         write(" ");
     }
