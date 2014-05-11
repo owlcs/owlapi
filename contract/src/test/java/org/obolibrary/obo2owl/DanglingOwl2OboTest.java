@@ -1,9 +1,11 @@
 package org.obolibrary.obo2owl;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Collection;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.obolibrary.oboformat.model.Clause;
 import org.obolibrary.oboformat.model.Frame;
@@ -18,9 +20,9 @@ public class DanglingOwl2OboTest extends OboFormatTestBasics {
         OBODoc doc = convert(parseOWLFile("dangling_owl2_obo_test.owl"));
         Frame f = doc.getTermFrame("UBERON:0000020");
         Clause rc = f.getClause(OboFormatTag.TAG_NAME);
-        assertTrue(rc.getValue().equals("sense organ"));
+        Assert.assertEquals("sense organ", rc.getValue());
         Collection<Clause> ics = f.getClauses(OboFormatTag.TAG_INTERSECTION_OF);
-        assertTrue(ics.size() == 2);
+        assertEquals(2, ics.size());
         writeOBO(doc);
     }
 }

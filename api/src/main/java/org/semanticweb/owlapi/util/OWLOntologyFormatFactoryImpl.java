@@ -73,7 +73,7 @@ public class OWLOntologyFormatFactoryImpl<T extends OWLOntologyFormat>
     @Nullable
     @Override
     public String getDefaultMIMEType() {
-        SupportsMIMEType types = this.type
+        SupportsMIMEType types = type
                 .getAnnotation(SupportsMIMEType.class);
         if (types == null) {
             return null;
@@ -83,7 +83,7 @@ public class OWLOntologyFormatFactoryImpl<T extends OWLOntologyFormat>
 
     @Override
     public List<String> getMIMETypes() {
-        SupportsMIMEType types = this.type
+        SupportsMIMEType types = type
                 .getAnnotation(SupportsMIMEType.class);
         if (types == null) {
             return CollectionFactory.emptyList();

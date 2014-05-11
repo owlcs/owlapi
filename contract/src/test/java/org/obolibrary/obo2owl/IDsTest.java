@@ -1,7 +1,9 @@
 package org.obolibrary.obo2owl;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.obolibrary.oboformat.model.Clause;
 import org.obolibrary.oboformat.model.Frame;
@@ -32,63 +34,55 @@ public class IDsTest {
         owl2Obo.convert(ontology);
         // Obo 2 OWL
         IRI iri = obo2owl.oboIdToIRI("GO:001");
-        assertTrue("http://purl.obolibrary.org/obo/GO_001".equals(iri
-                .toString()));
+        Assert.assertEquals("http://purl.obolibrary.org/obo/GO_001", iri.toString());
         // OWL 2 obo
         String oboId = OWLAPIOwl2Obo.getIdentifier(iri);
-        assertTrue("GO:001".equals(oboId));
+        Assert.assertEquals("GO:001", oboId);
         iri = obo2owl.oboIdToIRI("My_Ont:FOO_002");
-        assertTrue("http://purl.obolibrary.org/obo/My_Ont#_FOO_002".equals(iri
-                .toString()));
+        Assert.assertEquals("http://purl.obolibrary.org/obo/My_Ont#_FOO_002", iri.toString());
         oboId = OWLAPIOwl2Obo.getIdentifier(iri);
-        assertTrue("My_Ont:FOO_002".equals(oboId));
+        Assert.assertEquals("My_Ont:FOO_002", oboId);
         iri = obo2owl.oboIdToIRI("My_Ont:002");
-        assertTrue("http://purl.obolibrary.org/obo/My_Ont_002".equals(iri
-                .toString()));
+        Assert.assertEquals("http://purl.obolibrary.org/obo/My_Ont_002", iri.toString());
         // OWL 2 obo
         oboId = OWLAPIOwl2Obo.getIdentifier(iri);
-        assertTrue("My_Ont:002".equals(oboId));
+        Assert.assertEquals("My_Ont:002", oboId);
         // unprefixed IDs are prefixed with the current ontology ID
         iri = obo2owl.oboIdToIRI("003");
-        assertTrue("http://purl.obolibrary.org/obo/test#003".equals(iri
-                .toString()));
+        Assert.assertEquals("http://purl.obolibrary.org/obo/test#003", iri.toString());
         // OWL 2 obo
         oboId = OWLAPIOwl2Obo.getIdentifier(iri);
-        assertTrue("003".equals(oboId));
+        Assert.assertEquals("003", oboId);
         // arbitrary URL to obo ID
         oboId = OWLAPIOwl2Obo.getIdentifier(IRI
                 .create("http://purl.obolibrary.org/obo/alternate#abcdef"));
         // todo - test this
         // System.out.println("== "+oboId);
         iri = obo2owl.oboIdToIRI("part_of");
-        assertTrue("http://purl.obolibrary.org/obo/test#part_of".equals(iri
-                .toString()));
+        Assert.assertEquals("http://purl.obolibrary.org/obo/test#part_of", iri.toString());
         // OWL 2 obo
         oboId = OWLAPIOwl2Obo.getIdentifier(iri);
-        assertTrue("part_of".equals(oboId));
+        Assert.assertEquals("part_of", oboId);
         iri = obo2owl.oboIdToIRI("OBO_REL:part_of");
-        assertTrue("http://purl.obolibrary.org/obo/OBO_REL#_part_of".equals(iri
-                .toString()));
+        Assert.assertEquals("http://purl.obolibrary.org/obo/OBO_REL#_part_of", iri.toString());
         // OWL 2 obo
         oboId = OWLAPIOwl2Obo.getIdentifier(iri);
-        assertTrue("OBO_REL:part_of".equals(oboId));
+        Assert.assertEquals("OBO_REL:part_of", oboId);
         iri = obo2owl.oboIdToIRI("http://purl.obolibrary.org/testont");
-        assertTrue("http://purl.obolibrary.org/testont".equals(iri.toString()));
+        Assert.assertEquals("http://purl.obolibrary.org/testont", iri.toString());
         // OWL 2 obo
         oboId = OWLAPIOwl2Obo.getIdentifier(iri);
-        assertTrue("http://purl.obolibrary.org/testont".equals(oboId));
+        Assert.assertEquals("http://purl.obolibrary.org/testont", oboId);
         iri = obo2owl.oboIdToIRI("http://purl.obolibrary.org/obo/BFO_0000050");
-        assertTrue("http://purl.obolibrary.org/obo/BFO_0000050".equals(iri
-                .toString()));
+        Assert.assertEquals("http://purl.obolibrary.org/obo/BFO_0000050", iri.toString());
         // OWL 2 obo
         oboId = OWLAPIOwl2Obo.getIdentifier(iri);
-        assertTrue("BFO:0000050".equals(oboId));
+        Assert.assertEquals("BFO:0000050", oboId);
         // MGI IDs are perverse - they have a double-separator
         iri = obo2owl.oboIdToIRI("MGI:MGI:1");
-        assertTrue("http://purl.obolibrary.org/obo/MGI_MGI%3A1".equals(iri
-                .toString()));
+        Assert.assertEquals("http://purl.obolibrary.org/obo/MGI_MGI%3A1", iri.toString());
         // OWL 2 obo
         oboId = OWLAPIOwl2Obo.getIdentifier(iri);
-        assertTrue("MGI:MGI:1".equals(oboId));
+        assertEquals("MGI:MGI:1", oboId);
     }
 }

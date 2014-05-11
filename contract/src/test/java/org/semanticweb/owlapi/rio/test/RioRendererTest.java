@@ -282,8 +282,7 @@ public class RioRendererTest {
     }
 
     @Test
-    public void testRioOWLRDFParser() throws IOException, RDFParseException,
-            RDFHandlerException {
+    public void testRioOWLRDFParser() throws Exception {
         RDFParser parser = new RioManchesterSyntaxParserFactory().getParser();
         String inputManSyntax = "Prefix: owl: <http://www.w3.org/2002/07/owl#>\n"
                 + "Prefix: rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"

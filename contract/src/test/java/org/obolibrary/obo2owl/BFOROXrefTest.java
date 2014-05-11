@@ -36,7 +36,7 @@ public class BFOROXrefTest extends OboFormatTestBasics {
     @Test
     public void testCorrectIdAnnotationCount() {
         Set<OWLObjectProperty> ops = owlOnt.getObjectPropertiesInSignature();
-        assertTrue(ops.size() == 4);
+        assertEquals(4, ops.size());
         // Check ID Property Count Exactly 1
         assertAnnotationPropertyCountEquals(owlOnt,
                 IRI.create("http://purl.obolibrary.org/obo/BAR_0000001"),
@@ -56,7 +56,7 @@ public class BFOROXrefTest extends OboFormatTestBasics {
     public void testRelationXrefConversion() {
         // test initial conversion
         Set<OWLObjectProperty> ops = owlOnt.getObjectPropertiesInSignature();
-        assertTrue(ops.size() == 4);
+        assertEquals(4, ops.size());
         Set<OWLAnnotationAssertionAxiom> aaas = owlOnt
                 .getAnnotationAssertionAxioms(IRI
                         .create("http://purl.obolibrary.org/obo/BFO_0000051"));
@@ -103,8 +103,8 @@ public class BFOROXrefTest extends OboFormatTestBasics {
         assertTrue(okOboRel);
         Frame a = d2.getTermFrame("TEST:a");
         Clause rc = a.getClause(OboFormatTag.TAG_RELATIONSHIP);
-        assertTrue(rc.getValue().equals("part_of"));
-        assertTrue(rc.getValue2().equals("TEST:b"));
+        assertEquals("part_of", rc.getValue());
+        assertEquals("TEST:b", rc.getValue2());
     }
 
     private static void assertAnnotationPropertyCountEquals(

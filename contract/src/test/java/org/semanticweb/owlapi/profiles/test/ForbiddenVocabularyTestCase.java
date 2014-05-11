@@ -179,7 +179,7 @@ public class ForbiddenVocabularyTestCase extends TestBase {
                 .getViolations();
         assertTrue(violations.isEmpty());
         for (OWLProfileViolation<?> v : violations) {
-            assertTrue(brokenAxiom1.equals(v.getAxiom()));
+            assertEquals(brokenAxiom1, v.getAxiom());
         }
     }
 

@@ -1,7 +1,9 @@
 package org.obolibrary.obo2owl;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.obolibrary.oboformat.model.OBODoc;
 import org.semanticweb.owlapi.apibinding.OWLManager;
@@ -26,28 +28,28 @@ public class Owl2OboTest extends OboFormatTestBasics {
         OWLOntology ontology = manager.createOntology(ontologyIRI);
         convert(ontology);
         String ontId = OWLAPIOwl2Obo.getOntologyId(ontology);
-        assertTrue("test".equals(ontId));
+        Assert.assertEquals("test", ontId);
         IRI iri = IRI.create("http://purl.obolibrary.org/obo/OBI_0000306");
         String id = OWLAPIOwl2Obo.getIdentifier(iri);
         assertTrue("OBI:0000306".endsWith(id));
         iri = IRI.create("http://purl.obolibrary.org/obo/IAO_0000119");
         id = OWLAPIOwl2Obo.getIdentifier(iri);
-        assertTrue("IAO:0000119".equals(id));
+        Assert.assertEquals("IAO:0000119", id);
         iri = IRI.create("http://purl.obolibrary.org/obo/caro_part_of");
         id = OWLAPIOwl2Obo.getIdentifier(iri);
-        assertTrue("http://purl.obolibrary.org/obo/caro_part_of".equals(id));
+        Assert.assertEquals("http://purl.obolibrary.org/obo/caro_part_of", id);
         iri = IRI.create("http://purl.obolibrary.org/obo/MyOnt#_part_of");
         id = OWLAPIOwl2Obo.getIdentifier(iri);
-        assertTrue("MyOnt:part_of".equals(id));
+        Assert.assertEquals("MyOnt:part_of", id);
         iri = IRI.create("http://purl.obolibrary.org/obo/MyOnt#termid");
         id = OWLAPIOwl2Obo.getIdentifier(iri);
-        assertTrue("termid".equals(id));
+        Assert.assertEquals("termid", id);
         // unprefixed IDs from different ontology
         iri = IRI.create("http://purl.obolibrary.org/obo/MyOnt#termid");
         id = OWLAPIOwl2Obo.getIdentifier(iri);
         // assertTrue("http://purl.obolibrary.org/obo/MyOnt#termid".equals(id));
         iri = IRI.create("http://www.w3.org/2002/07/owl#topObjectProperty");
         id = OWLAPIOwl2Obo.getIdentifier(iri);
-        assertTrue("owl:topObjectProperty".equals(id));
+        assertEquals("owl:topObjectProperty", id);
     }
 }

@@ -190,7 +190,7 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
 
     @Override
     public String toString() {
-        return "Nodeset" + this.nodes.toString();
+        return "Nodeset" + nodes;
     }
 
     @Override

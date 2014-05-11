@@ -1,5 +1,6 @@
 package org.obolibrary.obo2owl;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -22,7 +23,7 @@ public class DanglingRoundTripTest extends OboFormatTestBasics {
         OBODoc d2 = revbridge.convert(owlOnt);
         Frame f = d2.getTermFrame("UBERON:0000020");
         Clause rc = f.getClause(OboFormatTag.TAG_NAME);
-        assertTrue(rc.getValue().equals("sense organ"));
+        assertEquals("sense organ", rc.getValue());
         OBOFormatWriter w = new OBOFormatWriter();
         w.write(d2, "/tmp/z.obo");
     }

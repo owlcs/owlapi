@@ -75,8 +75,8 @@ public class TagTest extends OboFormatTestBasics {
     @Test
     public void testParseNameTag() {
         Clause cl = parseLine("name: a b c");
-        assertTrue(cl.getTag().equals(OboFormatTag.TAG_NAME.getTag()));
-        assertTrue(cl.getValue().equals("a b c"));
+        assertEquals(cl.getTag(), OboFormatTag.TAG_NAME.getTag());
+        assertEquals("a b c", cl.getValue());
     }
 
     @Test
@@ -89,8 +89,8 @@ public class TagTest extends OboFormatTestBasics {
     @Test
     public void testParseNamespaceTag() {
         Clause cl = parseLine("namespace: foo");
-        assertTrue(cl.getTag().equals(OboFormatTag.TAG_NAMESPACE.getTag()));
-        assertTrue(cl.getValue().equals("foo"));
+        assertEquals(cl.getTag(), OboFormatTag.TAG_NAMESPACE.getTag());
+        assertEquals("foo", cl.getValue());
     }
 
     @Test

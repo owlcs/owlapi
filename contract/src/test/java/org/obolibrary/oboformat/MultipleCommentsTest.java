@@ -14,7 +14,7 @@ public class MultipleCommentsTest extends OboFormatTestBasics {
     @Test(expected = FrameStructureException.class)
     public void testCheckForMultipleCommentsinFrame() throws Exception {
         OBODoc obodoc = parseOBOFile("multiple_comments_test.obo");
-        assertTrue(obodoc.getTermFrames().size() == 1);
+        assertEquals(1, obodoc.getTermFrames().size());
         Frame frame = obodoc.getTermFrames().iterator().next();
         assertNotNull(frame);
         renderOboToString(obodoc); // throws FrameStructureException

@@ -67,9 +67,9 @@ public class EquivalentToTest extends OboFormatTestBasics {
             Frame tf = obodoc.getTermFrame("X:1");
             Collection<Clause> cs = tf
                     .getClauses(OboFormatTag.TAG_EQUIVALENT_TO);
-            assertTrue(cs.size() == 1);
+            assertEquals(1, cs.size());
             Object v = cs.iterator().next().getValue();
-            assertTrue(v.equals("X:2"));
+            assertEquals("X:2", v);
         }
         // test ECA between named class and anon class is persisted as
         // genus-differentia intersection_of tags
@@ -77,7 +77,7 @@ public class EquivalentToTest extends OboFormatTestBasics {
             Frame tf = obodoc.getTermFrame("X:1");
             Collection<Clause> cs = tf
                     .getClauses(OboFormatTag.TAG_INTERSECTION_OF);
-            assertTrue(cs.size() == 2);
+            assertEquals(2, cs.size());
             boolean okGenus = false;
             boolean okDifferentia = false;
             for (Clause c : cs) {

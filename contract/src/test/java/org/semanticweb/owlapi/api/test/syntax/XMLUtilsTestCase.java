@@ -82,6 +82,6 @@ public class XMLUtilsTestCase {
     @Test
     public void testParsesBNode() {
         assertEquals("_:test", XMLUtils.getNCNamePrefix("_:test"));
-        assertEquals(null, XMLUtils.getNCNameSuffix("_:test"));
+        assertNull(XMLUtils.getNCNameSuffix("_:test"));
     }
 }

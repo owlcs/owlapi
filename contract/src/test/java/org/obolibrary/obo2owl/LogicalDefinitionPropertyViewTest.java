@@ -1,5 +1,6 @@
 package org.obolibrary.obo2owl;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Collection;
@@ -49,6 +50,6 @@ public class LogicalDefinitionPropertyViewTest extends OboFormatTestBasics {
         Frame fr = obodoc.getTermFrame("X:1");
         Collection<Clause> clauses = fr
                 .getClauses(OboFormatTag.TAG_INTERSECTION_OF);
-        assertTrue(clauses.size() == 2);
+        assertEquals(2, clauses.size());
     }
 }

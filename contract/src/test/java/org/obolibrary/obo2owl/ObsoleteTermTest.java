@@ -1,5 +1,6 @@
 package org.obolibrary.obo2owl;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Set;
@@ -49,6 +50,6 @@ public class ObsoleteTermTest extends OboFormatTestBasics {
         Frame tf = obodoc.getTermFrame("XX:0000034");
         Clause c = tf.getClause(OboFormatTag.TAG_IS_OBSELETE);
         Object v = c.getValue();
-        assertTrue(v.equals("true")); // should this be a Boolean object? TODO
+        assertEquals("true", v); // should this be a Boolean object? TODO
     }
 }

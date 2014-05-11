@@ -32,16 +32,14 @@ public class ExpandExpressionTest extends OboFormatTestBasics {
         Set<OWLDisjointClassesAxiom> dcas = outputOntology
                 .getDisjointClassesAxioms(cls);
         // System.out.println(dcas);
-        assertTrue(dcas.size() == 1);
+        assertEquals(1, dcas.size());
         cls = df.getOWLClass(IRI
                 .create("http://purl.obolibrary.org/obo/TEST_3"));
         Set<OWLSubClassOfAxiom> scas = outputOntology
                 .getSubClassAxiomsForSubClass(cls);
         // System.out.println(scas);
         assertEquals(1, scas.size());
-        assertTrue(scas
-                .toString()
-                .equals("[SubClassOf(<http://purl.obolibrary.org/obo/TEST_3> ObjectSomeValuesFrom(<http://purl.obolibrary.org/obo/BFO_0000051> ObjectIntersectionOf(<http://purl.obolibrary.org/obo/GO_0005886> ObjectSomeValuesFrom(<http://purl.obolibrary.org/obo/BFO_0000051> <http://purl.obolibrary.org/obo/TEST_4>))))]"));
+        assertEquals("[SubClassOf(<http://purl.obolibrary.org/obo/TEST_3> ObjectSomeValuesFrom(<http://purl.obolibrary.org/obo/BFO_0000051> ObjectIntersectionOf(<http://purl.obolibrary.org/obo/GO_0005886> ObjectSomeValuesFrom(<http://purl.obolibrary.org/obo/BFO_0000051> <http://purl.obolibrary.org/obo/TEST_4>))))]", scas.toString());
         cls = df.getOWLClass(IRI
                 .create("http://purl.obolibrary.org/obo/TEST_4"));
         Set<OWLEquivalentClassesAxiom> ecas = outputOntology
@@ -56,8 +54,7 @@ public class ExpandExpressionTest extends OboFormatTestBasics {
                             String pStr = ((OWLObjectSomeValuesFrom) y)
                                     .getProperty().toString();
                             // System.out.println("p=" + pStr);
-                            assertTrue(pStr
-                                    .equals("<http://purl.obolibrary.org/obo/BFO_0000051>"));
+                            assertEquals("<http://purl.obolibrary.org/obo/BFO_0000051>", pStr);
                             ok = true;
                         }
                     }
