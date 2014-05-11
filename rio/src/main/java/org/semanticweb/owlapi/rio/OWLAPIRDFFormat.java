@@ -59,8 +59,8 @@ public class OWLAPIRDFFormat extends RDFFormat {
      * The <a href="http://www.w3.org/TR/owl2-manchester-syntax/">Manchester OWL
      * Syntax</a> file format.
      * <p>
-     * The file extension <code>.omn</code> is recommended for Manchester OWL
-     * Syntax documents. The media type is <code>text/owl-manchester</code> and
+     * The file extension {@code .omn} is recommended for Manchester OWL
+     * Syntax documents. The media type is {@code text/owl-manchester} and
      * encoding is in UTF-8.
      * </p>
      * 
@@ -76,8 +76,8 @@ public class OWLAPIRDFFormat extends RDFFormat {
      * The <a href="http://www.w3.org/TR/owl2-xml-serialization/">OWL/XML</a>
      * file format.
      * <p>
-     * The file extension <code>.owx</code> is recommended for OWL/XML
-     * documents. The media type is <code>application/owl+xml</code> and
+     * The file extension {@code .owx} is recommended for OWL/XML
+     * documents. The media type is {@code application/owl+xml} and
      * encoding is in UTF-8.
      * </p>
      * 
@@ -92,8 +92,8 @@ public class OWLAPIRDFFormat extends RDFFormat {
      * The <a href="http://www.w3.org/TR/owl2-syntax/">OWL Functional Syntax</a>
      * file format.
      * <p>
-     * The file extension <code>.ofn</code> is recommended for OWL Functional
-     * Syntax documents. The media type is <code>text/owl-functional</code> and
+     * The file extension {@code .ofn} is recommended for OWL Functional
+     * Syntax documents. The media type is {@code text/owl-functional} and
      * encoding is in UTF-8.
      * </p>
      * 
