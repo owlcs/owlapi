@@ -54,7 +54,7 @@ public class Filters {
          *        axiom type to filter on
          */
         public AxiomFilter(AxiomType<?> type) {
-            this.types = CollectionFactory.<AxiomType<?>> list(type);
+            types = CollectionFactory.<AxiomType<?>> list(type);
         }
 
         /**

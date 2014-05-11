@@ -30,7 +30,7 @@ import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
  *         Informatics Group
  * @since 2.2.0
  */
-@HasPriority(value = 7)
+@HasPriority(7)
 @SupportsFormat(LatexOntologyFormat.class)
 public class LatexOntologyStorer extends AbstractOWLOntologyStorer {
 

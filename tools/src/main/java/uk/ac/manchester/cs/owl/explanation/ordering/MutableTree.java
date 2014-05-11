@@ -141,7 +141,7 @@ public class MutableTree<N> implements Tree<N> {
     @Override
     public List<N> getUserObjectPathToRoot() {
         List<N> path = new ArrayList<N>();
-        path.add(0, this.getUserObject());
+        path.add(0, getUserObject());
         Tree<N> par = parent;
         while (par != null) {
             path.add(0, par.getUserObject());
@@ -197,7 +197,7 @@ public class MutableTree<N> implements Tree<N> {
 
     @Override
     public void setNodeRenderer(@Nonnull NodeRenderer<N> renderer) {
-        this.toStringRenderer = renderer;
+        toStringRenderer = renderer;
         for (Tree<N> child : children) {
             child.setNodeRenderer(renderer);
         }

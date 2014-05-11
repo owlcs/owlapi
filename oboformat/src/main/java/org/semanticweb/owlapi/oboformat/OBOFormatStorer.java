@@ -29,7 +29,7 @@ import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
  *         Group
  * @since 3.4.10
  */
-@HasPriority(value = 5)
+@HasPriority(5)
 @SupportsFormat(OBOOntologyFormat.class)
 public class OBOFormatStorer extends AbstractOWLOntologyStorer {
 

@@ -52,7 +52,7 @@ public class RioAnonymousNodeChecker implements AnonymousNodeChecker {
 
     @Override
     public boolean isAnonymousNode(@Nonnull IRI iri) {
-        return this.isAnonymousNode(iri.toString());
+        return isAnonymousNode(iri.toString());
     }
 
     @Override

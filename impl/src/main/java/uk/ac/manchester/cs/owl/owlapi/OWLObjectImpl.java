@@ -156,7 +156,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
     @Override
     public Set<OWLClassExpression> getNestedClassExpressions() {
         OWLClassExpressionCollector collector = new OWLClassExpressionCollector();
-        return this.accept(collector);
+        return accept(collector);
     }
 
     @Override

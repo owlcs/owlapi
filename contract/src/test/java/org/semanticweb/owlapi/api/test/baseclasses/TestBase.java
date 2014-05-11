@@ -131,7 +131,7 @@ public abstract class TestBase {
                 boolean fixed = !verifyErrorIsDueToBlankNodesId(leftOnly,
                         rightOnly);
                 if (fixed) {
-                    String x = this.getClass().getSimpleName()
+                    String x = getClass().getSimpleName()
                             + " roundTripOntology() Failing to match axioms: \n"
                             + sb + topOfStackTrace();
                     System.out.println(x);

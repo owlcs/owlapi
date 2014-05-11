@@ -27,7 +27,7 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
  *         Management Group
  * @since 3.0.0
  */
-@SuppressWarnings({ "null" })
+@SuppressWarnings("null")
 public abstract class AbstractFileTestCase extends TestBase {
 
     protected OWLOntology createOntology() throws OWLOntologyCreationException {

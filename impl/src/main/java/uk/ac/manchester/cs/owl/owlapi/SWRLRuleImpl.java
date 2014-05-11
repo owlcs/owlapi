@@ -213,7 +213,7 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
 
     @Override
     public SWRLRule getSimplified() {
-        return (SWRLRule) this.accept(ATOM_SIMPLIFIER);
+        return (SWRLRule) accept(ATOM_SIMPLIFIER);
     }
 
     @Override

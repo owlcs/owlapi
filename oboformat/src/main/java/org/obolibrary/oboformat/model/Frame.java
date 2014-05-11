@@ -360,7 +360,7 @@ public class Frame {
                 throw new FrameStructureException(this,
                         "cardinality of id field must be 1");
             }
-            if (this.getClause(OboFormatTag.TAG_ID).getValue() == null) {
+            if (getClause(OboFormatTag.TAG_ID).getValue() == null) {
                 throw new FrameStructureException(this,
                         "id field must not be null");
             }

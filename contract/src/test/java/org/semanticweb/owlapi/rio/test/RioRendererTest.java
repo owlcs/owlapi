@@ -77,7 +77,7 @@ public class RioRendererTest {
                 new RioRDFXMLOntologyStorerFactory().get(),
                 new RioTurtleOntologyStorerFactory().get());
         testOntologyEmpty = testManager.createOntology(testOntologyUri1);
-        testOntologyKoala = testManager.loadOntologyFromOntologyDocument(this.getClass().getResourceAsStream("/koala.owl"));
+        testOntologyKoala = testManager.loadOntologyFromOntologyDocument(getClass().getResourceAsStream("/koala.owl"));
         assertEquals(70, testOntologyKoala.getAxiomCount());
         testHandlerStatementCollector = new StatementCollector();
         testOntologyEmptyStatement = vf

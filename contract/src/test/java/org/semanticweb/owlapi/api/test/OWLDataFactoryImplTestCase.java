@@ -40,7 +40,7 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
  * @since 3.2.0
  */
 @SuppressWarnings({ "javadoc", "null" })
-@RunWith(value = Parameterized.class)
+@RunWith(Parameterized.class)
 public class OWLDataFactoryImplTestCase {
 
     private final OWLDataFactoryImpl dataFactory;

@@ -27,7 +27,7 @@ import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
  *         Informatics Group
  * @since 2.0.0
  */
-@HasPriority(value = 3)
+@HasPriority(3)
 @SupportsFormat(ManchesterOWLSyntaxOntologyFormat.class)
 public class ManchesterOWLSyntaxOntologyStorer extends
         AbstractOWLOntologyStorer {

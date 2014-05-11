@@ -29,7 +29,7 @@ import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
  *         Informatics Group
  * @since 2.0.0
  */
-@HasPriority(value = 1)
+@HasPriority(1)
 @SupportsFormat(OWLXMLOntologyFormat.class)
 public class OWLXMLOntologyStorer extends AbstractOWLOntologyStorer {
 

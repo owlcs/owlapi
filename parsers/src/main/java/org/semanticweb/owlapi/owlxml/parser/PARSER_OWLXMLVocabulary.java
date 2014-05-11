@@ -269,7 +269,7 @@ abstract class OWLElementHandler<O> {
      *        element handler
      */
     void setParentHandler(@Nonnull OWLElementHandler<?> handler) {
-        this.parentHandler = handler;
+        parentHandler = handler;
     }
 
     @Nonnull

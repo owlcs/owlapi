@@ -30,7 +30,7 @@ import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
  *         Informatics Group
  * @since 2.0.0
  */
-@HasPriority(value = 2)
+@HasPriority(2)
 @SupportsFormat(OWLFunctionalSyntaxOntologyFormat.class)
 public class OWLFunctionalSyntaxOntologyStorer extends
         AbstractOWLOntologyStorer {

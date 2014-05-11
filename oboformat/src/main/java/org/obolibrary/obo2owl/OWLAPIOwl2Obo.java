@@ -413,7 +413,7 @@ public class OWLAPIOwl2Obo {
                     } else if (x instanceof OWLObjectSomeValuesFrom) {
                         OWLObjectProperty p = (OWLObjectProperty) ((OWLObjectSomeValuesFrom) x)
                                 .getProperty();
-                        if (this.getIdentifier(p).equals(viewRel) == false) {
+                        if (getIdentifier(p).equals(viewRel) == false) {
                             LOG.error("Expected: {} got: {} in {}", viewRel, p,
                                     eca);
                         }
@@ -538,7 +538,7 @@ public class OWLAPIOwl2Obo {
                         prop = (OWLObjectProperty) ex;
                     }
                 } else {
-                    disjointFrom = this.getIdentifier(ex); // getIdentifier(ex);
+                    disjointFrom = getIdentifier(ex); // getIdentifier(ex);
                 }
             }
             if (trObjectProperty(prop, tag, disjointFrom, ax.getAnnotations())) {
@@ -697,8 +697,7 @@ public class OWLAPIOwl2Obo {
         if (prop1 instanceof OWLObjectProperty
                 && prop2 instanceof OWLObjectProperty) {
             if (trObjectProperty((OWLObjectProperty) prop1,
-                    OboFormatTag.TAG_INVERSE_OF.getTag(),
-                    this.getIdentifier(prop2), ax.getAnnotations())) {
+                    OboFormatTag.TAG_INVERSE_OF.getTag(), getIdentifier(prop2), ax.getAnnotations())) {
                 return;
             }
         }
@@ -727,7 +726,7 @@ public class OWLAPIOwl2Obo {
                     ax, false);
             return;
         }
-        String range = this.getIdentifier(domain);
+        String range = getIdentifier(domain);
         if (range != null) {
             if (trObjectProperty(prop, OboFormatTag.TAG_DOMAIN.getTag(), range,
                     ax.getAnnotations())) {
@@ -815,7 +814,7 @@ public class OWLAPIOwl2Obo {
                     ax, false);
             return;
         }
-        String range = this.getIdentifier(owlRange); // getIdentifier(ax.getRange());
+        String range = getIdentifier(owlRange); // getIdentifier(ax.getRange());
         if (range != null) {
             if (trObjectProperty(prop, OboFormatTag.TAG_RANGE.getTag(), range,
                     ax.getAnnotations())) {
@@ -837,7 +836,7 @@ public class OWLAPIOwl2Obo {
         }
         if (sub instanceof OWLObjectProperty
                 && sup instanceof OWLObjectProperty) {
-            String supId = this.getIdentifier(sup);
+            String supId = getIdentifier(sup);
             if (supId.startsWith("owl:")) {
                 return;
             }
@@ -875,7 +874,7 @@ public class OWLAPIOwl2Obo {
             }
             Frame hf = getObodoc().getHeaderFrame();
             Clause clause = new Clause(OboFormatTag.TAG_SYNONYMTYPEDEF);
-            clause.addValue(this.getIdentifier(sub));
+            clause.addValue(getIdentifier(sub));
             clause.addValue(name);
             if (scope != null) {
                 clause.addValue(scope);
@@ -899,7 +898,7 @@ public class OWLAPIOwl2Obo {
             }
             Frame hf = getObodoc().getHeaderFrame();
             Clause clause = new Clause(OboFormatTag.TAG_SUBSETDEF);
-            clause.addValue(this.getIdentifier(sub));
+            clause.addValue(getIdentifier(sub));
             clause.addValue(comment);
             if (!hf.getClauses().contains(clause)) {
                 hf.addClause(clause);
@@ -911,7 +910,7 @@ public class OWLAPIOwl2Obo {
         }
         if (sub instanceof OWLObjectProperty
                 && sup instanceof OWLObjectProperty) {
-            String supId = this.getIdentifier(sup); // getIdentifier(sup);
+            String supId = getIdentifier(sup); // getIdentifier(sup);
             if (supId.startsWith("owl:")) {
                 return;
             }
@@ -977,7 +976,7 @@ public class OWLAPIOwl2Obo {
         String value = getValue(annVal, tagString);
         if (tagString == null) {
             Clause clause = new Clause(OboFormatTag.TAG_PROPERTY_VALUE);
-            String propId = this.getIdentifier(prop);
+            String propId = getIdentifier(prop);
             addQualifiers(clause, qualifiers);
             if (propId.equals("shorthand") == false) {
                 clause.addValue(propId);
@@ -1154,7 +1153,7 @@ public class OWLAPIOwl2Obo {
             @Nonnull Frame frame) {
         // no built-in obo tag for this: use the generic property_value tag
         Clause clause = new Clause(OboFormatTag.TAG_PROPERTY_VALUE.getTag());
-        String propId = this.getIdentifier(prop);
+        String propId = getIdentifier(prop);
         addQualifiers(clause, qualifiers);
         if (propId.equals("shorthand") == false) {
             clause.addValue(propId);
@@ -1393,7 +1392,7 @@ public class OWLAPIOwl2Obo {
         }
         boolean isUntranslateable = false;
         List<Clause> equivalenceAxiomClauses = new ArrayList<Clause>();
-        String cls2 = this.getIdentifier(ce2);
+        String cls2 = getIdentifier(ce2);
         if (cls2 != null) {
             Clause c = new Clause(OboFormatTag.TAG_EQUIVALENT_TO.getTag());
             c.setValue(cls2);
@@ -1403,7 +1402,7 @@ public class OWLAPIOwl2Obo {
             List<OWLClassExpression> list2 = ((OWLObjectUnionOf) ce2)
                     .getOperandsAsList();
             for (OWLClassExpression oce : list2) {
-                String id = this.getIdentifier(oce);
+                String id = getIdentifier(oce);
                 if (id == null) {
                     isUntranslateable = true;
                     error(ax, true);
@@ -1419,7 +1418,7 @@ public class OWLAPIOwl2Obo {
                     .getOperandsAsList();
             for (OWLClassExpression ce : list2) {
                 String r = null;
-                cls2 = this.getIdentifier(ce);
+                cls2 = getIdentifier(ce);
                 Integer exact = null; // cardinality
                 Integer min = null; // minCardinality
                 Integer max = null; // maxCardinality
@@ -1427,34 +1426,34 @@ public class OWLAPIOwl2Obo {
                 Boolean allOnly = null; // all_only
                 if (ce instanceof OWLObjectSomeValuesFrom) {
                     OWLObjectSomeValuesFrom ristriction = (OWLObjectSomeValuesFrom) ce;
-                    r = this.getIdentifier(ristriction.getProperty());
-                    cls2 = this.getIdentifier(ristriction.getFiller());
+                    r = getIdentifier(ristriction.getProperty());
+                    cls2 = getIdentifier(ristriction.getFiller());
                 } else if (ce instanceof OWLObjectExactCardinality) {
                     OWLObjectExactCardinality card = (OWLObjectExactCardinality) ce;
-                    r = this.getIdentifier(card.getProperty());
-                    cls2 = this.getIdentifier(card.getFiller());
+                    r = getIdentifier(card.getProperty());
+                    cls2 = getIdentifier(card.getFiller());
                     exact = card.getCardinality();
                 } else if (ce instanceof OWLObjectMinCardinality) {
                     OWLObjectMinCardinality card = (OWLObjectMinCardinality) ce;
-                    r = this.getIdentifier(card.getProperty());
-                    cls2 = this.getIdentifier(card.getFiller());
+                    r = getIdentifier(card.getProperty());
+                    cls2 = getIdentifier(card.getFiller());
                     min = card.getCardinality();
                 } else if (ce instanceof OWLObjectMaxCardinality) {
                     OWLObjectMaxCardinality card = (OWLObjectMaxCardinality) ce;
-                    r = this.getIdentifier(card.getProperty());
-                    cls2 = this.getIdentifier(card.getFiller());
+                    r = getIdentifier(card.getProperty());
+                    cls2 = getIdentifier(card.getFiller());
                     max = card.getCardinality();
                 } else if (ce instanceof OWLObjectAllValuesFrom) {
                     OWLObjectAllValuesFrom all = (OWLObjectAllValuesFrom) ce;
                     OWLClassExpression filler = all.getFiller();
                     if (filler instanceof OWLClass) {
-                        r = this.getIdentifier(all.getProperty());
-                        cls2 = this.getIdentifier(filler);
+                        r = getIdentifier(all.getProperty());
+                        cls2 = getIdentifier(filler);
                         allOnly = Boolean.TRUE;
                     } else if (filler instanceof OWLObjectComplementOf) {
                         OWLObjectComplementOf restriction = (OWLObjectComplementOf) filler;
-                        r = this.getIdentifier(all.getProperty());
-                        cls2 = this.getIdentifier(restriction.getOperand());
+                        r = getIdentifier(all.getProperty());
+                        cls2 = getIdentifier(restriction.getOperand());
                         exact = 0;
                     }
                 } else if (ce instanceof OWLObjectIntersectionOf) {
@@ -1465,23 +1464,23 @@ public class OWLAPIOwl2Obo {
                         for (OWLClassExpression operand : operands) {
                             if (operand instanceof OWLObjectMinCardinality) {
                                 OWLObjectMinCardinality card = (OWLObjectMinCardinality) operand;
-                                r = this.getIdentifier(card.getProperty());
-                                cls2 = this.getIdentifier(card.getFiller());
+                                r = getIdentifier(card.getProperty());
+                                cls2 = getIdentifier(card.getFiller());
                                 min = card.getCardinality();
                             } else if (operand instanceof OWLObjectMaxCardinality) {
                                 OWLObjectMaxCardinality card = (OWLObjectMaxCardinality) operand;
-                                r = this.getIdentifier(card.getProperty());
-                                cls2 = this.getIdentifier(card.getFiller());
+                                r = getIdentifier(card.getProperty());
+                                cls2 = getIdentifier(card.getFiller());
                                 max = card.getCardinality();
                             } else if (operand instanceof OWLObjectAllValuesFrom) {
                                 OWLObjectAllValuesFrom all = (OWLObjectAllValuesFrom) operand;
-                                r = this.getIdentifier(all.getProperty());
-                                cls2 = this.getIdentifier(all.getFiller());
+                                r = getIdentifier(all.getProperty());
+                                cls2 = getIdentifier(all.getFiller());
                                 allOnly = Boolean.TRUE;
                             } else if (operand instanceof OWLObjectSomeValuesFrom) {
                                 OWLObjectSomeValuesFrom all = (OWLObjectSomeValuesFrom) operand;
-                                r = this.getIdentifier(all.getProperty());
-                                cls2 = this.getIdentifier(all.getFiller());
+                                r = getIdentifier(all.getProperty());
+                                cls2 = getIdentifier(all.getFiller());
                                 allSome = Boolean.TRUE;
                             }
                         }
@@ -1557,7 +1556,7 @@ public class OWLAPIOwl2Obo {
             error("Disjoint classes axiom using Top or Bottom entities are not supported.",
                     ax, false);
         }
-        String cls2 = this.getIdentifier(ce2);
+        String cls2 = getIdentifier(ce2);
         if (cls2 == null) {
             error(ax, true);
             return;
@@ -1910,7 +1909,7 @@ public class OWLAPIOwl2Obo {
      * @return the typedef frame
      */
     protected Frame getTypedefFrame(OWLEntity entity) {
-        String id = this.getIdentifier(entity);
+        String id = getIdentifier(entity);
         Frame f = getObodoc().getTypedefFrame(id);
         if (f == null) {
             f = new Frame(FrameType.TYPEDEF);
@@ -1938,7 +1937,7 @@ public class OWLAPIOwl2Obo {
             Frame f = getObodoc().getHeaderFrame();
             Clause c = new Clause(OboFormatTag.TAG_SYNONYMTYPEDEF.getTag());
             OWLNamedIndividual indv = (OWLNamedIndividual) ax.getIndividual();
-            String indvId = this.getIdentifier(indv);
+            String indvId = getIdentifier(indv);
             // TODO: full specify this in the spec document.
             // we may want to allow full IDs for subsets in future.
             // here we would have a convention that an unprefixed
@@ -1970,7 +1969,7 @@ public class OWLAPIOwl2Obo {
             Frame f = getObodoc().getHeaderFrame();
             Clause c = new Clause(OboFormatTag.TAG_SUBSETDEF.getTag());
             OWLNamedIndividual indv = (OWLNamedIndividual) ax.getIndividual();
-            String indvId = this.getIdentifier(indv);
+            String indvId = getIdentifier(indv);
             // TODO: full specify this in the spec document.
             // we may want to allow full IDs for subsets in future.
             // here we would have a convention that an unprefixed
@@ -2051,7 +2050,7 @@ public class OWLAPIOwl2Obo {
             Frame f = getTermFrame((OWLClass) sub);
             if (sup instanceof OWLClass) {
                 Clause c = new Clause(OboFormatTag.TAG_IS_A.getTag());
-                c.setValue(this.getIdentifier(sup));
+                c.setValue(getIdentifier(sup));
                 c.setQualifierValues(qvs);
                 f.addClause(c);
                 addQualifiers(c, ax.getAnnotations());
@@ -2065,7 +2064,7 @@ public class OWLAPIOwl2Obo {
                             ax, false);
                     return;
                 }
-                String fillerId = this.getIdentifier(filler);
+                String fillerId = getIdentifier(filler);
                 if (fillerId == null) {
                     error(ax, true);
                     return;
@@ -2083,7 +2082,7 @@ public class OWLAPIOwl2Obo {
                             ax, false);
                     return;
                 }
-                String fillerId = this.getIdentifier(filler);
+                String fillerId = getIdentifier(filler);
                 if (fillerId == null) {
                     error(ax, true);
                     return;
@@ -2102,7 +2101,7 @@ public class OWLAPIOwl2Obo {
                                     ax, false);
                             return;
                         }
-                        String fillerId = this.getIdentifier(filler);
+                        String fillerId = getIdentifier(filler);
                         if (fillerId == null) {
                             error(ax, true);
                             return;
@@ -2118,7 +2117,7 @@ public class OWLAPIOwl2Obo {
                                     ax, false);
                             return;
                         }
-                        String fillerId = this.getIdentifier(filler);
+                        String fillerId = getIdentifier(filler);
                         if (fillerId == null) {
                             error(ax, true);
                             return;
@@ -2167,7 +2166,7 @@ public class OWLAPIOwl2Obo {
             @Nonnull OWLQuantifiedObjectRestriction r, String fillerId,
             @Nonnull Set<QualifierValue> qvs, @Nonnull OWLSubClassOfAxiom ax) {
         Clause c = new Clause(OboFormatTag.TAG_RELATIONSHIP.getTag());
-        c.addValue(this.getIdentifier(r.getProperty()));
+        c.addValue(getIdentifier(r.getProperty()));
         c.addValue(fillerId);
         c.setQualifierValues(qvs);
         addQualifiers(c, ax.getAnnotations());
@@ -2193,7 +2192,7 @@ public class OWLAPIOwl2Obo {
             String fillerId, @Nonnull Set<QualifierValue> qvs,
             @Nonnull OWLSubClassOfAxiom ax) {
         Clause c = new Clause(OboFormatTag.TAG_RELATIONSHIP.getTag());
-        c.addValue(this.getIdentifier(restriction.getProperty()));
+        c.addValue(getIdentifier(restriction.getProperty()));
         c.addValue(fillerId);
         c.setQualifierValues(qvs);
         String q = "cardinality";

@@ -37,7 +37,7 @@ import org.xml.sax.SAXException;
  *         Informatics Group
  * @since 2.0.0
  */
-@HasPriority(value = 1)
+@HasPriority(1)
 public class OWLXMLParser extends AbstractOWLParser {
 
     private static final long serialVersionUID = 40000L;

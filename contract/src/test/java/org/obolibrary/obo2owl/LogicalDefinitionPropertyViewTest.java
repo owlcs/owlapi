@@ -45,7 +45,7 @@ public class LogicalDefinitionPropertyViewTest extends OboFormatTestBasics {
         }
         assertTrue(ok);
         // reverse translation
-        OBODoc obodoc = this.convert(owlOntology);
+        OBODoc obodoc = convert(owlOntology);
         Frame fr = obodoc.getTermFrame("X:1");
         Collection<Clause> clauses = fr
                 .getClauses(OboFormatTag.TAG_INTERSECTION_OF);

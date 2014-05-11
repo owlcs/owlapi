@@ -84,7 +84,7 @@ public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
      *        the entity to add
      */
     public DefaultNode(@Nonnull E entity) {
-        this.entities.add(checkNotNull(entity, "entity cannot be null"));
+        entities.add(checkNotNull(entity, "entity cannot be null"));
     }
 
     /**

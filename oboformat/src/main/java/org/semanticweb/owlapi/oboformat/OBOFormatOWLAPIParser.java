@@ -42,7 +42,7 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.util.OWLOntologyFormatFactoryImpl;
 
 /** oboformat parser */
-@HasPriority(value = 5)
+@HasPriority(5)
 public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
 
     private static final long serialVersionUID = 40000L;

@@ -40,7 +40,7 @@ public class OWLOntologyChangeRecordTestCase {
 
     @Nonnull
     private final OWLOntologyID mockOntologyID = new OWLOntologyID();
-    @SuppressWarnings({ "unchecked" })
+    @SuppressWarnings("unchecked")
     @Nonnull
     private final OWLOntologyChangeData<OWLAxiom> mockChangeData = mock(OWLOntologyChangeData.class);
     @Nonnull

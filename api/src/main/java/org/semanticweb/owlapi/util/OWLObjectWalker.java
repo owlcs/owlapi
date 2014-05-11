@@ -74,13 +74,13 @@ public class OWLObjectWalker<O extends OWLObject> {
     }
 
     protected void setVisitor(OWLObjectVisitorEx<?> visitor) {
-        this.visitorEx = visitor;
+        visitorEx = visitor;
         this.visitor = null;
     }
 
     protected void setVisitor(OWLObjectVisitor visitor) {
         this.visitor = visitor;
-        this.visitorEx = null;
+        visitorEx = null;
     }
 
     /**
@@ -108,7 +108,7 @@ public class OWLObjectWalker<O extends OWLObject> {
      *        visitor to use over the objects
      */
     public void walkStructure(@Nonnull OWLObjectVisitorEx<?> v) {
-        this.setVisitor(checkNotNull(v, "v cannot be null"));
+        setVisitor(checkNotNull(v, "v cannot be null"));
         for (O o : objects) {
             o.accept(walker);
         }
@@ -119,7 +119,7 @@ public class OWLObjectWalker<O extends OWLObject> {
      *        visitor to use over the objects
      */
     public void walkStructure(@Nonnull OWLObjectVisitor v) {
-        this.setVisitor(checkNotNull(v, "v cannot be null"));
+        setVisitor(checkNotNull(v, "v cannot be null"));
         for (O o : objects) {
             o.accept(walker);
         }

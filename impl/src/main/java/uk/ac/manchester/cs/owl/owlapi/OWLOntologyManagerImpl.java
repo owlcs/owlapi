@@ -897,7 +897,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
 
     @Override
     public void removeOntology(OWLOntology ontology) {
-        this.removeOntology(ontology.getOntologyID());
+        removeOntology(ontology.getOntologyID());
     }
 
     @Override

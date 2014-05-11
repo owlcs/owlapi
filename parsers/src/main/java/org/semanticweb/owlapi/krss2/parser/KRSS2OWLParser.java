@@ -229,7 +229,7 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
  * 
  * @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence
  */
-@HasPriority(value = 6)
+@HasPriority(6)
 public class KRSS2OWLParser extends AbstractOWLParser {
 
     private static final long serialVersionUID = 40000L;

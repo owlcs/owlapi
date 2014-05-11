@@ -790,7 +790,7 @@ public class StructuralReasoner extends OWLReasonerBase {
                 RawHierarchyProvider<T> rawParentChildProvider) {
             this.topEntity = topEntity;
             this.bottomEntity = bottomEntity;
-            this.nodeCache = new NodeCache<T>(this);
+            nodeCache = new NodeCache<T>(this);
             this.rawParentChildProvider = rawParentChildProvider;
             this.name = name;
         }

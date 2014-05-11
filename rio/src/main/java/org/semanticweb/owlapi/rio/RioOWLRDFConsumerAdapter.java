@@ -117,7 +117,7 @@ public class RioOWLRDFConsumerAdapter extends OWLRDFConsumer implements
         }
         if (st.getObject() instanceof Resource) {
             logger.trace("statement with resource value");
-            this.statementWithResourceValue(subjectString, st.getPredicate()
+            statementWithResourceValue(subjectString, st.getPredicate()
                     .stringValue(), objectString);
         } else {
             final Literal literalObject = (Literal) st.getObject();
@@ -129,7 +129,7 @@ public class RioOWLRDFConsumerAdapter extends OWLRDFConsumer implements
                 literalDatatype = literalObject.getDatatype().stringValue();
             }
             logger.trace("statement with literal value");
-            this.statementWithLiteralValue(subjectString, st.getPredicate()
+            statementWithLiteralValue(subjectString, st.getPredicate()
                     .stringValue(), objectString, literalLanguage,
                     literalDatatype);
         }

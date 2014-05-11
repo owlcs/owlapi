@@ -376,7 +376,7 @@ public class CollectionFactory {
                 return true;
             }
             if (obj instanceof SyncSet) {
-                return this.backingMap.keySet().equals(
+                return backingMap.keySet().equals(
                         ((SyncSet<?>) obj).backingMap.keySet());
             }
             if (obj instanceof Collection) {
@@ -489,9 +489,9 @@ public class CollectionFactory {
         public ConditionalCopySet(@Nonnull Collection<T> source,
                 boolean listCopy) {
             if (listCopy) {
-                this.delegate = new ArrayList<T>(source);
+                delegate = new ArrayList<T>(source);
             } else {
-                this.delegate = source;
+                delegate = source;
             }
         }
 
@@ -663,7 +663,7 @@ public class CollectionFactory {
          *        initial values
          */
         public ThreadSafeConditionalCopySet(@Nonnull Collection<T> source) {
-            this.delegate = new ArrayList<T>(checkNotNull(source));
+            delegate = new ArrayList<T>(checkNotNull(source));
         }
 
         @Override

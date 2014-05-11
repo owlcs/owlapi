@@ -35,7 +35,7 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
  *         Informatics Group
  * @since 4.0.0
  */
-@HasPriority(value = 9)
+@HasPriority(9)
 public class DLSyntaxOWLParser extends AbstractOWLParser {
 
     private static final long serialVersionUID = 40000L;

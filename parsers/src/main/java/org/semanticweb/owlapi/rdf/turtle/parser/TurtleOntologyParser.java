@@ -37,7 +37,7 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  *         Informatics Group
  * @since 2.2.0
  */
-@HasPriority(value = 3)
+@HasPriority(3)
 public class TurtleOntologyParser extends AbstractOWLParser {
 
     private static final long serialVersionUID = 40000L;

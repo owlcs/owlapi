@@ -66,7 +66,7 @@ public class GuessRDFSPropertyTypeTestCase {
         OWLOntologyLoaderConfiguration config = new OWLOntologyLoaderConfiguration()
                 .setStrict(false);
         @SuppressWarnings("resource")
-        InputStream in = this.getClass().getResourceAsStream(CIDOC_FILE);
+        InputStream in = getClass().getResourceAsStream(CIDOC_FILE);
         assertNotNull("can't find CIDOC_FILE", in);
         cidocOntology = manager.loadOntologyFromOntologyDocument(
                 new StreamDocumentSource(in), config);

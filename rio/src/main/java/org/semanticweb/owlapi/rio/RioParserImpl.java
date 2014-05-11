@@ -81,11 +81,11 @@ import org.slf4j.LoggerFactory;
 
 /**
  */
-@HasPriority(value = 7)
+@HasPriority(7)
 public class RioParserImpl extends AbstractOWLParser implements RioParser {
 
     private static final long serialVersionUID = 40000L;
-    protected final Logger log = LoggerFactory.getLogger(this.getClass());
+    protected final Logger log = LoggerFactory.getLogger(getClass());
     @Nonnull
     private final RioRDFOntologyFormatFactory owlFormatFactory;
     @Nonnull
@@ -282,12 +282,12 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
 
     @Override
     public String toString() {
-        return this.getClass().getName() + " : " + owlFormatFactory;
+        return getClass().getName() + " : " + owlFormatFactory;
     }
 
     private static class RioParserRDFHandler implements RDFHandler {
 
-        private final Logger log = LoggerFactory.getLogger(this.getClass());
+        private final Logger log = LoggerFactory.getLogger(getClass());
         private final RDFHandler consumer;
         private long owlParseStart;
         private final Set<Resource> typedLists = new HashSet<Resource>();

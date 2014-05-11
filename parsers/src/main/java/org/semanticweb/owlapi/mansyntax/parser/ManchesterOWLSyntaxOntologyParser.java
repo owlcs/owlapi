@@ -33,7 +33,7 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
  *         Informatics Group
  * @since 2.1.1
  */
-@HasPriority(value = 4)
+@HasPriority(4)
 public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
 
     private static final long serialVersionUID = 40000L;

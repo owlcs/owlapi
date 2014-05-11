@@ -48,7 +48,7 @@ public abstract class AbstractOWLMetric<M> implements OWLMetric<M>,
      *        the ontology to use
      */
     public AbstractOWLMetric(@Nonnull OWLOntology o) {
-        this.ontology = checkNotNull(o, "o cannot be null");
+        ontology = checkNotNull(o, "o cannot be null");
         ontology.getOWLOntologyManager().addOntologyChangeListener(this);
         dirty = true;
     }
