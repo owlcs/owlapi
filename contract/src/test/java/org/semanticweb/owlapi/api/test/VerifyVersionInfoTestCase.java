@@ -40,7 +40,7 @@ public class VerifyVersionInfoTestCase {
             Node n = list.item(i);
             if (n instanceof Element
                     && ((Element) n).getTagName().equals("version")) {
-                String version = ((Element) n).getTextContent();
+                String version = n.getTextContent();
                 if (!version.equals(info.getVersion())) {
                     System.out
                             .println("VerifyVersionInfo.checkMatchVersion() WARNING: update the version in VersionInfo");
@@ -60,7 +60,7 @@ public class VerifyVersionInfoTestCase {
                     Node n = list.item(i);
                     if (n instanceof Element
                             && ((Element) n).getTagName().equals("version")) {
-                        String version = ((Element) n).getTextContent();
+                        String version = n.getTextContent();
                         if (!version.equals(info.getVersion())) {
                             System.out
                                     .println("VerifyVersionInfo.checkMatchVersion() WARNING: update the version in VersionInfo");

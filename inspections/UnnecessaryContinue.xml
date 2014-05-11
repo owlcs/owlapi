@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>412</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo void preProcess()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary 'continue' statement</problem_class>
+    <description>&lt;code&gt;continue&lt;/code&gt; is unnecessary as the last statement in a loop #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/writer/OBOFormatWriter.java</file>
+    <line>332</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.writer</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.writer.OBOFormatWriter void write(org.obolibrary.oboformat.model.Frame frame, java.io.BufferedWriter writer, org.obolibrary.oboformat.writer.OBOFormatWriter.NameProvider nameProvider)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary 'continue' statement</problem_class>
+    <description>&lt;code&gt;continue&lt;/code&gt; is unnecessary as the last statement in a loop #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/turtle/parser/ParseException.java</file>
+    <line>130</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.turtle.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.turtle.parser.ParseException java.lang.String add_escapes(java.lang.String str)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary 'continue' statement</problem_class>
+    <description>&lt;code&gt;continue&lt;/code&gt; is unnecessary as the last statement in a loop #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/ParseException.java</file>
+    <line>130</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss1.parser.ParseException java.lang.String add_escapes(java.lang.String str)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary 'continue' statement</problem_class>
+    <description>&lt;code&gt;continue&lt;/code&gt; is unnecessary as the last statement in a loop #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/TokenMgrError.java</file>
+    <line>67</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss1.parser.TokenMgrError java.lang.String addEscapes(java.lang.String str)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary 'continue' statement</problem_class>
+    <description>&lt;code&gt;continue&lt;/code&gt; is unnecessary as the last statement in a loop #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/ParseException.java</file>
+    <line>130</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.ParseException java.lang.String add_escapes(java.lang.String str)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary 'continue' statement</problem_class>
+    <description>&lt;code&gt;continue&lt;/code&gt; is unnecessary as the last statement in a loop #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/TokenMgrError.java</file>
+    <line>67</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.TokenMgrError java.lang.String addEscapes(java.lang.String str)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary 'continue' statement</problem_class>
+    <description>&lt;code&gt;continue&lt;/code&gt; is unnecessary as the last statement in a loop #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/ParseException.java</file>
+    <line>130</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.ParseException java.lang.String add_escapes(java.lang.String str)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary 'continue' statement</problem_class>
+    <description>&lt;code&gt;continue&lt;/code&gt; is unnecessary as the last statement in a loop #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/TokenMgrError.java</file>
+    <line>67</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.TokenMgrError java.lang.String addEscapes(java.lang.String str)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary 'continue' statement</problem_class>
+    <description>&lt;code&gt;continue&lt;/code&gt; is unnecessary as the last statement in a loop #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/ParseException.java</file>
+    <line>130</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.functional.parser.ParseException java.lang.String add_escapes(java.lang.String str)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary 'continue' statement</problem_class>
+    <description>&lt;code&gt;continue&lt;/code&gt; is unnecessary as the last statement in a loop #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/TokenMgrError.java</file>
+    <line>67</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.functional.parser.TokenMgrError java.lang.String addEscapes(java.lang.String str)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary 'continue' statement</problem_class>
+    <description>&lt;code&gt;continue&lt;/code&gt; is unnecessary as the last statement in a loop #loc</description>
+  </problem>
+</problems>
+

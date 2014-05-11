@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>363</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl org.semanticweb.owlapi.model.OWLOntology tr(org.semanticweb.owlapi.model.OWLOntology in)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Call to simple setter from within class</problem_class>
+    <description>Call to simple setter &lt;code&gt;setOwlOntology()&lt;/code&gt; from within class #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>308</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo org.obolibrary.oboformat.model.OBODoc tr()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Call to simple setter from within class</problem_class>
+    <description>Call to simple setter &lt;code&gt;setObodoc()&lt;/code&gt; from within class #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/latex/renderer/LatexObjectVisitor.java</file>
+    <line>407</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.latex.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.latex.renderer.LatexObjectVisitor void visit(org.semanticweb.owlapi.model.OWLSubClassOfAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Call to simple setter from within class</problem_class>
+    <description>Call to simple setter &lt;code&gt;setPrettyPrint()&lt;/code&gt; from within class #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/latex/renderer/LatexObjectVisitor.java</file>
+    <line>414</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.latex.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.latex.renderer.LatexObjectVisitor void visit(org.semanticweb.owlapi.model.OWLSubClassOfAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Call to simple setter from within class</problem_class>
+    <description>Call to simple setter &lt;code&gt;setPrettyPrint()&lt;/code&gt; from within class #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>700</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.owlxml.parser.AbstractOWLAxiomElementHandler void endElement()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Call to simple setter from within class</problem_class>
+    <description>Call to simple setter &lt;code&gt;setAxiom()&lt;/code&gt; from within class #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/renderer/FunctionalSyntaxObjectRenderer.java</file>
+    <line>235</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.functional.renderer.FunctionalSyntaxObjectRenderer java.util.Set&lt;org.semanticweb.owlapi.model.OWLAxiom&gt; writeAxioms(org.semanticweb.owlapi.model.OWLEntity entity, java.util.Set&lt;org.semanticweb.owlapi.model.OWLAxiom&gt; alreadyWrittenAxioms)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Call to simple setter from within class</problem_class>
+    <description>Call to simple setter &lt;code&gt;setFocusedObject()&lt;/code&gt; from within class #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/org/semanticweb/owlapi/metrics/AbstractOWLMetric.java</file>
+    <line>107</line>
+    <module>owlapi-tools</module>
+    <package>org.semanticweb.owlapi.metrics</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.metrics.AbstractOWLMetric void ontologiesChanged(java.util.List&lt;? extends org.semanticweb.owlapi.model.OWLOntologyChange&lt;?&gt;&gt; changes)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Call to simple setter from within class</problem_class>
+    <description>Call to simple setter &lt;code&gt;setDirty()&lt;/code&gt; from within class #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/org/semanticweb/owlapi/metrics/AbstractOWLMetric.java</file>
+    <line>67</line>
+    <module>owlapi-tools</module>
+    <package>org.semanticweb.owlapi.metrics</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.metrics.AbstractOWLMetric void setOntology(org.semanticweb.owlapi.model.OWLOntology ontology)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Call to simple setter from within class</problem_class>
+    <description>Call to simple setter &lt;code&gt;setDirty()&lt;/code&gt; from within class #loc</description>
+  </problem>
+</problems>
+

@@ -32,7 +32,7 @@ public class AddOntologyAnnotationData extends OntologyAnnotationChangeData {
     private static final long serialVersionUID = 40000L;
 
     /**
-     * Constructs an {@link AddOntologyAnnotationData} object that describes an
+     * Constructs an {@code AddOntologyAnnotationData} object that describes an
      * {@link AddOntologyAnnotation} change for the {@link OWLAnnotation}
      * specified by the {@code annotation} parameter.
      * 

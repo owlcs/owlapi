@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/CollectionFactory.java</file>
+    <line>650</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.util.CollectionFactory.ThreadSafeConditionalCopySet" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'public' inner class</problem_class>
+    <description>'public' inner class &lt;code&gt;ThreadSafeConditionalCopySet&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/CollectionFactory.java</file>
+    <line>476</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.util.CollectionFactory.ConditionalCopySet" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'public' inner class</problem_class>
+    <description>'public' inner class &lt;code&gt;ConditionalCopySet&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/ImportsStructureObjectSorter.java</file>
+    <line>103</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.util.ImportsStructureObjectSorter.ObjectSelector" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'public' inner class</problem_class>
+    <description>'public' inner class &lt;code&gt;ObjectSelector&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/ImportsStructureEntitySorter.java</file>
+    <line>39</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.util.ImportsStructureEntitySorter.ReferencedEntitySelector" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'public' inner class</problem_class>
+    <description>'public' inner class &lt;code&gt;ReferencedEntitySelector&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/DLExpressivityChecker.java</file>
+    <line>600</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.util.DLExpressivityChecker.Construct" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'public' inner class</problem_class>
+    <description>'public' inner class &lt;code&gt;Construct&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLOntologyLoaderListener.java</file>
+    <line>96</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLOntologyLoaderListener.LoadingStartedEvent" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'public' inner class</problem_class>
+    <description>'public' inner class &lt;code&gt;LoadingStartedEvent&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLOntologyLoaderListener.java</file>
+    <line>49</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLOntologyLoaderListener.LoadingEvent" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'public' inner class</problem_class>
+    <description>'public' inner class &lt;code&gt;LoadingEvent&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLOntologyLoaderListener.java</file>
+    <line>108</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLOntologyLoaderListener.LoadingFinishedEvent" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'public' inner class</problem_class>
+    <description>'public' inner class &lt;code&gt;LoadingFinishedEvent&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLOntologyFactory.java</file>
+    <line>114</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLOntologyFactory.OWLOntologyCreationHandler" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'public' inner class</problem_class>
+    <description>'public' inner class &lt;code&gt;OWLOntologyCreationHandler&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/vocab/Namespaces.java</file>
+    <line>225</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.vocab</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.vocab.Namespaces.Status" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'public' inner class</problem_class>
+    <description>'public' inner class &lt;code&gt;Status&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/vocab/Namespaces.java</file>
+    <line>217</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.vocab</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.vocab.Namespaces.BuiltIn" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'public' inner class</problem_class>
+    <description>'public' inner class &lt;code&gt;BuiltIn&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/vocab/OWL2Datatype.java</file>
+    <line>288</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.vocab</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.vocab.OWL2Datatype.Category" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'public' inner class</problem_class>
+    <description>'public' inner class &lt;code&gt;Category&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/vocab/OWL2Datatype.java</file>
+    <line>320</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.vocab</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.vocab.OWL2Datatype.WhiteSpaceNormalisation" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'public' inner class</problem_class>
+    <description>'public' inner class &lt;code&gt;WhiteSpaceNormalisation&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/search/Filters.java</file>
+    <line>45</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.search</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.search.Filters.AxiomFilter" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'public' inner class</problem_class>
+    <description>'public' inner class &lt;code&gt;AxiomFilter&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/reasoner/knowledgeexploration/OWLKnowledgeExplorerReasoner.java</file>
+    <line>31</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.reasoner.knowledgeexploration</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.reasoner.knowledgeexploration.OWLKnowledgeExplorerReasoner.RootNode" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'public' inner class</problem_class>
+    <description>'public' inner class &lt;code&gt;RootNode&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/InitVisitorFactory.java</file>
+    <line>247</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.InitIndividualVisitor" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'public' inner class</problem_class>
+    <description>'public' inner class &lt;code&gt;InitIndividualVisitor&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/InitVisitorFactory.java</file>
+    <line>74</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.InitVisitor" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'public' inner class</problem_class>
+    <description>'public' inner class &lt;code&gt;InitVisitor&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/InitVisitorFactory.java</file>
+    <line>275</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.InitCollectionVisitor" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'public' inner class</problem_class>
+    <description>'public' inner class &lt;code&gt;InitCollectionVisitor&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/Obo2OWLConstants.java</file>
+    <line>41</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="class" FQNAME="org.obolibrary.obo2owl.Obo2OWLConstants.Obo2OWLVocabulary" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'public' inner class</problem_class>
+    <description>'public' inner class &lt;code&gt;Obo2OWLVocabulary&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OboInOwlCardinalityTools.java</file>
+    <line>46</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="class" FQNAME="org.obolibrary.obo2owl.OboInOwlCardinalityTools.AnnotationCardinalityConfictHandler" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'public' inner class</problem_class>
+    <description>'public' inner class &lt;code&gt;AnnotationCardinalityConfictHandler&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OboInOwlCardinalityTools.java</file>
+    <line>89</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="class" FQNAME="org.obolibrary.obo2owl.OboInOwlCardinalityTools.AnnotationCardinalityReporter" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'public' inner class</problem_class>
+    <description>'public' inner class &lt;code&gt;AnnotationCardinalityReporter&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OboInOwlCardinalityTools.java</file>
+    <line>119</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="class" FQNAME="org.obolibrary.obo2owl.OboInOwlCardinalityTools.AnnotationCardinalityException" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'public' inner class</problem_class>
+    <description>'public' inner class &lt;code&gt;AnnotationCardinalityException&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OwlStringTools.java</file>
+    <line>34</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="class" FQNAME="org.obolibrary.obo2owl.OwlStringTools.OwlStringException" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'public' inner class</problem_class>
+    <description>'public' inner class &lt;code&gt;OwlStringException&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>1653</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="class" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo.UntranslatableAxiomException" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'public' inner class</problem_class>
+    <description>'public' inner class &lt;code&gt;UntranslatableAxiomException&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/model/Frame.java</file>
+    <line>18</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.model</package>
+    <entry_point TYPE="class" FQNAME="org.obolibrary.oboformat.model.Frame.FrameType" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'public' inner class</problem_class>
+    <description>'public' inner class &lt;code&gt;FrameType&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/XrefExpander.java</file>
+    <line>262</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="class" FQNAME="org.obolibrary.oboformat.parser.XrefExpander.GenusDifferentiaExpansion" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'public' inner class</problem_class>
+    <description>'public' inner class &lt;code&gt;GenusDifferentiaExpansion&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/XrefExpander.java</file>
+    <line>318</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="class" FQNAME="org.obolibrary.oboformat.parser.XrefExpander.IsaExpansion" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'public' inner class</problem_class>
+    <description>'public' inner class &lt;code&gt;IsaExpansion&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/XrefExpander.java</file>
+    <line>207</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="class" FQNAME="org.obolibrary.oboformat.parser.XrefExpander.Rule" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'public' inner class</problem_class>
+    <description>'public' inner class &lt;code&gt;Rule&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/XrefExpander.java</file>
+    <line>328</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="class" FQNAME="org.obolibrary.oboformat.parser.XrefExpander.RelationshipExpansion" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'public' inner class</problem_class>
+    <description>'public' inner class &lt;code&gt;RelationshipExpansion&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/XrefExpander.java</file>
+    <line>252</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="class" FQNAME="org.obolibrary.oboformat.parser.XrefExpander.HasSubClassExpansion" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'public' inner class</problem_class>
+    <description>'public' inner class &lt;code&gt;HasSubClassExpansion&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/XrefExpander.java</file>
+    <line>242</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="class" FQNAME="org.obolibrary.oboformat.parser.XrefExpander.EquivalenceExpansion" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'public' inner class</problem_class>
+    <description>'public' inner class &lt;code&gt;EquivalenceExpansion&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/XrefExpander.java</file>
+    <line>290</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="class" FQNAME="org.obolibrary.oboformat.parser.XrefExpander.ReverseGenusDifferentiaExpansion" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'public' inner class</problem_class>
+    <description>'public' inner class &lt;code&gt;ReverseGenusDifferentiaExpansion&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/OBOFormatConstants.java</file>
+    <line>16</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="class" FQNAME="org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'public' inner class</problem_class>
+    <description>'public' inner class &lt;code&gt;OboFormatTag&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/writer/OBOFormatWriter.java</file>
+    <line>1114</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.writer</package>
+    <entry_point TYPE="class" FQNAME="org.obolibrary.oboformat.writer.OBOFormatWriter.NameProvider" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'public' inner class</problem_class>
+    <description>'public' inner class &lt;code&gt;NameProvider&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/writer/OBOFormatWriter.java</file>
+    <line>1140</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.writer</package>
+    <entry_point TYPE="class" FQNAME="org.obolibrary.oboformat.writer.OBOFormatWriter.OBODocNameProvider" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'public' inner class</problem_class>
+    <description>'public' inner class &lt;code&gt;OBODocNameProvider&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/Translators.java</file>
+    <line>1139</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.Translators.ListItemTranslator" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'public' inner class</problem_class>
+    <description>'public' inner class &lt;code&gt;ListItemTranslator&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/Translators.java</file>
+    <line>572</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.Translators.ClassExpressionTranslator" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'public' inner class</problem_class>
+    <description>'public' inner class &lt;code&gt;ClassExpressionTranslator&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/renderer/XMLWriterImpl.java</file>
+    <line>275</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.renderer</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.renderer.XMLWriterImpl.XMLElement" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'public' inner class</problem_class>
+    <description>'public' inner class &lt;code&gt;XMLElement&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxTokenizer.java</file>
+    <line>220</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxTokenizer.Token" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'public' inner class</problem_class>
+    <description>'public' inner class &lt;code&gt;Token&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/uk/ac/manchester/owl/owlapi/tutorialowled2011/TutorialSnippets.java</file>
+    <line>923</line>
+    <module>owlapi-contract</module>
+    <package>uk.ac.manchester.owl.owlapi.tutorialowled2011</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.owl.owlapi.tutorialowled2011.TutorialSnippets.LoggingReasonerProgressMonitor" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'public' inner class</problem_class>
+    <description>'public' inner class &lt;code&gt;LoggingReasonerProgressMonitor&lt;/code&gt; #loc</description>
+  </problem>
+</problems>
+

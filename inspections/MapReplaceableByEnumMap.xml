@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>250</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser objectPropertyFrameSections" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Map replaceable with EnumMap</problem_class>
+    <description>&lt;code&gt;HashMap&lt;ManchesterOWLSyntax, AnnotatedListItemParser&lt;OWLObjectProperty, ?&gt;&gt;&lt;/code&gt; replaceable with 'EnumMap' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>309</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser individualFrameSections" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Map replaceable with EnumMap</problem_class>
+    <description>&lt;code&gt;HashMap&lt;ManchesterOWLSyntax, AnnotatedListItemParser&lt;OWLIndividual, ?&gt;&gt;&lt;/code&gt; replaceable with 'EnumMap' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>159</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser dataPropertyFrameSections" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Map replaceable with EnumMap</problem_class>
+    <description>&lt;code&gt;HashMap&lt;ManchesterOWLSyntax, AnnotatedListItemParser&lt;OWLDataProperty, ?&gt;&gt;&lt;/code&gt; replaceable with 'EnumMap' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>227</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser classFrameSections" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Map replaceable with EnumMap</problem_class>
+    <description>&lt;code&gt;HashMap&lt;ManchesterOWLSyntax, AnnotatedListItemParser&lt;OWLClass, ?&gt;&gt;&lt;/code&gt; replaceable with 'EnumMap' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>295</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser annotationPropertyFrameSections" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Map replaceable with EnumMap</problem_class>
+    <description>&lt;code&gt;HashMap&lt;ManchesterOWLSyntax, AnnotatedListItemParser&lt;OWLAnnotationProperty, ?&gt;&gt;&lt;/code&gt; replaceable with 'EnumMap' #loc</description>
+  </problem>
+</problems>
+

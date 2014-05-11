@@ -1,0 +1,823 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/io/AbstractOWLParser.java</file>
+    <line>103</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.io</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.io.AbstractOWLParser java.io.InputStream getInputStream(org.semanticweb.owlapi.model.IRI documentIRI, org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration config)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;getInputStream&lt;/code&gt; is overly complex (cyclomatic complexity = 12) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/PropertyAssertionValueShortFormProvider.java</file>
+    <line>116</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.PropertyAssertionValueShortFormProvider java.lang.String getShortForm(org.semanticweb.owlapi.model.OWLEntity entity)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;getShortForm&lt;/code&gt; is overly complex (cyclomatic complexity = 14) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/BidirectionalShortFormProviderAdapter.java</file>
+    <line>128</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.BidirectionalShortFormProviderAdapter void handleChanges(java.util.List&lt;? extends org.semanticweb.owlapi.model.OWLOntologyChange&lt;?&gt;&gt; changes)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;handleChanges&lt;/code&gt; is overly complex (cyclomatic complexity = 13) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/profiles/OWL2DLProfile.java</file>
+    <line>610</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.profiles</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.profiles.OWL2DLProfile.OWL2DLProfileObjectVisitor void visit(org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;visit&lt;/code&gt; is overly complex (cyclomatic complexity = 11) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java</file>
+    <line>269</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.Internals uk.ac.manchester.cs.owl.owlapi.MapPointer&lt;T,A&gt; get(java.lang.Class&lt;T&gt; type, java.lang.Class&lt;A&gt; axiom, org.semanticweb.owlapi.model.parameters.Search position)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;get&lt;/code&gt; is overly complex (cyclomatic complexity = 50) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/org/semanticweb/owlapi/reasoner/structural/StructuralReasoner.java</file>
+    <line>1411</line>
+    <module>owlapi-impl</module>
+    <package>org.semanticweb.owlapi.reasoner.structural</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.reasoner.structural.StructuralReasoner.RawClassHierarchyProvider java.util.Collection&lt;org.semanticweb.owlapi.model.OWLClass&gt; getParents(org.semanticweb.owlapi.model.OWLClass child)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;getParents&lt;/code&gt; is overly complex (cyclomatic complexity = 13) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/org/semanticweb/owlapi/reasoner/structural/StructuralReasoner.java</file>
+    <line>863</line>
+    <module>owlapi-impl</module>
+    <package>org.semanticweb.owlapi.reasoner.structural</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.reasoner.structural.StructuralReasoner.HierarchyInfo void updateForSignature(java.util.Set&lt;T&gt; signature, java.util.Map&lt;T,java.util.Collection&lt;T&gt;&gt; cache)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;updateForSignature&lt;/code&gt; is overly complex (cyclomatic complexity = 12) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/org/semanticweb/owlapi/reasoner/structural/StructuralReasoner.java</file>
+    <line>982</line>
+    <module>owlapi-impl</module>
+    <package>org.semanticweb.owlapi.reasoner.structural</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.reasoner.structural.StructuralReasoner.HierarchyInfo void tarjan(T entity, int _index, java.util.Stack&lt;T&gt; stack, java.util.Map&lt;T,java.lang.Integer&gt; indexMap, java.util.Map&lt;T,java.lang.Integer&gt; lowlinkMap, java.util.Set&lt;java.util.Set&lt;T&gt;&gt; result, java.util.Set&lt;T&gt; processed, ...)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;tarjan&lt;/code&gt; is overly complex (cyclomatic complexity = 14) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>1123</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl org.semanticweb.owlapi.model.OWLAxiom trTypedefClause(org.semanticweb.owlapi.model.OWLObjectProperty p, java.lang.String tag, org.obolibrary.oboformat.model.Clause clause)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;trTypedefClause&lt;/code&gt; is overly complex (cyclomatic complexity = 18) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>504</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl void trHeaderFrame(org.obolibrary.oboformat.model.Frame headerFrame)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;trHeaderFrame&lt;/code&gt; is overly complex (cyclomatic complexity = 22) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>1767</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl org.semanticweb.owlapi.model.IRI oboIdToIRI(java.lang.String id)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;oboIdToIRI&lt;/code&gt; is overly complex (cyclomatic complexity = 13) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>1257</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl org.semanticweb.owlapi.model.OWLAxiom trGenericClause(org.semanticweb.owlapi.model.OWLAnnotationSubject sub, java.lang.String tag, org.obolibrary.oboformat.model.Clause clause)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;trGenericClause&lt;/code&gt; is overly complex (cyclomatic complexity = 16) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OboInOwlCardinalityTools.java</file>
+    <line>213</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OboInOwlCardinalityTools void checkOntologyAnnotations(java.util.Set&lt;org.semanticweb.owlapi.model.OWLAnnotationProperty&gt; properties, org.semanticweb.owlapi.model.OWLOntology ontology, org.obolibrary.obo2owl.OboInOwlCardinalityTools.AnnotationCardinalityReporter reporter, org.obolibrary.obo2owl.OboInOwlCardinalityTools.AnnotationCardinalityConfictHandler handler, org.semanticweb.owlapi.model.OWLOntologyManager manager)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;checkOntologyAnnotations&lt;/code&gt; is overly complex (cyclomatic complexity = 11) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OboInOwlCardinalityTools.java</file>
+    <line>267</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OboInOwlCardinalityTools void checkOwlEntity(org.semanticweb.owlapi.model.OWLEntity owlClass, java.util.Set&lt;org.semanticweb.owlapi.model.OWLAnnotationProperty&gt; properties, org.semanticweb.owlapi.model.OWLOntology ontology, org.obolibrary.obo2owl.OboInOwlCardinalityTools.AnnotationCardinalityReporter reporter, org.obolibrary.obo2owl.OboInOwlCardinalityTools.AnnotationCardinalityConfictHandler handler, org.semanticweb.owlapi.model.OWLOntologyManager manager)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;checkOwlEntity&lt;/code&gt; is overly complex (cyclomatic complexity = 11) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>962</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo boolean tr(org.semanticweb.owlapi.model.OWLAnnotationProperty prop, org.semanticweb.owlapi.model.OWLAnnotationValue annVal, java.util.Set&lt;org.semanticweb.owlapi.model.OWLAnnotation&gt; qualifiers, org.obolibrary.oboformat.model.Frame frame)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;tr&lt;/code&gt; is overly complex (cyclomatic complexity = 23) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>383</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo void preProcess()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;preProcess&lt;/code&gt; is overly complex (cyclomatic complexity = 11) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>853</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo void tr(org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom ax)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;tr&lt;/code&gt; is overly complex (cyclomatic complexity = 14) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>1767</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo java.lang.String getIdentifier(org.semanticweb.owlapi.model.IRI iriId)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;getIdentifier&lt;/code&gt; is overly complex (cyclomatic complexity = 12) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>1354</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo void tr(org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom ax)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;tr&lt;/code&gt; is overly complex (cyclomatic complexity = 36) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>2004</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo void tr(org.semanticweb.owlapi.model.OWLSubClassOfAxiom ax)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;tr&lt;/code&gt; is overly complex (cyclomatic complexity = 28) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>307</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo org.obolibrary.oboformat.model.OBODoc tr()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;tr&lt;/code&gt; is overly complex (cyclomatic complexity = 25) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/model/Clause.java</file>
+    <line>275</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.model</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.model.Clause boolean equals(java.lang.Object e)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;equals&lt;/code&gt; is overly complex (cyclomatic complexity = 14) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/XrefExpander.java</file>
+    <line>84</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.parser.XrefExpander void setUp()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;setUp&lt;/code&gt; is overly complex (cyclomatic complexity = 12) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/OBOFormatParser.java</file>
+    <line>400</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.parser.OBOFormatParser java.util.List&lt;java.lang.String&gt; checkDanglingReferences(org.obolibrary.oboformat.model.OBODoc doc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;checkDanglingReferences&lt;/code&gt; is overly complex (cyclomatic complexity = 17) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/OBOFormatParser.java</file>
+    <line>1413</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.parser.OBOFormatParser java.lang.String getParseUntil(java.lang.String compl, boolean commaWhitespace)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;getParseUntil&lt;/code&gt; is overly complex (cyclomatic complexity = 15) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/OBOFormatParser.java</file>
+    <line>776</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.parser.OBOFormatParser org.obolibrary.oboformat.model.Clause parseTypedefFrameClause()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;parseTypedefFrameClause&lt;/code&gt; is overly complex (cyclomatic complexity = 45) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/OBOFormatParser.java</file>
+    <line>638</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.parser.OBOFormatParser org.obolibrary.oboformat.model.Clause parseTermFrameClause()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;parseTermFrameClause&lt;/code&gt; is overly complex (cyclomatic complexity = 25) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/writer/OBOFormatWriter.java</file>
+    <line>625</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.writer</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.writer.OBOFormatWriter void write(org.obolibrary.oboformat.model.Clause clause, java.io.BufferedWriter writer, org.obolibrary.oboformat.writer.OBOFormatWriter.NameProvider nameProvider)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;write&lt;/code&gt; is overly complex (cyclomatic complexity = 16) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/writer/OBOFormatWriter.java</file>
+    <line>289</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.writer</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.writer.OBOFormatWriter void write(org.obolibrary.oboformat.model.Frame frame, java.io.BufferedWriter writer, org.obolibrary.oboformat.writer.OBOFormatWriter.NameProvider nameProvider)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;write&lt;/code&gt; is overly complex (cyclomatic complexity = 18) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/BOMSafeJavaCharStream.java</file>
+    <line>247</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.BOMSafeJavaCharStream char readChar()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;readChar&lt;/code&gt; is overly complex (cyclomatic complexity = 13) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/BOMSafeJavaCharStream.java</file>
+    <line>32</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.BOMSafeJavaCharStream int hexval(char c)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;hexval&lt;/code&gt; is overly complex (cyclomatic complexity = 18) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/TripleHandlers.java</file>
+    <line>214</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.TripleHandlers.HandlerAccessor void handleStreaming(org.semanticweb.owlapi.model.IRI subject, org.semanticweb.owlapi.model.IRI predicate, org.semanticweb.owlapi.model.IRI object)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;handleStreaming&lt;/code&gt; is overly complex (cyclomatic complexity = 11) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/Translators.java</file>
+    <line>1900</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.Translators.SWRLAtomListItemTranslator org.semanticweb.owlapi.model.SWRLAtom translate(org.semanticweb.owlapi.model.IRI firstObject)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;translate&lt;/code&gt; is overly complex (cyclomatic complexity = 12) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/OWLRDFConsumer.java</file>
+    <line>1709</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFConsumer org.semanticweb.owlapi.model.OWLDataRange translateDataRange(org.semanticweb.owlapi.model.IRI mainNode)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;translateDataRange&lt;/code&gt; is overly complex (cyclomatic complexity = 14) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/OWLRDFConsumer.java</file>
+    <line>1447</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFConsumer void dumpRemainingTriples()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;dumpRemainingTriples&lt;/code&gt; is overly complex (cyclomatic complexity = 12) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/renderer/RDFXMLRenderer.java</file>
+    <line>181</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.renderer.RDFXMLRenderer void render(org.semanticweb.owlapi.io.RDFResource node)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;render&lt;/code&gt; is overly complex (cyclomatic complexity = 18) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/renderer/XMLWriterImpl.java</file>
+    <line>331</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.renderer.XMLWriterImpl.XMLElement void writeElementStart(boolean close)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;writeElementStart&lt;/code&gt; is overly complex (cyclomatic complexity = 12) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/turtle/parser/ParseException.java</file>
+    <line>91</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.turtle.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.turtle.parser.ParseException java.lang.String add_escapes(java.lang.String str)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;add_escapes&lt;/code&gt; is overly complex (cyclomatic complexity = 13) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/turtle/renderer/TurtleRenderer.java</file>
+    <line>351</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.turtle.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.turtle.renderer.TurtleRenderer void render(org.semanticweb.owlapi.io.RDFResource node)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;render&lt;/code&gt; is overly complex (cyclomatic complexity = 11) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/ParseException.java</file>
+    <line>91</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss1.parser.ParseException java.lang.String add_escapes(java.lang.String str)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;add_escapes&lt;/code&gt; is overly complex (cyclomatic complexity = 13) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/TokenMgrError.java</file>
+    <line>28</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss1.parser.TokenMgrError java.lang.String addEscapes(java.lang.String str)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;addEscapes&lt;/code&gt; is overly complex (cyclomatic complexity = 13) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/ParseException.java</file>
+    <line>91</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.ParseException java.lang.String add_escapes(java.lang.String str)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;add_escapes&lt;/code&gt; is overly complex (cyclomatic complexity = 13) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/TokenMgrError.java</file>
+    <line>28</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.TokenMgrError java.lang.String addEscapes(java.lang.String str)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;addEscapes&lt;/code&gt; is overly complex (cyclomatic complexity = 13) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1112</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa13_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;jjMoveStringLiteralDfa13_0&lt;/code&gt; is overly complex (cyclomatic complexity = 23) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>734</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa7_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;jjMoveStringLiteralDfa7_0&lt;/code&gt; is overly complex (cyclomatic complexity = 38) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>220</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa2_0(long old0, long _active0, long old1, long _active1)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;jjMoveStringLiteralDfa2_0&lt;/code&gt; is overly complex (cyclomatic complexity = 40) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>118</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa1_0(long active0, long active1)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;jjMoveStringLiteralDfa1_0&lt;/code&gt; is overly complex (cyclomatic complexity = 31) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1218</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa15_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;jjMoveStringLiteralDfa15_0&lt;/code&gt; is overly complex (cyclomatic complexity = 11) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>471</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa4_0(long old0, long _active0, long old1, long _active1)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;jjMoveStringLiteralDfa4_0&lt;/code&gt; is overly complex (cyclomatic complexity = 30) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1183</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa14_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;jjMoveStringLiteralDfa14_0&lt;/code&gt; is overly complex (cyclomatic complexity = 11) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>552</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa5_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;jjMoveStringLiteralDfa5_0&lt;/code&gt; is overly complex (cyclomatic complexity = 25) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1477</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveNfa_0(int startState, int _curPos)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;jjMoveNfa_0&lt;/code&gt; is overly complex (cyclomatic complexity = 149) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>893</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa9_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;jjMoveStringLiteralDfa9_0&lt;/code&gt; is overly complex (cyclomatic complexity = 27) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1071</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa12_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;jjMoveStringLiteralDfa12_0&lt;/code&gt; is overly complex (cyclomatic complexity = 15) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>33</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa0_0()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;jjMoveStringLiteralDfa0_0&lt;/code&gt; is overly complex (cyclomatic complexity = 34) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1028</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa11_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;jjMoveStringLiteralDfa11_0&lt;/code&gt; is overly complex (cyclomatic complexity = 15) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>844</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa8_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;jjMoveStringLiteralDfa8_0&lt;/code&gt; is overly complex (cyclomatic complexity = 19) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>2067</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager org.semanticweb.owlapi.krss2.parser.Token getNextToken()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;getNextToken&lt;/code&gt; is overly complex (cyclomatic complexity = 21) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>355</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa3_0(long old0, long _active0, long old1, long _active1)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;jjMoveStringLiteralDfa3_0&lt;/code&gt; is overly complex (cyclomatic complexity = 34) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>969</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa10_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;jjMoveStringLiteralDfa10_0&lt;/code&gt; is overly complex (cyclomatic complexity = 22) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>619</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa6_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;jjMoveStringLiteralDfa6_0&lt;/code&gt; is overly complex (cyclomatic complexity = 39) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/renderer/KRSS2ObjectRenderer.java</file>
+    <line>308</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.renderer.KRSS2ObjectRenderer void visit(org.semanticweb.owlapi.model.OWLOntology ontology1)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;visit&lt;/code&gt; is overly complex (cyclomatic complexity = 29) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/renderer/KRSS2OWLObjectRenderer.java</file>
+    <line>195</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.renderer.KRSS2OWLObjectRenderer void visit(org.semanticweb.owlapi.model.OWLOntology onto)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;visit&lt;/code&gt; is overly complex (cyclomatic complexity = 15) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/latex/renderer/LatexRenderer.java</file>
+    <line>67</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.latex.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.latex.renderer.LatexRenderer void render(org.semanticweb.owlapi.model.OWLOntology ontology, java.io.Writer writer)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;render&lt;/code&gt; is overly complex (cyclomatic complexity = 12) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/ParseException.java</file>
+    <line>91</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.ParseException java.lang.String add_escapes(java.lang.String str)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;add_escapes&lt;/code&gt; is overly complex (cyclomatic complexity = 13) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/TokenMgrError.java</file>
+    <line>28</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.TokenMgrError java.lang.String addEscapes(java.lang.String str)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;addEscapes&lt;/code&gt; is overly complex (cyclomatic complexity = 13) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>2628</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser org.semanticweb.owlapi.model.OWLAxiom parseAxiomWithDataPropertyStart()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;parseAxiomWithDataPropertyStart&lt;/code&gt; is overly complex (cyclomatic complexity = 11) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>1060</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser java.util.Set&lt;org.semanticweb.owlapi.util.OntologyAxiomPair&gt; parseFrames()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;parseFrames&lt;/code&gt; is overly complex (cyclomatic complexity = 11) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>2172</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormat parseOntology(org.semanticweb.owlapi.model.OWLOntology ont)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;parseOntology&lt;/code&gt; is overly complex (cyclomatic complexity = 26) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>2729</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser org.semanticweb.owlapi.model.OWLAxiom parseAxiomWithObjectPropertyStart()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;parseAxiomWithObjectPropertyStart&lt;/code&gt; is overly complex (cyclomatic complexity = 15) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>2094</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser void processDeclaredEntities()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;processDeclaredEntities&lt;/code&gt; is overly complex (cyclomatic complexity = 18) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>2277</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxOntologyHeader parseOntologyHeader(boolean toEOF)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;parseOntologyHeader&lt;/code&gt; is overly complex (cyclomatic complexity = 13) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>634</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser org.semanticweb.owlapi.model.OWLClassExpression parseObjectRestriction()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;parseObjectRestriction&lt;/code&gt; is overly complex (cyclomatic complexity = 14) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>2576</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser org.semanticweb.owlapi.model.OWLAxiom parseAxiom()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;parseAxiom&lt;/code&gt; is overly complex (cyclomatic complexity = 15) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/renderer/ManchesterOWLSyntaxFrameRenderer.java</file>
+    <line>1318</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.renderer.ManchesterOWLSyntaxFrameRenderer void writeSection(org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntax keyword, org.semanticweb.owlapi.mansyntax.renderer.ManchesterOWLSyntaxFrameRenderer.SectionMap&lt;java.lang.Object,org.semanticweb.owlapi.model.OWLAxiom&gt; content, java.lang.String delimeter, boolean newline, org.semanticweb.owlapi.model.OWLOntology... ontologiesList)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;writeSection&lt;/code&gt; is overly complex (cyclomatic complexity = 16) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/renderer/ManchesterOWLSyntaxFrameRenderer.java</file>
+    <line>558</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.renderer.ManchesterOWLSyntaxFrameRenderer java.util.Set&lt;org.semanticweb.owlapi.model.OWLAxiom&gt; write(org.semanticweb.owlapi.model.OWLClass cls)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;write&lt;/code&gt; is overly complex (cyclomatic complexity = 40) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/renderer/ManchesterOWLSyntaxFrameRenderer.java</file>
+    <line>1196</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.renderer.ManchesterOWLSyntaxFrameRenderer java.util.Set&lt;org.semanticweb.owlapi.model.OWLAxiom&gt; write(org.semanticweb.owlapi.model.OWLAnnotationProperty property)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;write&lt;/code&gt; is overly complex (cyclomatic complexity = 17) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/renderer/ManchesterOWLSyntaxFrameRenderer.java</file>
+    <line>929</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.renderer.ManchesterOWLSyntaxFrameRenderer java.util.Set&lt;org.semanticweb.owlapi.model.OWLAxiom&gt; write(org.semanticweb.owlapi.model.OWLDataProperty property)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;write&lt;/code&gt; is overly complex (cyclomatic complexity = 31) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/renderer/ManchesterOWLSyntaxFrameRenderer.java</file>
+    <line>1039</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.renderer.ManchesterOWLSyntaxFrameRenderer java.util.Set&lt;org.semanticweb.owlapi.model.OWLAxiom&gt; write(org.semanticweb.owlapi.model.OWLIndividual individual)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;write&lt;/code&gt; is overly complex (cyclomatic complexity = 22) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/renderer/ManchesterOWLSyntaxFrameRenderer.java</file>
+    <line>718</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.renderer.ManchesterOWLSyntaxFrameRenderer java.util.Set&lt;org.semanticweb.owlapi.model.OWLAxiom&gt; write(org.semanticweb.owlapi.model.OWLObjectPropertyExpression property)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;write&lt;/code&gt; is overly complex (cyclomatic complexity = 62) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/renderer/ManchesterOWLSyntaxFrameRenderer.java</file>
+    <line>307</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.renderer.ManchesterOWLSyntaxFrameRenderer void writeOntology()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;writeOntology&lt;/code&gt; is overly complex (cyclomatic complexity = 25) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/ParseException.java</file>
+    <line>91</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.functional.parser.ParseException java.lang.String add_escapes(java.lang.String str)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;add_escapes&lt;/code&gt; is overly complex (cyclomatic complexity = 13) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/TokenMgrError.java</file>
+    <line>28</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.functional.parser.TokenMgrError java.lang.String addEscapes(java.lang.String str)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;addEscapes&lt;/code&gt; is overly complex (cyclomatic complexity = 13) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/EquivalentToTest.java</file>
+    <line>63</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.EquivalentToTest void checkOBODoc(org.obolibrary.oboformat.model.OBODoc obodoc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;checkOBODoc&lt;/code&gt; is overly complex (cyclomatic complexity = 13) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/RelationShorthandTest.java</file>
+    <line>27</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.RelationShorthandTest void testConvert()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;testConvert&lt;/code&gt; is overly complex (cyclomatic complexity = 12) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/baseclasses/TestBase.java</file>
+    <line>83</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.baseclasses</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.api.test.baseclasses.TestBase boolean equal(org.semanticweb.owlapi.model.OWLOntology ont1, org.semanticweb.owlapi.model.OWLOntology ont2)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;equal&lt;/code&gt; is overly complex (cyclomatic complexity = 11) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/profiles/test/ProfileValidationTestCase.java</file>
+    <line>56</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.profiles.test</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.profiles.test.ProfileValidationTestCase void testProfiles()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;testProfiles&lt;/code&gt; is overly complex (cyclomatic complexity = 13) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/uk/ac/manchester/cs/owlapi/modularity/SyntacticLocalityModuleExtractor.java</file>
+    <line>470</line>
+    <module>owlapi-tools</module>
+    <package>uk.ac.manchester.cs.owlapi.modularity</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owlapi.modularity.SyntacticLocalityModuleExtractor java.util.Set&lt;org.semanticweb.owlapi.model.OWLAxiom&gt; enrich(java.util.Set&lt;org.semanticweb.owlapi.model.OWLAxiom&gt; module, java.util.Set&lt;org.semanticweb.owlapi.model.OWLEntity&gt; sig, boolean verbose)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;enrich&lt;/code&gt; is overly complex (cyclomatic complexity = 13) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>433</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.AxiomLocalityVisitor void visit(org.semanticweb.owlapi.model.OWLDisjointUnionAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;visit&lt;/code&gt; is overly complex (cyclomatic complexity = 12) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/explanation/BlackBoxExplanation.java</file>
+    <line>150</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.explanation</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.explanation.BlackBoxExplanation int expandAxioms()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;expandAxioms&lt;/code&gt; is overly complex (cyclomatic complexity = 12) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/org/semanticweb/owlapi/debugging/BlackBoxOWLDebugger.java</file>
+    <line>178</line>
+    <module>owlapi-tools</module>
+    <package>org.semanticweb.owlapi.debugging</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.debugging.BlackBoxOWLDebugger int expandAxioms()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly complex method</problem_class>
+    <description>&lt;code&gt;expandAxioms&lt;/code&gt; is overly complex (cyclomatic complexity = 12) #loc</description>
+  </problem>
+</problems>
+

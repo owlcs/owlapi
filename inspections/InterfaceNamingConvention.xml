@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/HasLang.java</file>
+    <line>19</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.HasLang" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Interface naming convention</problem_class>
+    <description>Interface name &lt;code&gt;HasLang&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/HasIRI.java</file>
+    <line>22</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.HasIRI" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Interface naming convention</problem_class>
+    <description>Interface name &lt;code&gt;HasIRI&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/reasoner/Node.java</file>
+    <line>60</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.reasoner</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.reasoner.Node" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Interface naming convention</problem_class>
+    <description>Interface name &lt;code&gt;Node&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/reasoner/NodeSet.java</file>
+    <line>30</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.reasoner</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.reasoner.NodeSet" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Interface naming convention</problem_class>
+    <description>Interface name &lt;code&gt;NodeSet&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/State.java</file>
+    <line>21</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.State" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Interface naming convention</problem_class>
+    <description>Interface name &lt;code&gt;State&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/Node.java</file>
+    <line>17</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.functional.parser.Node" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Interface naming convention</problem_class>
+    <description>Interface name &lt;code&gt;Node&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/uk/ac/manchester/cs/owl/explanation/ordering/Tree.java</file>
+    <line>29</line>
+    <module>owlapi-tools</module>
+    <package>uk.ac.manchester.cs.owl.explanation.ordering</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.explanation.ordering.Tree" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Interface naming convention</problem_class>
+    <description>Interface name &lt;code&gt;Tree&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/Builder.java</file>
+    <line>29</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapitools.builders.Builder" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Interface naming convention</problem_class>
+    <description>Interface name &lt;code&gt;Builder&lt;/code&gt; is too short #loc</description>
+  </problem>
+</problems>
+

@@ -52,7 +52,7 @@ public class NodeIDTestCase {
         assertTrue(NodeID.isAnonymousNodeID("_:genid-nodeid-_something"));
         assertFalse(NodeID
                 .isAnonymousNodeID("http://sometest_genid-nodeid-_something"));
-        assertFalse(NodeID.isAnonymousNodeID((String) null));
+        assertFalse(NodeID.isAnonymousNodeID(null));
     }
 
     @Test
@@ -61,9 +61,9 @@ public class NodeIDTestCase {
                 "_:sometest_genid_something").getID()));
         assertTrue(NodeID.isAnonymousNodeIRI(NodeID.getNodeID(
                 "http://sometest_genid_something").getID()));
-        assertTrue(NodeID.isAnonymousNodeIRI(NodeID.getNodeID((String) null)
+        assertTrue(NodeID.isAnonymousNodeIRI(NodeID.getNodeID(null)
                 .getID()));
-        NodeID id = NodeID.getNodeID((String) null);
+        NodeID id = NodeID.getNodeID(null);
         assertEquals(id.getID(), id.toString());
         assertEquals(NodeID.getNodeID("somestring"),
                 NodeID.getNodeID("somestring"));

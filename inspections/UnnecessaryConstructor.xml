@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/rio/src/main/java/org/semanticweb/owlapi/rio/RioAnonymousNodeChecker.java</file>
+    <line>51</line>
+    <module>owlapi-rio</module>
+    <package>org.semanticweb.owlapi.rio</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rio.RioAnonymousNodeChecker RioAnonymousNodeChecker()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Redundant no-arg constructor</problem_class>
+    <description>No-arg constructor &lt;code&gt;RioAnonymousNodeChecker()&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/model/OBODoc.java</file>
+    <line>39</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.model</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.model.OBODoc OBODoc()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Redundant no-arg constructor</problem_class>
+    <description>No-arg constructor &lt;code&gt;OBODoc()&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/TripleHandlers.java</file>
+    <line>961</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.TripleHandlers.AbstractTripleHandler.DataRangeMatcher DataRangeMatcher()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Redundant no-arg constructor</problem_class>
+    <description>No-arg constructor &lt;code&gt;DataRangeMatcher()&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/TripleHandlers.java</file>
+    <line>951</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.TripleHandlers.AbstractTripleHandler.ClassExpressionMatcher ClassExpressionMatcher()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Redundant no-arg constructor</problem_class>
+    <description>No-arg constructor &lt;code&gt;ClassExpressionMatcher()&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/TripleHandlers.java</file>
+    <line>971</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.TripleHandlers.AbstractTripleHandler.IndividualMatcher IndividualMatcher()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Redundant no-arg constructor</problem_class>
+    <description>No-arg constructor &lt;code&gt;IndividualMatcher()&lt;/code&gt; is redundant #loc</description>
+  </problem>
+</problems>
+

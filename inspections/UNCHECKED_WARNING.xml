@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLObjectImpl.java</file>
+    <line>219</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLObjectImpl int compareSets(java.util.Collection&lt;? extends org.semanticweb.owlapi.model.OWLObject&gt; set1, java.util.Collection&lt;? extends org.semanticweb.owlapi.model.OWLObject&gt; set2)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unchecked warning</problem_class>
+    <description>Unchecked cast: 'java.util.Collection&lt;capture&lt;? extends org.semanticweb.owlapi.model.OWLObject&gt;&gt;' to 'java.util.SortedSet&lt;? extends org.semanticweb.owlapi.model.OWLObject&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLObjectImpl.java</file>
+    <line>225</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLObjectImpl int compareSets(java.util.Collection&lt;? extends org.semanticweb.owlapi.model.OWLObject&gt; set1, java.util.Collection&lt;? extends org.semanticweb.owlapi.model.OWLObject&gt; set2)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unchecked warning</problem_class>
+    <description>Unchecked cast: 'java.util.Collection&lt;capture&lt;? extends org.semanticweb.owlapi.model.OWLObject&gt;&gt;' to 'java.util.SortedSet&lt;? extends org.semanticweb.owlapi.model.OWLObject&gt;'</description>
+  </problem>
+</problems>
+

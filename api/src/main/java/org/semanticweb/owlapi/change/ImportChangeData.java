@@ -39,7 +39,7 @@ public abstract class ImportChangeData extends
     private final OWLImportsDeclaration declaration;
 
     /**
-     * Constructs an {@link ImportChangeData} object that describes an
+     * Constructs an {@code ImportChangeData} object that describes an
      * {@link org.semanticweb.owlapi.model.ImportChange} based on the
      * {@link OWLImportsDeclaration} specified by the {@code declaration}
      * parameter.

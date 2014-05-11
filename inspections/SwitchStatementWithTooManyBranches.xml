@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/BOMSafeJavaCharStream.java</file>
+    <line>33</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.BOMSafeJavaCharStream int hexval(char c)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement with too many branches</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; has too many branches (23) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1122</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa13_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement with too many branches</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; has too many branches (14) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>744</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa7_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement with too many branches</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; has too many branches (21) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>232</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa2_0(long old0, long _active0, long old1, long _active1)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement with too many branches</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; has too many branches (29) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>124</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa1_0(long active0, long active1)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement with too many branches</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; has too many branches (28) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>483</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa4_0(long old0, long _active0, long old1, long _active1)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement with too many branches</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; has too many branches (24) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>562</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa5_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement with too many branches</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; has too many branches (20) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1575</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveNfa_0(int startState, int _curPos)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement with too many branches</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; has too many branches (47) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>903</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa9_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement with too many branches</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; has too many branches (19) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1081</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa12_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement with too many branches</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; has too many branches (13) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>34</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa0_0()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement with too many branches</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; has too many branches (33) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1038</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa11_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement with too many branches</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; has too many branches (12) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>854</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa8_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement with too many branches</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; has too many branches (17) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>367</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa3_0(long old0, long _active0, long old1, long _active1)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement with too many branches</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; has too many branches (28) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>979</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa10_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement with too many branches</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; has too many branches (18) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>629</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa6_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement with too many branches</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; has too many branches (22) #loc</description>
+  </problem>
+</problems>
+

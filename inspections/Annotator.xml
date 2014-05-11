@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/main/java/uk/ac/manchester/owl/owlapi/tutorialowled2011/Formatter.java</file>
+    <line>38</line>
+    <module>owlapi-contract</module>
+    <package>uk.ac.manchester.owl.owlapi.tutorialowled2011</package>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/contract/src/main/java/uk/ac/manchester/owl/owlapi/tutorialowled2011/Formatter.java" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Annotator</problem_class>
+    <description>Redundant character escape #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/main/java/uk/ac/manchester/owl/owlapi/tutorialowled2011/Formatter.java</file>
+    <line>38</line>
+    <module>owlapi-contract</module>
+    <package>uk.ac.manchester.owl.owlapi.tutorialowled2011</package>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/contract/src/main/java/uk/ac/manchester/owl/owlapi/tutorialowled2011/Formatter.java" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Annotator</problem_class>
+    <description>Redundant character escape #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/bin/META-INF/services/org.openrdf.rio.RDFParserFactory</file>
+    <line>1</line>
+    <module>owlapi-parent</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/bin/META-INF/services/org.openrdf.rio.RDFParserFactory" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Annotator</problem_class>
+    <description>Cannot resolve symbol org.semanticweb.owlapi.rio.RioFunctionalSyntaxParserFactory #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/bin/META-INF/services/org.openrdf.rio.RDFParserFactory</file>
+    <line>2</line>
+    <module>owlapi-parent</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/bin/META-INF/services/org.openrdf.rio.RDFParserFactory" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Annotator</problem_class>
+    <description>Cannot resolve symbol org.semanticweb.owlapi.rio.RioManchesterSyntaxParserFactory #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/bin/META-INF/services/org.openrdf.rio.RDFParserFactory</file>
+    <line>3</line>
+    <module>owlapi-parent</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/bin/META-INF/services/org.openrdf.rio.RDFParserFactory" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Annotator</problem_class>
+    <description>Cannot resolve symbol org.semanticweb.owlapi.rio.RioOWLXMLParserFactory #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/bin/META-INF/services/org.openrdf.rio.RDFParserFactory</file>
+    <line>1</line>
+    <module>owlapi-parent</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/bin/META-INF/services/org.openrdf.rio.RDFParserFactory" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Annotator</problem_class>
+    <description>No service provider &quot;org.openrdf.rio.RDFParserFactory' found #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.model.OWLOntologyFormatFactory</file>
+    <line>1</line>
+    <module>owlapi-parent</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.model.OWLOntologyFormatFactory" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Annotator</problem_class>
+    <description>Cannot resolve symbol org.semanticweb.owlapi.formats.BinaryRDFOntologyFormatFactory #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.model.OWLOntologyFormatFactory</file>
+    <line>2</line>
+    <module>owlapi-parent</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.model.OWLOntologyFormatFactory" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Annotator</problem_class>
+    <description>Cannot resolve symbol org.semanticweb.owlapi.formats.N3OntologyFormatFactory #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.model.OWLOntologyFormatFactory</file>
+    <line>3</line>
+    <module>owlapi-parent</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.model.OWLOntologyFormatFactory" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Annotator</problem_class>
+    <description>Cannot resolve symbol org.semanticweb.owlapi.formats.NQuadsOntologyFormatFactory #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.model.OWLOntologyFormatFactory</file>
+    <line>4</line>
+    <module>owlapi-parent</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.model.OWLOntologyFormatFactory" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Annotator</problem_class>
+    <description>Cannot resolve symbol org.semanticweb.owlapi.formats.NTriplesOntologyFormatFactory #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.model.OWLOntologyFormatFactory</file>
+    <line>5</line>
+    <module>owlapi-parent</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.model.OWLOntologyFormatFactory" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Annotator</problem_class>
+    <description>Cannot resolve symbol org.semanticweb.owlapi.formats.RDFaOntologyFormatFactory #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.model.OWLOntologyFormatFactory</file>
+    <line>6</line>
+    <module>owlapi-parent</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.model.OWLOntologyFormatFactory" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Annotator</problem_class>
+    <description>Cannot resolve symbol org.semanticweb.owlapi.formats.RDFJsonLDOntologyFormatFactory #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.model.OWLOntologyFormatFactory</file>
+    <line>7</line>
+    <module>owlapi-parent</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.model.OWLOntologyFormatFactory" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Annotator</problem_class>
+    <description>Cannot resolve symbol org.semanticweb.owlapi.formats.RDFJsonOntologyFormatFactory #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.model.OWLOntologyFormatFactory</file>
+    <line>8</line>
+    <module>owlapi-parent</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.model.OWLOntologyFormatFactory" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Annotator</problem_class>
+    <description>Cannot resolve symbol org.semanticweb.owlapi.formats.RioRDFXMLOntologyFormatFactory #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.model.OWLOntologyFormatFactory</file>
+    <line>9</line>
+    <module>owlapi-parent</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.model.OWLOntologyFormatFactory" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Annotator</problem_class>
+    <description>Cannot resolve symbol org.semanticweb.owlapi.formats.RioTurtleOntologyFormatFactory #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.model.OWLOntologyFormatFactory</file>
+    <line>10</line>
+    <module>owlapi-parent</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.model.OWLOntologyFormatFactory" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Annotator</problem_class>
+    <description>Cannot resolve symbol org.semanticweb.owlapi.formats.TrigOntologyFormatFactory #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.model.OWLOntologyFormatFactory</file>
+    <line>11</line>
+    <module>owlapi-parent</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.model.OWLOntologyFormatFactory" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Annotator</problem_class>
+    <description>Cannot resolve symbol org.semanticweb.owlapi.formats.TrixOntologyFormatFactory #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.model.OWLOntologyFormatFactory</file>
+    <line>1</line>
+    <module>owlapi-parent</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.model.OWLOntologyFormatFactory" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Annotator</problem_class>
+    <description>No service provider &quot;org.semanticweb.owlapi.model.OWLOntologyFormatFactory' found #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.model.OWLOntologyManagerFactory</file>
+    <line>1</line>
+    <module>owlapi-parent</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.model.OWLOntologyManagerFactory" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Annotator</problem_class>
+    <description>Cannot resolve symbol org.semanticweb.owlapi.apibinding.OWLManager #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.model.OWLOntologyManagerFactory</file>
+    <line>1</line>
+    <module>owlapi-parent</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.model.OWLOntologyManagerFactory" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Annotator</problem_class>
+    <description>No service provider &quot;org.semanticweb.owlapi.model.OWLOntologyManagerFactory' found #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.model.OWLOntologyStorerFactory</file>
+    <line>1</line>
+    <module>owlapi-parent</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.model.OWLOntologyStorerFactory" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Annotator</problem_class>
+    <description>Cannot resolve symbol org.semanticweb.owlapi.rio.RioBinaryRdfOntologyStorerFactory #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.model.OWLOntologyStorerFactory</file>
+    <line>2</line>
+    <module>owlapi-parent</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.model.OWLOntologyStorerFactory" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Annotator</problem_class>
+    <description>Cannot resolve symbol org.semanticweb.owlapi.rio.RioJsonLDOntologyStorerFactory #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.model.OWLOntologyStorerFactory</file>
+    <line>3</line>
+    <module>owlapi-parent</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.model.OWLOntologyStorerFactory" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Annotator</problem_class>
+    <description>Cannot resolve symbol org.semanticweb.owlapi.rio.RioJsonOntologyStorerFactory #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.model.OWLOntologyStorerFactory</file>
+    <line>4</line>
+    <module>owlapi-parent</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.model.OWLOntologyStorerFactory" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Annotator</problem_class>
+    <description>Cannot resolve symbol org.semanticweb.owlapi.rio.RioN3OntologyStorerFactory #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.model.OWLOntologyStorerFactory</file>
+    <line>5</line>
+    <module>owlapi-parent</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.model.OWLOntologyStorerFactory" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Annotator</problem_class>
+    <description>Cannot resolve symbol org.semanticweb.owlapi.rio.RioNQuadsOntologyStorerFactory #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.model.OWLOntologyStorerFactory</file>
+    <line>6</line>
+    <module>owlapi-parent</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.model.OWLOntologyStorerFactory" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Annotator</problem_class>
+    <description>Cannot resolve symbol org.semanticweb.owlapi.rio.RioNTriplesOntologyStorerFactory #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.model.OWLOntologyStorerFactory</file>
+    <line>7</line>
+    <module>owlapi-parent</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.model.OWLOntologyStorerFactory" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Annotator</problem_class>
+    <description>Cannot resolve symbol org.semanticweb.owlapi.rio.RioRDFXMLOntologyStorerFactory #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.model.OWLOntologyStorerFactory</file>
+    <line>8</line>
+    <module>owlapi-parent</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.model.OWLOntologyStorerFactory" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Annotator</problem_class>
+    <description>Cannot resolve symbol org.semanticweb.owlapi.rio.RioTrigOntologyStorerFactory #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.model.OWLOntologyStorerFactory</file>
+    <line>9</line>
+    <module>owlapi-parent</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.model.OWLOntologyStorerFactory" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Annotator</problem_class>
+    <description>Cannot resolve symbol org.semanticweb.owlapi.rio.RioTrixOntologyStorerFactory #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.model.OWLOntologyStorerFactory</file>
+    <line>10</line>
+    <module>owlapi-parent</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.model.OWLOntologyStorerFactory" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Annotator</problem_class>
+    <description>Cannot resolve symbol org.semanticweb.owlapi.rio.RioTurtleOntologyStorerFactory #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.model.OWLOntologyStorerFactory</file>
+    <line>1</line>
+    <module>owlapi-parent</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.model.OWLOntologyStorerFactory" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Annotator</problem_class>
+    <description>No service provider &quot;org.semanticweb.owlapi.model.OWLOntologyStorerFactory' found #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.io.OWLParserFactory</file>
+    <line>1</line>
+    <module>owlapi-parent</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.io.OWLParserFactory" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Annotator</problem_class>
+    <description>Cannot resolve symbol org.semanticweb.owlapi.rio.RioBinaryRdfParserFactory #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.io.OWLParserFactory</file>
+    <line>2</line>
+    <module>owlapi-parent</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.io.OWLParserFactory" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Annotator</problem_class>
+    <description>Cannot resolve symbol org.semanticweb.owlapi.rio.RioJsonLDParserFactory #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.io.OWLParserFactory</file>
+    <line>3</line>
+    <module>owlapi-parent</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.io.OWLParserFactory" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Annotator</problem_class>
+    <description>Cannot resolve symbol org.semanticweb.owlapi.rio.RioJsonParserFactory #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.io.OWLParserFactory</file>
+    <line>4</line>
+    <module>owlapi-parent</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.io.OWLParserFactory" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Annotator</problem_class>
+    <description>Cannot resolve symbol org.semanticweb.owlapi.rio.RioN3ParserFactory #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.io.OWLParserFactory</file>
+    <line>5</line>
+    <module>owlapi-parent</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.io.OWLParserFactory" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Annotator</problem_class>
+    <description>Cannot resolve symbol org.semanticweb.owlapi.rio.RioNQuadsParserFactory #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.io.OWLParserFactory</file>
+    <line>6</line>
+    <module>owlapi-parent</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.io.OWLParserFactory" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Annotator</problem_class>
+    <description>Cannot resolve symbol org.semanticweb.owlapi.rio.RioNTriplesParserFactory #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.io.OWLParserFactory</file>
+    <line>7</line>
+    <module>owlapi-parent</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.io.OWLParserFactory" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Annotator</problem_class>
+    <description>Cannot resolve symbol org.semanticweb.owlapi.rio.RioRDFaParserFactory #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.io.OWLParserFactory</file>
+    <line>8</line>
+    <module>owlapi-parent</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.io.OWLParserFactory" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Annotator</problem_class>
+    <description>Cannot resolve symbol org.semanticweb.owlapi.rio.RioRDFXMLParserFactory #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.io.OWLParserFactory</file>
+    <line>9</line>
+    <module>owlapi-parent</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.io.OWLParserFactory" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Annotator</problem_class>
+    <description>Cannot resolve symbol org.semanticweb.owlapi.rio.RioTrigParserFactory #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.io.OWLParserFactory</file>
+    <line>10</line>
+    <module>owlapi-parent</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.io.OWLParserFactory" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Annotator</problem_class>
+    <description>Cannot resolve symbol org.semanticweb.owlapi.rio.RioTrixParserFactory #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.io.OWLParserFactory</file>
+    <line>11</line>
+    <module>owlapi-parent</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.io.OWLParserFactory" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Annotator</problem_class>
+    <description>Cannot resolve symbol org.semanticweb.owlapi.rio.RioTurtleParserFactory #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.io.OWLParserFactory</file>
+    <line>1</line>
+    <module>owlapi-parent</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/bin/META-INF/services/org.semanticweb.owlapi.io.OWLParserFactory" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Annotator</problem_class>
+    <description>No service provider &quot;org.semanticweb.owlapi.io.OWLParserFactory' found #loc</description>
+  </problem>
+</problems>
+

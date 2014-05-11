@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/rdf/TestUndeclaredAnnotation.java</file>
+    <line>21</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.rdf</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.rdf.TestUndeclaredAnnotation" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Default File Template Usage</problem_class>
+    <description>Default File template</description>
+  </problem>
+</problems>
+

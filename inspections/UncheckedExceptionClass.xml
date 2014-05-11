@@ -1,0 +1,463 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/io/OWLOntologyInputSourceException.java</file>
+    <line>22</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.io</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.io.OWLOntologyInputSourceException" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unchecked exception class</problem_class>
+    <description>Unchecked exception class &lt;code&gt;OWLOntologyInputSourceException&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/io/OWLParserException.java</file>
+    <line>24</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.io</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.io.OWLParserException" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unchecked exception class</problem_class>
+    <description>Unchecked exception class &lt;code&gt;OWLParserException&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLOntologyIRIMappingNotFoundException.java</file>
+    <line>26</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLOntologyIRIMappingNotFoundException" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unchecked exception class</problem_class>
+    <description>Unchecked exception class &lt;code&gt;OWLOntologyIRIMappingNotFoundException&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLOntologyChangeVetoException.java</file>
+    <line>23</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLOntologyChangeVetoException" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unchecked exception class</problem_class>
+    <description>Unchecked exception class &lt;code&gt;OWLOntologyChangeVetoException&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/EDTChangeBroadcastStrategy.java</file>
+    <line>64</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.EDTChangeBroadcastStrategy.BroadcastException" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unchecked exception class</problem_class>
+    <description>Unchecked exception class &lt;code&gt;BroadcastException&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLOntologyRenameException.java</file>
+    <line>24</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLOntologyRenameException" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unchecked exception class</problem_class>
+    <description>Unchecked exception class &lt;code&gt;OWLOntologyRenameException&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLOntologyFactoryNotFoundException.java</file>
+    <line>22</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLOntologyFactoryNotFoundException" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unchecked exception class</problem_class>
+    <description>Unchecked exception class &lt;code&gt;OWLOntologyFactoryNotFoundException&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLRuntimeException.java</file>
+    <line>22</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLRuntimeException" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unchecked exception class</problem_class>
+    <description>Unchecked exception class &lt;code&gt;OWLRuntimeException&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/UnloadableImportException.java</file>
+    <line>22</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.UnloadableImportException" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unchecked exception class</problem_class>
+    <description>Unchecked exception class &lt;code&gt;UnloadableImportException&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/UnknownOWLOntologyException.java</file>
+    <line>20</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.UnknownOWLOntologyException" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unchecked exception class</problem_class>
+    <description>Unchecked exception class &lt;code&gt;UnknownOWLOntologyException&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLOntologyResourceAccessException.java</file>
+    <line>31</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLOntologyResourceAccessException" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unchecked exception class</problem_class>
+    <description>Unchecked exception class &lt;code&gt;OWLOntologyResourceAccessException&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/ImmutableOWLOntologyChangeException.java</file>
+    <line>25</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.ImmutableOWLOntologyChangeException" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unchecked exception class</problem_class>
+    <description>Unchecked exception class &lt;code&gt;ImmutableOWLOntologyChangeException&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLOntologyChangeException.java</file>
+    <line>23</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLOntologyChangeException" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unchecked exception class</problem_class>
+    <description>Unchecked exception class &lt;code&gt;OWLOntologyChangeException&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/reasoner/OWLReasonerRuntimeException.java</file>
+    <line>22</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.reasoner</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.reasoner.OWLReasonerRuntimeException" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unchecked exception class</problem_class>
+    <description>Unchecked exception class &lt;code&gt;OWLReasonerRuntimeException&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/reasoner/ReasonerInterruptedException.java</file>
+    <line>22</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.reasoner</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.reasoner.ReasonerInterruptedException" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unchecked exception class</problem_class>
+    <description>Unchecked exception class &lt;code&gt;ReasonerInterruptedException&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/reasoner/FreshEntitiesException.java</file>
+    <line>32</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.reasoner</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.reasoner.FreshEntitiesException" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unchecked exception class</problem_class>
+    <description>Unchecked exception class &lt;code&gt;FreshEntitiesException&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/reasoner/ReasonerInternalException.java</file>
+    <line>30</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.reasoner</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.reasoner.ReasonerInternalException" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unchecked exception class</problem_class>
+    <description>Unchecked exception class &lt;code&gt;ReasonerInternalException&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/reasoner/ClassExpressionNotInProfileException.java</file>
+    <line>22</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.reasoner</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.reasoner.ClassExpressionNotInProfileException" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unchecked exception class</problem_class>
+    <description>Unchecked exception class &lt;code&gt;ClassExpressionNotInProfileException&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/reasoner/IllegalConfigurationException.java</file>
+    <line>20</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.reasoner</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.reasoner.IllegalConfigurationException" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unchecked exception class</problem_class>
+    <description>Unchecked exception class &lt;code&gt;IllegalConfigurationException&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/reasoner/UnsupportedEntailmentTypeException.java</file>
+    <line>23</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.reasoner</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.reasoner.UnsupportedEntailmentTypeException" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unchecked exception class</problem_class>
+    <description>Unchecked exception class &lt;code&gt;UnsupportedEntailmentTypeException&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/reasoner/AxiomNotInProfileException.java</file>
+    <line>23</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.reasoner</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.reasoner.AxiomNotInProfileException" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unchecked exception class</problem_class>
+    <description>Unchecked exception class &lt;code&gt;AxiomNotInProfileException&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/reasoner/ImportsClosureNotInProfileException.java</file>
+    <line>26</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.reasoner</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.reasoner.ImportsClosureNotInProfileException" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unchecked exception class</problem_class>
+    <description>Unchecked exception class &lt;code&gt;ImportsClosureNotInProfileException&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/reasoner/TimeOutException.java</file>
+    <line>23</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.reasoner</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.reasoner.TimeOutException" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unchecked exception class</problem_class>
+    <description>Unchecked exception class &lt;code&gt;TimeOutException&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/reasoner/InconsistentOntologyException.java</file>
+    <line>26</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.reasoner</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.reasoner.InconsistentOntologyException" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unchecked exception class</problem_class>
+    <description>Unchecked exception class &lt;code&gt;InconsistentOntologyException&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/OBOFormatException.java</file>
+    <line>6</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="class" FQNAME="org.obolibrary.oboformat.parser.OBOFormatException" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unchecked exception class</problem_class>
+    <description>Unchecked exception class &lt;code&gt;OBOFormatException&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/InvalidXrefMapException.java</file>
+    <line>4</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="class" FQNAME="org.obolibrary.oboformat.parser.InvalidXrefMapException" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unchecked exception class</problem_class>
+    <description>Unchecked exception class &lt;code&gt;InvalidXrefMapException&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/OBOFormatDanglingReferenceException.java</file>
+    <line>4</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="class" FQNAME="org.obolibrary.oboformat.parser.OBOFormatDanglingReferenceException" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unchecked exception class</problem_class>
+    <description>Unchecked exception class &lt;code&gt;OBOFormatDanglingReferenceException&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/OBOFormatParserException.java</file>
+    <line>6</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="class" FQNAME="org.obolibrary.oboformat.parser.OBOFormatParserException" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unchecked exception class</problem_class>
+    <description>Unchecked exception class &lt;code&gt;OBOFormatParserException&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/OWLRDFXMLParserMalformedNodeException.java</file>
+    <line>22</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFXMLParserMalformedNodeException" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unchecked exception class</problem_class>
+    <description>Unchecked exception class &lt;code&gt;OWLRDFXMLParserMalformedNodeException&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/TranslatedUnloadableImportException.java</file>
+    <line>23</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.TranslatedUnloadableImportException" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unchecked exception class</problem_class>
+    <description>Unchecked exception class &lt;code&gt;TranslatedUnloadableImportException&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/TranslatedOntologyChangeException.java</file>
+    <line>23</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.TranslatedOntologyChangeException" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unchecked exception class</problem_class>
+    <description>Unchecked exception class &lt;code&gt;TranslatedOntologyChangeException&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/OWLRDFXMLParserException.java</file>
+    <line>24</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFXMLParserException" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unchecked exception class</problem_class>
+    <description>Unchecked exception class &lt;code&gt;OWLRDFXMLParserException&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/RDFParserException.java</file>
+    <line>21</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.RDFParserException" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unchecked exception class</problem_class>
+    <description>Unchecked exception class &lt;code&gt;RDFParserException&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/renderer/IllegalElementNameException.java</file>
+    <line>25</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.renderer</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.renderer.IllegalElementNameException" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unchecked exception class</problem_class>
+    <description>Unchecked exception class &lt;code&gt;IllegalElementNameException&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/turtle/parser/ParseException.java</file>
+    <line>19</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.turtle.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.rdf.turtle.parser.ParseException" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unchecked exception class</problem_class>
+    <description>Unchecked exception class &lt;code&gt;ParseException&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/turtle/parser/TurtleParserException.java</file>
+    <line>24</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.turtle.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.rdf.turtle.parser.TurtleParserException" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unchecked exception class</problem_class>
+    <description>Unchecked exception class &lt;code&gt;TurtleParserException&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/ParseException.java</file>
+    <line>19</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.krss1.parser.ParseException" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unchecked exception class</problem_class>
+    <description>Unchecked exception class &lt;code&gt;ParseException&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/KRSSOWLParserException.java</file>
+    <line>22</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.krss1.parser.KRSSOWLParserException" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unchecked exception class</problem_class>
+    <description>Unchecked exception class &lt;code&gt;KRSSOWLParserException&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/TokenMgrError.java</file>
+    <line>19</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.krss1.parser.TokenMgrError" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unchecked exception class</problem_class>
+    <description>Unchecked exception class &lt;code&gt;TokenMgrError&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2OWLParserException.java</file>
+    <line>18</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2OWLParserException" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unchecked exception class</problem_class>
+    <description>Unchecked exception class &lt;code&gt;KRSS2OWLParserException&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/ParseException.java</file>
+    <line>19</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.krss2.parser.ParseException" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unchecked exception class</problem_class>
+    <description>Unchecked exception class &lt;code&gt;ParseException&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/TokenMgrError.java</file>
+    <line>19</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.krss2.parser.TokenMgrError" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unchecked exception class</problem_class>
+    <description>Unchecked exception class &lt;code&gt;TokenMgrError&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/OWLXMLParserElementNotFoundException.java</file>
+    <line>22</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLXMLParserElementNotFoundException" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unchecked exception class</problem_class>
+    <description>Unchecked exception class &lt;code&gt;OWLXMLParserElementNotFoundException&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/OWLXMLParserException.java</file>
+    <line>24</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLXMLParserException" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unchecked exception class</problem_class>
+    <description>Unchecked exception class &lt;code&gt;OWLXMLParserException&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/OWLXMLParserAttributeNotFoundException.java</file>
+    <line>22</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLXMLParserAttributeNotFoundException" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unchecked exception class</problem_class>
+    <description>Unchecked exception class &lt;code&gt;OWLXMLParserAttributeNotFoundException&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/ParseException.java</file>
+    <line>19</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.ParseException" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unchecked exception class</problem_class>
+    <description>Unchecked exception class &lt;code&gt;ParseException&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/TokenMgrError.java</file>
+    <line>19</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.TokenMgrError" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unchecked exception class</problem_class>
+    <description>Unchecked exception class &lt;code&gt;TokenMgrError&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxParserException.java</file>
+    <line>22</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxParserException" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unchecked exception class</problem_class>
+    <description>Unchecked exception class &lt;code&gt;ManchesterOWLSyntaxParserException&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/renderer/ParserException.java</file>
+    <line>33</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.renderer</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.mansyntax.renderer.ParserException" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unchecked exception class</problem_class>
+    <description>Unchecked exception class &lt;code&gt;ParserException&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/ParseException.java</file>
+    <line>19</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.functional.parser.ParseException" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unchecked exception class</problem_class>
+    <description>Unchecked exception class &lt;code&gt;ParseException&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/TokenMgrError.java</file>
+    <line>19</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.functional.parser.TokenMgrError" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unchecked exception class</problem_class>
+    <description>Unchecked exception class &lt;code&gt;TokenMgrError&lt;/code&gt; #loc</description>
+  </problem>
+</problems>
+

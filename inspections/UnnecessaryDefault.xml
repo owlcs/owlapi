@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/vocab/OWL2Datatype.java</file>
+    <line>353</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.vocab</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.vocab.OWL2Datatype.WhiteSpaceNormalisation java.lang.String getNormalisedString(java.lang.String s)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary 'default' for enum 'switch' statement</problem_class>
+    <description>&lt;code&gt;default&lt;/code&gt; branch is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>1571</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.TopEquivalenceEvaluator void visit(org.semanticweb.owlapi.model.OWLObjectHasSelf desc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary 'default' for enum 'switch' statement</problem_class>
+    <description>&lt;code&gt;default&lt;/code&gt; branch is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>1177</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.BottomEquivalenceEvaluator void visit(org.semanticweb.owlapi.model.OWLObjectMinCardinality desc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary 'default' for enum 'switch' statement</problem_class>
+    <description>&lt;code&gt;default&lt;/code&gt; branch is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>1550</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.TopEquivalenceEvaluator void visit(org.semanticweb.owlapi.model.OWLObjectMinCardinality desc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary 'default' for enum 'switch' statement</problem_class>
+    <description>&lt;code&gt;default&lt;/code&gt; branch is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>1070</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.BottomEquivalenceEvaluator void visit(org.semanticweb.owlapi.model.OWLDataHasValue desc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary 'default' for enum 'switch' statement</problem_class>
+    <description>&lt;code&gt;default&lt;/code&gt; branch is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>1427</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.TopEquivalenceEvaluator void visit(org.semanticweb.owlapi.model.OWLDataSomeValuesFrom desc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary 'default' for enum 'switch' statement</problem_class>
+    <description>&lt;code&gt;default&lt;/code&gt; branch is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>1343</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.TopEquivalenceEvaluator void visit(org.semanticweb.owlapi.model.OWLDataAllValuesFrom desc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary 'default' for enum 'switch' statement</problem_class>
+    <description>&lt;code&gt;default&lt;/code&gt; branch is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>1589</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.TopEquivalenceEvaluator void visit(org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom desc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary 'default' for enum 'switch' statement</problem_class>
+    <description>&lt;code&gt;default&lt;/code&gt; branch is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>288</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.AxiomLocalityVisitor void visit(org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary 'default' for enum 'switch' statement</problem_class>
+    <description>&lt;code&gt;default&lt;/code&gt; branch is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>1378</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.TopEquivalenceEvaluator void visit(org.semanticweb.owlapi.model.OWLDataMaxCardinality desc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary 'default' for enum 'switch' statement</problem_class>
+    <description>&lt;code&gt;default&lt;/code&gt; branch is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>787</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.AxiomLocalityVisitor void visit(org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary 'default' for enum 'switch' statement</problem_class>
+    <description>&lt;code&gt;default&lt;/code&gt; branch is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>1215</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.BottomEquivalenceEvaluator void visit(org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom desc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary 'default' for enum 'switch' statement</problem_class>
+    <description>&lt;code&gt;default&lt;/code&gt; branch is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>1408</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.TopEquivalenceEvaluator void visit(org.semanticweb.owlapi.model.OWLDataMinCardinality desc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary 'default' for enum 'switch' statement</problem_class>
+    <description>&lt;code&gt;default&lt;/code&gt; branch is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>1526</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.TopEquivalenceEvaluator void visit(org.semanticweb.owlapi.model.OWLObjectMaxCardinality desc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary 'default' for enum 'switch' statement</problem_class>
+    <description>&lt;code&gt;default&lt;/code&gt; branch is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>1038</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.BottomEquivalenceEvaluator void visit(org.semanticweb.owlapi.model.OWLDataMinCardinality desc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary 'default' for enum 'switch' statement</problem_class>
+    <description>&lt;code&gt;default&lt;/code&gt; branch is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>770</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.AxiomLocalityVisitor void visit(org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary 'default' for enum 'switch' statement</problem_class>
+    <description>&lt;code&gt;default&lt;/code&gt; branch is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>1088</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.BottomEquivalenceEvaluator void visit(org.semanticweb.owlapi.model.OWLObjectAllValuesFrom desc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary 'default' for enum 'switch' statement</problem_class>
+    <description>&lt;code&gt;default&lt;/code&gt; branch is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>251</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.AxiomLocalityVisitor void visit(org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary 'default' for enum 'switch' statement</problem_class>
+    <description>&lt;code&gt;default&lt;/code&gt; branch is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>685</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.AxiomLocalityVisitor void visit(org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary 'default' for enum 'switch' statement</problem_class>
+    <description>&lt;code&gt;default&lt;/code&gt; branch is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>1361</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.TopEquivalenceEvaluator void visit(org.semanticweb.owlapi.model.OWLDataExactCardinality desc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary 'default' for enum 'switch' statement</problem_class>
+    <description>&lt;code&gt;default&lt;/code&gt; branch is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>1490</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.TopEquivalenceEvaluator void visit(org.semanticweb.owlapi.model.OWLObjectExactCardinality desc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary 'default' for enum 'switch' statement</problem_class>
+    <description>&lt;code&gt;default&lt;/code&gt; branch is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>1157</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.BottomEquivalenceEvaluator void visit(org.semanticweb.owlapi.model.OWLObjectMaxCardinality desc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary 'default' for enum 'switch' statement</problem_class>
+    <description>&lt;code&gt;default&lt;/code&gt; branch is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>588</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.AxiomLocalityVisitor void visit(org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary 'default' for enum 'switch' statement</problem_class>
+    <description>&lt;code&gt;default&lt;/code&gt; branch is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>483</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.AxiomLocalityVisitor void visit(org.semanticweb.owlapi.model.OWLDisjointUnionAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary 'default' for enum 'switch' statement</problem_class>
+    <description>&lt;code&gt;default&lt;/code&gt; branch is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>1461</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.TopEquivalenceEvaluator void visit(org.semanticweb.owlapi.model.OWLObjectAllValuesFrom desc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary 'default' for enum 'switch' statement</problem_class>
+    <description>&lt;code&gt;default&lt;/code&gt; branch is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>991</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.BottomEquivalenceEvaluator void visit(org.semanticweb.owlapi.model.OWLDataExactCardinality desc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary 'default' for enum 'switch' statement</problem_class>
+    <description>&lt;code&gt;default&lt;/code&gt; branch is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>423</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.AxiomLocalityVisitor void visit(org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary 'default' for enum 'switch' statement</problem_class>
+    <description>&lt;code&gt;default&lt;/code&gt; branch is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>1325</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.TopEquivalenceEvaluator void visit(org.semanticweb.owlapi.model.OWLClass desc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary 'default' for enum 'switch' statement</problem_class>
+    <description>&lt;code&gt;default&lt;/code&gt; branch is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>606</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.AxiomLocalityVisitor void visit(org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary 'default' for enum 'switch' statement</problem_class>
+    <description>&lt;code&gt;default&lt;/code&gt; branch is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>305</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.AxiomLocalityVisitor void visit(org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary 'default' for enum 'switch' statement</problem_class>
+    <description>&lt;code&gt;default&lt;/code&gt; branch is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>943</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.BottomEquivalenceEvaluator void visit(org.semanticweb.owlapi.model.OWLClass desc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary 'default' for enum 'switch' statement</problem_class>
+    <description>&lt;code&gt;default&lt;/code&gt; branch is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>751</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.AxiomLocalityVisitor void visit(org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary 'default' for enum 'switch' statement</problem_class>
+    <description>&lt;code&gt;default&lt;/code&gt; branch is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>1246</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.BottomEquivalenceEvaluator void visit(org.semanticweb.owlapi.model.OWLObjectHasValue desc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary 'default' for enum 'switch' statement</problem_class>
+    <description>&lt;code&gt;default&lt;/code&gt; branch is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>964</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.BottomEquivalenceEvaluator void visit(org.semanticweb.owlapi.model.OWLDataAllValuesFrom desc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary 'default' for enum 'switch' statement</problem_class>
+    <description>&lt;code&gt;default&lt;/code&gt; branch is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>1444</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.TopEquivalenceEvaluator void visit(org.semanticweb.owlapi.model.OWLDataHasValue desc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary 'default' for enum 'switch' statement</problem_class>
+    <description>&lt;code&gt;default&lt;/code&gt; branch is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>270</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.AxiomLocalityVisitor void visit(org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary 'default' for enum 'switch' statement</problem_class>
+    <description>&lt;code&gt;default&lt;/code&gt; branch is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>229</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.AxiomLocalityVisitor void visit(org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary 'default' for enum 'switch' statement</problem_class>
+    <description>&lt;code&gt;default&lt;/code&gt; branch is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>732</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.AxiomLocalityVisitor void visit(org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary 'default' for enum 'switch' statement</problem_class>
+    <description>&lt;code&gt;default&lt;/code&gt; branch is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>701</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.AxiomLocalityVisitor void visit(org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary 'default' for enum 'switch' statement</problem_class>
+    <description>&lt;code&gt;default&lt;/code&gt; branch is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>804</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.AxiomLocalityVisitor void visit(org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary 'default' for enum 'switch' statement</problem_class>
+    <description>&lt;code&gt;default&lt;/code&gt; branch is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>1122</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.BottomEquivalenceEvaluator void visit(org.semanticweb.owlapi.model.OWLObjectExactCardinality desc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary 'default' for enum 'switch' statement</problem_class>
+    <description>&lt;code&gt;default&lt;/code&gt; branch is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>1054</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.BottomEquivalenceEvaluator void visit(org.semanticweb.owlapi.model.OWLDataSomeValuesFrom desc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary 'default' for enum 'switch' statement</problem_class>
+    <description>&lt;code&gt;default&lt;/code&gt; branch is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>649</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.AxiomLocalityVisitor void visit(org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary 'default' for enum 'switch' statement</problem_class>
+    <description>&lt;code&gt;default&lt;/code&gt; branch is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>622</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.AxiomLocalityVisitor void visit(org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary 'default' for enum 'switch' statement</problem_class>
+    <description>&lt;code&gt;default&lt;/code&gt; branch is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>1020</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.BottomEquivalenceEvaluator void visit(org.semanticweb.owlapi.model.OWLDataMaxCardinality desc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary 'default' for enum 'switch' statement</problem_class>
+    <description>&lt;code&gt;default&lt;/code&gt; branch is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>667</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.AxiomLocalityVisitor void visit(org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary 'default' for enum 'switch' statement</problem_class>
+    <description>&lt;code&gt;default&lt;/code&gt; branch is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>1198</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.BottomEquivalenceEvaluator void visit(org.semanticweb.owlapi.model.OWLObjectHasSelf desc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary 'default' for enum 'switch' statement</problem_class>
+    <description>&lt;code&gt;default&lt;/code&gt; branch is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>387</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.AxiomLocalityVisitor void visit(org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary 'default' for enum 'switch' statement</problem_class>
+    <description>&lt;code&gt;default&lt;/code&gt; branch is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>1617</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.TopEquivalenceEvaluator void visit(org.semanticweb.owlapi.model.OWLObjectHasValue desc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary 'default' for enum 'switch' statement</problem_class>
+    <description>&lt;code&gt;default&lt;/code&gt; branch is unnecessary #loc</description>
+  </problem>
+</problems>
+

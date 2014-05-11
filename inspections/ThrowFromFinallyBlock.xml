@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/rio/src/main/java/org/semanticweb/owlapi/rio/RioMemoryTripleSource.java</file>
+    <line>188</line>
+    <module>owlapi-rio</module>
+    <package>org.semanticweb.owlapi.rio</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rio.RioMemoryTripleSource$1 boolean hasNext()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'throw' inside 'finally' block</problem_class>
+    <description>&lt;code&gt;throw&lt;/code&gt; inside 'finally' block #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/rio/src/main/java/org/semanticweb/owlapi/rio/RioMemoryTripleSource.java</file>
+    <line>168</line>
+    <module>owlapi-rio</module>
+    <package>org.semanticweb.owlapi.rio</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rio.RioMemoryTripleSource$1 org.openrdf.model.Statement next()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'throw' inside 'finally' block</problem_class>
+    <description>&lt;code&gt;throw&lt;/code&gt; inside 'finally' block #loc</description>
+  </problem>
+</problems>
+

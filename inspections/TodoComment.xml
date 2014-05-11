@@ -1,0 +1,841 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/io/ToStringRenderer.java</file>
+    <line>23</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.io</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.io.ToStringRenderer" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;/**  * A utility class which can be used by implementations to provide a toString  * rendering of OW...&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/io/StreamDocumentSourceBase.java</file>
+    <line>34</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.io</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.io.StreamDocumentSourceBase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;/**  * Base class for common utilities among stream, reader and file input sources.  *   * @since 4....&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/CollectionFactory.java</file>
+    <line>85</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.CollectionFactory java.util.Set&lt;T&gt; createSet()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO large number of sets stay very small, wasting space&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/AnnotationValueShortFormProvider.java</file>
+    <line>259</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.AnnotationValueShortFormProvider java.lang.String getRendering(org.semanticweb.owlapi.model.OWLObject object)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO refactor this method to use the annotation value visitor&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/AnnotationValueShortFormProvider.java</file>
+    <line>170</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.AnnotationValueShortFormProvider$1 java.lang.String visit(org.semanticweb.owlapi.model.IRI iri)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO refactor the short form providers in here&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLImmutableOntologyImpl.java</file>
+    <line>946</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLImmutableOntologyImpl java.util.Set&lt;org.semanticweb.owlapi.model.OWLAxiom&gt; getReferencingAxioms(org.semanticweb.owlapi.model.OWLPrimitive owlEntity, org.semanticweb.owlapi.model.parameters.Imports includeImports)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO add support for looking up by IRI, OWLLiteral, etc.&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/ParsableOWLOntologyFactory.java</file>
+    <line>105</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory boolean canLoad(org.semanticweb.owlapi.io.OWLOntologyDocumentSource documentSource)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO: Take into consideration the request type!&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLOntologyManagerImpl.java</file>
+    <line>205</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl boolean contains(org.semanticweb.owlapi.model.IRI ontologyIRI)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// FIXME: ParsableOWLOntologyFactory seems to call this method with a&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLAxiomImpl.java</file>
+    <line>72</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLAxiomImpl java.util.Set&lt;org.semanticweb.owlapi.model.OWLAnnotation&gt; getAnnotations()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO when processing annotations on OWLOntology:: add axiom, needs&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLOntologyImpl.java</file>
+    <line>111</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLOntologyImpl.OWLOntologyChangeFilter org.semanticweb.owlapi.model.parameters.ChangeApplied visit(org.semanticweb.owlapi.model.AddImport change)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO change this to be done inside&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/rio/src/main/java/org/semanticweb/owlapi/rio/RioParserImpl.java</file>
+    <line>167</line>
+    <module>owlapi-rio</module>
+    <package>org.semanticweb.owlapi.rio</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rio.RioParserImpl$1 boolean isAnonymousSharedNode(java.lang.String iri)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO: apparently we should be tracking whether they&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/rio/src/main/java/org/semanticweb/owlapi/rio/RioParserImpl.java</file>
+    <line>172</line>
+    <module>owlapi-rio</module>
+    <package>org.semanticweb.owlapi.rio</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rio.RioParserImpl$1 boolean isAnonymousSharedNode(java.lang.String iri)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// HACK: FIXME: When the mess of having blank nodes&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/rio/src/main/java/org/semanticweb/owlapi/rio/RioParserImpl.java</file>
+    <line>155</line>
+    <module>owlapi-rio</module>
+    <package>org.semanticweb.owlapi.rio</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rio.RioParserImpl$1 boolean isAnonymousNode(java.lang.String iri)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// HACK: FIXME: When the mess of having blank nodes&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/rio/src/main/java/org/semanticweb/owlapi/rio/RioParserImpl.java</file>
+    <line>140</line>
+    <module>owlapi-rio</module>
+    <package>org.semanticweb.owlapi.rio</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rio.RioParserImpl$1 boolean isAnonymousNode(org.semanticweb.owlapi.model.IRI iri)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// HACK: FIXME: When the mess of having blank nodes&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/rio/src/main/java/org/semanticweb/owlapi/rio/RioOWLRDFConsumerAdapter.java</file>
+    <line>126</line>
+    <module>owlapi-rio</module>
+    <package>org.semanticweb.owlapi.rio</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rio.RioOWLRDFConsumerAdapter void handleStatement(org.openrdf.model.Statement st)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO: When updating to Sesame-2.8 with RDF-1.1 support, the&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/rio/src/main/java/org/semanticweb/owlapi/rio/utils/RioUtils.java</file>
+    <line>109</line>
+    <module>owlapi-rio</module>
+    <package>org.semanticweb.owlapi.rio.utils</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rio.utils.RioUtils java.util.Collection&lt;org.openrdf.model.Statement&gt; tripleAsStatements(org.semanticweb.owlapi.io.RDFTriple triple, org.openrdf.model.Resource... contexts)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// FIXME: When blank nodes are no longer represented as IRIs&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/rio/src/main/java/org/semanticweb/owlapi/rio/utils/RioUtils.java</file>
+    <line>130</line>
+    <module>owlapi-rio</module>
+    <package>org.semanticweb.owlapi.rio.utils</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rio.utils.RioUtils java.util.Collection&lt;org.openrdf.model.Statement&gt; tripleAsStatements(org.semanticweb.owlapi.io.RDFTriple triple, org.openrdf.model.Resource... contexts)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO: When updating to Sesame-2.8 the following may need to be&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/rio/src/main/java/org/semanticweb/owlapi/rio/utils/RioUtils.java</file>
+    <line>144</line>
+    <module>owlapi-rio</module>
+    <package>org.semanticweb.owlapi.rio.utils</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rio.utils.RioUtils java.util.Collection&lt;org.openrdf.model.Statement&gt; tripleAsStatements(org.semanticweb.owlapi.io.RDFTriple triple, org.openrdf.model.Resource... contexts)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// FIXME: When blank nodes are no longer represented as IRIs&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/macro/MacroExpansionVisitor.java</file>
+    <line>33</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.macro</package>
+    <entry_point TYPE="class" FQNAME="org.obolibrary.macro.MacroExpansionVisitor" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;/** @author cjm TODO - allow use of prefixes */&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/macro/MacroExpansionVisitor.java</file>
+    <line>134</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.macro</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.macro.MacroExpansionVisitor java.util.Set&lt;org.semanticweb.owlapi.model.OWLAxiom&gt; expand(org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom ax)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO:&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>645</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl void addPropertyValueHeaders(java.util.Collection&lt;org.obolibrary.oboformat.model.Clause&gt; clauses)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO: Throw Exceptions&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>680</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl void addPropertyValueHeaders(java.util.Collection&lt;org.obolibrary.oboformat.model.Clause&gt; clauses)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>1225</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl org.semanticweb.owlapi.model.OWLAxiom trGenericClause(org.semanticweb.owlapi.model.OWLNamedObject e, java.lang.String tag, org.obolibrary.oboformat.model.Clause clause)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;/*          * Collection&lt;QualifierValue&gt; qvs = clause.getQualifierValues(); Set&lt;?          * extends...&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>931</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl org.semanticweb.owlapi.model.OWLAxiom trUnionOf(org.semanticweb.owlapi.model.OWLClass cls, java.util.Collection&lt;org.obolibrary.oboformat.model.Clause&gt; clauses)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO - quals&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>943</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl org.semanticweb.owlapi.model.OWLAxiom trUnionOf(org.semanticweb.owlapi.model.OWLClass cls, java.util.Collection&lt;org.obolibrary.oboformat.model.Clause&gt; clauses)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO - fix this&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>1141</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl org.semanticweb.owlapi.model.OWLAxiom trTypedefClause(org.semanticweb.owlapi.model.OWLObjectProperty p, java.lang.String tag, org.obolibrary.oboformat.model.Clause clause)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// ax = null; // TODO&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>1186</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl org.semanticweb.owlapi.model.OWLAxiom trTypedefClause(org.semanticweb.owlapi.model.OWLObjectProperty p, java.lang.String tag, org.obolibrary.oboformat.model.Clause clause)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO - annotations for equivalent to&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>1208</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl org.semanticweb.owlapi.model.OWLAxiom trTypedefClause(org.semanticweb.owlapi.model.OWLObjectProperty p, java.lang.String tag, org.obolibrary.oboformat.model.Clause clause)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO - disjointOver&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>406</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl org.semanticweb.owlapi.model.OWLOntology tr(org.semanticweb.owlapi.model.OWLOntology in)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO - warn&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>418</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl org.semanticweb.owlapi.model.OWLOntology tr(org.semanticweb.owlapi.model.OWLOntology in)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO - individuals&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>1078</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl org.semanticweb.owlapi.model.OWLAxiom trTermClause(org.semanticweb.owlapi.model.OWLClass cls, java.lang.String tag, org.obolibrary.oboformat.model.Clause clause)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>811</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl org.semanticweb.owlapi.model.OWLNamedObject trTypedefFrame(org.obolibrary.oboformat.model.Frame typedefFrame)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO - annotation props&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>784</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl org.semanticweb.owlapi.model.OWLNamedObject trTypedefToAnnotationProperty(org.obolibrary.oboformat.model.Frame typedefFrame)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// todo - subAnnotationProperty&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>980</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl org.semanticweb.owlapi.model.OWLAxiom trIntersectionOf(org.semanticweb.owlapi.model.OWLClass cls, java.util.Collection&lt;org.obolibrary.oboformat.model.Clause&gt; clauses)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO - fix this&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>881</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl org.semanticweb.owlapi.model.OWLAxiom trRelationUnionOf(java.lang.String id, org.semanticweb.owlapi.model.OWLProperty p, java.util.Collection&lt;org.obolibrary.oboformat.model.Clause&gt; clauses)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO not expressible in OWL - use APs. SWRL?&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>1751</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl org.semanticweb.owlapi.model.OWLAnnotationValue trLiteral(java.lang.Object _value)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>1756</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl org.semanticweb.owlapi.model.OWLAnnotationValue trLiteral(java.lang.Object _value)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>510</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl void trHeaderFrame(org.obolibrary.oboformat.model.Frame headerFrame)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>574</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl void trHeaderFrame(org.obolibrary.oboformat.model.Frame headerFrame)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO: Throw Exceptions&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>604</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl void trHeaderFrame(org.obolibrary.oboformat.model.Frame headerFrame)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// do not translate, as they are just directives? TODO ask Chris&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>1775</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl org.semanticweb.owlapi.model.IRI oboIdToIRI(java.lang.String id)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO - roundtrip from other schemes&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>1778</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl org.semanticweb.owlapi.model.IRI oboIdToIRI(java.lang.String id)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO - roundtrip from other schemes&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>1781</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl org.semanticweb.owlapi.model.IRI oboIdToIRI(java.lang.String id)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO - roundtrip from other schemes&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>1784</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl org.semanticweb.owlapi.model.IRI oboIdToIRI(java.lang.String id)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO - roundtrip from other schemes&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>1787</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl org.semanticweb.owlapi.model.IRI oboIdToIRI(java.lang.String id)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO - treat_xrefs_as_equivalent&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>1811</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl org.semanticweb.owlapi.model.IRI oboIdToIRI(java.lang.String id)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// todo use owlOntology IRI&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>903</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl org.semanticweb.owlapi.model.OWLAxiom trRelationIntersectionOf(java.lang.String id, org.semanticweb.owlapi.model.OWLProperty p, java.util.Collection&lt;org.obolibrary.oboformat.model.Clause&gt; clauses)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO not expressible in OWL - use APs. SWRL?&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>1275</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl org.semanticweb.owlapi.model.OWLAxiom trGenericClause(org.semanticweb.owlapi.model.OWLAnnotationSubject sub, java.lang.String tag, org.obolibrary.oboformat.model.Clause clause)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO: Throw Exceptions&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>1287</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl org.semanticweb.owlapi.model.OWLAxiom trGenericClause(org.semanticweb.owlapi.model.OWLAnnotationSubject sub, java.lang.String tag, org.obolibrary.oboformat.model.Clause clause)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO: Throw Exceptions&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>1313</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl org.semanticweb.owlapi.model.OWLAxiom trGenericClause(org.semanticweb.owlapi.model.OWLAnnotationSubject sub, java.lang.String tag, org.obolibrary.oboformat.model.Clause clause)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>1941</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo void tr(org.semanticweb.owlapi.model.OWLClassAssertionAxiom ax)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO: full specify this in the spec document.&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>1973</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo void tr(org.semanticweb.owlapi.model.OWLClassAssertionAxiom ax)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO: full specify this in the spec document.&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>1994</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo void tr(org.semanticweb.owlapi.model.OWLClassAssertionAxiom ax)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO: individual&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>984</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo boolean tr(org.semanticweb.owlapi.model.OWLAnnotationProperty prop, org.semanticweb.owlapi.model.OWLAnnotationValue annVal, java.util.Set&lt;org.semanticweb.owlapi.model.OWLAnnotation&gt; qualifiers, org.obolibrary.oboformat.model.Frame frame)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO - xsd types&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>1798</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo java.lang.String getIdentifier(org.semanticweb.owlapi.model.IRI iriId)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO: the following implements behavior in current spec, but this&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>2210</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo java.util.List&lt;org.obolibrary.oboformat.model.Clause&gt; normalizeRelationshipClauses(java.util.List&lt;org.obolibrary.oboformat.model.Clause&gt; clauses)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;/**      * Join clauses and its {@link QualifierValue} which have the same      * relationship type ...&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/model/Frame.java</file>
+    <line>127</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.model</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.model.Frame org.obolibrary.oboformat.model.Clause getClause(java.lang.String tag)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO - throw exception if more than one clause of this type?&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/model/OBODoc.java</file>
+    <line>301</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.model</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.model.OBODoc java.lang.String getIDSpace(java.lang.String prefix)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/model/Xref.java</file>
+    <line>60</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.model</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.model.Xref boolean equals(java.lang.Object e)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// // TODO: make this configurable?&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/OBOFormatParser.java</file>
+    <line>1499</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.parser.OBOFormatParser java.lang.String removeTrailingWS(java.lang.String s)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO make this more efficient&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/OBOFormatParser.java</file>
+    <line>941</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.parser.OBOFormatParser boolean parseISODate(org.obolibrary.oboformat.model.Clause cl)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;/*          * } catch (ParseException e) { // TODO Auto-generated catch block          * e.printStac...&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/OBOFormatParser.java</file>
+    <line>36</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.parser.OBOFormatParser java.text.SimpleDateFormat getISODateFormat()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO use this to validate date strings for OboFormatTag.TAG_CREATION_DATE&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/OBOFormatParser.java</file>
+    <line>1326</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.parser.OBOFormatParser void parseUnquotedString(org.obolibrary.oboformat.model.Clause cl)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// strip whitespace from the end - TODO&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/OBOFormatParser.java</file>
+    <line>879</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.parser.OBOFormatParser java.lang.String getParseTag()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// [Instance] Frames - TODO&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/OBOFormatParser.java</file>
+    <line>967</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.parser.OBOFormatParser void parseSynonymTypedef(org.obolibrary.oboformat.model.Clause cl)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO: handle edge case where line ends with trailing whitespace&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/OBOFormatParser.java</file>
+    <line>971</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.parser.OBOFormatParser void parseSynonymTypedef(org.obolibrary.oboformat.model.Clause cl)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO - verify that this is a valid&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/writer/OBOFormatWriter.java</file>
+    <line>578</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.writer</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.writer.OBOFormatWriter void writePropertyValue(org.obolibrary.oboformat.model.Clause clause, java.io.BufferedWriter writer)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO replace toString() method&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/writer/OBOFormatWriter.java</file>
+    <line>585</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.writer</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.writer.OBOFormatWriter void writePropertyValue(org.obolibrary.oboformat.model.Clause clause, java.io.BufferedWriter writer)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO replace toString() method&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/TripleHandlers.java</file>
+    <line>3165</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.TripleHandlers.TypeNegativePropertyAssertionHandler void handleTriple(org.semanticweb.owlapi.model.IRI subject, org.semanticweb.owlapi.model.IRI predicate, org.semanticweb.owlapi.model.IRI object)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO LOG ERROR&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/TripleHandlers.java</file>
+    <line>3319</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.TripleHandlers.TypeRDFSClassHandler void handleTriple(org.semanticweb.owlapi.model.IRI subject, org.semanticweb.owlapi.model.IRI predicate, org.semanticweb.owlapi.model.IRI object)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO: Change to rdfs:Class? (See table 5 in the spec)&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/TripleHandlers.java</file>
+    <line>1670</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.TripleHandlers.TPEquivalentPropertyHandler void handleTriple(org.semanticweb.owlapi.model.IRI subject, org.semanticweb.owlapi.model.IRI predicate, org.semanticweb.owlapi.model.IRI object)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO: LOG ERROR&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/TripleHandlers.java</file>
+    <line>2091</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.TripleHandlers.TPPropertyDomainHandler void translateAnnotationPropertyDomain(org.semanticweb.owlapi.model.IRI subject, org.semanticweb.owlapi.model.IRI predicate, org.semanticweb.owlapi.model.IRI object)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO: Handle anonymous domain - error?&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/OWLRDFConsumer.java</file>
+    <line>1752</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFConsumer org.semanticweb.owlapi.model.OWLDataRange translateDataRange(org.semanticweb.owlapi.model.IRI mainNode)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO LOG ERROR&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/renderer/FunctionalSyntaxObjectRenderer.java</file>
+    <line>585</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.functional.renderer.FunctionalSyntaxObjectRenderer void visit(org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO log&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/renderer/FunctionalSyntaxObjectRenderer.java</file>
+    <line>549</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.functional.renderer.FunctionalSyntaxObjectRenderer void visit(org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO log&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/renderer/FunctionalSyntaxObjectRenderer.java</file>
+    <line>629</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.functional.renderer.FunctionalSyntaxObjectRenderer void visit(org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO log&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/renderer/FunctionalSyntaxObjectRenderer.java</file>
+    <line>617</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.functional.renderer.FunctionalSyntaxObjectRenderer void visit(org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO log&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/renderer/FunctionalSyntaxObjectRenderer.java</file>
+    <line>561</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.functional.renderer.FunctionalSyntaxObjectRenderer void visit(org.semanticweb.owlapi.model.OWLDisjointClassesAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO log&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/renderer/FunctionalSyntaxObjectRenderer.java</file>
+    <line>770</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.functional.renderer.FunctionalSyntaxObjectRenderer void visit(org.semanticweb.owlapi.model.OWLSameIndividualAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO log&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/renderer/FunctionalSyntaxObjectRenderer.java</file>
+    <line>573</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.functional.renderer.FunctionalSyntaxObjectRenderer void visit(org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO log&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/renderer/FunctionalSyntaxObjectRenderer.java</file>
+    <line>641</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.functional.renderer.FunctionalSyntaxObjectRenderer void visit(org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO log&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/main/java/uk/ac/manchester/owl/owlapi/tutorialowled2011/OWLTutorialSyntaxObjectRenderer.java</file>
+    <line>295</line>
+    <module>owlapi-contract</module>
+    <package>uk.ac.manchester.owl.owlapi.tutorialowled2011</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.owl.owlapi.tutorialowled2011.OWLTutorialSyntaxObjectRenderer void writeAnnotations(org.semanticweb.owlapi.model.OWLAxiom ax)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO: IMPLEMENT&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/IDsTest.java</file>
+    <line>61</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.IDsTest void testIDs()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// todo - test this&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/UnmappableExpressionsTest.java</file>
+    <line>44</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.UnmappableExpressionsTest void checkOBODoc(org.obolibrary.oboformat.model.OBODoc obodoc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO - may change&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/UnmappableExpressionsTest.java</file>
+    <line>50</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.UnmappableExpressionsTest void checkOBODoc(org.obolibrary.oboformat.model.OBODoc obodoc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO - add validation step prior to saving&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/ObsoleteTermTest.java</file>
+    <line>52</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.ObsoleteTermTest void testConvert()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// should this be a Boolean object? TODO&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/OboFormatTestBasics.java</file>
+    <line>126</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OboFormatTestBasics org.semanticweb.owlapi.model.OWLOntology parseOWLFile(java.lang.String fn)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO replace&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/rdfxml/MultipleDistinctOntologyLoadsTest.java</file>
+    <line>167</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax.rdfxml</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.api.test.syntax.rdfxml.MultipleDistinctOntologyLoadsTest void testMultipleVersionLoadsNoOntologyVersionIRIFirstTime()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// FIXME: versionIRI is null for some reason even though it was in the&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/objectproperties/TransitiveObjectPropertyInverseTestCase.java</file>
+    <line>49</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.objectproperties</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.api.test.objectproperties.TransitiveObjectPropertyInverseTestCase void testManchesterOWLSyntax()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// // TODO Auto-generated catch block&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>837</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.AxiomLocalityVisitor void visit(org.semanticweb.owlapi.model.SWRLRule axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO: (TS) Can't we treat this in a more differentiated way?&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>172</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="class" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.AxiomLocalityVisitor" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO (TS): only visit logical axioms if possible&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>438</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.AxiomLocalityVisitor void visit(org.semanticweb.owlapi.model.OWLDisjointUnionAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO (TS): &quot;!signature.contains(lhs)&quot; is not enough&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>456</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.AxiomLocalityVisitor void visit(org.semanticweb.owlapi.model.OWLDisjointUnionAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TODO comment</problem_class>
+    <description>TODO comment &lt;code&gt;// TODO (TS): &quot;!signature.contains(lhs)&quot; is not enough&lt;/code&gt; #loc</description>
+  </problem>
+</problems>
+

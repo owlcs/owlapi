@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/TestUtils.java</file>
+    <line>42</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.TestUtils uriCounter" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'static', non-'final' field</problem_class>
+    <description>'static' non-'final' field &lt;code&gt;uriCounter&lt;/code&gt; #loc</description>
+  </problem>
+</problems>
+

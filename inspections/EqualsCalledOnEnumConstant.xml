@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/vocab/OWL2Datatype.java</file>
+    <line>234</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.vocab</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.vocab.OWL2Datatype boolean isNumeric()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'equals()' called on Enum value</problem_class>
+    <description>&lt;code&gt;equals()&lt;/code&gt; called on Enum value #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/org/semanticweb/owlapi/reasoner/impl/OWLReasonerBase.java</file>
+    <line>126</line>
+    <module>owlapi-impl</module>
+    <package>org.semanticweb.owlapi.reasoner.impl</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.reasoner.impl.OWLReasonerBase void handleRawOntologyChanges(java.util.List&lt;? extends org.semanticweb.owlapi.model.OWLOntologyChange&lt;?&gt;&gt; changes)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'equals()' called on Enum value</problem_class>
+    <description>&lt;code&gt;equals()&lt;/code&gt; called on Enum value #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/org/semanticweb/owlapi/reasoner/structural/StructuralReasoner.java</file>
+    <line>595</line>
+    <module>owlapi-impl</module>
+    <package>org.semanticweb.owlapi.reasoner.structural</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.reasoner.structural.StructuralReasoner org.semanticweb.owlapi.reasoner.NodeSet&lt;org.semanticweb.owlapi.model.OWLNamedIndividual&gt; getObjectPropertyValues(org.semanticweb.owlapi.model.OWLNamedIndividual ind, org.semanticweb.owlapi.model.OWLObjectPropertyExpression pe)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'equals()' called on Enum value</problem_class>
+    <description>&lt;code&gt;equals()&lt;/code&gt; called on Enum value #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/org/semanticweb/owlapi/reasoner/structural/StructuralReasoner.java</file>
+    <line>611</line>
+    <module>owlapi-impl</module>
+    <package>org.semanticweb.owlapi.reasoner.structural</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.reasoner.structural.StructuralReasoner org.semanticweb.owlapi.reasoner.NodeSet&lt;org.semanticweb.owlapi.model.OWLNamedIndividual&gt; getObjectPropertyValues(org.semanticweb.owlapi.model.OWLNamedIndividual ind, org.semanticweb.owlapi.model.OWLObjectPropertyExpression pe)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'equals()' called on Enum value</problem_class>
+    <description>&lt;code&gt;equals()&lt;/code&gt; called on Enum value #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/org/semanticweb/owlapi/reasoner/structural/StructuralReasoner.java</file>
+    <line>566</line>
+    <module>owlapi-impl</module>
+    <package>org.semanticweb.owlapi.reasoner.structural</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.reasoner.structural.StructuralReasoner org.semanticweb.owlapi.reasoner.NodeSet&lt;org.semanticweb.owlapi.model.OWLNamedIndividual&gt; getInstances(org.semanticweb.owlapi.model.OWLClassExpression ce, boolean direct)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'equals()' called on Enum value</problem_class>
+    <description>&lt;code&gt;equals()&lt;/code&gt; called on Enum value #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/model/Frame.java</file>
+    <line>328</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.model</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.model.Frame void merge(org.obolibrary.oboformat.model.Frame extFrame)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'equals()' called on Enum value</problem_class>
+    <description>&lt;code&gt;equals()&lt;/code&gt; called on Enum value #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/model/Frame.java</file>
+    <line>346</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.model</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.model.Frame void check()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'equals()' called on Enum value</problem_class>
+    <description>&lt;code&gt;equals()&lt;/code&gt; called on Enum value #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/model/Frame.java</file>
+    <line>353</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.model</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.model.Frame void check()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'equals()' called on Enum value</problem_class>
+    <description>&lt;code&gt;equals()&lt;/code&gt; called on Enum value #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/model/Frame.java</file>
+    <line>358</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.model</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.model.Frame void check()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'equals()' called on Enum value</problem_class>
+    <description>&lt;code&gt;equals()&lt;/code&gt; called on Enum value #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/Translators.java</file>
+    <line>293</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.Translators.AbstractClassExpressionTranslator boolean matches(org.semanticweb.owlapi.model.IRI mainNode, org.semanticweb.owlapi.rdf.rdfxml.parser.Mode mode)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'equals()' called on Enum value</problem_class>
+    <description>&lt;code&gt;equals()&lt;/code&gt; called on Enum value #loc</description>
+  </problem>
+</problems>
+

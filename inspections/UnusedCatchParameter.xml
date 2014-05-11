@@ -1,0 +1,544 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/io/GZipFileDocumentSource.java</file>
+    <line>87</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.io</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.io.GZipFileDocumentSource java.io.InputStream getInputStream()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused 'catch' parameter</problem_class>
+    <description>Unused 'catch' parameter &lt;code&gt;e&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/AutoIRIMapper.java</file>
+    <line>245</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.AutoIRIMapper void parseManchesterSyntaxFile(java.io.File file)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused 'catch' parameter</problem_class>
+    <description>Unused 'catch' parameter &lt;code&gt;e2&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/AutoIRIMapper.java</file>
+    <line>238</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.AutoIRIMapper void parseManchesterSyntaxFile(java.io.File file)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused 'catch' parameter</problem_class>
+    <description>Unused 'catch' parameter &lt;code&gt;e&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/AutoIRIMapper.java</file>
+    <line>207</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.AutoIRIMapper void parseFile(java.io.File file)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused 'catch' parameter</problem_class>
+    <description>Unused 'catch' parameter &lt;code&gt;e&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/AutoIRIMapper.java</file>
+    <line>201</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.AutoIRIMapper void parseFile(java.io.File file)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused 'catch' parameter</problem_class>
+    <description>Unused 'catch' parameter &lt;code&gt;e&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/OWLOntologyFormatFactoryImpl.java</file>
+    <line>53</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.OWLOntologyFormatFactoryImpl org.semanticweb.owlapi.model.OWLOntologyFormat createFormat()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused 'catch' parameter</problem_class>
+    <description>Unused 'catch' parameter &lt;code&gt;e&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/OWLOntologyFormatFactoryImpl.java</file>
+    <line>56</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.OWLOntologyFormatFactoryImpl org.semanticweb.owlapi.model.OWLOntologyFormat createFormat()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused 'catch' parameter</problem_class>
+    <description>Unused 'catch' parameter &lt;code&gt;e&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/OWLOntologyStorerFactoryImpl.java</file>
+    <line>52</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.OWLOntologyStorerFactoryImpl org.semanticweb.owlapi.model.OWLOntologyStorer createStorer()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused 'catch' parameter</problem_class>
+    <description>Unused 'catch' parameter &lt;code&gt;e&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/OWLOntologyStorerFactoryImpl.java</file>
+    <line>55</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.OWLOntologyStorerFactoryImpl org.semanticweb.owlapi.model.OWLOntologyStorer createStorer()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused 'catch' parameter</problem_class>
+    <description>Unused 'catch' parameter &lt;code&gt;e&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/IRI.java</file>
+    <line>323</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.IRI java.lang.String cache(java.lang.String s)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused 'catch' parameter</problem_class>
+    <description>Unused 'catch' parameter &lt;code&gt;e&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLLiteralImpl.java</file>
+    <line>284</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLLiteralImpl.LiteralWrapper LiteralWrapper(java.lang.String s)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused 'catch' parameter</problem_class>
+    <description>Unused 'catch' parameter &lt;code&gt;e&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/InternalsNoCache.java</file>
+    <line>182</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.InternalsNoCache org.semanticweb.owlapi.model.OWLLiteral getOWLLiteral(java.lang.String lexicalValue, org.semanticweb.owlapi.model.OWLDatatype datatype)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused 'catch' parameter</problem_class>
+    <description>Unused 'catch' parameter &lt;code&gt;e&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/InternalsNoCache.java</file>
+    <line>198</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.InternalsNoCache org.semanticweb.owlapi.model.OWLLiteral getOWLLiteral(java.lang.String lexicalValue, org.semanticweb.owlapi.model.OWLDatatype datatype)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused 'catch' parameter</problem_class>
+    <description>Unused 'catch' parameter &lt;code&gt;ex&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/InternalsNoCache.java</file>
+    <line>206</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.InternalsNoCache org.semanticweb.owlapi.model.OWLLiteral getOWLLiteral(java.lang.String lexicalValue, org.semanticweb.owlapi.model.OWLDatatype datatype)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused 'catch' parameter</problem_class>
+    <description>Unused 'catch' parameter &lt;code&gt;e&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLLiteralImplNoCompression.java</file>
+    <line>239</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLLiteralImplNoCompression int getHashCode()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused 'catch' parameter</problem_class>
+    <description>Unused 'catch' parameter &lt;code&gt;e&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/rio/src/main/java/org/semanticweb/owlapi/rio/utils/RioUtils.java</file>
+    <line>104</line>
+    <module>owlapi-rio</module>
+    <package>org.semanticweb.owlapi.rio.utils</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rio.utils.RioUtils java.util.Collection&lt;org.openrdf.model.Statement&gt; tripleAsStatements(org.semanticweb.owlapi.io.RDFTriple triple, org.openrdf.model.Resource... contexts)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused 'catch' parameter</problem_class>
+    <description>Unused 'catch' parameter &lt;code&gt;iae&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/rio/src/main/java/org/semanticweb/owlapi/rio/utils/RioUtils.java</file>
+    <line>124</line>
+    <module>owlapi-rio</module>
+    <package>org.semanticweb.owlapi.rio.utils</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rio.utils.RioUtils java.util.Collection&lt;org.openrdf.model.Statement&gt; tripleAsStatements(org.semanticweb.owlapi.io.RDFTriple triple, org.openrdf.model.Resource... contexts)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused 'catch' parameter</problem_class>
+    <description>Unused 'catch' parameter &lt;code&gt;iae&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>1001</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo boolean tr(org.semanticweb.owlapi.model.OWLAnnotationProperty prop, org.semanticweb.owlapi.model.OWLAnnotationValue annVal, java.util.Set&lt;org.semanticweb.owlapi.model.OWLAnnotation&gt; qualifiers, org.obolibrary.oboformat.model.Frame frame)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused 'catch' parameter</problem_class>
+    <description>Unused 'catch' parameter &lt;code&gt;e&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/BOMSafeJavaCharStream.java</file>
+    <line>280</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.BOMSafeJavaCharStream char readChar()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused 'catch' parameter</problem_class>
+    <description>Unused 'catch' parameter &lt;code&gt;e&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/TripleHandlers.java</file>
+    <line>803</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.TripleHandlers.AbstractTripleHandler int translateInteger(org.semanticweb.owlapi.model.IRI mainNode, org.semanticweb.owlapi.vocab.OWLRDFVocabulary predicate)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused 'catch' parameter</problem_class>
+    <description>Unused 'catch' parameter &lt;code&gt;e&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/Translators.java</file>
+    <line>363</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.Translators.AbstractClassExpressionTranslator int translateInteger(org.semanticweb.owlapi.model.IRI mainNode, org.semanticweb.owlapi.vocab.OWLRDFVocabulary predicate)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused 'catch' parameter</problem_class>
+    <description>Unused 'catch' parameter &lt;code&gt;e&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/RDFParser.java</file>
+    <line>137</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.RDFParser void parse(org.xml.sax.InputSource source, org.semanticweb.owlapi.rdf.rdfxml.parser.RDFConsumer consumer)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused 'catch' parameter</problem_class>
+    <description>Unused 'catch' parameter &lt;code&gt;e&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1418</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa22_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused 'catch' parameter</problem_class>
+    <description>Unused 'catch' parameter &lt;code&gt;e&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1119</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa13_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused 'catch' parameter</problem_class>
+    <description>Unused 'catch' parameter &lt;code&gt;e&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>741</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa7_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused 'catch' parameter</problem_class>
+    <description>Unused 'catch' parameter &lt;code&gt;e&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1318</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa18_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused 'catch' parameter</problem_class>
+    <description>Unused 'catch' parameter &lt;code&gt;e&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>229</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa2_0(long old0, long _active0, long old1, long _active1)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused 'catch' parameter</problem_class>
+    <description>Unused 'catch' parameter &lt;code&gt;e&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1339</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa19_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused 'catch' parameter</problem_class>
+    <description>Unused 'catch' parameter &lt;code&gt;e&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1397</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa21_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused 'catch' parameter</problem_class>
+    <description>Unused 'catch' parameter &lt;code&gt;e&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>121</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa1_0(long active0, long active1)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused 'catch' parameter</problem_class>
+    <description>Unused 'catch' parameter &lt;code&gt;e&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1293</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa17_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused 'catch' parameter</problem_class>
+    <description>Unused 'catch' parameter &lt;code&gt;e&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1262</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa16_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused 'catch' parameter</problem_class>
+    <description>Unused 'catch' parameter &lt;code&gt;e&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1225</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa15_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused 'catch' parameter</problem_class>
+    <description>Unused 'catch' parameter &lt;code&gt;e&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>480</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa4_0(long old0, long _active0, long old1, long _active1)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused 'catch' parameter</problem_class>
+    <description>Unused 'catch' parameter &lt;code&gt;e&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1190</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa14_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused 'catch' parameter</problem_class>
+    <description>Unused 'catch' parameter &lt;code&gt;e&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>559</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa5_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused 'catch' parameter</problem_class>
+    <description>Unused 'catch' parameter &lt;code&gt;e&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1875</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveNfa_0(int startState, int _curPos)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused 'catch' parameter</problem_class>
+    <description>Unused 'catch' parameter &lt;code&gt;e&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1887</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveNfa_0(int startState, int _curPos)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused 'catch' parameter</problem_class>
+    <description>Unused 'catch' parameter &lt;code&gt;e&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1439</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa23_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused 'catch' parameter</problem_class>
+    <description>Unused 'catch' parameter &lt;code&gt;e&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>900</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa9_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused 'catch' parameter</problem_class>
+    <description>Unused 'catch' parameter &lt;code&gt;e&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1078</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa12_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused 'catch' parameter</problem_class>
+    <description>Unused 'catch' parameter &lt;code&gt;e&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1364</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa20_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused 'catch' parameter</problem_class>
+    <description>Unused 'catch' parameter &lt;code&gt;e&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1035</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa11_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused 'catch' parameter</problem_class>
+    <description>Unused 'catch' parameter &lt;code&gt;e&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>851</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa8_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused 'catch' parameter</problem_class>
+    <description>Unused 'catch' parameter &lt;code&gt;e&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>2073</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager org.semanticweb.owlapi.krss2.parser.Token getNextToken()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused 'catch' parameter</problem_class>
+    <description>Unused 'catch' parameter &lt;code&gt;e&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>2131</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager org.semanticweb.owlapi.krss2.parser.Token getNextToken()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused 'catch' parameter</problem_class>
+    <description>Unused 'catch' parameter &lt;code&gt;e1&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>2140</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager org.semanticweb.owlapi.krss2.parser.Token getNextToken()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused 'catch' parameter</problem_class>
+    <description>Unused 'catch' parameter &lt;code&gt;e1&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>364</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa3_0(long old0, long _active0, long old1, long _active1)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused 'catch' parameter</problem_class>
+    <description>Unused 'catch' parameter &lt;code&gt;e&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>976</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa10_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused 'catch' parameter</problem_class>
+    <description>Unused 'catch' parameter &lt;code&gt;e&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>626</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa6_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused 'catch' parameter</problem_class>
+    <description>Unused 'catch' parameter &lt;code&gt;e&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/OWLXMLParserHandler.java</file>
+    <line>95</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLXMLParserHandler void setDocumentLocator(org.xml.sax.Locator locator)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused 'catch' parameter</problem_class>
+    <description>Unused 'catch' parameter &lt;code&gt;e&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>978</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser int parseInteger()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused 'catch' parameter</problem_class>
+    <description>Unused 'catch' parameter &lt;code&gt;e&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>922</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser org.semanticweb.owlapi.model.OWLLiteral parseLiteral(org.semanticweb.owlapi.model.OWLDatatype datatype)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused 'catch' parameter</problem_class>
+    <description>Unused 'catch' parameter &lt;code&gt;e&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>932</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser org.semanticweb.owlapi.model.OWLLiteral parseLiteral(org.semanticweb.owlapi.model.OWLDatatype datatype)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused 'catch' parameter</problem_class>
+    <description>Unused 'catch' parameter &lt;code&gt;e&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>940</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser org.semanticweb.owlapi.model.OWLLiteral parseLiteral(org.semanticweb.owlapi.model.OWLDatatype datatype)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused 'catch' parameter</problem_class>
+    <description>Unused 'catch' parameter &lt;code&gt;e&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/Utf8TestCase.java</file>
+    <line>82</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.api.test.syntax.Utf8TestCase void testInvalidUTF8roundTripOWLXML()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused 'catch' parameter</problem_class>
+    <description>Unused 'catch' parameter &lt;code&gt;ex&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/Utf8TestCase.java</file>
+    <line>113</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.api.test.syntax.Utf8TestCase void testInvalidUTF8roundTrip()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused 'catch' parameter</problem_class>
+    <description>Unused 'catch' parameter &lt;code&gt;ex&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/uk/ac/manchester/cs/owlapi/modularity/SyntacticLocalityModuleExtractor.java</file>
+    <line>242</line>
+    <module>owlapi-tools</module>
+    <package>uk.ac.manchester.cs.owlapi.modularity</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owlapi.modularity.SyntacticLocalityModuleExtractor org.semanticweb.owlapi.model.OWLOntology createOntology(org.semanticweb.owlapi.model.OWLOntologyManager man, org.semanticweb.owlapi.model.OWLOntology ont, java.util.Set&lt;org.semanticweb.owlapi.model.OWLAxiom&gt; axs)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused 'catch' parameter</problem_class>
+    <description>Unused 'catch' parameter &lt;code&gt;e&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/rio/src/main/java/org/semanticweb/owlapi/rio/OWLAPIRDFFormat.java</file>
+    <line>268</line>
+    <module>owlapi-rio</module>
+    <package>org.semanticweb.owlapi.rio</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rio.OWLAPIRDFFormat org.semanticweb.owlapi.model.OWLOntologyFormat getOWLFormat()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused 'catch' parameter</problem_class>
+    <description>Unused 'catch' parameter &lt;code&gt;e&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/rio/src/main/java/org/semanticweb/owlapi/rio/OWLAPIRDFFormat.java</file>
+    <line>271</line>
+    <module>owlapi-rio</module>
+    <package>org.semanticweb.owlapi.rio</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rio.OWLAPIRDFFormat org.semanticweb.owlapi.model.OWLOntologyFormat getOWLFormat()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused 'catch' parameter</problem_class>
+    <description>Unused 'catch' parameter &lt;code&gt;e&lt;/code&gt; #loc</description>
+  </problem>
+</problems>
+

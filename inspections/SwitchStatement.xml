@@ -1,0 +1,895 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/vocab/OWL2Datatype.java</file>
+    <line>346</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.vocab</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.vocab.OWL2Datatype.WhiteSpaceNormalisation java.lang.String getNormalisedString(java.lang.String s)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/OBOFormatParser.java</file>
+    <line>1451</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.parser.OBOFormatParser java.lang.String getParseUntil(java.lang.String compl, boolean commaWhitespace)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/BOMSafeJavaCharStream.java</file>
+    <line>222</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.BOMSafeJavaCharStream void UpdateLineColumn(char c)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/BOMSafeJavaCharStream.java</file>
+    <line>33</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.BOMSafeJavaCharStream int hexval(char c)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/turtle/parser/Token.java</file>
+    <line>38</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.turtle.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.turtle.parser.Token org.semanticweb.owlapi.rdf.turtle.parser.Token newToken(int ofKind, java.lang.String image)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/turtle/parser/ParseException.java</file>
+    <line>95</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.turtle.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.turtle.parser.ParseException java.lang.String add_escapes(java.lang.String str)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/ParseException.java</file>
+    <line>95</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss1.parser.ParseException java.lang.String add_escapes(java.lang.String str)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/Token.java</file>
+    <line>50</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss1.parser.Token org.semanticweb.owlapi.krss1.parser.Token newToken(int ofKind, java.lang.String image)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/TokenMgrError.java</file>
+    <line>32</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss1.parser.TokenMgrError java.lang.String addEscapes(java.lang.String str)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/ParseException.java</file>
+    <line>95</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.ParseException java.lang.String add_escapes(java.lang.String str)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/TokenMgrError.java</file>
+    <line>32</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.TokenMgrError java.lang.String addEscapes(java.lang.String str)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1421</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa22_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1122</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa13_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1924</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager boolean jjCanMove_0(int hiByte, int i1, int i2, long l1, long l2)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1947</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager boolean jjCanMove_1(int hiByte, int i1, int i2, long l1, long l2)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>744</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa7_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1321</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa18_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>232</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa2_0(long old0, long _active0, long old1, long _active1)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1342</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa19_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1400</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa21_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>124</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa1_0(long active0, long active1)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1296</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa17_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1265</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa16_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1228</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa15_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>483</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa4_0(long old0, long _active0, long old1, long _active1)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1193</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa14_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>562</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa5_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1501</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveNfa_0(int startState, int _curPos)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1575</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveNfa_0(int startState, int _curPos)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1830</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveNfa_0(int startState, int _curPos)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1442</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa23_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>903</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa9_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1912</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa0_1()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1081</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa12_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1367</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa20_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>34</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa0_0()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1038</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa11_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>854</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa8_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1903</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa0_2()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>2079</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager org.semanticweb.owlapi.krss2.parser.Token getNextToken()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>367</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa3_0(long old0, long _active0, long old1, long _active1)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>979</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa10_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>629</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa6_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/Token.java</file>
+    <line>50</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.Token org.semanticweb.owlapi.krss2.parser.Token newToken(int ofKind, java.lang.String image)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/Token.java</file>
+    <line>50</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.Token org.semanticweb.owlapi.dlsyntax.parser.Token newToken(int ofKind, java.lang.String image)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/ParseException.java</file>
+    <line>95</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.ParseException java.lang.String add_escapes(java.lang.String str)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/TokenMgrError.java</file>
+    <line>32</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.TokenMgrError java.lang.String addEscapes(java.lang.String str)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/Token.java</file>
+    <line>50</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.functional.parser.Token org.semanticweb.owlapi.functional.parser.Token newToken(int ofKind, java.lang.String image)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/ParseException.java</file>
+    <line>95</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.functional.parser.ParseException java.lang.String add_escapes(java.lang.String str)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/TokenMgrError.java</file>
+    <line>32</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.functional.parser.TokenMgrError java.lang.String addEscapes(java.lang.String str)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/uk/ac/manchester/cs/owlapi/modularity/SyntacticLocalityModuleExtractor.java</file>
+    <line>736</line>
+    <module>owlapi-tools</module>
+    <package>uk.ac.manchester.cs.owlapi.modularity</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owlapi.modularity.SyntacticLocalityModuleExtractor java.util.Set&lt;org.semanticweb.owlapi.model.OWLAxiom&gt; extract(java.util.Set&lt;org.semanticweb.owlapi.model.OWLEntity&gt; sig, int superClassLevel, int subClassLevel, org.semanticweb.owlapi.reasoner.OWLReasoner reasoner, boolean verbose)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>1562</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.TopEquivalenceEvaluator void visit(org.semanticweb.owlapi.model.OWLObjectHasSelf desc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>1165</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.BottomEquivalenceEvaluator void visit(org.semanticweb.owlapi.model.OWLObjectMinCardinality desc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>1536</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.TopEquivalenceEvaluator void visit(org.semanticweb.owlapi.model.OWLObjectMinCardinality desc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>1061</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.BottomEquivalenceEvaluator void visit(org.semanticweb.owlapi.model.OWLDataHasValue desc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>1417</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.TopEquivalenceEvaluator void visit(org.semanticweb.owlapi.model.OWLDataSomeValuesFrom desc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>1333</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.TopEquivalenceEvaluator void visit(org.semanticweb.owlapi.model.OWLDataAllValuesFrom desc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>1579</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.TopEquivalenceEvaluator void visit(org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom desc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>278</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.AxiomLocalityVisitor void visit(org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>1369</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.TopEquivalenceEvaluator void visit(org.semanticweb.owlapi.model.OWLDataMaxCardinality desc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>777</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.AxiomLocalityVisitor void visit(org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>1205</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.BottomEquivalenceEvaluator void visit(org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom desc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>1392</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.TopEquivalenceEvaluator void visit(org.semanticweb.owlapi.model.OWLDataMinCardinality desc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>1513</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.TopEquivalenceEvaluator void visit(org.semanticweb.owlapi.model.OWLObjectMaxCardinality desc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>1028</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.BottomEquivalenceEvaluator void visit(org.semanticweb.owlapi.model.OWLDataMinCardinality desc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>758</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.AxiomLocalityVisitor void visit(org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>1078</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.BottomEquivalenceEvaluator void visit(org.semanticweb.owlapi.model.OWLObjectAllValuesFrom desc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>242</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.AxiomLocalityVisitor void visit(org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>676</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.AxiomLocalityVisitor void visit(org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>1351</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.TopEquivalenceEvaluator void visit(org.semanticweb.owlapi.model.OWLDataExactCardinality desc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>1475</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.TopEquivalenceEvaluator void visit(org.semanticweb.owlapi.model.OWLObjectExactCardinality desc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>1145</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.BottomEquivalenceEvaluator void visit(org.semanticweb.owlapi.model.OWLObjectMaxCardinality desc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>579</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.AxiomLocalityVisitor void visit(org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>436</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.AxiomLocalityVisitor void visit(org.semanticweb.owlapi.model.OWLDisjointUnionAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>1451</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.TopEquivalenceEvaluator void visit(org.semanticweb.owlapi.model.OWLObjectAllValuesFrom desc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>974</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.BottomEquivalenceEvaluator void visit(org.semanticweb.owlapi.model.OWLDataExactCardinality desc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>395</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.AxiomLocalityVisitor void visit(org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>1316</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.TopEquivalenceEvaluator void visit(org.semanticweb.owlapi.model.OWLClass desc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>597</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.AxiomLocalityVisitor void visit(org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>295</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.AxiomLocalityVisitor void visit(org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>933</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.BottomEquivalenceEvaluator void visit(org.semanticweb.owlapi.model.OWLClass desc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>739</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.AxiomLocalityVisitor void visit(org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>1237</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.BottomEquivalenceEvaluator void visit(org.semanticweb.owlapi.model.OWLObjectHasValue desc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>954</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.BottomEquivalenceEvaluator void visit(org.semanticweb.owlapi.model.OWLDataAllValuesFrom desc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>1435</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.TopEquivalenceEvaluator void visit(org.semanticweb.owlapi.model.OWLDataHasValue desc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>258</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.AxiomLocalityVisitor void visit(org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>220</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.AxiomLocalityVisitor void visit(org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>709</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.AxiomLocalityVisitor void visit(org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>692</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.AxiomLocalityVisitor void visit(org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>795</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.AxiomLocalityVisitor void visit(org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>1104</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.BottomEquivalenceEvaluator void visit(org.semanticweb.owlapi.model.OWLObjectExactCardinality desc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>1045</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.BottomEquivalenceEvaluator void visit(org.semanticweb.owlapi.model.OWLDataSomeValuesFrom desc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>640</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.AxiomLocalityVisitor void visit(org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>613</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.AxiomLocalityVisitor void visit(org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>1001</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.BottomEquivalenceEvaluator void visit(org.semanticweb.owlapi.model.OWLDataMaxCardinality desc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>658</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.AxiomLocalityVisitor void visit(org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>1189</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.BottomEquivalenceEvaluator void visit(org.semanticweb.owlapi.model.OWLObjectHasSelf desc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>358</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.AxiomLocalityVisitor void visit(org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>1608</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.TopEquivalenceEvaluator void visit(org.semanticweb.owlapi.model.OWLObjectHasValue desc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'switch' statement</problem_class>
+    <description>&lt;code&gt;switch&lt;/code&gt; statement #loc</description>
+  </problem>
+</problems>
+

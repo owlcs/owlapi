@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>2131</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager org.semanticweb.owlapi.krss2.parser.Token getNextToken()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Empty 'catch' block</problem_class>
+    <description>Empty &lt;code&gt;catch&lt;/code&gt; block #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/OWLXMLParserHandler.java</file>
+    <line>95</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLXMLParserHandler void setDocumentLocator(org.xml.sax.Locator locator)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Empty 'catch' block</problem_class>
+    <description>Empty &lt;code&gt;catch&lt;/code&gt; block #loc</description>
+  </problem>
+</problems>
+

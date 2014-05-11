@@ -1,0 +1,1867 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/test/java/org/semanticweb/owlapi/io/StreamDocumentSourceBaseTestCase.java</file>
+    <line>15</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.io</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.io.StreamDocumentSourceBaseTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;StreamDocumentSourceBaseTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/test/java/org/semanticweb/owlapi/util/OWLOntologyIRIShortFormProviderTestCase.java</file>
+    <line>20</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.util.OWLOntologyIRIShortFormProviderTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;OWLOntologyIRIShortFormProviderTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/test/java/org/semanticweb/owlapi/util/OWLOntologyFormatFactoryImplTestCase.java</file>
+    <line>38</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.util.OWLOntologyFormatFactoryImplTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;OWLOntologyFormatFactoryImplTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/test/java/org/semanticweb/owlapi/model/XSDVocabularyTestCase.java</file>
+    <line>36</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.XSDVocabularyTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;XSDVocabularyTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/test/java/org/semanticweb/owlapi/model/OWLRDFVocabularyTestCase.java</file>
+    <line>36</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLRDFVocabularyTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;OWLRDFVocabularyTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/test/java/org/semanticweb/owlapi/model/SWRLVocabularyTestCase.java</file>
+    <line>36</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.SWRLVocabularyTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;SWRLVocabularyTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/test/java/org/semanticweb/owlapi/model/DublinCoreVocabularyTestCase.java</file>
+    <line>37</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.DublinCoreVocabularyTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;DublinCoreVocabularyTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/test/java/org/semanticweb/owlapi/model/SWRLBuiltInsVocabularyTestCase.java</file>
+    <line>36</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.SWRLBuiltInsVocabularyTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;SWRLBuiltInsVocabularyTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/test/java/org/semanticweb/owlapi/model/NodeIDTestCase.java</file>
+    <line>11</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.NodeIDTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;NodeIDTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/test/java/org/semanticweb/owlapi/model/OWLXMLVocabularyTestCase.java</file>
+    <line>37</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLXMLVocabularyTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;OWLXMLVocabularyTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/test/java/org/semanticweb/owlapi/model/SKOSVocabularyTestCase.java</file>
+    <line>36</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.SKOSVocabularyTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;SKOSVocabularyTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/test/java/org/semanticweb/owlapi/datafactory/OWLDataFactoryTestCase.java</file>
+    <line>62</line>
+    <module>owlapi-impl</module>
+    <package>org.semanticweb.owlapi.datafactory</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.datafactory.OWLDataFactoryTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;OWLDataFactoryTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/test/java/org/semanticweb/owlapi/oboformat/OWLOntologyFormatFactoryImpOBOlTestCase.java</file>
+    <line>29</line>
+    <module>owlapi-oboformat</module>
+    <package>org.semanticweb.owlapi.oboformat</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.oboformat.OWLOntologyFormatFactoryImpOBOlTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;OWLOntologyFormatFactoryImpOBOlTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/uk/ac/manchester/owl/owlapi/tutorialowled2011/TutorialSnippets.java</file>
+    <line>111</line>
+    <module>owlapi-contract</module>
+    <package>uk.ac.manchester.owl.owlapi.tutorialowled2011</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.owl.owlapi.tutorialowled2011.TutorialSnippets" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;TutorialSnippets&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/RoundTripCardinality.java</file>
+    <line>6</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="class" FQNAME="org.obolibrary.obo2owl.RoundTripCardinality" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;RoundTripCardinality&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/LoadAnonymousTestCase.java</file>
+    <line>26</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="class" FQNAME="org.obolibrary.obo2owl.LoadAnonymousTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;LoadAnonymousTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/RoundTripNonStandardSynonyms.java</file>
+    <line>6</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="class" FQNAME="org.obolibrary.obo2owl.RoundTripNonStandardSynonyms" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;RoundTripNonStandardSynonyms&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/IDsTest.java</file>
+    <line>17</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="class" FQNAME="org.obolibrary.obo2owl.IDsTest" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;IDsTest&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/RoundTripEquivalentToChain.java</file>
+    <line>6</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="class" FQNAME="org.obolibrary.obo2owl.RoundTripEquivalentToChain" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;RoundTripEquivalentToChain&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/RoundTripNamespaceIdRule.java</file>
+    <line>16</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="class" FQNAME="org.obolibrary.obo2owl.RoundTripNamespaceIdRule" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;RoundTripNamespaceIdRule&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/RoundTripTrailingQualifiers.java</file>
+    <line>7</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="class" FQNAME="org.obolibrary.obo2owl.RoundTripTrailingQualifiers" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;RoundTripTrailingQualifiers&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/RoundTripOboAnnotations.java</file>
+    <line>21</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="class" FQNAME="org.obolibrary.obo2owl.RoundTripOboAnnotations" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;RoundTripOboAnnotations&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/oboformat/TagTest.java</file>
+    <line>19</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.oboformat</package>
+    <entry_point TYPE="class" FQNAME="org.obolibrary.oboformat.TagTest" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;TagTest&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/NamespacesTestCase.java</file>
+    <line>27</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.NamespacesTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;NamespacesTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/GuessRDFSPropertyTypeTestCase.java</file>
+    <line>50</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.GuessRDFSPropertyTypeTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;GuessRDFSPropertyTypeTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/OWL2DatatypePrefixedNameTestCase.java</file>
+    <line>15</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.OWL2DatatypePrefixedNameTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;OWL2DatatypePrefixedNameTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/TripleComparatorTestCase.java</file>
+    <line>35</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.TripleComparatorTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;TripleComparatorTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/RdfGraphComparatorTestCase.java</file>
+    <line>23</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.RdfGraphComparatorTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;RdfGraphComparatorTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/OWL2DatatypeShortFormTestCase.java</file>
+    <line>15</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.OWL2DatatypeShortFormTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;OWL2DatatypeShortFormTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/OWLDataFactoryImplTestCase.java</file>
+    <line>44</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.OWLDataFactoryImplTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;OWLDataFactoryImplTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/NamesTestCase.java</file>
+    <line>55</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.NamesTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;NamesTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/PropertyCharacteristicsAccessorsTestCase.java</file>
+    <line>32</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.PropertyCharacteristicsAccessorsTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;PropertyCharacteristicsAccessorsTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/VerifyVersionInfoTestCase.java</file>
+    <line>29</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.VerifyVersionInfoTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;VerifyVersionInfoTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/swrl/SWRLAtomOrderingTestCase.java</file>
+    <line>32</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.swrl</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.swrl.SWRLAtomOrderingTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;SWRLAtomOrderingTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/swrl/SWRLAtomOrderingRoundTripTestCase.java</file>
+    <line>47</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.swrl</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.swrl.SWRLAtomOrderingRoundTripTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;SWRLAtomOrderingRoundTripTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/axioms/DeclarationEntityReferencesTestCase.java</file>
+    <line>40</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.axioms</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.axioms.DeclarationEntityReferencesTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;DeclarationEntityReferencesTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/axioms/SubClassOfUntypedSomeValuesFromTestCase.java</file>
+    <line>41</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.axioms</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.axioms.SubClassOfUntypedSomeValuesFromTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;SubClassOfUntypedSomeValuesFromTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/axioms/SubClassOfUntypedOWLClassStrictTestCase.java</file>
+    <line>37</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.axioms</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.axioms.SubClassOfUntypedOWLClassStrictTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;SubClassOfUntypedOWLClassStrictTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/axioms/SubClassAxiomTestCase.java</file>
+    <line>36</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.axioms</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.axioms.SubClassAxiomTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;SubClassAxiomTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/axioms/NNFTestCase.java</file>
+    <line>36</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.axioms</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.axioms.NNFTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;NNFTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/axioms/UntypedSubClassOfTestCase.java</file>
+    <line>34</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.axioms</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.axioms.UntypedSubClassOfTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;UntypedSubClassOfTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/axioms/ThreeEquivalentsRoundTripTestCase.java</file>
+    <line>28</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.axioms</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.axioms.ThreeEquivalentsRoundTripTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;ThreeEquivalentsRoundTripTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/axioms/DeclarationsTestCase.java</file>
+    <line>33</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.axioms</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.axioms.DeclarationsTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;DeclarationsTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/axioms/BuiltInPropertyTestCase.java</file>
+    <line>29</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.axioms</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.axioms.BuiltInPropertyTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;BuiltInPropertyTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/axioms/SubClassOfUntypedOWLClassTestCase.java</file>
+    <line>38</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.axioms</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.axioms.SubClassOfUntypedOWLClassTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;SubClassOfUntypedOWLClassTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/axioms/ComplexSubPropertyAxiomTestCase.java</file>
+    <line>36</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.axioms</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.axioms.ComplexSubPropertyAxiomTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;ComplexSubPropertyAxiomTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/axioms/BuiltInClassTestCase.java</file>
+    <line>32</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.axioms</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.axioms.BuiltInClassTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;BuiltInClassTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/TestParser08TestCase.java</file>
+    <line>25</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.syntax.TestParser08TestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;TestParser08TestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/PrimerTestCase.java</file>
+    <line>28</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.syntax.PrimerTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;PrimerTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/FunctionalSyntaxCommentTestCase.java</file>
+    <line>26</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.syntax.FunctionalSyntaxCommentTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;FunctionalSyntaxCommentTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/NoQNameTestCase.java</file>
+    <line>36</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.syntax.NoQNameTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;NoQNameTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/LatexRendererTestCase.java</file>
+    <line>23</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.syntax.LatexRendererTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;LatexRendererTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/ManchesterParseErrorTestCase.java</file>
+    <line>35</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.syntax.ManchesterParseErrorTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;ManchesterParseErrorTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/ManchesterImportTestCase.java</file>
+    <line>32</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.syntax.ManchesterImportTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;ManchesterImportTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/DefaultPrefixManagerTestCase.java</file>
+    <line>30</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.syntax.DefaultPrefixManagerTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;DefaultPrefixManagerTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/XMLUtilsTestCase.java</file>
+    <line>28</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.syntax.XMLUtilsTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;XMLUtilsTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/Utf8TestCase.java</file>
+    <line>39</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.syntax.Utf8TestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;Utf8TestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/PrimerFunctionalSyntaxRoundTrippingTestCase.java</file>
+    <line>25</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.syntax.PrimerFunctionalSyntaxRoundTrippingTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;PrimerFunctionalSyntaxRoundTrippingTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/SimpleIRIShortFormProviderTestCase.java</file>
+    <line>28</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.syntax.SimpleIRIShortFormProviderTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;SimpleIRIShortFormProviderTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/ManchesterOWLSyntaxParserErrorsTestCase.java</file>
+    <line>36</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.syntax.ManchesterOWLSyntaxParserErrorsTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;ManchesterOWLSyntaxParserErrorsTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/ManchesterOWLSyntaxParserTestCase.java</file>
+    <line>60</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.syntax.ManchesterOWLSyntaxParserTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;ManchesterOWLSyntaxParserTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/PrimerOWLXMLRoundTrippingTestCase.java</file>
+    <line>25</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.syntax.PrimerOWLXMLRoundTrippingTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;PrimerOWLXMLRoundTrippingTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/FunctionalSyntaxIRIProblemTestCase.java</file>
+    <line>29</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.syntax.FunctionalSyntaxIRIProblemTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;FunctionalSyntaxIRIProblemTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/PrimerRDFXMLRoundTrippingTestCase.java</file>
+    <line>25</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.syntax.PrimerRDFXMLRoundTrippingTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;PrimerRDFXMLRoundTrippingTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/RelativeURITestCase.java</file>
+    <line>37</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.syntax.RelativeURITestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;RelativeURITestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/ShortFormProviderTestCase.java</file>
+    <line>26</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.syntax.ShortFormProviderTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;ShortFormProviderTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/RDFSClassTestCase.java</file>
+    <line>34</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.syntax.RDFSClassTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;RDFSClassTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/InvalidAxiomRoundTripTestCase.java</file>
+    <line>33</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.syntax.InvalidAxiomRoundTripTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;InvalidAxiomRoundTripTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/OWLXMLNullPointerTestCase.java</file>
+    <line>39</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.syntax.OWLXMLNullPointerTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;OWLXMLNullPointerTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/TurtleTestCase.java</file>
+    <line>46</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.syntax.TurtleTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;TurtleTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/rdf/DisjointsTestCase.java</file>
+    <line>49</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax.rdf</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.syntax.rdf.DisjointsTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;DisjointsTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/rdfxml/RDFParserTestCase.java</file>
+    <line>37</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax.rdfxml</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.syntax.rdfxml.RDFParserTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;RDFParserTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/rdfxml/SWRLTestCase.java</file>
+    <line>28</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax.rdfxml</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.syntax.rdfxml.SWRLTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;SWRLTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/imports/AnonymousOntologyWithImportsTestCase.java</file>
+    <line>16</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.imports</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.imports.AnonymousOntologyWithImportsTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;AnonymousOntologyWithImportsTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/imports/TestImportByLocationTestCase.java</file>
+    <line>31</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.imports</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.imports.TestImportByLocationTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;TestImportByLocationTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/imports/RemoveImportDataTestCase.java</file>
+    <line>32</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.imports</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.imports.RemoveImportDataTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;RemoveImportDataTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/imports/AddImportDataTestCase.java</file>
+    <line>32</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.imports</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.imports.AddImportDataTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;AddImportDataTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/imports/ManualImportsTestCase.java</file>
+    <line>35</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.imports</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.imports.ManualImportsTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;ManualImportsTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/imports/DuplicateImportTestCase.java</file>
+    <line>35</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.imports</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.imports.DuplicateImportTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;DuplicateImportTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/imports/OWLImportsClosureTestCase.java</file>
+    <line>32</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.imports</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.imports.OWLImportsClosureTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;OWLImportsClosureTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/imports/MultiImportsTestCase.java</file>
+    <line>38</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.imports</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.imports.MultiImportsTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;MultiImportsTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/imports/ImportsClosureTestCase.java</file>
+    <line>31</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.imports</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.imports.ImportsClosureTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;ImportsClosureTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/literals/OWL2DatatypeImplTestCase.java</file>
+    <line>37</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.literals</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.literals.OWL2DatatypeImplTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;OWL2DatatypeImplTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/literals/DatatypeRestrictionTestCase.java</file>
+    <line>37</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.literals</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.literals.DatatypeRestrictionTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;DatatypeRestrictionTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/literals/DataComplementOfTestCase.java</file>
+    <line>36</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.literals</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.literals.DataComplementOfTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;DataComplementOfTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/literals/LiteralTestCase.java</file>
+    <line>38</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.literals</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.literals.LiteralTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;LiteralTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/literals/TestPlainLiteralTestCase.java</file>
+    <line>34</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.literals</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.literals.TestPlainLiteralTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;TestPlainLiteralTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/literals/DatatypeDeclarationWithAnnotationsTestCase.java</file>
+    <line>31</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.literals</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.literals.DatatypeDeclarationWithAnnotationsTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;DatatypeDeclarationWithAnnotationsTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/literals/TestCornerCasesTestCase.java</file>
+    <line>29</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.literals</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.literals.TestCornerCasesTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;TestCornerCasesTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/literals/OWLLiteralCorruptionTestCase.java</file>
+    <line>22</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.literals</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.literals.OWLLiteralCorruptionTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;OWLLiteralCorruptionTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/literals/BuiltInDatatypesTestCase.java</file>
+    <line>30</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.literals</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.literals.BuiltInDatatypesTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;BuiltInDatatypesTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/ontology/OntologyChangeListenerTestCase.java</file>
+    <line>40</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.ontology</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.ontology.OntologyChangeListenerTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;OntologyChangeListenerTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/ontology/MapperlessOntologyManagerTestCase.java</file>
+    <line>39</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.ontology</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.ontology.MapperlessOntologyManagerTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;MapperlessOntologyManagerTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/ontology/RemoveOntologyAnnotationDataTestCase.java</file>
+    <line>32</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.ontology</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.ontology.RemoveOntologyAnnotationDataTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;RemoveOntologyAnnotationDataTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/ontology/IRICharSequenceTestCase.java</file>
+    <line>27</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.ontology</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.ontology.IRICharSequenceTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;IRICharSequenceTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/ontology/OWLOntologyManagerTestCase.java</file>
+    <line>36</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.ontology</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.ontology.OWLOntologyManagerTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;OWLOntologyManagerTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/ontology/OWLOntologyToStringTestCase.java</file>
+    <line>31</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.ontology</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.ontology.OWLOntologyToStringTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;OWLOntologyToStringTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/ontology/OntologyIDTestCase.java</file>
+    <line>27</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.ontology</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.ontology.OntologyIDTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;OntologyIDTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/ontology/ExistingOutputStreamTestCase.java</file>
+    <line>43</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.ontology</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.ontology.ExistingOutputStreamTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;ExistingOutputStreamTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/ontology/SetOntologyIDDataTestCase.java</file>
+    <line>36</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.ontology</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.ontology.SetOntologyIDDataTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;SetOntologyIDDataTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/ontology/OntologyIRITestCase.java</file>
+    <line>31</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.ontology</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.ontology.OntologyIRITestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;OntologyIRITestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/ontology/SWRLRoundTripTestCase.java</file>
+    <line>49</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.ontology</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.ontology.SWRLRoundTripTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;SWRLRoundTripTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/ontology/RenameEntityTestCase.java</file>
+    <line>45</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.ontology</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.ontology.RenameEntityTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;RenameEntityTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/ontology/MissingDeclarationRoundTripTestCase.java</file>
+    <line>31</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.ontology</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.ontology.MissingDeclarationRoundTripTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;MissingDeclarationRoundTripTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/ontology/DeprecatedTestCase.java</file>
+    <line>37</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.ontology</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.ontology.DeprecatedTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;DeprecatedTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/ontology/MultipleOntologyLoadsTestCase.java</file>
+    <line>34</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.ontology</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.ontology.MultipleOntologyLoadsTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;MultipleOntologyLoadsTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/ontology/ChangeOntologyURITestCase.java</file>
+    <line>35</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.ontology</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.ontology.ChangeOntologyURITestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;ChangeOntologyURITestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/ontology/OWLOntologyManagerImplTestCase.java</file>
+    <line>39</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.ontology</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.ontology.OWLOntologyManagerImplTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;OWLOntologyManagerImplTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/ontology/OntologyURITestCase.java</file>
+    <line>35</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.ontology</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.ontology.OntologyURITestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;OntologyURITestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/ontology/RenameToExistingOntologyTestCase.java</file>
+    <line>34</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.ontology</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.ontology.RenameToExistingOntologyTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;RenameToExistingOntologyTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/ontology/OWLOntologyChangeRecordTestCase.java</file>
+    <line>39</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.ontology</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.ontology.OWLOntologyChangeRecordTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;OWLOntologyChangeRecordTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/ontology/HashCodeTestCase.java</file>
+    <line>37</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.ontology</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.ontology.HashCodeTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;HashCodeTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/ontology/OWLOntologyManagerRemoveAxiomsTestCase.java</file>
+    <line>22</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.ontology</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.ontology.OWLOntologyManagerRemoveAxiomsTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;OWLOntologyManagerRemoveAxiomsTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/ontology/OntologyContainsAxiomTestCase.java</file>
+    <line>51</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.ontology</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.ontology.OntologyContainsAxiomTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;OntologyContainsAxiomTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/ontology/DifferentPhysicalURISameOntologyIRITestCase.java</file>
+    <line>29</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.ontology</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.ontology.DifferentPhysicalURISameOntologyIRITestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;DifferentPhysicalURISameOntologyIRITestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/ontology/OntologyMutationTestCase.java</file>
+    <line>37</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.ontology</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.ontology.OntologyMutationTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;OntologyMutationTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/ontology/DublinCoreTestCase.java</file>
+    <line>32</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.ontology</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.ontology.DublinCoreTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;DublinCoreTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/ontology/OWLOntologyAccessorsTestCase.java</file>
+    <line>74</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.ontology</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.ontology.OWLOntologyAccessorsTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;OWLOntologyAccessorsTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/searcher/SearcherTestCase.java</file>
+    <line>34</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.searcher</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.searcher.SearcherTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;SearcherTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/anonymous/AnonymousFunctionalRoundtripTestCase.java</file>
+    <line>36</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.anonymous</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.anonymous.AnonymousFunctionalRoundtripTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;AnonymousFunctionalRoundtripTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/anonymous/AnonymousTurtleTestCase.java</file>
+    <line>25</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.anonymous</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.anonymous.AnonymousTurtleTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;AnonymousTurtleTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/anonymous/AnonymousTroublesomeConversionTestCase.java</file>
+    <line>25</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.anonymous</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.anonymous.AnonymousTroublesomeConversionTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;AnonymousTroublesomeConversionTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/anonymous/AnonymousRoundTripTestCase.java</file>
+    <line>28</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.anonymous</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.anonymous.AnonymousRoundTripTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;AnonymousRoundTripTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/anonymous/AnonymousTestCase.java</file>
+    <line>35</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.anonymous</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.anonymous.AnonymousTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;AnonymousTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/anonymous/AnonymousTurtle2TestCase.java</file>
+    <line>25</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.anonymous</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.anonymous.AnonymousTurtle2TestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;AnonymousTurtle2TestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/anonymous/AnonymousInversesTestCase.java</file>
+    <line>25</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.anonymous</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.anonymous.AnonymousInversesTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;AnonymousInversesTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/anonymous/BlankNodeTestCase.java</file>
+    <line>28</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.anonymous</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.anonymous.BlankNodeTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;BlankNodeTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/anonymous/AnonymousTurtleAssertionTestCase.java</file>
+    <line>25</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.anonymous</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.anonymous.AnonymousTurtleAssertionTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;AnonymousTurtleAssertionTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/reasoners/StructuralReasonerRecursionTestCase.java</file>
+    <line>34</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.reasoners</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.reasoners.StructuralReasonerRecursionTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;StructuralReasonerRecursionTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/reasoners/StructuralReasonerTestCase.java</file>
+    <line>37</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.reasoners</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.reasoners.StructuralReasonerTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;StructuralReasonerTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/annotations/ClassDeclarationWithAnnotationsTestCase.java</file>
+    <line>31</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.annotations</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.annotations.ClassDeclarationWithAnnotationsTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;ClassDeclarationWithAnnotationsTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/annotations/AnnotationPropertyConvenienceMethodTestCase.java</file>
+    <line>36</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.annotations</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.annotations.AnnotationPropertyConvenienceMethodTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;AnnotationPropertyConvenienceMethodTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/annotations/AnnotatedPropertyAssertionsTestCase.java</file>
+    <line>38</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.annotations</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.annotations.AnnotatedPropertyAssertionsTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;AnnotatedPropertyAssertionsTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/annotations/AnnotationAccessorsTestCase.java</file>
+    <line>43</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.annotations</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.annotations.AnnotationAccessorsTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;AnnotationAccessorsTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/annotations/LoadAnnotationAxiomsTestCase.java</file>
+    <line>51</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.annotations</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.annotations.LoadAnnotationAxiomsTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;LoadAnnotationAxiomsTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/annotations/SWRLAnnotationTestCase.java</file>
+    <line>38</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.annotations</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.annotations.SWRLAnnotationTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;SWRLAnnotationTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/annotations/AnnotationPropertyDeclarationWithAnnotationsTestCase.java</file>
+    <line>31</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.annotations</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.annotations.AnnotationPropertyDeclarationWithAnnotationsTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;AnnotationPropertyDeclarationWithAnnotationsTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/annotations/AddOntologyAnnotationDataTestCase.java</file>
+    <line>32</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.annotations</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.annotations.AddOntologyAnnotationDataTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;AddOntologyAnnotationDataTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/annotations/GetAxiomsIgnoringAnnotationsTestCase.java</file>
+    <line>33</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.annotations</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.annotations.GetAxiomsIgnoringAnnotationsTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;GetAxiomsIgnoringAnnotationsTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/annotations/AnnotationShortFormProviderTestCase.java</file>
+    <line>46</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.annotations</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.annotations.AnnotationShortFormProviderTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;AnnotationShortFormProviderTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/annotations/AnnotationPropertyReferencesTestCase.java</file>
+    <line>36</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.annotations</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.annotations.AnnotationPropertyReferencesTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;AnnotationPropertyReferencesTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/baseclasses/ReasonerTestCase.java</file>
+    <line>46</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.baseclasses</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.baseclasses.ReasonerTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;ReasonerTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/individuals/AllDifferentTestCase.java</file>
+    <line>23</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.individuals</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.individuals.AllDifferentTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;AllDifferentTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/individuals/NamedIndividualDeclarationWithAnnotationsTestCase.java</file>
+    <line>31</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.individuals</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.individuals.NamedIndividualDeclarationWithAnnotationsTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;NamedIndividualDeclarationWithAnnotationsTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/dataproperties/AddAxiomDataTestCase.java</file>
+    <line>32</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.dataproperties</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.dataproperties.AddAxiomDataTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;AddAxiomDataTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/dataproperties/DataPropertyDeclarationWithAnnotationsTestCase.java</file>
+    <line>31</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.dataproperties</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.dataproperties.DataPropertyDeclarationWithAnnotationsTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;DataPropertyDeclarationWithAnnotationsTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/dataproperties/EquivalentDataPropertiesNaryAnnotatedTestCase.java</file>
+    <line>29</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.dataproperties</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.dataproperties.EquivalentDataPropertiesNaryAnnotatedTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;EquivalentDataPropertiesNaryAnnotatedTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/dataproperties/RemoveAxiomDataTestCase.java</file>
+    <line>32</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.dataproperties</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.dataproperties.RemoveAxiomDataTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;RemoveAxiomDataTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/classexpressions/DataAllValuesFromTestCase.java</file>
+    <line>36</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.classexpressions</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.classexpressions.DataAllValuesFromTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;DataAllValuesFromTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/classexpressions/DisjointUnionTestCase.java</file>
+    <line>28</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.classexpressions</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.classexpressions.DisjointUnionTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;DisjointUnionTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/classexpressions/EquivalentClassesAxiomNaryAnnotatedTestCase.java</file>
+    <line>29</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.classexpressions</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.classexpressions.EquivalentClassesAxiomNaryAnnotatedTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;EquivalentClassesAxiomNaryAnnotatedTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/classexpressions/DataMaxCardinalityTestCase.java</file>
+    <line>35</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.classexpressions</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.classexpressions.DataMaxCardinalityTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;DataMaxCardinalityTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/classexpressions/ObjectIntersectionOfTestCase.java</file>
+    <line>34</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.classexpressions</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.classexpressions.ObjectIntersectionOfTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;ObjectIntersectionOfTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/classexpressions/DataIntersectionOfTestCase.java</file>
+    <line>36</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.classexpressions</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.classexpressions.DataIntersectionOfTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;DataIntersectionOfTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/classexpressions/ObjectAllValuesFromTestCase.java</file>
+    <line>35</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.classexpressions</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.classexpressions.ObjectAllValuesFromTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;ObjectAllValuesFromTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/classexpressions/ObjectUnionOfTestCase.java</file>
+    <line>34</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.classexpressions</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.classexpressions.ObjectUnionOfTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;ObjectUnionOfTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/classexpressions/ObjectMaxQualifiedCardinalityTestCase.java</file>
+    <line>35</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.classexpressions</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.classexpressions.ObjectMaxQualifiedCardinalityTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;ObjectMaxQualifiedCardinalityTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/classexpressions/DataUnionOfTestCase.java</file>
+    <line>36</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.classexpressions</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.classexpressions.DataUnionOfTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;DataUnionOfTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/classexpressions/DisjointClassesRoundTripTestCase.java</file>
+    <line>30</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.classexpressions</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.classexpressions.DisjointClassesRoundTripTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;DisjointClassesRoundTripTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/classexpressions/ObjectSomeValuesFromTestCase.java</file>
+    <line>35</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.classexpressions</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.classexpressions.ObjectSomeValuesFromTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;ObjectSomeValuesFromTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/classexpressions/DataSomeValuesFromTestCase.java</file>
+    <line>36</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.classexpressions</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.classexpressions.DataSomeValuesFromTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;DataSomeValuesFromTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/classexpressions/ObjectMaxCardinalityTestCase.java</file>
+    <line>35</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.classexpressions</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.classexpressions.ObjectMaxCardinalityTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;ObjectMaxCardinalityTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/classexpressions/HasKeyTestCase.java</file>
+    <line>37</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.classexpressions</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.classexpressions.HasKeyTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;HasKeyTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/classexpressions/DisjointClassesTestCase.java</file>
+    <line>34</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.classexpressions</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.classexpressions.DisjointClassesTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;DisjointClassesTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/classexpressions/DataMinCardinalityTestCase.java</file>
+    <line>35</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.classexpressions</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.classexpressions.DataMinCardinalityTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;DataMinCardinalityTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/classexpressions/ObjectHasValueTestCase.java</file>
+    <line>36</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.classexpressions</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.classexpressions.ObjectHasValueTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;ObjectHasValueTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/classexpressions/ObjectQualifiedCardinalityTestCase.java</file>
+    <line>35</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.classexpressions</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.classexpressions.ObjectQualifiedCardinalityTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;ObjectQualifiedCardinalityTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/classexpressions/ObjectHasSelfTestCase.java</file>
+    <line>35</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.classexpressions</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.classexpressions.ObjectHasSelfTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;ObjectHasSelfTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/classexpressions/EquivalentClassesAxiomTestCase.java</file>
+    <line>34</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.classexpressions</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.classexpressions.EquivalentClassesAxiomTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;EquivalentClassesAxiomTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/classexpressions/ObjectMinCardinalityTestCase.java</file>
+    <line>35</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.classexpressions</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.classexpressions.ObjectMinCardinalityTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;ObjectMinCardinalityTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/classexpressions/DataHasValueTestCase.java</file>
+    <line>36</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.classexpressions</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.classexpressions.DataHasValueTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;DataHasValueTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/classexpressions/DataOneOfTestCase.java</file>
+    <line>36</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.classexpressions</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.classexpressions.DataOneOfTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;DataOneOfTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/classexpressions/ObjectOneOfTestCase.java</file>
+    <line>35</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.classexpressions</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.classexpressions.ObjectOneOfTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;ObjectOneOfTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/classexpressions/ObjectCardinalityTestCase.java</file>
+    <line>35</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.classexpressions</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.classexpressions.ObjectCardinalityTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;ObjectCardinalityTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/classexpressions/ObjectMinQualifiedCardinalityTestCase.java</file>
+    <line>35</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.classexpressions</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.classexpressions.ObjectMinQualifiedCardinalityTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;ObjectMinQualifiedCardinalityTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/objectproperties/ObjectComplementOfTestCase.java</file>
+    <line>34</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.objectproperties</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.objectproperties.ObjectComplementOfTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;ObjectComplementOfTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/objectproperties/InverseFunctionalObjectPropertyInverseTestCase.java</file>
+    <line>31</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.objectproperties</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.objectproperties.InverseFunctionalObjectPropertyInverseTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;InverseFunctionalObjectPropertyInverseTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/objectproperties/AsymmetricObjectPropertyInverseTestCase.java</file>
+    <line>31</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.objectproperties</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.objectproperties.AsymmetricObjectPropertyInverseTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;AsymmetricObjectPropertyInverseTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/objectproperties/FunctionalObjectPropertyInverseTestCase.java</file>
+    <line>31</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.objectproperties</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.objectproperties.FunctionalObjectPropertyInverseTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;FunctionalObjectPropertyInverseTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/objectproperties/TestOWLClassExpressionsAndObjectOneOfTestCase.java</file>
+    <line>23</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.objectproperties</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.objectproperties.TestOWLClassExpressionsAndObjectOneOfTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;TestOWLClassExpressionsAndObjectOneOfTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/objectproperties/EquivalentObjectPropertiesWithInversesTestCase.java</file>
+    <line>32</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.objectproperties</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.objectproperties.EquivalentObjectPropertiesWithInversesTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;EquivalentObjectPropertiesWithInversesTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/objectproperties/ReflexiveObjectPropertyInverseTestCase.java</file>
+    <line>31</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.objectproperties</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.objectproperties.ReflexiveObjectPropertyInverseTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;ReflexiveObjectPropertyInverseTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/objectproperties/AsymmetricPropertyRoundTripTestCase.java</file>
+    <line>26</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.objectproperties</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.objectproperties.AsymmetricPropertyRoundTripTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;AsymmetricPropertyRoundTripTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/objectproperties/ObjectPropertyRangeInverseTestCase.java</file>
+    <line>31</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.objectproperties</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.objectproperties.ObjectPropertyRangeInverseTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;ObjectPropertyRangeInverseTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/objectproperties/ObjectPropertyDomainInverseTestCase.java</file>
+    <line>31</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.objectproperties</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.objectproperties.ObjectPropertyDomainInverseTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;ObjectPropertyDomainInverseTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/objectproperties/InverseSelfTestCase.java</file>
+    <line>34</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.objectproperties</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.objectproperties.InverseSelfTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;InverseSelfTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/objectproperties/ObjectPropertyDeclarationWithAnnotationsTestCase.java</file>
+    <line>31</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.objectproperties</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.objectproperties.ObjectPropertyDeclarationWithAnnotationsTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;ObjectPropertyDeclarationWithAnnotationsTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/objectproperties/TransitiveObjectPropertyInverseTestCase.java</file>
+    <line>31</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.objectproperties</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.objectproperties.TransitiveObjectPropertyInverseTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;TransitiveObjectPropertyInverseTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/objectproperties/InverseOfTestCase.java</file>
+    <line>34</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.objectproperties</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.objectproperties.InverseOfTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;InverseOfTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/objectproperties/EquivalentObjectPropertiesNaryAnnotatedTestCase.java</file>
+    <line>29</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.objectproperties</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.objectproperties.EquivalentObjectPropertiesNaryAnnotatedTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;EquivalentObjectPropertiesNaryAnnotatedTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/objectproperties/SymmetricObjectPropertyInverseTestCase.java</file>
+    <line>31</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.objectproperties</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.objectproperties.SymmetricObjectPropertyInverseTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;SymmetricObjectPropertyInverseTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/objectproperties/IrreflexiveObjectPropertyInverseTestCase.java</file>
+    <line>31</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.objectproperties</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.objectproperties.IrreflexiveObjectPropertyInverseTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;IrreflexiveObjectPropertyInverseTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/objectproperties/SubObjectPropertyChainOfAnnotatedTestCase.java</file>
+    <line>39</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.objectproperties</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.objectproperties.SubObjectPropertyChainOfAnnotatedTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;SubObjectPropertyChainOfAnnotatedTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/objectproperties/ObjectPropertySimplifierTestCase.java</file>
+    <line>29</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.objectproperties</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.objectproperties.ObjectPropertySimplifierTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;ObjectPropertySimplifierTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/objectproperties/SubObjectPropertyOfInverseTestCase.java</file>
+    <line>32</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.objectproperties</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.objectproperties.SubObjectPropertyOfInverseTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;SubObjectPropertyOfInverseTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/rdf/TestDisjointsTestCase.java</file>
+    <line>50</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.rdf</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.rdf.TestDisjointsTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;TestDisjointsTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/rdf/TestUndeclaredAnnotation.java</file>
+    <line>25</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.rdf</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.rdf.TestUndeclaredAnnotation" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;TestUndeclaredAnnotation&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/examples/Examples.java</file>
+    <line>130</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.examples</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.examples.Examples" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;Examples&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/profiles/test/Profile1TestCase.java</file>
+    <line>7</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.profiles.test</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.profiles.test.Profile1TestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;Profile1TestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/profiles/test/Profile3TestCase.java</file>
+    <line>6</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.profiles.test</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.profiles.test.Profile3TestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;Profile3TestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/profiles/test/ProfileValidationTestCase.java</file>
+    <line>53</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.profiles.test</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.profiles.test.ProfileValidationTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;ProfileValidationTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/profiles/test/Profile2TestCase.java</file>
+    <line>6</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.profiles.test</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.profiles.test.Profile2TestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;Profile2TestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/profiles/test/OWLProfileTestCase.java</file>
+    <line>106</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.profiles.test</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.profiles.test.OWLProfileTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;OWLProfileTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/profiles/test/ForbiddenVocabularyTestCase.java</file>
+    <line>41</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.profiles.test</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.profiles.test.ForbiddenVocabularyTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;ForbiddenVocabularyTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/test/java/org/semanticweb/owlapitools/builders/test/BuildersTestCase.java</file>
+    <line>133</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders.test</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapitools.builders.test.BuildersTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;BuildersTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/test/java/org/semanticweb/owlapitools/builders/test/BuildersEqualTestCase.java</file>
+    <line>205</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders.test</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapitools.builders.test.BuildersEqualTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;BuildersEqualTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/test/java/org/semanticweb/owlapitools/builders/test/BuildersOntologyTestCase.java</file>
+    <line>91</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders.test</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapitools.builders.test.BuildersOntologyTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">JUnit test class naming convention</problem_class>
+    <description>JUnit test class name &lt;code&gt;BuildersOntologyTestCase&lt;/code&gt; doesn't match regex '[A-Z][A-Za-z\d]*Test' #loc</description>
+  </problem>
+</problems>
+

@@ -1,0 +1,643 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/test/java/org/semanticweb/owlapi/datafactory/OWLDataFactoryTestCase.java</file>
+    <line>535</line>
+    <module>owlapi-impl</module>
+    <package>org.semanticweb.owlapi.datafactory</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.datafactory.OWLDataFactoryTestCase void testAsSubAxiomsEquivalentObjectProperties()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/test/java/org/semanticweb/owlapi/datafactory/OWLDataFactoryTestCase.java</file>
+    <line>629</line>
+    <module>owlapi-impl</module>
+    <package>org.semanticweb.owlapi.datafactory</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.datafactory.OWLDataFactoryTestCase void testAsSubAxiomsEquivalentDataProperties()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/test/java/org/semanticweb/owlapi/datafactory/OWLDataFactoryTestCase.java</file>
+    <line>681</line>
+    <module>owlapi-impl</module>
+    <package>org.semanticweb.owlapi.datafactory</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.datafactory.OWLDataFactoryTestCase void testAsSubAxiomsEquivalentClasses()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/macro/ExpandExpressionTest.java</file>
+    <line>35</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.macro</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.macro.ExpandExpressionTest void testExpand()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/macro/ExpandExpressionTest.java</file>
+    <line>42</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.macro</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.macro.ExpandExpressionTest void testExpand()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/macro/ExpandExpressionTest.java</file>
+    <line>59</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.macro</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.macro.ExpandExpressionTest void testExpand()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/macro/ExpandExpressionGCITest.java</file>
+    <line>37</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.macro</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.macro.ExpandExpressionGCITest void testExpand()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/EquivalentToTest.java</file>
+    <line>70</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.EquivalentToTest void checkOBODoc(org.obolibrary.oboformat.model.OBODoc obodoc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/EquivalentToTest.java</file>
+    <line>72</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.EquivalentToTest void checkOBODoc(org.obolibrary.oboformat.model.OBODoc obodoc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/EquivalentToTest.java</file>
+    <line>80</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.EquivalentToTest void checkOBODoc(org.obolibrary.oboformat.model.OBODoc obodoc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/DanglingRestrictionOwl2OboTest.java</file>
+    <line>22</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.DanglingRestrictionOwl2OboTest void testConversion()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/DanglingRestrictionOwl2OboTest.java</file>
+    <line>24</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.DanglingRestrictionOwl2OboTest void testConversion()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/DanglingRestrictionOwl2OboTest.java</file>
+    <line>26</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.DanglingRestrictionOwl2OboTest void testConversion()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/BFOROXrefTest.java</file>
+    <line>59</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.BFOROXrefTest void testRelationXrefConversion()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/BFOROXrefTest.java</file>
+    <line>106</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.BFOROXrefTest void testRelationXrefConversion()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/BFOROXrefTest.java</file>
+    <line>107</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.BFOROXrefTest void testRelationXrefConversion()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/BFOROXrefTest.java</file>
+    <line>39</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.BFOROXrefTest void testCorrectIdAnnotationCount()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/IDsTest.java</file>
+    <line>35</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.IDsTest void testIDs()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/IDsTest.java</file>
+    <line>39</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.IDsTest void testIDs()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/IDsTest.java</file>
+    <line>41</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.IDsTest void testIDs()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/IDsTest.java</file>
+    <line>44</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.IDsTest void testIDs()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/IDsTest.java</file>
+    <line>46</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.IDsTest void testIDs()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/IDsTest.java</file>
+    <line>50</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.IDsTest void testIDs()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/IDsTest.java</file>
+    <line>53</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.IDsTest void testIDs()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/IDsTest.java</file>
+    <line>57</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.IDsTest void testIDs()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/IDsTest.java</file>
+    <line>64</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.IDsTest void testIDs()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/IDsTest.java</file>
+    <line>68</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.IDsTest void testIDs()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/IDsTest.java</file>
+    <line>70</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.IDsTest void testIDs()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/IDsTest.java</file>
+    <line>74</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.IDsTest void testIDs()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/IDsTest.java</file>
+    <line>76</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.IDsTest void testIDs()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/IDsTest.java</file>
+    <line>79</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.IDsTest void testIDs()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/IDsTest.java</file>
+    <line>81</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.IDsTest void testIDs()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/IDsTest.java</file>
+    <line>85</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.IDsTest void testIDs()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/IDsTest.java</file>
+    <line>88</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.IDsTest void testIDs()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/IDsTest.java</file>
+    <line>92</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.IDsTest void testIDs()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/LogicalDefinitionPropertyViewTest.java</file>
+    <line>52</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.LogicalDefinitionPropertyViewTest void testConvert()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/DanglingRoundTripTest.java</file>
+    <line>25</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.DanglingRoundTripTest void testConvertXPs()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/ObsoleteTermTest.java</file>
+    <line>52</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.ObsoleteTermTest void testConvert()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/DanglingOwl2OboTest.java</file>
+    <line>21</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.DanglingOwl2OboTest void testConversion()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/DanglingOwl2OboTest.java</file>
+    <line>23</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.DanglingOwl2OboTest void testConversion()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/Owl2OboTest.java</file>
+    <line>29</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.Owl2OboTest void testIRTsConversion()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/Owl2OboTest.java</file>
+    <line>35</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.Owl2OboTest void testIRTsConversion()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/Owl2OboTest.java</file>
+    <line>38</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.Owl2OboTest void testIRTsConversion()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/Owl2OboTest.java</file>
+    <line>41</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.Owl2OboTest void testIRTsConversion()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/Owl2OboTest.java</file>
+    <line>44</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.Owl2OboTest void testIRTsConversion()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/Owl2OboTest.java</file>
+    <line>51</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.Owl2OboTest void testIRTsConversion()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/oboformat/SingleIntersectionOfTagTest.java</file>
+    <line>17</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.oboformat</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.SingleIntersectionOfTagTest void testParseOBOFile()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/oboformat/TagTest.java</file>
+    <line>92</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.oboformat</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.TagTest void testParseNamespaceTag()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/oboformat/TagTest.java</file>
+    <line>93</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.oboformat</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.TagTest void testParseNamespaceTag()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/oboformat/TagTest.java</file>
+    <line>78</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.oboformat</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.TagTest void testParseNameTag()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/oboformat/TagTest.java</file>
+    <line>79</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.oboformat</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.TagTest void testParseNameTag()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/oboformat/MultipleCommentsTest.java</file>
+    <line>17</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.oboformat</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.MultipleCommentsTest void testCheckForMultipleCommentsinFrame()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/oboformat/XrefExpanderTest.java</file>
+    <line>25</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.oboformat</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.XrefExpanderTest void testExpand()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/oboformat/XrefExpanderTest.java</file>
+    <line>29</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.oboformat</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.XrefExpanderTest void testExpand()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/oboformat/XrefExpanderTest.java</file>
+    <line>33</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.oboformat</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.XrefExpanderTest void testExpand()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/oboformat/XrefExpanderTest.java</file>
+    <line>55</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.oboformat</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.XrefExpanderTest void testExpandIntoSeparateBridges()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/oboformat/XrefExpanderTest.java</file>
+    <line>58</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.oboformat</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.XrefExpanderTest void testExpandIntoSeparateBridges()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/oboformat/XrefExpanderTest.java</file>
+    <line>63</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.oboformat</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.XrefExpanderTest void testExpandIntoSeparateBridges()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/oboformat/XrefExpanderTest.java</file>
+    <line>69</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.oboformat</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.XrefExpanderTest void testExpandIntoSeparateBridges()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/oboformat/XrefExpanderTest.java</file>
+    <line>75</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.oboformat</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.XrefExpanderTest void testExpandIntoSeparateBridges()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/XMLUtilsTestCase.java</file>
+    <line>85</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.api.test.syntax.XMLUtilsTestCase void testParsesBNode()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertEquals()&lt;/code&gt; can be simplified to 'assertNull()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/InvalidAxiomRoundTripTestCase.java</file>
+    <line>132</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.api.test.syntax.InvalidAxiomRoundTripTestCase void shouldRoundTripInvalidDisjointDataProperties()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/InvalidAxiomRoundTripTestCase.java</file>
+    <line>168</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.api.test.syntax.InvalidAxiomRoundTripTestCase void shouldRoundTripInvalidEquivalentClasses()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/InvalidAxiomRoundTripTestCase.java</file>
+    <line>210</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.api.test.syntax.InvalidAxiomRoundTripTestCase void shouldRoundTripInvalidEquivalentDataProperties()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/InvalidAxiomRoundTripTestCase.java</file>
+    <line>91</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.api.test.syntax.InvalidAxiomRoundTripTestCase void shouldRoundTripInvalidDisjointClasses()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/InvalidAxiomRoundTripTestCase.java</file>
+    <line>48</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.api.test.syntax.InvalidAxiomRoundTripTestCase void assertCorrectResult(org.semanticweb.owlapi.model.OWLAxiom wrongAxiom, org.semanticweb.owlapi.model.OWLAxiom validAxiom, org.semanticweb.owlapi.model.OWLOntology reloaded)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/InvalidAxiomRoundTripTestCase.java</file>
+    <line>189</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.api.test.syntax.InvalidAxiomRoundTripTestCase void shouldRoundTripInvalidEquivalentObjectProperties()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/InvalidAxiomRoundTripTestCase.java</file>
+    <line>112</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.api.test.syntax.InvalidAxiomRoundTripTestCase void shouldRoundTripInvalidDisjointObjectProperties()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/baseclasses/ReasonerTestCase.java</file>
+    <line>228</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.baseclasses</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.api.test.baseclasses.ReasonerTestCase void testGetEquivalentClasses()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/baseclasses/ReasonerTestCase.java</file>
+    <line>233</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.baseclasses</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.api.test.baseclasses.ReasonerTestCase void testGetEquivalentClasses()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/profiles/test/ForbiddenVocabularyTestCase.java</file>
+    <line>182</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.profiles.test</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.profiles.test.ForbiddenVocabularyTestCase void shouldNotCauseViolations()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Simplifiable JUnit assertion</problem_class>
+    <description>&lt;code&gt;assertTrue()&lt;/code&gt; can be simplified to 'assertEquals()' #loc</description>
+  </problem>
+</problems>
+

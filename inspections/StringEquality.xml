@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/rio/src/main/java/org/semanticweb/owlapi/formats/AbstractOWLOntologyFormatFactory.java</file>
+    <line>97</line>
+    <module>owlapi-rio</module>
+    <package>org.semanticweb.owlapi.formats</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.formats.AbstractOWLOntologyFormatFactory boolean handlesMimeType(java.lang.String mimeType)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">String comparison using '==', instead of 'equals()'</problem_class>
+    <description>String values are compared using &lt;code&gt;!=&lt;/code&gt;, not 'equals()' #loc</description>
+  </problem>
+</problems>
+

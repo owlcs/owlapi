@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/io/XMLUtils.java</file>
+    <line>161</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.io</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.io.XMLUtils boolean isQName(java.lang.CharSequence s)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Boolean variable is always inverted</problem_class>
+    <description>Boolean variable &lt;code&gt;inNCName&lt;/code&gt; is always inverted #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/io/UnparsableOntologyException.java</file>
+    <line>35</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.io</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.io.UnparsableOntologyException includeStackTraceInMessage" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Boolean variable is always inverted</problem_class>
+    <description>Boolean field &lt;code&gt;includeStackTraceInMessage&lt;/code&gt; is always inverted #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/CollectionFactory.java</file>
+    <line>479</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.util.CollectionFactory.ConditionalCopySet copyDone" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Boolean variable is always inverted</problem_class>
+    <description>Boolean field &lt;code&gt;copyDone&lt;/code&gt; is always inverted #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/AutoIRIMapper.java</file>
+    <line>59</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.util.AutoIRIMapper mapped" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Boolean variable is always inverted</problem_class>
+    <description>Boolean field &lt;code&gt;mapped&lt;/code&gt; is always inverted #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/OWLClassLiteralCollector.java</file>
+    <line>36</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.util.OWLClassLiteralCollector processed" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Boolean variable is always inverted</problem_class>
+    <description>Boolean field &lt;code&gt;processed&lt;/code&gt; is always inverted #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/BidirectionalShortFormProviderAdapter.java</file>
+    <line>150</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.BidirectionalShortFormProviderAdapter void handleChanges(java.util.List&lt;? extends org.semanticweb.owlapi.model.OWLOntologyChange&lt;?&gt;&gt; changes)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Boolean variable is always inverted</problem_class>
+    <description>Boolean variable &lt;code&gt;stillRef&lt;/code&gt; is always inverted #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/profiles/OWL2ELProfile.java</file>
+    <line>352</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.profiles</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.profiles.OWL2ELProfile.OWL2ELProfileObjectVisitor void visit(org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Boolean variable is always inverted</problem_class>
+    <description>Boolean variable &lt;code&gt;rngPresent&lt;/code&gt; is always inverted #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLOntologyManagerImpl.java</file>
+    <line>532</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl void checkForImportsChange(org.semanticweb.owlapi.model.OWLOntologyChange&lt;?&gt; change)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Boolean variable is always inverted</problem_class>
+    <description>Boolean variable &lt;code&gt;found&lt;/code&gt; is always inverted #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLOntologyManagerImpl.java</file>
+    <line>132</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl broadcastChanges" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Boolean variable is always inverted</problem_class>
+    <description>Boolean field &lt;code&gt;broadcastChanges&lt;/code&gt; is always inverted #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/org/semanticweb/owlapi/reasoner/structural/StructuralReasoner.java</file>
+    <line>106</line>
+    <module>owlapi-impl</module>
+    <package>org.semanticweb.owlapi.reasoner.structural</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.reasoner.structural.StructuralReasoner prepared" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Boolean variable is always inverted</problem_class>
+    <description>Boolean field &lt;code&gt;prepared&lt;/code&gt; is always inverted #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>941</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo void tr(org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom aanAx, org.obolibrary.oboformat.model.Frame frame)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Boolean variable is always inverted</problem_class>
+    <description>Boolean variable &lt;code&gt;success&lt;/code&gt; is always inverted #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>1059</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo boolean tr(org.semanticweb.owlapi.model.OWLAnnotationProperty prop, org.semanticweb.owlapi.model.OWLAnnotationValue annVal, java.util.Set&lt;org.semanticweb.owlapi.model.OWLAnnotation&gt; qualifiers, org.obolibrary.oboformat.model.Frame frame)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Boolean variable is always inverted</problem_class>
+    <description>Boolean variable &lt;code&gt;redundant&lt;/code&gt; is always inverted #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>1393</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo void tr(org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom ax)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Boolean variable is always inverted</problem_class>
+    <description>Boolean variable &lt;code&gt;isUntranslateable&lt;/code&gt; is always inverted #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/diff/OBODocDiffer.java</file>
+    <line>88</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.diff</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.diff.OBODocDiffer java.util.List&lt;org.obolibrary.oboformat.diff.Diff&gt; getDiffsAsym(java.lang.String ftype, org.obolibrary.oboformat.model.Frame f1, org.obolibrary.oboformat.model.Frame f2, int n)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Boolean variable is always inverted</problem_class>
+    <description>Boolean variable &lt;code&gt;isMatched&lt;/code&gt; is always inverted #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/OBOFormatParser.java</file>
+    <line>1230</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.parser.OBOFormatParser void parseQualifierBlock(org.obolibrary.oboformat.model.Clause cl)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Boolean variable is always inverted</problem_class>
+    <description>Boolean variable &lt;code&gt;success&lt;/code&gt; is always inverted #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/model/AbstractTranslator.java</file>
+    <line>60</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.model</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.model.AbstractTranslator useStrongTyping" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Boolean variable is always inverted</problem_class>
+    <description>Boolean field &lt;code&gt;useStrongTyping&lt;/code&gt; is always inverted #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/StartRDF.java</file>
+    <line>328</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.NodeElement void startElement(java.lang.String namespaceIRI, java.lang.String localName, java.lang.String qName, org.xml.sax.Attributes atts)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Boolean variable is always inverted</problem_class>
+    <description>Boolean variable &lt;code&gt;isRDFNS&lt;/code&gt; is always inverted #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/TripleHandlers.java</file>
+    <line>216</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.TripleHandlers.HandlerAccessor void handleStreaming(org.semanticweb.owlapi.model.IRI subject, org.semanticweb.owlapi.model.IRI predicate, org.semanticweb.owlapi.model.IRI object)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Boolean variable is always inverted</problem_class>
+    <description>Boolean variable &lt;code&gt;consumed&lt;/code&gt; is always inverted #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/OWLRDFConsumer.java</file>
+    <line>724</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFConsumer void checkForAndProcessAnnotatedDeclaration(org.semanticweb.owlapi.model.IRI mainNode)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Boolean variable is always inverted</problem_class>
+    <description>Boolean variable &lt;code&gt;rdfTypePredicate&lt;/code&gt; is always inverted #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/renderer/XMLWriterImpl.java</file>
+    <line>281</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.renderer</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.renderer.XMLWriterImpl.XMLElement startWritten" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Boolean variable is always inverted</problem_class>
+    <description>Boolean field &lt;code&gt;startWritten&lt;/code&gt; is always inverted #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/turtle/renderer/TurtleRenderer.java</file>
+    <line>364</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.turtle.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.turtle.renderer.TurtleRenderer void render(org.semanticweb.owlapi.io.RDFResource node)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Boolean variable is always inverted</problem_class>
+    <description>Boolean variable &lt;code&gt;first&lt;/code&gt; is always inverted #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>1479</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser org.semanticweb.owlapi.model.OWLPropertyAssertionAxiom&lt;?,?&gt; parseFact(org.semanticweb.owlapi.model.OWLIndividual ind)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Boolean variable is always inverted</problem_class>
+    <description>Boolean variable &lt;code&gt;negative&lt;/code&gt; is always inverted #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>158</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser allowEmptyFrameSections" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Boolean variable is always inverted</problem_class>
+    <description>Boolean field &lt;code&gt;allowEmptyFrameSections&lt;/code&gt; is always inverted #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxOntologyParser.java</file>
+    <line>77</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxOntologyParser org.semanticweb.owlapi.model.OWLOntologyFormat parse(org.semanticweb.owlapi.io.OWLOntologyDocumentSource documentSource, org.semanticweb.owlapi.model.OWLOntology ontology, org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration configuration)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Boolean variable is always inverted</problem_class>
+    <description>Boolean variable &lt;code&gt;foundMagicNumber&lt;/code&gt; is always inverted #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/renderer/ManchesterOWLSyntaxObjectRenderer.java</file>
+    <line>92</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.renderer.ManchesterOWLSyntaxObjectRenderer void write(java.util.Set&lt;? extends org.semanticweb.owlapi.model.OWLClassExpression&gt; objects, boolean newline)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Boolean variable is always inverted</problem_class>
+    <description>Boolean variable &lt;code&gt;first&lt;/code&gt; is always inverted #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/renderer/ManchesterOWLSyntaxObjectRenderer.java</file>
+    <line>183</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.renderer.ManchesterOWLSyntaxObjectRenderer void visit(org.semanticweb.owlapi.model.OWLObjectUnionOf desc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Boolean variable is always inverted</problem_class>
+    <description>Boolean variable &lt;code&gt;first&lt;/code&gt; is always inverted #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/renderer/FunctionalSyntaxObjectRenderer.java</file>
+    <line>51</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.renderer</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.functional.renderer.FunctionalSyntaxObjectRenderer writeEntitiesAsURIs" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Boolean variable is always inverted</problem_class>
+    <description>Boolean field &lt;code&gt;writeEntitiesAsURIs&lt;/code&gt; is always inverted #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/uk/ac/manchester/cs/owlapi/modularity/SyntacticLocalityModuleExtractor.java</file>
+    <line>746</line>
+    <module>owlapi-tools</module>
+    <package>uk.ac.manchester.cs.owlapi.modularity</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owlapi.modularity.SyntacticLocalityModuleExtractor java.util.Set&lt;org.semanticweb.owlapi.model.OWLAxiom&gt; extract(java.util.Set&lt;org.semanticweb.owlapi.model.OWLEntity&gt; sig, int superClassLevel, int subClassLevel, org.semanticweb.owlapi.reasoner.OWLReasoner reasoner, boolean verbose)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Boolean variable is always inverted</problem_class>
+    <description>Boolean variable &lt;code&gt;inFirstStep&lt;/code&gt; is always inverted #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/explanation/HSTExplanationGenerator.java</file>
+    <line>448</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.explanation</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.explanation.HSTExplanationGenerator void collectTemporaryDeclarations(org.semanticweb.owlapi.model.OWLAxiom axiom, java.util.List&lt;org.semanticweb.owlapi.model.OWLDeclarationAxiom&gt; temporaryDeclarations)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Boolean variable is always inverted</problem_class>
+    <description>Boolean variable &lt;code&gt;referenced&lt;/code&gt; is always inverted #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/explanation/HSTExplanationGenerator.java</file>
+    <line>277</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.explanation</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.explanation.HSTExplanationGenerator void constructHittingSetTree(org.semanticweb.owlapi.model.OWLClassExpression unsatClass, java.util.Set&lt;org.semanticweb.owlapi.model.OWLAxiom&gt; mups, java.util.Set&lt;java.util.Set&lt;org.semanticweb.owlapi.model.OWLAxiom&gt;&gt; allMups, java.util.Set&lt;java.util.Set&lt;org.semanticweb.owlapi.model.OWLAxiom&gt;&gt; satPaths, java.util.Set&lt;org.semanticweb.owlapi.model.OWLAxiom&gt; currentPathContents, int maxExplanations)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Boolean variable is always inverted</problem_class>
+    <description>Boolean variable &lt;code&gt;earlyTermination&lt;/code&gt; is always inverted #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/explanation/BlackBoxExplanation.java</file>
+    <line>229</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.explanation</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.explanation.BlackBoxExplanation int expandWithDefiningAxioms(org.semanticweb.owlapi.model.OWLEntity obj, int limit)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Boolean variable is always inverted</problem_class>
+    <description>Boolean variable &lt;code&gt;referenceFound&lt;/code&gt; is always inverted #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/org/semanticweb/owlapi/debugging/AbstractOWLDebugger.java</file>
+    <line>153</line>
+    <module>owlapi-tools</module>
+    <package>org.semanticweb.owlapi.debugging</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.debugging.AbstractOWLDebugger void constructHittingSetTree(java.util.Set&lt;org.semanticweb.owlapi.model.OWLAxiom&gt; mups, java.util.Set&lt;java.util.Set&lt;org.semanticweb.owlapi.model.OWLAxiom&gt;&gt; allMups, java.util.Set&lt;java.util.Set&lt;org.semanticweb.owlapi.model.OWLAxiom&gt;&gt; satPaths, java.util.Set&lt;org.semanticweb.owlapi.model.OWLAxiom&gt; currentPathContents)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Boolean variable is always inverted</problem_class>
+    <description>Boolean variable &lt;code&gt;earlyTermination&lt;/code&gt; is always inverted #loc</description>
+  </problem>
+</problems>
+

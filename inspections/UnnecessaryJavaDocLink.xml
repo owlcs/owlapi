@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLOntologyChange.java</file>
+    <line>115</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.OWLOntologyChange org.semanticweb.owlapi.change.OWLOntologyChangeRecord&lt;T&gt; getChangeRecord()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary Javadoc link</problem_class>
+    <description>&lt;code&gt;@link&lt;/code&gt; pointing to containing class is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLOntologyChange.java</file>
+    <line>120</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.OWLOntologyChange org.semanticweb.owlapi.change.OWLOntologyChangeRecord&lt;T&gt; getChangeRecord()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary Javadoc link</problem_class>
+    <description>&lt;code&gt;@link&lt;/code&gt; pointing to containing class is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLOntologyChange.java</file>
+    <line>108</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.OWLOntologyChange org.semanticweb.owlapi.change.OWLOntologyChangeData&lt;T&gt; getChangeData()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary Javadoc link</problem_class>
+    <description>&lt;code&gt;@link&lt;/code&gt; pointing to containing class is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/vocab/OWL2Datatype.java</file>
+    <line>262</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.vocab</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.vocab.OWL2Datatype org.semanticweb.owlapi.model.OWLDatatype getDatatype(org.semanticweb.owlapi.model.OWLDataFactory factory)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary Javadoc link</problem_class>
+    <description>&lt;code&gt;@link&lt;/code&gt; pointing to containing class is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/vocab/OWL2Datatype.java</file>
+    <line>148</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.vocab</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.vocab.OWL2Datatype org.semanticweb.owlapi.vocab.OWL2Datatype getDatatype(org.semanticweb.owlapi.model.IRI datatype)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary Javadoc link</problem_class>
+    <description>&lt;code&gt;@link&lt;/code&gt; pointing to containing class is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/vocab/OWL2Datatype.java</file>
+    <line>152</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.vocab</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.vocab.OWL2Datatype org.semanticweb.owlapi.vocab.OWL2Datatype getDatatype(org.semanticweb.owlapi.model.IRI datatype)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary Javadoc link</problem_class>
+    <description>&lt;code&gt;@link&lt;/code&gt; pointing to containing class is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/vocab/OWL2Datatype.java</file>
+    <line>106</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.vocab</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.vocab.OWL2Datatype java.util.Set&lt;org.semanticweb.owlapi.model.IRI&gt; getDatatypeIRIs()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary Javadoc link</problem_class>
+    <description>&lt;code&gt;@link&lt;/code&gt; pointing to containing class is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/change/RemoveImportData.java</file>
+    <line>35</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.change</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.change.RemoveImportData RemoveImportData(org.semanticweb.owlapi.model.OWLImportsDeclaration declaration)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary Javadoc link</problem_class>
+    <description>&lt;code&gt;@link&lt;/code&gt; pointing to containing class is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/change/OWLOntologyChangeData.java</file>
+    <line>71</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.change</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.change.OWLOntologyChangeData org.semanticweb.owlapi.model.OWLOntologyChange&lt;T&gt; createOntologyChange(org.semanticweb.owlapi.model.OWLOntology ontology)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary Javadoc link</problem_class>
+    <description>&lt;code&gt;@link&lt;/code&gt; pointing to containing class is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/change/AddAxiomData.java</file>
+    <line>35</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.change</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.change.AddAxiomData AddAxiomData(org.semanticweb.owlapi.model.OWLAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary Javadoc link</problem_class>
+    <description>&lt;code&gt;@link&lt;/code&gt; pointing to containing class is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/change/AxiomChangeData.java</file>
+    <line>39</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.change</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.change.AxiomChangeData AxiomChangeData(org.semanticweb.owlapi.model.OWLAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary Javadoc link</problem_class>
+    <description>&lt;code&gt;@link&lt;/code&gt; pointing to containing class is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/change/RemoveOntologyAnnotationData.java</file>
+    <line>35</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.change</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.change.RemoveOntologyAnnotationData RemoveOntologyAnnotationData(org.semanticweb.owlapi.model.OWLAnnotation annotation)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary Javadoc link</problem_class>
+    <description>&lt;code&gt;@link&lt;/code&gt; pointing to containing class is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/change/SetOntologyIDData.java</file>
+    <line>43</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.change</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.change.SetOntologyIDData SetOntologyIDData(org.semanticweb.owlapi.model.OWLOntologyID newId)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary Javadoc link</problem_class>
+    <description>&lt;code&gt;@link&lt;/code&gt; pointing to containing class is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/change/ImportChangeData.java</file>
+    <line>42</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.change</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.change.ImportChangeData ImportChangeData(org.semanticweb.owlapi.model.OWLImportsDeclaration declaration)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary Javadoc link</problem_class>
+    <description>&lt;code&gt;@link&lt;/code&gt; pointing to containing class is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/change/OWLOntologyChangeRecord.java</file>
+    <line>118</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.change</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.change.OWLOntologyChangeRecord org.semanticweb.owlapi.change.OWLOntologyChangeData&lt;T&gt; getData()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary Javadoc link</problem_class>
+    <description>&lt;code&gt;@link&lt;/code&gt; pointing to containing class is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/change/OWLOntologyChangeRecord.java</file>
+    <line>67</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.change</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.change.OWLOntologyChangeRecord OWLOntologyChangeRecord(org.semanticweb.owlapi.model.OWLOntologyID ontologyID, org.semanticweb.owlapi.change.OWLOntologyChangeData&lt;T&gt; data)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary Javadoc link</problem_class>
+    <description>&lt;code&gt;@link&lt;/code&gt; pointing to containing class is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/change/OWLOntologyChangeRecord.java</file>
+    <line>130</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.change</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.change.OWLOntologyChangeRecord org.semanticweb.owlapi.model.OWLOntologyChange&lt;T&gt; createOntologyChange(org.semanticweb.owlapi.model.OWLOntologyManager manager)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary Javadoc link</problem_class>
+    <description>&lt;code&gt;@link&lt;/code&gt; pointing to containing class is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/change/OWLOntologyChangeRecord.java</file>
+    <line>135</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.change</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.change.OWLOntologyChangeRecord org.semanticweb.owlapi.model.OWLOntologyChange&lt;T&gt; createOntologyChange(org.semanticweb.owlapi.model.OWLOntologyManager manager)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary Javadoc link</problem_class>
+    <description>&lt;code&gt;@link&lt;/code&gt; pointing to containing class is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/change/OWLOntologyChangeRecord.java</file>
+    <line>141</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.change</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.change.OWLOntologyChangeRecord org.semanticweb.owlapi.model.OWLOntologyChange&lt;T&gt; createOntologyChange(org.semanticweb.owlapi.model.OWLOntologyManager manager)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary Javadoc link</problem_class>
+    <description>&lt;code&gt;@link&lt;/code&gt; pointing to containing class is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/change/OWLOntologyChangeRecord.java</file>
+    <line>147</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.change</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.change.OWLOntologyChangeRecord org.semanticweb.owlapi.model.OWLOntologyChange&lt;T&gt; createOntologyChange(org.semanticweb.owlapi.model.OWLOntologyManager manager)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary Javadoc link</problem_class>
+    <description>&lt;code&gt;@link&lt;/code&gt; pointing to containing class is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/change/OWLOntologyChangeRecord.java</file>
+    <line>151</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.change</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.change.OWLOntologyChangeRecord org.semanticweb.owlapi.model.OWLOntologyChange&lt;T&gt; createOntologyChange(org.semanticweb.owlapi.model.OWLOntologyManager manager)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary Javadoc link</problem_class>
+    <description>&lt;code&gt;@link&lt;/code&gt; pointing to containing class is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/change/OWLOntologyChangeRecord.java</file>
+    <line>87</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.change</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.change.OWLOntologyChangeRecord org.semanticweb.owlapi.change.OWLOntologyChangeRecord&lt;T&gt; createFromOWLOntologyChange(org.semanticweb.owlapi.model.OWLOntologyChange&lt;T&gt; change)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary Javadoc link</problem_class>
+    <description>&lt;code&gt;@link&lt;/code&gt; pointing to containing class is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/change/AddOntologyAnnotationData.java</file>
+    <line>35</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.change</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.change.AddOntologyAnnotationData AddOntologyAnnotationData(org.semanticweb.owlapi.model.OWLAnnotation annotation)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary Javadoc link</problem_class>
+    <description>&lt;code&gt;@link&lt;/code&gt; pointing to containing class is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/change/AddImportData.java</file>
+    <line>35</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.change</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.change.AddImportData AddImportData(org.semanticweb.owlapi.model.OWLImportsDeclaration declaration)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary Javadoc link</problem_class>
+    <description>&lt;code&gt;@link&lt;/code&gt; pointing to containing class is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/change/RemoveAxiomData.java</file>
+    <line>35</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.change</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.change.RemoveAxiomData RemoveAxiomData(org.semanticweb.owlapi.model.OWLAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary Javadoc link</problem_class>
+    <description>&lt;code&gt;@link&lt;/code&gt; pointing to containing class is unnecessary #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/change/OntologyAnnotationChangeData.java</file>
+    <line>42</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.change</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.change.OntologyAnnotationChangeData OntologyAnnotationChangeData(org.semanticweb.owlapi.model.OWLAnnotation annotation)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary Javadoc link</problem_class>
+    <description>&lt;code&gt;@link&lt;/code&gt; pointing to containing class is unnecessary #loc</description>
+  </problem>
+</problems>
+

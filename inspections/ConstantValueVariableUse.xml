@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLImmutableOntologyImpl.java</file>
+    <line>957</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLImmutableOntologyImpl java.util.Set&lt;A&gt; getAxioms(java.lang.Class&lt;A&gt; type, org.semanticweb.owlapi.model.OWLObject entity, org.semanticweb.owlapi.model.parameters.Imports includeImports, org.semanticweb.owlapi.model.parameters.Search forSubPosition)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Use of variable whose value is known to be constant</problem_class>
+    <description>Value of &lt;code&gt;includeImports&lt;/code&gt; is known to be constant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLImmutableOntologyImpl.java</file>
+    <line>553</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLImmutableOntologyImpl java.util.Set&lt;org.semanticweb.owlapi.model.OWLEntity&gt; getSignature(org.semanticweb.owlapi.model.parameters.Imports includeImports)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Use of variable whose value is known to be constant</problem_class>
+    <description>Value of &lt;code&gt;includeImports&lt;/code&gt; is known to be constant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxTokenizer.java</file>
+    <line>103</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxTokenizer java.util.List&lt;org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxTokenizer.Token&gt; tokenize()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Use of variable whose value is known to be constant</problem_class>
+    <description>Value of &lt;code&gt;ch&lt;/code&gt; is known to be constant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxTokenizer.java</file>
+    <line>168</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxTokenizer void readString(char terminator, boolean appendTerminator)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Use of variable whose value is known to be constant</problem_class>
+    <description>Value of &lt;code&gt;ch&lt;/code&gt; is known to be constant #loc</description>
+  </problem>
+</problems>
+

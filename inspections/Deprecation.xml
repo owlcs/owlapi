@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/TripleHandlers.java</file>
+    <line>467</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.TripleHandlers.HandlerAccessor java.util.Map&lt;org.semanticweb.owlapi.model.IRI,org.semanticweb.owlapi.rdf.rdfxml.parser.TriplePredicateHandler&gt; getPredicateHandlers(org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFConsumer r)" />
+    <problem_class severity="WARNING" attribute_key="DEPRECATED_ATTRIBUTES">Deprecated API usage</problem_class>
+    <description>'org.semanticweb.owlapi.rdf.rdfxml.parser.TripleHandlers.TPDeclaredAsHandler' is deprecated</description>
+  </problem>
+</problems>
+

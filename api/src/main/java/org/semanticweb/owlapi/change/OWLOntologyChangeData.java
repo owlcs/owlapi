@@ -68,7 +68,7 @@ public abstract class OWLOntologyChangeData<T> implements HasSignature,
      * @return An {@link OWLOntologyChange} object that applies to
      *         {@code ontology} and changes {@code ontology} in a way that is
      *         consistent with this the information held in this
-     *         {@link OWLOntologyChangeData} object.
+     *         {@code OWLOntologyChangeData} object.
      **/
     @Nonnull
     public abstract OWLOntologyChange<T> createOntologyChange(

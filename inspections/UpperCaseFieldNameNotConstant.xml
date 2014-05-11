@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/SWRLRuleImpl.java</file>
+    <line>252</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.SWRLRuleImpl ATOM_SIMPLIFIER" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Non-constant field with upper-case name</problem_class>
+    <description>Non-constant field &lt;code&gt;ATOM_SIMPLIFIER&lt;/code&gt; with constant-style name #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/IdTranslator.java</file>
+    <line>21</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.obo2owl.IdTranslator OBO_IRI_PREFIX" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Non-constant field with upper-case name</problem_class>
+    <description>Non-constant field &lt;code&gt;OBO_IRI_PREFIX&lt;/code&gt; with constant-style name #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/explanation/util/DefinitionTracker.java</file>
+    <line>39</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.explanation.util</package>
+    <entry_point TYPE="field" FQNAME="com.clarkparsia.owlapi.explanation.util.DefinitionTracker ONE" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Non-constant field with upper-case name</problem_class>
+    <description>Non-constant field &lt;code&gt;ONE&lt;/code&gt; with constant-style name #loc</description>
+  </problem>
+</problems>
+

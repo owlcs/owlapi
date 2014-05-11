@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/owlapi-impl.iml</file>
+    <module>owlapi-impl</module>
+    <entry_point TYPE="module" FQNAME="owlapi-impl" />
+    <problem_class>Module with too many classes</problem_class>
+    <hints />
+    <description>Module 'owlapi-impl' contains too many classes (163 &gt; 100)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/owlapi-contract.iml</file>
+    <module>owlapi-contract</module>
+    <entry_point TYPE="module" FQNAME="owlapi-contract" />
+    <problem_class>Module with too many classes</problem_class>
+    <hints />
+    <description>Module 'owlapi-contract' contains too many classes (410 &gt; 100)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/owlapi-parsers.iml</file>
+    <module>owlapi-parsers</module>
+    <entry_point TYPE="module" FQNAME="owlapi-parsers" />
+    <problem_class>Module with too many classes</problem_class>
+    <hints />
+    <description>Module 'owlapi-parsers' contains too many classes (282 &gt; 100)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/owlapi-api.iml</file>
+    <module>owlapi-api</module>
+    <entry_point TYPE="module" FQNAME="owlapi-api" />
+    <problem_class>Module with too many classes</problem_class>
+    <hints />
+    <description>Module 'owlapi-api' contains too many classes (634 &gt; 100)</description>
+  </problem>
+</problems>
+

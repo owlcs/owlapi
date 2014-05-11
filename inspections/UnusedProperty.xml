@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/resources/simplelogger.properties</file>
+    <line>1</line>
+    <module>owlapi-contract</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/contract/src/test/resources/simplelogger.properties" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Unused Property</problem_class>
+    <description>Unused property</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/resources/simplelogger.properties</file>
+    <line>2</line>
+    <module>owlapi-contract</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/contract/src/test/resources/simplelogger.properties" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Unused Property</problem_class>
+    <description>Unused property</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/resources/simplelogger.properties</file>
+    <line>3</line>
+    <module>owlapi-contract</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/contract/src/test/resources/simplelogger.properties" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Unused Property</problem_class>
+    <description>Unused property</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/bin/simplelogger.properties</file>
+    <line>1</line>
+    <module>owlapi-parent</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/bin/simplelogger.properties" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Unused Property</problem_class>
+    <description>Unused property</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/bin/simplelogger.properties</file>
+    <line>2</line>
+    <module>owlapi-parent</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/bin/simplelogger.properties" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Unused Property</problem_class>
+    <description>Unused property</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/bin/simplelogger.properties</file>
+    <line>3</line>
+    <module>owlapi-parent</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/bin/simplelogger.properties" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Unused Property</problem_class>
+    <description>Unused property</description>
+  </problem>
+</problems>
+

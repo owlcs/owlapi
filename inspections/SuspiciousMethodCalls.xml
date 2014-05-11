@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/CollectionFactory.java</file>
+    <line>298</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.CollectionFactory.SyncSet boolean contains(java.lang.Object o)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Suspicious collections method calls</problem_class>
+    <description>Suspicious call to 'ConcurrentHashMap.containsKey'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/ParsableOWLOntologyFactory.java</file>
+    <line>233</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory org.semanticweb.owlapi.util.PriorityCollection&lt;org.semanticweb.owlapi.io.OWLParser&gt; getParsersByFormat(org.semanticweb.owlapi.io.OWLOntologyDocumentSource documentSource, org.semanticweb.owlapi.util.PriorityCollection&lt;org.semanticweb.owlapi.io.OWLParser&gt; parsers)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Suspicious collections method calls</problem_class>
+    <description>Suspicious call to 'Set.contains'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/model/RDFGraph.java</file>
+    <line>91</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.model.RDFGraph java.util.Collection&lt;org.semanticweb.owlapi.io.RDFTriple&gt; getTriplesForSubject(org.semanticweb.owlapi.io.RDFNode subject, boolean sort)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Suspicious collections method calls</problem_class>
+    <description>Suspicious call to 'Map.get'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/model/RDFGraph.java</file>
+    <line>134</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.model.RDFGraph void rebuildAnonRoots()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Suspicious collections method calls</problem_class>
+    <description>Suspicious call to 'Set.remove'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/model/RDFGraph.java</file>
+    <line>137</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.model.RDFGraph void rebuildAnonRoots()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Suspicious collections method calls</problem_class>
+    <description>Suspicious call to 'Set.remove'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/renderer/ManchesterOWLSyntaxFrameRenderer.java</file>
+    <line>155</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.renderer.ManchesterOWLSyntaxFrameRenderer.SectionMap java.util.Set&lt;java.util.Set&lt;org.semanticweb.owlapi.model.OWLAnnotation&gt;&gt; getAnnotationsForSectionObject(java.lang.Object sectionObject)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Suspicious collections method calls</problem_class>
+    <description>Suspicious call to 'Map.get'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/ontology/OWLOntologyAccessorsTestCase.java</file>
+    <line>82</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.ontology</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.api.test.ontology.OWLOntologyAccessorsTestCase void performAxiomTests(org.semanticweb.owlapi.model.OWLOntology ont, org.semanticweb.owlapi.model.OWLAxiom... axioms)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Suspicious collections method calls</problem_class>
+    <description>Suspicious call to 'Set.contains'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/searcher/SearcherTestCase.java</file>
+    <line>44</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.searcher</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.api.test.searcher.SearcherTestCase void shouldSearch()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Suspicious collections method calls</problem_class>
+    <description>Suspicious call to 'Set.contains'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/searcher/SearcherTestCase.java</file>
+    <line>45</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.searcher</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.api.test.searcher.SearcherTestCase void shouldSearch()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Suspicious collections method calls</problem_class>
+    <description>Suspicious call to 'Set.contains'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/searcher/SearcherTestCase.java</file>
+    <line>66</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.searcher</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.api.test.searcher.SearcherTestCase void shouldSearchObjectProperties()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Suspicious collections method calls</problem_class>
+    <description>Suspicious call to 'Set.contains'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/searcher/SearcherTestCase.java</file>
+    <line>94</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.searcher</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.api.test.searcher.SearcherTestCase void shouldSearchDataProperties()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Suspicious collections method calls</problem_class>
+    <description>Suspicious call to 'Set.contains'</description>
+  </problem>
+</problems>
+

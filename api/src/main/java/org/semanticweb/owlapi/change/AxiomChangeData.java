@@ -36,7 +36,7 @@ public abstract class AxiomChangeData extends OWLOntologyChangeData<OWLAxiom> {
     private final OWLAxiom axiom;
 
     /**
-     * Constructs an {@link AxiomChangeData} object that describes a change
+     * Constructs an {@code AxiomChangeData} object that describes a change
      * involving the specified {@code axiom}.
      * 
      * @param axiom

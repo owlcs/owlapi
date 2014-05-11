@@ -1,0 +1,544 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/rio/src/main/java/org/semanticweb/owlapi/formats/RioTurtleOntologyFormat.java</file>
+    <line>44</line>
+    <module>owlapi-rio</module>
+    <package>org.semanticweb.owlapi.formats</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.formats.RioTurtleOntologyFormat" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary fully qualified name</problem_class>
+    <description>Fully qualified name &lt;code&gt;org.semanticweb.owlapi.formats.RioRDFOntologyFormat&lt;/code&gt; is unnecessary, and can be replaced with an import #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/rio/src/main/java/org/semanticweb/owlapi/formats/RioRDFOntologyFormat.java</file>
+    <line>47</line>
+    <module>owlapi-rio</module>
+    <package>org.semanticweb.owlapi.formats</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.formats.RioRDFOntologyFormat" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary fully qualified name</problem_class>
+    <description>Fully qualified name &lt;code&gt;org.semanticweb.owlapi.formats.RDFOntologyFormat&lt;/code&gt; is unnecessary, and can be replaced with an import #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>1823</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl org.semanticweb.owlapi.model.IRI oboIdToIRI(java.lang.String id)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary fully qualified name</problem_class>
+    <description>Fully qualified name &lt;code&gt;java.net.URLEncoder&lt;/code&gt; is unnecessary, and can be replaced with an import #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>1816</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo java.lang.String getIdentifier(org.semanticweb.owlapi.model.IRI iriId)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary fully qualified name</problem_class>
+    <description>Fully qualified name &lt;code&gt;java.net.URLDecoder&lt;/code&gt; is unnecessary, and can be replaced with an import #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/turtle/parser/Token.java</file>
+    <line>5</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.turtle.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.rdf.turtle.parser.Token" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary fully qualified name</problem_class>
+    <description>Fully qualified name &lt;code&gt;java.io.Serializable&lt;/code&gt; is unnecessary, and can be replaced with an import #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/turtle/parser/JavaCharStream.java</file>
+    <line>21</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.turtle.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.turtle.parser.JavaCharStream JavaCharStream(java.io.Reader dstream, int startline, int startcolumn)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary fully qualified name</problem_class>
+    <description>Fully qualified name &lt;code&gt;java.io.Reader&lt;/code&gt; is unnecessary, and can be replaced with an import #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/turtle/parser/JavaCharStream.java</file>
+    <line>25</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.turtle.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.turtle.parser.JavaCharStream JavaCharStream(java.io.InputStream dstream, java.lang.String encoding, int startline, int startcolumn)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary fully qualified name</problem_class>
+    <description>Fully qualified name &lt;code&gt;java.io.InputStream&lt;/code&gt; is unnecessary, and can be replaced with an import #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/turtle/parser/JavaCharStream.java</file>
+    <line>19</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.turtle.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.rdf.turtle.parser.JavaCharStream" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary fully qualified name</problem_class>
+    <description>Fully qualified name &lt;code&gt;org.semanticweb.owlapi.BOMSafeJavaCharStream&lt;/code&gt; is unnecessary, and can be replaced with an import #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/Token.java</file>
+    <line>17</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.krss1.parser.Token" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary fully qualified name</problem_class>
+    <description>Fully qualified name &lt;code&gt;java.io.Serializable&lt;/code&gt; is unnecessary, and can be replaced with an import #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/JavaCharStream.java</file>
+    <line>21</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss1.parser.JavaCharStream JavaCharStream(java.io.Reader dstream, int startline, int startcolumn)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary fully qualified name</problem_class>
+    <description>Fully qualified name &lt;code&gt;java.io.Reader&lt;/code&gt; is unnecessary, and can be replaced with an import #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/JavaCharStream.java</file>
+    <line>25</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss1.parser.JavaCharStream JavaCharStream(java.io.InputStream dstream, java.lang.String encoding, int startline, int startcolumn)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary fully qualified name</problem_class>
+    <description>Fully qualified name &lt;code&gt;java.io.InputStream&lt;/code&gt; is unnecessary, and can be replaced with an import #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/JavaCharStream.java</file>
+    <line>19</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.krss1.parser.JavaCharStream" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary fully qualified name</problem_class>
+    <description>Fully qualified name &lt;code&gt;org.semanticweb.owlapi.BOMSafeJavaCharStream&lt;/code&gt; is unnecessary, and can be replaced with an import #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1418</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa22_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary fully qualified name</problem_class>
+    <description>Fully qualified name &lt;code&gt;java.io.IOException&lt;/code&gt; is unnecessary, and can be replaced with an import #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1119</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa13_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary fully qualified name</problem_class>
+    <description>Fully qualified name &lt;code&gt;java.io.IOException&lt;/code&gt; is unnecessary, and can be replaced with an import #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>741</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa7_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary fully qualified name</problem_class>
+    <description>Fully qualified name &lt;code&gt;java.io.IOException&lt;/code&gt; is unnecessary, and can be replaced with an import #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1318</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa18_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary fully qualified name</problem_class>
+    <description>Fully qualified name &lt;code&gt;java.io.IOException&lt;/code&gt; is unnecessary, and can be replaced with an import #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>229</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa2_0(long old0, long _active0, long old1, long _active1)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary fully qualified name</problem_class>
+    <description>Fully qualified name &lt;code&gt;java.io.IOException&lt;/code&gt; is unnecessary, and can be replaced with an import #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1339</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa19_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary fully qualified name</problem_class>
+    <description>Fully qualified name &lt;code&gt;java.io.IOException&lt;/code&gt; is unnecessary, and can be replaced with an import #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1397</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa21_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary fully qualified name</problem_class>
+    <description>Fully qualified name &lt;code&gt;java.io.IOException&lt;/code&gt; is unnecessary, and can be replaced with an import #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>121</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa1_0(long active0, long active1)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary fully qualified name</problem_class>
+    <description>Fully qualified name &lt;code&gt;java.io.IOException&lt;/code&gt; is unnecessary, and can be replaced with an import #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>23</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager void setDebugStream(java.io.PrintStream ds)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary fully qualified name</problem_class>
+    <description>Fully qualified name &lt;code&gt;java.io.PrintStream&lt;/code&gt; is unnecessary, and can be replaced with an import #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1293</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa17_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary fully qualified name</problem_class>
+    <description>Fully qualified name &lt;code&gt;java.io.IOException&lt;/code&gt; is unnecessary, and can be replaced with an import #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1262</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa16_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary fully qualified name</problem_class>
+    <description>Fully qualified name &lt;code&gt;java.io.IOException&lt;/code&gt; is unnecessary, and can be replaced with an import #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1225</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa15_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary fully qualified name</problem_class>
+    <description>Fully qualified name &lt;code&gt;java.io.IOException&lt;/code&gt; is unnecessary, and can be replaced with an import #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>480</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa4_0(long old0, long _active0, long old1, long _active1)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary fully qualified name</problem_class>
+    <description>Fully qualified name &lt;code&gt;java.io.IOException&lt;/code&gt; is unnecessary, and can be replaced with an import #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1190</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa14_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary fully qualified name</problem_class>
+    <description>Fully qualified name &lt;code&gt;java.io.IOException&lt;/code&gt; is unnecessary, and can be replaced with an import #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>559</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa5_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary fully qualified name</problem_class>
+    <description>Fully qualified name &lt;code&gt;java.io.IOException&lt;/code&gt; is unnecessary, and can be replaced with an import #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1485</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveNfa_0(int startState, int _curPos)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary fully qualified name</problem_class>
+    <description>Fully qualified name &lt;code&gt;java.io.IOException&lt;/code&gt; is unnecessary, and can be replaced with an import #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1875</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveNfa_0(int startState, int _curPos)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary fully qualified name</problem_class>
+    <description>Fully qualified name &lt;code&gt;java.io.IOException&lt;/code&gt; is unnecessary, and can be replaced with an import #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1887</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveNfa_0(int startState, int _curPos)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary fully qualified name</problem_class>
+    <description>Fully qualified name &lt;code&gt;java.io.IOException&lt;/code&gt; is unnecessary, and can be replaced with an import #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1439</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa23_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary fully qualified name</problem_class>
+    <description>Fully qualified name &lt;code&gt;java.io.IOException&lt;/code&gt; is unnecessary, and can be replaced with an import #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>900</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa9_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary fully qualified name</problem_class>
+    <description>Fully qualified name &lt;code&gt;java.io.IOException&lt;/code&gt; is unnecessary, and can be replaced with an import #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1078</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa12_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary fully qualified name</problem_class>
+    <description>Fully qualified name &lt;code&gt;java.io.IOException&lt;/code&gt; is unnecessary, and can be replaced with an import #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>21</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager debugStream" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary fully qualified name</problem_class>
+    <description>Fully qualified name &lt;code&gt;java.io.PrintStream&lt;/code&gt; is unnecessary, and can be replaced with an import #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1364</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa20_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary fully qualified name</problem_class>
+    <description>Fully qualified name &lt;code&gt;java.io.IOException&lt;/code&gt; is unnecessary, and can be replaced with an import #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1035</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa11_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary fully qualified name</problem_class>
+    <description>Fully qualified name &lt;code&gt;java.io.IOException&lt;/code&gt; is unnecessary, and can be replaced with an import #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>851</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa8_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary fully qualified name</problem_class>
+    <description>Fully qualified name &lt;code&gt;java.io.IOException&lt;/code&gt; is unnecessary, and can be replaced with an import #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>2073</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager org.semanticweb.owlapi.krss2.parser.Token getNextToken()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary fully qualified name</problem_class>
+    <description>Fully qualified name &lt;code&gt;java.io.IOException&lt;/code&gt; is unnecessary, and can be replaced with an import #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>2131</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager org.semanticweb.owlapi.krss2.parser.Token getNextToken()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary fully qualified name</problem_class>
+    <description>Fully qualified name &lt;code&gt;java.io.IOException&lt;/code&gt; is unnecessary, and can be replaced with an import #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>2140</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager org.semanticweb.owlapi.krss2.parser.Token getNextToken()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary fully qualified name</problem_class>
+    <description>Fully qualified name &lt;code&gt;java.io.IOException&lt;/code&gt; is unnecessary, and can be replaced with an import #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>364</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa3_0(long old0, long _active0, long old1, long _active1)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary fully qualified name</problem_class>
+    <description>Fully qualified name &lt;code&gt;java.io.IOException&lt;/code&gt; is unnecessary, and can be replaced with an import #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>976</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa10_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary fully qualified name</problem_class>
+    <description>Fully qualified name &lt;code&gt;java.io.IOException&lt;/code&gt; is unnecessary, and can be replaced with an import #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>626</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa6_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary fully qualified name</problem_class>
+    <description>Fully qualified name &lt;code&gt;java.io.IOException&lt;/code&gt; is unnecessary, and can be replaced with an import #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/JavaCharStream.java</file>
+    <line>21</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.JavaCharStream JavaCharStream(java.io.Reader dstream, int startline, int startcolumn)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary fully qualified name</problem_class>
+    <description>Fully qualified name &lt;code&gt;java.io.Reader&lt;/code&gt; is unnecessary, and can be replaced with an import #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/JavaCharStream.java</file>
+    <line>25</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.JavaCharStream JavaCharStream(java.io.InputStream dstream, java.lang.String encoding, int startline, int startcolumn)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary fully qualified name</problem_class>
+    <description>Fully qualified name &lt;code&gt;java.io.InputStream&lt;/code&gt; is unnecessary, and can be replaced with an import #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/JavaCharStream.java</file>
+    <line>19</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.krss2.parser.JavaCharStream" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary fully qualified name</problem_class>
+    <description>Fully qualified name &lt;code&gt;org.semanticweb.owlapi.BOMSafeJavaCharStream&lt;/code&gt; is unnecessary, and can be replaced with an import #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/Token.java</file>
+    <line>17</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.krss2.parser.Token" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary fully qualified name</problem_class>
+    <description>Fully qualified name &lt;code&gt;java.io.Serializable&lt;/code&gt; is unnecessary, and can be replaced with an import #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/Token.java</file>
+    <line>17</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.Token" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary fully qualified name</problem_class>
+    <description>Fully qualified name &lt;code&gt;java.io.Serializable&lt;/code&gt; is unnecessary, and can be replaced with an import #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/JavaCharStream.java</file>
+    <line>19</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.JavaCharStream" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary fully qualified name</problem_class>
+    <description>Fully qualified name &lt;code&gt;org.semanticweb.owlapi.BOMSafeJavaCharStream&lt;/code&gt; is unnecessary, and can be replaced with an import #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/JavaCharStream.java</file>
+    <line>25</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.JavaCharStream JavaCharStream(java.io.InputStream dstream, java.lang.String encoding, int startline, int startcolumn)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary fully qualified name</problem_class>
+    <description>Fully qualified name &lt;code&gt;java.io.InputStream&lt;/code&gt; is unnecessary, and can be replaced with an import #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/JavaCharStream.java</file>
+    <line>21</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.JavaCharStream JavaCharStream(java.io.Reader dstream, int startline, int startcolumn)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary fully qualified name</problem_class>
+    <description>Fully qualified name &lt;code&gt;java.io.Reader&lt;/code&gt; is unnecessary, and can be replaced with an import #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/Token.java</file>
+    <line>17</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.functional.parser.Token" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary fully qualified name</problem_class>
+    <description>Fully qualified name &lt;code&gt;java.io.Serializable&lt;/code&gt; is unnecessary, and can be replaced with an import #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/JavaCharStream.java</file>
+    <line>21</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.functional.parser.JavaCharStream JavaCharStream(java.io.Reader dstream, int startline, int startcolumn)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary fully qualified name</problem_class>
+    <description>Fully qualified name &lt;code&gt;java.io.Reader&lt;/code&gt; is unnecessary, and can be replaced with an import #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/JavaCharStream.java</file>
+    <line>19</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.functional.parser.JavaCharStream" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary fully qualified name</problem_class>
+    <description>Fully qualified name &lt;code&gt;org.semanticweb.owlapi.BOMSafeJavaCharStream&lt;/code&gt; is unnecessary, and can be replaced with an import #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/JavaCharStream.java</file>
+    <line>25</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.functional.parser.JavaCharStream JavaCharStream(java.io.InputStream dstream, java.lang.String encoding, int startline, int startcolumn)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary fully qualified name</problem_class>
+    <description>Fully qualified name &lt;code&gt;java.io.InputStream&lt;/code&gt; is unnecessary, and can be replaced with an import #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/JJTOWLFunctionalSyntaxParserState.java</file>
+    <line>18</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.functional.parser.JJTOWLFunctionalSyntaxParserState nodes" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary fully qualified name</problem_class>
+    <description>Fully qualified name &lt;code&gt;java.util.List&lt;Node&gt;&lt;/code&gt; is unnecessary, and can be replaced with an import #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/JJTOWLFunctionalSyntaxParserState.java</file>
+    <line>19</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.functional.parser.JJTOWLFunctionalSyntaxParserState marks" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary fully qualified name</problem_class>
+    <description>Fully qualified name &lt;code&gt;java.util.List&lt;Integer&gt;&lt;/code&gt; is unnecessary, and can be replaced with an import #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/JJTOWLFunctionalSyntaxParserState.java</file>
+    <line>27</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.functional.parser.JJTOWLFunctionalSyntaxParserState JJTOWLFunctionalSyntaxParserState()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary fully qualified name</problem_class>
+    <description>Fully qualified name &lt;code&gt;java.util.ArrayList&lt;Node&gt;&lt;/code&gt; is unnecessary, and can be replaced with an import #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/JJTOWLFunctionalSyntaxParserState.java</file>
+    <line>28</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.functional.parser.JJTOWLFunctionalSyntaxParserState JJTOWLFunctionalSyntaxParserState()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary fully qualified name</problem_class>
+    <description>Fully qualified name &lt;code&gt;java.util.ArrayList&lt;Integer&gt;&lt;/code&gt; is unnecessary, and can be replaced with an import #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/GuessRDFSPropertyTypeTestCase.java</file>
+    <line>63</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.api.test.GuessRDFSPropertyTypeTestCase void setUp()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary fully qualified name</problem_class>
+    <description>Fully qualified name &lt;code&gt;org.semanticweb.owlapi.model.UnknownOWLOntologyException&lt;/code&gt; is unnecessary, and can be replaced with an import #loc</description>
+  </problem>
+</problems>
+

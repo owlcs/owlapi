@@ -1,0 +1,553 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/CollectionFactory.java</file>
+    <line>205</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.CollectionFactory java.util.Set&lt;T&gt; createSet(T... elements)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overloaded variable argument method</problem_class>
+    <description>Overloaded variable argument method &lt;code&gt;createSet()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/CollectionFactory.java</file>
+    <line>121</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.CollectionFactory java.util.List&lt;T&gt; list(T... i)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overloaded variable argument method</problem_class>
+    <description>Overloaded variable argument method &lt;code&gt;list()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/PriorityCollection.java</file>
+    <line>76</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.PriorityCollection void add(T... c)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overloaded variable argument method</problem_class>
+    <description>Overloaded variable argument method &lt;code&gt;add()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/PriorityCollection.java</file>
+    <line>58</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.PriorityCollection void set(T... c)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overloaded variable argument method</problem_class>
+    <description>Overloaded variable argument method &lt;code&gt;set()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLAxiom.java</file>
+    <line>152</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.OWLAxiom boolean isOfType(org.semanticweb.owlapi.model.AxiomType&lt;?&gt;... axiomTypes)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overloaded variable argument method</problem_class>
+    <description>Overloaded variable argument method &lt;code&gt;isOfType()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLDataFactory.java</file>
+    <line>1343</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.OWLDataFactory org.semanticweb.owlapi.model.OWLDisjointClassesAxiom getOWLDisjointClassesAxiom(org.semanticweb.owlapi.model.OWLClassExpression... classExpressions)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overloaded variable argument method</problem_class>
+    <description>Overloaded variable argument method &lt;code&gt;getOWLDisjointClassesAxiom()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLDataFactory.java</file>
+    <line>532</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.OWLDataFactory org.semanticweb.owlapi.model.OWLDataOneOf getOWLDataOneOf(org.semanticweb.owlapi.model.OWLLiteral... values)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overloaded variable argument method</problem_class>
+    <description>Overloaded variable argument method &lt;code&gt;getOWLDataOneOf()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLDataFactory.java</file>
+    <line>2029</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.OWLDataFactory org.semanticweb.owlapi.model.OWLSameIndividualAxiom getOWLSameIndividualAxiom(org.semanticweb.owlapi.model.OWLIndividual... individual)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overloaded variable argument method</problem_class>
+    <description>Overloaded variable argument method &lt;code&gt;getOWLSameIndividualAxiom()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLDataFactory.java</file>
+    <line>1815</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.OWLDataFactory org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom getOWLEquivalentDataPropertiesAxiom(org.semanticweb.owlapi.model.OWLDataPropertyExpression... properties)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overloaded variable argument method</problem_class>
+    <description>Overloaded variable argument method &lt;code&gt;getOWLEquivalentDataPropertiesAxiom()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLDataFactory.java</file>
+    <line>1971</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.OWLDataFactory org.semanticweb.owlapi.model.OWLHasKeyAxiom getOWLHasKeyAxiom(org.semanticweb.owlapi.model.OWLClassExpression ce, org.semanticweb.owlapi.model.OWLPropertyExpression... properties)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overloaded variable argument method</problem_class>
+    <description>Overloaded variable argument method &lt;code&gt;getOWLHasKeyAxiom()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLDataFactory.java</file>
+    <line>1298</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.OWLDataFactory org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom(org.semanticweb.owlapi.model.OWLClassExpression... classExpressions)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overloaded variable argument method</problem_class>
+    <description>Overloaded variable argument method &lt;code&gt;getOWLEquivalentClassesAxiom()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLDataFactory.java</file>
+    <line>591</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.OWLDataFactory org.semanticweb.owlapi.model.OWLDatatypeRestriction getOWLDatatypeRestriction(org.semanticweb.owlapi.model.OWLDatatype dataType, org.semanticweb.owlapi.model.OWLFacetRestriction... facetRestrictions)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overloaded variable argument method</problem_class>
+    <description>Overloaded variable argument method &lt;code&gt;getOWLDatatypeRestriction()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLDataFactory.java</file>
+    <line>1512</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.OWLDataFactory org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom getOWLDisjointObjectPropertiesAxiom(org.semanticweb.owlapi.model.OWLObjectPropertyExpression... properties)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overloaded variable argument method</problem_class>
+    <description>Overloaded variable argument method &lt;code&gt;getOWLDisjointObjectPropertiesAxiom()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLDataFactory.java</file>
+    <line>1851</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.OWLDataFactory org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom getOWLDisjointDataPropertiesAxiom(org.semanticweb.owlapi.model.OWLDataPropertyExpression... dataProperties)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overloaded variable argument method</problem_class>
+    <description>Overloaded variable argument method &lt;code&gt;getOWLDisjointDataPropertiesAxiom()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLDataFactory.java</file>
+    <line>895</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.OWLDataFactory org.semanticweb.owlapi.model.OWLDataIntersectionOf getOWLDataIntersectionOf(org.semanticweb.owlapi.model.OWLDataRange... dataRanges)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overloaded variable argument method</problem_class>
+    <description>Overloaded variable argument method &lt;code&gt;getOWLDataIntersectionOf()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLDataFactory.java</file>
+    <line>1065</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.OWLDataFactory org.semanticweb.owlapi.model.OWLObjectOneOf getOWLObjectOneOf(org.semanticweb.owlapi.model.OWLIndividual... individuals)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overloaded variable argument method</problem_class>
+    <description>Overloaded variable argument method &lt;code&gt;getOWLObjectOneOf()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLDataFactory.java</file>
+    <line>1466</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.OWLDataFactory org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom getOWLEquivalentObjectPropertiesAxiom(org.semanticweb.owlapi.model.OWLObjectPropertyExpression... properties)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overloaded variable argument method</problem_class>
+    <description>Overloaded variable argument method &lt;code&gt;getOWLEquivalentObjectPropertiesAxiom()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLDataFactory.java</file>
+    <line>878</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.OWLDataFactory org.semanticweb.owlapi.model.OWLDataUnionOf getOWLDataUnionOf(org.semanticweb.owlapi.model.OWLDataRange... dataRanges)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overloaded variable argument method</problem_class>
+    <description>Overloaded variable argument method &lt;code&gt;getOWLDataUnionOf()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLDataFactory.java</file>
+    <line>1212</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.OWLDataFactory org.semanticweb.owlapi.model.OWLObjectUnionOf getOWLObjectUnionOf(org.semanticweb.owlapi.model.OWLClassExpression... operands)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overloaded variable argument method</problem_class>
+    <description>Overloaded variable argument method &lt;code&gt;getOWLObjectUnionOf()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLDataFactory.java</file>
+    <line>916</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.OWLDataFactory org.semanticweb.owlapi.model.OWLObjectIntersectionOf getOWLObjectIntersectionOf(org.semanticweb.owlapi.model.OWLClassExpression... operands)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overloaded variable argument method</problem_class>
+    <description>Overloaded variable argument method &lt;code&gt;getOWLObjectIntersectionOf()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLDataFactory.java</file>
+    <line>2060</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.OWLDataFactory org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom getOWLDifferentIndividualsAxiom(org.semanticweb.owlapi.model.OWLIndividual... individuals)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overloaded variable argument method</problem_class>
+    <description>Overloaded variable argument method &lt;code&gt;getOWLDifferentIndividualsAxiom()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLDataFactoryImpl.java</file>
+    <line>529</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl org.semanticweb.owlapi.model.OWLObjectIntersectionOf getOWLObjectIntersectionOf(org.semanticweb.owlapi.model.OWLClassExpression... operands)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overloaded variable argument method</problem_class>
+    <description>Overloaded variable argument method &lt;code&gt;getOWLObjectIntersectionOf()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLDataFactoryImpl.java</file>
+    <line>937</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom getOWLDisjointObjectPropertiesAxiom(org.semanticweb.owlapi.model.OWLObjectPropertyExpression... properties)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overloaded variable argument method</problem_class>
+    <description>Overloaded variable argument method &lt;code&gt;getOWLDisjointObjectPropertiesAxiom()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLDataFactoryImpl.java</file>
+    <line>649</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl org.semanticweb.owlapi.model.OWLObjectOneOf getOWLObjectOneOf(org.semanticweb.owlapi.model.OWLIndividual... individuals)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overloaded variable argument method</problem_class>
+    <description>Overloaded variable argument method &lt;code&gt;getOWLObjectOneOf()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLDataFactoryImpl.java</file>
+    <line>1053</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom getOWLEquivalentDataPropertiesAxiom(org.semanticweb.owlapi.model.OWLDataPropertyExpression... properties)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overloaded variable argument method</problem_class>
+    <description>Overloaded variable argument method &lt;code&gt;getOWLEquivalentDataPropertiesAxiom()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLDataFactoryImpl.java</file>
+    <line>324</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl org.semanticweb.owlapi.model.OWLDataOneOf getOWLDataOneOf(org.semanticweb.owlapi.model.OWLLiteral... values)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overloaded variable argument method</problem_class>
+    <description>Overloaded variable argument method &lt;code&gt;getOWLDataOneOf()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLDataFactoryImpl.java</file>
+    <line>754</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl org.semanticweb.owlapi.model.OWLObjectUnionOf getOWLObjectUnionOf(org.semanticweb.owlapi.model.OWLClassExpression... operands)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overloaded variable argument method</problem_class>
+    <description>Overloaded variable argument method &lt;code&gt;getOWLObjectUnionOf()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLDataFactoryImpl.java</file>
+    <line>337</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl org.semanticweb.owlapi.model.OWLDataIntersectionOf getOWLDataIntersectionOf(org.semanticweb.owlapi.model.OWLDataRange... dataRanges)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overloaded variable argument method</problem_class>
+    <description>Overloaded variable argument method &lt;code&gt;getOWLDataIntersectionOf()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLDataFactoryImpl.java</file>
+    <line>387</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl org.semanticweb.owlapi.model.OWLDatatypeRestriction getOWLDatatypeRestriction(org.semanticweb.owlapi.model.OWLDatatype dataRange, org.semanticweb.owlapi.model.OWLFacetRestriction... facetRestrictions)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overloaded variable argument method</problem_class>
+    <description>Overloaded variable argument method &lt;code&gt;getOWLDatatypeRestriction()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLDataFactoryImpl.java</file>
+    <line>866</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom getOWLDifferentIndividualsAxiom(org.semanticweb.owlapi.model.OWLIndividual... individuals)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overloaded variable argument method</problem_class>
+    <description>Overloaded variable argument method &lt;code&gt;getOWLDifferentIndividualsAxiom()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLDataFactoryImpl.java</file>
+    <line>1571</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl org.semanticweb.owlapi.model.OWLHasKeyAxiom getOWLHasKeyAxiom(org.semanticweb.owlapi.model.OWLClassExpression classExpression, org.semanticweb.owlapi.model.OWLPropertyExpression... properties)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overloaded variable argument method</problem_class>
+    <description>Overloaded variable argument method &lt;code&gt;getOWLHasKeyAxiom()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLDataFactoryImpl.java</file>
+    <line>928</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom getOWLDisjointDataPropertiesAxiom(org.semanticweb.owlapi.model.OWLDataPropertyExpression... properties)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overloaded variable argument method</problem_class>
+    <description>Overloaded variable argument method &lt;code&gt;getOWLDisjointDataPropertiesAxiom()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLDataFactoryImpl.java</file>
+    <line>1062</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom getOWLEquivalentObjectPropertiesAxiom(org.semanticweb.owlapi.model.OWLObjectPropertyExpression... properties)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overloaded variable argument method</problem_class>
+    <description>Overloaded variable argument method &lt;code&gt;getOWLEquivalentObjectPropertiesAxiom()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLDataFactoryImpl.java</file>
+    <line>1428</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl org.semanticweb.owlapi.model.OWLSameIndividualAxiom getOWLSameIndividualAxiom(org.semanticweb.owlapi.model.OWLIndividual... individuals)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overloaded variable argument method</problem_class>
+    <description>Overloaded variable argument method &lt;code&gt;getOWLSameIndividualAxiom()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLDataFactoryImpl.java</file>
+    <line>352</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl org.semanticweb.owlapi.model.OWLDataUnionOf getOWLDataUnionOf(org.semanticweb.owlapi.model.OWLDataRange... dataRanges)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overloaded variable argument method</problem_class>
+    <description>Overloaded variable argument method &lt;code&gt;getOWLDataUnionOf()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLDataFactoryImpl.java</file>
+    <line>994</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom(org.semanticweb.owlapi.model.OWLClassExpression... classExpressions)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overloaded variable argument method</problem_class>
+    <description>Overloaded variable argument method &lt;code&gt;getOWLEquivalentClassesAxiom()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLDataFactoryImpl.java</file>
+    <line>901</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl org.semanticweb.owlapi.model.OWLDisjointClassesAxiom getOWLDisjointClassesAxiom(org.semanticweb.owlapi.model.OWLClassExpression... classExpressions)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overloaded variable argument method</problem_class>
+    <description>Overloaded variable argument method &lt;code&gt;getOWLDisjointClassesAxiom()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLAxiomImpl.java</file>
+    <line>115</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLAxiomImpl boolean isOfType(org.semanticweb.owlapi.model.AxiomType&lt;?&gt;... axiomTypes)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overloaded variable argument method</problem_class>
+    <description>Overloaded variable argument method &lt;code&gt;isOfType()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/rio/src/main/java/org/semanticweb/owlapi/rio/RioOntologyStorer.java</file>
+    <line>85</line>
+    <module>owlapi-rio</module>
+    <package>org.semanticweb.owlapi.rio</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rio.RioOntologyStorer RioOntologyStorer(org.semanticweb.owlapi.formats.RioRDFOntologyFormatFactory ontologyFormat, org.openrdf.rio.RDFHandler rioHandler, org.openrdf.model.Resource... contexts)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overloaded variable argument method</problem_class>
+    <description>Overloaded variable argument constructor &lt;code&gt;RioOntologyStorer()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/rio/src/main/java/org/semanticweb/owlapi/rio/RioOntologyStorer.java</file>
+    <line>97</line>
+    <module>owlapi-rio</module>
+    <package>org.semanticweb.owlapi.rio</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rio.RioOntologyStorer RioOntologyStorer(org.semanticweb.owlapi.formats.RioRDFOntologyFormatFactory ontologyFormat, org.openrdf.model.Resource... contexts)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overloaded variable argument method</problem_class>
+    <description>Overloaded variable argument constructor &lt;code&gt;RioOntologyStorer()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>2423</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser.ExceptionBuilder org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser.ExceptionBuilder withKeyword(java.lang.String... strings)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overloaded variable argument method</problem_class>
+    <description>Overloaded variable argument method &lt;code&gt;withKeyword()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>2430</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser.ExceptionBuilder org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser.ExceptionBuilder withKeyword(org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntax... keys)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overloaded variable argument method</problem_class>
+    <description>Overloaded variable argument method &lt;code&gt;withKeyword()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/renderer/ParserException.java</file>
+    <line>233</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.renderer.ParserException ParserException(java.util.List&lt;java.lang.String&gt; tokenSequence, int startPos, int lineNumber, int columnNumber, java.lang.String... keywords)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overloaded variable argument method</problem_class>
+    <description>Overloaded variable argument constructor &lt;code&gt;ParserException()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/renderer/ParserException.java</file>
+    <line>185</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.renderer.ParserException ParserException(java.util.List&lt;java.lang.String&gt; tokenSeqence, int startPos, int lineNumber, int columnNumber, boolean classNameExpected, boolean objectPropertyNameExpected, boolean dataPropertyNameExpected, ...)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overloaded variable argument method</problem_class>
+    <description>Overloaded variable argument constructor &lt;code&gt;ParserException()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/renderer/ManchesterOWLSyntaxFrameRenderer.java</file>
+    <line>1318</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.renderer.ManchesterOWLSyntaxFrameRenderer void writeSection(org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntax keyword, org.semanticweb.owlapi.mansyntax.renderer.ManchesterOWLSyntaxFrameRenderer.SectionMap&lt;java.lang.Object,org.semanticweb.owlapi.model.OWLAxiom&gt; content, java.lang.String delimeter, boolean newline, org.semanticweb.owlapi.model.OWLOntology... ontologiesList)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overloaded variable argument method</problem_class>
+    <description>Overloaded variable argument method &lt;code&gt;writeSection()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/renderer/ManchesterOWLSyntaxFrameRenderer.java</file>
+    <line>1416</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.renderer.ManchesterOWLSyntaxFrameRenderer void writeSection(org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntax keyword, java.util.Collection&lt;?&gt; content, java.lang.String delimiter, boolean newline, org.semanticweb.owlapi.model.OWLOntology... ontologiesList)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overloaded variable argument method</problem_class>
+    <description>Overloaded variable argument method &lt;code&gt;writeSection()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BaseSetBuilder.java</file>
+    <line>82</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapitools.builders.BaseSetBuilder Type withItems(Item... arg)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overloaded variable argument method</problem_class>
+    <description>Overloaded variable argument method &lt;code&gt;withItems()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/apibinding/src/main/java/org/semanticweb/owlapi/apibinding/OWLFunctionalSyntaxFactory.java</file>
+    <line>478</line>
+    <module>owlapi-apibinding</module>
+    <package>org.semanticweb.owlapi.apibinding</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory org.semanticweb.owlapi.model.OWLDisjointClassesAxiom DisjointClasses(org.semanticweb.owlapi.model.OWLClassExpression... classExpressions)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overloaded variable argument method</problem_class>
+    <description>Overloaded variable argument method &lt;code&gt;DisjointClasses()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/apibinding/src/main/java/org/semanticweb/owlapi/apibinding/OWLFunctionalSyntaxFactory.java</file>
+    <line>793</line>
+    <module>owlapi-apibinding</module>
+    <package>org.semanticweb.owlapi.apibinding</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory org.semanticweb.owlapi.model.OWLHasKeyAxiom HasKey(org.semanticweb.owlapi.model.OWLClassExpression classExpression, org.semanticweb.owlapi.model.OWLPropertyExpression... propertyExpressions)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overloaded variable argument method</problem_class>
+    <description>Overloaded variable argument method &lt;code&gt;HasKey()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/apibinding/src/main/java/org/semanticweb/owlapi/apibinding/OWLFunctionalSyntaxFactory.java</file>
+    <line>737</line>
+    <module>owlapi-apibinding</module>
+    <package>org.semanticweb.owlapi.apibinding</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom DisjointDataProperties(java.util.Set&lt;org.semanticweb.owlapi.model.OWLAnnotation&gt; a, org.semanticweb.owlapi.model.OWLDataPropertyExpression... properties)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overloaded variable argument method</problem_class>
+    <description>Overloaded variable argument method &lt;code&gt;DisjointDataProperties()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/apibinding/src/main/java/org/semanticweb/owlapi/apibinding/OWLFunctionalSyntaxFactory.java</file>
+    <line>464</line>
+    <module>owlapi-apibinding</module>
+    <package>org.semanticweb.owlapi.apibinding</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom EquivalentClasses(org.semanticweb.owlapi.model.OWLClassExpression... classExpressions)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overloaded variable argument method</problem_class>
+    <description>Overloaded variable argument method &lt;code&gt;EquivalentClasses()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/apibinding/src/main/java/org/semanticweb/owlapi/apibinding/OWLFunctionalSyntaxFactory.java</file>
+    <line>716</line>
+    <module>owlapi-apibinding</module>
+    <package>org.semanticweb.owlapi.apibinding</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom EquivalentDataProperties(org.semanticweb.owlapi.model.OWLDataPropertyExpression... properties)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overloaded variable argument method</problem_class>
+    <description>Overloaded variable argument method &lt;code&gt;EquivalentDataProperties()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/apibinding/src/main/java/org/semanticweb/owlapi/apibinding/OWLFunctionalSyntaxFactory.java</file>
+    <line>564</line>
+    <module>owlapi-apibinding</module>
+    <package>org.semanticweb.owlapi.apibinding</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom DisjointObjectProperties(java.util.Set&lt;org.semanticweb.owlapi.model.OWLAnnotation&gt; a, org.semanticweb.owlapi.model.OWLObjectPropertyExpression... properties)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overloaded variable argument method</problem_class>
+    <description>Overloaded variable argument method &lt;code&gt;DisjointObjectProperties()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/apibinding/src/main/java/org/semanticweb/owlapi/apibinding/OWLFunctionalSyntaxFactory.java</file>
+    <line>504</line>
+    <module>owlapi-apibinding</module>
+    <package>org.semanticweb.owlapi.apibinding</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory org.semanticweb.owlapi.model.OWLDisjointClassesAxiom DisjointClasses(java.util.Set&lt;org.semanticweb.owlapi.model.OWLAnnotation&gt; a, org.semanticweb.owlapi.model.OWLClassExpression... classExpressions)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overloaded variable argument method</problem_class>
+    <description>Overloaded variable argument method &lt;code&gt;DisjointClasses()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/apibinding/src/main/java/org/semanticweb/owlapi/apibinding/OWLFunctionalSyntaxFactory.java</file>
+    <line>722</line>
+    <module>owlapi-apibinding</module>
+    <package>org.semanticweb.owlapi.apibinding</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom EquivalentDataProperties(java.util.Set&lt;org.semanticweb.owlapi.model.OWLAnnotation&gt; a, org.semanticweb.owlapi.model.OWLDataPropertyExpression... properties)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overloaded variable argument method</problem_class>
+    <description>Overloaded variable argument method &lt;code&gt;EquivalentDataProperties()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/apibinding/src/main/java/org/semanticweb/owlapi/apibinding/OWLFunctionalSyntaxFactory.java</file>
+    <line>558</line>
+    <module>owlapi-apibinding</module>
+    <package>org.semanticweb.owlapi.apibinding</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom DisjointObjectProperties(org.semanticweb.owlapi.model.OWLObjectPropertyExpression... properties)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overloaded variable argument method</problem_class>
+    <description>Overloaded variable argument method &lt;code&gt;DisjointObjectProperties()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/apibinding/src/main/java/org/semanticweb/owlapi/apibinding/OWLFunctionalSyntaxFactory.java</file>
+    <line>543</line>
+    <module>owlapi-apibinding</module>
+    <package>org.semanticweb.owlapi.apibinding</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom EquivalentObjectProperties(org.semanticweb.owlapi.model.OWLObjectPropertyExpression... properties)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overloaded variable argument method</problem_class>
+    <description>Overloaded variable argument method &lt;code&gt;EquivalentObjectProperties()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/apibinding/src/main/java/org/semanticweb/owlapi/apibinding/OWLFunctionalSyntaxFactory.java</file>
+    <line>731</line>
+    <module>owlapi-apibinding</module>
+    <package>org.semanticweb.owlapi.apibinding</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom DisjointDataProperties(org.semanticweb.owlapi.model.OWLDataPropertyExpression... properties)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overloaded variable argument method</problem_class>
+    <description>Overloaded variable argument method &lt;code&gt;DisjointDataProperties()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/apibinding/src/main/java/org/semanticweb/owlapi/apibinding/OWLFunctionalSyntaxFactory.java</file>
+    <line>470</line>
+    <module>owlapi-apibinding</module>
+    <package>org.semanticweb.owlapi.apibinding</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom EquivalentClasses(java.util.Set&lt;org.semanticweb.owlapi.model.OWLAnnotation&gt; a, org.semanticweb.owlapi.model.OWLClassExpression... classExpressions)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overloaded variable argument method</problem_class>
+    <description>Overloaded variable argument method &lt;code&gt;EquivalentClasses()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/apibinding/src/main/java/org/semanticweb/owlapi/apibinding/OWLFunctionalSyntaxFactory.java</file>
+    <line>800</line>
+    <module>owlapi-apibinding</module>
+    <package>org.semanticweb.owlapi.apibinding</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory org.semanticweb.owlapi.model.OWLHasKeyAxiom HasKey(java.util.Set&lt;org.semanticweb.owlapi.model.OWLAnnotation&gt; a, org.semanticweb.owlapi.model.OWLClassExpression classExpression, org.semanticweb.owlapi.model.OWLPropertyExpression... propertyExpressions)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overloaded variable argument method</problem_class>
+    <description>Overloaded variable argument method &lt;code&gt;HasKey()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/apibinding/src/main/java/org/semanticweb/owlapi/apibinding/OWLFunctionalSyntaxFactory.java</file>
+    <line>550</line>
+    <module>owlapi-apibinding</module>
+    <package>org.semanticweb.owlapi.apibinding</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom EquivalentObjectProperties(java.util.Set&lt;org.semanticweb.owlapi.model.OWLAnnotation&gt; a, org.semanticweb.owlapi.model.OWLObjectPropertyExpression... properties)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overloaded variable argument method</problem_class>
+    <description>Overloaded variable argument method &lt;code&gt;EquivalentObjectProperties()&lt;/code&gt; #loc</description>
+  </problem>
+</problems>
+

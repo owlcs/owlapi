@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/renderer/XMLWriterImpl.java</file>
+    <line>341</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.renderer.XMLWriterImpl.XMLElement void writeElementStart(boolean close)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Pointless arithmetic expression</problem_class>
+    <description>&lt;code&gt;textContent.length() &gt; TEXT_CONTENT_WRAP_LIMIT&lt;/code&gt; can be replaced with 'false' #loc</description>
+  </problem>
+</problems>
+

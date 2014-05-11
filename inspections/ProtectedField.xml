@@ -1,0 +1,2452 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/io/StreamDocumentSourceBase.java</file>
+    <line>47</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.io</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.io.StreamDocumentSourceBase byteBuffer" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;byteBuffer&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/io/StreamDocumentSourceBase.java</file>
+    <line>46</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.io</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.io.StreamDocumentSourceBase documentIRI" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;documentIRI&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/SimpleRootClassChecker.java</file>
+    <line>105</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.util.SimpleRootClassChecker.NamedSuperChecker namedSuper" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;namedSuper&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/SimpleRootClassChecker.java</file>
+    <line>86</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.util.SimpleRootClassChecker superChecker" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;superChecker&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/WeakIndexCache.java</file>
+    <line>34</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.util.WeakIndexCache prefixCache" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;prefixCache&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/StructuralTransformation.java</file>
+    <line>100</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.util.StructuralTransformation df" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;df&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/StructuralTransformation.java</file>
+    <line>102</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.util.StructuralTransformation signature" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;signature&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/CollectionFactory.java</file>
+    <line>480</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.util.CollectionFactory.ConditionalCopySet delegate" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;delegate&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/OWLOntologyChangeFilter.java</file>
+    <line>75</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.util.OWLOntologyChangeFilter add" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;add&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/OWLOntologyChangeFilter.java</file>
+    <line>77</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.util.OWLOntologyChangeFilter ontology" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;ontology&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/HornAxiomVisitorEx.java</file>
+    <line>60</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.util.HornAxiomVisitorEx negative" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;negative&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/HornAxiomVisitorEx.java</file>
+    <line>58</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.util.HornAxiomVisitorEx positive" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;positive&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/OWLObjectWalker.java</file>
+    <line>46</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.util.OWLObjectWalker visitor" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;visitor&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/OWLObjectWalker.java</file>
+    <line>51</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.util.OWLObjectWalker annotation" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;annotation&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/OWLObjectWalker.java</file>
+    <line>43</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.util.OWLObjectWalker ontology" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;ontology&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/OWLObjectWalker.java</file>
+    <line>49</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.util.OWLObjectWalker visitDuplicates" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;visitDuplicates&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/OWLObjectWalker.java</file>
+    <line>50</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.util.OWLObjectWalker ax" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;ax&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/OWLClassLiteralCollector.java</file>
+    <line>34</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.util.OWLClassLiteralCollector pos" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;pos&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/OWLClassLiteralCollector.java</file>
+    <line>35</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.util.OWLClassLiteralCollector neg" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;neg&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/StructureWalker.java</file>
+    <line>123</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.util.StructureWalker walkerCallback" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;walkerCallback&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/StructureWalker.java</file>
+    <line>124</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.util.StructureWalker visited" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;visited&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/profiles/OWLProfileViolation.java</file>
+    <line>51</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.profiles</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.profiles.OWLProfileViolation expression" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;expression&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/profiles/OWLProfileViolation.java</file>
+    <line>45</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.profiles</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.profiles.OWLProfileViolation ontology" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;ontology&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/profiles/OWLProfileViolation.java</file>
+    <line>47</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.profiles</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.profiles.OWLProfileViolation df" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;df&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/profiles/OWLProfileViolation.java</file>
+    <line>49</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.profiles</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.profiles.OWLProfileViolation axiom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;axiom&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/SWRLAtomImpl.java</file>
+    <line>31</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.SWRLAtomImpl predicate" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;predicate&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLImmutableOntologyImpl.java</file>
+    <line>79</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLImmutableOntologyImpl ontologyID" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;ontologyID&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLImmutableOntologyImpl.java</file>
+    <line>77</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLImmutableOntologyImpl manager" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;manager&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLOntologyManagerImpl.java</file>
+    <line>136</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl importedIRIs" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;importedIRIs&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLOntologyManagerImpl.java</file>
+    <line>131</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl ontologyStorers" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;ontologyStorers&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLOntologyManagerImpl.java</file>
+    <line>119</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl ontologyConfigurationsByOntologyID" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;ontologyConfigurationsByOntologyID&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLOntologyManagerImpl.java</file>
+    <line>125</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl documentMappers" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;documentMappers&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLOntologyManagerImpl.java</file>
+    <line>144</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl loaderListeners" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;loaderListeners&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLOntologyManagerImpl.java</file>
+    <line>150</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl defaultChangeBroadcastStrategy" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;defaultChangeBroadcastStrategy&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLOntologyManagerImpl.java</file>
+    <line>140</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl importsClosureCache" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;importsClosureCache&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLOntologyManagerImpl.java</file>
+    <line>142</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl missingImportsListeners" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;missingImportsListeners&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLOntologyManagerImpl.java</file>
+    <line>121</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl ontologyFormatsByOntology" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;ontologyFormatsByOntology&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLOntologyManagerImpl.java</file>
+    <line>129</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl parserFactories" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;parserFactories&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLOntologyManagerImpl.java</file>
+    <line>148</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl autoGeneratedURICounter" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;autoGeneratedURICounter&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLOntologyManagerImpl.java</file>
+    <line>117</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl documentIRIsByID" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;documentIRIsByID&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLOntologyManagerImpl.java</file>
+    <line>134</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl importsLoadCount" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;importsLoadCount&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLOntologyManagerImpl.java</file>
+    <line>127</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl ontologyFactories" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;ontologyFactories&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLOntologyManagerImpl.java</file>
+    <line>115</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl ontologiesByID" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;ontologiesByID&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLOntologyManagerImpl.java</file>
+    <line>133</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl loadCount" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;loadCount&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLOntologyManagerImpl.java</file>
+    <line>123</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl ontologyIDsByImportsDeclaration" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;ontologyIDsByImportsDeclaration&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLOntologyManagerImpl.java</file>
+    <line>152</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl defaultImpendingChangeBroadcastStrategy" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;defaultImpendingChangeBroadcastStrategy&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLOntologyManagerImpl.java</file>
+    <line>138</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl dataFactory" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;dataFactory&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLOntologyManagerImpl.java</file>
+    <line>146</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl progressListeners" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;progressListeners&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLDataFactoryImpl.java</file>
+    <line>58</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl data" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;data&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLAnnotationPropertyRangeAxiomImpl.java</file>
+    <line>45</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLAnnotationPropertyRangeAxiomImpl range" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;range&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLAxiomIndexImpl.java</file>
+    <line>71</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLAxiomIndexImpl ints" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;ints&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLValueRestrictionImpl.java</file>
+    <line>34</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLValueRestrictionImpl value" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;value&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/SWRLRuleImpl.java</file>
+    <line>252</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.SWRLRuleImpl ATOM_SIMPLIFIER" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;ATOM_SIMPLIFIER&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java</file>
+    <line>186</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.Internals functionalObjectPropertyAxiomsByProperty" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;functionalObjectPropertyAxiomsByProperty&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java</file>
+    <line>206</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.Internals differentIndividualsAxiomsByIndividual" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;differentIndividualsAxiomsByIndividual&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java</file>
+    <line>187</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.Internals inverseFunctionalPropertyAxiomsByProperty" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;inverseFunctionalPropertyAxiomsByProperty&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java</file>
+    <line>199</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.Internals functionalDataPropertyAxiomsByProperty" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;functionalDataPropertyAxiomsByProperty&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java</file>
+    <line>193</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.Internals inversePropertyAxiomsByProperty" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;inversePropertyAxiomsByProperty&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java</file>
+    <line>210</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.Internals ontologyAnnotations" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;ontologyAnnotations&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java</file>
+    <line>202</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.Internals objectPropertyAssertionsByIndividual" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;objectPropertyAssertionsByIndividual&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java</file>
+    <line>180</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.Internals hasKeyAxiomsByClass" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;hasKeyAxiomsByClass&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java</file>
+    <line>189</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.Internals asymmetricPropertyAxiomsByProperty" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;asymmetricPropertyAxiomsByProperty&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java</file>
+    <line>168</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.Internals annotationAssertionAxiomsBySubject" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;annotationAssertionAxiomsBySubject&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java</file>
+    <line>169</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.Internals subClassAxiomsBySubPosition" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;subClassAxiomsBySubPosition&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java</file>
+    <line>195</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.Internals equivalentDataPropertyAxiomsByProperty" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;equivalentDataPropertyAxiomsByProperty&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java</file>
+    <line>209</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.Internals importsDeclarations" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;importsDeclarations&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java</file>
+    <line>222</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.Internals owlAnnotationPropertyReferences" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;owlAnnotationPropertyReferences&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java</file>
+    <line>218</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.Internals owlDataPropertyReferences" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;owlDataPropertyReferences&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java</file>
+    <line>176</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.Internals classAxiomsByClass" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;classAxiomsByClass&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java</file>
+    <line>182</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.Internals equivalentObjectPropertyAxiomsByProperty" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;equivalentObjectPropertyAxiomsByProperty&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java</file>
+    <line>205</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.Internals negativeDataPropertyAssertionAxiomsByIndividual" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;negativeDataPropertyAssertionAxiomsByIndividual&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java</file>
+    <line>207</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.Internals sameIndividualsAxiomsByIndividual" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;sameIndividualsAxiomsByIndividual&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java</file>
+    <line>220</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.Internals owlAnonymousIndividualReferences" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;owlAnonymousIndividualReferences&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java</file>
+    <line>212</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.Internals propertyChainSubPropertyAxioms" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;propertyChainSubPropertyAxioms&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java</file>
+    <line>170</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.Internals subClassAxiomsBySuperPosition" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;subClassAxiomsBySuperPosition&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java</file>
+    <line>179</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.Internals disjointUnionAxiomsByClass" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;disjointUnionAxiomsByClass&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java</file>
+    <line>223</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.Internals declarationsByEntity" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;declarationsByEntity&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java</file>
+    <line>177</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.Internals equivalentClassesAxiomsByClass" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;equivalentClassesAxiomsByClass&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java</file>
+    <line>196</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.Internals disjointDataPropertyAxiomsByProperty" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;disjointDataPropertyAxiomsByProperty&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java</file>
+    <line>192</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.Internals transitivePropertyAxiomsByProperty" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;transitivePropertyAxiomsByProperty&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java</file>
+    <line>191</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.Internals irreflexivePropertyAxiomsByProperty" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;irreflexivePropertyAxiomsByProperty&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java</file>
+    <line>174</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.Internals dataSubPropertyAxiomsBySuperPosition" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;dataSubPropertyAxiomsBySuperPosition&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java</file>
+    <line>167</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.Internals classAssertionAxiomsByClass" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;classAssertionAxiomsByClass&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java</file>
+    <line>203</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.Internals dataPropertyAssertionsByIndividual" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;dataPropertyAssertionsByIndividual&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java</file>
+    <line>216</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.Internals owlClassReferences" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;owlClassReferences&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java</file>
+    <line>185</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.Internals objectPropertyRangeAxiomsByProperty" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;objectPropertyRangeAxiomsByProperty&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java</file>
+    <line>198</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.Internals dataPropertyRangeAxiomsByProperty" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;dataPropertyRangeAxiomsByProperty&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java</file>
+    <line>171</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.Internals objectSubPropertyAxiomsBySubPosition" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;objectSubPropertyAxiomsBySubPosition&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java</file>
+    <line>188</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.Internals symmetricPropertyAxiomsByProperty" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;symmetricPropertyAxiomsByProperty&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java</file>
+    <line>173</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.Internals dataSubPropertyAxiomsBySubPosition" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;dataSubPropertyAxiomsBySubPosition&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java</file>
+    <line>204</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.Internals negativeObjectPropertyAssertionAxiomsByIndividual" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;negativeObjectPropertyAssertionAxiomsByIndividual&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java</file>
+    <line>214</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.Internals axiomsByType" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;axiomsByType&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java</file>
+    <line>190</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.Internals reflexivePropertyAxiomsByProperty" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;reflexivePropertyAxiomsByProperty&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java</file>
+    <line>201</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.Internals classAssertionAxiomsByIndividual" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;classAssertionAxiomsByIndividual&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java</file>
+    <line>197</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.Internals dataPropertyDomainAxiomsByProperty" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;dataPropertyDomainAxiomsByProperty&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java</file>
+    <line>172</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.Internals objectSubPropertyAxiomsBySuperPosition" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;objectSubPropertyAxiomsBySuperPosition&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java</file>
+    <line>178</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.Internals disjointClassesAxiomsByClass" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;disjointClassesAxiomsByClass&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java</file>
+    <line>211</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.Internals generalClassAxioms" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;generalClassAxioms&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java</file>
+    <line>183</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.Internals disjointObjectPropertyAxiomsByProperty" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;disjointObjectPropertyAxiomsByProperty&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java</file>
+    <line>219</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.Internals owlIndividualReferences" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;owlIndividualReferences&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java</file>
+    <line>221</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.Internals owlDatatypeReferences" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;owlDatatypeReferences&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java</file>
+    <line>217</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.Internals owlObjectPropertyReferences" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;owlObjectPropertyReferences&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java</file>
+    <line>184</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.Internals objectPropertyDomainAxiomsByProperty" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;objectPropertyDomainAxiomsByProperty&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/MapPointer.java</file>
+    <line>57</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.MapPointer i" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;i&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/org/semanticweb/owlapi/reasoner/structural/StructuralReasoner.java</file>
+    <line>105</line>
+    <module>owlapi-impl</module>
+    <package>org.semanticweb.owlapi.reasoner.structural</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.reasoner.structural.StructuralReasoner pm" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;pm&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/rio/src/main/java/org/semanticweb/owlapi/rio/RioParserImpl.java</file>
+    <line>88</line>
+    <module>owlapi-rio</module>
+    <package>org.semanticweb.owlapi.rio</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rio.RioParserImpl log" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;log&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/macro/MacroExpansionVisitor.java</file>
+    <line>45</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.macro</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.macro.MacroExpansionVisitor manchesterSyntaxTool" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;manchesterSyntaxTool&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/macro/MacroExpansionGCIVisitor.java</file>
+    <line>41</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.macro</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.macro.MacroExpansionGCIVisitor manchesterSyntaxTool" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;manchesterSyntaxTool&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/macro/ManchesterSyntaxTool.java</file>
+    <line>53</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.macro</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.macro.ManchesterSyntaxTool iriShortFormProvider" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;iriShortFormProvider&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>88</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl manager" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;manager&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>86</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl defaultIDSpace" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;defaultIDSpace&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>106</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl clsToDeclare" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;clsToDeclare&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>92</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl fac" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;fac&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>97</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl idSpaceMap" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;idSpaceMap&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>94</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl obodoc" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;obodoc&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>103</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl apToDeclare" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;apToDeclare&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>109</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl typedefToAnnotationProperty" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;typedefToAnnotationProperty&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>90</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl owlOntology" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;owlOntology&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>130</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo idSpaceMap" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;idSpaceMap&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>126</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo untranslatableAxioms" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;untranslatableAxioms&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>114</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo owlOntology" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;owlOntology&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>929</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo absoulteURLPattern" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;absoulteURLPattern&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>147</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo strictConversion" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;strictConversion&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>139</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo apToDeclare" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;apToDeclare&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>110</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo manager" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;manager&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>151</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo discardUntranslatable" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;discardUntranslatable&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>118</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo fac" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;fac&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>143</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo ontologyId" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;ontologyId&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>122</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo obodoc" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;obodoc&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/model/Frame.java</file>
+    <line>36</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.model</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.oboformat.model.Frame type" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;type&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/model/Frame.java</file>
+    <line>32</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.model</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.oboformat.model.Frame clauses" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;clauses&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/model/Frame.java</file>
+    <line>34</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.model</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.oboformat.model.Frame id" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;id&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/model/OBODoc.java</file>
+    <line>36</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.model</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.oboformat.model.OBODoc importedOBODocs" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;importedOBODocs&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/model/OBODoc.java</file>
+    <line>25</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.model</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.oboformat.model.OBODoc termFrameMap" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;termFrameMap&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/model/OBODoc.java</file>
+    <line>31</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.model</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.oboformat.model.OBODoc instanceFrameMap" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;instanceFrameMap&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/model/OBODoc.java</file>
+    <line>34</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.model</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.oboformat.model.OBODoc annotationFrames" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;annotationFrames&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/model/OBODoc.java</file>
+    <line>28</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.model</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.oboformat.model.OBODoc typedefFrameMap" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;typedefFrameMap&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/model/OBODoc.java</file>
+    <line>22</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.model</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.oboformat.model.OBODoc headerFrame" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;headerFrame&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/model/Clause.java</file>
+    <line>21</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.model</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.oboformat.model.Clause qualifierValues" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;qualifierValues&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/model/Clause.java</file>
+    <line>17</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.model</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.oboformat.model.Clause values" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;values&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/model/Clause.java</file>
+    <line>19</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.model</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.oboformat.model.Clause xrefs" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;xrefs&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/model/Clause.java</file>
+    <line>15</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.model</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.oboformat.model.Clause tag" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;tag&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/model/QualifierValue.java</file>
+    <line>9</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.model</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.oboformat.model.QualifierValue value" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;value&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/model/QualifierValue.java</file>
+    <line>8</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.model</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.oboformat.model.QualifierValue qualifier" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;qualifier&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/XrefExpander.java</file>
+    <line>292</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.oboformat.parser.XrefExpander.ReverseGenusDifferentiaExpansion rel" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;rel&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/XrefExpander.java</file>
+    <line>264</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.oboformat.parser.XrefExpander.GenusDifferentiaExpansion rel" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;rel&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/XrefExpander.java</file>
+    <line>265</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.oboformat.parser.XrefExpander.GenusDifferentiaExpansion tgt" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;tgt&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/XrefExpander.java</file>
+    <line>209</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.oboformat.parser.XrefExpander.Rule xref" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;xref&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/XrefExpander.java</file>
+    <line>293</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.oboformat.parser.XrefExpander.ReverseGenusDifferentiaExpansion tgt" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;tgt&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/XrefExpander.java</file>
+    <line>330</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.oboformat.parser.XrefExpander.RelationshipExpansion rel" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;rel&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/OBOFormatParser.java</file>
+    <line>169</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.oboformat.parser.OBOFormatParser stream" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;stream&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/BOMSafeJavaCharStream.java</file>
+    <line>81</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.BOMSafeJavaCharStream available" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;available&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/BOMSafeJavaCharStream.java</file>
+    <line>94</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.BOMSafeJavaCharStream inBuf" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;inBuf&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/BOMSafeJavaCharStream.java</file>
+    <line>89</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.BOMSafeJavaCharStream inputStream" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;inputStream&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/BOMSafeJavaCharStream.java</file>
+    <line>83</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.BOMSafeJavaCharStream bufline" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;bufline&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/BOMSafeJavaCharStream.java</file>
+    <line>84</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.BOMSafeJavaCharStream bufcolumn" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;bufcolumn&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/BOMSafeJavaCharStream.java</file>
+    <line>88</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.BOMSafeJavaCharStream prevCharIsLF" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;prevCharIsLF&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/BOMSafeJavaCharStream.java</file>
+    <line>86</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.BOMSafeJavaCharStream line" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;line&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/BOMSafeJavaCharStream.java</file>
+    <line>91</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.BOMSafeJavaCharStream buffer" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;buffer&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/BOMSafeJavaCharStream.java</file>
+    <line>93</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.BOMSafeJavaCharStream nextCharInd" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;nextCharInd&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/BOMSafeJavaCharStream.java</file>
+    <line>82</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.BOMSafeJavaCharStream tokenBegin" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;tokenBegin&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/BOMSafeJavaCharStream.java</file>
+    <line>87</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.BOMSafeJavaCharStream prevCharIsCR" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;prevCharIsCR&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/BOMSafeJavaCharStream.java</file>
+    <line>92</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.BOMSafeJavaCharStream maxNextCharInd" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;maxNextCharInd&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/BOMSafeJavaCharStream.java</file>
+    <line>85</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.BOMSafeJavaCharStream column" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;column&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/BOMSafeJavaCharStream.java</file>
+    <line>90</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.BOMSafeJavaCharStream nextCharBuf" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;nextCharBuf&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/BOMSafeJavaCharStream.java</file>
+    <line>80</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.BOMSafeJavaCharStream bufsize" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;bufsize&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/BOMSafeJavaCharStream.java</file>
+    <line>95</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.BOMSafeJavaCharStream tabSize" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;tabSize&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/RDFRendererBase.java</file>
+    <line>108</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.RDFRendererBase prettyPrintedTypes" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;prettyPrintedTypes&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/RDFRendererBase.java</file>
+    <line>105</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.RDFRendererBase ontology" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;ontology&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/RDFRendererBase.java</file>
+    <line>106</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.RDFRendererBase graph" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;graph&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/StartRDF.java</file>
+    <line>564</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.ParseTypeLiteralElement m_depth" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;m_depth&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/StartRDF.java</file>
+    <line>498</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.ResourceOrLiteralElement propertyIRI" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;propertyIRI&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/StartRDF.java</file>
+    <line>502</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.ResourceOrLiteralElement text" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;text&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/StartRDF.java</file>
+    <line>563</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.ParseTypeLiteralElement m_reificationID" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;m_reificationID&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/StartRDF.java</file>
+    <line>625</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.ParseTypeResourceElement m_nodeElement" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;m_nodeElement&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/StartRDF.java</file>
+    <line>628</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.ParseTypeResourceElement m_reificationID" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;m_reificationID&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/StartRDF.java</file>
+    <line>418</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.ParseTypeCollectionElement m_nodeElement" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;m_nodeElement&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/StartRDF.java</file>
+    <line>626</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.ParseTypeResourceElement m_propertyIRI" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;m_propertyIRI&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/StartRDF.java</file>
+    <line>419</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.ParseTypeCollectionElement _propertyIRI" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;_propertyIRI&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/StartRDF.java</file>
+    <line>500</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.ResourceOrLiteralElement reificationID" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;reificationID&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/StartRDF.java</file>
+    <line>273</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.NodeElement reificationManager" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;reificationManager&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/StartRDF.java</file>
+    <line>565</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.ParseTypeLiteralElement m_content" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;m_content&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/StartRDF.java</file>
+    <line>725</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.ReifiedStatementBag m_elements" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;m_elements&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/StartRDF.java</file>
+    <line>49</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.AbstractState parser" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;parser&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/StartRDF.java</file>
+    <line>497</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.ResourceOrLiteralElement nodeElement" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;nodeElement&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/StartRDF.java</file>
+    <line>561</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.ParseTypeLiteralElement _propertyIRI" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;_propertyIRI&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/StartRDF.java</file>
+    <line>422</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.ParseTypeCollectionElement _lastCellIRI" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;_lastCellIRI&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/StartRDF.java</file>
+    <line>727</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.ReifiedStatementBag m_uri" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;m_uri&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/StartRDF.java</file>
+    <line>503</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.ResourceOrLiteralElement innerNode" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;innerNode&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/StartRDF.java</file>
+    <line>275</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.NodeElement m_nextLi" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;m_nextLi&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/StartRDF.java</file>
+    <line>421</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.ParseTypeCollectionElement m_reificationID" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;m_reificationID&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/StartRDF.java</file>
+    <line>501</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.ResourceOrLiteralElement datatype" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;datatype&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/StartRDF.java</file>
+    <line>228</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.EmptyPropertyElement m_nodeElement" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;m_nodeElement&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/StartRDF.java</file>
+    <line>666</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.PropertyElementList node" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;node&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/StartRDF.java</file>
+    <line>229</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.EmptyPropertyElement _propertyIRI" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;_propertyIRI&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/StartRDF.java</file>
+    <line>272</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.NodeElement _subjectIRI" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;_subjectIRI&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/StartRDF.java</file>
+    <line>560</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.ParseTypeLiteralElement m_nodeElement" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;m_nodeElement&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/TripleHandlers.java</file>
+    <line>99</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.TripleHandlers.HandlerAccessor predicates" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;predicates&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/TripleHandlers.java</file>
+    <line>106</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.TripleHandlers.HandlerAccessor literals" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;literals&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/TripleHandlers.java</file>
+    <line>113</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.TripleHandlers.HandlerAccessor resources" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;resources&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/TripleHandlers.java</file>
+    <line>672</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.TripleHandlers.AbstractTripleHandler df" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;df&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/TripleHandlers.java</file>
+    <line>121</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.TripleHandlers.HandlerAccessor consumer" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;consumer&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/TripleHandlers.java</file>
+    <line>116</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.TripleHandlers.HandlerAccessor inverseOf" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;inverseOf&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/TripleHandlers.java</file>
+    <line>665</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.TripleHandlers.AbstractTripleHandler consumer" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;consumer&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/TripleHandlers.java</file>
+    <line>96</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.TripleHandlers.HandlerAccessor axiomTypes" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;axiomTypes&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/RDFParserException.java</file>
+    <line>25</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.RDFParserException systemId" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;systemId&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/RDFParserException.java</file>
+    <line>26</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.RDFParserException lineNumber" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;lineNumber&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/RDFParserException.java</file>
+    <line>24</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.RDFParserException publicId" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;publicId&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/RDFParserException.java</file>
+    <line>27</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.RDFParserException columnNumber" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;columnNumber&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/Translators.java</file>
+    <line>1890</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.Translators.SWRLAtomListItemTranslator accessor" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;accessor&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/Translators.java</file>
+    <line>1889</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.Translators.SWRLAtomListItemTranslator dataFactory" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;dataFactory&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/Translators.java</file>
+    <line>283</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.Translators.AbstractClassExpressionTranslator accessor" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;accessor&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/Translators.java</file>
+    <line>546</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.Translators.ClassExpressionListItemTranslator accessor" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;accessor&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/RDFParser.java</file>
+    <line>85</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.RDFParser m_consumer" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;m_consumer&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/RDFParser.java</file>
+    <line>78</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.RDFParser baseIRI" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;baseIRI&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/RDFParser.java</file>
+    <line>91</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.RDFParser documentLocator" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;documentLocator&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/RDFParser.java</file>
+    <line>59</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.RDFParser uriCache" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;uriCache&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/RDFParser.java</file>
+    <line>75</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.RDFParser m_baseIRIs" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;m_baseIRIs&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/RDFParser.java</file>
+    <line>89</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.RDFParser m_states" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;m_states&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/RDFParser.java</file>
+    <line>81</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.RDFParser m_languages" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;m_languages&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/RDFParser.java</file>
+    <line>83</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.RDFParser m_language" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;m_language&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/RDFParser.java</file>
+    <line>61</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.RDFParser m_errorHandler" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;m_errorHandler&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/RDFParser.java</file>
+    <line>87</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.RDFParser state" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;state&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/renderer/XMLWriterImpl.java</file>
+    <line>48</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.renderer</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.renderer.XMLWriterImpl writer" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;writer&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/turtle/parser/ParseException.java</file>
+    <line>89</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.turtle.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.turtle.parser.ParseException eol" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;eol&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/ParseException.java</file>
+    <line>89</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.parser.ParseException eol" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;eol&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1994</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager curChar" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;curChar&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/renderer/KRSSObjectRenderer.java</file>
+    <line>245</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.renderer</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.renderer.KRSSObjectRenderer writer" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;writer&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/renderer/KRSSObjectRenderer.java</file>
+    <line>243</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.renderer</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.renderer.KRSSObjectRenderer ontology" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;ontology&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/renderer/KRSS2ObjectRenderer.java</file>
+    <line>281</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.renderer</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.renderer.KRSS2ObjectRenderer ignoreDeclarations" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;ignoreDeclarations&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/ParseException.java</file>
+    <line>89</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.ParseException eol" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;eol&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/renderer/DLSyntaxHTMLOntologyStorer.java</file>
+    <line>43</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.renderer</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.dlsyntax.renderer.DLSyntaxHTMLOntologyStorer sfp" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;sfp&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>154</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser pm" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;pm&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>156</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser potentialKeywords" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;potentialKeywords&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>127</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser dataFactory" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;dataFactory&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>144</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser dataPropertyNames" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;dataPropertyNames&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>146</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser individualNames" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;individualNames&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>142</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser objectPropertyNames" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;objectPropertyNames&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>148</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser dataTypeNames" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;dataTypeNames&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>140</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser classNames" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;classNames&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>150</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser annotationPropertyNames" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;annotationPropertyNames&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxTokenizer.java</file>
+    <line>44</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxTokenizer commentDelimiters" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;commentDelimiters&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxTokenizer.java</file>
+    <line>43</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxTokenizer skip" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;skip&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxTokenizer.java</file>
+    <line>45</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxTokenizer delims" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;delims&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/renderer/FunctionalSyntaxObjectRenderer.java</file>
+    <line>49</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.renderer</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.functional.renderer.FunctionalSyntaxObjectRenderer ontology" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;ontology&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/swrl/SWRLAtomOrderingTestCase.java</file>
+    <line>37</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.swrl</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.swrl.SWRLAtomOrderingTestCase atomB" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;atomB&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/swrl/SWRLAtomOrderingTestCase.java</file>
+    <line>39</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.swrl</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.swrl.SWRLAtomOrderingTestCase atomC" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;atomC&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/swrl/SWRLAtomOrderingTestCase.java</file>
+    <line>35</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.swrl</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.swrl.SWRLAtomOrderingTestCase atomA" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;atomA&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/swrl/SWRLAtomOrderingTestCase.java</file>
+    <line>41</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.swrl</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.swrl.SWRLAtomOrderingTestCase atomD" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;atomD&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/ManchesterOWLSyntaxParserErrorsTestCase.java</file>
+    <line>40</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.syntax.ManchesterOWLSyntaxParserErrorsTestCase entityChecker" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;entityChecker&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/baseclasses/TestBase.java</file>
+    <line>72</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.baseclasses</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.baseclasses.TestBase df" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;df&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/baseclasses/TestBase.java</file>
+    <line>76</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.baseclasses</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.baseclasses.TestBase m1" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;m1&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/baseclasses/TestBase.java</file>
+    <line>70</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.baseclasses</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.baseclasses.TestBase config" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;config&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/baseclasses/TestBase.java</file>
+    <line>74</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.baseclasses</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.baseclasses.TestBase m" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;m&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/profiles/test/ProfileBase.java</file>
+    <line>29</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.profiles.test</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.profiles.test.ProfileBase head2" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;head2&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/profiles/test/ProfileBase.java</file>
+    <line>23</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.profiles.test</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.profiles.test.ProfileBase example" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;example&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/profiles/test/ProfileBase.java</file>
+    <line>31</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.profiles.test</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.profiles.test.ProfileBase head3" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;head3&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/profiles/test/ProfileBase.java</file>
+    <line>27</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.profiles.test</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.profiles.test.ProfileBase head" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;head&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/profiles/test/ProfileBase.java</file>
+    <line>25</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.profiles.test</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.profiles.test.ProfileBase rdf" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;rdf&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/uk/ac/manchester/cs/owl/explanation/ordering/AlphaExplanationOrderer.java</file>
+    <line>38</line>
+    <module>owlapi-tools</module>
+    <package>uk.ac.manchester.cs.owl.explanation.ordering</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.explanation.ordering.AlphaExplanationOrderer renderer" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;renderer&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SemanticLocalityEvaluator.java</file>
+    <line>62</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="field" FQNAME="com.clarkparsia.owlapi.modularity.locality.SemanticLocalityEvaluator df" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;df&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SemanticLocalityEvaluator.java</file>
+    <line>65</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="field" FQNAME="com.clarkparsia.owlapi.modularity.locality.SemanticLocalityEvaluator reasoner" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;reasoner&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>96</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="field" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator localityCls" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;localityCls&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/explanation/SatisfiabilityConverter.java</file>
+    <line>240</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.explanation</package>
+    <entry_point TYPE="field" FQNAME="com.clarkparsia.owlapi.explanation.SatisfiabilityConverter factory" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;factory&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/explanation/BlackBoxExplanation.java</file>
+    <line>63</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.explanation</package>
+    <entry_point TYPE="field" FQNAME="com.clarkparsia.owlapi.explanation.BlackBoxExplanation debuggingAxioms" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;debuggingAxioms&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/org/semanticweb/owlapi/debugging/AbstractOWLDebugger.java</file>
+    <line>49</line>
+    <module>owlapi-tools</module>
+    <package>org.semanticweb.owlapi.debugging</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.debugging.AbstractOWLDebugger owlOntologyManager" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;owlOntologyManager&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BaseBuilder.java</file>
+    <line>54</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapitools.builders.BaseBuilder annotations" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;annotations&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BaseBuilder.java</file>
+    <line>52</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapitools.builders.BaseBuilder df" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;df&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BaseSetBuilder.java</file>
+    <line>40</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapitools.builders.BaseSetBuilder items" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;items&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BuilderImportsDeclaration.java</file>
+    <line>35</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapitools.builders.BuilderImportsDeclaration df" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;df&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BaseEntityBuilder.java</file>
+    <line>41</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapitools.builders.BaseEntityBuilder string" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;string&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BaseEntityBuilder.java</file>
+    <line>43</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapitools.builders.BaseEntityBuilder pm" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Protected field</problem_class>
+    <description>Protected field &lt;code&gt;pm&lt;/code&gt; #loc</description>
+  </problem>
+</problems>
+

@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/io/UnparsableOntologyException.java</file>
+    <line>72</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.io</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.io.UnparsableOntologyException java.lang.String getMessage()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Iteration over 'keySet()' may be replaced with 'entrySet()' iteration</problem_class>
+    <description>Iteration over &lt;code&gt;exceptions.keySet()&lt;/code&gt; may be replaced with 'entrySet()' iteration #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/AutoIRIMapper.java</file>
+    <line>293</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.AutoIRIMapper java.lang.String toString()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Iteration over 'keySet()' may be replaced with 'entrySet()' iteration</problem_class>
+    <description>Iteration over &lt;code&gt;ontologyIRI2PhysicalURIMap.keySet()&lt;/code&gt; may be replaced with 'entrySet()' iteration #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/change/ShortForm2AnnotationGenerator.java</file>
+    <line>104</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.change</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.change.ShortForm2AnnotationGenerator void generateChanges(org.semanticweb.owlapi.model.OWLOntologyManager ontologyManager, org.semanticweb.owlapi.model.OWLOntology ontology, org.semanticweb.owlapi.util.ShortFormProvider shortFormProvider, org.semanticweb.owlapi.model.IRI annotationIRI, java.lang.String languageTag)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Iteration over 'keySet()' may be replaced with 'entrySet()' iteration</problem_class>
+    <description>Iteration over &lt;code&gt;ontology2EntityMap.keySet()&lt;/code&gt; may be replaced with 'entrySet()' iteration #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLOntologyManagerImpl.java</file>
+    <line>254</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl org.semanticweb.owlapi.model.OWLOntology getOntology(org.semanticweb.owlapi.model.IRI ontologyIRI)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Iteration over 'keySet()' may be replaced with 'entrySet()' iteration</problem_class>
+    <description>Iteration over &lt;code&gt;ontologiesByID.keySet()&lt;/code&gt; may be replaced with 'entrySet()' iteration #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLOntologyManagerImpl.java</file>
+    <line>271</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl org.semanticweb.owlapi.model.OWLOntology getOntology(org.semanticweb.owlapi.model.OWLOntologyID ontologyID)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Iteration over 'keySet()' may be replaced with 'entrySet()' iteration</problem_class>
+    <description>Iteration over &lt;code&gt;ontologiesByID.keySet()&lt;/code&gt; may be replaced with 'entrySet()' iteration #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLOntologyManagerImpl.java</file>
+    <line>766</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl org.semanticweb.owlapi.model.OWLOntology getOntologyByDocumentIRI(org.semanticweb.owlapi.model.IRI documentIRI)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Iteration over 'keySet()' may be replaced with 'entrySet()' iteration</problem_class>
+    <description>Iteration over &lt;code&gt;documentIRIsByID.keySet()&lt;/code&gt; may be replaced with 'entrySet()' iteration #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLOntologyManagerImpl.java</file>
+    <line>726</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl org.semanticweb.owlapi.model.OWLOntology loadOntology(org.semanticweb.owlapi.model.IRI ontologyIRI, boolean allowExists, org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration configuration)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Iteration over 'keySet()' may be replaced with 'entrySet()' iteration</problem_class>
+    <description>Iteration over &lt;code&gt;ontologiesByID.keySet()&lt;/code&gt; may be replaced with 'entrySet()' iteration #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLOntologyManagerImpl.java</file>
+    <line>734</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl org.semanticweb.owlapi.model.OWLOntology loadOntology(org.semanticweb.owlapi.model.IRI ontologyIRI, boolean allowExists, org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration configuration)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Iteration over 'keySet()' may be replaced with 'entrySet()' iteration</problem_class>
+    <description>Iteration over &lt;code&gt;ontologiesByID.keySet()&lt;/code&gt; may be replaced with 'entrySet()' iteration #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/org/semanticweb/owlapi/reasoner/structural/StructuralReasoner.java</file>
+    <line>1499</line>
+    <module>owlapi-impl</module>
+    <package>org.semanticweb.owlapi.reasoner.structural</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.reasoner.structural.StructuralReasoner.RawObjectPropertyHierarchyProvider void rebuild()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Iteration over 'keySet()' may be replaced with 'entrySet()' iteration</problem_class>
+    <description>Iteration over &lt;code&gt;sub2Super.keySet()&lt;/code&gt; may be replaced with 'entrySet()' iteration #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OboInOwlCardinalityTools.java</file>
+    <line>239</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OboInOwlCardinalityTools void checkOntologyAnnotations(java.util.Set&lt;org.semanticweb.owlapi.model.OWLAnnotationProperty&gt; properties, org.semanticweb.owlapi.model.OWLOntology ontology, org.obolibrary.obo2owl.OboInOwlCardinalityTools.AnnotationCardinalityReporter reporter, org.obolibrary.obo2owl.OboInOwlCardinalityTools.AnnotationCardinalityConfictHandler handler, org.semanticweb.owlapi.model.OWLOntologyManager manager)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Iteration over 'keySet()' may be replaced with 'entrySet()' iteration</problem_class>
+    <description>Iteration over &lt;code&gt;groupedAnnotations.keySet()&lt;/code&gt; may be replaced with 'entrySet()' iteration #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OboInOwlCardinalityTools.java</file>
+    <line>294</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OboInOwlCardinalityTools void checkOwlEntity(org.semanticweb.owlapi.model.OWLEntity owlClass, java.util.Set&lt;org.semanticweb.owlapi.model.OWLAnnotationProperty&gt; properties, org.semanticweb.owlapi.model.OWLOntology ontology, org.obolibrary.obo2owl.OboInOwlCardinalityTools.AnnotationCardinalityReporter reporter, org.obolibrary.obo2owl.OboInOwlCardinalityTools.AnnotationCardinalityConfictHandler handler, org.semanticweb.owlapi.model.OWLOntologyManager manager)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Iteration over 'keySet()' may be replaced with 'entrySet()' iteration</problem_class>
+    <description>Iteration over &lt;code&gt;groupedAxioms.keySet()&lt;/code&gt; may be replaced with 'entrySet()' iteration #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/OWLRDFConsumer.java</file>
+    <line>1459</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFConsumer void dumpRemainingTriples()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Iteration over 'keySet()' may be replaced with 'entrySet()' iteration</problem_class>
+    <description>Iteration over &lt;code&gt;map.keySet()&lt;/code&gt; may be replaced with 'entrySet()' iteration #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/OWLRDFConsumer.java</file>
+    <line>1456</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFConsumer void dumpRemainingTriples()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Iteration over 'keySet()' may be replaced with 'entrySet()' iteration</problem_class>
+    <description>Iteration over &lt;code&gt;singleValuedResTriplesByPredicate.keySet()&lt;/code&gt; may be replaced with 'entrySet()' iteration #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/OWLRDFConsumer.java</file>
+    <line>1467</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFConsumer void dumpRemainingTriples()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Iteration over 'keySet()' may be replaced with 'entrySet()' iteration</problem_class>
+    <description>Iteration over &lt;code&gt;map.keySet()&lt;/code&gt; may be replaced with 'entrySet()' iteration #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/OWLRDFConsumer.java</file>
+    <line>1464</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFConsumer void dumpRemainingTriples()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Iteration over 'keySet()' may be replaced with 'entrySet()' iteration</problem_class>
+    <description>Iteration over &lt;code&gt;singleValuedLitTriplesByPredicate.keySet()&lt;/code&gt; may be replaced with 'entrySet()' iteration #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/renderer/OWLOntologyXMLNamespaceManager.java</file>
+    <line>81</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.renderer.OWLOntologyXMLNamespaceManager void processOntology()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Iteration over 'keySet()' may be replaced with 'entrySet()' iteration</problem_class>
+    <description>Iteration over &lt;code&gt;namespacesByPrefix.keySet()&lt;/code&gt; may be replaced with 'entrySet()' iteration #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/renderer/OWLOntologyXMLNamespaceManager.java</file>
+    <line>104</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.renderer.OWLOntologyXMLNamespaceManager void processOntology()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Iteration over 'keySet()' may be replaced with 'entrySet()' iteration</problem_class>
+    <description>Iteration over &lt;code&gt;ns2prefixMap.keySet()&lt;/code&gt; may be replaced with 'entrySet()' iteration #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/renderer/XMLWriterNamespaceManager.java</file>
+    <line>199</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.renderer.XMLWriterNamespaceManager java.lang.String getDefaultPrefix()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Iteration over 'keySet()' may be replaced with 'entrySet()' iteration</problem_class>
+    <description>Iteration over &lt;code&gt;prefixNamespaceMap.keySet()&lt;/code&gt; may be replaced with 'entrySet()' iteration #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/renderer/XMLWriterNamespaceManager.java</file>
+    <line>121</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.renderer.XMLWriterNamespaceManager java.lang.String getQName(java.lang.String name)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Iteration over 'keySet()' may be replaced with 'entrySet()' iteration</problem_class>
+    <description>Iteration over &lt;code&gt;namespacePrefixMap.keySet()&lt;/code&gt; may be replaced with 'entrySet()' iteration #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/renderer/XMLWriterImpl.java</file>
+    <line>106</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.renderer.XMLWriterImpl java.lang.String swapForEntity(java.lang.String value)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Iteration over 'keySet()' may be replaced with 'entrySet()' iteration</problem_class>
+    <description>Iteration over &lt;code&gt;entities.keySet()&lt;/code&gt; may be replaced with 'entrySet()' iteration #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/renderer/OWLXMLRenderer.java</file>
+    <line>60</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.owlxml.renderer.OWLXMLRenderer void render(org.semanticweb.owlapi.model.OWLOntology ontology, java.io.Writer writer, org.semanticweb.owlapi.model.OWLOntologyFormat format)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Iteration over 'keySet()' may be replaced with 'entrySet()' iteration</problem_class>
+    <description>Iteration over &lt;code&gt;map.keySet()&lt;/code&gt; may be replaced with 'entrySet()' iteration #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>2244</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormat parseOntology(org.semanticweb.owlapi.model.OWLOntology ont)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Iteration over 'keySet()' may be replaced with 'entrySet()' iteration</problem_class>
+    <description>Iteration over &lt;code&gt;nsMap.keySet()&lt;/code&gt; may be replaced with 'entrySet()' iteration #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/main/java/uk/ac/manchester/owl/owlapi/tutorialowled2011/Formatter.java</file>
+    <line>55</line>
+    <module>owlapi-contract</module>
+    <package>uk.ac.manchester.owl.owlapi.tutorialowled2011</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.owl.owlapi.tutorialowled2011.Formatter void main(java.lang.String[] args)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Iteration over 'keySet()' may be replaced with 'entrySet()' iteration</problem_class>
+    <description>Iteration over &lt;code&gt;specials.keySet()&lt;/code&gt; may be replaced with 'entrySet()' iteration #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/uk/ac/manchester/owl/owlapi/tutorial/ClosureAxioms.java</file>
+    <line>79</line>
+    <module>owlapi-contract</module>
+    <package>uk.ac.manchester.owl.owlapi.tutorial</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.owl.owlapi.tutorial.ClosureAxioms void addClosureAxioms(org.semanticweb.owlapi.model.OWLClass clazz)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Iteration over 'keySet()' may be replaced with 'entrySet()' iteration</problem_class>
+    <description>Iteration over &lt;code&gt;restrictions.keySet()&lt;/code&gt; may be replaced with 'entrySet()' iteration #loc</description>
+  </problem>
+</problems>
+

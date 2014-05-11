@@ -1,0 +1,2776 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/NamedConjunctChecker.java</file>
+    <line>42</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.util.NamedConjunctChecker conjuncts" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;conjuncts&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/NamedConjunctChecker.java</file>
+    <line>40</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.util.NamedConjunctChecker collect" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;collect&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/NamedConjunctChecker.java</file>
+    <line>38</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.util.NamedConjunctChecker conjunct" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;conjunct&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/NamedConjunctChecker.java</file>
+    <line>39</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.util.NamedConjunctChecker found" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;found&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/AnnotationValueShortFormProvider.java</file>
+    <line>289</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.util.AnnotationValueShortFormProvider.AnnotationLanguageFilter candidateValue" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;candidateValue&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/AnnotationValueShortFormProvider.java</file>
+    <line>290</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.util.AnnotationValueShortFormProvider.AnnotationLanguageFilter lastLangMatchIndex" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;lastLangMatchIndex&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/OWLEntityComparator.java</file>
+    <line>47</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.util.OWLEntityComparator lastValue" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;lastValue&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/vocab/OWLRDFVocabulary.java</file>
+    <line>184</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.vocab</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.vocab.OWLRDFVocabulary namespace" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;namespace&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/vocab/OWLRDFVocabulary.java</file>
+    <line>186</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.vocab</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.vocab.OWLRDFVocabulary shortName" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;shortName&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/vocab/OWLRDFVocabulary.java</file>
+    <line>182</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.vocab</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.vocab.OWLRDFVocabulary iri" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;iri&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/vocab/Namespaces.java</file>
+    <line>90</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.vocab</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.vocab.Namespaces prefix" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;prefix&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/vocab/Namespaces.java</file>
+    <line>95</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.vocab</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.vocab.Namespaces hashless" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;hashless&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/vocab/Namespaces.java</file>
+    <line>92</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.vocab</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.vocab.Namespaces ns" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;ns&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/vocab/Namespaces.java</file>
+    <line>94</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.vocab</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.vocab.Namespaces builtIn" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;builtIn&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/vocab/Namespaces.java</file>
+    <line>93</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.vocab</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.vocab.Namespaces status" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;status&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/change/SplitSubClassAxioms.java</file>
+    <line>95</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.change</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.change.SplitSubClassAxioms.ConjunctSplitter result" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;result&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLLiteralImpl.java</file>
+    <line>276</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLLiteralImpl.LiteralWrapper l" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;l&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLLiteralImpl.java</file>
+    <line>277</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLLiteralImpl.LiteralWrapper bytes" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;bytes&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/org/semanticweb/owlapi/reasoner/structural/StructuralReasoner.java</file>
+    <line>779</line>
+    <module>owlapi-impl</module>
+    <package>org.semanticweb.owlapi.reasoner.structural</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.reasoner.structural.StructuralReasoner.HierarchyInfo bottomEntity" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;bottomEntity&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/org/semanticweb/owlapi/reasoner/structural/StructuralReasoner.java</file>
+    <line>776</line>
+    <module>owlapi-impl</module>
+    <package>org.semanticweb.owlapi.reasoner.structural</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.reasoner.structural.StructuralReasoner.HierarchyInfo topEntity" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;topEntity&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/macro/AbstractMacroExpansionVisitor.java</file>
+    <line>113</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.macro</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.macro.AbstractMacroExpansionVisitor expandAssertionToMap" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;expandAssertionToMap&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/macro/AbstractMacroExpansionVisitor.java</file>
+    <line>115</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.macro</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.macro.AbstractMacroExpansionVisitor expandExpressionMap" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;expandExpressionMap&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/macro/AbstractMacroExpansionVisitor.java</file>
+    <line>111</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.macro</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.macro.AbstractMacroExpansionVisitor dataFactory" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;dataFactory&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/Obo2OWLConstants.java</file>
+    <line>78</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.obo2owl.Obo2OWLConstants.Obo2OWLVocabulary shortName" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;shortName&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/Obo2OWLConstants.java</file>
+    <line>76</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.obo2owl.Obo2OWLConstants.Obo2OWLVocabulary namespace" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;namespace&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/Obo2OWLConstants.java</file>
+    <line>82</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.obo2owl.Obo2OWLConstants.Obo2OWLVocabulary mappedTag" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;mappedTag&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/Obo2OWLConstants.java</file>
+    <line>80</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.obo2owl.Obo2OWLConstants.Obo2OWLVocabulary label" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;label&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/Obo2OWLConstants.java</file>
+    <line>74</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.obo2owl.Obo2OWLConstants.Obo2OWLVocabulary iri" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;iri&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/IdTranslator.java</file>
+    <line>21</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.obo2owl.IdTranslator OBO_IRI_PREFIX" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;OBO_IRI_PREFIX&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/diff/Diff.java</file>
+    <line>14</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.diff</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.oboformat.diff.Diff frame2" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;frame2&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/diff/Diff.java</file>
+    <line>13</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.diff</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.oboformat.diff.Diff frame1" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;frame1&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/diff/Diff.java</file>
+    <line>17</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.diff</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.oboformat.diff.Diff frameNum" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;frameNum&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/diff/Diff.java</file>
+    <line>12</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.diff</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.oboformat.diff.Diff frameType" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;frameType&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/diff/Diff.java</file>
+    <line>11</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.diff</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.oboformat.diff.Diff type" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;type&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/diff/Diff.java</file>
+    <line>16</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.diff</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.oboformat.diff.Diff clause2" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;clause2&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/diff/Diff.java</file>
+    <line>15</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.diff</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.oboformat.diff.Diff clause1" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;clause1&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/model/Xref.java</file>
+    <line>10</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.model</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.oboformat.model.Xref annotation" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;annotation&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/model/Xref.java</file>
+    <line>9</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.model</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.oboformat.model.Xref idref" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;idref&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/XrefExpander.java</file>
+    <line>25</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.oboformat.parser.XrefExpander sourceOBODoc" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;sourceOBODoc&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/XrefExpander.java</file>
+    <line>31</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.oboformat.parser.XrefExpander targetDocMap" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;targetDocMap&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/XrefExpander.java</file>
+    <line>27</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.oboformat.parser.XrefExpander targetBase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;targetBase&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/XrefExpander.java</file>
+    <line>29</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.oboformat.parser.XrefExpander treatMap" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;treatMap&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/XrefExpander.java</file>
+    <line>26</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.oboformat.parser.XrefExpander targetOBODoc" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;targetOBODoc&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/OBOFormatParser.java</file>
+    <line>48</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.oboformat.parser.OBOFormatParser.MyStream line" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;line&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/OBOFormatParser.java</file>
+    <line>49</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.oboformat.parser.OBOFormatParser.MyStream lineNo" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;lineNo&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/OBOFormatParser.java</file>
+    <line>50</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.oboformat.parser.OBOFormatParser.MyStream reader" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;reader&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/OBOFormatParser.java</file>
+    <line>47</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.oboformat.parser.OBOFormatParser.MyStream pos" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;pos&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/OWLRDFConsumer.java</file>
+    <line>210</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFConsumer translatorAccessor" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;translatorAccessor&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/OWLRDFConsumer.java</file>
+    <line>209</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFConsumer handlerAccessor" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;handlerAccessor&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/OWLRDFConsumer.java</file>
+    <line>115</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFConsumer tripleLogger" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;tripleLogger&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/OWLRDFConsumer.java</file>
+    <line>545</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFConsumer currentBaseCount" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;currentBaseCount&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/renderer/XMLWriterImpl.java</file>
+    <line>280</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.renderer</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.renderer.XMLWriterImpl.XMLElement textContent" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;textContent&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/turtle/parser/Token.java</file>
+    <line>12</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.turtle.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.turtle.parser.Token endColumn" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;endColumn&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/turtle/parser/Token.java</file>
+    <line>13</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.turtle.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.turtle.parser.Token image" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;image&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/turtle/parser/Token.java</file>
+    <line>10</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.turtle.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.turtle.parser.Token beginColumn" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;beginColumn&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/turtle/parser/Token.java</file>
+    <line>9</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.turtle.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.turtle.parser.Token beginLine" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;beginLine&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/turtle/parser/Token.java</file>
+    <line>14</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.turtle.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.turtle.parser.Token next" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;next&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/turtle/parser/Token.java</file>
+    <line>11</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.turtle.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.turtle.parser.Token endLine" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;endLine&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/turtle/parser/Token.java</file>
+    <line>15</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.turtle.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.turtle.parser.Token specialToken" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;specialToken&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/turtle/parser/Token.java</file>
+    <line>8</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.turtle.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.turtle.parser.Token kind" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;kind&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/turtle/parser/ParseException.java</file>
+    <line>39</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.turtle.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.turtle.parser.ParseException currentToken" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;currentToken&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/turtle/parser/ParseException.java</file>
+    <line>41</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.turtle.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.turtle.parser.ParseException tokenImage" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;tokenImage&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/turtle/parser/ParseException.java</file>
+    <line>40</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.turtle.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.turtle.parser.ParseException expectedTokenSequences" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;expectedTokenSequences&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/turtle/renderer/TurtleRenderer.java</file>
+    <line>116</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.turtle.renderer</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.turtle.renderer.TurtleRenderer tabs" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;tabs&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/turtle/renderer/TurtleRenderer.java</file>
+    <line>113</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.turtle.renderer</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.turtle.renderer.TurtleRenderer bufferLength" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;bufferLength&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/turtle/renderer/TurtleRenderer.java</file>
+    <line>114</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.turtle.renderer</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.turtle.renderer.TurtleRenderer lastNewLineIndex" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;lastNewLineIndex&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/turtle/renderer/TurtleRenderer.java</file>
+    <line>348</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.turtle.renderer</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.turtle.renderer.TurtleRenderer level" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;level&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/ParseException.java</file>
+    <line>41</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss1.parser.ParseException tokenImage" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;tokenImage&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/ParseException.java</file>
+    <line>40</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss1.parser.ParseException expectedTokenSequences" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;expectedTokenSequences&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/ParseException.java</file>
+    <line>39</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss1.parser.ParseException currentToken" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;currentToken&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/ParseException.java</file>
+    <line>89</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss1.parser.ParseException eol" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;eol&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/Token.java</file>
+    <line>23</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss1.parser.Token endLine" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;endLine&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/Token.java</file>
+    <line>26</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss1.parser.Token next" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;next&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/Token.java</file>
+    <line>24</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss1.parser.Token endColumn" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;endColumn&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/Token.java</file>
+    <line>25</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss1.parser.Token image" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;image&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/Token.java</file>
+    <line>20</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss1.parser.Token kind" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;kind&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/Token.java</file>
+    <line>21</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss1.parser.Token beginLine" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;beginLine&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/Token.java</file>
+    <line>27</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss1.parser.Token specialToken" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;specialToken&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/Token.java</file>
+    <line>22</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss1.parser.Token beginColumn" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;beginColumn&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/TokenMgrError.java</file>
+    <line>26</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss1.parser.TokenMgrError errorCode" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;errorCode&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/ParseException.java</file>
+    <line>39</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.parser.ParseException currentToken" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;currentToken&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/ParseException.java</file>
+    <line>40</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.parser.ParseException expectedTokenSequences" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;expectedTokenSequences&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/ParseException.java</file>
+    <line>41</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.parser.ParseException tokenImage" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;tokenImage&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/TokenMgrError.java</file>
+    <line>26</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.parser.TokenMgrError errorCode" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;errorCode&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>2064</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager jjmatchedPos" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;jjmatchedPos&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>2060</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager curLexState" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;curLexState&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>2061</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager defaultLexState" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;defaultLexState&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1991</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager input_stream" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;input_stream&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>2065</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager jjmatchedKind" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;jjmatchedKind&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>2063</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager jjround" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;jjround&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>21</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager debugStream" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;debugStream&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>2062</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager jjnewStateCnt" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;jjnewStateCnt&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/Token.java</file>
+    <line>24</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.parser.Token endColumn" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;endColumn&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/Token.java</file>
+    <line>26</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.parser.Token next" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;next&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/Token.java</file>
+    <line>22</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.parser.Token beginColumn" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;beginColumn&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/Token.java</file>
+    <line>20</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.parser.Token kind" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;kind&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/Token.java</file>
+    <line>21</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.parser.Token beginLine" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;beginLine&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/Token.java</file>
+    <line>23</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.parser.Token endLine" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;endLine&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/Token.java</file>
+    <line>25</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.parser.Token image" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;image&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/Token.java</file>
+    <line>27</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.parser.Token specialToken" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;specialToken&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>957</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.AbstractRestrictionElementHandler filler" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;filler&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>1408</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLClassElementHandler iri" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;iri&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>956</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.AbstractRestrictionElementHandler property" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;property&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>2877</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.SWRLClassAtomElementHandler ce" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;ce&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>1738</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLDatatypeDefinitionElementHandler dataRange" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;dataRange&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>2702</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLSubObjectPropertyChainElementHandler propertyList" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;propertyList&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>1069</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.LegacyEntityAnnotationElementHandler annotation" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;annotation&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>1737</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLDatatypeDefinitionElementHandler datatype" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;datatype&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>1068</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.LegacyEntityAnnotationElementHandler entity" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;entity&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>1123</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLAnnotationAssertionElementHandler object" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;object&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>1852</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLDeclarationAxiomElementHandler entityAnnotations" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;entityAnnotations&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>1284</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLAnnotationPropertyRangeElementHandler range" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;range&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>224</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLElementHandler df" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;df&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>1228</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLAnnotationPropertyDomainElementHandler property" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;property&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>2908</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.SWRLDataPropertyAtomElementHandler prop" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;prop&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>1610</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLDataPropertyElementHandler prop" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;prop&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>222</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLElementHandler elementName" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;elementName&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>1227</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLAnnotationPropertyDomainElementHandler domain" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;domain&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>2504</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLObjectPropertyElementHandler iri" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;iri&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>622</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.AbstractOperandAxiomElementHandler operands" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;operands&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>219</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLElementHandler parentHandler" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;parentHandler&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>2820</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.SWRLAtomListElementHandler atoms" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;atoms&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>1786</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLDatatypeFacetRestrictionElementHandler constant" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;constant&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>648</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.AbstractOWLAssertionAxiomElementHandler property" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;property&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>3025</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.SWRLObjectPropertyAtomElementHandler arg1" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;arg1&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>1785</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLDatatypeFacetRestrictionElementHandler facet" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;facet&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>2074</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLHasKeyElementHandler ce" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;ce&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>673</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.AbstractOWLAxiomElementHandler annotations" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;annotations&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>1124</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLAnnotationAssertionElementHandler property" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;property&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>1441</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLDataComplementOfElementHandler operand" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;operand&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>1849</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLDeclarationAxiomElementHandler entity" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;entity&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>2076</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLHasKeyElementHandler props" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;props&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>2220</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLLiteralElementHandler iri" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;iri&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>2674</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLSubDataPropertyOfAxiomElementHandler superProperty" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;superProperty&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>2878</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.SWRLClassAtomElementHandler arg" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;arg&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>3064</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.SWRLRuleElementHandler body" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;body&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>3090</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.SWRLSameIndividualAtomElementHandler arg1" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;arg1&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>218</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLElementHandler handler" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;handler&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>3089</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.SWRLSameIndividualAtomElementHandler arg0" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;arg0&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>671</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.AbstractOWLAxiomElementHandler axiom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;axiom&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>2610</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLSubAnnotationPropertyOfElementHandler superProperty" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;superProperty&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>992</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.AbbreviatedIRIElementHandler iri" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;iri&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>3024</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.SWRLObjectPropertyAtomElementHandler arg0" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;arg0&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>2609</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLSubAnnotationPropertyOfElementHandler subProperty" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;subProperty&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>885</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.AbstractOWLObjectPropertyElementHandler property" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;property&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>511</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.AbstractDataCardinalityRestrictionElementHandler cardinality" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;cardinality&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>2436</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLObjectOneOfElementHandler individuals" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;individuals&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>1666</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLDataRestrictionElementHandler facetIRI" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;facetIRI&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>221</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLElementHandler sb" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;sb&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>3023</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.SWRLObjectPropertyAtomElementHandler prop" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;prop&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>1166</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLAnnotationElementHandler object" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;object&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>2910</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.SWRLDataPropertyAtomElementHandler arg1" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;arg1&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>456</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.AbstractClassExpressionElementHandler desc" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;desc&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>1665</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLDataRestrictionElementHandler constant" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;constant&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>1165</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLAnnotationElementHandler property" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;property&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>1611</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLDataPropertyElementHandler iri" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;iri&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>2909</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.SWRLDataPropertyAtomElementHandler arg0" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;arg0&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>1494</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLDataIntersectionOfElementHandler dataRanges" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;dataRanges&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>1164</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLAnnotationElementHandler annotations" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;annotations&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>2673</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLSubDataPropertyOfAxiomElementHandler subProperty" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;subProperty&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>1285</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLAnnotationPropertyRangeElementHandler property" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;property&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>1122</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLAnnotationAssertionElementHandler subject" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;subject&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>1717</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLDataUnionOfElementHandler dataRanges" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;dataRanges&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>2956</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.SWRLDataRangeAtomElementHandler arg1" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;arg1&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>2112</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLIndividualElementHandler name" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;name&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>2955</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.SWRLDataRangeAtomElementHandler prop" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;prop&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>2111</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLIndividualElementHandler individual" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;individual&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>2313</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLObjectComplementOfElementHandler operand" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;operand&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>2183</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLInverseObjectPropertyElementHandler inverse" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;inverse&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>2729</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLSubObjectPropertyOfAxiomElementHandler superProperty" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;superProperty&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>1542</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLDataOneOfElementHandler constants" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;constants&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>2728</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLSubObjectPropertyOfAxiomElementHandler propertyList" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;propertyList&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>927</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.AbstractOWLPropertyCharacteristicAxiomElementHandler property" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;property&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>2727</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLSubObjectPropertyOfAxiomElementHandler subProperty" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;subProperty&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>2801</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.SWRLAtomElementHandler atom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;atom&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>554</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.AbstractNaryBooleanClassExpressionElementHandler operands" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;operands&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>1374</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLClassAssertionAxiomElementHandler classExpression" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;classExpression&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>1314</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLAnonymousIndividualElementHandler ind" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;ind&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>1821</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLDatatypeRestrictionElementHandler facetRestrictions" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;facetRestrictions&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>1258</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLAnnotationPropertyElementHandler iri" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;iri&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>755</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.AbstractOWLDataRangeHandler dataRange" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;dataRange&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>1373</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLClassAssertionAxiomElementHandler individual" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;individual&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>1819</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLDatatypeRestrictionElementHandler restrictedDataRange" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;restrictedDataRange&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>1257</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLAnnotationPropertyElementHandler prop" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;prop&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>1581</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLDataPropertyDomainAxiomElementHandler property" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;property&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>1764</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLDatatypeElementHandler iri" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;iri&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>3065</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.SWRLRuleElementHandler head" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;head&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>3128</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.SWRLVariableElementHandler iri" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;iri&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>2476</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLObjectPropertyDomainElementHandler property" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;property&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>2988</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.SWRLDifferentIndividualsAtomElementHandler arg1" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;arg1&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>2847</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.SWRLBuiltInAtomElementHandler args" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;args&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>2475</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLObjectPropertyDomainElementHandler domain" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;domain&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>2845</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.SWRLBuiltInAtomElementHandler iri" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;iri&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>801</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.AbstractOWLObjectCardinalityElementHandler cardinality" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;cardinality&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>2526</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLObjectPropertyRangeAxiomElementHandler property" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;property&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>649</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.AbstractOWLAssertionAxiomElementHandler object" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;object&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>2525</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLObjectPropertyRangeAxiomElementHandler range" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;range&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>647</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.AbstractOWLAssertionAxiomElementHandler subject" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;subject&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>1638</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLDataPropertyRangeAxiomElementHandler range" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;range&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>2987</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.SWRLDifferentIndividualsAtomElementHandler arg0" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;arg0&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>2221</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLLiteralElementHandler lang" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;lang&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>1637</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLDataPropertyRangeAxiomElementHandler property" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;property&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>1018</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.IRIElementHandler iri" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;iri&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>1580</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLDataPropertyDomainAxiomElementHandler domain" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;domain&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>2641</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLSubClassAxiomElementHandler supClass" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;supClass&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>2348</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLObjectExistsSelfElementHandler property" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;property&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>1970</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLDisjointUnionElementHandler classExpressions" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;classExpressions&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>2219</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLLiteralElementHandler literal" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;literal&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>2640</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLSubClassAxiomElementHandler subClass" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;subClass&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>1968</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLDisjointUnionElementHandler cls" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;cls&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/Token.java</file>
+    <line>26</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.Token next" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;next&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/Token.java</file>
+    <line>25</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.Token image" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;image&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/Token.java</file>
+    <line>23</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.Token endLine" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;endLine&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/Token.java</file>
+    <line>22</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.Token beginColumn" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;beginColumn&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/Token.java</file>
+    <line>24</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.Token endColumn" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;endColumn&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/Token.java</file>
+    <line>20</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.Token kind" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;kind&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/Token.java</file>
+    <line>21</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.Token beginLine" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;beginLine&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/Token.java</file>
+    <line>27</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.Token specialToken" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;specialToken&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/ParseException.java</file>
+    <line>41</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.ParseException tokenImage" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;tokenImage&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/ParseException.java</file>
+    <line>39</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.ParseException currentToken" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;currentToken&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/ParseException.java</file>
+    <line>40</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.ParseException expectedTokenSequences" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;expectedTokenSequences&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/TokenMgrError.java</file>
+    <line>26</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.TokenMgrError errorCode" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;errorCode&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>2344</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser.ExceptionBuilder integerExpected" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;integerExpected&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>2343</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser.ExceptionBuilder annotationPropertyNameExpected" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;annotationPropertyNameExpected&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>2340</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser.ExceptionBuilder dataPropertyNameExpected" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;dataPropertyNameExpected&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>2337</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser.ExceptionBuilder ontologyNameExpected" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;ontologyNameExpected&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>2348</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser.ExceptionBuilder line" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;line&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>2346</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser.ExceptionBuilder tokenSequence" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;tokenSequence&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>2338</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser.ExceptionBuilder classNameExpected" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;classNameExpected&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>2347</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser.ExceptionBuilder start" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;start&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>2342</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser.ExceptionBuilder datatypeNameExpected" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;datatypeNameExpected&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>2339</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser.ExceptionBuilder objectPropertyNameExpected" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;objectPropertyNameExpected&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>2345</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser.ExceptionBuilder keywords" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;keywords&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>2349</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser.ExceptionBuilder column" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;column&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>2341</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser.ExceptionBuilder individualNameExpected" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;individualNameExpected&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxTokenizer.java</file>
+    <line>51</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxTokenizer startCol" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;startCol&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxTokenizer.java</file>
+    <line>53</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxTokenizer tokens" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;tokens&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxTokenizer.java</file>
+    <line>52</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxTokenizer startRow" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;startRow&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxTokenizer.java</file>
+    <line>50</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxTokenizer startPos" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;startPos&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/Token.java</file>
+    <line>23</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.functional.parser.Token endLine" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;endLine&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/Token.java</file>
+    <line>26</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.functional.parser.Token next" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;next&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/Token.java</file>
+    <line>21</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.functional.parser.Token beginLine" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;beginLine&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/Token.java</file>
+    <line>27</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.functional.parser.Token specialToken" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;specialToken&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/Token.java</file>
+    <line>22</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.functional.parser.Token beginColumn" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;beginColumn&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/Token.java</file>
+    <line>20</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.functional.parser.Token kind" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;kind&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/Token.java</file>
+    <line>25</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.functional.parser.Token image" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;image&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/Token.java</file>
+    <line>24</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.functional.parser.Token endColumn" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;endColumn&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/ParseException.java</file>
+    <line>40</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.functional.parser.ParseException expectedTokenSequences" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;expectedTokenSequences&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/ParseException.java</file>
+    <line>39</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.functional.parser.ParseException currentToken" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;currentToken&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/ParseException.java</file>
+    <line>41</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.functional.parser.ParseException tokenImage" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;tokenImage&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/ParseException.java</file>
+    <line>89</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.functional.parser.ParseException eol" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;eol&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/TokenMgrError.java</file>
+    <line>26</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.functional.parser.TokenMgrError errorCode" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;errorCode&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/main/java/uk/ac/manchester/owl/owlapi/tutorialowled2011/OWLTutorialSyntaxObjectRenderer.java</file>
+    <line>112</line>
+    <module>owlapi-contract</module>
+    <package>uk.ac.manchester.owl.owlapi.tutorialowled2011</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.owl.owlapi.tutorialowled2011.OWLTutorialSyntaxObjectRenderer lastNewLinePos" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;lastNewLinePos&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/uk/ac/manchester/owl/owlapi/tutorial/LabelExtractor.java</file>
+    <line>41</line>
+    <module>owlapi-contract</module>
+    <package>uk.ac.manchester.owl.owlapi.tutorial</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.owl.owlapi.tutorial.LabelExtractor result" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;result&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/uk/ac/manchester/owl/owlapi/tutorialowled2011/TutorialSnippets.java</file>
+    <line>158</line>
+    <module>owlapi-contract</module>
+    <package>uk.ac.manchester.owl.owlapi.tutorialowled2011</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.owl.owlapi.tutorialowled2011.TutorialSnippets df" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;df&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/uk/ac/manchester/owl/owlapi/tutorialowled2011/TutorialSnippets.java</file>
+    <line>978</line>
+    <module>owlapi-contract</module>
+    <package>uk.ac.manchester.owl.owlapi.tutorialowled2011</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.owl.owlapi.tutorialowled2011.TutorialSnippets le" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;le&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/uk/ac/manchester/owl/owlapi/tutorialowled2011/TutorialSnippets.java</file>
+    <line>160</line>
+    <module>owlapi-contract</module>
+    <package>uk.ac.manchester.owl.owlapi.tutorialowled2011</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.owl.owlapi.tutorialowled2011.TutorialSnippets reasonerFactory" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;reasonerFactory&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/RoundTripXrefescapecolonTest.java</file>
+    <line>17</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.obo2owl.RoundTripXrefescapecolonTest file" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;file&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/TripleComparatorTestCase.java</file>
+    <line>38</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.TripleComparatorTestCase ns" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;ns&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/TripleComparatorTestCase.java</file>
+    <line>42</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.TripleComparatorTestCase d" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;d&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/TripleComparatorTestCase.java</file>
+    <line>40</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.TripleComparatorTestCase g" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;g&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/TripleComparatorTestCase.java</file>
+    <line>44</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.TripleComparatorTestCase subtype" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;subtype&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/SerializationTest.java</file>
+    <line>106</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.SerializationTest lowlfacetrestriction" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;lowlfacetrestriction&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/SerializationTest.java</file>
+    <line>88</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.SerializationTest prefixmanager" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;prefixmanager&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/SerializationTest.java</file>
+    <line>109</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.SerializationTest nulllowlfacetrestriction" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;nulllowlfacetrestriction&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/SerializationTest.java</file>
+    <line>86</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.SerializationTest c" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;c&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/SerializationTest.java</file>
+    <line>82</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.SerializationTest owlannotation" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;owlannotation&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/SerializationTest.java</file>
+    <line>90</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.SerializationTest ai" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;ai&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/SerializationTest.java</file>
+    <line>92</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.SerializationTest owlannotationvalue" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;owlannotationvalue&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/SerializationTest.java</file>
+    <line>114</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.SerializationTest setowlfacetrestriction" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;setowlfacetrestriction&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/SerializationTest.java</file>
+    <line>70</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.SerializationTest owlliteral" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;owlliteral&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/SerializationTest.java</file>
+    <line>63</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.SerializationTest dp" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;dp&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/SerializationTest.java</file>
+    <line>102</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.SerializationTest setowlindividual" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;setowlindividual&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/SerializationTest.java</file>
+    <line>94</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.SerializationTest setop" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;setop&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/SerializationTest.java</file>
+    <line>72</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.SerializationTest as" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;as&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/SerializationTest.java</file>
+    <line>98</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.SerializationTest setdp" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;setdp&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/SerializationTest.java</file>
+    <line>76</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.SerializationTest dr" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;dr&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/SerializationTest.java</file>
+    <line>84</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.SerializationTest string" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;string&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/SerializationTest.java</file>
+    <line>100</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.SerializationTest listowlobjectpropertyexpression" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;listowlobjectpropertyexpression&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/SerializationTest.java</file>
+    <line>80</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.SerializationTest owlfacet" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;owlfacet&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/SerializationTest.java</file>
+    <line>104</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.SerializationTest setowlpropertyexpression" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;setowlpropertyexpression&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/SerializationTest.java</file>
+    <line>74</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.SerializationTest owldatatype" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;owldatatype&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/SerializationTest.java</file>
+    <line>68</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.SerializationTest iri" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;iri&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/SerializationTest.java</file>
+    <line>96</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.SerializationTest setowlannotation" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;setowlannotation&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/SerializationTest.java</file>
+    <line>65</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.SerializationTest op" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;op&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/SerializationTest.java</file>
+    <line>78</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.SerializationTest ap" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;ap&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/SerializationTest.java</file>
+    <line>61</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.SerializationTest owl2datatype" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;owl2datatype&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/SerializationTest.java</file>
+    <line>112</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.SerializationTest setowlclassexpression" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;setowlclassexpression&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/SerializationTest.java</file>
+    <line>116</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.SerializationTest owlpropertyexpression" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;owlpropertyexpression&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/PrimerTestCase.java</file>
+    <line>34</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.syntax.PrimerTestCase profile" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;profile&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/PrimerTestCase.java</file>
+    <line>31</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.syntax.PrimerTestCase func" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;func&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/ManchesterOWLSyntaxParserTestCase.java</file>
+    <line>217</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.syntax.ManchesterOWLSyntaxParserTestCase p" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;p&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/ManchesterOWLSyntaxParserTestCase.java</file>
+    <line>219</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.syntax.ManchesterOWLSyntaxParserTestCase date_time" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;date_time&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/rdfxml/MultipleDistinctOntologyLoadsTest.java</file>
+    <line>47</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax.rdfxml</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.syntax.rdfxml.MultipleDistinctOntologyLoadsTest jb" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;jb&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/rdfxml/MultipleDistinctOntologyLoadsTest.java</file>
+    <line>49</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax.rdfxml</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.syntax.rdfxml.MultipleDistinctOntologyLoadsTest v2" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;v2&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/rdfxml/MultipleDistinctOntologyLoadsTest.java</file>
+    <line>48</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax.rdfxml</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.syntax.rdfxml.MultipleDistinctOntologyLoadsTest v1" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;v1&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/imports/AnonymousOntologyWithImportsTestCase.java</file>
+    <line>19</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.imports</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.imports.AnonymousOntologyWithImportsTestCase input" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;input&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/annotations/SWRLAnnotationTestCase.java</file>
+    <line>45</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.annotations</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.annotations.SWRLAnnotationTestCase b" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;b&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/annotations/SWRLAnnotationTestCase.java</file>
+    <line>43</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.annotations</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.annotations.SWRLAnnotationTestCase a" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;a&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/annotations/SWRLAnnotationTestCase.java</file>
+    <line>47</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.annotations</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.annotations.SWRLAnnotationTestCase axiom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;axiom&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/annotations/AnnotationShortFormProviderTestCase.java</file>
+    <line>49</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.annotations</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.annotations.AnnotationShortFormProviderTestCase pm" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;pm&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/annotations/AnnotationShortFormProviderTestCase.java</file>
+    <line>54</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.annotations</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.annotations.AnnotationShortFormProviderTestCase props" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;props&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/annotations/AnnotationShortFormProviderTestCase.java</file>
+    <line>52</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.annotations</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.annotations.AnnotationShortFormProviderTestCase prop" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;prop&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/annotations/AnnotationShortFormProviderTestCase.java</file>
+    <line>56</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.annotations</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.annotations.AnnotationShortFormProviderTestCase langMap" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;langMap&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/profiles/test/OWLProfileTestCase.java</file>
+    <line>149</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.profiles.test</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.profiles.test.OWLProfileTestCase comp" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;comp&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/profiles/test/ForbiddenVocabularyTestCase.java</file>
+    <line>266</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.profiles.test</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.profiles.test.ForbiddenVocabularyTestCase input2" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;input2&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/profiles/test/ForbiddenVocabularyTestCase.java</file>
+    <line>187</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.profiles.test</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.profiles.test.ForbiddenVocabularyTestCase input1" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;input1&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/uk/ac/manchester/cs/owlapi/modularity/SyntacticLocalityModuleExtractor.java</file>
+    <line>76</line>
+    <module>owlapi-tools</module>
+    <package>uk.ac.manchester.cs.owlapi.modularity</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owlapi.modularity.SyntacticLocalityModuleExtractor.OntologyAxiomSet ax" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Package-visible field</problem_class>
+    <description>Package-visible field &lt;code&gt;ax&lt;/code&gt; #loc</description>
+  </problem>
+</problems>
+

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/io/GZipFileDocumentSource.java</file>
+    <line>88</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.io</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.io.GZipFileDocumentSource java.io.InputStream getInputStream()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'throw' inside 'catch' block which ignores the caught exception</problem_class>
+    <description>&lt;code&gt;throw&lt;/code&gt; inside 'catch' block ignores the caught exception #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/OWLOntologyFormatFactoryImpl.java</file>
+    <line>54</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.OWLOntologyFormatFactoryImpl org.semanticweb.owlapi.model.OWLOntologyFormat createFormat()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'throw' inside 'catch' block which ignores the caught exception</problem_class>
+    <description>&lt;code&gt;throw&lt;/code&gt; inside 'catch' block ignores the caught exception #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/OWLOntologyFormatFactoryImpl.java</file>
+    <line>57</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.OWLOntologyFormatFactoryImpl org.semanticweb.owlapi.model.OWLOntologyFormat createFormat()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'throw' inside 'catch' block which ignores the caught exception</problem_class>
+    <description>&lt;code&gt;throw&lt;/code&gt; inside 'catch' block ignores the caught exception #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/OWLOntologyStorerFactoryImpl.java</file>
+    <line>53</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.OWLOntologyStorerFactoryImpl org.semanticweb.owlapi.model.OWLOntologyStorer createStorer()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'throw' inside 'catch' block which ignores the caught exception</problem_class>
+    <description>&lt;code&gt;throw&lt;/code&gt; inside 'catch' block ignores the caught exception #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/OWLOntologyStorerFactoryImpl.java</file>
+    <line>56</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.OWLOntologyStorerFactoryImpl org.semanticweb.owlapi.model.OWLOntologyStorer createStorer()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'throw' inside 'catch' block which ignores the caught exception</problem_class>
+    <description>&lt;code&gt;throw&lt;/code&gt; inside 'catch' block ignores the caught exception #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/EDTChangeBroadcastStrategy.java</file>
+    <line>55</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.EDTChangeBroadcastStrategy void broadcastChanges(org.semanticweb.owlapi.model.OWLOntologyChangeListener listener, java.util.List&lt;? extends org.semanticweb.owlapi.model.OWLOntologyChange&lt;?&gt;&gt; changes)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'throw' inside 'catch' block which ignores the caught exception</problem_class>
+    <description>&lt;code&gt;throw&lt;/code&gt; inside 'catch' block ignores the caught exception #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLOntologyManagerImpl.java</file>
+    <line>879</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl org.semanticweb.owlapi.model.OWLOntology loadOntology(org.semanticweb.owlapi.model.IRI ontologyIRI, org.semanticweb.owlapi.io.OWLOntologyDocumentSource documentSource, org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration configuration)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'throw' inside 'catch' block which ignores the caught exception</problem_class>
+    <description>&lt;code&gt;throw&lt;/code&gt; inside 'catch' block ignores the caught exception #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/rio/src/main/java/org/semanticweb/owlapi/rio/RioParserImpl.java</file>
+    <line>224</line>
+    <module>owlapi-rio</module>
+    <package>org.semanticweb.owlapi.rio</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rio.RioParserImpl org.semanticweb.owlapi.model.OWLOntologyFormat parse(org.semanticweb.owlapi.io.OWLOntologyDocumentSource documentSource, org.semanticweb.owlapi.model.OWLOntology ontology, org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration configuration)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'throw' inside 'catch' block which ignores the caught exception</problem_class>
+    <description>&lt;code&gt;throw&lt;/code&gt; inside 'catch' block ignores the caught exception #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/RDFParser.java</file>
+    <line>138</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.RDFParser void parse(org.xml.sax.InputSource source, org.semanticweb.owlapi.rdf.rdfxml.parser.RDFConsumer consumer)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'throw' inside 'catch' block which ignores the caught exception</problem_class>
+    <description>&lt;code&gt;throw&lt;/code&gt; inside 'catch' block ignores the caught exception #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1888</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveNfa_0(int startState, int _curPos)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'throw' inside 'catch' block which ignores the caught exception</problem_class>
+    <description>&lt;code&gt;throw&lt;/code&gt; inside 'catch' block ignores the caught exception #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>979</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser int parseInteger()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'throw' inside 'catch' block which ignores the caught exception</problem_class>
+    <description>&lt;code&gt;throw&lt;/code&gt; inside 'catch' block ignores the caught exception #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/rio/src/main/java/org/semanticweb/owlapi/rio/OWLAPIRDFFormat.java</file>
+    <line>269</line>
+    <module>owlapi-rio</module>
+    <package>org.semanticweb.owlapi.rio</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rio.OWLAPIRDFFormat org.semanticweb.owlapi.model.OWLOntologyFormat getOWLFormat()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'throw' inside 'catch' block which ignores the caught exception</problem_class>
+    <description>&lt;code&gt;throw&lt;/code&gt; inside 'catch' block ignores the caught exception #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/rio/src/main/java/org/semanticweb/owlapi/rio/OWLAPIRDFFormat.java</file>
+    <line>272</line>
+    <module>owlapi-rio</module>
+    <package>org.semanticweb.owlapi.rio</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rio.OWLAPIRDFFormat org.semanticweb.owlapi.model.OWLOntologyFormat getOWLFormat()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'throw' inside 'catch' block which ignores the caught exception</problem_class>
+    <description>&lt;code&gt;throw&lt;/code&gt; inside 'catch' block ignores the caught exception #loc</description>
+  </problem>
+</problems>
+

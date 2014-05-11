@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/CollectionFactory.java</file>
+    <line>207</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.CollectionFactory java.util.Set&lt;T&gt; createSet(T... elements)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Manual array to collection copy</problem_class>
+    <description>Manual array to collection copy #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/OWLOntologyFormatFactoryImpl.java</file>
+    <line>93</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.OWLOntologyFormatFactoryImpl java.util.List&lt;java.lang.String&gt; getMIMETypes()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Manual array to collection copy</problem_class>
+    <description>Manual array to collection copy #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/AxiomType.java</file>
+    <line>166</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.AxiomType java.util.Set&lt;org.semanticweb.owlapi.model.OWLAxiom&gt; getAxiomsOfTypes(java.util.Set&lt;org.semanticweb.owlapi.model.OWLAxiom&gt; sourceAxioms, org.semanticweb.owlapi.model.AxiomType&lt;?&gt;... axiomTypes)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Manual array to collection copy</problem_class>
+    <description>Manual array to collection copy #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/AxiomType.java</file>
+    <line>137</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.AxiomType java.util.Set&lt;org.semanticweb.owlapi.model.OWLAxiom&gt; getAxiomsWithoutTypes(java.util.Set&lt;org.semanticweb.owlapi.model.OWLAxiom&gt; sourceAxioms, org.semanticweb.owlapi.model.AxiomType&lt;?&gt;... axiomTypes)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Manual array to collection copy</problem_class>
+    <description>Manual array to collection copy #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>2424</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser.ExceptionBuilder org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser.ExceptionBuilder withKeyword(java.lang.String... strings)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Manual array to collection copy</problem_class>
+    <description>Manual array to collection copy #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BaseSetBuilder.java</file>
+    <line>83</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapitools.builders.BaseSetBuilder Type withItems(Item... arg)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Manual array to collection copy</problem_class>
+    <description>Manual array to collection copy #loc</description>
+  </problem>
+</problems>
+

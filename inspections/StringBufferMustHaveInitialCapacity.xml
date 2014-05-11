@@ -1,0 +1,607 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/io/RDFTriple.java</file>
+    <line>140</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.io</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.io.RDFTriple java.lang.String toString()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuilder()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/io/UnparsableOntologyException.java</file>
+    <line>59</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.io</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.io.UnparsableOntologyException java.lang.String getMessage()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuilder()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/SimpleRenderer.java</file>
+    <line>141</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.SimpleRenderer void reset()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuilder()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/SimpleRenderer.java</file>
+    <line>135</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.SimpleRenderer SimpleRenderer()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuilder()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/OWLEntityURIUnderscores2CamelBackConverterStrategy.java</file>
+    <line>75</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.OWLEntityURIUnderscores2CamelBackConverterStrategy java.lang.String toCamelCase(java.lang.String s)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuilder()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/AutoIRIMapper.java</file>
+    <line>289</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.AutoIRIMapper java.lang.String toString()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuilder()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/DLExpressivityChecker.java</file>
+    <line>119</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.DLExpressivityChecker java.lang.String getDescriptionLogicName()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuilder()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/RemoveAxiom.java</file>
+    <line>80</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.RemoveAxiom java.lang.String toString()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuilder()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/IRI.java</file>
+    <line>378</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.IRI java.lang.CharSequence subSequence(int start, int end)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuilder()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/RemoveOntologyAnnotation.java</file>
+    <line>77</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.RemoveOntologyAnnotation java.lang.String toString()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuilder()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/SetOntologyID.java</file>
+    <line>133</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.SetOntologyID java.lang.String toString()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuilder()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/RemoveImport.java</file>
+    <line>73</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.RemoveImport java.lang.String toString()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuilder()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/profiles/OWLProfileReport.java</file>
+    <line>60</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.profiles</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.profiles.OWLProfileReport java.lang.String toString()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuilder()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLLiteralImpl.java</file>
+    <line>328</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLLiteralImpl.LiteralWrapper java.lang.String decompress(byte[] result)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuilder()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLImmutableOntologyImpl.java</file>
+    <line>101</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLImmutableOntologyImpl java.lang.String toString()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuilder()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLImportsDeclarationImpl.java</file>
+    <line>73</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLImportsDeclarationImpl java.lang.String toString()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuilder()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/org/semanticweb/owlapi/reasoner/impl/DefaultNode.java</file>
+    <line>180</line>
+    <module>owlapi-impl</module>
+    <package>org.semanticweb.owlapi.reasoner.impl</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.reasoner.impl.DefaultNode java.lang.String toString()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuilder()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>1825</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo java.lang.String getIdentifier(org.semanticweb.owlapi.model.IRI iriId)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuffer()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/model/Frame.java</file>
+    <line>160</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.model</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.model.Frame java.lang.String toString()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuffer()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/OBOFormatParser.java</file>
+    <line>1508</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.parser.OBOFormatParser void warn(java.lang.String message)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuilder()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/OBOFormatParser.java</file>
+    <line>1444</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.parser.OBOFormatParser java.lang.String getParseUntil(java.lang.String compl, boolean commaWhitespace)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuilder()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/writer/OBOFormatWriter.java</file>
+    <line>395</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.writer</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.writer.OBOFormatWriter void writeSynonymtypedef(org.obolibrary.oboformat.model.Clause clause, java.io.BufferedWriter writer)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuilder()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/writer/OBOFormatWriter.java</file>
+    <line>642</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.writer</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.writer.OBOFormatWriter void write(org.obolibrary.oboformat.model.Clause clause, java.io.BufferedWriter writer, org.obolibrary.oboformat.writer.OBOFormatWriter.NameProvider nameProvider)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuilder()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/writer/OBOFormatWriter.java</file>
+    <line>648</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.writer</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.writer.OBOFormatWriter void write(org.obolibrary.oboformat.model.Clause clause, java.io.BufferedWriter writer, org.obolibrary.oboformat.writer.OBOFormatWriter.NameProvider nameProvider)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuilder()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/writer/OBOFormatWriter.java</file>
+    <line>573</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.writer</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.writer.OBOFormatWriter void writePropertyValue(org.obolibrary.oboformat.model.Clause clause, java.io.BufferedWriter writer)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuilder()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/writer/OBOFormatWriter.java</file>
+    <line>467</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.writer</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.writer.OBOFormatWriter void writeClauseWithQuotedString(org.obolibrary.oboformat.model.Clause clause, java.io.BufferedWriter writer)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuilder()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/writer/OBOFormatWriter.java</file>
+    <line>442</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.writer</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.writer.OBOFormatWriter void writeIdSpace(org.obolibrary.oboformat.model.Clause cl, java.io.BufferedWriter writer)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuilder()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/writer/OBOFormatWriter.java</file>
+    <line>368</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.writer</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.writer.OBOFormatWriter void writeXRefClause(org.obolibrary.oboformat.model.Clause clause, java.io.BufferedWriter writer)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuilder()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/writer/OBOFormatWriter.java</file>
+    <line>757</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.writer</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.writer.OBOFormatWriter java.lang.CharSequence escapeOboString(java.lang.String in, org.obolibrary.oboformat.writer.OBOFormatWriter.EscapeMode mode)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuilder()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/writer/OBOFormatWriter.java</file>
+    <line>420</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.writer</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.writer.OBOFormatWriter void writeHeaderDate(org.obolibrary.oboformat.model.Clause clause, java.io.BufferedWriter writer)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuilder()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/StartRDF.java</file>
+    <line>584</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.ParseTypeLiteralElement void startElement(java.lang.String namespaceIRI, java.lang.String localName, java.lang.String qName, org.xml.sax.Attributes atts)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuilder()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/StartRDF.java</file>
+    <line>524</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.ResourceOrLiteralElement void startElement(java.lang.String namespaceIRI, java.lang.String localName, java.lang.String qName, org.xml.sax.Attributes atts)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuilder()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/OWLRDFConsumer.java</file>
+    <line>1427</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFConsumer void printTriple(org.semanticweb.owlapi.model.IRI subject, org.semanticweb.owlapi.model.IRI predicate, org.semanticweb.owlapi.model.IRI object)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuilder()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/OWLRDFConsumer.java</file>
+    <line>1437</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFConsumer void printTriple(org.semanticweb.owlapi.model.IRI subject, org.semanticweb.owlapi.model.IRI predicate, java.lang.Object object)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuilder()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/renderer/RDFXMLOntologyStorer.java</file>
+    <line>53</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.renderer.RDFXMLOntologyStorer void storeOntology(org.semanticweb.owlapi.model.OWLOntology ontology, java.io.Writer writer, org.semanticweb.owlapi.model.OWLOntologyFormat format)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuilder()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/turtle/parser/ParseException.java</file>
+    <line>92</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.turtle.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.turtle.parser.ParseException java.lang.String add_escapes(java.lang.String str)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuffer()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/turtle/parser/ParseException.java</file>
+    <line>46</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.turtle.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.turtle.parser.ParseException java.lang.String initialise(org.semanticweb.owlapi.rdf.turtle.parser.Token currentToken, int[][] expectedTokenSequences, java.lang.String[] tokenImage)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuffer()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/ParseException.java</file>
+    <line>92</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss1.parser.ParseException java.lang.String add_escapes(java.lang.String str)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuffer()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/ParseException.java</file>
+    <line>46</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss1.parser.ParseException java.lang.String initialise(org.semanticweb.owlapi.krss1.parser.Token currentToken, int[][] expectedTokenSequences, java.lang.String[] tokenImage)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuffer()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/TokenMgrError.java</file>
+    <line>29</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss1.parser.TokenMgrError java.lang.String addEscapes(java.lang.String str)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuffer()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/ParseException.java</file>
+    <line>92</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.ParseException java.lang.String add_escapes(java.lang.String str)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuffer()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/ParseException.java</file>
+    <line>46</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.ParseException java.lang.String initialise(org.semanticweb.owlapi.krss2.parser.Token currentToken, int[][] expectedTokenSequences, java.lang.String[] tokenImage)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuffer()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/TokenMgrError.java</file>
+    <line>29</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.TokenMgrError java.lang.String addEscapes(java.lang.String str)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuffer()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/OWLXMLParserHandler.java</file>
+    <line>316</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLXMLParserHandler org.semanticweb.owlapi.model.IRI getAbbreviatedIRI(java.lang.String abbreviatedIRI)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuilder()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>221</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLElementHandler sb" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuilder()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/ParseException.java</file>
+    <line>46</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.ParseException java.lang.String initialise(org.semanticweb.owlapi.dlsyntax.parser.Token currentToken, int[][] expectedTokenSequences, java.lang.String[] tokenImage)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuffer()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/ParseException.java</file>
+    <line>92</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.ParseException java.lang.String add_escapes(java.lang.String str)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuffer()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/TokenMgrError.java</file>
+    <line>29</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.TokenMgrError java.lang.String addEscapes(java.lang.String str)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuffer()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/renderer/DLSyntaxObjectRenderer.java</file>
+    <line>171</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.dlsyntax.renderer.DLSyntaxObjectRenderer java.lang.String render(org.semanticweb.owlapi.model.OWLObject object)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuilder()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/renderer/DLSyntaxObjectRenderer.java</file>
+    <line>137</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.dlsyntax.renderer.DLSyntaxObjectRenderer DLSyntaxObjectRenderer()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuilder()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxTokenizer.java</file>
+    <line>139</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxTokenizer void consumeToken()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuilder()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxTokenizer.java</file>
+    <line>85</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxTokenizer void reset()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuilder()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxOntologyParser.java</file>
+    <line>73</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxOntologyParser org.semanticweb.owlapi.model.OWLOntologyFormat parse(org.semanticweb.owlapi.io.OWLOntologyDocumentSource documentSource, org.semanticweb.owlapi.model.OWLOntology ontology, org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration configuration)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuilder()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/renderer/ParserException.java</file>
+    <line>363</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.renderer.ParserException java.lang.String getMessage()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuilder()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/ParseException.java</file>
+    <line>92</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.functional.parser.ParseException java.lang.String add_escapes(java.lang.String str)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuffer()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/ParseException.java</file>
+    <line>46</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.functional.parser.ParseException java.lang.String initialise(org.semanticweb.owlapi.functional.parser.Token currentToken, int[][] expectedTokenSequences, java.lang.String[] tokenImage)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuffer()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/TokenMgrError.java</file>
+    <line>29</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.functional.parser.TokenMgrError java.lang.String addEscapes(java.lang.String str)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuffer()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/OboFormatTestBasics.java</file>
+    <line>265</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OboFormatTestBasics java.lang.String readResource(java.lang.String resource)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuilder()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/oboformat/writer/OBOFormatWriterTest.java</file>
+    <line>136</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.oboformat.writer</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.writer.OBOFormatWriterTest void testPropertyValueOrder()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuilder()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/XMLUtilsTestCase.java</file>
+    <line>36</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.api.test.syntax.XMLUtilsTestCase java.lang.String init()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuilder()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/rdf/AbstractRendererAndParser.java</file>
+    <line>59</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax.rdf</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.api.test.syntax.rdf.AbstractRendererAndParser void testSaveAndReload()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuilder()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/literals/OWLLiteralCorruptionTestCase.java</file>
+    <line>27</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.literals</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.api.test.literals.OWLLiteralCorruptionTestCase void testmain()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuilder()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/baseclasses/TestBase.java</file>
+    <line>103</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.baseclasses</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.api.test.baseclasses.TestBase boolean equal(org.semanticweb.owlapi.model.OWLOntology ont1, org.semanticweb.owlapi.model.OWLOntology ont2)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuilder()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/rdf/AbstractRendererAndParserTestCase.java</file>
+    <line>93</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.rdf</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.AbstractRendererAndParserTestCase void testSaveAndReload()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuilder()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/examples/DLQueryExample.java</file>
+    <line>374</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.examples</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.examples.DLQueryPrinter void askQuery(java.lang.String classExpression)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuilder()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/uk/ac/manchester/cs/owl/explanation/ordering/MutableTree.java</file>
+    <line>177</line>
+    <module>owlapi-tools</module>
+    <package>uk.ac.manchester.cs.owl.explanation.ordering</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.explanation.ordering.MutableTree void dump(java.io.PrintWriter writer, int indent)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuilder()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/org/semanticweb/owlapi/metrics/OWLMetricManager.java</file>
+    <line>63</line>
+    <module>owlapi-tools</module>
+    <package>org.semanticweb.owlapi.metrics</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.metrics.OWLMetricManager java.lang.String toString()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">StringBuffer or StringBuilder without initial capacity</problem_class>
+    <description>&lt;code&gt;new StringBuilder()&lt;/code&gt; without initial capacity #loc</description>
+  </problem>
+</problems>
+

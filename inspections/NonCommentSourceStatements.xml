@@ -1,0 +1,1201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/io/UnparsableOntologyException.java</file>
+    <line>58</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.io</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.io.UnparsableOntologyException java.lang.String getMessage()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;getMessage&lt;/code&gt; is too long (# Non-comment source statements = 41) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/io/AbstractOWLParser.java</file>
+    <line>103</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.io</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.io.AbstractOWLParser java.io.InputStream getInputStream(org.semanticweb.owlapi.model.IRI documentIRI, org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration config)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;getInputStream&lt;/code&gt; is too long (# Non-comment source statements = 45) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/NamespaceUtil.java</file>
+    <line>94</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.NamespaceUtil java.lang.String generatePrefix(java.lang.String namespace)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;generatePrefix&lt;/code&gt; is too long (# Non-comment source statements = 32) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/OWLObjectPropertyManager.java</file>
+    <line>517</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.OWLObjectPropertyManager void tarjan(java.util.Set&lt;org.semanticweb.owlapi.model.OWLOntology&gt; ontologies, org.semanticweb.owlapi.model.OWLObjectPropertyExpression prop, int index, java.util.Stack&lt;org.semanticweb.owlapi.model.OWLObjectPropertyExpression&gt; stack, java.util.Map&lt;org.semanticweb.owlapi.model.OWLObjectPropertyExpression,java.lang.Integer&gt; indexMap, java.util.Map&lt;org.semanticweb.owlapi.model.OWLObjectPropertyExpression,java.lang.Integer&gt; lowlinkMap, java.util.Set&lt;java.util.Set&lt;org.semanticweb.owlapi.model.OWLObjectPropertyExpression&gt;&gt; result, ...)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;tarjan&lt;/code&gt; is too long (# Non-comment source statements = 33) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/PropertyAssertionValueShortFormProvider.java</file>
+    <line>116</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.PropertyAssertionValueShortFormProvider java.lang.String getShortForm(org.semanticweb.owlapi.model.OWLEntity entity)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;getShortForm&lt;/code&gt; is too long (# Non-comment source statements = 34) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java</file>
+    <line>269</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.Internals uk.ac.manchester.cs.owl.owlapi.MapPointer&lt;T,A&gt; get(java.lang.Class&lt;T&gt; type, java.lang.Class&lt;A&gt; axiom, org.semanticweb.owlapi.model.parameters.Search position)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;get&lt;/code&gt; is too long (# Non-comment source statements = 95) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/InternalsNoCache.java</file>
+    <line>151</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.InternalsNoCache org.semanticweb.owlapi.model.OWLLiteral getOWLLiteral(java.lang.String lexicalValue, org.semanticweb.owlapi.model.OWLDatatype datatype)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;getOWLLiteral&lt;/code&gt; is too long (# Non-comment source statements = 31) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/org/semanticweb/owlapi/reasoner/structural/StructuralReasoner.java</file>
+    <line>863</line>
+    <module>owlapi-impl</module>
+    <package>org.semanticweb.owlapi.reasoner.structural</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.reasoner.structural.StructuralReasoner.HierarchyInfo void updateForSignature(java.util.Set&lt;T&gt; signature, java.util.Map&lt;T,java.util.Collection&lt;T&gt;&gt; cache)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;updateForSignature&lt;/code&gt; is too long (# Non-comment source statements = 45) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/org/semanticweb/owlapi/reasoner/structural/StructuralReasoner.java</file>
+    <line>982</line>
+    <module>owlapi-impl</module>
+    <package>org.semanticweb.owlapi.reasoner.structural</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.reasoner.structural.StructuralReasoner.HierarchyInfo void tarjan(T entity, int _index, java.util.Stack&lt;T&gt; stack, java.util.Map&lt;T,java.lang.Integer&gt; indexMap, java.util.Map&lt;T,java.lang.Integer&gt; lowlinkMap, java.util.Set&lt;java.util.Set&lt;T&gt;&gt; result, java.util.Set&lt;T&gt; processed, ...)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;tarjan&lt;/code&gt; is too long (# Non-comment source statements = 40) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/rio/src/main/java/org/semanticweb/owlapi/rio/utils/RioUtils.java</file>
+    <line>94</line>
+    <module>owlapi-rio</module>
+    <package>org.semanticweb.owlapi.rio.utils</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rio.utils.RioUtils java.util.Collection&lt;org.openrdf.model.Statement&gt; tripleAsStatements(org.semanticweb.owlapi.io.RDFTriple triple, org.openrdf.model.Resource... contexts)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;tripleAsStatements&lt;/code&gt; is too long (# Non-comment source statements = 35) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>1123</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl org.semanticweb.owlapi.model.OWLAxiom trTypedefClause(org.semanticweb.owlapi.model.OWLObjectProperty p, java.lang.String tag, org.obolibrary.oboformat.model.Clause clause)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;trTypedefClause&lt;/code&gt; is too long (# Non-comment source statements = 60) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>361</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl org.semanticweb.owlapi.model.OWLOntology tr(org.semanticweb.owlapi.model.OWLOntology in)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;tr&lt;/code&gt; is too long (# Non-comment source statements = 36) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>1455</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl org.semanticweb.owlapi.model.OWLClassExpression trRel(java.lang.String relId, java.lang.String classId, java.util.Collection&lt;org.obolibrary.oboformat.model.QualifierValue&gt; quals)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;trRel&lt;/code&gt; is too long (# Non-comment source statements = 32) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>1058</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl org.semanticweb.owlapi.model.OWLAxiom trTermClause(org.semanticweb.owlapi.model.OWLClass cls, java.lang.String tag, org.obolibrary.oboformat.model.Clause clause)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;trTermClause&lt;/code&gt; is too long (# Non-comment source statements = 32) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>504</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl void trHeaderFrame(org.obolibrary.oboformat.model.Frame headerFrame)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;trHeaderFrame&lt;/code&gt; is too long (# Non-comment source statements = 56) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>1767</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl org.semanticweb.owlapi.model.IRI oboIdToIRI(java.lang.String id)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;oboIdToIRI&lt;/code&gt; is too long (# Non-comment source statements = 43) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>1257</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl org.semanticweb.owlapi.model.OWLAxiom trGenericClause(org.semanticweb.owlapi.model.OWLAnnotationSubject sub, java.lang.String tag, org.obolibrary.oboformat.model.Clause clause)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;trGenericClause&lt;/code&gt; is too long (# Non-comment source statements = 54) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>1930</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo void tr(org.semanticweb.owlapi.model.OWLClassAssertionAxiom ax)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;tr&lt;/code&gt; is too long (# Non-comment source statements = 39) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>962</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo boolean tr(org.semanticweb.owlapi.model.OWLAnnotationProperty prop, org.semanticweb.owlapi.model.OWLAnnotationValue annVal, java.util.Set&lt;org.semanticweb.owlapi.model.OWLAnnotation&gt; qualifiers, org.obolibrary.oboformat.model.Frame frame)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;tr&lt;/code&gt; is too long (# Non-comment source statements = 67) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>383</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo void preProcess()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;preProcess&lt;/code&gt; is too long (# Non-comment source statements = 31) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>557</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo void tr(org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom ax)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;tr&lt;/code&gt; is too long (# Non-comment source statements = 38) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>853</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo void tr(org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom ax)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;tr&lt;/code&gt; is too long (# Non-comment source statements = 51) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>1767</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo java.lang.String getIdentifier(org.semanticweb.owlapi.model.IRI iriId)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;getIdentifier&lt;/code&gt; is too long (# Non-comment source statements = 37) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>1354</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo void tr(org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom ax)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;tr&lt;/code&gt; is too long (# Non-comment source statements = 132) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>2004</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo void tr(org.semanticweb.owlapi.model.OWLSubClassOfAxiom ax)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;tr&lt;/code&gt; is too long (# Non-comment source statements = 94) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>307</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo org.obolibrary.oboformat.model.OBODoc tr()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;tr&lt;/code&gt; is too long (# Non-comment source statements = 55) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/XrefExpander.java</file>
+    <line>84</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.parser.XrefExpander void setUp()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;setUp&lt;/code&gt; is too long (# Non-comment source statements = 46) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/OBOFormatParser.java</file>
+    <line>400</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.parser.OBOFormatParser java.util.List&lt;java.lang.String&gt; checkDanglingReferences(org.obolibrary.oboformat.model.OBODoc doc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;checkDanglingReferences&lt;/code&gt; is too long (# Non-comment source statements = 37) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/OBOFormatParser.java</file>
+    <line>1413</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.parser.OBOFormatParser java.lang.String getParseUntil(java.lang.String compl, boolean commaWhitespace)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;getParseUntil&lt;/code&gt; is too long (# Non-comment source statements = 46) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/OBOFormatParser.java</file>
+    <line>776</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.parser.OBOFormatParser org.obolibrary.oboformat.model.Clause parseTypedefFrameClause()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;parseTypedefFrameClause&lt;/code&gt; is too long (# Non-comment source statements = 94) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/OBOFormatParser.java</file>
+    <line>638</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.parser.OBOFormatParser org.obolibrary.oboformat.model.Clause parseTermFrameClause()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;parseTermFrameClause&lt;/code&gt; is too long (# Non-comment source statements = 53) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/writer/OBOFormatWriter.java</file>
+    <line>625</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.writer</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.writer.OBOFormatWriter void write(org.obolibrary.oboformat.model.Clause clause, java.io.BufferedWriter writer, org.obolibrary.oboformat.writer.OBOFormatWriter.NameProvider nameProvider)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;write&lt;/code&gt; is too long (# Non-comment source statements = 40) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/writer/OBOFormatWriter.java</file>
+    <line>289</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.writer</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.writer.OBOFormatWriter void write(org.obolibrary.oboformat.model.Frame frame, java.io.BufferedWriter writer, org.obolibrary.oboformat.writer.OBOFormatWriter.NameProvider nameProvider)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;write&lt;/code&gt; is too long (# Non-comment source statements = 45) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/writer/OBOFormatWriter.java</file>
+    <line>754</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.writer</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.writer.OBOFormatWriter java.lang.CharSequence escapeOboString(java.lang.String in, org.obolibrary.oboformat.writer.OBOFormatWriter.EscapeMode mode)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;escapeOboString&lt;/code&gt; is too long (# Non-comment source statements = 32) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/writer/OBOFormatWriter.java</file>
+    <line>941</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.writer</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.writer.OBOFormatWriter.TypeDefTagsComparator java.util.Map&lt;java.lang.String,java.lang.Integer&gt; buildTagsPriorities()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;buildTagsPriorities&lt;/code&gt; is too long (# Non-comment source statements = 43) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/BOMSafeJavaCharStream.java</file>
+    <line>247</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.BOMSafeJavaCharStream char readChar()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;readChar&lt;/code&gt; is too long (# Non-comment source statements = 40) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/BOMSafeJavaCharStream.java</file>
+    <line>32</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.BOMSafeJavaCharStream int hexval(char c)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;hexval&lt;/code&gt; is too long (# Non-comment source statements = 42) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/TripleHandlers.java</file>
+    <line>528</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.TripleHandlers.HandlerAccessor java.util.Map&lt;org.semanticweb.owlapi.model.IRI,org.semanticweb.owlapi.rdf.rdfxml.parser.BuiltInTypeHandler&gt; getBasicTypeHandlers(org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFConsumer r, org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration config)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;getBasicTypeHandlers&lt;/code&gt; is too long (# Non-comment source statements = 39) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/TripleHandlers.java</file>
+    <line>443</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.TripleHandlers.HandlerAccessor java.util.Map&lt;org.semanticweb.owlapi.model.IRI,org.semanticweb.owlapi.rdf.rdfxml.parser.TriplePredicateHandler&gt; getPredicateHandlers(org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFConsumer r)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;getPredicateHandlers&lt;/code&gt; is too long (# Non-comment source statements = 37) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/Translators.java</file>
+    <line>120</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.Translators.TranslatorAccessor TranslatorAccessor(org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFConsumer r)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;TranslatorAccessor&lt;/code&gt; is too long (# Non-comment source statements = 32) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/Translators.java</file>
+    <line>1900</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.Translators.SWRLAtomListItemTranslator org.semanticweb.owlapi.model.SWRLAtom translate(org.semanticweb.owlapi.model.IRI firstObject)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;translate&lt;/code&gt; is too long (# Non-comment source statements = 47) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/OWLRDFConsumer.java</file>
+    <line>240</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFConsumer OWLRDFConsumer(org.semanticweb.owlapi.model.OWLOntology ontology, org.semanticweb.owlapi.util.AnonymousNodeChecker checker, org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration configuration)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;OWLRDFConsumer&lt;/code&gt; is too long (# Non-comment source statements = 49) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/OWLRDFConsumer.java</file>
+    <line>1709</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFConsumer org.semanticweb.owlapi.model.OWLDataRange translateDataRange(org.semanticweb.owlapi.model.IRI mainNode)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;translateDataRange&lt;/code&gt; is too long (# Non-comment source statements = 39) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/OWLRDFConsumer.java</file>
+    <line>400</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFConsumer void addIntermediateOWLSpecVocabulary()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;addIntermediateOWLSpecVocabulary&lt;/code&gt; is too long (# Non-comment source statements = 34) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/renderer/RDFXMLRenderer.java</file>
+    <line>181</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.renderer.RDFXMLRenderer void render(org.semanticweb.owlapi.io.RDFResource node)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;render&lt;/code&gt; is too long (# Non-comment source statements = 53) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/renderer/XMLWriterImpl.java</file>
+    <line>331</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.renderer.XMLWriterImpl.XMLElement void writeElementStart(boolean close)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;writeElementStart&lt;/code&gt; is too long (# Non-comment source statements = 34) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/turtle/parser/ParseException.java</file>
+    <line>91</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.turtle.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.turtle.parser.ParseException java.lang.String add_escapes(java.lang.String str)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;add_escapes&lt;/code&gt; is too long (# Non-comment source statements = 39) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/turtle/parser/ParseException.java</file>
+    <line>43</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.turtle.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.turtle.parser.ParseException java.lang.String initialise(org.semanticweb.owlapi.rdf.turtle.parser.Token currentToken, int[][] expectedTokenSequences, java.lang.String[] tokenImage)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;initialise&lt;/code&gt; is too long (# Non-comment source statements = 37) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/turtle/renderer/TurtleRenderer.java</file>
+    <line>351</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.turtle.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.turtle.renderer.TurtleRenderer void render(org.semanticweb.owlapi.io.RDFResource node)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;render&lt;/code&gt; is too long (# Non-comment source statements = 59) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/ParseException.java</file>
+    <line>91</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss1.parser.ParseException java.lang.String add_escapes(java.lang.String str)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;add_escapes&lt;/code&gt; is too long (# Non-comment source statements = 39) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/ParseException.java</file>
+    <line>43</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss1.parser.ParseException java.lang.String initialise(org.semanticweb.owlapi.krss1.parser.Token currentToken, int[][] expectedTokenSequences, java.lang.String[] tokenImage)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;initialise&lt;/code&gt; is too long (# Non-comment source statements = 37) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/TokenMgrError.java</file>
+    <line>28</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss1.parser.TokenMgrError java.lang.String addEscapes(java.lang.String str)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;addEscapes&lt;/code&gt; is too long (# Non-comment source statements = 39) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/ParseException.java</file>
+    <line>91</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.ParseException java.lang.String add_escapes(java.lang.String str)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;add_escapes&lt;/code&gt; is too long (# Non-comment source statements = 39) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/ParseException.java</file>
+    <line>43</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.ParseException java.lang.String initialise(org.semanticweb.owlapi.krss2.parser.Token currentToken, int[][] expectedTokenSequences, java.lang.String[] tokenImage)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;initialise&lt;/code&gt; is too long (# Non-comment source statements = 37) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/TokenMgrError.java</file>
+    <line>28</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.TokenMgrError java.lang.String addEscapes(java.lang.String str)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;addEscapes&lt;/code&gt; is too long (# Non-comment source statements = 39) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1112</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa13_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;jjMoveStringLiteralDfa13_0&lt;/code&gt; is too long (# Non-comment source statements = 57) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>734</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa7_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;jjMoveStringLiteralDfa7_0&lt;/code&gt; is too long (# Non-comment source statements = 95) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>220</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa2_0(long old0, long _active0, long old1, long _active1)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;jjMoveStringLiteralDfa2_0&lt;/code&gt; is too long (# Non-comment source statements = 94) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>118</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa1_0(long active0, long active1)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;jjMoveStringLiteralDfa1_0&lt;/code&gt; is too long (# Non-comment source statements = 67) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>471</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa4_0(long old0, long _active0, long old1, long _active1)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;jjMoveStringLiteralDfa4_0&lt;/code&gt; is too long (# Non-comment source statements = 69) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>552</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa5_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;jjMoveStringLiteralDfa5_0&lt;/code&gt; is too long (# Non-comment source statements = 57) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1477</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveNfa_0(int startState, int _curPos)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;jjMoveNfa_0&lt;/code&gt; is too long (# Non-comment source statements = 327) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>893</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa9_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;jjMoveStringLiteralDfa9_0&lt;/code&gt; is too long (# Non-comment source statements = 64) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1071</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa12_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;jjMoveStringLiteralDfa12_0&lt;/code&gt; is too long (# Non-comment source statements = 34) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>33</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa0_0()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;jjMoveStringLiteralDfa0_0&lt;/code&gt; is too long (# Non-comment source statements = 81) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1028</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa11_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;jjMoveStringLiteralDfa11_0&lt;/code&gt; is too long (# Non-comment source statements = 35) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>844</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa8_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;jjMoveStringLiteralDfa8_0&lt;/code&gt; is too long (# Non-comment source statements = 42) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>2067</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager org.semanticweb.owlapi.krss2.parser.Token getNextToken()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;getNextToken&lt;/code&gt; is too long (# Non-comment source statements = 70) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>355</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa3_0(long old0, long _active0, long old1, long _active1)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;jjMoveStringLiteralDfa3_0&lt;/code&gt; is too long (# Non-comment source statements = 77) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>969</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa10_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;jjMoveStringLiteralDfa10_0&lt;/code&gt; is too long (# Non-comment source statements = 50) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>619</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa6_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;jjMoveStringLiteralDfa6_0&lt;/code&gt; is too long (# Non-comment source statements = 97) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/renderer/KRSSObjectRenderer.java</file>
+    <line>401</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.renderer.KRSSObjectRenderer void visit(org.semanticweb.owlapi.model.OWLOntology ontology1)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;visit&lt;/code&gt; is too long (# Non-comment source statements = 45) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/renderer/KRSS2ObjectRenderer.java</file>
+    <line>308</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.renderer.KRSS2ObjectRenderer void visit(org.semanticweb.owlapi.model.OWLOntology ontology1)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;visit&lt;/code&gt; is too long (# Non-comment source statements = 144) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/renderer/KRSS2OWLObjectRenderer.java</file>
+    <line>195</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.renderer.KRSS2OWLObjectRenderer void visit(org.semanticweb.owlapi.model.OWLOntology onto)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;visit&lt;/code&gt; is too long (# Non-comment source statements = 80) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/latex/renderer/LatexObjectVisitor.java</file>
+    <line>313</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.latex.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.latex.renderer.LatexObjectVisitor void visit(org.semanticweb.owlapi.model.OWLDisjointClassesAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;visit&lt;/code&gt; is too long (# Non-comment source statements = 37) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/latex/renderer/LatexRenderer.java</file>
+    <line>67</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.latex.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.latex.renderer.LatexRenderer void render(org.semanticweb.owlapi.model.OWLOntology ontology, java.io.Writer writer)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;render&lt;/code&gt; is too long (# Non-comment source statements = 50) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/OWLXMLParserHandler.java</file>
+    <line>124</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLXMLParserHandler OWLXMLParserHandler(org.semanticweb.owlapi.model.OWLOntology ontology, org.semanticweb.owlapi.owlxml.parser.OWLElementHandler&lt;?&gt; topHandler, org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration configuration)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;OWLXMLParserHandler&lt;/code&gt; is too long (# Non-comment source statements = 99) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/ParseException.java</file>
+    <line>43</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.ParseException java.lang.String initialise(org.semanticweb.owlapi.dlsyntax.parser.Token currentToken, int[][] expectedTokenSequences, java.lang.String[] tokenImage)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;initialise&lt;/code&gt; is too long (# Non-comment source statements = 37) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/ParseException.java</file>
+    <line>91</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.ParseException java.lang.String add_escapes(java.lang.String str)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;add_escapes&lt;/code&gt; is too long (# Non-comment source statements = 39) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/TokenMgrError.java</file>
+    <line>28</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.TokenMgrError java.lang.String addEscapes(java.lang.String str)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;addEscapes&lt;/code&gt; is too long (# Non-comment source statements = 39) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>2628</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser org.semanticweb.owlapi.model.OWLAxiom parseAxiomWithDataPropertyStart()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;parseAxiomWithDataPropertyStart&lt;/code&gt; is too long (# Non-comment source statements = 36) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>1060</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser java.util.Set&lt;org.semanticweb.owlapi.util.OntologyAxiomPair&gt; parseFrames()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;parseFrames&lt;/code&gt; is too long (# Non-comment source statements = 48) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>180</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser ManchesterOWLSyntaxEditorParser(org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration configuration, org.semanticweb.owlapi.model.OWLDataFactory dataFactory, java.lang.String s)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;ManchesterOWLSyntaxEditorParser&lt;/code&gt; is too long (# Non-comment source statements = 31) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>2172</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormat parseOntology(org.semanticweb.owlapi.model.OWLOntology ont)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;parseOntology&lt;/code&gt; is too long (# Non-comment source statements = 77) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>2729</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser org.semanticweb.owlapi.model.OWLAxiom parseAxiomWithObjectPropertyStart()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;parseAxiomWithObjectPropertyStart&lt;/code&gt; is too long (# Non-comment source statements = 51) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>2277</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxOntologyHeader parseOntologyHeader(boolean toEOF)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;parseOntologyHeader&lt;/code&gt; is too long (# Non-comment source statements = 40) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>634</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser org.semanticweb.owlapi.model.OWLClassExpression parseObjectRestriction()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;parseObjectRestriction&lt;/code&gt; is too long (# Non-comment source statements = 53) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>803</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser org.semanticweb.owlapi.model.OWLDataRange parseDataRangePrimary()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;parseDataRangePrimary&lt;/code&gt; is too long (# Non-comment source statements = 31) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxOntologyParser.java</file>
+    <line>55</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxOntologyParser org.semanticweb.owlapi.model.OWLOntologyFormat parse(org.semanticweb.owlapi.io.OWLOntologyDocumentSource documentSource, org.semanticweb.owlapi.model.OWLOntology ontology, org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration configuration)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;parse&lt;/code&gt; is too long (# Non-comment source statements = 34) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/renderer/ManchesterOWLSyntaxFrameRenderer.java</file>
+    <line>1318</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.renderer.ManchesterOWLSyntaxFrameRenderer void writeSection(org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntax keyword, org.semanticweb.owlapi.mansyntax.renderer.ManchesterOWLSyntaxFrameRenderer.SectionMap&lt;java.lang.Object,org.semanticweb.owlapi.model.OWLAxiom&gt; content, java.lang.String delimeter, boolean newline, org.semanticweb.owlapi.model.OWLOntology... ontologiesList)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;writeSection&lt;/code&gt; is too long (# Non-comment source statements = 58) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/renderer/ManchesterOWLSyntaxFrameRenderer.java</file>
+    <line>558</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.renderer.ManchesterOWLSyntaxFrameRenderer java.util.Set&lt;org.semanticweb.owlapi.model.OWLAxiom&gt; write(org.semanticweb.owlapi.model.OWLClass cls)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;write&lt;/code&gt; is too long (# Non-comment source statements = 79) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/renderer/ManchesterOWLSyntaxFrameRenderer.java</file>
+    <line>1196</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.renderer.ManchesterOWLSyntaxFrameRenderer java.util.Set&lt;org.semanticweb.owlapi.model.OWLAxiom&gt; write(org.semanticweb.owlapi.model.OWLAnnotationProperty property)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;write&lt;/code&gt; is too long (# Non-comment source statements = 32) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/renderer/ManchesterOWLSyntaxFrameRenderer.java</file>
+    <line>929</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.renderer.ManchesterOWLSyntaxFrameRenderer java.util.Set&lt;org.semanticweb.owlapi.model.OWLAxiom&gt; write(org.semanticweb.owlapi.model.OWLDataProperty property)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;write&lt;/code&gt; is too long (# Non-comment source statements = 62) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/renderer/ManchesterOWLSyntaxFrameRenderer.java</file>
+    <line>1039</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.renderer.ManchesterOWLSyntaxFrameRenderer java.util.Set&lt;org.semanticweb.owlapi.model.OWLAxiom&gt; write(org.semanticweb.owlapi.model.OWLIndividual individual)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;write&lt;/code&gt; is too long (# Non-comment source statements = 73) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/renderer/ManchesterOWLSyntaxFrameRenderer.java</file>
+    <line>718</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.renderer.ManchesterOWLSyntaxFrameRenderer java.util.Set&lt;org.semanticweb.owlapi.model.OWLAxiom&gt; write(org.semanticweb.owlapi.model.OWLObjectPropertyExpression property)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;write&lt;/code&gt; is too long (# Non-comment source statements = 120) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/renderer/ManchesterOWLSyntaxFrameRenderer.java</file>
+    <line>307</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.renderer.ManchesterOWLSyntaxFrameRenderer void writeOntology()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;writeOntology&lt;/code&gt; is too long (# Non-comment source statements = 71) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/ParseException.java</file>
+    <line>91</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.functional.parser.ParseException java.lang.String add_escapes(java.lang.String str)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;add_escapes&lt;/code&gt; is too long (# Non-comment source statements = 39) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/ParseException.java</file>
+    <line>43</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.functional.parser.ParseException java.lang.String initialise(org.semanticweb.owlapi.functional.parser.Token currentToken, int[][] expectedTokenSequences, java.lang.String[] tokenImage)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;initialise&lt;/code&gt; is too long (# Non-comment source statements = 37) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/TokenMgrError.java</file>
+    <line>28</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.functional.parser.TokenMgrError java.lang.String addEscapes(java.lang.String str)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;addEscapes&lt;/code&gt; is too long (# Non-comment source statements = 39) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/renderer/FunctionalSyntaxObjectRenderer.java</file>
+    <line>172</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.functional.renderer.FunctionalSyntaxObjectRenderer void visit(org.semanticweb.owlapi.model.OWLOntology ontology1)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;visit&lt;/code&gt; is too long (# Non-comment source statements = 33) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/main/java/uk/ac/manchester/owl/owlapi/tutorialowled2011/OWLTutorialSyntaxObjectRenderer.java</file>
+    <line>220</line>
+    <module>owlapi-contract</module>
+    <package>uk.ac.manchester.owl.owlapi.tutorialowled2011</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.owl.owlapi.tutorialowled2011.OWLTutorialSyntaxObjectRenderer void visit(org.semanticweb.owlapi.model.OWLOntology ontology1)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;visit&lt;/code&gt; is too long (# Non-comment source statements = 33) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/main/java/uk/ac/manchester/owl/owlapi/tutorialowled2011/Formatter.java</file>
+    <line>30</line>
+    <module>owlapi-contract</module>
+    <package>uk.ac.manchester.owl.owlapi.tutorialowled2011</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.owl.owlapi.tutorialowled2011.Formatter void main(java.lang.String[] args)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;main&lt;/code&gt; is too long (# Non-comment source statements = 32) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/EquivalentToTest.java</file>
+    <line>63</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.EquivalentToTest void checkOBODoc(org.obolibrary.oboformat.model.OBODoc obodoc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;checkOBODoc&lt;/code&gt; is too long (# Non-comment source statements = 36) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/BFOROXrefTest.java</file>
+    <line>56</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.BFOROXrefTest void testRelationXrefConversion()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;testRelationXrefConversion&lt;/code&gt; is too long (# Non-comment source statements = 35) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/IDsTest.java</file>
+    <line>20</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.IDsTest void testIDs()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;testIDs&lt;/code&gt; is too long (# Non-comment source statements = 47) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/RoundTripCardinalityTest.java</file>
+    <line>27</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.RoundTripCardinalityTest void testRoundTripCardinality()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;testRoundTripCardinality&lt;/code&gt; is too long (# Non-comment source statements = 38) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/RelationShorthandTest.java</file>
+    <line>27</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.RelationShorthandTest void testConvert()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;testConvert&lt;/code&gt; is too long (# Non-comment source statements = 40) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/oboformat/TrailingQualifierTest.java</file>
+    <line>38</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.oboformat</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.TrailingQualifierTest void checkAllTrailingQualifiers(org.obolibrary.oboformat.model.OBODoc doc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;checkAllTrailingQualifiers&lt;/code&gt; is too long (# Non-comment source statements = 60) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/SerializationTest.java</file>
+    <line>119</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.api.test.SerializationTest void testrun()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;testrun&lt;/code&gt; is too long (# Non-comment source statements = 77) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/ontology/SWRLRuleTestCase.java</file>
+    <line>43</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.ontology</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.api.test.ontology.SWRLRuleTestCase java.util.Set&lt;? extends org.semanticweb.owlapi.model.OWLAxiom&gt; createAxioms()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;createAxioms&lt;/code&gt; is too long (# Non-comment source statements = 33) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/ontology/RenameEntityTestCase.java</file>
+    <line>92</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.ontology</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.api.test.ontology.RenameEntityTestCase void testRenameObjectProperty()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;testRenameObjectProperty&lt;/code&gt; is too long (# Non-comment source statements = 48) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/ontology/RenameEntityTestCase.java</file>
+    <line>48</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.ontology</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.api.test.ontology.RenameEntityTestCase void testRenameClass()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;testRenameClass&lt;/code&gt; is too long (# Non-comment source statements = 35) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/ontology/RenameEntityTestCase.java</file>
+    <line>148</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.ontology</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.api.test.ontology.RenameEntityTestCase void testRenameDataProperty()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;testRenameDataProperty&lt;/code&gt; is too long (# Non-comment source statements = 35) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/ontology/SWRLRuleAlternateNSTestCase.java</file>
+    <line>44</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.ontology</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.api.test.ontology.SWRLRuleAlternateNSTestCase java.util.Set&lt;? extends org.semanticweb.owlapi.model.OWLAxiom&gt; createAxioms()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;createAxioms&lt;/code&gt; is too long (# Non-comment source statements = 33) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/ontology/OntologyContainsAxiomTestCase.java</file>
+    <line>120</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.ontology</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.api.test.ontology.OntologyContainsAxiomTestCase void runTestOntologyContainsAxioms1(org.semanticweb.owlapi.model.OWLOntologyFormat format)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;runTestOntologyContainsAxioms1&lt;/code&gt; is too long (# Non-comment source statements = 54) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/ontology/OntologyContainsAxiomTestCase.java</file>
+    <line>242</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.ontology</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.api.test.ontology.OntologyContainsAxiomTestCase void runTestOntologyContainsAxioms2(org.semanticweb.owlapi.model.OWLOntologyFormat format)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;runTestOntologyContainsAxioms2&lt;/code&gt; is too long (# Non-comment source statements = 49) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/baseclasses/ReasonerTestCase.java</file>
+    <line>442</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.baseclasses</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.api.test.baseclasses.ReasonerTestCase void testGetSubClasses()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;testGetSubClasses&lt;/code&gt; is too long (# Non-comment source statements = 68) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/baseclasses/ReasonerTestCase.java</file>
+    <line>259</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.baseclasses</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.api.test.baseclasses.ReasonerTestCase void testGetSuperClassesDirect()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;testGetSuperClassesDirect&lt;/code&gt; is too long (# Non-comment source statements = 50) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/baseclasses/ReasonerTestCase.java</file>
+    <line>606</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.baseclasses</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.api.test.baseclasses.ReasonerTestCase void testGetSubObjectProperties()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;testGetSubObjectProperties&lt;/code&gt; is too long (# Non-comment source statements = 52) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/baseclasses/ReasonerTestCase.java</file>
+    <line>201</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.baseclasses</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.api.test.baseclasses.ReasonerTestCase void testGetEquivalentClasses()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;testGetEquivalentClasses&lt;/code&gt; is too long (# Non-comment source statements = 54) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/baseclasses/ReasonerTestCase.java</file>
+    <line>550</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.baseclasses</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.api.test.baseclasses.ReasonerTestCase void testGetSubObjectPropertiesDirect()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;testGetSubObjectPropertiesDirect&lt;/code&gt; is too long (# Non-comment source statements = 43) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/baseclasses/ReasonerTestCase.java</file>
+    <line>314</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.baseclasses</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.api.test.baseclasses.ReasonerTestCase void testGetSuperClasses()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;testGetSuperClasses&lt;/code&gt; is too long (# Non-comment source statements = 70) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/baseclasses/ReasonerTestCase.java</file>
+    <line>390</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.baseclasses</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.api.test.baseclasses.ReasonerTestCase void testGetSubClassesDirect()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;testGetSubClassesDirect&lt;/code&gt; is too long (# Non-comment source statements = 48) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/baseclasses/TestBase.java</file>
+    <line>83</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.baseclasses</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.api.test.baseclasses.TestBase boolean equal(org.semanticweb.owlapi.model.OWLOntology ont1, org.semanticweb.owlapi.model.OWLOntology ont2)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;equal&lt;/code&gt; is too long (# Non-comment source statements = 41) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/examples/Examples.java</file>
+    <line>1710</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.examples</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.examples.Examples void owlPrimer()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;owlPrimer&lt;/code&gt; is too long (# Non-comment source statements = 114) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/profiles/test/ProfileValidationTestCase.java</file>
+    <line>56</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.profiles.test</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.profiles.test.ProfileValidationTestCase void testProfiles()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;testProfiles&lt;/code&gt; is too long (# Non-comment source statements = 50) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/modularity/locality/SyntacticLocalityEvaluator.java</file>
+    <line>433</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.modularity.locality</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator.AxiomLocalityVisitor void visit(org.semanticweb.owlapi.model.OWLDisjointUnionAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;visit&lt;/code&gt; is too long (# Non-comment source statements = 32) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/explanation/BlackBoxExplanation.java</file>
+    <line>303</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.explanation</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.explanation.BlackBoxExplanation void performFastPruning(org.semanticweb.owlapi.model.OWLClassExpression unsatClass)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;performFastPruning&lt;/code&gt; is too long (# Non-comment source statements = 31) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/explanation/BlackBoxExplanation.java</file>
+    <line>150</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.explanation</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.explanation.BlackBoxExplanation int expandAxioms()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;expandAxioms&lt;/code&gt; is too long (# Non-comment source statements = 34) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/explanation/BlackBoxExplanation.java</file>
+    <line>447</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.explanation</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.explanation.BlackBoxExplanation void pruneUntilMinimal(org.semanticweb.owlapi.model.OWLClassExpression unsatClass)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;pruneUntilMinimal&lt;/code&gt; is too long (# Non-comment source statements = 31) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/org/semanticweb/owlapi/debugging/BlackBoxOWLDebugger.java</file>
+    <line>433</line>
+    <module>owlapi-tools</module>
+    <package>org.semanticweb.owlapi.debugging</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.debugging.BlackBoxOWLDebugger void generateSOSAxioms()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;generateSOSAxioms&lt;/code&gt; is too long (# Non-comment source statements = 47) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/org/semanticweb/owlapi/debugging/BlackBoxOWLDebugger.java</file>
+    <line>324</line>
+    <module>owlapi-tools</module>
+    <package>org.semanticweb.owlapi.debugging</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.debugging.BlackBoxOWLDebugger void performFastPruning()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;performFastPruning&lt;/code&gt; is too long (# Non-comment source statements = 31) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/org/semanticweb/owlapi/debugging/BlackBoxOWLDebugger.java</file>
+    <line>178</line>
+    <module>owlapi-tools</module>
+    <package>org.semanticweb.owlapi.debugging</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.debugging.BlackBoxOWLDebugger int expandAxioms()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly long method</problem_class>
+    <description>&lt;code&gt;expandAxioms&lt;/code&gt; is too long (# Non-comment source statements = 34) #loc</description>
+  </problem>
+</problems>
+

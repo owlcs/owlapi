@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/rio/test/RioRendererTest.java</file>
+    <line>285</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.rio.test</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rio.test.RioRendererTest void testRioOWLRDFParser()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Multiple exceptions declared on test method</problem_class>
+    <description>&lt;code&gt;throws IOException, RDFParseException,             RDFHandlerException&lt;/code&gt; could be replaced with 'throws Exception' #loc</description>
+  </problem>
+</problems>
+

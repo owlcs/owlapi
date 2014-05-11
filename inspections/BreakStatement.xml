@@ -1,0 +1,652 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/io/XMLUtils.java</file>
+    <line>225</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.io</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.io.XMLUtils int getNCNameSuffixIndex(java.lang.CharSequence s)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/io/AbstractOWLParser.java</file>
+    <line>167</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.io</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.io.AbstractOWLParser java.io.InputStream getInputStream(org.semanticweb.owlapi.model.IRI documentIRI, org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration config)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/NamespaceUtil.java</file>
+    <line>110</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.NamespaceUtil java.lang.String generatePrefix(java.lang.String namespace)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/NamespaceUtil.java</file>
+    <line>125</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.NamespaceUtil java.lang.String generatePrefix(java.lang.String namespace)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/SimpleRootClassChecker.java</file>
+    <line>123</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.SimpleRootClassChecker.NamedSuperChecker void visit(org.semanticweb.owlapi.model.OWLObjectIntersectionOf desc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/OWLObjectDuplicator.java</file>
+    <line>883</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.OWLObjectDuplicator void visit(org.semanticweb.owlapi.model.IRI iri)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/OWLObjectPropertyManager.java</file>
+    <line>483</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.OWLObjectPropertyManager java.util.Collection&lt;java.util.Set&lt;org.semanticweb.owlapi.model.OWLObjectPropertyExpression&gt;&gt; getEquivalentObjectProperties(java.util.Set&lt;org.semanticweb.owlapi.model.OWLOntology&gt; ontologies)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/OWLObjectPropertyManager.java</file>
+    <line>567</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.OWLObjectPropertyManager void tarjan(java.util.Set&lt;org.semanticweb.owlapi.model.OWLOntology&gt; ontologies, org.semanticweb.owlapi.model.OWLObjectPropertyExpression prop, int index, java.util.Stack&lt;org.semanticweb.owlapi.model.OWLObjectPropertyExpression&gt; stack, java.util.Map&lt;org.semanticweb.owlapi.model.OWLObjectPropertyExpression,java.lang.Integer&gt; indexMap, java.util.Map&lt;org.semanticweb.owlapi.model.OWLObjectPropertyExpression,java.lang.Integer&gt; lowlinkMap, java.util.Set&lt;java.util.Set&lt;org.semanticweb.owlapi.model.OWLObjectPropertyExpression&gt;&gt; result, ...)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/NamedConjunctChecker.java</file>
+    <line>138</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.NamedConjunctChecker.NamedConjunctCheckerVisitor void visit(org.semanticweb.owlapi.model.OWLObjectIntersectionOf desc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/AutoIRIMapper.java</file>
+    <line>183</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.AutoIRIMapper void processFile(java.io.File f)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/AutoIRIMapper.java</file>
+    <line>231</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.AutoIRIMapper void parseManchesterSyntaxFile(java.io.File file)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/AutoIRIMapper.java</file>
+    <line>235</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.AutoIRIMapper void parseManchesterSyntaxFile(java.io.File file)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/BidirectionalShortFormProviderAdapter.java</file>
+    <line>154</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.BidirectionalShortFormProviderAdapter void handleChanges(java.util.List&lt;? extends org.semanticweb.owlapi.model.OWLOntologyChange&lt;?&gt;&gt; changes)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/profiles/OWL2ELProfile.java</file>
+    <line>361</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.profiles</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.profiles.OWL2ELProfile.OWL2ELProfileObjectVisitor void visit(org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLImmutableOntologyImpl.java</file>
+    <line>115</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLImmutableOntologyImpl java.lang.String toString()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/org/semanticweb/owlapi/reasoner/structural/StructuralReasoner.java</file>
+    <line>1319</line>
+    <module>owlapi-impl</module>
+    <package>org.semanticweb.owlapi.reasoner.structural</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.reasoner.structural.StructuralReasoner.ObjectPropertyHierarchyInfo void processChanges(java.util.Set&lt;org.semanticweb.owlapi.model.OWLObjectPropertyExpression&gt; signature, java.util.Set&lt;org.semanticweb.owlapi.model.OWLAxiom&gt; added, java.util.Set&lt;org.semanticweb.owlapi.model.OWLAxiom&gt; removed)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/org/semanticweb/owlapi/reasoner/structural/StructuralReasoner.java</file>
+    <line>1326</line>
+    <module>owlapi-impl</module>
+    <package>org.semanticweb.owlapi.reasoner.structural</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.reasoner.structural.StructuralReasoner.ObjectPropertyHierarchyInfo void processChanges(java.util.Set&lt;org.semanticweb.owlapi.model.OWLObjectPropertyExpression&gt; signature, java.util.Set&lt;org.semanticweb.owlapi.model.OWLAxiom&gt; added, java.util.Set&lt;org.semanticweb.owlapi.model.OWLAxiom&gt; removed)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/org/semanticweb/owlapi/reasoner/structural/StructuralReasoner.java</file>
+    <line>909</line>
+    <module>owlapi-impl</module>
+    <package>org.semanticweb.owlapi.reasoner.structural</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.reasoner.structural.StructuralReasoner.HierarchyInfo void updateForSignature(java.util.Set&lt;T&gt; signature, java.util.Map&lt;T,java.util.Collection&lt;T&gt;&gt; cache)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/org/semanticweb/owlapi/reasoner/structural/StructuralReasoner.java</file>
+    <line>925</line>
+    <module>owlapi-impl</module>
+    <package>org.semanticweb.owlapi.reasoner.structural</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.reasoner.structural.StructuralReasoner.HierarchyInfo void updateForSignature(java.util.Set&lt;T&gt; signature, java.util.Map&lt;T,java.util.Collection&lt;T&gt;&gt; cache)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/org/semanticweb/owlapi/reasoner/structural/StructuralReasoner.java</file>
+    <line>1049</line>
+    <module>owlapi-impl</module>
+    <package>org.semanticweb.owlapi.reasoner.structural</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.reasoner.structural.StructuralReasoner.HierarchyInfo void tarjan(T entity, int _index, java.util.Stack&lt;T&gt; stack, java.util.Map&lt;T,java.lang.Integer&gt; indexMap, java.util.Map&lt;T,java.lang.Integer&gt; lowlinkMap, java.util.Set&lt;java.util.Set&lt;T&gt;&gt; result, java.util.Set&lt;T&gt; processed, ...)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>450</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl void postProcess(org.semanticweb.owlapi.model.OWLOntology ontology)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>1604</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo void tr(org.semanticweb.owlapi.model.OWLDeclarationAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>397</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo void preProcess()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>603</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo void tr(org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom ax)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>896</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo void tr(org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom ax)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/diff/OBODocDiffer.java</file>
+    <line>99</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.diff</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.diff.OBODocDiffer java.util.List&lt;org.obolibrary.oboformat.diff.Diff&gt; getDiffsAsym(java.lang.String ftype, org.obolibrary.oboformat.model.Frame f1, org.obolibrary.oboformat.model.Frame f2, int n)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/OBOFormatParser.java</file>
+    <line>735</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.parser.OBOFormatParser void parseTypedefFrame(org.obolibrary.oboformat.model.OBODoc obodoc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/OBOFormatParser.java</file>
+    <line>597</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.parser.OBOFormatParser void parseTermFrame(org.obolibrary.oboformat.model.OBODoc obodoc)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/OBOFormatParser.java</file>
+    <line>1431</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.parser.OBOFormatParser java.lang.String getParseUntil(java.lang.String compl, boolean commaWhitespace)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/OBOFormatParser.java</file>
+    <line>1434</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.parser.OBOFormatParser java.lang.String getParseUntil(java.lang.String compl, boolean commaWhitespace)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/writer/OBOFormatWriter.java</file>
+    <line>706</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.writer</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.writer.OBOFormatWriter boolean isOpaqueIdentifier(java.lang.String value)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/BOMSafeJavaCharStream.java</file>
+    <line>275</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.BOMSafeJavaCharStream char readChar()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/RDFRendererBase.java</file>
+    <line>407</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.RDFRendererBase void renderAnonymousIndividuals()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/TripleHandlers.java</file>
+    <line>314</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.TripleHandlers.HandlerAccessor void handle(org.semanticweb.owlapi.model.IRI subject, org.semanticweb.owlapi.model.IRI predicate, org.semanticweb.owlapi.model.IRI object)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/TripleHandlers.java</file>
+    <line>249</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.TripleHandlers.HandlerAccessor void handleStreaming(org.semanticweb.owlapi.model.IRI subject, org.semanticweb.owlapi.model.IRI predicate, org.semanticweb.owlapi.model.IRI object)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/TripleHandlers.java</file>
+    <line>336</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.TripleHandlers.HandlerAccessor void handle(org.semanticweb.owlapi.model.IRI subject, org.semanticweb.owlapi.model.IRI predicate, org.semanticweb.owlapi.model.OWLLiteral object)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/turtle/parser/ParseException.java</file>
+    <line>69</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.turtle.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.turtle.parser.ParseException java.lang.String initialise(org.semanticweb.owlapi.rdf.turtle.parser.Token currentToken, int[][] expectedTokenSequences, java.lang.String[] tokenImage)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/ParseException.java</file>
+    <line>69</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss1.parser.ParseException java.lang.String initialise(org.semanticweb.owlapi.krss1.parser.Token currentToken, int[][] expectedTokenSequences, java.lang.String[] tokenImage)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/ParseException.java</file>
+    <line>69</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.ParseException java.lang.String initialise(org.semanticweb.owlapi.krss2.parser.Token currentToken, int[][] expectedTokenSequences, java.lang.String[] tokenImage)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1527</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveNfa_0(int startState, int _curPos)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1561</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveNfa_0(int startState, int _curPos)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1812</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveNfa_0(int startState, int _curPos)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1852</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveNfa_0(int startState, int _curPos)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1871</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveNfa_0(int startState, int _curPos)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1876</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveNfa_0(int startState, int _curPos)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/ParseException.java</file>
+    <line>69</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.ParseException java.lang.String initialise(org.semanticweb.owlapi.dlsyntax.parser.Token currentToken, int[][] expectedTokenSequences, java.lang.String[] tokenImage)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>1107</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser java.util.Set&lt;org.semanticweb.owlapi.util.OntologyAxiomPair&gt; parseFrames()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>1339</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser java.util.Set&lt;org.semanticweb.owlapi.model.OWLOntology&gt; parseOntologyList()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>1147</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser java.util.Set&lt;org.semanticweb.owlapi.util.OntologyAxiomPair&gt; parseDatatypeFrame()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>1402</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser void parseFrameSections(boolean eof, java.util.Set&lt;org.semanticweb.owlapi.util.OntologyAxiomPair&gt; axioms, F frameSubject, java.util.Map&lt;org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntax,org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser.AnnotatedListItemParser&lt;F,?&gt;&gt; sectionParsers)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>2251</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormat parseOntology(org.semanticweb.owlapi.model.OWLOntology ont)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>2323</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxOntologyHeader parseOntologyHeader(boolean toEOF)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>2328</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxOntologyHeader parseOntologyHeader(boolean toEOF)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>1792</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser org.semanticweb.owlapi.model.SWRLBuiltInAtom parseBuiltInAtom()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxTokenizer.java</file>
+    <line>196</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxTokenizer void readIRI()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxTokenizer.java</file>
+    <line>201</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxTokenizer void readIRI()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxTokenizer.java</file>
+    <line>178</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxTokenizer void readString(char terminator, boolean appendTerminator)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/renderer/ManchesterOWLSyntaxFrameRenderer.java</file>
+    <line>689</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.renderer.ManchesterOWLSyntaxFrameRenderer java.util.Set&lt;org.semanticweb.owlapi.model.OWLAxiom&gt; write(org.semanticweb.owlapi.model.OWLClass cls)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/renderer/ManchesterOWLSyntaxFrameRenderer.java</file>
+    <line>1022</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.renderer.ManchesterOWLSyntaxFrameRenderer java.util.Set&lt;org.semanticweb.owlapi.model.OWLAxiom&gt; write(org.semanticweb.owlapi.model.OWLDataProperty property)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/renderer/ManchesterOWLSyntaxFrameRenderer.java</file>
+    <line>912</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.renderer.ManchesterOWLSyntaxFrameRenderer java.util.Set&lt;org.semanticweb.owlapi.model.OWLAxiom&gt; write(org.semanticweb.owlapi.model.OWLObjectPropertyExpression property)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/ParseException.java</file>
+    <line>69</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.functional.parser.ParseException java.lang.String initialise(org.semanticweb.owlapi.functional.parser.Token currentToken, int[][] expectedTokenSequences, java.lang.String[] tokenImage)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/oboformat/writer/OBOFormatWriterTest.java</file>
+    <line>108</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.oboformat.writer</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.writer.OBOFormatWriterTest void testWriteEndOfFile()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/examples/DLQueryExample.java</file>
+    <line>138</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.examples</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.examples.DLQueryExample void doQueryLoop(org.semanticweb.owlapi.examples.DLQueryPrinter dlQueryPrinter)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/uk/ac/manchester/cs/owl/explanation/ordering/ExplanationOrdererImpl.java</file>
+    <line>476</line>
+    <module>owlapi-tools</module>
+    <package>uk.ac.manchester.cs.owl.explanation.ordering</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.explanation.ordering.ExplanationOrdererImpl.SeedExtractor void visit(org.semanticweb.owlapi.model.OWLDisjointClassesAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/uk/ac/manchester/cs/owl/explanation/ordering/ExplanationOrdererImpl.java</file>
+    <line>508</line>
+    <module>owlapi-tools</module>
+    <package>uk.ac.manchester.cs.owl.explanation.ordering</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.explanation.ordering.ExplanationOrdererImpl.SeedExtractor void visit(org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/explanation/HSTExplanationGenerator.java</file>
+    <line>308</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.explanation</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.explanation.HSTExplanationGenerator boolean checkEarlyTermination(java.util.Set&lt;java.util.Set&lt;org.semanticweb.owlapi.model.OWLAxiom&gt;&gt; satPaths, java.util.Set&lt;org.semanticweb.owlapi.model.OWLAxiom&gt; currentPathContents)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/explanation/HSTExplanationGenerator.java</file>
+    <line>408</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.explanation</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.explanation.HSTExplanationGenerator java.util.Set&lt;org.semanticweb.owlapi.model.OWLAxiom&gt; getNewMUPS(org.semanticweb.owlapi.model.OWLClassExpression unsatClass, java.util.Set&lt;java.util.Set&lt;org.semanticweb.owlapi.model.OWLAxiom&gt;&gt; allMups, java.util.Set&lt;org.semanticweb.owlapi.model.OWLAxiom&gt; currentPathContents)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/explanation/BlackBoxExplanation.java</file>
+    <line>292</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.explanation</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.explanation.BlackBoxExplanation int addMax(java.util.Set&lt;N&gt; source, java.util.Set&lt;N&gt; dest, int limit)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/org/semanticweb/owlapi/metrics/NumberOfClassesWithMultipleInheritance.java</file>
+    <line>76</line>
+    <module>owlapi-tools</module>
+    <package>org.semanticweb.owlapi.metrics</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.metrics.NumberOfClassesWithMultipleInheritance java.lang.Integer recomputeMetric()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/org/semanticweb/owlapi/metrics/HiddenGCICount.java</file>
+    <line>92</line>
+    <module>owlapi-tools</module>
+    <package>org.semanticweb.owlapi.metrics</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.metrics.HiddenGCICount java.lang.Integer recomputeMetric()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/org/semanticweb/owlapi/debugging/AbstractOWLDebugger.java</file>
+    <line>159</line>
+    <module>owlapi-tools</module>
+    <package>org.semanticweb.owlapi.debugging</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.debugging.AbstractOWLDebugger void constructHittingSetTree(java.util.Set&lt;org.semanticweb.owlapi.model.OWLAxiom&gt; mups, java.util.Set&lt;java.util.Set&lt;org.semanticweb.owlapi.model.OWLAxiom&gt;&gt; allMups, java.util.Set&lt;java.util.Set&lt;org.semanticweb.owlapi.model.OWLAxiom&gt;&gt; satPaths, java.util.Set&lt;org.semanticweb.owlapi.model.OWLAxiom&gt; currentPathContents)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/org/semanticweb/owlapi/debugging/BlackBoxOWLDebugger.java</file>
+    <line>313</line>
+    <module>owlapi-tools</module>
+    <package>org.semanticweb.owlapi.debugging</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.debugging.BlackBoxOWLDebugger int addMax(java.util.Set&lt;N&gt; source, java.util.Set&lt;N&gt; dest, int limit)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'break' statement</problem_class>
+    <description>&lt;code&gt;break&lt;/code&gt; statement #loc</description>
+  </problem>
+</problems>
+

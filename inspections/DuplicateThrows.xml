@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/semanticweb/owlapi/oboformat/OBOFormatOWLAPIParser.java</file>
+    <line>89</line>
+    <module>owlapi-oboformat</module>
+    <package>org.semanticweb.owlapi.oboformat</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.oboformat.OBOFormatOWLAPIParser org.semanticweb.owlapi.model.OWLOntology parse(org.semanticweb.owlapi.model.IRI iri, org.semanticweb.owlapi.io.OWLOntologyDocumentSource source, org.semanticweb.owlapi.model.OWLOntology in)" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Duplicate throws</problem_class>
+    <description>There is a more general exception, 'java.io.IOException', in the throws list already.</description>
+  </problem>
+</problems>
+

@@ -39,7 +39,7 @@ public abstract class OntologyAnnotationChangeData extends
     private final OWLAnnotation annotation;
 
     /**
-     * Constructs an {@link OntologyAnnotationChangeData} object that describes
+     * Constructs an {@code OntologyAnnotationChangeData} object that describes
      * an {@link AddOntologyAnnotation} change for the {@link OWLAnnotation}
      * specified by the {@code annotation} parameter.
      * 

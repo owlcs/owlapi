@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/AnnotationValueShortFormProvider.java</file>
+    <line>200</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.AnnotationValueShortFormProvider AnnotationValueShortFormProvider(org.semanticweb.owlapi.model.OWLOntologySetProvider ontologySetProvider, org.semanticweb.owlapi.util.ShortFormProvider alternateShortFormProvider, org.semanticweb.owlapi.util.IRIShortFormProvider alternateIRIShortFormProvider, java.util.List&lt;org.semanticweb.owlapi.model.OWLAnnotationProperty&gt; annotationProperties, java.util.Map&lt;org.semanticweb.owlapi.model.OWLAnnotationProperty,java.util.List&lt;java.lang.String&gt;&gt; preferredLanguageMap, org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx&lt;java.lang.String&gt; literalRenderer)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constructor with too many parameters</problem_class>
+    <description>&lt;code&gt;AnnotationValueShortFormProvider()&lt;/code&gt; has too many parameters (num parameters = 6) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/change/ShortForm2AnnotationGenerator.java</file>
+    <line>58</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.change</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.change.ShortForm2AnnotationGenerator ShortForm2AnnotationGenerator(org.semanticweb.owlapi.model.OWLDataFactory df, org.semanticweb.owlapi.model.OWLOntologyManager ontologyManager, org.semanticweb.owlapi.model.OWLOntology ontology, org.semanticweb.owlapi.util.ShortFormProvider shortFormProvider, org.semanticweb.owlapi.model.IRI annotationIRI, java.lang.String languageTag)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constructor with too many parameters</problem_class>
+    <description>&lt;code&gt;ShortForm2AnnotationGenerator()&lt;/code&gt; has too many parameters (num parameters = 6) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/diff/Diff.java</file>
+    <line>47</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.diff</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.diff.Diff Diff(java.lang.String ftype, java.lang.String type, org.obolibrary.oboformat.model.Frame f1, org.obolibrary.oboformat.model.Frame f2, org.obolibrary.oboformat.model.Clause c, int n)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constructor with too many parameters</problem_class>
+    <description>&lt;code&gt;Diff()&lt;/code&gt; has too many parameters (num parameters = 6) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/TokenMgrError.java</file>
+    <line>94</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss1.parser.TokenMgrError TokenMgrError(boolean EOFSeen, int lexState, int errorLine, int errorColumn, java.lang.String errorAfter, char curChar, int reason)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constructor with too many parameters</problem_class>
+    <description>&lt;code&gt;TokenMgrError()&lt;/code&gt; has too many parameters (num parameters = 7) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/TokenMgrError.java</file>
+    <line>94</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.TokenMgrError TokenMgrError(boolean EOFSeen, int lexState, int errorLine, int errorColumn, java.lang.String errorAfter, char curChar, int reason)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constructor with too many parameters</problem_class>
+    <description>&lt;code&gt;TokenMgrError()&lt;/code&gt; has too many parameters (num parameters = 7) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/TokenMgrError.java</file>
+    <line>94</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.TokenMgrError TokenMgrError(boolean EOFSeen, int lexState, int errorLine, int errorColumn, java.lang.String errorAfter, char curChar, int reason)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constructor with too many parameters</problem_class>
+    <description>&lt;code&gt;TokenMgrError()&lt;/code&gt; has too many parameters (num parameters = 7) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntax.java</file>
+    <line>140</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntax ManchesterOWLSyntax(java.lang.String rendering, boolean frameKeyword, boolean sectionKeyword, boolean axiomKeyword, boolean classExpressionQuantifierKeyword, boolean classExpressionConnectiveKeyword)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constructor with too many parameters</problem_class>
+    <description>&lt;code&gt;ManchesterOWLSyntax()&lt;/code&gt; has too many parameters (num parameters = 6) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntax.java</file>
+    <line>130</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntax ManchesterOWLSyntax(java.lang.String rendering, boolean frameKeyword, boolean sectionKeyword, boolean axiomKeyword, boolean classExpressionQuantifierKeyword, boolean classExpressionConnectiveKeyword, java.lang.String keyword)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constructor with too many parameters</problem_class>
+    <description>&lt;code&gt;ManchesterOWLSyntax()&lt;/code&gt; has too many parameters (num parameters = 7) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/renderer/ParserException.java</file>
+    <line>185</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.renderer.ParserException ParserException(java.util.List&lt;java.lang.String&gt; tokenSeqence, int startPos, int lineNumber, int columnNumber, boolean classNameExpected, boolean objectPropertyNameExpected, boolean dataPropertyNameExpected, ...)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constructor with too many parameters</problem_class>
+    <description>&lt;code&gt;ParserException()&lt;/code&gt; has too many parameters (num parameters = 11) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/renderer/ParserException.java</file>
+    <line>95</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.renderer.ParserException ParserException(java.util.List&lt;java.lang.String&gt; tokenSequence, int startPos, int lineNumber, int columnNumber, boolean ontologyNameExpected, boolean classNameExpected, boolean objectPropertyNameExpected, ...)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constructor with too many parameters</problem_class>
+    <description>&lt;code&gt;ParserException()&lt;/code&gt; has too many parameters (num parameters = 13) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/renderer/ParserException.java</file>
+    <line>136</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.renderer.ParserException ParserException(java.util.List&lt;java.lang.String&gt; tokenSequence, int startPos, int lineNumber, int columnNumber, boolean classNameExpected, boolean objectPropertyNameExpected, boolean dataPropertyNameExpected, ...)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constructor with too many parameters</problem_class>
+    <description>&lt;code&gt;ParserException()&lt;/code&gt; has too many parameters (num parameters = 11) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/TokenMgrError.java</file>
+    <line>94</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.functional.parser.TokenMgrError TokenMgrError(boolean EOFSeen, int lexState, int errorLine, int errorColumn, java.lang.String errorAfter, char curChar, int reason)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constructor with too many parameters</problem_class>
+    <description>&lt;code&gt;TokenMgrError()&lt;/code&gt; has too many parameters (num parameters = 7) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/rio/src/main/java/org/semanticweb/owlapi/rio/OWLAPIRDFFormat.java</file>
+    <line>152</line>
+    <module>owlapi-rio</module>
+    <package>org.semanticweb.owlapi.rio</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rio.OWLAPIRDFFormat OWLAPIRDFFormat(java.lang.String name, java.lang.String mimeType, java.nio.charset.Charset charset, java.util.Collection&lt;java.lang.String&gt; fileExtensions, boolean supportsNamespaces, boolean supportsContexts, org.semanticweb.owlapi.model.OWLOntologyFormatFactory owlFormat)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constructor with too many parameters</problem_class>
+    <description>&lt;code&gt;OWLAPIRDFFormat()&lt;/code&gt; has too many parameters (num parameters = 7) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/rio/src/main/java/org/semanticweb/owlapi/rio/OWLAPIRDFFormat.java</file>
+    <line>128</line>
+    <module>owlapi-rio</module>
+    <package>org.semanticweb.owlapi.rio</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rio.OWLAPIRDFFormat OWLAPIRDFFormat(java.lang.String name, java.lang.String mimeType, java.nio.charset.Charset charset, java.lang.String fileExtension, boolean supportsNamespaces, boolean supportsContexts, org.semanticweb.owlapi.model.OWLOntologyFormatFactory owlFormat)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constructor with too many parameters</problem_class>
+    <description>&lt;code&gt;OWLAPIRDFFormat()&lt;/code&gt; has too many parameters (num parameters = 7) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/rio/src/main/java/org/semanticweb/owlapi/rio/OWLAPIRDFFormat.java</file>
+    <line>201</line>
+    <module>owlapi-rio</module>
+    <package>org.semanticweb.owlapi.rio</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rio.OWLAPIRDFFormat OWLAPIRDFFormat(java.lang.String name, java.lang.String mimeType, java.nio.charset.Charset charset, java.lang.String fileExtension, boolean supportsNamespaces, boolean supportsContexts, org.semanticweb.owlapi.model.OWLOntologyFormat owlFormat)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constructor with too many parameters</problem_class>
+    <description>&lt;code&gt;OWLAPIRDFFormat()&lt;/code&gt; has too many parameters (num parameters = 7) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/rio/src/main/java/org/semanticweb/owlapi/rio/OWLAPIRDFFormat.java</file>
+    <line>176</line>
+    <module>owlapi-rio</module>
+    <package>org.semanticweb.owlapi.rio</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rio.OWLAPIRDFFormat OWLAPIRDFFormat(java.lang.String name, java.util.Collection&lt;java.lang.String&gt; mimeTypes, java.nio.charset.Charset charset, java.util.Collection&lt;java.lang.String&gt; fileExtensions, boolean supportsNamespaces, boolean supportsContexts, org.semanticweb.owlapi.model.OWLOntologyFormatFactory owlFormat)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constructor with too many parameters</problem_class>
+    <description>&lt;code&gt;OWLAPIRDFFormat()&lt;/code&gt; has too many parameters (num parameters = 7) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/rio/src/main/java/org/semanticweb/owlapi/rio/OWLAPIRDFFormat.java</file>
+    <line>249</line>
+    <module>owlapi-rio</module>
+    <package>org.semanticweb.owlapi.rio</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rio.OWLAPIRDFFormat OWLAPIRDFFormat(java.lang.String name, java.util.Collection&lt;java.lang.String&gt; mimeTypes, java.nio.charset.Charset charset, java.util.Collection&lt;java.lang.String&gt; fileExtensions, boolean supportsNamespaces, boolean supportsContexts, org.semanticweb.owlapi.model.OWLOntologyFormat owlFormat)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constructor with too many parameters</problem_class>
+    <description>&lt;code&gt;OWLAPIRDFFormat()&lt;/code&gt; has too many parameters (num parameters = 7) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/rio/src/main/java/org/semanticweb/owlapi/rio/OWLAPIRDFFormat.java</file>
+    <line>225</line>
+    <module>owlapi-rio</module>
+    <package>org.semanticweb.owlapi.rio</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rio.OWLAPIRDFFormat OWLAPIRDFFormat(java.lang.String name, java.lang.String mimeType, java.nio.charset.Charset charset, java.util.Collection&lt;java.lang.String&gt; fileExtensions, boolean supportsNamespaces, boolean supportsContexts, org.semanticweb.owlapi.model.OWLOntologyFormat owlFormat)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constructor with too many parameters</problem_class>
+    <description>&lt;code&gt;OWLAPIRDFFormat()&lt;/code&gt; has too many parameters (num parameters = 7) #loc</description>
+  </problem>
+</problems>
+

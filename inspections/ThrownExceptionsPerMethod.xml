@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>162</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl void convertURL(java.lang.String iri, java.lang.String outFile, org.semanticweb.owlapi.model.OWLOntologyManager manager)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Method with too many exceptions declared</problem_class>
+    <description>&lt;code&gt;convertURL&lt;/code&gt; has too many exceptions declared (num exceptions = 4) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>198</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl void convertURL(java.lang.String iri, java.lang.String outFile, java.lang.String defaultOnt, org.semanticweb.owlapi.model.OWLOntologyManager manager)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Method with too many exceptions declared</problem_class>
+    <description>&lt;code&gt;convertURL&lt;/code&gt; has too many exceptions declared (num exceptions = 4) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/uk/ac/manchester/owl/owlapi/tutorial/examples/SimpleHierarchyExample.java</file>
+    <line>120</line>
+    <module>owlapi-contract</module>
+    <package>uk.ac.manchester.owl.owlapi.tutorial.examples</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.owl.owlapi.tutorial.examples.SimpleHierarchyExample void main(java.lang.String[] args)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Method with too many exceptions declared</problem_class>
+    <description>&lt;code&gt;main&lt;/code&gt; has too many exceptions declared (num exceptions = 4) #loc</description>
+  </problem>
+</problems>
+

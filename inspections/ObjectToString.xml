@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/io/RDFTriple.java</file>
+    <line>141</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.io</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.io.RDFTriple java.lang.String toString()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Call to default 'toString()'</problem_class>
+    <description>Call to default 'toString()' on &lt;code&gt;subject&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/io/RDFTriple.java</file>
+    <line>145</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.io</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.io.RDFTriple java.lang.String toString()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Call to default 'toString()'</problem_class>
+    <description>Call to default 'toString()' on &lt;code&gt;object&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/AnnotationChange.java</file>
+    <line>77</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.AnnotationChange org.semanticweb.owlapi.model.OWLAxiom getAxiom()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Call to default 'toString()'</problem_class>
+    <description>Call to default 'toString()' on &lt;code&gt;this&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/ImportChange.java</file>
+    <line>80</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.ImportChange org.semanticweb.owlapi.model.OWLAxiom getAxiom()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Call to default 'toString()'</problem_class>
+    <description>Call to default 'toString()' on &lt;code&gt;this&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/profiles/OWLProfileReport.java</file>
+    <line>69</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.profiles</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.profiles.OWLProfileReport java.lang.String toString()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Call to default 'toString()'</problem_class>
+    <description>Call to default 'toString()' on &lt;code&gt;na&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OwlStringTools.java</file>
+    <line>74</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OwlStringTools java.lang.String translate(java.util.Set&lt;org.semanticweb.owlapi.model.OWLAxiom&gt; axioms, org.semanticweb.owlapi.model.OWLOntologyManager translationManager)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Call to default 'toString()'</problem_class>
+    <description>Call to default 'toString()' on &lt;code&gt;writer&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/renderer/RDFXMLWriter.java</file>
+    <line>137</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.renderer.RDFXMLWriter void writeNodeIDAttribute(org.semanticweb.owlapi.io.RDFResource node)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Call to default 'toString()'</problem_class>
+    <description>Call to default 'toString()' on &lt;code&gt;node&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/PrimerTestCase.java</file>
+    <line>92</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.api.test.syntax.PrimerTestCase void shouldRDFXMLBeEquivalent()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Call to default 'toString()'</problem_class>
+    <description>Call to default 'toString()' on &lt;code&gt;v&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/PrimerTestCase.java</file>
+    <line>50</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.api.test.syntax.PrimerTestCase void shouldManchBeEquivalent()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Call to default 'toString()'</problem_class>
+    <description>Call to default 'toString()' on &lt;code&gt;v&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/PrimerTestCase.java</file>
+    <line>116</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.api.test.syntax.PrimerTestCase void shouldTURTLEBeEquivalent()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Call to default 'toString()'</problem_class>
+    <description>Call to default 'toString()' on &lt;code&gt;v&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/PrimerTestCase.java</file>
+    <line>104</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.api.test.syntax.PrimerTestCase void shouldOWLXMLBeEquivalent()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Call to default 'toString()'</problem_class>
+    <description>Call to default 'toString()' on &lt;code&gt;v&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/profiles/test/OWLProfileTestCase.java</file>
+    <line>182</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.profiles.test</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.profiles.test.OWLProfileTestCase$2 java.lang.String doDefault(org.semanticweb.owlapi.profiles.OWLProfileViolation&lt;?&gt; v)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Call to default 'toString()'</problem_class>
+    <description>Call to default 'toString()' on &lt;code&gt;v&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/explanation/util/DefinitionTracker.java</file>
+    <line>138</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.explanation.util</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.explanation.util.DefinitionTracker void ontologiesChanged(java.util.List&lt;? extends org.semanticweb.owlapi.model.OWLOntologyChange&lt;?&gt;&gt; changes)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Call to default 'toString()'</problem_class>
+    <description>Call to default 'toString()' on &lt;code&gt;change&lt;/code&gt; #loc</description>
+  </problem>
+</problems>
+

@@ -105,19 +105,19 @@ public abstract class OWLOntologyChange<T> implements HasSignature {
      * change.
      * 
      * @return The {@link OWLOntologyChangeData} associated with this
-     *         {@link OWLOntologyChange}.
+     *         {@code OWLOntologyChange}.
      */
     @Nonnull
     public abstract OWLOntologyChangeData<T> getChangeData();
 
     /**
      * Gets a {@link OWLOntologyChangeRecord} that is derived from this
-     * {@link OWLOntologyChange}'s {@link OWLOntologyID} and it's
+     * {@code OWLOntologyChange}'s {@link OWLOntologyID} and it's
      * {@link OWLOntologyChangeData}.
      * 
      * @return An {@link OWLOntologyChangeRecord} containing an
      *         {@link OWLOntologyID} equal to the {@link OWLOntologyID} of this
-     *         {@link OWLOntologyChange}'s {@link OWLOntology}. Not {@code null}
+     *         {@code OWLOntologyChange}'s {@link OWLOntology}. Not {@code null}
      *         .
      */
     @Nonnull

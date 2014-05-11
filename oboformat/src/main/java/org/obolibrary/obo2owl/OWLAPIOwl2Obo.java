@@ -1014,7 +1014,7 @@ public class OWLAPIOwl2Obo {
                         OWLAnnotationValue v = aan.getValue();
                         String xrefValue;
                         if (v instanceof IRI) {
-                            xrefValue = ((IRI) v).toString();
+                            xrefValue = v.toString();
                         } else {
                             xrefValue = ((OWLLiteral) v).getLiteral();
                         }
@@ -1095,7 +1095,7 @@ public class OWLAPIOwl2Obo {
                 OWLAnnotationValue v = aan.getValue();
                 String xrefValue;
                 if (v instanceof IRI) {
-                    xrefValue = ((IRI) v).toString();
+                    xrefValue = v.toString();
                 } else {
                     xrefValue = ((OWLLiteral) v).getLiteral();
                 }

@@ -1,0 +1,913 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLEquivalentObjectPropertiesAxiomImpl.java</file>
+    <line>39</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLEquivalentObjectPropertiesAxiomImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLClassImpl.java</file>
+    <line>51</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLClassImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLDataUnionOfImpl.java</file>
+    <line>36</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLDataUnionOfImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLObjectMaxCardinalityImpl.java</file>
+    <line>32</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLObjectMaxCardinalityImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLSymmetricObjectPropertyAxiomImpl.java</file>
+    <line>36</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLSymmetricObjectPropertyAxiomImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLObjectPropertyExpressionImpl.java</file>
+    <line>29</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLObjectPropertyExpressionImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLDisjointUnionAxiomImpl.java</file>
+    <line>43</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLDisjointUnionAxiomImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLFunctionalDataPropertyAxiomImpl.java</file>
+    <line>38</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLFunctionalDataPropertyAxiomImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLDisjointObjectPropertiesAxiomImpl.java</file>
+    <line>38</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLDisjointObjectPropertiesAxiomImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/SWRLDataRangeAtomImpl.java</file>
+    <line>32</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.SWRLDataRangeAtomImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLInverseObjectPropertiesAxiomImpl.java</file>
+    <line>42</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLInverseObjectPropertiesAxiomImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLSubAnnotationPropertyOfAxiomImpl.java</file>
+    <line>37</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLSubAnnotationPropertyOfAxiomImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLAsymmetricObjectPropertyAxiomImpl.java</file>
+    <line>34</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLAsymmetricObjectPropertyAxiomImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLNamedIndividualImpl.java</file>
+    <line>45</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLNamedIndividualImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLSubDataPropertyOfAxiomImpl.java</file>
+    <line>34</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLSubDataPropertyOfAxiomImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLDataPropertyAssertionAxiomImpl.java</file>
+    <line>37</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLDataPropertyAssertionAxiomImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLNegativeDataPropertyAssertionAxiomImpl.java</file>
+    <line>37</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLNegativeDataPropertyAssertionAxiomImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLObjectPropertyDomainAxiomImpl.java</file>
+    <line>35</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLObjectPropertyDomainAxiomImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLAnnotationPropertyRangeAxiomImpl.java</file>
+    <line>38</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLAnnotationPropertyRangeAxiomImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/SWRLObjectPropertyAtomImpl.java</file>
+    <line>31</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.SWRLObjectPropertyAtomImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/SWRLSameIndividualAtomImpl.java</file>
+    <line>33</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.SWRLSameIndividualAtomImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLDataIntersectionOfImpl.java</file>
+    <line>36</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLDataIntersectionOfImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLAnnotationAssertionAxiomImpl.java</file>
+    <line>39</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLAnnotationAssertionAxiomImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLTransitiveObjectPropertyAxiomImpl.java</file>
+    <line>35</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLTransitiveObjectPropertyAxiomImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLDataPropertyImpl.java</file>
+    <line>45</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLDataPropertyImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLDataPropertyDomainAxiomImpl.java</file>
+    <line>38</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLDataPropertyDomainAxiomImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLPropertyDomainAxiomImpl.java</file>
+    <line>34</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLPropertyDomainAxiomImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLPropertyRangeAxiomImpl.java</file>
+    <line>36</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLPropertyRangeAxiomImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLNaryClassAxiomImpl.java</file>
+    <line>38</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLNaryClassAxiomImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/SWRLVariableImpl.java</file>
+    <line>33</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.SWRLVariableImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLObjectIntersectionOfImpl.java</file>
+    <line>34</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLObjectIntersectionOfImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLCardinalityRestrictionImpl.java</file>
+    <line>29</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLCardinalityRestrictionImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLDataCardinalityRestrictionImpl.java</file>
+    <line>29</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLDataCardinalityRestrictionImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLObjectAllValuesFromImpl.java</file>
+    <line>32</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLObjectAllValuesFromImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLDataOneOfImpl.java</file>
+    <line>42</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLDataOneOfImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLAnnotationPropertyDomainAxiomImpl.java</file>
+    <line>38</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLAnnotationPropertyDomainAxiomImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLDifferentIndividualsAxiomImpl.java</file>
+    <line>40</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLDifferentIndividualsAxiomImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLEquivalentDataPropertiesAxiomImpl.java</file>
+    <line>39</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLEquivalentDataPropertiesAxiomImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLDataPropertyRangeAxiomImpl.java</file>
+    <line>37</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLDataPropertyRangeAxiomImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLValueRestrictionImpl.java</file>
+    <line>29</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLValueRestrictionImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLUnaryPropertyAxiomImpl.java</file>
+    <line>32</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLUnaryPropertyAxiomImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/SWRLRuleImpl.java</file>
+    <line>57</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.SWRLRuleImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLDeclarationAxiomImpl.java</file>
+    <line>37</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLDeclarationAxiomImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLSameIndividualAxiomImpl.java</file>
+    <line>40</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLSameIndividualAxiomImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLAnnotationPropertyImpl.java</file>
+    <line>45</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLAnnotationPropertyImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLNaryPropertyAxiomImpl.java</file>
+    <line>40</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLNaryPropertyAxiomImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLObjectHasValueImpl.java</file>
+    <line>38</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLObjectHasValueImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLDataHasValueImpl.java</file>
+    <line>38</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLDataHasValueImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLAnnotationImpl.java</file>
+    <line>40</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLAnnotationImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLObjectOneOfImpl.java</file>
+    <line>39</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLObjectOneOfImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLObjectPropertyCharacteristicAxiomImpl.java</file>
+    <line>31</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLObjectPropertyCharacteristicAxiomImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLDataAllValuesFromImpl.java</file>
+    <line>32</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLDataAllValuesFromImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLAxiomImpl.java</file>
+    <line>39</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLAxiomImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLDataExactCardinalityImpl.java</file>
+    <line>36</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLDataExactCardinalityImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLObjectPropertyImpl.java</file>
+    <line>45</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLObjectPropertyImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/SWRLDifferentIndividualsAtomImpl.java</file>
+    <line>33</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.SWRLDifferentIndividualsAtomImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLFunctionalObjectPropertyAxiomImpl.java</file>
+    <line>35</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLFunctionalObjectPropertyAxiomImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLObjectInverseOfImpl.java</file>
+    <line>33</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLObjectInverseOfImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLSubObjectPropertyOfAxiomImpl.java</file>
+    <line>34</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLSubObjectPropertyOfAxiomImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLQuantifiedDataRestrictionImpl.java</file>
+    <line>26</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLQuantifiedDataRestrictionImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLDisjointDataPropertiesAxiomImpl.java</file>
+    <line>38</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLDisjointDataPropertiesAxiomImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLDataComplementOfImpl.java</file>
+    <line>38</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLDataComplementOfImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLNaryIndividualAxiomImpl.java</file>
+    <line>37</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLNaryIndividualAxiomImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLSubPropertyChainAxiomImpl.java</file>
+    <line>39</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLSubPropertyChainAxiomImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/SWRLIndividualArgumentImpl.java</file>
+    <line>33</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.SWRLIndividualArgumentImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLIrreflexiveObjectPropertyAxiomImpl.java</file>
+    <line>35</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLIrreflexiveObjectPropertyAxiomImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLDataSomeValuesFromImpl.java</file>
+    <line>32</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLDataSomeValuesFromImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLIndividualRelationshipAxiomImpl.java</file>
+    <line>37</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLIndividualRelationshipAxiomImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLObjectPropertyAssertionAxiomImpl.java</file>
+    <line>37</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLObjectPropertyAssertionAxiomImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLInverseFunctionalObjectPropertyAxiomImpl.java</file>
+    <line>35</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLInverseFunctionalObjectPropertyAxiomImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLObjectExactCardinalityImpl.java</file>
+    <line>35</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLObjectExactCardinalityImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLObjectHasSelfImpl.java</file>
+    <line>34</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLObjectHasSelfImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLReflexiveObjectPropertyAxiomImpl.java</file>
+    <line>35</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLReflexiveObjectPropertyAxiomImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLDataPropertyCharacteristicAxiomImpl.java</file>
+    <line>30</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLDataPropertyCharacteristicAxiomImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLNegativeObjectPropertyAssertionAxiomImpl.java</file>
+    <line>36</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLNegativeObjectPropertyAssertionAxiomImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLDatatypeDefinitionAxiomImpl.java</file>
+    <line>39</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLDatatypeDefinitionAxiomImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLClassAssertionAxiomImpl.java</file>
+    <line>40</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLClassAssertionAxiomImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLObjectSomeValuesFromImpl.java</file>
+    <line>32</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLObjectSomeValuesFromImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLDatatypeRestrictionImpl.java</file>
+    <line>42</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLDatatypeRestrictionImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLEquivalentClassesAxiomImpl.java</file>
+    <line>45</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLEquivalentClassesAxiomImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLHasKeyAxiomImpl.java</file>
+    <line>42</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLHasKeyAxiomImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLSubClassOfAxiomImpl.java</file>
+    <line>37</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLSubClassOfAxiomImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLQuantifiedObjectRestrictionImpl.java</file>
+    <line>26</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLQuantifiedObjectRestrictionImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/SWRLDataPropertyAtomImpl.java</file>
+    <line>32</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.SWRLDataPropertyAtomImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLDatatypeImpl.java</file>
+    <line>49</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLDatatypeImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLObjectUnionOfImpl.java</file>
+    <line>34</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLObjectUnionOfImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLObjectCardinalityRestrictionImpl.java</file>
+    <line>29</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLObjectCardinalityRestrictionImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLQuantifiedRestrictionImpl.java</file>
+    <line>29</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLQuantifiedRestrictionImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLRestrictionImpl.java</file>
+    <line>22</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLRestrictionImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/SWRLBuiltInAtomImpl.java</file>
+    <line>40</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.SWRLBuiltInAtomImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLNaryBooleanClassExpressionImpl.java</file>
+    <line>34</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLNaryBooleanClassExpressionImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLPropertyExpressionImpl.java</file>
+    <line>22</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLPropertyExpressionImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLSubPropertyAxiomImpl.java</file>
+    <line>33</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLSubPropertyAxiomImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLDataMinCardinalityImpl.java</file>
+    <line>32</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLDataMinCardinalityImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLObjectComplementOfImpl.java</file>
+    <line>34</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLObjectComplementOfImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLDataMaxCardinalityImpl.java</file>
+    <line>32</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLDataMaxCardinalityImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLDisjointClassesAxiomImpl.java</file>
+    <line>37</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLDisjointClassesAxiomImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLObjectPropertyRangeAxiomImpl.java</file>
+    <line>35</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLObjectPropertyRangeAxiomImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/SWRLLiteralArgumentImpl.java</file>
+    <line>33</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.SWRLLiteralArgumentImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLObjectMinCardinalityImpl.java</file>
+    <line>32</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLObjectMinCardinalityImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/SWRLClassAtomImpl.java</file>
+    <line>32</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.SWRLClassAtomImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">equals() and hashCode() not paired</problem_class>
+    <description>Class has &lt;code&gt;equals()&lt;/code&gt; defined but does not define &lt;code&gt;hashCode()&lt;/code&gt;</description>
+  </problem>
+</problems>
+

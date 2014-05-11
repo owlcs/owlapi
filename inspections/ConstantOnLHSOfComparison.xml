@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/OWLOntologyFormatFactoryImpl.java</file>
+    <line>125</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.OWLOntologyFormatFactoryImpl boolean equals(java.lang.Object other)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant on left side of comparison</problem_class>
+    <description>&lt;code&gt;null == other&lt;/code&gt;: constant on left side of comparison #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/rio/src/main/java/org/semanticweb/owlapi/formats/AbstractOWLOntologyFormatFactory.java</file>
+    <line>61</line>
+    <module>owlapi-rio</module>
+    <package>org.semanticweb.owlapi.formats</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.formats.AbstractOWLOntologyFormatFactory boolean equals(java.lang.Object other)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant on left side of comparison</problem_class>
+    <description>&lt;code&gt;null == other&lt;/code&gt;: constant on left side of comparison #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/RDFParser.java</file>
+    <line>432</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.RDFParser java.util.Map&lt;java.lang.String,java.lang.String&gt; parseStringArguments(java.lang.String string)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant on left side of comparison</problem_class>
+    <description>&lt;code&gt;'=' != tokenizer.nextToken()&lt;/code&gt;: constant on left side of comparison #loc</description>
+  </problem>
+</problems>
+

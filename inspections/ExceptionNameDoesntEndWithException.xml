@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/TokenMgrError.java</file>
+    <line>19</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.krss1.parser.TokenMgrError" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Exception class name does not end with 'Exception'</problem_class>
+    <description>Exception class name &lt;code&gt;TokenMgrError&lt;/code&gt; does not end with 'Exception' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/TokenMgrError.java</file>
+    <line>19</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.krss2.parser.TokenMgrError" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Exception class name does not end with 'Exception'</problem_class>
+    <description>Exception class name &lt;code&gt;TokenMgrError&lt;/code&gt; does not end with 'Exception' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/TokenMgrError.java</file>
+    <line>19</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.TokenMgrError" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Exception class name does not end with 'Exception'</problem_class>
+    <description>Exception class name &lt;code&gt;TokenMgrError&lt;/code&gt; does not end with 'Exception' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/TokenMgrError.java</file>
+    <line>19</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.functional.parser.TokenMgrError" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Exception class name does not end with 'Exception'</problem_class>
+    <description>Exception class name &lt;code&gt;TokenMgrError&lt;/code&gt; does not end with 'Exception' #loc</description>
+  </problem>
+</problems>
+

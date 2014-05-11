@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/SerializationTest.java</file>
+    <line>116</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.SerializationTest owlpropertyexpression" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Zero-length array allocation</problem_class>
+    <description>Allocation of zero length array #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/profiles/test/OWLProfileTestCase.java</file>
+    <line>1232</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.profiles.test</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.profiles.test.OWLProfileTestCase void shouldCreateViolationForOWLHasKeyAxiomInOWL2ELProfile()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Zero-length array allocation</problem_class>
+    <description>Allocation of zero length array #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/profiles/test/OWLProfileTestCase.java</file>
+    <line>281</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.profiles.test</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.profiles.test.OWLProfileTestCase void shouldCreateViolationForOWLDataPropertyInOWL2DLProfile1()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Zero-length array allocation</problem_class>
+    <description>Allocation of zero length array #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/profiles/test/OWLProfileTestCase.java</file>
+    <line>306</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.profiles.test</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.profiles.test.OWLProfileTestCase void shouldCreateViolationForOWLDataPropertyInOWL2DLProfile3()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Zero-length array allocation</problem_class>
+    <description>Allocation of zero length array #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/profiles/test/OWLProfileTestCase.java</file>
+    <line>1858</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.profiles.test</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.profiles.test.OWLProfileTestCase void shouldCreateViolationForOWLFunctionalDataPropertyAxiomInOWL2RLProfile()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Zero-length array allocation</problem_class>
+    <description>Allocation of zero length array #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/profiles/test/OWLProfileTestCase.java</file>
+    <line>1344</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.profiles.test</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.profiles.test.OWLProfileTestCase void shouldCreateViolationForOWLDatatypeInOWL2QLProfile()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Zero-length array allocation</problem_class>
+    <description>Allocation of zero length array #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/profiles/test/OWLProfileTestCase.java</file>
+    <line>885</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.profiles.test</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.profiles.test.OWLProfileTestCase void shouldCreateViolationForOWLDatatypeInOWL2ELProfile()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Zero-length array allocation</problem_class>
+    <description>Allocation of zero length array #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/profiles/test/OWLProfileTestCase.java</file>
+    <line>318</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.profiles.test</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.profiles.test.OWLProfileTestCase void shouldCreateViolationForOWLDataPropertyInOWL2DLProfile4()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Zero-length array allocation</problem_class>
+    <description>Allocation of zero length array #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/profiles/test/OWLProfileTestCase.java</file>
+    <line>1999</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.profiles.test</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.profiles.test.OWLProfileTestCase void shouldCreateViolationForOWLDatatypeInOWL2RLProfile()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Zero-length array allocation</problem_class>
+    <description>Allocation of zero length array #loc</description>
+  </problem>
+</problems>
+

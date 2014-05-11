@@ -103,7 +103,7 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
      * Gets all of the built in datatype IRIs.
      * 
      * @return A set of IRIs corresponding to the set of IRIs of all built in
-     *         {@link OWL2Datatype}s.
+     *         {@code OWL2Datatype}s.
      */
     @Nonnull
     public static Set<IRI> getDatatypeIRIs() {
@@ -145,11 +145,11 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
 
     /**
      * Given an IRI that identifies an {@link OWLDatatype}, this method obtains
-     * the corresponding {@link OWL2Datatype}.
+     * the corresponding {@code OWL2Datatype}.
      * 
      * @param datatype
      *        The datatype IRI. Not {@code null}.
-     * @return The {@link OWL2Datatype} that has the specified {@link IRI}.
+     * @return The {@code OWL2Datatype} that has the specified {@link IRI}.
      * @throws OWLRuntimeException
      *         if the specified IRI is not a built in datatype IRI.
      */
@@ -259,7 +259,7 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
      * @param factory
      *        the OWLDataFactory. Not {@code null}.
      * @return An {@link OWLDatatype} that has the same IRI as this
-     *         {@link OWL2Datatype}. Not {@code null}.
+     *         {@code OWL2Datatype}. Not {@code null}.
      */
     @Nonnull
     public OWLDatatype getDatatype(@Nonnull OWLDataFactory factory) {

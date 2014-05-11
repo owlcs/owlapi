@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <entry_point TYPE="package" FQNAME="org.obolibrary.obo2owl" />
+    <problem_class>Package naming convention</problem_class>
+    <hints />
+    <description>Package name &lt;code&gt;obo2owl&lt;/code&gt; doesn't match regex '[a-z]*'</description>
+  </problem>
+  <problem>
+    <entry_point TYPE="package" FQNAME="org.semanticweb.owlapi.rio.io" />
+    <problem_class>Package naming convention</problem_class>
+    <hints />
+    <description>Package name &lt;code&gt;io&lt;/code&gt; is too short</description>
+  </problem>
+  <problem>
+    <entry_point TYPE="package" FQNAME="uk.ac" />
+    <problem_class>Package naming convention</problem_class>
+    <hints />
+    <description>Package name &lt;code&gt;ac&lt;/code&gt; is too short</description>
+  </problem>
+  <problem>
+    <entry_point TYPE="package" FQNAME="org.semanticweb.owlapi.io" />
+    <problem_class>Package naming convention</problem_class>
+    <hints />
+    <description>Package name &lt;code&gt;io&lt;/code&gt; is too short</description>
+  </problem>
+  <problem>
+    <entry_point TYPE="package" FQNAME="org.semanticweb.owlapi.krss2" />
+    <problem_class>Package naming convention</problem_class>
+    <hints />
+    <description>Package name &lt;code&gt;krss2&lt;/code&gt; doesn't match regex '[a-z]*'</description>
+  </problem>
+  <problem>
+    <entry_point TYPE="package" FQNAME="org.semanticweb.owlapi.krss1" />
+    <problem_class>Package naming convention</problem_class>
+    <hints />
+    <description>Package name &lt;code&gt;krss1&lt;/code&gt; doesn't match regex '[a-z]*'</description>
+  </problem>
+  <problem>
+    <entry_point TYPE="package" FQNAME="uk" />
+    <problem_class>Package naming convention</problem_class>
+    <hints />
+    <description>Package name &lt;code&gt;uk&lt;/code&gt; is too short</description>
+  </problem>
+  <problem>
+    <entry_point TYPE="package" FQNAME="uk.ac.manchester.owl.owlapi.tutorialowled2011" />
+    <problem_class>Package naming convention</problem_class>
+    <hints />
+    <description>Package name &lt;code&gt;tutorialowled2011&lt;/code&gt; is too long</description>
+  </problem>
+  <problem>
+    <entry_point TYPE="package" FQNAME="org.semanticweb.owlapi.reasoner.knowledgeexploration" />
+    <problem_class>Package naming convention</problem_class>
+    <hints />
+    <description>Package name &lt;code&gt;knowledgeexploration&lt;/code&gt; is too long</description>
+  </problem>
+  <problem>
+    <entry_point TYPE="package" FQNAME="com.clarkparsia.owlapi.explanation.io" />
+    <problem_class>Package naming convention</problem_class>
+    <hints />
+    <description>Package name &lt;code&gt;io&lt;/code&gt; is too short</description>
+  </problem>
+  <problem>
+    <entry_point TYPE="package" FQNAME="uk.ac.manchester.cs" />
+    <problem_class>Package naming convention</problem_class>
+    <hints />
+    <description>Package name &lt;code&gt;cs&lt;/code&gt; is too short</description>
+  </problem>
+</problems>
+

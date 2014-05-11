@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/io/AbstractOWLParser.java</file>
+    <line>83</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.io</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.io.AbstractOWLParser java.lang.String getRequestTypes()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Method returns the same value</problem_class>
+    <description>Method always returns &lt;code&gt;&quot;application/rdf+xml, application/xml; q=0.5, text/xml; q=0.3, */*; q=0.2&quot;&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/OWLAxiomFilter.java</file>
+    <line>26</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.OWLAxiomFilter boolean passes(org.semanticweb.owlapi.model.OWLAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Method returns the same value</problem_class>
+    <description>All implementations of this method always return &lt;code&gt;true&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/ProgressMonitor.java</file>
+    <line>54</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.ProgressMonitor boolean isCancelled()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Method returns the same value</problem_class>
+    <description>All implementations of this method always return &lt;code&gt;false&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLOntologyFormat.java</file>
+    <line>134</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.OWLOntologyFormat boolean isTextual()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Method returns the same value</problem_class>
+    <description>Method always returns &lt;code&gt;true&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/vocab/OWLFacet.java</file>
+    <line>97</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.vocab</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.vocab.OWLFacet java.util.Set&lt;org.semanticweb.owlapi.model.IRI&gt; getFacetIRIs()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Method returns the same value</problem_class>
+    <description>Method always returns &lt;code&gt;org.semanticweb.owlapi.vocab.OWLFacet.FACET_IRIS&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/change/OWLOntologyChangeRecord.java</file>
+    <line>185</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.change</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.change.OWLOntologyChangeRecord java.lang.String getName()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Method returns the same value</problem_class>
+    <description>Method and all its derivables always return &lt;code&gt;&quot;OWLOntologyChangeRecord&quot;&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/reasoner/OWLReasonerFactory.java</file>
+    <line>32</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.reasoner</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.reasoner.OWLReasonerFactory java.lang.String getReasonerName()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Method returns the same value</problem_class>
+    <description>All implementations of this method always return &lt;code&gt;&quot;Structural Reasoner&quot;&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/reasoner/OWLReasoner.java</file>
+    <line>513</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.reasoner</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.reasoner.OWLReasoner boolean isEntailmentCheckingSupported(org.semanticweb.owlapi.model.AxiomType&lt;?&gt; axiomType)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Method returns the same value</problem_class>
+    <description>All implementations of this method always return &lt;code&gt;false&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/reasoner/OWLReasoner.java</file>
+    <line>360</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.reasoner</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.reasoner.OWLReasoner boolean isPrecomputed(org.semanticweb.owlapi.reasoner.InferenceType inferenceType)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Method returns the same value</problem_class>
+    <description>All implementations of this method always return &lt;code&gt;true&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/reasoner/OWLReasoner.java</file>
+    <line>380</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.reasoner</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.reasoner.OWLReasoner boolean isConsistent()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Method returns the same value</problem_class>
+    <description>All implementations of this method always return &lt;code&gt;true&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/reasoner/OWLReasoner.java</file>
+    <line>227</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.reasoner</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.reasoner.OWLReasoner java.lang.String getReasonerName()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Method returns the same value</problem_class>
+    <description>All implementations of this method always return &lt;code&gt;&quot;Structural Reasoner&quot;&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/expression/OWLOntologyChecker.java</file>
+    <line>26</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.expression</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.expression.OWLOntologyChecker org.semanticweb.owlapi.model.OWLOntology getOntology(java.lang.String name)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Method returns the same value</problem_class>
+    <description>All implementations of this method always return &lt;code&gt;null&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/IdTranslator.java</file>
+    <line>25</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.IdTranslator java.lang.String translateIRI(org.semanticweb.owlapi.model.IRI iri)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Method returns the same value</problem_class>
+    <description>Method always returns &lt;code&gt;null&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>866</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl org.semanticweb.owlapi.model.OWLAxiom trRelationUnionOf(java.lang.String id, org.semanticweb.owlapi.model.OWLProperty p, java.util.Collection&lt;org.obolibrary.oboformat.model.Clause&gt; clauses)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Method returns the same value</problem_class>
+    <description>Method always returns &lt;code&gt;null&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>888</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl org.semanticweb.owlapi.model.OWLAxiom trRelationIntersectionOf(java.lang.String id, org.semanticweb.owlapi.model.OWLProperty p, java.util.Collection&lt;org.obolibrary.oboformat.model.Clause&gt; clauses)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Method returns the same value</problem_class>
+    <description>Method always returns &lt;code&gt;null&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/OBOFormatParser.java</file>
+    <line>934</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.parser.OBOFormatParser boolean parseISODate(org.obolibrary.oboformat.model.Clause cl)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Method returns the same value</problem_class>
+    <description>Method always returns &lt;code&gt;true&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/OBOFormatParser.java</file>
+    <line>126</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.parser.OBOFormatParser.MyStream java.lang.String getTag()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Method returns the same value</problem_class>
+    <description>Method always returns &lt;code&gt;&quot;&quot;&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/OBOFormatParser.java</file>
+    <line>1243</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.parser.OBOFormatParser boolean parseQual(org.obolibrary.oboformat.model.Clause cl)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Method returns the same value</problem_class>
+    <description>Method always returns &lt;code&gt;true&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/OBOFormatParser.java</file>
+    <line>1203</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.parser.OBOFormatParser boolean parseDirectXref(org.obolibrary.oboformat.model.Clause cl)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Method returns the same value</problem_class>
+    <description>Method always returns &lt;code&gt;true&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/OBOFormatParser.java</file>
+    <line>1175</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.parser.OBOFormatParser boolean parseZeroOrMoreXrefs(org.obolibrary.oboformat.model.Clause cl)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Method returns the same value</problem_class>
+    <description>Method always returns &lt;code&gt;true&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/OBOFormatParser.java</file>
+    <line>994</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.parser.OBOFormatParser boolean parseImport(org.obolibrary.oboformat.model.Clause cl)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Method returns the same value</problem_class>
+    <description>Method always returns &lt;code&gt;true&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/TripleHandlers.java</file>
+    <line>2709</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.TripleHandlers.TypeAxiomHandler org.semanticweb.owlapi.vocab.OWLRDFVocabulary getTargetTriplePredicate()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Method returns the same value</problem_class>
+    <description>Method always returns &lt;code&gt;org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ANNOTATED_TARGET&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/TripleHandlers.java</file>
+    <line>2719</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.TripleHandlers.TypeAxiomHandler org.semanticweb.owlapi.vocab.OWLRDFVocabulary getPropertyTriplePredicate()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Method returns the same value</problem_class>
+    <description>Method always returns &lt;code&gt;org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ANNOTATED_PROPERTY&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/TripleHandlers.java</file>
+    <line>2729</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.TripleHandlers.TypeAxiomHandler org.semanticweb.owlapi.vocab.OWLRDFVocabulary getSourceTriplePredicate()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Method returns the same value</problem_class>
+    <description>Method always returns &lt;code&gt;org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ANNOTATED_SOURCE&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/turtle/parser/Token.java</file>
+    <line>17</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.turtle.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.turtle.parser.Token java.lang.Object getValue()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Method returns the same value</problem_class>
+    <description>Method always returns &lt;code&gt;null&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/Token.java</file>
+    <line>29</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss1.parser.Token java.lang.Object getValue()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Method returns the same value</problem_class>
+    <description>Method always returns &lt;code&gt;null&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/Token.java</file>
+    <line>29</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.Token java.lang.Object getValue()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Method returns the same value</problem_class>
+    <description>Method always returns &lt;code&gt;null&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/Token.java</file>
+    <line>29</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.Token java.lang.Object getValue()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Method returns the same value</problem_class>
+    <description>Method always returns &lt;code&gt;null&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/renderer/RenderingDirector.java</file>
+    <line>25</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.renderer.RenderingDirector boolean renderEmptyFrameSection(org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntax frameSectionKeyword, org.semanticweb.owlapi.model.OWLOntology... ontologies)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Method returns the same value</problem_class>
+    <description>All implementations of this method always return &lt;code&gt;false&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/Token.java</file>
+    <line>29</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.functional.parser.Token java.lang.Object getValue()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Method returns the same value</problem_class>
+    <description>Method always returns &lt;code&gt;null&lt;/code&gt;</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/explanation/util/ExplanationProgressMonitor.java</file>
+    <line>31</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.explanation.util</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.explanation.util.ExplanationProgressMonitor boolean isCancelled()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Method returns the same value</problem_class>
+    <description>All implementations of this method always return &lt;code&gt;false&lt;/code&gt;</description>
+  </problem>
+</problems>
+

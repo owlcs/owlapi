@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/io/UnparsableOntologyException.java</file>
+    <line>35</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.io</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.io.UnparsableOntologyException includeStackTraceInMessage" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Non-final field of exception class</problem_class>
+    <description>Non-final field &lt;code&gt;includeStackTraceInMessage&lt;/code&gt; of exception class #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/turtle/parser/ParseException.java</file>
+    <line>39</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.turtle.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.turtle.parser.ParseException currentToken" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Non-final field of exception class</problem_class>
+    <description>Non-final field &lt;code&gt;currentToken&lt;/code&gt; of exception class #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/turtle/parser/ParseException.java</file>
+    <line>41</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.turtle.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.turtle.parser.ParseException tokenImage" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Non-final field of exception class</problem_class>
+    <description>Non-final field &lt;code&gt;tokenImage&lt;/code&gt; of exception class #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/turtle/parser/ParseException.java</file>
+    <line>89</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.turtle.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.turtle.parser.ParseException eol" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Non-final field of exception class</problem_class>
+    <description>Non-final field &lt;code&gt;eol&lt;/code&gt; of exception class #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/turtle/parser/ParseException.java</file>
+    <line>40</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.turtle.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.turtle.parser.ParseException expectedTokenSequences" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Non-final field of exception class</problem_class>
+    <description>Non-final field &lt;code&gt;expectedTokenSequences&lt;/code&gt; of exception class #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/ParseException.java</file>
+    <line>41</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss1.parser.ParseException tokenImage" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Non-final field of exception class</problem_class>
+    <description>Non-final field &lt;code&gt;tokenImage&lt;/code&gt; of exception class #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/ParseException.java</file>
+    <line>40</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss1.parser.ParseException expectedTokenSequences" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Non-final field of exception class</problem_class>
+    <description>Non-final field &lt;code&gt;expectedTokenSequences&lt;/code&gt; of exception class #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/ParseException.java</file>
+    <line>39</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss1.parser.ParseException currentToken" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Non-final field of exception class</problem_class>
+    <description>Non-final field &lt;code&gt;currentToken&lt;/code&gt; of exception class #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/ParseException.java</file>
+    <line>89</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss1.parser.ParseException eol" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Non-final field of exception class</problem_class>
+    <description>Non-final field &lt;code&gt;eol&lt;/code&gt; of exception class #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/TokenMgrError.java</file>
+    <line>26</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss1.parser.TokenMgrError errorCode" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Non-final field of exception class</problem_class>
+    <description>Non-final field &lt;code&gt;errorCode&lt;/code&gt; of exception class #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/ParseException.java</file>
+    <line>39</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.parser.ParseException currentToken" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Non-final field of exception class</problem_class>
+    <description>Non-final field &lt;code&gt;currentToken&lt;/code&gt; of exception class #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/ParseException.java</file>
+    <line>40</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.parser.ParseException expectedTokenSequences" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Non-final field of exception class</problem_class>
+    <description>Non-final field &lt;code&gt;expectedTokenSequences&lt;/code&gt; of exception class #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/ParseException.java</file>
+    <line>89</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.parser.ParseException eol" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Non-final field of exception class</problem_class>
+    <description>Non-final field &lt;code&gt;eol&lt;/code&gt; of exception class #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/ParseException.java</file>
+    <line>41</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.parser.ParseException tokenImage" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Non-final field of exception class</problem_class>
+    <description>Non-final field &lt;code&gt;tokenImage&lt;/code&gt; of exception class #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/TokenMgrError.java</file>
+    <line>26</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.parser.TokenMgrError errorCode" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Non-final field of exception class</problem_class>
+    <description>Non-final field &lt;code&gt;errorCode&lt;/code&gt; of exception class #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/ParseException.java</file>
+    <line>41</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.ParseException tokenImage" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Non-final field of exception class</problem_class>
+    <description>Non-final field &lt;code&gt;tokenImage&lt;/code&gt; of exception class #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/ParseException.java</file>
+    <line>39</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.ParseException currentToken" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Non-final field of exception class</problem_class>
+    <description>Non-final field &lt;code&gt;currentToken&lt;/code&gt; of exception class #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/ParseException.java</file>
+    <line>89</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.ParseException eol" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Non-final field of exception class</problem_class>
+    <description>Non-final field &lt;code&gt;eol&lt;/code&gt; of exception class #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/ParseException.java</file>
+    <line>40</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.ParseException expectedTokenSequences" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Non-final field of exception class</problem_class>
+    <description>Non-final field &lt;code&gt;expectedTokenSequences&lt;/code&gt; of exception class #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/TokenMgrError.java</file>
+    <line>26</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.TokenMgrError errorCode" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Non-final field of exception class</problem_class>
+    <description>Non-final field &lt;code&gt;errorCode&lt;/code&gt; of exception class #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/renderer/ParserException.java</file>
+    <line>47</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.renderer</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.renderer.ParserException objectPropertyNameExpected" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Non-final field of exception class</problem_class>
+    <description>Non-final field &lt;code&gt;objectPropertyNameExpected&lt;/code&gt; of exception class #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/renderer/ParserException.java</file>
+    <line>45</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.renderer</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.renderer.ParserException classNameExpected" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Non-final field of exception class</problem_class>
+    <description>Non-final field &lt;code&gt;classNameExpected&lt;/code&gt; of exception class #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/renderer/ParserException.java</file>
+    <line>53</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.renderer</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.renderer.ParserException datatypeNameExpected" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Non-final field of exception class</problem_class>
+    <description>Non-final field &lt;code&gt;datatypeNameExpected&lt;/code&gt; of exception class #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/renderer/ParserException.java</file>
+    <line>55</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.renderer</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.renderer.ParserException integerExpected" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Non-final field of exception class</problem_class>
+    <description>Non-final field &lt;code&gt;integerExpected&lt;/code&gt; of exception class #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/renderer/ParserException.java</file>
+    <line>37</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.renderer</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.renderer.ParserException currentToken" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Non-final field of exception class</problem_class>
+    <description>Non-final field &lt;code&gt;currentToken&lt;/code&gt; of exception class #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/renderer/ParserException.java</file>
+    <line>57</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.renderer</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.renderer.ParserException annotationPropertyExpected" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Non-final field of exception class</problem_class>
+    <description>Non-final field &lt;code&gt;annotationPropertyExpected&lt;/code&gt; of exception class #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/renderer/ParserException.java</file>
+    <line>49</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.renderer</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.renderer.ParserException dataPropertyNameExpected" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Non-final field of exception class</problem_class>
+    <description>Non-final field &lt;code&gt;dataPropertyNameExpected&lt;/code&gt; of exception class #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/renderer/ParserException.java</file>
+    <line>59</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.renderer</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.renderer.ParserException ontologyNameExpected" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Non-final field of exception class</problem_class>
+    <description>Non-final field &lt;code&gt;ontologyNameExpected&lt;/code&gt; of exception class #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/renderer/ParserException.java</file>
+    <line>51</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.renderer</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.renderer.ParserException individualNameExpected" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Non-final field of exception class</problem_class>
+    <description>Non-final field &lt;code&gt;individualNameExpected&lt;/code&gt; of exception class #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/ParseException.java</file>
+    <line>40</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.functional.parser.ParseException expectedTokenSequences" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Non-final field of exception class</problem_class>
+    <description>Non-final field &lt;code&gt;expectedTokenSequences&lt;/code&gt; of exception class #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/ParseException.java</file>
+    <line>39</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.functional.parser.ParseException currentToken" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Non-final field of exception class</problem_class>
+    <description>Non-final field &lt;code&gt;currentToken&lt;/code&gt; of exception class #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/ParseException.java</file>
+    <line>41</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.functional.parser.ParseException tokenImage" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Non-final field of exception class</problem_class>
+    <description>Non-final field &lt;code&gt;tokenImage&lt;/code&gt; of exception class #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/ParseException.java</file>
+    <line>89</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.functional.parser.ParseException eol" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Non-final field of exception class</problem_class>
+    <description>Non-final field &lt;code&gt;eol&lt;/code&gt; of exception class #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/TokenMgrError.java</file>
+    <line>26</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.functional.parser.TokenMgrError errorCode" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Non-final field of exception class</problem_class>
+    <description>Non-final field &lt;code&gt;errorCode&lt;/code&gt; of exception class #loc</description>
+  </problem>
+</problems>
+

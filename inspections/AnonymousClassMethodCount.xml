@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/io/SystemOutDocumentTarget.java</file>
+    <line>46</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.io</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.io.SystemOutDocumentTarget$1" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Anonymous inner class with too many methods</problem_class>
+    <description>Anonymous inner class with too many methods (method count = 2) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/AnnotationValueShortFormProvider.java</file>
+    <line>166</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.util.AnnotationValueShortFormProvider$1" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Anonymous inner class with too many methods</problem_class>
+    <description>Anonymous inner class with too many methods (method count = 3) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/search/Filters.java</file>
+    <line>314</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.search</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.search.Filters$15" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Anonymous inner class with too many methods</problem_class>
+    <description>Anonymous inner class with too many methods (method count = 2) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/search/Filters.java</file>
+    <line>293</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.search</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.search.Filters$14" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Anonymous inner class with too many methods</problem_class>
+    <description>Anonymous inner class with too many methods (method count = 2) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/profiles/OWLOntologyProfileWalker.java</file>
+    <line>41</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.profiles</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.profiles.OWLOntologyProfileWalker$1" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Anonymous inner class with too many methods</problem_class>
+    <description>Anonymous inner class with too many methods (method count = 3) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java</file>
+    <line>458</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.Internals$12" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Anonymous inner class with too many methods</problem_class>
+    <description>Anonymous inner class with too many methods (method count = 7) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java</file>
+    <line>509</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.Internals$13" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Anonymous inner class with too many methods</problem_class>
+    <description>Anonymous inner class with too many methods (method count = 7) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/AbstractEntityRegistrationManager.java</file>
+    <line>111</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.AbstractEntityRegistrationManager$1" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Anonymous inner class with too many methods</problem_class>
+    <description>Anonymous inner class with too many methods (method count = 2) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/rio/src/main/java/org/semanticweb/owlapi/rio/RioParserImpl.java</file>
+    <line>136</line>
+    <module>owlapi-rio</module>
+    <package>org.semanticweb.owlapi.rio</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.rio.RioParserImpl$1" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Anonymous inner class with too many methods</problem_class>
+    <description>Anonymous inner class with too many methods (method count = 3) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/rio/src/main/java/org/semanticweb/owlapi/rio/RioMemoryTripleSource.java</file>
+    <line>141</line>
+    <module>owlapi-rio</module>
+    <package>org.semanticweb.owlapi.rio</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.rio.RioMemoryTripleSource$1" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Anonymous inner class with too many methods</problem_class>
+    <description>Anonymous inner class with too many methods (method count = 3) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/macro/ManchesterSyntaxTool.java</file>
+    <line>117</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.macro</package>
+    <entry_point TYPE="class" FQNAME="org.obolibrary.macro.ManchesterSyntaxTool$1" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Anonymous inner class with too many methods</problem_class>
+    <description>Anonymous inner class with too many methods (method count = 2) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OboInOwlCardinalityTools.java</file>
+    <line>362</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="class" FQNAME="org.obolibrary.obo2owl.OboInOwlCardinalityTools$1" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Anonymous inner class with too many methods</problem_class>
+    <description>Anonymous inner class with too many methods (method count = 2) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/RDFRendererBase.java</file>
+    <line>541</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.rdf.RDFRendererBase$1" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Anonymous inner class with too many methods</problem_class>
+    <description>Anonymous inner class with too many methods (method count = 3) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/RDFRendererBase.java</file>
+    <line>576</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.rdf.RDFRendererBase$2" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Anonymous inner class with too many methods</problem_class>
+    <description>Anonymous inner class with too many methods (method count = 6) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/RDFXMLParser.java</file>
+    <line>58</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParser$1" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Anonymous inner class with too many methods</problem_class>
+    <description>Anonymous inner class with too many methods (method count = 2) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/RDFParser.java</file>
+    <line>61</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.RDFParser$1" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Anonymous inner class with too many methods</problem_class>
+    <description>Anonymous inner class with too many methods (method count = 3) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/latex/renderer/LatexObjectVisitor.java</file>
+    <line>943</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.latex.renderer</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.latex.renderer.LatexObjectVisitor$1" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Anonymous inner class with too many methods</problem_class>
+    <description>Anonymous inner class with too many methods (method count = 3) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/renderer/DLSyntaxHTMLOntologyStorer.java</file>
+    <line>56</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.renderer</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.dlsyntax.renderer.DLSyntaxHTMLOntologyStorer$1" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Anonymous inner class with too many methods</problem_class>
+    <description>Anonymous inner class with too many methods (method count = 2) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>2137</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser$4" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Anonymous inner class with too many methods</problem_class>
+    <description>Anonymous inner class with too many methods (method count = 6) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/renderer/FunctionalSyntaxObjectRenderer.java</file>
+    <line>240</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.renderer</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.functional.renderer.FunctionalSyntaxObjectRenderer$1" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Anonymous inner class with too many methods</problem_class>
+    <description>Anonymous inner class with too many methods (method count = 6) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/annotations/AnnotationShortFormProviderTestCase.java</file>
+    <line>110</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.annotations</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.annotations.AnnotationShortFormProviderTestCase$1" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Anonymous inner class with too many methods</problem_class>
+    <description>Anonymous inner class with too many methods (method count = 3) #loc</description>
+  </problem>
+</problems>
+

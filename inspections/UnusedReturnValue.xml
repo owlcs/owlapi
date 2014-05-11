@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/OWLObjectWalker.java</file>
+    <line>65</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.OWLObjectWalker java.lang.Object passToVisitor(org.semanticweb.owlapi.model.OWLObject o)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused method return value</problem_class>
+    <hints />
+    <description>Return value of the method is never used</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLOntologyManager.java</file>
+    <line>298</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.OWLOntologyManager java.util.List&lt;org.semanticweb.owlapi.model.OWLOntologyChange&lt;?&gt;&gt; removeAxiom(org.semanticweb.owlapi.model.OWLOntology ont, org.semanticweb.owlapi.model.OWLAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused method return value</problem_class>
+    <hints />
+    <description>Return value of the method is never used</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLOntologyManager.java</file>
+    <line>281</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.OWLOntologyManager java.util.List&lt;org.semanticweb.owlapi.model.OWLOntologyChange&lt;?&gt;&gt; addAxiom(org.semanticweb.owlapi.model.OWLOntology ont, org.semanticweb.owlapi.model.OWLAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused method return value</problem_class>
+    <hints />
+    <description>Return value of the method is never used</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLOntologyManager.java</file>
+    <line>332</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.OWLOntologyManager java.util.List&lt;org.semanticweb.owlapi.model.OWLOntologyChange&lt;?&gt;&gt; applyChange(org.semanticweb.owlapi.model.OWLOntologyChange&lt;?&gt; change)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused method return value</problem_class>
+    <hints />
+    <description>Return value of the method is never used</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/profiles/OWLProfileViolation.java</file>
+    <line>116</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.profiles</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.profiles.OWLProfileViolation O accept(org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx&lt;O&gt; visitor)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused method return value</problem_class>
+    <hints />
+    <description>Return value of the method is never used</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLAPIImplModule.java</file>
+    <line>73</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLAPIImplModule com.google.inject.multibindings.Multibinder&lt;T&gt; multibind(java.lang.Class&lt;T&gt; type, java.lang.Class&lt;? extends T&gt;... implementations)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused method return value</problem_class>
+    <hints />
+    <description>Return value of the method is never used</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java</file>
+    <line>789</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.Internals boolean addPropertyChainSubPropertyAxioms(org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom ax)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused method return value</problem_class>
+    <hints />
+    <description>Return value of the method is never used</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java</file>
+    <line>780</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.Internals boolean removeGeneralClassAxioms(org.semanticweb.owlapi.model.OWLClassAxiom ax)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused method return value</problem_class>
+    <hints />
+    <description>Return value of the method is never used</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java</file>
+    <line>799</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.Internals boolean removePropertyChainSubPropertyAxioms(org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom ax)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused method return value</problem_class>
+    <hints />
+    <description>Return value of the method is never used</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java</file>
+    <line>771</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.Internals boolean addGeneralClassAxioms(org.semanticweb.owlapi.model.OWLClassAxiom ax)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused method return value</problem_class>
+    <hints />
+    <description>Return value of the method is never used</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/MapPointer.java</file>
+    <line>84</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.MapPointer uk.ac.manchester.cs.owl.owlapi.MapPointer&lt;K,V&gt; init()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused method return value</problem_class>
+    <hints />
+    <description>Return value of the method is never used</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>801</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl org.semanticweb.owlapi.model.OWLNamedObject trTypedefFrame(org.obolibrary.oboformat.model.Frame typedefFrame)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused method return value</problem_class>
+    <hints />
+    <description>Return value of the method is never used</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>704</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl org.semanticweb.owlapi.model.OWLClassExpression trTermFrame(org.obolibrary.oboformat.model.Frame termFrame)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused method return value</problem_class>
+    <hints />
+    <description>Return value of the method is never used</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>755</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl org.semanticweb.owlapi.model.OWLNamedObject trTypedefToAnnotationProperty(org.obolibrary.oboformat.model.Frame typedefFrame)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused method return value</problem_class>
+    <hints />
+    <description>Return value of the method is never used</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/OBOFormatParser.java</file>
+    <line>934</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.parser.OBOFormatParser boolean parseISODate(org.obolibrary.oboformat.model.Clause cl)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused method return value</problem_class>
+    <hints />
+    <description>Return value of the method is never used</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/OBOFormatParser.java</file>
+    <line>1203</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.parser.OBOFormatParser boolean parseDirectXref(org.obolibrary.oboformat.model.Clause cl)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused method return value</problem_class>
+    <hints />
+    <description>Return value of the method is never used</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/OBOFormatParser.java</file>
+    <line>1175</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.parser.OBOFormatParser boolean parseZeroOrMoreXrefs(org.obolibrary.oboformat.model.Clause cl)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused method return value</problem_class>
+    <hints />
+    <description>Return value of the method is never used</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/OBOFormatParser.java</file>
+    <line>994</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.parser.OBOFormatParser boolean parseImport(org.obolibrary.oboformat.model.Clause cl)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused method return value</problem_class>
+    <hints />
+    <description>Return value of the method is never used</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/semanticweb/owlapi/oboformat/OWLAPIOBOModule.java</file>
+    <line>47</line>
+    <module>owlapi-oboformat</module>
+    <package>org.semanticweb.owlapi.oboformat</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.oboformat.OWLAPIOBOModule com.google.inject.multibindings.Multibinder&lt;T&gt; multibind(java.lang.Class&lt;T&gt; type, java.lang.Class&lt;? extends T&gt;... implementations)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused method return value</problem_class>
+    <hints />
+    <description>Return value of the method is never used</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/OWLAPIParsersModule.java</file>
+    <line>68</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.OWLAPIParsersModule com.google.inject.multibindings.Multibinder&lt;T&gt; multibind(java.lang.Class&lt;T&gt; type, java.lang.Class&lt;? extends T&gt;... implementations)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused method return value</problem_class>
+    <hints />
+    <description>Return value of the method is never used</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/OWLRDFConsumer.java</file>
+    <line>2244</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFConsumer boolean isTriplePresent(org.semanticweb.owlapi.model.IRI subject, org.semanticweb.owlapi.model.IRI predicate, org.semanticweb.owlapi.model.OWLLiteral object, boolean consume)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused method return value</problem_class>
+    <hints />
+    <description>Return value of the method is never used</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/OWLRDFConsumer.java</file>
+    <line>2182</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFConsumer boolean isTriplePresent(org.semanticweb.owlapi.model.IRI subject, org.semanticweb.owlapi.model.IRI predicate, org.semanticweb.owlapi.model.IRI object, boolean consume)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused method return value</problem_class>
+    <hints />
+    <description>Return value of the method is never used</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/RoundTripTest.java</file>
+    <line>30</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.RoundTripTest java.util.List&lt;org.obolibrary.oboformat.diff.Diff&gt; roundTripOBOFile(java.lang.String fn, boolean isExpectRoundtrip)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused method return value</problem_class>
+    <hints />
+    <description>Return value of the method is never used</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/OboFormatTestBasics.java</file>
+    <line>176</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OboFormatTestBasics org.semanticweb.owlapi.io.StringDocumentTarget writeOWL(org.semanticweb.owlapi.model.OWLOntology ontology)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused method return value</problem_class>
+    <hints />
+    <description>Return value of the method is never used</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/ManchesterParseErrorTestCase.java</file>
+    <line>51</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.api.test.syntax.ManchesterParseErrorTestCase org.semanticweb.owlapi.model.OWLClassExpression parse(java.lang.String text)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused method return value</problem_class>
+    <hints />
+    <description>Return value of the method is never used</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/Utf8TestCase.java</file>
+    <line>164</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.api.test.syntax.Utf8TestCase boolean checkOntology(org.semanticweb.owlapi.model.OWLOntology ontology, org.semanticweb.owlapi.model.OWLClass C, java.lang.String CHINESE)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused method return value</problem_class>
+    <hints />
+    <description>Return value of the method is never used</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/imports/TestImportByLocationTestCase.java</file>
+    <line>51</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.imports</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.api.test.imports.TestImportByLocationTestCase org.semanticweb.owlapi.model.OWLOntology createOntologyFile(org.semanticweb.owlapi.model.IRI iri, java.io.File f)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused method return value</problem_class>
+    <hints />
+    <description>Return value of the method is never used</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/baseclasses/TestBase.java</file>
+    <line>83</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.baseclasses</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.api.test.baseclasses.TestBase boolean equal(org.semanticweb.owlapi.model.OWLOntology ont1, org.semanticweb.owlapi.model.OWLOntology ont2)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused method return value</problem_class>
+    <hints />
+    <description>Return value of the method is never used</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BuilderLiteral.java</file>
+    <line>141</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapitools.builders.BuilderLiteral org.semanticweb.owlapitools.builders.BuilderLiteral withValue(float arg)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused method return value</problem_class>
+    <hints />
+    <description>Return value of the method is never used</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BuilderLiteral.java</file>
+    <line>165</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapitools.builders.BuilderLiteral org.semanticweb.owlapitools.builders.BuilderLiteral withLanguage(java.lang.String arg)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused method return value</problem_class>
+    <hints />
+    <description>Return value of the method is never used</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BuilderLiteral.java</file>
+    <line>153</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapitools.builders.BuilderLiteral org.semanticweb.owlapitools.builders.BuilderLiteral withLiteralForm(java.lang.String arg)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused method return value</problem_class>
+    <hints />
+    <description>Return value of the method is never used</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BuilderLiteral.java</file>
+    <line>129</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapitools.builders.BuilderLiteral org.semanticweb.owlapitools.builders.BuilderLiteral withValue(double arg)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused method return value</problem_class>
+    <hints />
+    <description>Return value of the method is never used</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BuilderLiteral.java</file>
+    <line>83</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapitools.builders.BuilderLiteral org.semanticweb.owlapitools.builders.BuilderLiteral withValue(int arg)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused method return value</problem_class>
+    <hints />
+    <description>Return value of the method is never used</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BuilderSWRLBuiltInAtom.java</file>
+    <line>84</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapitools.builders.BuilderSWRLBuiltInAtom org.semanticweb.owlapitools.builders.BuilderSWRLBuiltInAtom with(java.util.Collection&lt;org.semanticweb.owlapi.model.SWRLDArgument&gt; arg)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused method return value</problem_class>
+    <hints />
+    <description>Return value of the method is never used</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BuilderPropertyChain.java</file>
+    <line>59</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapitools.builders.BuilderPropertyChain org.semanticweb.owlapitools.builders.BuilderPropertyChain withPropertyInChain(org.semanticweb.owlapi.model.OWLObjectPropertyExpression arg)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unused method return value</problem_class>
+    <hints />
+    <description>Return value of the method is never used</description>
+  </problem>
+</problems>
+

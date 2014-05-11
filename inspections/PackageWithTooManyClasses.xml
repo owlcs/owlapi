@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <entry_point TYPE="package" FQNAME="org.semanticweb.owlapi.api.test.axioms" />
+    <problem_class>Package with too many classes</problem_class>
+    <hints />
+    <description>Package 'org.semanticweb.owlapi.api.test.axioms' contains too many classes (13 &gt; 10)</description>
+  </problem>
+  <problem>
+    <entry_point TYPE="package" FQNAME="org.semanticweb.owlapi.mansyntax.renderer" />
+    <problem_class>Package with too many classes</problem_class>
+    <hints />
+    <description>Package 'org.semanticweb.owlapi.mansyntax.renderer' contains too many classes (12 &gt; 10)</description>
+  </problem>
+  <problem>
+    <entry_point TYPE="package" FQNAME="org.semanticweb.owlapi.profiles" />
+    <problem_class>Package with too many classes</problem_class>
+    <hints />
+    <description>Package 'org.semanticweb.owlapi.profiles' contains too many classes (16 &gt; 10)</description>
+  </problem>
+  <problem>
+    <entry_point TYPE="package" FQNAME="org.obolibrary.obo2owl" />
+    <problem_class>Package with too many classes</problem_class>
+    <hints />
+    <description>Package 'org.obolibrary.obo2owl' contains too many classes (51 &gt; 10)</description>
+  </problem>
+  <problem>
+    <entry_point TYPE="package" FQNAME="org.semanticweb.owlapi.reasoner" />
+    <problem_class>Package with too many classes</problem_class>
+    <hints />
+    <description>Package 'org.semanticweb.owlapi.reasoner' contains too many classes (25 &gt; 10)</description>
+  </problem>
+  <problem>
+    <entry_point TYPE="package" FQNAME="org.semanticweb.owlapi.rdf.turtle.parser" />
+    <problem_class>Package with too many classes</problem_class>
+    <hints />
+    <description>Package 'org.semanticweb.owlapi.rdf.turtle.parser' contains too many classes (13 &gt; 10)</description>
+  </problem>
+  <problem>
+    <entry_point TYPE="package" FQNAME="org.semanticweb.owlapi.api.test" />
+    <problem_class>Package with too many classes</problem_class>
+    <hints />
+    <description>Package 'org.semanticweb.owlapi.api.test' contains too many classes (12 &gt; 10)</description>
+  </problem>
+  <problem>
+    <entry_point TYPE="package" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser" />
+    <problem_class>Package with too many classes</problem_class>
+    <hints />
+    <description>Package 'org.semanticweb.owlapi.rdf.rdfxml.parser' contains too many classes (38 &gt; 10)</description>
+  </problem>
+  <problem>
+    <entry_point TYPE="package" FQNAME="org.semanticweb.owlapi.change" />
+    <problem_class>Package with too many classes</problem_class>
+    <hints />
+    <description>Package 'org.semanticweb.owlapi.change' contains too many classes (28 &gt; 10)</description>
+  </problem>
+  <problem>
+    <entry_point TYPE="package" FQNAME="org.semanticweb.owlapi.api.test.anonymous" />
+    <problem_class>Package with too many classes</problem_class>
+    <hints />
+    <description>Package 'org.semanticweb.owlapi.api.test.anonymous' contains too many classes (15 &gt; 10)</description>
+  </problem>
+  <problem>
+    <entry_point TYPE="package" FQNAME="org.semanticweb.owlapi.owlxml.parser" />
+    <problem_class>Package with too many classes</problem_class>
+    <hints />
+    <description>Package 'org.semanticweb.owlapi.owlxml.parser' contains too many classes (120 &gt; 10)</description>
+  </problem>
+  <problem>
+    <entry_point TYPE="package" FQNAME="org.semanticweb.owlapi.krss2.renderer" />
+    <problem_class>Package with too many classes</problem_class>
+    <hints />
+    <description>Package 'org.semanticweb.owlapi.krss2.renderer' contains too many classes (11 &gt; 10)</description>
+  </problem>
+  <problem>
+    <entry_point TYPE="package" FQNAME="org.semanticweb.owlapi.api.test.individuals" />
+    <problem_class>Package with too many classes</problem_class>
+    <hints />
+    <description>Package 'org.semanticweb.owlapi.api.test.individuals' contains too many classes (12 &gt; 10)</description>
+  </problem>
+  <problem>
+    <entry_point TYPE="package" FQNAME="org.semanticweb.owlapi.io" />
+    <problem_class>Package with too many classes</problem_class>
+    <hints />
+    <description>Package 'org.semanticweb.owlapi.io' contains too many classes (47 &gt; 10)</description>
+  </problem>
+  <problem>
+    <entry_point TYPE="package" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.renderer" />
+    <problem_class>Package with too many classes</problem_class>
+    <hints />
+    <description>Package 'org.semanticweb.owlapi.rdf.rdfxml.renderer' contains too many classes (11 &gt; 10)</description>
+  </problem>
+  <problem>
+    <entry_point TYPE="package" FQNAME="org.semanticweb.owlapi.api.test.literals" />
+    <problem_class>Package with too many classes</problem_class>
+    <hints />
+    <description>Package 'org.semanticweb.owlapi.api.test.literals' contains too many classes (18 &gt; 10)</description>
+  </problem>
+  <problem>
+    <entry_point TYPE="package" FQNAME="uk.ac.manchester.cs.owl.owlapi" />
+    <problem_class>Package with too many classes</problem_class>
+    <hints />
+    <description>Package 'uk.ac.manchester.cs.owl.owlapi' contains too many classes (145 &gt; 10)</description>
+  </problem>
+  <problem>
+    <entry_point TYPE="package" FQNAME="org.semanticweb.owlapi.api.test.syntax" />
+    <problem_class>Package with too many classes</problem_class>
+    <hints />
+    <description>Package 'org.semanticweb.owlapi.api.test.syntax' contains too many classes (28 &gt; 10)</description>
+  </problem>
+  <problem>
+    <entry_point TYPE="package" FQNAME="org.semanticweb.owlapi.rio" />
+    <problem_class>Package with too many classes</problem_class>
+    <hints />
+    <description>Package 'org.semanticweb.owlapi.rio' contains too many classes (36 &gt; 10)</description>
+  </problem>
+  <problem>
+    <entry_point TYPE="package" FQNAME="org.semanticweb.owlapi.rdf" />
+    <problem_class>Package with too many classes</problem_class>
+    <hints />
+    <description>Package 'org.semanticweb.owlapi.rdf' contains too many classes (11 &gt; 10)</description>
+  </problem>
+  <problem>
+    <entry_point TYPE="package" FQNAME="org.semanticweb.owlapi.api.test.ontology" />
+    <problem_class>Package with too many classes</problem_class>
+    <hints />
+    <description>Package 'org.semanticweb.owlapi.api.test.ontology' contains too many classes (33 &gt; 10)</description>
+  </problem>
+  <problem>
+    <entry_point TYPE="package" FQNAME="org.semanticweb.owlapi.api.test.annotations" />
+    <problem_class>Package with too many classes</problem_class>
+    <hints />
+    <description>Package 'org.semanticweb.owlapi.api.test.annotations' contains too many classes (17 &gt; 10)</description>
+  </problem>
+  <problem>
+    <entry_point TYPE="package" FQNAME="org.semanticweb.owlapi.formats" />
+    <problem_class>Package with too many classes</problem_class>
+    <hints />
+    <description>Package 'org.semanticweb.owlapi.formats' contains too many classes (42 &gt; 10)</description>
+  </problem>
+  <problem>
+    <entry_point TYPE="package" FQNAME="org.semanticweb.owlapi.api.test.dataproperties" />
+    <problem_class>Package with too many classes</problem_class>
+    <hints />
+    <description>Package 'org.semanticweb.owlapi.api.test.dataproperties' contains too many classes (22 &gt; 10)</description>
+  </problem>
+  <problem>
+    <entry_point TYPE="package" FQNAME="org.obolibrary.oboformat" />
+    <problem_class>Package with too many classes</problem_class>
+    <hints />
+    <description>Package 'org.obolibrary.oboformat' contains too many classes (16 &gt; 10)</description>
+  </problem>
+  <problem>
+    <entry_point TYPE="package" FQNAME="org.semanticweb.owlapi.profiles.violations" />
+    <problem_class>Package with too many classes</problem_class>
+    <hints />
+    <description>Package 'org.semanticweb.owlapi.profiles.violations' contains too many classes (49 &gt; 10)</description>
+  </problem>
+  <problem>
+    <entry_point TYPE="package" FQNAME="org.semanticweb.owlapi.vocab" />
+    <problem_class>Package with too many classes</problem_class>
+    <hints />
+    <description>Package 'org.semanticweb.owlapi.vocab' contains too many classes (11 &gt; 10)</description>
+  </problem>
+  <problem>
+    <entry_point TYPE="package" FQNAME="org.semanticweb.owlapi.functional.parser" />
+    <problem_class>Package with too many classes</problem_class>
+    <hints />
+    <description>Package 'org.semanticweb.owlapi.functional.parser' contains too many classes (11 &gt; 10)</description>
+  </problem>
+  <problem>
+    <entry_point TYPE="package" FQNAME="org.semanticweb.owlapi.reasoner.impl" />
+    <problem_class>Package with too many classes</problem_class>
+    <hints />
+    <description>Package 'org.semanticweb.owlapi.reasoner.impl' contains too many classes (15 &gt; 10)</description>
+  </problem>
+  <problem>
+    <entry_point TYPE="package" FQNAME="org.obolibrary.macro" />
+    <problem_class>Package with too many classes</problem_class>
+    <hints />
+    <description>Package 'org.obolibrary.macro' contains too many classes (11 &gt; 10)</description>
+  </problem>
+  <problem>
+    <entry_point TYPE="package" FQNAME="org.semanticweb.owlapi.api.test.classexpressions" />
+    <problem_class>Package with too many classes</problem_class>
+    <hints />
+    <description>Package 'org.semanticweb.owlapi.api.test.classexpressions' contains too many classes (39 &gt; 10)</description>
+  </problem>
+  <problem>
+    <entry_point TYPE="package" FQNAME="org.semanticweb.owlapitools.builders" />
+    <problem_class>Package with too many classes</problem_class>
+    <hints />
+    <description>Package 'org.semanticweb.owlapitools.builders' contains too many classes (95 &gt; 10)</description>
+  </problem>
+  <problem>
+    <entry_point TYPE="package" FQNAME="org.semanticweb.owlapi.model" />
+    <problem_class>Package with too many classes</problem_class>
+    <hints />
+    <description>Package 'org.semanticweb.owlapi.model' contains too many classes (298 &gt; 10)</description>
+  </problem>
+  <problem>
+    <entry_point TYPE="package" FQNAME="org.semanticweb.owlapi.util" />
+    <problem_class>Package with too many classes</problem_class>
+    <hints />
+    <description>Package 'org.semanticweb.owlapi.util' contains too many classes (120 &gt; 10)</description>
+  </problem>
+  <problem>
+    <entry_point TYPE="package" FQNAME="org.semanticweb.owlapi.metrics" />
+    <problem_class>Package with too many classes</problem_class>
+    <hints />
+    <description>Package 'org.semanticweb.owlapi.metrics' contains too many classes (23 &gt; 10)</description>
+  </problem>
+  <problem>
+    <entry_point TYPE="package" FQNAME="org.semanticweb.owlapi.api.test.objectproperties" />
+    <problem_class>Package with too many classes</problem_class>
+    <hints />
+    <description>Package 'org.semanticweb.owlapi.api.test.objectproperties' contains too many classes (54 &gt; 10)</description>
+  </problem>
+</problems>
+

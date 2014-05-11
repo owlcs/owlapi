@@ -32,7 +32,7 @@ public class AddAxiomData extends AxiomChangeData {
     private static final long serialVersionUID = 40000L;
 
     /**
-     * Constructs an {@link AddAxiomData} object which specifies the addition of
+     * Constructs an {@code AddAxiomData} object which specifies the addition of
      * an axiom to "some ontology".
      * 
      * @param axiom

@@ -40,7 +40,7 @@ public class SetOntologyIDData extends OWLOntologyChangeData<OWLOntologyID> {
     private final OWLOntologyID newId;
 
     /**
-     * Constructs a {@link SetOntologyIDData} object that describes an
+     * Constructs a {@code SetOntologyIDData} object that describes an
      * {@link SetOntologyID} change for the {@link OWLOntologyID} object
      * specified by the {@code newId} parameter.
      * 

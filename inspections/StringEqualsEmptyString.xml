@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLLiteralImpl.java</file>
+    <line>120</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLLiteralImpl boolean hasLang()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'String.equals(&quot;&quot;)'</problem_class>
+    <description>&lt;code&gt;equals(&quot;&quot;)&lt;/code&gt; can be replaced with 'isEmpty()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLLiteralImplNoCompression.java</file>
+    <line>136</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLLiteralImplNoCompression boolean hasLang()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'String.equals(&quot;&quot;)'</problem_class>
+    <description>&lt;code&gt;equals(&quot;&quot;)&lt;/code&gt; can be replaced with 'isEmpty()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>1068</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl org.semanticweb.owlapi.model.OWLAxiom trTermClause(org.semanticweb.owlapi.model.OWLClass cls, java.lang.String tag, org.obolibrary.oboformat.model.Clause clause)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'String.equals(&quot;&quot;)'</problem_class>
+    <description>&lt;code&gt;equals(&quot;&quot;)&lt;/code&gt; can be replaced with 'isEmpty()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/renderer/OWLOntologyXMLNamespaceManager.java</file>
+    <line>186</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.renderer.OWLOntologyXMLNamespaceManager java.lang.String getQName(java.lang.String name)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'String.equals(&quot;&quot;)'</problem_class>
+    <description>&lt;code&gt;equals(&quot;&quot;)&lt;/code&gt; can be replaced with 'isEmpty()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/renderer/OWLOntologyXMLNamespaceManager.java</file>
+    <line>132</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.renderer.OWLOntologyXMLNamespaceManager void processIRI(org.semanticweb.owlapi.model.IRI iri)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'String.equals(&quot;&quot;)'</problem_class>
+    <description>&lt;code&gt;equals(&quot;&quot;)&lt;/code&gt; can be replaced with 'isEmpty()' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/renderer/XMLWriterNamespaceManager.java</file>
+    <line>200</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.renderer.XMLWriterNamespaceManager java.lang.String getDefaultPrefix()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'String.equals(&quot;&quot;)'</problem_class>
+    <description>&lt;code&gt;equals(&quot;&quot;)&lt;/code&gt; can be replaced with 'isEmpty()' #loc</description>
+  </problem>
+</problems>
+

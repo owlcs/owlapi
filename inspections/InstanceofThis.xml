@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLOntologyFormat.java</file>
+    <line>81</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.OWLOntologyFormat boolean isPrefixOWLOntologyFormat()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'instanceof' check for 'this'</problem_class>
+    <description>'instanceof' check for &lt;code&gt;this&lt;/code&gt; #loc</description>
+  </problem>
+</problems>
+

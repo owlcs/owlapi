@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLDataFactoryInternalsImpl.java</file>
+    <line>175</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryInternalsImpl.Buildable OWLNAMEDINDIVIDUAL" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inner class too deeply nested</problem_class>
+    <description>&lt;code&gt;OWLNAMEDINDIVIDUAL&lt;/code&gt; is too deeply nested (nesting level = 2) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLDataFactoryInternalsImpl.java</file>
+    <line>159</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryInternalsImpl.Buildable OWLOBJECTPROPERTY" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inner class too deeply nested</problem_class>
+    <description>&lt;code&gt;OWLOBJECTPROPERTY&lt;/code&gt; is too deeply nested (nesting level = 2) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLDataFactoryInternalsImpl.java</file>
+    <line>191</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryInternalsImpl.Buildable OWLANNOTATIONPROPERTY" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inner class too deeply nested</problem_class>
+    <description>&lt;code&gt;OWLANNOTATIONPROPERTY&lt;/code&gt; is too deeply nested (nesting level = 2) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLDataFactoryInternalsImpl.java</file>
+    <line>151</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryInternalsImpl.Buildable OWLCLASS" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inner class too deeply nested</problem_class>
+    <description>&lt;code&gt;OWLCLASS&lt;/code&gt; is too deeply nested (nesting level = 2) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLDataFactoryInternalsImpl.java</file>
+    <line>183</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryInternalsImpl.Buildable OWLDATATYPE" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inner class too deeply nested</problem_class>
+    <description>&lt;code&gt;OWLDATATYPE&lt;/code&gt; is too deeply nested (nesting level = 2) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLDataFactoryInternalsImpl.java</file>
+    <line>167</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryInternalsImpl.Buildable OWLDATAPROPERTY" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inner class too deeply nested</problem_class>
+    <description>&lt;code&gt;OWLDATAPROPERTY&lt;/code&gt; is too deeply nested (nesting level = 2) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/TripleHandlers.java</file>
+    <line>183</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.TripleHandlers.HandlerAccessor$2" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inner class too deeply nested</problem_class>
+    <description>&lt;code&gt;LiteralTripleIterator&lt;/code&gt; is too deeply nested (nesting level = 2) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/TripleHandlers.java</file>
+    <line>194</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.TripleHandlers.HandlerAccessor$3" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inner class too deeply nested</problem_class>
+    <description>&lt;code&gt;ResourceTripleIterator&lt;/code&gt; is too deeply nested (nesting level = 2) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/TripleHandlers.java</file>
+    <line>949</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.TripleHandlers.AbstractTripleHandler.ClassExpressionMatcher" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inner class too deeply nested</problem_class>
+    <description>&lt;code&gt;ClassExpressionMatcher&lt;/code&gt; is too deeply nested (nesting level = 2) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/TripleHandlers.java</file>
+    <line>422</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.TripleHandlers.HandlerAccessor$9" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inner class too deeply nested</problem_class>
+    <description>&lt;code&gt;LiteralTripleIterator&lt;/code&gt; is too deeply nested (nesting level = 2) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/TripleHandlers.java</file>
+    <line>412</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.TripleHandlers.HandlerAccessor$8" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inner class too deeply nested</problem_class>
+    <description>&lt;code&gt;ResourceTripleIterator&lt;/code&gt; is too deeply nested (nesting level = 2) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/TripleHandlers.java</file>
+    <line>396</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.TripleHandlers.HandlerAccessor$7" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inner class too deeply nested</problem_class>
+    <description>&lt;code&gt;ResourceTripleIterator&lt;/code&gt; is too deeply nested (nesting level = 2) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/TripleHandlers.java</file>
+    <line>360</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.TripleHandlers.HandlerAccessor$4" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inner class too deeply nested</problem_class>
+    <description>&lt;code&gt;ResourceTripleIterator&lt;/code&gt; is too deeply nested (nesting level = 2) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/TripleHandlers.java</file>
+    <line>378</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.TripleHandlers.HandlerAccessor$5" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inner class too deeply nested</problem_class>
+    <description>&lt;code&gt;ResourceTripleIterator&lt;/code&gt; is too deeply nested (nesting level = 2) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/TripleHandlers.java</file>
+    <line>959</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.TripleHandlers.AbstractTripleHandler.DataRangeMatcher" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inner class too deeply nested</problem_class>
+    <description>&lt;code&gt;DataRangeMatcher&lt;/code&gt; is too deeply nested (nesting level = 2) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/TripleHandlers.java</file>
+    <line>969</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.TripleHandlers.AbstractTripleHandler.IndividualMatcher" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inner class too deeply nested</problem_class>
+    <description>&lt;code&gt;IndividualMatcher&lt;/code&gt; is too deeply nested (nesting level = 2) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/TripleHandlers.java</file>
+    <line>175</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.TripleHandlers.HandlerAccessor$1" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inner class too deeply nested</problem_class>
+    <description>&lt;code&gt;ResourceTripleIterator&lt;/code&gt; is too deeply nested (nesting level = 2) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/TripleHandlers.java</file>
+    <line>386</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.TripleHandlers.HandlerAccessor$6" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inner class too deeply nested</problem_class>
+    <description>&lt;code&gt;LiteralTripleIterator&lt;/code&gt; is too deeply nested (nesting level = 2) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/Translators.java</file>
+    <line>511</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.Translators.AbstractClassExpressionTranslator.ClassExpressionMatcher" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inner class too deeply nested</problem_class>
+    <description>&lt;code&gt;ClassExpressionMatcher&lt;/code&gt; is too deeply nested (nesting level = 2) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/Translators.java</file>
+    <line>521</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.Translators.AbstractClassExpressionTranslator.DataRangeMatcher" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inner class too deeply nested</problem_class>
+    <description>&lt;code&gt;DataRangeMatcher&lt;/code&gt; is too deeply nested (nesting level = 2) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/Translators.java</file>
+    <line>531</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.Translators.AbstractClassExpressionTranslator.IndividualMatcher" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inner class too deeply nested</problem_class>
+    <description>&lt;code&gt;IndividualMatcher&lt;/code&gt; is too deeply nested (nesting level = 2) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/Translators.java</file>
+    <line>506</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.Translators.AbstractClassExpressionTranslator.TypeMatcher" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inner class too deeply nested</problem_class>
+    <description>&lt;code&gt;TypeMatcher&lt;/code&gt; is too deeply nested (nesting level = 2) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/Translators.java</file>
+    <line>2038</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.Translators.SWRLAtomListItemTranslator.SWRLAtomDObjectListItemTranslator" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Inner class too deeply nested</problem_class>
+    <description>&lt;code&gt;SWRLAtomDObjectListItemTranslator&lt;/code&gt; is too deeply nested (nesting level = 2) #loc</description>
+  </problem>
+</problems>
+

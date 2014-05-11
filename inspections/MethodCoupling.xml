@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/InferredOntologyGenerator.java</file>
+    <line>71</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.InferredOntologyGenerator java.util.List&lt;org.semanticweb.owlapi.util.InferredAxiomGenerator&lt;? extends org.semanticweb.owlapi.model.OWLAxiom&gt;&gt; generators()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly coupled method</problem_class>
+    <description>&lt;code&gt;generators&lt;/code&gt; is overly coupled (# referenced classes = 11) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/ParsableOWLOntologyFactory.java</file>
+    <line>124</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory org.semanticweb.owlapi.model.OWLOntology loadOWLOntology(org.semanticweb.owlapi.model.OWLOntologyManager m, org.semanticweb.owlapi.io.OWLOntologyDocumentSource documentSource, org.semanticweb.owlapi.model.OWLOntologyFactory.OWLOntologyCreationHandler mediator, org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration configuration)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly coupled method</problem_class>
+    <description>&lt;code&gt;loadOWLOntology&lt;/code&gt; is overly coupled (# referenced classes = 14) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLOntologyManagerImpl.java</file>
+    <line>832</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl org.semanticweb.owlapi.model.OWLOntology loadOntology(org.semanticweb.owlapi.model.IRI ontologyIRI, org.semanticweb.owlapi.io.OWLOntologyDocumentSource documentSource, org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration configuration)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly coupled method</problem_class>
+    <description>&lt;code&gt;loadOntology&lt;/code&gt; is overly coupled (# referenced classes = 12) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java</file>
+    <line>269</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.Internals uk.ac.manchester.cs.owl.owlapi.MapPointer&lt;T,A&gt; get(java.lang.Class&lt;T&gt; type, java.lang.Class&lt;A&gt; axiom, org.semanticweb.owlapi.model.parameters.Search position)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly coupled method</problem_class>
+    <description>&lt;code&gt;get&lt;/code&gt; is overly coupled (# referenced classes = 50) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>1354</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo void tr(org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom ax)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly coupled method</problem_class>
+    <description>&lt;code&gt;tr&lt;/code&gt; is overly coupled (# referenced classes = 14) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>2004</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo void tr(org.semanticweb.owlapi.model.OWLSubClassOfAxiom ax)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly coupled method</problem_class>
+    <description>&lt;code&gt;tr&lt;/code&gt; is overly coupled (# referenced classes = 11) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>307</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo org.obolibrary.oboformat.model.OBODoc tr()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly coupled method</problem_class>
+    <description>&lt;code&gt;tr&lt;/code&gt; is overly coupled (# referenced classes = 25) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/RDFRendererBase.java</file>
+    <line>568</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.RDFRendererBase boolean createGraph(org.semanticweb.owlapi.model.OWLEntity entity)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly coupled method</problem_class>
+    <description>&lt;code&gt;createGraph&lt;/code&gt; is overly coupled (# referenced classes = 15) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/TripleHandlers.java</file>
+    <line>1778</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.TripleHandlers.TPImportsHandler void handleTriple(org.semanticweb.owlapi.model.IRI subject, org.semanticweb.owlapi.model.IRI predicate, org.semanticweb.owlapi.model.IRI object)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly coupled method</problem_class>
+    <description>&lt;code&gt;handleTriple&lt;/code&gt; is overly coupled (# referenced classes = 11) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/TripleHandlers.java</file>
+    <line>528</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.TripleHandlers.HandlerAccessor java.util.Map&lt;org.semanticweb.owlapi.model.IRI,org.semanticweb.owlapi.rdf.rdfxml.parser.BuiltInTypeHandler&gt; getBasicTypeHandlers(org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFConsumer r, org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration config)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly coupled method</problem_class>
+    <description>&lt;code&gt;getBasicTypeHandlers&lt;/code&gt; is overly coupled (# referenced classes = 38) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/TripleHandlers.java</file>
+    <line>443</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.TripleHandlers.HandlerAccessor java.util.Map&lt;org.semanticweb.owlapi.model.IRI,org.semanticweb.owlapi.rdf.rdfxml.parser.TriplePredicateHandler&gt; getPredicateHandlers(org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFConsumer r)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly coupled method</problem_class>
+    <description>&lt;code&gt;getPredicateHandlers&lt;/code&gt; is overly coupled (# referenced classes = 33) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/Translators.java</file>
+    <line>120</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.Translators.TranslatorAccessor TranslatorAccessor(org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFConsumer r)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly coupled method</problem_class>
+    <description>&lt;code&gt;TranslatorAccessor&lt;/code&gt; is overly coupled (# referenced classes = 32) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/turtle/parser/TurtleOntologyParser.java</file>
+    <line>58</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.turtle.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.turtle.parser.TurtleOntologyParser org.semanticweb.owlapi.model.OWLOntologyFormat parse(org.semanticweb.owlapi.io.OWLOntologyDocumentSource documentSource, org.semanticweb.owlapi.model.OWLOntology ontology, org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration configuration)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly coupled method</problem_class>
+    <description>&lt;code&gt;parse&lt;/code&gt; is overly coupled (# referenced classes = 13) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/latex/renderer/LatexRenderer.java</file>
+    <line>67</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.latex.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.latex.renderer.LatexRenderer void render(org.semanticweb.owlapi.model.OWLOntology ontology, java.io.Writer writer)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly coupled method</problem_class>
+    <description>&lt;code&gt;render&lt;/code&gt; is overly coupled (# referenced classes = 11) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>2172</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormat parseOntology(org.semanticweb.owlapi.model.OWLOntology ont)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly coupled method</problem_class>
+    <description>&lt;code&gt;parseOntology&lt;/code&gt; is overly coupled (# referenced classes = 12) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/renderer/ManchesterOWLSyntaxFrameRenderer.java</file>
+    <line>558</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.renderer.ManchesterOWLSyntaxFrameRenderer java.util.Set&lt;org.semanticweb.owlapi.model.OWLAxiom&gt; write(org.semanticweb.owlapi.model.OWLClass cls)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly coupled method</problem_class>
+    <description>&lt;code&gt;write&lt;/code&gt; is overly coupled (# referenced classes = 11) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/renderer/ManchesterOWLSyntaxFrameRenderer.java</file>
+    <line>718</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.renderer.ManchesterOWLSyntaxFrameRenderer java.util.Set&lt;org.semanticweb.owlapi.model.OWLAxiom&gt; write(org.semanticweb.owlapi.model.OWLObjectPropertyExpression property)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly coupled method</problem_class>
+    <description>&lt;code&gt;write&lt;/code&gt; is overly coupled (# referenced classes = 13) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/renderer/ManchesterOWLSyntaxFrameRenderer.java</file>
+    <line>307</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.renderer.ManchesterOWLSyntaxFrameRenderer void writeOntology()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly coupled method</problem_class>
+    <description>&lt;code&gt;writeOntology&lt;/code&gt; is overly coupled (# referenced classes = 20) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/uk/ac/manchester/owl/owlapi/tutorialowled2011/TutorialSnippets.java</file>
+    <line>876</line>
+    <module>owlapi-contract</module>
+    <package>uk.ac.manchester.owl.owlapi.tutorialowled2011</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.owl.owlapi.tutorialowled2011.TutorialSnippets void testPropertyAssertions()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly coupled method</problem_class>
+    <description>&lt;code&gt;testPropertyAssertions&lt;/code&gt; is overly coupled (# referenced classes = 11) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/RoundTripCardinalityTest.java</file>
+    <line>27</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.RoundTripCardinalityTest void testRoundTripCardinality()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly coupled method</problem_class>
+    <description>&lt;code&gt;testRoundTripCardinality&lt;/code&gt; is overly coupled (# referenced classes = 13) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/RoundTripMultiLineDefTest.java</file>
+    <line>25</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.RoundTripMultiLineDefTest void testMultiLineDefinitions()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly coupled method</problem_class>
+    <description>&lt;code&gt;testMultiLineDefinitions&lt;/code&gt; is overly coupled (# referenced classes = 12) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/NamesTestCase.java</file>
+    <line>59</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.api.test.NamesTestCase void shoudReturnRightName()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly coupled method</problem_class>
+    <description>&lt;code&gt;shoudReturnRightName&lt;/code&gt; is overly coupled (# referenced classes = 29) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/ManchesterOWLSyntaxParserTestCase.java</file>
+    <line>306</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.api.test.syntax.ManchesterOWLSyntaxParserTestCase void shouldParseCorrectlydecimal()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly coupled method</problem_class>
+    <description>&lt;code&gt;shouldParseCorrectlydecimal&lt;/code&gt; is overly coupled (# referenced classes = 11) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/ontology/OntologyContainsAxiomTestCase.java</file>
+    <line>120</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.ontology</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.api.test.ontology.OntologyContainsAxiomTestCase void runTestOntologyContainsAxioms1(org.semanticweb.owlapi.model.OWLOntologyFormat format)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly coupled method</problem_class>
+    <description>&lt;code&gt;runTestOntologyContainsAxioms1&lt;/code&gt; is overly coupled (# referenced classes = 11) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/ontology/OntologyContainsAxiomTestCase.java</file>
+    <line>242</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.ontology</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.api.test.ontology.OntologyContainsAxiomTestCase void runTestOntologyContainsAxioms2(org.semanticweb.owlapi.model.OWLOntologyFormat format)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly coupled method</problem_class>
+    <description>&lt;code&gt;runTestOntologyContainsAxioms2&lt;/code&gt; is overly coupled (# referenced classes = 11) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/annotations/LoadAnnotationAxiomsTestCase.java</file>
+    <line>54</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.annotations</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.api.test.annotations.LoadAnnotationAxiomsTestCase void testIgnoreAnnotations()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly coupled method</problem_class>
+    <description>&lt;code&gt;testIgnoreAnnotations&lt;/code&gt; is overly coupled (# referenced classes = 13) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/examples/Examples.java</file>
+    <line>671</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.examples</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.examples.Examples void shouldCreatePropertyAssertions()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly coupled method</problem_class>
+    <description>&lt;code&gt;shouldCreatePropertyAssertions&lt;/code&gt; is overly coupled (# referenced classes = 15) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/examples/Examples.java</file>
+    <line>419</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.examples</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.examples.Examples void shouldUseDataranges()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly coupled method</problem_class>
+    <description>&lt;code&gt;shouldUseDataranges&lt;/code&gt; is overly coupled (# referenced classes = 13) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/examples/Examples.java</file>
+    <line>761</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.examples</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.examples.Examples void shouldCreateAndSaveOntology()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly coupled method</problem_class>
+    <description>&lt;code&gt;shouldCreateAndSaveOntology&lt;/code&gt; is overly coupled (# referenced classes = 11) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/examples/Examples.java</file>
+    <line>333</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.examples</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.examples.Examples void shouldBuildDataRanges()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly coupled method</problem_class>
+    <description>&lt;code&gt;shouldBuildDataRanges&lt;/code&gt; is overly coupled (# referenced classes = 13) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/examples/Examples.java</file>
+    <line>1710</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.examples</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.examples.Examples void owlPrimer()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly coupled method</problem_class>
+    <description>&lt;code&gt;owlPrimer&lt;/code&gt; is overly coupled (# referenced classes = 33) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/profiles/test/ProfileValidationTestCase.java</file>
+    <line>56</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.profiles.test</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.profiles.test.ProfileValidationTestCase void testProfiles()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overly coupled method</problem_class>
+    <description>&lt;code&gt;testProfiles&lt;/code&gt; is overly coupled (# referenced classes = 14) #loc</description>
+  </problem>
+</problems>
+

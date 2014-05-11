@@ -1,0 +1,2744 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/rio/src/main/java/org/semanticweb/owlapi/rio/AbstractRioOntologyStorerFactory.java</file>
+    <line>1</line>
+    <module>owlapi-rio</module>
+    <package>org.semanticweb.owlapi.rio</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.rio.AbstractRioOntologyStorerFactory" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'AbstractRioOntologyStorerFactory' has too many dependents (11 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/annotations/SupportsFormat.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.annotations</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.annotations.SupportsFormat" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'SupportsFormat' has too many dependents (15 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/io/OWLParser.java</file>
+    <line>45</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.io</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.io.OWLParser" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLParser' has too many dependents (18 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/io/OWLOntologyDocumentSourceBase.java</file>
+    <line>17</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.io</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.io.OWLOntologyDocumentSourceBase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLOntologyDocumentSourceBase' has too many dependents (18 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/io/OWLOntologyDocumentTarget.java</file>
+    <line>38</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.io</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.io.OWLOntologyDocumentTarget" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLOntologyDocumentTarget' has too many dependents (12 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/io/OWLOntologyDocumentSource.java</file>
+    <line>43</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.io</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.io.OWLOntologyDocumentSource" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLOntologyDocumentSource' has too many dependents (24 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/io/RDFNode.java</file>
+    <line>24</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.io</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.io.RDFNode" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'RDFNode' has too many dependents (12 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/io/RDFTriple.java</file>
+    <line>32</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.io</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.io.RDFTriple" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'RDFTriple' has too many dependents (15 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/io/OWLParserException.java</file>
+    <line>24</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.io</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.io.OWLParserException" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLParserException' has too many dependents (23 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/io/OWLParserFactory.java</file>
+    <line>31</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.io</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.io.OWLParserFactory" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLParserFactory' has too many dependents (14 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/io/StringDocumentTarget.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.io</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.io.StringDocumentTarget" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'StringDocumentTarget' has too many dependents (22 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/io/RDFResource.java</file>
+    <line>24</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.io</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.io.RDFResource" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'RDFResource' has too many dependents (12 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/io/StringDocumentSource.java</file>
+    <line>34</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.io</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.io.StringDocumentSource" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'StringDocumentSource' has too many dependents (16 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/OWLAPIPreconditions.java</file>
+    <line>21</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.util.OWLAPIPreconditions" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLAPIPreconditions' has too many dependents (347 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/OWLObjectTypeIndexProvider.java</file>
+    <line>111</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLObjectTypeIndexProvider' has too many dependents (52 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/CollectionFactory.java</file>
+    <line>46</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.util.CollectionFactory" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'CollectionFactory' has too many dependents (90 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/ShortFormProvider.java</file>
+    <line>32</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.util.ShortFormProvider" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'ShortFormProvider' has too many dependents (30 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/DefaultPrefixManager.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.util.DefaultPrefixManager" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'DefaultPrefixManager' has too many dependents (15 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/OWLObjectWalker.java</file>
+    <line>41</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.util.OWLObjectWalker" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLObjectWalker' has too many dependents (13 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/PriorityCollection.java</file>
+    <line>27</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.util.PriorityCollection" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'PriorityCollection' has too many dependents (21 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/AbstractOWLOntologyStorer.java</file>
+    <line>44</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.util.AbstractOWLOntologyStorer" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'AbstractOWLOntologyStorer' has too many dependents (14 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLNaryDataRange.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLNaryDataRange" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLNaryDataRange' has too many dependents (22 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLDisjointUnionAxiom.java</file>
+    <line>28</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLDisjointUnionAxiom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLDisjointUnionAxiom' has too many dependents (57 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLDatatypeDefinitionAxiom.java</file>
+    <line>26</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLDatatypeDefinitionAxiom' has too many dependents (54 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLSubClassOfAxiom.java</file>
+    <line>26</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLSubClassOfAxiom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLSubClassOfAxiom' has too many dependents (168 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLAnnotationSubject.java</file>
+    <line>25</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLAnnotationSubject" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLAnnotationSubject' has too many dependents (43 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLClassAssertionAxiom.java</file>
+    <line>26</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLClassAssertionAxiom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLClassAssertionAxiom' has too many dependents (87 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLObjectAllValuesFrom.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLObjectAllValuesFrom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLObjectAllValuesFrom' has too many dependents (65 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLAnnotationPropertyProvider.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLAnnotationPropertyProvider" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLAnnotationPropertyProvider' has too many dependents (31 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLSubClassOfAxiomShortCut.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLSubClassOfAxiomShortCut" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLSubClassOfAxiomShortCut' has too many dependents (14 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLDatatype.java</file>
+    <line>28</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLDatatype" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLDatatype' has too many dependents (163 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLSubPropertyChainOfAxiom.java</file>
+    <line>31</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLSubPropertyChainOfAxiom' has too many dependents (63 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLSameIndividualAxiom.java</file>
+    <line>28</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLSameIndividualAxiom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLSameIndividualAxiom' has too many dependents (64 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLAxiomVisitor.java</file>
+    <line>25</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLAxiomVisitor" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLAxiomVisitor' has too many dependents (48 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLNamedObjectVisitorEx.java</file>
+    <line>24</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLNamedObjectVisitorEx" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLNamedObjectVisitorEx' has too many dependents (12 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLPropertyRangeAxiom.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLPropertyRangeAxiom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLPropertyRangeAxiom' has too many dependents (39 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/ClassExpressionType.java</file>
+    <line>28</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.ClassExpressionType" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'ClassExpressionType' has too many dependents (21 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/NodeID.java</file>
+    <line>27</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.NodeID" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'NodeID' has too many dependents (23 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/SWRLDifferentIndividualsAtom.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.SWRLDifferentIndividualsAtom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'SWRLDifferentIndividualsAtom' has too many dependents (33 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/SWRLPredicate.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.SWRLPredicate" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'SWRLPredicate' has too many dependents (16 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLObjectMinCardinality.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLObjectMinCardinality" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLObjectMinCardinality' has too many dependents (63 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/RemoveAxiom.java</file>
+    <line>27</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.RemoveAxiom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'RemoveAxiom' has too many dependents (26 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/AxiomType.java</file>
+    <line>43</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.AxiomType" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'AxiomType' has too many dependents (97 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/AddOntologyAnnotation.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.AddOntologyAnnotation" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'AddOntologyAnnotation' has too many dependents (21 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLDatatypeProvider.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLDatatypeProvider" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLDatatypeProvider' has too many dependents (26 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLOntologyManager.java</file>
+    <line>40</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLOntologyManager" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLOntologyManager' has too many dependents (197 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLClass.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLClass" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLClass' has too many dependents (293 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLClassExpression.java</file>
+    <line>29</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLClassExpression" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLClassExpression' has too many dependents (256 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLTransitiveObjectPropertyAxiom.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLTransitiveObjectPropertyAxiom' has too many dependents (65 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLObjectOneOf.java</file>
+    <line>28</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLObjectOneOf" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLObjectOneOf' has too many dependents (61 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/SWRLVariable.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.SWRLVariable" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'SWRLVariable' has too many dependents (48 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/SWRLArgument.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.SWRLArgument" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'SWRLArgument' has too many dependents (12 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLAnnotationAxiom.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLAnnotationAxiom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLAnnotationAxiom' has too many dependents (12 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLDataSomeValuesFrom.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLDataSomeValuesFrom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLDataSomeValuesFrom' has too many dependents (58 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLIndividual.java</file>
+    <line>24</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLIndividual" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLIndividual' has too many dependents (125 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLDataIntersectionOf.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLDataIntersectionOf" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLDataIntersectionOf' has too many dependents (40 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLOntology.java</file>
+    <line>38</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLOntology" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLOntology' has too many dependents (481 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/SWRLObjectPropertyAtom.java</file>
+    <line>22</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.SWRLObjectPropertyAtom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'SWRLObjectPropertyAtom' has too many dependents (35 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLLiteral.java</file>
+    <line>38</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLLiteral" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLLiteral' has too many dependents (167 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLNamedIndividual.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLNamedIndividual" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLNamedIndividual' has too many dependents (165 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/SWRLBinaryAtom.java</file>
+    <line>28</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.SWRLBinaryAtom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'SWRLBinaryAtom' has too many dependents (24 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLFunctionalObjectPropertyAxiom.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLFunctionalObjectPropertyAxiom' has too many dependents (68 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLOntologyIRIMapper.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLOntologyIRIMapper" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLOntologyIRIMapper' has too many dependents (11 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLDifferentIndividualsAxiom.java</file>
+    <line>28</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLDifferentIndividualsAxiom' has too many dependents (70 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLAnnotationValue.java</file>
+    <line>28</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLAnnotationValue" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLAnnotationValue' has too many dependents (56 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLDataPropertyProvider.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLDataPropertyProvider" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLDataPropertyProvider' has too many dependents (28 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLObjectIntersectionOf.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLObjectIntersectionOf" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLObjectIntersectionOf' has too many dependents (82 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLAnnotationAssertionAxiom.java</file>
+    <line>25</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLAnnotationAssertionAxiom' has too many dependents (94 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLObjectPropertyAxiom.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLObjectPropertyAxiom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLObjectPropertyAxiom' has too many dependents (12 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLNegativeObjectPropertyAssertionAxiom.java</file>
+    <line>26</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLNegativeObjectPropertyAssertionAxiom' has too many dependents (59 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLImportsDeclaration.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLImportsDeclaration" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLImportsDeclaration' has too many dependents (46 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/SWRLLiteralArgument.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.SWRLLiteralArgument" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'SWRLLiteralArgument' has too many dependents (35 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/PrefixManager.java</file>
+    <line>30</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.PrefixManager" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'PrefixManager' has too many dependents (26 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLNaryIndividualAxiom.java</file>
+    <line>25</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLNaryIndividualAxiom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLNaryIndividualAxiom' has too many dependents (31 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/EntityType.java</file>
+    <line>35</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.EntityType" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'EntityType' has too many dependents (18 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLObject.java</file>
+    <line>25</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLObject" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLObject' has too many dependents (223 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLDisjointObjectPropertiesAxiom.java</file>
+    <line>28</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLDisjointObjectPropertiesAxiom' has too many dependents (66 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLFunctionalDataPropertyAxiom.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLFunctionalDataPropertyAxiom' has too many dependents (58 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLEquivalentDataPropertiesAxiom.java</file>
+    <line>28</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLEquivalentDataPropertiesAxiom' has too many dependents (61 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/SWRLIArgument.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.SWRLIArgument" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'SWRLIArgument' has too many dependents (30 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLDataMinCardinality.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLDataMinCardinality" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLDataMinCardinality' has too many dependents (53 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLDataVisitor.java</file>
+    <line>24</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLDataVisitor" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLDataVisitor' has too many dependents (18 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/SWRLBuiltInAtom.java</file>
+    <line>24</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.SWRLBuiltInAtom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'SWRLBuiltInAtom' has too many dependents (34 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLSubPropertyAxiom.java</file>
+    <line>24</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLSubPropertyAxiom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLSubPropertyAxiom' has too many dependents (34 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLAnnotationProperty.java</file>
+    <line>24</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLAnnotationProperty" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLAnnotationProperty' has too many dependents (172 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLPropertyExpression.java</file>
+    <line>24</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLPropertyExpression" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLPropertyExpression' has too many dependents (54 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLDataUnionOf.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLDataUnionOf" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLDataUnionOf' has too many dependents (43 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLObjectPropertyProvider.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLObjectPropertyProvider" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLObjectPropertyProvider' has too many dependents (33 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/SWRLDataRangeAtom.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.SWRLDataRangeAtom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'SWRLDataRangeAtom' has too many dependents (32 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLNaryBooleanClassExpression.java</file>
+    <line>25</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLNaryBooleanClassExpression" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLNaryBooleanClassExpression' has too many dependents (42 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLHasValueRestriction.java</file>
+    <line>24</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLHasValueRestriction" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLHasValueRestriction' has too many dependents (25 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLObjectExactCardinality.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLObjectExactCardinality" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLObjectExactCardinality' has too many dependents (62 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLDataRestriction.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLDataRestriction" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLDataRestriction' has too many dependents (35 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLAxiom.java</file>
+    <line>29</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLAxiom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLAxiom' has too many dependents (473 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLDeclarationAxiom.java</file>
+    <line>28</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLDeclarationAxiom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLDeclarationAxiom' has too many dependents (121 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLQuantifiedRestriction.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLQuantifiedRestriction" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLQuantifiedRestriction' has too many dependents (55 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLAnnotationValueVisitor.java</file>
+    <line>25</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLAnnotationValueVisitor" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLAnnotationValueVisitor' has too many dependents (12 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLObjectSomeValuesFrom.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLObjectSomeValuesFrom' has too many dependents (87 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLDataRange.java</file>
+    <line>30</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLDataRange" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLDataRange' has too many dependents (97 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLOntologyID.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLOntologyID" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLOntologyID' has too many dependents (97 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLObjectRestriction.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLObjectRestriction" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLObjectRestriction' has too many dependents (49 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLNaryClassAxiom.java</file>
+    <line>25</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLNaryClassAxiom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLNaryClassAxiom' has too many dependents (52 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLObjectHasSelf.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLObjectHasSelf" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLObjectHasSelf' has too many dependents (50 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLDataFactory.java</file>
+    <line>32</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLDataFactory" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLDataFactory' has too many dependents (337 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLAxiomCollection.java</file>
+    <line>28</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLAxiomCollection" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLAxiomCollection' has too many dependents (144 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/SWRLDataPropertyAtom.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.SWRLDataPropertyAtom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'SWRLDataPropertyAtom' has too many dependents (34 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLOntologyCreationException.java</file>
+    <line>24</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLOntologyCreationException" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLOntologyCreationException' has too many dependents (24 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLDatatypeRestriction.java</file>
+    <line>28</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLDatatypeRestriction" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLDatatypeRestriction' has too many dependents (52 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/AddAxiom.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.AddAxiom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'AddAxiom' has too many dependents (55 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/SWRLObjectVisitorEx.java</file>
+    <line>24</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.SWRLObjectVisitorEx" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'SWRLObjectVisitorEx' has too many dependents (15 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLObjectPropertyRangeAxiom.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLObjectPropertyRangeAxiom' has too many dependents (75 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/SWRLDArgument.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.SWRLDArgument" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'SWRLDArgument' has too many dependents (30 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLFacetRestriction.java</file>
+    <line>28</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLFacetRestriction" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLFacetRestriction' has too many dependents (45 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLRuntimeException.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLRuntimeException" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLRuntimeException' has too many dependents (105 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLClassExpressionVisitor.java</file>
+    <line>26</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLClassExpressionVisitor" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLClassExpressionVisitor' has too many dependents (25 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/SWRLAtom.java</file>
+    <line>28</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.SWRLAtom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'SWRLAtom' has too many dependents (40 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/IRI.java</file>
+    <line>44</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.IRI" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'IRI' has too many dependents (577 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/SWRLUnaryAtom.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.SWRLUnaryAtom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'SWRLUnaryAtom' has too many dependents (21 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLNamedObject.java</file>
+    <line>25</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLNamedObject" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLNamedObject' has too many dependents (112 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLObjectProperty.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLObjectProperty" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLObjectProperty' has too many dependents (240 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLPropertyAssertionAxiom.java</file>
+    <line>30</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLPropertyAssertionAxiom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLPropertyAssertionAxiom' has too many dependents (44 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLObjectHasValue.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLObjectHasValue" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLObjectHasValue' has too many dependents (58 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLObjectPropertyExpression.java</file>
+    <line>22</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLObjectPropertyExpression" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLObjectPropertyExpression' has too many dependents (194 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/HasPrefixedName.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.HasPrefixedName" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'HasPrefixedName' has too many dependents (12 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLLogicalAxiom.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLLogicalAxiom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLLogicalAxiom' has too many dependents (16 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLNaryPropertyAxiom.java</file>
+    <line>26</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLNaryPropertyAxiom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLNaryPropertyAxiom' has too many dependents (40 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/SWRLSameIndividualAtom.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.SWRLSameIndividualAtom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'SWRLSameIndividualAtom' has too many dependents (33 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLDataAllValuesFrom.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLDataAllValuesFrom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLDataAllValuesFrom' has too many dependents (53 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLInverseFunctionalObjectPropertyAxiom.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLInverseFunctionalObjectPropertyAxiom' has too many dependents (65 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLCardinalityRestriction.java</file>
+    <line>22</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLCardinalityRestriction" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLCardinalityRestriction' has too many dependents (36 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLAnonymousIndividual.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLAnonymousIndividual" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLAnonymousIndividual' has too many dependents (83 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/SWRLRule.java</file>
+    <line>27</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.SWRLRule" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'SWRLRule' has too many dependents (57 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLAnnotationPropertyDomainAxiom.java</file>
+    <line>26</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLAnnotationPropertyDomainAxiom' has too many dependents (50 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLAsymmetricObjectPropertyAxiom.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLAsymmetricObjectPropertyAxiom' has too many dependents (63 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLObjectPropertyDomainAxiom.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLObjectPropertyDomainAxiom' has too many dependents (73 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLEquivalentClassesAxiom.java</file>
+    <line>27</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLEquivalentClassesAxiom' has too many dependents (96 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLDataOneOf.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLDataOneOf" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLDataOneOf' has too many dependents (49 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLAnnotationPropertyRangeAxiom.java</file>
+    <line>26</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLAnnotationPropertyRangeAxiom' has too many dependents (50 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLAnnotationValueVisitorEx.java</file>
+    <line>24</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLAnnotationValueVisitorEx' has too many dependents (14 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLEntityVisitorEx.java</file>
+    <line>24</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLEntityVisitorEx" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLEntityVisitorEx' has too many dependents (13 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLObjectVisitorEx.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLObjectVisitorEx" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLObjectVisitorEx' has too many dependents (95 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLDataMaxCardinality.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLDataMaxCardinality" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLDataMaxCardinality' has too many dependents (55 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLNegativeDataPropertyAssertionAxiom.java</file>
+    <line>26</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLNegativeDataPropertyAssertionAxiom' has too many dependents (60 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLPropertyDomainAxiom.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLPropertyDomainAxiom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLPropertyDomainAxiom' has too many dependents (38 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLEquivalentObjectPropertiesAxiom.java</file>
+    <line>28</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLEquivalentObjectPropertiesAxiom' has too many dependents (69 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLReflexiveObjectPropertyAxiom.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLReflexiveObjectPropertyAxiom' has too many dependents (59 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLUnaryPropertyAxiom.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLUnaryPropertyAxiom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLUnaryPropertyAxiom' has too many dependents (58 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLDataExactCardinality.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLDataExactCardinality" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLDataExactCardinality' has too many dependents (53 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLInverseObjectPropertiesAxiom.java</file>
+    <line>32</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLInverseObjectPropertiesAxiom' has too many dependents (65 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLDataPropertyDomainAxiom.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLDataPropertyDomainAxiom' has too many dependents (65 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLSymmetricObjectPropertyAxiom.java</file>
+    <line>28</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLSymmetricObjectPropertyAxiom' has too many dependents (62 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLSubObjectPropertyOfAxiom.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLSubObjectPropertyOfAxiom' has too many dependents (76 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLSubAnnotationPropertyOfAxiom.java</file>
+    <line>26</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLSubAnnotationPropertyOfAxiom' has too many dependents (55 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLDisjointClassesAxiom.java</file>
+    <line>28</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLDisjointClassesAxiom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLDisjointClassesAxiom' has too many dependents (88 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLEntityVisitor.java</file>
+    <line>25</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLEntityVisitor" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLEntityVisitor' has too many dependents (18 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLClassAxiom.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLClassAxiom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLClassAxiom' has too many dependents (15 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLObjectPropertyAssertionAxiom.java</file>
+    <line>26</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLObjectPropertyAssertionAxiom' has too many dependents (75 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLDataPropertyAssertionAxiom.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLDataPropertyAssertionAxiom' has too many dependents (72 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLNamedIndividualProvider.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLNamedIndividualProvider" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLNamedIndividualProvider' has too many dependents (29 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/SWRLClassAtom.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.SWRLClassAtom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'SWRLClassAtom' has too many dependents (39 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/SetOntologyID.java</file>
+    <line>31</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.SetOntologyID" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'SetOntologyID' has too many dependents (23 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLOntologyFormat.java</file>
+    <line>33</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLOntologyFormat" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLOntologyFormat' has too many dependents (110 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLLogicalAxiomVisitorEx.java</file>
+    <line>24</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLLogicalAxiomVisitorEx" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLLogicalAxiomVisitorEx' has too many dependents (35 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLDataProperty.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLDataProperty" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLDataProperty' has too many dependents (179 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLNamedObjectVisitor.java</file>
+    <line>22</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLNamedObjectVisitor" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLNamedObjectVisitor' has too many dependents (11 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLDataHasValue.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLDataHasValue" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLDataHasValue' has too many dependents (50 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLAxiomVisitorEx.java</file>
+    <line>27</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLAxiomVisitorEx" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLAxiomVisitorEx' has too many dependents (50 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/HasShortForm.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.HasShortForm" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'HasShortForm' has too many dependents (13 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLClassExpressionVisitorEx.java</file>
+    <line>28</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLClassExpressionVisitorEx" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLClassExpressionVisitorEx' has too many dependents (25 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/SWRLIndividualArgument.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.SWRLIndividualArgument" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'SWRLIndividualArgument' has too many dependents (37 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLHasKeyAxiom.java</file>
+    <line>27</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLHasKeyAxiom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLHasKeyAxiom' has too many dependents (52 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/SWRLDataFactory.java</file>
+    <line>27</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.SWRLDataFactory" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'SWRLDataFactory' has too many dependents (36 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLLogicalAxiomVisitor.java</file>
+    <line>22</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLLogicalAxiomVisitor" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLLogicalAxiomVisitor' has too many dependents (34 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLDataComplementOf.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLDataComplementOf" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLDataComplementOf' has too many dependents (48 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/AddImport.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.AddImport" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'AddImport' has too many dependents (26 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLDataPropertyExpression.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLDataPropertyExpression" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLDataPropertyExpression' has too many dependents (108 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLObjectVisitor.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLObjectVisitor" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLObjectVisitor' has too many dependents (106 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLOntologyLoaderConfiguration.java</file>
+    <line>43</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLOntologyLoaderConfiguration' has too many dependents (37 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLClassProvider.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLClassProvider" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLClassProvider' has too many dependents (38 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLOntologyStorer.java</file>
+    <line>30</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLOntologyStorer" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLOntologyStorer' has too many dependents (12 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/RemoveImport.java</file>
+    <line>27</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.RemoveImport" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'RemoveImport' has too many dependents (12 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLOntologyChange.java</file>
+    <line>31</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLOntologyChange" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLOntologyChange' has too many dependents (75 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLObjectComplementOf.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLObjectComplementOf" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLObjectComplementOf' has too many dependents (70 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLObjectMaxCardinality.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLObjectMaxCardinality" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLObjectMaxCardinality' has too many dependents (63 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLObjectUnionOf.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLObjectUnionOf" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLObjectUnionOf' has too many dependents (70 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLDataVisitorEx.java</file>
+    <line>24</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLDataVisitorEx" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLDataVisitorEx' has too many dependents (22 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLAxiomIndex.java</file>
+    <line>31</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLAxiomIndex" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLAxiomIndex' has too many dependents (61 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLIrreflexiveObjectPropertyAxiom.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLIrreflexiveObjectPropertyAxiom' has too many dependents (62 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLSubDataPropertyOfAxiom.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLSubDataPropertyOfAxiom' has too many dependents (62 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLDisjointDataPropertiesAxiom.java</file>
+    <line>28</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLDisjointDataPropertiesAxiom' has too many dependents (63 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLObjectInverseOf.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLObjectInverseOf" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLObjectInverseOf' has too many dependents (46 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLAnnotation.java</file>
+    <line>29</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLAnnotation" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLAnnotation' has too many dependents (181 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/HasIRI.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.HasIRI" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'HasIRI' has too many dependents (26 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLOntologyChangeListener.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLOntologyChangeListener" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLOntologyChangeListener' has too many dependents (14 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLOntologyFormatFactory.java</file>
+    <line>24</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLOntologyFormatFactory" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLOntologyFormatFactory' has too many dependents (17 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLDataPropertyRangeAxiom.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLDataPropertyRangeAxiom' has too many dependents (68 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLEntity.java</file>
+    <line>26</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLEntity" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLEntity' has too many dependents (146 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLOntologyStorageException.java</file>
+    <line>20</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLOntologyStorageException" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLOntologyStorageException' has too many dependents (14 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/SWRLObjectVisitor.java</file>
+    <line>22</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.SWRLObjectVisitor" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'SWRLObjectVisitor' has too many dependents (18 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLSignature.java</file>
+    <line>27</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.OWLSignature" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLSignature' has too many dependents (21 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/parameters/Imports.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model.parameters</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.model.parameters.Imports" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'Imports' has too many dependents (58 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/vocab/OWLRDFVocabulary.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.vocab</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.vocab.OWLRDFVocabulary" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLRDFVocabulary' has too many dependents (32 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/vocab/OWLFacet.java</file>
+    <line>37</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.vocab</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.vocab.OWLFacet" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLFacet' has too many dependents (35 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/vocab/XSDVocabulary.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.vocab</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.vocab.XSDVocabulary" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'XSDVocabulary' has too many dependents (12 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/vocab/Namespaces.java</file>
+    <line>29</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.vocab</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.vocab.Namespaces" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'Namespaces' has too many dependents (40 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/vocab/OWLXMLVocabulary.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.vocab</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.vocab.OWLXMLVocabulary" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLXMLVocabulary' has too many dependents (13 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/vocab/OWL2Datatype.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.vocab</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.vocab.OWL2Datatype" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWL2Datatype' has too many dependents (42 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/change/OWLOntologyChangeData.java</file>
+    <line>36</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.change</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.change.OWLOntologyChangeData" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLOntologyChangeData' has too many dependents (15 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/change/AbstractCompositeOntologyChange.java</file>
+    <line>31</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.change</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.change.AbstractCompositeOntologyChange" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'AbstractCompositeOntologyChange' has too many dependents (12 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/search/Filters.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.search</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.search.Filters" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'Filters' has too many dependents (16 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/search/Searcher.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.search</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.search.Searcher" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'Searcher' has too many dependents (24 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/formats/ManchesterOWLSyntaxOntologyFormat.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.formats</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormat" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'ManchesterOWLSyntaxOntologyFormat' has too many dependents (16 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/formats/OWLXMLOntologyFormat.java</file>
+    <line>27</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.formats</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.formats.OWLXMLOntologyFormat" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLXMLOntologyFormat' has too many dependents (16 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/formats/RDFXMLOntologyFormat.java</file>
+    <line>27</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.formats</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.formats.RDFXMLOntologyFormat" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'RDFXMLOntologyFormat' has too many dependents (22 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/formats/OWLFunctionalSyntaxOntologyFormat.java</file>
+    <line>27</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.formats</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormat" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLFunctionalSyntaxOntologyFormat' has too many dependents (15 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/formats/RDFOntologyFormat.java</file>
+    <line>32</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.formats</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.formats.RDFOntologyFormat" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'RDFOntologyFormat' has too many dependents (16 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/formats/PrefixOWLOntologyFormat.java</file>
+    <line>36</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.formats</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.formats.PrefixOWLOntologyFormat" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'PrefixOWLOntologyFormat' has too many dependents (27 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/formats/TurtleOntologyFormat.java</file>
+    <line>27</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.formats</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.formats.TurtleOntologyFormat" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'TurtleOntologyFormat' has too many dependents (13 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/profiles/OWLProfileViolation.java</file>
+    <line>42</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.profiles</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.profiles.OWLProfileViolation" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLProfileViolation' has too many dependents (62 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/profiles/OWLProfileReport.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.profiles</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.profiles.OWLProfileReport" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLProfileReport' has too many dependents (15 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/profiles/OWLProfileViolationVisitorEx.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.profiles</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLProfileViolationVisitorEx' has too many dependents (50 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/profiles/OWL2DLProfile.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.profiles</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.profiles.OWL2DLProfile" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWL2DLProfile' has too many dependents (11 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/profiles/OWLProfileViolationVisitor.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.profiles</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLProfileViolationVisitor' has too many dependents (50 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/profiles/OWLProfile.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.profiles</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.profiles.OWLProfile" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLProfile' has too many dependents (13 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/reasoner/Node.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.reasoner</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.reasoner.Node" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'Node' has too many dependents (21 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/reasoner/NodeSet.java</file>
+    <line>30</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.reasoner</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.reasoner.NodeSet" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'NodeSet' has too many dependents (16 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/reasoner/OWLReasonerFactory.java</file>
+    <line>30</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.reasoner</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.reasoner.OWLReasonerFactory" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLReasonerFactory' has too many dependents (15 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/reasoner/OWLReasoner.java</file>
+    <line>225</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.reasoner</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.reasoner.OWLReasoner" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLReasoner' has too many dependents (38 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/expression/OWLEntityChecker.java</file>
+    <line>32</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.expression</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.expression.OWLEntityChecker" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLEntityChecker' has too many dependents (12 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/annotations/HasPriority.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.annotations</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.annotations.HasPriority" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'HasPriority' has too many dependents (17 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/annotations/HasIdentifierKey.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.annotations</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.annotations.HasIdentifierKey" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'HasIdentifierKey' has too many dependents (17 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/annotations/IsBinaryFormat.java</file>
+    <line>1</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.annotations</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.annotations.IsBinaryFormat" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'IsBinaryFormat' has too many dependents (15 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLDataFactoryImpl.java</file>
+    <line>1</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLDataFactoryImpl' has too many dependents (15 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLAxiomImpl.java</file>
+    <line>39</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLAxiomImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLAxiomImpl' has too many dependents (48 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLSubClassOfAxiomImpl.java</file>
+    <line>1</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLSubClassOfAxiomImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLSubClassOfAxiomImpl' has too many dependents (19 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLObjectImpl.java</file>
+    <line>1</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="class" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLObjectImpl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLObjectImpl' has too many dependents (73 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/org/semanticweb/owlapi/reasoner/impl/DefaultNode.java</file>
+    <line>40</line>
+    <module>owlapi-impl</module>
+    <package>org.semanticweb.owlapi.reasoner.impl</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.reasoner.impl.DefaultNode" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'DefaultNode' has too many dependents (13 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/rio/src/main/java/org/semanticweb/owlapi/rio/AbstractRioParserFactory.java</file>
+    <line>1</line>
+    <module>owlapi-rio</module>
+    <package>org.semanticweb.owlapi.rio</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.rio.AbstractRioParserFactory" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'AbstractRioParserFactory' has too many dependents (12 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/rio/src/main/java/org/semanticweb/owlapi/formats/RioRDFOntologyFormat.java</file>
+    <line>1</line>
+    <module>owlapi-rio</module>
+    <package>org.semanticweb.owlapi.formats</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.formats.RioRDFOntologyFormat" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'RioRDFOntologyFormat' has too many dependents (27 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/rio/src/main/java/org/semanticweb/owlapi/formats/RioRDFOntologyFormatFactory.java</file>
+    <line>1</line>
+    <module>owlapi-rio</module>
+    <package>org.semanticweb.owlapi.formats</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.formats.RioRDFOntologyFormatFactory" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'RioRDFOntologyFormatFactory' has too many dependents (37 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/rio/src/main/java/org/semanticweb/owlapi/formats/RioRDFOntologyStorerFactory.java</file>
+    <line>1</line>
+    <module>owlapi-rio</module>
+    <package>org.semanticweb.owlapi.formats</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.formats.RioRDFOntologyStorerFactory" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'RioRDFOntologyStorerFactory' has too many dependents (11 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/rio/src/main/java/org/semanticweb/owlapi/formats/AbstractRioRDFOntologyFormatFactory.java</file>
+    <line>1</line>
+    <module>owlapi-rio</module>
+    <package>org.semanticweb.owlapi.formats</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.formats.AbstractRioRDFOntologyFormatFactory" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'AbstractRioRDFOntologyFormatFactory' has too many dependents (11 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>98</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="class" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLAPIOwl2Obo' has too many dependents (16 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/model/Frame.java</file>
+    <line>15</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.model</package>
+    <entry_point TYPE="class" FQNAME="org.obolibrary.oboformat.model.Frame" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'Frame' has too many dependents (43 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/model/OBODoc.java</file>
+    <line>19</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.model</package>
+    <entry_point TYPE="class" FQNAME="org.obolibrary.oboformat.model.OBODoc" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OBODoc' has too many dependents (62 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/model/Xref.java</file>
+    <line>6</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.model</package>
+    <entry_point TYPE="class" FQNAME="org.obolibrary.oboformat.model.Xref" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'Xref' has too many dependents (12 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/model/Clause.java</file>
+    <line>13</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.model</package>
+    <entry_point TYPE="class" FQNAME="org.obolibrary.oboformat.model.Clause" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'Clause' has too many dependents (36 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/OBOFormatConstants.java</file>
+    <line>13</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="class" FQNAME="org.obolibrary.oboformat.parser.OBOFormatConstants" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OBOFormatConstants' has too many dependents (40 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/BOMSafeJavaCharStream.java</file>
+    <line>1</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.BOMSafeJavaCharStream" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'BOMSafeJavaCharStream' has too many dependents (15 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/RDFParser.java</file>
+    <line>1</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.RDFParser" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'RDFParser' has too many dependents (13 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/OWLXMLParserHandler.java</file>
+    <line>1</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLXMLParserHandler" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLXMLParserHandler' has too many dependents (119 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>618</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.owlxml.parser.AbstractOperandAxiomElementHandler" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'AbstractOperandAxiomElementHandler' has too many dependents (13 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>668</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.owlxml.parser.AbstractOWLAxiomElementHandler" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'AbstractOWLAxiomElementHandler' has too many dependents (44 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>953</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.owlxml.parser.AbstractRestrictionElementHandler" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'AbstractRestrictionElementHandler' has too many dependents (18 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>2217</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLLiteralElementHandler" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLLiteralElementHandler' has too many dependents (12 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>215</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLElementHandler" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLElementHandler' has too many dependents (101 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>752</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.owlxml.parser.AbstractOWLDataRangeHandler" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'AbstractOWLDataRangeHandler' has too many dependents (14 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>882</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.owlxml.parser.AbstractOWLObjectPropertyElementHandler" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'AbstractOWLObjectPropertyElementHandler' has too many dependents (16 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>453</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.owlxml.parser.AbstractClassExpressionElementHandler" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'AbstractClassExpressionElementHandler' has too many dependents (21 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>1607</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLDataPropertyElementHandler" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLDataPropertyElementHandler' has too many dependents (13 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>2109</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLIndividualElementHandler" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLIndividualElementHandler' has too many dependents (15 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/RoundTripTest.java</file>
+    <line>1</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="class" FQNAME="org.obolibrary.obo2owl.RoundTripTest" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'RoundTripTest' has too many dependents (18 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/OboFormatTestBasics.java</file>
+    <line>1</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="class" FQNAME="org.obolibrary.obo2owl.OboFormatTestBasics" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OboFormatTestBasics' has too many dependents (57 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/baseclasses/AbstractAxiomsRoundTrippingTestCase.java</file>
+    <line>1</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.baseclasses</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.baseclasses.AbstractAxiomsRoundTrippingTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'AbstractAxiomsRoundTrippingTestCase' has too many dependents (73 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/baseclasses/AbstractFileRoundTrippingTestCase.java</file>
+    <line>1</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.baseclasses</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.baseclasses.AbstractFileRoundTrippingTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'AbstractFileRoundTrippingTestCase' has too many dependents (45 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/baseclasses/AbstractAnnotatedAxiomRoundTrippingTestCase.java</file>
+    <line>1</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.baseclasses</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.baseclasses.AbstractAnnotatedAxiomRoundTrippingTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'AbstractAnnotatedAxiomRoundTrippingTestCase' has too many dependents (39 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/baseclasses/TestBase.java</file>
+    <line>1</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.baseclasses</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.baseclasses.TestBase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'TestBase' has too many dependents (237 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/baseclasses/AbstractRoundTrippingTestCase.java</file>
+    <line>31</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.baseclasses</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.api.test.baseclasses.AbstractRoundTrippingTestCase" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'AbstractRoundTrippingTestCase' has too many dependents (45 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BaseDataPropertyBuilder.java</file>
+    <line>1</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapitools.builders.BaseDataPropertyBuilder" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'BaseDataPropertyBuilder' has too many dependents (14 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BaseBuilder.java</file>
+    <line>48</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapitools.builders.BaseBuilder" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'BaseBuilder' has too many dependents (92 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BaseSetBuilder.java</file>
+    <line>1</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapitools.builders.BaseSetBuilder" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'BaseSetBuilder' has too many dependents (19 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BaseObjectPropertyBuilder.java</file>
+    <line>1</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapitools.builders.BaseObjectPropertyBuilder" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'BaseObjectPropertyBuilder' has too many dependents (24 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/apibinding/src/main/java/org/semanticweb/owlapi/apibinding/OWLManager.java</file>
+    <line>1</line>
+    <module>owlapi-apibinding</module>
+    <package>org.semanticweb.owlapi.apibinding</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.apibinding.OWLManager" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLManager' has too many dependents (47 &gt; 10)</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/apibinding/src/main/java/org/semanticweb/owlapi/apibinding/OWLFunctionalSyntaxFactory.java</file>
+    <line>1</line>
+    <module>owlapi-apibinding</module>
+    <package>org.semanticweb.owlapi.apibinding</package>
+    <entry_point TYPE="class" FQNAME="org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Class with too many dependents</problem_class>
+    <hints />
+    <description>Class 'OWLFunctionalSyntaxFactory' has too many dependents (247 &gt; 10)</description>
+  </problem>
+</problems>
+

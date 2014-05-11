@@ -1,0 +1,2128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/io/GZipFileDocumentSource.java</file>
+    <line>70</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.io</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.io.GZipFileDocumentSource GZipFileDocumentSource(java.io.File stream, org.semanticweb.owlapi.model.IRI documentIRI, org.semanticweb.owlapi.model.OWLOntologyFormat format, java.lang.String mime)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="format null" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;format&lt;/code&gt;' is always '&lt;code&gt;null&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/io/GZipFileDocumentSource.java</file>
+    <line>71</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.io</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.io.GZipFileDocumentSource GZipFileDocumentSource(java.io.File stream, org.semanticweb.owlapi.model.IRI documentIRI, org.semanticweb.owlapi.model.OWLOntologyFormat format, java.lang.String mime)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="mime null" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;mime&lt;/code&gt;' is always '&lt;code&gt;null&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/io/GZipStreamDocumentSource.java</file>
+    <line>68</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.io</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.io.GZipStreamDocumentSource GZipStreamDocumentSource(java.io.InputStream stream, org.semanticweb.owlapi.model.IRI documentIRI, org.semanticweb.owlapi.model.OWLOntologyFormat format, java.lang.String mime)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="format null" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;format&lt;/code&gt;' is always '&lt;code&gt;null&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/io/GZipStreamDocumentSource.java</file>
+    <line>69</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.io</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.io.GZipStreamDocumentSource GZipStreamDocumentSource(java.io.InputStream stream, org.semanticweb.owlapi.model.IRI documentIRI, org.semanticweb.owlapi.model.OWLOntologyFormat format, java.lang.String mime)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="mime null" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;mime&lt;/code&gt;' is always '&lt;code&gt;null&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/io/IRIDocumentSource.java</file>
+    <line>45</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.io</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.io.IRIDocumentSource IRIDocumentSource(org.semanticweb.owlapi.model.IRI documentIRI, org.semanticweb.owlapi.model.OWLOntologyFormat format, java.lang.String mime)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="format null" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;format&lt;/code&gt;' is always '&lt;code&gt;null&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/io/IRIDocumentSource.java</file>
+    <line>45</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.io</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.io.IRIDocumentSource IRIDocumentSource(org.semanticweb.owlapi.model.IRI documentIRI, org.semanticweb.owlapi.model.OWLOntologyFormat format, java.lang.String mime)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="mime null" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;mime&lt;/code&gt;' is always '&lt;code&gt;null&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/io/FileDocumentSource.java</file>
+    <line>79</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.io</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.io.FileDocumentSource FileDocumentSource(java.io.File file, org.semanticweb.owlapi.model.OWLOntologyFormat format, java.lang.String mime)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="mime null" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;mime&lt;/code&gt;' is always '&lt;code&gt;null&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/io/RDFParserMetaData.java</file>
+    <line>52</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.io</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.io.RDFParserMetaData RDFParserMetaData(org.semanticweb.owlapi.io.RDFOntologyHeaderStatus headerStatus, int tripleCount, java.util.Set&lt;org.semanticweb.owlapi.io.RDFTriple&gt; unparsedTriples, com.google.common.collect.Multimap&lt;org.semanticweb.owlapi.model.IRI,java.lang.Class&lt;?&gt;&gt; guessedDeclarations)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="headerStatus org.semanticweb.owlapi.io.RDFOntologyHeaderStatus.PARSED_ONE_HEADER" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;headerStatus&lt;/code&gt;' is always '&lt;code&gt;org.semanticweb.owlapi.io.RDFOntologyHeaderStatus.PARSED_ONE_HEADER&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/io/StringDocumentSource.java</file>
+    <line>69</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.io</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.io.StringDocumentSource StringDocumentSource(java.lang.String string, org.semanticweb.owlapi.model.IRI documentIRI, org.semanticweb.owlapi.model.OWLOntologyFormat f, java.lang.String mime)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="mime null" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;mime&lt;/code&gt;' is always '&lt;code&gt;null&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/OWLEntityTinyURIConversionStrategy.java</file>
+    <line>75</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.OWLEntityTinyURIConversionStrategy OWLEntityTinyURIConversionStrategy(java.lang.String base)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="base org.semanticweb.owlapi.util.OWLEntityTinyURIConversionStrategy.DEFAULT_BASE" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;base&lt;/code&gt;' is always '&lt;code&gt;org.semanticweb.owlapi.util.OWLEntityTinyURIConversionStrategy.DEFAULT_BASE&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/OWLEntityVisitorExAdapter.java</file>
+    <line>49</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.OWLEntityVisitorExAdapter OWLEntityVisitorExAdapter(O defaultReturnValue)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="defaultReturnValue null" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;defaultReturnValue&lt;/code&gt;' is always '&lt;code&gt;null&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/Version.java</file>
+    <line>42</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.Version Version(int major, int minor, int patch, int build)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="major 1" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;major&lt;/code&gt;' is always '&lt;code&gt;1&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/Version.java</file>
+    <line>42</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.Version Version(int major, int minor, int patch, int build)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="minor 0" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;minor&lt;/code&gt;' is always '&lt;code&gt;0&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/Version.java</file>
+    <line>42</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.Version Version(int major, int minor, int patch, int build)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="patch 0" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;patch&lt;/code&gt;' is always '&lt;code&gt;0&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/Version.java</file>
+    <line>42</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.Version Version(int major, int minor, int patch, int build)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="build 0" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;build&lt;/code&gt;' is always '&lt;code&gt;0&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/DefaultPrefixManager.java</file>
+    <line>60</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.DefaultPrefixManager DefaultPrefixManager(org.semanticweb.owlapi.model.PrefixManager pm, java.util.Comparator&lt;java.lang.String&gt; c, java.lang.String defaultPrefix)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="pm null" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;pm&lt;/code&gt;' is always '&lt;code&gt;null&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/DefaultPrefixManager.java</file>
+    <line>61</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.DefaultPrefixManager DefaultPrefixManager(org.semanticweb.owlapi.model.PrefixManager pm, java.util.Comparator&lt;java.lang.String&gt; c, java.lang.String defaultPrefix)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="c null" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;c&lt;/code&gt;' is always '&lt;code&gt;null&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/OWLOntologyChangeVisitorExAdapter.java</file>
+    <line>49</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.OWLOntologyChangeVisitorExAdapter OWLOntologyChangeVisitorExAdapter(O object)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="object null" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;object&lt;/code&gt;' is always '&lt;code&gt;null&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/NodeID.java</file>
+    <line>44</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.NodeID java.lang.String nodeString(int id)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="id 30" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;id&lt;/code&gt;' is always '&lt;code&gt;30&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLOntologyManager.java</file>
+    <line>514</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.OWLOntologyManager org.semanticweb.owlapi.model.OWLOntology createOntology(org.semanticweb.owlapi.model.IRI ontologyIRI, java.util.Set&lt;org.semanticweb.owlapi.model.OWLOntology&gt; ontologies, boolean copyLogicalAxiomsOnly)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="copyLogicalAxiomsOnly false" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;copyLogicalAxiomsOnly&lt;/code&gt;' is always '&lt;code&gt;false&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLOntology.java</file>
+    <line>331</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.OWLOntology boolean isDeclared(org.semanticweb.owlapi.model.OWLEntity owlEntity, org.semanticweb.owlapi.model.parameters.Imports includeImportsClosure)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="includeImportsClosure org.semanticweb.owlapi.model.parameters.Imports.INCLUDED" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;includeImportsClosure&lt;/code&gt;' is always '&lt;code&gt;org.semanticweb.owlapi.model.parameters.Imports.INCLUDED&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLDataFactory.java</file>
+    <line>795</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.OWLDataFactory org.semanticweb.owlapi.model.OWLDatatypeRestriction getOWLDatatypeMaxExclusiveRestriction(double maxExclusive)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="maxExclusive 200D" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;maxExclusive&lt;/code&gt;' is always '&lt;code&gt;200D&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLDataFactory.java</file>
+    <line>610</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.OWLDataFactory org.semanticweb.owlapi.model.OWLDatatypeRestriction getOWLDatatypeMinInclusiveRestriction(int minInclusive)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="minInclusive 60" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;minInclusive&lt;/code&gt;' is always '&lt;code&gt;60&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLDataFactory.java</file>
+    <line>683</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.OWLDataFactory org.semanticweb.owlapi.model.OWLDatatypeRestriction getOWLDatatypeMaxExclusiveRestriction(int maxExclusive)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="maxExclusive 18" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;maxExclusive&lt;/code&gt;' is always '&lt;code&gt;18&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLAxiomCollection.java</file>
+    <line>90</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.OWLAxiomCollection java.util.Set&lt;org.semanticweb.owlapi.model.OWLLogicalAxiom&gt; getLogicalAxioms(org.semanticweb.owlapi.model.parameters.Imports includeImportsClosure)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="includeImportsClosure org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;includeImportsClosure&lt;/code&gt;' is always '&lt;code&gt;org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLAxiomCollection.java</file>
+    <line>372</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.OWLAxiomCollection java.util.Set&lt;org.semanticweb.owlapi.model.OWLAnnotationAxiom&gt; getAxioms(org.semanticweb.owlapi.model.OWLAnnotationProperty property, org.semanticweb.owlapi.model.parameters.Imports includeImportsClosure)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="includeImportsClosure org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;includeImportsClosure&lt;/code&gt;' is always '&lt;code&gt;org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLAxiomCollection.java</file>
+    <line>386</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.OWLAxiomCollection java.util.Set&lt;org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom&gt; getAxioms(org.semanticweb.owlapi.model.OWLDatatype datatype, org.semanticweb.owlapi.model.parameters.Imports includeImportsClosure)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="includeImportsClosure org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;includeImportsClosure&lt;/code&gt;' is always '&lt;code&gt;org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLAxiomCollection.java</file>
+    <line>49</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.OWLAxiomCollection java.util.Set&lt;org.semanticweb.owlapi.model.OWLAxiom&gt; getAxioms(org.semanticweb.owlapi.model.parameters.Imports includeImportsClosure)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="includeImportsClosure org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;includeImportsClosure&lt;/code&gt;' is always '&lt;code&gt;org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLAxiomCollection.java</file>
+    <line>215</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.OWLAxiomCollection java.util.Set&lt;org.semanticweb.owlapi.model.OWLAxiom&gt; getAxiomsIgnoreAnnotations(org.semanticweb.owlapi.model.OWLAxiom axiom, org.semanticweb.owlapi.model.parameters.Imports includeImportsClosure)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="includeImportsClosure org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;includeImportsClosure&lt;/code&gt;' is always '&lt;code&gt;org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLAxiomCollection.java</file>
+    <line>65</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.OWLAxiomCollection int getAxiomCount(org.semanticweb.owlapi.model.parameters.Imports includeImportsClosure)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="includeImportsClosure org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;includeImportsClosure&lt;/code&gt;' is always '&lt;code&gt;org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLAxiomCollection.java</file>
+    <line>162</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.OWLAxiomCollection int getAxiomCount(org.semanticweb.owlapi.model.AxiomType&lt;T&gt; axiomType, org.semanticweb.owlapi.model.parameters.Imports includeImportsClosure)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="includeImportsClosure org.semanticweb.owlapi.model.parameters.Imports.INCLUDED" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;includeImportsClosure&lt;/code&gt;' is always '&lt;code&gt;org.semanticweb.owlapi.model.parameters.Imports.INCLUDED&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLAxiomCollection.java</file>
+    <line>108</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.OWLAxiomCollection int getLogicalAxiomCount(org.semanticweb.owlapi.model.parameters.Imports includeImportsClosure)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="includeImportsClosure org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;includeImportsClosure&lt;/code&gt;' is always '&lt;code&gt;org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLOntologyLoaderConfiguration.java</file>
+    <line>338</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration setMissingImportHandlingStrategy(org.semanticweb.owlapi.model.parameters.MissingImportHandlingStrategy missingImportHandlingStrategy)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="missingImportHandlingStrategy org.semanticweb.owlapi.model.parameters.MissingImportHandlingStrategy.SILENT" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;missingImportHandlingStrategy&lt;/code&gt;' is always '&lt;code&gt;org.semanticweb.owlapi.model.parameters.MissingImportHandlingStrategy.SILENT&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLOntologyLoaderConfiguration.java</file>
+    <line>313</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration setLoadAnnotationAxioms(boolean b)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="b false" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;b&lt;/code&gt;' is always '&lt;code&gt;false&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLOntologyLoaderConfiguration.java</file>
+    <line>378</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration setReportStackTraces(boolean b)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="b true" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;b&lt;/code&gt;' is always '&lt;code&gt;true&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLAxiomIndex.java</file>
+    <line>56</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.OWLAxiomIndex java.util.Set&lt;T&gt; getAxioms(java.lang.Class&lt;T&gt; type, org.semanticweb.owlapi.model.OWLObject entity, org.semanticweb.owlapi.model.parameters.Imports includeImports, org.semanticweb.owlapi.model.parameters.Search forSubPosition)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="includeImports org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;includeImports&lt;/code&gt;' is always '&lt;code&gt;org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLAxiomIndex.java</file>
+    <line>95</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.OWLAxiomIndex boolean contains(org.semanticweb.owlapi.util.OWLAxiomSearchFilter filter, java.lang.Object key, org.semanticweb.owlapi.model.parameters.Imports includeImportsClosure)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="includeImportsClosure org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;includeImportsClosure&lt;/code&gt;' is always '&lt;code&gt;org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLSignature.java</file>
+    <line>55</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.OWLSignature java.util.Set&lt;org.semanticweb.owlapi.model.OWLObjectProperty&gt; getObjectPropertiesInSignature(org.semanticweb.owlapi.model.parameters.Imports includeImportsClosure)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="includeImportsClosure org.semanticweb.owlapi.model.parameters.Imports.INCLUDED" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;includeImportsClosure&lt;/code&gt;' is always '&lt;code&gt;org.semanticweb.owlapi.model.parameters.Imports.INCLUDED&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLSignature.java</file>
+    <line>94</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.OWLSignature java.util.Set&lt;org.semanticweb.owlapi.model.OWLAnonymousIndividual&gt; getReferencedAnonymousIndividuals(org.semanticweb.owlapi.model.parameters.Imports includeImportsClosure)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="includeImportsClosure org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;includeImportsClosure&lt;/code&gt;' is always '&lt;code&gt;org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLSignature.java</file>
+    <line>69</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.OWLSignature java.util.Set&lt;org.semanticweb.owlapi.model.OWLDataProperty&gt; getDataPropertiesInSignature(org.semanticweb.owlapi.model.parameters.Imports includeImportsClosure)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="includeImportsClosure org.semanticweb.owlapi.model.parameters.Imports.INCLUDED" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;includeImportsClosure&lt;/code&gt;' is always '&lt;code&gt;org.semanticweb.owlapi.model.parameters.Imports.INCLUDED&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLSignature.java</file>
+    <line>134</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.OWLSignature boolean containsEntityInSignature(org.semanticweb.owlapi.model.OWLEntity owlEntity, org.semanticweb.owlapi.model.parameters.Imports includeImportsClosure)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="includeImportsClosure org.semanticweb.owlapi.model.parameters.Imports.INCLUDED" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;includeImportsClosure&lt;/code&gt;' is always '&lt;code&gt;org.semanticweb.owlapi.model.parameters.Imports.INCLUDED&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLSignature.java</file>
+    <line>41</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.OWLSignature java.util.Set&lt;org.semanticweb.owlapi.model.OWLClass&gt; getClassesInSignature(org.semanticweb.owlapi.model.parameters.Imports includeImportsClosure)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="includeImportsClosure org.semanticweb.owlapi.model.parameters.Imports.INCLUDED" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;includeImportsClosure&lt;/code&gt;' is always '&lt;code&gt;org.semanticweb.owlapi.model.parameters.Imports.INCLUDED&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLSignature.java</file>
+    <line>248</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.OWLSignature java.util.Set&lt;org.semanticweb.owlapi.model.OWLEntity&gt; getEntitiesInSignature(org.semanticweb.owlapi.model.IRI iri, org.semanticweb.owlapi.model.parameters.Imports includeImportsClosure)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="includeImportsClosure org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;includeImportsClosure&lt;/code&gt;' is always '&lt;code&gt;org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLSignature.java</file>
+    <line>147</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.OWLSignature boolean containsEntityInSignature(org.semanticweb.owlapi.model.IRI entityIRI, org.semanticweb.owlapi.model.parameters.Imports includeImportsClosure)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="includeImportsClosure org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;includeImportsClosure&lt;/code&gt;' is always '&lt;code&gt;org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/change/MakePrimitiveSubClassesMutuallyDisjoint.java</file>
+    <line>79</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.change</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.change.MakePrimitiveSubClassesMutuallyDisjoint MakePrimitiveSubClassesMutuallyDisjoint(org.semanticweb.owlapi.model.OWLDataFactory dataFactory, org.semanticweb.owlapi.model.OWLClass cls, org.semanticweb.owlapi.model.OWLOntology targetOntology, boolean usePairwiseDisjointAxioms)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="usePairwiseDisjointAxioms false" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;usePairwiseDisjointAxioms&lt;/code&gt;' is always '&lt;code&gt;false&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/change/ShortForm2AnnotationGenerator.java</file>
+    <line>62</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.change</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.change.ShortForm2AnnotationGenerator ShortForm2AnnotationGenerator(org.semanticweb.owlapi.model.OWLDataFactory df, org.semanticweb.owlapi.model.OWLOntologyManager ontologyManager, org.semanticweb.owlapi.model.OWLOntology ontology, org.semanticweb.owlapi.util.ShortFormProvider shortFormProvider, org.semanticweb.owlapi.model.IRI annotationIRI, java.lang.String languageTag)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="languageTag null" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;languageTag&lt;/code&gt;' is always '&lt;code&gt;null&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/search/Searcher.java</file>
+    <line>228</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.search</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.search.Searcher java.util.Collection&lt;org.semanticweb.owlapi.model.OWLAnnotationValue&gt; values(java.util.Collection&lt;org.semanticweb.owlapi.model.OWLAnnotation&gt; annotations, org.semanticweb.owlapi.model.OWLAnnotationProperty p)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="p null" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;p&lt;/code&gt;' is always '&lt;code&gt;null&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/formats/RDFOntologyFormat.java</file>
+    <line>103</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.formats</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.formats.RDFOntologyFormat void setAddMissingTypes(boolean addMissingTypes)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="addMissingTypes false" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;addMissingTypes&lt;/code&gt;' is always '&lt;code&gt;false&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/profiles/OWLProfileViolationVisitorExAdapter.java</file>
+    <line>84</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.profiles</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorExAdapter OWLProfileViolationVisitorExAdapter(O o)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="o null" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;o&lt;/code&gt;' is always '&lt;code&gt;null&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/reasoner/TimeOutException.java</file>
+    <line>36</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.reasoner</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.reasoner.TimeOutException TimeOutException(java.lang.String message)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="message &quot;Timeout occurred while reasoning!&quot;" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;message&lt;/code&gt;' is always '&lt;code&gt;&quot;Timeout occurred while reasoning!&quot;&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/reasoner/OWLReasoner.java</file>
+    <line>1300</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.reasoner</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.reasoner.OWLReasoner org.semanticweb.owlapi.reasoner.NodeSet&lt;org.semanticweb.owlapi.model.OWLClass&gt; getTypes(org.semanticweb.owlapi.model.OWLNamedIndividual ind, boolean direct)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="direct false" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;direct&lt;/code&gt;' is always '&lt;code&gt;false&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/reasoner/OWLReasoner.java</file>
+    <line>368</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.reasoner</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.reasoner.OWLReasoner boolean isPrecomputed(org.semanticweb.owlapi.reasoner.InferenceType inferenceType)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="inferenceType org.semanticweb.owlapi.reasoner.InferenceType.CLASS_HIERARCHY" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;inferenceType&lt;/code&gt;' is always '&lt;code&gt;org.semanticweb.owlapi.reasoner.InferenceType.CLASS_HIERARCHY&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/reasoner/OWLReasoner.java</file>
+    <line>358</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.reasoner</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.reasoner.OWLReasoner void precomputeInferences(org.semanticweb.owlapi.reasoner.InferenceType... inferenceTypes)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="inferenceTypes org.semanticweb.owlapi.reasoner.InferenceType.CLASS_HIERARCHY" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;inferenceTypes&lt;/code&gt;' is always '&lt;code&gt;org.semanticweb.owlapi.reasoner.InferenceType.CLASS_HIERARCHY&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/reasoner/OWLReasoner.java</file>
+    <line>835</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.reasoner</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.reasoner.OWLReasoner org.semanticweb.owlapi.reasoner.NodeSet&lt;org.semanticweb.owlapi.model.OWLObjectPropertyExpression&gt; getSuperObjectProperties(org.semanticweb.owlapi.model.OWLObjectPropertyExpression pe, boolean direct)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="direct true" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;direct&lt;/code&gt;' is always '&lt;code&gt;true&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLOntologyManagerImpl.java</file>
+    <line>1105</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl org.semanticweb.owlapi.model.IRI getDocumentIRIFromMappers(org.semanticweb.owlapi.model.OWLOntologyID ontologyID, boolean quiet)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="quiet true" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;quiet&lt;/code&gt;' is always '&lt;code&gt;true&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLDataFactoryImpl.java</file>
+    <line>95</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl void checkNull(java.lang.Object[] o, java.lang.String name, boolean emptyAllowed)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="emptyAllowed true" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;emptyAllowed&lt;/code&gt;' is always '&lt;code&gt;true&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLDataFactoryImpl.java</file>
+    <line>71</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl OWLDataFactoryImpl(boolean cache, boolean useCompression)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="useCompression false" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;useCompression&lt;/code&gt;' is always '&lt;code&gt;false&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLDataFactoryImpl.java</file>
+    <line>88</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl void checkNull(java.util.Collection&lt;?&gt; o, java.lang.String name, boolean emptyAllowed)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="emptyAllowed true" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;emptyAllowed&lt;/code&gt;' is always '&lt;code&gt;true&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java</file>
+    <line>444</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.Internals uk.ac.manchester.cs.owl.owlapi.MapPointer&lt;K,V&gt; build(org.semanticweb.owlapi.model.AxiomType&lt;?&gt; t, org.semanticweb.owlapi.model.OWLAxiomVisitorEx&lt;?&gt; v)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="t null" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;t&lt;/code&gt;' is always '&lt;code&gt;null&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/Internals.java</file>
+    <line>445</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.Internals uk.ac.manchester.cs.owl.owlapi.MapPointer&lt;K,V&gt; build(org.semanticweb.owlapi.model.AxiomType&lt;?&gt; t, org.semanticweb.owlapi.model.OWLAxiomVisitorEx&lt;?&gt; v)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="v null" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;v&lt;/code&gt;' is always '&lt;code&gt;null&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/InitVisitorFactory.java</file>
+    <line>258</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.InitIndividualVisitor InitIndividualVisitor(boolean sub, boolean named)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="sub true" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;sub&lt;/code&gt;' is always '&lt;code&gt;true&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/InitVisitorFactory.java</file>
+    <line>258</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.InitIndividualVisitor InitIndividualVisitor(boolean sub, boolean named)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="named true" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;named&lt;/code&gt;' is always '&lt;code&gt;true&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/InitVisitorFactory.java</file>
+    <line>285</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.InitCollectionVisitor InitCollectionVisitor(boolean named)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="named true" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;named&lt;/code&gt;' is always '&lt;code&gt;true&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/ClassAxiomByClassPointer.java</file>
+    <line>43</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.ClassAxiomByClassPointer ClassAxiomByClassPointer(org.semanticweb.owlapi.model.AxiomType&lt;?&gt; t, org.semanticweb.owlapi.model.OWLAxiomVisitorEx&lt;?&gt; v, boolean initialized, uk.ac.manchester.cs.owl.owlapi.Internals i)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="t null" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;t&lt;/code&gt;' is always '&lt;code&gt;null&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/ClassAxiomByClassPointer.java</file>
+    <line>44</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.ClassAxiomByClassPointer ClassAxiomByClassPointer(org.semanticweb.owlapi.model.AxiomType&lt;?&gt; t, org.semanticweb.owlapi.model.OWLAxiomVisitorEx&lt;?&gt; v, boolean initialized, uk.ac.manchester.cs.owl.owlapi.Internals i)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="v null" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;v&lt;/code&gt;' is always '&lt;code&gt;null&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/ClassAxiomByClassPointer.java</file>
+    <line>44</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.owlapi.ClassAxiomByClassPointer ClassAxiomByClassPointer(org.semanticweb.owlapi.model.AxiomType&lt;?&gt; t, org.semanticweb.owlapi.model.OWLAxiomVisitorEx&lt;?&gt; v, boolean initialized, uk.ac.manchester.cs.owl.owlapi.Internals i)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="initialized false" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;initialized&lt;/code&gt;' is always '&lt;code&gt;false&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/macro/ManchesterSyntaxTool.java</file>
+    <line>102</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.macro</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.macro.ManchesterSyntaxTool ManchesterSyntaxTool(org.semanticweb.owlapi.model.OWLOntology inputOntology, java.util.Collection&lt;org.semanticweb.owlapi.model.OWLOntology&gt; auxiliaryOntologies, boolean resolveEntities)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="resolveEntities true" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;resolveEntities&lt;/code&gt;' is always '&lt;code&gt;true&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>1646</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo void setMuteUntranslatableAxioms(boolean muteUntranslatableAxioms)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="muteUntranslatableAxioms true" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;muteUntranslatableAxioms&lt;/code&gt;' is always '&lt;code&gt;true&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>499</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo boolean trObjectProperty(org.semanticweb.owlapi.model.OWLObjectProperty prop, java.lang.String tag, java.lang.Boolean value, java.util.Set&lt;org.semanticweb.owlapi.model.OWLAnnotation&gt; annotations)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="value java.lang.Boolean.TRUE" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;value&lt;/code&gt;' is always '&lt;code&gt;java.lang.Boolean.TRUE&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/diff/Diff.java</file>
+    <line>29</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.diff</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.diff.Diff Diff(java.lang.String ftype, java.lang.String type, org.obolibrary.oboformat.model.Frame f1, int n)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="type &quot;cannot find frame&quot;" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;type&lt;/code&gt;' is always '&lt;code&gt;&quot;cannot find frame&quot;&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/XrefExpander.java</file>
+    <line>60</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.parser.XrefExpander XrefExpander(org.obolibrary.oboformat.model.OBODoc src, java.lang.String targetBase)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="targetBase &quot;bridge&quot;" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;targetBase&lt;/code&gt;' is always '&lt;code&gt;&quot;bridge&quot;&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/OBOFormatParser.java</file>
+    <line>143</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.parser.OBOFormatParser.MyStream int indexOf(char c)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="c ':'" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;c&lt;/code&gt;' is always '&lt;code&gt;':'&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/OBOFormatParserException.java</file>
+    <line>51</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.parser.OBOFormatParserException OBOFormatParserException(java.lang.Throwable e, int lineNo, java.lang.String line)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="line &quot;Error reading from input.&quot;" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;line&lt;/code&gt;' is always '&lt;code&gt;&quot;Error reading from input.&quot;&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/writer/OBOFormatWriter.java</file>
+    <line>146</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.writer</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.writer.OBOFormatWriter void write(org.obolibrary.oboformat.model.OBODoc doc, java.lang.String outFile)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="outFile &quot;/tmp/z.obo&quot;" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;outFile&lt;/code&gt;' is always '&lt;code&gt;&quot;/tmp/z.obo&quot;&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/writer/OBOFormatWriter.java</file>
+    <line>50</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.writer</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.writer.OBOFormatWriter void setCheckStructure(boolean isCheckStructure)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="isCheckStructure true" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;isCheckStructure&lt;/code&gt;' is always '&lt;code&gt;true&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/BOMSafeJavaCharStream.java</file>
+    <line>475</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.BOMSafeJavaCharStream void ReInit(java.io.InputStream dstream, java.lang.String encoding, int startline, int startcolumn)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="startline 1" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;startline&lt;/code&gt;' is always '&lt;code&gt;1&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/BOMSafeJavaCharStream.java</file>
+    <line>476</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.BOMSafeJavaCharStream void ReInit(java.io.InputStream dstream, java.lang.String encoding, int startline, int startcolumn)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="startcolumn 1" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;startcolumn&lt;/code&gt;' is always '&lt;code&gt;1&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/BOMSafeJavaCharStream.java</file>
+    <line>379</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.BOMSafeJavaCharStream BOMSafeJavaCharStream(java.io.Reader dstream, int startline, int startcolumn)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="startline 1" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;startline&lt;/code&gt;' is always '&lt;code&gt;1&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/BOMSafeJavaCharStream.java</file>
+    <line>379</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.BOMSafeJavaCharStream BOMSafeJavaCharStream(java.io.Reader dstream, int startline, int startcolumn)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="startcolumn 1" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;startcolumn&lt;/code&gt;' is always '&lt;code&gt;1&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/BOMSafeJavaCharStream.java</file>
+    <line>454</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.BOMSafeJavaCharStream void ReInit(java.io.InputStream dstream, java.lang.String encoding, int startline, int startcolumn, int buffersize)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="buffersize 4096" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;buffersize&lt;/code&gt;' is always '&lt;code&gt;4096&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/BOMSafeJavaCharStream.java</file>
+    <line>449</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.BOMSafeJavaCharStream BOMSafeJavaCharStream(java.io.InputStream dstream, java.lang.String encoding, int startline, int startcolumn)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="startline 1" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;startline&lt;/code&gt;' is always '&lt;code&gt;1&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/BOMSafeJavaCharStream.java</file>
+    <line>449</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.BOMSafeJavaCharStream BOMSafeJavaCharStream(java.io.InputStream dstream, java.lang.String encoding, int startline, int startcolumn)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="startcolumn 1" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;startcolumn&lt;/code&gt;' is always '&lt;code&gt;1&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/BOMSafeJavaCharStream.java</file>
+    <line>430</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.BOMSafeJavaCharStream BOMSafeJavaCharStream(java.io.InputStream dstream, java.lang.String encoding, int startline, int startcolumn, int buffersize)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="buffersize 4096" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;buffersize&lt;/code&gt;' is always '&lt;code&gt;4096&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/BOMSafeJavaCharStream.java</file>
+    <line>410</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.BOMSafeJavaCharStream void ReInit(java.io.Reader dstream, int startline, int startcolumn)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="startline 1" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;startline&lt;/code&gt;' is always '&lt;code&gt;1&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/BOMSafeJavaCharStream.java</file>
+    <line>410</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.BOMSafeJavaCharStream void ReInit(java.io.Reader dstream, int startline, int startcolumn)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="startcolumn 1" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;startcolumn&lt;/code&gt;' is always '&lt;code&gt;1&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/TripleHandlers.java</file>
+    <line>1874</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.TripleHandlers.TPInverseOfHandler void setAxiomParsingMode(boolean axiomParsingMode)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="axiomParsingMode true" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;axiomParsingMode&lt;/code&gt;' is always '&lt;code&gt;true&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/Translators.java</file>
+    <line>416</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.Translators.AbstractClassExpressionTranslator boolean isDataPropertyStrict(org.semanticweb.owlapi.model.IRI mainNode, org.semanticweb.owlapi.vocab.OWLRDFVocabulary predicate)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="predicate org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ON_PROPERTY" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;predicate&lt;/code&gt;' is always '&lt;code&gt;org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ON_PROPERTY&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/Translators.java</file>
+    <line>426</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.Translators.AbstractClassExpressionTranslator boolean isDataPropertyLax(org.semanticweb.owlapi.model.IRI mainNode, org.semanticweb.owlapi.vocab.OWLRDFVocabulary predicate)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="predicate org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ON_PROPERTY" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;predicate&lt;/code&gt;' is always '&lt;code&gt;org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ON_PROPERTY&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/Translators.java</file>
+    <line>406</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.Translators.AbstractClassExpressionTranslator boolean isObjectPropertyLax(org.semanticweb.owlapi.model.IRI mainNode, org.semanticweb.owlapi.vocab.OWLRDFVocabulary predicate)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="predicate org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ON_PROPERTY" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;predicate&lt;/code&gt;' is always '&lt;code&gt;org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ON_PROPERTY&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/Translators.java</file>
+    <line>453</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.Translators.AbstractClassExpressionTranslator boolean isClassExpressionListStrict(org.semanticweb.owlapi.model.IRI mainNode, int minSize)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="minSize 2" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;minSize&lt;/code&gt;' is always '&lt;code&gt;2&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/Translators.java</file>
+    <line>462</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.Translators.AbstractClassExpressionTranslator boolean isIndividualListStrict(org.semanticweb.owlapi.model.IRI mainNode, int minSize)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="minSize 1" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;minSize&lt;/code&gt;' is always '&lt;code&gt;1&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/Translators.java</file>
+    <line>396</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.Translators.AbstractClassExpressionTranslator boolean isObjectPropertyStrict(org.semanticweb.owlapi.model.IRI mainNode, org.semanticweb.owlapi.vocab.OWLRDFVocabulary predicate)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="predicate org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ON_PROPERTY" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;predicate&lt;/code&gt;' is always '&lt;code&gt;org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ON_PROPERTY&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/OWLRDFConsumer.java</file>
+    <line>2258</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFConsumer boolean isTriplePresent(org.semanticweb.owlapi.model.IRI subject, org.semanticweb.owlapi.model.IRI predicate, org.semanticweb.owlapi.model.OWLLiteral object, boolean consume)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="consume true" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;consume&lt;/code&gt;' is always '&lt;code&gt;true&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/OWLRDFConsumer.java</file>
+    <line>2196</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFConsumer boolean isTriplePresent(org.semanticweb.owlapi.model.IRI subject, org.semanticweb.owlapi.model.IRI predicate, org.semanticweb.owlapi.model.IRI object, boolean consume)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="consume true" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;consume&lt;/code&gt;' is always '&lt;code&gt;true&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/OWLRDFConsumer.java</file>
+    <line>2388</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFConsumer org.semanticweb.owlapi.model.IRI getRest(org.semanticweb.owlapi.model.IRI subject, boolean consume)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="consume true" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;consume&lt;/code&gt;' is always '&lt;code&gt;true&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/renderer/XMLWriterPreferences.java</file>
+    <line>52</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.renderer.XMLWriterPreferences void setUseNamespaceEntities(boolean useNamespaceEntities)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="useNamespaceEntities true" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;useNamespaceEntities&lt;/code&gt;' is always '&lt;code&gt;true&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/renderer/XMLWriter.java</file>
+    <line>58</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.renderer.XMLWriter void setWrapAttributes(boolean b)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="b true" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;b&lt;/code&gt;' is always '&lt;code&gt;true&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/turtle/parser/ParseException.java</file>
+    <line>24</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.turtle.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.turtle.parser.ParseException ParseException(org.semanticweb.owlapi.rdf.turtle.parser.Token currentTokenVal, int[][] expectedTokenSequencesVal, java.lang.String[] tokenImageVal)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="tokenImageVal org.semanticweb.owlapi.rdf.turtle.parser.TurtleParserConstants.tokenImage" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;tokenImageVal&lt;/code&gt;' is always '&lt;code&gt;org.semanticweb.owlapi.rdf.turtle.parser.TurtleParserConstants.tokenImage&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/turtle/parser/JavaCharStream.java</file>
+    <line>21</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.turtle.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.turtle.parser.JavaCharStream JavaCharStream(java.io.Reader dstream, int startline, int startcolumn)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="startline 1" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;startline&lt;/code&gt;' is always '&lt;code&gt;1&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/turtle/parser/JavaCharStream.java</file>
+    <line>21</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.turtle.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.turtle.parser.JavaCharStream JavaCharStream(java.io.Reader dstream, int startline, int startcolumn)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="startcolumn 1" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;startcolumn&lt;/code&gt;' is always '&lt;code&gt;1&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/turtle/parser/JavaCharStream.java</file>
+    <line>25</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.turtle.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.turtle.parser.JavaCharStream JavaCharStream(java.io.InputStream dstream, java.lang.String encoding, int startline, int startcolumn)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="startline 1" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;startline&lt;/code&gt;' is always '&lt;code&gt;1&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/turtle/parser/JavaCharStream.java</file>
+    <line>26</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.turtle.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.turtle.parser.JavaCharStream JavaCharStream(java.io.InputStream dstream, java.lang.String encoding, int startline, int startcolumn)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="startcolumn 1" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;startcolumn&lt;/code&gt;' is always '&lt;code&gt;1&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/ParseException.java</file>
+    <line>24</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss1.parser.ParseException ParseException(org.semanticweb.owlapi.krss1.parser.Token currentTokenVal, int[][] expectedTokenSequencesVal, java.lang.String[] tokenImageVal)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="tokenImageVal org.semanticweb.owlapi.krss1.parser.KRSSParserConstants.tokenImage" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;tokenImageVal&lt;/code&gt;' is always '&lt;code&gt;org.semanticweb.owlapi.krss1.parser.KRSSParserConstants.tokenImage&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/TokenMgrError.java</file>
+    <line>95</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss1.parser.TokenMgrError TokenMgrError(boolean EOFSeen, int lexState, int errorLine, int errorColumn, java.lang.String errorAfter, char curChar, int reason)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="reason org.semanticweb.owlapi.krss1.parser.TokenMgrError.LEXICAL_ERROR" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;reason&lt;/code&gt;' is always '&lt;code&gt;org.semanticweb.owlapi.krss1.parser.TokenMgrError.LEXICAL_ERROR&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/JavaCharStream.java</file>
+    <line>21</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss1.parser.JavaCharStream JavaCharStream(java.io.Reader dstream, int startline, int startcolumn)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="startline 1" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;startline&lt;/code&gt;' is always '&lt;code&gt;1&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/JavaCharStream.java</file>
+    <line>21</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss1.parser.JavaCharStream JavaCharStream(java.io.Reader dstream, int startline, int startcolumn)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="startcolumn 1" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;startcolumn&lt;/code&gt;' is always '&lt;code&gt;1&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/JavaCharStream.java</file>
+    <line>25</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss1.parser.JavaCharStream JavaCharStream(java.io.InputStream dstream, java.lang.String encoding, int startline, int startcolumn)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="startline 1" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;startline&lt;/code&gt;' is always '&lt;code&gt;1&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/JavaCharStream.java</file>
+    <line>26</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss1.parser.JavaCharStream JavaCharStream(java.io.InputStream dstream, java.lang.String encoding, int startline, int startcolumn)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="startcolumn 1" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;startcolumn&lt;/code&gt;' is always '&lt;code&gt;1&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/ParseException.java</file>
+    <line>24</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.ParseException ParseException(org.semanticweb.owlapi.krss2.parser.Token currentTokenVal, int[][] expectedTokenSequencesVal, java.lang.String[] tokenImageVal)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="tokenImageVal org.semanticweb.owlapi.krss2.parser.KRSS2ParserConstants.tokenImage" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;tokenImageVal&lt;/code&gt;' is always '&lt;code&gt;org.semanticweb.owlapi.krss2.parser.KRSS2ParserConstants.tokenImage&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/TokenMgrError.java</file>
+    <line>95</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.TokenMgrError TokenMgrError(boolean EOFSeen, int lexState, int errorLine, int errorColumn, java.lang.String errorAfter, char curChar, int reason)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="reason org.semanticweb.owlapi.krss2.parser.TokenMgrError.LEXICAL_ERROR" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;reason&lt;/code&gt;' is always '&lt;code&gt;org.semanticweb.owlapi.krss2.parser.TokenMgrError.LEXICAL_ERROR&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1411</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa22_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="_active0 0x1000000L" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;_active0&lt;/code&gt;' is always '&lt;code&gt;0x1000000L&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1332</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa19_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="_active0 0x4001000000L" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;_active0&lt;/code&gt;' is always '&lt;code&gt;0x4001000000L&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1390</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa21_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="_active0 0x1000000L" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;_active0&lt;/code&gt;' is always '&lt;code&gt;0x1000000L&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1286</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa17_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="_active0 0x4001000000L" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;_active0&lt;/code&gt;' is always '&lt;code&gt;0x4001000000L&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>472</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa4_0(long old0, long _active0, long old1, long _active1)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="_active1 0L" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;_active1&lt;/code&gt;' is always '&lt;code&gt;0L&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>27</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjStopAtPos(int pos, int kind)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="pos 0" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;pos&lt;/code&gt;' is always '&lt;code&gt;0&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1477</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveNfa_0(int startState, int _curPos)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="startState 2" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;startState&lt;/code&gt;' is always '&lt;code&gt;2&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1432</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager int jjMoveStringLiteralDfa23_0(long old0, long _active0)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="_active0 0x1000000L" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;_active0&lt;/code&gt;' is always '&lt;code&gt;0x1000000L&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/renderer/KRSSObjectRenderer.java</file>
+    <line>352</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.renderer.KRSSObjectRenderer void flattenProperties(java.lang.Iterable&lt;org.semanticweb.owlapi.model.OWLObjectPropertyExpression&gt; properties, org.semanticweb.owlapi.krss2.renderer.KRSSVocabulary junctor)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="junctor null" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;junctor&lt;/code&gt;' is always '&lt;code&gt;null&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/renderer/KRSSObjectRenderer.java</file>
+    <line>379</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.renderer.KRSSObjectRenderer void flatten(java.lang.Iterable&lt;org.semanticweb.owlapi.model.OWLClassExpression&gt; description, org.semanticweb.owlapi.krss2.renderer.KRSSVocabulary junctor)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="junctor org.semanticweb.owlapi.krss2.renderer.KRSSVocabulary.AND" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;junctor&lt;/code&gt;' is always '&lt;code&gt;org.semanticweb.owlapi.krss2.renderer.KRSSVocabulary.AND&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/ParseException.java</file>
+    <line>24</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.ParseException ParseException(org.semanticweb.owlapi.dlsyntax.parser.Token currentTokenVal, int[][] expectedTokenSequencesVal, java.lang.String[] tokenImageVal)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="tokenImageVal org.semanticweb.owlapi.dlsyntax.parser.DLSyntaxParserConstants.tokenImage" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;tokenImageVal&lt;/code&gt;' is always '&lt;code&gt;org.semanticweb.owlapi.dlsyntax.parser.DLSyntaxParserConstants.tokenImage&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/JavaCharStream.java</file>
+    <line>25</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.JavaCharStream JavaCharStream(java.io.InputStream dstream, java.lang.String encoding, int startline, int startcolumn)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="startline 1" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;startline&lt;/code&gt;' is always '&lt;code&gt;1&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/JavaCharStream.java</file>
+    <line>26</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.JavaCharStream JavaCharStream(java.io.InputStream dstream, java.lang.String encoding, int startline, int startcolumn)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="startcolumn 1" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;startcolumn&lt;/code&gt;' is always '&lt;code&gt;1&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/JavaCharStream.java</file>
+    <line>21</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.JavaCharStream JavaCharStream(java.io.Reader dstream, int startline, int startcolumn)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="startline 1" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;startline&lt;/code&gt;' is always '&lt;code&gt;1&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/JavaCharStream.java</file>
+    <line>21</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.JavaCharStream JavaCharStream(java.io.Reader dstream, int startline, int startcolumn)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="startcolumn 1" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;startcolumn&lt;/code&gt;' is always '&lt;code&gt;1&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/TokenMgrError.java</file>
+    <line>95</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.TokenMgrError TokenMgrError(boolean EOFSeen, int lexState, int errorLine, int errorColumn, java.lang.String errorAfter, char curChar, int reason)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="reason org.semanticweb.owlapi.dlsyntax.parser.TokenMgrError.LEXICAL_ERROR" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;reason&lt;/code&gt;' is always '&lt;code&gt;org.semanticweb.owlapi.dlsyntax.parser.TokenMgrError.LEXICAL_ERROR&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>1953</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser java.util.Set&lt;org.semanticweb.owlapi.model.OWLClassExpression&gt; parseClassExpressionList(org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntax expectedOpen, org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntax expectedClose)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="expectedOpen org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntax.OPENBRACKET" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;expectedOpen&lt;/code&gt;' is always '&lt;code&gt;org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntax.OPENBRACKET&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>1954</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser java.util.Set&lt;org.semanticweb.owlapi.model.OWLClassExpression&gt; parseClassExpressionList(org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntax expectedOpen, org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntax expectedClose)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="expectedClose org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntax.CLOSEBRACKET" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;expectedClose&lt;/code&gt;' is always '&lt;code&gt;org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntax.CLOSEBRACKET&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>2277</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxOntologyHeader parseOntologyHeader(boolean toEOF)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="toEOF false" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;toEOF&lt;/code&gt;' is always '&lt;code&gt;false&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>1413</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser java.util.Set&lt;org.semanticweb.owlapi.util.OntologyAxiomPair&gt; parseObjectPropertyFrame(boolean eof)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="eof false" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;eof&lt;/code&gt;' is always '&lt;code&gt;false&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>561</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser org.semanticweb.owlapi.model.OWLObjectPropertyExpression parseObjectPropertyExpression(boolean allowUndeclared)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="allowUndeclared false" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;allowUndeclared&lt;/code&gt;' is always '&lt;code&gt;false&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxTokenizer.java</file>
+    <line>154</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxTokenizer void readString(char terminator, boolean appendTerminator)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="appendTerminator true" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;appendTerminator&lt;/code&gt;' is always '&lt;code&gt;true&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/renderer/ManchesterOWLSyntaxObjectRenderer.java</file>
+    <line>91</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.renderer.ManchesterOWLSyntaxObjectRenderer void write(java.util.Set&lt;? extends org.semanticweb.owlapi.model.OWLClassExpression&gt; objects, boolean newline)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="newline true" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;newline&lt;/code&gt;' is always '&lt;code&gt;true&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/renderer/ManchesterOWLSyntaxObjectRenderer.java</file>
+    <line>63</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.renderer.ManchesterOWLSyntaxObjectRenderer void write(java.util.Set&lt;? extends org.semanticweb.owlapi.model.OWLObject&gt; objects, org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntax delimeter, boolean newline)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="newline false" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;newline&lt;/code&gt;' is always '&lt;code&gt;false&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/renderer/ParserException.java</file>
+    <line>186</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.renderer.ParserException ParserException(java.util.List&lt;java.lang.String&gt; tokenSeqence, int startPos, int lineNumber, int columnNumber, boolean classNameExpected, boolean objectPropertyNameExpected, boolean dataPropertyNameExpected, ...)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="classNameExpected false" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;classNameExpected&lt;/code&gt;' is always '&lt;code&gt;false&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/renderer/ParserException.java</file>
+    <line>187</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.renderer.ParserException ParserException(java.util.List&lt;java.lang.String&gt; tokenSeqence, int startPos, int lineNumber, int columnNumber, boolean classNameExpected, boolean objectPropertyNameExpected, boolean dataPropertyNameExpected, ...)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="objectPropertyNameExpected false" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;objectPropertyNameExpected&lt;/code&gt;' is always '&lt;code&gt;false&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/renderer/ParserException.java</file>
+    <line>188</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.renderer.ParserException ParserException(java.util.List&lt;java.lang.String&gt; tokenSeqence, int startPos, int lineNumber, int columnNumber, boolean classNameExpected, boolean objectPropertyNameExpected, boolean dataPropertyNameExpected, ...)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="dataPropertyNameExpected false" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;dataPropertyNameExpected&lt;/code&gt;' is always '&lt;code&gt;false&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/renderer/ParserException.java</file>
+    <line>188</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.renderer.ParserException ParserException(java.util.List&lt;java.lang.String&gt; tokenSeqence, int startPos, int lineNumber, int columnNumber, boolean classNameExpected, boolean objectPropertyNameExpected, boolean dataPropertyNameExpected, ...)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="individualNameExpected false" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;individualNameExpected&lt;/code&gt;' is always '&lt;code&gt;false&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/renderer/ParserException.java</file>
+    <line>189</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.renderer.ParserException ParserException(java.util.List&lt;java.lang.String&gt; tokenSeqence, int startPos, int lineNumber, int columnNumber, boolean classNameExpected, boolean objectPropertyNameExpected, boolean dataPropertyNameExpected, ...)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="datatypeNameExpected false" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;datatypeNameExpected&lt;/code&gt;' is always '&lt;code&gt;false&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/renderer/ParserException.java</file>
+    <line>189</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.renderer.ParserException ParserException(java.util.List&lt;java.lang.String&gt; tokenSeqence, int startPos, int lineNumber, int columnNumber, boolean classNameExpected, boolean objectPropertyNameExpected, boolean dataPropertyNameExpected, ...)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="annotationPropertyExpected false" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;annotationPropertyExpected&lt;/code&gt;' is always '&lt;code&gt;false&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/renderer/ManchesterOWLSyntaxFrameRenderer.java</file>
+    <line>1474</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.renderer.ManchesterOWLSyntaxFrameRenderer void writeComment(java.lang.String commentDelim, java.lang.String comment, boolean placeOnNewline)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="commentDelim &quot;#&quot;" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;commentDelim&lt;/code&gt;' is always '&lt;code&gt;&quot;#&quot;&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/ParseException.java</file>
+    <line>24</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.functional.parser.ParseException ParseException(org.semanticweb.owlapi.functional.parser.Token currentTokenVal, int[][] expectedTokenSequencesVal, java.lang.String[] tokenImageVal)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="tokenImageVal org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.tokenImage" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;tokenImageVal&lt;/code&gt;' is always '&lt;code&gt;org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.tokenImage&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/TokenMgrError.java</file>
+    <line>95</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.functional.parser.TokenMgrError TokenMgrError(boolean EOFSeen, int lexState, int errorLine, int errorColumn, java.lang.String errorAfter, char curChar, int reason)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="reason org.semanticweb.owlapi.functional.parser.TokenMgrError.LEXICAL_ERROR" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;reason&lt;/code&gt;' is always '&lt;code&gt;org.semanticweb.owlapi.functional.parser.TokenMgrError.LEXICAL_ERROR&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/JavaCharStream.java</file>
+    <line>21</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.functional.parser.JavaCharStream JavaCharStream(java.io.Reader dstream, int startline, int startcolumn)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="startline 1" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;startline&lt;/code&gt;' is always '&lt;code&gt;1&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/JavaCharStream.java</file>
+    <line>21</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.functional.parser.JavaCharStream JavaCharStream(java.io.Reader dstream, int startline, int startcolumn)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="startcolumn 1" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;startcolumn&lt;/code&gt;' is always '&lt;code&gt;1&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/JavaCharStream.java</file>
+    <line>25</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.functional.parser.JavaCharStream JavaCharStream(java.io.InputStream dstream, java.lang.String encoding, int startline, int startcolumn)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="startline 1" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;startline&lt;/code&gt;' is always '&lt;code&gt;1&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/JavaCharStream.java</file>
+    <line>26</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.functional.parser.JavaCharStream JavaCharStream(java.io.InputStream dstream, java.lang.String encoding, int startline, int startcolumn)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="startcolumn 1" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;startcolumn&lt;/code&gt;' is always '&lt;code&gt;1&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/uk/ac/manchester/owl/owlapi/tutorialowled2011/TutorialSnippets.java</file>
+    <line>932</line>
+    <module>owlapi-contract</module>
+    <package>uk.ac.manchester.owl.owlapi.tutorialowled2011</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.owl.owlapi.tutorialowled2011.TutorialSnippets.LoggingReasonerProgressMonitor LoggingReasonerProgressMonitor(org.slf4j.Logger log, java.lang.String methodName)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="log uk.ac.manchester.owl.owlapi.tutorialowled2011.TutorialSnippets.log" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;log&lt;/code&gt;' is always '&lt;code&gt;uk.ac.manchester.owl.owlapi.tutorialowled2011.TutorialSnippets.log&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/macro/ManchesterSyntaxToolTest.java</file>
+    <line>42</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.macro</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.macro.ManchesterSyntaxToolTest void checkIntersection(org.semanticweb.owlapi.model.OWLClassExpression expression, java.lang.String genus, java.lang.String relId, java.lang.String differentia)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="genus &quot;GO:0018901&quot;" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;genus&lt;/code&gt;' is always '&lt;code&gt;&quot;GO:0018901&quot;&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/macro/ManchesterSyntaxToolTest.java</file>
+    <line>42</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.macro</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.macro.ManchesterSyntaxToolTest void checkIntersection(org.semanticweb.owlapi.model.OWLClassExpression expression, java.lang.String genus, java.lang.String relId, java.lang.String differentia)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="relId &quot;BFO:0000050&quot;" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;relId&lt;/code&gt;' is always '&lt;code&gt;&quot;BFO:0000050&quot;&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/macro/ManchesterSyntaxToolTest.java</file>
+    <line>42</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.macro</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.macro.ManchesterSyntaxToolTest void checkIntersection(org.semanticweb.owlapi.model.OWLClassExpression expression, java.lang.String genus, java.lang.String relId, java.lang.String differentia)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="differentia &quot;GO:0055124&quot;" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;differentia&lt;/code&gt;' is always '&lt;code&gt;&quot;GO:0055124&quot;&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/BFOROXrefTest.java</file>
+    <line>112</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.BFOROXrefTest void assertAnnotationPropertyCountEquals(org.semanticweb.owlapi.model.OWLOntology owlOnt, org.semanticweb.owlapi.model.IRI subjectIRI, org.semanticweb.owlapi.model.OWLAnnotationProperty property, int expected)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="property org.obolibrary.obo2owl.BFOROXrefTest.OBO_ID" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;property&lt;/code&gt;' is always '&lt;code&gt;org.obolibrary.obo2owl.BFOROXrefTest.OBO_ID&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/RoundTripTest.java</file>
+    <line>30</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.RoundTripTest java.util.List&lt;org.obolibrary.oboformat.diff.Diff&gt; roundTripOBOFile(java.lang.String fn, boolean isExpectRoundtrip)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="isExpectRoundtrip true" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;isExpectRoundtrip&lt;/code&gt;' is always '&lt;code&gt;true&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/OboFormatTestBasics.java</file>
+    <line>79</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OboFormatTestBasics org.obolibrary.oboformat.model.OBODoc parseOBOFile(java.io.Reader fn, boolean allowEmptyFrames)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="allowEmptyFrames false" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;allowEmptyFrames&lt;/code&gt;' is always '&lt;code&gt;false&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/OboFormatTestBasics.java</file>
+    <line>243</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OboFormatTestBasics org.semanticweb.owlapi.model.IRI getIriByLabel(org.semanticweb.owlapi.model.OWLOntology ontology, java.lang.String label)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="label &quot;regulates&quot;" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;label&lt;/code&gt;' is always '&lt;code&gt;&quot;regulates&quot;&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/obo2owl/OboFormatTestBasics.java</file>
+    <line>158</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OboFormatTestBasics org.obolibrary.oboformat.model.OBODoc convert(org.semanticweb.owlapi.model.OWLOntology ontology, boolean strictness)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="strictness false" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;strictness&lt;/code&gt;' is always '&lt;code&gt;false&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/oboformat/PropertyValueTest.java</file>
+    <line>58</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.oboformat</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.PropertyValueTest void addPropertyValue(org.obolibrary.oboformat.model.Frame frame, java.lang.String v1, java.lang.String v2, java.lang.String v3)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="v3 &quot;xsd:string&quot;" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;v3&lt;/code&gt;' is always '&lt;code&gt;&quot;xsd:string&quot;&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/oboformat/TagTest.java</file>
+    <line>113</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.oboformat</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.TagTest org.obolibrary.oboformat.model.OBODoc parseFrames(java.lang.String s)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="s &quot;[Term]\nid: x\nname: foo&quot;" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;s&lt;/code&gt;' is always '&lt;code&gt;&quot;[Term]\nid: x\nname: foo&quot;&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/obolibrary/oboformat/TagTest.java</file>
+    <line>124</line>
+    <module>owlapi-contract</module>
+    <package>org.obolibrary.oboformat</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.TagTest org.obolibrary.oboformat.model.OBODoc parseOBODoc(java.lang.String s)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="s &quot;[Term]\nid: x\nname: foo\n\n\n[Term]\nid: y\nname: y&quot;" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;s&lt;/code&gt;' is always '&lt;code&gt;&quot;[Term]\nid: x\nname: foo\n\n\n[Term]\nid: y\nname: y&quot;&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/TripleComparatorTestCase.java</file>
+    <line>126</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.api.test.TripleComparatorTestCase org.semanticweb.owlapi.io.RDFTriple triple(org.semanticweb.owlapi.vocab.OWLRDFVocabulary p, org.semanticweb.owlapi.vocab.OWLRDFVocabulary n)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="p org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_TYPE" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;p&lt;/code&gt;' is always '&lt;code&gt;org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_TYPE&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/TripleComparatorTestCase.java</file>
+    <line>127</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.api.test.TripleComparatorTestCase org.semanticweb.owlapi.io.RDFTriple triple(org.semanticweb.owlapi.vocab.OWLRDFVocabulary p, org.semanticweb.owlapi.vocab.OWLRDFVocabulary n)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="n org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_CLASS" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;n&lt;/code&gt;' is always '&lt;code&gt;org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_CLASS&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/rdfxml/RDFParserTestCase.java</file>
+    <line>56</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax.rdfxml</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.api.test.syntax.rdfxml.RDFParserTestCase void parseFiles(java.lang.String base)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="base &quot;/owlapi/&quot;" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;base&lt;/code&gt;' is always '&lt;code&gt;&quot;/owlapi/&quot;&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/examples/DLQueryExample.java</file>
+    <line>281</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.examples</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.examples.DLQueryEngine java.util.Set&lt;org.semanticweb.owlapi.model.OWLNamedIndividual&gt; getInstances(java.lang.String classExpressionString, boolean direct)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="direct true" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;direct&lt;/code&gt;' is always '&lt;code&gt;true&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/examples/DLQueryExample.java</file>
+    <line>207</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.examples</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.examples.DLQueryEngine java.util.Set&lt;org.semanticweb.owlapi.model.OWLClass&gt; getSuperClasses(java.lang.String classExpressionString, boolean direct)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="direct true" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;direct&lt;/code&gt;' is always '&lt;code&gt;true&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/examples/DLQueryExample.java</file>
+    <line>258</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.examples</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.examples.DLQueryEngine java.util.Set&lt;org.semanticweb.owlapi.model.OWLClass&gt; getSubClasses(java.lang.String classExpressionString, boolean direct)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="direct true" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;direct&lt;/code&gt;' is always '&lt;code&gt;true&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/uk/ac/manchester/cs/owl/explanation/ordering/Tree.java</file>
+    <line>73</line>
+    <module>owlapi-tools</module>
+    <package>uk.ac.manchester.cs.owl.explanation.ordering</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.explanation.ordering.Tree void sortChildren(java.util.Comparator&lt;uk.ac.manchester.cs.owl.explanation.ordering.Tree&lt;N&gt;&gt; comparator)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="comparator uk.ac.manchester.cs.owl.explanation.ordering.ExplanationOrdererImpl.comparator" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;comparator&lt;/code&gt;' is always '&lt;code&gt;uk.ac.manchester.cs.owl.explanation.ordering.ExplanationOrdererImpl.comparator&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/uk/ac/manchester/cs/owl/explanation/ordering/ExplanationOrdererImpl.java</file>
+    <line>279</line>
+    <module>owlapi-tools</module>
+    <package>uk.ac.manchester.cs.owl.explanation.ordering</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.explanation.ordering.ExplanationOrdererImpl java.util.Set&lt;E&gt; getIndexedSet(K obj, java.util.Map&lt;K,java.util.Set&lt;E&gt;&gt; map, boolean addIfEmpty)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="addIfEmpty true" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;addIfEmpty&lt;/code&gt;' is always '&lt;code&gt;true&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/uk/ac/manchester/cs/owlapi/modularity/SyntacticLocalityModuleExtractor.java</file>
+    <line>813</line>
+    <module>owlapi-tools</module>
+    <package>uk.ac.manchester.cs.owlapi.modularity</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owlapi.modularity.SyntacticLocalityModuleExtractor org.semanticweb.owlapi.model.OWLOntology extractAsOntology(java.util.Set&lt;org.semanticweb.owlapi.model.OWLEntity&gt; signature, org.semanticweb.owlapi.model.IRI iri, int superClassLevel, int subClassLevel, org.semanticweb.owlapi.reasoner.OWLReasoner reasoner, boolean verbose)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="verbose false" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;verbose&lt;/code&gt;' is always '&lt;code&gt;false&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/uk/ac/manchester/cs/owlapi/modularity/SyntacticLocalityModuleExtractor.java</file>
+    <line>282</line>
+    <module>owlapi-tools</module>
+    <package>uk.ac.manchester.cs.owlapi.modularity</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owlapi.modularity.SyntacticLocalityModuleExtractor SyntacticLocalityModuleExtractor(org.semanticweb.owlapi.model.OWLOntologyManager man, org.semanticweb.owlapi.model.OWLOntology ont, uk.ac.manchester.cs.owlapi.modularity.ModuleType moduleType)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="moduleType uk.ac.manchester.cs.owlapi.modularity.ModuleType.STAR" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;moduleType&lt;/code&gt;' is always '&lt;code&gt;uk.ac.manchester.cs.owlapi.modularity.ModuleType.STAR&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/org/semanticweb/owlapi/metrics/AbstractOWLMetric.java</file>
+    <line>86</line>
+    <module>owlapi-tools</module>
+    <package>org.semanticweb.owlapi.metrics</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.metrics.AbstractOWLMetric void setDirty(boolean dirty)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="dirty true" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;dirty&lt;/code&gt;' is always '&lt;code&gt;true&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BuilderEntity.java</file>
+    <line>60</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapitools.builders.BuilderEntity org.semanticweb.owlapitools.builders.BuilderEntity withType(org.semanticweb.owlapi.model.EntityType&lt;?&gt; arg)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="arg org.semanticweb.owlapi.model.EntityType.CLASS" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;arg&lt;/code&gt;' is always '&lt;code&gt;org.semanticweb.owlapi.model.EntityType.CLASS&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/apibinding/src/main/java/org/semanticweb/owlapi/apibinding/OWLFunctionalSyntaxFactory.java</file>
+    <line>259</line>
+    <module>owlapi-apibinding</module>
+    <package>org.semanticweb.owlapi.apibinding</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory org.semanticweb.owlapi.model.OWLAnnotationProperty AnnotationProperty(java.lang.String abbreviatedIRI, org.semanticweb.owlapi.model.PrefixManager pm)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="abbreviatedIRI &quot;prop&quot;" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;abbreviatedIRI&lt;/code&gt;' is always '&lt;code&gt;&quot;prop&quot;&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/apibinding/src/main/java/org/semanticweb/owlapi/apibinding/OWLFunctionalSyntaxFactory.java</file>
+    <line>995</line>
+    <module>owlapi-apibinding</module>
+    <package>org.semanticweb.owlapi.apibinding</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory org.semanticweb.owlapi.model.OWLLiteral Literal(boolean literal)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="literal true" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;literal&lt;/code&gt;' is always '&lt;code&gt;true&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/apibinding/src/main/java/org/semanticweb/owlapi/apibinding/OWLFunctionalSyntaxFactory.java</file>
+    <line>281</line>
+    <module>owlapi-apibinding</module>
+    <package>org.semanticweb.owlapi.apibinding</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory org.semanticweb.owlapi.model.OWLNamedIndividual NamedIndividual(java.lang.String abbreviatedIRI, org.semanticweb.owlapi.model.PrefixManager pm)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="abbreviatedIRI &quot;ind&quot;" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;abbreviatedIRI&lt;/code&gt;' is always '&lt;code&gt;&quot;ind&quot;&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/apibinding/src/main/java/org/semanticweb/owlapi/apibinding/OWLFunctionalSyntaxFactory.java</file>
+    <line>1005</line>
+    <module>owlapi-apibinding</module>
+    <package>org.semanticweb.owlapi.apibinding</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory org.semanticweb.owlapi.model.OWLLiteral Literal(double literal)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="literal 33.3" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;literal&lt;/code&gt;' is always '&lt;code&gt;33.3&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/rio/src/main/java/org/semanticweb/owlapi/rio/OWLAPIRDFFormat.java</file>
+    <line>251</line>
+    <module>owlapi-rio</module>
+    <package>org.semanticweb.owlapi.rio</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rio.OWLAPIRDFFormat OWLAPIRDFFormat(java.lang.String name, java.util.Collection&lt;java.lang.String&gt; mimeTypes, java.nio.charset.Charset charset, java.util.Collection&lt;java.lang.String&gt; fileExtensions, boolean supportsNamespaces, boolean supportsContexts, org.semanticweb.owlapi.model.OWLOntologyFormat owlFormat)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="supportsNamespaces org.openrdf.rio.RDFFormat.SUPPORTS_NAMESPACES" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;supportsNamespaces&lt;/code&gt;' is always '&lt;code&gt;org.openrdf.rio.RDFFormat.SUPPORTS_NAMESPACES&lt;/code&gt;'</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/rio/src/main/java/org/semanticweb/owlapi/rio/OWLAPIRDFFormat.java</file>
+    <line>251</line>
+    <module>owlapi-rio</module>
+    <package>org.semanticweb.owlapi.rio</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rio.OWLAPIRDFFormat OWLAPIRDFFormat(java.lang.String name, java.util.Collection&lt;java.lang.String&gt; mimeTypes, java.nio.charset.Charset charset, java.util.Collection&lt;java.lang.String&gt; fileExtensions, boolean supportsNamespaces, boolean supportsContexts, org.semanticweb.owlapi.model.OWLOntologyFormat owlFormat)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Actual method parameter is the same constant</problem_class>
+    <hints>
+      <hint value="supportsContexts org.openrdf.rio.RDFFormat.NO_CONTEXTS" />
+    </hints>
+    <description>Actual value of parameter '&lt;code&gt;supportsContexts&lt;/code&gt;' is always '&lt;code&gt;org.openrdf.rio.RDFFormat.NO_CONTEXTS&lt;/code&gt;'</description>
+  </problem>
+</problems>
+

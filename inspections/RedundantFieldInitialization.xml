@@ -1,0 +1,1102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/io/StreamDocumentSourceBase.java</file>
+    <line>50</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.io</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.io.StreamDocumentSourceBase streamAvailable" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;null&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/OWLEntityTinyURIConversionStrategy.java</file>
+    <line>97</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.util.OWLEntityTinyURIConversionStrategy.OWLEntityFragmentProvider classCount" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;0&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/OWLEntityTinyURIConversionStrategy.java</file>
+    <line>100</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.util.OWLEntityTinyURIConversionStrategy.OWLEntityFragmentProvider individualCount" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;0&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/OWLEntityTinyURIConversionStrategy.java</file>
+    <line>98</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.util.OWLEntityTinyURIConversionStrategy.OWLEntityFragmentProvider objectPropertyCount" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;0&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/OWLEntityTinyURIConversionStrategy.java</file>
+    <line>99</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.util.OWLEntityTinyURIConversionStrategy.OWLEntityFragmentProvider dataPropertyCount" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;0&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/OWLEntityTinyURIConversionStrategy.java</file>
+    <line>102</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.util.OWLEntityTinyURIConversionStrategy.OWLEntityFragmentProvider datatypeCount" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;0&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/OWLEntityTinyURIConversionStrategy.java</file>
+    <line>101</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.util.OWLEntityTinyURIConversionStrategy.OWLEntityFragmentProvider annotationPropertyCount" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;0&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/StructuralTransformation.java</file>
+    <line>101</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.util.StructuralTransformation nameCounter" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;0&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/CollectionFactory.java</file>
+    <line>479</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.util.CollectionFactory.ConditionalCopySet copyDone" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;false&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/CollectionFactory.java</file>
+    <line>481</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.util.CollectionFactory.ConditionalCopySet containsCounter" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;0&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/AnnotationValueShortFormProvider.java</file>
+    <line>289</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.util.AnnotationValueShortFormProvider.AnnotationLanguageFilter candidateValue" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;null&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/OWLClassLiteralCollector.java</file>
+    <line>36</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.util.OWLClassLiteralCollector processed" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;false&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/IRI.java</file>
+    <line>332</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.model.IRI hashCode" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;0&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLOntologyLoaderConfiguration.java</file>
+    <line>64</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration reportStackTraces" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;false&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLOntologyLoaderConfiguration.java</file>
+    <line>71</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration strict" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;false&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/profiles/OWL2DLProfile.java</file>
+    <line>154</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.profiles</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.profiles.OWL2DLProfile.OWL2DLProfileObjectVisitor objectPropertyManager" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;null&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/reasoner/ConsoleProgressMonitor.java</file>
+    <line>26</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.reasoner</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.reasoner.ConsoleProgressMonitor lastPercentage" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;0&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/reasoner/TimedConsoleProgressMonitor.java</file>
+    <line>26</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.reasoner</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.reasoner.TimedConsoleProgressMonitor lastPercentage" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;0&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLOntologyManagerImpl.java</file>
+    <line>134</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl importsLoadCount" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;0&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLOntologyManagerImpl.java</file>
+    <line>133</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl loadCount" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;0&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLEquivalentClassesAxiomImpl.java</file>
+    <line>50</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLEquivalentClassesAxiomImpl namedClasses" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;null&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLObjectImpl.java</file>
+    <line>62</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLObjectImpl signature" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;null&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLObjectImpl.java</file>
+    <line>63</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLObjectImpl anons" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;null&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLObjectImpl.java</file>
+    <line>60</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLObjectImpl hashCode" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;0&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/org/semanticweb/owlapi/reasoner/structural/StructuralReasoner.java</file>
+    <line>106</line>
+    <module>owlapi-impl</module>
+    <package>org.semanticweb.owlapi.reasoner.structural</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.reasoner.structural.StructuralReasoner prepared" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;false&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/org/semanticweb/owlapi/reasoner/structural/StructuralReasoner.java</file>
+    <line>103</line>
+    <module>owlapi-impl</module>
+    <package>org.semanticweb.owlapi.reasoner.structural</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.reasoner.structural.StructuralReasoner interrupted" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;false&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>151</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo discardUntranslatable" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;false&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>155</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo muteUntranslatableAxioms" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;false&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/OBOFormatParser.java</file>
+    <line>49</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.oboformat.parser.OBOFormatParser.MyStream lineNo" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;0&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/OBOFormatParser.java</file>
+    <line>47</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.oboformat.parser.OBOFormatParser.MyStream pos" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;0&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/BOMSafeJavaCharStream.java</file>
+    <line>94</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.BOMSafeJavaCharStream inBuf" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;0&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/BOMSafeJavaCharStream.java</file>
+    <line>88</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.BOMSafeJavaCharStream prevCharIsLF" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;false&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/BOMSafeJavaCharStream.java</file>
+    <line>87</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.BOMSafeJavaCharStream prevCharIsCR" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;false&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/BOMSafeJavaCharStream.java</file>
+    <line>92</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.BOMSafeJavaCharStream maxNextCharInd" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;0&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/BOMSafeJavaCharStream.java</file>
+    <line>85</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.BOMSafeJavaCharStream column" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;0&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/TripleHandlers.java</file>
+    <line>1864</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.TripleHandlers.TPInverseOfHandler axiomParsingMode" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;false&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/OWLRDFConsumer.java</file>
+    <line>545</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFConsumer currentBaseCount" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;0&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/OWLRDFConsumer.java</file>
+    <line>170</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFConsumer parsedAxioms" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;0&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/OWLRDFConsumer.java</file>
+    <line>208</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFConsumer parsedAllTriples" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;false&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/OWLRDFConsumer.java</file>
+    <line>674</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFConsumer lastPercentParsed" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;0&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/turtle/renderer/TurtleRenderer.java</file>
+    <line>113</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.turtle.renderer</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.turtle.renderer.TurtleRenderer bufferLength" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;0&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/turtle/renderer/TurtleRenderer.java</file>
+    <line>114</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.turtle.renderer</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.turtle.renderer.TurtleRenderer lastNewLineIndex" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;0&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/turtle/renderer/TurtleRenderer.java</file>
+    <line>348</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.turtle.renderer</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.turtle.renderer.TurtleRenderer level" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;0&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>2060</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager curLexState" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;0&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>2061</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager defaultLexState" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;0&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/renderer/KRSSObjectRenderer.java</file>
+    <line>247</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.renderer</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.renderer.KRSSObjectRenderer lastNewLinePos" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;0&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/renderer/KRSSObjectRenderer.java</file>
+    <line>246</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.renderer</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.renderer.KRSSObjectRenderer pos" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;0&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/renderer/KRSS2ObjectRenderer.java</file>
+    <line>281</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.renderer</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.renderer.KRSS2ObjectRenderer ignoreDeclarations" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;false&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>2344</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser.ExceptionBuilder integerExpected" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;false&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>2343</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser.ExceptionBuilder annotationPropertyNameExpected" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;false&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>2340</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser.ExceptionBuilder dataPropertyNameExpected" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;false&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>2337</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser.ExceptionBuilder ontologyNameExpected" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;false&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>2338</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser.ExceptionBuilder classNameExpected" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;false&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>2342</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser.ExceptionBuilder datatypeNameExpected" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;false&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>2339</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser.ExceptionBuilder objectPropertyNameExpected" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;false&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxEditorParser.java</file>
+    <line>2341</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser.ExceptionBuilder individualNameExpected" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;false&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxTokenizer.java</file>
+    <line>50</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxTokenizer startPos" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;0&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/renderer/ParserException.java</file>
+    <line>47</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.renderer</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.renderer.ParserException objectPropertyNameExpected" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;false&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/renderer/ParserException.java</file>
+    <line>45</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.renderer</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.renderer.ParserException classNameExpected" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;false&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/renderer/ParserException.java</file>
+    <line>53</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.renderer</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.renderer.ParserException datatypeNameExpected" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;false&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/renderer/ParserException.java</file>
+    <line>55</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.renderer</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.renderer.ParserException integerExpected" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;false&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/renderer/ParserException.java</file>
+    <line>57</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.renderer</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.renderer.ParserException annotationPropertyExpected" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;false&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/renderer/ParserException.java</file>
+    <line>49</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.renderer</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.renderer.ParserException dataPropertyNameExpected" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;false&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/renderer/ParserException.java</file>
+    <line>59</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.renderer</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.renderer.ParserException ontologyNameExpected" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;false&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/renderer/ParserException.java</file>
+    <line>51</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.renderer</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.renderer.ParserException individualNameExpected" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;false&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/renderer/ManchesterOWLSyntaxFrameRenderer.java</file>
+    <line>175</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.renderer</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.renderer.ManchesterOWLSyntaxFrameRenderer renderExtensions" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;false&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/uk/ac/manchester/owl/owlapi/tutorial/LabelExtractor.java</file>
+    <line>41</line>
+    <module>owlapi-contract</module>
+    <package>uk.ac.manchester.owl.owlapi.tutorial</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.owl.owlapi.tutorial.LabelExtractor result" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;null&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/TestUtils.java</file>
+    <line>42</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.TestUtils uriCounter" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;0&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/anonymous/AnonymousIndividualsNormaliser.java</file>
+    <line>41</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.anonymous</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.anonymous.AnonymousIndividualsNormaliser counter" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;0&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/explanation/BlackBoxExplanation.java</file>
+    <line>88</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.explanation</package>
+    <entry_point TYPE="field" FQNAME="com.clarkparsia.owlapi.explanation.BlackBoxExplanation fastPruningWindowSize" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;0&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/explanation/BlackBoxExplanation.java</file>
+    <line>358</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.explanation</package>
+    <entry_point TYPE="field" FQNAME="com.clarkparsia.owlapi.explanation.BlackBoxExplanation satTestCount" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;0&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/org/semanticweb/owlapi/debugging/BlackBoxOWLDebugger.java</file>
+    <line>377</line>
+    <module>owlapi-tools</module>
+    <package>org.semanticweb.owlapi.debugging</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.debugging.BlackBoxOWLDebugger satTestCount" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;0&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/org/semanticweb/owlapi/debugging/BlackBoxOWLDebugger.java</file>
+    <line>85</line>
+    <module>owlapi-tools</module>
+    <package>org.semanticweb.owlapi.debugging</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.debugging.BlackBoxOWLDebugger fastPruningWindowSize" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;0&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BuilderDataHasValue.java</file>
+    <line>30</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapitools.builders.BuilderDataHasValue literal" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;null&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BuilderComplementOf.java</file>
+    <line>30</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapitools.builders.BuilderComplementOf c" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;null&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BaseDataPropertyBuilder.java</file>
+    <line>37</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapitools.builders.BaseDataPropertyBuilder property" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;null&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BuilderObjectHasValue.java</file>
+    <line>30</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapitools.builders.BuilderObjectHasValue value" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;null&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BaseObjectBuilder.java</file>
+    <line>37</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapitools.builders.BaseObjectBuilder range" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;null&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BuilderLiteral.java</file>
+    <line>28</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapitools.builders.BuilderLiteral lang" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;null&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BuilderLiteral.java</file>
+    <line>36</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapitools.builders.BuilderLiteral floatValue" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;null&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BuilderLiteral.java</file>
+    <line>34</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapitools.builders.BuilderLiteral doubleValue" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;null&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BuilderLiteral.java</file>
+    <line>32</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapitools.builders.BuilderLiteral intValue" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;null&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BuilderLiteral.java</file>
+    <line>38</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapitools.builders.BuilderLiteral booleanValue" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;null&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BuilderLiteral.java</file>
+    <line>30</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapitools.builders.BuilderLiteral literalForm" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;null&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BuilderSWRLClassAtom.java</file>
+    <line>31</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapitools.builders.BuilderSWRLClassAtom argument" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;null&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BuilderSWRLClassAtom.java</file>
+    <line>33</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapitools.builders.BuilderSWRLClassAtom predicate" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;null&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BuilderAnnotationAssertion.java</file>
+    <line>32</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapitools.builders.BuilderAnnotationAssertion subject" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;null&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BaseAnnotationPropertyBuilder.java</file>
+    <line>37</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapitools.builders.BaseAnnotationPropertyBuilder property" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;null&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BuilderDataComplementOf.java</file>
+    <line>30</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapitools.builders.BuilderDataComplementOf dataRange" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;null&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BuilderAnnotationPropertyDomain.java</file>
+    <line>31</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapitools.builders.BuilderAnnotationPropertyDomain domain" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;null&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BaseDataBuilder.java</file>
+    <line>37</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapitools.builders.BaseDataBuilder dataRange" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;null&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BuilderEntity.java</file>
+    <line>30</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapitools.builders.BuilderEntity entityType" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;null&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BuilderFacetRestriction.java</file>
+    <line>31</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapitools.builders.BuilderFacetRestriction literal" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;null&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BuilderFacetRestriction.java</file>
+    <line>33</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapitools.builders.BuilderFacetRestriction facet" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;null&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BuilderClassAssertion.java</file>
+    <line>33</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapitools.builders.BuilderClassAssertion ce" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;null&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BuilderClassAssertion.java</file>
+    <line>31</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapitools.builders.BuilderClassAssertion i" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;null&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BaseSubBuilder.java</file>
+    <line>40</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapitools.builders.BaseSubBuilder sup" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;null&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BaseSubBuilder.java</file>
+    <line>38</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapitools.builders.BaseSubBuilder sub" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;null&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BuilderDatatypeDefinition.java</file>
+    <line>33</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapitools.builders.BuilderDatatypeDefinition type" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;null&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BuilderDatatypeDefinition.java</file>
+    <line>31</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapitools.builders.BuilderDatatypeDefinition range" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;null&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BuilderDeclaration.java</file>
+    <line>30</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapitools.builders.BuilderDeclaration entity" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;null&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BuilderSWRLBuiltInAtom.java</file>
+    <line>35</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapitools.builders.BuilderSWRLBuiltInAtom iri" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;null&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BuilderAnonymousIndividual.java</file>
+    <line>29</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapitools.builders.BuilderAnonymousIndividual id" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;null&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BuilderInverseObjectProperties.java</file>
+    <line>31</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapitools.builders.BuilderInverseObjectProperties inverseProperty" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;null&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BuilderDatatypeRestriction.java</file>
+    <line>32</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapitools.builders.BuilderDatatypeRestriction type" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;null&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BuilderAnnotationPropertyRange.java</file>
+    <line>31</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapitools.builders.BuilderAnnotationPropertyRange iri" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;null&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BaseObjectPropertyBuilder.java</file>
+    <line>37</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapitools.builders.BaseObjectPropertyBuilder property" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;null&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BuilderObjectPropertyAssertion.java</file>
+    <line>33</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapitools.builders.BuilderObjectPropertyAssertion value" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;null&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BuilderObjectPropertyAssertion.java</file>
+    <line>31</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapitools.builders.BuilderObjectPropertyAssertion subject" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;null&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BuilderNegativeDataPropertyAssertion.java</file>
+    <line>32</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapitools.builders.BuilderNegativeDataPropertyAssertion subject" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;null&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BuilderNegativeDataPropertyAssertion.java</file>
+    <line>34</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapitools.builders.BuilderNegativeDataPropertyAssertion value" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;null&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BuilderAnnotation.java</file>
+    <line>30</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapitools.builders.BuilderAnnotation value" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;null&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BuilderDisjointUnion.java</file>
+    <line>32</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapitools.builders.BuilderDisjointUnion ce" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;null&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BuilderNegativeObjectPropertyAssertion.java</file>
+    <line>31</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapitools.builders.BuilderNegativeObjectPropertyAssertion subject" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;null&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BuilderNegativeObjectPropertyAssertion.java</file>
+    <line>33</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapitools.builders.BuilderNegativeObjectPropertyAssertion value" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;null&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BuilderDataPropertyAssertion.java</file>
+    <line>32</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapitools.builders.BuilderDataPropertyAssertion subject" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;null&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BuilderDataPropertyAssertion.java</file>
+    <line>34</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapitools.builders.BuilderDataPropertyAssertion object" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;null&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BaseDomainBuilder.java</file>
+    <line>39</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapitools.builders.BaseDomainBuilder property" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;null&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BaseDomainBuilder.java</file>
+    <line>41</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapitools.builders.BaseDomainBuilder domain" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;null&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BaseEntityBuilder.java</file>
+    <line>41</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapitools.builders.BaseEntityBuilder string" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;null&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BaseEntityBuilder.java</file>
+    <line>43</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapitools.builders.BaseEntityBuilder pm" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;null&lt;/code&gt; is redundant #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/fixers/src/main/java/org/semanticweb/owlapitools/builders/BaseEntityBuilder.java</file>
+    <line>39</line>
+    <module>owlapitools-fixers</module>
+    <package>org.semanticweb.owlapitools.builders</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapitools.builders.BaseEntityBuilder iri" />
+    <problem_class severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">Redundant field initialization</problem_class>
+    <description>Field initialization to &lt;code&gt;null&lt;/code&gt; is redundant #loc</description>
+  </problem>
+</problems>
+

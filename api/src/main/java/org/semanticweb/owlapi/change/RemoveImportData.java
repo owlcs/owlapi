@@ -32,7 +32,7 @@ public class RemoveImportData extends ImportChangeData {
     private static final long serialVersionUID = 40000L;
 
     /**
-     * Constructs a {@link RemoveImportData} object that describes a
+     * Constructs a {@code RemoveImportData} object that describes a
      * {@link org.semanticweb.owlapi.model.RemoveImport} change for the
      * {@link OWLImportsDeclaration} specified by the {@code declaration}
      * parameter.

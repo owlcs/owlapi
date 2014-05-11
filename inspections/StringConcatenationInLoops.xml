@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/turtle/parser/ParseException.java</file>
+    <line>65</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.turtle.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.turtle.parser.ParseException java.lang.String initialise(org.semanticweb.owlapi.rdf.turtle.parser.Token currentToken, int[][] expectedTokenSequences, java.lang.String[] tokenImage)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">String concatenation in loop</problem_class>
+    <description>String concatenation &lt;code&gt;+=&lt;/code&gt; in loop #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/turtle/parser/ParseException.java</file>
+    <line>71</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.turtle.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.turtle.parser.ParseException java.lang.String initialise(org.semanticweb.owlapi.rdf.turtle.parser.Token currentToken, int[][] expectedTokenSequences, java.lang.String[] tokenImage)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">String concatenation in loop</problem_class>
+    <description>String concatenation &lt;code&gt;+&lt;/code&gt; in loop #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/turtle/parser/ParseException.java</file>
+    <line>71</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.turtle.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.turtle.parser.ParseException java.lang.String initialise(org.semanticweb.owlapi.rdf.turtle.parser.Token currentToken, int[][] expectedTokenSequences, java.lang.String[] tokenImage)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">String concatenation in loop</problem_class>
+    <description>String concatenation &lt;code&gt;+=&lt;/code&gt; in loop #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/turtle/parser/ParseException.java</file>
+    <line>72</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.turtle.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.turtle.parser.ParseException java.lang.String initialise(org.semanticweb.owlapi.rdf.turtle.parser.Token currentToken, int[][] expectedTokenSequences, java.lang.String[] tokenImage)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">String concatenation in loop</problem_class>
+    <description>String concatenation &lt;code&gt;+=&lt;/code&gt; in loop #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/turtle/parser/ParseException.java</file>
+    <line>73</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.turtle.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.turtle.parser.ParseException java.lang.String initialise(org.semanticweb.owlapi.rdf.turtle.parser.Token currentToken, int[][] expectedTokenSequences, java.lang.String[] tokenImage)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">String concatenation in loop</problem_class>
+    <description>String concatenation &lt;code&gt;+=&lt;/code&gt; in loop #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/turtle/parser/ParseException.java</file>
+    <line>74</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.turtle.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.turtle.parser.ParseException java.lang.String initialise(org.semanticweb.owlapi.rdf.turtle.parser.Token currentToken, int[][] expectedTokenSequences, java.lang.String[] tokenImage)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">String concatenation in loop</problem_class>
+    <description>String concatenation &lt;code&gt;+=&lt;/code&gt; in loop #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/ParseException.java</file>
+    <line>65</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss1.parser.ParseException java.lang.String initialise(org.semanticweb.owlapi.krss1.parser.Token currentToken, int[][] expectedTokenSequences, java.lang.String[] tokenImage)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">String concatenation in loop</problem_class>
+    <description>String concatenation &lt;code&gt;+=&lt;/code&gt; in loop #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/ParseException.java</file>
+    <line>71</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss1.parser.ParseException java.lang.String initialise(org.semanticweb.owlapi.krss1.parser.Token currentToken, int[][] expectedTokenSequences, java.lang.String[] tokenImage)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">String concatenation in loop</problem_class>
+    <description>String concatenation &lt;code&gt;+&lt;/code&gt; in loop #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/ParseException.java</file>
+    <line>71</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss1.parser.ParseException java.lang.String initialise(org.semanticweb.owlapi.krss1.parser.Token currentToken, int[][] expectedTokenSequences, java.lang.String[] tokenImage)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">String concatenation in loop</problem_class>
+    <description>String concatenation &lt;code&gt;+=&lt;/code&gt; in loop #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/ParseException.java</file>
+    <line>72</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss1.parser.ParseException java.lang.String initialise(org.semanticweb.owlapi.krss1.parser.Token currentToken, int[][] expectedTokenSequences, java.lang.String[] tokenImage)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">String concatenation in loop</problem_class>
+    <description>String concatenation &lt;code&gt;+=&lt;/code&gt; in loop #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/ParseException.java</file>
+    <line>73</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss1.parser.ParseException java.lang.String initialise(org.semanticweb.owlapi.krss1.parser.Token currentToken, int[][] expectedTokenSequences, java.lang.String[] tokenImage)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">String concatenation in loop</problem_class>
+    <description>String concatenation &lt;code&gt;+=&lt;/code&gt; in loop #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/ParseException.java</file>
+    <line>74</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss1.parser.ParseException java.lang.String initialise(org.semanticweb.owlapi.krss1.parser.Token currentToken, int[][] expectedTokenSequences, java.lang.String[] tokenImage)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">String concatenation in loop</problem_class>
+    <description>String concatenation &lt;code&gt;+=&lt;/code&gt; in loop #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/ParseException.java</file>
+    <line>65</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.ParseException java.lang.String initialise(org.semanticweb.owlapi.krss2.parser.Token currentToken, int[][] expectedTokenSequences, java.lang.String[] tokenImage)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">String concatenation in loop</problem_class>
+    <description>String concatenation &lt;code&gt;+=&lt;/code&gt; in loop #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/ParseException.java</file>
+    <line>71</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.ParseException java.lang.String initialise(org.semanticweb.owlapi.krss2.parser.Token currentToken, int[][] expectedTokenSequences, java.lang.String[] tokenImage)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">String concatenation in loop</problem_class>
+    <description>String concatenation &lt;code&gt;+&lt;/code&gt; in loop #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/ParseException.java</file>
+    <line>71</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.ParseException java.lang.String initialise(org.semanticweb.owlapi.krss2.parser.Token currentToken, int[][] expectedTokenSequences, java.lang.String[] tokenImage)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">String concatenation in loop</problem_class>
+    <description>String concatenation &lt;code&gt;+=&lt;/code&gt; in loop #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/ParseException.java</file>
+    <line>72</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.ParseException java.lang.String initialise(org.semanticweb.owlapi.krss2.parser.Token currentToken, int[][] expectedTokenSequences, java.lang.String[] tokenImage)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">String concatenation in loop</problem_class>
+    <description>String concatenation &lt;code&gt;+=&lt;/code&gt; in loop #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/ParseException.java</file>
+    <line>73</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.ParseException java.lang.String initialise(org.semanticweb.owlapi.krss2.parser.Token currentToken, int[][] expectedTokenSequences, java.lang.String[] tokenImage)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">String concatenation in loop</problem_class>
+    <description>String concatenation &lt;code&gt;+=&lt;/code&gt; in loop #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/ParseException.java</file>
+    <line>74</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.ParseException java.lang.String initialise(org.semanticweb.owlapi.krss2.parser.Token currentToken, int[][] expectedTokenSequences, java.lang.String[] tokenImage)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">String concatenation in loop</problem_class>
+    <description>String concatenation &lt;code&gt;+=&lt;/code&gt; in loop #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/ParseException.java</file>
+    <line>65</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.ParseException java.lang.String initialise(org.semanticweb.owlapi.dlsyntax.parser.Token currentToken, int[][] expectedTokenSequences, java.lang.String[] tokenImage)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">String concatenation in loop</problem_class>
+    <description>String concatenation &lt;code&gt;+=&lt;/code&gt; in loop #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/ParseException.java</file>
+    <line>71</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.ParseException java.lang.String initialise(org.semanticweb.owlapi.dlsyntax.parser.Token currentToken, int[][] expectedTokenSequences, java.lang.String[] tokenImage)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">String concatenation in loop</problem_class>
+    <description>String concatenation &lt;code&gt;+&lt;/code&gt; in loop #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/ParseException.java</file>
+    <line>71</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.ParseException java.lang.String initialise(org.semanticweb.owlapi.dlsyntax.parser.Token currentToken, int[][] expectedTokenSequences, java.lang.String[] tokenImage)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">String concatenation in loop</problem_class>
+    <description>String concatenation &lt;code&gt;+=&lt;/code&gt; in loop #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/ParseException.java</file>
+    <line>72</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.ParseException java.lang.String initialise(org.semanticweb.owlapi.dlsyntax.parser.Token currentToken, int[][] expectedTokenSequences, java.lang.String[] tokenImage)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">String concatenation in loop</problem_class>
+    <description>String concatenation &lt;code&gt;+=&lt;/code&gt; in loop #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/ParseException.java</file>
+    <line>73</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.ParseException java.lang.String initialise(org.semanticweb.owlapi.dlsyntax.parser.Token currentToken, int[][] expectedTokenSequences, java.lang.String[] tokenImage)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">String concatenation in loop</problem_class>
+    <description>String concatenation &lt;code&gt;+=&lt;/code&gt; in loop #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/ParseException.java</file>
+    <line>74</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.ParseException java.lang.String initialise(org.semanticweb.owlapi.dlsyntax.parser.Token currentToken, int[][] expectedTokenSequences, java.lang.String[] tokenImage)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">String concatenation in loop</problem_class>
+    <description>String concatenation &lt;code&gt;+=&lt;/code&gt; in loop #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/ParseException.java</file>
+    <line>65</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.functional.parser.ParseException java.lang.String initialise(org.semanticweb.owlapi.functional.parser.Token currentToken, int[][] expectedTokenSequences, java.lang.String[] tokenImage)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">String concatenation in loop</problem_class>
+    <description>String concatenation &lt;code&gt;+=&lt;/code&gt; in loop #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/ParseException.java</file>
+    <line>71</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.functional.parser.ParseException java.lang.String initialise(org.semanticweb.owlapi.functional.parser.Token currentToken, int[][] expectedTokenSequences, java.lang.String[] tokenImage)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">String concatenation in loop</problem_class>
+    <description>String concatenation &lt;code&gt;+&lt;/code&gt; in loop #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/ParseException.java</file>
+    <line>71</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.functional.parser.ParseException java.lang.String initialise(org.semanticweb.owlapi.functional.parser.Token currentToken, int[][] expectedTokenSequences, java.lang.String[] tokenImage)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">String concatenation in loop</problem_class>
+    <description>String concatenation &lt;code&gt;+=&lt;/code&gt; in loop #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/ParseException.java</file>
+    <line>72</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.functional.parser.ParseException java.lang.String initialise(org.semanticweb.owlapi.functional.parser.Token currentToken, int[][] expectedTokenSequences, java.lang.String[] tokenImage)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">String concatenation in loop</problem_class>
+    <description>String concatenation &lt;code&gt;+=&lt;/code&gt; in loop #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/ParseException.java</file>
+    <line>73</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.functional.parser.ParseException java.lang.String initialise(org.semanticweb.owlapi.functional.parser.Token currentToken, int[][] expectedTokenSequences, java.lang.String[] tokenImage)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">String concatenation in loop</problem_class>
+    <description>String concatenation &lt;code&gt;+=&lt;/code&gt; in loop #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/ParseException.java</file>
+    <line>74</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.functional.parser.ParseException java.lang.String initialise(org.semanticweb.owlapi.functional.parser.Token currentToken, int[][] expectedTokenSequences, java.lang.String[] tokenImage)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">String concatenation in loop</problem_class>
+    <description>String concatenation &lt;code&gt;+=&lt;/code&gt; in loop #loc</description>
+  </problem>
+</problems>
+

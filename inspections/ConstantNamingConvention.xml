@@ -1,0 +1,2164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/io/ToStringRenderer.java</file>
+    <line>36</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.io</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.io.ToStringRenderer instance" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;instance&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/io/XMLUtils.java</file>
+    <line>38</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.io</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.io.XMLUtils APOS" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;APOS&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/io/XMLUtils.java</file>
+    <line>36</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.io</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.io.XMLUtils AMP" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;AMP&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/io/XMLUtils.java</file>
+    <line>34</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.io</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.io.XMLUtils QUOT" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;QUOT&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/io/XMLUtils.java</file>
+    <line>32</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.io</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.io.XMLUtils GT" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;GT&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/io/XMLUtils.java</file>
+    <line>30</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.io</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.io.XMLUtils LT" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;LT&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/io/RDFTriple.java</file>
+    <line>150</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.io</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.io.RDFTriple orderedURIs" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;orderedURIs&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/io/AbstractOWLParser.java</file>
+    <line>64</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.io</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.io.AbstractOWLParser CONTENT_DISPOSITION_FILE_NAME_PATTERN" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;CONTENT_DISPOSITION_FILE_NAME_PATTERN&lt;/code&gt; is too long #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/io/AbstractOWLParser.java</file>
+    <line>66</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.io</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.io.AbstractOWLParser CONTENT_DISPOSITION_FILE_NAME_PATTERN_GROUP" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;CONTENT_DISPOSITION_FILE_NAME_PATTERN_GROUP&lt;/code&gt; is too long #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/OWLObjectTypeIndexProvider.java</file>
+    <line>115</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider IRI" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;IRI&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/MaximumModalDepthFinder.java</file>
+    <line>56</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.util.MaximumModalDepthFinder _1" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;_1&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/CollectionFactory.java</file>
+    <line>478</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.util.CollectionFactory.ConditionalCopySet maxContains" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;maxContains&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/CollectionFactory.java</file>
+    <line>48</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.util.CollectionFactory expectedThreads" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;expectedThreads&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/CollectionFactory.java</file>
+    <line>652</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.util.CollectionFactory.ThreadSafeConditionalCopySet maxContains" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;maxContains&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/OntologyIRIShortFormProvider.java</file>
+    <line>47</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.util.OntologyIRIShortFormProvider wellKnownShortForms" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;wellKnownShortForms&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/HashCode.java</file>
+    <line>115</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.util.HashCode MULT" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;MULT&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/AxiomType.java</file>
+    <line>298</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.model.AxiomType ABoxAxiomTypes" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;ABoxAxiomTypes&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/AxiomType.java</file>
+    <line>214</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.model.AxiomType NEGATIVE_OBJECT_PROPERTY_ASSERTION" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;NEGATIVE_OBJECT_PROPERTY_ASSERTION&lt;/code&gt; is too long #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/AxiomType.java</file>
+    <line>222</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.model.AxiomType INVERSE_FUNCTIONAL_OBJECT_PROPERTY" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;INVERSE_FUNCTIONAL_OBJECT_PROPERTY&lt;/code&gt; is too long #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/AxiomType.java</file>
+    <line>305</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.model.AxiomType RBoxAxiomTypes" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;RBoxAxiomTypes&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/AxiomType.java</file>
+    <line>285</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.model.AxiomType TBoxAxiomTypes" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;TBoxAxiomTypes&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/AxiomType.java</file>
+    <line>314</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.model.AxiomType TBoxAndRBoxAxiomTypes" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;TBoxAndRBoxAxiomTypes&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/EntityType.java</file>
+    <line>47</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.model.EntityType values" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;values&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/IRI.java</file>
+    <line>308</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.model.IRI prefixCache" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;prefixCache&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/vocab/OWLRDFVocabulary.java</file>
+    <line>221</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.vocab</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.vocab.OWLRDFVocabulary asIRI" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;asIRI&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/vocab/OWLRDFVocabulary.java</file>
+    <line>249</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.vocab</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.vocab.OWLRDFVocabulary BUILT_IN_ANNOTATION_PROPERTY_IRIS" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;BUILT_IN_ANNOTATION_PROPERTY_IRIS&lt;/code&gt; is too long #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/vocab/Namespaces.java</file>
+    <line>158</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.vocab</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.vocab.Namespaces defaultIgnoredImports" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;defaultIgnoredImports&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/search/Filters.java</file>
+    <line>147</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.search</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.search.Filters subClassWithSub" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;subClassWithSub&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/search/Filters.java</file>
+    <line>293</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.search</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.search.Filters axiomsFromTBoxAndRBox" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;axiomsFromTBoxAndRBox&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/search/Filters.java</file>
+    <line>163</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.search</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.search.Filters subObjectPropertyWithSuper" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;subObjectPropertyWithSuper&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/search/Filters.java</file>
+    <line>195</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.search</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.search.Filters subDataPropertyWithSuper" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;subDataPropertyWithSuper&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/search/Filters.java</file>
+    <line>260</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.search</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.search.Filters apDomainFilter" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;apDomainFilter&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/search/Filters.java</file>
+    <line>97</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.search</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.search.Filters subAnnotationWithSuper" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;subAnnotationWithSuper&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/search/Filters.java</file>
+    <line>227</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.search</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.search.Filters datatypeDefFilter" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;datatypeDefFilter&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/search/Filters.java</file>
+    <line>131</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.search</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.search.Filters subClassWithSuper" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;subClassWithSuper&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/search/Filters.java</file>
+    <line>114</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.search</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.search.Filters subAnnotationWithSub" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;subAnnotationWithSub&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/search/Filters.java</file>
+    <line>179</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.search</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.search.Filters subObjectPropertyWithSub" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;subObjectPropertyWithSub&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/search/Filters.java</file>
+    <line>277</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.search</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.search.Filters annotations" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;annotations&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/search/Filters.java</file>
+    <line>314</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.search</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.search.Filters axiomsNotInTBoxOrRBox" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;axiomsNotInTBoxOrRBox&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/search/Filters.java</file>
+    <line>243</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.search</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.search.Filters apRangeFilter" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;apRangeFilter&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/search/Filters.java</file>
+    <line>211</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.search</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.search.Filters subDataPropertyWithSub" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;subDataPropertyWithSub&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/profiles/OWL2QLProfile.java</file>
+    <line>78</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.profiles</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.profiles.OWL2QLProfile allowedDatatypes" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;allowedDatatypes&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/profiles/OWL2ELProfile.java</file>
+    <line>81</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.profiles</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.profiles.OWL2ELProfile allowedDatatypes" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;allowedDatatypes&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/profiles/Profiles.java</file>
+    <line>43</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.profiles</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.profiles.KnownFactories Snorocket" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;Snorocket&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/profiles/Profiles.java</file>
+    <line>41</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.profiles</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.profiles.KnownFactories MORe" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;MORe&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/profiles/Profiles.java</file>
+    <line>39</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.profiles</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.profiles.KnownFactories TrOWL" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;TrOWL&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/profiles/Profiles.java</file>
+    <line>38</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.profiles</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.profiles.KnownFactories JFact" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;JFact&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/profiles/Profiles.java</file>
+    <line>37</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.profiles</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.profiles.KnownFactories HermiT" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;HermiT&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/profiles/Profiles.java</file>
+    <line>40</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.profiles</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.profiles.KnownFactories Pellet" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;Pellet&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/profiles/Profiles.java</file>
+    <line>42</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.profiles</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.profiles.KnownFactories Elk" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;Elk&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/profiles/Profiles.java</file>
+    <line>36</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.profiles</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.profiles.KnownFactories FaCTPlusPlus" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;FaCTPlusPlus&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/profiles/OWL2RLProfile.java</file>
+    <line>79</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.profiles</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.profiles.OWL2RLProfile allowedDatatypes" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;allowedDatatypes&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/InitVisitorFactory.java</file>
+    <line>382</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory classcollections" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;classcollections&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/InitVisitorFactory.java</file>
+    <line>398</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory individualsubnamed" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;individualsubnamed&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/InitVisitorFactory.java</file>
+    <line>392</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory opsupernamed" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;opsupernamed&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/InitVisitorFactory.java</file>
+    <line>388</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory icollections" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;icollections&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/InitVisitorFactory.java</file>
+    <line>378</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory classexpressions" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;classexpressions&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/InitVisitorFactory.java</file>
+    <line>380</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory classsupernamed" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;classsupernamed&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/InitVisitorFactory.java</file>
+    <line>386</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory dpcollections" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;dpcollections&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/InitVisitorFactory.java</file>
+    <line>376</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory classsubnamed" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;classsubnamed&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/InitVisitorFactory.java</file>
+    <line>396</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory dpsupernamed" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;dpsupernamed&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/InitVisitorFactory.java</file>
+    <line>400</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory annotsupernamed" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;annotsupernamed&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/InitVisitorFactory.java</file>
+    <line>384</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory opcollections" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;opcollections&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/InitVisitorFactory.java</file>
+    <line>394</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory dpsubnamed" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;dpsubnamed&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/InitVisitorFactory.java</file>
+    <line>390</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory opsubnamed" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;opsubnamed&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/InternalsNoCache.java</file>
+    <line>55</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.InternalsNoCache trueLiteral" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;trueLiteral&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/InternalsNoCache.java</file>
+    <line>58</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.InternalsNoCache falseLiteral" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;falseLiteral&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLLiteralImplNoCompression.java</file>
+    <line>43</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLLiteralImplNoCompression UTF8" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;UTF8&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/uk/ac/manchester/cs/owl/owlapi/OWLObjectImpl.java</file>
+    <line>59</line>
+    <module>owlapi-impl</module>
+    <package>uk.ac.manchester.cs.owl.owlapi</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.owlapi.OWLObjectImpl owlObjectTypeIndexProvider" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;owlObjectTypeIndexProvider&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/org/semanticweb/owlapi/reasoner/impl/DefaultNode.java</file>
+    <line>42</line>
+    <module>owlapi-impl</module>
+    <package>org.semanticweb.owlapi.reasoner.impl</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.reasoner.impl.DefaultNode DF" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;DF&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/rio/src/main/java/org/semanticweb/owlapi/rio/utils/RioUtils.java</file>
+    <line>63</line>
+    <module>owlapi-rio</module>
+    <package>org.semanticweb.owlapi.rio.utils</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rio.utils.RioUtils log" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;log&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/macro/MacroExpansionVisitor.java</file>
+    <line>36</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.macro</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.macro.MacroExpansionVisitor log" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;log&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/macro/MacroExpansionGCIVisitor.java</file>
+    <line>35</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.macro</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.macro.MacroExpansionGCIVisitor log" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;log&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/macro/AbstractMacroExpansionVisitor.java</file>
+    <line>109</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.macro</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.macro.AbstractMacroExpansionVisitor log" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;log&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/macro/ManchesterSyntaxTool.java</file>
+    <line>50</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.macro</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.macro.ManchesterSyntaxTool log" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;log&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/Obo2OWLConstants.java</file>
+    <line>137</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.obo2owl.Obo2OWLConstants tagsToVocab" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;tagsToVocab&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/Obo2OWLConstants.java</file>
+    <line>37</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.obo2owl.Obo2OWLConstants formatter" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;formatter&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>79</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl LOG" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;LOG&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>82</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl IRI_PROP_isReversiblePropertyChain" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;IRI_PROP_isReversiblePropertyChain&lt;/code&gt; is too long #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>100</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl annotationPropertyMap" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;annotationPropertyMap&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>100</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo LOG" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;LOG&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>135</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo annotationPropertyMap" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;annotationPropertyMap&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/XrefExpander.java</file>
+    <line>24</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.oboformat.parser.XrefExpander LOG" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;LOG&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/OBOFormatParser.java</file>
+    <line>34</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.oboformat.parser.OBOFormatParser LOG" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;LOG&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/OBOFormatConstants.java</file>
+    <line>123</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.oboformat.parser.OBOFormatConstants tagsTable" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;tagsTable&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/OBOFormatConstants.java</file>
+    <line>132</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.oboformat.parser.OBOFormatConstants TAGS" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;TAGS&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/OBOFormatConstants.java</file>
+    <line>143</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.oboformat.parser.OBOFormatConstants headerDateFormat" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;headerDateFormat&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/writer/OBOFormatWriter.java</file>
+    <line>858</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.writer</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.oboformat.writer.OBOFormatWriter.TermsTagsComparator tagsPriorities" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;tagsPriorities&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/writer/OBOFormatWriter.java</file>
+    <line>908</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.writer</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.oboformat.writer.OBOFormatWriter.ClauseListComparator instance" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;instance&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/writer/OBOFormatWriter.java</file>
+    <line>938</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.writer</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.oboformat.writer.OBOFormatWriter.TypeDefTagsComparator tagsPriorities" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;tagsPriorities&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/writer/OBOFormatWriter.java</file>
+    <line>1018</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.writer</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.oboformat.writer.OBOFormatWriter.ClauseComparator instance" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;instance&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/writer/OBOFormatWriter.java</file>
+    <line>1004</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.writer</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.oboformat.writer.OBOFormatWriter.FramesComparator instance" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;instance&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/writer/OBOFormatWriter.java</file>
+    <line>808</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.writer</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.oboformat.writer.OBOFormatWriter.HeaderTagsComparator tagsPriorities" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;tagsPriorities&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/writer/OBOFormatWriter.java</file>
+    <line>936</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.writer</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.oboformat.writer.OBOFormatWriter.TypeDefTagsComparator instance" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;instance&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/writer/OBOFormatWriter.java</file>
+    <line>1100</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.writer</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.oboformat.writer.OBOFormatWriter.XrefComparator instance" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;instance&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/writer/OBOFormatWriter.java</file>
+    <line>806</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.writer</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.oboformat.writer.OBOFormatWriter.HeaderTagsComparator instance" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;instance&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/writer/OBOFormatWriter.java</file>
+    <line>856</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.writer</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.oboformat.writer.OBOFormatWriter.TermsTagsComparator instance" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;instance&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/writer/OBOFormatWriter.java</file>
+    <line>38</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.writer</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.oboformat.writer.OBOFormatWriter tagsInformative" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;tagsInformative&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/writer/OBOFormatWriter.java</file>
+    <line>36</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.writer</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.oboformat.writer.OBOFormatWriter LOG" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;LOG&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/BOMSafeJavaCharStream.java</file>
+    <line>30</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.BOMSafeJavaCharStream staticFlag" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;staticFlag&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/RDFRendererBase.java</file>
+    <line>83</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.RDFRendererBase ANNOTATION_PROPERTIES_BANNER_TEXT" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;ANNOTATION_PROPERTIES_BANNER_TEXT&lt;/code&gt; is too long #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/model/RDFGraph.java</file>
+    <line>44</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.model</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.model.RDFGraph logger" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;logger&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/StartRDF.java</file>
+    <line>46</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.AbstractState logger" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;logger&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/TripleHandlers.java</file>
+    <line>78</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.TripleHandlers logger" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;logger&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/TripleLogger.java</file>
+    <line>21</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.TripleLogger log" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;log&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/OptimisedListTranslator.java</file>
+    <line>31</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.OptimisedListTranslator logger" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;logger&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/DeprecatedVocabulary.java</file>
+    <line>28</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.DeprecatedVocabulary OWL_NEGATIVE_OBJECT_PROPERTY_ASSERTION" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;OWL_NEGATIVE_OBJECT_PROPERTY_ASSERTION&lt;/code&gt; is too long #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/DeprecatedVocabulary.java</file>
+    <line>21</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.DeprecatedVocabulary OWL" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;OWL&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/DeprecatedVocabulary.java</file>
+    <line>29</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.DeprecatedVocabulary OWL_NEGATIVE_DATA_PROPERTY_ASSERTION" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;OWL_NEGATIVE_DATA_PROPERTY_ASSERTION&lt;/code&gt; is too long #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/Translators.java</file>
+    <line>83</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.Translators logger" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;logger&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/RDFParser.java</file>
+    <line>53</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.RDFParser wrongResolve" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;wrongResolve&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/RDFParser.java</file>
+    <line>55</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.RDFParser s_nullDocumentLocator" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;s_nullDocumentLocator&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/RDFParser.java</file>
+    <line>56</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.RDFParser s_parserFactory" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;s_parserFactory&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/OWLRDFConsumer.java</file>
+    <line>1907</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFConsumer errorCounter" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;errorCounter&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/OWLRDFConsumer.java</file>
+    <line>112</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFConsumer logger" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;logger&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/renderer/XMLWriterPreferences.java</file>
+    <line>27</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.renderer</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.renderer.XMLWriterPreferences instance" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;instance&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/renderer/XMLWriterFactory.java</file>
+    <line>29</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.renderer</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.renderer.XMLWriterFactory instance" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;instance&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/turtle/parser/TurtleParserConstants.java</file>
+    <line>41</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.turtle.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.turtle.parser.TurtleParserConstants BASE" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;BASE&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/turtle/parser/TurtleParserConstants.java</file>
+    <line>46</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.turtle.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.turtle.parser.TurtleParserConstants TRUE" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;TRUE&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/turtle/parser/TurtleParserConstants.java</file>
+    <line>43</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.turtle.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.turtle.parser.TurtleParserConstants A" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;A&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/turtle/parser/TurtleParserConstants.java</file>
+    <line>42</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.turtle.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.turtle.parser.TurtleParserConstants AT" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;AT&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/turtle/parser/TurtleParserConstants.java</file>
+    <line>37</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.turtle.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.turtle.parser.TurtleParserConstants DOT" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;DOT&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/turtle/parser/TurtleParserConstants.java</file>
+    <line>18</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.turtle.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.turtle.parser.TurtleParserConstants EOF" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;EOF&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/turtle/parser/TurtleParserConstants.java</file>
+    <line>65</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.turtle.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rdf.turtle.parser.TurtleParserConstants tokenImage" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;tokenImage&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/KRSSParserConstants.java</file>
+    <line>49</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss1.parser.KRSSParserConstants NAME" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;NAME&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/KRSSParserConstants.java</file>
+    <line>38</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss1.parser.KRSSParserConstants NOT" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;NOT&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/KRSSParserConstants.java</file>
+    <line>18</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss1.parser.KRSSParserConstants EOF" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;EOF&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/KRSSParserConstants.java</file>
+    <line>37</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss1.parser.KRSSParserConstants OR" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;OR&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/KRSSParserConstants.java</file>
+    <line>55</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss1.parser.KRSSParserConstants tokenImage" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;tokenImage&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/KRSSParserConstants.java</file>
+    <line>40</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss1.parser.KRSSParserConstants SOME" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;SOME&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/KRSSParserConstants.java</file>
+    <line>41</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss1.parser.KRSSParserConstants NONE" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;NONE&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/KRSSParserConstants.java</file>
+    <line>36</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss1.parser.KRSSParserConstants AND" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;AND&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/KRSSParserConstants.java</file>
+    <line>34</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss1.parser.KRSSParserConstants ENUM" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;ENUM&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/KRSSParserConstants.java</file>
+    <line>39</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss1.parser.KRSSParserConstants ALL" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;ALL&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/KRSSParserConstants.java</file>
+    <line>50</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss1.parser.KRSSParserConstants INT" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;INT&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserConstants.java</file>
+    <line>74</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserConstants NAME" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;NAME&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserConstants.java</file>
+    <line>22</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserConstants TOP" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;TOP&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserConstants.java</file>
+    <line>39</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserConstants ALL" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;ALL&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserConstants.java</file>
+    <line>72</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserConstants ENUM" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;ENUM&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserConstants.java</file>
+    <line>81</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserConstants tokenImage" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;tokenImage&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserConstants.java</file>
+    <line>50</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserConstants INV" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;INV&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserConstants.java</file>
+    <line>73</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserConstants INT" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;INT&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserConstants.java</file>
+    <line>25</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserConstants TRUE" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;TRUE&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserConstants.java</file>
+    <line>24</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserConstants NIL" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;NIL&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserConstants.java</file>
+    <line>36</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserConstants AND" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;AND&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserConstants.java</file>
+    <line>18</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserConstants EOF" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;EOF&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserConstants.java</file>
+    <line>37</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserConstants OR" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;OR&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserConstants.java</file>
+    <line>38</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserConstants NOT" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;NOT&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserConstants.java</file>
+    <line>41</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserConstants SOME" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;SOME&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1990</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager jjtoMore" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;jjtoMore&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1968</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager jjstrLiteralImages" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;jjstrLiteralImages&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1472</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager jjbitVec7" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;jjbitVec7&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1464</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager jjbitVec3" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;jjbitVec3&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1982</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager lexStateNames" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;lexStateNames&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1988</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager jjtoToken" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;jjtoToken&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1461</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager jjbitVec0" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;jjbitVec0&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1983</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager jjnewLexState" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;jjnewLexState&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1463</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager jjbitVec2" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;jjbitVec2&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1989</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager jjtoSkip" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;jjtoSkip&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1468</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager jjbitVec5" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;jjbitVec5&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1466</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager jjbitVec4" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;jjbitVec4&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1920</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager jjnextStates" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;jjnextStates&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1474</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager jjbitVec8" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;jjbitVec8&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/KRSS2ParserTokenManager.java</file>
+    <line>1470</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.krss2.parser.KRSS2ParserTokenManager jjbitVec6" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;jjbitVec6&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/latex/renderer/LatexObjectVisitor.java</file>
+    <line>45</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.latex.renderer</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.latex.renderer.LatexObjectVisitor MAX" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;MAX&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/latex/renderer/LatexObjectVisitor.java</file>
+    <line>52</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.latex.renderer</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.latex.renderer.LatexObjectVisitor SELF" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;SELF&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/latex/renderer/LatexObjectVisitor.java</file>
+    <line>50</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.latex.renderer</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.latex.renderer.LatexObjectVisitor TOP" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;TOP&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/latex/renderer/LatexObjectVisitor.java</file>
+    <line>41</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.latex.renderer</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.latex.renderer.LatexObjectVisitor ALL" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;ALL&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/latex/renderer/LatexObjectVisitor.java</file>
+    <line>39</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.latex.renderer</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.latex.renderer.LatexObjectVisitor OR" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;OR&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/latex/renderer/LatexObjectVisitor.java</file>
+    <line>40</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.latex.renderer</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.latex.renderer.LatexObjectVisitor NOT" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;NOT&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/latex/renderer/LatexObjectVisitor.java</file>
+    <line>42</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.latex.renderer</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.latex.renderer.LatexObjectVisitor SOME" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;SOME&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/latex/renderer/LatexObjectVisitor.java</file>
+    <line>53</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.latex.renderer</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.latex.renderer.LatexObjectVisitor CIRC" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;CIRC&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/latex/renderer/LatexObjectVisitor.java</file>
+    <line>38</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.latex.renderer</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.latex.renderer.LatexObjectVisitor AND" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;AND&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/latex/renderer/LatexObjectVisitor.java</file>
+    <line>44</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.latex.renderer</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.latex.renderer.LatexObjectVisitor MIN" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;MIN&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/latex/renderer/LatexBracketChecker.java</file>
+    <line>49</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.latex.renderer</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.latex.renderer.LatexBracketChecker instance" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;instance&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/DLSyntaxParserConstants.java</file>
+    <line>36</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.DLSyntaxParserConstants ALL" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;ALL&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/DLSyntaxParserConstants.java</file>
+    <line>32</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.DLSyntaxParserConstants AND" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;AND&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/DLSyntaxParserConstants.java</file>
+    <line>34</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.DLSyntaxParserConstants NOT" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;NOT&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/DLSyntaxParserConstants.java</file>
+    <line>40</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.DLSyntaxParserConstants IN" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;IN&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/DLSyntaxParserConstants.java</file>
+    <line>37</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.DLSyntaxParserConstants MIN" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;MIN&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/DLSyntaxParserConstants.java</file>
+    <line>33</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.DLSyntaxParserConstants OR" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;OR&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/DLSyntaxParserConstants.java</file>
+    <line>18</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.DLSyntaxParserConstants EOF" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;EOF&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/DLSyntaxParserConstants.java</file>
+    <line>46</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.DLSyntaxParserConstants tokenImage" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;tokenImage&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/DLSyntaxParserConstants.java</file>
+    <line>44</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.DLSyntaxParserConstants ID" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;ID&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/DLSyntaxParserConstants.java</file>
+    <line>42</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.DLSyntaxParserConstants INT" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;INT&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/DLSyntaxParserConstants.java</file>
+    <line>23</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.DLSyntaxParserConstants DOT" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;DOT&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/DLSyntaxParserConstants.java</file>
+    <line>21</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.DLSyntaxParserConstants NEQ" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;NEQ&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/DLSyntaxParserConstants.java</file>
+    <line>38</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.DLSyntaxParserConstants MAX" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;MAX&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/DLSyntaxParserConstants.java</file>
+    <line>35</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.DLSyntaxParserConstants SOME" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;SOME&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/parser/ManchesterOWLSyntaxTokenizer.java</file>
+    <line>31</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxTokenizer EOF" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;EOF&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/OWLFunctionalSyntaxParserTreeConstants.java</file>
+    <line>105</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserTreeConstants JJTNEGATIVEOBJECTPROPERTYASSERTION" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;JJTNEGATIVEOBJECTPROPERTYASSERTION&lt;/code&gt; is too long #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/OWLFunctionalSyntaxParserTreeConstants.java</file>
+    <line>138</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserTreeConstants jjtNodeName" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;jjtNodeName&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/OWLFunctionalSyntaxParserTreeConstants.java</file>
+    <line>85</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserTreeConstants JJTINVERSEFUNCTIONALOBJECTPROPERTY" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;JJTINVERSEFUNCTIONALOBJECTPROPERTY&lt;/code&gt; is too long #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/OWLFunctionalSyntaxParserConstants.java</file>
+    <line>131</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants INT" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;INT&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/OWLFunctionalSyntaxParserConstants.java</file>
+    <line>145</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants tokenImage" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;tokenImage&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/OWLFunctionalSyntaxParserConstants.java</file>
+    <line>113</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants BODY" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;BODY&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/OWLFunctionalSyntaxParserConstants.java</file>
+    <line>114</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants HEAD" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;HEAD&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/OWLFunctionalSyntaxParserConstants.java</file>
+    <line>18</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants EOF" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;EOF&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/main/java/uk/ac/manchester/owl/owlapi/tutorialowled2011/OWLTutorialSyntaxObjectRenderer.java</file>
+    <line>113</line>
+    <module>owlapi-contract</module>
+    <package>uk.ac.manchester.owl.owlapi.tutorialowled2011</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.owl.owlapi.tutorialowled2011.OWLTutorialSyntaxObjectRenderer tables" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;tables&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/uk/ac/manchester/owl/owlapi/tutorialowled2011/TutorialSnippets.java</file>
+    <line>120</line>
+    <module>owlapi-contract</module>
+    <package>uk.ac.manchester.owl.owlapi.tutorialowled2011</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.owl.owlapi.tutorialowled2011.TutorialSnippets koala" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;koala&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/uk/ac/manchester/owl/owlapi/tutorialowled2011/TutorialSnippets.java</file>
+    <line>155</line>
+    <module>owlapi-contract</module>
+    <package>uk.ac.manchester.owl.owlapi.tutorialowled2011</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.owl.owlapi.tutorialowled2011.TutorialSnippets example_save_iri" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;example_save_iri&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/uk/ac/manchester/owl/owlapi/tutorialowled2011/TutorialSnippets.java</file>
+    <line>152</line>
+    <module>owlapi-contract</module>
+    <package>uk.ac.manchester.owl.owlapi.tutorialowled2011</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.owl.owlapi.tutorialowled2011.TutorialSnippets example_iri" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;example_iri&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/uk/ac/manchester/owl/owlapi/tutorialowled2011/TutorialSnippets.java</file>
+    <line>149</line>
+    <module>owlapi-contract</module>
+    <package>uk.ac.manchester.owl.owlapi.tutorialowled2011</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.owl.owlapi.tutorialowled2011.TutorialSnippets koala_iri" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;koala_iri&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/uk/ac/manchester/owl/owlapi/tutorialowled2011/TutorialSnippets.java</file>
+    <line>117</line>
+    <module>owlapi-contract</module>
+    <package>uk.ac.manchester.owl.owlapi.tutorialowled2011</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.owl.owlapi.tutorialowled2011.TutorialSnippets log" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;log&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/SerializationTest.java</file>
+    <line>59</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.SerializationTest f" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;f&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/PrimerTestCase.java</file>
+    <line>131</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.syntax.PrimerTestCase rdfxml" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;rdfxml&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/PrimerTestCase.java</file>
+    <line>357</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.syntax.PrimerTestCase functional" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;functional&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/PrimerTestCase.java</file>
+    <line>494</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.syntax.PrimerTestCase manchester" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;manchester&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/PrimerTestCase.java</file>
+    <line>214</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.syntax.PrimerTestCase owlxml" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;owlxml&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/PrimerTestCase.java</file>
+    <line>636</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.syntax.PrimerTestCase turtle" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;turtle&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/ManchesterOWLSyntaxParserTestCase.java</file>
+    <line>215</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.syntax.ManchesterOWLSyntaxParserTestCase NS" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;NS&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/syntax/OWLXMLNullPointerTestCase.java</file>
+    <line>42</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.syntax</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.syntax.OWLXMLNullPointerTestCase NS" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;NS&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/ontology/MultipleOntologyLoadsTestCase.java</file>
+    <line>43</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.ontology</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.ontology.MultipleOntologyLoadsTestCase input" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;input&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/anonymous/AnonymousFunctionalRoundtripTestCase.java</file>
+    <line>41</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.anonymous</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.anonymous.AnonymousFunctionalRoundtripTestCase broken" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;broken&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/anonymous/AnonymousFunctionalRoundtripTestCase.java</file>
+    <line>52</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.anonymous</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.anonymous.AnonymousFunctionalRoundtripTestCase fixed" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;fixed&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/anonymous/AnonymousFunctionalRoundtripTestCase.java</file>
+    <line>39</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.anonymous</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.anonymous.AnonymousFunctionalRoundtripTestCase NS" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;NS&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/annotations/SWRLAnnotationTestCase.java</file>
+    <line>41</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.annotations</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.annotations.SWRLAnnotationTestCase NS" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;NS&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/classexpressions/DisjointUnionTestCase.java</file>
+    <line>35</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.classexpressions</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.classexpressions.DisjointUnionTestCase B" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;B&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/classexpressions/DisjointUnionTestCase.java</file>
+    <line>31</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.classexpressions</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.classexpressions.DisjointUnionTestCase NS" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;NS&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/classexpressions/DisjointUnionTestCase.java</file>
+    <line>37</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.classexpressions</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.classexpressions.DisjointUnionTestCase C" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;C&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/classexpressions/DisjointUnionTestCase.java</file>
+    <line>33</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.classexpressions</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.classexpressions.DisjointUnionTestCase A" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;A&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/rio/utils/test/RioUtilsTest.java</file>
+    <line>29</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.rio.utils.test</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rio.utils.test.RioUtilsTest vf" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;vf&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/examples/Examples.java</file>
+    <line>133</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.examples</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.examples.Examples koala" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;koala&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/examples/DLQueryExample.java</file>
+    <line>64</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.examples</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.examples.DLQueryExample koala" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;koala&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/profiles/test/OWLProfileTestCase.java</file>
+    <line>111</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.profiles.test</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.profiles.test.OWLProfileTestCase cl" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;cl&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/profiles/test/OWLProfileTestCase.java</file>
+    <line>113</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.profiles.test</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.profiles.test.OWLProfileTestCase datap" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;datap&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/profiles/test/OWLProfileTestCase.java</file>
+    <line>125</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.profiles.test</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.profiles.test.OWLProfileTestCase op" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;op&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/profiles/test/OWLProfileTestCase.java</file>
+    <line>127</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.profiles.test</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.profiles.test.OWLProfileTestCase unknownfakedatatype" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;unknownfakedatatype&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/profiles/test/OWLProfileTestCase.java</file>
+    <line>130</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.profiles.test</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.profiles.test.OWLProfileTestCase fakeundeclareddatatype" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;fakeundeclareddatatype&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/profiles/test/OWLProfileTestCase.java</file>
+    <line>138</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.profiles.test</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.profiles.test.OWLProfileTestCase p" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;p&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/profiles/test/OWLProfileTestCase.java</file>
+    <line>132</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.profiles.test</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.profiles.test.OWLProfileTestCase fakedatatype" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;fakedatatype&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/profiles/test/OWLProfileTestCase.java</file>
+    <line>136</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.profiles.test</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.profiles.test.OWLProfileTestCase df" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;df&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/profiles/test/OWLProfileTestCase.java</file>
+    <line>134</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.profiles.test</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.profiles.test.OWLProfileTestCase onto" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;onto&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/uk/ac/manchester/cs/owl/explanation/ordering/ExplanationOrdererImpl.java</file>
+    <line>232</line>
+    <module>owlapi-tools</module>
+    <package>uk.ac.manchester.cs.owl.explanation.ordering</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.explanation.ordering.ExplanationOrdererImpl randomstart" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;randomstart&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/uk/ac/manchester/cs/owl/explanation/ordering/ExplanationOrdererImpl.java</file>
+    <line>377</line>
+    <module>owlapi-tools</module>
+    <package>uk.ac.manchester.cs.owl.explanation.ordering</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.explanation.ordering.ExplanationOrdererImpl propertiesFirstComparator" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;propertiesFirstComparator&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/uk/ac/manchester/cs/owl/explanation/ordering/ExplanationOrdererImpl.java</file>
+    <line>226</line>
+    <module>owlapi-tools</module>
+    <package>uk.ac.manchester.cs.owl.explanation.ordering</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owl.explanation.ordering.ExplanationOrdererImpl comparator" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;comparator&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/uk/ac/manchester/cs/owlapi/modularity/SyntacticLocalityModuleExtractor.java</file>
+    <line>59</line>
+    <module>owlapi-tools</module>
+    <package>uk.ac.manchester.cs.owlapi.modularity</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.cs.owlapi.modularity.SyntacticLocalityModuleExtractor logger" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;logger&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/apibinding/src/main/java/org/semanticweb/owlapi/apibinding/OWLManager.java</file>
+    <line>42</line>
+    <module>owlapi-apibinding</module>
+    <package>org.semanticweb.owlapi.apibinding</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.apibinding.OWLManager injector" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;injector&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/apibinding/src/main/java/org/semanticweb/owlapi/apibinding/OWLFunctionalSyntaxFactory.java</file>
+    <line>133</line>
+    <module>owlapi-apibinding</module>
+    <package>org.semanticweb.owlapi.apibinding</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory DF" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant name &lt;code&gt;DF&lt;/code&gt; is too short #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/rio/src/main/java/org/semanticweb/owlapi/rio/RioAbstractParserFactory.java</file>
+    <line>54</line>
+    <module>owlapi-rio</module>
+    <package>org.semanticweb.owlapi.rio</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.rio.RioAbstractParserFactory injector" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Constant naming convention</problem_class>
+    <description>Constant &lt;code&gt;injector&lt;/code&gt; doesn't match regex '[A-Z][A-Z_\d]*' #loc</description>
+  </problem>
+</problems>
+

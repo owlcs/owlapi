@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/distribution/pom.xml</file>
+    <line>79</line>
+    <module>owlapi-distribution</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/distribution/pom.xml" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">XML highlighting</problem_class>
+    <description>Element executions is not allowed here #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/distribution/pom.xml</file>
+    <line>87</line>
+    <module>owlapi-distribution</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/distribution/pom.xml" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">XML highlighting</problem_class>
+    <description>Element executions is not allowed here #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/distribution/pom.xml</file>
+    <line>79</line>
+    <module>owlapi-distribution</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/distribution/pom.xml" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">XML highlighting</problem_class>
+    <description>Cannot resolve symbol 'executions' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/distribution/pom.xml</file>
+    <line>87</line>
+    <module>owlapi-distribution</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/distribution/pom.xml" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">XML highlighting</problem_class>
+    <description>Cannot resolve symbol 'executions' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/distribution/pom.xml</file>
+    <line>80</line>
+    <module>owlapi-distribution</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/distribution/pom.xml" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">XML highlighting</problem_class>
+    <description>Cannot resolve symbol 'execution' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/distribution/pom.xml</file>
+    <line>86</line>
+    <module>owlapi-distribution</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/distribution/pom.xml" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">XML highlighting</problem_class>
+    <description>Cannot resolve symbol 'execution' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/distribution/pom.xml</file>
+    <line>81</line>
+    <module>owlapi-distribution</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/distribution/pom.xml" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">XML highlighting</problem_class>
+    <description>Cannot resolve symbol 'id' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/distribution/pom.xml</file>
+    <line>81</line>
+    <module>owlapi-distribution</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/distribution/pom.xml" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">XML highlighting</problem_class>
+    <description>Cannot resolve symbol 'id' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/distribution/pom.xml</file>
+    <line>82</line>
+    <module>owlapi-distribution</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/distribution/pom.xml" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">XML highlighting</problem_class>
+    <description>Cannot resolve symbol 'phase' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/distribution/pom.xml</file>
+    <line>82</line>
+    <module>owlapi-distribution</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/distribution/pom.xml" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">XML highlighting</problem_class>
+    <description>Cannot resolve symbol 'phase' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/distribution/pom.xml</file>
+    <line>83</line>
+    <module>owlapi-distribution</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/distribution/pom.xml" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">XML highlighting</problem_class>
+    <description>Cannot resolve symbol 'goals' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/distribution/pom.xml</file>
+    <line>85</line>
+    <module>owlapi-distribution</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/distribution/pom.xml" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">XML highlighting</problem_class>
+    <description>Cannot resolve symbol 'goals' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/distribution/pom.xml</file>
+    <line>84</line>
+    <module>owlapi-distribution</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/distribution/pom.xml" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">XML highlighting</problem_class>
+    <description>Cannot resolve symbol 'goal' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/distribution/pom.xml</file>
+    <line>84</line>
+    <module>owlapi-distribution</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/distribution/pom.xml" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">XML highlighting</problem_class>
+    <description>Cannot resolve symbol 'goal' #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/resources/primer.rdfxml.xml</file>
+    <line>8</line>
+    <module>owlapi-contract</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/contract/src/test/resources/primer.rdfxml.xml" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">XML highlighting</problem_class>
+    <description>URI is not registered (Settings | Project Settings | Schemas and DTDs) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/resources/primer.rdfxml.xml</file>
+    <line>9</line>
+    <module>owlapi-contract</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/contract/src/test/resources/primer.rdfxml.xml" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">XML highlighting</problem_class>
+    <description>URI is not registered (Settings | Project Settings | Schemas and DTDs) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/resources/primer.rdfxml.xml</file>
+    <line>9</line>
+    <module>owlapi-contract</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/contract/src/test/resources/primer.rdfxml.xml" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">XML highlighting</problem_class>
+    <description>URI is not registered (Settings | Project Settings | Schemas and DTDs) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/resources/primer.rdfxml.xml</file>
+    <line>10</line>
+    <module>owlapi-contract</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/contract/src/test/resources/primer.rdfxml.xml" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">XML highlighting</problem_class>
+    <description>URI is not registered (Settings | Project Settings | Schemas and DTDs) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/resources/primer.rdfxml.xml</file>
+    <line>10</line>
+    <module>owlapi-contract</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/contract/src/test/resources/primer.rdfxml.xml" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">XML highlighting</problem_class>
+    <description>URI is not registered (Settings | Project Settings | Schemas and DTDs) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/resources/primer.owlxml.xml</file>
+    <line>6</line>
+    <module>owlapi-contract</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/contract/src/test/resources/primer.owlxml.xml" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">XML highlighting</problem_class>
+    <description>URI is not registered (Settings | Project Settings | Schemas and DTDs) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/resources/cidoc_crm_v5.0.4_official_release.rdfs.xml</file>
+    <line>46</line>
+    <module>owlapi-contract</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/contract/src/test/resources/cidoc_crm_v5.0.4_official_release.rdfs.xml" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">XML highlighting</problem_class>
+    <description>URI is not registered (Settings | Project Settings | Schemas and DTDs) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/resources/cidoc_crm_v5.0.4_official_release.rdfs.xml</file>
+    <line>46</line>
+    <module>owlapi-contract</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/contract/src/test/resources/cidoc_crm_v5.0.4_official_release.rdfs.xml" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">XML highlighting</problem_class>
+    <description>URI is not registered (Settings | Project Settings | Schemas and DTDs) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/bin/primer.rdfxml.xml</file>
+    <line>8</line>
+    <module>owlapi-parent</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/bin/primer.rdfxml.xml" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">XML highlighting</problem_class>
+    <description>URI is not registered (Settings | Project Settings | Schemas and DTDs) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/bin/primer.rdfxml.xml</file>
+    <line>9</line>
+    <module>owlapi-parent</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/bin/primer.rdfxml.xml" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">XML highlighting</problem_class>
+    <description>URI is not registered (Settings | Project Settings | Schemas and DTDs) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/bin/primer.rdfxml.xml</file>
+    <line>9</line>
+    <module>owlapi-parent</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/bin/primer.rdfxml.xml" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">XML highlighting</problem_class>
+    <description>URI is not registered (Settings | Project Settings | Schemas and DTDs) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/bin/primer.rdfxml.xml</file>
+    <line>10</line>
+    <module>owlapi-parent</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/bin/primer.rdfxml.xml" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">XML highlighting</problem_class>
+    <description>URI is not registered (Settings | Project Settings | Schemas and DTDs) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/bin/primer.rdfxml.xml</file>
+    <line>10</line>
+    <module>owlapi-parent</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/bin/primer.rdfxml.xml" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">XML highlighting</problem_class>
+    <description>URI is not registered (Settings | Project Settings | Schemas and DTDs) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/bin/primer.owlxml.xml</file>
+    <line>6</line>
+    <module>owlapi-parent</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/bin/primer.owlxml.xml" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">XML highlighting</problem_class>
+    <description>URI is not registered (Settings | Project Settings | Schemas and DTDs) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/bin/cidoc_crm_v5.0.4_official_release.rdfs.xml</file>
+    <line>46</line>
+    <module>owlapi-parent</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/bin/cidoc_crm_v5.0.4_official_release.rdfs.xml" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">XML highlighting</problem_class>
+    <description>URI is not registered (Settings | Project Settings | Schemas and DTDs) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/bin/cidoc_crm_v5.0.4_official_release.rdfs.xml</file>
+    <line>46</line>
+    <module>owlapi-parent</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/bin/cidoc_crm_v5.0.4_official_release.rdfs.xml" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">XML highlighting</problem_class>
+    <description>URI is not registered (Settings | Project Settings | Schemas and DTDs) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/distribution/src/assembly/sources.xml</file>
+    <line>2</line>
+    <module>owlapi-distribution</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/distribution/src/assembly/sources.xml" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">XML highlighting</problem_class>
+    <description>URI is not registered (Settings | Project Settings | Schemas and DTDs) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/distribution/src/assembly/sources.xml</file>
+    <line>5</line>
+    <module>owlapi-distribution</module>
+    <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/distribution/src/assembly/sources.xml" />
+    <problem_class severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">XML highlighting</problem_class>
+    <description>Cannot resolve symbol 'http://maven.apache.org/xsd/assembly-1.1.2.xsd' #loc</description>
+  </problem>
+</problems>
+

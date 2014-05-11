@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>1139</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl org.semanticweb.owlapi.model.OWLAxiom trTypedefClause(org.semanticweb.owlapi.model.OWLObjectProperty p, java.lang.String tag, org.obolibrary.oboformat.model.Clause clause)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Statement with empty body</problem_class>
+    <description>&lt;code&gt;else&lt;/code&gt; statement has empty body #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>783</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl org.semanticweb.owlapi.model.OWLNamedObject trTypedefToAnnotationProperty(org.obolibrary.oboformat.model.Frame typedefFrame)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Statement with empty body</problem_class>
+    <description>&lt;code&gt;if&lt;/code&gt; statement has empty body #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>603</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl void trHeaderFrame(org.obolibrary.oboformat.model.Frame headerFrame)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Statement with empty body</problem_class>
+    <description>&lt;code&gt;if&lt;/code&gt; statement has empty body #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>582</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl void trHeaderFrame(org.obolibrary.oboformat.model.Frame headerFrame)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Statement with empty body</problem_class>
+    <description>&lt;code&gt;if&lt;/code&gt; statement has empty body #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>509</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl void trHeaderFrame(org.obolibrary.oboformat.model.Frame headerFrame)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Statement with empty body</problem_class>
+    <description>&lt;code&gt;if&lt;/code&gt; statement has empty body #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIObo2Owl.java</file>
+    <line>507</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIObo2Owl void trHeaderFrame(org.obolibrary.oboformat.model.Frame headerFrame)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Statement with empty body</problem_class>
+    <description>&lt;code&gt;if&lt;/code&gt; statement has empty body #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>1993</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo void tr(org.semanticweb.owlapi.model.OWLClassAssertionAxiom ax)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Statement with empty body</problem_class>
+    <description>&lt;code&gt;else&lt;/code&gt; statement has empty body #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>353</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo org.obolibrary.oboformat.model.OBODoc tr()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Statement with empty body</problem_class>
+    <description>&lt;code&gt;else&lt;/code&gt; statement has empty body #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/model/Clause.java</file>
+    <line>303</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.model</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.model.Clause boolean equals(java.lang.Object e)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Statement with empty body</problem_class>
+    <description>&lt;code&gt;if&lt;/code&gt; statement has empty body #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/model/Clause.java</file>
+    <line>300</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.model</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.model.Clause boolean equals(java.lang.Object e)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Statement with empty body</problem_class>
+    <description>&lt;code&gt;if&lt;/code&gt; statement has empty body #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/model/Clause.java</file>
+    <line>297</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.model</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.model.Clause boolean equals(java.lang.Object e)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Statement with empty body</problem_class>
+    <description>&lt;code&gt;if&lt;/code&gt; statement has empty body #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/model/Clause.java</file>
+    <line>295</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.model</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.model.Clause boolean equals(java.lang.Object e)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Statement with empty body</problem_class>
+    <description>&lt;code&gt;if&lt;/code&gt; statement has empty body #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/OBOFormatParser.java</file>
+    <line>508</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.parser.OBOFormatParser void parseHeaderFrame(org.obolibrary.oboformat.model.Frame h)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Statement with empty body</problem_class>
+    <description>&lt;code&gt;while&lt;/code&gt; statement has empty body #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/OBOFormatParser.java</file>
+    <line>1239</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.parser.OBOFormatParser void parseZeroOrMoreQuals(org.obolibrary.oboformat.model.Clause cl)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Statement with empty body</problem_class>
+    <description>&lt;code&gt;while&lt;/code&gt; statement has empty body #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/OBOFormatParser.java</file>
+    <line>1177</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.parser.OBOFormatParser boolean parseZeroOrMoreXrefs(org.obolibrary.oboformat.model.Clause cl)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Statement with empty body</problem_class>
+    <description>&lt;code&gt;while&lt;/code&gt; statement has empty body #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/TripleHandlers.java</file>
+    <line>1186</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.TripleHandlers.GTPLiteralTripleHandler void handleTriple(org.semanticweb.owlapi.model.IRI subject, org.semanticweb.owlapi.model.IRI predicate, org.semanticweb.owlapi.model.OWLLiteral object)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Statement with empty body</problem_class>
+    <description>&lt;code&gt;if&lt;/code&gt; statement has empty body #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/TripleHandlers.java</file>
+    <line>1185</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.TripleHandlers.GTPLiteralTripleHandler void handleTriple(org.semanticweb.owlapi.model.IRI subject, org.semanticweb.owlapi.model.IRI predicate, org.semanticweb.owlapi.model.OWLLiteral object)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Statement with empty body</problem_class>
+    <description>&lt;code&gt;if&lt;/code&gt; statement has empty body #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/TripleHandlers.java</file>
+    <line>1301</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.TripleHandlers.TPAllValuesFromHandler boolean canHandleStreaming(org.semanticweb.owlapi.model.IRI subject, org.semanticweb.owlapi.model.IRI predicate, org.semanticweb.owlapi.model.IRI object)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Statement with empty body</problem_class>
+    <description>&lt;code&gt;if&lt;/code&gt; statement has empty body #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/OWLRDFConsumer.java</file>
+    <line>1552</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFConsumer void chooseAndSetOntologyIRI()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Statement with empty body</problem_class>
+    <description>&lt;code&gt;if&lt;/code&gt; statement has empty body #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/examples/Examples.java</file>
+    <line>1139</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.examples</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.examples.Examples void printIndent(int depth)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Statement with empty body</problem_class>
+    <description>&lt;code&gt;for&lt;/code&gt; statement has empty body #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/examples/Examples.java</file>
+    <line>1476</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.examples</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.examples.Examples void shouldQueryWithReasoner()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Statement with empty body</problem_class>
+    <description>&lt;code&gt;if&lt;/code&gt; statement has empty body #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/examples/Examples.java</file>
+    <line>1317</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.examples</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.examples.Examples void shouldCreateAndReadAnnotations()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Statement with empty body</problem_class>
+    <description>&lt;code&gt;if&lt;/code&gt; statement has empty body #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/examples/Examples.java</file>
+    <line>576</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.examples</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.examples.Examples void shouldAddAxiom()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Statement with empty body</problem_class>
+    <description>&lt;code&gt;for&lt;/code&gt; statement has empty body #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/examples/Examples.java</file>
+    <line>1028</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.examples</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.examples.Examples void shouldUseReasoner()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Statement with empty body</problem_class>
+    <description>&lt;code&gt;for&lt;/code&gt; statement has empty body #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/examples/Examples.java</file>
+    <line>1031</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.examples</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.examples.Examples void shouldUseReasoner()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Statement with empty body</problem_class>
+    <description>&lt;code&gt;else&lt;/code&gt; statement has empty body #loc</description>
+  </problem>
+</problems>
+

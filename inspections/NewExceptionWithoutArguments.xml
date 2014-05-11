@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/AutoIRIMapper.java</file>
+    <line>273</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.AutoIRIMapper void startElement(java.lang.String uri, java.lang.String localName, java.lang.String qName, org.xml.sax.Attributes attributes)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Exception constructor called without arguments</problem_class>
+    <description>&lt;code&gt;new SAXException()&lt;/code&gt; without arguments #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/org/semanticweb/owlapi/reasoner/structural/StructuralReasoner.java</file>
+    <line>207</line>
+    <module>owlapi-impl</module>
+    <package>org.semanticweb.owlapi.reasoner.structural</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.reasoner.structural.StructuralReasoner void throwExceptionIfInterrupted()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Exception constructor called without arguments</problem_class>
+    <description>&lt;code&gt;new ReasonerInterruptedException()&lt;/code&gt; without arguments #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>2376</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo void error(java.lang.String message, boolean shouldLogComplaint)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Exception constructor called without arguments</problem_class>
+    <description>&lt;code&gt;new Exception()&lt;/code&gt; without arguments #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/BOMSafeJavaCharStream.java</file>
+    <line>143</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.BOMSafeJavaCharStream void FillBuff()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Exception constructor called without arguments</problem_class>
+    <description>&lt;code&gt;new IOException()&lt;/code&gt; without arguments #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/BOMSafeJavaCharStream.java</file>
+    <line>75</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.BOMSafeJavaCharStream int hexval(char c)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Exception constructor called without arguments</problem_class>
+    <description>&lt;code&gt;new IOException()&lt;/code&gt; without arguments #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/baseclasses/TestBase.java</file>
+    <line>153</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.baseclasses</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.api.test.baseclasses.TestBase java.lang.String topOfStackTrace()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Exception constructor called without arguments</problem_class>
+    <description>&lt;code&gt;new RuntimeException()&lt;/code&gt; without arguments #loc</description>
+  </problem>
+</problems>
+

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/OWLObjectPropertyManager.java</file>
+    <line>517</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.OWLObjectPropertyManager void tarjan(java.util.Set&lt;org.semanticweb.owlapi.model.OWLOntology&gt; ontologies, org.semanticweb.owlapi.model.OWLObjectPropertyExpression prop, int index, java.util.Stack&lt;org.semanticweb.owlapi.model.OWLObjectPropertyExpression&gt; stack, java.util.Map&lt;org.semanticweb.owlapi.model.OWLObjectPropertyExpression,java.lang.Integer&gt; indexMap, java.util.Map&lt;org.semanticweb.owlapi.model.OWLObjectPropertyExpression,java.lang.Integer&gt; lowlinkMap, java.util.Set&lt;java.util.Set&lt;org.semanticweb.owlapi.model.OWLObjectPropertyExpression&gt;&gt; result, ...)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Method with too many parameters</problem_class>
+    <description>&lt;code&gt;tarjan()&lt;/code&gt; has too many parameters (num parameters = 9) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/impl/src/main/java/org/semanticweb/owlapi/reasoner/structural/StructuralReasoner.java</file>
+    <line>982</line>
+    <module>owlapi-impl</module>
+    <package>org.semanticweb.owlapi.reasoner.structural</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.reasoner.structural.StructuralReasoner.HierarchyInfo void tarjan(T entity, int _index, java.util.Stack&lt;T&gt; stack, java.util.Map&lt;T,java.lang.Integer&gt; indexMap, java.util.Map&lt;T,java.lang.Integer&gt; lowlinkMap, java.util.Set&lt;java.util.Set&lt;T&gt;&gt; result, java.util.Set&lt;T&gt; processed, ...)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Method with too many parameters</problem_class>
+    <description>&lt;code&gt;tarjan()&lt;/code&gt; has too many parameters (num parameters = 11) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OboInOwlCardinalityTools.java</file>
+    <line>267</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OboInOwlCardinalityTools void checkOwlEntity(org.semanticweb.owlapi.model.OWLEntity owlClass, java.util.Set&lt;org.semanticweb.owlapi.model.OWLAnnotationProperty&gt; properties, org.semanticweb.owlapi.model.OWLOntology ontology, org.obolibrary.obo2owl.OboInOwlCardinalityTools.AnnotationCardinalityReporter reporter, org.obolibrary.obo2owl.OboInOwlCardinalityTools.AnnotationCardinalityConfictHandler handler, org.semanticweb.owlapi.model.OWLOntologyManager manager)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Method with too many parameters</problem_class>
+    <description>&lt;code&gt;checkOwlEntity()&lt;/code&gt; has too many parameters (num parameters = 6) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/TripleHandlers.java</file>
+    <line>3209</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.TripleHandlers.TypeNegativePropertyAssertionHandler void translateNegativeObjectPropertyAssertion(org.semanticweb.owlapi.model.IRI subject, org.semanticweb.owlapi.model.IRI predicate, org.semanticweb.owlapi.model.IRI object, org.semanticweb.owlapi.model.IRI source, org.semanticweb.owlapi.model.IRI property, org.semanticweb.owlapi.model.IRI target, java.util.Set&lt;org.semanticweb.owlapi.model.OWLAnnotation&gt; annos)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Method with too many parameters</problem_class>
+    <description>&lt;code&gt;translateNegativeObjectPropertyAssertion()&lt;/code&gt; has too many parameters (num parameters = 7) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/TripleHandlers.java</file>
+    <line>3223</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.TripleHandlers.TypeNegativePropertyAssertionHandler void translateNegativeDataPropertyAssertion(org.semanticweb.owlapi.model.IRI subject, org.semanticweb.owlapi.model.IRI predicate, org.semanticweb.owlapi.model.IRI object, org.semanticweb.owlapi.model.IRI source, org.semanticweb.owlapi.model.IRI property, org.semanticweb.owlapi.model.OWLLiteral target, java.util.Set&lt;org.semanticweb.owlapi.model.OWLAnnotation&gt; annos)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Method with too many parameters</problem_class>
+    <description>&lt;code&gt;translateNegativeDataPropertyAssertion()&lt;/code&gt; has too many parameters (num parameters = 7) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss1/parser/TokenMgrError.java</file>
+    <line>73</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss1.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss1.parser.TokenMgrError java.lang.String LexicalError(boolean EOFSeen, int lexState, int errorLine, int errorColumn, java.lang.String errorAfter, char curChar)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Method with too many parameters</problem_class>
+    <description>&lt;code&gt;LexicalError()&lt;/code&gt; has too many parameters (num parameters = 6) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/krss2/parser/TokenMgrError.java</file>
+    <line>73</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.krss2.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.krss2.parser.TokenMgrError java.lang.String LexicalError(boolean EOFSeen, int lexState, int errorLine, int errorColumn, java.lang.String errorAfter, char curChar)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Method with too many parameters</problem_class>
+    <description>&lt;code&gt;LexicalError()&lt;/code&gt; has too many parameters (num parameters = 6) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/dlsyntax/parser/TokenMgrError.java</file>
+    <line>73</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.dlsyntax.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.dlsyntax.parser.TokenMgrError java.lang.String LexicalError(boolean EOFSeen, int lexState, int errorLine, int errorColumn, java.lang.String errorAfter, char curChar)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Method with too many parameters</problem_class>
+    <description>&lt;code&gt;LexicalError()&lt;/code&gt; has too many parameters (num parameters = 6) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/functional/parser/TokenMgrError.java</file>
+    <line>73</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.functional.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.functional.parser.TokenMgrError java.lang.String LexicalError(boolean EOFSeen, int lexState, int errorLine, int errorColumn, java.lang.String errorAfter, char curChar)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Method with too many parameters</problem_class>
+    <description>&lt;code&gt;LexicalError()&lt;/code&gt; has too many parameters (num parameters = 6) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/uk/ac/manchester/cs/owlapi/modularity/SyntacticLocalityModuleExtractor.java</file>
+    <line>811</line>
+    <module>owlapi-tools</module>
+    <package>uk.ac.manchester.cs.owlapi.modularity</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owlapi.modularity.SyntacticLocalityModuleExtractor org.semanticweb.owlapi.model.OWLOntology extractAsOntology(java.util.Set&lt;org.semanticweb.owlapi.model.OWLEntity&gt; signature, org.semanticweb.owlapi.model.IRI iri, int superClassLevel, int subClassLevel, org.semanticweb.owlapi.reasoner.OWLReasoner reasoner, boolean verbose)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Method with too many parameters</problem_class>
+    <description>&lt;code&gt;extractAsOntology()&lt;/code&gt; has too many parameters (num parameters = 6) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/explanation/HSTExplanationGenerator.java</file>
+    <line>336</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.explanation</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.explanation.HSTExplanationGenerator java.util.List&lt;org.semanticweb.owlapi.model.OWLAxiom&gt; recurse(org.semanticweb.owlapi.model.OWLClassExpression unsatClass, java.util.Set&lt;java.util.Set&lt;org.semanticweb.owlapi.model.OWLAxiom&gt;&gt; allMups, java.util.Set&lt;java.util.Set&lt;org.semanticweb.owlapi.model.OWLAxiom&gt;&gt; satPaths, java.util.Set&lt;org.semanticweb.owlapi.model.OWLAxiom&gt; currentPathContents, int maxExplanations, java.util.List&lt;org.semanticweb.owlapi.model.OWLAxiom&gt; orderedMups, org.semanticweb.owlapi.model.OWLAxiom axiom)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Method with too many parameters</problem_class>
+    <description>&lt;code&gt;recurse()&lt;/code&gt; has too many parameters (num parameters = 7) #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/explanation/HSTExplanationGenerator.java</file>
+    <line>244</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.explanation</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.explanation.HSTExplanationGenerator void constructHittingSetTree(org.semanticweb.owlapi.model.OWLClassExpression unsatClass, java.util.Set&lt;org.semanticweb.owlapi.model.OWLAxiom&gt; mups, java.util.Set&lt;java.util.Set&lt;org.semanticweb.owlapi.model.OWLAxiom&gt;&gt; allMups, java.util.Set&lt;java.util.Set&lt;org.semanticweb.owlapi.model.OWLAxiom&gt;&gt; satPaths, java.util.Set&lt;org.semanticweb.owlapi.model.OWLAxiom&gt; currentPathContents, int maxExplanations)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Method with too many parameters</problem_class>
+    <description>&lt;code&gt;constructHittingSetTree()&lt;/code&gt; has too many parameters (num parameters = 6) #loc</description>
+  </problem>
+</problems>
+

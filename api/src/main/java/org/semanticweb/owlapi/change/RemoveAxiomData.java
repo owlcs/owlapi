@@ -32,7 +32,7 @@ public class RemoveAxiomData extends AxiomChangeData {
     private static final long serialVersionUID = 40000L;
 
     /**
-     * Constructs an {@link RemoveAxiomData} object which specifies the removal
+     * Constructs an {@code RemoveAxiomData} object which specifies the removal
      * of an axiom from an ontology.
      * 
      * @param axiom

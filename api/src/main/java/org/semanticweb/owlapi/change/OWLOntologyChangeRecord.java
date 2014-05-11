@@ -64,7 +64,7 @@ public class OWLOntologyChangeRecord<T> implements Serializable {
     private final OWLOntologyChangeData<T> data;
 
     /**
-     * Constructs an {@link OWLOntologyChangeRecord} object which holds
+     * Constructs an {@code OWLOntologyChangeRecord} object which holds
      * information about a change to a particular ontology identified by an
      * {@link OWLOntologyID} object and also change details specified by the
      * {@link OWLOntologyChangeData} object.
@@ -84,7 +84,7 @@ public class OWLOntologyChangeRecord<T> implements Serializable {
     }
 
     /**
-     * A convenience method that creates an {@link OWLOntologyChangeRecord} by
+     * A convenience method that creates an {@code OWLOntologyChangeRecord} by
      * deriving data from an {@link OWLOntologyChange} object.
      * 
      * @param change
@@ -115,7 +115,7 @@ public class OWLOntologyChangeRecord<T> implements Serializable {
 
     /**
      * Gets the {@link OWLOntologyChangeData} which is associated with this
-     * {@link OWLOntologyChangeRecord}.
+     * {@code OWLOntologyChangeRecord}.
      * 
      * @return The {@link OWLOntologyChangeData}.
      */
@@ -127,28 +127,28 @@ public class OWLOntologyChangeRecord<T> implements Serializable {
     /**
      * Creates an {@link OWLOntologyChange} from the {@link OWLOntologyID} and
      * {@link OWLOntologyChangeData} associated with this
-     * {@link OWLOntologyChangeRecord} object. The {@link OWLOntology} that is
+     * {@code OWLOntologyChangeRecord} object. The {@link OWLOntology} that is
      * the target of the resulting {@link OWLOntologyChange} is derived from an
      * {@link OWLOntologyManager}. The manager <i>must</i> contain an ontology
      * that has an {@link OWLOntologyID} which is equal to the
      * {@link OWLOntologyID} associated with this
-     * {@link OWLOntologyChangeRecord} object.
+     * {@code OWLOntologyChangeRecord} object.
      * 
      * @param manager
      *        The manager which will be used to obtain a reference to an
      *        {@link OWLOntology} object having the same {@link OWLOntologyID}
      *        as the {@link OWLOntologyID} associated with this
-     *        {@link OWLOntologyChangeRecord}.
+     *        {@code OWLOntologyChangeRecord}.
      * @return The {@link OWLOntologyChange} object that is derived from this
      *         record's {@link OWLOntologyID} and {@link OWLOntologyChangeData}.
      *         The specific concrete subclass of the returned
      *         {@link OWLOntologyChange} will depend upon the specific concrete
      *         subclass of the {@link OWLOntologyChangeData} associated with
-     *         this {@link OWLOntologyChangeRecord}.
+     *         this {@code OWLOntologyChangeRecord}.
      * @throws UnknownOWLOntologyException
      *         if the specified manager does not contain an ontology which has
      *         an {@link OWLOntologyID} equal to the {@link OWLOntologyID}
-     *         associated with this {@link OWLOntologyChangeRecord}.
+     *         associated with this {@code OWLOntologyChangeRecord}.
      */
     public OWLOntologyChange<T>
             createOntologyChange(OWLOntologyManager manager) {

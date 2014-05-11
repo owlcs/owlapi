@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/io/AbstractOWLParser.java</file>
+    <line>84</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.io</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.io.AbstractOWLParser java.lang.String getRequestTypes()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Method returns per-class constant</problem_class>
+    <description>Method &lt;code&gt;getRequestTypes()&lt;/code&gt; returns a per-class constant</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLOntologyFormat.java</file>
+    <line>141</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.OWLOntologyFormat boolean isTextual()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Method returns per-class constant</problem_class>
+    <description>Method &lt;code&gt;isTextual()&lt;/code&gt; returns a per-class constant</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/OBOFormatParser.java</file>
+    <line>127</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.oboformat.parser.OBOFormatParser.MyStream java.lang.String getTag()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Method returns per-class constant</problem_class>
+    <description>Method &lt;code&gt;getTag()&lt;/code&gt; returns a per-class constant</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/TripleHandlers.java</file>
+    <line>2715</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.TripleHandlers.TypeAxiomHandler org.semanticweb.owlapi.vocab.OWLRDFVocabulary getTargetTriplePredicate()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Method returns per-class constant</problem_class>
+    <description>Method &lt;code&gt;getTargetTriplePredicate()&lt;/code&gt; returns a per-class constant</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/TripleHandlers.java</file>
+    <line>2725</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.TripleHandlers.TypeAxiomHandler org.semanticweb.owlapi.vocab.OWLRDFVocabulary getPropertyTriplePredicate()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Method returns per-class constant</problem_class>
+    <description>Method &lt;code&gt;getPropertyTriplePredicate()&lt;/code&gt; returns a per-class constant</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/TripleHandlers.java</file>
+    <line>2735</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.TripleHandlers.TypeAxiomHandler org.semanticweb.owlapi.vocab.OWLRDFVocabulary getSourceTriplePredicate()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Method returns per-class constant</problem_class>
+    <description>Method &lt;code&gt;getSourceTriplePredicate()&lt;/code&gt; returns a per-class constant</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>999</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLImportsHandler boolean isTextContentPossible()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Method returns per-class constant</problem_class>
+    <description>Method &lt;code&gt;isTextContentPossible()&lt;/code&gt; returns a per-class constant</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>448</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLImportsHandler boolean isTextContentPossible()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Method returns per-class constant</problem_class>
+    <description>Method &lt;code&gt;isTextContentPossible()&lt;/code&gt; returns a per-class constant</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>2260</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLImportsHandler boolean isTextContentPossible()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Method returns per-class constant</problem_class>
+    <description>Method &lt;code&gt;isTextContentPossible()&lt;/code&gt; returns a per-class constant</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>1025</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLImportsHandler boolean isTextContentPossible()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Method returns per-class constant</problem_class>
+    <description>Method &lt;code&gt;isTextContentPossible()&lt;/code&gt; returns a per-class constant</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/owlxml/parser/PARSER_OWLXMLVocabulary.java</file>
+    <line>3232</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.owlxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.owlxml.parser.OWLImportsHandler boolean isTextContentPossible()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Method returns per-class constant</problem_class>
+    <description>Method &lt;code&gt;isTextContentPossible()&lt;/code&gt; returns a per-class constant</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/uk/ac/manchester/cs/owl/explanation/ordering/EntailedAxiomTree.java</file>
+    <line>41</line>
+    <module>owlapi-tools</module>
+    <package>uk.ac.manchester.cs.owl.explanation.ordering</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.explanation.ordering.EntailedAxiomTree boolean isEntailed()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Method returns per-class constant</problem_class>
+    <description>Method &lt;code&gt;isEntailed()&lt;/code&gt; returns a per-class constant</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/uk/ac/manchester/cs/owl/explanation/ordering/EntailedAxiomTree.java</file>
+    <line>37</line>
+    <module>owlapi-tools</module>
+    <package>uk.ac.manchester.cs.owl.explanation.ordering</package>
+    <entry_point TYPE="method" FQNAME="uk.ac.manchester.cs.owl.explanation.ordering.EntailedAxiomTree boolean isEntailed()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Method returns per-class constant</problem_class>
+    <description>Method &lt;code&gt;isEntailed()&lt;/code&gt; returns a per-class constant</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/tools/src/main/java/com/clarkparsia/owlapi/explanation/BlackBoxExplanation.java</file>
+    <line>516</line>
+    <module>owlapi-tools</module>
+    <package>com.clarkparsia.owlapi.explanation</package>
+    <entry_point TYPE="method" FQNAME="com.clarkparsia.owlapi.explanation.BlackBoxExplanation java.lang.String toString()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Method returns per-class constant</problem_class>
+    <description>Method &lt;code&gt;toString()&lt;/code&gt; returns a per-class constant</description>
+  </problem>
+</problems>
+

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/InferredDataPropertyCharacteristicAxiomGenerator.java</file>
+    <line>41</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.InferredDataPropertyCharacteristicAxiomGenerator void addAxioms(org.semanticweb.owlapi.model.OWLDataProperty entity, org.semanticweb.owlapi.reasoner.OWLReasoner reasoner, org.semanticweb.owlapi.model.OWLDataFactory dataFactory, java.util.Set&lt;org.semanticweb.owlapi.model.OWLDataPropertyCharacteristicAxiom&gt; result)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Duplicate condition on '&amp;&amp;' or '||'</problem_class>
+    <description>Duplicate branch &lt;code&gt;reasoner.isEntailed(axiom)&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/util/InferredDataPropertyCharacteristicAxiomGenerator.java</file>
+    <line>41</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.util</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.util.InferredDataPropertyCharacteristicAxiomGenerator void addAxioms(org.semanticweb.owlapi.model.OWLDataProperty entity, org.semanticweb.owlapi.reasoner.OWLReasoner reasoner, org.semanticweb.owlapi.model.OWLDataFactory dataFactory, java.util.Set&lt;org.semanticweb.owlapi.model.OWLDataPropertyCharacteristicAxiom&gt; result)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Duplicate condition on '&amp;&amp;' or '||'</problem_class>
+    <description>Duplicate branch &lt;code&gt;reasoner.isEntailed(axiom)&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>857</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo void tr(org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom ax)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Duplicate condition on '&amp;&amp;' or '||'</problem_class>
+    <description>Duplicate branch &lt;code&gt;sub.isTopEntity()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>856</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo void tr(org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom ax)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Duplicate condition on '&amp;&amp;' or '||'</problem_class>
+    <description>Duplicate branch &lt;code&gt;sub.isTopEntity()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>831</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo void tr(org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom ax)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Duplicate condition on '&amp;&amp;' or '||'</problem_class>
+    <description>Duplicate branch &lt;code&gt;sub.isTopEntity()&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/obo2owl/OWLAPIOwl2Obo.java</file>
+    <line>832</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.obo2owl</package>
+    <entry_point TYPE="method" FQNAME="org.obolibrary.obo2owl.OWLAPIOwl2Obo void tr(org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom ax)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Duplicate condition on '&amp;&amp;' or '||'</problem_class>
+    <description>Duplicate branch &lt;code&gt;sub.isTopEntity()&lt;/code&gt; #loc</description>
+  </problem>
+</problems>
+

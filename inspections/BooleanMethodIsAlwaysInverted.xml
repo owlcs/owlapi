@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/IRI.java</file>
+    <line>65</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.IRI boolean isAbsolute()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Boolean method is always inverted</problem_class>
+    <hints />
+    <description>Boolean method &lt;code&gt;isAbsolute&lt;/code&gt; is always inverted</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/model/OWLOntologyLoaderConfiguration.java</file>
+    <line>184</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration boolean isIgnoredImport(org.semanticweb.owlapi.model.IRI iri)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Boolean method is always inverted</problem_class>
+    <hints />
+    <description>Boolean method &lt;code&gt;isIgnoredImport&lt;/code&gt; is always inverted</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/search/Searcher.java</file>
+    <line>787</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.search</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.search.Searcher boolean isDefined(org.semanticweb.owlapi.model.OWLOntology o, org.semanticweb.owlapi.model.OWLClass c)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Boolean method is always inverted</problem_class>
+    <hints />
+    <description>Boolean method &lt;code&gt;isDefined&lt;/code&gt; is always inverted</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/profiles/OWL2QLProfile.java</file>
+    <line>392</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.profiles</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.profiles.OWL2QLProfile boolean isOWL2QLSuperClassExpression(org.semanticweb.owlapi.model.OWLClassExpression ce)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Boolean method is always inverted</problem_class>
+    <hints />
+    <description>Boolean method &lt;code&gt;isOWL2QLSuperClassExpression&lt;/code&gt; is always inverted</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/api/src/main/java/org/semanticweb/owlapi/profiles/OWL2RLProfile.java</file>
+    <line>420</line>
+    <module>owlapi-api</module>
+    <package>org.semanticweb.owlapi.profiles</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.profiles.OWL2RLProfile boolean isOWL2RLSuperClassExpression(org.semanticweb.owlapi.model.OWLClassExpression ce)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Boolean method is always inverted</problem_class>
+    <hints />
+    <description>Boolean method &lt;code&gt;isOWL2RLSuperClassExpression&lt;/code&gt; is always inverted</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/model/RDFGraph.java</file>
+    <line>61</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.model</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.model.RDFGraph boolean isEmpty()" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Boolean method is always inverted</problem_class>
+    <hints />
+    <description>Boolean method &lt;code&gt;isEmpty&lt;/code&gt; is always inverted</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/TripleHandlers.java</file>
+    <line>620</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.TripleHandlers.AbstractResourceTripleHandler boolean isSubjectOrObjectAnonymous(org.semanticweb.owlapi.model.IRI subject, org.semanticweb.owlapi.model.IRI object)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Boolean method is always inverted</problem_class>
+    <hints />
+    <description>Boolean method &lt;code&gt;isSubjectOrObjectAnonymous&lt;/code&gt; is always inverted</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/rdf/rdfxml/parser/Translators.java</file>
+    <line>308</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.rdf.rdfxml.parser</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.rdf.rdfxml.parser.Translators.AbstractClassExpressionTranslator boolean isAnonymous(org.semanticweb.owlapi.model.IRI node)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Boolean method is always inverted</problem_class>
+    <hints />
+    <description>Boolean method &lt;code&gt;isAnonymous&lt;/code&gt; is always inverted</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/mansyntax/renderer/ManchesterOWLSyntaxFrameRenderer.java</file>
+    <line>505</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi.mansyntax.renderer</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.mansyntax.renderer.ManchesterOWLSyntaxFrameRenderer boolean isFiltered(org.semanticweb.owlapi.model.AxiomType&lt;?&gt; axiomType)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Boolean method is always inverted</problem_class>
+    <hints />
+    <description>Boolean method &lt;code&gt;isFiltered&lt;/code&gt; is always inverted</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/baseclasses/TestBase.java</file>
+    <line>188</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.baseclasses</package>
+    <entry_point TYPE="method" FQNAME="org.semanticweb.owlapi.api.test.baseclasses.TestBase boolean isIgnorableAxiom(org.semanticweb.owlapi.model.OWLAxiom ax, boolean parse)" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Boolean method is always inverted</problem_class>
+    <hints />
+    <description>Boolean method &lt;code&gt;isIgnorableAxiom&lt;/code&gt; is always inverted</description>
+  </problem>
+</problems>
+

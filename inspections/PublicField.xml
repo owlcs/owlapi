@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problems>
+  <problem>
+    <file>file://$PROJECT_DIR$/oboformat/src/main/java/org/obolibrary/oboformat/parser/XrefExpander.java</file>
+    <line>211</line>
+    <module>owlapi-oboformat</module>
+    <package>org.obolibrary.oboformat.parser</package>
+    <entry_point TYPE="field" FQNAME="org.obolibrary.oboformat.parser.XrefExpander.Rule idSpace" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'public' field</problem_class>
+    <description>'public' field &lt;code&gt;idSpace&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/parsers/src/main/java/org/semanticweb/owlapi/BOMSafeJavaCharStream.java</file>
+    <line>79</line>
+    <module>owlapi-parsers</module>
+    <package>org.semanticweb.owlapi</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.BOMSafeJavaCharStream bufpos" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'public' field</problem_class>
+    <description>'public' field &lt;code&gt;bufpos&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/uk/ac/manchester/owl/owlapi/tutorialowled2011/TutorialSnippets.java</file>
+    <line>115</line>
+    <module>owlapi-contract</module>
+    <package>uk.ac.manchester.owl.owlapi.tutorialowled2011</package>
+    <entry_point TYPE="field" FQNAME="uk.ac.manchester.owl.owlapi.tutorialowled2011.TutorialSnippets temporaryFolder" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'public' field</problem_class>
+    <description>'public' field &lt;code&gt;temporaryFolder&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/baseclasses/TestBase.java</file>
+    <line>68</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.baseclasses</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.baseclasses.TestBase timeout" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'public' field</problem_class>
+    <description>'public' field &lt;code&gt;timeout&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/baseclasses/TestBase.java</file>
+    <line>63</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.baseclasses</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.baseclasses.TestBase folder" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'public' field</problem_class>
+    <description>'public' field &lt;code&gt;folder&lt;/code&gt; #loc</description>
+  </problem>
+  <problem>
+    <file>file://$PROJECT_DIR$/contract/src/test/java/org/semanticweb/owlapi/api/test/baseclasses/TestBase.java</file>
+    <line>65</line>
+    <module>owlapi-contract</module>
+    <package>org.semanticweb.owlapi.api.test.baseclasses</package>
+    <entry_point TYPE="field" FQNAME="org.semanticweb.owlapi.api.test.baseclasses.TestBase expectedException" />
+    <problem_class severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'public' field</problem_class>
+    <description>'public' field &lt;code&gt;expectedException&lt;/code&gt; #loc</description>
+  </problem>
+</problems>
+
