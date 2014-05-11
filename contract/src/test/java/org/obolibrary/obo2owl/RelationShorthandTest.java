@@ -77,27 +77,21 @@ public class RelationShorthandTest extends OboFormatTestBasics {
         // CONVERT BACK TO OBO
         OBODoc obodoc = convert(ontology);
         // test that relation IDs are converted back to symbolic form
-        if (true) {
-            Frame tf = obodoc.getTermFrame("GO:0000050");
-            Clause c = tf.getClause(OboFormatTag.TAG_RELATIONSHIP);
-            Object v = c.getValue();
-            // should be converted back to symbolic form
-            assertEquals("has_part", v);
-        }
-        if (true) {
-            Frame tf = obodoc.getTermFrame("GO:0004055");
-            Clause c = tf.getClause(OboFormatTag.TAG_RELATIONSHIP);
-            Object v = c.getValue();
-            // should be converted back to symbolic form
-            assertEquals("part_of", v);
-        }
-        if (true) {
-            Frame tf = obodoc.getTypedefFrame("has_part");
-            Collection<Clause> cs = tf.getClauses(OboFormatTag.TAG_XREF);
-            assertEquals(1, cs.size());
-            String v = cs.iterator().next().getValue(Xref.class).getIdref();
-            // should be converted back to symbolic form
-            assertEquals("BFO:0000051", v);
-        }
+        Frame tf = obodoc.getTermFrame("GO:0000050");
+        Clause c = tf.getClause(OboFormatTag.TAG_RELATIONSHIP);
+        Object v = c.getValue();
+        // should be converted back to symbolic form
+        assertEquals("has_part", v);
+        tf = obodoc.getTermFrame("GO:0004055");
+        c = tf.getClause(OboFormatTag.TAG_RELATIONSHIP);
+        v = c.getValue();
+        // should be converted back to symbolic form
+        assertEquals("part_of", v);
+        tf = obodoc.getTypedefFrame("has_part");
+        Collection<Clause> cs = tf.getClauses(OboFormatTag.TAG_XREF);
+        assertEquals(1, cs.size());
+        v = cs.iterator().next().getValue(Xref.class).getIdref();
+        // should be converted back to symbolic form
+        assertEquals("BFO:0000051", v);
     }
 }

@@ -22,12 +22,10 @@ public class GCIQualifierTest extends OboFormatTestBasics {
     public void testConvert() {
         // PARSE TEST FILE, CONVERT TO OWL, AND WRITE TO OWL FILE
         OWLOntology ontology = convert(parseOBOFile("gci_qualifier_test.obo"));
-        if (true) {
-            Set<OWLSubClassOfAxiom> scas = ontology
-                    .getAxioms(AxiomType.SUBCLASS_OF);
-            boolean ok = !scas.isEmpty();
-            assertTrue(ok);
-        }
+        Set<OWLSubClassOfAxiom> scas = ontology
+                .getAxioms(AxiomType.SUBCLASS_OF);
+        boolean ok = !scas.isEmpty();
+        assertTrue(ok);
         // CONVERT BACK TO OBO
         OBODoc obodoc = convert(ontology);
         // test that relation IDs are converted back to symbolic form

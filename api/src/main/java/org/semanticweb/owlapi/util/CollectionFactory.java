@@ -304,10 +304,10 @@ public class CollectionFactory {
             for (Object o : c) {
                 toReturn = toReturn && contains(o);
                 if (!toReturn) {
-                    return toReturn;
+                    return false;
                 }
             }
-            return toReturn;
+            return true;
         }
 
         @Override

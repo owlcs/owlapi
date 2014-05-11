@@ -455,40 +455,12 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
         LOGGER.info("FOUND CLASH! Pruning {} axioms...", debuggingAxioms.size());
         resetSatisfiabilityTestCounter();
         LOGGER.info("Fast pruning...");
-        boolean performRepeatedFastPruning = false;
-        if (performRepeatedFastPruning) {
-            // Base the initial fast pruning window size on the number of axioms
-            fastPruningWindowSize = debuggingAxioms.size() / 10;
-            if (fastPruningWindowSize < DEFAULT_FAST_PRUNING_WINDOW_SIZE) {
-                fastPruningWindowSize = DEFAULT_FAST_PRUNING_WINDOW_SIZE;
-            }
-            LOGGER.info("    Initial fast pruning window size: {}",
-                    fastPruningWindowSize);
-            int fastPruningCounter = 0;
-            while (fastPruningWindowSize != 1) {
-                LOGGER.info("    Round: {} (axioms to prune: {})",
-                        fastPruningCounter, debuggingAxioms.size());
-                fastPruningCounter++;
-                performFastPruning();
-                fastPruningWindowSize /= 3;
-                if (fastPruningWindowSize < 1) {
-                    fastPruningWindowSize = 1;
-                }
-            }
-            LOGGER.info("... end of fast pruning. Axioms remaining: {}",
-                    debuggingAxioms.size());
-            LOGGER.info(
-                    "Performed {} satisfiability tests during fast pruning",
-                    satTestCount);
-        } else {
-            fastPruningWindowSize = DEFAULT_FAST_PRUNING_WINDOW_SIZE;
-            performFastPruning();
-            LOGGER.info("... end of fast pruning. Axioms remaining: {}",
-                    debuggingAxioms.size());
-            LOGGER.info(
-                    "Performed {} satisfiability tests during fast pruning",
-                    satTestCount);
-        }
+        fastPruningWindowSize = DEFAULT_FAST_PRUNING_WINDOW_SIZE;
+        performFastPruning();
+        LOGGER.info("... end of fast pruning. Axioms remaining: {}",
+                debuggingAxioms.size());
+        LOGGER.info("Performed {} satisfiability tests during fast pruning",
+                satTestCount);
         int totalSatTests = satTestCount;
         resetSatisfiabilityTestCounter();
         LOGGER.info("Slow pruning...");
