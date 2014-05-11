@@ -18,10 +18,8 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -41,7 +39,6 @@ public class MutableTree<N> implements Tree<N> {
     @Nullable
     private MutableTree<N> parent;
     private final List<MutableTree<N>> children = new ArrayList<MutableTree<N>>();
-    private final Map<Tree<N>, Object> child2EdgeMap = new HashMap<Tree<N>, Object>();
     private NodeRenderer<N> toStringRenderer = new NodeRenderer<N>() {
 
         @Override
@@ -81,11 +78,6 @@ public class MutableTree<N> implements Tree<N> {
     public void removeChild(@Nonnull MutableTree<N> child) {
         children.remove(child);
         child.parent = null;
-    }
-
-    @Override
-    public Object getEdge(@Nonnull Tree<N> child) {
-        return child2EdgeMap.get(child);
     }
 
     @Override
@@ -183,13 +175,6 @@ public class MutableTree<N> implements Tree<N> {
         ren = ren.replace("\n", "\n" + sb);
         writer.println(ren);
         for (Tree<N> child : getChildren()) {
-            Object edge = getEdge(child);
-            if (edge != null) {
-                writer.print(sb);
-                writer.print("--- ");
-                writer.print(edge);
-                writer.print(" ---\n\n");
-            }
             child.dump(writer, indent);
         }
         writer.flush();

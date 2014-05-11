@@ -1147,10 +1147,6 @@ public class OWLAPIObo2Owl {
             cSet.add(trObjectProp((String) v));
             ax = fac.getOWLDisjointObjectPropertiesAxiom(cSet, annotations);
         } else if (_tag == OboFormatTag.TAG_INVERSE_OF) {
-            Set<OWLObjectPropertyExpression> cSet;
-            cSet = new HashSet<OWLObjectPropertyExpression>();
-            cSet.add(p);
-            cSet.add(trObjectProp((String) v));
             ax = fac.getOWLInverseObjectPropertiesAxiom(p,
                     trObjectProp((String) v), annotations);
         } else if (_tag == OboFormatTag.TAG_EQUIVALENT_TO) {

@@ -86,7 +86,7 @@ public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
     private OWLOntology
             parse(@Nullable IRI iri,
                     @Nullable OWLOntologyDocumentSource source,
-                    @Nonnull OWLOntology in) throws MalformedURLException,
+                    @Nonnull OWLOntology in) throws
                     IOException, OWLOntologyCreationException {
         if (iri == null && source == null) {
             throw new IllegalArgumentException(

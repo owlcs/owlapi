@@ -132,7 +132,7 @@ public class OWLEntityCollector implements
         SWRLObjectVisitorEx<Collection<OWLEntity>> {
 
     @Nonnull
-    private Collection<OWLEntity> objects;
+    private final Collection<OWLEntity> objects;
 
     /**
      * @param toReturn

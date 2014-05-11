@@ -497,8 +497,6 @@ public class OWLProfileTestCase {
         OWLOntologyManager m = o.getOWLOntologyManager();
         declare(o, op);
         OWLClass otherfakeclass = Class(IRI("urn:test#otherfakeclass"));
-        Set<OWLClassExpression> set = new HashSet<OWLClassExpression>();
-        set.add(otherfakeclass);
         declare(o, cl);
         declare(o, otherfakeclass);
         m.addAxiom(o, DisjointUnion(cl, otherfakeclass));

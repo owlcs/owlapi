@@ -1213,12 +1213,9 @@ public class Examples extends TestBase {
 
         @Nonnull
         private final Set<OWLClass> processedClasses;
-        @Nonnull
-        private final Set<OWLObjectPropertyExpression> restrictedProperties;
         private final Set<OWLOntology> onts;
 
         RestrictionVisitor(Set<OWLOntology> onts) {
-            restrictedProperties = new HashSet<OWLObjectPropertyExpression>();
             processedClasses = new HashSet<OWLClass>();
             this.onts = onts;
         }
@@ -1244,7 +1241,6 @@ public class Examples extends TestBase {
         public void visit(@Nonnull OWLObjectSomeValuesFrom ce) {
             // This method gets called when a class expression is an existential
             // (someValuesFrom) restriction and it asks us to visit it
-            restrictedProperties.add(ce.getProperty());
         }
     }
 

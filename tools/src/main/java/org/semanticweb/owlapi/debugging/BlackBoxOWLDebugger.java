@@ -16,11 +16,9 @@ import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -76,8 +74,6 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
     private final OWLReasonerFactory reasonerFactory;
     @Nonnull
     private final Set<OWLAxiom> temporaryAxioms = new HashSet<OWLAxiom>();
-    @Nonnull
-    private final Map<OWLAxiom, OWLAxiom> expandedAxiomMap = new HashMap<OWLAxiom, OWLAxiom>();
     private static final int DEFAULT_INITIAL_EXPANSION_LIMIT = 50;
     private final int initialExpansionLimit = DEFAULT_INITIAL_EXPANSION_LIMIT;
     private int expansionLimit = initialExpansionLimit;
@@ -116,7 +112,6 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
         expandedWithDefiningAxioms.clear();
         expandedWithReferencingAxioms.clear();
         temporaryAxioms.clear();
-        expandedAxiomMap.clear();
         expansionLimit = initialExpansionLimit;
     }
 

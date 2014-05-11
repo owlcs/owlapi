@@ -619,13 +619,11 @@ public class ManchesterOWLSyntaxFrameRenderer extends
         }
         if (!isFiltered(AxiomType.DISJOINT_CLASSES)) {
             for (OWLOntology ontology : ontologies) {
-                Set<OWLAxiom> pairwiseDisjointClassesAxioms = new HashSet<OWLAxiom>();
                 SectionMap<Object, OWLAxiom> disjointClasses = new SectionMap<Object, OWLAxiom>();
                 for (OWLDisjointClassesAxiom ax : ontology
                         .getDisjointClassesAxioms(cls)) {
                     if (isDisplayed(ax)) {
                         if (ax.getClassExpressions().size() == 2) {
-                            pairwiseDisjointClassesAxioms.add(ax);
                             OWLClassExpression disjointWith = ax
                                     .getClassExpressionsMinus(cls).iterator()
                                     .next();

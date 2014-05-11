@@ -63,7 +63,7 @@ public class OWLObjectPropertyManager {
     @Nonnull
     private final OWLOntologyManager man;
     @Nonnull
-    private OWLOntology ontology;
+    private final OWLOntology ontology;
     @Nonnull
     private final Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> hierarchy = new HashMap<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>>();
     @Nonnull
@@ -90,13 +90,6 @@ public class OWLObjectPropertyManager {
             @Nonnull OWLOntology ont) {
         man = checkNotNull(manager, "manager cannot be null");
         ontology = checkNotNull(ont, "ontology cannot be null");
-        for (OWLOntology o : man.getImportsClosure(ontology)) {
-            for (OWLObjectProperty prop : o.getObjectPropertiesInSignature()) {
-                Set<OWLObjectPropertyExpression> properties = new HashSet<OWLObjectPropertyExpression>();
-                properties.add(prop);
-                properties.add(prop.getInverseProperty());
-            }
-        }
         reset();
     }
 

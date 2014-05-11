@@ -16,11 +16,9 @@ import static org.semanticweb.owlapi.model.parameters.Imports.*;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -73,9 +71,6 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
     /** The expanded with referencing axioms. */
     @Nonnull
     private final Set<OWLAxiom> expandedWithReferencingAxioms = new HashSet<OWLAxiom>();
-    /** The expanded axiom map. */
-    @Nonnull
-    private final Map<OWLAxiom, OWLAxiom> expandedAxiomMap = new HashMap<OWLAxiom, OWLAxiom>();
     /** default expansion limit. */
     public static final int DEFAULT_INITIAL_EXPANSION_LIMIT = 50;
     /** The initial expansion limit. */
@@ -122,7 +117,6 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
         objectsExpandedWithReferencingAxioms.clear();
         expandedWithDefiningAxioms.clear();
         expandedWithReferencingAxioms.clear();
-        expandedAxiomMap.clear();
         expansionLimit = initialExpansionLimit;
     }
 

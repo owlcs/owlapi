@@ -2480,18 +2480,6 @@ public class ManchesterOWLSyntaxEditorParser implements
 
     class DefaultEntityChecker implements OWLEntityChecker {
 
-        private final Map<String, OWLDatatype> dataTypeNameMap = new HashMap<String, OWLDatatype>();
-
-        DefaultEntityChecker() {
-            for (XSDVocabulary v : XSDVocabulary.values()) {
-                IRI iri = v.getIRI();
-                dataTypeNameMap.put(iri.getFragment(),
-                        dataFactory.getOWLDatatype(iri));
-                dataTypeNameMap.put("xsd:" + iri.getFragment(),
-                        dataFactory.getOWLDatatype(iri));
-            }
-        }
-
         @Override
         public OWLClass getOWLClass(String name) {
             if (name.equals("Thing") || name.equals("owl:Thing")) {

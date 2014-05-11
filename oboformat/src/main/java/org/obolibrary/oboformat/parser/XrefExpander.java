@@ -85,7 +85,6 @@ public class XrefExpander {
         // required for translation of IDs
         // obo2owl = new Obo2Owl();
         // obo2owl.setObodoc(sourceOBODoc);
-        Set<String> relationsUsed = new HashSet<String>();
         Map<String, String> relationsUseByIdSpace = new HashMap<String, String>();
         for (Clause c : sourceOBODoc.getHeaderFrame().getClauses()) {
             String[] parts;
@@ -106,7 +105,6 @@ public class XrefExpander {
                 addRule(idSpace, new GenusDifferentiaExpansion(parts[1],
                         parts[2]));
                 // addMacro(idSpace,"is_generic_equivalent_of","Class: ?Y EquivalentTo: ?X and "+oboIdToIRI(parts[1])+" some "+oboIdToIRI(parts[2]));
-                relationsUsed.add(parts[1]);
                 relationsUseByIdSpace.put(idSpace, parts[1]);
                 relation = parts[1];
             } else if (c.getTag().equals(
@@ -115,7 +113,6 @@ public class XrefExpander {
                 addRule(idSpace, new ReverseGenusDifferentiaExpansion(parts[1],
                         parts[2]));
                 // addMacro(idSpace,"is_generic_equivalent_of","Class: ?Y EquivalentTo: ?X and "+oboIdToIRI(parts[1])+" some "+oboIdToIRI(parts[2]));
-                relationsUsed.add(parts[1]);
                 relationsUseByIdSpace.put(idSpace, parts[1]);
                 relation = parts[1];
             } else if (c.getTag().equals(
@@ -127,7 +124,6 @@ public class XrefExpander {
             } else if (c.getTag().equals(
                     OboFormatTag.TAG_TREAT_XREFS_AS_RELATIONSHIP.getTag())) {
                 addRule(idSpace, new RelationshipExpansion(parts[1]));
-                relationsUsed.add(parts[1]);
                 relationsUseByIdSpace.put(idSpace, parts[1]);
                 relation = parts[1];
             } else {

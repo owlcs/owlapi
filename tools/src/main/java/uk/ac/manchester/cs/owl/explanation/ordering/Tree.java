@@ -55,16 +55,6 @@ public interface Tree<N> {
     List<Tree<N>> getChildren();
 
     /**
-     * Gets the edge.
-     * 
-     * @param child
-     *        the child to use
-     * @return the object stored as edge
-     */
-    @Nonnull
-    Object getEdge(@Nonnull Tree<N> child);
-
-    /**
      * Sorts the children using the specified comparator.
      * 
      * @param comparator
