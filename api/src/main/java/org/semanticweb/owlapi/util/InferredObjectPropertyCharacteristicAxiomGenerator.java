@@ -55,7 +55,7 @@ public class InferredObjectPropertyCharacteristicAxiomGenerator
                 reasoner, result);
     }
 
-    protected void addTransitiveAxiomIfEntailed(
+    protected static void addTransitiveAxiomIfEntailed(
             @Nonnull OWLObjectProperty property, OWLReasoner reasoner,
             OWLDataFactory dataFactory,
             Set<OWLObjectPropertyCharacteristicAxiom> result) {
@@ -100,7 +100,7 @@ public class InferredObjectPropertyCharacteristicAxiomGenerator
         return !reasoner.isEntailed(trivialityCheckAxioms);
     }
 
-    protected void addIfEntailed(OWLObjectPropertyCharacteristicAxiom axiom,
+    protected static void addIfEntailed(OWLObjectPropertyCharacteristicAxiom axiom,
             OWLReasoner reasoner,
             Set<OWLObjectPropertyCharacteristicAxiom> result) {
         if (reasoner.isEntailmentCheckingSupported(axiom.getAxiomType())

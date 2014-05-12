@@ -117,7 +117,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
 
     @Override
     public boolean hasLang() {
-        return !language.equals("");
+        return !language.isEmpty();
     }
 
     @Override

@@ -74,13 +74,6 @@ public class RemoveOntologyAnnotation extends AnnotationChange {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("RemoveOntologyAnnotation(");
-        sb.append(getAnnotation());
-        sb.append(" OntologyID(");
-        sb.append(getOntology().getOntologyID());
-        sb.append(")");
-        sb.append(")");
-        return sb.toString();
+        return String.format("RemoveOntologyAnnotation(%s OntologyID(%s))", getAnnotation(),getOntology().getOntologyID());
     }
 }

@@ -95,13 +95,13 @@ public abstract class AbstractRendererAndParserTestCase extends TestBase {
             msg.append("Ontology save/load roundtrip OK.\n");
         } else {
             msg.append("Ontology save/load roundtripping error.\n");
-            msg.append("=> " + AminusB.size()
-                    + " axioms lost in roundtripping.\n");
+            msg.append("=> " ).append( AminusB.size())
+                    .append(" axioms lost in roundtripping.\n");
             for (OWLAxiom axiom : AminusB) {
                 msg.append(axiom + "\n");
             }
-            msg.append("=> " + BminusA.size()
-                    + " axioms added after roundtripping.\n");
+            msg.append("=> " ).append( BminusA.size()
+            ).append( " axioms added after roundtripping.\n");
             for (OWLAxiom axiom : BminusA) {
                 msg.append(axiom + "\n");
             }

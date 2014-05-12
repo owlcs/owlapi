@@ -255,7 +255,7 @@ public class AutoIRIMapper extends DefaultHandler implements
      */
     @SuppressWarnings("null")
     @Nonnull
-    IRI unquote(String tok) {
+    static IRI unquote(String tok) {
         IRI ontologyIRI;
         ontologyIRI = IRI.create(tok.substring(1, tok.length() - 1));
         return ontologyIRI;

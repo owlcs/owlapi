@@ -249,9 +249,10 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     @Override
     public void visit(OWLOntology ontology) {
-        sb.append("Ontology(" + ontology.getOntologyID() + " [Axioms: "
-                + ontology.getAxiomCount() + "] [Logical axioms: "
-                + ontology.getLogicalAxiomCount() + "])");
+        sb.append("Ontology(").append(ontology.getOntologyID())
+                .append(" [Axioms: ").append(ontology.getAxiomCount())
+                .append("] [Logical axioms: ")
+                .append(ontology.getLogicalAxiomCount()).append("])");
     }
 
     private void insertSpace() {

@@ -81,10 +81,8 @@ public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
     }
 
     @SuppressWarnings("null")
-    private OWLOntology
-            parse(@Nullable IRI iri,
-                    @Nullable OWLOntologyDocumentSource source,
-                    @Nonnull OWLOntology in) throws
+    private static OWLOntology
+            parse (@Nullable IRI iri, @Nullable OWLOntologyDocumentSource source, @Nonnull OWLOntology in) throws
                     IOException, OWLOntologyCreationException {
         if (iri == null && source == null) {
             throw new IllegalArgumentException(

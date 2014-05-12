@@ -48,9 +48,7 @@ public class XMLWriterFactory {
      * @return xml writer
      */
     @Nonnull
-    public XMLWriter createXMLWriter(@Nonnull Writer writer,
-            @Nonnull XMLWriterNamespaceManager xmlWriterNamespaceManager,
-            @Nonnull String xmlBase) {
+    public static XMLWriter createXMLWriter (@Nonnull Writer writer, @Nonnull XMLWriterNamespaceManager xmlWriterNamespaceManager, @Nonnull String xmlBase) {
         return new XMLWriterImpl(writer, xmlWriterNamespaceManager, xmlBase);
     }
 }

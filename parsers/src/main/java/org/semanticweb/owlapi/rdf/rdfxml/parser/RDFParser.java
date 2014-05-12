@@ -325,7 +325,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
                 return namespace.substring(0, namespace.length() - 1);
             }
             String base = getBaseIRI().toString();
-            int hashIndex = base.indexOf("#");
+            int hashIndex = base.indexOf('#');
             if (hashIndex != -1) {
                 return base.substring(0, hashIndex);
             } else {

@@ -599,9 +599,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      */
     @SuppressWarnings("null")
     @Nonnull
-    Set<OWLClass> SuperOrSubClasses(int superOrSubClassLevel,
-            boolean superVsSub, @Nonnull OWLReasoner reasoner,
-            @Nonnull Set<OWLClass> classesInSig) {
+    static Set<OWLClass> SuperOrSubClasses (int superOrSubClassLevel, boolean superVsSub, @Nonnull OWLReasoner reasoner, @Nonnull Set<OWLClass> classesInSig) {
         Set<OWLClass> superOrSubClasses = new HashSet<OWLClass>();
         if (superOrSubClassLevel < 0) {
             for (OWLClassExpression ent : classesInSig) {

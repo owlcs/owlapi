@@ -94,16 +94,11 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
                                 // Non-empty line that is NOT a comment. We
                                 // cannot possibly parse this.
                                 int startCol = line.indexOf(trimmedLine) + 1;
-                                StringBuilder msg = new StringBuilder(
-                                        "Encountered '")
-                                        .append(trimmedLine)
-                                        .append("' at line ")
-                                        .append(lineCount)
-                                        .append(" column ")
-                                        .append(startCol)
-                                        .append(".  Expected either 'Ontology:' or 'Prefix:'");
+                                String msg=String.format(
+                                        "Encountered '%s' at line %s column %s.  Expected either 'Ontology:' or 'Prefix:'",
+                                        trimmedLine, lineCount, startCol);
                                 throw new ManchesterOWLSyntaxParserException(
-                                        msg.toString(), lineCount, startCol);
+                                        msg, lineCount, startCol);
                             }
                         }
                     }

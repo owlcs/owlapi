@@ -109,7 +109,7 @@ public abstract class RDFRendererBase {
     private final OWLOntologyFormat format;
 
     @Nonnull
-    protected Set<IRI> initPrettyTypes() {
+    protected static Set<IRI> initPrettyTypes () {
         return new HashSet<IRI>(Arrays.asList(OWL_CLASS.getIRI(),
                 OWL_OBJECT_PROPERTY.getIRI(), OWL_DATA_PROPERTY.getIRI(),
                 OWL_ANNOTATION_PROPERTY.getIRI(), OWL_RESTRICTION.getIRI(),

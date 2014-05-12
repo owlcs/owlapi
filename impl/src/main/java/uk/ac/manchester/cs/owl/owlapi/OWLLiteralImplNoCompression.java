@@ -133,7 +133,7 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements
 
     @Override
     public boolean hasLang() {
-        return !language.equals("");
+        return !language.isEmpty();
     }
 
     @Override

@@ -259,15 +259,15 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
     }
 
     @Nonnull
-    protected <T extends OWLObject> List<T>
-            sort(@Nonnull Collection<T> objects) {
+    protected static <T extends OWLObject> List<T>
+            sort (@Nonnull Collection<T> objects) {
         List<T> sortedDescriptions = new ArrayList<T>(objects);
         Collections.sort(sortedDescriptions);
         return sortedDescriptions;
     }
 
     @Nonnull
-    protected <T extends OWLObject> List<T> sort(@Nonnull Iterable<T> objects) {
+    protected static <T extends OWLObject> List<T> sort (@Nonnull Iterable<T> objects) {
         List<T> sortedDescriptions = new ArrayList<T>();
         for (T t : objects) {
             sortedDescriptions.add(t);

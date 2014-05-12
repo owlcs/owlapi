@@ -32,7 +32,7 @@ public class OBODocDiffer {
      */
     @SuppressWarnings("null")
     @Nonnull
-    public List<Diff> getDiffs(@Nonnull OBODoc doc1, @Nonnull OBODoc doc2) {
+    public static List<Diff> getDiffs (@Nonnull OBODoc doc1, @Nonnull OBODoc doc2) {
         List<Diff> diffs = new ArrayList<Diff>();
         diffs.addAll(getDiffs("Header", doc1.getHeaderFrame(),
                 doc2.getHeaderFrame()));

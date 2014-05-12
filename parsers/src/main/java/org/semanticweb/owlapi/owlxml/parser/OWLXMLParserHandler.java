@@ -313,10 +313,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
             throw new OWLXMLParserException(this, "Prefix name not defined: "
                     + prefixName);
         }
-        StringBuilder sb = new StringBuilder();
-        sb.append(base);
-        sb.append(localName);
-        return getIRI(sb.toString());
+        return getIRI(base+localName);
     }
 
     /** @return prefix name to prefix */

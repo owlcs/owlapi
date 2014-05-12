@@ -70,11 +70,7 @@ public class RemoveImport extends ImportChange {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("RemoveImport(");
-        sb.append(getImportDeclaration());
-        sb.append(")");
-        return sb.toString();
+        return String.format("RemoveImport(%s)", getImportDeclaration());
     }
 
     @Override

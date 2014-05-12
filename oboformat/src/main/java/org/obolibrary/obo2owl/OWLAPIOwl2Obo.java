@@ -1206,7 +1206,7 @@ public class OWLAPIOwl2Obo {
                 String m = matcher.group();
                 m = m.replace("<", "");
                 m = m.replace(">", "");
-                int i = m.lastIndexOf("/");
+                int i = m.lastIndexOf('/');
                 m = m.substring(i + 1);
                 value = value.replace(matcher.group(), m);
             }
@@ -1222,8 +1222,7 @@ public class OWLAPIOwl2Obo {
      * @param qualifiers
      *        the qualifiers
      */
-    protected void addQualifiers(@Nonnull Clause c,
-            @Nonnull Set<OWLAnnotation> qualifiers) {
+    protected static void addQualifiers (@Nonnull Clause c, @Nonnull Set<OWLAnnotation> qualifiers) {
         for (OWLAnnotation ann : qualifiers) {
             String prop = owlObjectToTag(ann.getProperty());
             if (prop == null) {
@@ -1774,7 +1773,7 @@ public class OWLAPIOwl2Obo {
         // String canonicalId = iri.replace("http://purl.obolibrary.org/obo/",
         // "");
         // }
-        int indexSlash = iri.lastIndexOf("/");
+        int indexSlash = iri.lastIndexOf('/');
         String id = null;
         if (indexSlash > -1) {
             id = iri.substring(indexSlash + 1);

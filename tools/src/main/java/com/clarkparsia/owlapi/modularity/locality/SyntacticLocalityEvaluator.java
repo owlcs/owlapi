@@ -122,7 +122,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
      * 
      * @return a set containing all supported locality classes
      */
-    public Set<LocalityClass> supportedLocalityClasses() {
+    public static Set<LocalityClass> supportedLocalityClasses () {
         return SUPPORTED_LOCALITY_CLASSES;
     }
 

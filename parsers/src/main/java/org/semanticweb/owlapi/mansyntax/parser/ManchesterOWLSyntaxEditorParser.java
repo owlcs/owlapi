@@ -220,7 +220,7 @@ public class ManchesterOWLSyntaxEditorParser implements
         }
     }
 
-    protected ManchesterOWLSyntaxTokenizer getTokenizer(String s) {
+    protected static ManchesterOWLSyntaxTokenizer getTokenizer (String s) {
         return new ManchesterOWLSyntaxTokenizer(s);
     }
 

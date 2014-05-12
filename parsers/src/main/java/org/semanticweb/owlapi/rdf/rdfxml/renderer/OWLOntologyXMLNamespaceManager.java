@@ -129,7 +129,7 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
 
     private void processIRI(@Nonnull IRI iri) {
         String ns = checkNotNull(iri, "iri cannot be null").getNamespace();
-        if (!(ns.equals("") || iri.getFragment().isEmpty())) {
+        if (!(ns.isEmpty() || iri.getFragment().isEmpty())) {
             namespaceUtil.getPrefix(ns);
         }
     }
@@ -183,7 +183,7 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
         if (name.startsWith("xmlns") || name.startsWith("xml:")) {
             return name;
         }
-        if (ns.equals("") || fragment == null || fragment.isEmpty()) {
+        if (ns.isEmpty() || fragment == null || fragment.isEmpty()) {
             // Couldn't split
             return name;
         }

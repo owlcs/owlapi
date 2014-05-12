@@ -2233,7 +2233,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
      *        the predicate
      * @return true, if is general predicate
      */
-    protected boolean isGeneralPredicate(IRI predicate) {
+    protected static boolean isGeneralPredicate (IRI predicate) {
         return !predicate.isReservedVocabulary()
                 || OWLRDFVocabulary.BUILT_IN_ANNOTATION_PROPERTY_IRIS
                         .contains(predicate)

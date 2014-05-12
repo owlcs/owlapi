@@ -36,20 +36,19 @@ public class OWLAPIImplModule extends AbstractModule {
 
     @Nonnull
     @Provides
-    protected OWLDataFactory provideOWLDataFactory() {
+    protected static OWLDataFactory provideOWLDataFactory () {
         return new OWLDataFactoryImpl(true, false);
     }
 
     @Nonnull
     @Provides
-    protected OWLOntologyManager provideOWLOntologyManager(
-            @Nonnull OWLDataFactory df) {
+    protected static OWLOntologyManager provideOWLOntologyManager (@Nonnull OWLDataFactory df) {
         return new OWLOntologyManagerImpl(df);
     }
 
     @Nonnull
     @Provides
-    protected OWLOntologyBuilder provideOWLOntologyBuilder() {
+    protected static OWLOntologyBuilder provideOWLOntologyBuilder () {
         return new OWLOntologyBuilderImpl();
     }
 

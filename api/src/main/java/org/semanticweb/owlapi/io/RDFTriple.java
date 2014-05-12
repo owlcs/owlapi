@@ -137,14 +137,7 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple> {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(subject);
-        sb.append(" ");
-        sb.append(predicate);
-        sb.append(" ");
-        sb.append(object);
-        sb.append(".");
-        return sb.toString();
+        return String.format("%s %s %s.", subject, predicate, object);
     }
 
     private static final List<IRI> orderedURIs = Arrays.asList(

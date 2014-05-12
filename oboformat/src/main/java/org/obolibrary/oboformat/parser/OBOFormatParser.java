@@ -35,7 +35,7 @@ public class OBOFormatParser {
 
     // TODO use this to validate date strings for OboFormatTag.TAG_CREATION_DATE
     @Nonnull
-    protected SimpleDateFormat getISODateFormat() {
+    protected static SimpleDateFormat getISODateFormat () {
         return new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
     }
 
@@ -124,7 +124,7 @@ public class OBOFormatParser {
         }
 
         @Nonnull
-        public String getTag() {
+        public static String getTag () {
             return "";
         }
 
@@ -291,7 +291,7 @@ public class OBOFormatParser {
                 if (location instanceof URL) {
                     URL url = (URL) location;
                     String p = url.toString();
-                    int index = p.lastIndexOf("/");
+                    int index = p.lastIndexOf('/');
                     path = p.substring(0, index + 1) + path;
                 } else {
                     File f = new File(location + "");
@@ -1505,13 +1505,6 @@ public class OBOFormatParser {
     }
 
     private void warn(String message) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("LINE: ");
-        sb.append(stream.lineNo);
-        sb.append("  ");
-        sb.append(message);
-        sb.append("  LINE:\n");
-        sb.append(stream.line);
-        LOG.warn(sb.toString());
+        LOG.warn("LINE: {} {}  LINE:\n{}", stream.lineNo, message, stream.line);
     }
 }

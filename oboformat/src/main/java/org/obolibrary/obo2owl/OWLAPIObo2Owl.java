@@ -485,7 +485,7 @@ public class OWLAPIObo2Owl {
      *        the path
      * @return the uri
      */
-    protected String getURI(@Nonnull String path) {
+    protected static String getURI (@Nonnull String path) {
         if (path.startsWith("http://") || path.startsWith("file:")) {
             return path;
         }
@@ -875,8 +875,7 @@ public class OWLAPIObo2Owl {
      */
     @Nullable
     @SuppressWarnings("unused")
-    protected OWLAxiom trRelationUnionOf(String id, OWLProperty p,
-            Collection<Clause> clauses) {
+    protected static OWLAxiom trRelationUnionOf (String id, OWLProperty p, Collection<Clause> clauses) {
         // TODO not expressible in OWL - use APs. SWRL?
         LOG.error(
                 "The relation union_of for {} is currently non-translatable to OWL. Ignoring clauses: {}",
@@ -897,8 +896,7 @@ public class OWLAPIObo2Owl {
      */
     @Nullable
     @SuppressWarnings("unused")
-    protected OWLAxiom trRelationIntersectionOf(String id, OWLProperty p,
-            Collection<Clause> clauses) {
+    protected static OWLAxiom trRelationIntersectionOf (String id, OWLProperty p, Collection<Clause> clauses) {
         // TODO not expressible in OWL - use APs. SWRL?
         LOG.error(
                 "The relation intersection_of for {} is currently non-translatable to OWL. Ignoring clauses: {}",
@@ -1064,7 +1062,7 @@ public class OWLAPIObo2Owl {
         // The gci_relation qualifier translate cls to a class expression
         OWLClassExpression clsx = cls;
         String gciRel = getQVString("gci_relation", qvs);
-        if (gciRel != null && !gciRel.equals("")) {
+        if (gciRel != null && !gciRel.isEmpty()) {
             String gciFiller = getQVString("gci_filler", qvs);
             OWLClassExpression r = trRel(gciRel, gciFiller,
                     new HashSet<QualifierValue>());
@@ -1507,8 +1505,7 @@ public class OWLAPIObo2Owl {
      * @return the qV string
      */
     @Nullable
-    protected String getQVString(String q,
-            @Nonnull Collection<QualifierValue> quals) {
+    protected static String getQVString (String q, @Nonnull Collection<QualifierValue> quals) {
         for (QualifierValue qv : quals) {
             if (qv.getQualifier().equals(q)) {
                 Object v = qv.getValue();
@@ -1527,8 +1524,7 @@ public class OWLAPIObo2Owl {
      *        the quals
      * @return the qV boolean
      */
-    protected boolean getQVBoolean(String q,
-            @Nonnull Collection<QualifierValue> quals) {
+    protected static boolean getQVBoolean (String q, @Nonnull Collection<QualifierValue> quals) {
         for (QualifierValue qv : quals) {
             if (qv.getQualifier().equals(q)) {
                 Object v = qv.getValue();
@@ -1548,8 +1544,7 @@ public class OWLAPIObo2Owl {
      * @return the qV int
      */
     @Nullable
-    protected Integer getQVInt(String q,
-            @Nonnull Collection<QualifierValue> quals) {
+    protected static Integer getQVInt (String q, @Nonnull Collection<QualifierValue> quals) {
         for (QualifierValue qv : quals) {
             if (qv.getQualifier().equals(q)) {
                 Object v = qv.getValue();
@@ -1612,7 +1607,7 @@ public class OWLAPIObo2Owl {
      *        the x
      * @return the id prefix
      */
-    protected String getIdPrefix(@Nonnull String x) {
+    protected static String getIdPrefix (@Nonnull String x) {
         String[] parts = x.split(":", 2);
         return parts[0];
     }

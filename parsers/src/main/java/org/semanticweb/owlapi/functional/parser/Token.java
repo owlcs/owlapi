@@ -26,7 +26,7 @@ class Token implements java.io.Serializable {
     Token next;
     Token specialToken;
 
-    Object getValue() {
+    static Object getValue () {
         return null;
     }
 

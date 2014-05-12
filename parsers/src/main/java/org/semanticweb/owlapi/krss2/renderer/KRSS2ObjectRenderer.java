@@ -688,8 +688,7 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
         writeCloseBracket();
     }
 
-    protected boolean isLeftIdentityAxiom(OWLSubPropertyChainOfAxiom axiom,
-            OWLObjectProperty property) {
+    protected static boolean isLeftIdentityAxiom (OWLSubPropertyChainOfAxiom axiom, OWLObjectProperty property) {
         if (axiom.getSuperProperty().equals(property)) {
             Iterator<OWLObjectPropertyExpression> chain = axiom
                     .getPropertyChain().iterator();
@@ -704,8 +703,7 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
         return false;
     }
 
-    protected boolean isRightIdentityAxiom(OWLSubPropertyChainOfAxiom axiom,
-            OWLObjectProperty property) {
+    protected static boolean isRightIdentityAxiom (OWLSubPropertyChainOfAxiom axiom, OWLObjectProperty property) {
         if (axiom.getSuperProperty().equals(property)) {
             Iterator<OWLObjectPropertyExpression> chain = axiom
                     .getPropertyChain().iterator();

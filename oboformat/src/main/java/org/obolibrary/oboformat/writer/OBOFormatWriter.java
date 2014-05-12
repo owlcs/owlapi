@@ -546,8 +546,8 @@ public class OBOFormatWriter {
      * @throws IOException
      *         Signals that an I/O exception has occurred.
      */
-    public void
-            writeDef(@Nonnull Clause clause, @Nonnull BufferedWriter writer)
+    public static void
+            writeDef (@Nonnull Clause clause, @Nonnull BufferedWriter writer)
                     throws IOException {
         writeClauseWithQuotedString(clause, writer);
     }
@@ -562,8 +562,7 @@ public class OBOFormatWriter {
      * @throws IOException
      *         Signals that an I/O exception has occurred.
      */
-    public void writePropertyValue(@Nonnull Clause clause,
-            @Nonnull BufferedWriter writer) throws IOException {
+    public static void writePropertyValue (@Nonnull Clause clause, @Nonnull BufferedWriter writer) throws IOException {
         Collection<?> cols = clause.getValues();
         if (cols.size() < 2) {
             LOG.error("The {} has incorrect number of values: {}",
@@ -605,8 +604,7 @@ public class OBOFormatWriter {
      * @throws IOException
      *         Signals that an I/O exception has occurred.
      */
-    public void writeSynonym(@Nonnull Clause clause,
-            @Nonnull BufferedWriter writer) throws IOException {
+    public static void writeSynonym (@Nonnull Clause clause, @Nonnull BufferedWriter writer) throws IOException {
         writeClauseWithQuotedString(clause, writer);
     }
 
@@ -622,8 +620,7 @@ public class OBOFormatWriter {
      * @throws IOException
      *         Signals that an I/O exception has occurred.
      */
-    public void write(@Nonnull Clause clause, @Nonnull BufferedWriter writer,
-            @Nullable NameProvider nameProvider) throws IOException {
+    public static void write (@Nonnull Clause clause, @Nonnull BufferedWriter writer, @Nullable NameProvider nameProvider) throws IOException {
         if (OboFormatTag.TAG_IS_OBSELETE.getTag().equals(clause.getTag())) {
             // only write the obsolete tag if the value is Boolean.TRUE or
             // "true"

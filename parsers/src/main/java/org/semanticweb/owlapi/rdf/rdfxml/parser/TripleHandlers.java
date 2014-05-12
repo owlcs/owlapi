@@ -482,8 +482,7 @@ public class TripleHandlers {
         }
 
         @Nonnull
-        public Map<IRI, BuiltInTypeHandler> getAxiomTypeHandlers(
-                @Nonnull OWLRDFConsumer r) {
+        public static Map<IRI, BuiltInTypeHandler> getAxiomTypeHandlers (@Nonnull OWLRDFConsumer r) {
             Map<IRI, BuiltInTypeHandler> map = new ConcurrentHashMap<IRI, BuiltInTypeHandler>();
             add(map, new TypeAxiomHandler(r));
             add(map, new TypeAllDifferentHandler(r));
@@ -506,8 +505,7 @@ public class TripleHandlers {
          * @return handlers
          */
         @Nonnull
-        public List<LiteralTripleHandler> getLiteralTripleHandlers(
-                @Nonnull OWLRDFConsumer r) {
+        public static List<LiteralTripleHandler> getLiteralTripleHandlers (@Nonnull OWLRDFConsumer r) {
             return CollectionFactory.list(
                     (LiteralTripleHandler) new GTPDataPropertyAssertionHandler(
                             r), new TPFirstLiteralHandler(r),
@@ -525,9 +523,7 @@ public class TripleHandlers {
         }
 
         @Nonnull
-        public Map<IRI, BuiltInTypeHandler> getBasicTypeHandlers(
-                @Nonnull OWLRDFConsumer r,
-                @Nonnull OWLOntologyLoaderConfiguration config) {
+        public static Map<IRI, BuiltInTypeHandler> getBasicTypeHandlers (@Nonnull OWLRDFConsumer r, @Nonnull OWLOntologyLoaderConfiguration config) {
             Map<IRI, BuiltInTypeHandler> map = new ConcurrentHashMap<IRI, BuiltInTypeHandler>();
             add(map, new TypeOntologyPropertyHandler(r));
             add(map, new TypeAsymmetricPropertyHandler(r));
@@ -2712,7 +2708,7 @@ public class TripleHandlers {
          * 
          * @return The IRI, by default this is owl:annotatedTarget
          */
-        protected OWLRDFVocabulary getTargetTriplePredicate() {
+        protected static OWLRDFVocabulary getTargetTriplePredicate () {
             return OWL_ANNOTATED_TARGET;
         }
 
@@ -2722,7 +2718,7 @@ public class TripleHandlers {
          * 
          * @return The IRI, by default this is owl:annotatedProperty
          */
-        protected OWLRDFVocabulary getPropertyTriplePredicate() {
+        protected static OWLRDFVocabulary getPropertyTriplePredicate () {
             return OWL_ANNOTATED_PROPERTY;
         }
 
@@ -2732,7 +2728,7 @@ public class TripleHandlers {
          * 
          * @return The IRI, by default this is owl:annotatedSource
          */
-        protected OWLRDFVocabulary getSourceTriplePredicate() {
+        protected static OWLRDFVocabulary getSourceTriplePredicate () {
             return OWL_ANNOTATED_SOURCE;
         }
 

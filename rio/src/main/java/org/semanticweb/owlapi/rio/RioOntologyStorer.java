@@ -157,8 +157,7 @@ public class RioOntologyStorer extends AbstractOWLOntologyStorer {
      *         If the format does not have an {@link RDFWriter} implementation
      *         available on the classpath.
      */
-    protected RDFHandler getRDFHandlerForOutputStream(final RDFFormat format,
-            final OutputStream outputStream) throws OWLOntologyStorageException {
+    protected static RDFHandler getRDFHandlerForOutputStream (final RDFFormat format, final OutputStream outputStream) throws OWLOntologyStorageException {
         // by default return a StatementCollector if they did not specify a
         // format
         if (format == null) {

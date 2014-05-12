@@ -195,7 +195,7 @@ public class AxiomType<C extends OWLAxiom> implements Serializable {
      *         or {@code false} if there is no axiom type with the specified
      *         name.
      */
-    public boolean isAxiomType(String _name) {
+    public static boolean isAxiomType(String _name) {
         return NAME_TYPE_MAP.containsKey(_name);
     }
 
