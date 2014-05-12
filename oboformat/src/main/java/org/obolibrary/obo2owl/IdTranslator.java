@@ -28,7 +28,7 @@ public class IdTranslator {
      * @return string for iri
      */
     @Nullable
-    public static String translateIRI (@SuppressWarnings("unused") IRI iri) {
+    public static String translateIRI(@SuppressWarnings("unused") IRI iri) {
         return null;
     }
 
@@ -47,8 +47,7 @@ public class IdTranslator {
             int p = id.lastIndexOf(':');
             String prefix = id.substring(0, p);
             String localId = id.substring(p + 1);
-            if (!localId.isEmpty()
-                    && localId.replaceAll("[0-9]", "").isEmpty()) {
+            if (!localId.isEmpty() && localId.replaceAll("[0-9]", "").isEmpty()) {
                 // CANONICAL
                 return expandPrefix(prefix) + localId;
             }
@@ -64,7 +63,7 @@ public class IdTranslator {
      *        id
      * @return boolean
      */
-    public static boolean isURI (@Nonnull String id) {
+    public static boolean isURI(@Nonnull String id) {
         if (id.startsWith("http:") || id.startsWith("ftp:")
                 || id.startsWith("https:")) {
             return true;

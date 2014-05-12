@@ -26,7 +26,7 @@ class Token implements java.io.Serializable {
     Token next;
     Token specialToken;
 
-    static Object getValue () {
+    static Object getValue() {
         return null;
     }
 
@@ -47,7 +47,7 @@ class Token implements java.io.Serializable {
     }
 
     static Token newToken(int ofKind, String image) {
-                return new Token(ofKind, image);
+        return new Token(ofKind, image);
     }
 
     static Token newToken(int ofKind) {

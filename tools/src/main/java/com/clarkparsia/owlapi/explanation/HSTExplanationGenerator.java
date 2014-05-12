@@ -462,7 +462,7 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
      */
     @Nonnull
     private OWLDeclarationAxiom getDeclaration(@Nonnull OWLEntity e) {
-        return getOntologyManager()
-                .getOWLDataFactory().getOWLDeclarationAxiom(e);
+        return getOntologyManager().getOWLDataFactory().getOWLDeclarationAxiom(
+                e);
     }
 }

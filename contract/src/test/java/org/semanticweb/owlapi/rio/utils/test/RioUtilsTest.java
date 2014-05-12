@@ -44,36 +44,66 @@ public class RioUtilsTest {
 
     @Before
     public void setUp() {
-        RDFResourceIRI testOwlApiSubjectUri1 = new RDFResourceIRI(IRI.create("urn:test:subject:uri:1"));
-        RDFResourceIRI testOwlApiPredicateUri1 = new RDFResourceIRI(IRI.create("urn:test:predicate:uri:1"));
-        RDFResourceIRI testOwlApiObjectUri1 = new RDFResourceIRI(IRI.create("urn:test:object:uri:1"));
-        RDFLiteral testOwlApiObjectPlainLiteral1 = new RDFLiteral("Test literal", "", null);
-        RDFLiteral testOwlApiObjectLangLiteral1 = new RDFLiteral("Test literal", "en", null);
-        RDFLiteral testOwlApiObjectTypedLiteral1 = new RDFLiteral("Test literal", null, IRI.create("urn:test:datatype:1"));
-        RDFResourceBlankNode testOwlApiSubjectBNode1 = new RDFResourceBlankNode(IRI.create("subjectBnode1"));
-        RDFResourceBlankNode testOwlApiObjectBNode1 = new RDFResourceBlankNode(IRI.create("objectBnode1"));
-        testOwlApiTripleAllIRI = new RDFTriple(testOwlApiSubjectUri1, testOwlApiPredicateUri1, testOwlApiObjectUri1);
-        testOwlApiTriplePlainLiteral = new RDFTriple(testOwlApiSubjectUri1, testOwlApiPredicateUri1, testOwlApiObjectPlainLiteral1);
-        testOwlApiTripleLangLiteral = new RDFTriple(testOwlApiSubjectUri1, testOwlApiPredicateUri1, testOwlApiObjectLangLiteral1);
-        testOwlApiTripleTypedLiteral = new RDFTriple(testOwlApiSubjectUri1, testOwlApiPredicateUri1, testOwlApiObjectTypedLiteral1);
-        testOwlApiTripleSubjectBNode = new RDFTriple(testOwlApiSubjectBNode1, testOwlApiPredicateUri1, testOwlApiObjectUri1);
-        testOwlApiTripleObjectBNode = new RDFTriple(testOwlApiSubjectUri1, testOwlApiPredicateUri1, testOwlApiObjectBNode1);
-        testOwlApiTripleSubjectObjectBNode = new RDFTriple(testOwlApiSubjectBNode1, testOwlApiPredicateUri1, testOwlApiObjectBNode1);
+        RDFResourceIRI testOwlApiSubjectUri1 = new RDFResourceIRI(
+                IRI.create("urn:test:subject:uri:1"));
+        RDFResourceIRI testOwlApiPredicateUri1 = new RDFResourceIRI(
+                IRI.create("urn:test:predicate:uri:1"));
+        RDFResourceIRI testOwlApiObjectUri1 = new RDFResourceIRI(
+                IRI.create("urn:test:object:uri:1"));
+        RDFLiteral testOwlApiObjectPlainLiteral1 = new RDFLiteral(
+                "Test literal", "", null);
+        RDFLiteral testOwlApiObjectLangLiteral1 = new RDFLiteral(
+                "Test literal", "en", null);
+        RDFLiteral testOwlApiObjectTypedLiteral1 = new RDFLiteral(
+                "Test literal", null, IRI.create("urn:test:datatype:1"));
+        RDFResourceBlankNode testOwlApiSubjectBNode1 = new RDFResourceBlankNode(
+                IRI.create("subjectBnode1"));
+        RDFResourceBlankNode testOwlApiObjectBNode1 = new RDFResourceBlankNode(
+                IRI.create("objectBnode1"));
+        testOwlApiTripleAllIRI = new RDFTriple(testOwlApiSubjectUri1,
+                testOwlApiPredicateUri1, testOwlApiObjectUri1);
+        testOwlApiTriplePlainLiteral = new RDFTriple(testOwlApiSubjectUri1,
+                testOwlApiPredicateUri1, testOwlApiObjectPlainLiteral1);
+        testOwlApiTripleLangLiteral = new RDFTriple(testOwlApiSubjectUri1,
+                testOwlApiPredicateUri1, testOwlApiObjectLangLiteral1);
+        testOwlApiTripleTypedLiteral = new RDFTriple(testOwlApiSubjectUri1,
+                testOwlApiPredicateUri1, testOwlApiObjectTypedLiteral1);
+        testOwlApiTripleSubjectBNode = new RDFTriple(testOwlApiSubjectBNode1,
+                testOwlApiPredicateUri1, testOwlApiObjectUri1);
+        testOwlApiTripleObjectBNode = new RDFTriple(testOwlApiSubjectUri1,
+                testOwlApiPredicateUri1, testOwlApiObjectBNode1);
+        testOwlApiTripleSubjectObjectBNode = new RDFTriple(
+                testOwlApiSubjectBNode1, testOwlApiPredicateUri1,
+                testOwlApiObjectBNode1);
         URI testSesameSubjectUri1 = vf.createURI("urn:test:subject:uri:1");
         URI testSesamePredicateUri1 = vf.createURI("urn:test:predicate:uri:1");
         URI testSesameObjectUri1 = vf.createURI("urn:test:object:uri:1");
-        Literal testSesameObjectPlainLiteral1 = vf.createLiteral("Test literal");
-        Literal testSesameObjectLangLiteral1 = vf.createLiteral("Test literal", "en");
-        Literal testSesameObjectTypedLiteral1 = vf.createLiteral("Test literal", vf.createURI("urn:test:datatype:1"));
+        Literal testSesameObjectPlainLiteral1 = vf
+                .createLiteral("Test literal");
+        Literal testSesameObjectLangLiteral1 = vf.createLiteral("Test literal",
+                "en");
+        Literal testSesameObjectTypedLiteral1 = vf.createLiteral(
+                "Test literal", vf.createURI("urn:test:datatype:1"));
         BNode testSesameSubjectBNode1 = vf.createBNode("subjectBnode1");
         BNode testSesameObjectBNode1 = vf.createBNode("objectBnode1");
-        testSesameTripleAllIRI = vf.createStatement(testSesameSubjectUri1, testSesamePredicateUri1, testSesameObjectUri1);
-        testSesameTriplePlainLiteral = vf.createStatement(testSesameSubjectUri1, testSesamePredicateUri1, testSesameObjectPlainLiteral1);
-        testSesameTripleLangLiteral = vf.createStatement(testSesameSubjectUri1, testSesamePredicateUri1, testSesameObjectLangLiteral1);
-        testSesameTripleTypedLiteral = vf.createStatement(testSesameSubjectUri1, testSesamePredicateUri1, testSesameObjectTypedLiteral1);
-        testSesameTripleSubjectBNode = vf.createStatement(testSesameSubjectBNode1, testSesamePredicateUri1, testSesameObjectUri1);
-        testSesameTripleObjectBNode = vf.createStatement(testSesameSubjectUri1, testSesamePredicateUri1, testSesameObjectBNode1);
-        testSesameTripleSubjectObjectBNode = vf.createStatement(testSesameSubjectBNode1, testSesamePredicateUri1, testSesameObjectBNode1);
+        testSesameTripleAllIRI = vf.createStatement(testSesameSubjectUri1,
+                testSesamePredicateUri1, testSesameObjectUri1);
+        testSesameTriplePlainLiteral = vf.createStatement(
+                testSesameSubjectUri1, testSesamePredicateUri1,
+                testSesameObjectPlainLiteral1);
+        testSesameTripleLangLiteral = vf.createStatement(testSesameSubjectUri1,
+                testSesamePredicateUri1, testSesameObjectLangLiteral1);
+        testSesameTripleTypedLiteral = vf.createStatement(
+                testSesameSubjectUri1, testSesamePredicateUri1,
+                testSesameObjectTypedLiteral1);
+        testSesameTripleSubjectBNode = vf.createStatement(
+                testSesameSubjectBNode1, testSesamePredicateUri1,
+                testSesameObjectUri1);
+        testSesameTripleObjectBNode = vf.createStatement(testSesameSubjectUri1,
+                testSesamePredicateUri1, testSesameObjectBNode1);
+        testSesameTripleSubjectObjectBNode = vf.createStatement(
+                testSesameSubjectBNode1, testSesamePredicateUri1,
+                testSesameObjectBNode1);
     }
 
     /*

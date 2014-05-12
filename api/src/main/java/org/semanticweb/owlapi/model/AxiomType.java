@@ -159,7 +159,7 @@ public class AxiomType<C extends OWLAxiom> implements Serializable {
             @Nonnull Set<OWLAxiom> sourceAxioms,
             @Nonnull AxiomType<?>... axiomTypes) {
         Set<OWLAxiom> result = new HashSet<OWLAxiom>();
-        Set<AxiomType<?>> allowed = Sets.newHashSet( axiomTypes);
+        Set<AxiomType<?>> allowed = Sets.newHashSet(axiomTypes);
         for (OWLAxiom ax : sourceAxioms) {
             if (allowed.contains(ax.getAxiomType())) {
                 result.add(ax);

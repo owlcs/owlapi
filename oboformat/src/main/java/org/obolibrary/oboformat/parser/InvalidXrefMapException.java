@@ -7,8 +7,7 @@ public class InvalidXrefMapException extends OBOFormatException {
     private static final long serialVersionUID = 40000L;
 
     /** Instantiates a new invalid xref map exception. */
-    public InvalidXrefMapException() {
-    }
+    public InvalidXrefMapException() {}
 
     /**
      * Instantiates a new invalid xref map exception.

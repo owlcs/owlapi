@@ -114,7 +114,8 @@ public class BuildersOntologyTestCase {
     private final OWLNamedIndividual i = df.getOWLNamedIndividual(IRI
             .create("urn:test#i"));
     @Nonnull
-    private final OWLDatatype d = df.getOWLDatatype(IRI.create("urn:test#datatype"));
+    private final OWLDatatype d = df.getOWLDatatype(IRI
+            .create("urn:test#datatype"));
     @Nonnull
     private final Set<OWLDataProperty> dps = new HashSet<OWLDataProperty>(
             Arrays.asList(df.getOWLDataProperty(iri), dp));
@@ -125,8 +126,8 @@ public class BuildersOntologyTestCase {
     private final Set<OWLClass> classes = new HashSet<OWLClass>(Arrays.asList(
             df.getOWLClass(iri), ce));
     @Nonnull
-    private final Set<OWLIndividual> inds = new HashSet<OWLIndividual>(Arrays.asList(
-            i, df.getOWLNamedIndividual(iri)));
+    private final Set<OWLIndividual> inds = new HashSet<OWLIndividual>(
+            Arrays.asList(i, df.getOWLNamedIndividual(iri)));
     @Nonnull
     private final SWRLAtom v1 = df.getSWRLBuiltInAtom(
             IRI.create("v1"),

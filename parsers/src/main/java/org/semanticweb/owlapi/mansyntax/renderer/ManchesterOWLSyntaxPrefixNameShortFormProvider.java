@@ -103,7 +103,7 @@ public class ManchesterOWLSyntaxPrefixNameShortFormProvider implements
      *        The IRI
      * @return The short form for the specified IRI
      */
-    public static String getShortForm (@Nonnull IRI iri) {
+    public static String getShortForm(@Nonnull IRI iri) {
         return iri.toQuotedString();
     }
 

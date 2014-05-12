@@ -103,8 +103,8 @@ public class SerializationTest {
     @Nonnull
     Set<OWLPropertyExpression> setowlpropertyexpression = new HashSet<OWLPropertyExpression>();
     @Nonnull
-    OWLFacetRestriction[] lowlfacetrestriction = { f
-            .getOWLFacetRestriction(owlfacet, 1) };
+    OWLFacetRestriction[] lowlfacetrestriction = { f.getOWLFacetRestriction(
+            owlfacet, 1) };
     @Nonnull
     OWLFacetRestriction[] nulllowlfacetrestriction = { f
             .getOWLFacetRestriction(owlfacet, 1) };

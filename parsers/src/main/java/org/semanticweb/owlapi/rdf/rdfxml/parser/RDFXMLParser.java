@@ -68,7 +68,8 @@ public class RDFXMLParser extends AbstractOWLParser {
 
                 @Override
                 public void startElement(String uri, String localName,
-                        String qName, Attributes attributes) throws SAXException {
+                        String qName, Attributes attributes)
+                        throws SAXException {
                     super.startElement(uri, localName, qName, attributes);
                 }
             };

@@ -130,7 +130,8 @@ public class SetOntologyID extends OWLOntologyChange<OWLOntologyID> {
 
     @Override
     public String toString() {
-        return String.format("SetOntologyID(%s OntologyID(%s))",newOntologyID,ontologyID);
+        return String.format("SetOntologyID(%s OntologyID(%s))", newOntologyID,
+                ontologyID);
     }
 
     @Override

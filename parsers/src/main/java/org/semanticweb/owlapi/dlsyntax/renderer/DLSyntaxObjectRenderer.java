@@ -217,7 +217,7 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
         }
     }
 
-    protected static boolean isBracketedIfNested (@Nonnull OWLObject object) {
+    protected static boolean isBracketedIfNested(@Nonnull OWLObject object) {
         checkNotNull(object, "object cannot be null");
         return !(object instanceof OWLEntity);
     }

@@ -692,7 +692,8 @@ public class Internals implements Serializable {
      *        value
      * @return true if the pair (key, value) is contained
      */
-    public static <K, V extends OWLAxiom> boolean contains (@Nonnull MapPointer<K, V> p, K k, V v) {
+    public static <K, V extends OWLAxiom> boolean contains(
+            @Nonnull MapPointer<K, V> p, K k, V v) {
         return p.contains(k, v);
     }
 
@@ -1350,7 +1351,7 @@ public class Internals implements Serializable {
         return owlEntity.accept(refAxiomsCollector);
     }
 
-    private  class ReferencedAxiomsCollector implements
+    private class ReferencedAxiomsCollector implements
             OWLEntityVisitorEx<Set<OWLAxiom>>, Serializable {
 
         private static final long serialVersionUID = 40000L;

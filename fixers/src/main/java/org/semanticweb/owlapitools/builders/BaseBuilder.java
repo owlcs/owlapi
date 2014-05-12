@@ -45,8 +45,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  * @param <B>
  *        builder type
  */
-public abstract class BaseBuilder<T extends OWLObject, B> implements
-        Builder<T> {
+public abstract class BaseBuilder<T extends OWLObject, B> implements Builder<T> {
 
     @Nonnull
     protected final OWLDataFactory df;
@@ -93,8 +92,7 @@ public abstract class BaseBuilder<T extends OWLObject, B> implements
 
     @Nonnull
     @Override
-    public List<OWLOntologyChange<?>>
-            applyChanges(@Nonnull OWLOntology o) {
+    public List<OWLOntologyChange<?>> applyChanges(@Nonnull OWLOntology o) {
         T object = buildObject();
         if (!(object instanceof OWLAxiom)) {
             return CollectionFactory.emptyList();

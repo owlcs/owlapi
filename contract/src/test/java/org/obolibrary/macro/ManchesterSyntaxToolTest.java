@@ -22,7 +22,8 @@ public class ManchesterSyntaxToolTest extends OboFormatTestBasics {
     @Nonnull
     private final OWLOntology owlOntology = convert(parseOBOFile("simplego.obo"));
     @Nonnull
-    private final ManchesterSyntaxTool parser = new ManchesterSyntaxTool(owlOntology);
+    private final ManchesterSyntaxTool parser = new ManchesterSyntaxTool(
+            owlOntology);
 
     @Test
     public void testParseManchesterIds() {

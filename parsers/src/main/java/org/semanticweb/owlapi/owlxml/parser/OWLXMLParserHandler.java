@@ -313,7 +313,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
             throw new OWLXMLParserException(this, "Prefix name not defined: "
                     + prefixName);
         }
-        return getIRI(base+localName);
+        return getIRI(base + localName);
     }
 
     /** @return prefix name to prefix */

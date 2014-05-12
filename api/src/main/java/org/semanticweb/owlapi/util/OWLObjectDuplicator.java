@@ -485,8 +485,8 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         OWLDataPropertyExpression prop = getLastObject();
         ce.getFiller().accept(this);
         OWLDataRange filler = getLastObject();
-        obj = dataFactory.getOWLDataExactCardinality(ce.getCardinality(),
-                prop, filler);
+        obj = dataFactory.getOWLDataExactCardinality(ce.getCardinality(), prop,
+                filler);
     }
 
     @Override
@@ -565,8 +565,8 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         OWLObjectPropertyExpression prop = getLastObject();
         ce.getFiller().accept(this);
         OWLClassExpression filler = getLastObject();
-        obj = dataFactory.getOWLObjectMaxCardinality(ce.getCardinality(),
-                prop, filler);
+        obj = dataFactory.getOWLObjectMaxCardinality(ce.getCardinality(), prop,
+                filler);
     }
 
     @Override
@@ -575,8 +575,8 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         OWLObjectPropertyExpression prop = getLastObject();
         ce.getFiller().accept(this);
         OWLClassExpression filler = getLastObject();
-        obj = dataFactory.getOWLObjectMinCardinality(ce.getCardinality(),
-                prop, filler);
+        obj = dataFactory.getOWLObjectMinCardinality(ce.getCardinality(), prop,
+                filler);
     }
 
     @Override

@@ -122,7 +122,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
      * 
      * @return a set containing all supported locality classes
      */
-    public static Set<LocalityClass> supportedLocalityClasses () {
+    public static Set<LocalityClass> supportedLocalityClasses() {
         return SUPPORTED_LOCALITY_CLASSES;
     }
 
@@ -433,13 +433,14 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         public void visit(OWLDisjointUnionAxiom axiom) {
             OWLClass lhs = axiom.getOWLClass();
             Collection<OWLClassExpression> rhs = axiom.getClassExpressions();
-            if (localityCls== LocalityClass.BOTTOM_BOTTOM) {
+            if (localityCls == LocalityClass.BOTTOM_BOTTOM) {
                 // TODO (TS): "!signature.contains(lhs)" is not enough
                 // because lhs could be bot
                 if (!getSignature().contains(lhs)) {
                     for (OWLClassExpression desc : rhs) {
                         assert desc != null;
-                        if (!bottomEvaluator.isBottomEquivalent(desc, getSignature(), localityCls)) {
+                        if (!bottomEvaluator.isBottomEquivalent(desc,
+                                getSignature(), localityCls)) {
                             isLocal = false;
                             return;
                         }
@@ -448,8 +449,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                 } else {
                     isLocal = false;
                 }
-
-            }else {
+            } else {
                 // case TOP_BOTTOM:
                 // case TOP_TOP:
                 // TODO (TS): "!signature.contains(lhs)" is not enough
@@ -458,8 +458,10 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                     boolean topEquivDescFound = false;
                     for (OWLClassExpression desc : rhs) {
                         assert desc != null;
-                        if (!bottomEvaluator.isBottomEquivalent(desc, getSignature(), localityCls)) {
-                            if (topEvaluator.isTopEquivalent(desc, getSignature(), localityCls)) {
+                        if (!bottomEvaluator.isBottomEquivalent(desc,
+                                getSignature(), localityCls)) {
+                            if (topEvaluator.isTopEquivalent(desc,
+                                    getSignature(), localityCls)) {
                                 if (topEquivDescFound) {
                                     isLocal = false;
                                     return;
@@ -476,7 +478,6 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                 } else {
                     isLocal = false;
                 }
-
             }
         }
 
@@ -927,8 +928,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         public void visit(OWLClass ce) {
             switch (getLocality()) {
                 case BOTTOM_BOTTOM:
-                    isBottomEquivalent = ce.isOWLNothing()
-                            || !ce.isOWLThing()
+                    isBottomEquivalent = ce.isOWLNothing() || !ce.isOWLThing()
                             && !getSignature().contains(ce);
                     break;
                 case TOP_BOTTOM:
@@ -1087,8 +1087,8 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
         @Override
         public void visit(OWLObjectComplementOf ce) {
-            isBottomEquivalent = topEvaluator.isTopEquivalent(
-                    ce.getOperand(), getSignature(), getLocality());
+            isBottomEquivalent = topEvaluator.isTopEquivalent(ce.getOperand(),
+                    getSignature(), getLocality());
         }
 
         // BUGFIX: (TS) Since an exact card restriction is a conjunction of a
@@ -1108,8 +1108,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                     isBottomEquivalent = ce.getCardinality() > 0
                             && (isBottomEquivalent(ce.getFiller()) || !getSignature()
                                     .contains(
-                                            ce.getProperty()
-                                                    .getNamedProperty())
+                                            ce.getProperty().getNamedProperty())
                                     && topEvaluator.isTopEquivalent(
                                             ce.getFiller(), getSignature(),
                                             getLocality()));

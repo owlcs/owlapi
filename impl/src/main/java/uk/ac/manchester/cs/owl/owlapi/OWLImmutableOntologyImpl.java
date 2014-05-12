@@ -551,7 +551,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
         Set<OWLEntity> entities = getSignature();
         if (includeImportsClosure == INCLUDED) {
             for (OWLOntology ont : getImportsClosure()) {
-                    entities.addAll(ont.getSignature(EXCLUDED));
+                entities.addAll(ont.getSignature(EXCLUDED));
             }
         }
         return entities;

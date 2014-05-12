@@ -59,8 +59,7 @@ public class GuessRDFSPropertyTypeTestCase {
     private PrefixOWLOntologyFormat prefixOWLOntologyFormat;
 
     @Before
-    public void setUp()
-            throws OWLOntologyCreationException {
+    public void setUp() throws OWLOntologyCreationException {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         OWLOntologyLoaderConfiguration config = new OWLOntologyLoaderConfiguration()
                 .setStrict(false);

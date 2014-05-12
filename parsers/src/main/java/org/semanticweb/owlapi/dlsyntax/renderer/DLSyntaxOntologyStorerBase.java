@@ -47,18 +47,20 @@ public abstract class DLSyntaxOntologyStorerBase extends
     protected void storeOntology(@Nonnull OWLOntology ontology, Writer writer,
             OWLOntologyFormat format) {
         checkNotNull(ontology, "ontology cannot be null");
-        PrintWriter printWriter = new PrintWriter(
-                checkNotNull(writer, "writer cannot be null"));
+        PrintWriter printWriter = new PrintWriter(checkNotNull(writer,
+                "writer cannot be null"));
         beginWritingOntology(ontology, printWriter);
         for (OWLObjectProperty prop : new TreeSet<OWLObjectProperty>(
                 ontology.getObjectPropertiesInSignature())) {
             assert prop != null;
-            write(ontology, prop, ontology.getAxioms(prop, EXCLUDED), printWriter);
+            write(ontology, prop, ontology.getAxioms(prop, EXCLUDED),
+                    printWriter);
         }
         for (OWLDataProperty prop : new TreeSet<OWLDataProperty>(
                 ontology.getDataPropertiesInSignature())) {
             assert prop != null;
-            write(ontology, prop, ontology.getAxioms(prop, EXCLUDED), printWriter);
+            write(ontology, prop, ontology.getAxioms(prop, EXCLUDED),
+                    printWriter);
         }
         for (OWLClass cls : new TreeSet<OWLClass>(
                 ontology.getClassesInSignature())) {

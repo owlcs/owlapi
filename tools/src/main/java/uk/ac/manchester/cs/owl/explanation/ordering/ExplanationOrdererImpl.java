@@ -355,7 +355,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
     }
 
     /** The Class PropertiesFirstComparator. */
-    private static  class PropertiesFirstComparator implements
+    private static class PropertiesFirstComparator implements
             Comparator<OWLObject> {
 
         PropertiesFirstComparator() {}
@@ -377,7 +377,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
     private static final PropertiesFirstComparator propertiesFirstComparator = new PropertiesFirstComparator();
 
     /** tree comparator. */
-    private static  class OWLAxiomTreeComparator implements
+    private static class OWLAxiomTreeComparator implements
             Comparator<Tree<OWLAxiom>>, Serializable {
 
         private static final long serialVersionUID = 40000L;

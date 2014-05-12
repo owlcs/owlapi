@@ -61,8 +61,7 @@ public class NodeIDTestCase {
                 "_:sometest_genid_something").getID()));
         assertTrue(NodeID.isAnonymousNodeIRI(NodeID.getNodeID(
                 "http://sometest_genid_something").getID()));
-        assertTrue(NodeID.isAnonymousNodeIRI(NodeID.getNodeID(null)
-                .getID()));
+        assertTrue(NodeID.isAnonymousNodeIRI(NodeID.getNodeID(null).getID()));
         NodeID id = NodeID.getNodeID(null);
         assertEquals(id.getID(), id.toString());
         assertEquals(NodeID.getNodeID("somestring"),

@@ -144,7 +144,8 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
             existingOntology = manager.getOntology(iri);
         }
         OWLOntologyID ontologyID = new OWLOntologyID();
-        OWLOntology ont = createOWLOntology(manager, ontologyID, documentSource.getDocumentIRI(), handler);
+        OWLOntology ont = createOWLOntology(manager, ontologyID,
+                documentSource.getDocumentIRI(), handler);
         // Now parse the input into the empty ontology that we created
         // select a parser if the input source has format information and MIME
         // information
@@ -155,7 +156,8 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
                 if (existingOntology == null && !ont.isEmpty()) {
                     // Junk from a previous parse. We should clear the ont
                     manager.removeOntology(ont);
-                    ont = createOWLOntology(manager, ontologyID, documentSource.getDocumentIRI(), handler);
+                    ont = createOWLOntology(manager, ontologyID,
+                            documentSource.getDocumentIRI(), handler);
                 }
                 OWLOntologyFormat format = parser.parse(documentSource, ont,
                         configuration);

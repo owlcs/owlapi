@@ -188,8 +188,8 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
 
     @SuppressWarnings("null")
     @Override
-    public void startElement(String uri, String localName,
-            String qName, Attributes attributes) throws SAXException {
+    public void startElement(String uri, String localName, String qName,
+            Attributes attributes) throws SAXException {
         processXMLBase(attributes);
         processXMLLanguage(attributes);
         state.startElement(uri, localName, qName, attributes);

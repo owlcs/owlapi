@@ -29,8 +29,7 @@ class ParseException extends OWLParserException {
         tokenImage = tokenImageVal;
     }
 
-    ParseException() {
-    }
+    ParseException() {}
 
     ParseException(String message) {
         super(message);

@@ -239,8 +239,8 @@ public class BuildersEqualTestCase {
     private final Set<OWLClass> classes = new HashSet<OWLClass>(Arrays.asList(
             df.getOWLClass(iri), ce));
     @Nonnull
-    private final Set<OWLIndividual> inds = new HashSet<OWLIndividual>(Arrays.asList(
-            i, df.getOWLNamedIndividual(iri)));
+    private final Set<OWLIndividual> inds = new HashSet<OWLIndividual>(
+            Arrays.asList(i, df.getOWLNamedIndividual(iri)));
     @Nonnull
     private final SWRLDArgument var1 = df.getSWRLVariable(IRI.create("var1"));
     @Nonnull

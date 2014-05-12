@@ -1151,7 +1151,8 @@ public class OWLAPIObo2Owl {
         } else if (_tag == OboFormatTag.TAG_RANGE) {
             ax = fac.getOWLObjectPropertyRangeAxiom(p, trClass(v), annotations);
         } else if (_tag == OboFormatTag.TAG_TRANSITIVE_OVER) {
-            List<OWLObjectPropertyExpression> chain = new ArrayList<OWLObjectPropertyExpression>(2);
+            List<OWLObjectPropertyExpression> chain = new ArrayList<OWLObjectPropertyExpression>(
+                    2);
             chain.add(p);
             chain.add(trObjectProp(v));
             ax = fac.getOWLSubPropertyChainOfAxiom(chain, p, annotations);

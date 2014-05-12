@@ -27,6 +27,7 @@ public enum ManchesterOWLSyntax {
 
 
 
+
     //@formatter:off
     
 //    public static final String VALUE_PARTITION = "ValuePartition:";
@@ -127,7 +128,10 @@ public enum ManchesterOWLSyntax {
     private final String rendering;
     private final String keyword;
 
-    ManchesterOWLSyntax (String rendering, boolean frameKeyword, boolean sectionKeyword, boolean axiomKeyword, boolean classExpressionQuantifierKeyword, boolean classExpressionConnectiveKeyword, String keyword) {
+    ManchesterOWLSyntax(String rendering, boolean frameKeyword,
+            boolean sectionKeyword, boolean axiomKeyword,
+            boolean classExpressionQuantifierKeyword,
+            boolean classExpressionConnectiveKeyword, String keyword) {
         this.rendering = rendering;
         this.frameKeyword = frameKeyword;
         this.sectionKeyword = sectionKeyword;
@@ -137,7 +141,10 @@ public enum ManchesterOWLSyntax {
         this.keyword = keyword;
     }
 
-    ManchesterOWLSyntax (String rendering, boolean frameKeyword, boolean sectionKeyword, boolean axiomKeyword, boolean classExpressionQuantifierKeyword, boolean classExpressionConnectiveKeyword) {
+    ManchesterOWLSyntax(String rendering, boolean frameKeyword,
+            boolean sectionKeyword, boolean axiomKeyword,
+            boolean classExpressionQuantifierKeyword,
+            boolean classExpressionConnectiveKeyword) {
         this(rendering, frameKeyword, sectionKeyword, axiomKeyword,
                 classExpressionQuantifierKeyword,
                 classExpressionConnectiveKeyword, rendering + ':');

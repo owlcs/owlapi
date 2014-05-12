@@ -61,7 +61,10 @@ public class OboInOwlCardinalityTools {
          *         AnnotationCardinalityException
          */
         @Nonnull
-        List<OWLAnnotationAssertionAxiom> handleConflict (@Nonnull OWLEntity entity, @Nonnull OWLAnnotationProperty property, @Nonnull Collection<OWLAnnotationAssertionAxiom> axioms)
+        List<OWLAnnotationAssertionAxiom> handleConflict(
+                @Nonnull OWLEntity entity,
+                @Nonnull OWLAnnotationProperty property,
+                @Nonnull Collection<OWLAnnotationAssertionAxiom> axioms)
                 throws AnnotationCardinalityException;
 
         /**
@@ -78,7 +81,9 @@ public class OboInOwlCardinalityTools {
          *         AnnotationCardinalityException
          */
         @Nonnull
-        List<OWLAnnotation> handleConflict (@Nonnull OWLAnnotationProperty property, @Nonnull Collection<OWLAnnotation> ontologyAnnotations)
+        List<OWLAnnotation> handleConflict(
+                @Nonnull OWLAnnotationProperty property,
+                @Nonnull Collection<OWLAnnotation> ontologyAnnotations)
                 throws AnnotationCardinalityException;
     }
 
@@ -98,7 +103,9 @@ public class OboInOwlCardinalityTools {
          * @param axioms
          *        axioms
          */
-        void reportConflict (@Nonnull OWLEntity entity, @Nonnull OWLAnnotationProperty property, @Nonnull Collection<OWLAnnotationAssertionAxiom> axioms);
+        void reportConflict(@Nonnull OWLEntity entity,
+                @Nonnull OWLAnnotationProperty property,
+                @Nonnull Collection<OWLAnnotationAssertionAxiom> axioms);
 
         /**
          * Report a conflict for a given annotation property and ontology
@@ -109,7 +116,8 @@ public class OboInOwlCardinalityTools {
          * @param ontologyAnnotations
          *        ontologyAnnotations
          */
-        void reportConflict (@Nonnull OWLAnnotationProperty property, @Nonnull Collection<OWLAnnotation> ontologyAnnotations);
+        void reportConflict(@Nonnull OWLAnnotationProperty property,
+                @Nonnull Collection<OWLAnnotation> ontologyAnnotations);
     }
 
     /**

@@ -2570,7 +2570,8 @@ class OWLObjectUnionOfElementHandler extends
     }
 
     @Override
-    OWLClassExpression createClassExpression(Set<OWLClassExpression> expressions) {
+    OWLClassExpression
+            createClassExpression(Set<OWLClassExpression> expressions) {
         return df.getOWLObjectUnionOf(expressions);
     }
 }

@@ -39,7 +39,9 @@ public class ExpandExpressionTest extends OboFormatTestBasics {
                 .getSubClassAxiomsForSubClass(cls);
         // System.out.println(scas);
         assertEquals(1, scas.size());
-        assertEquals("[SubClassOf(<http://purl.obolibrary.org/obo/TEST_3> ObjectSomeValuesFrom(<http://purl.obolibrary.org/obo/BFO_0000051> ObjectIntersectionOf(<http://purl.obolibrary.org/obo/GO_0005886> ObjectSomeValuesFrom(<http://purl.obolibrary.org/obo/BFO_0000051> <http://purl.obolibrary.org/obo/TEST_4>))))]", scas.toString());
+        assertEquals(
+                "[SubClassOf(<http://purl.obolibrary.org/obo/TEST_3> ObjectSomeValuesFrom(<http://purl.obolibrary.org/obo/BFO_0000051> ObjectIntersectionOf(<http://purl.obolibrary.org/obo/GO_0005886> ObjectSomeValuesFrom(<http://purl.obolibrary.org/obo/BFO_0000051> <http://purl.obolibrary.org/obo/TEST_4>))))]",
+                scas.toString());
         cls = df.getOWLClass(IRI
                 .create("http://purl.obolibrary.org/obo/TEST_4"));
         Set<OWLEquivalentClassesAxiom> ecas = outputOntology
@@ -54,7 +56,9 @@ public class ExpandExpressionTest extends OboFormatTestBasics {
                             String pStr = ((OWLObjectSomeValuesFrom) y)
                                     .getProperty().toString();
                             // System.out.println("p=" + pStr);
-                            assertEquals("<http://purl.obolibrary.org/obo/BFO_0000051>", pStr);
+                            assertEquals(
+                                    "<http://purl.obolibrary.org/obo/BFO_0000051>",
+                                    pStr);
                             ok = true;
                         }
                     }

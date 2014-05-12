@@ -30,8 +30,8 @@ import org.semanticweb.owlapi.model.OWLObject;
  * @param <B>
  *        builder type
  */
-public abstract class BaseDataPropertyBuilder<T extends OWLObject, B>
-        extends BaseBuilder<T, B> {
+public abstract class BaseDataPropertyBuilder<T extends OWLObject, B> extends
+        BaseBuilder<T, B> {
 
     @Nullable
     private OWLDataPropertyExpression property = null;

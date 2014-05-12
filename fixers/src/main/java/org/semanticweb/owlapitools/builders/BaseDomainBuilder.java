@@ -32,8 +32,8 @@ import org.semanticweb.owlapi.model.OWLObject;
  * @param <P>
  *        contained items type
  */
-public abstract class BaseDomainBuilder<T extends OWLObject, B, P>
-        extends BaseBuilder<T, B> {
+public abstract class BaseDomainBuilder<T extends OWLObject, B, P> extends
+        BaseBuilder<T, B> {
 
     @Nullable
     private P property = null;

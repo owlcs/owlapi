@@ -536,8 +536,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
     @SuppressWarnings("null")
     @Nonnull
     String minusOntologyURI(@Nonnull String s) {
-        String uri = manager.getOntologyDocumentIRI(rootOntology)
-                + "#";
+        String uri = manager.getOntologyDocumentIRI(rootOntology) + "#";
         return s.replace(uri, "").replace("<", "").replace(">", "");
     }
 
@@ -599,7 +598,9 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      */
     @SuppressWarnings("null")
     @Nonnull
-    static Set<OWLClass> SuperOrSubClasses (int superOrSubClassLevel, boolean superVsSub, @Nonnull OWLReasoner reasoner, @Nonnull Set<OWLClass> classesInSig) {
+    static Set<OWLClass> SuperOrSubClasses(int superOrSubClassLevel,
+            boolean superVsSub, @Nonnull OWLReasoner reasoner,
+            @Nonnull Set<OWLClass> classesInSig) {
         Set<OWLClass> superOrSubClasses = new HashSet<OWLClass>();
         if (superOrSubClassLevel < 0) {
             for (OWLClassExpression ent : classesInSig) {
@@ -685,7 +686,8 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
     @Override
     public Set<OWLAxiom> extract(Set<OWLEntity> signature, int superClassLevel,
             int subClassLevel, OWLReasoner reasoner) {
-        return extract(signature, superClassLevel, subClassLevel, reasoner, false);
+        return extract(signature, superClassLevel, subClassLevel, reasoner,
+                false);
     }
 
     /**

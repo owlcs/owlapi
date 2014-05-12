@@ -98,8 +98,7 @@ public class RioParserTest extends TestBase {
      */
     @Nonnull
     StreamDocumentSource getStream(String name) {
-        return new StreamDocumentSource(getClass().getResourceAsStream(
-                name));
+        return new StreamDocumentSource(getClass().getResourceAsStream(name));
     }
 
     /*

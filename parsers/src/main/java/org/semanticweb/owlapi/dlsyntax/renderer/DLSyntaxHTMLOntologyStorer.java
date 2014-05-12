@@ -69,7 +69,8 @@ public class DLSyntaxHTMLOntologyStorer extends DLSyntaxOntologyStorerBase {
 
             @Override
             protected void write(DLSyntax keyword) {
-                write(XMLUtils.escapeXML(checkNotNull(keyword, "keyword cannot be null").toString()));
+                write(XMLUtils.escapeXML(checkNotNull(keyword,
+                        "keyword cannot be null").toString()));
             }
         };
         ren.setFocusedObject(subject);

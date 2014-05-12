@@ -74,7 +74,8 @@ public enum Profiles implements HasIRI, KnownFactories, OWLProfile {
     @Nonnull
     private final OWLProfile profile;
 
-    Profiles (@Nonnull String name, @Nonnull OWLProfile profile, @Nonnull String... supportingFactories) {
+    Profiles(@Nonnull String name, @Nonnull OWLProfile profile,
+            @Nonnull String... supportingFactories) {
         iri = IRI.create("http://www.w3.org/ns/owl-profile/", name);
         this.profile = profile;
         this.supportingFactories = CollectionFactory.list(supportingFactories);

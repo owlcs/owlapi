@@ -215,8 +215,7 @@ public class MultipleOntologyLoadsTest extends TestBase {
 
     @Nonnull
     private OWLOntologyDocumentSource getDocumentSource() {
-        return new StreamDocumentSource(
-                getClass().getResourceAsStream(
-                        "/owlapi/multipleOntologyLoadsTest.rdf"));
-            }
+        return new StreamDocumentSource(getClass().getResourceAsStream(
+                "/owlapi/multipleOntologyLoadsTest.rdf"));
+    }
 }

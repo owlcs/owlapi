@@ -84,7 +84,8 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
      *        source.
      */
     public RioMemoryTripleSource(@Nonnull Iterator<Statement> statements) {
-        documentIRI = OWLOntologyDocumentSourceBase.getNextDocumentIRI("rio-memory-triples:");
+        documentIRI = OWLOntologyDocumentSourceBase
+                .getNextDocumentIRI("rio-memory-triples:");
         statementIterator = checkNotNull(statements,
                 "statements cannot be null");
     }
@@ -118,7 +119,8 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
      */
     @SuppressWarnings("null")
     public RioMemoryTripleSource(@Nonnull Iterable<Statement> statements) {
-        documentIRI = OWLOntologyDocumentSourceBase.getNextDocumentIRI("rio-memory-triples:");
+        documentIRI = OWLOntologyDocumentSourceBase
+                .getNextDocumentIRI("rio-memory-triples:");
         statementIterator = statements.iterator();
         if (statements instanceof Model) {
             namespaces.putAll(Namespaces.asMap(((Model) statements)
@@ -137,7 +139,8 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
      */
     public RioMemoryTripleSource(
             final CloseableIteration<Statement, ? extends OpenRDFException> statements) {
-        documentIRI = OWLOntologyDocumentSourceBase.getNextDocumentIRI("rio-memory-triples:");
+        documentIRI = OWLOntologyDocumentSourceBase
+                .getNextDocumentIRI("rio-memory-triples:");
         statementIterator = new Iterator<Statement>() {
 
             @Override

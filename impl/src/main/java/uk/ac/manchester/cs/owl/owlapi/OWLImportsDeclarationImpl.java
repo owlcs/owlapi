@@ -70,6 +70,6 @@ public class OWLImportsDeclarationImpl implements OWLImportsDeclaration,
 
     @Override
     public String toString() {
-        return String.format("Import(%s)",iri.toQuotedString());
+        return String.format("Import(%s)", iri.toQuotedString());
     }
 }

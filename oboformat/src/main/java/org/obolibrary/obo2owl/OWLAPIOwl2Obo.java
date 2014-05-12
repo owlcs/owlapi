@@ -355,8 +355,7 @@ public class OWLAPIOwl2Obo {
                 }
             }
         }
-        if (!untranslatableAxioms.isEmpty()
-                && !discardUntranslatable) {
+        if (!untranslatableAxioms.isEmpty() && !discardUntranslatable) {
             try {
                 String axiomString = OwlStringTools.translate(
                         untranslatableAxioms, manager);
@@ -697,7 +696,8 @@ public class OWLAPIOwl2Obo {
         if (prop1 instanceof OWLObjectProperty
                 && prop2 instanceof OWLObjectProperty) {
             if (trObjectProperty((OWLObjectProperty) prop1,
-                    OboFormatTag.TAG_INVERSE_OF.getTag(), getIdentifier(prop2), ax.getAnnotations())) {
+                    OboFormatTag.TAG_INVERSE_OF.getTag(), getIdentifier(prop2),
+                    ax.getAnnotations())) {
                 return;
             }
         }
@@ -1222,7 +1222,8 @@ public class OWLAPIOwl2Obo {
      * @param qualifiers
      *        the qualifiers
      */
-    protected static void addQualifiers (@Nonnull Clause c, @Nonnull Set<OWLAnnotation> qualifiers) {
+    protected static void addQualifiers(@Nonnull Clause c,
+            @Nonnull Set<OWLAnnotation> qualifiers) {
         for (OWLAnnotation ann : qualifiers) {
             String prop = owlObjectToTag(ann.getProperty());
             if (prop == null) {

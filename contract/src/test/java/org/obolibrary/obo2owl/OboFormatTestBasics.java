@@ -120,8 +120,7 @@ public class OboFormatTestBasics {
             throws OWLOntologyCreationException {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         // TODO replace
-        return manager
-                .loadOntologyFromOntologyDocument(getInputStream(fn));
+        return manager.loadOntologyFromOntologyDocument(getInputStream(fn));
     }
 
     @Nonnull

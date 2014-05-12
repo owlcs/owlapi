@@ -44,8 +44,8 @@ public class OBOFormatRenderer implements OWLRenderer {
      * @throws OWLOntologyStorageException
      *         OWLOntologyStorageException
      */
-    public static void render (@Nonnull OWLOntology ontology, @Nonnull Writer writer)
-            throws OWLOntologyStorageException {
+    public static void render(@Nonnull OWLOntology ontology,
+            @Nonnull Writer writer) throws OWLOntologyStorageException {
         try {
             OWLAPIOwl2Obo translator = new OWLAPIOwl2Obo(
                     ontology.getOWLOntologyManager());

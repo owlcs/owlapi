@@ -56,8 +56,7 @@ public class ExistentialCollector extends OWLClassExpressionVisitorAdapter {
 
     @Override
     public void visit(@Nonnull OWLObjectSomeValuesFrom ce) {
-        Set<OWLClassExpression> fillers = restrictions.get(ce
-                .getProperty());
+        Set<OWLClassExpression> fillers = restrictions.get(ce.getProperty());
         if (fillers == null) {
             fillers = new HashSet<OWLClassExpression>();
             restrictions.put(ce.getProperty(), fillers);

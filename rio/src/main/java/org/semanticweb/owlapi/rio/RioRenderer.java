@@ -176,8 +176,8 @@ public class RioRenderer extends RDFRendererBase {
                     renderedStatements.add(triple);
                     // then we go back and get context-sensitive statements and
                     // actually pass those to the RDFHandler
-                    for (Statement statement : RioUtils
-                            .tripleAsStatements(triple, contexts)) {
+                    for (Statement statement : RioUtils.tripleAsStatements(
+                            triple, contexts)) {
                         writer.handleStatement(statement);
                         if (triple.getObject() instanceof RDFResource) {
                             render((RDFResource) triple.getObject());

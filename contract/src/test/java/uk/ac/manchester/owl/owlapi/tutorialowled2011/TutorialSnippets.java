@@ -683,7 +683,8 @@ public class TutorialSnippets {
         OWLOntology o2 = m.createOntology(example_iri);
         m.addAxiom(
                 o2,
-                df.getOWLDeclarationAxiom(df.getOWLClass(IRI.create(example_iri + "#Weasel"))));
+                df.getOWLDeclarationAxiom(df.getOWLClass(IRI.create(example_iri
+                        + "#Weasel"))));
         // Create our ontology merger
         OWLOntologyMerger merger = new OWLOntologyMerger(m);
         // We merge all of the loaded ontologies. Since an OWLOntologyManager is

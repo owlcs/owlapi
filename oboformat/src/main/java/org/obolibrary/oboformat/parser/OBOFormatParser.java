@@ -35,7 +35,7 @@ public class OBOFormatParser {
 
     // TODO use this to validate date strings for OboFormatTag.TAG_CREATION_DATE
     @Nonnull
-    protected static SimpleDateFormat getISODateFormat () {
+    protected static SimpleDateFormat getISODateFormat() {
         return new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
     }
 
@@ -121,7 +121,7 @@ public class OBOFormatParser {
         }
 
         @Nonnull
-        public static String getTag () {
+        public static String getTag() {
             return "";
         }
 

@@ -58,8 +58,8 @@ public class EmptyInMemOWLOntologyFactory extends
     public OWLOntology createOWLOntology(OWLOntologyManager manager,
             OWLOntologyID ontologyID, IRI documentIRI,
             OWLOntologyCreationHandler handler) {
-        OWLOntology ont = super.createOWLOntology(manager, ontologyID, documentIRI,
-                handler);
+        OWLOntology ont = super.createOWLOntology(manager, ontologyID,
+                documentIRI, handler);
         handler.setOntologyFormat(ont, new RDFXMLOntologyFormat());
         return ont;
     }

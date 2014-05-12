@@ -94,9 +94,10 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
                                 // Non-empty line that is NOT a comment. We
                                 // cannot possibly parse this.
                                 int startCol = line.indexOf(trimmedLine) + 1;
-                                String msg=String.format(
-                                        "Encountered '%s' at line %s column %s.  Expected either 'Ontology:' or 'Prefix:'",
-                                        trimmedLine, lineCount, startCol);
+                                String msg = String
+                                        .format("Encountered '%s' at line %s column %s.  Expected either 'Ontology:' or 'Prefix:'",
+                                                trimmedLine, lineCount,
+                                                startCol);
                                 throw new ManchesterOWLSyntaxParserException(
                                         msg, lineCount, startCol);
                             }

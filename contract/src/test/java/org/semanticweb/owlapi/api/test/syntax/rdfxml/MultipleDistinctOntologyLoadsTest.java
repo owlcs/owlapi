@@ -77,7 +77,7 @@ public class MultipleDistinctOntologyLoadsTest extends TestBase {
     @Nonnull
     private OWLOntologyDocumentSource getDocument() {
         return new StreamDocumentSource(getClass().getResourceAsStream(
-                        "/owlapi/multipleOntologyLoadsTest.rdf"));
+                "/owlapi/multipleOntologyLoadsTest.rdf"));
     }
 
     @Test(expected = OWLOntologyAlreadyExistsException.class)

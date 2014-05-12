@@ -100,8 +100,8 @@ public class InferredObjectPropertyCharacteristicAxiomGenerator
         return !reasoner.isEntailed(trivialityCheckAxioms);
     }
 
-    protected static void addIfEntailed(OWLObjectPropertyCharacteristicAxiom axiom,
-            OWLReasoner reasoner,
+    protected static void addIfEntailed(
+            OWLObjectPropertyCharacteristicAxiom axiom, OWLReasoner reasoner,
             Set<OWLObjectPropertyCharacteristicAxiom> result) {
         if (reasoner.isEntailmentCheckingSupported(axiom.getAxiomType())
                 && reasoner.isEntailed(axiom)) {

@@ -64,8 +64,7 @@ public class Clause {
      *             variable.
      */
     @Deprecated
-    public Clause() {
-    }
+    public Clause() {}
 
     /** @return tag */
     public String getTag() {

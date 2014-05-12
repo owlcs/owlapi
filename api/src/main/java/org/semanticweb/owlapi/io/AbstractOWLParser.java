@@ -160,8 +160,8 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
             ZipInputStream zis = new ZipInputStream(is);
             ZipEntry entry = null;
             ZipEntry nextEntry = zis.getNextEntry();
-            while (entry!=null && nextEntry!=null) {
-                if ( couldBeOntology(nextEntry)) {
+            while (entry != null && nextEntry != null) {
+                if (couldBeOntology(nextEntry)) {
                     entry = nextEntry;
                 }
                 nextEntry = zis.getNextEntry();

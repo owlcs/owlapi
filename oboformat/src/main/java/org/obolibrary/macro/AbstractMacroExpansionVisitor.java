@@ -172,8 +172,8 @@ public abstract class AbstractMacroExpansionVisitor extends
 
     @Override
     public OWLClassExpression visit(@Nonnull OWLObjectComplementOf ce) {
-        return dataFactory.getOWLObjectComplementOf(ce.getOperand().accept(
-                this));
+        return dataFactory.getOWLObjectComplementOf(ce.getOperand()
+                .accept(this));
     }
 
     @Nonnull
@@ -207,8 +207,7 @@ public abstract class AbstractMacroExpansionVisitor extends
             result = expandOWLObjHasVal(ce, filler, p);
         }
         if (result == null) {
-            result = dataFactory.getOWLObjectHasValue(ce.getProperty(),
-                    filler);
+            result = dataFactory.getOWLObjectHasValue(ce.getProperty(), filler);
         }
         return result;
     }

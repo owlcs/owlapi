@@ -291,8 +291,8 @@ public class NNF extends OWLDataVisitorExAdapter<OWLDataRange> implements
     public OWLClassExpression visit(OWLDataSomeValuesFrom ce) {
         OWLDataRange filler = ce.getFiller().accept(this);
         if (negated) {
-            return dataFactory.getOWLDataAllValuesFrom(ce.getProperty(),
-                    filler);
+            return dataFactory
+                    .getOWLDataAllValuesFrom(ce.getProperty(), filler);
         } else {
             return dataFactory.getOWLDataSomeValuesFrom(ce.getProperty(),
                     filler);
@@ -306,8 +306,8 @@ public class NNF extends OWLDataVisitorExAdapter<OWLDataRange> implements
             return dataFactory.getOWLDataSomeValuesFrom(ce.getProperty(),
                     filler);
         } else {
-            return dataFactory.getOWLDataAllValuesFrom(ce.getProperty(),
-                    filler);
+            return dataFactory
+                    .getOWLDataAllValuesFrom(ce.getProperty(), filler);
         }
     }
 
@@ -332,11 +332,11 @@ public class NNF extends OWLDataVisitorExAdapter<OWLDataRange> implements
         OWLDataRange filler = ce.getFiller().accept(this);
         OWLClassExpression nnf = null;
         if (neg) {
-            nnf = dataFactory.getOWLDataMinCardinality(card,
-                    ce.getProperty(), filler);
+            nnf = dataFactory.getOWLDataMinCardinality(card, ce.getProperty(),
+                    filler);
         } else {
-            nnf = dataFactory.getOWLDataMaxCardinality(card,
-                    ce.getProperty(), filler);
+            nnf = dataFactory.getOWLDataMaxCardinality(card, ce.getProperty(),
+                    filler);
         }
         negated = neg;
         return nnf;
@@ -356,11 +356,11 @@ public class NNF extends OWLDataVisitorExAdapter<OWLDataRange> implements
         OWLDataRange filler = ce.getFiller().accept(this);
         OWLClassExpression nnf = null;
         if (neg) {
-            nnf = dataFactory.getOWLDataMaxCardinality(card,
-                    ce.getProperty(), filler);
+            nnf = dataFactory.getOWLDataMaxCardinality(card, ce.getProperty(),
+                    filler);
         } else {
-            nnf = dataFactory.getOWLDataMinCardinality(card,
-                    ce.getProperty(), filler);
+            nnf = dataFactory.getOWLDataMinCardinality(card, ce.getProperty(),
+                    filler);
         }
         negated = neg;
         return nnf;

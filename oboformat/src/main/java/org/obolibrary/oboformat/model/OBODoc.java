@@ -36,8 +36,7 @@ public class OBODoc {
     protected Collection<OBODoc> importedOBODocs = new LinkedList<OBODoc>();
 
     /** default constructor. */
-    public OBODoc() {
-    }
+    public OBODoc() {}
 
     /** @return the header frame */
     public Frame getHeaderFrame() {
@@ -293,7 +292,7 @@ public class OBODoc {
      * @return IRI prefix as string
      */
     @Nullable
-    public static String getIDSpace (@Nonnull String prefix) {
+    public static String getIDSpace(@Nonnull String prefix) {
         // built-in
         if (prefix.equals("RO")) {
             return "http://purl.obolibrary.org/obo/RO_";
@@ -307,7 +306,7 @@ public class OBODoc {
      *        the prefix
      * @return true, if is treat xrefs as equivalent
      */
-    public static boolean isTreatXrefsAsEquivalent (@Nullable String prefix) {
+    public static boolean isTreatXrefsAsEquivalent(@Nullable String prefix) {
         if ("RO".equals(prefix)) {
             return true;
         }

@@ -145,7 +145,7 @@ public class TripleLogger {
      * @param id
      *        log ontology id
      */
-    public static void logOntologyID (OWLOntologyID id) {
+    public static void logOntologyID(OWLOntologyID id) {
         log.debug("Loaded {}", id);
     }
 }

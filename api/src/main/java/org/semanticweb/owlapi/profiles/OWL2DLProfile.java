@@ -332,10 +332,8 @@ public class OWL2DLProfile implements OWLProfile {
             }
             if (getCurrentOntology().containsDatatypeInSignature(ce.getIRI(),
                     EXCLUDED)) {
-                profileViolations
-                        .add(new DatatypeIRIAlsoUsedAsClassIRI(
-                                getCurrentOntology(), getCurrentAxiom(), ce
-                                        .getIRI()));
+                profileViolations.add(new DatatypeIRIAlsoUsedAsClassIRI(
+                        getCurrentOntology(), getCurrentAxiom(), ce.getIRI()));
             }
         }
 
@@ -354,7 +352,8 @@ public class OWL2DLProfile implements OWLProfile {
                     if (!node.isTopDatatype()) {
                         if (node.getIRI().isReservedVocabulary()) {
                             profileViolations.add(new UseOfUnknownDatatype(
-                                    getCurrentOntology(), getCurrentAxiom(), node));
+                                    getCurrentOntology(), getCurrentAxiom(),
+                                    node));
                         }
                     }
                 }
@@ -368,11 +367,12 @@ public class OWL2DLProfile implements OWLProfile {
                             getCurrentOntology(), getCurrentAxiom(), node));
                 }
             }
-            if (getCurrentOntology().containsClassInSignature(
-                    node.getIRI(), INCLUDED)) {
-                profileViolations.add(new DatatypeIRIAlsoUsedAsClassIRI(
-                        getCurrentOntology(), getCurrentAxiom(), node
-                                .getIRI()));
+            if (getCurrentOntology().containsClassInSignature(node.getIRI(),
+                    INCLUDED)) {
+                profileViolations
+                        .add(new DatatypeIRIAlsoUsedAsClassIRI(
+                                getCurrentOntology(), getCurrentAxiom(), node
+                                        .getIRI()));
             }
         }
 

@@ -51,7 +51,8 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     }
 
     @Nonnull
-    protected static List<? extends OWLObject> sort (@Nonnull Collection<? extends OWLObject> objects) {
+    protected static List<? extends OWLObject> sort(
+            @Nonnull Collection<? extends OWLObject> objects) {
         List<? extends OWLObject> sortedObjects = new ArrayList<OWLObject>(
                 objects);
         Collections.sort(sortedObjects);
