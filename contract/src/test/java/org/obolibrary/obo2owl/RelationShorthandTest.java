@@ -28,52 +28,45 @@ public class RelationShorthandTest extends OboFormatTestBasics {
         // PARSE TEST FILE, CONVERT TO OWL, AND WRITE TO OWL FILE
         OWLOntology ontology = convert(parseOBOFile("relation_shorthand_test.obo"));
         // TEST CONTENTS OF OWL ONTOLOGY
-        if (true) {
-            Set<OWLSubClassOfAxiom> scas = ontology
-                    .getAxioms(AxiomType.SUBCLASS_OF);
-            boolean ok = false;
-            for (OWLSubClassOfAxiom sca : scas) {
-                OWLClassExpression sup = sca.getSuperClass();
-                if (sup instanceof OWLObjectSomeValuesFrom) {
-                    OWLObjectProperty p = (OWLObjectProperty) ((OWLObjectSomeValuesFrom) sup)
-                            .getProperty();
-                    OWLClass v = (OWLClass) ((OWLObjectSomeValuesFrom) sup)
-                            .getFiller();
-                    if (p.getIRI()
-                            .toString()
-                            .equals("http://purl.obolibrary.org/obo/BFO_0000051")
-                            && v.getIRI()
-                                    .toString()
-                                    .equals("http://purl.obolibrary.org/obo/GO_0004055")) {
-                        ok = true;
-                    }
+        Set<OWLSubClassOfAxiom> scas = ontology
+                .getAxioms(AxiomType.SUBCLASS_OF);
+        boolean ok = false;
+        for (OWLSubClassOfAxiom sca : scas) {
+            OWLClassExpression sup = sca.getSuperClass();
+            if (sup instanceof OWLObjectSomeValuesFrom) {
+                OWLObjectProperty p = (OWLObjectProperty) ((OWLObjectSomeValuesFrom) sup)
+                        .getProperty();
+                OWLClass v = (OWLClass) ((OWLObjectSomeValuesFrom) sup)
+                        .getFiller();
+                if (p.getIRI().toString()
+                        .equals("http://purl.obolibrary.org/obo/BFO_0000051")
+                        && v.getIRI()
+                                .toString()
+                                .equals("http://purl.obolibrary.org/obo/GO_0004055")) {
+                    ok = true;
                 }
             }
-            assertTrue(ok);
         }
-        if (true) {
-            Set<OWLSubClassOfAxiom> scas = ontology
-                    .getAxioms(AxiomType.SUBCLASS_OF);
-            boolean ok = false;
-            for (OWLSubClassOfAxiom sca : scas) {
-                OWLClassExpression sup = sca.getSuperClass();
-                if (sup instanceof OWLObjectSomeValuesFrom) {
-                    OWLObjectProperty p = (OWLObjectProperty) ((OWLObjectSomeValuesFrom) sup)
-                            .getProperty();
-                    OWLClass v = (OWLClass) ((OWLObjectSomeValuesFrom) sup)
-                            .getFiller();
-                    if (p.getIRI()
-                            .toString()
-                            .equals("http://purl.obolibrary.org/obo/BFO_0000050")
-                            && v.getIRI()
-                                    .toString()
-                                    .equals("http://purl.obolibrary.org/obo/XX_0000001")) {
-                        ok = true;
-                    }
+        assertTrue(ok);
+        scas = ontology.getAxioms(AxiomType.SUBCLASS_OF);
+        ok = false;
+        for (OWLSubClassOfAxiom sca : scas) {
+            OWLClassExpression sup = sca.getSuperClass();
+            if (sup instanceof OWLObjectSomeValuesFrom) {
+                OWLObjectProperty p = (OWLObjectProperty) ((OWLObjectSomeValuesFrom) sup)
+                        .getProperty();
+                OWLClass v = (OWLClass) ((OWLObjectSomeValuesFrom) sup)
+                        .getFiller();
+                if (p.getIRI().toString()
+                        .equals("http://purl.obolibrary.org/obo/BFO_0000050")
+                        && v.getIRI()
+                                .toString()
+                                .equals("http://purl.obolibrary.org/obo/XX_0000001")) {
+                    ok = true;
                 }
             }
-            assertTrue(ok);
         }
+        assertTrue(ok);
         // CONVERT BACK TO OBO
         OBODoc obodoc = convert(ontology);
         // test that relation IDs are converted back to symbolic form

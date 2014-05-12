@@ -44,7 +44,6 @@ public class OBOFormatStorer extends AbstractOWLOntologyStorer {
     protected void storeOntology(@Nonnull OWLOntology ontology,
             @Nonnull Writer writer, OWLOntologyFormat format)
             throws OWLOntologyStorageException {
-        OBOFormatRenderer renderer = new OBOFormatRenderer();
-        renderer.render(ontology, writer);
+        OBOFormatRenderer.render(ontology, writer);
     }
 }

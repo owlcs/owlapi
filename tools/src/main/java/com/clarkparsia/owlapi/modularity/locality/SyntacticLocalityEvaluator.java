@@ -433,55 +433,50 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         public void visit(OWLDisjointUnionAxiom axiom) {
             OWLClass lhs = axiom.getOWLClass();
             Collection<OWLClassExpression> rhs = axiom.getClassExpressions();
-            switch (localityCls) {
-                case BOTTOM_BOTTOM:
-                    // TODO (TS): "!signature.contains(lhs)" is not enough
-                    // because lhs could be bot
-                    if (!getSignature().contains(lhs)) {
-                        for (OWLClassExpression desc : rhs) {
-                            assert desc != null;
-                            if (!bottomEvaluator.isBottomEquivalent(desc,
-                                    getSignature(), localityCls)) {
+            if (localityCls== LocalityClass.BOTTOM_BOTTOM) {
+                // TODO (TS): "!signature.contains(lhs)" is not enough
+                // because lhs could be bot
+                if (!getSignature().contains(lhs)) {
+                    for (OWLClassExpression desc : rhs) {
+                        assert desc != null;
+                        if (!bottomEvaluator.isBottomEquivalent(desc, getSignature(), localityCls)) {
+                            isLocal = false;
+                            return;
+                        }
+                    }
+                    isLocal = true;
+                } else {
+                    isLocal = false;
+                }
+
+            }else {
+                // case TOP_BOTTOM:
+                // case TOP_TOP:
+                // TODO (TS): "!signature.contains(lhs)" is not enough
+                // because lhs could be top
+                if (!getSignature().contains(lhs)) {
+                    boolean topEquivDescFound = false;
+                    for (OWLClassExpression desc : rhs) {
+                        assert desc != null;
+                        if (!bottomEvaluator.isBottomEquivalent(desc, getSignature(), localityCls)) {
+                            if (topEvaluator.isTopEquivalent(desc, getSignature(), localityCls)) {
+                                if (topEquivDescFound) {
+                                    isLocal = false;
+                                    return;
+                                } else {
+                                    topEquivDescFound = true;
+                                }
+                            } else {
                                 isLocal = false;
                                 return;
                             }
                         }
-                        isLocal = true;
-                    } else {
-                        isLocal = false;
                     }
-                    break;
-                case TOP_BOTTOM:
-                case TOP_TOP:
-                    // TODO (TS): "!signature.contains(lhs)" is not enough
-                    // because lhs could be top
-                    if (!getSignature().contains(lhs)) {
-                        boolean topEquivDescFound = false;
-                        for (OWLClassExpression desc : rhs) {
-                            assert desc != null;
-                            if (!bottomEvaluator.isBottomEquivalent(desc,
-                                    getSignature(), localityCls)) {
-                                if (topEvaluator.isTopEquivalent(desc,
-                                        getSignature(), localityCls)) {
-                                    if (topEquivDescFound) {
-                                        isLocal = false;
-                                        return;
-                                    } else {
-                                        topEquivDescFound = true;
-                                    }
-                                } else {
-                                    isLocal = false;
-                                    return;
-                                }
-                            }
-                        }
-                        isLocal = true;
-                    } else {
-                        isLocal = false;
-                    }
-                    break;
-                default:
-                    break;
+                    isLocal = true;
+                } else {
+                    isLocal = false;
+                }
+
             }
         }
 

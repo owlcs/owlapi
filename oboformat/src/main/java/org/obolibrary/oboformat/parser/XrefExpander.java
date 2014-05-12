@@ -2,9 +2,7 @@ package org.obolibrary.oboformat.parser;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 import javax.annotation.Nonnull;
 
@@ -21,7 +19,8 @@ import org.slf4j.LoggerFactory;
 /** xref expander */
 public class XrefExpander {
 
-    protected static final Logger LOG = LoggerFactory.getLogger(XrefExpander.class);
+    protected static final Logger LOG = LoggerFactory
+            .getLogger(XrefExpander.class);
     OBODoc sourceOBODoc;
     OBODoc targetOBODoc;
     String targetBase;
@@ -148,7 +147,7 @@ public class XrefExpander {
                         try {
                             tgt.addTypedefFrame(tdf);
                         } catch (FrameMergeException e) {
-                            LOG.debug("frame merge failed",e);
+                            LOG.debug("frame merge failed", e);
                         }
                     }
                 }

@@ -161,7 +161,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
 
     @Override
     public boolean equals(Object obj) {
-        return obj == this || obj != null && obj instanceof OWLObject;
+        return obj == this || obj instanceof OWLObject;
     }
 
     @Override

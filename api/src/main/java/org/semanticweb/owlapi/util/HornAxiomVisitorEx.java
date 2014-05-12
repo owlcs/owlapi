@@ -55,9 +55,17 @@ public class HornAxiomVisitorEx extends OWLAxiomVisitorExAdapter<Boolean> {
     }
 
     @Nonnull
-    protected final PositiveAppearanceVisitorEx positive = new PositiveAppearanceVisitorEx();
+    private final PositiveAppearanceVisitorEx positive = new PositiveAppearanceVisitorEx();
     @Nonnull
-    protected final NegativeAppearanceVisitorEx negative = new NegativeAppearanceVisitorEx();
+    private final NegativeAppearanceVisitorEx negative = new NegativeAppearanceVisitorEx();
+
+    protected boolean checkNegative(OWLClassExpression c) {
+        return c.accept(negative).booleanValue();
+    }
+
+    protected boolean checkPositive(OWLClassExpression c) {
+        return c.accept(positive).booleanValue();
+    }
 
     /** default constructor */
     public HornAxiomVisitorEx() {
@@ -81,14 +89,14 @@ public class HornAxiomVisitorEx extends OWLAxiomVisitorExAdapter<Boolean> {
 
     @Override
     public Boolean visit(@Nonnull OWLSubClassOfAxiom axiom) {
-        return b(axiom.getSubClass().accept(negative).booleanValue()
-                && axiom.getSuperClass().accept(positive).booleanValue());
+        return b(checkNegative(axiom.getSubClass())
+                && checkNegative(axiom.getSuperClass()));
     }
 
     @Override
     public Boolean visit(OWLDisjointClassesAxiom axiom) {
         for (OWLClassExpression c : axiom.getClassExpressions()) {
-            if (!c.accept(negative).booleanValue()) {
+            if (!checkNegative(c)) {
                 return b(false);
             }
         }
@@ -97,7 +105,7 @@ public class HornAxiomVisitorEx extends OWLAxiomVisitorExAdapter<Boolean> {
 
     @Override
     public Boolean visit(OWLObjectPropertyDomainAxiom axiom) {
-        return axiom.getDomain().accept(positive);
+        return b(checkPositive(axiom.getDomain()));
     }
 
     @Override
@@ -107,7 +115,7 @@ public class HornAxiomVisitorEx extends OWLAxiomVisitorExAdapter<Boolean> {
 
     @Override
     public Boolean visit(OWLObjectPropertyRangeAxiom axiom) {
-        return axiom.getRange().accept(positive);
+        return b(checkPositive(axiom.getRange()));
     }
 
     @Override
@@ -123,13 +131,11 @@ public class HornAxiomVisitorEx extends OWLAxiomVisitorExAdapter<Boolean> {
     @Override
     public Boolean visit(OWLDisjointUnionAxiom axiom) {
         OWLClassExpression c1 = axiom.getOWLClass();
-        if (!c1.accept(positive).booleanValue()
-                || !c1.accept(negative).booleanValue()) {
+        if (!checkPositive(c1) || !checkNegative(c1)) {
             return b(false);
         }
         for (OWLClassExpression c : axiom.getClassExpressions()) {
-            if (!c.accept(positive).booleanValue()
-                    || !c.accept(negative).booleanValue()) {
+            if (!checkPositive(c) || !checkNegative(c)) {
                 return b(false);
             }
         }
@@ -154,8 +160,7 @@ public class HornAxiomVisitorEx extends OWLAxiomVisitorExAdapter<Boolean> {
     @Override
     public Boolean visit(OWLEquivalentClassesAxiom axiom) {
         for (OWLClassExpression c : axiom.getClassExpressions()) {
-            if (!c.accept(positive).booleanValue()
-                    || !c.accept(negative).booleanValue()) {
+            if (!checkPositive(c) || !checkNegative(c)) {
                 return b(false);
             }
         }
@@ -192,7 +197,7 @@ public class HornAxiomVisitorEx extends OWLAxiomVisitorExAdapter<Boolean> {
         @Override
         public Boolean visit(OWLObjectIntersectionOf ce) {
             for (OWLClassExpression c : ce.getOperands()) {
-                if (c.accept(this).equals( Boolean.FALSE)) {
+                if (c.accept(this).equals(Boolean.FALSE)) {
                     return b(false);
                 }
             }
@@ -201,7 +206,7 @@ public class HornAxiomVisitorEx extends OWLAxiomVisitorExAdapter<Boolean> {
 
         @Override
         public Boolean visit(OWLObjectComplementOf ce) {
-            return ce.getOperand().accept(negative);
+            return b(checkNegative(ce.getOperand()));
         }
 
         @Override
@@ -223,13 +228,12 @@ public class HornAxiomVisitorEx extends OWLAxiomVisitorExAdapter<Boolean> {
         public Boolean visit(OWLObjectExactCardinality ce) {
             return b(ce.getCardinality() <= 1
                     && ce.getFiller().accept(this).booleanValue()
-                    && ce.getFiller().accept(negative).booleanValue());
+                    && checkNegative(ce.getFiller()));
         }
 
         @Override
         public Boolean visit(OWLObjectMaxCardinality ce) {
-            return b(ce.getCardinality() <= 1
-                    && ce.getFiller().accept(negative).booleanValue());
+            return b(ce.getCardinality() <= 1 && checkNegative(ce.getFiller()));
         }
     }
 

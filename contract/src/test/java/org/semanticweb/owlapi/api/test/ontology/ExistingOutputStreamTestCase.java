@@ -29,7 +29,6 @@ import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
-import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
 
 /**
  * API writers/storers/renderers should not close streams if they didn't open

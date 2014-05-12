@@ -32,7 +32,6 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.owlxml.parser.OWLXMLParser;
 
 @SuppressWarnings("javadoc")

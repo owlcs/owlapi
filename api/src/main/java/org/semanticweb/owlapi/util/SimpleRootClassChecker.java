@@ -83,7 +83,7 @@ public class SimpleRootClassChecker implements RootClassChecker {
     @Nonnull
     private final RootClassCheckerHelper checker = new RootClassCheckerHelper();
     @Nonnull
-    protected final NamedSuperChecker superChecker = new NamedSuperChecker();
+    private final NamedSuperChecker superChecker = new NamedSuperChecker();
 
     @Override
     public boolean isRootClass(OWLClass cls) {
@@ -126,6 +126,12 @@ public class SimpleRootClassChecker implements RootClassChecker {
         }
     }
 
+    protected boolean check(OWLClassExpression e) {
+        superChecker.reset();
+        e.accept(superChecker);
+        return !superChecker.namedSuper;
+    }
+
     /**
      * A utility class that checks if an axiom gives rise to a class being a
      * subclass of Thing.
@@ -153,9 +159,7 @@ public class SimpleRootClassChecker implements RootClassChecker {
         @Override
         public void visit(OWLSubClassOfAxiom axiom) {
             if (axiom.getSubClass().equals(cls)) {
-                superChecker.reset();
-                axiom.getSuperClass().accept(superChecker);
-                isRoot = !superChecker.namedSuper;
+                isRoot = check(axiom.getSuperClass());
             }
         }
 
@@ -165,18 +169,18 @@ public class SimpleRootClassChecker implements RootClassChecker {
             if (!descs.contains(cls)) {
                 return;
             }
+            boolean check = false;
             for (OWLClassExpression desc : descs) {
                 if (desc.equals(cls)) {
                     continue;
                 }
-                superChecker.reset();
-                desc.accept(superChecker);
-                if (superChecker.namedSuper) {
+                check = check(desc);
+                if (check) {
                     isRoot = false;
                     return;
                 }
             }
-            isRoot = !superChecker.namedSuper;
+            isRoot = check;
         }
     }
 }

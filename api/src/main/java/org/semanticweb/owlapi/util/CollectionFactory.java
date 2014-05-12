@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -27,16 +25,13 @@ import java.util.Map;
 import java.util.Set;
 import java.util.WeakHashMap;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -201,13 +196,10 @@ public class CollectionFactory {
      * @param <T>
      *        axiom type
      */
+    @SuppressWarnings("null")
     @Nonnull
     public static <T> Set<T> createSet(@Nonnull T... elements) {
-        Set<T> result = createSet();
-        for (T t : elements) {
-            result.add(t);
-        }
-        return result;
+        return Sets.newHashSet(elements);
     }
 
     /**
@@ -244,151 +236,6 @@ public class CollectionFactory {
     @Nonnull
     public static <K, V> ConcurrentHashMap<K, V> createSyncMap() {
         return new ConcurrentHashMap<K, V>(16, 0.75F, expectedThreads.get());
-    }
-
-    /**
-     * this class implements a Set using a ConcurrentHashMap as backing
-     * structure; compared to the default HashSet implementation, this structure
-     * is threadsafe without being completely synchronized, so it offers better
-     * performances.
-     * 
-     * @param <T>
-     *        type of collection
-     */
-    private static class SyncSet<T> implements Set<T> {
-
-        private final ConcurrentHashMap<T, Set<T>> backingMap;
-
-        SyncSet(ConcurrentHashMap<T, Set<T>> map) {
-            backingMap = map;
-        }
-
-        SyncSet() {
-            this(new ConcurrentHashMap<T, Set<T>>());
-        }
-
-        SyncSet(@Nonnull Collection<T> delegate) {
-            this();
-            for (T d : delegate) {
-                add(d);
-            }
-        }
-
-        @Override
-        public boolean add(T e) {
-            return backingMap.put(e, this) == null;
-        }
-
-        @Override
-        public boolean addAll(Collection<? extends T> c) {
-            boolean toReturn = false;
-            for (T o : c) {
-                toReturn = toReturn || add(o);
-            }
-            return toReturn;
-        }
-
-        @Override
-        public void clear() {
-            backingMap.clear();
-        }
-
-        @Override
-        public boolean contains(Object o) {
-            return backingMap.containsKey(o);
-        }
-
-        @Override
-        public boolean containsAll(Collection<?> c) {
-            boolean toReturn = true;
-            for (Object o : c) {
-                toReturn = toReturn && contains(o);
-                if (!toReturn) {
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        @Override
-        public boolean isEmpty() {
-            return backingMap.isEmpty();
-        }
-
-        @SuppressWarnings("null")
-        @Nonnull
-        @Override
-        public Iterator<T> iterator() {
-            return backingMap.keySet().iterator();
-        }
-
-        @Override
-        public int size() {
-            return backingMap.size();
-        }
-
-        @Override
-        public boolean remove(Object o) {
-            return backingMap.remove(o) != null;
-        }
-
-        @Override
-        public boolean removeAll(Collection<?> c) {
-            boolean toReturn = false;
-            for (Object o : c) {
-                toReturn = toReturn || remove(o);
-            }
-            return toReturn;
-        }
-
-        @Override
-        public boolean retainAll(Collection<?> c) {
-            boolean toReturn = false;
-            for (Map.Entry<T, Set<T>> e : backingMap.entrySet()) {
-                if (!c.contains(e.getKey())) {
-                    toReturn = true;
-                    backingMap.remove(e.getKey());
-                }
-            }
-            return toReturn;
-        }
-
-        @SuppressWarnings("null")
-        @Nonnull
-        @Override
-        public Object[] toArray() {
-            return backingMap.keySet().toArray();
-        }
-
-        @SuppressWarnings("null")
-        @Nonnull
-        @Override
-        public <A> A[] toArray(A[] a) {
-            return backingMap.keySet().toArray(a);
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (obj == null) {
-                return false;
-            }
-            if (this == obj) {
-                return true;
-            }
-            if (obj instanceof SyncSet) {
-                return backingMap.keySet().equals(
-                        ((SyncSet<?>) obj).backingMap.keySet());
-            }
-            if (obj instanceof Collection) {
-                return new HashSet<T>(this).equals(obj);
-            }
-            return false;
-        }
-
-        @Override
-        public int hashCode() {
-            return backingMap.hashCode();
-        }
     }
 
     /**
@@ -435,19 +282,6 @@ public class CollectionFactory {
             return emptySet();
         }
         return new ConditionalCopySet<T>(source, false);
-    }
-
-    /**
-     * @param source
-     *        initial values
-     * @return a threadsafe copy on request set
-     * @param <T>
-     *        axiom type
-     */
-    @Nonnull
-    public static <T> Set<T> getThreadSafeCopyOnRequestSet(
-            @Nonnull Set<T> source) {
-        return new ThreadSafeConditionalCopySet<T>(source);
     }
 
     /**
@@ -636,276 +470,6 @@ public class CollectionFactory {
         @Override
         public <Type> Type[] toArray(Type[] a) {
             return delegate.toArray(a);
-        }
-    }
-
-    /**
-     * this class behaves like ConditionalCopySet except it is designed to be
-     * threadsafe; multiple thread access is regulated by a readwritelock;
-     * modifications will create a copy based on SyncSet.
-     * 
-     * @param <T>
-     *        the type contained
-     */
-    public static class ThreadSafeConditionalCopySet<T> implements Set<T> {
-
-        private static final int maxContains = 10;
-        private final AtomicBoolean copyDone = new AtomicBoolean(false);
-        @Nonnull
-        private Collection<T> delegate;
-        private final ReadWriteLock lock = new ReentrantReadWriteLock();
-        private final Lock readLock = lock.readLock();
-        private final Lock writeLock = lock.writeLock();
-        private final AtomicInteger containsCounter = new AtomicInteger(0);
-
-        /**
-         * @param source
-         *        initial values
-         */
-        public ThreadSafeConditionalCopySet(@Nonnull Collection<T> source) {
-            delegate = new ArrayList<T>(checkNotNull(source));
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            try {
-                readLock.lock();
-                if (obj == null) {
-                    return false;
-                }
-                if (this == obj) {
-                    return true;
-                }
-                if (obj instanceof ConditionalCopySet) {
-                    return delegate
-                            .equals(((ConditionalCopySet<?>) obj).delegate);
-                }
-                if (obj instanceof Set) {
-                    return delegate.equals(obj);
-                }
-                return false;
-            } finally {
-                readLock.unlock();
-            }
-        }
-
-        @Override
-        public int hashCode() {
-            try {
-                readLock.lock();
-                return delegate.hashCode();
-            } finally {
-                readLock.unlock();
-            }
-        }
-
-        @Override
-        public boolean add(T e) {
-            try {
-                writeLock.lock();
-                if (!copyDone.getAndSet(true)) {
-                    delegate = new SyncSet<T>(delegate);
-                }
-                return delegate.add(e);
-            } finally {
-                writeLock.unlock();
-            }
-        }
-
-        @Override
-        public boolean addAll(Collection<? extends T> c) {
-            try {
-                writeLock.lock();
-                if (!copyDone.getAndSet(true)) {
-                    delegate = new SyncSet<T>(delegate);
-                }
-                return delegate.addAll(c);
-            } finally {
-                writeLock.unlock();
-            }
-        }
-
-        @Override
-        public void clear() {
-            try {
-                writeLock.lock();
-                if (!copyDone.getAndSet(true)) {
-                    delegate = new SyncSet<T>();
-                }
-                delegate.clear();
-            } finally {
-                writeLock.unlock();
-            }
-        }
-
-        @Override
-        public boolean contains(Object o) {
-            /*
-             * note: the check on the number of contains and on the copyDone
-             * flag is intentionally not made inside a lock; these operations
-             * will not stop other threads from accessing the collection, and
-             * the lack of synchronization means that a few contains/containsAll
-             * calls might not be recorded; the result is that the copy
-             * optimization would be delayed. This is not an issue, since
-             * maxContains is only a rough estimate.
-             */
-            if (containsCounter.incrementAndGet() >= maxContains
-                    && !copyDone.get()) {
-                try {
-                    writeLock.lock();
-                    // many calls to contains, inefficient if the delegate
-                    // is not a set
-                    // copyDone is doublechecked, but here it's protected by
-                    // the write
-                    // lock as in all other instances in which its value is
-                    // changed
-                    if (!(delegate instanceof Set)) {
-                        if (!copyDone.getAndSet(true)) {
-                            delegate = new SyncSet<T>(delegate);
-                        }
-                    }
-                    // skip the second portion of the method: no need to
-                    // reacquire
-                    // the lock, it's already a write lock
-                    return delegate.contains(o);
-                } finally {
-                    writeLock.unlock();
-                }
-            }
-            try {
-                readLock.lock();
-                return delegate.contains(o);
-            } finally {
-                readLock.unlock();
-            }
-        }
-
-        @Override
-        public boolean containsAll(Collection<?> c) {
-            if (containsCounter.incrementAndGet() >= maxContains
-                    && !copyDone.get()) {
-                try {
-                    writeLock.lock();
-                    // many calls to contains, inefficient if the delegate
-                    // is not a set
-                    // copyDone is doublechecked, but here it's protected by
-                    // the write
-                    // lock as in all other instances in which its value is
-                    // changed
-                    if (!(delegate instanceof Set)) {
-                        if (!copyDone.getAndSet(true)) {
-                            delegate = new SyncSet<T>(delegate);
-                        }
-                    }
-                    // skip the second portion of the method: no need to
-                    // reacquire
-                    // the lock, it's already a write lock
-                    return delegate.containsAll(c);
-                } finally {
-                    writeLock.unlock();
-                }
-            }
-            try {
-                readLock.lock();
-                return delegate.containsAll(c);
-            } finally {
-                readLock.unlock();
-            }
-        }
-
-        @Override
-        public boolean isEmpty() {
-            try {
-                readLock.lock();
-                return delegate.isEmpty();
-            } finally {
-                readLock.unlock();
-            }
-        }
-
-        @SuppressWarnings("null")
-        @Nonnull
-        @Override
-        public Iterator<T> iterator() {
-            try {
-                readLock.lock();
-                return delegate.iterator();
-            } finally {
-                readLock.unlock();
-            }
-        }
-
-        @Override
-        public boolean remove(Object o) {
-            try {
-                writeLock.lock();
-                if (!copyDone.getAndSet(true)) {
-                    delegate = new SyncSet<T>(delegate);
-                }
-                return delegate.remove(o);
-            } finally {
-                writeLock.unlock();
-            }
-        }
-
-        @Override
-        public boolean removeAll(Collection<?> c) {
-            try {
-                writeLock.lock();
-                if (!copyDone.getAndSet(true)) {
-                    delegate = new SyncSet<T>(delegate);
-                }
-                return delegate.removeAll(c);
-            } finally {
-                writeLock.unlock();
-            }
-        }
-
-        @Override
-        public boolean retainAll(Collection<?> c) {
-            try {
-                writeLock.lock();
-                if (!copyDone.getAndSet(true)) {
-                    delegate = new SyncSet<T>(delegate);
-                }
-                return delegate.retainAll(c);
-            } finally {
-                writeLock.unlock();
-            }
-        }
-
-        @Override
-        public int size() {
-            try {
-                readLock.lock();
-                return delegate.size();
-            } finally {
-                readLock.unlock();
-            }
-        }
-
-        @SuppressWarnings("null")
-        @Nonnull
-        @Override
-        public Object[] toArray() {
-            try {
-                readLock.lock();
-                return delegate.toArray();
-            } finally {
-                readLock.unlock();
-            }
-        }
-
-        @SuppressWarnings("null")
-        @Nonnull
-        @Override
-        public <Type> Type[] toArray(Type[] a) {
-            try {
-                readLock.lock();
-                return delegate.toArray(a);
-            } finally {
-                readLock.unlock();
-            }
         }
     }
 }

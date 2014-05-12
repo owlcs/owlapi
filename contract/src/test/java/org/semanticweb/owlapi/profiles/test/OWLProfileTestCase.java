@@ -21,7 +21,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.annotation.Nonnull;
 
@@ -29,7 +28,6 @@ import org.junit.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
@@ -178,7 +176,8 @@ public class OWLProfileTestCase {
             violation.accept(new OWLProfileViolationVisitorExAdapter<String>() {
 
                 @Override
-                protected String doDefault(@Nonnull OWLProfileViolation<?> object) {
+                protected String doDefault(
+                        @Nonnull OWLProfileViolation<?> object) {
                     return object.toString();
                 }
             });
@@ -215,8 +214,7 @@ public class OWLProfileTestCase {
         m.addAxiom(o, DatatypeDefinition(Integer(), fakedatatype));
         OWL2DLProfile profile = new OWL2DLProfile();
         int expected = 4;
-        Class[] expectedViolations = {
-                CycleInDatatypeDefinition.class,
+        Class[] expectedViolations = { CycleInDatatypeDefinition.class,
                 CycleInDatatypeDefinition.class,
                 UseOfBuiltInDatatypeInDatatypeDefinition.class,
                 UseOfBuiltInDatatypeInDatatypeDefinition.class };
@@ -239,8 +237,7 @@ public class OWLProfileTestCase {
         m.addAxiom(o, DatatypeDefinition(fakedatatype, Integer()));
         m.addAxiom(o, DatatypeDefinition(Integer(), fakedatatype));
         int expected = 9;
-        Class[] expectedViolations = {
-                CycleInDatatypeDefinition.class,
+        Class[] expectedViolations = { CycleInDatatypeDefinition.class,
                 CycleInDatatypeDefinition.class,
                 CycleInDatatypeDefinition.class,
                 CycleInDatatypeDefinition.class,
@@ -768,8 +765,7 @@ public class OWLProfileTestCase {
         m.addAxiom(o, DisjointObjectProperties(op));
         OWL2DLProfile profile = new OWL2DLProfile();
         int expected = 2;
-        Class[] expectedViolations = {
-                InsufficientPropertyExpressions.class,
+        Class[] expectedViolations = { InsufficientPropertyExpressions.class,
                 UseOfNonSimplePropertyInDisjointPropertiesAxiom.class };
         runAssert(o, profile, expected, expectedViolations);
     }
@@ -789,8 +785,7 @@ public class OWLProfileTestCase {
         m.addAxiom(o, SubPropertyChainOf(Arrays.asList(op1, op, op1, op), op));
         OWL2DLProfile profile = new OWL2DLProfile();
         int expected = 4;
-        Class[] expectedViolations = {
-                InsufficientPropertyExpressions.class,
+        Class[] expectedViolations = { InsufficientPropertyExpressions.class,
                 UseOfPropertyInChainCausesCycle.class,
                 UseOfPropertyInChainCausesCycle.class,
                 UseOfPropertyInChainCausesCycle.class };
@@ -806,8 +801,7 @@ public class OWLProfileTestCase {
                         .of(IRI("test1"))));
         OWL2Profile profile = new OWL2Profile();
         int expected = 2;
-        Class[] expectedViolations = {
-                OntologyIRINotAbsolute.class,
+        Class[] expectedViolations = { OntologyIRINotAbsolute.class,
                 OntologyVersionIRINotAbsolute.class };
         runAssert(o, profile, expected, expectedViolations);
     }
@@ -1384,8 +1378,7 @@ public class OWLProfileTestCase {
                         ObjectUnionOf(OWLThing(), OWLNothing())));
         OWL2QLProfile profile = new OWL2QLProfile();
         int expected = 2;
-        Class[] expectedViolations = {
-                UseOfNonSubClassExpression.class,
+        Class[] expectedViolations = { UseOfNonSubClassExpression.class,
                 UseOfNonSuperClassExpression.class };
         runAssert(o, profile, expected, expectedViolations);
     }
@@ -1920,8 +1913,7 @@ public class OWLProfileTestCase {
                         ObjectOneOf(NamedIndividual(IRI("urn:test#test")))));
         OWL2RLProfile profile = new OWL2RLProfile();
         int expected = 2;
-        Class[] expectedViolations = {
-                UseOfNonSubClassExpression.class,
+        Class[] expectedViolations = { UseOfNonSubClassExpression.class,
                 UseOfNonSuperClassExpression.class };
         runAssert(o, profile, expected, expectedViolations);
     }

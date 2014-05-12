@@ -92,7 +92,7 @@ public class OBODoc {
      */
     @Nullable
     public Frame getTermFrame(String id, boolean followImport) {
-        if (followImport == false) {
+        if (!followImport) {
             return termFrameMap.get(id);
         }
         // this set is used to check for cycles
@@ -146,7 +146,7 @@ public class OBODoc {
      */
     @Nullable
     public Frame getTypedefFrame(String id, boolean followImports) {
-        if (followImports == false) {
+        if (!followImports) {
             return typedefFrameMap.get(id);
         }
         // this set is used to check for cycles

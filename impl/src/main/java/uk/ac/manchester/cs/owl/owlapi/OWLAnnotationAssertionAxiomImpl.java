@@ -131,8 +131,7 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements
     @Override
     protected int compareObjectOfSameType(OWLObject object) {
         OWLAnnotationAssertionAxiom other = (OWLAnnotationAssertionAxiom) object;
-        int diff = 0;
-        diff = subject.compareTo(other.getSubject());
+        int diff = subject.compareTo(other.getSubject());
         if (diff != 0) {
             return diff;
         }

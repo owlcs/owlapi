@@ -149,8 +149,7 @@ public class ManchesterSyntaxTool {
     public Set<OntologyAxiomPair> parseManchesterExpressionFrames(
             @Nonnull String expression) {
         ManchesterOWLSyntaxEditorParser parser = createParser(expression);
-        Set<OntologyAxiomPair> set = parser.parseFrames();
-        return set;
+        return parser.parseFrames();
     }
 
     /**
@@ -165,8 +164,7 @@ public class ManchesterSyntaxTool {
     public OWLClassExpression parseManchesterExpression(
             @Nonnull String expression) {
         ManchesterOWLSyntaxEditorParser parser = createParser(expression);
-        OWLClassExpression ce = parser.parseClassExpression();
-        return ce;
+        return parser.parseClassExpression();
     }
 
     @Nonnull
@@ -340,7 +338,6 @@ public class ManchesterSyntaxTool {
          */
         @Nullable
         IRI getIRIByLabel(@Nonnull String label) {
-            IRI iri = null;
             for (OWLOntology o : ontologies) {
                 Set<OWLAnnotationAssertionAxiom> aas = o
                         .getAxioms(AxiomType.ANNOTATION_ASSERTION);
@@ -357,7 +354,7 @@ public class ManchesterSyntaxTool {
                     }
                 }
             }
-            return iri;
+            return null;
         }
 
         /**
@@ -395,9 +392,8 @@ public class ManchesterSyntaxTool {
         @Nullable
         OWLNamedIndividual getOWLIndividual(@Nonnull IRI iri) {
             for (OWLOntology o : ontologies) {
-                OWLDataFactory dataFactory = o.getOWLOntologyManager()
-                        .getOWLDataFactory();
-                OWLNamedIndividual c = dataFactory.getOWLNamedIndividual(iri);
+                OWLNamedIndividual c = o.getOWLOntologyManager()
+                        .getOWLDataFactory().getOWLNamedIndividual(iri);
                 for (OWLDeclarationAxiom da : o.getDeclarationAxioms(c)) {
                     if (da.getEntity() instanceof OWLNamedIndividual) {
                         return (OWLNamedIndividual) da.getEntity();
@@ -418,9 +414,8 @@ public class ManchesterSyntaxTool {
         @Nullable
         OWLObjectProperty getOWLObjectProperty(@Nonnull IRI iri) {
             for (OWLOntology o : ontologies) {
-                OWLDataFactory dataFactory = o.getOWLOntologyManager()
-                        .getOWLDataFactory();
-                OWLObjectProperty p = dataFactory.getOWLObjectProperty(iri);
+                OWLObjectProperty p = o.getOWLOntologyManager()
+                        .getOWLDataFactory().getOWLObjectProperty(iri);
                 if (!o.getDeclarationAxioms(p).isEmpty()) {
                     return p;
                 }

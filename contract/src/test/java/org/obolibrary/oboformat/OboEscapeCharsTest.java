@@ -41,8 +41,7 @@ public class OboEscapeCharsTest extends OboFormatTestBasics {
         OBODoc oboDoc2 = parseOboToString(oboToString);
         assertNotNull("There was an error during parsing of the obodoc",
                 oboDoc2);
-        OBODocDiffer differ = new OBODocDiffer();
-        List<Diff> diffs = differ.getDiffs(oboDoc, oboDoc2);
+        List<Diff> diffs = OBODocDiffer.getDiffs(oboDoc, oboDoc2);
         assertEquals("Expected no diffs.", 0, diffs.size());
         String original = readResource("escape_chars_test.obo");
         assertEquals(original, oboToString);

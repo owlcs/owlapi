@@ -1522,7 +1522,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
         }
         // Do we need to change the ontology IRI?
         chooseAndSetOntologyIRI();
-        tripleLogger.logOntologyID(ontology.getOntologyID());
+        TripleLogger.logOntologyID(ontology.getOntologyID());
         dumpRemainingTriples();
         cleanup();
         addAnnotationAxioms();
@@ -2233,7 +2233,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
      *        the predicate
      * @return true, if is general predicate
      */
-    protected static boolean isGeneralPredicate (IRI predicate) {
+    protected static boolean isGeneralPredicate(IRI predicate) {
         return !predicate.isReservedVocabulary()
                 || OWLRDFVocabulary.BUILT_IN_ANNOTATION_PROPERTY_IRIS
                         .contains(predicate)

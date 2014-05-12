@@ -88,9 +88,8 @@ public class RDFXMLRenderer extends RDFRendererBase {
         qnameManager = new RDFXMLNamespaceManager(ontology, format);
         String defaultNamespace = qnameManager.getDefaultNamespace();
         String base = base(defaultNamespace);
-        writer = new RDFXMLWriter(XMLWriterFactory.getInstance()
-                .createXMLWriter(checkNotNull(w, "w cannot be null"),
-                        qnameManager, base));
+        writer = new RDFXMLWriter(XMLWriterFactory.createXMLWriter(
+                checkNotNull(w, "w cannot be null"), qnameManager, base));
     }
 
     @SuppressWarnings("null")

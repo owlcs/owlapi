@@ -84,8 +84,7 @@ public class OWLXMLWriter {
         if (ontology != null && !ontology.isAnonymous()) {
             base = ontology.getOntologyID().getOntologyIRI().get().toString();
         }
-        this.writer = XMLWriterFactory.getInstance().createXMLWriter(writer,
-                nsm, base);
+        this.writer = XMLWriterFactory.createXMLWriter(writer, nsm, base);
     }
 
     /** @return iri to prefix map */

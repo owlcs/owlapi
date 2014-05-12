@@ -133,10 +133,7 @@ public class AxiomType<C extends OWLAxiom> implements Serializable {
             @Nonnull Set<OWLAxiom> sourceAxioms,
             @Nonnull AxiomType<?>... axiomTypes) {
         Set<OWLAxiom> result = new HashSet<OWLAxiom>();
-        Set<AxiomType<?>> disallowed = new HashSet<AxiomType<?>>();
-        for (AxiomType<?> t : axiomTypes) {
-            disallowed.add(t);
-        }
+        Set<AxiomType<?>> disallowed = Sets.newHashSet(axiomTypes);
         for (OWLAxiom ax : sourceAxioms) {
             if (!disallowed.contains(ax.getAxiomType())) {
                 result.add(ax);
@@ -162,10 +159,7 @@ public class AxiomType<C extends OWLAxiom> implements Serializable {
             @Nonnull Set<OWLAxiom> sourceAxioms,
             @Nonnull AxiomType<?>... axiomTypes) {
         Set<OWLAxiom> result = new HashSet<OWLAxiom>();
-        Set<AxiomType<?>> allowed = new HashSet<AxiomType<?>>();
-        for (AxiomType<?> t : axiomTypes) {
-            allowed.add(t);
-        }
+        Set<AxiomType<?>> allowed = Sets.newHashSet( axiomTypes);
         for (OWLAxiom ax : sourceAxioms) {
             if (allowed.contains(ax.getAxiomType())) {
                 result.add(ax);

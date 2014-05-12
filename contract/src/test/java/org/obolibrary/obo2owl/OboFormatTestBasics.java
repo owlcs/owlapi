@@ -20,7 +20,6 @@ import javax.annotation.Nullable;
 
 import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.parser.OBOFormatParser;
-import org.obolibrary.oboformat.parser.OBOFormatParserException;
 import org.obolibrary.oboformat.writer.OBOFormatWriter;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.formats.OWLXMLOntologyFormat;
@@ -113,8 +112,7 @@ public class OboFormatTestBasics {
     @Nonnull
     protected OBODoc parseOBOFile(@Nonnull File file) throws IOException {
         OBOFormatParser p = new OBOFormatParser();
-        OBODoc obodoc = p.parse(file.getCanonicalPath());
-        return obodoc;
+        return p.parse(file.getCanonicalPath());
     }
 
     @Nonnull
@@ -122,9 +120,8 @@ public class OboFormatTestBasics {
             throws OWLOntologyCreationException {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         // TODO replace
-        OWLOntology ontology = manager
+        return manager
                 .loadOntologyFromOntologyDocument(getInputStream(fn));
-        return ontology;
     }
 
     @Nonnull
@@ -157,8 +154,7 @@ public class OboFormatTestBasics {
         OWLAPIOwl2Obo bridge = new OWLAPIOwl2Obo(
                 OWLManager.createOWLOntologyManager());
         bridge.setStrictConversion(strictness);
-        OBODoc doc = bridge.convert(ontology);
-        return doc;
+        return bridge.convert(ontology);
     }
 
     @Nonnull

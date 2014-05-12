@@ -48,7 +48,7 @@ public class TransitiveOverTest extends RoundTripTest {
         // CONVERT BACK TO OBO
         OBODoc obodoc = convert(ontology);
         // test that transitive over is converted back
-        if (true) {
+
             Frame tf = obodoc.getTypedefFrame("regulates");
             assert tf != null;
             assertEquals(3, tf.getClauses().size());
@@ -59,8 +59,7 @@ public class TransitiveOverTest extends RoundTripTest {
             assertEquals(1, clause.getValues().size());
             assertEquals("part_of", clause.getValue());
             assertTrue(clause.getQualifierValues().isEmpty());
-        }
-        // renderOBO(obodoc);
+
     }
 
     @Test

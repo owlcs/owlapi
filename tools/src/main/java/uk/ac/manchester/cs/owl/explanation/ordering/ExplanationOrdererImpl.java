@@ -416,8 +416,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
             childCount1 = childCount1 > 0 ? 0 : 1;
             int childCount2 = o2.getChildCount();
             childCount2 = childCount2 > 0 ? 0 : 1;
-            int diff = childCount1 - childCount2;
-            return diff;
+            return childCount1 - childCount2;
         }
     }
 

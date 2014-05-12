@@ -308,8 +308,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
         @Nonnull
         static byte[] compress(String s) throws IOException {
             ByteArrayOutputStream out = new ByteArrayOutputStream();
-            GZIPOutputStream zipout;
-            zipout = new GZIPOutputStream(out);
+            GZIPOutputStream zipout = new GZIPOutputStream(out);
             Writer writer = new OutputStreamWriter(zipout, COMPRESSED_ENCODING);
             writer.write(s);
             writer.flush();

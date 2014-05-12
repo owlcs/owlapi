@@ -117,10 +117,7 @@ public class OBOFormatParser {
 
         public boolean eof() {
             prepare();
-            if (line == null) {
-                return true;
-            }
-            return false;
+            return line == null;
         }
 
         @Nonnull
@@ -360,7 +357,7 @@ public class OBOFormatParser {
         obodoc.setHeaderFrame(h);
         parseHeaderFrame(h);
         parseZeroOrMoreWsOptCmtNl();
-        while (stream.eof() == false) {
+        while (!stream.eof()) {
             parseEntityFrame(obodoc);
             parseZeroOrMoreWsOptCmtNl();
         }
@@ -1115,10 +1112,10 @@ public class OBOFormatParser {
             String syn = getParseUntilAdv("\"");
             cl.setValue(syn);
             parseZeroOrMoreWs();
-            if (stream.peekCharIs('[') == false) {
+            if (!stream.peekCharIs('[')) {
                 parseIdRef(cl, true);
                 parseZeroOrMoreWs();
-                if (stream.peekCharIs('[') == false) {
+                if (!stream.peekCharIs('[')) {
                     parseIdRef(cl, true);
                     parseZeroOrMoreWs();
                 }
@@ -1161,7 +1158,7 @@ public class OBOFormatParser {
         if (stream.consume("[")) {
             parseZeroOrMoreXrefs(cl);
             parseZeroOrMoreWs();
-            if (stream.consume("]") == false) {
+            if (!stream.consume("]")) {
                 error("Missing closing ']' for xref list at pos: " + stream.pos);
             }
         } else if (!optional) {
@@ -1244,7 +1241,7 @@ public class OBOFormatParser {
         parseZeroOrMoreWs();
         String rest = stream.rest();
         assert rest != null;
-        if (rest.contains("=") == false) {
+        if (!rest.contains("=")) {
             error("Missing '=' in trailing qualifier block. This might happen for not properly escaped '{', '}' chars in comments.");
         }
         String q = getParseUntilAdv("=");

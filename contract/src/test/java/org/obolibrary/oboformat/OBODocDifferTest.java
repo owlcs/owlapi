@@ -17,8 +17,7 @@ public class OBODocDifferTest extends OboFormatTestBasics {
     public void testIdentical() {
         OBODoc obodoc1 = parseOBOFile("caro.obo");
         OBODoc obodoc2 = parseOBOFile("caro.obo");
-        OBODocDiffer dd = new OBODocDiffer();
-        List<Diff> diffs = dd.getDiffs(obodoc1, obodoc2);
+        List<Diff> diffs = OBODocDiffer.getDiffs(obodoc1, obodoc2);
         assertEquals(0, diffs.size());
     }
 
@@ -26,8 +25,7 @@ public class OBODocDifferTest extends OboFormatTestBasics {
     public void testDiff() {
         OBODoc obodoc1 = parseOBOFile("caro.obo");
         OBODoc obodoc2 = parseOBOFile("caro_modified.obo");
-        OBODocDiffer dd = new OBODocDiffer();
-        List<Diff> diffs = dd.getDiffs(obodoc1, obodoc2);
+        List<Diff> diffs = OBODocDiffer.getDiffs(obodoc1, obodoc2);
         assertEquals(19, diffs.size());
     }
 }

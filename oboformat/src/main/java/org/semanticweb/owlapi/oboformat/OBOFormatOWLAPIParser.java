@@ -16,7 +16,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Serializable;
-import java.net.MalformedURLException;
 import java.util.Collections;
 import java.util.Set;
 
@@ -34,7 +33,6 @@ import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyFormatFactory;
@@ -58,8 +56,7 @@ public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
         } catch (OWLOntologyCreationException e) {
             throw new OWLParserException(e);
         }
-        OBOOntologyFormat format = new OBOOntologyFormat();
-        return format;
+        return new OBOOntologyFormat();
     }
 
     @Nonnull
@@ -76,14 +73,15 @@ public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
         } catch (OWLOntologyCreationException e) {
             throw new OWLParserException(e);
         }
-        OBOOntologyFormat format = new OBOOntologyFormat();
-        return format;
+        return new OBOOntologyFormat();
     }
 
     @SuppressWarnings("null")
     private static OWLOntology
-            parse (@Nullable IRI iri, @Nullable OWLOntologyDocumentSource source, @Nonnull OWLOntology in) throws
-                    IOException, OWLOntologyCreationException {
+            parse(@Nullable IRI iri,
+                    @Nullable OWLOntologyDocumentSource source,
+                    @Nonnull OWLOntology in) throws IOException,
+                    OWLOntologyCreationException {
         if (iri == null && source == null) {
             throw new IllegalArgumentException(
                     "iri and source annot both be null");

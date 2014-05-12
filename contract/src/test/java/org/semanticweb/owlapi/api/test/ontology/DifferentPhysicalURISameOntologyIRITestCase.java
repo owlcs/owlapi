@@ -39,11 +39,8 @@ public class DifferentPhysicalURISameOntologyIRITestCase extends TestBase {
         IRI ontologyADocumentIRIB = IRI
                 .create(DifferentPhysicalURISameOntologyIRITestCase.class
                         .getResource('/' + ONTOLOGY_A_EMPTY).toURI());
-        OWLOntology loadOntologyFromOntologyDocument = m
+        OWLOntology ontologyA = m
                 .loadOntologyFromOntologyDocument(ontologyADocumentIRI);
-        OWLOntology ontologyA = loadOntologyFromOntologyDocument;
-        OWLOntology ontologyALoad2 = loadOntologyFromOntologyDocument;
-        assertEquals(ontologyA, ontologyALoad2);
         m.loadOntologyFromOntologyDocument(ontologyADocumentIRIB);
         fail("Expected an exception to say that the ontology already exists");
     }

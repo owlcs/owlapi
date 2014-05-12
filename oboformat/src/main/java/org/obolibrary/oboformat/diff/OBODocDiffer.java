@@ -32,7 +32,8 @@ public class OBODocDiffer {
      */
     @SuppressWarnings("null")
     @Nonnull
-    public static List<Diff> getDiffs (@Nonnull OBODoc doc1, @Nonnull OBODoc doc2) {
+    public static List<Diff>
+            getDiffs(@Nonnull OBODoc doc1, @Nonnull OBODoc doc2) {
         List<Diff> diffs = new ArrayList<Diff>();
         diffs.addAll(getDiffs("Header", doc1.getHeaderFrame(),
                 doc2.getHeaderFrame()));
@@ -126,8 +127,7 @@ public class OBODocDiffer {
         OBOFormatParser p = new OBOFormatParser();
         OBODoc obodoc1 = p.parse(args[0]);
         OBODoc obodoc2 = p.parse(args[1]);
-        OBODocDiffer dd = new OBODocDiffer();
-        List<Diff> diffs = dd.getDiffs(obodoc1, obodoc2);
+        List<Diff> diffs = OBODocDiffer.getDiffs(obodoc1, obodoc2);
         for (Diff d : diffs) {
             System.out.println(d);
         }

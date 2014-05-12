@@ -38,7 +38,7 @@ public class InferredDataPropertyCharacteristicAxiomGenerator extends
             Set<OWLDataPropertyCharacteristicAxiom> result) {
         OWLFunctionalDataPropertyAxiom axiom = dataFactory
                 .getOWLFunctionalDataPropertyAxiom(entity);
-        if (reasoner.isEntailed(axiom) && reasoner.isEntailed(axiom)) {
+        if (reasoner.isEntailed(axiom)) {
             result.add(axiom);
         }
     }

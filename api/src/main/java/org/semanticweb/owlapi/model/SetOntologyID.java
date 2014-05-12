@@ -130,7 +130,7 @@ public class SetOntologyID extends OWLOntologyChange<OWLOntologyID> {
 
     @Override
     public String toString() {
-        return String.format("SetOntologyID(%s OntologyID(%s))",getNewOntologyID(),getOntology().getOntologyID());
+        return String.format("SetOntologyID(%s OntologyID(%s))",newOntologyID,ontologyID);
     }
 
     @Override
@@ -147,7 +147,7 @@ public class SetOntologyID extends OWLOntologyChange<OWLOntologyID> {
             return false;
         }
         SetOntologyID change = (SetOntologyID) obj;
-        return change.getOriginalOntologyID().equals(ontologyID)
-                && change.getNewOntologyID().equals(getNewOntologyID());
+        return change.ontologyID.equals(ontologyID)
+                && change.newOntologyID.equals(newOntologyID);
     }
 }

@@ -215,10 +215,9 @@ public class Examples extends TestBase {
         // OWLOntology pizzaOntology = manager
         // .loadOntologyFromOntologyDocument(iri);
         // in this test, we load from a string instead
-        OWLOntology pizzaOntology = manager
+        return manager
                 .loadOntologyFromOntologyDocument(new StringDocumentSource(
                         koala));
-        return pizzaOntology;
     }
 
     /**

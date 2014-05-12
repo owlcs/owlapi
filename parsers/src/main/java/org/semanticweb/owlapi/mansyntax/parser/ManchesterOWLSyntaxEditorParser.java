@@ -19,6 +19,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -156,7 +157,8 @@ public class ManchesterOWLSyntaxEditorParser implements
     protected Set<ManchesterOWLSyntax> potentialKeywords = new HashSet<ManchesterOWLSyntax>();
     private OWLOntology defaultOntology;
     private final boolean allowEmptyFrameSections = false;
-    private final Map<ManchesterOWLSyntax, AnnotatedListItemParser<OWLDataProperty, ?>> dataPropertyFrameSections = new HashMap<ManchesterOWLSyntax, AnnotatedListItemParser<OWLDataProperty, ?>>();
+    private final Map<ManchesterOWLSyntax, AnnotatedListItemParser<OWLDataProperty, ?>> dataPropertyFrameSections = new EnumMap<ManchesterOWLSyntax, AnnotatedListItemParser<OWLDataProperty, ?>>(
+            ManchesterOWLSyntax.class);
 
     /**
      * @param dataFactory
@@ -220,11 +222,12 @@ public class ManchesterOWLSyntaxEditorParser implements
         }
     }
 
-    protected static ManchesterOWLSyntaxTokenizer getTokenizer (String s) {
+    protected static ManchesterOWLSyntaxTokenizer getTokenizer(String s) {
         return new ManchesterOWLSyntaxTokenizer(s);
     }
 
-    private final Map<ManchesterOWLSyntax, AnnotatedListItemParser<OWLClass, ?>> classFrameSections = new HashMap<ManchesterOWLSyntax, AnnotatedListItemParser<OWLClass, ?>>();
+    private final Map<ManchesterOWLSyntax, AnnotatedListItemParser<OWLClass, ?>> classFrameSections = new EnumMap<ManchesterOWLSyntax, AnnotatedListItemParser<OWLClass, ?>>(
+            ManchesterOWLSyntax.class);
 
     private void initialiseClassFrameSections() {
         initialiseSection(new EntityAnnotationsListItemParser<OWLClass>(),
@@ -247,7 +250,8 @@ public class ManchesterOWLSyntaxEditorParser implements
                 classFrameSections);
     }
 
-    private final Map<ManchesterOWLSyntax, AnnotatedListItemParser<OWLObjectProperty, ?>> objectPropertyFrameSections = new HashMap<ManchesterOWLSyntax, AnnotatedListItemParser<OWLObjectProperty, ?>>();
+    private final Map<ManchesterOWLSyntax, AnnotatedListItemParser<OWLObjectProperty, ?>> objectPropertyFrameSections = new EnumMap<ManchesterOWLSyntax, AnnotatedListItemParser<OWLObjectProperty, ?>>(
+            ManchesterOWLSyntax.class);
 
     private void initialiseObjectPropertyFrameSections() {
         initialiseSection(
@@ -292,7 +296,8 @@ public class ManchesterOWLSyntaxEditorParser implements
                 dataPropertyFrameSections);
     }
 
-    private final Map<ManchesterOWLSyntax, AnnotatedListItemParser<OWLAnnotationProperty, ?>> annotationPropertyFrameSections = new HashMap<ManchesterOWLSyntax, AnnotatedListItemParser<OWLAnnotationProperty, ?>>();
+    private final Map<ManchesterOWLSyntax, AnnotatedListItemParser<OWLAnnotationProperty, ?>> annotationPropertyFrameSections = new EnumMap<ManchesterOWLSyntax, AnnotatedListItemParser<OWLAnnotationProperty, ?>>(
+            ManchesterOWLSyntax.class);
 
     private void initialiseAnnotationPropertyFrameSections() {
         initialiseSection(new AnnotationPropertySubPropertyOfListItemParser(),
@@ -306,7 +311,8 @@ public class ManchesterOWLSyntaxEditorParser implements
                 annotationPropertyFrameSections);
     }
 
-    private final Map<ManchesterOWLSyntax, AnnotatedListItemParser<OWLIndividual, ?>> individualFrameSections = new HashMap<ManchesterOWLSyntax, AnnotatedListItemParser<OWLIndividual, ?>>();
+    private final Map<ManchesterOWLSyntax, AnnotatedListItemParser<OWLIndividual, ?>> individualFrameSections = new EnumMap<ManchesterOWLSyntax, AnnotatedListItemParser<OWLIndividual, ?>>(
+            ManchesterOWLSyntax.class);
 
     private void initialiseIndividualFrameSections() {
         initialiseSection(new IndividualAnnotationItemParser(),

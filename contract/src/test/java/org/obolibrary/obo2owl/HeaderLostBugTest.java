@@ -45,10 +45,9 @@ public class HeaderLostBugTest extends OboFormatTestBasics {
         try {
             ontology.getOWLOntologyManager().saveOntology(ontology,
                     new RDFXMLOntologyFormat(), target);
-            OWLOntology in = OWLManager.createOWLOntologyManager()
+            return OWLManager.createOWLOntologyManager()
                     .loadOntologyFromOntologyDocument(
                             new StringDocumentSource(target));
-            return in;
         } catch (OWLException e) {
             throw new OWLRuntimeException(e);
         }

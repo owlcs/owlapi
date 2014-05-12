@@ -50,6 +50,7 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
 
 
 
+
 //@formatter:off
     /** RDF_XML_LITERAL */          RDF_XML_LITERAL          (RDF,  "XMLLiteral",   Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, false, ".*"), 
     /** RDFS_LITERAL */             RDFS_LITERAL             (RDFS, "Literal",      Category.CAT_UNIVERSAL,                   false, ".*"),
@@ -322,18 +323,37 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
          * No normalization is done, the value is not changed (this is the
          * behavior required by [XML] for element content).
          */
-        PRESERVE,
+        PRESERVE {
+
+            @Override
+            public String getNormalisedString(@Nonnull String s) {
+                return s;
+            }
+        },
         /**
          * All occurrences of #x9 (tab), #xA (line feed) and #xD (carriage
          * return) are replaced with #x20 (space).
          */
-        REPLACE,
+        REPLACE {
+
+            @Override
+            public String getNormalisedString(@Nonnull String s) {
+                return s.replaceAll("\\t|\\n|\\r", " ");
+            }
+        },
         /**
          * After the processing implied by replace, contiguous sequences of
          * #x20's are collapsed to a single #x20, and any #x20 at the start or
          * end of the string is then removed.
          */
-        COLLAPSE;
+        COLLAPSE {
+
+            @Override
+            public String getNormalisedString(@Nonnull String s) {
+                return REPLACE.getNormalisedString(s).replaceAll("\\s+", " ")
+                        .trim();
+            }
+        };
 
         /**
          * Gets the normalised version of a string.
@@ -342,17 +362,6 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
          *        The string to normalise
          * @return The normalised string
          */
-        public String getNormalisedString(@Nonnull String s) {
-            switch (this) {
-                case REPLACE:
-                    return s.replaceAll("\\t|\\n|\\r", " ");
-                case COLLAPSE:
-                    return REPLACE.getNormalisedString(s)
-                            .replaceAll("\\s+", " ").trim();
-                case PRESERVE:
-                default:
-                    return s;
-            }
-        }
+        public abstract String getNormalisedString(@Nonnull String s);
     }
 }

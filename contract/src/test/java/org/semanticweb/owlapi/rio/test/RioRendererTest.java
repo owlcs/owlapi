@@ -20,8 +20,6 @@ import org.openrdf.model.impl.ValueFactoryImpl;
 import org.openrdf.model.vocabulary.OWL;
 import org.openrdf.model.vocabulary.RDF;
 import org.openrdf.rio.RDFFormat;
-import org.openrdf.rio.RDFHandlerException;
-import org.openrdf.rio.RDFParseException;
 import org.openrdf.rio.RDFParser;
 import org.openrdf.rio.RDFWriter;
 import org.openrdf.rio.Rio;
@@ -77,7 +75,9 @@ public class RioRendererTest {
                 new RioRDFXMLOntologyStorerFactory().get(),
                 new RioTurtleOntologyStorerFactory().get());
         testOntologyEmpty = testManager.createOntology(testOntologyUri1);
-        testOntologyKoala = testManager.loadOntologyFromOntologyDocument(getClass().getResourceAsStream("/koala.owl"));
+        testOntologyKoala = testManager
+                .loadOntologyFromOntologyDocument(getClass()
+                        .getResourceAsStream("/koala.owl"));
         assertEquals(70, testOntologyKoala.getAxiomCount());
         testHandlerStatementCollector = new StatementCollector();
         testOntologyEmptyStatement = vf

@@ -74,8 +74,7 @@ public class DLSyntaxHTMLOntologyStorer extends DLSyntaxOntologyStorerBase {
         };
         ren.setFocusedObject(subject);
         ren.setShortFormProvider(sfp);
-        String rendering = ren.render(axiom);
-        return rendering;
+        return ren.render(axiom);
     }
 
     @Override

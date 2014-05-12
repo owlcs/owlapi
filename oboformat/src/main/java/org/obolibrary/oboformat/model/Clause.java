@@ -273,7 +273,7 @@ public class Clause {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == null || !(obj instanceof Clause)) {
+        if (!(obj instanceof Clause)) {
             return false;
         }
         if (obj == this) {

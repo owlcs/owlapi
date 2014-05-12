@@ -43,6 +43,6 @@ public class OWLXMLOntologyStorer extends AbstractOWLOntologyStorer {
     @Override
     protected void storeOntology(@Nonnull OWLOntology ontology, Writer writer,
             OWLOntologyFormat format) throws OWLOntologyStorageException {
-        new OWLXMLRenderer().render(ontology, writer, format);
+        OWLXMLRenderer.render(ontology, writer, format);
     }
 }

@@ -217,11 +217,6 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
     }
 
     @Override
-    public boolean isLogicalAxiom() {
-        return true;
-    }
-
-    @Override
     public boolean equals(Object obj) {
         if (super.equals(obj)) {
             if (!(obj instanceof SWRLRule)) {

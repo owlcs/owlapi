@@ -46,7 +46,7 @@ public class Xref {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == null || !(obj instanceof Xref)) {
+        if (!(obj instanceof Xref)) {
             return false;
         }
         if (obj == this) {

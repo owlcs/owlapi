@@ -355,8 +355,8 @@ public class OWLAPIOwl2Obo {
                 }
             }
         }
-        if (untranslatableAxioms.isEmpty() == false
-                && discardUntranslatable == false) {
+        if (!untranslatableAxioms.isEmpty()
+                && !discardUntranslatable) {
             try {
                 String axiomString = OwlStringTools.translate(
                         untranslatableAxioms, manager);
@@ -413,7 +413,7 @@ public class OWLAPIOwl2Obo {
                     } else if (x instanceof OWLObjectSomeValuesFrom) {
                         OWLObjectProperty p = (OWLObjectProperty) ((OWLObjectSomeValuesFrom) x)
                                 .getProperty();
-                        if (getIdentifier(p).equals(viewRel) == false) {
+                        if (!getIdentifier(p).equals(viewRel)) {
                             LOG.error("Expected: {} got: {} in {}", viewRel, p,
                                     eca);
                         }
@@ -829,7 +829,7 @@ public class OWLAPIOwl2Obo {
         OWLObjectPropertyExpression sup = ax.getSuperProperty();
         OWLObjectPropertyExpression sub = ax.getSubProperty();
         if (sub.isBottomEntity() || sub.isTopEntity() || sup.isBottomEntity()
-                || sub.isTopEntity()) {
+                || sup.isTopEntity()) {
             error("SubProperties using Top or Bottom entites are not supported in OBO.",
                     false);
             return;
@@ -854,7 +854,7 @@ public class OWLAPIOwl2Obo {
         OWLAnnotationProperty sup = ax.getSuperProperty();
         OWLAnnotationProperty sub = ax.getSubProperty();
         if (sub.isBottomEntity() || sub.isTopEntity() || sup.isBottomEntity()
-                || sub.isTopEntity()) {
+                || sup.isTopEntity()) {
             error("SubAnnotationProperties using Top or Bottom entites are not supported in OBO.",
                     false);
             return;
@@ -978,7 +978,7 @@ public class OWLAPIOwl2Obo {
             Clause clause = new Clause(OboFormatTag.TAG_PROPERTY_VALUE);
             String propId = getIdentifier(prop);
             addQualifiers(clause, qualifiers);
-            if (propId.equals("shorthand") == false) {
+            if (!propId.equals("shorthand")) {
                 clause.addValue(propId);
                 clause.addValue(value);
                 // TODO - xsd types
@@ -986,7 +986,7 @@ public class OWLAPIOwl2Obo {
             }
         } else if (!value.trim().isEmpty()) {
             if (tag == OboFormatTag.TAG_ID) {
-                if (frame.getId().equals(value) == false) {
+                if (!frame.getId().equals(value)) {
                     warn("Conflicting id definitions: 1) " + frame.getId()
                             + "  2)" + value);
                     return false;
@@ -1155,7 +1155,7 @@ public class OWLAPIOwl2Obo {
         Clause clause = new Clause(OboFormatTag.TAG_PROPERTY_VALUE.getTag());
         String propId = getIdentifier(prop);
         addQualifiers(clause, qualifiers);
-        if (propId.equals("shorthand") == false) {
+        if (!propId.equals("shorthand")) {
             clause.addValue(propId);
             if (annVal instanceof OWLLiteral) {
                 OWLLiteral owlLiteral = (OWLLiteral) annVal;
@@ -1370,7 +1370,7 @@ public class OWLAPIOwl2Obo {
                     ax, false);
             return;
         }
-        if (ce1 instanceof OWLClass == false) {
+        if (!(ce1 instanceof OWLClass)) {
             // check whether ce2 is the actual OWLEntity
             if (ce2 instanceof OWLClass) {
                 // three way exchange
@@ -1610,7 +1610,6 @@ public class OWLAPIOwl2Obo {
                 tr(a, f);
             }
             add(f);
-            return;
         }
     }
 

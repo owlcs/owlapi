@@ -23,13 +23,11 @@ import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParser;
-import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.io.StreamDocumentSource;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyAlreadyExistsException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
-import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParser;
 
 import com.google.common.base.Optional;
@@ -217,8 +215,8 @@ public class MultipleOntologyLoadsTest extends TestBase {
 
     @Nonnull
     private OWLOntologyDocumentSource getDocumentSource() {
-        StreamDocumentSource documentSource = new StreamDocumentSource(getClass().getResourceAsStream(
+        return new StreamDocumentSource(
+                getClass().getResourceAsStream(
                         "/owlapi/multipleOntologyLoadsTest.rdf"));
-        return documentSource;
-    }
+            }
 }

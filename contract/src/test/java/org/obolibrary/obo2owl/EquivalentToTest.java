@@ -37,11 +37,9 @@ public class EquivalentToTest extends OboFormatTestBasics {
         // PARSE TEST FILE
         OWLOntology ontology = convert(parseOBOFile("equivtest.obo"));
         // TEST CONTENTS OF OWL ONTOLOGY
-        if (true) {
-            Set<OWLEquivalentClassesAxiom> ecas = ontology
-                    .getAxioms(AxiomType.EQUIVALENT_CLASSES);
-            assertEquals(2, ecas.size());
-        }
+        Set<OWLEquivalentClassesAxiom> ecas = ontology
+                .getAxioms(AxiomType.EQUIVALENT_CLASSES);
+        assertEquals(2, ecas.size());
         // CONVERT BACK TO OBO
         OWLAPIOwl2Obo owl2obo = new OWLAPIOwl2Obo(
                 OWLManager.createOWLOntologyManager());
@@ -63,61 +61,50 @@ public class EquivalentToTest extends OboFormatTestBasics {
     public void checkOBODoc(@Nonnull OBODoc obodoc) {
         // OBODoc tests
         // test ECA between named classes is persisted using correct tag
-        if (true) {
-            Frame tf = obodoc.getTermFrame("X:1");
-            Collection<Clause> cs = tf
-                    .getClauses(OboFormatTag.TAG_EQUIVALENT_TO);
-            assertEquals(1, cs.size());
-            Object v = cs.iterator().next().getValue();
-            assertEquals("X:2", v);
-        }
+        Frame tf = obodoc.getTermFrame("X:1");
+        Collection<Clause> cs = tf.getClauses(OboFormatTag.TAG_EQUIVALENT_TO);
+        assertEquals(1, cs.size());
+        Object v = cs.iterator().next().getValue();
+        assertEquals("X:2", v);
         // test ECA between named class and anon class is persisted as
         // genus-differentia intersection_of tags
-        if (true) {
-            Frame tf = obodoc.getTermFrame("X:1");
-            Collection<Clause> cs = tf
-                    .getClauses(OboFormatTag.TAG_INTERSECTION_OF);
-            assertEquals(2, cs.size());
-            boolean okGenus = false;
-            boolean okDifferentia = false;
-            for (Clause c : cs) {
-                Collection<Object> vs = c.getValues();
-                if (vs.size() == 2) {
-                    if (c.getValue().equals("R:1")
-                            && c.getValue2().equals("Z:1")) {
-                        okDifferentia = true;
-                    }
-                } else if (vs.size() == 1) {
-                    if (c.getValue().equals("Y:1")) {
-                        okGenus = true;
-                    }
-                } else {
-                    fail();
+        tf = obodoc.getTermFrame("X:1");
+        cs = tf.getClauses(OboFormatTag.TAG_INTERSECTION_OF);
+        assertEquals(2, cs.size());
+        boolean okGenus = false;
+        boolean okDifferentia = false;
+        for (Clause c : cs) {
+            Collection<Object> vs = c.getValues();
+            if (vs.size() == 2) {
+                if (c.getValue().equals("R:1") && c.getValue2().equals("Z:1")) {
+                    okDifferentia = true;
                 }
+            } else if (vs.size() == 1) {
+                if (c.getValue().equals("Y:1")) {
+                    okGenus = true;
+                }
+            } else {
+                fail();
             }
-            assertTrue(okGenus);
-            assertTrue(okDifferentia);
         }
+        assertTrue(okGenus);
+        assertTrue(okDifferentia);
         // check reciprocal direction
-        if (true) {
-            Frame tf2 = obodoc.getTermFrame("X:2");
-            Collection<Clause> cs2 = tf2
-                    .getClauses(OboFormatTag.TAG_EQUIVALENT_TO);
-            Frame tf1 = obodoc.getTermFrame("X:1");
-            Collection<Clause> cs1 = tf1
-                    .getClauses(OboFormatTag.TAG_EQUIVALENT_TO);
-            boolean ok = false;
-            if (cs2.size() == 1) {
-                if (cs2.iterator().next().getValue(String.class).equals("X:1")) {
-                    ok = true;
-                }
+        Frame tf2 = obodoc.getTermFrame("X:2");
+        Collection<Clause> cs2 = tf2.getClauses(OboFormatTag.TAG_EQUIVALENT_TO);
+        Frame tf1 = obodoc.getTermFrame("X:1");
+        Collection<Clause> cs1 = tf1.getClauses(OboFormatTag.TAG_EQUIVALENT_TO);
+        boolean ok = false;
+        if (cs2.size() == 1) {
+            if (cs2.iterator().next().getValue(String.class).equals("X:1")) {
+                ok = true;
             }
-            if (cs1.size() == 1) {
-                if (cs1.iterator().next().getValue(String.class).equals("X:2")) {
-                    ok = true;
-                }
-            }
-            assertTrue(ok);
         }
+        if (cs1.size() == 1) {
+            if (cs1.iterator().next().getValue(String.class).equals("X:2")) {
+                ok = true;
+            }
+        }
+        assertTrue(ok);
     }
 }

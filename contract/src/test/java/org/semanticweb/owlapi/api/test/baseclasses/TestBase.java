@@ -48,7 +48,6 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
-import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -151,8 +150,7 @@ public abstract class TestBase {
     @Nonnull
     private static String topOfStackTrace() {
         StackTraceElement[] elements = new RuntimeException().getStackTrace();
-        return elements[1] + "\n" + elements[2] + '\n'
-                + elements[3];
+        return elements[1] + "\n" + elements[2] + '\n' + elements[3];
     }
 
     /**
@@ -314,10 +312,9 @@ public abstract class TestBase {
     @Nonnull
     protected OWLOntology loadOntologyFromString(@Nonnull String input)
             throws OWLOntologyCreationException {
-        OWLOntology ontology = OWLManager.createOWLOntologyManager()
+        return OWLManager.createOWLOntologyManager()
                 .loadOntologyFromOntologyDocument(
                         new StringDocumentSource(input));
-        return ontology;
     }
 
     @Nonnull
@@ -337,32 +334,29 @@ public abstract class TestBase {
     protected OWLOntology loadOntologyFromString(
             @Nonnull StringDocumentSource input)
             throws OWLOntologyCreationException {
-        OWLOntology ontology = OWLManager.createOWLOntologyManager()
+        return OWLManager.createOWLOntologyManager()
                 .loadOntologyFromOntologyDocument(input);
-        return ontology;
     }
 
     @Nonnull
     protected OWLOntology loadOntologyFromString(
             @Nonnull StringDocumentTarget input)
             throws OWLOntologyCreationException {
-        OWLOntology ontology = OWLManager.createOWLOntologyManager()
+        return OWLManager.createOWLOntologyManager()
                 .loadOntologyFromOntologyDocument(
                         new StringDocumentSource(input));
-        return ontology;
     }
 
     @Nonnull
     protected OWLOntology loadOntologyFromString(
             @Nonnull StringDocumentTarget input, OWLOntologyFormat f)
             throws OWLOntologyCreationException {
-        OWLOntology ontology = OWLManager.createOWLOntologyManager()
+        return OWLManager.createOWLOntologyManager()
                 .loadOntologyFromOntologyDocument(
                         new StringDocumentSource(input.toString(),
                                 OWLOntologyDocumentSourceBase
                                         .getNextDocumentIRI("string:ontology"),
                                 f, null));
-        return ontology;
     }
 
     @Nonnull
@@ -414,8 +408,7 @@ public abstract class TestBase {
 
     @Nonnull
     protected OWLOntology roundTrip(@Nonnull OWLOntology o)
-            throws OWLOntologyCreationException,
-            OWLOntologyStorageException {
+            throws OWLOntologyCreationException, OWLOntologyStorageException {
         return loadOntologyFromString(saveOntology(o));
     }
 }

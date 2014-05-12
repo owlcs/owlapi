@@ -35,8 +35,7 @@ public class PropertyValueTest extends OboFormatTestBasics {
         OBODoc doc = createPVDoc();
         String oboString = renderOboToString(doc);
         OBODoc doc2 = parseOboToString(oboString);
-        OBODocDiffer dd = new OBODocDiffer();
-        List<Diff> diffs = dd.getDiffs(doc, doc2);
+        List<Diff> diffs = OBODocDiffer.getDiffs(doc, doc2);
         assertEquals("Expected no diffs", 0, diffs.size());
     }
 

@@ -349,7 +349,7 @@ public class OBOFormatWriter {
                     // only write OBO namespace,
                     // if it is different from the default OBO namespace
                     if (defaultOboNamespace == null
-                            || clause.getValue().equals(defaultOboNamespace) == false) {
+                            || !clause.getValue().equals(defaultOboNamespace)) {
                         write(clause, writer, nameProvider);
                     }
                 } else {
@@ -631,7 +631,7 @@ public class OBOFormatWriter {
                 }
             } else {
                 // also check for a String representation of Boolean.TRUE
-                if (Boolean.TRUE.toString().equals(value) == false) {
+                if (!Boolean.TRUE.toString().equals(value)) {
                     return;
                 }
             }

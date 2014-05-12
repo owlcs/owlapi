@@ -79,10 +79,9 @@ public class OBOFormatWriterTest extends OboFormatTestBasics {
     private static String writeObsolete(Object value) throws Exception {
         Clause cl = new Clause(OboFormatTag.TAG_IS_OBSELETE);
         cl.addValue(value);
-        OBOFormatWriter writer = new OBOFormatWriter();
         StringWriter out = new StringWriter();
         BufferedWriter bufferedWriter = new BufferedWriter(out);
-        writer.write(cl, bufferedWriter, null);
+        OBOFormatWriter.write(cl, bufferedWriter, null);
         bufferedWriter.close();
         return out.toString().trim();
     }

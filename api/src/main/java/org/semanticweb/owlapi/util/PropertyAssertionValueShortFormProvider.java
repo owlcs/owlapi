@@ -115,8 +115,6 @@ public class PropertyAssertionValueShortFormProvider implements
     @Override
     public String getShortForm(OWLEntity entity) {
         checkNotNull(entity, "entity cannot be null");
-        int lastURIMatchIndex = Integer.MAX_VALUE;
-        int lastLangMatchIndex = Integer.MAX_VALUE;
         if (!(entity instanceof OWLIndividual)) {
             return alternateShortFormProvider.getShortForm(entity);
         }
@@ -124,6 +122,8 @@ public class PropertyAssertionValueShortFormProvider implements
         // The candidate value to be rendered, we select this based on
         // ranking of annotation URI and ranking of lang (if present)
         OWLObject candidateValue = null;
+        int lastURIMatchIndex = Integer.MAX_VALUE;
+        int lastLangMatchIndex = Integer.MAX_VALUE;
         for (OWLOntology ontology : ontologySetProvider.getOntologies()) {
             for (OWLObjectPropertyAssertionAxiom ax : ontology
                     .getObjectPropertyAssertionAxioms(individual)) {

@@ -47,10 +47,7 @@ class Token implements java.io.Serializable {
     }
 
     static Token newToken(int ofKind, String image) {
-        switch (ofKind) {
-            default:
                 return new Token(ofKind, image);
-        }
     }
 
     static Token newToken(int ofKind) {
