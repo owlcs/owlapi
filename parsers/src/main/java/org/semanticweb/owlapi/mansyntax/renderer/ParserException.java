@@ -393,9 +393,9 @@ public class ParserException extends OWLParserException {
             sb.append("\tInteger\n");
         }
         for (String kw : expectedKeywords) {
-            sb.append("\t");
+            sb.append('\t');
             sb.append(kw);
-            sb.append("\n");
+            sb.append('\n');
         }
         return sb.toString();
     }

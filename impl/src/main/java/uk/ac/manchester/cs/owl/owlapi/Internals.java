@@ -421,7 +421,7 @@ public class Internals implements Serializable {
         }
         throw new IllegalArgumentException(
                 "Cannot match the arguments to an existing index: " + type
-                        + " " + axiom + " " + position);
+                        + ' ' + axiom + ' ' + position);
     }
 
     @Nonnull
@@ -1325,9 +1325,9 @@ public class Internals implements Serializable {
     public String toString() {
         StringBuilder b = new StringBuilder("Internals{");
         for (OWLAxiom ax : getAxioms()) {
-            b.append(ax).append("\n");
+            b.append(ax).append('\n');
         }
-        b.append("}");
+        b.append('}');
         return b.toString();
     }
 

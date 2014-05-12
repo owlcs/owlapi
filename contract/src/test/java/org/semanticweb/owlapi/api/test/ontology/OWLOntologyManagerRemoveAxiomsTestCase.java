@@ -35,7 +35,7 @@ public class OWLOntologyManagerRemoveAxiomsTestCase extends TestBase {
                 + "    DatatypeRestriction(xsd:integer \n"
                 + "      xsd:minInclusive \"18\"^^xsd:integer \n"
                 + "      xsd:maxInclusive \"18\"^^xsd:integer)\n" + "    )\n"
-                + "  )\n" + "  ClassAssertion(:A :a)\n" + ")";
+                + "  )\n" + "  ClassAssertion(:A :a)\n" + ')';
         OWLOntology o = loadOntologyFromString(premise);
         m.removeAxioms(o, o.getAxioms(AxiomType.DECLARATION));
     }

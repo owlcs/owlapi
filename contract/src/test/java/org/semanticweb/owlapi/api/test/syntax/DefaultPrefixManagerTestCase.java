@@ -64,7 +64,7 @@ public class DefaultPrefixManagerTestCase {
         assertTrue(pm.containsPrefixMapping(":"));
         assertNotNull(pm.getDefaultPrefix());
         assertEquals(pm.getDefaultPrefix(), pm.getPrefix(":"));
-        String expansion = defaultPrefix + "A";
+        String expansion = defaultPrefix + 'A';
         IRI iri = pm.getIRI(":A");
         assertEquals(iri.toString(), expansion);
     }

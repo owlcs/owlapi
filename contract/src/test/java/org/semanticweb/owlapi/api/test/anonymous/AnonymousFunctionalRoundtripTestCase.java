@@ -54,15 +54,15 @@ public class AnonymousFunctionalRoundtripTestCase extends TestBase {
             + "Prefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)\n"
             + "Prefix(xml:=<http://www.w3.org/XML/1998/namespace>)\n"
             + "Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)\n"
-            + "Prefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)\n" + "\n"
-            + "\n" + "Ontology(<http://namespace.owl>\n" + "\n"
+            + "Prefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)\n" + '\n'
+            + '\n' + "Ontology(<http://namespace.owl>\n" + '\n'
             + "Declaration(Class(:C))\n"
             + "SubClassOf(:C ObjectHasValue(:p _:genid2))\n"
             + "Declaration(Class(:D))\n" + "Declaration(ObjectProperty(:p))\n"
             + "Declaration(DataProperty(:q))\n"
             + "ClassAssertion(:D _:genid2)\n"
             + "DataPropertyAssertion(:q _:genid2 \"hello\"^^xsd:string)\n"
-            + ")";
+            + ')';
 
     @Test
     public void shouldRoundTripFixed() throws OWLOntologyCreationException {
@@ -73,7 +73,7 @@ public class AnonymousFunctionalRoundtripTestCase extends TestBase {
     public void shouldRoundTripBroken() throws Exception {
         OWLOntology o = loadOntologyFromString(broken);
         OWLFunctionalSyntaxOntologyFormat format = new OWLFunctionalSyntaxOntologyFormat();
-        format.setDefaultPrefix(NS + "#");
+        format.setDefaultPrefix(NS + '#');
         OWLOntology o1 = roundTrip(o, format);
         assertEquals(o.getLogicalAxioms(), o1.getLogicalAxioms());
     }
@@ -93,10 +93,10 @@ public class AnonymousFunctionalRoundtripTestCase extends TestBase {
                 Literal("hello"))));
         m.applyChanges(changes);
         RDFXMLOntologyFormat format = new RDFXMLOntologyFormat();
-        format.setDefaultPrefix(NS + "#");
+        format.setDefaultPrefix(NS + '#');
         ontology = roundTrip(ontology, format);
         OWLFunctionalSyntaxOntologyFormat format2 = new OWLFunctionalSyntaxOntologyFormat();
-        format2.setDefaultPrefix(NS + "#");
+        format2.setDefaultPrefix(NS + '#');
         ontology = roundTrip(ontology, format2);
     }
 }

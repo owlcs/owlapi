@@ -299,7 +299,7 @@ public class BOMSafeJavaCharStream {
             } catch (IOException e) {
                 throw new OWLRuntimeException(
                         "Invalid escape character at line " + line + " column "
-                                + column + ".", e);
+                                + column + '.', e);
             }
             if (backSlashCnt == 1) {
                 return c;

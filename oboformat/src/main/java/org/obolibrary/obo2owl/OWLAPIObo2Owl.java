@@ -304,10 +304,10 @@ public class OWLAPIObo2Owl {
             return convert(p.parse(oboFile));
         } catch (IOException ex) {
             throw new OWLOntologyCreationException(
-                    "Error Occured while parsing OBO '" + oboFile + "'", ex);
+                    "Error Occured while parsing OBO '" + oboFile + '\'', ex);
         } catch (OBOFormatParserException ex) {
             throw new OWLOntologyCreationException(
-                    "Syntax error occured while parsing OBO '" + oboFile + "'",
+                    "Syntax error occured while parsing OBO '" + oboFile + '\'',
                     ex);
         }
     }
@@ -374,8 +374,8 @@ public class OWLAPIObo2Owl {
             Clause dvclause = hf.getClause(OboFormatTag.TAG_DATA_VERSION);
             if (dvclause != null) {
                 String dv = dvclause.getValue().toString();
-                IRI vIRI = IRI.create(DEFAULT_IRI_PREFIX + ontOboId + "/" + dv
-                        + "/" + ontOboId + ".owl");
+                IRI vIRI = IRI.create(DEFAULT_IRI_PREFIX + ontOboId + '/' + dv
+                        + '/' + ontOboId + ".owl");
                 OWLOntologyID oid = new OWLOntologyID(Optional.of(ontIRI),
                         Optional.of(vIRI));
                 // if the ontology being read has a differet id from the one
@@ -572,7 +572,7 @@ public class OWLAPIObo2Owl {
                 } else {
                     // TODO: Throw Exceptions
                     OBOFormatException e = new OBOFormatException(
-                            "Cannot translate clause «" + clause + "»");
+                            "Cannot translate clause «" + clause + '»');
                     LOG.error("Cannot translate: {}", clause, e);
                 }
             } else if (tag == OboFormatTag.TAG_PROPERTY_VALUE) {
@@ -1757,7 +1757,7 @@ public class OWLAPIObo2Owl {
         if (id.contains(" ")) {
             LOG.error("id contains space: \"{}\"", id);
             throw new IllegalArgumentException("spaces not allowed: '" + id
-                    + "'");
+                    + '\'');
         }
         // No conversion is required if this is already an IRI (ID-as-URI rule)
         if (id.startsWith("http:")) {
@@ -1794,11 +1794,11 @@ public class OWLAPIObo2Owl {
                 db += "_";
             }
         } else if (idParts.length == 0) {
-            db = getDefaultIDSpace() + "#";
+            db = getDefaultIDSpace() + '#';
             localId = id;
         } else { // == 1
                  // todo use owlOntology IRI
-            db = getDefaultIDSpace() + "#";
+            db = getDefaultIDSpace() + '#';
             // if(id.contains("_"))
             // db += "_";
             localId = idParts[0]; // Unprefixed-ID

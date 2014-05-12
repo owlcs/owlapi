@@ -121,7 +121,7 @@ public class XMLWriterNamespaceManager {
         for (String ns : namespacePrefixMap.keySet()) {
             if (name.startsWith(ns)) {
                 String localName = name.substring(ns.length(), name.length());
-                return namespacePrefixMap.get(ns) + ":" + localName;
+                return namespacePrefixMap.get(ns) + ':' + localName;
             }
         }
         return name;
@@ -142,7 +142,7 @@ public class XMLWriterNamespaceManager {
         String candidate = namespacePrefixMap.get(name.getNamespace());
         if (candidate != null) {
             String localName = name.getFragment();
-            return candidate + ":" + localName;
+            return candidate + ':' + localName;
         }
         return name.toString();
     }

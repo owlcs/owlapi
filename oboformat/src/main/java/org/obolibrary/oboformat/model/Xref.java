@@ -80,6 +80,6 @@ public class Xref {
         if (annotation == null) {
             return idref;
         }
-        return "<" + idref + " \"" + annotation + "\">";
+        return '<' + idref + " \"" + annotation + "\">";
     }
 }

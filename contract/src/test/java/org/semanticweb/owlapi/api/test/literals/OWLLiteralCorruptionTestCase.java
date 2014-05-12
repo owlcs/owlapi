@@ -29,7 +29,7 @@ public class OWLLiteralCorruptionTestCase {
         while (count-- > 0) {
             sb.append("200 \u00B5Liters + character above U+0FFFF = ");
             sb.appendCodePoint(0x10192);  // happens to be "ROMAN SEMUNCIA SIGN"
-            sb.append("\n");
+            sb.append('\n');
         }
         TEST_STRING = sb.toString();
         OWLLiteral literal = Literal(TEST_STRING);

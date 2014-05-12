@@ -59,7 +59,7 @@ public class RDFParserException extends OWLRuntimeException {
         if (lineNumber == -1 && columnNumber == -1) {
             return message;
         }
-        return "[line=" + lineNumber + ":" + "column=" + columnNumber + "] "
+        return "[line=" + lineNumber + ':' + "column=" + columnNumber + "] "
                 + message;
     }
 

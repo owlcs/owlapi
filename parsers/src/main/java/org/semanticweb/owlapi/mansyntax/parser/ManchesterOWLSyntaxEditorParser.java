@@ -207,7 +207,7 @@ public class ManchesterOWLSyntaxEditorParser implements
             String string = iri.toString();
             String ns = XMLUtils.getNCNamePrefix(string);
             String fragment = XMLUtils.getNCNameSuffix(string);
-            annotationPropertyNames.add(u.getPrefix(ns) + ":"
+            annotationPropertyNames.add(u.getPrefix(ns) + ':'
                     + (fragment != null ? fragment : ""));
         }
         owlEntityChecker = new DefaultEntityChecker();

@@ -52,14 +52,14 @@ public class LoadAnonymousTestCase extends TestBase {
                 + "ontology: pato\n"
                 + "ontology: pato\n"
                 + "ontology: pato\n"
-                + "\n"
+                + '\n'
                 + "[Term]\n"
                 + "id: UO:0000000\n"
                 + "name: unit\n"
                 + "namespace: unit.ontology\n"
                 + "def: \"A unit of measurement is a standardized quantity of a physical quality.\" [Wikipedia:Wikipedia]\n"
                 + "created_by: george gkoutos\n"
-                + "\n"
+                + '\n'
                 + "[Term]\n"
                 + "id: UO:0000001\n"
                 + "name: length unit\n"

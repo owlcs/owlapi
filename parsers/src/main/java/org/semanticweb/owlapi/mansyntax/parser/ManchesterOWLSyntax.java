@@ -140,7 +140,7 @@ public enum ManchesterOWLSyntax {
     ManchesterOWLSyntax (String rendering, boolean frameKeyword, boolean sectionKeyword, boolean axiomKeyword, boolean classExpressionQuantifierKeyword, boolean classExpressionConnectiveKeyword) {
         this(rendering, frameKeyword, sectionKeyword, axiomKeyword,
                 classExpressionQuantifierKeyword,
-                classExpressionConnectiveKeyword, rendering + ":");
+                classExpressionConnectiveKeyword, rendering + ':');
     }
 
     /** @return frame keyword */

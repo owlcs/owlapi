@@ -294,7 +294,7 @@ public class OBOFormatParser {
                     int index = p.lastIndexOf('/');
                     path = p.substring(0, index + 1) + path;
                 } else {
-                    File f = new File(location + "");
+                    File f = new File(location.toString());
                     f = new File(f.getParent(), path);
                     path = f.toURI().toString();
                 }
@@ -1206,7 +1206,7 @@ public class OBOFormatParser {
         String id = getParseUntil("\",]!{", true);
         id = id.trim();
         if (id.contains(" ")) {
-            warn("accepting bad xref with spaces:<" + id + ">");
+            warn("accepting bad xref with spaces:<" + id + '>');
         }
         id = id.replaceAll(" +\\Z", "");
         @SuppressWarnings("null")
@@ -1255,7 +1255,7 @@ public class OBOFormatParser {
         } else {
             v = getParseUntil(" ,}");
             warn("qualifier values should be enclosed in quotes. You have: "
-                    + q + "=" + stream.rest());
+                    + q + '=' + stream.rest());
         }
         if (v.isEmpty()) {
             warn("Empty value for qualifier in trailing qualifier block.");

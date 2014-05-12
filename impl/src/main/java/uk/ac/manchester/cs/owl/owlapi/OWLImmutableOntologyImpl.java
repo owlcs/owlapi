@@ -109,13 +109,13 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
         sb.append("] First 20 axioms: {");
         int counter = 0;
         for (OWLAxiom ax : ints.getAxioms()) {
-            sb.append(ax).append(" ");
+            sb.append(ax).append(' ');
             counter++;
             if (counter == 20) {
                 break;
             }
         }
-        sb.append("}");
+        sb.append('}');
         return sb.toString();
     }
 

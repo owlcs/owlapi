@@ -32,7 +32,7 @@ public abstract class AbstractFileRoundTrippingTestCase extends
     protected OWLOntology createOntology() {
         try {
             String fileName = getFileName();
-            URL resource = getClass().getResource("/" + fileName);
+            URL resource = getClass().getResource('/' + fileName);
             IRI iri = IRI.create(resource.toURI());
             return m.loadOntologyFromOntologyDocument(iri);
         } catch (URISyntaxException e) {

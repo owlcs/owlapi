@@ -37,7 +37,7 @@ class ConsoleTripleHandler implements TripleHandler {
     public void handleTriple(IRI subject, IRI predicate, String object,
             String lang) {
         System.out.println(subject + " --> " + predicate + " --> " + object
-                + "@" + lang);
+                + '@' + lang);
     }
 
     @Override

@@ -293,7 +293,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
         if (input.indexOf(':') != -1) {
             return input;
         } else {
-            return ":" + input;
+            return ':' + input;
         }
     }
 
@@ -376,7 +376,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
                 if (name.endsWith(":")) {
                     prefixName2PrefixMap.put(name, iriString);
                 } else {
-                    prefixName2PrefixMap.put(name + ":", iriString);
+                    prefixName2PrefixMap.put(name + ':', iriString);
                 }
             }
             return;

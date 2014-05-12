@@ -138,7 +138,7 @@ public class OWLTutorialSyntaxObjectRenderer extends OWLObjectVisitorAdapter {
 
     private void write(int i) {
         try {
-            String s = " " + i + " ";
+            String s = " " + i + ' ';
             pos += s.length();
             writer.write(s);
         } catch (IOException e) {

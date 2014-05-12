@@ -295,7 +295,7 @@ public class AutoIRIMapper extends DefaultHandler implements
             sb.append(iri.toQuotedString());
             sb.append(" -> ");
             sb.append(ontologyIRI2PhysicalURIMap.get(iri));
-            sb.append("\n");
+            sb.append('\n');
         }
         return sb.toString();
     }

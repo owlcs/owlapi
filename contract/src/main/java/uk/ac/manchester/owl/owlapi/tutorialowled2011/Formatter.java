@@ -56,7 +56,7 @@ public class Formatter {
                         line = line.replace(s, specials.get(s));
                     }
                     for (String s : keywords) {
-                        line = line.replace(s, "\\codekeyword{" + s + "}");
+                        line = line.replace(s, "\\codekeyword{" + s + '}');
                     }
                     line = line
                             .replace("\t", "\\hspace{4mm}")
@@ -69,7 +69,7 @@ public class Formatter {
                         strings.add(match.group(1));
                     }
                     for (String s : strings) {
-                        line = line.replace(s, "\\codestring{" + s + "}");
+                        line = line.replace(s, "\\codestring{" + s + '}');
                     }
                     if (!line.contains("beamerboxesrounded")) {
                         System.out.print("\\coderegular{");

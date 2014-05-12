@@ -97,7 +97,7 @@ public class XMLWriterImpl implements XMLWriter {
             }
             assert curPrefix != null;
             if (!curPrefix.isEmpty()) {
-                entities.put(curNamespace, "&" + curPrefix + ";");
+                entities.put(curNamespace, '&' + curPrefix + ';');
             }
         }
     }
@@ -237,7 +237,7 @@ public class XMLWriterImpl implements XMLWriter {
     public void startDocument(@Nonnull IRI rootElement) throws IOException {
         String encodingString = "";
         if (!encoding.isEmpty()) {
-            encodingString = " encoding=\"" + encoding + "\"";
+            encodingString = " encoding=\"" + encoding + '"';
         }
         writer.write("<?xml version=\"1.0\"" + encodingString + "?>\n");
         if (XMLWriterPreferences.getInstance().isUseNamespaceEntities()) {

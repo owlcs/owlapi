@@ -118,7 +118,7 @@ public enum SWRLBuiltInsVocabulary
 
     SWRLBuiltInsVocabulary(@Nonnull String name, int minArity, int maxArity) {
         shortName = name;
-        prefixedName = Namespaces.SWRLB.getPrefixName() + ":" + name;
+        prefixedName = Namespaces.SWRLB.getPrefixName() + ':' + name;
         iri = IRI.create(Namespaces.SWRLB.toString(), name);
         this.minArity = minArity;
         this.maxArity = maxArity;

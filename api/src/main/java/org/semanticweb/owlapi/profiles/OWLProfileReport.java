@@ -67,7 +67,7 @@ public class OWLProfileReport {
         }
         for (OWLProfileViolation<?> na : violations) {
             sb.append(na);
-            sb.append("\n");
+            sb.append('\n');
         }
         return sb.toString();
     }

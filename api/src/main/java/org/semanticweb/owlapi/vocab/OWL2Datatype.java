@@ -186,7 +186,7 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
             @Nonnull Category category, boolean finite, @Nonnull String regEx) {
         iri = IRI.create(namespace.toString(), shortForm);
         this.shortForm = shortForm;
-        prefixedName = namespace.getPrefixName() + ":" + shortForm;
+        prefixedName = namespace.getPrefixName() + ':' + shortForm;
         this.category = category;
         this.finite = finite;
         regExpression = regEx;

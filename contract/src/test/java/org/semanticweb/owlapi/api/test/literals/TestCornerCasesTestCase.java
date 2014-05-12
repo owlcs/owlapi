@@ -183,7 +183,7 @@ public class TestCornerCasesTestCase extends TestBase {
                 + "SubClassOf(:A DataAllValuesFrom(:dp owl:real))"
                 + "\nSubClassOf(:A \n"
                 + "DataSomeValuesFrom(:dp DataOneOf(\"-INF\"^^xsd:float \"-0\"^^xsd:integer))"
-                + "\n)" + "\n" + "ClassAssertion(:A :a)" + "\n)";
+                + "\n)" + '\n' + "ClassAssertion(:A :a)" + "\n)";
         OWLOntology o = loadOntologyFromString(input);
         assertTrue(saveOntology(o).toString().contains("-INF"));
         OWLOntology o1 = roundTrip(o);

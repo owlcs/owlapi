@@ -213,7 +213,7 @@ public class OBOFormatWriter {
 
     private static void writeLine(String ln, @Nonnull BufferedWriter writer)
             throws IOException {
-        writer.write(ln + "\n");
+        writer.write(ln + '\n');
     }
 
     private static void writeEmptyLine(@Nonnull BufferedWriter writer)
@@ -533,7 +533,7 @@ public class OBOFormatWriter {
                 sb.append(", ");
             }
         }
-        sb.append("]");
+        sb.append(']');
     }
 
     /**
@@ -657,7 +657,7 @@ public class OBOFormatWriter {
                         // and the label is different from the id
                         // relationships: ID part_of LABEL part_of
                         if (idsLabel.length() > 0) {
-                            idsLabel.append(" ");
+                            idsLabel.append(' ');
                         }
                         idsLabel.append(label);
                     }
@@ -722,12 +722,12 @@ public class OBOFormatWriter {
                 sb.append("=\"");
                 sb.append(escapeOboString(qv.getValue().toString(),
                         EscapeMode.quotes));
-                sb.append("\"");
+                sb.append('"');
                 if (qvsIterator.hasNext()) {
                     sb.append(", ");
                 }
             }
-            sb.append("}");
+            sb.append('}');
         }
     }
 
@@ -1080,7 +1080,7 @@ public class OBOFormatWriter {
             if (obj != null) {
                 if (obj instanceof Xref) {
                     Xref xref = (Xref) obj;
-                    s = xref.getIdref() + " " + xref.getAnnotation();
+                    s = xref.getIdref() + ' ' + xref.getAnnotation();
                 } else if (obj instanceof String) {
                     s = (String) obj;
                 } else {

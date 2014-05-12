@@ -78,10 +78,10 @@ class TokenMgrError extends OWLRuntimeException {
                 + ", column "
                 + errorColumn
                 + ".  Encountered: "
-                + (EOFSeen ? "<EOF> " : "\""
-                        + addEscapes(String.valueOf(curChar)) + "\"" + " ("
+                + (EOFSeen ? "<EOF> " : '"'
+                        + addEscapes(String.valueOf(curChar)) + '"' + " ("
                         + (int) curChar + "), ") + "after : \""
-                + addEscapes(errorAfter) + "\"";
+                + addEscapes(errorAfter) + '"';
     }
 
     TokenMgrError() {}

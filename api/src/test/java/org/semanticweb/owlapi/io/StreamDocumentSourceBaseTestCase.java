@@ -23,15 +23,15 @@ public class StreamDocumentSourceBaseTestCase {
                 + "     <!--xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"-->\n"
                 + "     <!--xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"-->\n"
                 + "     <!--xmlns:owl=\"http://www.w3.org/2002/07/owl#\">-->\n"
-                + "\n"
-                + "\n"
+                + '\n'
+                + '\n'
                 + "    <!--<rdf:Description rdf:about=\"#A\">-->\n"
                 + "       <!--<owl:hasKey rdf:parseType=\"Collection\">-->\n"
                 + "           <!--<rdf:Description rdf:about=\"#p\"/>-->\n"
                 + "           <!--<rdf:Description rdf:about=\"#q\"/>-->\n"
                 + "       <!--</owl:hasKey>-->\n"
                 + "    <!--</rdf:Description>-->\n"
-                + "\n"
+                + '\n'
                 + "    <rdf:RDF\n"
                 + "xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\n"
                 + "xmlns:owl=\"http://www.w3.org/2002/07/owl#\"\n"
@@ -44,7 +44,7 @@ public class StreamDocumentSourceBaseTestCase {
                 + "            <owl:DatatypeProperty rdf:about=\"http://example.com/dataProperty\"/>\n"
                 + "        </owl:hasKey>\n"
                 + "    </owl:Class>\n"
-                + "\n"
+                + '\n'
                 + "    <owl:ObjectProperty rdf:about=\"http://example.com/objectProperty\"/>\n"
                 + "</rdf:RDF>";
         StreamDocumentSourceBase source = new StreamDocumentSourceBase(

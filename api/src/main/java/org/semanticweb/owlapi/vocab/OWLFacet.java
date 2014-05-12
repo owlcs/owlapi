@@ -71,7 +71,7 @@ public enum OWLFacet implements HasShortForm, HasIRI, HasPrefixedName {
         iri = IRI.create(ns.toString(), shortForm);
         this.shortForm = shortForm;
         this.symbolicForm = symbolicForm;
-        prefixedName = ns.getPrefixName() + ":" + shortForm;
+        prefixedName = ns.getPrefixName() + ':' + shortForm;
     }
 
     @Override

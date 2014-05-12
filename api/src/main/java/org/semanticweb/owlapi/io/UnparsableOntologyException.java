@@ -65,7 +65,7 @@ public class UnparsableOntologyException extends OWLOntologyCreationException {
             msg.append(counter);
             msg.append(") ");
             msg.append(parser.getName());
-            msg.append("\n");
+            msg.append('\n');
             counter++;
         }
         msg.append("\n\nDetailed logs:\n");
@@ -74,7 +74,7 @@ public class UnparsableOntologyException extends OWLOntologyCreationException {
             msg.append("--------------------------------------------------------------------------------\n");
             msg.append("Parser: ");
             msg.append(parser.getName());
-            msg.append("\n");
+            msg.append('\n');
             if (!includeStackTraceInMessage) {
                 msg.append(exception.getMessage());
                 msg.append("\n\n");
@@ -91,7 +91,7 @@ public class UnparsableOntologyException extends OWLOntologyCreationException {
                         StackTraceElement element = stackTrace[stackDepth];
                         msg.append("        ");
                         msg.append(element);
-                        msg.append("\n");
+                        msg.append('\n');
                     }
                     if (current.getCause() != null
                             && current.getCause() != current) {

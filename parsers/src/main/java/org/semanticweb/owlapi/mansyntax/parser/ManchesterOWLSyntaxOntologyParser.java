@@ -77,7 +77,7 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
                 boolean foundMagicNumber = false;
                 while ((line = br.readLine()) != null) {
                     sb.append(line);
-                    sb.append("\n");
+                    sb.append('\n');
                     if (!foundMagicNumber) {
                         String trimmedLine = line.trim();
                         if (!trimmedLine.isEmpty()

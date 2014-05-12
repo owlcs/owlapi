@@ -68,6 +68,6 @@ public class VersionInfo {
     @Nonnull
     @Override
     public String toString() {
-        return "The OWL API (version " + version + ")";
+        return "The OWL API (version " + version + ')';
     }
 }

@@ -65,7 +65,7 @@ abstract class AbstractState {
         if (bagIDAttr == null) {
             return ReificationManager.INSTANCE;
         } else {
-            String bagID = parser.resolveIRI("#" + bagIDAttr);
+            String bagID = parser.resolveIRI('#' + bagIDAttr);
             return new ReifiedStatementBag(bagID, parser);
         }
     }
@@ -297,7 +297,7 @@ class NodeElement extends AbstractState implements State {
     String getReificationID(@Nonnull Attributes atts) {
         String rdfID = atts.getValue(RDFNS, ATTR_ID);
         if (rdfID != null) {
-            rdfID = parser.resolveIRI("#" + rdfID);
+            rdfID = parser.resolveIRI('#' + rdfID);
         }
         return reificationManager.getReificationID(rdfID, parser);
     }
@@ -305,7 +305,7 @@ class NodeElement extends AbstractState implements State {
     /** @return next list item */
     @Nonnull
     String getNextLi() {
-        return RDFNS + "_" + m_nextLi.getAndIncrement();
+        return RDFNS + '_' + m_nextLi.getAndIncrement();
     }
 
     /**
@@ -356,7 +356,7 @@ class NodeElement extends AbstractState implements State {
         String result = null;
         String value = atts.getValue(RDFNS, ATTR_ID);
         if (value != null) {
-            result = parser.resolveIRI("#" + value);
+            result = parser.resolveIRI('#' + value);
         }
         value = atts.getValue(RDFNS, ATTR_ABOUT);
         if (value != null) {
@@ -591,9 +591,9 @@ class ParseTypeLiteralElement extends AbstractState implements State {
                 m_content.append(atts.getQName(i));
                 m_content.append("=\"");
                 m_content.append(atts.getValue(i));
-                m_content.append("\"");
+                m_content.append('"');
             }
-            m_content.append(">");
+            m_content.append('>');
         }
         m_depth++;
     }
@@ -608,7 +608,7 @@ class ParseTypeLiteralElement extends AbstractState implements State {
         } else {
             m_content.append("</");
             m_content.append(qName);
-            m_content.append(">");
+            m_content.append('>');
         }
         m_depth--;
     }
@@ -742,7 +742,7 @@ class ReifiedStatementBag extends ReificationManager {
             resultIRI = reificationID;
         }
         parser.statementWithResourceValue(m_uri,
-                RDFNS + "_" + m_elements.getAndIncrement(), resultIRI, null);
+                RDFNS + '_' + m_elements.getAndIncrement(), resultIRI, null);
         return resultIRI;
     }
 }

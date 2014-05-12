@@ -190,7 +190,7 @@ public enum OWLRDFVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     OWLRDFVocabulary(@Nonnull Namespaces namespace, @Nonnull String shortName) {
         this.namespace = namespace;
         this.shortName = shortName;
-        prefixedName = namespace.getPrefixName() + ":" + shortName;
+        prefixedName = namespace.getPrefixName() + ':' + shortName;
         iri = IRI.create(namespace.toString(), shortName);
     }
 

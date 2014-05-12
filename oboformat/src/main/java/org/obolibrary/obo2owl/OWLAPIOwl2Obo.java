@@ -1301,8 +1301,8 @@ public class OWLAPIOwl2Obo {
         if (v.isPresent()) {
             String vs = v.get().toString()
                     .replace("http://purl.obolibrary.org/obo/", "");
-            vs = vs.replaceFirst(oid + "/", "");
-            vs = vs.replace("/" + oid + ".owl", "");
+            vs = vs.replaceFirst(oid + '/', "");
+            vs = vs.replace('/' + oid + ".owl", "");
             return vs;
         }
         return null;
@@ -1783,7 +1783,7 @@ public class OWLAPIOwl2Obo {
         String[] s = id.split("#_");
         // table 5.9.2 row 2 - NonCanonical-Prefixed-ID
         if (s.length > 1) {
-            return s[0] + ":" + s[1];
+            return s[0] + ':' + s[1];
         }
         // row 3 - Unprefixed-ID
         s = id.split("#");
@@ -1792,7 +1792,7 @@ public class OWLAPIOwl2Obo {
             // if(!(s[1].contains("#") || s[1].contains("_"))){
             String prefix = "";
             if ("owl".equals(s[0]) || "rdf".equals(s[0]) || "rdfs".equals(s[0])) {
-                prefix = s[0] + ":";
+                prefix = s[0] + ':';
             }
             // TODO: the following implements behavior in current spec, but this
             // leads to undesirable results
@@ -1813,7 +1813,7 @@ public class OWLAPIOwl2Obo {
             String localId;
             try {
                 localId = java.net.URLDecoder.decode(s[1], "UTF-8");
-                return s[0] + ":" + localId;
+                return s[0] + ':' + localId;
             } catch (UnsupportedEncodingException e) {
                 throw new RuntimeException(
                         "UTF-8 not supported, JRE corrupted?", e);
@@ -1825,9 +1825,9 @@ public class OWLAPIOwl2Obo {
                 for (int i = 0; i < s.length; i++) {
                     if (i > 0) {
                         if (i == s.length - 1) {
-                            sb.append(":");
+                            sb.append(':');
                         } else {
-                            sb.append("_");
+                            sb.append('_');
                         }
                     }
                     sb.append(s[i]);
@@ -1954,7 +1954,7 @@ public class OWLAPIOwl2Obo {
                 String value = ((OWLLiteral) ann.getValue()).getLiteral();
                 if (OWLRDFVocabulary.RDFS_LABEL.getIRI().toString()
                         .equals(propId)) {
-                    nameValue = "\"" + value + "\"";
+                    nameValue = '"' + value + '"';
                 } else {
                     scopeValue = value;
                 }
@@ -1984,7 +1984,7 @@ public class OWLAPIOwl2Obo {
                 String value = ((OWLLiteral) ann.getValue()).getLiteral();
                 if (OWLRDFVocabulary.RDFS_LABEL.getIRI().toString()
                         .equals(propId)) {
-                    nameValue = "\"" + value + "\"";
+                    nameValue = '"' + value + '"';
                 }
             }
             c.addValue(nameValue);

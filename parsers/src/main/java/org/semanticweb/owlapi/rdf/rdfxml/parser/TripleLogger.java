@@ -118,7 +118,7 @@ public class TripleLogger {
         }
         if (prefixManager == null || !(o instanceof IRI)) {
             // quote strings and bnodes
-            return "\"" + o + "\"";
+            return "\"" + o + '"';
         }
         // there is a prefix manager and o is an IRI
         IRI i = (IRI) o;

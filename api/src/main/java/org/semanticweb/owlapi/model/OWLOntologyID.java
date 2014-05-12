@@ -220,7 +220,7 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
             return String.format(template, ontologyIRI.get(),
                     versionIRI.orNull());
         }
-        return "OntologyID(" + internalID.orNull() + ")";
+        return "OntologyID(" + internalID.orNull() + ')';
     }
 
     @Override

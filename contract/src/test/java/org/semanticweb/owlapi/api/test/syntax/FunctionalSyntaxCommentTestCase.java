@@ -35,7 +35,7 @@ public class FunctionalSyntaxCommentTestCase extends TestBase {
                 + "//second Test comment\n"
                 + "Declaration(DataProperty(<urn:test.owl#city>))\n"
                 + "SubClassOf(<urn:test.owl#ContactInformation> DataMaxCardinality(1 <urn:test.owl#city> xsd:string))\n"
-                + ")";
+                + ')';
         OWLOntology o = loadOntologyFromString(input);
         OWLAxiom ax1 = Declaration(DataProperty(IRI("urn:test.owl#city")));
         OWLAxiom ax2 = SubClassOf(

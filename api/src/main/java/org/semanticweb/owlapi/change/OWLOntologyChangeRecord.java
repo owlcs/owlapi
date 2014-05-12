@@ -179,7 +179,7 @@ public class OWLOntologyChangeRecord<T> implements Serializable {
 
     @Override
     public String toString() {
-        return getName() + "(" + ontologyID + " " + data + ")";
+        return getName() + '(' + ontologyID + ' ' + data + ')';
     }
 
     /** @return a name for the object class */

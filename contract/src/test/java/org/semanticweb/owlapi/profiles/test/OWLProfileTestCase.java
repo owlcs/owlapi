@@ -600,7 +600,7 @@ public class OWLProfileTestCase {
         OWLOntology o = createOnto();
         OWLOntologyManager m = o.getOWLOntologyManager();
         m.addAxiom(o,
-                ClassAssertion(OWLThing(), NamedIndividual(IRI(START + "i"))));
+                ClassAssertion(OWLThing(), NamedIndividual(IRI(START + 'i'))));
         OWL2DLProfile profile = new OWL2DLProfile();
         int expected = 1;
         Class[] expectedViolations = { UseOfReservedVocabularyForIndividualIRI.class };

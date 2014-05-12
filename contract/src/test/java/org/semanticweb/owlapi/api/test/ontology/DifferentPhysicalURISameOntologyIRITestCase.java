@@ -35,10 +35,10 @@ public class DifferentPhysicalURISameOntologyIRITestCase extends TestBase {
     public void testDifferentPhysicalURISameOntologyIRI() throws Exception {
         IRI ontologyADocumentIRI = IRI
                 .create(DifferentPhysicalURISameOntologyIRITestCase.class
-                        .getResource("/" + ONTOLOGY_A).toURI());
+                        .getResource('/' + ONTOLOGY_A).toURI());
         IRI ontologyADocumentIRIB = IRI
                 .create(DifferentPhysicalURISameOntologyIRITestCase.class
-                        .getResource("/" + ONTOLOGY_A_EMPTY).toURI());
+                        .getResource('/' + ONTOLOGY_A_EMPTY).toURI());
         OWLOntology loadOntologyFromOntologyDocument = m
                 .loadOntologyFromOntologyDocument(ontologyADocumentIRI);
         OWLOntology ontologyA = loadOntologyFromOntologyDocument;

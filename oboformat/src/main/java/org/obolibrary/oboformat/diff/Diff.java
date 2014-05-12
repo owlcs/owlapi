@@ -121,7 +121,7 @@ public class Diff {
     @Nonnull
     @Override
     public String toString() {
-        return type + " " + frameType + " Frame1="
+        return type + ' ' + frameType + " Frame1="
                 + (frame1 == null ? "-" : frame1.getId()) + " Frame2="
                 + (frame2 == null ? "-" : frame2.getId()) + " Clause1="
                 + (clause1 == null ? "-" : clause1) + " Clause2="

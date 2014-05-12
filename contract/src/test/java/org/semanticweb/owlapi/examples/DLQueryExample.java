@@ -375,7 +375,7 @@ class DLQueryPrinter {
             sb.append("\n--------------------------------------------------------------------------------\n");
             sb.append("QUERY:   ");
             sb.append(classExpression);
-            sb.append("\n");
+            sb.append('\n');
             sb.append("--------------------------------------------------------------------------------\n\n");
             // Ask for the subclasses, superclasses etc. of the specified
             // class expression. Print out the results.
@@ -401,19 +401,19 @@ class DLQueryPrinter {
         sb.append(name);
         int length = 50 - name.length();
         for (int i = 0; i < length; i++) {
-            sb.append(".");
+            sb.append('.');
         }
         sb.append("\n\n");
         if (!entities.isEmpty()) {
             for (OWLEntity entity : entities) {
                 assert entity != null;
-                sb.append("\t");
+                sb.append('\t');
                 sb.append(shortFormProvider.getShortForm(entity));
-                sb.append("\n");
+                sb.append('\n');
             }
         } else {
             sb.append("\t[NONE]\n");
         }
-        sb.append("\n");
+        sb.append('\n');
     }
 }

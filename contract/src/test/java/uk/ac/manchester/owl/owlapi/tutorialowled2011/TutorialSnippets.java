@@ -931,7 +931,7 @@ public class TutorialSnippets {
 
         public LoggingReasonerProgressMonitor(@Nonnull Logger log,
                 String methodName) {
-            String loggerName = log.getName() + "." + methodName;
+            String loggerName = log.getName() + '.' + methodName;
             logger = LoggerFactory.getLogger(loggerName);
         }
 

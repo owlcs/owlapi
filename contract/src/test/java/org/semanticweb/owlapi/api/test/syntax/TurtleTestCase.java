@@ -276,8 +276,8 @@ public class TurtleTestCase extends TestBase {
         m.addAxiom(
                 ontology,
                 df.getOWLSubClassOfAxiom(
-                        df.getOWLClass(IRI.create(string + "t")),
-                        df.getOWLClass(IRI.create(string + "q"))));
+                        df.getOWLClass(IRI.create(string + 't')),
+                        df.getOWLClass(IRI.create(string + 'q'))));
         OWLOntology o = roundTrip(ontology, new TurtleOntologyFormat());
         equal(o, in);
     }

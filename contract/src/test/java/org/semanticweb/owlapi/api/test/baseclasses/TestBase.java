@@ -109,7 +109,7 @@ public abstract class TestBase {
                         leftOnly.add(ax);
                         sb.append("Rem axiom: ");
                         sb.append(ax);
-                        sb.append("\n");
+                        sb.append('\n');
                         counter++;
                     }
                 }
@@ -120,7 +120,7 @@ public abstract class TestBase {
                         rightOnly.add(ax);
                         sb.append("Add axiom: ");
                         sb.append(ax);
-                        sb.append("\n");
+                        sb.append('\n');
                         counter++;
                     }
                 }
@@ -151,7 +151,7 @@ public abstract class TestBase {
     @Nonnull
     private static String topOfStackTrace() {
         StackTraceElement[] elements = new RuntimeException().getStackTrace();
-        return elements[1] + "\n" + elements[2] + "\n"
+        return elements[1] + "\n" + elements[2] + '\n'
                 + elements[3];
     }
 
@@ -205,7 +205,7 @@ public abstract class TestBase {
     @Nonnull
     public OWLOntology getOWLOntology(String name) {
         try {
-            IRI iri = IRI(uriBase + "/" + name);
+            IRI iri = IRI(uriBase + '/' + name);
             if (m.contains(iri)) {
                 return m.getOntology(iri);
             } else {
@@ -218,7 +218,7 @@ public abstract class TestBase {
 
     public OWLOntology loadOntology(String fileName) {
         try {
-            URL url = getClass().getResource("/" + fileName);
+            URL url = getClass().getResource('/' + fileName);
             return m.loadOntologyFromOntologyDocument(
                     new IRIDocumentSource(IRI.create(url), null, null),
                     new OWLOntologyLoaderConfiguration()
@@ -231,7 +231,7 @@ public abstract class TestBase {
 
     @Nonnull
     public IRI getIRI(String name) {
-        return IRI(uriBase + "#" + name);
+        return IRI(uriBase + '#' + name);
     }
 
     public void addAxiom(@Nonnull OWLOntology ont, @Nonnull OWLAxiom ax) {

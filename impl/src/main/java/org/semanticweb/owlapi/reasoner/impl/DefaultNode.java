@@ -181,9 +181,9 @@ public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
         sb.append("Node( ");
         for (OWLObject entity : entities) {
             sb.append(entity);
-            sb.append(" ");
+            sb.append(' ');
         }
-        sb.append(")");
+        sb.append(')');
         return verifyNotNull(sb.toString());
     }
 

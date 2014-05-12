@@ -383,6 +383,6 @@ public class OBODoc {
     /** @return the header descriptor */
     @Nonnull
     private String getHeaderDescriptor() {
-        return "OBODoc(" + headerFrame + ")";
+        return "OBODoc(" + headerFrame + ')';
     }
 }

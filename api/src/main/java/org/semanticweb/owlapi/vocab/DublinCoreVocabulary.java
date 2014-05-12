@@ -61,7 +61,7 @@ public enum DublinCoreVocabulary
 
     DublinCoreVocabulary(@Nonnull String name) {
         shortName = name;
-        qname = Namespaces.DC.getPrefixName() + ":" + name;
+        qname = Namespaces.DC.getPrefixName() + ':' + name;
         iri = IRI.create(NAME_SPACE, name);
     }
 

@@ -52,7 +52,7 @@ public enum DataRangeType
 
     DataRangeType(@Nonnull String name) {
         this.name = name;
-        prefixedName = Namespaces.OWL.getPrefixName() + ":" + name;
+        prefixedName = Namespaces.OWL.getPrefixName() + ':' + name;
         iri = IRI.create(Namespaces.OWL.getPrefixIRI(), name);
     }
 

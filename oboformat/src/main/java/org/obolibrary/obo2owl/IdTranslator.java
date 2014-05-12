@@ -85,6 +85,6 @@ public class IdTranslator {
         if (idspaceMap.containsKey(prefix)) {
             return idspaceMap.get(prefix);
         }
-        return OBO_IRI_PREFIX + prefix + "_";
+        return OBO_IRI_PREFIX + prefix + '_';
     }
 }

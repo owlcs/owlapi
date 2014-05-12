@@ -61,7 +61,7 @@ public class OWLOntologyAlreadyExistsException extends
             IRI documentIRI) {
         super(ONTOLOGY_ALREADY_EXISTS + ontologyID
                 + " (New ontology loaded from " + documentIRI.toQuotedString()
-                + ")");
+                + ')');
         this.ontologyID = ontologyID;
         this.documentIRI = documentIRI;
     }
@@ -100,7 +100,7 @@ public class OWLOntologyAlreadyExistsException extends
             IRI documentIRI, Throwable t) {
         super(ONTOLOGY_ALREADY_EXISTS + ontologyID
                 + " (New ontology loaded from " + documentIRI.toQuotedString()
-                + ")", t);
+                + ')', t);
         this.ontologyID = ontologyID;
         this.documentIRI = documentIRI;
     }

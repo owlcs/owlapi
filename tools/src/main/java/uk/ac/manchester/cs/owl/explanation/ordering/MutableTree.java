@@ -168,7 +168,7 @@ public class MutableTree<N> implements Tree<N> {
         int depth = getPathToRoot().size();
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < depth + indent; i++) {
-            sb.append("\t");
+            sb.append('\t');
         }
         writer.print(sb);
         String ren = toStringRenderer.render(this);

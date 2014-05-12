@@ -196,7 +196,7 @@ public class ManchesterOWLSyntaxTokenizer {
                 break;
             } else if (ch == '>') {
                 // End of IRI
-                sb.append(">");
+                sb.append('>');
                 consumeToken();
                 break;
             } else {
@@ -265,7 +265,7 @@ public class ManchesterOWLSyntaxTokenizer {
 
         @Override
         public String toString() {
-            return token + " [" + pos + ", " + col + ", " + row + "]";
+            return token + " [" + pos + ", " + col + ", " + row + ']';
         }
     }
 }

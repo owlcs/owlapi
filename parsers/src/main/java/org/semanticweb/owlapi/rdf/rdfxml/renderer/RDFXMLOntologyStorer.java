@@ -53,7 +53,7 @@ public class RDFXMLOntologyStorer extends AbstractOWLOntologyStorer {
                 StringBuilder sb = new StringBuilder();
                 for (OWLEntity entity : entities) {
                     sb.append(entity.toStringID());
-                    sb.append("\n");
+                    sb.append('\n');
                 }
                 throw new OWLOntologyStorageException(sb.toString().trim(),
                         new IllegalElementNameException(sb.toString().trim()));

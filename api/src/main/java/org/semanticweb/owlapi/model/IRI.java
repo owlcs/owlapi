@@ -184,7 +184,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
      */
     @Nonnull
     public String toQuotedString() {
-        return "<" + prefix + remainder + ">";
+        return '<' + prefix + remainder + '>';
     }
 
     /**

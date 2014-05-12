@@ -112,7 +112,7 @@ public class AnnotationShortFormProviderTestCase extends TestBase {
                     @Nonnull
                     @Override
                     public String visit(@Nonnull OWLLiteral literal) {
-                        return "\"" + literal.getLiteral() + "\"";
+                        return '"' + literal.getLiteral() + '"';
                     }
 
                     @Override
@@ -126,6 +126,6 @@ public class AnnotationShortFormProviderTestCase extends TestBase {
                     }
                 });
         String shortForm2 = sfp.getShortForm(root);
-        assertEquals(shortForm2, "\"" + shortForm + "\"");
+        assertEquals(shortForm2, '"' + shortForm + '"');
     }
 }

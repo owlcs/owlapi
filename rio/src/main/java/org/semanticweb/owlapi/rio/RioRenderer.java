@@ -102,7 +102,7 @@ public class RioRenderer extends RDFRendererBase {
                     .getOntologyIRI().get().toString();
             String defaultPrefix = ontologyIRIString;
             if (!ontologyIRIString.endsWith("/")) {
-                defaultPrefix = ontologyIRIString + "#";
+                defaultPrefix = ontologyIRIString + '#';
             }
             pm.setDefaultPrefix(defaultPrefix);
         }

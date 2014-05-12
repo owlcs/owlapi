@@ -68,7 +68,7 @@ class ParseException extends OWLParserException {
                 retval += tokenImage[0];
                 break;
             }
-            retval += " " + tokenImage[tok.kind];
+            retval += ' ' + tokenImage[tok.kind];
             retval += " \"";
             retval += add_escapes(tok.image);
             retval += " \"";
@@ -76,7 +76,7 @@ class ParseException extends OWLParserException {
         }
         retval += "\" at line " + currentToken.next.beginLine + ", column "
                 + currentToken.next.beginColumn;
-        retval += "." + eol;
+        retval += '.' + eol;
         if (expectedTokenSequences.length == 1) {
             retval += "Was expecting:" + eol + "    ";
         } else {

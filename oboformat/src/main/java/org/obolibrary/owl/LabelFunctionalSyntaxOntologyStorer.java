@@ -76,7 +76,7 @@ public class LabelFunctionalSyntaxOntologyStorer extends
                 if (annotation.getProperty().isLabel()) {
                     OWLAnnotationValue value = annotation.getValue();
                     if (value instanceof OWLLiteral) {
-                        return "<" + ((OWLLiteral) value).getLiteral() + ">";
+                        return '<' + ((OWLLiteral) value).getLiteral() + '>';
                     }
                 }
             }

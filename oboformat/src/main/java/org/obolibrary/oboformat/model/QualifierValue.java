@@ -48,7 +48,7 @@ public class QualifierValue {
     @Nonnull
     @Override
     public String toString() {
-        return "{" + qualifier + "=" + value + "}";
+        return '{' + qualifier + '=' + value + '}';
     }
 
     @Override
