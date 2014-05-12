@@ -33,7 +33,7 @@ public abstract class AbstractInMemOWLOntologyFactory implements
         OWLOntologyFactory {
 
     private static final long serialVersionUID = 40000L;
-    private OWLOntologyBuilder builder;
+    private final OWLOntologyBuilder builder;
 
     /**
      * @param builder

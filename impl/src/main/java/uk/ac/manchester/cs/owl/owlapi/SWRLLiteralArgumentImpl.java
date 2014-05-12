@@ -47,7 +47,6 @@ public class SWRLLiteralArgumentImpl extends OWLObjectImpl implements
      *        literal for argument
      */
     public SWRLLiteralArgumentImpl(@Nonnull OWLLiteral literal) {
-        super();
         this.literal = checkNotNull(literal, "literal cannot be null");
     }
 

@@ -61,7 +61,7 @@ import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 public class DLQueryExample {
 
     @Nonnull
-    private final static String koala = "<?xml version=\"1.0\"?>\n"
+    private static final String koala = "<?xml version=\"1.0\"?>\n"
             + "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\" xmlns=\"http://protege.stanford.edu/plugins/owl/owl-library/koala.owl#\" xml:base=\"http://protege.stanford.edu/plugins/owl/owl-library/koala.owl\">\n"
             + "  <owl:Ontology rdf:about=\"\"/>\n"
             + "  <owl:Class rdf:ID=\"Female\"><owl:equivalentClass><owl:Restriction><owl:onProperty><owl:FunctionalProperty rdf:about=\"#hasGender\"/></owl:onProperty><owl:hasValue><Gender rdf:ID=\"female\"/></owl:hasValue></owl:Restriction></owl:equivalentClass></owl:Class>\n"
@@ -205,7 +205,7 @@ class DLQueryEngine {
     @Nonnull
     public Set<OWLClass> getSuperClasses(@Nonnull String classExpressionString,
             boolean direct) {
-        if (classExpressionString.trim().length() == 0) {
+        if (classExpressionString.trim().isEmpty()) {
             return CollectionFactory.emptySet();
         }
         OWLClassExpression classExpression = parser
@@ -226,7 +226,7 @@ class DLQueryEngine {
     @Nonnull
     public Set<OWLClass> getEquivalentClasses(
             @Nonnull String classExpressionString) {
-        if (classExpressionString.trim().length() == 0) {
+        if (classExpressionString.trim().isEmpty()) {
             return CollectionFactory.emptySet();
         }
         OWLClassExpression classExpression = parser
@@ -256,7 +256,7 @@ class DLQueryEngine {
     @Nonnull
     public Set<OWLClass> getSubClasses(@Nonnull String classExpressionString,
             boolean direct) {
-        if (classExpressionString.trim().length() == 0) {
+        if (classExpressionString.trim().isEmpty()) {
             return CollectionFactory.emptySet();
         }
         OWLClassExpression classExpression = parser
@@ -279,7 +279,7 @@ class DLQueryEngine {
     @Nonnull
     public Set<OWLNamedIndividual> getInstances(
             @Nonnull String classExpressionString, boolean direct) {
-        if (classExpressionString.trim().length() == 0) {
+        if (classExpressionString.trim().isEmpty()) {
             return CollectionFactory.emptySet();
         }
         OWLClassExpression classExpression = parser
@@ -368,7 +368,7 @@ class DLQueryPrinter {
      *        the class expression to use for interrogation
      */
     public void askQuery(@Nonnull String classExpression) {
-        if (classExpression.length() == 0) {
+        if (classExpression.isEmpty()) {
             System.out.println("No class expression specified");
         } else {
             StringBuilder sb = new StringBuilder();
@@ -391,7 +391,7 @@ class DLQueryPrinter {
             Set<OWLNamedIndividual> individuals = dlQueryEngine.getInstances(
                     classExpression, true);
             printEntities("Instances", individuals, sb);
-            System.out.println(sb.toString());
+            System.out.println(sb);
         }
     }
 

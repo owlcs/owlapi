@@ -96,7 +96,7 @@ public class XMLWriterImpl implements XMLWriter {
                         .getPrefixForNamespace(curNamespace);
             }
             assert curPrefix != null;
-            if (curPrefix.length() > 0) {
+            if (!curPrefix.isEmpty()) {
                 entities.put(curNamespace, "&" + curPrefix + ";");
             }
         }
@@ -236,7 +236,7 @@ public class XMLWriterImpl implements XMLWriter {
     @Override
     public void startDocument(@Nonnull IRI rootElement) throws IOException {
         String encodingString = "";
-        if (encoding.length() > 0) {
+        if (!encoding.isEmpty()) {
             encodingString = " encoding=\"" + encoding + "\"";
         }
         writer.write("<?xml version=\"1.0\"" + encodingString + "?>\n");
@@ -250,11 +250,11 @@ public class XMLWriterImpl implements XMLWriter {
         writeStartElement(rootElement);
         setWrapAttributes(true);
         writeAttribute("xmlns", xmlWriterNamespaceManager.getDefaultNamespace());
-        if (xmlBase.length() != 0) {
+        if (!xmlBase.isEmpty()) {
             writeAttribute("xml:base", xmlBase);
         }
         for (String curPrefix : xmlWriterNamespaceManager.getPrefixes()) {
-            if (curPrefix.length() > 0) {
+            if (!curPrefix.isEmpty()) {
                 writeAttribute("xmlns:" + curPrefix,
                         verifyNotNull(xmlWriterNamespaceManager
                                 .getNamespaceForPrefix(curPrefix)));

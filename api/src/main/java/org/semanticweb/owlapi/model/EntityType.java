@@ -32,7 +32,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * @param <E>
  *        entity type
  */
-public final class EntityType<E extends OWLEntity> implements Serializable,
+public class EntityType<E extends OWLEntity> implements Serializable,
         HasShortForm, HasPrefixedName, HasIRI {
 
     private static final long serialVersionUID = 40000L;

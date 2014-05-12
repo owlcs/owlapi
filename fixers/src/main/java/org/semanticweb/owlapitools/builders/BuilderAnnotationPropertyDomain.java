@@ -25,7 +25,7 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 /** Builder class for OWLAnnotationPropertyDomainAxiom */
 public class BuilderAnnotationPropertyDomain
         extends
-        BaseAnnotationtPropertyBuilder<OWLAnnotationPropertyDomainAxiom, BuilderAnnotationPropertyDomain> {
+        BaseAnnotationPropertyBuilder<OWLAnnotationPropertyDomainAxiom, BuilderAnnotationPropertyDomain> {
 
     @Nullable
     private IRI domain = null;

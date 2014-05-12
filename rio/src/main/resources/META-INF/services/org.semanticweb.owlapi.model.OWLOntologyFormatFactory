@@ -1,0 +1,11 @@
+org.semanticweb.owlapi.formats.BinaryRDFOntologyFormatFactory
+org.semanticweb.owlapi.formats.N3OntologyFormatFactory
+org.semanticweb.owlapi.formats.NQuadsOntologyFormatFactory
+org.semanticweb.owlapi.formats.NTriplesOntologyFormatFactory
+org.semanticweb.owlapi.formats.RDFaOntologyFormatFactory
+org.semanticweb.owlapi.formats.RDFJsonLDOntologyFormatFactory
+org.semanticweb.owlapi.formats.RDFJsonOntologyFormatFactory
+org.semanticweb.owlapi.formats.RioRDFXMLOntologyFormatFactory
+org.semanticweb.owlapi.formats.RioTurtleOntologyFormatFactory
+org.semanticweb.owlapi.formats.TrigOntologyFormatFactory
+org.semanticweb.owlapi.formats.TrixOntologyFormatFactory

@@ -36,8 +36,6 @@ public class ManchesterImportTestCase {
     @Nonnull
     private String superpath = "/imports/thesuperont.omn";
     @Nonnull
-    private String subpath = "/imports/thesubont.omn";
-    @Nonnull
     private static final File RESOURCES;
     static {
         File f = new File("contract/src/test/resources/");
@@ -93,6 +91,7 @@ public class ManchesterImportTestCase {
     @Test
     public void testImports() throws OWLOntologyCreationException {
         OWLOntologyManager manager = getManager();
+        String subpath = "/imports/thesubont.omn";
         manager.loadOntologyFromOntologyDocument(new File(RESOURCES, subpath));
     }
 }

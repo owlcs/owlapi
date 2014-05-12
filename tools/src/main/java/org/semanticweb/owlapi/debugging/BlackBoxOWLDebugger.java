@@ -81,10 +81,8 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
     private static final int DEFAULT_INITIAL_EXPANSION_LIMIT = 50;
     private int initialExpansionLimit = DEFAULT_INITIAL_EXPANSION_LIMIT;
     private int expansionLimit = initialExpansionLimit;
-    private double expansionFactor = 1.25;
     private static final int DEFAULT_FAST_PRUNING_WINDOW_SIZE = 10;
     private int fastPruningWindowSize = 0;
-    private boolean performRepeatedFastPruning = false;
 
     /**
      * Instantiates a new black box owl debugger.
@@ -188,6 +186,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
         // Keep track of the number of axioms that have been added
         int axiomsAdded = 0;
         int remainingSpace = expansionLimit;
+        double expansionFactor = 1.25;
         for (OWLAxiom ax : new ArrayList<OWLAxiom>(debuggingAxioms)) {
             if (expandedWithDefiningAxioms.contains(ax)) {
                 // Skip if already done
@@ -456,13 +455,14 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
         LOGGER.info("FOUND CLASH! Pruning {} axioms...", debuggingAxioms.size());
         resetSatisfiabilityTestCounter();
         LOGGER.info("Fast pruning...");
+        boolean performRepeatedFastPruning = false;
         if (performRepeatedFastPruning) {
             // Base the initial fast pruning window size on the number of axioms
             fastPruningWindowSize = debuggingAxioms.size() / 10;
             if (fastPruningWindowSize < DEFAULT_FAST_PRUNING_WINDOW_SIZE) {
                 fastPruningWindowSize = DEFAULT_FAST_PRUNING_WINDOW_SIZE;
             }
-            LOGGER.info("    Initial fast prunung window size: {}",
+            LOGGER.info("    Initial fast pruning window size: {}",
                     fastPruningWindowSize);
             int fastPruningCounter = 0;
             while (fastPruningWindowSize != 1) {

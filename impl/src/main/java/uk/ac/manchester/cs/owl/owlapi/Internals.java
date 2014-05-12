@@ -1351,7 +1351,7 @@ public class Internals implements Serializable {
         return owlEntity.accept(refAxiomsCollector);
     }
 
-    private final class ReferencedAxiomsCollector implements
+    private  class ReferencedAxiomsCollector implements
             OWLEntityVisitorEx<Set<OWLAxiom>>, Serializable {
 
         private static final long serialVersionUID = 40000L;

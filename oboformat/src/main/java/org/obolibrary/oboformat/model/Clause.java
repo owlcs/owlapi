@@ -33,7 +33,6 @@ public class Clause {
      *        tag
      */
     public Clause(String tag) {
-        super();
         this.tag = tag;
     }
 
@@ -66,7 +65,6 @@ public class Clause {
      */
     @Deprecated
     public Clause() {
-        super();
     }
 
     /** @return tag */
@@ -247,8 +245,8 @@ public class Clause {
 
     private static boolean collectionsEquals(@Nullable Collection<?> c1,
             @Nullable Collection<?> c2) {
-        if (c1 == null || c1.size() == 0) {
-            return c2 == null || c2.size() == 0;
+        if (c1 == null || c1.isEmpty()) {
+            return c2 == null || c2.isEmpty();
         }
         if (c2 == null) {
             return false;

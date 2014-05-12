@@ -59,7 +59,7 @@ public class OWLXMLRenderer extends AbstractOWLRenderer {
                         .getPrefixName2PrefixMap();
                 for (String prefixName : map.keySet()) {
                     String prefix = map.get(prefixName);
-                    if (prefix != null && prefix.length() > 0) {
+                    if (prefix != null && !prefix.isEmpty()) {
                         w.writePrefix(prefixName, prefix);
                     }
                 }

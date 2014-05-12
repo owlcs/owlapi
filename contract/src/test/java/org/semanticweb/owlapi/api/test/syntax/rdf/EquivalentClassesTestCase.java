@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.syntax.rdf;
 
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -33,15 +33,9 @@ public class EquivalentClassesTestCase extends AbstractRendererAndParser {
 
     @Nonnull
     @Override
-    protected String getClassExpression() {
-        return "Equivalent classes axioms test case";
-    }
-
-    @Nonnull
-    @Override
     protected Set<OWLAxiom> getAxioms() {
-        OWLClass clsA = Class(TestUtils.createIRI());
-        OWLObjectProperty prop = df.getOWLObjectProperty(TestUtils.createIRI());
+        OWLClass clsA = createClass();
+        OWLObjectProperty prop = createObjectProperty();
         OWLClassExpression descA = df.getOWLObjectSomeValuesFrom(prop,
                 df.getOWLThing());
         Set<OWLClassExpression> classExpressions = new HashSet<OWLClassExpression>();

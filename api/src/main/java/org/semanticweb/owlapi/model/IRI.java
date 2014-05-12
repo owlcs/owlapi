@@ -106,9 +106,9 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
         // extra URI object
         URI uri = URI.create(s);
         if (uri.isAbsolute() || uri.isOpaque()) {
-            return IRI.create(uri);
+            return create(uri);
         }
-        return IRI.create(toURI().resolve(uri));
+        return create(toURI().resolve(uri));
     }
 
     /**
@@ -138,7 +138,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
      *         {@code false}
      */
     public boolean isThing() {
-        return remainder.equals("Thing") && Namespaces.OWL.inNamespace(prefix);
+        return equals(OWLRDFVocabulary.OWL_THING.getIRI());
     }
 
     /**

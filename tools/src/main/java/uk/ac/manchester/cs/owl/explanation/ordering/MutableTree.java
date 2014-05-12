@@ -178,14 +178,14 @@ public class MutableTree<N> implements Tree<N> {
         for (int i = 0; i < depth + indent; i++) {
             sb.append("\t");
         }
-        writer.print(sb.toString());
+        writer.print(sb);
         String ren = toStringRenderer.render(this);
         ren = ren.replace("\n", "\n" + sb);
         writer.println(ren);
         for (Tree<N> child : getChildren()) {
             Object edge = getEdge(child);
             if (edge != null) {
-                writer.print(sb.toString());
+                writer.print(sb);
                 writer.print("--- ");
                 writer.print(edge);
                 writer.print(" ---\n\n");

@@ -40,7 +40,7 @@ import org.semanticweb.owlapi.vocab.Namespaces;
  *         Informatics Group
  * @since 3.2.0
  */
-public final class OWLOntologyLoaderConfiguration implements Serializable {
+public class OWLOntologyLoaderConfiguration implements Serializable {
 
     private static final long serialVersionUID = 40000L;
     /** true if http compression should be used */

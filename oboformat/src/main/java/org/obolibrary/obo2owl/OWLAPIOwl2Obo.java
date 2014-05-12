@@ -14,7 +14,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -98,7 +97,8 @@ public class OWLAPIOwl2Obo {
     /**
      * The log.
      */
-    private static Logger LOG = LoggerFactory.getLogger(OWLAPIOwl2Obo.class);
+    private static final Logger LOG = LoggerFactory
+            .getLogger(OWLAPIOwl2Obo.class);
     private static final String IRI_CLASS_SYNONYMTYPEDEF = Obo2OWLConstants.DEFAULT_IRI_PREFIX
             + "IAO_synonymtypedef";
     private static final String IRI_CLASS_SUBSETDEF = Obo2OWLConstants.DEFAULT_IRI_PREFIX
@@ -132,7 +132,7 @@ public class OWLAPIOwl2Obo {
      * The annotation property map.
      */
     @Nonnull
-    public static Map<String, String> annotationPropertyMap = initAnnotationPropertyMap();
+    public static final Map<String, String> annotationPropertyMap = initAnnotationPropertyMap();
     /**
      * The ap to declare.
      */
@@ -985,7 +985,7 @@ public class OWLAPIOwl2Obo {
                 // TODO - xsd types
                 frame.addClause(clause);
             }
-        } else if (value.trim().length() > 0) {
+        } else if (!value.trim().isEmpty()) {
             if (tag == OboFormatTag.TAG_ID) {
                 if (frame.getId().equals(value) == false) {
                     warn("Conflicting id definitions: 1) " + frame.getId()
@@ -1035,7 +1035,7 @@ public class OWLAPIOwl2Obo {
                             String xrefAnnotation = ((OWLLiteral) owlAnnotationValue)
                                     .getLiteral();
                             xrefAnnotation = xrefAnnotation.trim();
-                            if (xrefAnnotation.length() > 0) {
+                            if (!xrefAnnotation.isEmpty()) {
                                 xref.setAnnotation(xrefAnnotation);
                             }
                         }
@@ -1089,7 +1089,7 @@ public class OWLAPIOwl2Obo {
             @Nonnull Set<OWLAnnotation> unprocessedQualifiers) {
         clause.setTag(OboFormatTag.TAG_SYNONYM.getTag());
         String type = null;
-        clause.setXrefs(new Vector<Xref>());
+        clause.setXrefs(new ArrayList<Xref>());
         for (OWLAnnotation aan : qualifiers) {
             String propId = owlObjectToTag(aan.getProperty());
             if (OboFormatTag.TAG_XREF.getTag().equals(propId)) {
@@ -1516,8 +1516,8 @@ public class OWLAPIOwl2Obo {
                                 allOnly.toString()));
                     }
                     addQualifiers(c, ax.getAnnotations());
-                } else if (f.getClauses(OboFormatTag.TAG_INTERSECTION_OF)
-                        .size() > 0) {
+                } else if (!f.getClauses(OboFormatTag.TAG_INTERSECTION_OF)
+                        .isEmpty()) {
                     error("The axiom is not translated (maximimum one IntersectionOf EquivalenceAxiom)",
                             ax, false);
                 } else {
@@ -1822,7 +1822,7 @@ public class OWLAPIOwl2Obo {
             }
         }
         if (s.length > 2 && !id.contains("#")) {
-            if (s[s.length - 1].replaceAll("[0-9]", "").length() == 0) {
+            if (s[s.length - 1].replaceAll("[0-9]", "").isEmpty()) {
                 StringBuffer sb = new StringBuffer();
                 for (int i = 0; i < s.length; i++) {
                     if (i > 0) {

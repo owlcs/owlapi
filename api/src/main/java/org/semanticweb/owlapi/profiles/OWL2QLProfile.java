@@ -75,7 +75,7 @@ public class OWL2QLProfile implements OWLProfile {
         return b;
     }
 
-    protected final static Set<IRI> allowedDatatypes = new HashSet<IRI>(
+    protected static final Set<IRI> allowedDatatypes = new HashSet<IRI>(
             Arrays.asList(
             //@formatter:off
             RDF_PLAIN_LITERAL.getIRI(), 

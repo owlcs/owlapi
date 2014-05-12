@@ -13,12 +13,10 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.Vector;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -78,7 +76,8 @@ import com.google.common.base.Optional;
 public class OWLAPIObo2Owl {
 
     /** The log. */
-    private static Logger LOG = LoggerFactory.getLogger(OWLAPIObo2Owl.class);
+    private static final Logger LOG = LoggerFactory
+            .getLogger(OWLAPIObo2Owl.class);
     /** The Constant IRI_PROP_isReversiblePropertyChain. */
     public static final String IRI_PROP_isReversiblePropertyChain = DEFAULT_IRI_PREFIX
             + "IAO_isReversiblePropertyChain";
@@ -98,13 +97,13 @@ public class OWLAPIObo2Owl {
     protected final Map<String, String> idSpaceMap;
     /** The annotation property map. */
     @Nonnull
-    public static Map<String, IRI> annotationPropertyMap = initAnnotationPropertyMap();
+    public static final Map<String, IRI> annotationPropertyMap = initAnnotationPropertyMap();
     /** The ap to declare. */
     @Nonnull
     protected final Set<OWLAnnotationProperty> apToDeclare;
     /** The cls to declar. */
     @Nonnull
-    protected final Map<String, OWLClass> clsToDeclar;
+    protected final Map<String, OWLClass> clsToDeclare;
     /** The typedef to annotation property. */
     @Nonnull
     protected final Map<String, OWLAnnotationProperty> typedefToAnnotationProperty;
@@ -118,8 +117,8 @@ public class OWLAPIObo2Owl {
     public OWLAPIObo2Owl(OWLOntologyManager manager) {
         idSpaceMap = new HashMap<String, String>();
         apToDeclare = new HashSet<OWLAnnotationProperty>();
-        clsToDeclar = new Hashtable<String, OWLClass>();
-        typedefToAnnotationProperty = new Hashtable<String, OWLAnnotationProperty>();
+        clsToDeclare = new HashMap<String, OWLClass>();
+        typedefToAnnotationProperty = new HashMap<String, OWLAnnotationProperty>();
         init(manager);
     }
 
@@ -136,7 +135,7 @@ public class OWLAPIObo2Owl {
         // clear all internal maps.
         idSpaceMap.clear();
         apToDeclare.clear();
-        clsToDeclar.clear();
+        clsToDeclare.clear();
         typedefToAnnotationProperty.clear();
     }
 
@@ -550,7 +549,7 @@ public class OWLAPIObo2Owl {
                             .getTag());
                     add(fac.getOWLAnnotationAssertionAxiom(ap, childIRI,
                             trLiteral(values[1])));
-                    if (values.length > 2 && values[2].toString().length() > 0) {
+                    if (values.length > 2 && !values[2].toString().isEmpty()) {
                         ap = trTagToAnnotationProp(OboFormatTag.TAG_SCOPE
                                 .getTag());
                         add(fac.getOWLAnnotationAssertionAxiom(ap, childIRI,
@@ -942,7 +941,7 @@ public class OWLAPIObo2Owl {
         // out.println(cls+" CL:"+clauses+" I:"+iSet+" E:"+eSet);
         eSet.add(fac.getOWLObjectUnionOf(iSet));
         // TODO - fix this
-        if (annotations.size() == 0) {
+        if (annotations.isEmpty()) {
             return fac.getOWLEquivalentClassesAxiom(eSet);
         } else {
             return fac.getOWLEquivalentClassesAxiom(eSet, annotations);
@@ -979,7 +978,7 @@ public class OWLAPIObo2Owl {
         // out.println(cls+" CL:"+clauses+" I:"+iSet+" E:"+eSet);
         eSet.add(fac.getOWLObjectIntersectionOf(iSet));
         // TODO - fix this
-        if (annotations.size() == 0) {
+        if (annotations.isEmpty()) {
             return fac.getOWLEquivalentClassesAxiom(eSet);
         } else {
             return fac.getOWLEquivalentClassesAxiom(eSet, annotations);
@@ -1179,7 +1178,7 @@ public class OWLAPIObo2Owl {
                 annotations.add(ann);
                 // isReversiblePropertyChain
             }
-            List<OWLObjectPropertyExpression> chain = new Vector<OWLObjectPropertyExpression>();
+            List<OWLObjectPropertyExpression> chain = new ArrayList<OWLObjectPropertyExpression>();
             chain.add(trObjectProp(v));
             chain.add(trObjectProp(clause.getValue2()));
             ax = fac.getOWLSubPropertyChainOfAxiom(chain, p, annotations);
@@ -1400,7 +1399,7 @@ public class OWLAPIObo2Owl {
             @Nonnull Set<OWLAnnotation> anns) {
         Collection<Xref> xrefs = clause.getXrefs();
         for (Xref x : xrefs) {
-            if (x.getIdref() != null && x.getIdref().length() > 0) {
+            if (x.getIdref() != null && !x.getIdref().isEmpty()) {
                 OWLAnnotationProperty ap = trTagToAnnotationProp(OboFormatTag.TAG_XREF
                         .getTag());
                 OWLAnnotation ann = fac.getOWLAnnotation(ap, trLiteral(x));

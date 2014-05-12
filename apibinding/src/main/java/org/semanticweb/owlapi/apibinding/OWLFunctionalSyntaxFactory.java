@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.apibinding;
 
+import static org.semanticweb.owlapi.io.OWLOntologyDocumentSourceBase.getNextDocumentIRI;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -127,6 +129,7 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
 @SuppressWarnings("javadoc")
 public class OWLFunctionalSyntaxFactory {
 
+    private static final String URNTESTS_URI = "urn:tests#uri";
     private static final OWLDataFactory DF = OWLManager.getOWLDataFactory();
 
     private OWLFunctionalSyntaxFactory() {}
@@ -140,6 +143,31 @@ public class OWLFunctionalSyntaxFactory {
     @Nonnull
     public static OWLClass Class(@Nonnull IRI iri) {
         return DF.getOWLClass(iri);
+    }
+
+    @Nonnull
+    public static OWLClass createClass() {
+        return Class(getNextDocumentIRI(URNTESTS_URI));
+    }
+
+    @Nonnull
+    public static OWLObjectProperty createObjectProperty() {
+        return ObjectProperty(getNextDocumentIRI(URNTESTS_URI));
+    }
+
+    @Nonnull
+    public static OWLDataProperty createDataProperty() {
+        return DataProperty(getNextDocumentIRI(URNTESTS_URI));
+    }
+
+    @Nonnull
+    public static OWLIndividual createIndividual() {
+        return NamedIndividual(getNextDocumentIRI(URNTESTS_URI));
+    }
+
+    @Nonnull
+    public static OWLAnnotationProperty createAnnotationProperty() {
+        return AnnotationProperty(getNextDocumentIRI(URNTESTS_URI));
     }
 
     @Nonnull

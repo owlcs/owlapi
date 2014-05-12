@@ -305,7 +305,7 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
     }
 
     @Override
-    public final void visit(OWLOntology ontology1) {
+    public void visit(OWLOntology ontology1) {
         reset();
         for (OWLClass eachClass : ontology1.getClassesInSignature()) {
             if (ignoreDeclarations) {
@@ -510,7 +510,7 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
     }
 
     @Override
-    public final void visit(OWLSubClassOfAxiom axiom) {
+    public void visit(OWLSubClassOfAxiom axiom) {
         // we only handle GCIs
         if (!(axiom.getSubClass() instanceof OWLClass)) {
             writeOpenBracket();
@@ -579,7 +579,7 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
     }
 
     @Override
-    public final void visit(OWLObjectPropertyAssertionAxiom axiom) {
+    public void visit(OWLObjectPropertyAssertionAxiom axiom) {
         write(RELATED);
         write(axiom.getSubject());
         write(axiom.getProperty());
@@ -658,7 +658,7 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
     }
 
     @Override
-    public final void visit(OWLClass desc) {
+    public void visit(OWLClass desc) {
         write(desc.getIRI());
     }
 
@@ -674,12 +674,12 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
     }
 
     @Override
-    public final void visit(OWLObjectProperty property) {
+    public void visit(OWLObjectProperty property) {
         write(property.getIRI());
     }
 
     @Override
-    public final void visit(OWLObjectInverseOf property) {
+    public void visit(OWLObjectInverseOf property) {
         writeOpenBracket();
         write(INV);
         writeSpace();

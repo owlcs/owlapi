@@ -65,8 +65,9 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
         addAllNodes(checkNotNull(nodes, "nodes cannot be null"));
     }
 
+    @Nonnull
     @Override
-    public @Nonnull Set<Node<E>> getNodes() {
+    public Set<Node<E>> getNodes() {
         return CollectionFactory
                 .getCopyOnRequestSetFromMutableCollection(nodes);
     }
@@ -142,8 +143,9 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
     @Nonnull
     protected abstract DefaultNode<E> getNode(@Nonnull Set<E> entities);
 
+    @Nonnull
     @Override
-    public @Nonnull Set<E> getFlattened() {
+    public Set<E> getFlattened() {
         Set<E> result = new HashSet<E>();
         for (Node<E> node : nodes) {
             result.addAll(node.getEntities());

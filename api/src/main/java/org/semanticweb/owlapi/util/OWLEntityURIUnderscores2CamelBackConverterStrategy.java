@@ -59,7 +59,7 @@ public class OWLEntityURIUnderscores2CamelBackConverterStrategy implements
         // for an IRI without fragment, the part to modify is the previous
         // fragment of the path.
         String path = iri.toURI().getPath();
-        if (path.length() > 0) {
+        if (!path.isEmpty()) {
             int index = path.lastIndexOf('/');
             String lastPathElement = path.substring(index + 1, path.length());
             String camelCaseElement = toCamelCase(lastPathElement);

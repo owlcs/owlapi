@@ -10,28 +10,28 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.rdf;
+package org.semanticweb.owlapi.model;
+
+import java.io.Serializable;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.IRI;
+import com.google.inject.Provider;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
- * @since 2.0.0
+ * An ontology manager factory is responsible from creating new ontology
+ * managers.
+ * 
+ * @author ignazio
+ * @since 4.0.0
  */
-@SuppressWarnings("javadoc")
-public class TestUtils {
+public interface OWLOntologyManagerFactory extends Serializable,
+        Provider<OWLOntologyManager> {
 
-    private static int uriCounter = 0;
-
-    private TestUtils() {}
-
+    /**
+     * Creates a new ontology manager.
+     */
+    @Override
     @Nonnull
-    public static IRI createIRI() {
-        uriCounter++;
-        return IRI.create("http://org.semanticweb.owlapi/tests#", "uri"
-                + uriCounter);
-    }
+    OWLOntologyManager get();
 }

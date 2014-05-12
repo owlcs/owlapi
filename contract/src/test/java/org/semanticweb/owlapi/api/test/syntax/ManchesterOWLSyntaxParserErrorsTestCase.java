@@ -580,7 +580,7 @@ public class ManchesterOWLSyntaxParserErrorsTestCase {
         } catch (ParserException e) {
             assertEquals(index, e.getStartPos());
             assertEquals(currentToken, e.getCurrentToken());
-            assertTrue(e.getTokenSequence().size() > 0);
+            assertTrue(!e.getTokenSequence().isEmpty());
             assertEquals(currentToken, e.getTokenSequence().get(0));
         }
     }

@@ -14,7 +14,6 @@ public class Xref {
      *        idref
      */
     public Xref(@Nonnull String idref) {
-        super();
         this.idref = idref;
     }
 

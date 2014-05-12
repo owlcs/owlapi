@@ -47,8 +47,8 @@ public class IdTranslator {
             int p = id.lastIndexOf(":");
             String prefix = id.substring(0, p);
             String localId = id.substring(p + 1);
-            if (localId.length() > 0
-                    && localId.replaceAll("[0-9]", "").length() == 0) {
+            if (!localId.isEmpty()
+                    && localId.replaceAll("[0-9]", "").isEmpty()) {
                 // CANONICAL
                 return expandPrefix(prefix) + localId;
             }

@@ -24,6 +24,7 @@ import org.semanticweb.owlapi.model.OWLOntologyFactory;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
+import org.semanticweb.owlapi.model.OWLOntologyManagerFactory;
 import org.semanticweb.owlapi.model.OWLOntologyStorer;
 import org.semanticweb.owlapi.model.OWLOntologyStorerFactory;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
@@ -47,6 +48,7 @@ public class OWLAPIServiceLoaderModule extends AbstractModule {
         loadFactories(OWLOntologyFormatFactory.class, OWLOntologyFormat.class);
         loadFactories(OWLParserFactory.class, OWLParser.class);
         loadFactories(OWLOntologyStorerFactory.class, OWLOntologyStorer.class);
+        loadOntologyManagerFactory();
     }
 
     protected <T> void loadInstancesFromServiceLoader(Class<T> type) {
@@ -75,6 +77,21 @@ public class OWLAPIServiceLoaderModule extends AbstractModule {
             e.printStackTrace(System.out);
             throw new OWLRuntimeException("Injection failed for factory: "
                     + factory + " type: " + type, e);
+        }
+    }
+
+    protected void loadOntologyManagerFactory() {
+        try {
+            Multibinder<OWLOntologyManagerFactory> binder = Multibinder
+                    .newSetBinder(binder(), OWLOntologyManagerFactory.class);
+            for (OWLOntologyManagerFactory o : ServiceLoader
+                    .load(OWLOntologyManagerFactory.class)) {
+                binder.addBinding().toInstance(o);
+            }
+        } catch (ServiceConfigurationError e) {
+            e.printStackTrace(System.out);
+            throw new OWLRuntimeException(
+                    "Injection failed for OWLOntologyManager factory", e);
         }
     }
 }

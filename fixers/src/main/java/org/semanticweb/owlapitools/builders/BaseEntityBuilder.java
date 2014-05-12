@@ -30,7 +30,7 @@ import org.semanticweb.owlapi.model.PrefixManager;
  * @param <T>
  *        OWL type
  * @param <Type>
- *        buolder type
+ *        builder type
  */
 public abstract class BaseEntityBuilder<T extends OWLEntity, Type> extends
         BaseBuilder<T, Type> {

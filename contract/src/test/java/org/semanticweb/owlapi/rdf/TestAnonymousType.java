@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.rdf;
 
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -33,9 +35,8 @@ public class TestAnonymousType extends AbstractRendererAndParserTestCase {
     protected Set<OWLAxiom> getAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         OWLClassExpression desc = getDataFactory().getOWLObjectComplementOf(
-                getDataFactory().getOWLClass(TestUtils.createIRI()));
-        OWLIndividual ind = getDataFactory().getOWLNamedIndividual(
-                TestUtils.createIRI());
+                createClass());
+        OWLIndividual ind = createIndividual();
         axioms.add(getDataFactory().getOWLClassAssertionAxiom(desc, ind));
         return axioms;
     }

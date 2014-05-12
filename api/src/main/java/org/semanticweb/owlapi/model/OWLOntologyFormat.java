@@ -154,7 +154,7 @@ public abstract class OWLOntologyFormat implements Serializable {
     }
 
     @Override
-    public final String toString() {
+    public  String toString() {
         return getKey();
     }
 

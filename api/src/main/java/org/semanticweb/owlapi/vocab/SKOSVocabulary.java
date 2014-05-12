@@ -71,19 +71,19 @@ public enum SKOSVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     /** SCOPENOTE         */  SCOPENOTE           ("scopeNote",           ANNOTATION_PROPERTY),
     /** @deprecated No longer used */
     @Deprecated
-    DOCUMENT("Document", EntityType.CLASS),
+    DOCUMENT("Document", CLASS),
     /** @deprecated No longer used */
     @Deprecated
-    IMAGE("Image", EntityType.CLASS),
+    IMAGE("Image", CLASS),
     /** @deprecated No longer used */
     @Deprecated
-    COLLECTABLEPROPERTY("CollectableProperty", EntityType.ANNOTATION_PROPERTY),
+    COLLECTABLEPROPERTY("CollectableProperty", ANNOTATION_PROPERTY),
     /** @deprecated No longer used */
     @Deprecated
-    RESOURCE("Resource", EntityType.CLASS),
+    RESOURCE("Resource", CLASS),
     /** @deprecated No longer used */
     @Deprecated
-    COMMENT("comment", EntityType.ANNOTATION_PROPERTY);
+    COMMENT("comment", ANNOTATION_PROPERTY);
 //@formatter:on
     /** all IRIs */
     public static final Set<IRI> ALL_IRIS;
@@ -133,7 +133,7 @@ public enum SKOSVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
             OWLDataFactory dataFactory) {
         Set<OWLAnnotationProperty> result = new HashSet<OWLAnnotationProperty>();
         for (SKOSVocabulary v : values()) {
-            if (v.entityType.equals(EntityType.ANNOTATION_PROPERTY)) {
+            if (v.entityType.equals(ANNOTATION_PROPERTY)) {
                 result.add(dataFactory.getOWLAnnotationProperty(v.iri));
             }
         }
@@ -149,7 +149,7 @@ public enum SKOSVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
             OWLDataFactory dataFactory) {
         Set<OWLObjectProperty> result = new HashSet<OWLObjectProperty>();
         for (SKOSVocabulary v : values()) {
-            if (v.entityType.equals(EntityType.OBJECT_PROPERTY)) {
+            if (v.entityType.equals(OBJECT_PROPERTY)) {
                 result.add(dataFactory.getOWLObjectProperty(v.iri));
             }
         }
@@ -165,7 +165,7 @@ public enum SKOSVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
             OWLDataFactory dataFactory) {
         Set<OWLDataProperty> result = new HashSet<OWLDataProperty>();
         for (SKOSVocabulary v : values()) {
-            if (v.entityType.equals(EntityType.DATA_PROPERTY)) {
+            if (v.entityType.equals(DATA_PROPERTY)) {
                 result.add(dataFactory.getOWLDataProperty(v.iri));
             }
         }
@@ -180,7 +180,7 @@ public enum SKOSVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     public static Set<OWLClass> getClasses(OWLDataFactory dataFactory) {
         Set<OWLClass> result = new HashSet<OWLClass>();
         for (SKOSVocabulary v : values()) {
-            if (v.entityType.equals(EntityType.CLASS)) {
+            if (v.entityType.equals(CLASS)) {
                 result.add(dataFactory.getOWLClass(v.iri));
             }
         }

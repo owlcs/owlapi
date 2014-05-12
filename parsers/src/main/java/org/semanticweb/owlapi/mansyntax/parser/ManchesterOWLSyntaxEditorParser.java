@@ -35,6 +35,7 @@ import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.expression.OWLOntologyChecker;
 import org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormat;
 import org.semanticweb.owlapi.io.XMLUtils;
+import org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxTokenizer.Token;
 import org.semanticweb.owlapi.mansyntax.renderer.ParserException;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.AddImport;
@@ -124,7 +125,7 @@ public class ManchesterOWLSyntaxEditorParser implements
     @Nonnull
     private OWLOntologyLoaderConfiguration configuration;
     protected OWLDataFactory dataFactory;
-    private List<ManchesterOWLSyntaxTokenizer.Token> tokens;
+    private List<Token> tokens;
     private int tokenIndex;
     private OWLEntityChecker owlEntityChecker;
     private OWLOntologyChecker owlOntologyChecker = new OWLOntologyChecker() {
@@ -210,7 +211,7 @@ public class ManchesterOWLSyntaxEditorParser implements
                     + (fragment != null ? fragment : ""));
         }
         owlEntityChecker = new DefaultEntityChecker();
-        tokens = new ArrayList<ManchesterOWLSyntaxTokenizer.Token>();
+        tokens = new ArrayList<Token>();
         tokens.addAll(getTokenizer(s).tokenize());
         tokenIndex = 0;
         for (SWRLBuiltInsVocabulary v : SWRLBuiltInsVocabulary.values()) {
@@ -460,7 +461,7 @@ public class ManchesterOWLSyntaxEditorParser implements
         return prop;
     }
 
-    protected ManchesterOWLSyntaxTokenizer.Token getLastToken() {
+    protected Token getLastToken() {
         if (tokenIndex - 1 > -1) {
             return tokens.get(tokenIndex - 1);
         } else {
@@ -496,7 +497,7 @@ public class ManchesterOWLSyntaxEditorParser implements
         }
     }
 
-    private ManchesterOWLSyntaxTokenizer.Token getToken() {
+    private Token getToken() {
         return tokens.get(tokenIndex < tokens.size() ? tokenIndex
                 : tokenIndex - 1);
     }
@@ -1002,7 +1003,7 @@ public class ManchesterOWLSyntaxEditorParser implements
         // owl:Thing. But there are many ways in which it could be missing. Hard
         // to tell what sort of lookahead is needed.
         // The next two checks should cover most cases.
-        for (ManchesterOWLSyntax x : ManchesterOWLSyntax.values()) {
+        for (ManchesterOWLSyntax x : values()) {
             if (x.matches(tok)) {
                 return dataFactory.getOWLThing();
             }
@@ -2447,7 +2448,7 @@ public class ManchesterOWLSyntaxEditorParser implements
 
         public ParserException build() {
             if (tokenSequence == null) {
-                ManchesterOWLSyntaxTokenizer.Token lastToken = getLastToken();
+                Token lastToken = getLastToken();
                 tokenSequence = getTokenSequence();
                 start = lastToken.getPos();
                 line = lastToken.getRow();
@@ -2467,12 +2468,11 @@ public class ManchesterOWLSyntaxEditorParser implements
         if (index < 0) {
             index = 0;
         }
-        while (index < tokens.size() && seq.size() < 4
-                && seq.indexOf(EOF) == -1) {
+        while (index < tokens.size() && seq.size() < 4 && !seq.contains(EOF)) {
             seq.add(tokens.get(index).getToken());
             index++;
         }
-        if (seq.size() == 0) {
+        if (seq.isEmpty()) {
             seq.add(EOF);
         }
         return seq;

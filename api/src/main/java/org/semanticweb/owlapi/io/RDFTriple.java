@@ -138,11 +138,11 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple> {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(subject.toString());
+        sb.append(subject);
         sb.append(" ");
-        sb.append(predicate.toString());
+        sb.append(predicate);
         sb.append(" ");
-        sb.append(object.toString());
+        sb.append(object);
         sb.append(".");
         return sb.toString();
     }

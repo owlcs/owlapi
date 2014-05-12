@@ -49,7 +49,6 @@ public class MacroExpansionVisitor {
      *        inputOntology
      */
     public MacroExpansionVisitor(@Nonnull OWLOntology inputOntology) {
-        super();
         this.inputOntology = inputOntology;
         visitor = new Visitor(inputOntology);
         manchesterSyntaxTool = new ManchesterSyntaxTool(inputOntology);
@@ -104,7 +103,7 @@ public class MacroExpansionVisitor {
             // we assume it is a class
             IRI axValIRI = (IRI) ax.getValue();
             OWLClass axValClass = visitor.dataFactory.getOWLClass(axValIRI);
-            if (inputOntology.getDeclarationAxioms(axValClass).size() == 0) {
+            if (inputOntology.getDeclarationAxioms(axValClass).isEmpty()) {
                 OWLDeclarationAxiom newAx = visitor.dataFactory
                         .getOWLDeclarationAxiom(axValClass);
                 manager.addAxiom(inputOntology, newAx);

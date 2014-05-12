@@ -9,17 +9,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Hashtable;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-
+import java.util.*;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -43,9 +33,9 @@ import org.slf4j.LoggerFactory;
  */
 public class OBOFormatWriter {
 
-    private static Logger LOG = LoggerFactory.getLogger(OBOFormatWriter.class);
+    private static final Logger LOG = LoggerFactory.getLogger(OBOFormatWriter.class);
     @Nonnull
-    private static HashSet<String> tagsInformative = buildTagsInformative();
+    private static final Set<String> tagsInformative = buildTagsInformative();
     private boolean isCheckStructure = true;
 
     /** @return true, if is check structure */
@@ -441,7 +431,7 @@ public class OBOFormatWriter {
             if (LOG.isWarnEnabled()) {
                 LOG.warn("Unknown datatype ('{}') for value in clause: {}",
                         value.getClass().getName(), clause);
-                sb.append(value.toString());
+                sb.append(value);
             }
         }
         writeLine(sb, writer);
@@ -692,7 +682,7 @@ public class OBOFormatWriter {
         appendQualifiers(sb, clause);
         if (idsLabel != null && idsLabel.length() > 0) {
             String trimmed = idsLabel.toString().trim();
-            if (trimmed.length() > 0) {
+            if (!trimmed.isEmpty()) {
                 sb.append(" ! ");
                 sb.append(trimmed);
             }
@@ -702,7 +692,7 @@ public class OBOFormatWriter {
 
     private static boolean isOpaqueIdentifier(@Nullable String value) {
         boolean result = false;
-        if (value != null && value.length() > 0) {
+        if (value != null && !value.isEmpty()) {
             // check for colon
             int colonPos = value.indexOf(':');
             if (colonPos > 0) {
@@ -726,7 +716,7 @@ public class OBOFormatWriter {
     private static void appendQualifiers(@Nonnull StringBuilder sb,
             @Nonnull Clause clause) {
         Collection<QualifierValue> qvs = clause.getQualifierValues();
-        if (qvs.size() > 0) {
+        if (!qvs.isEmpty()) {
             sb.append(" {");
             Iterator<QualifierValue> qvsIterator = qvs.iterator();
             while (qvsIterator.hasNext()) {
@@ -815,11 +805,11 @@ public class OBOFormatWriter {
 
         static final HeaderTagsComparator instance = new HeaderTagsComparator();
         @Nonnull
-        private static Hashtable<String, Integer> tagsPriorities = buildTagsPriorities();
+        private static final Map<String, Integer> tagsPriorities = buildTagsPriorities();
 
         @Nonnull
-        private static Hashtable<String, Integer> buildTagsPriorities() {
-            Hashtable<String, Integer> table = new Hashtable<String, Integer>();
+        private static Map<String, Integer> buildTagsPriorities() {
+            Map<String, Integer> table = new HashMap<String, Integer>();
             table.put(OboFormatTag.TAG_FORMAT_VERSION.getTag(), 0);
             table.put(OboFormatTag.TAG_DATA_VERSION.getTag(), 10);
             table.put(OboFormatTag.TAG_DATE.getTag(), 15);
@@ -865,11 +855,11 @@ public class OBOFormatWriter {
 
         static final TermsTagsComparator instance = new TermsTagsComparator();
         @Nonnull
-        private static Hashtable<String, Integer> tagsPriorities = buildTagsPriorities();
+        private static final Map<String, Integer> tagsPriorities = buildTagsPriorities();
 
         @Nonnull
-        private static Hashtable<String, Integer> buildTagsPriorities() {
-            Hashtable<String, Integer> table = new Hashtable<String, Integer>();
+        private static Map<String, Integer> buildTagsPriorities() {
+            Map<String, Integer> table = new HashMap<String, Integer>();
             table.put(OboFormatTag.TAG_ID.getTag(), 5);
             table.put(OboFormatTag.TAG_IS_ANONYMOUS.getTag(), 10);
             table.put(OboFormatTag.TAG_NAME.getTag(), 15);
@@ -912,7 +902,7 @@ public class OBOFormatWriter {
     }
 
     /** The Class ClauseListComparator. */
-    private static final class ClauseListComparator implements
+    private static  class ClauseListComparator implements
             Comparator<Clause> {
 
         protected static final ClauseListComparator instance = new ClauseListComparator();
@@ -945,11 +935,11 @@ public class OBOFormatWriter {
 
         static final TypeDefTagsComparator instance = new TypeDefTagsComparator();
         @Nonnull
-        private static Hashtable<String, Integer> tagsPriorities = buildTagsPriorities();
+        private static final Map<String, Integer> tagsPriorities = buildTagsPriorities();
 
         @Nonnull
-        private static Hashtable<String, Integer> buildTagsPriorities() {
-            Hashtable<String, Integer> table = new Hashtable<String, Integer>();
+        private static Map<String, Integer> buildTagsPriorities() {
+            Map<String, Integer> table = new HashMap<String, Integer>();
             table.put(OboFormatTag.TAG_ID.getTag(), 5);
             table.put(OboFormatTag.TAG_IS_ANONYMOUS.getTag(), 10);
             table.put(OboFormatTag.TAG_NAME.getTag(), 15);
@@ -1161,7 +1151,6 @@ public class OBOFormatWriter {
          *        the obo doc
          */
         public OBODocNameProvider(@Nonnull OBODoc oboDoc) {
-            super();
             this.oboDoc = oboDoc;
             Frame headerFrame = oboDoc.getHeaderFrame();
             if (headerFrame != null) {

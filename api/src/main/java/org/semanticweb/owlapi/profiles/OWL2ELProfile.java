@@ -78,7 +78,7 @@ import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitor;
  */
 public class OWL2ELProfile implements OWLProfile {
 
-    protected final static Set<IRI> allowedDatatypes = new HashSet<IRI>(
+    protected static final Set<IRI> allowedDatatypes = new HashSet<IRI>(
             Arrays.asList(RDF_PLAIN_LITERAL.getIRI(), RDF_XML_LITERAL.getIRI(),
                     RDFS_LITERAL.getIRI(), OWL_RATIONAL.getIRI(),
                     OWL_REAL.getIRI(), XSD_DECIMAL.getIRI(),

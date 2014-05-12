@@ -19,7 +19,7 @@ public class XrefExpanderTest extends OboFormatTestBasics {
         XrefExpander x = new XrefExpander(obodoc);
         x.expandXrefs();
         OBODoc tdoc = obodoc.getImportedOBODocs().iterator().next();
-        assertTrue(tdoc.getTermFrames().size() > 0);
+        assertTrue(!tdoc.getTermFrames().isEmpty());
         Frame termFrame = tdoc.getTermFrame("ZFA:0001689");
         assert termFrame != null;
         assertTrue(termFrame.getClauses(OboFormatTag.TAG_INTERSECTION_OF)

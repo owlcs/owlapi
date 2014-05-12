@@ -13,7 +13,7 @@
 package org.semanticweb.owlapi.api.test.syntax.rdf;
 
 import static org.junit.Assert.assertTrue;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import java.util.Set;
 
@@ -24,7 +24,6 @@ import org.semanticweb.owlapi.model.OWLCardinalityRestriction;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -36,23 +35,15 @@ public class QCRTestCase extends AbstractRendererAndParser {
     @Nonnull
     @Override
     protected Set<OWLAxiom> getAxioms() {
-        OWLClass clsA = Class(TestUtils.createIRI());
-        OWLClass clsB = Class(TestUtils.createIRI());
-        OWLClass clsC = Class(TestUtils.createIRI());
-        OWLObjectProperty prop = df.getOWLObjectProperty(TestUtils.createIRI());
-        OWLClassExpression filler = df
-                .getOWLObjectIntersectionOf(CollectionFactory.createSet(clsB,
-                        clsC));
+        OWLClass clsA = createClass();
+        OWLClass clsB = createClass();
+        OWLClass clsC = createClass();
+        OWLObjectProperty prop = createObjectProperty();
+        OWLClassExpression filler = df.getOWLObjectIntersectionOf(clsB, clsC);
         OWLCardinalityRestriction<?> restriction = df
                 .getOWLObjectMinCardinality(3, prop, filler);
         assertTrue(restriction.isQualified());
         OWLAxiom ax = df.getOWLSubClassOfAxiom(clsA, restriction);
         return singleton(ax);
-    }
-
-    @Nonnull
-    @Override
-    protected String getClassExpression() {
-        return "Qualified Cardinality";
     }
 }

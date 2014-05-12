@@ -54,6 +54,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * Utilities for translating between OWLAPI and Sesame Rio.
+ * 
  * @author Peter Ansell p_ansell@yahoo.com
  */
 public class RioUtils {
@@ -71,7 +73,7 @@ public class RioUtils {
      */
     @Nullable
     public static Statement tripleAsStatement(final RDFTriple triple) {
-        Collection<Statement> statements = RioUtils.tripleAsStatements(triple);
+        Collection<Statement> statements = tripleAsStatements(triple);
         if (!statements.isEmpty()) {
             return statements.iterator().next();
         } else {
@@ -125,6 +127,8 @@ public class RioUtils {
             }
         } else if (triple.getObject() instanceof RDFLiteral) {
             final RDFLiteral literalObject = (RDFLiteral) triple.getObject();
+            // TODO: When updating to Sesame-2.8 the following may need to be
+            // rewritten
             if (literalObject.isPlainLiteral()) {
                 if (literalObject.hasLang()) {
                     object = vf.createLiteral(literalObject.getLexicalValue(),

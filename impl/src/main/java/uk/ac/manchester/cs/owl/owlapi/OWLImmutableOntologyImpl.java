@@ -91,7 +91,6 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
      */
     public OWLImmutableOntologyImpl(@Nonnull OWLOntologyManager manager,
             @Nonnull OWLOntologyID ontologyID) {
-        super();
         this.manager = checkNotNull(manager, "manager cannot be null");
         this.ontologyID = checkNotNull(ontologyID, "ontologyID cannot be null");
     }
@@ -101,7 +100,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Ontology(");
-        sb.append(ontologyID.toString());
+        sb.append(ontologyID);
         sb.append(") [Axioms: ");
         int axiomCount = ints.getAxiomCount();
         sb.append(axiomCount);

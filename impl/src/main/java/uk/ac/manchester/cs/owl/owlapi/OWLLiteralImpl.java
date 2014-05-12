@@ -83,7 +83,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
             @Nullable OWLDatatype datatype) {
         this.literal = new LiteralWrapper(checkNotNull(literal,
                 "literal cannot be null"));
-        if (lang == null || lang.length() == 0) {
+        if (lang == null || lang.isEmpty()) {
             this.lang = "";
             if (datatype == null) {
                 this.datatype = RDF_PLAIN_LITERAL;
@@ -269,8 +269,8 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
         return visitor.visit(this);
     }
 
-    // Literal Wraper
-    private static final class LiteralWrapper implements Serializable {
+    // Literal Wrapper
+    private static  class LiteralWrapper implements Serializable {
 
         private static final long serialVersionUID = 40000L;
         String l;

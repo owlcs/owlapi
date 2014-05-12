@@ -252,7 +252,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
         dataPropertyExpressionIRIs = CollectionFactory.createSet();
         individualIRIs = CollectionFactory.createSet();
         annotationPropertyIRIs = CollectionFactory.createSet();
-        for (IRI iri : OWLRDFVocabulary.BUILT_IN_ANNOTATION_PROPERTY_IRIS) {
+        for (IRI iri : BUILT_IN_ANNOTATION_PROPERTY_IRIS) {
             annotationPropertyIRIs.add(iri);
         }
         annotationIRIs = new HashSet<IRI>();
@@ -399,7 +399,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
      * the current OWL 1.1 vocabulary.
      */
     private void addIntermediateOWLSpecVocabulary() {
-        for (OWLRDFVocabulary v : OWLRDFVocabulary.values()) {
+        for (OWLRDFVocabulary v : values()) {
             addLegacyMapping(v);
         }
         for (OWLFacet v : OWLFacet.values()) {
@@ -1438,7 +1438,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
         b.append(" -> ");
         append(predicate, b);
         b.append(" -> ");
-        b.append(object.toString());
+        b.append(object);
         logger.info(b.toString());
     }
 

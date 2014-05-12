@@ -49,7 +49,6 @@ public class MacroExpansionGCIVisitor {
      */
     public MacroExpansionGCIVisitor(@Nonnull OWLOntology inputOntology,
             @Nonnull OWLOntologyManager outputManager) {
-        super();
         this.inputOntology = inputOntology;
         visitor = new GCIVisitor(inputOntology);
         manchesterSyntaxTool = new ManchesterSyntaxTool(inputOntology);

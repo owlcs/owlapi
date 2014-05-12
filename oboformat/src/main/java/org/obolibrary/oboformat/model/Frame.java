@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.Vector;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -38,7 +37,6 @@ public class Frame {
 
     /** Instantiates a new frame. */
     public Frame() {
-        super();
         init();
     }
 
@@ -49,7 +47,6 @@ public class Frame {
      *        the type
      */
     public Frame(FrameType type) {
-        super();
         init();
         this.type = type;
     }
@@ -165,7 +162,7 @@ public class Frame {
         sb.append(id);
         sb.append(' ');
         for (Clause cl : clauses) {
-            sb.append(cl.toString());
+            sb.append(cl);
         }
         sb.append(')');
         return sb.toString();
@@ -248,7 +245,7 @@ public class Frame {
      */
     @Nonnull
     public Collection<Object> getTagValues(String tag) {
-        Collection<Object> vals = new Vector<Object>();
+        Collection<Object> vals = new ArrayList<Object>();
         for (Clause c : getClauses(tag)) {
             vals.add(c.getValue());
         }

@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.syntax.rdf;
 
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -34,16 +34,9 @@ public class AnonymousTypeTestCase extends AbstractRendererAndParser {
     @Override
     protected Set<OWLAxiom> getAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        OWLClassExpression desc = df.getOWLObjectComplementOf(Class(TestUtils
-                .createIRI()));
-        OWLIndividual ind = df.getOWLNamedIndividual(TestUtils.createIRI());
+        OWLClassExpression desc = df.getOWLObjectComplementOf(createClass());
+        OWLIndividual ind = createIndividual();
         axioms.add(df.getOWLClassAssertionAxiom(desc, ind));
         return axioms;
-    }
-
-    @Nonnull
-    @Override
-    protected String getClassExpression() {
-        return "Anonymous type test case";
     }
 }

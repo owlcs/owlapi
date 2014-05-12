@@ -72,7 +72,7 @@ public abstract class OWLProfileViolation<T> {
     }
 
     /** @return ontology */
-    public final OWLOntology getOntology() {
+    public OWLOntology getOntology() {
         return ontology;
     }
 

@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.rdf;
 
 import static org.junit.Assert.assertTrue;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import java.util.Set;
 
@@ -23,7 +24,6 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectMinCardinality;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -35,19 +35,15 @@ public class TestQCR extends AbstractRendererAndParserTestCase {
     @Nonnull
     @Override
     protected Set<OWLAxiom> getAxioms() {
-        OWLClass clsA = getDataFactory().getOWLClass(TestUtils.createIRI());
-        OWLClass clsB = getDataFactory().getOWLClass(TestUtils.createIRI());
-        OWLClass clsC = getDataFactory().getOWLClass(TestUtils.createIRI());
-        // Set<OWLAnnotation> annos = new HashSet<OWLAnnotation>();
-        OWLObjectProperty prop = getDataFactory().getOWLObjectProperty(
-                TestUtils.createIRI());
-        OWLClassExpression filler = getDataFactory()
-                .getOWLObjectIntersectionOf(
-                        CollectionFactory.createSet(clsB, clsC));
-        OWLObjectMinCardinality restriction = getDataFactory()
-                .getOWLObjectMinCardinality(3, prop, filler);
+        OWLClass clsA = createClass();
+        OWLClass clsB = createClass();
+        OWLClass clsC = createClass();
+        OWLObjectProperty prop = createObjectProperty();
+        OWLClassExpression filler = df.getOWLObjectIntersectionOf(clsB, clsC);
+        OWLObjectMinCardinality restriction = df.getOWLObjectMinCardinality(3,
+                prop, filler);
         assertTrue(restriction.isQualified());
-        OWLAxiom ax = getDataFactory().getOWLSubClassOfAxiom(clsA, restriction);
+        OWLAxiom ax = df.getOWLSubClassOfAxiom(clsA, restriction);
         return singleton(ax);
     }
 

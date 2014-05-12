@@ -26,7 +26,7 @@ public class RoundTripCardinalityTest extends RoundTripTest {
     @Test
     public void testRoundTripCardinality() throws Exception {
         // create minimal ontology
-        OBODoc oboDocSource = super.parseOBOFile("roundtrip_cardinality.obo");
+        OBODoc oboDocSource = parseOBOFile("roundtrip_cardinality.obo");
         // convert to OWL and retrieve def
         OWLAPIObo2Owl bridge = new OWLAPIObo2Owl(
                 OWLManager.createOWLOntologyManager());

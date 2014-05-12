@@ -10,29 +10,58 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.api.test.syntax.rdf;
+package org.semanticweb.owlapitools.builders;
 
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.inject.Inject;
 
-import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLObject;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
- * @since 2.0.0
+ * Builder class for OWLDataAllValuesFrom
+ * 
+ * @param <T>
+ *        type built
+ * @param <Type>
+ *        builder type
  */
-@SuppressWarnings("javadoc")
-public class TestUtils {
+public abstract class BaseAnnotationPropertyBuilder<T extends OWLObject, Type>
+        extends BaseBuilder<T, Type> {
 
-    private static int uriCounter = 0;
+    @Nullable
+    private OWLAnnotationProperty property = null;
 
-    private TestUtils() {}
+    /**
+     * @param df
+     *        data factory
+     */
+    @Inject
+    public BaseAnnotationPropertyBuilder(OWLDataFactory df) {
+        super(df);
+    }
 
+    /**
+     * @param arg
+     *        property
+     * @return builder
+     */
     @Nonnull
-    public static IRI createIRI() {
-        uriCounter++;
-        return IRI("http://org.semanticweb.owlapi/tests#", "uri" + uriCounter);
+    @SuppressWarnings("unchecked")
+    public Type withProperty(OWLAnnotationProperty arg) {
+        property = arg;
+        return (Type) this;
+    }
+
+    /**
+     * @return the property
+     */
+    @Nonnull
+    public OWLAnnotationProperty getProperty() {
+        return verifyNotNull(property);
     }
 }

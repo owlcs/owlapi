@@ -20,6 +20,7 @@ import org.semanticweb.owlapi.OWLAPIParsersModule;
 import org.semanticweb.owlapi.OWLAPIServiceLoaderModule;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLOntologyManagerFactory;
 import org.semanticweb.owlapi.oboformat.OWLAPIOBOModule;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLAPIImplModule;
@@ -35,13 +36,17 @@ import com.google.inject.Injector;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLManager {
+public class OWLManager implements OWLOntologyManagerFactory {
 
+    private static final long serialVersionUID = 40000L;
     private static final Injector injector = Guice.createInjector(
             new OWLAPIImplModule(), new OWLAPIParsersModule(),
             new OWLAPIOBOModule(), new OWLAPIServiceLoaderModule());
 
-    private OWLManager() {}
+    @Override
+    public OWLOntologyManager get() {
+        return createOWLOntologyManager();
+    }
 
     /**
      * Creates an OWL ontology manager that is configured with standard parsers,

@@ -69,8 +69,7 @@ public class DLSyntaxHTMLOntologyStorer extends DLSyntaxOntologyStorerBase {
 
             @Override
             protected void write(DLSyntax keyword) {
-                super.write(XMLUtils.escapeXML(checkNotNull(keyword,
-                        "keyword cannot be null").toString()));
+                write(XMLUtils.escapeXML(checkNotNull(keyword, "keyword cannot be null").toString()));
             }
         };
         ren.setFocusedObject(subject);
@@ -85,7 +84,7 @@ public class DLSyntaxHTMLOntologyStorer extends DLSyntaxOntologyStorerBase {
         checkNotNull(ontology, "ontology cannot be null");
         checkNotNull(writer, "writer cannot be null").println(
                 "<html>\n<body>\n<h1>Ontology: ");
-        writer.print(ontology.getOntologyID().toString());
+        writer.print(ontology.getOntologyID());
         writer.println("</h1>");
     }
 
@@ -121,7 +120,7 @@ public class DLSyntaxHTMLOntologyStorer extends DLSyntaxOntologyStorerBase {
         checkNotNull(writer, "writer cannot be null").print("<h2><a name=\"");
         writer.print(sfp.getShortForm(subject));
         writer.print("\">");
-        writer.print(subject.getIRI().toString());
+        writer.print(subject.getIRI());
         writer.println("</a></h2>\n<div class=\"entitybox\">");
     }
 

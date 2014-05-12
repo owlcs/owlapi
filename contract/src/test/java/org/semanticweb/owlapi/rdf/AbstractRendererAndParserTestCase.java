@@ -24,14 +24,9 @@ import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLogicalAxiom;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParser;
@@ -66,35 +61,6 @@ public abstract class AbstractRendererAndParserTestCase extends TestBase {
     }
 
     @Nonnull
-    public OWLClass createClass() {
-        return man.getOWLDataFactory().getOWLClass(TestUtils.createIRI());
-    }
-
-    @Nonnull
-    public OWLAnnotationProperty createAnnotationProperty() {
-        return getManager().getOWLDataFactory().getOWLAnnotationProperty(
-                TestUtils.createIRI());
-    }
-
-    @Nonnull
-    public OWLObjectProperty createObjectProperty() {
-        return man.getOWLDataFactory().getOWLObjectProperty(
-                TestUtils.createIRI());
-    }
-
-    @Nonnull
-    public OWLDataProperty createDataProperty() {
-        return man.getOWLDataFactory()
-                .getOWLDataProperty(TestUtils.createIRI());
-    }
-
-    @Nonnull
-    public OWLIndividual createIndividual() {
-        return man.getOWLDataFactory().getOWLNamedIndividual(
-                TestUtils.createIRI());
-    }
-
-    @Nonnull
     public OWLOntologyManager getManager() {
         return man;
     }
@@ -126,18 +92,18 @@ public abstract class AbstractRendererAndParserTestCase extends TestBase {
         BminusA.removeAll(ontA.getAxioms());
         StringBuilder msg = new StringBuilder();
         if (AminusB.isEmpty() && BminusA.isEmpty()) {
-            msg.append("Ontology save/load roundtripp OK.\n");
+            msg.append("Ontology save/load roundtrip OK.\n");
         } else {
             msg.append("Ontology save/load roundtripping error.\n");
             msg.append("=> " + AminusB.size()
                     + " axioms lost in roundtripping.\n");
             for (OWLAxiom axiom : AminusB) {
-                msg.append(axiom.toString() + "\n");
+                msg.append(axiom + "\n");
             }
             msg.append("=> " + BminusA.size()
                     + " axioms added after roundtripping.\n");
             for (OWLAxiom axiom : BminusA) {
-                msg.append(axiom.toString() + "\n");
+                msg.append(axiom + "\n");
             }
         }
         assertTrue(msg.toString(), AminusB.isEmpty() && BminusA.isEmpty());

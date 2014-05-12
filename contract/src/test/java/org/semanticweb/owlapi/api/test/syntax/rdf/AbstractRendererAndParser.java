@@ -13,23 +13,16 @@
 package org.semanticweb.owlapi.api.test.syntax.rdf;
 
 import static org.junit.Assert.assertTrue;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import java.util.Set;
-
-import javax.annotation.Nonnull;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.AddAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLogicalAxiom;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.rdf.rdfxml.renderer.RDFXMLOntologyStorer;
 
@@ -51,31 +44,6 @@ public abstract class AbstractRendererAndParser extends TestBase {
         m.getOntologyStorers().add(new RDFXMLOntologyStorer());
     }
 
-    @Nonnull
-    protected OWLClass createClass() {
-        return Class(TestUtils.createIRI());
-    }
-
-    @Nonnull
-    protected OWLAnnotationProperty createAnnotationProperty() {
-        return df.getOWLAnnotationProperty(TestUtils.createIRI());
-    }
-
-    @Nonnull
-    protected OWLObjectProperty createObjectProperty() {
-        return df.getOWLObjectProperty(TestUtils.createIRI());
-    }
-
-    @Nonnull
-    protected OWLDataProperty createDataProperty() {
-        return df.getOWLDataProperty(TestUtils.createIRI());
-    }
-
-    @Nonnull
-    protected OWLIndividual createIndividual() {
-        return df.getOWLNamedIndividual(TestUtils.createIRI());
-    }
-
     @Test
     public void testSaveAndReload() throws Exception {
         OWLOntology ontA = m.createOntology(IRI("http://rdfxmltests/ontology"));
@@ -90,24 +58,22 @@ public abstract class AbstractRendererAndParser extends TestBase {
         BminusA.removeAll(ontA.getAxioms());
         StringBuilder msg = new StringBuilder();
         if (AminusB.isEmpty() && BminusA.isEmpty()) {
-            msg.append("Ontology save/load roundtripp OK.\n");
+            msg.append("Ontology save/load roundtrip OK.\n");
         } else {
             msg.append("Ontology save/load roundtripping error.\n");
             msg.append("=> " + AminusB.size()
                     + " axioms lost in roundtripping.\n");
             for (OWLAxiom axiom : AminusB) {
-                msg.append(axiom.toString() + "\n");
+                msg.append(axiom + "\n");
             }
             msg.append("=> " + BminusA.size()
                     + " axioms added after roundtripping.\n");
             for (OWLAxiom axiom : BminusA) {
-                msg.append(axiom.toString() + "\n");
+                msg.append(axiom + "\n");
             }
         }
         assertTrue(msg.toString(), AminusB.isEmpty() && BminusA.isEmpty());
     }
 
     protected abstract Set<OWLAxiom> getAxioms();
-
-    protected abstract String getClassExpression();
 }

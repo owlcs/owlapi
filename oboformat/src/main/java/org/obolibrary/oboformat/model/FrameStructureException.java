@@ -27,6 +27,6 @@ public class FrameStructureException extends DocumentStructureException {
      *        the msg
      */
     public FrameStructureException(@Nonnull Frame frame, String msg) {
-        super(msg + " in frame:" + frame.toString());
+        super(msg + " in frame:" + frame);
     }
 }

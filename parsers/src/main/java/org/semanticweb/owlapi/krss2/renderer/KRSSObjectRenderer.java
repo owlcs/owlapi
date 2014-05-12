@@ -276,19 +276,19 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
         return sortedDescriptions;
     }
 
-    protected final void writeOpenBracket() {
+    protected void writeOpenBracket() {
         write(OPEN_BRACKET);
     }
 
-    protected final void writeCloseBracket() {
+    protected void writeCloseBracket() {
         write(CLOSE_BRACKET);
     }
 
-    protected final void write(int i) {
+    protected void write(int i) {
         write(" " + i);
     }
 
-    protected final void write(@Nonnull IRI iri) {
+    protected void write(@Nonnull IRI iri) {
         write(iri.toString());
     }
 
@@ -296,11 +296,11 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
         write(v.toString());
     }
 
-    protected final void writeSpace() {
+    protected void writeSpace() {
         write(" ");
     }
 
-    protected final void write(@Nonnull String s) {
+    protected void write(@Nonnull String s) {
         try {
             int newLineIndex = s.indexOf('\n');
             if (newLineIndex != -1) {
@@ -313,36 +313,36 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
         }
     }
 
-    protected final int getIndent() {
+    protected int getIndent() {
         return pos - lastNewLinePos - 1;
     }
 
-    protected final void writeIndent(int indent) {
+    protected void writeIndent(int indent) {
         for (int i = 0; i < indent; i++) {
             writeSpace();
         }
     }
 
-    protected final void writeln() {
+    protected void writeln() {
         write(NEWLINE);
     }
 
-    protected final void write(@Nonnull OWLClassExpression obj) {
+    protected void write(@Nonnull OWLClassExpression obj) {
         writeSpace();
         obj.accept(this);
     }
 
-    protected final void write(@Nonnull OWLIndividual ind) {
+    protected void write(@Nonnull OWLIndividual ind) {
         writeSpace();
         ind.accept(this);
     }
 
-    protected final void write(@Nonnull OWLPropertyExpression obj) {
+    protected void write(@Nonnull OWLPropertyExpression obj) {
         writeSpace();
         obj.accept(this);
     }
 
-    protected final void write(@Nonnull OWLDataRange obj) {
+    protected void write(@Nonnull OWLDataRange obj) {
         writeSpace();
         obj.accept(this);
     }
@@ -414,7 +414,7 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
                 Iterable<OWLClassExpression> supclasses = sup(
                         ontology1.getSubClassAxiomsForSubClass(eachClass),
                         OWLClassExpression.class);
-                flatten(supclasses, KRSSVocabulary.AND);
+                flatten(supclasses, AND);
                 writeCloseBracket();
                 writeln();
             } else {
@@ -423,7 +423,7 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
                 write(eachClass);
                 Iterable<OWLClassExpression> equivalentClasses = equivalent(ontology1
                         .getEquivalentClassesAxioms(eachClass));
-                flatten(equivalentClasses, KRSSVocabulary.AND);
+                flatten(equivalentClasses, AND);
                 writeCloseBracket();
                 writeln();
             }

@@ -48,7 +48,7 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
  */
 public class OWLObjectPropertyManager {
 
-    static final class SetSizeComparator implements
+    static class SetSizeComparator implements
             Comparator<Set<OWLObjectPropertyExpression>>, Serializable {
 
         private static final long serialVersionUID = 40000L;
@@ -64,8 +64,6 @@ public class OWLObjectPropertyManager {
     private final OWLOntologyManager man;
     @Nonnull
     private OWLOntology ontology;
-    @Nonnull
-    private final Set<OWLObjectPropertyExpression> properties = new HashSet<OWLObjectPropertyExpression>();
     @Nonnull
     private final Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> hierarchy = new HashMap<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>>();
     @Nonnull
@@ -94,6 +92,7 @@ public class OWLObjectPropertyManager {
         ontology = checkNotNull(ont, "ontology cannot be null");
         for (OWLOntology o : man.getImportsClosure(ontology)) {
             for (OWLObjectProperty prop : o.getObjectPropertiesInSignature()) {
+                Set<OWLObjectPropertyExpression> properties = new HashSet<OWLObjectPropertyExpression>();
                 properties.add(prop);
                 properties.add(prop.getInverseProperty());
             }

@@ -2,7 +2,8 @@ package org.obolibrary.oboformat.parser;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Hashtable;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -13,6 +14,8 @@ public class OBOFormatConstants {
 
     /** oboformat tags */
     public enum OboFormatTag {
+
+
 
 
 
@@ -98,7 +101,8 @@ public class OBOFormatConstants {
         TAG_EXACT("EXACT"),
         /**related*/
         TAG_RELATED("RELATED");
-        @Nonnull   private String tag;
+        @Nonnull
+        private final  String tag;
 
         OboFormatTag(@Nonnull String tag) {
             this.tag = tag;
@@ -115,17 +119,17 @@ public class OBOFormatConstants {
         }
     }
 
-    /** tags */
-    @Nonnull
-    public final static Set<String> TAGS;
-    private static Hashtable<String, OboFormatTag> tagsTable;
-    static {
-        tagsTable = new Hashtable<String, OBOFormatConstants.OboFormatTag>();
+    
+    private static final Map<String, OboFormatTag> tagsTable=initTagsTable();
+    static Map<String, OboFormatTag> initTagsTable(){
+        Map<String, OboFormatTag> tags = new HashMap<String, OboFormatTag>();
         for (OboFormatTag tag : OboFormatTag.values()) {
-            tagsTable.put(tag.getTag(), tag);
+            tags.put(tag.getTag(), tag);
         }
-        TAGS = tagsTable.keySet();
+        return tags;
     }
+    /** tags */@Nonnull
+    public static final Set<String> TAGS=tagsTable.keySet();
 
     /** @param tag
      *            tag

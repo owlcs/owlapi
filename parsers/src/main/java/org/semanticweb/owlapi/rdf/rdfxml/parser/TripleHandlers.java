@@ -576,7 +576,7 @@ public class TripleHandlers {
      * direct way without an equivalent class triple. For example A
      * intersectionOf (C or C)
      */
-    static abstract class AbstractNamedEquivalentClassAxiomHandler extends
+    abstract static class AbstractNamedEquivalentClassAxiomHandler extends
             AbstractTriplePredicateHandler {
 
         AbstractNamedEquivalentClassAxiomHandler(
@@ -610,7 +610,7 @@ public class TripleHandlers {
                 @Nonnull IRI mainNode);
     }
 
-    static abstract class AbstractResourceTripleHandler extends
+    abstract static class AbstractResourceTripleHandler extends
             AbstractTripleHandler implements ResourceTripleHandler {
 
         protected AbstractResourceTripleHandler(@Nonnull OWLRDFConsumer consumer) {
@@ -977,7 +977,7 @@ public class TripleHandlers {
         }
     }
 
-    static abstract class AbstractBuiltInTypeHandler extends
+    abstract static class AbstractBuiltInTypeHandler extends
             AbstractTriplePredicateHandler implements BuiltInTypeHandler {
 
         private IRI typeIRI;
@@ -2497,7 +2497,7 @@ public class TripleHandlers {
         }
     }
 
-    static abstract class AbstractTriplePredicateHandler extends
+    abstract static class AbstractTriplePredicateHandler extends
             AbstractResourceTripleHandler implements TriplePredicateHandler {
 
         private IRI predicateIRI;

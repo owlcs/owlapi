@@ -910,7 +910,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
 
     @Override
     public void visit(OWLAnonymousIndividual individual) {
-        sb.append(individual.getID().toString());
+        sb.append(individual.getID());
     }
 
     @Override

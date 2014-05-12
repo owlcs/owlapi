@@ -130,7 +130,7 @@ import com.google.common.base.Optional;
 public class Examples extends TestBase {
 
     @Nonnull
-    private final static String koala = "<?xml version=\"1.0\"?>\n"
+    private static final String koala = "<?xml version=\"1.0\"?>\n"
             + "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\" xmlns=\"http://protege.stanford.edu/plugins/owl/owl-library/koala.owl#\" xml:base=\"http://protege.stanford.edu/plugins/owl/owl-library/koala.owl\">\n"
             + "  <owl:Ontology rdf:about=\"\"/>\n"
             + "  <owl:Class rdf:ID=\"Female\"><owl:equivalentClass><owl:Restriction><owl:onProperty><owl:FunctionalProperty rdf:about=\"#hasGender\"/></owl:onProperty><owl:hasValue><Gender rdf:ID=\"female\"/></owl:hasValue></owl:Restriction></owl:equivalentClass></owl:Class>\n"
@@ -362,7 +362,7 @@ public class Examples extends TestBase {
         // Now create the restriction. The OWLFacet enum provides an enumeration
         // of the various facets that can be used
         OWLDatatypeRestriction integerGE18 = factory.getOWLDatatypeRestriction(
-                integer, OWLFacet.MIN_INCLUSIVE, eighteen);
+                integer, MIN_INCLUSIVE, eighteen);
         // We could use this datatype in restriction, as the range of data
         // properties etc. For example, if we want to restrict the range of the
         // :hasAge data property to 18 or more we specify its range as this data
@@ -441,7 +441,7 @@ public class Examples extends TestBase {
         OWLLiteral eighteenConstant = factory.getOWLLiteral(18);
         // Now create our custom datarange, which is int greater than or equal
         // to 18. To do this, we need the minInclusive facet
-        OWLFacet facet = OWLFacet.MIN_INCLUSIVE;
+        OWLFacet facet = MIN_INCLUSIVE;
         // Create the restricted data range by applying the facet restriction
         // with a value of 18 to int
         OWLDataRange intGreaterThan18 = factory.getOWLDatatypeRestriction(
@@ -1265,7 +1265,7 @@ public class Examples extends TestBase {
         // We want to add a comment to the pizza class. First, we need to obtain
         // a reference to the pizza class
         OWLClass pizzaCls = df.getOWLClass(IRI.create(ont.getOntologyID()
-                .getOntologyIRI().get().toString()
+                .getOntologyIRI().get()
                 + "#Pizza"));
         // Now we create the content of our comment. In this case we simply want
         // a plain string literal. We'll attach a language to the comment to
@@ -1634,7 +1634,7 @@ public class Examples extends TestBase {
         // subclasses. We start by creating a signature that consists of
         // "PizzaTopping".
         OWLClass toppingCls = df.getOWLClass(IRI.create(ont.getOntologyID()
-                .getOntologyIRI().get().toString()
+                .getOntologyIRI().get()
                 + "#PizzaTopping"));
         Set<OWLEntity> sig = new HashSet<OWLEntity>();
         sig.add(toppingCls);

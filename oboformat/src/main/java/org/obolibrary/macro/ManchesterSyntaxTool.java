@@ -100,7 +100,6 @@ public class ManchesterSyntaxTool {
     public ManchesterSyntaxTool(@Nonnull OWLOntology inputOntology,
             @Nullable Collection<OWLOntology> auxiliaryOntologies,
             boolean resolveEntities) {
-        super();
         OWLOntologyManager manager = inputOntology.getOWLOntologyManager();
         dataFactory = manager.getOWLDataFactory();
         Set<OWLOntology> ontologies;
@@ -241,7 +240,6 @@ public class ManchesterSyntaxTool {
          */
         AdvancedEntityChecker(OWLEntityChecker defaultInstance,
                 Set<OWLOntology> ontologies, OWLOntologyManager manager) {
-            super();
             this.defaultInstance = defaultInstance;
             this.ontologies = ontologies;
             this.manager = manager;
@@ -375,7 +373,7 @@ public class ManchesterSyntaxTool {
             for (OWLOntology o : ontologies) {
                 OWLClass c = o.getOWLOntologyManager().getOWLDataFactory()
                         .getOWLClass(iri);
-                if (o.getDeclarationAxioms(c).size() > 0) {
+                if (!o.getDeclarationAxioms(c).isEmpty()) {
                     return c;
                 }
                 if (o.getOWLOntologyManager().getOWLDataFactory()
@@ -423,7 +421,7 @@ public class ManchesterSyntaxTool {
                 OWLDataFactory dataFactory = o.getOWLOntologyManager()
                         .getOWLDataFactory();
                 OWLObjectProperty p = dataFactory.getOWLObjectProperty(iri);
-                if (o.getDeclarationAxioms(p).size() > 0) {
+                if (!o.getDeclarationAxioms(p).isEmpty()) {
                     return p;
                 }
             }

@@ -79,7 +79,7 @@ public class RemoveAxiom extends OWLAxiomChange {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("RemoveAxiom(");
-        sb.append(getAxiom().toString());
+        sb.append(getAxiom());
         sb.append(" OntologyID(");
         sb.append(getOntology().getOntologyID());
         sb.append(")");

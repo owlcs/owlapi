@@ -87,7 +87,7 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
         URI uri = iri.toURI();
         String path = uri.getPath();
         String shortForm = null;
-        if (path != null && path.length() > 0) {
+        if (path != null && !path.isEmpty()) {
             StringTokenizer tokenizer = new StringTokenizer(path, "/", false);
             String candidatePathElement = "";
             while (tokenizer.hasMoreTokens()) {
