@@ -27,7 +27,6 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
-import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 
 /**
@@ -40,7 +39,7 @@ public class DLSyntaxHTMLOntologyStorer extends DLSyntaxOntologyStorerBase {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
-    protected ShortFormProvider sfp = new SimpleShortFormProvider();
+    protected SimpleShortFormProvider sfp = new SimpleShortFormProvider();
 
     @Override
     public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {

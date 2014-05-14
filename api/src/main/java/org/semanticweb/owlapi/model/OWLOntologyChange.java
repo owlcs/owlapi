@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.model;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -28,8 +29,10 @@ import org.semanticweb.owlapi.change.OWLOntologyChangeRecord;
  * @param <T>
  *        change type
  */
-public abstract class OWLOntologyChange<T> implements HasSignature {
+public abstract class OWLOntologyChange<T> implements HasSignature,
+        Serializable {
 
+    private static final long serialVersionUID = 40000L;
     @Nonnull
     private final OWLOntology ont;
 

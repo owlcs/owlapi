@@ -43,7 +43,7 @@ import org.openrdf.rio.RDFFormat;
 public class RioTurtleOntologyFormat extends
         org.semanticweb.owlapi.formats.RioRDFOntologyFormat {
 
-    private static final long serialVersionUID = -5780245294872788586L;
+    private static final long serialVersionUID = 40000L;
 
     /**
      * RDF format for {@link RDFFormat#TURTLE} documents.

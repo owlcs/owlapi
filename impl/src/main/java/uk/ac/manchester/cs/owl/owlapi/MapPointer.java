@@ -14,7 +14,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -44,9 +43,8 @@ import com.google.common.collect.Multimap;
  * @param <V>
  *        value
  */
-public class MapPointer<K, V extends OWLAxiom> implements Serializable {
+public class MapPointer<K, V extends OWLAxiom> {
 
-    private static final long serialVersionUID = 40000L;
     private final Multimap<K, V> map;
     @Nullable
     private final AxiomType<?> type;

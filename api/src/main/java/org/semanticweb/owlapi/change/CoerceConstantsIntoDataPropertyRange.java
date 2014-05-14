@@ -54,6 +54,8 @@ import org.semanticweb.owlapi.util.OWLObjectDuplicator;
 public class CoerceConstantsIntoDataPropertyRange extends
         AbstractCompositeOntologyChange {
 
+    private static final long serialVersionUID = 40000L;
+
     /**
      * Instantiates a new coerce constants into data property range.
      * 

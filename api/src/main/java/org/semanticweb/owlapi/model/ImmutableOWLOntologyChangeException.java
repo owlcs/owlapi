@@ -35,7 +35,8 @@ public class ImmutableOWLOntologyChangeException extends
      */
     public ImmutableOWLOntologyChangeException(
             @Nonnull OWLOntologyChange<?> change) {
-        super(change, "Cannot apply changes to immutable ontology: "
-                + change.getOntology());
+        super(change.getChangeData(),
+                "Cannot apply changes to immutable ontology: "
+                        + change.getOntology());
     }
 }

@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.io;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -32,8 +33,9 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  *         Informatics Group
  * @since 3.2
  */
-public class RDFResourceParseError {
+public class RDFResourceParseError implements Serializable {
 
+    private static final long serialVersionUID = 40000L;
     private final OWLEntity parserGeneratedErrorEntity;
     private final RDFNode mainNode;
     private final Set<RDFTriple> mainNodeTriples = new HashSet<RDFTriple>();

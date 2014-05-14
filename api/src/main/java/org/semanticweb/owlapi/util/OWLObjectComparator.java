@@ -12,7 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
-import java.io.Serializable;
 import java.util.Comparator;
 
 import javax.annotation.Nonnull;
@@ -27,9 +26,8 @@ import org.semanticweb.owlapi.model.OWLObject;
  * @author ignazio
  * @since 4.0.0
  */
-public class OWLObjectComparator implements Comparator<OWLObject>, Serializable {
+public class OWLObjectComparator implements Comparator<OWLObject> {
 
-    private static final long serialVersionUID = 40000L;
     @Nonnull
     private final OWLEntityComparator entityComparator;
 

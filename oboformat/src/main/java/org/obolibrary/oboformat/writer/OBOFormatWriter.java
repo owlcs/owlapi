@@ -8,8 +8,20 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.Serializable;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -23,6 +35,7 @@ import org.obolibrary.oboformat.parser.OBOFormatConstants;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 import org.obolibrary.oboformat.parser.OBOFormatParser;
 import org.obolibrary.oboformat.parser.OBOFormatParserException;
+import org.semanticweb.owlapi.util.StringComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -289,7 +302,7 @@ public class OBOFormatWriter {
     @SuppressWarnings("null")
     public void write(@Nonnull Frame frame, @Nonnull BufferedWriter writer,
             @Nullable NameProvider nameProvider) throws IOException {
-        Comparator<String> comparator = null;
+        StringComparator comparator = null;
         if (frame.getType() == FrameType.TERM) {
             writeLine("[Term]", writer);
             comparator = TermsTagsComparator.instance;
@@ -802,11 +815,12 @@ public class OBOFormatWriter {
     }
 
     /** The Class HeaderTagsComparator. */
-    private static class HeaderTagsComparator implements Comparator<String> {
+    private static class HeaderTagsComparator implements StringComparator {
 
         static final HeaderTagsComparator instance = new HeaderTagsComparator();
         @Nonnull
         private static final Map<String, Integer> tagsPriorities = buildTagsPriorities();
+        private static final long serialVersionUID = 40000L;
 
         @Nonnull
         private static Map<String, Integer> buildTagsPriorities() {
@@ -852,11 +866,12 @@ public class OBOFormatWriter {
     }
 
     /** The Class TermsTagsComparator. */
-    private static class TermsTagsComparator implements Comparator<String> {
+    private static class TermsTagsComparator implements StringComparator {
 
         static final TermsTagsComparator instance = new TermsTagsComparator();
         @Nonnull
         private static final Map<String, Integer> tagsPriorities = buildTagsPriorities();
+        private static final long serialVersionUID = 40000L;
 
         @Nonnull
         private static Map<String, Integer> buildTagsPriorities() {
@@ -903,9 +918,11 @@ public class OBOFormatWriter {
     }
 
     /** The Class ClauseListComparator. */
-    private static class ClauseListComparator implements Comparator<Clause> {
+    private static class ClauseListComparator implements Comparator<Clause>,
+            Serializable {
 
         protected static final ClauseListComparator instance = new ClauseListComparator();
+        private static final long serialVersionUID = 40000L;
 
         @Override
         public int compare(Clause o1, Clause o2) {
@@ -931,11 +948,12 @@ public class OBOFormatWriter {
     }
 
     /** The Class TypeDefTagsComparator. */
-    private static class TypeDefTagsComparator implements Comparator<String> {
+    private static class TypeDefTagsComparator implements StringComparator {
 
         static final TypeDefTagsComparator instance = new TypeDefTagsComparator();
         @Nonnull
         private static final Map<String, Integer> tagsPriorities = buildTagsPriorities();
+        private static final long serialVersionUID = 40000L;
 
         @Nonnull
         private static Map<String, Integer> buildTagsPriorities() {
@@ -999,9 +1017,11 @@ public class OBOFormatWriter {
     }
 
     /** The Class FramesComparator. */
-    private static class FramesComparator implements Comparator<Frame> {
+    private static class FramesComparator implements Comparator<Frame>,
+            Serializable {
 
         static final FramesComparator instance = new FramesComparator();
+        private static final long serialVersionUID = 40000L;
 
         @Override
         public int compare(Frame o1, Frame o2) {
@@ -1013,9 +1033,11 @@ public class OBOFormatWriter {
      * This comparator sorts clauses with the same tag in the specified write
      * order.
      */
-    private static class ClauseComparator implements Comparator<Clause> {
+    private static class ClauseComparator implements Comparator<Clause>,
+            Serializable {
 
         static final ClauseComparator instance = new ClauseComparator();
+        private static final long serialVersionUID = 40000L;
 
         @Override
         public int compare(Clause o1, Clause o2) {
@@ -1095,9 +1117,11 @@ public class OBOFormatWriter {
     }
 
     /** The Class XrefComparator. */
-    private static class XrefComparator implements Comparator<Xref> {
+    private static class XrefComparator implements Comparator<Xref>,
+            Serializable {
 
         static final XrefComparator instance = new XrefComparator();
+        private static final long serialVersionUID = 40000L;
 
         @Override
         public int compare(Xref o1, Xref o2) {

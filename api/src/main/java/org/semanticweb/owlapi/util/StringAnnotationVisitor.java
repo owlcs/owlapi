@@ -10,76 +10,41 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.model;
+package org.semanticweb.owlapi.util;
+
+import java.io.Serializable;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.change.AddAxiomData;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
+import org.semanticweb.owlapi.model.OWLLiteral;
 
 /**
- * Represents an ontology change where axioms should be added to an ontology.
+ * Annotation visitor that returns literal's lexical form, or empty string for
+ * IRI and blank nodes.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
- * @since 2.0.0
+ * @since 4.0.0
  */
-public class AddAxiom extends OWLAxiomChange {
+public class StringAnnotationVisitor implements
+        OWLAnnotationValueVisitorEx<String>, Serializable {
 
     private static final long serialVersionUID = 40000L;
 
-    /**
-     * @param ont
-     *        the ontology to which the change is to be applied
-     * @param axiom
-     *        the axiom to be added
-     */
-    public AddAxiom(@Nonnull OWLOntology ont, @Nonnull OWLAxiom axiom) {
-        super(ont, axiom);
-    }
-
-    @Nonnull
     @Override
-    public AddAxiomData getChangeData() {
-        return new AddAxiomData(getAxiom());
+    public String visit(IRI iri) {
+        // TODO refactor the short form providers in here
+        return "";
     }
 
     @Override
-    public boolean isAddAxiom() {
-        return true;
+    public String visit(OWLAnonymousIndividual individual) {
+        return "";
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj == this) {
-            return true;
-        }
-        if (!(obj instanceof AddAxiom)) {
-            return false;
-        }
-        AddAxiom other = (AddAxiom) obj;
-        return other.getOntology().equals(getOntology())
-                && other.getAxiom().equals(getAxiom());
-    }
-
-    @Override
-    public int hashCode() {
-        return 17 + getOntology().hashCode() * 13 + getAxiom().hashCode() * 13;
-    }
-
-    @Override
-    public void accept(@Nonnull OWLOntologyChangeVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    public <O> O accept(@Nonnull OWLOntologyChangeVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
-
-    @Nonnull
-    @Override
-    public String toString() {
-        return "AddAxiom(" + getAxiom() + " OntologyID("
-                + getOntology().getOntologyID() + "))";
+    public String visit(@Nonnull OWLLiteral literal) {
+        return literal.getLiteral();
     }
 }

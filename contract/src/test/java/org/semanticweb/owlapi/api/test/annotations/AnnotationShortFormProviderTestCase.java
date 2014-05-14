@@ -24,10 +24,7 @@ import javax.annotation.Nonnull;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx;
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.PrefixManager;
@@ -36,6 +33,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.SimpleIRIShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleShortFormProvider;
+import org.semanticweb.owlapi.util.StringAnnotationVisitor;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health
@@ -106,25 +104,17 @@ public class AnnotationShortFormProviderTestCase extends TestBase {
                 AnnotationAssertion(prop, root.getIRI(), Literal(shortForm)));
         AnnotationValueShortFormProvider sfp = new AnnotationValueShortFormProvider(
                 m, new SimpleShortFormProvider(),
-                new SimpleIRIShortFormProvider(), props, langMap,
-                new OWLAnnotationValueVisitorEx<String>() {
+                new SimpleIRIShortFormProvider(), props, langMap);
+        sfp.setLiteralRenderer(new StringAnnotationVisitor() {
 
-                    @Nonnull
-                    @Override
-                    public String visit(@Nonnull OWLLiteral literal) {
-                        return '"' + literal.getLiteral() + '"';
-                    }
+            private static final long serialVersionUID = 1L;
 
-                    @Override
-                    public String visit(OWLAnonymousIndividual individual) {
-                        return "";
-                    }
-
-                    @Override
-                    public String visit(IRI iri) {
-                        return "";
-                    }
-                });
+            @Nonnull
+            @Override
+            public String visit(@Nonnull OWLLiteral literal) {
+                return '"' + literal.getLiteral() + '"';
+            }
+        });
         String shortForm2 = sfp.getShortForm(root);
         assertEquals(shortForm2, '"' + shortForm + '"');
     }

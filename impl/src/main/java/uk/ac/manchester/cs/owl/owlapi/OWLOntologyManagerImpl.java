@@ -578,7 +578,8 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
                     LOGGER.error(
                             "OWLOntologyManagerImpl.checkForOntologyIDChange() new:{}",
                             change.getOntology());
-                    throw new OWLOntologyRenameException(change,
+                    throw new OWLOntologyRenameException(
+                            change.getChangeData(),
                             ((SetOntologyID) change).getNewOntologyID());
                 }
             }
@@ -1135,9 +1136,17 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     }
 
     // Listener stuff - methods to add/remove listeners
-    private final Map<OWLOntologyChangeListener, OWLOntologyChangeBroadcastStrategy> listenerMap = new ConcurrentHashMap<OWLOntologyChangeListener, OWLOntologyChangeBroadcastStrategy>();
-    private final Map<ImpendingOWLOntologyChangeListener, ImpendingOWLOntologyChangeBroadcastStrategy> impendingChangeListenerMap = new ConcurrentHashMap<ImpendingOWLOntologyChangeListener, ImpendingOWLOntologyChangeBroadcastStrategy>();
-    private final List<OWLOntologyChangesVetoedListener> vetoListeners = new ArrayList<OWLOntologyChangesVetoedListener>();
+    private transient Map<OWLOntologyChangeListener, OWLOntologyChangeBroadcastStrategy> listenerMap = new ConcurrentHashMap<OWLOntologyChangeListener, OWLOntologyChangeBroadcastStrategy>();
+    private transient Map<ImpendingOWLOntologyChangeListener, ImpendingOWLOntologyChangeBroadcastStrategy> impendingChangeListenerMap = new ConcurrentHashMap<ImpendingOWLOntologyChangeListener, ImpendingOWLOntologyChangeBroadcastStrategy>();
+    private transient List<OWLOntologyChangesVetoedListener> vetoListeners = new ArrayList<OWLOntologyChangesVetoedListener>();
+
+    private void readObject(java.io.ObjectInputStream stream)
+            throws IOException, ClassNotFoundException {
+        stream.defaultReadObject();
+        listenerMap = new ConcurrentHashMap<OWLOntologyChangeListener, OWLOntologyChangeBroadcastStrategy>();
+        impendingChangeListenerMap = new ConcurrentHashMap<ImpendingOWLOntologyChangeListener, ImpendingOWLOntologyChangeBroadcastStrategy>();
+        vetoListeners = new ArrayList<OWLOntologyChangesVetoedListener>();
+    }
 
     @Override
     public void addOntologyChangeListener(OWLOntologyChangeListener listener) {

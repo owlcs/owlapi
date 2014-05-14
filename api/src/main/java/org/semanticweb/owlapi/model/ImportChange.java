@@ -28,6 +28,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 public abstract class ImportChange extends
         OWLOntologyChange<OWLImportsDeclaration> {
 
+    private static final long serialVersionUID = 40000L;
     @Nonnull
     private final OWLImportsDeclaration declaration;
 

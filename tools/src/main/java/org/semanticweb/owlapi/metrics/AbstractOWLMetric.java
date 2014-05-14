@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.metrics;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 
@@ -32,8 +33,8 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  * @param <M>
  *        the metric type
  */
-public abstract class AbstractOWLMetric<M> implements OWLMetric<M>,
-        OWLOntologyChangeListener {
+public abstract class AbstractOWLMetric<M extends Serializable> implements
+        OWLMetric<M>, OWLOntologyChangeListener {
 
     @Nonnull
     private OWLOntology ontology;

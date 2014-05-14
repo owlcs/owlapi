@@ -26,6 +26,8 @@ import org.semanticweb.owlapi.change.RemoveAxiomData;
  */
 public class RemoveAxiom extends OWLAxiomChange {
 
+    private static final long serialVersionUID = 40000L;
+
     /**
      * @param ont
      *        the ontology to which the change is to be applied

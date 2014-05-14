@@ -38,7 +38,6 @@ import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -92,7 +91,6 @@ import org.semanticweb.owlapi.util.InferredOntologyGenerator;
 import org.semanticweb.owlapi.util.InferredSubClassAxiomGenerator;
 import org.semanticweb.owlapi.util.OWLClassExpressionVisitorAdapter;
 import org.semanticweb.owlapi.util.OWLEntityRemover;
-import org.semanticweb.owlapi.util.OWLObjectVisitorExAdapter;
 import org.semanticweb.owlapi.util.OWLOntologyMerger;
 import org.semanticweb.owlapi.util.OWLOntologyWalker;
 import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitorEx;
@@ -924,7 +922,8 @@ public class TutorialSnippets {
     public static class LoggingReasonerProgressMonitor implements
             ReasonerProgressMonitor {
 
-        private final Logger logger;
+        private static final long serialVersionUID = 40000L;
+        private static Logger logger;
 
         public LoggingReasonerProgressMonitor(Logger log) {
             logger = log;
@@ -954,23 +953,6 @@ public class TutorialSnippets {
         @Override
         public void reasonerTaskBusy() {
             logger.info("Reasoner Task is busy");
-        }
-    }
-
-    class LabelExtractor extends OWLObjectVisitorExAdapter<String> implements
-            OWLAnnotationObjectVisitorEx<String> {
-
-        @Override
-        public String visit(@Nonnull OWLAnnotation node) {
-            /*
-             * If it's a label, grab it as the result. Note that if there are
-             * multiple labels, the last one will be used.
-             */
-            if (node.getProperty().isLabel()) {
-                OWLLiteral c = (OWLLiteral) node.getValue();
-                return c.getLiteral();
-            }
-            return "";
         }
     }
 

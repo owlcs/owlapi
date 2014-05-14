@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -47,7 +46,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
     @Nonnull
     private final Map<String, String> reverseprefix2NamespaceMap = new HashMap<String, String>();
     @Nonnull
-    private Comparator<String> comparator;
+    private StringComparator comparator;
 
     /**
      * @param pm
@@ -58,7 +57,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
      *        default prefix
      */
     public DefaultPrefixManager(@Nullable PrefixManager pm,
-            @Nullable Comparator<String> c, @Nullable String defaultPrefix) {
+            @Nullable StringComparator c, @Nullable String defaultPrefix) {
         comparator = c == null ? new StringLengthComparator() : c;
         prefix2NamespaceMap = new TreeMap<String, String>(comparator);
         setupDefaultPrefixes();
@@ -78,12 +77,12 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
     }
 
     @Override
-    public Comparator<String> getPrefixComparator() {
+    public StringComparator getPrefixComparator() {
         return comparator;
     }
 
     @Override
-    public void setPrefixComparator(Comparator<String> comparator) {
+    public void setPrefixComparator(StringComparator comparator) {
         checkNotNull(comparator, "comparator cannot be null");
         this.comparator = comparator;
         Map<String, String> p = prefix2NamespaceMap;

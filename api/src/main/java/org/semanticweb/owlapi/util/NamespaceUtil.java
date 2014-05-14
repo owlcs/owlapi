@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.util;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -33,8 +34,9 @@ import org.semanticweb.owlapi.vocab.Namespaces;
  *         Informatics Group
  * @since 2.0.0
  */
-public class NamespaceUtil {
+public class NamespaceUtil implements Serializable {
 
+    private static final long serialVersionUID = 40000L;
     private final Map<String, String> namespace2PrefixMap = new HashMap<String, String>();
     private final Map<String, String> standardNamespacePrefixMappings = new HashMap<String, String>();
     private final AtomicInteger candidateIndex = new AtomicInteger(1);

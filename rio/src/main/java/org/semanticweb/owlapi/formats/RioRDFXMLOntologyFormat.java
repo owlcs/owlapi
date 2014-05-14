@@ -42,7 +42,7 @@ import org.openrdf.rio.RDFFormat;
  */
 public class RioRDFXMLOntologyFormat extends RioRDFOntologyFormat {
 
-    private static final long serialVersionUID = -585049128763071389L;
+    private static final long serialVersionUID = 40000L;
 
     /**
      * RDF format for {@link RDFFormat#RDFXML} documents.

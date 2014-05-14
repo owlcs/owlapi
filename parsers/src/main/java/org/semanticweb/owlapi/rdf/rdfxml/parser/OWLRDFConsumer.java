@@ -83,8 +83,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Optional;
-import com.google.common.collect.LinkedHashMultimap;
-import com.google.common.collect.Multimap;
+import com.google.common.collect.ArrayListMultimap;
 
 /**
  * A parser/interpreter for an RDF graph which represents an OWL ontology. The
@@ -211,7 +210,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
     private final AnonymousNodeChecker nodeCheckerDelegate;
     @SuppressWarnings("null")
     @Nonnull
-    private final Multimap<IRI, Class<?>> guessedDeclarations = LinkedHashMultimap
+    private final ArrayListMultimap<IRI, Class<?>> guessedDeclarations = ArrayListMultimap
             .create();
 
     /**

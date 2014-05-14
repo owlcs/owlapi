@@ -24,7 +24,8 @@ import com.google.common.collect.Iterators;
  * @param <T>
  *        type of the collection
  */
-public class PriorityCollection<T> implements Iterable<T>, Serializable {
+public class PriorityCollection<T extends Serializable> implements Iterable<T>,
+        Serializable {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull

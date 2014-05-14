@@ -32,6 +32,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * @param <E>
  *        entity type
  */
+@SuppressWarnings("unused")
 public class EntityType<E extends OWLEntity> implements Serializable,
         HasShortForm, HasPrefixedName, HasIRI {
 

@@ -22,6 +22,7 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
+import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Multimaps;
 
@@ -37,7 +38,7 @@ public class RDFParserMetaData implements OWLOntologyLoaderMetaData,
     private final int tripleCount;
     private final RDFOntologyHeaderStatus headerStatus;
     private final Set<RDFTriple> unparsedTriples;
-    private final Multimap<IRI, Class<?>> guessedDeclarations;
+    private final ArrayListMultimap<IRI, Class<?>> guessedDeclarations;
 
     /**
      * @param headerStatus
@@ -51,7 +52,7 @@ public class RDFParserMetaData implements OWLOntologyLoaderMetaData,
      */
     public RDFParserMetaData(@Nonnull RDFOntologyHeaderStatus headerStatus,
             int tripleCount, @Nonnull Set<RDFTriple> unparsedTriples,
-            @Nonnull Multimap<IRI, Class<?>> guessedDeclarations) {
+            @Nonnull ArrayListMultimap<IRI, Class<?>> guessedDeclarations) {
         this.tripleCount = tripleCount;
         this.headerStatus = checkNotNull(headerStatus,
                 "headerStatus cannot be null");

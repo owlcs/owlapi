@@ -12,12 +12,11 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.ontology;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyAlreadyExistsException;
 
 /**
@@ -39,8 +38,7 @@ public class DifferentPhysicalURISameOntologyIRITestCase extends TestBase {
         IRI ontologyADocumentIRIB = IRI
                 .create(DifferentPhysicalURISameOntologyIRITestCase.class
                         .getResource('/' + ONTOLOGY_A_EMPTY).toURI());
-        OWLOntology ontologyA = m
-                .loadOntologyFromOntologyDocument(ontologyADocumentIRI);
+        m.loadOntologyFromOntologyDocument(ontologyADocumentIRI);
         m.loadOntologyFromOntologyDocument(ontologyADocumentIRIB);
         fail("Expected an exception to say that the ontology already exists");
     }

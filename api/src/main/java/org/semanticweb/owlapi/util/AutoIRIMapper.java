@@ -62,7 +62,6 @@ public class AutoIRIMapper extends DefaultHandler implements
     private final Map<IRI, IRI> ontologyIRI2PhysicalURIMap = new HashMap<IRI, IRI>();
     private final Map<String, IRI> oboFileMap = new HashMap<String, IRI>();
     private final String directoryPath;
-    private transient File directory;
     private transient File currentFile;
 
     /**
@@ -75,8 +74,8 @@ public class AutoIRIMapper extends DefaultHandler implements
      *        Sub directories will be searched recursively if {@code true}.
      */
     public AutoIRIMapper(@Nonnull File rootDirectory, boolean recursive) {
-        directory = checkNotNull(rootDirectory, "rootDirectory cannot be null");
-        directoryPath = directory.getAbsolutePath();
+        directoryPath = checkNotNull(rootDirectory,
+                "rootDirectory cannot be null").getAbsolutePath();
         this.recursive = recursive;
         fileExtensions.add("owl");
         fileExtensions.add("xml");
@@ -90,10 +89,7 @@ public class AutoIRIMapper extends DefaultHandler implements
     }
 
     protected File getDirectory() {
-        if (directory == null) {
-            directory = new File(directoryPath);
-        }
-        return directory;
+        return new File(directoryPath);
     }
 
     /**
@@ -302,7 +298,7 @@ public class AutoIRIMapper extends DefaultHandler implements
      * A simple interface which extracts an ontology IRI from a set of element
      * attributes.
      */
-    private interface OntologyRootElementHandler {
+    private interface OntologyRootElementHandler extends Serializable {
 
         /**
          * Gets the ontology IRI.

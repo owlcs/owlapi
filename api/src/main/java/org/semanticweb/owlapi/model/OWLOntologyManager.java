@@ -15,6 +15,7 @@ package org.semanticweb.owlapi.model;
 import java.io.File;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 
@@ -39,7 +40,7 @@ import org.semanticweb.owlapi.util.PriorityCollection;
  */
 public interface OWLOntologyManager extends OWLOntologySetProvider,
         HasDataFactory, HasGetOntologyById, HasApplyChanges, HasAddAxioms,
-        HasContainsOntology {
+        HasContainsOntology, Serializable {
 
     /**
      * Gets a data factory which can be used to create OWL API objects such as

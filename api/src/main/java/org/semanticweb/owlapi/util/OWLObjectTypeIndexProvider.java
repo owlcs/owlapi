@@ -110,7 +110,7 @@ import org.semanticweb.owlapi.model.SWRLVariable;
  */
 public class OWLObjectTypeIndexProvider implements OWLObjectVisitor {
 
-//@formatter:off
+    //@formatter:off
     /** ENTITY_TYPE_INDEX_BASE           */ public static final int ENTITY_TYPE_INDEX_BASE              = 1000;
     /** IRI                              */ public static final int IRI                                 = 0;
     /** ONTOLOGY                         */ public static final int ONTOLOGY                            = 1;

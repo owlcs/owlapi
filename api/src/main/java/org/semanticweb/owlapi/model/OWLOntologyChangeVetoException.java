@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
+import org.semanticweb.owlapi.change.OWLOntologyChangeData;
+
 /**
  * Describes a situation where a change was vetoed for some reason. Subclasses
  * of this class may provide more information about why the change was vetoed.
@@ -30,7 +32,7 @@ public class OWLOntologyChangeVetoException extends OWLOntologyChangeException {
      * @param message
      *        message
      */
-    public OWLOntologyChangeVetoException(OWLOntologyChange<?> change,
+    public OWLOntologyChangeVetoException(OWLOntologyChangeData<?> change,
             String message) {
         super(change, message);
     }
@@ -43,7 +45,7 @@ public class OWLOntologyChangeVetoException extends OWLOntologyChangeException {
      * @param cause
      *        cause
      */
-    public OWLOntologyChangeVetoException(OWLOntologyChange<?> change,
+    public OWLOntologyChangeVetoException(OWLOntologyChangeData<?> change,
             String message, Throwable cause) {
         super(change, message, cause);
     }
@@ -54,7 +56,7 @@ public class OWLOntologyChangeVetoException extends OWLOntologyChangeException {
      * @param cause
      *        cause
      */
-    public OWLOntologyChangeVetoException(OWLOntologyChange<?> change,
+    public OWLOntologyChangeVetoException(OWLOntologyChangeData<?> change,
             Throwable cause) {
         super(change, cause);
     }

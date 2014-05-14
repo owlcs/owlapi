@@ -85,7 +85,8 @@ import org.slf4j.LoggerFactory;
 public class RioParserImpl extends AbstractOWLParser implements RioParser {
 
     private static final long serialVersionUID = 40000L;
-    protected final Logger log = LoggerFactory.getLogger(getClass());
+    protected final static Logger log = LoggerFactory
+            .getLogger(RioParserImpl.class);
     @Nonnull
     private final RioRDFOntologyFormatFactory owlFormatFactory;
     @Nonnull
@@ -287,7 +288,8 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
 
     private static class RioParserRDFHandler implements RDFHandler {
 
-        private final Logger log = LoggerFactory.getLogger(getClass());
+        private final Logger LOGGER = LoggerFactory
+                .getLogger(RioParserRDFHandler.class);
         private final RDFHandler consumer;
         private long owlParseStart;
         private final Set<Resource> typedLists = new HashSet<Resource>();
@@ -311,9 +313,9 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
         public void endRDF() {
             try {
                 consumer.endRDF();
-                if (log.isDebugEnabled()) {
-                    log.debug("owlParse: timing={}", System.currentTimeMillis()
-                            - owlParseStart);
+                if (LOGGER.isDebugEnabled()) {
+                    LOGGER.debug("owlParse: timing={}",
+                            System.currentTimeMillis() - owlParseStart);
                 }
             } catch (RDFHandlerException e) {
                 throw new OWLParserException(e);
@@ -341,15 +343,15 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
                     } catch (RDFHandlerException e) {
                         throw new OWLParserException(e);
                     }
-                    log.debug("Implicitly typing list={}", nextStatement);
+                    LOGGER.debug("Implicitly typing list={}", nextStatement);
                 }
             } else if (nextStatement.getPredicate().equals(RDF.TYPE)
                     && nextStatement.getObject().equals(RDF.LIST)) {
                 if (!typedLists.contains(nextStatement.getSubject())) {
-                    log.debug("Explicit list type found={}", nextStatement);
+                    LOGGER.debug("Explicit list type found={}", nextStatement);
                     typedLists.add(nextStatement.getSubject());
                 } else {
-                    log.debug(
+                    LOGGER.debug(
                             "duplicate rdf:type rdf:List statements found={}",
                             nextStatement);
                 }

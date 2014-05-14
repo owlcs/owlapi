@@ -32,6 +32,7 @@ import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
  */
 public class CommonBaseIRIMapper implements OWLOntologyIRIMapper {
 
+    private static final long serialVersionUID = 40000L;
     private final IRI base;
     private final Map<IRI, IRI> iriMap = new HashMap<IRI, IRI>();
 

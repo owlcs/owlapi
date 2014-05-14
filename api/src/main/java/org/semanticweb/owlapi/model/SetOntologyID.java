@@ -30,6 +30,7 @@ import com.google.common.base.Optional;
  */
 public class SetOntologyID extends OWLOntologyChange<OWLOntologyID> {
 
+    private static final long serialVersionUID = 40000L;
     @Nonnull
     private final OWLOntologyID ontologyID;
     @Nonnull

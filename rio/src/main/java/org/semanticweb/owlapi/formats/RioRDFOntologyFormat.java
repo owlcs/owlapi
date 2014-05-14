@@ -46,8 +46,8 @@ import org.openrdf.rio.RDFFormat;
 public class RioRDFOntologyFormat extends
         org.semanticweb.owlapi.formats.RDFOntologyFormat {
 
-    private static final long serialVersionUID = 4211005024818991313L;
-    private final RDFFormat format;
+    private static final long serialVersionUID = 40000L;
+    private final String formatName;
 
     /**
      * Constructor for super-classes to specify which {@link RDFFormat} they
@@ -57,19 +57,19 @@ public class RioRDFOntologyFormat extends
      *        The {@link RDFFormat} that this instance supports.
      */
     public RioRDFOntologyFormat(RDFFormat format) {
-        this.format = format;
+        this.formatName = format.getName();
     }
 
     @SuppressWarnings("null")
     @Override
     public String getKey() {
-        return getRioFormat().toString();
+        return formatName;
     }
 
     /**
      * @return Rio format for this format
      */
     public RDFFormat getRioFormat() {
-        return format;
+        return RDFFormat.valueOf(formatName);
     }
 }

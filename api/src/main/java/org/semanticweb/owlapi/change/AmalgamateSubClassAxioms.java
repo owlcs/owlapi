@@ -40,6 +40,8 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  */
 public class AmalgamateSubClassAxioms extends AbstractCompositeOntologyChange {
 
+    private static final long serialVersionUID = 40000L;
+
     /**
      * Instantiates a new amalgamate sub class axioms.
      * 

@@ -73,6 +73,7 @@ import org.semanticweb.owlapi.util.OWLClassExpressionVisitorExAdapter;
 public class ConvertEquivalentClassesToSuperClasses extends
         AbstractCompositeOntologyChange {
 
+    private static final long serialVersionUID = 40000L;
     /** The target ontology. */
     @Nonnull
     private final OWLOntology targetOntology;

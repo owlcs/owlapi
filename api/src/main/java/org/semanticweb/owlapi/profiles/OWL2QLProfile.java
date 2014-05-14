@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.profiles;
 
 import static org.semanticweb.owlapi.vocab.OWL2Datatype.*;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -68,6 +69,8 @@ import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitor;
  *         Management Group
  */
 public class OWL2QLProfile implements OWLProfile {
+
+    private static final long serialVersionUID = 40000L;
 
     @SuppressWarnings("null")
     @Nonnull
@@ -314,7 +317,9 @@ public class OWL2QLProfile implements OWLProfile {
     }
 
     private static class OWL2QLSubClassExpressionChecker extends
-            OWLClassExpressionVisitorExAdapter<Boolean> {
+            OWLClassExpressionVisitorExAdapter<Boolean> implements Serializable {
+
+        private static final long serialVersionUID = 40000L;
 
         OWL2QLSubClassExpressionChecker() {
             super(b(false));
@@ -344,7 +349,9 @@ public class OWL2QLProfile implements OWLProfile {
     }
 
     private class OWL2QLSuperClassExpressionChecker extends
-            OWLClassExpressionVisitorExAdapter<Boolean> {
+            OWLClassExpressionVisitorExAdapter<Boolean> implements Serializable {
+
+        private static final long serialVersionUID = 40000L;
 
         OWL2QLSuperClassExpressionChecker() {
             super(b(false));

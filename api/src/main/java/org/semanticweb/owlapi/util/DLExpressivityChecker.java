@@ -16,6 +16,7 @@ import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 import static org.semanticweb.owlapi.util.DLExpressivityChecker.Construct.*;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -173,8 +174,10 @@ public class DLExpressivityChecker extends OWLObjectVisitorAdapter {
     }
 
     /** A comparator that orders DL constucts to produce a traditional DL name. */
-    private static class ConstructComparator implements Comparator<Construct> {
+    private static class ConstructComparator implements Comparator<Construct>,
+            Serializable {
 
+        private static final long serialVersionUID = 40000L;
         private final List<Construct> order = new ArrayList<Construct>();
 
         ConstructComparator() {

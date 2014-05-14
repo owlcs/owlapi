@@ -39,7 +39,7 @@ import com.google.common.collect.Sets;
  * @param <C>
  *        axiom type
  */
-@SuppressWarnings("unchecked")
+@SuppressWarnings({ "unchecked", "unused" })
 public class AxiomType<C extends OWLAxiom> implements Serializable {
 
     private static final long serialVersionUID = 40000L;

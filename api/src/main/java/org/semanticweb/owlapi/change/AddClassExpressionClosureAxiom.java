@@ -49,6 +49,8 @@ import org.semanticweb.owlapi.util.OWLClassExpressionVisitorAdapter;
 public class AddClassExpressionClosureAxiom extends
         AbstractCompositeOntologyChange {
 
+    private static final long serialVersionUID = 40000L;
+
     /**
      * Creates a composite change that will add a closure axiom for a given
      * class along a specified property.

@@ -48,15 +48,26 @@ import org.slf4j.LoggerFactory;
 public class ManchesterSyntaxTool {
 
     private static final Logger log = LoggerFactory
-            .getLogger(ManchesterSyntaxTool.class.getName());
+            .getLogger(ManchesterSyntaxTool.class);
     @Nonnull
-    protected IRIShortFormProvider iriShortFormProvider;
+    protected IRIShortFormProvider iriShortFormProvider = new SimpleIRIShortFormProvider();
     @Nonnull
     private final OWLDataFactory dataFactory;
     @Nonnull
-    private final OWLEntityChecker entityChecker;
+    private final AdvancedEntityChecker entityChecker;
     @Nonnull
-    private final ShortFormProvider shortFormProvider;
+    private final ShortFormProvider shortFormProvider = new ShortFormProvider() {
+
+        @Override
+        public void dispose() {
+            // do nothing
+        }
+
+        @Override
+        public String getShortForm(@Nonnull OWLEntity entity) {
+            return iriShortFormProvider.getShortForm(entity.getIRI());
+        }
+    };
     private final AtomicBoolean disposed = new AtomicBoolean(false);
 
     /**
@@ -68,7 +79,7 @@ public class ManchesterSyntaxTool {
      *        inputOntology
      */
     public ManchesterSyntaxTool(@Nonnull OWLOntology inputOntology) {
-        this(inputOntology, null, true);
+        this(inputOntology, null);
     }
 
     /**
@@ -82,59 +93,21 @@ public class ManchesterSyntaxTool {
      *        set of additional ontologies or null
      */
     public ManchesterSyntaxTool(@Nonnull OWLOntology inputOntology,
-            Collection<OWLOntology> auxiliaryOntologies) {
-        this(inputOntology, auxiliaryOntologies, true);
-    }
-
-    /**
-     * Create a new parser instance for the given ontologies.
-     * 
-     * @param inputOntology
-     *        inputOntology
-     * @param auxiliaryOntologies
-     *        set of additional ontologies or null
-     * @param resolveEntities
-     *        set to true, to enable resolution of OWLObjects via their
-     *        identifier or rdfs:label
-     */
-    public ManchesterSyntaxTool(@Nonnull OWLOntology inputOntology,
-            @Nullable Collection<OWLOntology> auxiliaryOntologies,
-            boolean resolveEntities) {
+            @Nullable Collection<OWLOntology> auxiliaryOntologies) {
         OWLOntologyManager manager = inputOntology.getOWLOntologyManager();
         dataFactory = manager.getOWLDataFactory();
-        Set<OWLOntology> ontologies;
+        Set<OWLOntology> ontologies = new HashSet<OWLOntology>(
+                inputOntology.getImportsClosure());
         if (auxiliaryOntologies != null && !auxiliaryOntologies.isEmpty()) {
-            ontologies = new HashSet<OWLOntology>();
-            ontologies.addAll(inputOntology.getImportsClosure());
             for (OWLOntology auxOnt : auxiliaryOntologies) {
                 ontologies.addAll(auxOnt.getImportsClosure());
             }
-        } else {
-            ontologies = inputOntology.getImportsClosure();
         }
-        // re-use the same short form provider for translation and parsing
-        iriShortFormProvider = new SimpleIRIShortFormProvider();
-        shortFormProvider = new ShortFormProvider() {
-
-            @Override
-            public void dispose() {
-                // do nothing
-            }
-
-            @Override
-            public String getShortForm(@Nonnull OWLEntity entity) {
-                return iriShortFormProvider.getShortForm(entity.getIRI());
-            }
-        };
         ShortFormEntityChecker defaultInstance = new ShortFormEntityChecker(
                 new BidirectionalShortFormProviderAdapter(manager, ontologies,
                         shortFormProvider));
-        if (resolveEntities) {
-            entityChecker = new AdvancedEntityChecker(defaultInstance,
-                    ontologies, inputOntology.getOWLOntologyManager());
-        } else {
-            entityChecker = defaultInstance;
-        }
+        entityChecker = new AdvancedEntityChecker(defaultInstance, ontologies,
+                inputOntology.getOWLOntologyManager());
     }
 
     /**

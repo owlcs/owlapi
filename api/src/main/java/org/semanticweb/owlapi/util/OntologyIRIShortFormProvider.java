@@ -45,6 +45,7 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
     private static final String[] EXTENSIONS = { OWL_EXTENSION, RDF_EXTENSION,
             XML_EXTENSION, OBO_EXTENSION };
     private static final Map<IRI, String> wellKnownShortForms = initWellKnownShortForms();
+    private static final long serialVersionUID = 40000L;
 
     private static Map<IRI, String> initWellKnownShortForms() {
         Map<IRI, String> map = new HashMap<IRI, String>();

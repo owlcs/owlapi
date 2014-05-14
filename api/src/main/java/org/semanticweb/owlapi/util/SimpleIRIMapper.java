@@ -27,6 +27,7 @@ import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
  */
 public class SimpleIRIMapper implements OWLOntologyIRIMapper {
 
+    private static final long serialVersionUID = 40000L;
     private final IRI iri;
     private final IRI documentIRI;
 

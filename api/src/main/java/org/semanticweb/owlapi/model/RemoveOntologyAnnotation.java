@@ -27,6 +27,8 @@ import org.semanticweb.owlapi.change.RemoveOntologyAnnotationData;
  */
 public class RemoveOntologyAnnotation extends AnnotationChange {
 
+    private static final long serialVersionUID = 40000L;
+
     /**
      * @param ont
      *        the ontology to which the change is to be applied

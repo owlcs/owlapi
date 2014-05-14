@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.util;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.io.Serializable;
 import java.util.Comparator;
 
 import javax.annotation.Nonnull;
@@ -39,9 +38,8 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  * @since 2.0.0
  */
 public class OWLEntityComparator implements Comparator<OWLEntity>,
-        OWLEntityVisitor, Serializable {
+        OWLEntityVisitor {
 
-    private static final long serialVersionUID = 40000L;
     @Nonnull
     private final ShortFormProvider shortFormProvider;
     int lastValue;

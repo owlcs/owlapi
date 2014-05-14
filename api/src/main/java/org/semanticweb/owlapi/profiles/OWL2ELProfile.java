@@ -89,6 +89,7 @@ public class OWL2ELProfile implements OWLProfile {
                     XSD_NMTOKEN.getIRI(), XSD_HEX_BINARY.getIRI(),
                     XSD_BASE_64_BINARY.getIRI(), XSD_ANY_URI.getIRI(),
                     XSD_DATE_TIME.getIRI(), XSD_DATE_TIME_STAMP.getIRI()));
+    private static final long serialVersionUID = 40000L;
 
     @Override
     public String getName() {

@@ -2,7 +2,6 @@ package org.obolibrary.owl;
 
 import java.io.IOException;
 import java.io.Writer;
-import java.util.Comparator;
 import java.util.Map;
 import java.util.Set;
 
@@ -21,6 +20,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
+import org.semanticweb.owlapi.util.StringComparator;
 
 /** Implement the writer for {@link LabelFunctionalFormat}. */
 @SupportsFormat(LabelFunctionalFormat.class)
@@ -114,12 +114,12 @@ public class LabelFunctionalSyntaxOntologyStorer extends
         }
 
         @Override
-        public Comparator<String> getPrefixComparator() {
+        public StringComparator getPrefixComparator() {
             return delegate.getPrefixComparator();
         }
 
         @Override
-        public void setPrefixComparator(Comparator<String> comparator) {
+        public void setPrefixComparator(StringComparator comparator) {
             delegate.setPrefixComparator(comparator);
         }
 

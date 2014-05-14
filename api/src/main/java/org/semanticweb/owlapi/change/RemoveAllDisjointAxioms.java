@@ -34,6 +34,8 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  */
 public class RemoveAllDisjointAxioms extends AbstractCompositeOntologyChange {
 
+    private static final long serialVersionUID = 40000L;
+
     /**
      * Instantiates a new removes the all disjoint axioms.
      * 

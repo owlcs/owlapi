@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.io;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -42,7 +43,7 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  *         Informatics Group
  * @since 2.0.0
  */
-public interface OWLParser {
+public interface OWLParser extends Serializable {
 
     /**
      * Parses the ontology with a concrete representation available at

@@ -58,6 +58,8 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  */
 public class SplitSubClassAxioms extends AbstractCompositeOntologyChange {
 
+    private static final long serialVersionUID = 40000L;
+
     /**
      * Creates a composite change to split subclass axioms into multiple more
      * fine grained subclass axioms.

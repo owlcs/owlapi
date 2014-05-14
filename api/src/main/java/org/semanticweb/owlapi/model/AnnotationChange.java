@@ -25,6 +25,7 @@ import javax.annotation.Nonnull;
  */
 public abstract class AnnotationChange extends OWLOntologyChange<OWLAnnotation> {
 
+    private static final long serialVersionUID = 40000L;
     @Nonnull
     private final OWLAnnotation annotation;
 

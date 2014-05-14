@@ -327,8 +327,10 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
     }
 
     /** The Class TargetAxiomsComparator. */
-    private static class TargetAxiomsComparator implements Comparator<OWLAxiom> {
+    private static class TargetAxiomsComparator implements
+            Comparator<OWLAxiom>, Serializable {
 
+        private static final long serialVersionUID = 40000L;
         private final Set<OWLAxiom> targetAxioms;
 
         /**
@@ -356,7 +358,9 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
 
     /** The Class PropertiesFirstComparator. */
     private static class PropertiesFirstComparator implements
-            Comparator<OWLObject> {
+            Comparator<OWLObject>, Serializable {
+
+        private static final long serialVersionUID = 40000L;
 
         PropertiesFirstComparator() {}
 

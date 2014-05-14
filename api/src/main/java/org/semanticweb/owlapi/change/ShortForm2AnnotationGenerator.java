@@ -39,6 +39,8 @@ import org.semanticweb.owlapi.util.ShortFormProvider;
 public class ShortForm2AnnotationGenerator extends
         AbstractCompositeOntologyChange {
 
+    private static final long serialVersionUID = 40000L;
+
     /**
      * Instantiates a new short form2 annotation generator.
      * 

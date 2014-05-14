@@ -13,12 +13,13 @@
 package org.semanticweb.owlapi.model;
 
 import java.io.Serializable;
-import java.util.Comparator;
 import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import org.semanticweb.owlapi.util.StringComparator;
 
 /**
  * A prefix manager than can provide prefixes for prefix names.
@@ -33,13 +34,13 @@ public interface PrefixManager extends Serializable {
      * @return the prefix comparator currently used by the prefix manager
      */
     @Nonnull
-    Comparator<String> getPrefixComparator();
+    StringComparator getPrefixComparator();
 
     /**
      * @param comparator
      *        the comparator to use
      */
-    void setPrefixComparator(@Nonnull Comparator<String> comparator);
+    void setPrefixComparator(@Nonnull StringComparator comparator);
 
     /**
      * Gets the default prefix. The default prefix is denoted by the prefix name

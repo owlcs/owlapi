@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.util;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -94,8 +95,9 @@ import org.semanticweb.owlapi.model.SWRLRule;
  *         Management Group
  * @since 2.2.0
  */
-public class StructuralTransformation {
+public class StructuralTransformation implements Serializable {
 
+    private static final long serialVersionUID = 40000L;
     @Nonnull
     protected final OWLDataFactory df;
     private int nameCounter = 0;

@@ -69,8 +69,8 @@ import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
  */
 public class RioOntologyStorer extends AbstractOWLOntologyStorer {
 
-    private static final long serialVersionUID = -5659188693033814975L;
-    private RDFHandler rioHandler;
+    private static final long serialVersionUID = 40000L;
+    private transient RDFHandler rioHandler;
     private final RioRDFOntologyFormatFactory ontFormat;
     private final Resource[] contexts;
 

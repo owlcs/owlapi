@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.search;
 
+import java.util.Collection;
+
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.AxiomType;
@@ -47,7 +49,7 @@ public class Filters {
 
         private static final long serialVersionUID = 40000L;
         @Nonnull
-        private final Iterable<AxiomType<?>> types;
+        private final Collection<AxiomType<?>> types;
 
         /**
          * @param type
@@ -61,8 +63,16 @@ public class Filters {
          * @param types
          *        axiom types to filter on
          */
-        public AxiomFilter(@Nonnull Iterable<AxiomType<?>> types) {
+        public AxiomFilter(@Nonnull Collection<AxiomType<?>> types) {
             this.types = types;
+        }
+
+        /**
+         * @param types
+         *        axiom types to filter on
+         */
+        public AxiomFilter(@Nonnull AxiomType<?>... types) {
+            this.types = CollectionFactory.list(types);
         }
 
         @Nonnull

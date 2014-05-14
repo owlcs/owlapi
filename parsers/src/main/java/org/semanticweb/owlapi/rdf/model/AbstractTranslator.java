@@ -16,6 +16,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 import static org.semanticweb.owlapi.vocab.SWRLVocabulary.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -52,7 +53,7 @@ import com.google.common.base.Optional;
  *         Informatics Group
  * @since 2.0.0
  */
-public abstract class AbstractTranslator<N, R extends N, P extends N, L extends N>
+public abstract class AbstractTranslator<N extends Serializable, R extends N, P extends N, L extends N>
         implements OWLObjectVisitor, SWRLObjectVisitor {
 
     private final OWLOntologyManager manager;

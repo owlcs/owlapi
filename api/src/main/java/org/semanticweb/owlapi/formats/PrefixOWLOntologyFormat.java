@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.formats;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.util.Comparator;
 import java.util.Map;
 import java.util.Set;
 
@@ -24,6 +23,7 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
+import org.semanticweb.owlapi.util.StringComparator;
 
 /**
  * A PrefixOWLOntologyFormat delegates all PrefixManager operations to a
@@ -127,12 +127,12 @@ public abstract class PrefixOWLOntologyFormat extends OWLOntologyFormat
     }
 
     @Override
-    public Comparator<String> getPrefixComparator() {
+    public StringComparator getPrefixComparator() {
         return nsm.getPrefixComparator();
     }
 
     @Override
-    public void setPrefixComparator(Comparator<String> comparator) {
+    public void setPrefixComparator(StringComparator comparator) {
         nsm.setPrefixComparator(comparator);
     }
 }

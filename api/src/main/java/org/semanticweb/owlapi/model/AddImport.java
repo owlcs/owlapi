@@ -26,6 +26,8 @@ import org.semanticweb.owlapi.change.AddImportData;
  */
 public class AddImport extends ImportChange {
 
+    private static final long serialVersionUID = 40000L;
+
     /**
      * @param ont
      *        the ontology to which the change is to be applied

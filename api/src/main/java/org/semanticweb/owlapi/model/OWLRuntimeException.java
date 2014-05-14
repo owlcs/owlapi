@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
+import java.io.Serializable;
+
 /**
  * The root of runtime exceptions in the OWL API.
  * 
@@ -19,7 +21,8 @@ package org.semanticweb.owlapi.model;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLRuntimeException extends RuntimeException {
+public class OWLRuntimeException extends RuntimeException implements
+        Serializable {
 
     private static final long serialVersionUID = 40000L;
 

@@ -23,6 +23,7 @@ public class OBOFormatConstants {
 
 
 
+
         //@formatter:off
         /**TAG_FORMAT_VERSION*/ TAG_FORMAT_VERSION("format-version"),
         /**TAG_ONTOLOGY*/ TAG_ONTOLOGY( "ontology"),

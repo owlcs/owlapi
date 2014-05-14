@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.reasoner;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.profiles.OWLProfile;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
@@ -24,8 +25,7 @@ public class ClassExpressionNotInProfileException extends
 
     private static final long serialVersionUID = 40000L;
     private final OWLClassExpression classExpression;
-    // XXX replace with new profile classes
-    private final Object profile;
+    private final OWLProfile profile;
 
     /**
      * @param classExpression
@@ -34,7 +34,7 @@ public class ClassExpressionNotInProfileException extends
      *        profile
      */
     public ClassExpressionNotInProfileException(
-            OWLClassExpression classExpression, Object profile) {
+            OWLClassExpression classExpression, OWLProfile profile) {
         this.classExpression = classExpression;
         this.profile = profile;
     }
@@ -45,7 +45,7 @@ public class ClassExpressionNotInProfileException extends
     }
 
     /** @return profile */
-    public Object getProfile() {
+    public OWLProfile getProfile() {
         return profile;
     }
 }

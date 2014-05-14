@@ -15,6 +15,7 @@ package org.semanticweb.owlapi.rdf.model;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -39,10 +40,11 @@ import org.slf4j.LoggerFactory;
  *         Informatics Group
  * @since 2.0.0
  */
-public class RDFGraph {
+public class RDFGraph implements Serializable {
 
     private static final Logger logger = LoggerFactory
             .getLogger(RDFGraph.class);
+    private static final long serialVersionUID = 40000L;
     @Nonnull
     private final Map<RDFResource, Set<RDFTriple>> triplesBySubject = new HashMap<RDFResource, Set<RDFTriple>>();
     @Nonnull
