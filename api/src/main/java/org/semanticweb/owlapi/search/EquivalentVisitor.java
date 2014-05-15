@@ -4,7 +4,6 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
@@ -21,17 +20,11 @@ import org.semanticweb.owlapi.util.OWLAxiomVisitorExAdapter;
 class EquivalentVisitor<C extends OWLObject> extends
         OWLAxiomVisitorExAdapter<Set<C>> {
 
-    private static final long serialVersionUID = 40000L;
     private final boolean equiv;
 
     EquivalentVisitor(boolean equiv) {
+        super(CollectionFactory.<C> emptySet());
         this.equiv = equiv;
-    }
-
-    @Nonnull
-    @Override
-    protected Set<C> doDefault(OWLAxiom object) {
-        return CollectionFactory.emptySet();
     }
 
     @Nonnull

@@ -396,7 +396,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
 
     private void createDebuggingOntology() throws OWLException {
         if (debuggingOntology != null) {
-            owlOntologyManager.removeOntology(debuggingOntology);
+            owlOntologyManager.removeOntology(verifyNotNull(debuggingOntology));
         }
         IRI iri = createIRI();
         SimpleIRIMapper mapper = new SimpleIRIMapper(iri, iri);

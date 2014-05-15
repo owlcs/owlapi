@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.profiles;
 
 import static org.semanticweb.owlapi.vocab.OWL2Datatype.*;
 
-import java.io.Serializable;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -70,8 +69,6 @@ import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitor;
  *         Management Group
  */
 public class OWL2RLProfile implements OWLProfile {
-
-    private static final long serialVersionUID = 40000L;
 
     @SuppressWarnings("null")
     @Nonnull
@@ -286,9 +283,7 @@ public class OWL2RLProfile implements OWLProfile {
     }
 
     private class OWL2RLSubClassExpressionChecker extends
-            OWLClassExpressionVisitorExAdapter<Boolean> implements Serializable {
-
-        private static final long serialVersionUID = 40000L;
+            OWLClassExpressionVisitorExAdapter<Boolean> {
 
         OWL2RLSubClassExpressionChecker() {
             super(b(false));
@@ -354,9 +349,7 @@ public class OWL2RLProfile implements OWLProfile {
     }
 
     private class OWL2RLSuperClassExpressionChecker extends
-            OWLClassExpressionVisitorExAdapter<Boolean> implements Serializable {
-
-        private static final long serialVersionUID = 40000L;
+            OWLClassExpressionVisitorExAdapter<Boolean> {
 
         OWL2RLSuperClassExpressionChecker() {
             super(b(false));
@@ -429,9 +422,7 @@ public class OWL2RLProfile implements OWLProfile {
     }
 
     private static class OWL2RLEquivalentClassExpressionChecker extends
-            OWLClassExpressionVisitorExAdapter<Boolean> implements Serializable {
-
-        private static final long serialVersionUID = 40000L;
+            OWLClassExpressionVisitorExAdapter<Boolean> {
 
         OWL2RLEquivalentClassExpressionChecker() {
             super(b(false));

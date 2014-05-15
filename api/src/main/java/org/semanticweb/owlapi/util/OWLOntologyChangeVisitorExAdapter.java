@@ -35,11 +35,6 @@ public class OWLOntologyChangeVisitorExAdapter<O> extends
         OWLBaseVisitorExAdapter<O, OWLOntologyChange<?>> implements
         OWLOntologyChangeVisitorEx<O> {
 
-    /** adapter with null default */
-    public OWLOntologyChangeVisitorExAdapter() {
-        this(null);
-    }
-
     /**
      * adapter with object as default value
      * 

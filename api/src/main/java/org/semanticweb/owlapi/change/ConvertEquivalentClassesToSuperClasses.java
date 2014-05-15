@@ -141,7 +141,8 @@ public class ConvertEquivalentClassesToSuperClasses extends
         Set<OWLClassExpression> result = CollectionFactory.emptySet();
         if (splitIntersections) {
             result = desc
-                    .accept(new OWLClassExpressionVisitorExAdapter<Set<OWLClassExpression>>() {
+                    .accept(new OWLClassExpressionVisitorExAdapter<Set<OWLClassExpression>>(
+                            CollectionFactory.<OWLClassExpression> emptySet()) {
 
                         @Override
                         public Set<OWLClassExpression> visit(

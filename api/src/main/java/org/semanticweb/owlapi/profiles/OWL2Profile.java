@@ -51,8 +51,6 @@ import com.google.common.base.Optional;
  */
 public class OWL2Profile implements OWLProfile {
 
-    private static final long serialVersionUID = 40000L;
-
     @Override
     public String getName() {
         return "OWL 2";

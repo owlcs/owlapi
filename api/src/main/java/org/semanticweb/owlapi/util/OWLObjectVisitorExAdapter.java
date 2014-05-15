@@ -106,11 +106,6 @@ import org.semanticweb.owlapi.model.SWRLVariable;
 public class OWLObjectVisitorExAdapter<O> extends OWLDataVisitorExAdapter<O>
         implements OWLObjectVisitorEx<O> {
 
-    /** default constructor */
-    public OWLObjectVisitorExAdapter() {
-        this(null);
-    }
-
     /**
      * @param defaultReturnValue
      *        default return value

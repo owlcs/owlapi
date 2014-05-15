@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
-import java.io.Serializable;
-
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -47,8 +45,6 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 
 /** Returns true if the visited axioms are an ontology in Horn-SHIQ form. */
 public class HornAxiomVisitorEx extends OWLAxiomVisitorExAdapter<Boolean> {
-
-    private static final long serialVersionUID = 40000L;
 
     @SuppressWarnings("null")
     @Nonnull
@@ -185,9 +181,7 @@ public class HornAxiomVisitorEx extends OWLAxiomVisitorExAdapter<Boolean> {
     }
 
     private class PositiveAppearanceVisitorEx extends
-            OWLClassExpressionVisitorExAdapter<Boolean> implements Serializable {
-
-        private static final long serialVersionUID = 40000L;
+            OWLClassExpressionVisitorExAdapter<Boolean> {
 
         PositiveAppearanceVisitorEx() {
             super(b(false));
@@ -242,9 +236,7 @@ public class HornAxiomVisitorEx extends OWLAxiomVisitorExAdapter<Boolean> {
     }
 
     private class NegativeAppearanceVisitorEx extends
-            OWLClassExpressionVisitorExAdapter<Boolean> implements Serializable {
-
-        private static final long serialVersionUID = 40000L;
+            OWLClassExpressionVisitorExAdapter<Boolean> {
 
         NegativeAppearanceVisitorEx() {
             super(b(false));

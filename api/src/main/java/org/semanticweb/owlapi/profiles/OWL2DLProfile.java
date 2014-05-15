@@ -105,8 +105,6 @@ import com.google.common.base.Optional;
  */
 public class OWL2DLProfile implements OWLProfile {
 
-    private static final long serialVersionUID = 40000L;
-
     /**
      * Gets the name of the profile.
      * 

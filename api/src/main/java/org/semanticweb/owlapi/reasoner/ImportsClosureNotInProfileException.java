@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.reasoner;
 
-import org.semanticweb.owlapi.profiles.OWLProfile;
+import org.semanticweb.owlapi.model.IRI;
 
 /**
  * This exception indicates that the reasoner cannot handle the set of axioms
@@ -29,13 +29,13 @@ public class ImportsClosureNotInProfileException extends
         OWLReasonerRuntimeException {
 
     private static final long serialVersionUID = 40000L;
-    private final OWLProfile profile;
+    private final IRI profile;
 
     /**
      * @param profile
      *        profile
      */
-    public ImportsClosureNotInProfileException(OWLProfile profile) {
+    public ImportsClosureNotInProfileException(IRI profile) {
         this.profile = profile;
     }
 
@@ -44,7 +44,7 @@ public class ImportsClosureNotInProfileException extends
      * 
      * @return The profile.
      */
-    public OWLProfile getProfile() {
+    public IRI getProfile() {
         return profile;
     }
 }

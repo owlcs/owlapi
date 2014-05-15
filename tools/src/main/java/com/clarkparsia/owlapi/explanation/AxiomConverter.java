@@ -37,10 +37,10 @@ import org.semanticweb.owlapi.util.OWLAxiomVisitorExAdapter;
 /** The Class AxiomConverter. */
 class AxiomConverter extends OWLAxiomVisitorExAdapter<OWLClassExpression> {
 
-    private static final long serialVersionUID = 40000L;
     private final OWLDataFactory factory;
 
     AxiomConverter(OWLDataFactory df) {
+        super(df.getOWLThing());
         factory = df;
     }
 

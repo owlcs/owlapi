@@ -15,10 +15,10 @@ import org.semanticweb.owlapi.util.OWLAxiomVisitorExAdapter;
 @SuppressWarnings("unchecked")
 class AnnotationVisitor<C> extends OWLAxiomVisitorExAdapter<Set<C>> {
 
-    private static final long serialVersionUID = 40000L;
     private final boolean value;
 
     AnnotationVisitor(boolean value) {
+        super(CollectionFactory.<C> emptySet());
         this.value = value;
     }
 

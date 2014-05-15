@@ -39,11 +39,6 @@ import org.semanticweb.owlapi.model.OWLObject;
 public class OWLDataVisitorExAdapter<O> extends
         OWLBaseVisitorExAdapter<O, OWLObject> implements OWLDataVisitorEx<O> {
 
-    /** default constructor */
-    public OWLDataVisitorExAdapter() {
-        this(null);
-    }
-
     /**
      * @param defaultReturnValue
      *        default return value

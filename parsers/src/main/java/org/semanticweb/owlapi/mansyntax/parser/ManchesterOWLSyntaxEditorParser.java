@@ -1351,6 +1351,7 @@ public class ManchesterOWLSyntaxEditorParser implements
         return onts;
     }
 
+    @SuppressWarnings("null")
     @Nonnull
     private Set<OWLOntology> getOntologies() {
         if (peekToken().equals(OPENBRACKET.keyword())) {

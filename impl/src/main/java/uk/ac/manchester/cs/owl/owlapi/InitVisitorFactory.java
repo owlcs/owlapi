@@ -73,7 +73,6 @@ public class InitVisitorFactory {
     @SuppressWarnings("unchecked")
     public static class InitVisitor<K> extends OWLAxiomVisitorExAdapter<K> {
 
-        private static final long serialVersionUID = 40000L;
         private final boolean sub;
         private final boolean named;
 
@@ -83,7 +82,9 @@ public class InitVisitorFactory {
          * @param named
          *        true for named classes
          */
+        @SuppressWarnings("null")
         public InitVisitor(boolean sub, boolean named) {
+            super(null);
             this.sub = sub;
             this.named = named;
         }
@@ -247,8 +248,6 @@ public class InitVisitorFactory {
     public static class InitIndividualVisitor<K extends OWLObject> extends
             InitVisitor<K> {
 
-        private static final long serialVersionUID = 40000L;
-
         /**
          * @param sub
          *        true for subclasses
@@ -275,7 +274,6 @@ public class InitVisitorFactory {
     public static class InitCollectionVisitor<K> extends
             OWLAxiomVisitorExAdapter<Collection<K>> {
 
-        private static final long serialVersionUID = 40000L;
         private final boolean named;
 
         /**
@@ -283,6 +281,7 @@ public class InitVisitorFactory {
          *        true for named classes
          */
         public InitCollectionVisitor(boolean named) {
+            super(CollectionFactory.<K> emptySet());
             this.named = named;
         }
 

@@ -114,7 +114,9 @@ public abstract class AbstractMacroExpansionVisitor extends
     @Nonnull
     final Map<IRI, String> expandExpressionMap;
 
+    @SuppressWarnings("null")
     protected AbstractMacroExpansionVisitor(@Nonnull OWLOntology inputOntology) {
+        super(null);
         dataFactory = inputOntology.getOWLOntologyManager().getOWLDataFactory();
         expandExpressionMap = new HashMap<IRI, String>();
         expandAssertionToMap = new HashMap<IRI, String>();

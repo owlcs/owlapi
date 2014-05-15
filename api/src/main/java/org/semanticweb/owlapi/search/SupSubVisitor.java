@@ -12,10 +12,11 @@ import org.semanticweb.owlapi.util.OWLAxiomVisitorExAdapter;
 @SuppressWarnings("unchecked")
 class SupSubVisitor<C extends OWLObject> extends OWLAxiomVisitorExAdapter<C> {
 
-    private static final long serialVersionUID = 40000L;
     private final boolean sup;
 
+    @SuppressWarnings("null")
     SupSubVisitor(boolean sup) {
+        super(null);
         this.sup = sup;
     }
 

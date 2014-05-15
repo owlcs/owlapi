@@ -61,34 +61,30 @@ interface KnownFactories {
  */
 public enum Profiles implements HasIRI, KnownFactories, OWLProfile {
     //@formatter:off
-    /** http://www.w3.org/ns/owl-profile/DL **/     OWL2_DL     ("DL",   new OWL2DLProfile(),                 FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe),
-    /** http://www.w3.org/ns/owl-profile/QL **/     OWL2_QL     ("QL",   new OWL2QLProfile(),                 FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe),
-    /** http://www.w3.org/ns/owl-profile/EL **/     OWL2_EL     ("EL",   new OWL2ELProfile(), Elk, Snorocket, FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe),
-    /** http://www.w3.org/ns/owl-profile/RL **/     OWL2_RL     ("RL",   new OWL2RLProfile(),                 FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe),
-    /** http://www.w3.org/ns/owl-profile/Full **/   OWL2_FULL   ("Full", new OWL2DLProfile(),                 FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe);
+    /** http://www.w3.org/ns/owl-profile/DL **/     OWL2_DL     ("DL",                   FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe){ @Override public OWLProfile getOWLProfile() { return new OWL2DLProfile();} },
+    /** http://www.w3.org/ns/owl-profile/QL **/     OWL2_QL     ("QL",                   FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe){ @Override public OWLProfile getOWLProfile() { return new OWL2QLProfile();} },
+    /** http://www.w3.org/ns/owl-profile/EL **/     OWL2_EL     ("EL",   Elk, Snorocket, FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe){ @Override public OWLProfile getOWLProfile() { return new OWL2ELProfile();} },
+    /** http://www.w3.org/ns/owl-profile/RL **/     OWL2_RL     ("RL",                   FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe){ @Override public OWLProfile getOWLProfile() { return new OWL2RLProfile();} },
+    /** http://www.w3.org/ns/owl-profile/Full **/   OWL2_FULL   ("Full",                 FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe){ @Override public OWLProfile getOWLProfile() { return new OWL2DLProfile();} };
     //@formatter:on
     @Nonnull
     private final IRI iri;
     @Nonnull
     private final List<String> supportingFactories;
-    @Nonnull
-    private final OWLProfile profile;
 
-    Profiles(@Nonnull String name, @Nonnull OWLProfile profile,
-            @Nonnull String... supportingFactories) {
+    Profiles(@Nonnull String name, @Nonnull String... supportingFactories) {
         iri = IRI.create("http://www.w3.org/ns/owl-profile/", name);
-        this.profile = profile;
         this.supportingFactories = CollectionFactory.list(supportingFactories);
     }
 
     @Override
     public String getName() {
-        return profile.getName();
+        return getOWLProfile().getName();
     }
 
     @Override
     public OWLProfileReport checkOntology(OWLOntology ontology) {
-        return profile.checkOntology(ontology);
+        return getOWLProfile().checkOntology(ontology);
     }
 
     @Override
@@ -102,9 +98,7 @@ public enum Profiles implements HasIRI, KnownFactories, OWLProfile {
      * @return profile checker for this profile
      */
     @Provides
-    public OWLProfile getOWLProfile() {
-        return profile;
-    }
+    public abstract OWLProfile getOWLProfile();
 
     /**
      * @return collection of OWLReasonerFactory class names known to support the

@@ -605,6 +605,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         ontologyFormatsByOntology.put(ontologyID, ontologyFormat);
     }
 
+    @SuppressWarnings("null")
     @Nonnull
     @Override
     public OWLOntologyFormat getOntologyFormat(@Nonnull OWLOntology ontology) {

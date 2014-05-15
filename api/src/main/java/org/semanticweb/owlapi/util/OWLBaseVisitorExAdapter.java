@@ -46,11 +46,6 @@ public class OWLBaseVisitorExAdapter<O, I> {
         return defaultReturnValue;
     }
 
-    /** default constructor */
-    public OWLBaseVisitorExAdapter() {
-        this(null);
-    }
-
     /**
      * @param defaultReturnValue
      *        default return value

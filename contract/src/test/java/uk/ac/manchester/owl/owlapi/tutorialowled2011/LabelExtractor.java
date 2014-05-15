@@ -10,6 +10,10 @@ import org.semanticweb.owlapi.util.OWLObjectVisitorExAdapter;
 class LabelExtractor extends OWLObjectVisitorExAdapter<String> implements
         OWLAnnotationObjectVisitorEx<String> {
 
+    public LabelExtractor() {
+        super("");
+    }
+
     @Override
     public String visit(@Nonnull OWLAnnotation node) {
         /*

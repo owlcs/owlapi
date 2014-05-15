@@ -43,7 +43,6 @@ import org.semanticweb.owlapi.util.OWLAxiomVisitorExAdapter;
 public class SatisfiabilityReducer extends
         OWLAxiomVisitorExAdapter<OWLClassExpression> {
 
-    private static final long serialVersionUID = 40000L;
     @Nonnull
     private final OWLDataFactory df;
 
@@ -51,7 +50,9 @@ public class SatisfiabilityReducer extends
      * @param dataFactory
      *        data factory to use
      */
+    @SuppressWarnings("null")
     public SatisfiabilityReducer(@Nonnull OWLDataFactory dataFactory) {
+        super(null);
         df = checkNotNull(dataFactory, "dataFactory cannot be null");
     }
 

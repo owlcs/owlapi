@@ -107,7 +107,9 @@ public class NNF extends OWLDataVisitorExAdapter<OWLDataRange> implements
      * @param dataFactory
      *        datafactory to use
      */
+    @SuppressWarnings("null")
     public NNF(@Nonnull OWLDataFactory dataFactory) {
+        super(null);
         this.dataFactory = checkNotNull(dataFactory,
                 "dataFactory cannot be null");
     }

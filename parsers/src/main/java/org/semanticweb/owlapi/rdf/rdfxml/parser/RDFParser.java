@@ -443,6 +443,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
         }
     }
 
+    @SuppressWarnings("null")
     @Override
     @Nonnull
     public IRI getIRI(@Nonnull String s) {

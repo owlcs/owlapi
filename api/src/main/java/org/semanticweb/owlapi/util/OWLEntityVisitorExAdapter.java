@@ -37,11 +37,6 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 public class OWLEntityVisitorExAdapter<O> extends
         OWLBaseVisitorExAdapter<O, OWLEntity> implements OWLEntityVisitorEx<O> {
 
-    /** default constructor with null return value. */
-    public OWLEntityVisitorExAdapter() {
-        this(null);
-    }
-
     /**
      * @param defaultReturnValue
      *        default return value

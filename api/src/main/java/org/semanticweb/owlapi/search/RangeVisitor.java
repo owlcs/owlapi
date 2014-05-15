@@ -11,7 +11,11 @@ import org.semanticweb.owlapi.util.OWLAxiomVisitorExAdapter;
 @SuppressWarnings("unchecked")
 class RangeVisitor<C extends OWLObject> extends OWLAxiomVisitorExAdapter<C> {
 
-    private static final long serialVersionUID = 40000L;
+    @SuppressWarnings("null")
+    /**default constructor*/
+    public RangeVisitor() {
+        super(null);
+    }
 
     @Override
     public C visit(@Nonnull OWLAnnotationPropertyRangeAxiom axiom) {

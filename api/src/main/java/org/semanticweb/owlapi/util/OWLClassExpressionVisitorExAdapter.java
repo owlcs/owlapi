@@ -46,11 +46,6 @@ public class OWLClassExpressionVisitorExAdapter<O> extends
         OWLBaseVisitorExAdapter<O, OWLClassExpression> implements
         OWLClassExpressionVisitorEx<O> {
 
-    /** constructor for null default value. */
-    public OWLClassExpressionVisitorExAdapter() {
-        this(null);
-    }
-
     /**
      * adapter with object as default value
      * 
