@@ -248,6 +248,19 @@ public interface OWLSignature extends HasGetEntitiesInSignature,
             @Nonnull Imports includeImportsClosure);
 
     /**
+     * Verifies whether the IRI is ounned, i.e., it occurs more than once in the
+     * signature, ans the IRI for entities of different types.
+     * 
+     * @param iri
+     *        The IRI to be checked.
+     * @param includeImportsClosure
+     *        if INCLUDED, include imports closure.
+     * @return true if the IRI appears more than once in the signature.
+     */
+    boolean isPunnedInSignature(@Nonnull IRI iri,
+            @Nonnull Imports includeImportsClosure);
+
+    /**
      * @param entity
      *        entyty to check
      * @param includeImportsClosure

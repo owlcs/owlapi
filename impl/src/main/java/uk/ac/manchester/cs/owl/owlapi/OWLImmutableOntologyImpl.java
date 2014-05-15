@@ -451,6 +451,30 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     }
 
     @Override
+    public boolean isPunnedInSignature(IRI iri, Imports includeImportsClosure) {
+        int occurrences = 0;
+        if (containsClassInSignature(iri, includeImportsClosure)) {
+            occurrences++;
+        }
+        if (containsObjectPropertyInSignature(iri, includeImportsClosure)) {
+            occurrences++;
+        }
+        if (containsDataPropertyInSignature(iri, includeImportsClosure)) {
+            occurrences++;
+        }
+        if (containsIndividualInSignature(iri, includeImportsClosure)) {
+            occurrences++;
+        }
+        if (containsDatatypeInSignature(iri, includeImportsClosure)) {
+            occurrences++;
+        }
+        if (containsAnnotationPropertyInSignature(iri, includeImportsClosure)) {
+            occurrences++;
+        }
+        return occurrences > 1;
+    }
+
+    @Override
     public boolean containsReference(@Nonnull OWLEntity entity,
             Imports includeImportsClosure) {
         if (includeImportsClosure == EXCLUDED) {

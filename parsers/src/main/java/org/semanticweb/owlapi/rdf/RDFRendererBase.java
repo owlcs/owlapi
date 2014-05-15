@@ -21,10 +21,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -37,7 +35,6 @@ import org.semanticweb.owlapi.io.RDFResourceBlankNode;
 import org.semanticweb.owlapi.io.RDFResourceIRI;
 import org.semanticweb.owlapi.io.RDFTriple;
 import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -67,6 +64,7 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLVariable;
+import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.rdf.model.RDFGraph;
 import org.semanticweb.owlapi.rdf.model.RDFTranslator;
 import org.semanticweb.owlapi.search.Filters;
@@ -245,46 +243,11 @@ public abstract class RDFRendererBase {
     protected abstract void writeIndividualComments(
             @Nonnull OWLNamedIndividual ind) throws IOException;
 
-    private Map<IRI, Integer> punCounts = new HashMap<IRI, Integer>();
-
-    private void findPuns() {
-        incrementPunCounts(ontology.getClassesInSignature());
-        incrementPunCounts(ontology.getObjectPropertiesInSignature());
-        incrementPunCounts(ontology.getDataPropertiesInSignature());
-        incrementPunCounts(ontology.getIndividualsInSignature());
-        incrementPunCounts(ontology.getDatatypesInSignature());
-        incrementPunCounts(ontology
-                .getAnnotationPropertiesInSignature(EXCLUDED));
-    }
-
-    private boolean isPunned(HasIRI namedThing) {
-        return isPunned(namedThing.getIRI());
-    }
-
-    private boolean isPunned(IRI iri) {
-        Integer punCount = punCounts.get(iri);
-        if (punCount == null || punCount == 1) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    private void incrementPunCounts(Set<? extends HasIRI> set) {
-        for (HasIRI entity : set) {
-            IRI iri = entity.getIRI();
-            Integer oldBoxed = punCounts.get(iri);
-            int old = oldBoxed != null ? oldBoxed : 0;
-            punCounts.put(iri, old + 1);
-        }
-    }
-
     /**
      * @throws IOException
      *         io error
      */
     public void render() throws IOException {
-        findPuns();
         beginDocument();
         renderOntologyHeader();
         renderOntologyComponents();
@@ -411,7 +374,7 @@ public abstract class RDFRendererBase {
             OWLAnnotationSubject subject = ax.getSubject();
             if (subject instanceof IRI) {
                 IRI iri = (IRI) subject;
-                if (isPunned(iri)
+                if (ontology.isPunnedInSignature(iri, Imports.EXCLUDED)
                         || !ontology.containsEntityInSignature(iri, EXCLUDED)) {
                     annotatedIRIs.add(iri);
                 }
@@ -607,7 +570,7 @@ public abstract class RDFRendererBase {
     private boolean createGraph(@Nonnull OWLEntity entity) {
         final Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         // Don't write out duplicates for punned annotations!
-        if (!isPunned(entity)) {
+        if (!ontology.isPunnedInSignature(entity.getIRI(), Imports.EXCLUDED)) {
             axioms.addAll(ontology.filterAxioms(Filters.annotations,
                     entity.getIRI(), INCLUDED));
         }
