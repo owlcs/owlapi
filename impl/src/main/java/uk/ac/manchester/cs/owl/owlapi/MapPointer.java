@@ -14,6 +14,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
+import java.lang.ref.SoftReference;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -22,8 +23,10 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
+import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 import uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.InitCollectionVisitor;
@@ -53,6 +56,7 @@ public class MapPointer<K, V extends OWLAxiom> {
     private boolean initialized;
     @Nonnull
     protected final Internals i;
+    private SoftReference<Set<IRI>> iris;
 
     /**
      * @param t
@@ -72,6 +76,53 @@ public class MapPointer<K, V extends OWLAxiom> {
         map = LinkedHashMultimap.create();
         this.initialized = initialized;
         this.i = checkNotNull(i, "i cannot be null");
+    }
+
+    /**
+     * @param e
+     *        entity
+     * @return true if an entity with the same iri as the input exists in the
+     *         collection
+     */
+    public boolean containsReference(OWLEntity e) {
+        Set<IRI> set = null;
+        if (iris != null) {
+            set = iris.get();
+        }
+        if (set == null) {
+            set = initSet();
+        }
+        return set.contains(e.getIRI());
+    }
+
+    /**
+     * @param e
+     *        IRI
+     * @return true if an entity with the same iri as the input exists in the
+     *         collection
+     */
+    public boolean containsReference(IRI e) {
+        Set<IRI> set = null;
+        if (iris != null) {
+            set = iris.get();
+        }
+        if (set == null) {
+            set = initSet();
+        }
+        return set.contains(e);
+    }
+
+    private Set<IRI> initSet() {
+        Set<IRI> set = CollectionFactory.createSet();
+        for (K k : map.keySet()) {
+            if (k instanceof OWLEntity) {
+                set.add(((OWLEntity) k).getIRI());
+            } else if (k instanceof IRI) {
+                set.add((IRI) k);
+            }
+        }
+        iris = new SoftReference<Set<IRI>>(set);
+        return set;
     }
 
     /** @return true if initialized */
@@ -163,6 +214,7 @@ public class MapPointer<K, V extends OWLAxiom> {
         if (!initialized) {
             return false;
         }
+        iris = null;
         return map.put(key, value);
     }
 
@@ -177,6 +229,7 @@ public class MapPointer<K, V extends OWLAxiom> {
         if (!initialized) {
             return false;
         }
+        iris = null;
         return map.remove(key, value);
     }
 

@@ -332,6 +332,115 @@ public class Internals implements Serializable {
     private final ReferencedAxiomsCollector refAxiomsCollector = new ReferencedAxiomsCollector();
 
     /**
+     * @param i
+     *        iri
+     * @return true if a class with this iri exists
+     */
+    public boolean containsClassInSignature(IRI i) {
+        return owlClassReferences.containsReference(i);
+    }
+
+    /**
+     * @param i
+     *        iri
+     * @return true if an object property with this iri exists
+     */
+    public boolean containsObjectPropertyInSignature(IRI i) {
+        return owlObjectPropertyReferences.containsReference(i);
+    }
+
+    /**
+     * @param i
+     *        iri
+     * @return true if a data property with this iri exists
+     */
+    public boolean containsDataPropertyInSignature(IRI i) {
+        return owlDataPropertyReferences.containsReference(i);
+    }
+
+    /**
+     * @param i
+     *        iri
+     * @return true if an annotation property with this iri exists
+     */
+    public boolean containsAnnotationPropertyInSignature(IRI i) {
+        return owlAnnotationPropertyReferences.containsReference(i);
+    }
+
+    /**
+     * @param i
+     *        iri
+     * @return true if a individual with this iri exists
+     */
+    public boolean containsIndividualInSignature(IRI i) {
+        return owlIndividualReferences.containsReference(i);
+    }
+
+    /**
+     * @param i
+     *        iri
+     * @return true if a datatype with this iri exists
+     */
+    public boolean containsDatatypeInSignature(IRI i) {
+        return owlDatatypeReferences.containsReference(i);
+    }
+
+    /**
+     * @param i
+     *        iri
+     * @return true if a class with this iri exists
+     */
+    public boolean containsClassInSignature(OWLClass i) {
+        return owlClassReferences.containsReference(i);
+    }
+
+    /**
+     * @param i
+     *        iri
+     * @return true if an object property with this iri exists
+     */
+    public boolean containsObjectPropertyInSignature(OWLObjectProperty i) {
+        return owlObjectPropertyReferences.containsReference(i);
+    }
+
+    /**
+     * @param i
+     *        iri
+     * @return true if a data property with this iri exists
+     */
+    public boolean containsDataPropertyInSignature(OWLDataProperty i) {
+        return owlDataPropertyReferences.containsReference(i);
+    }
+
+    /**
+     * @param i
+     *        iri
+     * @return true if an annotation property with this iri exists
+     */
+    public boolean
+            containsAnnotationPropertyInSignature(OWLAnnotationProperty i) {
+        return owlAnnotationPropertyReferences.containsReference(i);
+    }
+
+    /**
+     * @param i
+     *        iri
+     * @return true if a individual with this iri exists
+     */
+    public boolean containsIndividualInSignature(OWLNamedIndividual i) {
+        return owlIndividualReferences.containsReference(i);
+    }
+
+    /**
+     * @param i
+     *        iri
+     * @return true if a datatype with this iri exists
+     */
+    public boolean containsDatatypeInSignature(OWLDatatype i) {
+        return owlDatatypeReferences.containsReference(i);
+    }
+
+    /**
      * @param type
      *        type of map key
      * @param axiom

@@ -365,24 +365,44 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     @Override
     public boolean containsClassInSignature(IRI owlClassIRI,
             Imports includeImportsClosure) {
-        return containsReference(
-                manager.getOWLDataFactory().getOWLClass(owlClassIRI),
-                includeImportsClosure);
+        if (includeImportsClosure == EXCLUDED) {
+            return ints.containsClassInSignature(owlClassIRI);
+        }
+        for (OWLOntology o : getImportsClosure()) {
+            if (o.containsClassInSignature(owlClassIRI, EXCLUDED)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
     public boolean containsObjectPropertyInSignature(IRI owlObjectPropertyIRI,
             Imports includeImportsClosure) {
-        return containsReference(manager.getOWLDataFactory()
-                .getOWLObjectProperty(owlObjectPropertyIRI),
-                includeImportsClosure);
+        if (includeImportsClosure == EXCLUDED) {
+            return ints.containsObjectPropertyInSignature(owlObjectPropertyIRI);
+        }
+        for (OWLOntology o : getImportsClosure()) {
+            if (o.containsObjectPropertyInSignature(owlObjectPropertyIRI,
+                    EXCLUDED)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
     public boolean containsDataPropertyInSignature(IRI owlDataPropertyIRI,
             Imports includeImportsClosure) {
-        return containsReference(manager.getOWLDataFactory()
-                .getOWLDataProperty(owlDataPropertyIRI), includeImportsClosure);
+        if (includeImportsClosure == EXCLUDED) {
+            return ints.containsDataPropertyInSignature(owlDataPropertyIRI);
+        }
+        for (OWLOntology o : getImportsClosure()) {
+            if (o.containsDataPropertyInSignature(owlDataPropertyIRI, EXCLUDED)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -390,8 +410,19 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
             IRI owlAnnotationPropertyIRI, Imports includeImportsClosure) {
         OWLAnnotationProperty p = manager.getOWLDataFactory()
                 .getOWLAnnotationProperty(owlAnnotationPropertyIRI);
-        return containsReference(p, includeImportsClosure)
-                || checkOntologyAnnotations(p);
+        if (includeImportsClosure == INCLUDED) {
+            for (OWLOntology o : getImportsClosure()) {
+                if (o.containsAnnotationPropertyInSignature(
+                        owlAnnotationPropertyIRI, EXCLUDED)) {
+                    return true;
+                }
+            }
+        } else {
+            if (ints.containsAnnotationPropertyInSignature(owlAnnotationPropertyIRI)) {
+                return true;
+            }
+        }
+        return checkOntologyAnnotations(p);
     }
 
     private boolean checkOntologyAnnotations(
@@ -407,16 +438,29 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     @Override
     public boolean containsIndividualInSignature(IRI owlIndividualIRI,
             Imports includeImportsClosure) {
-        return containsReference(manager.getOWLDataFactory()
-                .getOWLNamedIndividual(owlIndividualIRI), includeImportsClosure);
+        if (includeImportsClosure == EXCLUDED) {
+            return ints.containsIndividualInSignature(owlIndividualIRI);
+        }
+        for (OWLOntology o : getImportsClosure()) {
+            if (o.containsIndividualInSignature(owlIndividualIRI, EXCLUDED)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
     public boolean containsDatatypeInSignature(IRI owlDatatypeIRI,
             Imports includeImportsClosure) {
-        return containsReference(
-                manager.getOWLDataFactory().getOWLDatatype(owlDatatypeIRI),
-                includeImportsClosure);
+        if (includeImportsClosure == EXCLUDED) {
+            return ints.containsDatatypeInSignature(owlDatatypeIRI);
+        }
+        for (OWLOntology o : getImportsClosure()) {
+            if (o.containsDatatypeInSignature(owlDatatypeIRI, EXCLUDED)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -459,14 +503,26 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
         if (containsObjectPropertyInSignature(iri, includeImportsClosure)) {
             occurrences++;
         }
+        if (occurrences > 1) {
+            return true;
+        }
         if (containsDataPropertyInSignature(iri, includeImportsClosure)) {
             occurrences++;
+        }
+        if (occurrences > 1) {
+            return true;
         }
         if (containsIndividualInSignature(iri, includeImportsClosure)) {
             occurrences++;
         }
+        if (occurrences > 1) {
+            return true;
+        }
         if (containsDatatypeInSignature(iri, includeImportsClosure)) {
             occurrences++;
+        }
+        if (occurrences > 1) {
+            return true;
         }
         if (containsAnnotationPropertyInSignature(iri, includeImportsClosure)) {
             occurrences++;
@@ -511,17 +567,23 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
 
     @Override
     public boolean containsEntityInSignature(@Nonnull OWLEntity owlEntity) {
-        OWLEntityReferenceChecker entityReferenceChecker = new OWLEntityReferenceChecker(
-                EXCLUDED);
-        return entityReferenceChecker.containsReference(owlEntity);
+        return containsEntityInSignature(owlEntity, EXCLUDED);
     }
+
+    private final OWLEntityReferenceChecker entityReferenceChecker = new OWLEntityReferenceChecker();
 
     @Override
     public boolean containsEntityInSignature(@Nonnull OWLEntity owlEntity,
             Imports includeImportsClosure) {
-        OWLEntityReferenceChecker entityReferenceChecker = new OWLEntityReferenceChecker(
-                includeImportsClosure);
-        return entityReferenceChecker.containsReference(owlEntity);
+        if (includeImportsClosure != INCLUDED) {
+            return entityReferenceChecker.containsReference(owlEntity);
+        }
+        for (OWLOntology o : getImportsClosure()) {
+            if (o.containsEntityInSignature(owlEntity, EXCLUDED)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -782,14 +844,10 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     private class OWLEntityReferenceChecker implements OWLEntityVisitor,
             Serializable {
 
+        OWLEntityReferenceChecker() {}
+
         private static final long serialVersionUID = 40000L;
         private boolean ref;
-        @Nonnull
-        private final Imports includeImports;
-
-        OWLEntityReferenceChecker(@Nonnull Imports b) {
-            includeImports = b;
-        }
 
         public boolean containsReference(@Nonnull OWLEntity entity) {
             ref = false;
@@ -799,38 +857,38 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
 
         @Override
         public void visit(@Nonnull OWLClass cls) {
-            ref = OWLImmutableOntologyImpl.this.containsReference(cls,
-                    includeImports);
+            ref = OWLImmutableOntologyImpl.this.ints
+                    .containsClassInSignature(cls);
         }
 
         @Override
         public void visit(@Nonnull OWLDatatype datatype) {
-            ref = OWLImmutableOntologyImpl.this.containsReference(datatype,
-                    includeImports);
+            ref = OWLImmutableOntologyImpl.this.ints
+                    .containsDatatypeInSignature(datatype);
         }
 
         @Override
         public void visit(@Nonnull OWLNamedIndividual individual) {
-            ref = OWLImmutableOntologyImpl.this.containsReference(individual,
-                    includeImports);
+            ref = OWLImmutableOntologyImpl.this.ints
+                    .containsIndividualInSignature(individual);
         }
 
         @Override
         public void visit(@Nonnull OWLDataProperty property) {
-            ref = OWLImmutableOntologyImpl.this.containsReference(property,
-                    includeImports);
+            ref = OWLImmutableOntologyImpl.this.ints
+                    .containsDataPropertyInSignature(property);
         }
 
         @Override
         public void visit(@Nonnull OWLObjectProperty property) {
-            ref = OWLImmutableOntologyImpl.this.containsReference(property,
-                    includeImports);
+            ref = OWLImmutableOntologyImpl.this.ints
+                    .containsObjectPropertyInSignature(property);
         }
 
         @Override
         public void visit(@Nonnull OWLAnnotationProperty property) {
-            ref = OWLImmutableOntologyImpl.this.containsReference(property,
-                    includeImports);
+            ref = OWLImmutableOntologyImpl.this.ints
+                    .containsAnnotationPropertyInSignature(property);
         }
     }
 
