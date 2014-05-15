@@ -47,6 +47,8 @@ public class CollectionFactory {
     /**
      * Wrapper for Collections.emptySet() to allow nullity annotations.
      * 
+     * @param <T>
+     *        set type
      * @return empty set
      */
     @SuppressWarnings("null")

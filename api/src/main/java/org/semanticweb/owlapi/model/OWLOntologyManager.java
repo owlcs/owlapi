@@ -555,8 +555,8 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      * will be determined using one of the loaded {@link OWLOntologyIRIMapper}
      * objects. By default, if no custom {@code OWLOntologyIRIMapper}s have been
      * registered using the {@link #getIRIMappers()} PriorityCollection
-     * {@link PriorityCollection#add(Object...)} method, or no mapping can be
-     * found, the ontology document IRI is taken to be the specified ontology
+     * {@link PriorityCollection#add(Serializable...)} method, or no mapping can
+     * be found, the ontology document IRI is taken to be the specified ontology
      * IRI.
      * 
      * @param ontologyIRI
