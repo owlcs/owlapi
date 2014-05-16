@@ -85,14 +85,7 @@ public class MapPointer<K, V extends OWLAxiom> {
      *         collection
      */
     public boolean containsReference(OWLEntity e) {
-        Set<IRI> set = null;
-        if (iris != null) {
-            set = iris.get();
-        }
-        if (set == null) {
-            set = initSet();
-        }
-        return set.contains(e.getIRI());
+        return map.containsKey(e);
     }
 
     /**

@@ -64,7 +64,6 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLVariable;
-import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.rdf.model.RDFGraph;
 import org.semanticweb.owlapi.rdf.model.RDFTranslator;
 import org.semanticweb.owlapi.search.Filters;
@@ -108,6 +107,7 @@ public abstract class RDFRendererBase {
     @Nonnull
     protected Set<IRI> prettyPrintedTypes = initPrettyTypes();
     private final OWLOntologyFormat format;
+    private Set<IRI> punned;
 
     @Nonnull
     protected static Set<IRI> initPrettyTypes() {
@@ -248,6 +248,7 @@ public abstract class RDFRendererBase {
      *         io error
      */
     public void render() throws IOException {
+        punned = ontology.getPunnedIRIs(EXCLUDED);
         beginDocument();
         renderOntologyHeader();
         renderOntologyComponents();
@@ -374,7 +375,7 @@ public abstract class RDFRendererBase {
             OWLAnnotationSubject subject = ax.getSubject();
             if (subject instanceof IRI) {
                 IRI iri = (IRI) subject;
-                if (ontology.isPunnedInSignature(iri, Imports.EXCLUDED)
+                if (punned.contains(iri)
                         || !ontology.containsEntityInSignature(iri, EXCLUDED)) {
                     annotatedIRIs.add(iri);
                 }
@@ -570,7 +571,7 @@ public abstract class RDFRendererBase {
     private boolean createGraph(@Nonnull OWLEntity entity) {
         final Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         // Don't write out duplicates for punned annotations!
-        if (!ontology.isPunnedInSignature(entity.getIRI(), Imports.EXCLUDED)) {
+        if (!punned.contains(entity.getIRI())) {
             axioms.addAll(ontology.filterAxioms(Filters.annotations,
                     entity.getIRI(), INCLUDED));
         }

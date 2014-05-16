@@ -495,39 +495,80 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     }
 
     @Override
-    public boolean isPunnedInSignature(IRI iri, Imports includeImportsClosure) {
-        int occurrences = 0;
-        if (containsClassInSignature(iri, includeImportsClosure)) {
-            occurrences++;
+    public Set<IRI> getPunnedIRIs(Imports includeImportsClosure) {
+        Set<IRI> punned = new HashSet<IRI>();
+        Set<IRI> test = new HashSet<IRI>();
+        if (includeImportsClosure == INCLUDED) {
+            for (OWLOntology o : getImportsClosure()) {
+                for (OWLEntity e : o.getClassesInSignature(EXCLUDED)) {
+                    if (test.add(e.getIRI())) {
+                        punned.add(e.getIRI());
+                    }
+                }
+                for (OWLEntity e : o.getDataPropertiesInSignature(EXCLUDED)) {
+                    if (test.add(e.getIRI())) {
+                        punned.add(e.getIRI());
+                    }
+                }
+                for (OWLEntity e : o.getObjectPropertiesInSignature(EXCLUDED)) {
+                    if (test.add(e.getIRI())) {
+                        punned.add(e.getIRI());
+                    }
+                }
+                for (OWLEntity e : o
+                        .getAnnotationPropertiesInSignature(EXCLUDED)) {
+                    if (test.add(e.getIRI())) {
+                        punned.add(e.getIRI());
+                    }
+                }
+                for (OWLEntity e : o.getDatatypesInSignature(EXCLUDED)) {
+                    if (test.add(e.getIRI())) {
+                        punned.add(e.getIRI());
+                    }
+                }
+                for (OWLEntity e : o.getIndividualsInSignature(EXCLUDED)) {
+                    if (test.add(e.getIRI())) {
+                        punned.add(e.getIRI());
+                    }
+                }
+            }
+            if (punned.isEmpty()) {
+                return CollectionFactory.<IRI> emptySet();
+            }
+            return punned;
         }
-        if (containsObjectPropertyInSignature(iri, includeImportsClosure)) {
-            occurrences++;
+        for (OWLEntity e : getClassesInSignature(EXCLUDED)) {
+            punned.add(e.getIRI());
         }
-        if (occurrences > 1) {
-            return true;
+        for (OWLEntity e : getDataPropertiesInSignature(EXCLUDED)) {
+            if (test.add(e.getIRI())) {
+                punned.add(e.getIRI());
+            }
         }
-        if (containsDataPropertyInSignature(iri, includeImportsClosure)) {
-            occurrences++;
+        for (OWLEntity e : getObjectPropertiesInSignature(EXCLUDED)) {
+            if (test.add(e.getIRI())) {
+                punned.add(e.getIRI());
+            }
         }
-        if (occurrences > 1) {
-            return true;
+        for (OWLEntity e : getAnnotationPropertiesInSignature(EXCLUDED)) {
+            if (test.add(e.getIRI())) {
+                punned.add(e.getIRI());
+            }
         }
-        if (containsIndividualInSignature(iri, includeImportsClosure)) {
-            occurrences++;
+        for (OWLEntity e : getDatatypesInSignature(EXCLUDED)) {
+            if (test.add(e.getIRI())) {
+                punned.add(e.getIRI());
+            }
         }
-        if (occurrences > 1) {
-            return true;
+        for (OWLEntity e : getIndividualsInSignature(EXCLUDED)) {
+            if (test.add(e.getIRI())) {
+                punned.add(e.getIRI());
+            }
         }
-        if (containsDatatypeInSignature(iri, includeImportsClosure)) {
-            occurrences++;
+        if (punned.isEmpty()) {
+            return CollectionFactory.<IRI> emptySet();
         }
-        if (occurrences > 1) {
-            return true;
-        }
-        if (containsAnnotationPropertyInSignature(iri, includeImportsClosure)) {
-            occurrences++;
-        }
-        return occurrences > 1;
+        return punned;
     }
 
     @Override
