@@ -153,7 +153,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
         int remainingSpace = expansionLimit;
         /* The expansion factor. */
         double expansionFactor = 1.25;
-        for (OWLAxiom ax : debuggingAxioms) {
+        for (OWLAxiom ax : new ArrayList<OWLAxiom>(debuggingAxioms)) {
             if (expandedWithDefiningAxioms.contains(ax)) {
                 // Skip if already done
                 continue;
@@ -182,7 +182,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
         }
         // No axioms added at this point. Start adding axioms that reference
         // entities contained in the current set of debugging axioms
-        for (OWLAxiom ax : debuggingAxioms) {
+        for (OWLAxiom ax : new ArrayList<OWLAxiom>(debuggingAxioms)) {
             if (expandedWithReferencingAxioms.contains(ax)) {
                 // Skip - already done this one
                 continue;
@@ -383,9 +383,9 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
         }
         debuggingOntology = owlOntologyManager.createOntology();
         List<AddAxiom> changes = new ArrayList<AddAxiom>();
-        for (OWLAxiom ax : debuggingAxioms) {
-            assert ax != null;
-            changes.add(new AddAxiom(verifyNotNull(debuggingOntology), ax));
+        for (OWLAxiom ax : new ArrayList<OWLAxiom>(debuggingAxioms)) {
+            changes.add(new AddAxiom(verifyNotNull(debuggingOntology),
+                    verifyNotNull(ax)));
         }
         owlOntologyManager.applyChanges(changes);
     }
@@ -470,8 +470,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
                 debuggingAxioms.remove(axiom);
             }
         };
-        for (OWLAxiom axiom : debuggingAxioms
-                .toArray(new OWLAxiom[debuggingAxioms.size()])) {
+        for (OWLAxiom axiom : new ArrayList<OWLAxiom>(debuggingAxioms)) {
             axiom.accept(declarationRemover);
         }
     }
