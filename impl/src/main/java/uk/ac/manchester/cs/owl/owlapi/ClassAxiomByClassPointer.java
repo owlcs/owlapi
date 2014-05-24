@@ -53,28 +53,28 @@ public class ClassAxiomByClassPointer extends
         super.init();
         // special case: this map needs other maps to be initialized first
         MapPointer<OWLClass, OWLEquivalentClassesAxiom> equivalent = i.get(
-                OWLClass.class, OWLEquivalentClassesAxiom.class);
+                OWLClass.class, OWLEquivalentClassesAxiom.class).get();
         for (OWLClass c : equivalent.keySet()) {
             for (OWLClassAxiom ax : equivalent.getValues(c)) {
                 put(c, ax);
             }
         }
         MapPointer<OWLClass, OWLSubClassOfAxiom> lhs = i.get(OWLClass.class,
-                OWLSubClassOfAxiom.class);
+                OWLSubClassOfAxiom.class).get();
         for (OWLClass c : lhs.keySet()) {
             for (OWLClassAxiom ax : lhs.getValues(c)) {
                 put(c, ax);
             }
         }
         MapPointer<OWLClass, OWLDisjointClassesAxiom> disjoints = i.get(
-                OWLClass.class, OWLDisjointClassesAxiom.class);
+                OWLClass.class, OWLDisjointClassesAxiom.class).get();
         for (OWLClass c : disjoints.keySet()) {
             for (OWLClassAxiom ax : disjoints.getValues(c)) {
                 put(c, ax);
             }
         }
         MapPointer<OWLClass, OWLDisjointUnionAxiom> disjointUnion = i.get(
-                OWLClass.class, OWLDisjointUnionAxiom.class);
+                OWLClass.class, OWLDisjointUnionAxiom.class).get();
         for (OWLClass c : disjointUnion.keySet()) {
             for (OWLClassAxiom ax : disjointUnion.getValues(c)) {
                 put(c, ax);

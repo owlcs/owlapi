@@ -64,6 +64,8 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
+import com.google.common.base.Optional;
+
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -686,32 +688,34 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
 
     @Override
     public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
-        return ints.get(OWLAnonymousIndividual.class, OWLAxiom.class).keySet();
+        return ints.get(OWLAnonymousIndividual.class, OWLAxiom.class).get()
+                .keySet();
     }
 
     @Override
     public Set<OWLClass> getClassesInSignature() {
-        return ints.get(OWLClass.class, OWLAxiom.class).keySet();
+        return ints.get(OWLClass.class, OWLAxiom.class).get().keySet();
     }
 
     @Override
     public Set<OWLDataProperty> getDataPropertiesInSignature() {
-        return ints.get(OWLDataProperty.class, OWLAxiom.class).keySet();
+        return ints.get(OWLDataProperty.class, OWLAxiom.class).get().keySet();
     }
 
     @Override
     public Set<OWLObjectProperty> getObjectPropertiesInSignature() {
-        return ints.get(OWLObjectProperty.class, OWLAxiom.class).keySet();
+        return ints.get(OWLObjectProperty.class, OWLAxiom.class).get().keySet();
     }
 
     @Override
     public Set<OWLNamedIndividual> getIndividualsInSignature() {
-        return ints.get(OWLNamedIndividual.class, OWLAxiom.class).keySet();
+        return ints.get(OWLNamedIndividual.class, OWLAxiom.class).get()
+                .keySet();
     }
 
     @Override
     public Set<OWLDatatype> getDatatypesInSignature() {
-        return ints.get(OWLDatatype.class, OWLAxiom.class).keySet();
+        return ints.get(OWLDatatype.class, OWLAxiom.class).get().keySet();
     }
 
     @Override
@@ -770,6 +774,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
             Imports includeImportsClosure) {
         if (includeImportsClosure == EXCLUDED) {
             return ints.get(OWLAnonymousIndividual.class, OWLAxiom.class)
+.get()
                     .keySet();
         }
         Set<OWLAnonymousIndividual> result = createSet();
@@ -798,7 +803,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
         Set<OWLAnnotationProperty> props = createSet();
         if (includeImportsClosure == EXCLUDED) {
             props.addAll(ints.get(OWLAnnotationProperty.class, OWLAxiom.class,
-                    Search.IN_SUB_POSITION).keySet());
+                            Search.IN_SUB_POSITION).get().keySet());
             for (OWLAnnotation anno : ints.getOntologyAnnotations(false)) {
                 props.add(anno.getProperty());
             }
@@ -937,7 +942,8 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     public Set<OWLClassAxiom> getAxioms(OWLClass cls,
             Imports includeImportsClosure) {
         if (includeImportsClosure == EXCLUDED) {
-            return ints.get(OWLClass.class, OWLClassAxiom.class).getValues(cls);
+            return ints.get(OWLClass.class, OWLClassAxiom.class).get()
+                    .getValues(cls);
         }
         Set<OWLClassAxiom> result = createSet();
         for (OWLOntology o : getImportsClosure()) {
@@ -1066,7 +1072,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
             }
             return result;
         } else if (owlEntity instanceof OWLAnonymousIndividual) {
-            return ints.get(OWLAnonymousIndividual.class, OWLAxiom.class)
+            return ints.get(OWLAnonymousIndividual.class, OWLAxiom.class).get()
                     .getValues((OWLAnonymousIndividual) owlEntity);
         }
         // TODO add support for looking up by IRI, OWLLiteral, etc.
@@ -1097,8 +1103,18 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
             @Nonnull OWLObject entity, @Nonnull Imports includeImports,
             @Nonnull Search forSubPosition) {
         if (includeImports == EXCLUDED) {
-            return ints.get((Class<OWLObject>) explicitClass, type,
-                    forSubPosition).getValues(entity);
+            Optional<MapPointer<OWLObject, A>> optional = ints.get((Class<OWLObject>) explicitClass, type,
+                    forSubPosition);
+            if(optional.isPresent()) {
+                return optional.get().getValues(entity);
+            }
+            Set<A> toReturn = new HashSet<A>();
+            for (A ax : getAxioms(AxiomType.getTypeForClass(type))) {
+                if (ax.getSignature().contains(entity)) {
+                    toReturn.add(ax);
+                }
+            }
+            return toReturn;
         }
         Set<A> result = createSet();
         for (OWLOntology o : getImportsClosure()) {
