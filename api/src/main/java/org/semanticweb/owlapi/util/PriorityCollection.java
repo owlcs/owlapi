@@ -43,10 +43,9 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>,
      *        collection of elements to set. Existing elements will be removed,
      *        and the priority collection will be sorted by HasPriority.
      */
-    public void set(Collection<T> c) {
+    public void set(Iterable<T> c) {
         clear();
-        delegate.addAll(c);
-        sort();
+        add(c);
     }
 
     /**
@@ -58,10 +57,7 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>,
      */
     public void set(T... c) {
         clear();
-        for (T t : c) {
-            delegate.add(0, t);
-        }
-        sort();
+        add(c);
     }
 
     private void sort() {
@@ -87,7 +83,7 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>,
      * @param c
      *        list of elements to add
      */
-    public void add(Collection<T> c) {
+    public void add(Iterable<T> c) {
         for (T t : c) {
             delegate.add(t);
         }
