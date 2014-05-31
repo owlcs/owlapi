@@ -38,10 +38,16 @@
  */
 package org.semanticweb.owlapi.io;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.StringReader;
+import java.io.UnsupportedEncodingException;
+import java.io.Writer;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
@@ -56,7 +62,7 @@ public class ReaderDocumentSource implements OWLOntologyDocumentSource {
 
     private static int counter = 0;
     private final IRI documentIRI;
-    private String buffer;
+    private byte[] buffer;
 
     /**
      * Constructs and ontology input source which will read an ontology from a
@@ -92,19 +98,21 @@ public class ReaderDocumentSource implements OWLOntologyDocumentSource {
 
     private void fillBuffer(Reader reader) {
         try {
-            StringBuilder builder = new StringBuilder();
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            Writer writer = new OutputStreamWriter(out);
             final int length = 100000;
             char[] tempBuffer = new char[length];
             int read = 0;
             do {
                 read = reader.read(tempBuffer, 0, length);
                 if (read > 0) {
-                    builder.append(tempBuffer, 0, read);
+                    writer.write(tempBuffer, 0, read);
                 }
             } while (read > 0);
-            buffer = builder.toString();
+            writer.flush();
+            buffer = out.toByteArray();
         } catch (IOException e) {
-            throw new OWLRuntimeException(e);
+            throw new OWLOntologyInputSourceException(e);
         }
     }
 
@@ -115,7 +123,11 @@ public class ReaderDocumentSource implements OWLOntologyDocumentSource {
 
     @Override
     public Reader getReader() {
-        return new StringReader(buffer);
+        try {
+            return new InputStreamReader(getInputStream(), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            throw new OWLOntologyInputSourceException(e);
+        }
     }
 
     @Override
@@ -125,12 +137,15 @@ public class ReaderDocumentSource implements OWLOntologyDocumentSource {
 
     @Override
     public boolean isInputStreamAvailable() {
-        return false;
+        return true;
     }
 
     @Override
     public InputStream getInputStream() {
-        throw new OWLRuntimeException(
-                "InputStream not available.  Check with ReaderDocumentSource.isReaderAvailable() first!");
+        try {
+            return new BOMSafeInputStream(new ByteArrayInputStream(buffer));
+        } catch (IOException e) {
+            throw new OWLOntologyInputSourceException(e);
+        }
     }
 }

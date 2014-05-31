@@ -77,8 +77,7 @@ public class TurtleOntologyParser extends AbstractOWLParser {
     @Override
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
             OWLOntology ontology, OWLOntologyLoaderConfiguration configuration)
-            throws OWLParserException, IOException, OWLOntologyChangeException,
-            UnloadableImportException {
+            throws OWLParserException, IOException, OWLOntologyChangeException {
         Reader reader = null;
         InputStream is = null;
         try {
@@ -92,8 +91,8 @@ public class TurtleOntologyParser extends AbstractOWLParser {
                 parser = new TurtleParser(is, new ConsoleTripleHandler(),
                         documentSource.getDocumentIRI());
             } else {
-                is = new BufferedInputStream(documentSource.getDocumentIRI()
-                        .toURI().toURL().openStream());
+                is = getInputStream(documentSource.getDocumentIRI(),
+                        configuration);
                 parser = new TurtleParser(is, new ConsoleTripleHandler(),
                         documentSource.getDocumentIRI());
             }

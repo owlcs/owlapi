@@ -95,11 +95,12 @@ public class StreamDocumentSource implements OWLOntologyDocumentSource {
      * which is necessary because we may need to access the input stream more
      * than once. In other words, this method caches the input stream.
      * 
-     * @param reader
+     * @param _reader
      *        The reader to be "cached"
      */
-    private void readIntoBuffer(InputStream reader) {
+    private void readIntoBuffer(InputStream _reader) {
         try {
+            InputStream reader = new BOMSafeInputStream(_reader);
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             final int length = 100000;
             byte[] tempBuffer = new byte[length];
@@ -112,7 +113,7 @@ public class StreamDocumentSource implements OWLOntologyDocumentSource {
             } while (read > 0);
             buffer = bos.toByteArray();
         } catch (IOException e) {
-            throw new OWLRuntimeException(e);
+            throw new OWLOntologyInputSourceException(e);
         }
     }
 
@@ -123,7 +124,11 @@ public class StreamDocumentSource implements OWLOntologyDocumentSource {
 
     @Override
     public InputStream getInputStream() {
-        return new ByteArrayInputStream(buffer);
+        try {
+            return new BOMSafeInputStream(new ByteArrayInputStream(buffer));
+        } catch (IOException e) {
+            throw new OWLOntologyInputSourceException(e);
+        }
     }
 
     @Override
@@ -133,7 +138,7 @@ public class StreamDocumentSource implements OWLOntologyDocumentSource {
 
     @Override
     public Reader getReader() {
-        throw new OWLRuntimeException(
+        throw new OWLOntologyInputSourceException(
                 "Reader not available.  Check with StreamDocumentSource.isReaderAvailable() first!");
     }
 

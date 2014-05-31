@@ -72,7 +72,7 @@ public class IRIDocumentSource implements OWLOntologyDocumentSource {
 
     @Override
     public InputStream getInputStream() {
-        throw new OWLRuntimeException(
+        throw new OWLOntologyInputSourceException(
                 "InputStream not available.  Check with IRIDocumentSource.isInputStreamAvailable() first!");
     }
 
@@ -83,7 +83,7 @@ public class IRIDocumentSource implements OWLOntologyDocumentSource {
 
     @Override
     public Reader getReader() {
-        throw new OWLRuntimeException(
+        throw new OWLOntologyInputSourceException(
                 "Reader not available.  Check with IRIDocumentSource.isReaderAvailable() first!");
     }
 

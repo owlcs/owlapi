@@ -102,12 +102,10 @@ public class GZipFileDocumentSource implements OWLOntologyDocumentSource {
     @Override
     public InputStream getInputStream() {
         try {
-            return new GZIPInputStream(new FileInputStream(file));
-        } catch (FileNotFoundException e) {
-            throw new OWLRuntimeException(
-                    "File not found - check that the file is available before calling this method.");
+            return new BOMSafeInputStream(new GZIPInputStream(
+                    new FileInputStream(file)));
         } catch (IOException e) {
-            throw new OWLRuntimeException(e);
+            throw new OWLOntologyInputSourceException(e);
         }
     }
 

@@ -191,7 +191,9 @@ public abstract class AbstractOWLParser implements OWLParser {
                     break;
                 }
             }
-            is = new BufferedInputStream(zis);
+            is = new BufferedInputStream(new BOMSafeInputStream(zis));
+        } else {
+            is = new BOMSafeInputStream(is);
         }
         return is;
     }

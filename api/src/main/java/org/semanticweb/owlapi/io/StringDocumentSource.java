@@ -110,7 +110,7 @@ public class StringDocumentSource implements OWLOntologyDocumentSource {
 
     @Override
     public InputStream getInputStream() {
-        throw new OWLRuntimeException(
+        throw new OWLOntologyInputSourceException(
                 "InputStream not available.  Check with StringDocumentSource.isInputStreamAvailable() first!");
     }
 

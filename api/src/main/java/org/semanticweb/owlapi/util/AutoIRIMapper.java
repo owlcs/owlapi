@@ -57,6 +57,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+import org.semanticweb.owlapi.io.BOMSafeInputStream;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
@@ -236,12 +237,14 @@ public class AutoIRIMapper extends DefaultHandler implements
     private void parseFile(File file) {
         InputStream is = null;
         try {
-            is = new BufferedInputStream(new FileInputStream(file));
+            is = new FileInputStream(file);
             try {
                 currentFile = file;
                 currentFilePath = file.getAbsolutePath();
                 SAXParser parser = getParserFactory().newSAXParser();
-                parser.parse(is, this);
+                parser.parse(
+                        new BufferedInputStream(new BOMSafeInputStream(is)),
+                        this);
             } catch (ParserConfigurationException e) {
                 throw new OWLRuntimeException(e);
             } catch (SAXException e) {

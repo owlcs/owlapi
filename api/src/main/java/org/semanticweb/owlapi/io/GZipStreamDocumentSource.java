@@ -107,7 +107,7 @@ public class GZipStreamDocumentSource implements OWLOntologyDocumentSource {
             } while (read > 0);
             buffer = bos.toByteArray();
         } catch (IOException e) {
-            throw new OWLRuntimeException(e);
+            throw new OWLOntologyInputSourceException(e);
         }
     }
 
@@ -119,13 +119,14 @@ public class GZipStreamDocumentSource implements OWLOntologyDocumentSource {
     @Override
     public InputStream getInputStream() {
         if (buffer == null) {
-            throw new OWLRuntimeException(
+            throw new OWLOntologyInputSourceException(
                     "Stream not found - check that the file is available before calling this method.");
         }
         try {
-            return new GZIPInputStream(new ByteArrayInputStream(buffer));
+            return new BOMSafeInputStream(new GZIPInputStream(
+                    new ByteArrayInputStream(buffer)));
         } catch (IOException e) {
-            throw new OWLRuntimeException(e);
+            throw new OWLOntologyInputSourceException(e);
         }
     }
 
@@ -140,7 +141,7 @@ public class GZipStreamDocumentSource implements OWLOntologyDocumentSource {
             return new InputStreamReader(getInputStream(), "UTF-8");
         } catch (UnsupportedEncodingException e) {
             // will never happen though - UTF-8 is always supported
-            throw new OWLRuntimeException(e);
+            throw new OWLOntologyInputSourceException(e);
         }
     }
 
