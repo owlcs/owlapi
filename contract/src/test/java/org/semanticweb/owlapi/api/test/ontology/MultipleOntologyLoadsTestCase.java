@@ -89,23 +89,6 @@ public class MultipleOntologyLoadsTestCase {
     }
 
     @Test
-    public void testReader() throws Exception {
-        Reader initialInputReader = new StringReader(input);
-        ReaderDocumentSource documentSource = new ReaderDocumentSource(
-                initialInputReader, o);
-        System.out.println("MultipleOntologyLoadsTestCase.testReader() "
-                + input);
-        Reader r = documentSource.getReader();
-        System.out
-                .println("MultipleOntologyLoadsTestCase.testReader() reader: ");
-        int i = r.read();
-        while (i > -1) {
-            System.out.print((char) i);
-            i = r.read();
-        }
-    }
-
-    @Test
     public void testMultipleVersionLoadsExplicitOntologyIDs() throws Exception {
         Reader initialInputReader = new StringReader(input);
         ReaderDocumentSource documentSource = new ReaderDocumentSource(
