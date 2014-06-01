@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.UnknownHostException;
 import java.util.Arrays;
@@ -104,9 +103,7 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
         // ontology
         // TODO: Take into consideration the request type!
         try {
-            InputStream is = documentSource.getDocumentIRI().toURI().toURL()
-                    .openStream();
-            is.close();
+            documentSource.getDocumentIRI().toURI().toURL().openConnection();
             return true;
         } catch (UnknownHostException e) {
             LOGGER.info("Unknown host: {}", e.getMessage(), e);
