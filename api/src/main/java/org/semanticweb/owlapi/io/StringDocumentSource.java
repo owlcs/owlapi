@@ -22,7 +22,6 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /**
  * An ontology input source that wraps a string.
@@ -90,7 +89,7 @@ public class StringDocumentSource extends OWLOntologyDocumentSourceBase {
 
     @Override
     public InputStream getInputStream() {
-        throw new OWLRuntimeException(
+        throw new OWLOntologyInputSourceException(
                 "InputStream not available.  Check with StringDocumentSource.isInputStreamAvailable() first!");
     }
 

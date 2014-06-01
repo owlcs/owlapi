@@ -27,7 +27,6 @@ import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /**
  * An ontology document source which can read from a GZIP File.
@@ -83,13 +82,13 @@ public class GZipFileDocumentSource extends OWLOntologyDocumentSourceBase {
     @Override
     public InputStream getInputStream() {
         try {
-            return new GZIPInputStream(new FileInputStream(file));
+            return wrap(new GZIPInputStream(new FileInputStream(file)));
         } catch (FileNotFoundException e) {
-            throw new OWLRuntimeException(
+            throw new OWLOntologyInputSourceException(
                     "File not found - check that the file is available before calling this method.",
                     e);
         } catch (IOException e) {
-            throw new OWLRuntimeException(e);
+            throw new OWLOntologyInputSourceException(e);
         }
     }
 
@@ -104,7 +103,7 @@ public class GZipFileDocumentSource extends OWLOntologyDocumentSourceBase {
             return new InputStreamReader(getInputStream(), "UTF-8");
         } catch (UnsupportedEncodingException e) {
             // will never happen though - UTF-8 is always supported
-            throw new OWLRuntimeException(e);
+            throw new OWLOntologyInputSourceException(e);
         }
     }
 

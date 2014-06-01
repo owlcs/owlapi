@@ -164,27 +164,28 @@ public abstract class StreamDocumentSourceBase extends
     @Override
     public InputStream getInputStream() {
         if (!isInputStreamAvailable()) {
-            throw new OWLRuntimeException(
+            throw new OWLOntologyInputSourceException(
                     "InputStream not available. Check with OWLOntologyDocumentSource.isInputStreamAvailable()");
         }
         try {
-            return new GZIPInputStream(new ByteArrayInputStream(byteBuffer));
+            return wrap(new GZIPInputStream(
+                    new ByteArrayInputStream(byteBuffer)));
         } catch (IOException e) {
-            throw new OWLRuntimeException(e);
+            throw new OWLOntologyInputSourceException(e);
         }
     }
 
     @Override
     public Reader getReader() {
         if (!isReaderAvailable()) {
-            throw new OWLRuntimeException(
+            throw new OWLOntologyInputSourceException(
                     "Reader not available.  Check with OWLOntologyDocumentSource.isReaderAvailable()");
         }
         try {
-            return new InputStreamReader(new GZIPInputStream(
-                    new ByteArrayInputStream(byteBuffer)), encoding);
+            return new InputStreamReader(wrap(new GZIPInputStream(
+                    new ByteArrayInputStream(byteBuffer))), encoding);
         } catch (IOException e) {
-            throw new OWLRuntimeException(e);
+            throw new OWLOntologyInputSourceException(e);
         }
     }
 

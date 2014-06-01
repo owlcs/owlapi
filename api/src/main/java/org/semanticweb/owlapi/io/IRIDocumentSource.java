@@ -21,7 +21,6 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -61,7 +60,7 @@ public class IRIDocumentSource extends OWLOntologyDocumentSourceBase {
     @Nonnull
     @Override
     public InputStream getInputStream() {
-        throw new OWLRuntimeException(
+        throw new OWLOntologyInputSourceException(
                 "InputStream not available.  Check with IRIDocumentSource.isInputStreamAvailable() first!");
     }
 
@@ -72,7 +71,7 @@ public class IRIDocumentSource extends OWLOntologyDocumentSourceBase {
 
     @Override
     public Reader getReader() {
-        throw new OWLRuntimeException(
+        throw new OWLOntologyInputSourceException(
                 "Reader not available.  Check with IRIDocumentSource.isReaderAvailable() first!");
     }
 

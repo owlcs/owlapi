@@ -166,7 +166,9 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
                 }
                 nextEntry = zis.getNextEntry();
             }
-            is = new BufferedInputStream(zis);
+            is = OWLOntologyDocumentSourceBase.wrap(zis);
+        } else {
+            is = OWLOntologyDocumentSourceBase.wrap(is);
         }
         return is;
     }
@@ -190,10 +192,10 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
                     conn.getInputStream()));
         } else if ("deflate".equals(contentEncoding)) {
             LOGGER.info("URL connection input stream is compressed using deflate");
-            is = new BufferedInputStream(new InflaterInputStream(
+            is = OWLOntologyDocumentSourceBase.wrap(new InflaterInputStream(
                     conn.getInputStream(), new Inflater(true)));
         } else {
-            is = new BufferedInputStream(conn.getInputStream());
+            is = OWLOntologyDocumentSourceBase.wrap(conn.getInputStream());
         }
         return is;
     }

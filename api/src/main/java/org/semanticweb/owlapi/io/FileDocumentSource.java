@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.io;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -95,7 +94,7 @@ public class FileDocumentSource extends OWLOntologyDocumentSourceBase {
     @Override
     public InputStream getInputStream() {
         try {
-            return new BufferedInputStream(new FileInputStream(file));
+            return wrap(new FileInputStream(file));
         } catch (FileNotFoundException e) {
             throw new OWLOntologyInputSourceException(e);
         }

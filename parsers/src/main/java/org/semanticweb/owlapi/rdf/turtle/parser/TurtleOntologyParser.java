@@ -12,7 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.rdf.turtle.parser;
 
-import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
@@ -69,8 +68,8 @@ public class TurtleOntologyParser extends AbstractOWLParser {
                 parser = new TurtleParser(is, new ConsoleTripleHandler(),
                         documentSource.getDocumentIRI());
             } else {
-                is = new BufferedInputStream(documentSource.getDocumentIRI()
-                        .toURI().toURL().openStream());
+                is = getInputStream(documentSource.getDocumentIRI(),
+                        configuration);
                 parser = new TurtleParser(is, new ConsoleTripleHandler(),
                         documentSource.getDocumentIRI());
             }

@@ -1,10 +1,16 @@
 package org.semanticweb.owlapi.io;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+
+import java.io.BufferedInputStream;
+import java.io.InputStream;
 import java.util.concurrent.atomic.AtomicLong;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.apache.commons.io.ByteOrderMark;
+import org.apache.commons.io.input.BOMInputStream;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
@@ -27,6 +33,22 @@ public abstract class OWLOntologyDocumentSourceBase implements
     @Nonnull
     public static IRI getNextDocumentIRI(String prefix) {
         return IRI.create(prefix + COUNTER.incrementAndGet());
+    }
+
+    /**
+     * Wrap an input stream in a buffered input stream and strip BOMs.
+     * 
+     * @param delegate
+     *        delegate to wrap
+     * @return wrapped input stream
+     */
+    @Nonnull
+    public static InputStream wrap(@Nonnull InputStream delegate) {
+        checkNotNull(delegate, "delegate cannot be null");
+        return new BufferedInputStream(new BOMInputStream(delegate,
+                ByteOrderMark.UTF_8, ByteOrderMark.UTF_16BE,
+                ByteOrderMark.UTF_16LE, ByteOrderMark.UTF_32BE,
+                ByteOrderMark.UTF_32LE));
     }
 
     private final OWLOntologyFormat format;
