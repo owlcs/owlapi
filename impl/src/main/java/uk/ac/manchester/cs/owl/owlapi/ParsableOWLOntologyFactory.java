@@ -40,7 +40,6 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.UnknownHostException;
@@ -158,13 +157,10 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
                 .getScheme())) {
             return true;
         }
-        // If we can open an input stream then we can attempt to parse the
+        // If we can create an URLConnection, we can attempt to parse the
         // ontology
-        // TODO: Take into consideration the request type!
         try {
-            InputStream is = documentSource.getDocumentIRI().toURI().toURL()
-                    .openStream();
-            is.close();
+            documentSource.getDocumentIRI().toURI().toURL().openConnection();
             return true;
         } catch (UnknownHostException e) {
             logger.info("Unknown host: " + e.getMessage());
