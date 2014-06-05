@@ -19,7 +19,7 @@ import javax.annotation.Nonnull;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLXMLParserElementNotFoundException extends OWLXMLParserException {
+class OWLXMLParserElementNotFoundException extends OWLXMLParserException {
 
     private static final long serialVersionUID = 40000L;
 

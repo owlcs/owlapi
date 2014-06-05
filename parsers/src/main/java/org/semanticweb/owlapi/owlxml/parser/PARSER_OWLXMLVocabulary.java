@@ -72,7 +72,7 @@ import com.google.common.base.Optional;
  *         Informatics Group
  * @since 2.0.0
  */
-public enum PARSER_OWLXMLVocabulary implements HasIRI {
+enum PARSER_OWLXMLVocabulary implements HasIRI {
 //@formatter:off
     /** CLASS                               */  PARSER_CLASS                               (CLASS                               ) { @Nonnull @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLClassElementHandler(handler); } },
     /** DATA_PROPERTY                       */  PARSER_DATA_PROPERTY                       (DATA_PROPERTY                       ) { @Nonnull @Override public OWLElementHandler<?> createHandler(@Nonnull OWLXMLParserHandler handler) { return new OWLDataPropertyElementHandler(handler); } },

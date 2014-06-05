@@ -48,7 +48,7 @@ import org.xml.sax.helpers.DefaultHandler;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLXMLParserHandler extends DefaultHandler {
+class OWLXMLParserHandler extends DefaultHandler {
 
     private final OWLOntologyManager owlOntologyManager;
     @Nonnull

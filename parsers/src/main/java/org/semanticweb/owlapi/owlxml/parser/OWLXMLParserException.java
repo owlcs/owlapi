@@ -21,7 +21,7 @@ import org.semanticweb.owlapi.io.OWLParserException;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLXMLParserException extends OWLParserException {
+class OWLXMLParserException extends OWLParserException {
 
     private static final long serialVersionUID = 40000L;
 
