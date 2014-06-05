@@ -447,7 +447,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         }
         OWLOntology ont = change.getOntology();
         if (!(ont instanceof OWLMutableOntology)) {
-            throw new ImmutableOWLOntologyChangeException(change);
+            throw new ImmutableOWLOntologyChangeException(change.getChangeData(), ont.toString());
         }
         checkForOntologyIDChange(change);
         ChangeApplied appliedChange = ((OWLMutableOntology) ont)

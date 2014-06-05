@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.change.OWLOntologyChangeData;
+
 /**
  * An exception to describe a situation where there was an attempt to apply a
  * change to an immutable ontology.
@@ -32,11 +34,12 @@ public class ImmutableOWLOntologyChangeException extends
      * 
      * @param change
      *        The change.
+     *        @param o the ontology.
      */
     public ImmutableOWLOntologyChangeException(
-            @Nonnull OWLOntologyChange<?> change) {
-        super(change.getChangeData(),
+            @Nonnull OWLOntologyChangeData<?> change, String o) {
+        super(change,
                 "Cannot apply changes to immutable ontology: "
-                        + change.getOntology());
+                        + o);
     }
 }
