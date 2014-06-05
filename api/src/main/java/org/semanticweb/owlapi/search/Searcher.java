@@ -677,6 +677,27 @@ public class Searcher {
     }
 
     /**
+     * Checks if e is declared transitive in a collection of ontologies.
+     * 
+     * @param ontologies
+     *        ontologies
+     * @param e
+     *        property
+     * @return true for transitive properties
+     */
+    public static boolean isTransitive(
+            @Nonnull Iterable<OWLOntology> ontologies,
+            @Nonnull OWLObjectProperty e) {
+        for (OWLOntology o : ontologies) {
+            assert o != null;
+            if (isTransitive(o, e)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Checks if e is declared symmetric in o.
      * 
      * @param o
@@ -688,6 +709,27 @@ public class Searcher {
     public static boolean isSymmetric(@Nonnull OWLOntology o,
             @Nonnull OWLObjectProperty e) {
         return !o.getSymmetricObjectPropertyAxioms(e).isEmpty();
+    }
+
+    /**
+     * Checks if e is declared symmetric in a collection of ontologies.
+     * 
+     * @param ontologies
+     *        ontologies
+     * @param e
+     *        property
+     * @return true for symmetric properties
+     */
+    public static boolean isSymmetric(
+            @Nonnull Iterable<OWLOntology> ontologies,
+            @Nonnull OWLObjectProperty e) {
+        for (OWLOntology o : ontologies) {
+            assert o != null;
+            if (isSymmetric(o, e)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -705,6 +747,27 @@ public class Searcher {
     }
 
     /**
+     * Checks if e is declared asymmetric in a collection of ontologies.
+     * 
+     * @param ontologies
+     *        ontologies
+     * @param e
+     *        property
+     * @return true for asymmetric properties
+     */
+    public static boolean isAsymmetric(
+            @Nonnull Iterable<OWLOntology> ontologies,
+            @Nonnull OWLObjectProperty e) {
+        for (OWLOntology o : ontologies) {
+            assert o != null;
+            if (isAsymmetric(o, e)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Checks if e is declared reflexive in o.
      * 
      * @param o
@@ -716,6 +779,27 @@ public class Searcher {
     public static boolean isReflexive(@Nonnull OWLOntology o,
             @Nonnull OWLObjectProperty e) {
         return !o.getReflexiveObjectPropertyAxioms(e).isEmpty();
+    }
+
+    /**
+     * Checks if e is declared reflexive in a collection of ontologies.
+     * 
+     * @param ontologies
+     *        ontologies
+     * @param e
+     *        property
+     * @return true for reflexive properties
+     */
+    public static boolean isReflexive(
+            @Nonnull Iterable<OWLOntology> ontologies,
+            @Nonnull OWLObjectProperty e) {
+        for (OWLOntology o : ontologies) {
+            assert o != null;
+            if (isReflexive(o, e)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -733,6 +817,27 @@ public class Searcher {
     }
 
     /**
+     * Checks if e is declared irreflexive in a collection of ontologies.
+     * 
+     * @param ontologies
+     *        ontologies
+     * @param e
+     *        property
+     * @return true for irreflexive properties
+     */
+    public static boolean isIrreflexive(
+            @Nonnull Iterable<OWLOntology> ontologies,
+            @Nonnull OWLObjectProperty e) {
+        for (OWLOntology o : ontologies) {
+            assert o != null;
+            if (isIrreflexive(o, e)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Checks if e is declared inverse functional in o.
      * 
      * @param o
@@ -744,6 +849,27 @@ public class Searcher {
     public static boolean isInverseFunctional(@Nonnull OWLOntology o,
             @Nonnull OWLObjectProperty e) {
         return !o.getInverseFunctionalObjectPropertyAxioms(e).isEmpty();
+    }
+
+    /**
+     * Checks if e is declared inverse functional in a collection of ontologies.
+     * 
+     * @param ontologies
+     *        ontologies
+     * @param e
+     *        property
+     * @return true for inverse functional properties
+     */
+    public static boolean isInverseFunctional(
+            @Nonnull Iterable<OWLOntology> ontologies,
+            @Nonnull OWLObjectProperty e) {
+        for (OWLOntology o : ontologies) {
+            assert o != null;
+            if (isInverseFunctional(o, e)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -761,6 +887,27 @@ public class Searcher {
     }
 
     /**
+     * Checks if e is declared functional in a collection of ontologies.
+     * 
+     * @param ontologies
+     *        ontologies
+     * @param e
+     *        property
+     * @return true for functional object properties
+     */
+    public static boolean isFunctional(
+            @Nonnull Iterable<OWLOntology> ontologies,
+            @Nonnull OWLObjectProperty e) {
+        for (OWLOntology o : ontologies) {
+            assert o != null;
+            if (isFunctional(o, e)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Checks if e is declared functional in o.
      * 
      * @param o
@@ -775,6 +922,27 @@ public class Searcher {
     }
 
     /**
+     * Checks if e is declared functional in a collection of ontologies.
+     * 
+     * @param ontologies
+     *        ontologies
+     * @param e
+     *        property
+     * @return true for functional data properties
+     */
+    public static boolean isFunctional(
+            @Nonnull Iterable<OWLOntology> ontologies,
+            @Nonnull OWLDataProperty e) {
+        for (OWLOntology o : ontologies) {
+            assert o != null;
+            if (isFunctional(o, e)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Checks if c is defined (is included in equivalent axioms) in o.
      * 
      * @param o
@@ -786,5 +954,26 @@ public class Searcher {
     public static boolean
             isDefined(@Nonnull OWLOntology o, @Nonnull OWLClass c) {
         return !o.getEquivalentClassesAxioms(c).isEmpty();
+    }
+
+    /**
+     * Checks if c is defined (is included in equivalent axioms) in a collection
+     * of ontologies.
+     * 
+     * @param ontologies
+     *        ontologies
+     * @param c
+     *        class
+     * @return true for defined classes
+     */
+    public static boolean isDefined(@Nonnull Iterable<OWLOntology> ontologies,
+            @Nonnull OWLClass c) {
+        for (OWLOntology o : ontologies) {
+            assert o != null;
+            if (isDefined(o, c)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
