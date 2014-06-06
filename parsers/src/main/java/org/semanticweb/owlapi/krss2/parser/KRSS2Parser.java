@@ -21,7 +21,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.semanticweb.owlapi.BOMSafeJavaCharStream;
 import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.krss1.parser.NameResolverStrategy;
 import org.semanticweb.owlapi.model.AddAxiom;
@@ -2881,7 +2880,7 @@ class KRSS2Parser implements KRSS2ParserConstants {
     }
 
     private KRSS2ParserTokenManager token_source;
-    private BOMSafeJavaCharStream jj_input_stream;
+    private JavaCharStream jj_input_stream;
     private Token token;
     private Token jj_nt;
     private int jj_ntk;
@@ -2920,7 +2919,7 @@ class KRSS2Parser implements KRSS2ParserConstants {
 
     KRSS2Parser(java.io.InputStream stream, String encoding) {
         try {
-            jj_input_stream = new BOMSafeJavaCharStream(stream, encoding, 1, 1);
+            jj_input_stream = new JavaCharStream(stream, encoding, 1, 1);
         } catch (java.io.UnsupportedEncodingException e) {
             throw new OWLRuntimeException(e);
         }
@@ -2959,7 +2958,7 @@ class KRSS2Parser implements KRSS2ParserConstants {
     }
 
     KRSS2Parser(java.io.Reader stream) {
-        jj_input_stream = new BOMSafeJavaCharStream(stream, 1, 1);
+        jj_input_stream = new JavaCharStream(stream, 1, 1);
         token_source = new KRSS2ParserTokenManager(jj_input_stream);
         token = new Token();
         jj_ntk = -1;
