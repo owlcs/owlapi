@@ -41,8 +41,6 @@ package org.coode.owl.krssparser;
 
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-import uk.ac.manchester.cs.BOMSafeJavaCharStream;
-
 /** Token Manager. */
 @SuppressWarnings("unused")
 public class KRSSParserTokenManager implements KRSSParserConstants {
@@ -1443,7 +1441,7 @@ public class KRSSParserTokenManager implements KRSSParserConstants {
     /** The Constant jjtoMore. */
     static final long[] jjtoMore = { 0x5da0L, };
     /** The input_stream. */
-    protected BOMSafeJavaCharStream input_stream;
+    protected JavaCharStream input_stream;
     /** The jjrounds. */
     private final int[] jjrounds = new int[2];
     /** The jjstate set. */
@@ -1457,8 +1455,8 @@ public class KRSSParserTokenManager implements KRSSParserConstants {
      * @param stream
      *        the stream
      */
-    public KRSSParserTokenManager(BOMSafeJavaCharStream stream) {
-        if (BOMSafeJavaCharStream.staticFlag) {
+    public KRSSParserTokenManager(JavaCharStream stream) {
+        if (JavaCharStream.staticFlag) {
             throw new OWLRuntimeException(
                     "ERROR: Cannot use a static CharStream class with a non-static lexical analyzer.");
         }
@@ -1473,7 +1471,7 @@ public class KRSSParserTokenManager implements KRSSParserConstants {
      * @param lexState
      *        the lex state
      */
-    public KRSSParserTokenManager(BOMSafeJavaCharStream stream, int lexState) {
+    public KRSSParserTokenManager(JavaCharStream stream, int lexState) {
         this(stream);
         SwitchTo(lexState);
     }
@@ -1484,7 +1482,7 @@ public class KRSSParserTokenManager implements KRSSParserConstants {
      * @param stream
      *        the stream
      */
-    public void ReInit(BOMSafeJavaCharStream stream) {
+    public void ReInit(JavaCharStream stream) {
         jjmatchedPos = jjnewStateCnt = 0;
         curLexState = defaultLexState;
         input_stream = stream;
@@ -1508,7 +1506,7 @@ public class KRSSParserTokenManager implements KRSSParserConstants {
      * @param lexState
      *        the lex state
      */
-    public void ReInit(BOMSafeJavaCharStream stream, int lexState) {
+    public void ReInit(JavaCharStream stream, int lexState) {
         ReInit(stream);
         SwitchTo(lexState);
     }

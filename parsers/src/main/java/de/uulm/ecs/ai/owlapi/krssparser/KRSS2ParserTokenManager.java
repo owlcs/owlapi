@@ -41,8 +41,6 @@ package de.uulm.ecs.ai.owlapi.krssparser;
 
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-import uk.ac.manchester.cs.BOMSafeJavaCharStream;
-
 /** Token Manager. */
 @SuppressWarnings("unused")
 public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
@@ -2323,7 +2321,7 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
     /** The Constant jjtoMore. */
     static final long[] jjtoMore = { 0x2d00L, 0x0L, };
     /** The input_stream. */
-    protected BOMSafeJavaCharStream input_stream;
+    protected JavaCharStream input_stream;
     /** The jjrounds. */
     private final int[] jjrounds = new int[51];
     /** The jjstate set. */
@@ -2337,8 +2335,8 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
      * @param stream
      *        the stream
      */
-    public KRSS2ParserTokenManager(BOMSafeJavaCharStream stream) {
-        if (BOMSafeJavaCharStream.staticFlag) {
+    public KRSS2ParserTokenManager(JavaCharStream stream) {
+        if (JavaCharStream.staticFlag) {
             throw new OWLRuntimeException(
                     "ERROR: Cannot use a static CharStream class with a non-static lexical analyzer.");
         }
@@ -2353,7 +2351,7 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
      * @param lexState
      *        the lex state
      */
-    public KRSS2ParserTokenManager(BOMSafeJavaCharStream stream, int lexState) {
+    public KRSS2ParserTokenManager(JavaCharStream stream, int lexState) {
         this(stream);
         SwitchTo(lexState);
     }
@@ -2364,7 +2362,7 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
      * @param stream
      *        the stream
      */
-    public void ReInit(BOMSafeJavaCharStream stream) {
+    public void ReInit(JavaCharStream stream) {
         jjmatchedPos = jjnewStateCnt = 0;
         curLexState = defaultLexState;
         input_stream = stream;
@@ -2388,7 +2386,7 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
      * @param lexState
      *        the lex state
      */
-    public void ReInit(BOMSafeJavaCharStream stream, int lexState) {
+    public void ReInit(JavaCharStream stream, int lexState) {
         ReInit(stream);
         SwitchTo(lexState);
     }

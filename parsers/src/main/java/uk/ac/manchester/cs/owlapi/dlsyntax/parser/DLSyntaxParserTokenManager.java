@@ -3,8 +3,6 @@ package uk.ac.manchester.cs.owlapi.dlsyntax.parser;
 
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-import uk.ac.manchester.cs.BOMSafeJavaCharStream;
-
 /** Token Manager. */
 @SuppressWarnings("unused")
 public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
@@ -1404,7 +1402,7 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
     /** The Constant jjtoSkip. */
     static final long[] jjtoSkip = { 0xeL, };
     /** The input_stream. */
-    protected BOMSafeJavaCharStream input_stream;
+    protected JavaCharStream input_stream;
     /** The jjrounds. */
     private final int[] jjrounds = new int[121];
     /** The jjstate set. */
@@ -1418,8 +1416,8 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
      * @param stream
      *        the stream
      */
-    public DLSyntaxParserTokenManager(BOMSafeJavaCharStream stream) {
-        if (BOMSafeJavaCharStream.staticFlag) {
+    public DLSyntaxParserTokenManager(JavaCharStream stream) {
+        if (JavaCharStream.staticFlag) {
             throw new OWLRuntimeException(
                     "ERROR: Cannot use a static CharStream class with a non-static lexical analyzer.");
         }
@@ -1434,7 +1432,7 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
      * @param lexState
      *        the lex state
      */
-    public DLSyntaxParserTokenManager(BOMSafeJavaCharStream stream, int lexState) {
+    public DLSyntaxParserTokenManager(JavaCharStream stream, int lexState) {
         this(stream);
         SwitchTo(lexState);
     }
@@ -1445,7 +1443,7 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
      * @param stream
      *        the stream
      */
-    public void ReInit(BOMSafeJavaCharStream stream) {
+    public void ReInit(JavaCharStream stream) {
         jjmatchedPos = jjnewStateCnt = 0;
         curLexState = defaultLexState;
         input_stream = stream;
@@ -1469,7 +1467,7 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
      * @param lexState
      *        the lex state
      */
-    public void ReInit(BOMSafeJavaCharStream stream, int lexState) {
+    public void ReInit(JavaCharStream stream, int lexState) {
         ReInit(stream);
         SwitchTo(lexState);
     }
