@@ -39,7 +39,7 @@ import com.google.common.collect.Sets;
  * @param <C>
  *        axiom type
  */
-@SuppressWarnings({ "unchecked", "unused" })
+@SuppressWarnings({ "unchecked" })
 public class AxiomType<C extends OWLAxiom> implements Serializable {
 
     private static final long serialVersionUID = 40000L;
@@ -51,8 +51,7 @@ public class AxiomType<C extends OWLAxiom> implements Serializable {
     private final Class<C> actualClass;
 
     private AxiomType(Class<C> actualClass, int ind, String name,
-            boolean owl2Axiom,
-            boolean nonSyntacticOWL2Axiom, boolean isLogical) {
+            boolean owl2Axiom, boolean nonSyntacticOWL2Axiom, boolean isLogical) {
         this.actualClass = actualClass;
         this.name = name;
         this.owl2Axiom = owl2Axiom;
@@ -302,6 +301,7 @@ public class AxiomType<C extends OWLAxiom> implements Serializable {
     public static <T extends OWLAxiom> AxiomType<T> getTypeForClass(Class<T> t) {
         return (AxiomType<T>) CLASS_TYPE_MAP.get(t);
     }
+
     /** set of tbox axiom types */
     @Nonnull
     public static final Set<AxiomType<?>> TBoxAxiomTypes = CollectionFactory

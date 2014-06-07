@@ -8,6 +8,8 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.Collection;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -37,7 +39,8 @@ public class BOMSafeInputStreamAndParseTestCase extends TestBase {
         input = in;
     }
 
-    private InputStream in(int[] b, String s) throws IOException {
+    @Nonnull
+    private static InputStream in(int[] b, String s) throws IOException {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         for (int i : b) {
             out.write(i);
