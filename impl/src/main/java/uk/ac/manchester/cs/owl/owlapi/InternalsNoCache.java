@@ -113,8 +113,7 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
             return new OWLLiteralImpl(value, "",
                     getOWLDatatype(XSDVocabulary.STRING.getIRI()));
         }
-        return new OWLLiteralImplNoCompression(value, "",
-                getOWLDatatype(XSDVocabulary.STRING.getIRI()));
+        return new OWLLiteralImplString(value);
     }
 
     @Override
@@ -128,7 +127,7 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
         if (useCompression) {
             return new OWLLiteralImpl(literal, normalisedLang, null);
         }
-        return new OWLLiteralImplNoCompression(literal, normalisedLang, null);
+        return new OWLLiteralImplPlain(literal, normalisedLang);
     }
 
     @Override
@@ -161,9 +160,11 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
                 literal = getBasicLiteral(lexicalValue, datatype);
             }
         } else {
-            // check the four special cases
+            // check the special cases
             try {
-                if (datatype.isBoolean()) {
+                if (datatype.isString()) {
+                    literal = getOWLLiteral(lexicalValue);
+                } else if (datatype.isBoolean()) {
                     literal = getOWLLiteral(isBooleanTrueValue(lexicalValue
                             .trim()));
                 } else if (datatype.isFloat()) {
@@ -193,6 +194,8 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
                                 getIntegerOWLDatatype());
                     } else {
                         try {
+                            // this is fine for values that can be parsed as
+                            // ints - not all values are
                             literal = getOWLLiteral(Integer
                                     .parseInt(lexicalValue));
                         } catch (NumberFormatException ex) {
@@ -222,7 +225,11 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
             String lang, OWLDatatype datatype) {
         OWLLiteral literal = null;
         if (useCompression) {
+            if (datatype == null || datatype.isRDFPlainLiteral()) {
+                literal = new OWLLiteralImplPlain(lexicalValue, lang);
+            } else {
             literal = new OWLLiteralImpl(lexicalValue, lang, datatype);
+            }
         } else {
             literal = new OWLLiteralImplNoCompression(lexicalValue, lang,
                     datatype);

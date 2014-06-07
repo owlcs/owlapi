@@ -29,155 +29,118 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
+ * An OWLLiteral whose datatype is RDF_PLAIN_LITERAL
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
- * @since 2.0.0
+ *         Informatics Group, Date: 26-Oct-2006
  */
-public class OWLLiteralImplNoCompression extends OWLObjectImpl implements
-        OWLLiteral {
+public class OWLLiteralImplPlain extends OWLObjectImpl implements OWLLiteral {
 
-    private static final long serialVersionUID = 40000L;
+    private static final long serialVersionUID = 30406L;
     @Nonnull
     private static final OWLDatatype RDF_PLAIN_LITERAL = new OWL2DatatypeImpl(
             OWL2Datatype.RDF_PLAIN_LITERAL);
     @Nonnull
     private final String literal;
     @Nonnull
-    private final OWLDatatype datatype;
-    @Nonnull
-    private final String language;
+    private final String lang;
     private final int hashcode;
+
+    /**
+     * @param literal
+     *        the lexical form
+     * @param lang
+     *        the language; can be null or empty
+     */
+    public OWLLiteralImplPlain(@Nonnull String literal, @Nullable String lang) {
+        this.literal = literal;
+        if (lang == null || lang.length() == 0) {
+            this.lang = "";
+        } else {
+            this.lang = lang;
+        }
+        hashcode = getHashCode();
+    }
 
     @Override
     protected int index() {
         return OWLObjectTypeIndexProvider.DATA_TYPE_INDEX_BASE + 8;
     }
 
-    /**
-     * @param literal
-     *        actual literal form
-     * @param lang
-     *        language for literal, can be null
-     * @param datatype
-     *        datatype for literal
-     */
-    public OWLLiteralImplNoCompression(@Nonnull String literal,
-            @Nullable String lang, @Nullable OWLDatatype datatype) {
-        this.literal = literal;
-        if (lang == null || lang.isEmpty()) {
-            language = "";
-            if (datatype == null) {
-                this.datatype = RDF_PLAIN_LITERAL;
-            } else {
-                this.datatype = datatype;
-            }
-        } else {
-            if (datatype != null && !datatype.isRDFPlainLiteral()) {
-                // ERROR: attempting to build a literal with a language tag and
-                // type different from plain literal
-                throw new OWLRuntimeException(
-                        "Error: cannot build a literal with type: "
-                                + datatype.getIRI() + " and language: " + lang);
-            }
-            language = lang;
-            this.datatype = RDF_PLAIN_LITERAL;
-        }
-        hashcode = getHashCode();
-    }
-
-    @Nonnull
     @Override
     public String getLiteral() {
         return literal;
     }
 
     @Override
-    public boolean isRDFPlainLiteral() {
-        return datatype.getIRI()
-                .equals(OWL2Datatype.RDF_PLAIN_LITERAL.getIRI());
-    }
-
-    @Override
     public boolean hasLang() {
-        return !language.isEmpty();
+        return !lang.equals("");
     }
 
     @Override
-    public boolean isInteger() {
-        return datatype.getIRI().equals(OWL2Datatype.XSD_INTEGER.getIRI());
-    }
-
-    @Override
-    public int parseInteger() {
+    public int parseInteger() throws NumberFormatException {
         return Integer.parseInt(getLiteral());
     }
 
     @Override
-    public boolean isBoolean() {
-        return datatype.getIRI().equals(OWL2Datatype.XSD_BOOLEAN.getIRI());
+    public boolean isRDFPlainLiteral() {
+        return true;
     }
 
     @Override
-    public boolean parseBoolean() {
-        if (literal.equals("0")) {
-            return false;
-        }
-        if (literal.equals("1")) {
-            return true;
-        }
-        if (literal.equals("true")) {
-            return true;
-        }
-        if (literal.equals("false")) {
-            return false;
-        }
-        return Boolean.parseBoolean(literal);
+    public boolean isInteger() {
+        return false;
+    }
+
+    @Override
+    public boolean isBoolean() {
+        return false;
     }
 
     @Override
     public boolean isDouble() {
-        return datatype.getIRI().equals(OWL2Datatype.XSD_DOUBLE.getIRI());
-    }
-
-    @Override
-    public double parseDouble() {
-        return Double.parseDouble(literal);
+        return false;
     }
 
     @Override
     public boolean isFloat() {
-        return datatype.getIRI().equals(OWL2Datatype.XSD_FLOAT.getIRI());
+        return false;
+    }
+
+    @Override
+    public boolean parseBoolean() {
+        throw new OWLRuntimeException(getClass().getName()
+                + " does not have a boolean value");
+    }
+
+    @Override
+    public double parseDouble() {
+        throw new OWLRuntimeException(getClass().getName()
+                + " does not have a double value");
     }
 
     @Override
     public float parseFloat() {
-        if ("inf".equalsIgnoreCase(literal)) {
-            return Float.POSITIVE_INFINITY;
-        }
-        if ("-inf".equalsIgnoreCase(literal)) {
-            return Float.NEGATIVE_INFINITY;
-        }
-        return Float.parseFloat(literal);
+        throw new OWLRuntimeException(getClass().getName()
+                + " does not have a float value");
     }
 
-    @Nonnull
     @Override
     public String getLang() {
-        return language;
+        return lang;
     }
 
     @Override
-    public boolean hasLang(@Nullable String lang) {
-        if (lang == null) {
-            return language.isEmpty();
+    public boolean hasLang(String l) {
+        if (l == null) {
+            l = "";
         }
-        return language.equalsIgnoreCase(lang.trim());
+        return lang.equalsIgnoreCase(l.trim());
     }
 
-    @Nonnull
     @Override
     public OWLDatatype getDatatype() {
-        return datatype;
+        return RDF_PLAIN_LITERAL;
     }
 
     @Override
@@ -188,7 +151,7 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements
     private int getHashCode() {
         int hashCode = 277;
         hashCode = hashCode * 37 + getDatatype().hashCode();
-        hashCode *= 37;
+        hashCode = hashCode * 37;
         try {
             if (isInteger()) {
                 hashCode += parseInteger() * 65536;
@@ -220,63 +183,58 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements
                 return false;
             }
             OWLLiteral other = (OWLLiteral) obj;
-            if (other instanceof OWLLiteralImplNoCompression) {
-                return literal
-                        .equals(((OWLLiteralImplNoCompression) other).literal)
-                        && datatype.equals(other.getDatatype())
-                        && language.equals(other.getLang());
+            if (other instanceof OWLLiteralImplPlain) {
+                return literal.equals(((OWLLiteralImplPlain) other).literal)
+                        && lang.equals(other.getLang());
             }
-            return literal.equals(other.getLiteral())
-                    && datatype.equals(other.getDatatype())
-                    && language.equals(other.getLang());
+            return getLiteral().equals(other.getLiteral())
+                    && getDatatype().equals(other.getDatatype())
+                    && lang.equals(other.getLang());
         }
         return false;
     }
 
     @Override
-    public void accept(@Nonnull OWLDataVisitor visitor) {
+    public void accept(OWLDataVisitor visitor) {
         visitor.visit(this);
     }
 
-    @Nonnull
     @Override
-    public <O> O accept(@Nonnull OWLDataVisitorEx<O> visitor) {
+    public <O> O accept(OWLDataVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    public void accept(@Nonnull OWLAnnotationValueVisitor visitor) {
+    public void accept(OWLAnnotationValueVisitor visitor) {
         visitor.visit(this);
     }
 
-    @Nonnull
     @Override
-    public <O> O accept(@Nonnull OWLAnnotationValueVisitorEx<O> visitor) {
+    public <O> O accept(OWLAnnotationValueVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    protected int compareObjectOfSameType(@Nonnull OWLObject object) {
+    protected int compareObjectOfSameType(OWLObject object) {
         OWLLiteral other = (OWLLiteral) object;
-        int diff = literal.compareTo(other.getLiteral());
+        int diff = getLiteral().compareTo(other.getLiteral());
         if (diff != 0) {
             return diff;
         }
-        diff = datatype.compareTo(other.getDatatype());
+        diff = getDatatype().compareTo(other.getDatatype());
         if (diff != 0) {
             return diff;
         }
-        return language.compareTo(other.getLang());
+        return lang.compareTo(other.getLang());
     }
 
     @Override
-    public void accept(@Nonnull OWLObjectVisitor visitor) {
+    public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
-    @Nonnull
     @Override
-    public <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
+    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 }
