@@ -298,8 +298,13 @@ public class AxiomType<C extends OWLAxiom> implements Serializable {
      *        axiom class to match
      * @return axiom type for axiom class
      */
+    @Nonnull
     public static <T extends OWLAxiom> AxiomType<T> getTypeForClass(Class<T> t) {
-        return (AxiomType<T>) CLASS_TYPE_MAP.get(t);
+        AxiomType<?> axiomType = CLASS_TYPE_MAP.get(t);
+        if (axiomType == null) {
+            throw new OWLRuntimeException("No known axiom type for " + t);
+        }
+        return (AxiomType<T>) axiomType;
     }
 
     /** set of tbox axiom types */

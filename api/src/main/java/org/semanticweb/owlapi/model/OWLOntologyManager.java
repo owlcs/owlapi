@@ -26,6 +26,7 @@ import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.model.parameters.MissingImportHandlingStrategy;
+import org.semanticweb.owlapi.model.parameters.OntologyCopy;
 import org.semanticweb.owlapi.util.PriorityCollection;
 
 /**
@@ -546,6 +547,27 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
     OWLOntology createOntology(@Nonnull IRI ontologyIRI,
             @Nonnull Set<OWLOntology> ontologies)
             throws OWLOntologyCreationException;
+
+    /**
+     * Copy an ontology from another manager to this one. The returned
+     * OWLOntology will return this manager when getOWLOntologyManager() is
+     * invoked. The copy mode is defined by the OntologyCopy parameter: SHALLOW
+     * for simply creating a new ontology containing the same axioms and same
+     * id, DEEP for copying actoss format and document IRI, MOVE to remove the
+     * ontology from its previous manager.
+     * 
+     * @param toCopy
+     *        ontology to copy
+     * @param settings
+     *        settings for the copy
+     * @return copied ontology. This is the same object as toCopy only for MOVE
+     *         copies
+     * @throws OWLOntologyCreationException
+     *         if this manager cannot add the new ontology
+     */
+    @Nonnull
+    OWLOntology copyOntology(@Nonnull OWLOntology toCopy,
+            @Nonnull OntologyCopy settings) throws OWLOntologyCreationException;
 
     // Loading
     /**

@@ -62,13 +62,23 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
     <O> O accept(@Nonnull OWLNamedObjectVisitorEx<O> visitor);
 
     /**
-     * Gets the manager that created this ontology. The manager is used by
+     * Gets the manager that manages this ontology. The manager is used by
      * various methods on OWLOntology to resolve imports
      * 
-     * @return The manager that created this ontology.
+     * @return The manager for this ontology.
      */
     @Nonnull
     OWLOntologyManager getOWLOntologyManager();
+
+    /**
+     * Sets the manager for this ontology. This method is used when moving
+     * ontologies from one manager to another and should be used by
+     * OWLOntologyManager implementations only.
+     * 
+     * @param manager
+     *        the new manager for this ontology
+     */
+    void setOWLOntologyManager(@Nonnull OWLOntologyManager manager);
 
     /**
      * Gets the identity of this ontology (i.e. ontology IRI + version IRI).

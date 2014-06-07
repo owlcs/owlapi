@@ -76,7 +76,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
-    protected final OWLOntologyManager manager;
+    protected OWLOntologyManager manager;
     @Nonnull
     protected OWLOntologyID ontologyID;
 
@@ -124,6 +124,11 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     @Override
     public OWLOntologyManager getOWLOntologyManager() {
         return manager;
+    }
+
+    @Override
+    public void setOWLOntologyManager(OWLOntologyManager manager) {
+        this.manager = manager;
     }
 
     @Override
@@ -773,8 +778,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     public Set<OWLAnonymousIndividual> getReferencedAnonymousIndividuals(
             Imports includeImportsClosure) {
         if (includeImportsClosure == EXCLUDED) {
-            return ints.get(OWLAnonymousIndividual.class, OWLAxiom.class)
-.get()
+            return ints.get(OWLAnonymousIndividual.class, OWLAxiom.class).get()
                     .keySet();
         }
         Set<OWLAnonymousIndividual> result = createSet();
@@ -802,7 +806,8 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
             Imports includeImportsClosure) {
         Set<OWLAnnotationProperty> props = createSet();
         if (includeImportsClosure == EXCLUDED) {
-            props.addAll(ints.get(OWLAnnotationProperty.class, OWLAxiom.class,
+            props.addAll(ints
+                    .get(OWLAnnotationProperty.class, OWLAxiom.class,
                             Search.IN_SUB_POSITION).get().keySet());
             for (OWLAnnotation anno : ints.getOntologyAnnotations(false)) {
                 props.add(anno.getProperty());
@@ -1103,9 +1108,9 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
             @Nonnull OWLObject entity, @Nonnull Imports includeImports,
             @Nonnull Search forSubPosition) {
         if (includeImports == EXCLUDED) {
-            Optional<MapPointer<OWLObject, A>> optional = ints.get((Class<OWLObject>) explicitClass, type,
-                    forSubPosition);
-            if(optional.isPresent()) {
+            Optional<MapPointer<OWLObject, A>> optional = ints.get(
+                    (Class<OWLObject>) explicitClass, type, forSubPosition);
+            if (optional.isPresent()) {
                 return optional.get().getValues(entity);
             }
             Set<A> toReturn = new HashSet<A>();
