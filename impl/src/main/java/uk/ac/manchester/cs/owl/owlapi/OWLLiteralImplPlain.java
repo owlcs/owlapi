@@ -51,17 +51,17 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
+ * An OWLLiteral whose datatype is RDF_PLAIN_LITERAL
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 26-Oct-2006
  */
-public class OWLLiteralImplNoCompression extends OWLObjectImpl implements
-        OWLLiteral {
+public class OWLLiteralImplPlain extends OWLObjectImpl implements OWLLiteral {
 
     private static final long serialVersionUID = 30406L;
     private static final OWLDatatype RDF_PLAIN_LITERAL = OWL2DatatypeImpl
             .getDatatype(OWL2Datatype.RDF_PLAIN_LITERAL);
     private final String literal;
-    private final OWLDatatype datatype;
     private final String lang;
     private final int hashcode;
 
@@ -71,30 +71,13 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements
      * @param lang
      *        the language; can be null or an empty string, in which case
      *        datatype can be any datatype but not null
-     * @param datatype
-     *        the datatype; if lang is null or the empty string, it can be null
-     *        or it MUST be RDFPlainLiteral
      */
-    public OWLLiteralImplNoCompression(String literal, String lang,
-            OWLDatatype datatype) {
+    public OWLLiteralImplPlain(String literal, String lang) {
         this.literal = literal;
         if (lang == null || lang.length() == 0) {
             this.lang = "";
-            if (datatype == null) {
-                this.datatype = RDF_PLAIN_LITERAL;
-            } else {
-                this.datatype = datatype;
-            }
         } else {
-            if (datatype != null && !datatype.isRDFPlainLiteral()) {
-                // ERROR: attempting to build a literal with a language tag and
-                // type different from plain literal
-                throw new OWLRuntimeException(
-                        "Error: cannot build a literal with type: "
-                                + datatype.getIRI() + " and language: " + lang);
-            }
             this.lang = lang;
-            this.datatype = RDF_PLAIN_LITERAL;
         }
         hashcode = getHashCode();
     }
@@ -116,61 +99,45 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements
 
     @Override
     public boolean isRDFPlainLiteral() {
-        return datatype.getIRI()
-                .equals(OWL2Datatype.RDF_PLAIN_LITERAL.getIRI());
+        return true;
     }
 
     @Override
     public boolean isInteger() {
-        return datatype.getIRI().equals(OWL2Datatype.XSD_INTEGER.getIRI());
+        return false;
     }
 
     @Override
     public boolean isBoolean() {
-        return datatype.getIRI().equals(OWL2Datatype.XSD_BOOLEAN.getIRI());
+        return false;
     }
 
     @Override
     public boolean isDouble() {
-        return datatype.getIRI().equals(OWL2Datatype.XSD_DOUBLE.getIRI());
+        return false;
     }
 
     @Override
     public boolean isFloat() {
-        return datatype.getIRI().equals(OWL2Datatype.XSD_FLOAT.getIRI());
+        return false;
     }
 
     @Override
     public boolean parseBoolean() {
-        if (literal.equals("0")) {
-            return false;
-        }
-        if (literal.equals("1")) {
-            return true;
-        }
-        if (literal.equals("true")) {
-            return true;
-        }
-        if (literal.equals("false")) {
-            return false;
-        }
-        return Boolean.parseBoolean(literal);
+        throw new OWLRuntimeException(getClass().getName()
+                + " does not have a boolean value");
     }
 
     @Override
     public double parseDouble() {
-        return Double.parseDouble(literal);
+        throw new OWLRuntimeException(getClass().getName()
+                + " does not have a double value");
     }
 
     @Override
     public float parseFloat() {
-        if ("inf".equalsIgnoreCase(literal)) {
-            return Float.POSITIVE_INFINITY;
-        }
-        if ("-inf".equalsIgnoreCase(literal)) {
-            return Float.NEGATIVE_INFINITY;
-        }
-        return Float.parseFloat(literal);
+        throw new OWLRuntimeException(getClass().getName()
+                + " does not have a float value");
     }
 
     @Override
@@ -188,7 +155,7 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements
 
     @Override
     public OWLDatatype getDatatype() {
-        return datatype;
+        return RDF_PLAIN_LITERAL;
     }
 
     @Override
@@ -231,14 +198,12 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements
                 return false;
             }
             OWLLiteral other = (OWLLiteral) obj;
-            if (other instanceof OWLLiteralImplNoCompression) {
-                return literal
-                        .equals(((OWLLiteralImplNoCompression) other).literal)
-                        && datatype.equals(other.getDatatype())
+            if (other instanceof OWLLiteralImplPlain) {
+                return literal.equals(((OWLLiteralImplPlain) other).literal)
                         && lang.equals(other.getLang());
             }
             return getLiteral().equals(other.getLiteral())
-                    && datatype.equals(other.getDatatype())
+                    && getDatatype().equals(other.getDatatype())
                     && lang.equals(other.getLang());
         }
         return false;
@@ -271,7 +236,7 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements
         if (diff != 0) {
             return diff;
         }
-        diff = datatype.compareTo(other.getDatatype());
+        diff = getDatatype().compareTo(other.getDatatype());
         if (diff != 0) {
             return diff;
         }
