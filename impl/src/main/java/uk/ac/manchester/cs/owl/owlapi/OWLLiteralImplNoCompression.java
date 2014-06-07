@@ -12,12 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import java.io.UnsupportedEncodingException;
-import java.util.Arrays;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.OWLAnnotationValueVisitor;
 import org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx;
 import org.semanticweb.owlapi.model.OWLDataVisitor;
@@ -30,6 +24,10 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.io.UnsupportedEncodingException;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -44,7 +42,8 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements
     @Nonnull
     private static final OWLDatatype RDF_PLAIN_LITERAL = new OWL2DatatypeImpl(
             OWL2Datatype.RDF_PLAIN_LITERAL);
-    private final byte[] literal;
+    @Nonnull
+    private final String literal;
     @Nonnull
     private final OWLDatatype datatype;
     @Nonnull
@@ -58,31 +57,15 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements
 
     /**
      * @param literal
-     *        the lexical form
-     * @param lang
-     *        the language; can be null or an empty string, in which case
-     *        datatype can be any datatype but not null
-     * @param datatype
-     *        the datatype; if lang is null or the empty string, it can be null
-     *        or it MUST be RDFPlainLiteral
-     */
-    public OWLLiteralImplNoCompression(@Nonnull String literal,
-            @Nullable String lang, @Nullable OWLDatatype datatype) {
-        this(getBytes(literal), lang, datatype);
-    }
-
-    /**
-     * @param bytes
      *        actual literal form
      * @param lang
      *        language for literal, can be null
      * @param datatype
      *        datatype for literal
      */
-    public OWLLiteralImplNoCompression(@Nonnull byte[] bytes,
-            @Nullable String lang, @Nullable OWLDatatype datatype) {
-        literal = new byte[bytes.length];
-        System.arraycopy(bytes, 0, literal, 0, bytes.length);
+    public OWLLiteralImplNoCompression(@Nonnull String literal,
+                                       @Nullable String lang, @Nullable OWLDatatype datatype) {
+        this.literal = literal;
         if (lang == null || lang.isEmpty()) {
             language = "";
             if (datatype == null) {
@@ -104,25 +87,10 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements
         hashcode = getHashCode();
     }
 
-    @SuppressWarnings("null")
     @Nonnull
-    private static byte[] getBytes(String literal) {
-        try {
-            return literal.getBytes(UTF8);
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(
-                    "Unsupported UTF 8 encoding: broken JVM", e);
-        }
-    }
-
     @Override
     public String getLiteral() {
-        try {
-            return new String(literal, UTF8);
-        } catch (UnsupportedEncodingException e) {
-            throw new OWLRuntimeException(
-                    "Unsupported UTF 8 encoding: broken JVM", e);
-        }
+        return literal;
     }
 
     @Override
@@ -196,19 +164,21 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements
         return Float.parseFloat(literal2);
     }
 
+    @Nonnull
     @Override
     public String getLang() {
         return language;
     }
 
     @Override
-    public boolean hasLang(String lang) {
+    public boolean hasLang(@Nullable String lang) {
         if (lang == null) {
             return language.isEmpty();
         }
         return language.equalsIgnoreCase(lang.trim());
     }
 
+    @Nonnull
     @Override
     public OWLDatatype getDatatype() {
         return datatype;
@@ -255,8 +225,7 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements
             }
             OWLLiteral other = (OWLLiteral) obj;
             if (other instanceof OWLLiteralImplNoCompression) {
-                return Arrays.equals(literal,
-                        ((OWLLiteralImplNoCompression) other).literal)
+                return literal.equals(((OWLLiteralImplNoCompression) other).literal)
                         && datatype.equals(other.getDatatype())
                         && language.equals(other.getLang());
             }
@@ -268,27 +237,29 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements
     }
 
     @Override
-    public void accept(OWLDataVisitor visitor) {
+    public void accept(@Nonnull OWLDataVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Nonnull
     @Override
-    public <O> O accept(OWLDataVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLDataVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    public void accept(OWLAnnotationValueVisitor visitor) {
+    public void accept(@Nonnull OWLAnnotationValueVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Nonnull
     @Override
-    public <O> O accept(OWLAnnotationValueVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLAnnotationValueVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-    protected int compareObjectOfSameType(OWLObject object) {
+    protected int compareObjectOfSameType(@Nonnull OWLObject object) {
         OWLLiteral other = (OWLLiteral) object;
         int diff = getLiteral().compareTo(other.getLiteral());
         if (diff != 0) {
@@ -302,12 +273,13 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements
     }
 
     @Override
-    public void accept(OWLObjectVisitor visitor) {
+    public void accept(@Nonnull OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
+    @Nonnull
     @Override
-    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
+    public <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 }
