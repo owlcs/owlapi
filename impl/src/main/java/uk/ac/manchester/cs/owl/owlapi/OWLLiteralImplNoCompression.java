@@ -38,9 +38,6 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import java.io.UnsupportedEncodingException;
-import java.util.Arrays;
-
 import org.semanticweb.owlapi.model.OWLAnnotationValueVisitor;
 import org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx;
 import org.semanticweb.owlapi.model.OWLDataVisitor;
@@ -54,8 +51,8 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 26-Oct-2006
  */
 public class OWLLiteralImplNoCompression extends OWLObjectImpl implements
         OWLLiteral {
@@ -64,7 +61,7 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements
     static final String utf_8 = "UTF-8";
     private static final OWLDatatype RDF_PLAIN_LITERAL = OWL2DatatypeImpl
             .getDatatype(OWL2Datatype.RDF_PLAIN_LITERAL);
-    private final byte[] literal;
+    private final String literal;
     private final OWLDatatype datatype;
     private final String lang;
     private final int hashcode;
@@ -81,27 +78,11 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements
      */
     public OWLLiteralImplNoCompression(String literal, String lang,
             OWLDatatype datatype) {
-        this(getBytes(literal), lang, datatype);
-    }
-
-    /**
-     * @param bytes
-     *        actual literal form
-     * @param lang
-     *        language for literal, can be null
-     * @param datatype
-     *        datatype for literal
-     */
-    public OWLLiteralImplNoCompression(byte[] bytes, String lang,
-            OWLDatatype datatype) {
-        super();
-        literal = new byte[bytes.length];
-        System.arraycopy(bytes, 0, literal, 0, bytes.length);
-        OWLDatatype rdfplainlit = RDF_PLAIN_LITERAL;
+        this.literal = literal;
         if (lang == null || lang.length() == 0) {
             this.lang = "";
             if (datatype == null) {
-                this.datatype = rdfplainlit;
+                this.datatype = RDF_PLAIN_LITERAL;
             } else {
                 this.datatype = datatype;
             }
@@ -114,28 +95,14 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements
                                 + datatype.getIRI() + " and language: " + lang);
             }
             this.lang = lang;
-            this.datatype = rdfplainlit;
+            this.datatype = RDF_PLAIN_LITERAL;
         }
         hashcode = getHashCode();
     }
 
-    private static byte[] getBytes(String literal) {
-        try {
-            return literal.getBytes(utf_8);
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(
-                    "Unsupported UTF 8 encoding: broken JVM", e);
-        }
-    }
-
     @Override
     public String getLiteral() {
-        try {
-            return new String(literal, utf_8);
-        } catch (UnsupportedEncodingException e) {
-            throw new OWLRuntimeException(
-                    "Unsupported UTF 8 encoding: broken JVM", e);
-        }
+        return literal;
     }
 
     @Override
@@ -175,38 +142,36 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements
     }
 
     @Override
-    public boolean parseBoolean() throws NumberFormatException {
-        final String literal2 = getLiteral();
-        if (literal2.equals("0")) {
+    public boolean parseBoolean() {
+        if (literal.equals("0")) {
             return false;
         }
-        if (literal2.equals("1")) {
+        if (literal.equals("1")) {
             return true;
         }
-        if (literal2.equals("true")) {
+        if (literal.equals("true")) {
             return true;
         }
-        if (literal2.equals("false")) {
+        if (literal.equals("false")) {
             return false;
         }
-        return Boolean.parseBoolean(literal2);
+        return Boolean.parseBoolean(literal);
     }
 
     @Override
-    public double parseDouble() throws NumberFormatException {
-        return Double.parseDouble(getLiteral());
+    public double parseDouble() {
+        return Double.parseDouble(literal);
     }
 
     @Override
-    public float parseFloat() throws NumberFormatException {
-        String literal2 = getLiteral();
-        if ("inf".equalsIgnoreCase(literal2)) {
+    public float parseFloat() {
+        if ("inf".equalsIgnoreCase(literal)) {
             return Float.POSITIVE_INFINITY;
         }
-        if ("-inf".equalsIgnoreCase(literal2)) {
+        if ("-inf".equalsIgnoreCase(literal)) {
             return Float.NEGATIVE_INFINITY;
         }
-        return Float.parseFloat(literal2);
+        return Float.parseFloat(literal);
     }
 
     @Override
@@ -216,13 +181,10 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements
 
     @Override
     public boolean hasLang(String l) {
-        if (l == null && lang == null) {
-            return true;
-        }
         if (l == null) {
             l = "";
         }
-        return lang != null && lang.equalsIgnoreCase(l.trim());
+        return lang.equalsIgnoreCase(l.trim());
     }
 
     @Override
@@ -271,8 +233,8 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements
             }
             OWLLiteral other = (OWLLiteral) obj;
             if (other instanceof OWLLiteralImplNoCompression) {
-                return Arrays.equals(literal,
-                        ((OWLLiteralImplNoCompression) other).literal)
+                return literal
+                        .equals(((OWLLiteralImplNoCompression) other).literal)
                         && datatype.equals(other.getDatatype())
                         && lang.equals(other.getLang());
             }
