@@ -264,7 +264,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
         URI delegateURI = m_baseURICache.get(getBaseIRI());
         assert delegateURI != null;
         // resolve against delegate
-        URI resolve = delegateURI.resolve(value);
+        URI resolve = delegateURI.resolve(value.replace(" ", "%20"));
         assert resolve != null;
         return IRI.create(resolve);
     }
