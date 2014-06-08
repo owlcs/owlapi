@@ -27,7 +27,6 @@ import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.util.WeakCache;
 import org.semanticweb.owlapi.util.WeakIndexCache;
 
 /** @author ignazio */
@@ -69,11 +68,6 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
     private final BuildableWeakIndexCache<OWLNamedIndividual> individualsByURI;
     @Nonnull
     private final BuildableWeakIndexCache<OWLAnnotationProperty> annotationPropertiesByURI;
-    private final WeakIndexCache<Integer, OWLLiteral> intCache = new WeakIndexCache<Integer, OWLLiteral>();
-    private final WeakIndexCache<Double, OWLLiteral> doubleCache = new WeakIndexCache<Double, OWLLiteral>();
-    private final WeakIndexCache<Float, OWLLiteral> floatCache = new WeakIndexCache<Float, OWLLiteral>();
-    private final WeakIndexCache<String, OWLLiteral> stringCache = new WeakIndexCache<String, OWLLiteral>();
-    private final WeakCache<OWLLiteral> litCache = new WeakCache<OWLLiteral>();
 
     @Nonnull
     protected <V extends OWLEntity> BuildableWeakIndexCache<V> buildCache() {
@@ -94,57 +88,8 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
         annotationPropertiesByURI = buildCache();
     }
 
-    @Override
-    public OWLLiteral getOWLLiteral(float value) {
-        return floatCache.cache(verifyNotNull(value),
-                super.getOWLLiteral(value));
-    }
 
-    @Override
-    public OWLLiteral getOWLLiteral(String value) {
-        return stringCache.cache(value, super.getOWLLiteral(value));
-    }
 
-    @Override
-    public OWLLiteral getOWLLiteral(int value) {
-        return intCache.cache(verifyNotNull(value), super.getOWLLiteral(value));
-    }
-
-    @Override
-    public OWLLiteral getOWLLiteral(double value) {
-        return doubleCache.cache(verifyNotNull(value),
-                super.getOWLLiteral(value));
-    }
-
-    @Nonnull
-    @Override
-    public OWLLiteral getOWLLiteral(@Nonnull String lexicalValue,
-            @Nonnull OWLDatatype datatype) {
-        OWLLiteral literal = super.getOWLLiteral(lexicalValue, datatype);
-        // no caches for booleans, they are singleton in owldatafactory
-        if (datatype.isBoolean()) {
-            return literal;
-        }
-        if (literal instanceof OWLLiteralImplFloat) {
-            return floatCache
-                    .cache(verifyNotNull(((OWLLiteralImplFloat) literal)
-                            .parseFloat()), literal);
-        }
-        if (literal instanceof OWLLiteralImplDouble) {
-            return doubleCache.cache(
-                    verifyNotNull(((OWLLiteralImplDouble) literal)
-                            .parseDouble()), literal);
-        }
-        if (literal instanceof OWLLiteralImplInteger) {
-            return intCache.cache(
-                    verifyNotNull(((OWLLiteralImplInteger) literal)
-                            .parseInteger()), literal);
-        }
-        if (datatype.isString()) {
-            return stringCache.cache(literal.getLiteral(), literal);
-        }
-        return litCache.cache(literal);
-    }
 
     @SuppressWarnings("unchecked")
     protected enum Buildable {
@@ -209,17 +154,12 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
 
     @Override
     public void purge() {
-        litCache.clear();
         classesByURI.clear();
         objectPropertiesByURI.clear();
         dataPropertiesByURI.clear();
         datatypesByURI.clear();
         individualsByURI.clear();
         annotationPropertiesByURI.clear();
-        intCache.clear();
-        doubleCache.clear();
-        floatCache.clear();
-        stringCache.clear();
     }
 
     @Nonnull
