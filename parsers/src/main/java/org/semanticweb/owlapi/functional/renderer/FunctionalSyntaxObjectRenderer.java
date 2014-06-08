@@ -450,10 +450,6 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         write("\n");
     }
 
-    protected void write(OWLAnnotation annotation) {
-        // XXX should the annotation be ignored?
-    }
-
     protected void writeAnnotations(@Nonnull OWLAxiom ax) {
         for (OWLAnnotation anno : ax.getAnnotations()) {
             anno.accept(this);

@@ -5,6 +5,8 @@ import static org.junit.Assert.*;
 import java.util.Arrays;
 import java.util.Collection;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -36,12 +38,14 @@ public class PunnedDeclarationsNotAddedTestCase extends TestBase {
                 { new TurtleOntologyFormat() }, });
     }
 
+    @Nonnull
     private OWLOntologyFormat format;
 
-    public PunnedDeclarationsNotAddedTestCase(OWLOntologyFormat format) {
+    public PunnedDeclarationsNotAddedTestCase(@Nonnull OWLOntologyFormat format) {
         this.format = format;
     }
 
+    @Nonnull
     protected OWLOntology getOntologyWithPunnedInvalidDeclarations()
             throws OWLOntologyCreationException {
         OWLOntology o = m.createOntology(IRI
@@ -58,6 +62,7 @@ public class PunnedDeclarationsNotAddedTestCase extends TestBase {
         return o;
     }
 
+    @Nonnull
     protected OWLOntology getOntologyWithMissingDeclarations()
             throws OWLOntologyCreationException {
         OWLOntology o = m.createOntology(IRI.create("urn:missingDeclarations"));

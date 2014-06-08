@@ -28,7 +28,6 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.formats.RDFOntologyFormat;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
@@ -1166,7 +1165,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
         if (!useStrongTyping) {
             return;
         }
-        if (!RDFOntologyFormat.isMissingType(entity, ont)) {
+        if (!OWLOntologyFormat.isMissingType(entity, ont)) {
             return;
         }
         addTriple(entity, RDF_TYPE.getIRI(),

@@ -730,9 +730,11 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
                 || settings == OntologyCopy.DEEP) {
             toReturn = createOntology(toCopy.getOntologyID());
             for (AxiomType<?> type : AxiomType.AXIOM_TYPES) {
+                assert type != null;
                 addAxioms(toReturn, toCopy.getAxioms(type));
             }
             for (OWLAnnotation a : toCopy.getAnnotations()) {
+                assert a != null;
                 applyChange(new AddOntologyAnnotation(toReturn, a));
             }
         }
