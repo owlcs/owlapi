@@ -38,10 +38,10 @@ public class StructuralReasonerTestCase extends TestBase {
 
     @Test
     public void testClassHierarchy() {
-        OWLClass clsX = Class(getIRI("X"));
-        OWLClass clsA = Class(getIRI("A"));
-        OWLClass clsAp = Class(getIRI("Ap"));
-        OWLClass clsB = Class(getIRI("B"));
+        OWLClass clsX = Class(iri("X"));
+        OWLClass clsA = Class(iri("A"));
+        OWLClass clsAp = Class(iri("Ap"));
+        OWLClass clsB = Class(iri("B"));
         OWLOntology ont = getOWLOntology("ont");
         OWLOntologyManager man = ont.getOWLOntologyManager();
         man.addAxiom(ont, EquivalentClasses(OWLThing(), clsX));
@@ -57,10 +57,10 @@ public class StructuralReasonerTestCase extends TestBase {
     }
 
     private void testClassHierarchy(@Nonnull StructuralReasoner reasoner) {
-        OWLClass clsX = Class(getIRI("X"));
-        OWLClass clsA = Class(getIRI("A"));
-        OWLClass clsAp = Class(getIRI("Ap"));
-        OWLClass clsB = Class(getIRI("B"));
+        OWLClass clsX = Class(iri("X"));
+        OWLClass clsA = Class(iri("A"));
+        OWLClass clsAp = Class(iri("Ap"));
+        OWLClass clsB = Class(iri("B"));
         NodeSet<OWLClass> subsOfA = reasoner.getSubClasses(clsA, true);
         assertEquals(1, subsOfA.getNodes().size());
         assertTrue(subsOfA.containsEntity(clsB));

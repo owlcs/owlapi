@@ -36,8 +36,8 @@ public class InverseSelfTestCase extends TestBase {
     @Test
     public void testInverse() {
         OWLOntology ont = getOWLOntology("Ont");
-        OWLObjectProperty propP = ObjectProperty(getIRI("p"));
-        OWLObjectProperty propQ = ObjectProperty(getIRI("q"));
+        OWLObjectProperty propP = ObjectProperty(iri("p"));
+        OWLObjectProperty propQ = ObjectProperty(iri("q"));
         OWLAxiom ax = InverseObjectProperties(propP, propQ);
         ont.getOWLOntologyManager().addAxiom(ont, ax);
         Collection<OWLObjectPropertyExpression> inverses = inverse(
@@ -49,7 +49,7 @@ public class InverseSelfTestCase extends TestBase {
     @Test
     public void testInverseSelf() {
         OWLOntology ont = getOWLOntology("Ont");
-        OWLObjectProperty propP = ObjectProperty(getIRI("p"));
+        OWLObjectProperty propP = ObjectProperty(iri("p"));
         OWLAxiom ax = InverseObjectProperties(propP, propP);
         ont.getOWLOntologyManager().addAxiom(ont, ax);
         assertTrue(inverse(ont.getInverseObjectPropertyAxioms(propP), propP)

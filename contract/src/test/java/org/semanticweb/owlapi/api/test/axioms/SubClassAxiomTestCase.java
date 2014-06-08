@@ -44,8 +44,8 @@ public class SubClassAxiomTestCase extends AbstractFileRoundTrippingTestCase {
     @Test
     public void testCorrectAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        OWLClass clsA = Class(getIRI("A"));
-        OWLClass clsB = Class(getIRI("B"));
+        OWLClass clsA = Class(iri("A"));
+        OWLClass clsB = Class(iri("B"));
         axioms.add(SubClassOf(clsA, clsB));
         assertEquals(getOnt().getAxioms(), axioms);
     }
@@ -53,9 +53,9 @@ public class SubClassAxiomTestCase extends AbstractFileRoundTrippingTestCase {
     /** Tests the isGCI method on OWLSubClassAxiom */
     @Test
     public void testIsGCIMethod() {
-        OWLClass clsA = Class(getIRI("A"));
-        OWLClass clsB = Class(getIRI("B"));
-        OWLClass clsC = Class(getIRI("C"));
+        OWLClass clsA = Class(iri("A"));
+        OWLClass clsB = Class(iri("B"));
+        OWLClass clsC = Class(iri("C"));
         OWLClassExpression desc = ObjectIntersectionOf(clsA, clsC);
         OWLSubClassOfAxiom ax1 = SubClassOf(clsA, clsB);
         assertFalse(ax1.isGCI());

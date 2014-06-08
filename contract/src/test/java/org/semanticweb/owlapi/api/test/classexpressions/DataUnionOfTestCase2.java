@@ -51,7 +51,7 @@ public class DataUnionOfTestCase2 extends AbstractAxiomsRoundTrippingTestCase {
                 dr);
         // here I negate dt
         OWLDataUnionOf union = DataUnionOf(disj1, disj2);
-        OWLDataProperty prop = DataProperty(getIRI("prop"));
+        OWLDataProperty prop = DataProperty(iri("prop"));
         OWLDataPropertyRangeAxiom ax = DataPropertyRange(prop, union);
         return singleton(ax);
     }

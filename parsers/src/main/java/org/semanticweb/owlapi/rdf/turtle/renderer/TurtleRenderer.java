@@ -29,7 +29,6 @@ import java.util.Stack;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.formats.PrefixOWLOntologyFormat;
-import org.semanticweb.owlapi.formats.RDFOntologyFormat;
 import org.semanticweb.owlapi.io.RDFLiteral;
 import org.semanticweb.owlapi.io.RDFNode;
 import org.semanticweb.owlapi.io.RDFResource;
@@ -277,8 +276,7 @@ public class TurtleRenderer extends RDFRendererBase {
         writer.flush();
         writer.println();
         writeComment(VersionInfo.getVersionInfo().getGeneratedByMessage());
-        if (format instanceof RDFOntologyFormat
-                && !((RDFOntologyFormat) format).isAddMissingTypes()) {
+        if (!format.isAddMissingTypes()) {
             // missing type declarations could have been omitted, adding a
             // comment to document it
             writeComment("Warning: type declarations were not added automatically.");

@@ -34,8 +34,8 @@ public class DataPropertyDomainTestCase extends
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        axioms.add(DataPropertyDomain(DataProperty(getIRI("p")),
-                Class(getIRI("A"))));
+        axioms.add(DataPropertyDomain(DataProperty(iri("p")),
+                Class(iri("A"))));
         return axioms;
     }
 }

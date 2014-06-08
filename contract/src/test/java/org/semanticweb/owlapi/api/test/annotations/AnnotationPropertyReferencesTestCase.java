@@ -37,9 +37,9 @@ public class AnnotationPropertyReferencesTestCase extends TestBase {
 
     @Test
     public void testContainsReferenceForAnnotationAssertion() {
-        OWLAnnotationProperty ap = AnnotationProperty(getIRI("prop"));
+        OWLAnnotationProperty ap = AnnotationProperty(iri("prop"));
         OWLLiteral val = Literal("Test", "");
-        OWLAnnotationSubject subject = Class(getIRI("A")).getIRI();
+        OWLAnnotationSubject subject = Class(iri("A")).getIRI();
         OWLAnnotationAssertionAxiom ax = AnnotationAssertion(ap, subject, val);
         OWLOntology ont = getOWLOntology("Ont");
         ont.getOWLOntologyManager().addAxiom(ont, ax);
@@ -51,11 +51,11 @@ public class AnnotationPropertyReferencesTestCase extends TestBase {
 
     @Test
     public void testContainsReferenceForAxiomAnnotation() {
-        OWLAnnotationProperty ap = AnnotationProperty(getIRI("prop"));
+        OWLAnnotationProperty ap = AnnotationProperty(iri("prop"));
         OWLLiteral val = Literal("Test", "");
         OWLAnnotation anno = df.getOWLAnnotation(ap, val);
-        OWLSubClassOfAxiom ax = df.getOWLSubClassOfAxiom(Class(getIRI("A")),
-                Class(getIRI("B")), singleton(anno));
+        OWLSubClassOfAxiom ax = df.getOWLSubClassOfAxiom(Class(iri("A")),
+                Class(iri("B")), singleton(anno));
         OWLOntology ont = getOWLOntology("Ont");
         ont.getOWLOntologyManager().addAxiom(ont, ax);
         assertTrue(ont.containsAnnotationPropertyInSignature(anno.getProperty()
@@ -66,7 +66,7 @@ public class AnnotationPropertyReferencesTestCase extends TestBase {
 
     @Test
     public void testContainsReferenceForOntologyAnnotation() {
-        OWLAnnotationProperty ap = AnnotationProperty(getIRI("prop"));
+        OWLAnnotationProperty ap = AnnotationProperty(iri("prop"));
         OWLLiteral val = Literal("Test");
         OWLAnnotation anno = df.getOWLAnnotation(ap, val);
         OWLOntology ont = getOWLOntology("Ont");

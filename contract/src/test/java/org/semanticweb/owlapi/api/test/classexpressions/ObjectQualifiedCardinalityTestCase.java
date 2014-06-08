@@ -38,9 +38,9 @@ public class ObjectQualifiedCardinalityTestCase extends
     @Test
     public void testCorrectAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        OWLClass clsA = Class(getIRI("A"));
-        OWLClass clsB = Class(getIRI("B"));
-        OWLObjectProperty prop = ObjectProperty(getIRI("p"));
+        OWLClass clsA = Class(iri("A"));
+        OWLClass clsB = Class(iri("B"));
+        OWLObjectProperty prop = ObjectProperty(iri("p"));
         axioms.add(Declaration(prop));
         axioms.add(SubClassOf(clsA, ObjectExactCardinality(3, prop, clsB)));
         assertEquals(getOnt().getAxioms(), axioms);

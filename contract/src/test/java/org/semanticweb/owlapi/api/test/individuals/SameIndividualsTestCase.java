@@ -35,8 +35,8 @@ public class SameIndividualsTestCase extends
     protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         // Can't round trip more than two in RDF!
-        axioms.add(SameIndividual(NamedIndividual(getIRI("i")),
-                NamedIndividual(getIRI("j"))));
+        axioms.add(SameIndividual(NamedIndividual(iri("i")),
+                NamedIndividual(iri("j"))));
         return axioms;
     }
 }

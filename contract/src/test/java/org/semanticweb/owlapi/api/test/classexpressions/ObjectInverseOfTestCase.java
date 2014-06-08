@@ -36,12 +36,12 @@ public class ObjectInverseOfTestCase extends
     @Nonnull
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
-        OWLClass clsA = Class(getIRI("A"));
-        OWLObjectProperty prop = ObjectProperty(getIRI("prop"));
+        OWLClass clsA = Class(iri("A"));
+        OWLObjectProperty prop = ObjectProperty(iri("prop"));
         OWLClassExpression ce = ObjectSomeValuesFrom(prop.getInverseProperty(),
                 clsA);
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        axioms.add(SubClassOf(Class(getIRI("B")), ce));
+        axioms.add(SubClassOf(Class(iri("B")), ce));
         return axioms;
     }
 }

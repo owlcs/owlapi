@@ -23,7 +23,6 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 import org.junit.Rule;
-import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 import org.junit.rules.Timeout;
@@ -228,7 +227,7 @@ public abstract class TestBase {
     }
 
     @Nonnull
-    public IRI getIRI(String name) {
+    public IRI iri(String name) {
         return IRI(uriBase + '#' + name);
     }
 
@@ -281,7 +280,7 @@ public abstract class TestBase {
         return ont2;
     }
 
-    @Test
+    // @Test
     public void checkVerify() {
         OWLDataProperty t = df.getOWLDataProperty(IRI.create("urn:test#t"));
         Set<OWLAxiom> ax1 = new HashSet<OWLAxiom>();

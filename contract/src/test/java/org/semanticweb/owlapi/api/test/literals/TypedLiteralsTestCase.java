@@ -46,8 +46,8 @@ public class TypedLiteralsTestCase extends AbstractAxiomsRoundTrippingTestCase {
 
     private void addAxiomForLiteral(@Nonnull OWLLiteral lit,
             @Nonnull Set<OWLAxiom> axioms) {
-        OWLDataProperty prop = DataProperty(getIRI("p"));
-        OWLNamedIndividual ind = NamedIndividual(getIRI("i"));
+        OWLDataProperty prop = DataProperty(iri("p"));
+        OWLNamedIndividual ind = NamedIndividual(iri("i"));
         axioms.add(DataPropertyAssertion(prop, ind, lit));
     }
 }

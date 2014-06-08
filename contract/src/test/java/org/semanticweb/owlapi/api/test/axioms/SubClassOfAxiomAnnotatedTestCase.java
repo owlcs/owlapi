@@ -31,8 +31,8 @@ public class SubClassOfAxiomAnnotatedTestCase extends
 
     @Override
     protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
-        OWLClass clsA = Class(getIRI("A"));
-        OWLClass clsB = Class(getIRI("B"));
+        OWLClass clsA = Class(iri("A"));
+        OWLClass clsB = Class(iri("B"));
         return df.getOWLSubClassOfAxiom(clsA, clsB, annos);
     }
 }

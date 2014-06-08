@@ -39,7 +39,7 @@ public class OntologyMutationTestCase extends TestBase {
     @Test
     public void testAddAxiom() {
         OWLOntology ont = getOWLOntology("OntA");
-        OWLAxiom ax = SubClassOf(Class(getIRI("A")), OWLThing());
+        OWLAxiom ax = SubClassOf(Class(iri("A")), OWLThing());
         final List<OWLOntologyChange<?>> chgs = new ArrayList<OWLOntologyChange<?>>();
         ont.getOWLOntologyManager().addOntologyChangeListener(
                 new OWLOntologyChangeListener() {
@@ -60,7 +60,7 @@ public class OntologyMutationTestCase extends TestBase {
     @Test
     public void testAddAxioms() {
         OWLOntology ont = getOWLOntology("OntB");
-        OWLAxiom ax = SubClassOf(Class(getIRI("A")), OWLThing());
+        OWLAxiom ax = SubClassOf(Class(iri("A")), OWLThing());
         final List<OWLOntologyChange<?>> chgs = new ArrayList<OWLOntologyChange<?>>();
         ont.getOWLOntologyManager().addOntologyChangeListener(
                 new OWLOntologyChangeListener() {
@@ -81,7 +81,7 @@ public class OntologyMutationTestCase extends TestBase {
     @Test
     public void testApplyChange() {
         OWLOntology ont = getOWLOntology("OntC");
-        OWLAxiom ax = SubClassOf(Class(getIRI("A")), OWLThing());
+        OWLAxiom ax = SubClassOf(Class(iri("A")), OWLThing());
         final List<OWLOntologyChange<?>> chgs = new ArrayList<OWLOntologyChange<?>>();
         ont.getOWLOntologyManager().addOntologyChangeListener(
                 new OWLOntologyChangeListener() {
@@ -102,7 +102,7 @@ public class OntologyMutationTestCase extends TestBase {
     @Test
     public void testApplyChanges() {
         OWLOntology ont = getOWLOntology("OntD");
-        OWLAxiom ax = SubClassOf(Class(getIRI("A")), OWLThing());
+        OWLAxiom ax = SubClassOf(Class(iri("A")), OWLThing());
         final List<OWLOntologyChange<?>> chgs = new ArrayList<OWLOntologyChange<?>>();
         ont.getOWLOntologyManager().addOntologyChangeListener(
                 new OWLOntologyChangeListener() {

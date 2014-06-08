@@ -38,9 +38,9 @@ public class AnnotationPropertyConvenienceMethodTestCase extends TestBase {
     @Test
     public void testGetSuperProperties() {
         OWLOntology ont = getOWLOntology("OntA");
-        OWLAnnotationProperty propP = AnnotationProperty(getIRI("propP"));
-        OWLAnnotationProperty propQ = AnnotationProperty(getIRI("propQ"));
-        OWLAnnotationProperty propR = AnnotationProperty(getIRI("propR"));
+        OWLAnnotationProperty propP = AnnotationProperty(iri("propP"));
+        OWLAnnotationProperty propQ = AnnotationProperty(iri("propQ"));
+        OWLAnnotationProperty propR = AnnotationProperty(iri("propR"));
         ont.getOWLOntologyManager().addAxiom(ont,
                 df.getOWLSubAnnotationPropertyOfAxiom(propP, propQ));
         ont.getOWLOntologyManager().addAxiom(ont,
@@ -58,9 +58,9 @@ public class AnnotationPropertyConvenienceMethodTestCase extends TestBase {
     @Test
     public void testGetSubProperties() {
         OWLOntology ont = getOWLOntology("OntA");
-        OWLAnnotationProperty propP = AnnotationProperty(getIRI("propP"));
-        OWLAnnotationProperty propQ = AnnotationProperty(getIRI("propQ"));
-        OWLAnnotationProperty propR = AnnotationProperty(getIRI("propR"));
+        OWLAnnotationProperty propP = AnnotationProperty(iri("propP"));
+        OWLAnnotationProperty propQ = AnnotationProperty(iri("propQ"));
+        OWLAnnotationProperty propR = AnnotationProperty(iri("propR"));
         ont.getOWLOntologyManager().addAxiom(ont,
                 df.getOWLSubAnnotationPropertyOfAxiom(propP, propQ));
         ont.getOWLOntologyManager().addAxiom(ont,

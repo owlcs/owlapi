@@ -38,8 +38,8 @@ public class ObjectCardinalityTestCase extends
     @Test
     public void testCorrectAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        OWLClass clsA = Class(getIRI("A"));
-        OWLObjectProperty prop = ObjectProperty(getIRI("p"));
+        OWLClass clsA = Class(iri("A"));
+        OWLObjectProperty prop = ObjectProperty(iri("p"));
         axioms.add(Declaration(prop));
         axioms.add(SubClassOf(clsA, ObjectExactCardinality(3, prop, OWLThing())));
         assertEquals(getOnt().getAxioms(), axioms);

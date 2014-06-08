@@ -33,7 +33,7 @@ public class NamedIndividualDeclarationWithAnnotationsTestCase extends
 
     @Override
     protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
-        OWLEntity ent = NamedIndividual(getIRI("I"));
+        OWLEntity ent = NamedIndividual(iri("I"));
         return Declaration(ent, annos);
     }
 

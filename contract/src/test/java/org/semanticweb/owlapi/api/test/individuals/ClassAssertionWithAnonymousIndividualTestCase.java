@@ -37,7 +37,7 @@ public class ClassAssertionWithAnonymousIndividualTestCase extends
     protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         OWLIndividual ind = AnonymousIndividual("a");
-        OWLClass cls = Class(getIRI("A"));
+        OWLClass cls = Class(iri("A"));
         axioms.add(ClassAssertion(cls, ind));
         axioms.add(Declaration(cls));
         return axioms;

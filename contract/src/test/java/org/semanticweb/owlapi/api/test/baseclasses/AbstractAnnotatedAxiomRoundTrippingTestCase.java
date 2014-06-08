@@ -35,10 +35,10 @@ public abstract class AbstractAnnotatedAxiomRoundTrippingTestCase extends
     @Nonnull
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
-        OWLAnnotationProperty prop = AnnotationProperty(getIRI("prop"));
+        OWLAnnotationProperty prop = AnnotationProperty(iri("prop"));
         OWLLiteral lit = Literal("Test", "");
         OWLAnnotation anno1 = df.getOWLAnnotation(prop, lit);
-        OWLAnnotationProperty prop2 = AnnotationProperty(getIRI("prop2"));
+        OWLAnnotationProperty prop2 = AnnotationProperty(iri("prop2"));
         OWLAnnotation anno2 = df.getOWLAnnotation(prop2, lit);
         Set<OWLAnnotation> annos = new HashSet<OWLAnnotation>();
         // Add two annotations per axiom

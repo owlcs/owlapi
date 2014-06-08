@@ -30,7 +30,7 @@ public class DataPropertyRangeAnnotatedTestCase extends
 
     @Override
     protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
-        return DataPropertyRange(DataProperty(getIRI("p")), TopDatatype(),
+        return DataPropertyRange(DataProperty(iri("p")), TopDatatype(),
                 annos);
     }
 }

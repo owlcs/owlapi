@@ -30,7 +30,7 @@ public class DataPropertyAssertionAnnotatedTestCase extends
 
     @Override
     protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
-        return DataPropertyAssertion(DataProperty(getIRI("p")),
-                NamedIndividual(getIRI("i")), Literal("xyz"), annos);
+        return DataPropertyAssertion(DataProperty(iri("p")),
+                NamedIndividual(iri("i")), Literal("xyz"), annos);
     }
 }

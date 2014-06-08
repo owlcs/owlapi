@@ -42,7 +42,7 @@ public class DataIntersectionOfTestCase extends
         OWLDataRange intdr = df.getIntegerOWLDatatype();
         OWLDataRange floatdr = df.getFloatOWLDatatype();
         OWLDataRange intersection = df.getOWLDataIntersectionOf(intdr, floatdr);
-        OWLDataProperty p = DataProperty(getIRI("p"));
+        OWLDataProperty p = DataProperty(iri("p"));
         OWLDataPropertyRangeAxiom ax = df.getOWLDataPropertyRangeAxiom(p,
                 intersection);
         axioms.add(ax);

@@ -30,7 +30,7 @@ public class AsymmetricPropertyRoundTripTestCase extends
     protected OWLOntology createOntology() {
         OWLOntology ont = getOWLOntology("Test");
         ont.getOWLOntologyManager().addAxiom(ont,
-                AsymmetricObjectProperty(ObjectProperty(getIRI("p"))));
+                AsymmetricObjectProperty(ObjectProperty(iri("p"))));
         return ont;
     }
 

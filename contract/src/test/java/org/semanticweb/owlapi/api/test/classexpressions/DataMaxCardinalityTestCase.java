@@ -38,8 +38,8 @@ public class DataMaxCardinalityTestCase extends
     @Test
     public void testCorrectAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        OWLClass clsA = Class(getIRI("A"));
-        OWLDataProperty prop = DataProperty(getIRI("p"));
+        OWLClass clsA = Class(iri("A"));
+        OWLDataProperty prop = DataProperty(iri("p"));
         axioms.add(SubClassOf(clsA, DataMaxCardinality(3, prop, TopDatatype())));
         axioms.add(Declaration(prop));
         assertEquals(getOnt().getAxioms(), axioms);

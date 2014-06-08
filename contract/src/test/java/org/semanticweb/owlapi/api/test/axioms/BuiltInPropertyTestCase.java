@@ -42,13 +42,13 @@ public class BuiltInPropertyTestCase extends TestBase {
 
     @Test
     public void testTopObjectPropertyNegative() {
-        OWLObjectPropertyExpression prop = ObjectProperty(getIRI("prop"));
+        OWLObjectPropertyExpression prop = ObjectProperty(iri("prop"));
         assertFalse(prop.isOWLTopObjectProperty());
     }
 
     @Test
     public void testBottomObjectPropertyNegative() {
-        OWLObjectPropertyExpression prop = ObjectProperty(getIRI("prop"));
+        OWLObjectPropertyExpression prop = ObjectProperty(iri("prop"));
         assertFalse(prop.isOWLBottomObjectProperty());
     }
 
@@ -66,13 +66,13 @@ public class BuiltInPropertyTestCase extends TestBase {
 
     @Test
     public void testTopDataPropertyNegative() {
-        OWLDataPropertyExpression prop = DataProperty(getIRI("prop"));
+        OWLDataPropertyExpression prop = DataProperty(iri("prop"));
         assertFalse(prop.isOWLTopDataProperty());
     }
 
     @Test
     public void testBottomDataPropertyNegative() {
-        OWLDataPropertyExpression prop = DataProperty(getIRI("prop"));
+        OWLDataPropertyExpression prop = DataProperty(iri("prop"));
         assertFalse(prop.isOWLBottomDataProperty());
     }
 }

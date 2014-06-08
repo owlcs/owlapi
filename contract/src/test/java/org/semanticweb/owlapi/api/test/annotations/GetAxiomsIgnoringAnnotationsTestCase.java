@@ -35,10 +35,10 @@ public class GetAxiomsIgnoringAnnotationsTestCase extends TestBase {
     @Test
     public void testGetAxiomsIgnoringAnnoations() {
         OWLLiteral annoLiteral = Literal("value");
-        OWLAnnotationProperty annoProp = AnnotationProperty(getIRI("annoProp"));
+        OWLAnnotationProperty annoProp = AnnotationProperty(iri("annoProp"));
         OWLAnnotation anno = df.getOWLAnnotation(annoProp, annoLiteral);
-        OWLAxiom axiom = df.getOWLSubClassOfAxiom(Class(getIRI("A")),
-                Class(getIRI("B")), singleton(anno));
+        OWLAxiom axiom = df.getOWLSubClassOfAxiom(Class(iri("A")),
+                Class(iri("B")), singleton(anno));
         OWLOntology ont = getOWLOntology("testont");
         ont.getOWLOntologyManager().addAxiom(ont, axiom);
         assertTrue(ont.getAxiomsIgnoreAnnotations(axiom, EXCLUDED).contains(

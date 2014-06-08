@@ -34,7 +34,7 @@ public class InverseFunctionalObjectPropertyTestCase extends
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        axioms.add(InverseFunctionalObjectProperty(ObjectProperty(getIRI("p"))));
+        axioms.add(InverseFunctionalObjectProperty(ObjectProperty(iri("p"))));
         return axioms;
     }
 }

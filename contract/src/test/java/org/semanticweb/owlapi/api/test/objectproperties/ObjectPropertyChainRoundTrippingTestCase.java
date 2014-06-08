@@ -33,10 +33,10 @@ public class ObjectPropertyChainRoundTrippingTestCase extends
     @Override
     protected OWLOntology createOntology() {
         OWLOntology ont = getOWLOntology("OntA");
-        OWLObjectProperty propA = ObjectProperty(getIRI("propA"));
-        OWLObjectProperty propB = ObjectProperty(getIRI("propB"));
-        OWLObjectProperty propC = ObjectProperty(getIRI("propC"));
-        OWLObjectProperty propD = ObjectProperty(getIRI("propD"));
+        OWLObjectProperty propA = ObjectProperty(iri("propA"));
+        OWLObjectProperty propB = ObjectProperty(iri("propB"));
+        OWLObjectProperty propC = ObjectProperty(iri("propC"));
+        OWLObjectProperty propD = ObjectProperty(iri("propD"));
         List<OWLObjectProperty> props = new ArrayList<OWLObjectProperty>();
         props.add(propA);
         props.add(propB);

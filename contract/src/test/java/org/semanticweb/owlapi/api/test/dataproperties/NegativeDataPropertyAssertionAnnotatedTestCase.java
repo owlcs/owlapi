@@ -30,7 +30,7 @@ public class NegativeDataPropertyAssertionAnnotatedTestCase extends
 
     @Override
     protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
-        return NegativeDataPropertyAssertion(DataProperty(getIRI("p")),
-                NamedIndividual(getIRI("i")), Literal("xyz"), annos);
+        return NegativeDataPropertyAssertion(DataProperty(iri("p")),
+                NamedIndividual(iri("i")), Literal("xyz"), annos);
     }
 }

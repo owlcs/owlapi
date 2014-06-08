@@ -37,8 +37,8 @@ public class ObjectHasSelfTestCase extends AbstractFileRoundTrippingTestCase {
     @Test
     public void testCorrectAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        OWLClass clsA = Class(getIRI("A"));
-        OWLObjectProperty propP = ObjectProperty(getIRI("p"));
+        OWLClass clsA = Class(iri("A"));
+        OWLObjectProperty propP = ObjectProperty(iri("p"));
         axioms.add(SubClassOf(clsA, ObjectHasSelf(propP)));
         axioms.add(Declaration(propP));
         assertEquals(getOnt().getAxioms(), axioms);

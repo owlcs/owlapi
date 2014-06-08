@@ -35,8 +35,8 @@ public class DisjointDataPropertiesTestCase extends
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        OWLDataPropertyExpression propA = DataProperty(getIRI("propA"));
-        OWLDataPropertyExpression propB = DataProperty(getIRI("propB"));
+        OWLDataPropertyExpression propA = DataProperty(iri("propA"));
+        OWLDataPropertyExpression propB = DataProperty(iri("propB"));
         axioms.add(DisjointDataProperties(propA, propB));
         return axioms;
     }

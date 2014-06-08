@@ -33,7 +33,7 @@ public class DatatypeDeclarationWithAnnotationsTestCase extends
 
     @Override
     protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
-        OWLEntity ent = Datatype(getIRI("DT"));
+        OWLEntity ent = Datatype(iri("DT"));
         return Declaration(ent, annos);
     }
 

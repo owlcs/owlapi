@@ -35,7 +35,7 @@ public class TransitiveObjectPropertyInverseTestCase extends
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        axioms.add(TransitiveObjectProperty(ObjectProperty(getIRI("p"))
+        axioms.add(TransitiveObjectProperty(ObjectProperty(iri("p"))
                 .getInverseProperty()));
         return axioms;
     }

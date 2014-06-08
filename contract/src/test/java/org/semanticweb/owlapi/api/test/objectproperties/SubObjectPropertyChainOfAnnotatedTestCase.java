@@ -42,8 +42,8 @@ public class SubObjectPropertyChainOfAnnotatedTestCase extends
     @Override
     protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
         List<OWLObjectProperty> props = Arrays.asList(
-                ObjectProperty(getIRI("p")), ObjectProperty(getIRI("q")));
-        return SubPropertyChainOf(props, ObjectProperty(getIRI("r")), annos);
+                ObjectProperty(iri("p")), ObjectProperty(iri("q")));
+        return SubPropertyChainOf(props, ObjectProperty(iri("r")), annos);
     }
 
     @Test

@@ -40,7 +40,7 @@ public class DataComplementOfTestCase extends AbstractFileRoundTrippingTestCase 
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         OWLDataRange intdr = Integer();
         OWLDataRange complement = DataComplementOf(intdr);
-        OWLDataProperty p = DataProperty(getIRI("p"));
+        OWLDataProperty p = DataProperty(iri("p"));
         OWLDataPropertyRangeAxiom ax = DataPropertyRange(p, complement);
         axioms.add(ax);
         axioms.add(Declaration(p));

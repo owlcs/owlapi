@@ -39,9 +39,9 @@ public class DataSomeValuesFromTestCase extends
     @Test
     public void testCorrectAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        OWLClass clsA = Class(getIRI("A"));
-        OWLDatatype dt = Datatype(getIRI("B"));
-        OWLDataProperty propP = DataProperty(getIRI("p"));
+        OWLClass clsA = Class(iri("A"));
+        OWLDatatype dt = Datatype(iri("B"));
+        OWLDataProperty propP = DataProperty(iri("p"));
         axioms.add(SubClassOf(clsA, DataSomeValuesFrom(propP, dt)));
         axioms.add(Declaration(dt));
         axioms.add(Declaration(propP));

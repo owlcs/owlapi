@@ -33,7 +33,7 @@ public class AnnotationPropertyDeclarationWithAnnotationsTestCase extends
 
     @Override
     protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
-        OWLEntity ent = AnnotationProperty(getIRI("propA"));
+        OWLEntity ent = AnnotationProperty(iri("propA"));
         return df.getOWLDeclarationAxiom(ent, annos);
     }
 

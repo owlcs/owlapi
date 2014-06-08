@@ -30,6 +30,6 @@ public class AsymmetricObjectPropertyAnnotatedTestCase extends
 
     @Override
     protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
-        return AsymmetricObjectProperty(ObjectProperty(getIRI("p")), annos);
+        return AsymmetricObjectProperty(ObjectProperty(iri("p")), annos);
     }
 }

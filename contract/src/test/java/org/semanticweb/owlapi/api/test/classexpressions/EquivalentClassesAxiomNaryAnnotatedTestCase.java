@@ -31,8 +31,8 @@ public class EquivalentClassesAxiomNaryAnnotatedTestCase extends
 
     @Override
     protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
-        return EquivalentClasses(annos, Class(getIRI("A")), Class(getIRI("B")),
-                Class(getIRI("C")), Class(getIRI("D")));
+        return EquivalentClasses(annos, Class(iri("A")), Class(iri("B")),
+                Class(iri("C")), Class(iri("D")));
     }
 
     @Override

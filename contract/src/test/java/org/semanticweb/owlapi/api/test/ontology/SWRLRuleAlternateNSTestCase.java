@@ -47,24 +47,24 @@ public class SWRLRuleAlternateNSTestCase extends
         SWRLVariable varY = df.getSWRLVariable(IRI("http://www.owlapi#y"));
         SWRLVariable varZ = df.getSWRLVariable(IRI("http://www.owlapi#z"));
         Set<SWRLAtom> body = new HashSet<SWRLAtom>();
-        body.add(df.getSWRLClassAtom(Class(getIRI("A")), varX));
+        body.add(df.getSWRLClassAtom(Class(iri("A")), varX));
         SWRLIndividualArgument indIArg = df
-                .getSWRLIndividualArgument(NamedIndividual(getIRI("i")));
+                .getSWRLIndividualArgument(NamedIndividual(iri("i")));
         SWRLIndividualArgument indJArg = df
-                .getSWRLIndividualArgument(NamedIndividual(getIRI("j")));
-        body.add(df.getSWRLClassAtom(Class(getIRI("D")), indIArg));
-        body.add(df.getSWRLClassAtom(Class(getIRI("B")), varX));
+                .getSWRLIndividualArgument(NamedIndividual(iri("j")));
+        body.add(df.getSWRLClassAtom(Class(iri("D")), indIArg));
+        body.add(df.getSWRLClassAtom(Class(iri("B")), varX));
         SWRLVariable varQ = df.getSWRLVariable(IRI("http://www.owlapi#q"));
         SWRLVariable varR = df.getSWRLVariable(IRI("http://www.owlapi#r"));
-        body.add(df.getSWRLDataPropertyAtom(DataProperty(getIRI("d")), varX,
+        body.add(df.getSWRLDataPropertyAtom(DataProperty(iri("d")), varX,
                 varQ));
         OWLLiteral lit = Literal(33);
         SWRLLiteralArgument litArg = df.getSWRLLiteralArgument(lit);
-        body.add(df.getSWRLDataPropertyAtom(DataProperty(getIRI("d")), varY,
+        body.add(df.getSWRLDataPropertyAtom(DataProperty(iri("d")), varY,
                 litArg));
         Set<SWRLAtom> head = new HashSet<SWRLAtom>();
-        head.add(df.getSWRLClassAtom(Class(getIRI("C")), varX));
-        head.add(df.getSWRLObjectPropertyAtom(ObjectProperty(getIRI("p")),
+        head.add(df.getSWRLClassAtom(Class(iri("C")), varX));
+        head.add(df.getSWRLObjectPropertyAtom(ObjectProperty(iri("p")),
                 varY, varZ));
         head.add(df.getSWRLSameIndividualAtom(varX, varY));
         head.add(df.getSWRLSameIndividualAtom(indIArg, indJArg));
@@ -72,7 +72,7 @@ public class SWRLRuleAlternateNSTestCase extends
         head.add(df.getSWRLDifferentIndividualsAtom(varX, varZ));
         head.add(df.getSWRLDifferentIndividualsAtom(indIArg, indJArg));
         OWLObjectSomeValuesFrom svf = ObjectSomeValuesFrom(
-                ObjectProperty(getIRI("p")), Class(getIRI("A")));
+                ObjectProperty(iri("p")), Class(iri("A")));
         head.add(df.getSWRLClassAtom(svf, varX));
         List<SWRLDArgument> args = new ArrayList<SWRLDArgument>();
         args.add(varQ);

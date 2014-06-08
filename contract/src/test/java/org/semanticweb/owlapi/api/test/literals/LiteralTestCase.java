@@ -41,8 +41,8 @@ public class LiteralTestCase extends AbstractAxiomsRoundTrippingTestCase {
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         OWLLiteral literalWithLang = Literal("abc", "en");
-        OWLClass cls = Class(getIRI("A"));
-        OWLAnnotationProperty prop = AnnotationProperty(getIRI("prop"));
+        OWLClass cls = Class(iri("A"));
+        OWLAnnotationProperty prop = AnnotationProperty(iri("prop"));
         OWLAnnotationAssertionAxiom ax = AnnotationAssertion(prop,
                 cls.getIRI(), literalWithLang);
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();

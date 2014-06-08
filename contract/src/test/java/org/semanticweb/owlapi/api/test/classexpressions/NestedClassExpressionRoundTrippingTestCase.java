@@ -32,9 +32,9 @@ public class NestedClassExpressionRoundTrippingTestCase extends
     @Override
     protected OWLOntology createOntology() {
         OWLOntology ont = getOWLOntology("OntA");
-        OWLObjectProperty prop = ObjectProperty(getIRI("propP"));
-        OWLClass clsA = Class(getIRI("A"));
-        OWLClass clsB = Class(getIRI("B"));
+        OWLObjectProperty prop = ObjectProperty(iri("propP"));
+        OWLClass clsA = Class(iri("A"));
+        OWLClass clsB = Class(iri("B"));
         OWLClassExpression desc = ObjectSomeValuesFrom(prop,
                 ObjectSomeValuesFrom(prop, clsB));
         OWLAxiom ax = SubClassOf(clsA, desc);

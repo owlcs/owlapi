@@ -30,6 +30,6 @@ public class TransitiveObjectPropertyAnnotatedTestCase extends
 
     @Override
     protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
-        return TransitiveObjectProperty(ObjectProperty(getIRI("p")), annos);
+        return TransitiveObjectProperty(ObjectProperty(iri("p")), annos);
     }
 }

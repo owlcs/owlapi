@@ -34,7 +34,7 @@ public class IrreflexiveObjectPropertyTestCase extends
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        axioms.add(IrreflexiveObjectProperty(ObjectProperty(getIRI("p"))));
+        axioms.add(IrreflexiveObjectProperty(ObjectProperty(iri("p"))));
         return axioms;
     }
 }

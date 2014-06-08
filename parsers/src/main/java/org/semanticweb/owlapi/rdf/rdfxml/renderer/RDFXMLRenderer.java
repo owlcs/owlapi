@@ -25,7 +25,6 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.formats.RDFOntologyFormat;
 import org.semanticweb.owlapi.io.RDFLiteral;
 import org.semanticweb.owlapi.io.RDFNode;
 import org.semanticweb.owlapi.io.RDFResource;
@@ -120,8 +119,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
         writer.endDocument();
         writer.writeComment(VersionInfo.getVersionInfo()
                 .getGeneratedByMessage());
-        if (format instanceof RDFOntologyFormat
-                && !((RDFOntologyFormat) format).isAddMissingTypes()) {
+        if (!format.isAddMissingTypes()) {
             // missing type declarations could have been omitted, adding a
             // comment to document it
             writer.writeComment("Warning: type declarations were not added automatically.");

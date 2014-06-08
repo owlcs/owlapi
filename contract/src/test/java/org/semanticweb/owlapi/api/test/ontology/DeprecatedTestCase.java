@@ -40,12 +40,12 @@ public class DeprecatedTestCase extends AbstractFileTestCase {
     public void testAnnotationAssertionsPresent()
             throws OWLOntologyCreationException {
         OWLOntology ont = createOntology();
-        OWLClass cls = Class(getIRI("http://www.semanticweb.org/owlapi/test#ClsA"));
+        OWLClass cls = Class(iri("http://www.semanticweb.org/owlapi/test#ClsA"));
         for (OWLAnnotation anno : annotations(ont.filterAxioms(
                 Filters.annotations, cls.getIRI(), INCLUDED))) {
             assertTrue(anno.isDeprecatedIRIAnnotation());
         }
-        OWLDataProperty prop = DataProperty(getIRI("http://www.semanticweb.org/owlapi/test#prop"));
+        OWLDataProperty prop = DataProperty(iri("http://www.semanticweb.org/owlapi/test#prop"));
         for (OWLAnnotation anno : annotations(ont.filterAxioms(
                 Filters.annotations, prop.getIRI(), INCLUDED))) {
             assertTrue(anno.isDeprecatedIRIAnnotation());

@@ -44,10 +44,10 @@ public class HasKeyAnnotatedTestCase extends
         OWLAnnotation anno = Annotation(ap, val);
         Set<OWLAnnotation> annos = new HashSet<OWLAnnotation>();
         annos.add(anno);
-        OWLClassExpression ce = Class(getIRI("A"));
-        OWLObjectProperty p1 = ObjectProperty(getIRI("p1"));
-        OWLObjectProperty p2 = ObjectProperty(getIRI("p2"));
-        OWLObjectProperty p3 = ObjectProperty(getIRI("p3"));
+        OWLClassExpression ce = Class(iri("A"));
+        OWLObjectProperty p1 = ObjectProperty(iri("p1"));
+        OWLObjectProperty p2 = ObjectProperty(iri("p2"));
+        OWLObjectProperty p3 = ObjectProperty(iri("p3"));
         OWLHasKeyAxiom ax = HasKey(annos, ce, p1, p2, p3);
         Set<OWLAxiom> axs = new HashSet<OWLAxiom>();
         axs.add(ax);

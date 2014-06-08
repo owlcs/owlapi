@@ -35,8 +35,8 @@ public class ObjectPropertyRangeInverseTestCase extends
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        axioms.add(ObjectPropertyRange(ObjectProperty(getIRI("p"))
-                .getInverseProperty(), Class(getIRI("A"))));
+        axioms.add(ObjectPropertyRange(ObjectProperty(iri("p"))
+                .getInverseProperty(), Class(iri("A"))));
         return axioms;
     }
 

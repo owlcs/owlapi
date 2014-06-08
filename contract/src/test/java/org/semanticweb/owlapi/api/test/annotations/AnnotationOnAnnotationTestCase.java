@@ -36,22 +36,22 @@ public class AnnotationOnAnnotationTestCase extends
     protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         OWLAnnotation annoOuterOuter1 = df.getOWLAnnotation(
-                AnnotationProperty(getIRI("myOuterOuterLabel1")),
+                AnnotationProperty(iri("myOuterOuterLabel1")),
                 Literal("Outer Outer label 1"));
         OWLAnnotation annoOuterOuter2 = df.getOWLAnnotation(
-                AnnotationProperty(getIRI("myOuterOuterLabel2")),
+                AnnotationProperty(iri("myOuterOuterLabel2")),
                 Literal("Outer Outer label 2"));
         Set<OWLAnnotation> outerOuterAnnos = new HashSet<OWLAnnotation>();
         outerOuterAnnos.add(annoOuterOuter1);
         outerOuterAnnos.add(annoOuterOuter2);
         OWLAnnotation annoOuter = df.getOWLAnnotation(
-                AnnotationProperty(getIRI("myOuterLabel")),
+                AnnotationProperty(iri("myOuterLabel")),
                 Literal("Outer label"), outerOuterAnnos);
         OWLAnnotation annoInner = df.getOWLAnnotation(
-                AnnotationProperty(getIRI("myLabel")), Literal("Label"),
+                AnnotationProperty(iri("myLabel")), Literal("Label"),
                 singleton(annoOuter));
-        OWLAxiom ax = df.getOWLSubClassOfAxiom(Class(getIRI("A")),
-                Class(getIRI("B")), singleton(annoInner));
+        OWLAxiom ax = df.getOWLSubClassOfAxiom(Class(iri("A")),
+                Class(iri("B")), singleton(annoInner));
         axioms.add(ax);
         return axioms;
     }

@@ -37,8 +37,8 @@ public class UntypedSubClassOfTestCase extends
     @Test
     public void testContainsAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        OWLClass clsA = Class(getIRI("A"));
-        OWLClass clsB = Class(getIRI("B"));
+        OWLClass clsA = Class(iri("A"));
+        OWLClass clsB = Class(iri("B"));
         axioms.add(SubClassOf(clsA, clsB));
         assertEquals(axioms, getOnt().getAxioms());
     }

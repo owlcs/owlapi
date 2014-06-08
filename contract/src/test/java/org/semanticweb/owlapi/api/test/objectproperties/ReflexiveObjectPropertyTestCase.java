@@ -34,7 +34,7 @@ public class ReflexiveObjectPropertyTestCase extends
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        axioms.add(ReflexiveObjectProperty(ObjectProperty(getIRI("p"))));
+        axioms.add(ReflexiveObjectProperty(ObjectProperty(iri("p"))));
         return axioms;
     }
 }

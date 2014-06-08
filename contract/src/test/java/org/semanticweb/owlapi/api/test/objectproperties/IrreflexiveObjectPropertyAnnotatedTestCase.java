@@ -30,6 +30,6 @@ public class IrreflexiveObjectPropertyAnnotatedTestCase extends
 
     @Override
     protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
-        return IrreflexiveObjectProperty(ObjectProperty(getIRI("p")), annos);
+        return IrreflexiveObjectProperty(ObjectProperty(iri("p")), annos);
     }
 }

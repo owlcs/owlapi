@@ -34,8 +34,8 @@ public class SubDataPropertyOfTestCase extends
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        axioms.add(SubDataPropertyOf(DataProperty(getIRI("p")),
-                DataProperty(getIRI("q"))));
+        axioms.add(SubDataPropertyOf(DataProperty(iri("p")),
+                DataProperty(iri("q"))));
         return axioms;
     }
 }

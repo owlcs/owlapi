@@ -38,17 +38,17 @@ public class ObjectPropertyChainAnnotatedRoundTrippingTestCase extends
     @Nonnull
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
-        OWLObjectProperty propA = ObjectProperty(getIRI("propA"));
-        OWLObjectProperty propB = ObjectProperty(getIRI("propB"));
-        OWLObjectProperty propC = ObjectProperty(getIRI("propC"));
-        OWLObjectProperty propD = ObjectProperty(getIRI("propD"));
+        OWLObjectProperty propA = ObjectProperty(iri("propA"));
+        OWLObjectProperty propB = ObjectProperty(iri("propB"));
+        OWLObjectProperty propC = ObjectProperty(iri("propC"));
+        OWLObjectProperty propD = ObjectProperty(iri("propD"));
         List<OWLObjectProperty> props = new ArrayList<OWLObjectProperty>();
         props.add(propA);
         props.add(propB);
         props.add(propC);
         Set<OWLAnnotation> annos = new HashSet<OWLAnnotation>();
-        OWLAnnotationProperty annoPropA = AnnotationProperty(getIRI("annoPropA"));
-        OWLAnnotationProperty annoPropB = AnnotationProperty(getIRI("annoPropB"));
+        OWLAnnotationProperty annoPropA = AnnotationProperty(iri("annoPropA"));
+        OWLAnnotationProperty annoPropB = AnnotationProperty(iri("annoPropB"));
         annos.add(Annotation(annoPropA, Literal("Test", "en")));
         annos.add(Annotation(annoPropB, Literal("Test", "")));
         OWLAxiom ax = SubPropertyChainOf(props, propD, annos);

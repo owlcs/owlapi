@@ -34,8 +34,8 @@ public class ObjectPropertyAssertionTestCase extends
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        axioms.add(ObjectPropertyAssertion(ObjectProperty(getIRI("p")),
-                NamedIndividual(getIRI("i")), NamedIndividual(getIRI("j"))));
+        axioms.add(ObjectPropertyAssertion(ObjectProperty(iri("p")),
+                NamedIndividual(iri("i")), NamedIndividual(iri("j"))));
         return axioms;
     }
 }

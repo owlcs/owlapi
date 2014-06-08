@@ -30,8 +30,8 @@ public class InversePropertiesAxiomTestCase extends
         OWLOntology ont = getOWLOntology("ont");
         ont.getOWLOntologyManager().addAxiom(
                 ont,
-                InverseObjectProperties(ObjectProperty(getIRI("p")),
-                        ObjectProperty(getIRI("q"))));
+                InverseObjectProperties(ObjectProperty(iri("p")),
+                        ObjectProperty(iri("q"))));
         return ont;
     }
 }

@@ -30,7 +30,7 @@ public class DisjointObjectPropertiesAnnotatedTestCase extends
 
     @Override
     protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
-        return DisjointObjectProperties(annos, ObjectProperty(getIRI("p")),
-                ObjectProperty(getIRI("q")));
+        return DisjointObjectProperties(annos, ObjectProperty(iri("p")),
+                ObjectProperty(iri("q")));
     }
 }

@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -27,7 +28,6 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.formats.RDFOntologyFormat;
 import org.semanticweb.owlapi.io.RDFLiteral;
 import org.semanticweb.owlapi.io.RDFNode;
 import org.semanticweb.owlapi.io.RDFResource;
@@ -256,54 +256,36 @@ public abstract class RDFRendererBase {
     }
 
     private void renderOntologyComponents() throws IOException {
-        renderInOntologySignatureEntities();
+        renderInOntologySignatureEntities(OWLOntologyFormat
+                .determineIllegalPunnings(shouldInsertDeclarations(),
+                        ontology.getSignature(),
+                        ontology.getPunnedIRIs(INCLUDED)));
         renderAnonymousIndividuals();
         renderUntypedIRIAnnotationAssertions();
         renderGeneralAxioms();
         renderSWRLRules();
     }
 
-    private void renderInOntologySignatureEntities() throws IOException {
-        renderAnnotationProperties();
-        renderDatatypes();
-        renderObjectProperties();
-        renderDataProperties();
-        renderClasses();
-        renderNamedIndividuals();
-    }
-
-    private void renderAnnotationProperties() throws IOException {
+    private void renderInOntologySignatureEntities(Collection<IRI> illegalPuns)
+            throws IOException {
         Set<OWLAnnotationProperty> annotationProperties = ontology
                 .getAnnotationPropertiesInSignature(EXCLUDED);
-        renderEntities(annotationProperties, ANNOTATION_PROPERTIES_BANNER_TEXT);
-    }
-
-    private void renderNamedIndividuals() throws IOException {
-        Set<OWLNamedIndividual> individuals = ontology
-                .getIndividualsInSignature();
-        renderEntities(individuals, INDIVIDUALS_BANNER_TEXT);
-    }
-
-    private void renderClasses() throws IOException {
-        Set<OWLClass> clses = ontology.getClassesInSignature();
-        renderEntities(clses, CLASSES_BANNER_TEXT);
-    }
-
-    private void renderDataProperties() throws IOException {
-        Set<OWLDataProperty> dataProperties = ontology
-                .getDataPropertiesInSignature();
-        renderEntities(dataProperties, DATA_PROPERTIES_BANNER_TEXT);
-    }
-
-    private void renderObjectProperties() throws IOException {
+        renderEntities(annotationProperties, ANNOTATION_PROPERTIES_BANNER_TEXT,
+                illegalPuns);
+        Set<OWLDatatype> datatypes = ontology.getDatatypesInSignature();
+        renderEntities(datatypes, DATATYPES_BANNER_TEXT, illegalPuns);
         Set<OWLObjectProperty> objectProperties = ontology
                 .getObjectPropertiesInSignature();
-        renderEntities(objectProperties, OBJECT_PROPERTIES_BANNER_TEXT);
-    }
-
-    private void renderDatatypes() throws IOException {
-        Set<OWLDatatype> datatypes = ontology.getDatatypesInSignature();
-        renderEntities(datatypes, DATATYPES_BANNER_TEXT);
+        renderEntities(objectProperties, OBJECT_PROPERTIES_BANNER_TEXT,
+                illegalPuns);
+        Set<OWLDataProperty> dataProperties = ontology
+                .getDataPropertiesInSignature();
+        renderEntities(dataProperties, DATA_PROPERTIES_BANNER_TEXT, illegalPuns);
+        Set<OWLClass> clses = ontology.getClassesInSignature();
+        renderEntities(clses, CLASSES_BANNER_TEXT, illegalPuns);
+        Set<OWLNamedIndividual> individuals = ontology
+                .getIndividualsInSignature();
+        renderEntities(individuals, INDIVIDUALS_BANNER_TEXT, illegalPuns);
     }
 
     /**
@@ -315,15 +297,18 @@ public abstract class RDFRendererBase {
      *        The banner text that will prefix the rendering of the entities if
      *        anything is rendered. Not null. May be empty, in which case no
      *        banner will be written.
+     * @param illegalPuns
+     *        illegal puns
      * @throws IOException
      *         If there was a problem writing the rendering
      */
     private void renderEntities(@Nonnull Set<? extends OWLEntity> entities,
-            @Nonnull String bannerText) throws IOException {
+            @Nonnull String bannerText, Collection<IRI> illegalPuns)
+            throws IOException {
         boolean firstRendering = true;
         for (OWLEntity entity : toSortedSet(entities)) {
             assert entity != null;
-            if (createGraph(entity)) {
+            if (createGraph(entity, illegalPuns)) {
                 if (firstRendering) {
                     firstRendering = false;
                     if (!bannerText.isEmpty()) {
@@ -568,7 +553,8 @@ public abstract class RDFRendererBase {
         }
     }
 
-    private boolean createGraph(@Nonnull OWLEntity entity) {
+    private boolean createGraph(@Nonnull OWLEntity entity,
+            Collection<IRI> illegalPuns) {
         final Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         // Don't write out duplicates for punned annotations!
         if (!punned.contains(entity.getIRI())) {
@@ -651,7 +637,8 @@ public abstract class RDFRendererBase {
             }
         });
         if (axioms.isEmpty() && shouldInsertDeclarations()
-                && RDFOntologyFormat.isMissingType(entity, ontology)) {
+                && !illegalPuns.contains(entity.getIRI())
+                && OWLOntologyFormat.isMissingType(entity, ontology)) {
             axioms.add(ontology.getOWLOntologyManager().getOWLDataFactory()
                     .getOWLDeclarationAxiom(entity));
         }
@@ -660,8 +647,7 @@ public abstract class RDFRendererBase {
     }
 
     protected boolean shouldInsertDeclarations() {
-        return !(format instanceof RDFOntologyFormat)
-                || ((RDFOntologyFormat) format).isAddMissingTypes();
+        return format == null || format.isAddMissingTypes();
     }
 
     protected void createGraph(@Nonnull Set<? extends OWLObject> objects) {

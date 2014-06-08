@@ -31,8 +31,8 @@ public class EquivalentObjectPropertiesNaryAnnotatedTestCase extends
 
     @Override
     protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
-        return EquivalentObjectProperties(annos, ObjectProperty(getIRI("p")),
-                ObjectProperty(getIRI("q")), ObjectProperty(getIRI("r")));
+        return EquivalentObjectProperties(annos, ObjectProperty(iri("p")),
+                ObjectProperty(iri("q")), ObjectProperty(iri("r")));
     }
 
     @Override

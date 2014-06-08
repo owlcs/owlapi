@@ -34,8 +34,8 @@ public class NegativeDataPropertyAssertionTestCase extends
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        axioms.add(NegativeDataPropertyAssertion(DataProperty(getIRI("p")),
-                NamedIndividual(getIRI("i")), Literal(33.3)));
+        axioms.add(NegativeDataPropertyAssertion(DataProperty(iri("p")),
+                NamedIndividual(iri("i")), Literal(33.3)));
         return axioms;
     }
 }

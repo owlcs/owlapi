@@ -12,17 +12,11 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.formats;
 
-import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
-
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.io.RDFParserMetaData;
 import org.semanticweb.owlapi.io.RDFResourceParseError;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
@@ -32,78 +26,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
 public abstract class RDFOntologyFormat extends PrefixOWLOntologyFormat {
 
     private static final long serialVersionUID = 40000L;
-    private boolean addMissingTypes = true;
     // TODO make something of these
     private final Set<RDFResourceParseError> errors = new HashSet<RDFResourceParseError>();
-
-    /**
-     * Determines if untyped entities should automatically be typed (declared)
-     * during rendering. (This is a hint to an RDF renderer - the reference
-     * implementation will respect this). The render will check with the
-     * {@link #isMissingType(org.semanticweb.owlapi.model.OWLEntity, org.semanticweb.owlapi.model.OWLOntology)}
-     * method to determine if it needs to add a type.
-     * 
-     * @return {@code true} if untyped entities should automatically be typed
-     *         during rendering, otherwise {@code false}.
-     */
-    public boolean isAddMissingTypes() {
-        return addMissingTypes;
-    }
-
-    /**
-     * Determines if a declaration axiom (type triple) needs to be added to the
-     * specified ontology for the given entity.
-     * 
-     * @param entity
-     *        The entity
-     * @param ontology
-     *        The ontology.
-     * @return {@code false} if the entity is built in. {@code false} if the
-     *         ontology doesn't contain the entity in its signature.
-     *         {@code false} if the entity is already declared in the imports
-     *         closure of the ontology. {@code false} if the transitive imports
-     *         does not contain the ontology but the entity is contained in the
-     *         signature of one of the imported ontologies, {@code true} if none
-     *         of the previous conditions are met.
-     */
-    public static boolean isMissingType(@Nonnull OWLEntity entity,
-            OWLOntology ontology) {
-        // We don't need to declare built in entities
-        if (entity.isBuiltIn()) {
-            return false;
-        }
-        // If the ontology doesn't contain the entity in its signature then it
-        // shouldn't declare it
-        if (!ontology.containsEntityInSignature(entity)) {
-            return false;
-        }
-        if (ontology.isDeclared(entity, INCLUDED)) {
-            return false;
-        }
-        Set<OWLOntology> transitiveImports = ontology.getImports();
-        if (!transitiveImports.contains(ontology)) {
-            // See if the entity should be declared in an imported ontology
-            for (OWLOntology importedOntology : transitiveImports) {
-                if (importedOntology.containsEntityInSignature(entity)) {
-                    // Leave it for that ontology to declare the entity
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
-    /**
-     * Determines if untyped entities should automatically be typed during
-     * rendering. By default this is true.
-     * 
-     * @param addMissingTypes
-     *        {@code true} if untyped entities should automatically be typed
-     *        during rendering, otherwise {@code false}.
-     */
-    public void setAddMissingTypes(boolean addMissingTypes) {
-        this.addMissingTypes = addMissingTypes;
-    }
 
     @Override
     public RDFParserMetaData getOntologyLoaderMetaData() {

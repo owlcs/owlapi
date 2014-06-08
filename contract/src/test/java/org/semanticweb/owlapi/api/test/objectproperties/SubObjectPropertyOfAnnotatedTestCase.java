@@ -30,7 +30,7 @@ public class SubObjectPropertyOfAnnotatedTestCase extends
 
     @Override
     protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
-        return SubObjectPropertyOf(ObjectProperty(getIRI("p")),
-                ObjectProperty(getIRI("q")), annos);
+        return SubObjectPropertyOf(ObjectProperty(iri("p")),
+                ObjectProperty(iri("q")), annos);
     }
 }

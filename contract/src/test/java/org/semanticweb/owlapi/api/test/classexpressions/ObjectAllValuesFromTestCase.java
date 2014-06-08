@@ -38,9 +38,9 @@ public class ObjectAllValuesFromTestCase extends
     @Test
     public void testCorrectAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        OWLClass clsA = Class(getIRI("A"));
-        OWLClass clsB = Class(getIRI("B"));
-        OWLObjectProperty propP = ObjectProperty(getIRI("p"));
+        OWLClass clsA = Class(iri("A"));
+        OWLClass clsB = Class(iri("B"));
+        OWLObjectProperty propP = ObjectProperty(iri("p"));
         axioms.add(SubClassOf(clsA, ObjectAllValuesFrom(propP, clsB)));
         axioms.add(Declaration(clsB));
         axioms.add(Declaration(propP));

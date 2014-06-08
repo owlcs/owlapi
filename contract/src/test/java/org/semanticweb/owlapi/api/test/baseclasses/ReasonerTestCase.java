@@ -85,62 +85,62 @@ public class ReasonerTestCase extends TestBase {
 
     @Nonnull
     private OWLObjectProperty getPropS() {
-        return ObjectProperty(getIRI("s"));
+        return ObjectProperty(iri("s"));
     }
 
     @Nonnull
     private OWLObjectProperty getPropR() {
-        return ObjectProperty(getIRI("r"));
+        return ObjectProperty(iri("r"));
     }
 
     @Nonnull
     private OWLObjectProperty getPropQ() {
-        return ObjectProperty(getIRI("q"));
+        return ObjectProperty(iri("q"));
     }
 
     @Nonnull
     private OWLObjectProperty getPropP() {
-        return ObjectProperty(getIRI("p"));
+        return ObjectProperty(iri("p"));
     }
 
     @Nonnull
     private OWLClass getClsK() {
-        return Class(getIRI("K"));
+        return Class(iri("K"));
     }
 
     @Nonnull
     private OWLClass getClsG() {
-        return Class(getIRI("G"));
+        return Class(iri("G"));
     }
 
     @Nonnull
     private OWLClass getClsF() {
-        return Class(getIRI("F"));
+        return Class(iri("F"));
     }
 
     @Nonnull
     private OWLClass getClsE() {
-        return Class(getIRI("E"));
+        return Class(iri("E"));
     }
 
     @Nonnull
     private OWLClass getClsD() {
-        return Class(getIRI("D"));
+        return Class(iri("D"));
     }
 
     @Nonnull
     private OWLClass getClsC() {
-        return Class(getIRI("C"));
+        return Class(iri("C"));
     }
 
     @Nonnull
     private OWLClass getClsB() {
-        return Class(getIRI("B"));
+        return Class(iri("B"));
     }
 
     @Nonnull
     private OWLClass getClsA() {
-        return Class(getIRI("A"));
+        return Class(iri("A"));
     }
 
     @Before

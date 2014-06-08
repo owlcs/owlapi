@@ -12,7 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.syntax;
 
-import static org.junit.Assert.assertEquals;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import javax.annotation.Nonnull;
@@ -76,6 +75,6 @@ public class OWLXMLNullPointerTestCase extends TestBase {
                 df.getOWLObjectHasValue(p, i));
         o.getOWLOntologyManager().addAxiom(o, sub);
         OWLOntology roundtrip = roundTrip(o, new OWLXMLOntologyFormat());
-        assertEquals(o.getAxioms(), roundtrip.getAxioms());
+        equal(o, roundtrip);
     }
 }

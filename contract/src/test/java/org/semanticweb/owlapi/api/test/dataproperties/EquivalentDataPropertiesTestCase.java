@@ -34,8 +34,8 @@ public class EquivalentDataPropertiesTestCase extends
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        axioms.add(EquivalentDataProperties(DataProperty(getIRI("p")),
-                DataProperty(getIRI("q"))));
+        axioms.add(EquivalentDataProperties(DataProperty(iri("p")),
+                DataProperty(iri("q"))));
         return axioms;
     }
 }

@@ -48,7 +48,7 @@ public class AnnotationAccessorsTestCase extends TestBase {
 
     @Nonnull
     private OWLAnnotationAssertionAxiom createAnnotationAssertionAxiom() {
-        OWLAnnotationProperty prop = AnnotationProperty(getIRI("prop"));
+        OWLAnnotationProperty prop = AnnotationProperty(iri("prop"));
         OWLAnnotationValue value = Literal("value");
         return AnnotationAssertion(prop, SUBJECT, value);
     }
@@ -121,7 +121,7 @@ public class AnnotationAccessorsTestCase extends TestBase {
     @Test
     public void testAnonAccessor() {
         OWLOntology ont = getOWLOntology("ontology");
-        OWLAnnotationProperty prop = AnnotationProperty(getIRI("prop"));
+        OWLAnnotationProperty prop = AnnotationProperty(iri("prop"));
         OWLAnnotationValue value = Literal("value");
         OWLAnonymousIndividual a = AnonymousIndividual();
         OWLAnnotationAssertionAxiom ax = AnnotationAssertion(prop, a, value);

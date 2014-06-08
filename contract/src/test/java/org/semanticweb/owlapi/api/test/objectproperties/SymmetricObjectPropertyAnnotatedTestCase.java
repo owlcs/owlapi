@@ -30,6 +30,6 @@ public class SymmetricObjectPropertyAnnotatedTestCase extends
 
     @Override
     protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
-        return SymmetricObjectProperty(ObjectProperty(getIRI("p")), annos);
+        return SymmetricObjectProperty(ObjectProperty(iri("p")), annos);
     }
 }

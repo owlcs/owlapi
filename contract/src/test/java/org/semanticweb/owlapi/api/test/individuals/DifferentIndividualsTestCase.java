@@ -34,9 +34,9 @@ public class DifferentIndividualsTestCase extends
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        axioms.add(DifferentIndividuals(NamedIndividual(getIRI("i")),
-                NamedIndividual(getIRI("j")), NamedIndividual(getIRI("k")),
-                NamedIndividual(getIRI("l"))));
+        axioms.add(DifferentIndividuals(NamedIndividual(iri("i")),
+                NamedIndividual(iri("j")), NamedIndividual(iri("k")),
+                NamedIndividual(iri("l"))));
         return axioms;
     }
 }

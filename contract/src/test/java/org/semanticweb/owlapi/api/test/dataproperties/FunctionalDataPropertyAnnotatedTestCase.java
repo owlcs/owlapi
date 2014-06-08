@@ -30,6 +30,6 @@ public class FunctionalDataPropertyAnnotatedTestCase extends
 
     @Override
     protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
-        return FunctionalDataProperty(DataProperty(getIRI("p")), annos);
+        return FunctionalDataProperty(DataProperty(iri("p")), annos);
     }
 }

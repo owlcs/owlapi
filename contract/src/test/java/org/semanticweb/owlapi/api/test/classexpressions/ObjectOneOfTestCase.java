@@ -37,9 +37,9 @@ public class ObjectOneOfTestCase extends AbstractFileRoundTrippingTestCase {
     @Test
     public void testCorrectAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        OWLClass clsA = Class(getIRI("A"));
-        OWLNamedIndividual indA = NamedIndividual(getIRI("a"));
-        OWLNamedIndividual indB = NamedIndividual(getIRI("b"));
+        OWLClass clsA = Class(iri("A"));
+        OWLNamedIndividual indA = NamedIndividual(iri("a"));
+        OWLNamedIndividual indB = NamedIndividual(iri("b"));
         axioms.add(SubClassOf(clsA, ObjectOneOf(indA, indB)));
         assertEquals(getOnt().getAxioms(), axioms);
     }

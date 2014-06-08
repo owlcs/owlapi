@@ -37,8 +37,8 @@ public class StringLiteralWithQuotesTestCase extends
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        OWLNamedIndividual ind = NamedIndividual(getIRI("i"));
-        OWLDataProperty prop = DataProperty(getIRI("prop"));
+        OWLNamedIndividual ind = NamedIndividual(iri("i"));
+        OWLDataProperty prop = DataProperty(iri("prop"));
         OWLLiteral literal = Literal("Test \"literal\"");
         axioms.add(DataPropertyAssertion(prop, ind, literal));
         OWLLiteral literal2 = Literal("Test 'literal'");

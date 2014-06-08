@@ -32,6 +32,6 @@ public class DisjointClassesAxiomAnnotatedTestCase extends
 
     @Override
     protected OWLAxiom getMainAxiom(@Nonnull Set<OWLAnnotation> annos) {
-        return DisjointClasses(annos, Class(getIRI("A")), Class(getIRI("B")));
+        return DisjointClasses(annos, Class(iri("A")), Class(iri("B")));
     }
 }

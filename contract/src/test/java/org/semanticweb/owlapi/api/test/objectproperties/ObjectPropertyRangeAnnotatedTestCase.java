@@ -30,7 +30,7 @@ public class ObjectPropertyRangeAnnotatedTestCase extends
 
     @Override
     protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
-        return ObjectPropertyRange(ObjectProperty(getIRI("p")),
-                Class(getIRI("A")), annos);
+        return ObjectPropertyRange(ObjectProperty(iri("p")),
+                Class(iri("A")), annos);
     }
 }

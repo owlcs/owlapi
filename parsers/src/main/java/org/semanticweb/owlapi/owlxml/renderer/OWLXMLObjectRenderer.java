@@ -16,12 +16,15 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.*;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -56,6 +59,7 @@ import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
+import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
@@ -91,6 +95,7 @@ import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
 import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
@@ -113,6 +118,7 @@ import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
 import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
+import org.semanticweb.owlapi.model.parameters.Imports;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -149,7 +155,43 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         for (OWLAnnotation annotation : ontology.getAnnotations()) {
             annotation.accept(this);
         }
-        List<OWLAxiom> axioms = new ArrayList<OWLAxiom>(ontology.getAxioms());
+        // treat declarations separately from other axioms
+        Collection<OWLDeclarationAxiom> declarations = ontology
+                .getAxioms(AxiomType.DECLARATION);
+        Set<OWLEntity> declared = new HashSet<OWLEntity>(
+                ontology.getSignature());
+        for (OWLDeclarationAxiom ax : declarations) {
+            ax.accept(this);
+            declared.remove(ax.getEntity());
+        }
+        // any undeclared entities?
+        if (!declared.isEmpty()) {
+            boolean addMissing = true;
+            OWLOntologyFormat format = ontology.getOWLOntologyManager()
+                    .getOntologyFormat(ontology);
+            if (format != null) {
+                addMissing = format.isAddMissingTypes();
+            }
+            if (addMissing) {
+                Collection<IRI> illegalPunnings = OWLOntologyFormat
+                        .determineIllegalPunnings(addMissing,
+                                ontology.getSignature(),
+                                ontology.getPunnedIRIs(Imports.INCLUDED));
+                for (OWLEntity e : declared) {
+                    if (!e.isBuiltIn() && !illegalPunnings.contains(e.getIRI())
+                            && !ontology.isDeclared(e, Imports.INCLUDED)) {
+                        ontology.getOWLOntologyManager().getOWLDataFactory()
+                                .getOWLDeclarationAxiom(e).accept(this);
+                    }
+                }
+            }
+        }
+        List<OWLAxiom> axioms = new ArrayList<OWLAxiom>();
+        for (AxiomType<?> t : AxiomType.AXIOM_TYPES) {
+            if (!t.equals(AxiomType.DECLARATION)) {
+                axioms.addAll(ontology.getAxioms(t));
+            }
+        }
         Collections.sort(axioms);
         for (OWLAxiom ax : axioms) {
             ax.accept(this);

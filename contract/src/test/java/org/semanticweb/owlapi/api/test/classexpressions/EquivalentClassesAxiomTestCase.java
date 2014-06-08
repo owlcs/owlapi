@@ -35,9 +35,9 @@ public class EquivalentClassesAxiomTestCase extends TestBase {
 
     @Test
     public void testContainsNamedClass() {
-        OWLClass clsA = Class(getIRI("A"));
-        OWLClass clsB = Class(getIRI("B"));
-        OWLObjectProperty propP = ObjectProperty(getIRI("p"));
+        OWLClass clsA = Class(iri("A"));
+        OWLClass clsB = Class(iri("B"));
+        OWLObjectProperty propP = ObjectProperty(iri("p"));
         OWLClassExpression desc = ObjectSomeValuesFrom(propP, clsB);
         OWLClassExpression desc2 = ObjectSomeValuesFrom(propP, clsA);
         OWLEquivalentClassesAxiom ax = EquivalentClasses(clsA, desc);
@@ -48,9 +48,9 @@ public class EquivalentClassesAxiomTestCase extends TestBase {
 
     @Test
     public void testGetNamedClasses() {
-        OWLClass clsA = Class(getIRI("A"));
-        OWLClass clsB = Class(getIRI("B"));
-        OWLObjectProperty propP = ObjectProperty(getIRI("p"));
+        OWLClass clsA = Class(iri("A"));
+        OWLClass clsB = Class(iri("B"));
+        OWLObjectProperty propP = ObjectProperty(iri("p"));
         OWLClassExpression desc = ObjectSomeValuesFrom(propP, clsB);
         OWLEquivalentClassesAxiom ax = EquivalentClasses(clsA, desc);
         Set<OWLClass> clses = ax.getNamedClasses();
@@ -60,8 +60,8 @@ public class EquivalentClassesAxiomTestCase extends TestBase {
 
     @Test
     public void testGetNamedClassesWithNothing() {
-        OWLClass clsB = Class(getIRI("B"));
-        OWLObjectProperty propP = ObjectProperty(getIRI("p"));
+        OWLClass clsB = Class(iri("B"));
+        OWLObjectProperty propP = ObjectProperty(iri("p"));
         OWLClassExpression desc = ObjectSomeValuesFrom(propP, clsB);
         OWLEquivalentClassesAxiom ax = EquivalentClasses(OWLNothing(), desc);
         Set<OWLClass> clses = ax.getNamedClasses();
@@ -72,8 +72,8 @@ public class EquivalentClassesAxiomTestCase extends TestBase {
 
     @Test
     public void testGetNamedClassesWithThing() {
-        OWLClass clsB = Class(getIRI("B"));
-        OWLObjectProperty propP = ObjectProperty(getIRI("p"));
+        OWLClass clsB = Class(iri("B"));
+        OWLObjectProperty propP = ObjectProperty(iri("p"));
         OWLClassExpression desc = ObjectSomeValuesFrom(propP, clsB);
         OWLEquivalentClassesAxiom ax = EquivalentClasses(OWLThing(), desc);
         Set<OWLClass> clses = ax.getNamedClasses();
@@ -84,9 +84,9 @@ public class EquivalentClassesAxiomTestCase extends TestBase {
 
     @Test
     public void testSplit() {
-        OWLClass clsA = Class(getIRI("A"));
-        OWLClass clsB = Class(getIRI("B"));
-        OWLClass clsC = Class(getIRI("C"));
+        OWLClass clsA = Class(iri("A"));
+        OWLClass clsB = Class(iri("B"));
+        OWLClass clsC = Class(iri("C"));
         OWLEquivalentClassesAxiom ax = EquivalentClasses(clsA, clsB, clsC);
         Set<OWLSubClassOfAxiom> scas = ax.asOWLSubClassOfAxioms();
         assertEquals(6, scas.size());

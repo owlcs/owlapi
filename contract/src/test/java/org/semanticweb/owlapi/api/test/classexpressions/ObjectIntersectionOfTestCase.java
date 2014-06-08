@@ -37,9 +37,9 @@ public class ObjectIntersectionOfTestCase extends
     @Test
     public void testCorrectAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        OWLClass clsA = Class(getIRI("A"));
-        OWLClass clsB = Class(getIRI("B"));
-        OWLClass clsC = Class(getIRI("C"));
+        OWLClass clsA = Class(iri("A"));
+        OWLClass clsB = Class(iri("B"));
+        OWLClass clsC = Class(iri("C"));
         axioms.add(SubClassOf(clsA, ObjectIntersectionOf(clsB, clsC)));
         assertEquals(getOnt().getAxioms(), axioms);
     }

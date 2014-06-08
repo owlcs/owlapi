@@ -12,14 +12,23 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
+import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
+
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.formats.PrefixOWLOntologyFormat;
 import org.semanticweb.owlapi.io.OWLOntologyLoaderMetaData;
+import org.semanticweb.owlapi.util.CollectionFactory;
+
+import com.google.common.collect.LinkedListMultimap;
+import com.google.common.collect.Multimap;
 
 /**
  * Represents the concrete representation format of an ontology. The equality of
@@ -35,6 +44,121 @@ public abstract class OWLOntologyFormat implements Serializable {
     private static final long serialVersionUID = 40000L;
     private Map<Serializable, Serializable> parameterMap = new HashMap<Serializable, Serializable>();
     private OWLOntologyLoaderMetaData loaderMetaData = new NullLoaderMetaData();
+    private boolean addMissingTypes = true;
+
+    /**
+     * Determines if untyped entities should automatically be typed (declared)
+     * during rendering. (This is a hint to an RDF renderer - the reference
+     * implementation will respect this). The render will check with the
+     * {@link #isMissingType(org.semanticweb.owlapi.model.OWLEntity, org.semanticweb.owlapi.model.OWLOntology)}
+     * method to determine if it needs to add a type.
+     * 
+     * @return {@code true} if untyped entities should automatically be typed
+     *         during rendering, otherwise {@code false}.
+     */
+    public boolean isAddMissingTypes() {
+        return addMissingTypes;
+    }
+
+    /**
+     * Determines if a declaration axiom (type triple) needs to be added to the
+     * specified ontology for the given entity.
+     * 
+     * @param entity
+     *        The entity
+     * @param ontology
+     *        The ontology.
+     * @return {@code false} if the entity is built in. {@code false} if the
+     *         ontology doesn't contain the entity in its signature.
+     *         {@code false} if the entity is already declared in the imports
+     *         closure of the ontology. {@code false} if the transitive imports
+     *         does not contain the ontology but the entity is contained in the
+     *         signature of one of the imported ontologies, {@code true} if none
+     *         of the previous conditions are met.
+     */
+    public static boolean isMissingType(@Nonnull OWLEntity entity,
+            OWLOntology ontology) {
+        // We don't need to declare built in entities
+        if (entity.isBuiltIn()) {
+            return false;
+        }
+        // If the ontology doesn't contain the entity in its signature then it
+        // shouldn't declare it
+        if (!ontology.containsEntityInSignature(entity)) {
+            return false;
+        }
+        if (ontology.isDeclared(entity, INCLUDED)) {
+            return false;
+        }
+        Set<OWLOntology> transitiveImports = ontology.getImports();
+        if (!transitiveImports.contains(ontology)) {
+            // See if the entity should be declared in an imported ontology
+            for (OWLOntology importedOntology : transitiveImports) {
+                if (importedOntology.containsEntityInSignature(entity)) {
+                    // Leave it for that ontology to declare the entity
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    /**
+     * @param signature
+     *        signature for the ontology
+     * @param punnedEntities
+     *        the set of entities that are known already to be punned
+     * @param add
+     *        true if missing declarations should be added. If false, no
+     *        declarations will be added.
+     * @return collection of IRIS used in illegal punnings
+     */
+    public static Collection<IRI> determineIllegalPunnings(boolean add,
+            Collection<OWLEntity> signature, Collection<IRI> punnedEntities) {
+        if (!add) {
+            return CollectionFactory.emptySet();
+        }
+        // determine what entities are illegally punned
+        Multimap<IRI, EntityType<?>> punnings = LinkedListMultimap.create();
+        for (OWLEntity e : signature) {
+            // disregard individuals as they do not give raise to illegal
+            // punnings; only keep track of punned entities, ignore the rest
+            if (!e.isOWLNamedIndividual()
+                    && punnedEntities.contains(e.getIRI())) {
+                punnings.put(e.getIRI(), e.getEntityType());
+            }
+        }
+        Collection<IRI> illegals = new HashSet<IRI>();
+        for (IRI i : punnings.keySet()) {
+            Collection<EntityType<?>> puns = punnings.get(i);
+            if (puns.contains(EntityType.OBJECT_PROPERTY)
+                    && puns.contains(EntityType.ANNOTATION_PROPERTY)) {
+                illegals.add(i);
+            } else if (puns.contains(EntityType.DATA_PROPERTY)
+                    && puns.contains(EntityType.ANNOTATION_PROPERTY)) {
+                illegals.add(i);
+            } else if (puns.contains(EntityType.DATA_PROPERTY)
+                    && puns.contains(EntityType.OBJECT_PROPERTY)) {
+                illegals.add(i);
+            } else if (puns.contains(EntityType.DATATYPE)
+                    && puns.contains(EntityType.CLASS)) {
+                illegals.add(i);
+            }
+        }
+        return illegals;
+    }
+
+    /**
+     * Determines if untyped entities should automatically be typed during
+     * rendering. By default this is true.
+     * 
+     * @param addMissingTypes
+     *        {@code true} if untyped entities should automatically be typed
+     *        during rendering, otherwise {@code false}.
+     */
+    public void setAddMissingTypes(boolean addMissingTypes) {
+        this.addMissingTypes = addMissingTypes;
+    }
 
     /**
      * @param key

@@ -39,9 +39,9 @@ public class ComplexSubPropertyAxiomTestCase extends
     @Test
     public void testContains() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        OWLObjectProperty propP = ObjectProperty(getIRI("p"));
-        OWLObjectProperty propQ = ObjectProperty(getIRI("q"));
-        OWLObjectProperty propR = ObjectProperty(getIRI("r"));
+        OWLObjectProperty propP = ObjectProperty(iri("p"));
+        OWLObjectProperty propQ = ObjectProperty(iri("q"));
+        OWLObjectProperty propR = ObjectProperty(iri("r"));
         List<OWLObjectProperty> chain = new ArrayList<OWLObjectProperty>();
         chain.add(propP);
         chain.add(propQ);

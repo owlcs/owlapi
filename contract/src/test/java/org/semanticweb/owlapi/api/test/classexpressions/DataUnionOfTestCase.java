@@ -41,7 +41,7 @@ public class DataUnionOfTestCase extends AbstractFileRoundTrippingTestCase {
         OWLDataRange intdr = Integer();
         OWLDataRange floatdr = Float();
         OWLDataRange union = DataUnionOf(intdr, floatdr);
-        OWLDataProperty p = DataProperty(getIRI("p"));
+        OWLDataProperty p = DataProperty(iri("p"));
         OWLDataPropertyRangeAxiom ax = DataPropertyRange(p, union);
         axioms.add(ax);
         axioms.add(Declaration(p));

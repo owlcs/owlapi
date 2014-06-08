@@ -43,7 +43,7 @@ public class DatatypeRestrictionTestCase extends
         OWLDataRange dr = DatatypeRestriction(Integer(),
                 FacetRestriction(OWLFacet.MIN_INCLUSIVE, Literal(18)),
                 FacetRestriction(OWLFacet.MAX_INCLUSIVE, Literal(30)));
-        OWLDataProperty p = DataProperty(getIRI("p"));
+        OWLDataProperty p = DataProperty(iri("p"));
         OWLDataPropertyRangeAxiom ax = DataPropertyRange(p, dr);
         axioms.add(ax);
         axioms.add(Declaration(p));

@@ -33,7 +33,7 @@ public class DataPropertyDeclarationWithAnnotationsTestCase extends
 
     @Override
     protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
-        OWLEntity ent = DataProperty(getIRI("propD"));
+        OWLEntity ent = DataProperty(iri("propD"));
         return Declaration(ent, annos);
     }
 

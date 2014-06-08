@@ -34,7 +34,7 @@ public class SymmetricObjectPropertyTestCase extends
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        axioms.add(SymmetricObjectProperty(ObjectProperty(getIRI("p"))));
+        axioms.add(SymmetricObjectProperty(ObjectProperty(iri("p"))));
         return axioms;
     }
 }
