@@ -357,7 +357,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
         // get hold of the delegate URI
         URI delegateURI = m_baseURICache.get(m_baseIRI);
         // resolve against delegate
-        return IRI.create(delegateURI.resolve(value));
+        return IRI.create(delegateURI.resolve(value.replace(" ", "%20")));
     }
 
     /**
