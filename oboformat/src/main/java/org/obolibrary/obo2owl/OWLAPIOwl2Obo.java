@@ -738,7 +738,7 @@ public class OWLAPIOwl2Obo {
             return trGenericPropertyValue(prop, annVal, qualifiers, frame);
         }
         String value = getValue(annVal, tagString);
-        if (value.isEmpty()) {
+        if (!value.isEmpty()) {
             if (tag == OboFormatTag.TAG_ID) {
                 if (frame.getId().equals(value) == false) {
                     error("Conflicting id definitions: 1) " + frame.getId()

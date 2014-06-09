@@ -1,0 +1,19 @@
+format-version: 1.2
+default-namespace: gene_ontology
+ontology: go
+
+[Term]
+id: GO:0000918
+name: barrier septum site selection
+namespace: biological_process
+def: "The process of marking the site where a barrier septum will form." [GOC:clt]
+relationship: never_in_taxon NCBITaxon:4896 {id="GOTAX:0001012", source="PMID:0000000000"} ! Schizosaccharomyces pombe
+
+[Typedef]
+id: never_in_taxon
+name: never_in_taxon
+namespace: external
+xref: RO:0002161
+expand_assertion_to: "Class: <http://www.w3.org/2002/07/owl#Nothing> EquivalentTo: ?X and (RO_0002162 some ?Y)" []
+is_class_level: true
+is_metadata_tag: true
