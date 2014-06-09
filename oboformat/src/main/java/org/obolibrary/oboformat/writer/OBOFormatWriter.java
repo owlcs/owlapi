@@ -833,8 +833,17 @@ public class OBOFormatWriter {
     private void appendQualifiers(StringBuilder sb, Clause clause) {
         Collection<QualifierValue> qvs = clause.getQualifierValues();
         if (qvs != null && qvs.size() > 0) {
+            Iterator<QualifierValue> qvsIterator;
+            if (qvs.size() > 1) {
+                // only try to sort for list with more than one value
+                List<QualifierValue> sortQualifiers = new ArrayList<QualifierValue>(
+                        qvs);
+                Collections.sort(sortQualifiers, QualifierComparator.instance);
+                qvsIterator = sortQualifiers.iterator();
+            } else {
+                qvsIterator = qvs.iterator();
+            }
             sb.append(" {");
-            Iterator<QualifierValue> qvsIterator = qvs.iterator();
             while (qvsIterator.hasNext()) {
                 QualifierValue qv = qvsIterator.next();
                 sb.append(qv.getQualifier());
@@ -1252,6 +1261,26 @@ public class OBOFormatWriter {
                 return 1;
             }
             return idref1.compareToIgnoreCase(idref2);
+        }
+    }
+
+    private static class QualifierComparator implements
+            Comparator<QualifierValue> {
+
+        static final QualifierComparator instance = new QualifierComparator();
+
+        @Override
+        public int compare(QualifierValue qv1, QualifierValue qv2) {
+            if (qv1 == null && qv2 == null) {
+                return 0;
+            }
+            if (qv1 == null) {
+                return -1;
+            }
+            if (qv2 == null) {
+                return 1;
+            }
+            return qv1.compareTo(qv2);
         }
     }
 

@@ -718,23 +718,27 @@ public class OWLAPIOwl2Obo {
             tag = OBOFormatConstants.getTag(tagString);
         }
         if (tag == null) {
+            if (annVal instanceof IRI && FrameType.TERM.equals(frame.getType())) {
+                if (isMetadataTag(prop)) {
+                    String propId = this.getIdentifier(prop);
+                    if (propId != null) {
+                        Clause clause = new Clause(
+                                OboFormatTag.TAG_RELATIONSHIP);
+                        clause.addValue(propId);
+                        clause.addValue(getIdentifier((IRI) annVal));
+                        addQualifiers(clause, qualifiers);
+                        frame.addClause(clause);
+                        return true;
+                    }
+                }
+            }
             // annotation property does not correspond to a mapping to a tag in
             // the OBO syntax -
             // use the property_value tag
             return trGenericPropertyValue(prop, annVal, qualifiers, frame);
         }
         String value = getValue(annVal, tagString);
-        if (tagString == null) {
-            Clause clause = new Clause(OboFormatTag.TAG_PROPERTY_VALUE);
-            String propId = this.getIdentifier(prop);
-            addQualifiers(clause, qualifiers);
-            if (propId.equals("shorthand") == false) {
-                clause.addValue(propId);
-                clause.addValue(value);
-                // TODO - xsd types
-                frame.addClause(clause);
-            }
-        } else if (value.trim().length() > 0) {
+        if (value.isEmpty()) {
             if (tag == OboFormatTag.TAG_ID) {
                 if (frame.getId().equals(value) == false) {
                     error("Conflicting id definitions: 1) " + frame.getId()
@@ -821,6 +825,20 @@ public class OWLAPIOwl2Obo {
             return false;
         }
         return true;
+    }
+
+    private boolean isMetadataTag(OWLAnnotationProperty p) {
+        final IRI metadataTagIRI = IRI
+                .create(Obo2OWLConstants.OIOVOCAB_IRI_PREFIX
+                        + OboFormatTag.TAG_IS_METADATA_TAG.getTag());
+        Set<OWLAnnotationAssertionAxiom> axioms = owlOntology
+                .getAnnotationAssertionAxioms(p.getIRI());
+        for (OWLAnnotationAssertionAxiom ax : axioms) {
+            if (metadataTagIRI.equals(ax.getProperty().getIRI())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     protected void handleSynonym(Set<OWLAnnotation> qualifiers, String scope,
