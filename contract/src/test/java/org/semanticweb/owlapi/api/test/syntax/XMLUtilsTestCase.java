@@ -90,7 +90,7 @@ public class XMLUtilsTestCase extends TestBase {
     }
 
     @Test
-    public void testmissingTypes() throws Exception {
+    public void testmissingTypes() {
         // given
         String input = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
                 + "<rdf:RDF\n"

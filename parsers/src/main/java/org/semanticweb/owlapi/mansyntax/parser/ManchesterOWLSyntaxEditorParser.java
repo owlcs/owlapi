@@ -2689,26 +2689,26 @@ public class ManchesterOWLSyntaxEditorParser implements
     private OWLAxiom parseClassAxiomRemainder(
             @Nonnull OWLClassExpression startExpression) {
         String kw = consumeToken();
-        if (SUBCLASS_OF.matches(kw)) {
+        if (SUBCLASS_OF.matchesEitherForm(kw)) {
             OWLClassExpression superClass = parseClassExpression();
             return dataFactory.getOWLSubClassOfAxiom(startExpression,
                     superClass);
-        } else if (DISJOINT_WITH.matches(kw)) {
+        } else if (DISJOINT_WITH.matchesEitherForm(kw)) {
             OWLClassExpression disjointClass = parseClassExpression();
             return dataFactory.getOWLDisjointClassesAxiom(startExpression,
                     disjointClass);
-        } else if (EQUIVALENT_TO.matches(kw)) {
+        } else if (EQUIVALENT_TO.matchesEitherForm(kw)) {
             OWLClassExpression equivClass = parseClassExpression();
             return dataFactory.getOWLEquivalentClassesAxiom(startExpression,
                     equivClass);
-        } else if (AND.matches(kw)) {
+        } else if (AND.matchesEitherForm(kw)) {
             OWLClassExpression conjunct = parseIntersection();
             Set<OWLClassExpression> conjuncts = conjunct.asConjunctSet();
             conjuncts.add(startExpression);
             OWLClassExpression ce = dataFactory
                     .getOWLObjectIntersectionOf(conjuncts);
             return parseClassAxiomRemainder(ce);
-        } else if (OR.matches(kw)) {
+        } else if (OR.matchesEitherForm(kw)) {
             OWLClassExpression disjunct = parseUnion();
             Set<OWLClassExpression> disjuncts = disjunct.asDisjunctSet();
             disjuncts.add(startExpression);
