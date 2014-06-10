@@ -22,7 +22,7 @@ xref: FMA:52836 ! Condylar process of mandible
 xref: MA:0002816 ! mandible condylar process
 xref: GAID:219 ! mandibular condyle
 xref: BTO:0001750 ! mandibular condyle
-property_value: foaf-depicted_by http://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Processuscondylarismandibulae.PNG/200px-Processuscondylarismandibulae.PNG {dc-creator="foo bar"}
+property_value: foaf-depicted_by "http://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Processuscondylarismandibulae.PNG/200px-Processuscondylarismandibulae.PNG" xsd:anyURI {dc-creator="foo bar"}
 xref: MESH:A.02.835.232.781.324.502.632.600 ! mandibular condyle
 
 

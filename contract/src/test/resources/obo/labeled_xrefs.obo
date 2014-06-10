@@ -1,0 +1,7 @@
+format-version: 1.2
+ontology: foo
+
+[Term]
+id: FOO:0000001
+name: foo bar
+synonym: "FOO BAR" EXACT [REF:000000 "REF_V1", REF:000000 "REF_V2"] ! WARNING the xref labels will not survive an OWL round trip.

@@ -3,7 +3,7 @@ package org.obolibrary.oboformat.model;
 import javax.annotation.Nonnull;
 
 /** qualifier value */
-public class QualifierValue {
+public class QualifierValue implements Comparable<QualifierValue> {
 
     protected String qualifier;
     protected Object value;
@@ -88,5 +88,14 @@ public class QualifierValue {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public int compareTo(QualifierValue o) {
+        if (o == null) {
+            return 1;
+        }
+        // use toString representation
+        return toString().compareTo(o.toString());
     }
 }
