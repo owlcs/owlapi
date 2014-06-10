@@ -464,4 +464,34 @@ public class ManchesterOWLSyntaxParserTestCase {
             assertTrue(ax.toString(), result.containsAxiom(ax));
         }
     }
+
+    @Test
+    public void shouldNotFailSubclass() throws Exception {
+        // given
+        OWLClass a = Class(IRI("urn:test#A"));
+        OWLClass b = Class(IRI("urn:test#B"));
+        String in = "A SubClassOf B";
+        OWLOntologyManager manager = Factory.getManager();
+        OWLOntology o = manager.createOntology();
+        manager.addAxiom(o, factory.getOWLDeclarationAxiom(a));
+        manager.addAxiom(o, factory.getOWLDeclarationAxiom(b));
+        // select a short form provider that uses annotations
+        ShortFormProvider sfp = new AnnotationValueShortFormProvider(
+                Arrays.asList(factory.getRDFSLabel()),
+                Collections.<OWLAnnotationProperty, List<String>> emptyMap(),
+                manager);
+        BidirectionalShortFormProvider shortFormProvider = new BidirectionalShortFormProviderAdapter(
+                manager.getOntologies(), sfp);
+        ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(
+                factory, in);
+        ShortFormEntityChecker owlEntityChecker = new ShortFormEntityChecker(
+                shortFormProvider);
+        parser.setOWLEntityChecker(owlEntityChecker);
+        parser.setDefaultOntology(o);
+        // when
+        // finally parse
+        OWLAxiom axiom = parser.parseAxiom();
+        // then
+        assertEquals(factory.getOWLSubClassOfAxiom(a, b), axiom);
+    }
 }
