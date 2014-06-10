@@ -146,8 +146,8 @@ public class NamespaceUtil {
     }
 
     /**
-     * * @param s The string to be split.
-     * 
+     * @param s
+     *        The string to be split.
      * @return The result of the split. The first element corresponds to the
      *         namespace and the second element corresponds to the local name.
      *         If the string could not be split into a namespace and local name
