@@ -1,3 +1,84 @@
+Features and bug fixes in 4.0.0
+
+Features
+    Add a copy/move ontology method to OWLOntologyManager #12
+    Search introduced to replace forSuperPosition, forSubPosition, ignoreAnnotations booleans
+    Imports.INCLUDED, Imports.EXCLUDED introduced instead of boolean arguments #156
+    introduced ChangeApplied to simplify code around applying changes and remove null warnings
+    Introduction of Searcher with transform functions
+    OWLOntology now exposes a new method for searching for axioms referring an entity, abstracting all various getAxiomsBy... methods.
+    Refactor OWLSignature for uniform imports closure use
+    Refactored OWLAxiomCollection for uniform use of import closure
+    Added targeted parsing to allow one and only one parser to be tried on a document input source. Takes into account MIME type as well.
+    Use MultiMap from Guava throughout V4.0.0 #153
+    OBO parser updated and replaced with oboformat 5.5 release
+    @Nonnull annotations and warnings
+    Centralised and uniformed sax parser factories
+    OWLOntologyID to use Optional #160
+    Refactored property hierarchy to remove generics.
+    Added an OWLParser implementation to enable actual use of DL parser
+    Added a pairwise visitor, changed storage strategy for nary axioms. The pairwise visitor interface is a functional interface that is applied to all distinct pairs in a collection of objects.
+    Added asPairwiseAxioms to all nary axiom types
+    Added HasPriority annotation and comparator for prioritizable objects
+    Added PriorityCollection for managing injected collections
+    Added ServiceLoader adapter for Guice injection
+    Added ManchesterOWLSyntaxParser interface to api
+    OWLAPITOOLS profiles and fixers included
+    Added Profiles enumeration and supported OWL profile for known reasoners.
+    Dependency injection enabled for fixers.
+    Added Guice module for creating OWLOntologyManager and OWLDataFactory
+    Introduced OWLOntologyBuilder to allow swapping OWLOntology implementations via Guice
+    Service loader module in api to be used independently of the owlapi-impl module
+    Add RDFa parser and use static META-INF/services files for owlapi-rio
+    Add JSON-LD support
+    Add rdf:langString from RDF 1.1  to OWL/RDF vocabulary.
+    Better BOM treatment through Apache BOMInputStream
+    Use SLFJ for logging
+    Guava 17
+    Guice 4.0-beta
+    Added jsr305 for Nonnull and Nullable annotations
+    Fix build and javadoc for Java 8 
+    Do not raise violations from entities used only in declarations.
+    Do not add declarations for illegal punnings when saving ontologies #112
+    Do not cache any literals in OWLDataFactoryInternalsImpl. Overall improvement of about 9% when parsing Gene Ontology in FSS.
+    Implement Default prefix manager in prefix ontology format objects cannot be overriden #9
+    Implement automatic retries when loading from URLs, managed through OWLOntologyLoaderConfiguration #66
+    Switched OWLDataFactory IllegalArgumentExceptions to NullPointerExceptions #131
+    Handle annotations on punned types when rendering RDF #183
+    Add OWLOntologyManagerFactory and code to allow use of RioOWLRDFParser through an injector
+    Convert RioParserImpl to stream statements through wherever possible
+    Default datatype in RDFLiteral to PLAIN_LITERAL.
+    Made generated classes package protected
+    Rename OWLObjectRenderer to FunctionalSyntaxObjectRenderer
+    OWLReasoner change lists generic
+    Moved OWLOntologyFormat implementation to formats package
+    Performance improvement for rdf/xml rendering
+    Optimised functional renderer and prefix manager
+    feature: OBO parser replaced with oboformat.
+    OWL2Datatype implements HasIRI
+    Add XSD IRIs simple parsing support #56
+    GZip read/write ability
+    Manchester OWL syntax cleanup
+
+Bug fixes (ported to 3.5)
+    Fixed #198 A SubClassOf B will not parse
+    Fixed IRI with a space: %20 escape #146
+    Old OWLEntityCollector brought forward as DeprecatedOWLEntityCollector
+    Fixed serialization warnings reported in #163
+    Use AtomicLong for concurrency support in gzip document sources
+    Moved transitive object property type to rbox
+    Set turtle default prefix slash aware #121 
+    Fixed #116 import statement erroneously names anonymous ontology
+    Added test for roundtripping annotated SWRL rules and datatype definitions
+    Fixed annotations on datatype definition axioms fixed in OWL/XML
+    Fixed #20 and #60 use zipped buffer for StreamDocumentBase
+    Fixed #71 Misleading message on resolving illegal IRI
+    Fixed variable rendering in Manchester OWL Syntax to preserve ns.
+    Fixed #46 Round tripping error in functional syntax
+    Fixed #40 RDFGraph.getSortedTriplesForSubject throws exception in Java7
+    Fixed infinite recursion on cyclic import structures when declaration does not match location.
+
+
 3.4.10 18 January 2014
 
 Bugs:

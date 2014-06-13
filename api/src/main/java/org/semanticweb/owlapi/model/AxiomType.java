@@ -296,6 +296,8 @@ public class AxiomType<C extends OWLAxiom> implements Serializable {
     /**
      * @param t
      *        axiom class to match
+     * @param <T>
+     *        axiom type
      * @return axiom type for axiom class
      */
     @Nonnull
