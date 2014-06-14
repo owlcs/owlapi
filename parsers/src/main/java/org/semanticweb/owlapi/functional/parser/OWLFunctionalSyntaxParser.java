@@ -794,7 +794,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         OWLLiteral con;
         iri = IRI();
         con = Literal();
-        OWLFacet v = OWLFacet.getFacetByShortName(iri.getFragment());
+        OWLFacet v = OWLFacet.getFacet(iri);
         return df.getOWLFacetRestriction(v, con);
     }
 

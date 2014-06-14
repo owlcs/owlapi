@@ -171,8 +171,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
 
     private void writeFullIRI(@Nonnull IRI iri) {
         write("<");
-        write(iri.getNamespace());
-        write(iri.getFragment());
+        write(iri.toString());
         write(">");
     }
 

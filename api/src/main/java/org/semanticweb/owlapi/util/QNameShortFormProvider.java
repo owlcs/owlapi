@@ -63,12 +63,11 @@ public class QNameShortFormProvider implements ShortFormProvider {
     }
 
     @Override
-    public String getShortForm(OWLEntity entity) {
+    public String getShortForm(@Nonnull OWLEntity entity) {
         checkNotNull(entity, "entity cannot be null");
         String namespace = entity.getIRI().getNamespace();
-        String localName = entity.getIRI().getFragment();
         String prefix = namespaceUtil.getPrefix(namespace);
-        return prefix + ':' + localName;
+        return entity.getIRI().prefixedBy(prefix + ':');
     }
 
     @Override

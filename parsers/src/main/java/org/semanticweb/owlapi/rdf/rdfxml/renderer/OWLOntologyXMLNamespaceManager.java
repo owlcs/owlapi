@@ -129,7 +129,7 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
 
     private void processIRI(@Nonnull IRI iri) {
         String ns = checkNotNull(iri, "iri cannot be null").getNamespace();
-        if (!(ns.isEmpty() || iri.getFragment().isEmpty())) {
+        if (!(ns.isEmpty() || !iri.getNCName().isPresent())) {
             namespaceUtil.getPrefix(ns);
         }
     }

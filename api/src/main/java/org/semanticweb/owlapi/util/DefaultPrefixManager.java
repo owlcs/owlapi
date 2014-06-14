@@ -117,15 +117,11 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
 
     @Override
     public String getPrefixIRI(IRI iri) {
-        String ns = iri.getNamespace();
-        String prefix = reverseprefix2NamespaceMap.get(ns);
+        String prefix = reverseprefix2NamespaceMap.get(iri.getNamespace());
         if (prefix == null) {
             return null;
         }
-        if (iri.getFragment().isEmpty()) {
-            return prefix;
-        }
-        return prefix + iri.getFragment();
+        return iri.prefixedBy(prefix);
     }
 
     @Override

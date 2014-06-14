@@ -30,6 +30,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
+import com.google.common.base.Optional;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
@@ -53,7 +54,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
     @SuppressWarnings("null")
     @Nonnull
     public URI toURI() {
-        return URI.create(prefix + remainder);
+        return URI.create(prefix + remainder.or(""));
     }
 
     /**
@@ -162,7 +163,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
      *         otherwise {@code false}
      */
     public boolean isPlainLiteral() {
-        return remainder.equals("PlainLiteral")
+        return remainder.or("").equals("PlainLiteral")
                 && Namespaces.RDF.inNamespace(prefix);
     }
 
@@ -171,9 +172,20 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
      * 
      * @return The IRI fragment, or the empty string if the IRI does not have a
      *         fragment
+     * @deprecated use getNCName() - getFragment() does not return a real
+     *             fragment. e.g., it does not allow / and () on it
      */
+    @Deprecated
     @Nonnull
     public String getFragment() {
+        return remainder.or("");
+    }
+
+    /**
+     * @return the NCName for this IRI.
+     */
+    @Nonnull
+    public Optional<String> getNCName() {
         return remainder;
     }
 
@@ -184,7 +196,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
      */
     @Nonnull
     public String toQuotedString() {
-        return '<' + prefix + remainder + '>';
+        return '<' + prefix + remainder.or("") + '>';
     }
 
     /**
@@ -326,10 +338,11 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
     }
 
     @Nonnull
-    private final String remainder;
+    private final Optional<String> remainder;
     @Nonnull
     private final String prefix;
     private int hashCode = 0;
+    private int length;
 
     /**
      * Constructs an IRI which is built from the concatenation of the specified
@@ -337,12 +350,20 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
      * 
      * @param prefix
      *        The prefix.
-     * @param fragment
+     * @param ncname
      *        The suffix.
      */
-    protected IRI(@Nonnull String prefix, @Nullable String fragment) {
+    protected IRI(@Nonnull String prefix, @Nullable String ncname) {
         this.prefix = cache(prefix);
-        remainder = fragment == null ? "" : fragment;
+        if (ncname == null) {
+            remainder = Optional.absent();
+        } else if (ncname.isEmpty()) {
+            remainder = Optional.absent();
+        } else {
+            remainder = Optional.fromNullable(ncname);
+        }
+        length = prefix.length() + remainder.or("").length();
+        hashCode = prefix.hashCode() + remainder.or("").hashCode();
     }
 
     protected IRI(@Nonnull String s) {
@@ -356,7 +377,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
 
     @Override
     public int length() {
-        return prefix.length() + remainder.length();
+        return length;
     }
 
     @Override
@@ -364,21 +385,50 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
         if (index < 0) {
             throw new IndexOutOfBoundsException(Integer.toString(index));
         }
-        if (index >= length()) {
+        if (index >= length) {
             throw new IndexOutOfBoundsException(Integer.toString(index));
         }
         if (index < prefix.length()) {
             return prefix.charAt(index);
         }
-        return remainder.charAt(index - prefix.length());
+        return remainder.get().charAt(index - prefix.length());
     }
 
     @Override
     public CharSequence subSequence(int start, int end) {
         StringBuilder sb = new StringBuilder();
         sb.append(prefix);
-        sb.append(remainder);
+        sb.append(remainder.or(""));
         return sb.subSequence(start, end);
+    }
+
+    /**
+     * @param prefix
+     *        prefix to use for replacing the IRI namespace
+     * @return prefix plus IRI ncname
+     */
+    @Nonnull
+    public String prefixedBy(@Nonnull String prefix) {
+        checkNotNull(prefix, "prefix cannot be null");
+        if (remainder.isPresent()) {
+            return prefix + remainder.get();
+        }
+        return prefix;
+    }
+
+    /**
+     * @return short form for this IRI
+     */
+    @Nonnull
+    public String getShortForm() {
+        if (remainder.isPresent()) {
+            return remainder.get();
+        }
+        int lastSlashIndex = prefix.lastIndexOf('/');
+        if (lastSlashIndex != -1 && lastSlashIndex != prefix.length() - 1) {
+            return prefix.substring(lastSlashIndex + 1);
+        }
+        return toQuotedString();
     }
 
     @Override
@@ -456,7 +506,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
 
     @Override
     public int compareTo(OWLObject o) {
-        if (o == this || this.equals(o)) {
+        if (o == this || equals(o)) {
             return 0;
         }
         if (!(o instanceof IRI)) {
@@ -467,23 +517,20 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
         if (diff != 0) {
             return diff;
         }
-        return remainder.compareTo(other.remainder);
+        return remainder.or("").compareTo(other.remainder.or(""));
     }
 
     @Nonnull
     @Override
     public String toString() {
-        if (remainder.isEmpty()) {
+        if (!remainder.isPresent()) {
             return prefix;
         }
-        return prefix + remainder;
+        return prefix + remainder.get();
     }
 
     @Override
     public int hashCode() {
-        if (hashCode == 0) {
-            hashCode = prefix.hashCode() + remainder.hashCode();
-        }
         return hashCode;
     }
 

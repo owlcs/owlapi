@@ -904,7 +904,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
         write("?");
         // do not save the namespace if it's the conventional one
         if ("urn:swrl#".equals(node.getIRI().getNamespace())) {
-            write(node.getIRI().getFragment());
+            write(node.getIRI().prefixedBy(""));
         } else {
             write(node.getIRI().toQuotedString());
         }

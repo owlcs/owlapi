@@ -1002,6 +1002,6 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(IRI iri) {
-        write(iri.getFragment());
+        write(iri.getShortForm());
     }
 }

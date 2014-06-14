@@ -1417,29 +1417,9 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
     }
 
     // RDFConsumer implementation
-    private static void append(IRI i, StringBuilder b) {
-        b.append(i.getNamespace());
-        b.append(i.getFragment());
-    }
-
-    private static void printTriple(IRI subject, IRI predicate, IRI object) {
-        StringBuilder b = new StringBuilder();
-        append(subject, b);
-        b.append(" -> ");
-        append(predicate, b);
-        b.append(" -> ");
-        append(object, b);
-        logger.info(b.toString());
-    }
-
-    private static void printTriple(IRI subject, IRI predicate, Object object) {
-        StringBuilder b = new StringBuilder();
-        append(subject, b);
-        b.append(" -> ");
-        append(predicate, b);
-        b.append(" -> ");
-        b.append(object);
-        logger.info(b.toString());
+    private static void printTriple(Object subject, Object predicate,
+            Object object) {
+        logger.info("{} -> {} -> {}", subject, predicate, object);
     }
 
     /** Dump remaining triples. */

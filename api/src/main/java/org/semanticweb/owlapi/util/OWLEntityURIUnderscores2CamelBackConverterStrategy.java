@@ -22,6 +22,8 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLEntity;
 
+import com.google.common.base.Optional;
+
 /**
  * Converts the entity URI fragment or last path element if the fragment is not
  * present to Camel Case. For example, if the URI is
@@ -50,10 +52,10 @@ public class OWLEntityURIUnderscores2CamelBackConverterStrategy implements
     @Nonnull
     private static IRI convert(@Nonnull IRI iri) {
         checkNotNull(iri, "iri cannot be null");
-        String fragment = iri.getFragment();
-        if (!fragment.isEmpty()) {
+        Optional<String> fragment = iri.getNCName();
+        if (fragment.isPresent()) {
             String base = iri.getNamespace();
-            String camelCaseFragment = toCamelCase(fragment);
+            String camelCaseFragment = toCamelCase(fragment.get());
             return IRI.create(base, camelCaseFragment);
         }
         // for an IRI without fragment, the part to modify is the previous
@@ -62,6 +64,7 @@ public class OWLEntityURIUnderscores2CamelBackConverterStrategy implements
         if (!path.isEmpty()) {
             int index = path.lastIndexOf('/');
             String lastPathElement = path.substring(index + 1, path.length());
+            assert lastPathElement != null;
             String camelCaseElement = toCamelCase(lastPathElement);
             String iriString = iri.toString();
             String base = iriString
@@ -71,8 +74,8 @@ public class OWLEntityURIUnderscores2CamelBackConverterStrategy implements
         return iri;
     }
 
-    private static String toCamelCase(String s) {
-        StringBuilder sb = new StringBuilder();
+    private static String toCamelCase(@Nonnull String s) {
+        StringBuilder sb = new StringBuilder(s.length());
         boolean nextIsUpperCase = false;
         for (int i = 0; i < s.length(); i++) {
             char ch = s.charAt(i);

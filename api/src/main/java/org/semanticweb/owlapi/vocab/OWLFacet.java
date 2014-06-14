@@ -123,7 +123,8 @@ public enum OWLFacet implements HasShortForm, HasIRI, HasPrefixedName {
      * @return The facet or {@code null} if not facet by the specified name
      *         exists.
      */
-    public static OWLFacet getFacetByShortName(String shortName) {
+    public static OWLFacet getFacetByShortName(@Nonnull String shortName) {
+        checkNotNull(shortName);
         for (OWLFacet vocabulary : OWLFacet.values()) {
             if (vocabulary.getShortForm().equals(shortName)) {
                 return vocabulary;
