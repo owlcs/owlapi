@@ -147,13 +147,11 @@ public class XMLWriterNamespaceManager {
      */
     public String getQName(IRI name) {
         if (name.getNamespace().equals(defaultNamespace)) {
-            return name.getFragment() == null ? "" : name.getFragment();
+            return name.getNCName().or("");
         }
         String candidate = namespacePrefixMap.get(name.getNamespace());
         if (candidate != null) {
-            String localName = name.getFragment() == null ? "" : name
-                    .getFragment();
-            return candidate + ":" + localName;
+            return name.prefixedBy(candidate + ':');
         }
         return name.toString();
     }

@@ -209,10 +209,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
         if (prefix == null) {
             return null;
         }
-        if (iri.getFragment() == null) {
-            return prefix;
-        }
-        return prefix + iri.getFragment();
+        return iri.prefixedBy(prefix);
     }
 
     @Override

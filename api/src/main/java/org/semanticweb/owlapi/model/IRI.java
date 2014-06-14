@@ -44,11 +44,17 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Collections;
 import java.util.Set;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.atomic.AtomicLong;
 
 import org.semanticweb.owlapi.io.XMLUtils;
-import org.semanticweb.owlapi.util.WeakCache;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+
+import com.google.common.base.Optional;
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
@@ -56,7 +62,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  *         Identifiers
  */
 public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
-        SWRLPredicate, OWLPrimitive, CharSequence {
+        SWRLPredicate, CharSequence, OWLPrimitive {
 
     /**
      * Obtains this IRI as a URI. Note that Java URIs handle unicode characters,
@@ -65,14 +71,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
      * @return The URI
      */
     public URI toURI() {
-        if (remainder != null) {
-            StringBuilder sb = new StringBuilder();
-            sb.append(prefix);
-            sb.append(remainder);
-            return URI.create(sb.toString());
-        } else {
-            return URI.create(prefix);
-        }
+        return URI.create(prefix + remainder.or(""));
     }
 
     /**
@@ -130,9 +129,9 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
         // extra URI object
         URI uri = URI.create(s);
         if (uri.isAbsolute() || uri.isOpaque()) {
-            return IRI.create(uri);
+            return create(uri);
         }
-        return IRI.create(toURI().resolve(uri).toString());
+        return create(toURI().resolve(uri));
     }
 
     /**
@@ -187,7 +186,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
      *         otherwise {@code false}
      */
     public boolean isPlainLiteral() {
-        return remainder != null && remainder.equals("PlainLiteral")
+        return remainder.or("").equals("PlainLiteral")
                 && Namespaces.RDF.inNamespace(prefix);
     }
 
@@ -196,8 +195,18 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
      * 
      * @return The IRI fragment, or {@code null} if the IRI does not have a
      *         fragment
+     * @deprecated use getNCName() - getFragment() does not return a real
+     *             fragment. e.g., it does not allow / and () on it
      */
+    @Deprecated
     public String getFragment() {
+        return remainder.or("");
+    }
+
+    /**
+     * @return the NCName for this IRI.
+     */
+    public Optional<String> getNCName() {
         return remainder;
     }
 
@@ -207,14 +216,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
      * @return This IRI surrounded by &lt; and &gt;
      */
     public String toQuotedString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("<");
-        sb.append(prefix);
-        if (remainder != null) {
-            sb.append(remainder);
-        }
-        sb.append(">");
-        return sb.toString();
+        return '<' + prefix + remainder.or("") + '>';
     }
 
     /**
@@ -318,7 +320,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
      *         {@code owlapi:ontologyTIMESTAMP}
      */
     public static IRI generateDocumentIRI() {
-        return create("owlapi:ontology" + System.nanoTime());
+        return create("owlapi:ontology" + COUNTER.incrementAndGet());
     }
 
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -330,10 +332,29 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////
     private static final long serialVersionUID = 30406L;
-    private static WeakCache<String> prefixCache = new WeakCache<String>();
-    private final String remainder;
+    private static final AtomicLong COUNTER = new AtomicLong(System.nanoTime());
+    private static final LoadingCache<String, String> prefixCache = CacheBuilder
+            .newBuilder().concurrencyLevel(8).maximumSize(1024)
+            .build(new CacheLoader<String, String>() {
+
+                @Override
+                public String load(String key) {
+                    return key;
+                }
+            });
+
+    private static String cache(String s) {
+        try {
+            return prefixCache.get(s);
+        } catch (ExecutionException e) {
+            return s;
+        }
+    }
+
+    private final Optional<String> remainder;
     private final String prefix;
     private int hashCode = 0;
+    private int length;
 
     /**
      * Constructs an IRI which is built from the concatenation of the specified
@@ -345,8 +366,16 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
      *        The suffix.
      */
     protected IRI(String prefix, String fragment) {
-        this.prefix = prefixCache.cache(prefix);
-        remainder = fragment;
+        this.prefix = cache(prefix);
+        if (fragment == null) {
+            remainder = Optional.absent();
+        } else if (fragment.isEmpty()) {
+            remainder = Optional.absent();
+        } else {
+            remainder = Optional.fromNullable(fragment);
+        }
+        length = prefix.length() + remainder.or("").length();
+        hashCode = prefix.hashCode() + remainder.or("").hashCode();
     }
 
     protected IRI(String s) {
@@ -359,7 +388,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
 
     @Override
     public int length() {
-        return prefix.length() + (remainder == null ? 0 : remainder.length());
+        return length;
     }
 
     @Override
@@ -367,21 +396,50 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
         if (index < 0) {
             throw new IndexOutOfBoundsException(Integer.toString(index));
         }
-        if (index >= length()) {
+        if (index >= length) {
             throw new IndexOutOfBoundsException(Integer.toString(index));
         }
         if (index < prefix.length()) {
             return prefix.charAt(index);
         }
-        return remainder.charAt(index - prefix.length());
+        return remainder.get().charAt(index - prefix.length());
     }
 
     @Override
     public CharSequence subSequence(int start, int end) {
         StringBuilder sb = new StringBuilder();
         sb.append(prefix);
-        sb.append(remainder);
+        sb.append(remainder.or(""));
         return sb.subSequence(start, end);
+    }
+
+    /**
+     * @param prefix
+     *        prefix to use for replacing the IRI namespace
+     * @return prefix plus IRI ncname
+     */
+    public String prefixedBy(String prefix) {
+        if (prefix == null) {
+            throw new NullPointerException("prefix cannot be null");
+        }
+        if (remainder.isPresent()) {
+            return prefix + remainder.get();
+        }
+        return prefix;
+    }
+
+    /**
+     * @return short form for this IRI
+     */
+    public String getShortForm() {
+        if (remainder.isPresent()) {
+            return remainder.get();
+        }
+        int lastSlashIndex = prefix.lastIndexOf('/');
+        if (lastSlashIndex != -1 && lastSlashIndex != prefix.length() - 1) {
+            return prefix.substring(lastSlashIndex + 1);
+        }
+        return toQuotedString();
     }
 
     @Override
@@ -451,7 +509,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
 
     @Override
     public int compareTo(OWLObject o) {
-        if (o == this) {
+        if (o == this || equals(o)) {
             return 0;
         }
         if (!(o instanceof IRI)) {
@@ -462,40 +520,19 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
         if (diff != 0) {
             return diff;
         }
-        String otherRemainder = other.remainder;
-        if (remainder == null) {
-            if (otherRemainder == null) {
-                return 0;
-            } else {
-                return -1;
-            }
-        } else {
-            if (otherRemainder == null) {
-                return 1;
-            } else {
-                return remainder.compareTo(otherRemainder);
-            }
-        }
+        return remainder.or("").compareTo(other.remainder.or(""));
     }
 
     @Override
     public String toString() {
-        if (remainder != null) {
-            StringBuilder sb = new StringBuilder();
-            sb.append(prefix);
-            sb.append(remainder);
-            return sb.toString();
-        } else {
+        if (!remainder.isPresent()) {
             return prefix;
         }
+        return prefix + remainder.get();
     }
 
     @Override
     public int hashCode() {
-        if (hashCode == 0) {
-            hashCode = prefix.hashCode()
-                    + (remainder != null ? remainder.hashCode() : 0);
-        }
         return hashCode;
     }
 
@@ -531,12 +568,6 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
             return false;
         }
         IRI other = (IRI) obj;
-        String otherRemainder = other.remainder;
-        if (remainder == null) {
-            return otherRemainder == null && prefix.equals(other.prefix);
-        } else {
-            return otherRemainder != null && remainder.equals(otherRemainder)
-                    && other.prefix.equals(prefix);
-        }
+        return remainder.equals(other.remainder) && other.prefix.equals(prefix);
     }
 }

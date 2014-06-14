@@ -225,10 +225,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
      */
     private void writeFullIRI(IRI iri) {
         write("<");
-        write(iri.getNamespace());
-        if (iri.getFragment() != null) {
-            write(iri.getFragment());
-        }
+        write(iri.toString());
         write(">");
     }
 

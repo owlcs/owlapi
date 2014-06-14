@@ -1871,21 +1871,6 @@ public class OWLRDFConsumer implements RDFConsumer {
     }
 
     /**
-     * Append.
-     * 
-     * @param i
-     *        the i
-     * @param b
-     *        the b
-     */
-    private void append(IRI i, StringBuilder b) {
-        b.append(i.getNamespace());
-        if (i.getFragment() != null) {
-            b.append(i.getFragment());
-        }
-    }
-
-    /**
      * Prints the triple.
      * 
      * @param subject
@@ -1895,34 +1880,9 @@ public class OWLRDFConsumer implements RDFConsumer {
      * @param object
      *        the object
      */
-    private void printTriple(IRI subject, IRI predicate, IRI object) {
-        StringBuilder b = new StringBuilder();
-        append(subject, b);
-        b.append(" -> ");
-        append(predicate, b);
-        b.append(" -> ");
-        append(object, b);
-        logger.fine(b.toString());
-    }
-
-    /**
-     * Prints the triple.
-     * 
-     * @param subject
-     *        the subject
-     * @param predicate
-     *        the predicate
-     * @param object
-     *        the object
-     */
-    private void printTriple(IRI subject, IRI predicate, Object object) {
-        StringBuilder b = new StringBuilder();
-        append(subject, b);
-        b.append(" -> ");
-        append(predicate, b);
-        b.append(" -> ");
-        b.append(object.toString());
-        logger.fine(b.toString());
+    private static void printTriple(Object subject, Object predicate,
+            Object object) {
+        logger.fine(subject + " -> " + predicate + " -> " + object);
     }
 
     /** Dump remaining triples. */

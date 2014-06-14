@@ -52,8 +52,8 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 21/09/2011
+ * @author Matthew Horridge, The University of Manchester, Bio-Health
+ *         Informatics Group, Date: 21/09/2011
  */
 public class RDFXMLNamespaceManager extends OWLOntologyXMLNamespaceManager {
 
@@ -97,7 +97,7 @@ public class RDFXMLNamespaceManager extends OWLOntologyXMLNamespaceManager {
         Set<OWLEntity> result = new HashSet<OWLEntity>();
         for (OWLEntity entity : getEntitiesThatRequireNamespaces()) {
             IRI iri = entity.getIRI();
-            if (iri.getFragment() == null || iri.getFragment().isEmpty()) {
+            if (!iri.getNCName().isPresent()) {
                 result.add(entity);
             }
         }

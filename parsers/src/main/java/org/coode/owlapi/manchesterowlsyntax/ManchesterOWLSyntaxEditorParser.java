@@ -206,12 +206,12 @@ public class ManchesterOWLSyntaxEditorParser implements
             dataTypeNames.add(v.getIRI().toQuotedString());
             dataTypeNames.add(v.getPrefixedName());
         }
-        dataTypeNames.add("rdfs:"
-                + OWLRDFVocabulary.RDFS_LITERAL.getIRI().getFragment());
-        dataTypeNames.add(OWLRDFVocabulary.RDF_XML_LITERAL.getIRI()
-                .getFragment());
-        dataTypeNames.add("rdf:"
-                + OWLRDFVocabulary.RDF_XML_LITERAL.getIRI().getFragment());
+        dataTypeNames.add(OWLRDFVocabulary.RDFS_LITERAL.getIRI().prefixedBy(
+                "rdfs:"));
+        dataTypeNames.add(OWLRDFVocabulary.RDF_XML_LITERAL.getIRI().prefixedBy(
+                ""));
+        dataTypeNames.add(OWLRDFVocabulary.RDF_XML_LITERAL.getIRI().prefixedBy(
+                "rdf:"));
         for (IRI iri : OWLRDFVocabulary.BUILT_IN_ANNOTATION_PROPERTY_IRIS) {
             final String string = iri.toString();
             String ns = XMLUtils.getNCNamePrefix(string);
@@ -2827,9 +2827,9 @@ public class ManchesterOWLSyntaxEditorParser implements
         public DefaultEntityChecker() {
             for (XSDVocabulary v : XSDVocabulary.values()) {
                 IRI iri = v.getIRI();
-                dataTypeNameMap.put(iri.getFragment(),
+                dataTypeNameMap.put(iri.prefixedBy(""),
                         dataFactory.getOWLDatatype(iri));
-                dataTypeNameMap.put("xsd:" + iri.getFragment(),
+                dataTypeNameMap.put(iri.prefixedBy("xsd:"),
                         dataFactory.getOWLDatatype(iri));
             }
         }

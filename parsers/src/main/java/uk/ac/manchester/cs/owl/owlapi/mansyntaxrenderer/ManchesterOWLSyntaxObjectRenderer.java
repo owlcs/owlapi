@@ -959,14 +959,13 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
 
     @Override
     public void visit(SWRLBuiltInAtom node) {
-        SWRLBuiltInsVocabulary voc = SWRLBuiltInsVocabulary.getBuiltIn(node.getPredicate());
+        SWRLBuiltInsVocabulary voc = SWRLBuiltInsVocabulary.getBuiltIn(node
+                .getPredicate());
         if (voc != null) {
             write(voc.getPrefixedName());
-        }
-        else {
+        } else {
             write(node.getPredicate().toQuotedString());
         }
-
         write("(");
         for (Iterator<SWRLDArgument> it = node.getArguments().iterator(); it
                 .hasNext();) {
@@ -983,10 +982,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
         write("?");
         // do not save the namespace if it's the conventional one
         if ("urn:swrl#".equals(node.getIRI().getNamespace())) {
-            String fragment = node.getIRI().getFragment();
-            if (fragment != null) {
-                write(fragment);
-            }
+            write(node.getIRI().prefixedBy(""));
         } else {
             write(node.getIRI().toQuotedString());
         }

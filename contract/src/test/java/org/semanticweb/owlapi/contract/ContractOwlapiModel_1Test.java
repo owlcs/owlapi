@@ -17,6 +17,8 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
+import com.google.common.base.Optional;
+
 @SuppressWarnings({ "unused", "javadoc", "unchecked" })
 public class ContractOwlapiModel_1Test {
 
@@ -197,6 +199,9 @@ public class ContractOwlapiModel_1Test {
         IRI result2 = testSubject0.resolve("");
         String result3 = testSubject0.getScheme();
         String result4 = testSubject0.getFragment();
+        Optional<String> result41 = testSubject0.getNCName();
+        String result42 = testSubject0.prefixedBy("test");
+        String result43 = testSubject0.getShortForm();
         String result10 = testSubject0.getNamespace();
         boolean result11 = testSubject0.isReservedVocabulary();
         boolean result12 = testSubject0.isThing();

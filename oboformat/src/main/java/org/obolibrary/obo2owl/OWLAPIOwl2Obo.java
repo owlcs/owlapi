@@ -910,7 +910,7 @@ public class OWLAPIOwl2Obo {
                     return false;
                 }
                 if (Namespaces.XSD.inNamespace(dataTypeIri)) {
-                    clause.addValue("xsd:" + dataTypeIri.getFragment());
+                    clause.addValue(dataTypeIri.prefixedBy("xsd:"));
                 } else if (dataTypeIri.isPlainLiteral()) {
                     clause.addValue("xsd:string");
                 } else {

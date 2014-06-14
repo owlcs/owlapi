@@ -56,16 +56,6 @@ public class SimpleIRIShortFormProvider implements IRIShortFormProvider,
 
     @Override
     public String getShortForm(IRI iri) {
-        String rendering = iri.getFragment();
-        if (rendering != null && rendering.length() > 0) {
-            return rendering;
-        } else {
-            String s = iri.toString();
-            int lastSlashIndex = s.lastIndexOf('/');
-            if (lastSlashIndex != -1 && lastSlashIndex != s.length() - 1) {
-                return s.substring(lastSlashIndex + 1);
-            }
-        }
-        return iri.toQuotedString();
+        return iri.getShortForm();
     }
 }

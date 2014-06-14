@@ -175,10 +175,7 @@ public class OWLXMLWriter {
         if (prefixName == null) {
             return iri.toString();
         }
-        if (iri.getFragment() == null) {
-            return prefixName;
-        }
-        return prefixName + iri.getFragment();
+        return iri.prefixedBy(prefixName);
     }
 
     /**

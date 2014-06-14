@@ -1246,7 +1246,7 @@ public class OWLFunctionalSyntaxParser implements
         OWLLiteral con;
         iri = IRI();
         con = Literal();
-        OWLFacet v = OWLFacet.getFacetByShortName(iri.getFragment());
+        OWLFacet v = OWLFacet.getFacet(iri);
         return dataFactory.getOWLFacetRestriction(v, con);
     }
 
