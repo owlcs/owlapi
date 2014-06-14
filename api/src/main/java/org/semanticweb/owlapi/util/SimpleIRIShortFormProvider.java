@@ -33,7 +33,6 @@ public class SimpleIRIShortFormProvider implements IRIShortFormProvider,
 
     private static final long serialVersionUID = 40000L;
 
-    @SuppressWarnings("null")
     @Override
     public String getShortForm(@Nonnull IRI iri) {
         checkNotNull(iri);

@@ -54,7 +54,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
     @SuppressWarnings("null")
     @Nonnull
     public URI toURI() {
-        return URI.create(prefix + remainder.or(""));
+        return URI.create(namespace + ncname.or(""));
     }
 
     /**
@@ -64,12 +64,12 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
      *         is not absolute
      */
     public boolean isAbsolute() {
-        int colonIndex = prefix.indexOf(':');
+        int colonIndex = namespace.indexOf(':');
         if (colonIndex == -1) {
             return false;
         }
         for (int i = 0; i < colonIndex; i++) {
-            char ch = prefix.charAt(i);
+            char ch = namespace.charAt(i);
             if (!Character.isLetter(ch) && !Character.isDigit(ch) && ch != '.'
                     && ch != '+' && ch != '-') {
                 return false;
@@ -81,17 +81,17 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
     /** @return the IRI scheme, e.g., http, urn */
     @Nullable
     public String getScheme() {
-        int colonIndex = prefix.indexOf(':');
+        int colonIndex = namespace.indexOf(':');
         if (colonIndex == -1) {
             return null;
         }
-        return prefix.substring(0, colonIndex);
+        return namespace.substring(0, colonIndex);
     }
 
     /** @return the prefix */
     @Nonnull
     public String getNamespace() {
-        return prefix;
+        return namespace;
     }
 
     /**
@@ -124,10 +124,10 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
      *         {@code false}.
      */
     public boolean isReservedVocabulary() {
-        return Namespaces.OWL.inNamespace(prefix)
-                || Namespaces.RDF.inNamespace(prefix)
-                || Namespaces.RDFS.inNamespace(prefix)
-                || Namespaces.XSD.inNamespace(prefix);
+        return Namespaces.OWL.inNamespace(namespace)
+                || Namespaces.RDF.inNamespace(namespace)
+                || Namespaces.RDFS.inNamespace(namespace)
+                || Namespaces.XSD.inNamespace(namespace);
     }
 
     /**
@@ -163,8 +163,8 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
      *         otherwise {@code false}
      */
     public boolean isPlainLiteral() {
-        return remainder.or("").equals("PlainLiteral")
-                && Namespaces.RDF.inNamespace(prefix);
+        return ncname.or("").equals("PlainLiteral")
+                && Namespaces.RDF.inNamespace(namespace);
     }
 
     /**
@@ -175,10 +175,11 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
      * @deprecated use getNCName() - getFragment() does not return a real
      *             fragment. e.g., it does not allow / and () on it
      */
+    @SuppressWarnings("null")
     @Deprecated
     @Nonnull
     public String getFragment() {
-        return remainder.or("");
+        return ncname.or("");
     }
 
     /**
@@ -186,7 +187,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
      */
     @Nonnull
     public Optional<String> getNCName() {
-        return remainder;
+        return ncname;
     }
 
     /**
@@ -196,7 +197,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
      */
     @Nonnull
     public String toQuotedString() {
-        return '<' + prefix + remainder.or("") + '>';
+        return '<' + namespace + ncname.or("") + '>';
     }
 
     /**
@@ -338,9 +339,9 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
     }
 
     @Nonnull
-    private final Optional<String> remainder;
+    private final Optional<String> ncname;
     @Nonnull
-    private final String prefix;
+    private final String namespace;
     private int hashCode = 0;
     private int length;
 
@@ -350,20 +351,30 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
      * 
      * @param prefix
      *        The prefix.
-     * @param ncname
+     * @param remainder
      *        The suffix.
      */
-    protected IRI(@Nonnull String prefix, @Nullable String ncname) {
-        this.prefix = cache(prefix);
-        if (ncname == null) {
-            remainder = Optional.absent();
-        } else if (ncname.isEmpty()) {
-            remainder = Optional.absent();
-        } else {
-            remainder = Optional.fromNullable(ncname);
+    protected IRI(@Nonnull String prefix, @Nullable String remainder) {
+        namespace = cache(prefix);
+        ncname = asOptional(remainder);
+        length = prefix.length() + ncname.or("").length();
+        hashCode = prefix.hashCode() + ncname.or("").hashCode();
+    }
+
+    /**
+     * @param remainder
+     *        remainder to turn to optional. Empty string is the same as null
+     * @return optional value for remainder
+     */
+    @SuppressWarnings("null")
+    @Nonnull
+    protected Optional<String> asOptional(String remainder) {
+        if (remainder == null) {
+            return Optional.absent();
+        } else if (remainder.isEmpty()) {
+            return Optional.absent();
         }
-        length = prefix.length() + remainder.or("").length();
-        hashCode = prefix.hashCode() + remainder.or("").hashCode();
+        return Optional.fromNullable(remainder);
     }
 
     protected IRI(@Nonnull String s) {
@@ -388,17 +399,17 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
         if (index >= length) {
             throw new IndexOutOfBoundsException(Integer.toString(index));
         }
-        if (index < prefix.length()) {
-            return prefix.charAt(index);
+        if (index < namespace.length()) {
+            return namespace.charAt(index);
         }
-        return remainder.get().charAt(index - prefix.length());
+        return ncname.get().charAt(index - namespace.length());
     }
 
     @Override
     public CharSequence subSequence(int start, int end) {
         StringBuilder sb = new StringBuilder();
-        sb.append(prefix);
-        sb.append(remainder.or(""));
+        sb.append(namespace);
+        sb.append(ncname.or(""));
         return sb.subSequence(start, end);
     }
 
@@ -410,8 +421,8 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
     @Nonnull
     public String prefixedBy(@Nonnull String prefix) {
         checkNotNull(prefix, "prefix cannot be null");
-        if (remainder.isPresent()) {
-            return prefix + remainder.get();
+        if (ncname.isPresent()) {
+            return prefix + ncname.get();
         }
         return prefix;
     }
@@ -419,14 +430,15 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
     /**
      * @return short form for this IRI
      */
+    @SuppressWarnings("null")
     @Nonnull
     public String getShortForm() {
-        if (remainder.isPresent()) {
-            return remainder.get();
+        if (ncname.isPresent()) {
+            return ncname.get();
         }
-        int lastSlashIndex = prefix.lastIndexOf('/');
-        if (lastSlashIndex != -1 && lastSlashIndex != prefix.length() - 1) {
-            return prefix.substring(lastSlashIndex + 1);
+        int lastSlashIndex = namespace.lastIndexOf('/');
+        if (lastSlashIndex != -1 && lastSlashIndex != namespace.length() - 1) {
+            return namespace.substring(lastSlashIndex + 1);
         }
         return toQuotedString();
     }
@@ -513,20 +525,20 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
             return -1;
         }
         IRI other = (IRI) o;
-        int diff = prefix.compareTo(other.prefix);
+        int diff = namespace.compareTo(other.namespace);
         if (diff != 0) {
             return diff;
         }
-        return remainder.or("").compareTo(other.remainder.or(""));
+        return ncname.or("").compareTo(other.ncname.or(""));
     }
 
     @Nonnull
     @Override
     public String toString() {
-        if (!remainder.isPresent()) {
-            return prefix;
+        if (!ncname.isPresent()) {
+            return namespace;
         }
-        return prefix + remainder.get();
+        return namespace + ncname.get();
     }
 
     @Override
@@ -566,6 +578,6 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
             return false;
         }
         IRI other = (IRI) obj;
-        return remainder.equals(other.remainder) && other.prefix.equals(prefix);
+        return ncname.equals(other.ncname) && other.namespace.equals(namespace);
     }
 }
