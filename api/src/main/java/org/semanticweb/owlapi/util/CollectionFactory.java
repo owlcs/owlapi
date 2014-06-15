@@ -48,6 +48,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.WeakHashMap;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Lock;
@@ -55,8 +56,8 @@ import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 10-Jan-2007
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 10-Jan-2007
  */
 public class CollectionFactory {
 
@@ -90,10 +91,19 @@ public class CollectionFactory {
     /**
      * @return fresh non threadsafe list
      * @param <T>
-     *        axiom type
+     *        content type
      */
     public static <T> List<T> createList() {
         return new ArrayList<T>();
+    }
+
+    /**
+     * @return fresh threadsafe list
+     * @param <T>
+     *        content type
+     */
+    public static <T> List<T> createSyncList() {
+        return new CopyOnWriteArrayList<T>();
     }
 
     /**

@@ -145,7 +145,7 @@ public class InternalsImpl extends AbstractInternalsImpl {
     }
 
     protected <K> SetPointer<K> buildSet() {
-        return new SetPointer<K>(CollectionFactory.<K> createSet());
+        return new SetPointer<K>(CollectionFactory.<K> createSyncSet());
     }
 
     protected final SetPointer<OWLImportsDeclaration> importsDeclarations = buildSet();

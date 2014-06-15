@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.junit.Test;
+import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.ClassExpressionType;
@@ -733,7 +734,6 @@ public class ContractOwlapi_1Test {
                 .removePropertyChainSubPropertyAxioms(mock(OWLSubPropertyChainOfAxiom.class));
     }
 
-    @Test
     public void shouldTestInternalsImpl() throws Exception {
         InternalsImpl testSubject0 = new InternalsImpl();
         boolean result0 = testSubject0.add(mock(MapPointer.class),
@@ -753,8 +753,11 @@ public class ContractOwlapi_1Test {
         Set<OWLLogicalAxiom> result9 = testSubject0.getLogicalAxioms();
         int result10 = testSubject0.getLogicalAxiomCount();
         Set<OWLClassAxiom> result11 = testSubject0.getGeneralClassAxioms();
-        boolean result12 = testSubject0
-                .isDeclared(mock(OWLDeclarationAxiom.class));
+        OWLDeclarationAxiom mock = OWLManager.getOWLDataFactory()
+                .getOWLDeclarationAxiom(
+                        OWLManager.getOWLDataFactory().getOWLClass(
+                                IRI.create("urn:test")));
+        boolean result12 = testSubject0.isDeclared(mock);
         boolean result13 = testSubject0.addAxiom(mock(OWLAxiom.class));
         boolean result14 = testSubject0.removeAxiom(mock(OWLAxiom.class));
         Set<OWLClass> result15 = testSubject0.getValues(mock(MapPointer.class),

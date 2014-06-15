@@ -46,19 +46,19 @@ public class MapPointer<K, V extends OWLAxiom> implements
             boolean initialized, Internals i) {
         type = t;
         visitor = v;
-        map = new MultiMap<K, V>();
+        map = new MultiMap<K, V>(true);
         this.initialized = initialized;
         this.i = i;
     }
 
     /** @return true if initialized */
-    public boolean isInitialized() {
+    public synchronized boolean isInitialized() {
         return initialized;
     }
 
     /** init the map pointer */
     @SuppressWarnings("unchecked")
-    public void init() {
+    public synchronized void init() {
         if (initialized) {
             return;
         }
@@ -85,12 +85,12 @@ public class MapPointer<K, V extends OWLAxiom> implements
     }
 
     @Override
-    public String toString() {
+    public synchronized String toString() {
         return initialized + map.toString();
     }
 
     /** @return keyset */
-    public Set<K> keySet() {
+    public synchronized Set<K> keySet() {
         return CollectionFactory.getCopyOnRequestSetFromMutableCollection(map
                 .keySet());
     }
@@ -100,7 +100,7 @@ public class MapPointer<K, V extends OWLAxiom> implements
      *        key to look up
      * @return value
      */
-    public Set<V> getValues(K key) {
+    public synchronized Set<V> getValues(K key) {
         return CollectionFactory.getCopyOnRequestSetFromMutableCollection(map
                 .get(key));
     }
@@ -110,7 +110,7 @@ public class MapPointer<K, V extends OWLAxiom> implements
      *        key to look up
      * @return true if there are values for key
      */
-    public boolean hasValues(K key) {
+    public synchronized boolean hasValues(K key) {
         return map.containsKey(key);
     }
 
@@ -121,7 +121,7 @@ public class MapPointer<K, V extends OWLAxiom> implements
      *        value to add
      * @return true if addition happens
      */
-    public boolean put(K key, V value) {
+    public synchronized boolean put(K key, V value) {
         return map.put(key, value);
     }
 
@@ -132,7 +132,7 @@ public class MapPointer<K, V extends OWLAxiom> implements
      *        value to remove
      * @return true if removal happens
      */
-    public boolean remove(K key, V value) {
+    public synchronized boolean remove(K key, V value) {
         return map.remove(key, value);
     }
 
@@ -141,7 +141,7 @@ public class MapPointer<K, V extends OWLAxiom> implements
      *        key to look up
      * @return true if there are values for key
      */
-    public boolean containsKey(K key) {
+    public synchronized boolean containsKey(K key) {
         return map.containsKey(key);
     }
 
@@ -152,17 +152,17 @@ public class MapPointer<K, V extends OWLAxiom> implements
      *        value to look up
      * @return true if key and value are contained
      */
-    public boolean contains(K key, V value) {
+    public synchronized boolean contains(K key, V value) {
         return map.contains(key, value);
     }
 
     /** @return all values contained */
-    public Set<V> getAllValues() {
+    public synchronized Set<V> getAllValues() {
         return map.getAllValues();
     }
 
     /** @return number of mapping contained */
-    public int size() {
+    public synchronized int size() {
         return map.size();
     }
 }
