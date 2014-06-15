@@ -62,7 +62,7 @@ import com.google.common.cache.LoadingCache;
  *         Identifiers
  */
 public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
-        SWRLPredicate, CharSequence, OWLPrimitive {
+        SWRLPredicate, CharSequence, OWLPrimitive, HasShortForm {
 
     /**
      * Obtains this IRI as a URI. Note that Java URIs handle unicode characters,
@@ -204,9 +204,9 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
     }
 
     /**
-     * @return the NCName for this IRI.
+     * @return the remainder (usually matching the NCName) for this IRI.
      */
-    public Optional<String> getNCName() {
+    public Optional<String> getRemainder() {
         return remainder;
     }
 
@@ -428,9 +428,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
         return prefix;
     }
 
-    /**
-     * @return short form for this IRI
-     */
+    @Override
     public String getShortForm() {
         if (remainder.isPresent()) {
             return remainder.get();
