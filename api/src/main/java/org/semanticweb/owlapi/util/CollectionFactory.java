@@ -25,6 +25,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.WeakHashMap;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.annotation.Nonnull;
@@ -91,6 +92,16 @@ public class CollectionFactory {
     @Nonnull
     public static <T> List<T> createList() {
         return new ArrayList<T>();
+    }
+
+    /**
+     * @return fresh threadsafe list
+     * @param <T>
+     *        content type
+     */
+    @Nonnull
+    public static <T> List<T> createSyncList() {
+        return new CopyOnWriteArrayList<T>();
     }
 
     /**
@@ -223,6 +234,8 @@ public class CollectionFactory {
      * @param <T>
      *        set type
      */
+    @SuppressWarnings("null")
+    @Nonnull
     public static <T> Set<T> createSyncSet() {
         ConcurrentHashMap<T, Boolean> internalMap = createSyncMap();
         return Collections.newSetFromMap(internalMap);

@@ -84,7 +84,7 @@ public class MapPointer<K, V extends OWLAxiom> {
      * @return true if an entity with the same iri as the input exists in the
      *         collection
      */
-    public boolean containsReference(OWLEntity e) {
+    public synchronized boolean containsReference(OWLEntity e) {
         return map.containsKey(e);
     }
 
@@ -94,7 +94,7 @@ public class MapPointer<K, V extends OWLAxiom> {
      * @return true if an entity with the same iri as the input exists in the
      *         collection
      */
-    public boolean containsReference(IRI e) {
+    public synchronized boolean containsReference(IRI e) {
         Set<IRI> set = null;
         if (iris != null) {
             set = iris.get();
@@ -119,7 +119,7 @@ public class MapPointer<K, V extends OWLAxiom> {
     }
 
     /** @return true if initialized */
-    public boolean isInitialized() {
+    public synchronized boolean isInitialized() {
         return initialized;
     }
 
@@ -129,7 +129,7 @@ public class MapPointer<K, V extends OWLAxiom> {
      * @return the map pointer
      */
     @SuppressWarnings({ "unchecked", "null" })
-    public MapPointer<K, V> init() {
+    public synchronized MapPointer<K, V> init() {
         if (initialized) {
             return this;
         }
@@ -161,13 +161,13 @@ public class MapPointer<K, V extends OWLAxiom> {
 
     @Nonnull
     @Override
-    public String toString() {
+    public synchronized String toString() {
         return initialized + map.toString();
     }
 
     /** @return keyset */
     @Nonnull
-    public Set<K> keySet() {
+    public synchronized Set<K> keySet() {
         init();
         return CollectionFactory.getCopyOnRequestSetFromMutableCollection(map
                 .keySet());
@@ -179,7 +179,7 @@ public class MapPointer<K, V extends OWLAxiom> {
      * @return value
      */
     @Nonnull
-    public Set<V> getValues(K key) {
+    public synchronized Set<V> getValues(K key) {
         init();
         return CollectionFactory.getCopyOnRequestSetFromMutableCollection(map
                 .get(key));
@@ -190,7 +190,7 @@ public class MapPointer<K, V extends OWLAxiom> {
      *        key to look up
      * @return true if there are values for key
      */
-    public boolean hasValues(K key) {
+    public synchronized boolean hasValues(K key) {
         init();
         return map.containsKey(key);
     }
@@ -202,7 +202,7 @@ public class MapPointer<K, V extends OWLAxiom> {
      *        value to add
      * @return true if addition happens
      */
-    public boolean put(K key, V value) {
+    public synchronized boolean put(K key, V value) {
         // lazy init: no elements added until a recall is made
         if (!initialized) {
             return false;
@@ -218,7 +218,7 @@ public class MapPointer<K, V extends OWLAxiom> {
      *        value to remove
      * @return true if removal happens
      */
-    public boolean remove(K key, V value) {
+    public synchronized boolean remove(K key, V value) {
         if (!initialized) {
             return false;
         }
@@ -233,7 +233,7 @@ public class MapPointer<K, V extends OWLAxiom> {
      */
     @SuppressWarnings("null")
     @Nonnull
-    public Boolean containsKey(K key) {
+    public synchronized Boolean containsKey(K key) {
         init();
         return Boolean.valueOf(map.containsKey(key));
     }
@@ -245,26 +245,26 @@ public class MapPointer<K, V extends OWLAxiom> {
      *        value to look up
      * @return true if key and value are contained
      */
-    public boolean contains(K key, V value) {
+    public synchronized boolean contains(K key, V value) {
         init();
         return map.containsEntry(key, value);
     }
 
     /** @return all values contained */
     @Nonnull
-    public Set<V> getAllValues() {
+    public synchronized Set<V> getAllValues() {
         init();
         return new HashSet<V>(map.values());
     }
 
     /** @return number of mapping contained */
-    public int size() {
+    public synchronized int size() {
         init();
         return map.size();
     }
 
     /** @return true if empty */
-    public boolean isEmpty() {
+    public synchronized boolean isEmpty() {
         init();
         return map.isEmpty();
     }

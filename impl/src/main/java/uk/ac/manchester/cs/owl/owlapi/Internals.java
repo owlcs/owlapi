@@ -13,7 +13,7 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.model.AxiomType.*;
-import static org.semanticweb.owlapi.util.CollectionFactory.createSet;
+import static org.semanticweb.owlapi.util.CollectionFactory.*;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.*;
 
@@ -139,7 +139,7 @@ public class Internals implements Serializable {
 
         private static final long serialVersionUID = 40000L;
         @Nonnull
-        private final Set<K> set = createSet();
+        private final Set<K> set = createSyncSet();
 
         public boolean isEmpty() {
             return set.isEmpty();
