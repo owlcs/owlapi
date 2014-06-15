@@ -66,7 +66,7 @@ public class RDFXMLNamespaceManager extends OWLOntologyXMLNamespaceManager {
     public Set<OWLEntity> getEntitiesWithInvalidQNames() {
         Set<OWLEntity> result = new HashSet<OWLEntity>();
         for (OWLEntity entity : getEntitiesThatRequireNamespaces()) {
-            if (!entity.getIRI().getNCName().isPresent()) {
+            if (!entity.getIRI().getRemainder().isPresent()) {
                 result.add(entity);
             }
         }

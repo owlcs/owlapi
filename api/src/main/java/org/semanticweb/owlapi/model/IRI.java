@@ -43,7 +43,7 @@ import com.google.common.cache.LoadingCache;
  * @since 3.0.0
  */
 public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
-        SWRLPredicate, CharSequence, OWLPrimitive {
+        SWRLPredicate, CharSequence, OWLPrimitive, HasShortForm {
 
     /**
      * Obtains this IRI as a URI. Note that Java URIs handle unicode characters,
@@ -54,7 +54,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
     @SuppressWarnings("null")
     @Nonnull
     public URI toURI() {
-        return URI.create(namespace + ncname.or(""));
+        return URI.create(namespace + remainder.or(""));
     }
 
     /**
@@ -163,7 +163,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
      *         otherwise {@code false}
      */
     public boolean isPlainLiteral() {
-        return ncname.or("").equals("PlainLiteral")
+        return remainder.or("").equals("PlainLiteral")
                 && Namespaces.RDF.inNamespace(namespace);
     }
 
@@ -179,15 +179,15 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
     @Deprecated
     @Nonnull
     public String getFragment() {
-        return ncname.or("");
+        return remainder.or("");
     }
 
     /**
-     * @return the NCName for this IRI.
+     * @return the remainder (coincident with NCName usually) for this IRI.
      */
     @Nonnull
-    public Optional<String> getNCName() {
-        return ncname;
+    public Optional<String> getRemainder() {
+        return remainder;
     }
 
     /**
@@ -197,7 +197,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
      */
     @Nonnull
     public String toQuotedString() {
-        return '<' + namespace + ncname.or("") + '>';
+        return '<' + namespace + remainder.or("") + '>';
     }
 
     /**
@@ -339,7 +339,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
     }
 
     @Nonnull
-    private final Optional<String> ncname;
+    private final Optional<String> remainder;
     @Nonnull
     private final String namespace;
     private int hashCode = 0;
@@ -351,30 +351,30 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
      * 
      * @param prefix
      *        The prefix.
-     * @param remainder
+     * @param suffix
      *        The suffix.
      */
-    protected IRI(@Nonnull String prefix, @Nullable String remainder) {
+    protected IRI(@Nonnull String prefix, @Nullable String suffix) {
         namespace = cache(prefix);
-        ncname = asOptional(remainder);
-        length = prefix.length() + ncname.or("").length();
-        hashCode = prefix.hashCode() + ncname.or("").hashCode();
+        remainder = asOptional(suffix);
+        length = prefix.length() + remainder.or("").length();
+        hashCode = prefix.hashCode() + remainder.or("").hashCode();
     }
 
     /**
-     * @param remainder
-     *        remainder to turn to optional. Empty string is the same as null
+     * @param suffix
+     *        suffix to turn to optional. Empty string is the same as null
      * @return optional value for remainder
      */
     @SuppressWarnings("null")
     @Nonnull
-    protected Optional<String> asOptional(String remainder) {
-        if (remainder == null) {
+    protected Optional<String> asOptional(String suffix) {
+        if (suffix == null) {
             return Optional.absent();
-        } else if (remainder.isEmpty()) {
+        } else if (suffix.isEmpty()) {
             return Optional.absent();
         }
-        return Optional.fromNullable(remainder);
+        return Optional.fromNullable(suffix);
     }
 
     protected IRI(@Nonnull String s) {
@@ -402,14 +402,14 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
         if (index < namespace.length()) {
             return namespace.charAt(index);
         }
-        return ncname.get().charAt(index - namespace.length());
+        return remainder.get().charAt(index - namespace.length());
     }
 
     @Override
     public CharSequence subSequence(int start, int end) {
         StringBuilder sb = new StringBuilder();
         sb.append(namespace);
-        sb.append(ncname.or(""));
+        sb.append(remainder.or(""));
         return sb.subSequence(start, end);
     }
 
@@ -421,20 +421,18 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
     @Nonnull
     public String prefixedBy(@Nonnull String prefix) {
         checkNotNull(prefix, "prefix cannot be null");
-        if (ncname.isPresent()) {
-            return prefix + ncname.get();
+        if (remainder.isPresent()) {
+            return prefix + remainder.get();
         }
         return prefix;
     }
 
-    /**
-     * @return short form for this IRI
-     */
+    @Override
     @SuppressWarnings("null")
     @Nonnull
     public String getShortForm() {
-        if (ncname.isPresent()) {
-            return ncname.get();
+        if (remainder.isPresent()) {
+            return remainder.get();
         }
         int lastSlashIndex = namespace.lastIndexOf('/');
         if (lastSlashIndex != -1 && lastSlashIndex != namespace.length() - 1) {
@@ -529,16 +527,16 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
         if (diff != 0) {
             return diff;
         }
-        return ncname.or("").compareTo(other.ncname.or(""));
+        return remainder.or("").compareTo(other.remainder.or(""));
     }
 
     @Nonnull
     @Override
     public String toString() {
-        if (!ncname.isPresent()) {
+        if (!remainder.isPresent()) {
             return namespace;
         }
-        return namespace + ncname.get();
+        return namespace + remainder.get();
     }
 
     @Override
@@ -578,6 +576,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
             return false;
         }
         IRI other = (IRI) obj;
-        return ncname.equals(other.ncname) && other.namespace.equals(namespace);
+        return remainder.equals(other.remainder)
+                && other.namespace.equals(namespace);
     }
 }

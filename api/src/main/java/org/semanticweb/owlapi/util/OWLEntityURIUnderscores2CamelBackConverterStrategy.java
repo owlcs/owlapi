@@ -52,7 +52,7 @@ public class OWLEntityURIUnderscores2CamelBackConverterStrategy implements
     @Nonnull
     private static IRI convert(@Nonnull IRI iri) {
         checkNotNull(iri, "iri cannot be null");
-        Optional<String> fragment = iri.getNCName();
+        Optional<String> fragment = iri.getRemainder();
         if (fragment.isPresent()) {
             String base = iri.getNamespace();
             String camelCaseFragment = toCamelCase(fragment.get());
