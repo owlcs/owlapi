@@ -147,7 +147,7 @@ public class XMLWriterNamespaceManager {
      */
     public String getQName(IRI name) {
         if (name.getNamespace().equals(defaultNamespace)) {
-            return name.getNCName().or("");
+            return name.getRemainder().or("");
         }
         String candidate = namespacePrefixMap.get(name.getNamespace());
         if (candidate != null) {

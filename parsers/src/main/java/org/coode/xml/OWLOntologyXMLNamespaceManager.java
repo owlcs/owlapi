@@ -149,7 +149,7 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
 
     private void processIRI(IRI iri) {
         String ns = iri.getNamespace();
-        if (ns != null && !(ns.equals("") || !iri.getNCName().isPresent())) {
+        if (ns != null && !(ns.equals("") || !iri.getRemainder().isPresent())) {
             namespaceUtil.getPrefix(ns);
         }
     }

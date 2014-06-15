@@ -199,7 +199,7 @@ public class ContractOwlapiModel_1Test {
         IRI result2 = testSubject0.resolve("");
         String result3 = testSubject0.getScheme();
         String result4 = testSubject0.getFragment();
-        Optional<String> result41 = testSubject0.getNCName();
+        Optional<String> result41 = testSubject0.getRemainder();
         String result42 = testSubject0.prefixedBy("test");
         String result43 = testSubject0.getShortForm();
         String result10 = testSubject0.getNamespace();
