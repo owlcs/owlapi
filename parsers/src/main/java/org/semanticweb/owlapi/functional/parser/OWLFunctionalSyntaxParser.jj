@@ -9,7 +9,7 @@ options {
     LOOKAHEAD=1;
     UNICODE_INPUT=true;
     //JAVA_TEMPLATE_TYPE = "modern";
-    //USER_TOKEN_MANAGER=true;
+    USER_TOKEN_MANAGER=true;
     //KEEP_LINE_COLUMN=false;
     //DEBUG_TOKEN_MANAGER=true;
 }

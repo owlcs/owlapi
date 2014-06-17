@@ -2494,9 +2494,8 @@ args.add(arg);
     throw new Error("Missing return statement in function");
   }
 
-  /** Generated Token Manager. */
-  public OWLFunctionalSyntaxParserTokenManager token_source;
-  SimpleCharStream jj_input_stream;
+  /** User defined Token Manager. */
+  public TokenManager token_source;
   /** Current token. */
   public Token token;
   /** Next token. */
@@ -2532,56 +2531,9 @@ args.add(arg);
       jj_la1_4 = new int[] {0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x1,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x1,0x1,0x0,0x0,0x1,0x1,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,};
    }
 
-  /** Constructor with InputStream. */
-  public OWLFunctionalSyntaxParser(java.io.InputStream stream) {
-     this(stream, null);
-  }
-  /** Constructor with InputStream and supplied encoding */
-  public OWLFunctionalSyntaxParser(java.io.InputStream stream, String encoding) {
-    try { jj_input_stream = new SimpleCharStream(stream, encoding, 1, 1); } catch(java.io.UnsupportedEncodingException e) { throw new RuntimeException(e); }
-    token_source = new OWLFunctionalSyntaxParserTokenManager(jj_input_stream);
-    token = new Token();
-    jj_ntk = -1;
-    jj_gen = 0;
-    for (int i = 0; i < 49; i++) jj_la1[i] = -1;
-  }
 
-  /** Reinitialise. */
-  public void ReInit(java.io.InputStream stream) {
-     ReInit(stream, null);
-  }
-  /** Reinitialise. */
-  public void ReInit(java.io.InputStream stream, String encoding) {
-    try { jj_input_stream.ReInit(stream, encoding, 1, 1); } catch(java.io.UnsupportedEncodingException e) { throw new RuntimeException(e); }
-    token_source.ReInit(jj_input_stream);
-    token = new Token();
-    jj_ntk = -1;
-    jj_gen = 0;
-    for (int i = 0; i < 49; i++) jj_la1[i] = -1;
-  }
-
-  /** Constructor. */
-  public OWLFunctionalSyntaxParser(java.io.Reader stream) {
-    jj_input_stream = new SimpleCharStream(stream, 1, 1);
-    token_source = new OWLFunctionalSyntaxParserTokenManager(jj_input_stream);
-    token = new Token();
-    jj_ntk = -1;
-    jj_gen = 0;
-    for (int i = 0; i < 49; i++) jj_la1[i] = -1;
-  }
-
-  /** Reinitialise. */
-  public void ReInit(java.io.Reader stream) {
-    jj_input_stream.ReInit(stream, 1, 1);
-    token_source.ReInit(jj_input_stream);
-    token = new Token();
-    jj_ntk = -1;
-    jj_gen = 0;
-    for (int i = 0; i < 49; i++) jj_la1[i] = -1;
-  }
-
-  /** Constructor with generated Token Manager. */
-  public OWLFunctionalSyntaxParser(OWLFunctionalSyntaxParserTokenManager tm) {
+  /** Constructor with user supplied Token Manager. */
+  public OWLFunctionalSyntaxParser(TokenManager tm) {
     token_source = tm;
     token = new Token();
     jj_ntk = -1;
@@ -2590,7 +2542,7 @@ args.add(arg);
   }
 
   /** Reinitialise. */
-  public void ReInit(OWLFunctionalSyntaxParserTokenManager tm) {
+  public void ReInit(TokenManager tm) {
     token_source = tm;
     token = new Token();
     jj_ntk = -1;
