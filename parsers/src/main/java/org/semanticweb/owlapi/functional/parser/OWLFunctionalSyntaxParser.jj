@@ -1,20 +1,29 @@
+/*
+LOOKAHEAD=2,JAVA_UNICODE_ESCAPE,KEEP_LINE_COLUMN     4.61s         <=== Original
+LOOKAHEAD=1,JAVA_UNICODE_ESCAPE,KEEP_LINE_COLUMN,    3.9869s
+LOOKAHEAD=1,UNICODE_INPUT,KEEP_LINE_COLUMN, :        3.65s         <=== Now
+LOOKAHEAD=1,UNICODE_INPUT,                           3.18s
+*/
 options {
     STATIC=false;
-    JAVA_UNICODE_ESCAPE=true;
-    LOOKAHEAD=2;
+    LOOKAHEAD=1;
+    UNICODE_INPUT=true;
+    //JAVA_TEMPLATE_TYPE = "modern";
+    //USER_TOKEN_MANAGER=true;
+    //KEEP_LINE_COLUMN=false;
     //DEBUG_TOKEN_MANAGER=true;
 }
 
 PARSER_BEGIN(OWLFunctionalSyntaxParser)
 
-package org.coode.owlapi.functionalparser;
+package org.semanticweb.owlapi.functional.parser;
 
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.*;
 import java.net.*;
 import java.util.*;
 import org.semanticweb.owlapi.util.EscapeUtils;
-import org.semanticweb.owlapi.io.OWLFunctionalSyntaxOntologyFormat;
+import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormat;
 import java.io.IOException;
 import org.semanticweb.owlapi.io.OWLParserException;
 
@@ -117,7 +126,7 @@ SKIP: {" " | "\n" | "\t" | "\r"}
 
 MORE:
 {
-    <COMMENT_START: "#"|"//"> : IN_COMMENT
+    <COMMENT_START: "#"> : IN_COMMENT
 }
 
 <IN_COMMENT> SKIP:
