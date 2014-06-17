@@ -32,7 +32,6 @@ public class FunctionalSyntaxCommentTestCase extends TestBase {
                 + "Ontology(<file:test.owl>\n"
                 + "Declaration(Class(<urn:test.owl#ContactInformation>))\n"
                 + "#Test comment\n"
-                + "//second Test comment\n"
                 + "Declaration(DataProperty(<urn:test.owl#city>))\n"
                 + "SubClassOf(<urn:test.owl#ContactInformation> DataMaxCardinality(1 <urn:test.owl#city> xsd:string))\n"
                 + ')';
