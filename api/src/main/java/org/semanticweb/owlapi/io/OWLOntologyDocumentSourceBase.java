@@ -36,7 +36,7 @@ public abstract class OWLOntologyDocumentSourceBase implements
     }
 
     /**
-     * Wrap an input stream in a buffered input stream and strip BOMs.
+     * Wrap an input stream to  strip BOMs.
      * 
      * @param delegate
      *        delegate to wrap
@@ -45,10 +45,10 @@ public abstract class OWLOntologyDocumentSourceBase implements
     @Nonnull
     public static InputStream wrap(@Nonnull InputStream delegate) {
         checkNotNull(delegate, "delegate cannot be null");
-        return new BufferedInputStream(new BOMInputStream(delegate,
+        return new BOMInputStream(delegate,
                 ByteOrderMark.UTF_8, ByteOrderMark.UTF_16BE,
                 ByteOrderMark.UTF_16LE, ByteOrderMark.UTF_32BE,
-                ByteOrderMark.UTF_32LE));
+                ByteOrderMark.UTF_32LE);
     }
 
     private final OWLOntologyFormat format;
