@@ -1,5 +1,6 @@
 package org.semanticweb.owlapi.functional.parser;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,7 +34,7 @@ public class CustomTokenizerTest {
         validateTokenizationOfString("<http://www.unc.edu/onto#foo");
 
     }
-
+    @Ignore
     @Test
     public void testTokenizeGeneOntology() throws Exception {
         String fileName = "/Users/ses/ontologies/GO/go.ofn";
