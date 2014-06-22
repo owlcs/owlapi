@@ -1,12 +1,7 @@
 package org.semanticweb.owlapi.functional.parser;
 
-import com.sun.javafx.css.Declaration;
-import com.sun.org.apache.xpath.internal.operations.Variable;
-import com.sun.tools.internal.ws.wsdl.document.Documentation;
-
 import java.io.EOFException;
 import java.io.IOException;
-import java.io.PushbackReader;
 import java.io.Reader;
 
 import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.*;
@@ -16,16 +11,14 @@ import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParser
  */
 public class CustomTokenizer implements TokenManager {
 
-    private final PushbackReader in;
+    private int unreadChar = -1;
+    private final Reader in;
     private boolean eofSeen = false;
+    private StringBuilder buf = new StringBuilder();
 
     public CustomTokenizer(Reader reader) {
-        if (reader instanceof PushbackReader) {
-            PushbackReader pushbackReader = (PushbackReader) reader;
-            this.in = pushbackReader;
-        } else {
-            this.in = new PushbackReader(reader);
-        }
+        this.in = reader;
+
     }
 
     /**
@@ -40,20 +33,20 @@ public class CustomTokenizer implements TokenManager {
                 c = findTokenStart();
                 switch (c) {
                     case '(':
-                        return new Token(OPENPAR,"(");
+                        return makeToken(OPENPAR,"(");
                     case ')':
-                        return new Token(CLOSEPAR,")");
+                        return makeToken(CLOSEPAR,")");
                     case '@':
-                        return new Token(LANGIDENTIFIER,"@");
+                        return makeToken(LANGIDENTIFIER,"@");
                     case '^':
                         c = readChar();
                         if(c == '^') {
-                          return new Token(DATATYPEIDENTIFIER,"^^");
+                          return makeToken(DATATYPEIDENTIFIER,"^^");
                         }  else {
-                            return new Token(ERROR,"^" + c);
+                            return makeToken(ERROR,"^" + c);
                         }
                     case '=':
-                        return new Token(EQUALS,"=");
+                        return makeToken(EQUALS,"=");
                     case '#':
                         skipComment();
                         break;
@@ -65,7 +58,7 @@ public class CustomTokenizer implements TokenManager {
                         return readTextualToken(c);
                 }
             } catch (IOException e) {
-                return new Token(EOF, "");
+                return makeToken(EOF, "");
             }
         }
     }
@@ -78,19 +71,19 @@ public class CustomTokenizer implements TokenManager {
     }
 
     private Token readStringLiteralToken() throws IOException {
-        StringBuilder buf = new StringBuilder();
+        buf.setLength(0);
         buf.append('"');
         while (true) {
             char c = readChar();
             switch(c) {
                 case '"':
                     buf.append(c);
-                    return new Token(STRINGLITERAL,buf.toString());
+                    return makeToken(STRINGLITERAL,buf.toString());
                 case '\\':
                     buf.append(c);
                     c = readChar();
                     if(c != '\\' && c != '\"') {
-                        return new Token(ERROR,"Bad escape sequence in StringLiteral");
+                        return makeToken(ERROR,"Bad escape sequence in StringLiteral");
                     }
                     // fallthrough
                 default:
@@ -101,17 +94,17 @@ public class CustomTokenizer implements TokenManager {
 
     private Token readFullIRI() {
         try {
-            StringBuilder buf = new StringBuilder();
+            buf.setLength(0);
             buf.append('<');
             while (true) {
                 char c = readChar();
                 buf.append(c);
                 if (c == '>') {
-                    return new Token(FULLIRI, buf.toString());
+                    return makeToken(FULLIRI, buf.toString());
                 }
             }
         } catch (IOException e) {
-            return new Token(ERROR, "<");
+            return makeToken(ERROR, "<");
         }
 
     }
@@ -120,9 +113,12 @@ public class CustomTokenizer implements TokenManager {
         if(c >='0' && c <='9') {
             return readNumber(c);
         }
-        StringBuilder buf = new StringBuilder();
+        buf.setLength(0);
         buf.append(c);
         int colonIndex = -1;
+        if(c == ':') {
+            colonIndex = 0;
+        }
         loop:
         while (true) {
             try {
@@ -140,7 +136,7 @@ public class CustomTokenizer implements TokenManager {
                     case '\n':
                     case ' ':
                     case '\t':
-                        in.unread(c);
+                        unread(c);
                         break loop;
                     case ':':
                         colonIndex = buf.length();  // and fall through
@@ -155,233 +151,264 @@ public class CustomTokenizer implements TokenManager {
         if(colonIndex >=0) {
            // System.out.println("colonIndex >=0 - so expect abbreviated IRI from " + buf);
             if(colonIndex == s.length()-1) {
-                return new Token(PNAME_NS,s);
+                return makeToken(PNAME_NS,s);
             } else {
-                return new Token(OWLFunctionalSyntaxParserConstants.PNAME_LN, s);
+                if(s.startsWith("_:")) {
+                    return makeToken(NODEID,s);
+                }
+                return makeToken(OWLFunctionalSyntaxParserConstants.PNAME_LN, s);
             }
         }
         switch (s) {
             case "Ontology":
-                return new Token(ONTOLOGY, s);
+                return makeToken(ONTOLOGY, s);
             case "Label":
-                return new Token(LABEL, s);
+                return makeToken(LABEL, s);
+            case "Import":
+                return makeToken(IMPORT, s);
             case "Comment":
-                return new Token(LABEL, s);
+                return makeToken(COMMENT, s);
             case "SubClassOf":
-                return new Token(SUBCLASSOF, s);
+                return makeToken(SUBCLASSOF, s);
             case "EquivalentClasses":
-                return new Token(EQUIVALENTCLASSES, s);
+                return makeToken(EQUIVALENTCLASSES, s);
             case "DisjointClasses":
-                return new Token(DISJOINTCLASSES, s);
+                return makeToken(DISJOINTCLASSES, s);
             case "DisjointUnion":
-                return new Token(DISJOINTUNION, s);
+                return makeToken(DISJOINTUNION, s);
             case "Annotation":
-                return new Token(ANNOTATION, s);
+                return makeToken(ANNOTATION, s);
             case "AnnotationProperty":
-                return new Token(ANNOTATIONPROPERTY, s);
+                return makeToken(ANNOTATIONPROPERTY, s);
             case "AnnotationAssertion":
-                return new Token(ANNOTATIONASSERTION, s);
+                return makeToken(ANNOTATIONASSERTION, s);
             case "SubAnnotationPropertyOf":
-                return new Token(SUBANNOTATIONPROPERTYOF, s);
+                return makeToken(SUBANNOTATIONPROPERTYOF, s);
             case "AnnotationPropertyDomain":
-                return new Token(ANNOTATIONPROPERTYDOMAIN, s);
+                return makeToken(ANNOTATIONPROPERTYDOMAIN, s);
             case "AnnotationPropertyRange":
-                return new Token(ANNOTATIONPROPERTYRANGE, s);
+                return makeToken(ANNOTATIONPROPERTYRANGE, s);
             case "HasKey":
-                return new Token(HASKEY, s);
+                return makeToken(HASKEY, s);
             case "Declaration":
-                return new Token(DECLARATION , s);
+                return makeToken(DECLARATION , s);
             case "Documentation":
-                return new Token(DOCUMENTATION, s);
+                return makeToken(DOCUMENTATION, s);
             case "Class":
-                return new Token(CLASS, s);
+                return makeToken(CLASS, s);
             case "ObjectProperty":
-                return new Token(OBJECTPROP, s);
+                return makeToken(OBJECTPROP, s);
             case "DataProperty":
-                return new Token(DATAPROP, s);
+                return makeToken(DATAPROP, s);
             case "NamedIndividual":
-                return new Token(NAMEDINDIVIDUAL, s);
+                return makeToken(NAMEDINDIVIDUAL, s);
             case "Datatype":
-                return new Token(DATATYPE, s);
+                return makeToken(DATATYPE, s);
             case "DataOneOf":
-                return new Token(DATAONEOF, s);
+                return makeToken(DATAONEOF, s);
             case "DataUnionOf":
-                return new Token(DATAUNIONOF, s);
+                return makeToken(DATAUNIONOF, s);
             case "DataIntersectionOf":
-                return new Token(DATAINTERSECTIONOF, s);
+                return makeToken(DATAINTERSECTIONOF, s);
+            case "ObjectOneOf":
+                return makeToken(OBJECTONEOF, s);
             case "ObjectUnionOf":
-                return new Token(OBJECTUNIONOF, s);
+                return makeToken(OBJECTUNIONOF, s);
             case "ObjectHasValue":
-                return new Token(OBJECTHASVALUE, s);
+                return makeToken(OBJECTHASVALUE, s);
             case "ObjectInverseOf":
-                return new Token(OBJECTINVERSEOF, s);
+                return makeToken(OBJECTINVERSEOF, s);
             case "InverseObjectProperties":
-                return new Token(INVERSEOBJECTPROPERTIES, s);
+                return makeToken(INVERSEOBJECTPROPERTIES, s);
             case "DataComplementOf":
-                return new Token(DATACOMPLEMENTOF, s);
+                return makeToken(DATACOMPLEMENTOF, s);
             case "DatatypeRestriction":
-                return new Token(DATATYPERESTRICTION, s);
+                return makeToken(DATATYPERESTRICTION, s);
+            case "DatatypeDefinition":
+                return makeToken(DATATYPEDEFINITION, s);
             case "ObjectIntersectionOf":
-                return new Token(OBJECTINTERSECTIONOF, s);
+                return makeToken(OBJECTINTERSECTIONOF, s);
             case "ObjectComplementOf":
-                return new Token(OBJECTCOMPLEMENTOF, s);
+                return makeToken(OBJECTCOMPLEMENTOF, s);
             case "ObjectAllValuesFrom":
-                return new Token(OBJECTALLVALUESFROM, s);
+                return makeToken(OBJECTALLVALUESFROM, s);
             case "ObjectSomeValuesFrom":
-                return new Token(OBJECTSOMEVALUESFROM, s);
+                return makeToken(OBJECTSOMEVALUESFROM, s);
             case "ObjectHasSelf":
-                return new Token(OBJECTHASSELF, s);
+                return makeToken(OBJECTHASSELF, s);
             case "ObjectMinCardinality":
-                return new Token(OBJECTMINCARDINALITY, s);
+                return makeToken(OBJECTMINCARDINALITY, s);
             case "ObjectMaxCardinality":
-                return new Token(OBJECTMAXCARDINALITY, s);
+                return makeToken(OBJECTMAXCARDINALITY, s);
             case "ObjectExactCardinality":
-                return new Token(OBJECTEXACTCARDINALITY, s);
+                return makeToken(OBJECTEXACTCARDINALITY, s);
             case "DataAllValuesFrom":
-                return new Token(DATAALLVALUESFROM, s);
+                return makeToken(DATAALLVALUESFROM, s);
             case "DataSomeValuesFrom":
-                return new Token(DATASOMEVALUESFROM, s);
+                return makeToken(DATASOMEVALUESFROM, s);
             case "DataHasValue":
-                return new Token(DATAHASVALUE, s);
+                return makeToken(DATAHASVALUE, s);
             case "DataMinCardinality":
-                return new Token(DATAMINCARDINALITY, s);
+                return makeToken(DATAMINCARDINALITY, s);
             case "DataMaxCardinality":
-                return new Token(DATAMAXCARDINALITY, s);
+                return makeToken(DATAMAXCARDINALITY, s);
             case "DataExactCardinality":
-                return new Token(DATAEXACTCARDINALITY, s);
+                return makeToken(DATAEXACTCARDINALITY, s);
             case "ObjectPropertyChain":
-                return new Token(SUBOBJECTPROPERTYCHAIN, s);
+                return makeToken(SUBOBJECTPROPERTYCHAIN, s);
             case "SubObjectPropertyOf":
-                return new Token(SUBOBJECTPROPERTYOF, s);
+                return makeToken(SUBOBJECTPROPERTYOF, s);
             case "EquivalentObjectProperties":
-                return new Token(EQUIVALENTOBJECTPROPERTIES, s);
+                return makeToken(EQUIVALENTOBJECTPROPERTIES, s);
             case "DisjointObjectProperties":
-                return new Token(DISJOINTOBJECTPROPERTIES, s);
+                return makeToken(DISJOINTOBJECTPROPERTIES, s);
             case "ObjectPropertyDomain":
-                return new Token(OBJECTPROPERTYDOMAIN, s);
+                return makeToken(OBJECTPROPERTYDOMAIN, s);
             case "ObjectPropertyRange":
-                return new Token(OBJECTPROPERTYRANGE, s);
+                return makeToken(OBJECTPROPERTYRANGE, s);
             case "FunctionalObjectProperty":
-                return new Token(FUNCTIONALOBJECTPROPERTY, s);
+                return makeToken(FUNCTIONALOBJECTPROPERTY, s);
             case "InverseFunctionalObjectProperty":
-                return new Token(INVERSEFUNCTIONALOBJECTPROPERTY, s);
+                return makeToken(INVERSEFUNCTIONALOBJECTPROPERTY, s);
             case "ReflexiveObjectProperty":
-                return new Token(REFLEXIVEOBJECTPROPERTY, s);
+                return makeToken(REFLEXIVEOBJECTPROPERTY, s);
             case "IrreflexiveObjectProperty":
-                return new Token(IRREFLEXIVEOBJECTPROPERTY, s);
+                return makeToken(IRREFLEXIVEOBJECTPROPERTY, s);
             case "SymmetricObjectProperty":
-                return new Token(SYMMETRICOBJECTPROPERTY, s);
+                return makeToken(SYMMETRICOBJECTPROPERTY, s);
             case "AsymmetricObjectProperty":
-                return new Token(ASYMMETRICOBJECTPROPERTY, s);
+                return makeToken(ASYMMETRICOBJECTPROPERTY, s);
             case "TransitiveObjectProperty":
-                return new Token(TRANSITIVEOBJECTPROPERTY, s);
+                return makeToken(TRANSITIVEOBJECTPROPERTY, s);
             case "SubDataPropertyOf":
-                return new Token(SUBDATAPROPERTYOF, s);
+                return makeToken(SUBDATAPROPERTYOF, s);
             case "EquivalentDataProperties":
-                return new Token(EQUIVALENTDATAPROPERTIES, s);
+                return makeToken(EQUIVALENTDATAPROPERTIES, s);
             case "DisjointDataProperties":
-                return new Token(DISJOINTDATAPROPERTIES, s);
+                return makeToken(DISJOINTDATAPROPERTIES, s);
             case "DataPropertyDomain":
-                return new Token(DATAPROPERTYDOMAIN, s);
+                return makeToken(DATAPROPERTYDOMAIN, s);
             case "DataPropertyRange":
-                return new Token(DATAPROPERTYRANGE, s);
+                return makeToken(DATAPROPERTYRANGE, s);
             case "FunctionalDataProperty":
-                return new Token(FUNCTIONALDATAPROPERTY, s);
+                return makeToken(FUNCTIONALDATAPROPERTY, s);
             case "SameIndividual":
-                return new Token(SAMEINDIVIDUAL, s);
+                return makeToken(SAMEINDIVIDUAL, s);
             case "DifferentIndividuals":
-                return new Token(DIFFERENTINDIVIDUALS, s);
+                return makeToken(DIFFERENTINDIVIDUALS, s);
             case "ClassAssertion":
-                return new Token(CLASSASSERTION, s);
-            case "OBJECTPROPERTYASSERTION":
-                return new Token(OBJECTPROPERTYASSERTION, s);
+                return makeToken(CLASSASSERTION, s);
+            case "ObjectPropertyAssertion":
+                return makeToken(OBJECTPROPERTYASSERTION, s);
             case "NegativeObjectPropertyAssertion":
-                return new Token(NEGATIVEOBJECTPROPERTYASSERTION, s);
+                return makeToken(NEGATIVEOBJECTPROPERTYASSERTION, s);
             case "DataPropertyAssertion":
-                return new Token(DATAPROPERTYASSERTION, s);
+                return makeToken(DATAPROPERTYASSERTION, s);
             case "NegativeDataPropertyAssertion":
-                return new Token(NEGATIVEDATAPROPERTYASSERTION, s);
+                return makeToken(NEGATIVEDATAPROPERTYASSERTION, s);
             case "Prefix":
-                return new Token(PREFIX, s);
+                return makeToken(PREFIX, s);
             case "length":
-                return new Token(LENGTH, s);
+                return makeToken(LENGTH, s);
             case "minLength":
-                return new Token(MINLENGTH, s);
+                return makeToken(MINLENGTH, s);
             case "maxLength":
-                return new Token(MAXLENGTH, s);
+                return makeToken(MAXLENGTH, s);
             case "pattern":
-                return new Token(PATTERN, s);
+                return makeToken(PATTERN, s);
             case "minInclusive":
-                return new Token(MININCLUSIVE, s);
+                return makeToken(MININCLUSIVE, s);
             case "maxInclusive":
-                return new Token(MAXINCLUSIVE, s);
+                return makeToken(MAXINCLUSIVE, s);
             case "minExclusive":
-                return new Token(MINEXCLUSIVE, s);
+                return makeToken(MINEXCLUSIVE, s);
             case "maxExclusive":
-                return new Token(MAXEXCLUSIVE, s);
+                return makeToken(MAXEXCLUSIVE, s);
             case "totalDigits":
-                return new Token(TOTALDIGITS, s);
+                return makeToken(TOTALDIGITS, s);
             case "DLSafeRule":
-                return new Token(DLSAFERULE, s);
+                return makeToken(DLSAFERULE, s);
             case "Body":
-                return new Token(BODY, s);
+                return makeToken(BODY, s);
             case "Head":
-                return new Token(HEAD, s);
+                return makeToken(HEAD, s);
             case "ClassAtom":
-                return new Token(CLASSATOM, s);
+                return makeToken(CLASSATOM, s);
             case "DataRangeAtom":
-                return new Token(DATARANGEATOM, s);
+                return makeToken(DATARANGEATOM, s);
             case "ObjectPropertyAtom":
-                return new Token(OBJECTPROPERTYATOM, s);
+                return makeToken(OBJECTPROPERTYATOM, s);
             case "DataPropertyAtom":
-                return new Token(DATAPROPERTYATOM, s);
+                return makeToken(DATAPROPERTYATOM, s);
             case "BuiltInAtom":
-                return new Token(BUILTINATOM, s);
+                return makeToken(BUILTINATOM, s);
             case "SameIndividualAtom":
-                return new Token(SAMEINDIVIDUALATOM, s);
+                return makeToken(SAMEINDIVIDUALATOM, s);
             case "DifferentIndividualsAtom":
-                return new Token(DIFFERENTINDIVIDUALSATOM, s);
+                return makeToken(DIFFERENTINDIVIDUALSATOM, s);
             case "Variable":
-                return new Token(VARIABLE, s);
+                return makeToken(VARIABLE, s);
             case "DescriptionGraphRule":
-                return new Token(OWLFunctionalSyntaxParserConstants.DGRULE, s);
+                return makeToken(OWLFunctionalSyntaxParserConstants.DGRULE, s);
             case "DescriptionGraph":
-                return new Token(DESCRIPTIONGRAPH, s);
+                return makeToken(DESCRIPTIONGRAPH, s);
             case "Nodes":
-                return new Token(NODES, s);
+                return makeToken(NODES, s);
             case "NodeAssertion":
-                return new Token(NODEASSERTION, s);
+                return makeToken(NODEASSERTION, s);
             case "Edges":
-                return new Token(EDGES, s);
+                return makeToken(EDGES, s);
             case "EdgeAssertion":
-                return new Token(EDGEASSERTION, s);
+                return makeToken(EDGEASSERTION, s);
             case "MainClasses":
-                return new Token(MAINCLASSES, s);
+                return makeToken(MAINCLASSES, s);
             default:
-                return new Token(PNAME_NS,s);
+                return makeToken(PN_LOCAL,s);
         }
 
     }
 
     private Token readNumber(char c) throws IOException {
-        StringBuilder buf = new StringBuilder();
+        buf.setLength(0);
         buf.append(c);
         while(true) {
             c = readChar();
             if(!Character.isDigit(c)) {
-                in.unread(c);
-                return new Token(OWLFunctionalSyntaxParserConstants.INT,buf.toString());
+                unread(c);
+                return makeToken(OWLFunctionalSyntaxParserConstants.INT,buf.toString());
             }
         }
     }
 
 
+
+    private int lineNo=1;
+    private int colNo=0;
+
+    private int startLine=-1;
+    private int startCol=-1;
+    
+    private Token makeToken(int kind,String image) {
+        Token result = new Token(kind,image);
+        result.beginLine = startLine;
+        result.beginColumn = startCol;
+        return result;
+    }
     private char findTokenStart() throws IOException {
         while (true) {
             char c = readChar();
             if (c != ' ' && c != '\t' && c != '\r' && c != '\n') {
+                startLine = lineNo;
+                startCol = colNo;
                 return c;
             }
+        }
+    }
+
+    private void unread(char c) {
+        unreadChar = c;
+        if(c != '\n') {
+            colNo--;
         }
     }
 
@@ -389,7 +416,18 @@ public class CustomTokenizer implements TokenManager {
         if (eofSeen) {
             throw new EOFException();
         }
-        int c = in.read();
+        int c;
+        if (unreadChar < 0) {
+            c = in.read();
+            if(c == '\n') {
+                lineNo++;
+                colNo=0;
+            }
+        } else {
+            c = unreadChar;
+            unreadChar = -1;
+        }
+        colNo++;
         if (c < 0) {
             eofSeen = true;
             throw new EOFException();
