@@ -520,6 +520,7 @@ public class OBOFormatParser {
             return false;
         }
         parseHeaderClause(h);
+        parseHiddenComment();
         forceParseNlOrEof();
         return true;
     }
@@ -564,6 +565,12 @@ public class OBOFormatParser {
         String rest = stream.rest();
         if (rest != null && rest.startsWith("[Term]")) {
             parseTermFrame(obodoc);
+        } else if (rest != null && rest.startsWith("[Instance]")) {
+            LOG.error("Error: Instance frames are not supported yet. Parsing stopped at line: "
+                    + stream.getLineNo());
+            while (!stream.eof()) {
+                stream.advanceLine();
+            }
         } else {
             parseTypedefFrame(obodoc);
         }
