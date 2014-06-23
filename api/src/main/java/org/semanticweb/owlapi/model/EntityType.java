@@ -44,7 +44,6 @@ public class EntityType<E extends OWLEntity> implements Serializable,
     /** annotation property entity*/@Nonnull    public static final EntityType<OWLAnnotationProperty> ANNOTATION_PROPERTY = new EntityType<OWLAnnotationProperty>( "AnnotationProperty", "Annotation property", "Annotation properties", OWL_ANNOTATION_PROPERTY);
     /** named individual entity */  @Nonnull    public static final EntityType<OWLNamedIndividual> NAMED_INDIVIDUAL = new EntityType<OWLNamedIndividual>("NamedIndividual", "Named individual", "Named individuals", OWL_NAMED_INDIVIDUAL);
     /** datatype entity */          @Nonnull    public static final EntityType<OWLDatatype> DATATYPE = new EntityType<OWLDatatype>( "Datatype", "Datatype", "Datatypes", RDFS_DATATYPE);
-    @SuppressWarnings("unchecked")
     private static final List<EntityType<?>> values = Collections.<EntityType<?>> unmodifiableList(Arrays.asList(CLASS, OBJECT_PROPERTY, DATA_PROPERTY, ANNOTATION_PROPERTY, NAMED_INDIVIDUAL, DATATYPE));
   //@formatter:on
     @Nonnull
