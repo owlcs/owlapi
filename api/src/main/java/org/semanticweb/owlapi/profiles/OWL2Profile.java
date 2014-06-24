@@ -88,7 +88,7 @@ public class OWL2Profile implements OWLProfile {
         @Nonnull
         private final OWLOntologyManager man;
         @Nonnull
-        private final Set<OWLProfileViolation<?>> profileViolations = new HashSet<OWLProfileViolation<?>>();
+        private final Set<OWLProfileViolation<?>> profileViolations = new HashSet<>();
 
         OWL2ProfileObjectWalker(@Nonnull OWLOntologyWalker walker,
                 @Nonnull OWLOntologyManager man) {
@@ -97,7 +97,7 @@ public class OWL2Profile implements OWLProfile {
         }
 
         public Set<OWLProfileViolation<?>> getProfileViolations() {
-            return new HashSet<OWLProfileViolation<?>>(profileViolations);
+            return new HashSet<>(profileViolations);
         }
 
         @Override

@@ -125,7 +125,7 @@ public abstract class OWLOntologyChange<T> implements HasSignature,
      */
     @Nonnull
     public OWLOntologyChangeRecord<T> getChangeRecord() {
-        return new OWLOntologyChangeRecord<T>(ont.getOntologyID(),
+        return new OWLOntologyChangeRecord<>(ont.getOntologyID(),
                 getChangeData());
     }
 

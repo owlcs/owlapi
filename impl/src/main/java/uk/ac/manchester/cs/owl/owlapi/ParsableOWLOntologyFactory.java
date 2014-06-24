@@ -62,8 +62,8 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
     private static final long serialVersionUID = 40000L;
     private static final Logger LOGGER = LoggerFactory
             .getLogger(ParsableOWLOntologyFactory.class);
-    private final Set<String> parsableSchemes = new HashSet<String>(
-            Arrays.asList("http", "https", "file", "ftp"));
+    private final Set<String> parsableSchemes = new HashSet<>(Arrays.asList(
+            "http", "https", "file", "ftp"));
 
     /**
      * @param builder
@@ -131,7 +131,7 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
         // for example (perhaps the parser list could be ordered based on most
         // likely parser, which
         // could be determined by file extension).
-        Map<OWLParser, OWLParserException> exceptions = new LinkedHashMap<OWLParser, OWLParserException>();
+        Map<OWLParser, OWLParserException> exceptions = new LinkedHashMap<>();
         // Call the super method to create the ontology - this is needed,
         // because
         // we throw an exception if someone tries to create an ontology directly
@@ -226,7 +226,7 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
         if (!documentSource.isFormatKnown()) {
             return parsers;
         }
-        PriorityCollection<OWLParser> candidateParsers = new PriorityCollection<OWLParser>();
+        PriorityCollection<OWLParser> candidateParsers = new PriorityCollection<>();
         for (OWLParser parser : parsers) {
             if (parser.getSupportedFormatClasses().contains(
                     verifyNotNull(documentSource.getFormat()).getClass())) {

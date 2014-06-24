@@ -35,7 +35,7 @@ public class DatatypeDefinitionTestCase extends
     @Nonnull
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> axioms = new HashSet<>();
         OWLDatatype datatype = Datatype(IRI("http://www.ont.com/myont/mydatatype"));
         OWLDataRange dr = DataComplementOf(Integer());
         axioms.add(DatatypeDefinition(datatype, dr));

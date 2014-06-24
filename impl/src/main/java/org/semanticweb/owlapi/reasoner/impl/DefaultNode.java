@@ -77,7 +77,7 @@ public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
     protected static final OWLObjectPropertyNode BOTTOM_OBJECT_NODE = new OWLObjectPropertyNode(
             BOTTOM_OBJECT_PROPERTY);
     @Nonnull
-    private final Set<E> entities = new HashSet<E>(4);
+    private final Set<E> entities = new HashSet<>(4);
 
     /**
      * @param entity
@@ -138,7 +138,7 @@ public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
     @Nonnull
     @Override
     public Set<E> getEntitiesMinus(E e) {
-        HashSet<E> result = new HashSet<E>(entities);
+        HashSet<E> result = new HashSet<>(entities);
         result.remove(e);
         return result;
     }

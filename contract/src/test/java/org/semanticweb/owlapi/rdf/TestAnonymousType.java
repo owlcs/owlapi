@@ -33,7 +33,7 @@ public class TestAnonymousType extends AbstractRendererAndParserTestCase {
     @Nonnull
     @Override
     protected Set<OWLAxiom> getAxioms() {
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> axioms = new HashSet<>();
         OWLClassExpression desc = getDataFactory().getOWLObjectComplementOf(
                 createClass());
         OWLIndividual ind = createIndividual();

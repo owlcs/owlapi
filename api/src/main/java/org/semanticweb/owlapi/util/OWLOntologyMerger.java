@@ -99,7 +99,7 @@ public class OWLOntologyMerger implements OWLAxiomFilter {
         } else {
             ontology = ontologyManager.createOntology();
         }
-        List<AddAxiom> changes = new ArrayList<AddAxiom>();
+        List<AddAxiom> changes = new ArrayList<>();
         for (OWLOntology ont : setProvider.getOntologies()) {
             for (OWLAxiom ax : getAxioms(ont)) {
                 assert ax != null;

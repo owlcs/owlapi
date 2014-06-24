@@ -37,7 +37,7 @@ public class AnonymousIndividualRoundtripTestCase extends
     @Nonnull
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> axioms = new HashSet<>();
         OWLAnonymousIndividual ind = AnonymousIndividual();
         OWLClass cls = Class(iri("A"));
         OWLAnnotationProperty prop = AnnotationProperty(iri("prop"));

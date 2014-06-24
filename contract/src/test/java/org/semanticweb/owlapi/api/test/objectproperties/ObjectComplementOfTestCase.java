@@ -36,7 +36,7 @@ public class ObjectComplementOfTestCase extends
 
     @Test
     public void testCorrectAxioms() {
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> axioms = new HashSet<>();
         OWLClass clsA = Class(iri("A"));
         OWLClass clsB = Class(iri("B"));
         axioms.add(SubClassOf(clsA, ObjectComplementOf(clsB)));

@@ -33,7 +33,7 @@ public class FunctionalObjectPropertyTestCase extends
     @Nonnull
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> axioms = new HashSet<>();
         axioms.add(FunctionalObjectProperty(ObjectProperty(iri("p"))));
         return axioms;
     }

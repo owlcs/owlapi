@@ -248,7 +248,7 @@ public class TurtleTestCase extends TestBase {
                 .iterator().next();
         assertTrue(next.getValue() instanceof OWLAnonymousIndividual);
         OWLAnonymousIndividual ind = (OWLAnonymousIndividual) next.getValue();
-        Set<OWLAxiom> anns = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> anns = new HashSet<>();
         for (OWLAxiom ax : o.getAxioms()) {
             if (ax.getAnonymousIndividuals().contains(ind)) {
                 anns.add(ax);

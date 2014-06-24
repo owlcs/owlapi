@@ -34,8 +34,8 @@ import org.semanticweb.owlapi.model.OWLEntity;
 public abstract class CachingBidirectionalShortFormProvider implements
         BidirectionalShortFormProvider {
 
-    private final Map<String, Set<OWLEntity>> shortForm2EntityMap = new HashMap<String, Set<OWLEntity>>();
-    private final Map<OWLEntity, String> entity2ShortFormMap = new HashMap<OWLEntity, String>();
+    private final Map<String, Set<OWLEntity>> shortForm2EntityMap = new HashMap<>();
+    private final Map<OWLEntity, String> entity2ShortFormMap = new HashMap<>();
 
     protected CachingBidirectionalShortFormProvider() {}
 
@@ -90,7 +90,7 @@ public abstract class CachingBidirectionalShortFormProvider implements
         Set<OWLEntity> entities = shortForm2EntityMap.get(shortForm);
         if (entities == null) {
             // XXX what's the use of size 1? How likely it is to grow large?
-            entities = new HashSet<OWLEntity>(1);
+            entities = new HashSet<>(1);
         }
         entities.add(entity);
         shortForm2EntityMap.put(shortForm, entities);

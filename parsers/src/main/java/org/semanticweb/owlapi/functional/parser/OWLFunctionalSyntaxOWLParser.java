@@ -73,12 +73,10 @@ public class OWLFunctionalSyntaxOWLParser extends AbstractOWLParser {
             parser.setUp(ontology, configuration);
             return parser.parse();
         } catch (ParseException e) {
-            throw new OWLParserException(e.getMessage(), e,
-                    0, 0);
-        } catch (TokenMgrError e ) {
+            throw new OWLParserException(e.getMessage(), e, 0, 0);
+        } catch (TokenMgrError e) {
             throw new OWLParserException(e);
-        }
-        finally {
+        } finally {
             if (is != null) {
                 is.close();
             }

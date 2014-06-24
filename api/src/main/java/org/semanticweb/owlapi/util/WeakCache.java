@@ -53,7 +53,7 @@ public class WeakCache<K> implements Serializable {
             }
         }
         // need to add the new key and return it
-        prefixCache.put(s, new WeakReference<K>(s));
+        prefixCache.put(s, new WeakReference<>(s));
         return s;
     }
 

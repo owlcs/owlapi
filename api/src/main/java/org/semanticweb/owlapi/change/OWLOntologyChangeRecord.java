@@ -99,7 +99,7 @@ public class OWLOntologyChangeRecord<T> implements Serializable {
         checkNotNull(change, "change must not be null");
         OWLOntologyID ontologyId = change.getOntology().getOntologyID();
         OWLOntologyChangeData<T> data = change.getChangeData();
-        return new OWLOntologyChangeRecord<T>(ontologyId, data);
+        return new OWLOntologyChangeRecord<>(ontologyId, data);
     }
 
     /**

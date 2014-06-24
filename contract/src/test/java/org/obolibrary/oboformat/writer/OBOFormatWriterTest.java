@@ -31,7 +31,7 @@ public class OBOFormatWriterTest extends OboFormatTestBasics {
     public void testSortTermClausesIntersection_of() {
         OBODoc oboDoc = parseOBOFile("equivtest.obo");
         Frame frame = oboDoc.getTermFrame("X:1");
-        List<Clause> clauses = new ArrayList<Clause>(
+        List<Clause> clauses = new ArrayList<>(
                 frame.getClauses(OboFormatTag.TAG_INTERSECTION_OF));
         OBOFormatWriter.sortTermClauses(clauses);
         assertEquals("Y:1", clauses.get(0).getValue());
@@ -58,7 +58,7 @@ public class OBOFormatWriterTest extends OboFormatTestBasics {
 
     @Nonnull
     private static List<Clause> createSynonymClauses(@Nonnull String... labels) {
-        List<Clause> clauses = new ArrayList<Clause>(labels.length);
+        List<Clause> clauses = new ArrayList<>(labels.length);
         for (String label : labels) {
             Clause clause = new Clause(OboFormatTag.TAG_SYNONYM, label);
             clauses.add(clause);

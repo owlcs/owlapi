@@ -34,7 +34,7 @@ public class AnonymousIndividualsTestCase extends
     @Nonnull
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> axioms = new HashSet<>();
         OWLAnonymousIndividual ind = AnonymousIndividual();
         axioms.add(ObjectPropertyAssertion(ObjectProperty(iri("p")),
                 NamedIndividual(iri("i1")), ind));

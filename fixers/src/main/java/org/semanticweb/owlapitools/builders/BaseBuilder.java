@@ -50,7 +50,7 @@ public abstract class BaseBuilder<T extends OWLObject, B> implements Builder<T> 
     @Nonnull
     protected final OWLDataFactory df;
     @Nonnull
-    protected Set<OWLAnnotation> annotations = new HashSet<OWLAnnotation>();
+    protected Set<OWLAnnotation> annotations = new HashSet<>();
     @Nonnull
     private final OWLProfile profile = new OWL2DLProfile();
 
@@ -100,7 +100,7 @@ public abstract class BaseBuilder<T extends OWLObject, B> implements Builder<T> 
         // create and apply the new change
         AddAxiom change = new AddAxiom(o, (OWLAxiom) object);
         o.getOWLOntologyManager().applyChange(change);
-        List<OWLOntologyChange<?>> changes = new ArrayList<OWLOntologyChange<?>>();
+        List<OWLOntologyChange<?>> changes = new ArrayList<>();
         // check conformity to the profile
         OWLProfileReport report = profile.checkOntology(o);
         for (OWLProfileViolation<?> v : report.getViolations()) {

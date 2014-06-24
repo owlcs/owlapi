@@ -137,7 +137,7 @@ public class Obo2OWLConstants {
     private static final Map<String, Obo2OWLVocabulary> tagsToVocab = initTagsToVocab();
 
     static Map<String, Obo2OWLVocabulary> initTagsToVocab() {
-        Map<String, Obo2OWLVocabulary> tags = new HashMap<String, Obo2OWLVocabulary>();
+        Map<String, Obo2OWLVocabulary> tags = new HashMap<>();
         for (Obo2OWLVocabulary vocab : Obo2OWLVocabulary.values()) {
             tags.put(vocab.mappedTag, vocab);
         }

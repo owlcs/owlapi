@@ -39,7 +39,7 @@ public class DatatypeRestrictionTestCase extends
 
     @Test
     public void testCorrectAxioms() {
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> axioms = new HashSet<>();
         OWLDataRange dr = DatatypeRestriction(Integer(),
                 FacetRestriction(OWLFacet.MIN_INCLUSIVE, Literal(18)),
                 FacetRestriction(OWLFacet.MAX_INCLUSIVE, Literal(30)));

@@ -33,8 +33,8 @@ import org.semanticweb.owlapi.util.StringComparator;
  *         Informatics Group
  * @since 2.0.0
  */
-public class PrefixOWLOntologyFormat extends OWLOntologyFormat
-        implements PrefixManager {
+public class PrefixOWLOntologyFormat extends OWLOntologyFormat implements
+        PrefixManager {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull

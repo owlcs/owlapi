@@ -39,7 +39,7 @@ public class TestDifferentIndividualsAxiom extends
     @Nonnull
     @Override
     protected Set<OWLAxiom> getAxioms() {
-        Set<OWLIndividual> individuals = new HashSet<OWLIndividual>();
+        Set<OWLIndividual> individuals = new HashSet<>();
         for (int i = 0; i < 5; i++) {
             individuals.add(createIndividual());
         }

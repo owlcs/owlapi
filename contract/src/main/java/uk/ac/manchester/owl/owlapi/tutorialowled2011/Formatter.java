@@ -30,7 +30,7 @@ public class Formatter {
     public static void main(String[] args) throws Exception {
         System.out.println("Formatter.main() " + Long.MAX_VALUE
                 / (1000 * 86000 * 365));
-        Map<String, String> specials = new HashMap<String, String>();
+        Map<String, String> specials = new HashMap<>();
         specials.put("public void test", "\\begin{beamerboxesrounded}{");
         specials.put("() throws Exception \\{", "}\n\\scriptsize");
         String[] keywords = { " class ", " void ", " extends ", "public",
@@ -64,7 +64,7 @@ public class Formatter {
                             .replace("\\hspace{4mm}\\hspace{4mm}",
                                     "\\hspace{4mm}");
                     Matcher match = stringPattern.matcher(line);
-                    List<String> strings = new ArrayList<String>();
+                    List<String> strings = new ArrayList<>();
                     while (match.find()) {
                         strings.add(match.group(1));
                     }

@@ -65,7 +65,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements
     @Override
     public List<OWLOntologyChange<?>> applyChanges(
             @Nonnull List<? extends OWLOntologyChange<?>> changes) {
-        List<OWLOntologyChange<?>> appliedChanges = new ArrayList<OWLOntologyChange<?>>();
+        List<OWLOntologyChange<?>> appliedChanges = new ArrayList<>();
         OWLOntologyChangeFilter changeFilter = new OWLOntologyChangeFilter();
         for (OWLOntologyChange<?> change : changes) {
             if (change.accept(changeFilter) == SUCCESSFULLY) {

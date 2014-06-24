@@ -78,9 +78,9 @@ public class JustificationMap {
     @Nonnull
     private final Set<OWLAxiom> axioms;
     @Nonnull
-    private final Set<OWLAxiom> rootAxioms = new HashSet<OWLAxiom>();
+    private final Set<OWLAxiom> rootAxioms = new HashSet<>();
     @Nonnull
-    private final Set<OWLAxiom> usedAxioms = new HashSet<OWLAxiom>();
+    private final Set<OWLAxiom> usedAxioms = new HashSet<>();
     @Nonnull
     private final Multimap<OWLAxiom, OWLAxiom> map = LinkedHashMultimap
             .create();
@@ -112,7 +112,7 @@ public class JustificationMap {
         for (OWLAxiom ax : axioms) {
             OWLAxiomPartExtractor extractor = new OWLAxiomPartExtractor();
             ax.accept(extractor);
-            Set<OWLEntity> rhscollected = new HashSet<OWLEntity>();
+            Set<OWLEntity> rhscollected = new HashSet<>();
             OWLEntityCollector rhsCollector = new OWLEntityCollector(
                     rhscollected);
             for (OWLObject rhsObject : extractor.getRHS()) {
@@ -121,7 +121,7 @@ public class JustificationMap {
             for (OWLEntity rhsEntity : rhscollected) {
                 axiomsByRHS.put(rhsEntity, ax);
             }
-            Set<OWLEntity> lhscollected = new HashSet<OWLEntity>();
+            Set<OWLEntity> lhscollected = new HashSet<>();
             OWLEntityCollector lhsCollector = new OWLEntityCollector(
                     lhscollected);
             for (OWLObject lhsObject : extractor.getLHS()) {
@@ -143,14 +143,14 @@ public class JustificationMap {
      */
     @Nonnull
     private Set<OWLAxiom> getAxiomsByLHS(@Nonnull OWLEntity lhs) {
-        Set<OWLAxiom> ts = new TreeSet<OWLAxiom>(new OWLAxiomComparator());
+        Set<OWLAxiom> ts = new TreeSet<>(new OWLAxiomComparator());
         ts.addAll(axiomsByLHS.get(lhs));
         return ts;
     }
 
     private void buildChildren(@Nonnull OWLClassExpression seed) {
         // Return the axioms that have the entity on the LHS
-        Set<OWLAxiom> result = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> result = new HashSet<>();
         for (OWLEntity ent : seed.getSignature()) {
             assert ent != null;
             Set<OWLAxiom> axs = getAxiomsByLHS(ent);
@@ -164,7 +164,7 @@ public class JustificationMap {
     }
 
     private void buildChildren(@Nonnull Set<OWLAxiom> axiomSet) {
-        List<Set<OWLAxiom>> axiomChildren = new ArrayList<Set<OWLAxiom>>();
+        List<Set<OWLAxiom>> axiomChildren = new ArrayList<>();
         for (OWLAxiom ax : axiomSet) {
             assert ax != null;
             Set<OWLAxiom> children = build(ax);
@@ -191,7 +191,7 @@ public class JustificationMap {
         usedAxioms.add(parentAxiom);
         OWLAxiomPartExtractor extractor = new OWLAxiomPartExtractor();
         parentAxiom.accept(extractor);
-        Set<OWLAxiom> result = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> result = new HashSet<>();
         for (OWLObject obj : extractor.getRHS()) {
             for (OWLEntity ent : obj.getSignature()) {
                 assert ent != null;
@@ -233,9 +233,9 @@ public class JustificationMap {
     private static class OWLAxiomPartExtractor extends OWLAxiomVisitorAdapter {
 
         @Nonnull
-        private final Set<OWLObject> rhs = new HashSet<OWLObject>();
+        private final Set<OWLObject> rhs = new HashSet<>();
         @Nonnull
-        private final Set<OWLObject> lhs = new HashSet<OWLObject>();
+        private final Set<OWLObject> lhs = new HashSet<>();
 
         /**
          * Gets the rhs.

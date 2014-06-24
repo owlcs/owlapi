@@ -155,7 +155,7 @@ public class RioUtils {
             return Collections.singletonList(vf.createStatement(subject,
                     predicate, object));
         } else {
-            final ArrayList<Statement> results = new ArrayList<Statement>(
+            final ArrayList<Statement> results = new ArrayList<>(
                     contexts.length);
             for (final Resource nextContext : contexts) {
                 results.add(vf.createStatement(subject, predicate, object,

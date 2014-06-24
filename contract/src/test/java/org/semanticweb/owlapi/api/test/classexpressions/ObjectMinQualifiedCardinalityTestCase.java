@@ -37,7 +37,7 @@ public class ObjectMinQualifiedCardinalityTestCase extends
 
     @Test
     public void testCorrectAxioms() {
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> axioms = new HashSet<>();
         OWLClass clsA = Class(iri("A"));
         OWLClass clsB = Class(iri("B"));
         OWLObjectProperty prop = ObjectProperty(iri("p"));

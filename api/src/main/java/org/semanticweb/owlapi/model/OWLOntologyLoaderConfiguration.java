@@ -51,7 +51,7 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
     private boolean followRedirects = true;
     /** set of imports to ignore */
     @Nonnull
-    private final Set<IRI> ignoredImports = new HashSet<IRI>();
+    private final Set<IRI> ignoredImports = new HashSet<>();
     /** true if annotations should be loaded, false if skipped */
     private boolean loadAnnotations = true;
     /** missing imports handling strategy */

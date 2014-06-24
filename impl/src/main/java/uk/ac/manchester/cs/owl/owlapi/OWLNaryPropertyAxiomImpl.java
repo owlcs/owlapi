@@ -53,7 +53,7 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression>
     public OWLNaryPropertyAxiomImpl(@Nonnull Set<? extends P> properties,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
-        this.properties = new ArrayList<P>(checkNotNull(properties,
+        this.properties = new ArrayList<>(checkNotNull(properties,
                 "properties cannot be null"));
         Collections.sort(this.properties);
     }
@@ -66,7 +66,7 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression>
 
     @Override
     public Set<P> getPropertiesMinus(P property) {
-        Set<P> props = new TreeSet<P>(properties);
+        Set<P> props = new TreeSet<>(properties);
         props.remove(property);
         return props;
     }
@@ -94,7 +94,7 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression>
 
     @Override
     public <T> Collection<T> walkPairwise(OWLPairwiseVisitor<T, P> visitor) {
-        List<T> l = new ArrayList<T>();
+        List<T> l = new ArrayList<>();
         for (int i = 0; i < properties.size() - 1; i++) {
             for (int j = i + 1; j < properties.size(); j++) {
                 T t = visitor.visit(properties.get(i), properties.get(j));

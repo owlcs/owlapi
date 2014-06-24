@@ -88,7 +88,7 @@ public enum SKOSVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     /** all IRIs */
     public static final Set<IRI> ALL_IRIS;
     static {
-        ALL_IRIS = new HashSet<IRI>();
+        ALL_IRIS = new HashSet<>();
         for (SKOSVocabulary v : SKOSVocabulary.values()) {
             ALL_IRIS.add(v.getIRI());
         }
@@ -131,7 +131,7 @@ public enum SKOSVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
      */
     public static Set<OWLAnnotationProperty> getAnnotationProperties(
             OWLDataFactory dataFactory) {
-        Set<OWLAnnotationProperty> result = new HashSet<OWLAnnotationProperty>();
+        Set<OWLAnnotationProperty> result = new HashSet<>();
         for (SKOSVocabulary v : values()) {
             if (v.entityType.equals(ANNOTATION_PROPERTY)) {
                 result.add(dataFactory.getOWLAnnotationProperty(v.iri));
@@ -147,7 +147,7 @@ public enum SKOSVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
      */
     public static Set<OWLObjectProperty> getObjectProperties(
             OWLDataFactory dataFactory) {
-        Set<OWLObjectProperty> result = new HashSet<OWLObjectProperty>();
+        Set<OWLObjectProperty> result = new HashSet<>();
         for (SKOSVocabulary v : values()) {
             if (v.entityType.equals(OBJECT_PROPERTY)) {
                 result.add(dataFactory.getOWLObjectProperty(v.iri));
@@ -163,7 +163,7 @@ public enum SKOSVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
      */
     public static Set<OWLDataProperty> getDataProperties(
             OWLDataFactory dataFactory) {
-        Set<OWLDataProperty> result = new HashSet<OWLDataProperty>();
+        Set<OWLDataProperty> result = new HashSet<>();
         for (SKOSVocabulary v : values()) {
             if (v.entityType.equals(DATA_PROPERTY)) {
                 result.add(dataFactory.getOWLDataProperty(v.iri));
@@ -178,7 +178,7 @@ public enum SKOSVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
      * @return set of SKOS classes
      */
     public static Set<OWLClass> getClasses(OWLDataFactory dataFactory) {
-        Set<OWLClass> result = new HashSet<OWLClass>();
+        Set<OWLClass> result = new HashSet<>();
         for (SKOSVocabulary v : values()) {
             if (v.entityType.equals(CLASS)) {
                 result.add(dataFactory.getOWLClass(v.iri));

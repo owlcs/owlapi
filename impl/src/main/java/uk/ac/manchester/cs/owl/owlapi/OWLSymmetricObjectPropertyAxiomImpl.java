@@ -54,8 +54,7 @@ public class OWLSymmetricObjectPropertyAxiomImpl extends
     @Nonnull
     @Override
     public Set<OWLSubObjectPropertyOfAxiom> asSubPropertyAxioms() {
-        Set<OWLSubObjectPropertyOfAxiom> result = new HashSet<OWLSubObjectPropertyOfAxiom>(
-                5);
+        Set<OWLSubObjectPropertyOfAxiom> result = new HashSet<>(5);
         result.add(new OWLSubObjectPropertyOfAxiomImpl(getProperty(),
                 getProperty().getInverseProperty().getSimplified(),
                 NO_ANNOTATIONS));

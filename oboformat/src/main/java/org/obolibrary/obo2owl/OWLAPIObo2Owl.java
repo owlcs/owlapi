@@ -115,10 +115,10 @@ public class OWLAPIObo2Owl {
      *        the manager
      */
     public OWLAPIObo2Owl(OWLOntologyManager manager) {
-        idSpaceMap = new HashMap<String, String>();
-        apToDeclare = new HashSet<OWLAnnotationProperty>();
-        clsToDeclare = new HashMap<String, OWLClass>();
-        typedefToAnnotationProperty = new HashMap<String, OWLAnnotationProperty>();
+        idSpaceMap = new HashMap<>();
+        apToDeclare = new HashSet<>();
+        clsToDeclare = new HashMap<>();
+        typedefToAnnotationProperty = new HashMap<>();
         init(manager);
     }
 
@@ -216,7 +216,7 @@ public class OWLAPIObo2Owl {
      */
     @Nonnull
     protected static HashMap<String, IRI> initAnnotationPropertyMap() {
-        HashMap<String, IRI> map = new HashMap<String, IRI>();
+        HashMap<String, IRI> map = new HashMap<>();
         map.put(OboFormatTag.TAG_IS_OBSELETE.getTag(),
                 OWLRDFVocabulary.OWL_DEPRECATED.getIRI());
         map.put(OboFormatTag.TAG_NAME.getTag(),
@@ -451,12 +451,12 @@ public class OWLAPIObo2Owl {
         }
         if (pIRI != null) {
             OWLObjectProperty vp = fac.getOWLObjectProperty(pIRI);
-            Set<OWLAxiom> rmAxioms = new HashSet<OWLAxiom>();
-            Set<OWLAxiom> newAxioms = new HashSet<OWLAxiom>();
+            Set<OWLAxiom> rmAxioms = new HashSet<>();
+            Set<OWLAxiom> newAxioms = new HashSet<>();
             for (OWLEquivalentClassesAxiom eca : ontology
                     .getAxioms(AxiomType.EQUIVALENT_CLASSES)) {
                 int numNamed = 0;
-                Set<OWLClassExpression> xs = new HashSet<OWLClassExpression>();
+                Set<OWLClassExpression> xs = new HashSet<>();
                 for (OWLClassExpression x : eca.getClassExpressions()) {
                     assert x != null;
                     if (x instanceof OWLClass) {
@@ -737,7 +737,7 @@ public class OWLAPIObo2Owl {
     public Set<OWLAxiom> trTermFrameClauses(@Nonnull OWLClass cls,
             @Nonnull Collection<Clause> clauses, String t) {
         OboFormatTag tag = OBOFormatConstants.getTag(t);
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> axioms = new HashSet<>();
         if (tag == OboFormatTag.TAG_INTERSECTION_OF) {
             axioms.add(trIntersectionOf(cls, clauses));
         } else if (tag == OboFormatTag.TAG_UNION_OF) {
@@ -833,10 +833,10 @@ public class OWLAPIObo2Owl {
              * xid.startsWith("BFO")) && !xid.equals(id)) { // RO and BFO have
              * special status. // avoid cycles (in case of self-xref) //
              * fac.getOWLAnnotationAssertionAxiom(prop, p.getIRI(),
-             * trLiteral(id), new HashSet<OWLAnnotation>()); OWLAxiom ax =
+             * trLiteral(id), new HashSet<>()); OWLAxiom ax =
              * fac.getOWLAnnotationAssertionAxiom(
              * trTagToAnnotationProp("shorthand"), p.getIRI(), trLiteral(id),
-             * new HashSet<OWLAnnotation>()); add(ax); // return
+             * new HashSet<>()); add(ax); // return
              * oboIdToIRI(xid); } } }
              */
             for (String tag : typedefFrame.getTags()) {
@@ -920,9 +920,9 @@ public class OWLAPIObo2Owl {
     protected OWLAxiom trUnionOf(OWLClass cls,
             @Nonnull Collection<Clause> clauses) {
         Set<? extends OWLAnnotation> annotations = trAnnotations(clauses);
-        Set<OWLClassExpression> eSet = new HashSet<OWLClassExpression>();
+        Set<OWLClassExpression> eSet = new HashSet<>();
         eSet.add(cls);
-        Set<OWLClassExpression> iSet = new HashSet<OWLClassExpression>();
+        Set<OWLClassExpression> iSet = new HashSet<>();
         for (Clause clause : clauses) {
             Collection<QualifierValue> qvs = clause.getQualifierValues();
             // TODO - quals
@@ -958,9 +958,9 @@ public class OWLAPIObo2Owl {
     protected OWLAxiom trIntersectionOf(OWLClass cls,
             @Nonnull Collection<Clause> clauses) {
         Set<? extends OWLAnnotation> annotations = trAnnotations(clauses);
-        Set<OWLClassExpression> eSet = new HashSet<OWLClassExpression>();
+        Set<OWLClassExpression> eSet = new HashSet<>();
         eSet.add(cls);
-        Set<OWLClassExpression> iSet = new HashSet<OWLClassExpression>();
+        Set<OWLClassExpression> iSet = new HashSet<>();
         for (Clause clause : clauses) {
             Collection<QualifierValue> qvs = clause.getQualifierValues();
             if (clause.getValues().size() == 1) {
@@ -1084,12 +1084,12 @@ public class OWLAPIObo2Owl {
                                 (String) clause.getValue2(), qvs), annotations);
             }
         } else if (_tag == OboFormatTag.TAG_DISJOINT_FROM) {
-            Set<OWLClassExpression> cSet = new HashSet<OWLClassExpression>();
+            Set<OWLClassExpression> cSet = new HashSet<>();
             cSet.add(clsx);
             cSet.add(trClass((String) clause.getValue()));
             ax = fac.getOWLDisjointClassesAxiom(cSet, annotations);
         } else if (_tag == OboFormatTag.TAG_EQUIVALENT_TO) {
-            Set<OWLClassExpression> cSet = new HashSet<OWLClassExpression>();
+            Set<OWLClassExpression> cSet = new HashSet<>();
             cSet.add(clsx);
             cSet.add(trClass((String) clause.getValue()));
             ax = fac.getOWLEquivalentClassesAxiom(cSet, annotations);
@@ -1134,7 +1134,7 @@ public class OWLAPIObo2Owl {
                 // ax = null; // TODO
             }
         } else if (_tag == OboFormatTag.TAG_DISJOINT_FROM) {
-            Set<OWLObjectPropertyExpression> cSet = new HashSet<OWLObjectPropertyExpression>();
+            Set<OWLObjectPropertyExpression> cSet = new HashSet<>();
             cSet.add(p);
             cSet.add(trObjectProp((String) v));
             ax = fac.getOWLDisjointObjectPropertiesAxiom(cSet, annotations);
@@ -1142,7 +1142,7 @@ public class OWLAPIObo2Owl {
             ax = fac.getOWLInverseObjectPropertiesAxiom(p,
                     trObjectProp((String) v), annotations);
         } else if (_tag == OboFormatTag.TAG_EQUIVALENT_TO) {
-            Set<OWLObjectPropertyExpression> cSet = new HashSet<OWLObjectPropertyExpression>();
+            Set<OWLObjectPropertyExpression> cSet = new HashSet<>();
             cSet.add(p);
             cSet.add(trObjectProp((String) v));
             ax = fac.getOWLEquivalentObjectPropertiesAxiom(cSet, annotations);
@@ -1151,8 +1151,7 @@ public class OWLAPIObo2Owl {
         } else if (_tag == OboFormatTag.TAG_RANGE) {
             ax = fac.getOWLObjectPropertyRangeAxiom(p, trClass(v), annotations);
         } else if (_tag == OboFormatTag.TAG_TRANSITIVE_OVER) {
-            List<OWLObjectPropertyExpression> chain = new ArrayList<OWLObjectPropertyExpression>(
-                    2);
+            List<OWLObjectPropertyExpression> chain = new ArrayList<>(2);
             chain.add(p);
             chain.add(trObjectProp(v));
             ax = fac.getOWLSubPropertyChainOfAxiom(chain, p, annotations);
@@ -1165,7 +1164,7 @@ public class OWLAPIObo2Owl {
                 annotations.add(ann);
                 // isReversiblePropertyChain
             }
-            List<OWLObjectPropertyExpression> chain = new ArrayList<OWLObjectPropertyExpression>();
+            List<OWLObjectPropertyExpression> chain = new ArrayList<>();
             chain.add(trObjectProp(v));
             chain.add(trObjectProp(clause.getValue2()));
             ax = fac.getOWLSubPropertyChainOfAxiom(chain, p, annotations);
@@ -1368,7 +1367,7 @@ public class OWLAPIObo2Owl {
      */
     @Nonnull
     protected Set<OWLAnnotation> trAnnotations(@Nonnull Clause clause) {
-        Set<OWLAnnotation> anns = new HashSet<OWLAnnotation>();
+        Set<OWLAnnotation> anns = new HashSet<>();
         trAnnotations(clause, anns);
         return anns;
     }
@@ -1420,7 +1419,7 @@ public class OWLAPIObo2Owl {
     @Nullable
     protected Set<? extends OWLAnnotation> trAnnotations(
             @Nonnull Collection<Clause> clauses) {
-        Set<OWLAnnotation> anns = new HashSet<OWLAnnotation>();
+        Set<OWLAnnotation> anns = new HashSet<>();
         for (Clause clause : clauses) {
             assert clause != null;
             trAnnotations(clause, anns);

@@ -175,7 +175,7 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
 
     @Override
     public void visit(OWLOntology ontology) {
-        for (OWLAxiom ax : new TreeSet<OWLAxiom>(checkNotNull(ontology,
+        for (OWLAxiom ax : new TreeSet<>(checkNotNull(ontology,
                 "ontology cannot be null").getLogicalAxioms())) {
             ax.accept(this);
             write("\n");
@@ -314,7 +314,7 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
 
     @Override
     public void visit(OWLDisjointClassesAxiom axiom) {
-        List<OWLClassExpression> descs = new ArrayList<OWLClassExpression>(
+        List<OWLClassExpression> descs = new ArrayList<>(
                 axiom.getClassExpressions());
         for (int i = 0; i < descs.size(); i++) {
             for (int j = i + 1; j < descs.size(); j++) {

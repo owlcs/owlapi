@@ -551,7 +551,7 @@ public class StructuralReasoner extends OWLReasonerBase {
         DefaultNodeSet<OWLNamedIndividual> result = new OWLNamedIndividualNodeSet();
         if (!ce.isAnonymous()) {
             OWLClass cls = ce.asOWLClass();
-            Set<OWLClass> clses = new HashSet<OWLClass>();
+            Set<OWLClass> clses = new HashSet<>();
             clses.add(cls);
             if (!direct) {
                 clses.addAll(getSubClasses(cls, false).getFlattened());
@@ -629,7 +629,7 @@ public class StructuralReasoner extends OWLReasonerBase {
     public Set<OWLLiteral> getDataPropertyValues(OWLNamedIndividual ind,
             OWLDataProperty pe) {
         ensurePrepared();
-        Set<OWLLiteral> literals = new HashSet<OWLLiteral>();
+        Set<OWLLiteral> literals = new HashSet<>();
         Set<OWLDataProperty> superProperties = getSuperDataProperties(pe, false)
                 .getFlattened();
         superProperties.addAll(getEquivalentDataProperties(pe).getEntities());
@@ -649,9 +649,9 @@ public class StructuralReasoner extends OWLReasonerBase {
     @Override
     public Node<OWLNamedIndividual> getSameIndividuals(OWLNamedIndividual ind) {
         ensurePrepared();
-        Set<OWLNamedIndividual> inds = new HashSet<OWLNamedIndividual>();
-        Set<OWLSameIndividualAxiom> processed = new HashSet<OWLSameIndividualAxiom>();
-        List<OWLNamedIndividual> stack = new ArrayList<OWLNamedIndividual>();
+        Set<OWLNamedIndividual> inds = new HashSet<>();
+        Set<OWLSameIndividualAxiom> processed = new HashSet<>();
+        List<OWLNamedIndividual> stack = new ArrayList<>();
         stack.add(ind);
         while (!stack.isEmpty()) {
             OWLNamedIndividual currentInd = stack.remove(0);
@@ -778,9 +778,9 @@ public class StructuralReasoner extends OWLReasonerBase {
         @Nonnull
         T bottomEntity;
         @Nonnull
-        private final Set<T> directChildrenOfTopNode = new HashSet<T>();
+        private final Set<T> directChildrenOfTopNode = new HashSet<>();
         @Nonnull
-        private final Set<T> directParentsOfBottomNode = new HashSet<T>();
+        private final Set<T> directParentsOfBottomNode = new HashSet<>();
         private final NodeCache<T> nodeCache;
         private final String name;
         private int classificationSize;
@@ -790,7 +790,7 @@ public class StructuralReasoner extends OWLReasonerBase {
                 RawHierarchyProvider<T> rawParentChildProvider) {
             this.topEntity = topEntity;
             this.bottomEntity = bottomEntity;
-            nodeCache = new NodeCache<T>(this);
+            nodeCache = new NodeCache<>(this);
             this.rawParentChildProvider = rawParentChildProvider;
             this.name = name;
         }
@@ -836,7 +836,7 @@ public class StructuralReasoner extends OWLReasonerBase {
 
         @Nonnull
         Set<T> getEntitiesInSignature(@Nonnull Set<OWLAxiom> axioms) {
-            Set<T> result = new HashSet<T>();
+            Set<T> result = new HashSet<>();
             for (OWLAxiom ax : axioms) {
                 assert ax != null;
                 result.addAll(getEntitiesInSignature(ax));
@@ -848,8 +848,8 @@ public class StructuralReasoner extends OWLReasonerBase {
             pm.reasonerTaskStarted("Computing " + name + " hierarchy");
             pm.reasonerTaskBusy();
             nodeCache.clear();
-            Map<T, Collection<T>> cache = new HashMap<T, Collection<T>>();
-            Set<T> entities = new HashSet<T>();
+            Map<T, Collection<T>> cache = new HashMap<>();
+            Set<T> entities = new HashSet<>();
             for (OWLOntology ont : getRootOntology().getImportsClosure()) {
                 assert ont != null;
                 entities.addAll(getEntities(ont));
@@ -862,14 +862,14 @@ public class StructuralReasoner extends OWLReasonerBase {
 
         private void updateForSignature(@Nonnull Set<T> signature,
                 @Nullable Map<T, Collection<T>> cache) {
-            HashSet<Set<T>> cyclesResult = new HashSet<Set<T>>();
-            Set<T> processed = new HashSet<T>();
+            HashSet<Set<T>> cyclesResult = new HashSet<>();
+            Set<T> processed = new HashSet<>();
             nodeCache.clearTopNode();
             nodeCache.clearBottomNode();
             nodeCache.clearNodes(signature);
             directChildrenOfTopNode.removeAll(signature);
-            Set<T> equivTopOrChildrenOfTop = new HashSet<T>();
-            Set<T> equivBottomOrParentsOfBottom = new HashSet<T>();
+            Set<T> equivTopOrChildrenOfTop = new HashSet<>();
+            Set<T> equivBottomOrParentsOfBottom = new HashSet<>();
             for (T entity : signature) {
                 assert entity != null;
                 if (!processed.contains(entity)) {
@@ -1040,7 +1040,7 @@ public class StructuralReasoner extends OWLReasonerBase {
                 }
             }
             if (lowlinkMap.get(entity).equals(indexMap.get(entity))) {
-                Set<T> scc = new HashSet<T>();
+                Set<T> scc = new HashSet<>();
                 while (true) {
                     T clsPrime = stack.pop();
                     stackEntities.remove(clsPrime);
@@ -1063,7 +1063,7 @@ public class StructuralReasoner extends OWLReasonerBase {
             if (node.isBottomNode()) {
                 return ns;
             }
-            Set<T> directChildren = new HashSet<T>();
+            Set<T> directChildren = new HashSet<>();
             for (T equiv : node) {
                 assert equiv != null;
                 directChildren
@@ -1097,7 +1097,7 @@ public class StructuralReasoner extends OWLReasonerBase {
             if (node.isTopNode()) {
                 return ns;
             }
-            Set<T> directParents = new HashSet<T>();
+            Set<T> directParents = new HashSet<>();
             for (T equiv : node) {
                 assert equiv != null;
                 directParents.addAll(rawParentChildProvider.getParents(equiv));
@@ -1136,7 +1136,7 @@ public class StructuralReasoner extends OWLReasonerBase {
         private Node<T> topNode;
         private Node<T> bottomNode;
         @Nonnull
-        private final Map<T, Node<T>> map = new HashMap<T, Node<T>>();
+        private final Map<T, Node<T>> map = new HashMap<>();
 
         protected NodeCache(@Nonnull HierarchyInfo<T> hierarchyInfo) {
             this.hierarchyInfo = hierarchyInfo;
@@ -1157,7 +1157,7 @@ public class StructuralReasoner extends OWLReasonerBase {
 
         @Nonnull
         public Set<Node<T>> getNodes(@Nonnull Set<T> elements) {
-            Set<Node<T>> result = new HashSet<Node<T>>();
+            Set<Node<T>> result = new HashSet<>();
             for (T element : elements) {
                 assert element != null;
                 result.add(getNode(element));
@@ -1273,7 +1273,7 @@ public class StructuralReasoner extends OWLReasonerBase {
         @Override
         protected Set<OWLObjectPropertyExpression> getEntitiesInSignature(
                 @Nonnull OWLAxiom ax) {
-            Set<OWLObjectPropertyExpression> result = new HashSet<OWLObjectPropertyExpression>();
+            Set<OWLObjectPropertyExpression> result = new HashSet<>();
             for (OWLObjectProperty property : ax
                     .getObjectPropertiesInSignature()) {
                 result.add(property);
@@ -1286,7 +1286,7 @@ public class StructuralReasoner extends OWLReasonerBase {
         @Override
         protected Set<OWLObjectPropertyExpression> getEntities(
                 @Nonnull OWLOntology ont) {
-            Set<OWLObjectPropertyExpression> result = new HashSet<OWLObjectPropertyExpression>();
+            Set<OWLObjectPropertyExpression> result = new HashSet<>();
             for (OWLObjectPropertyExpression property : ont
                     .getObjectPropertiesInSignature()) {
                 result.add(property);
@@ -1409,7 +1409,7 @@ public class StructuralReasoner extends OWLReasonerBase {
         @Nonnull
         @Override
         public Collection<OWLClass> getParents(OWLClass child) {
-            Collection<OWLClass> result = new HashSet<OWLClass>();
+            Collection<OWLClass> result = new HashSet<>();
             for (OWLOntology ont : getRootOntology().getImportsClosure()) {
                 for (OWLSubClassOfAxiom ax : ont
                         .getSubClassAxiomsForSubClass(child)) {
@@ -1450,7 +1450,7 @@ public class StructuralReasoner extends OWLReasonerBase {
         @Nonnull
         @Override
         public Collection<OWLClass> getChildren(OWLClass parent) {
-            Collection<OWLClass> result = new HashSet<OWLClass>();
+            Collection<OWLClass> result = new HashSet<>();
             for (OWLAxiom ax : getRootOntology().getReferencingAxioms(parent,
                     INCLUDED)) {
                 if (ax instanceof OWLSubClassOfAxiom) {
@@ -1495,13 +1495,13 @@ public class StructuralReasoner extends OWLReasonerBase {
             propertyManager = new OWLObjectPropertyManager(getRootOntology()
                     .getOWLOntologyManager(), getRootOntology());
             sub2Super = propertyManager.getPropertyHierarchy();
-            super2Sub = new HashMap<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>>();
+            super2Sub = new HashMap<>();
             for (OWLObjectPropertyExpression sub : sub2Super.keySet()) {
                 for (OWLObjectPropertyExpression superProp : sub2Super.get(sub)) {
                     Set<OWLObjectPropertyExpression> subs = super2Sub
                             .get(superProp);
                     if (subs == null) {
-                        subs = new HashSet<OWLObjectPropertyExpression>();
+                        subs = new HashSet<>();
                         super2Sub.put(superProp, subs);
                     }
                     subs.add(sub);
@@ -1521,8 +1521,7 @@ public class StructuralReasoner extends OWLReasonerBase {
             if (propertyExpressions == null) {
                 return CollectionFactory.emptySet();
             } else {
-                return new HashSet<OWLObjectPropertyExpression>(
-                        propertyExpressions);
+                return new HashSet<>(propertyExpressions);
             }
         }
 
@@ -1538,8 +1537,7 @@ public class StructuralReasoner extends OWLReasonerBase {
             if (propertyExpressions == null) {
                 return CollectionFactory.emptySet();
             } else {
-                return new HashSet<OWLObjectPropertyExpression>(
-                        propertyExpressions);
+                return new HashSet<>(propertyExpressions);
             }
         }
     }
@@ -1553,7 +1551,7 @@ public class StructuralReasoner extends OWLReasonerBase {
         @Override
         public Collection<OWLDataProperty> getParents(
                 @Nonnull OWLDataProperty child) {
-            Set<OWLDataProperty> properties = new HashSet<OWLDataProperty>();
+            Set<OWLDataProperty> properties = new HashSet<>();
             Collection<OWLAxiom> axioms = getRootOntology().filterAxioms(
                     Filters.subDataPropertyWithSub, child, INCLUDED);
             Collection<OWLDataPropertyExpression> expressions = sup(axioms,
@@ -1568,7 +1566,7 @@ public class StructuralReasoner extends OWLReasonerBase {
         @Override
         public Collection<OWLDataProperty> getChildren(
                 @Nonnull OWLDataProperty parent) {
-            Set<OWLDataProperty> properties = new HashSet<OWLDataProperty>();
+            Set<OWLDataProperty> properties = new HashSet<>();
             Collection<OWLAxiom> axioms = getRootOntology().filterAxioms(
                     Filters.subDataPropertyWithSuper, parent, INCLUDED);
             for (OWLDataPropertyExpression prop : sub(axioms,

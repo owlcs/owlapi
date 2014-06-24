@@ -61,7 +61,7 @@ public class DuplicateImportTestCase extends TestBase {
                 .create(importsBothNameAndVersion));
         OWLOntology ontology2 = manager.createOntology(IRI
                 .create(importsBothNameAndOther));
-        List<AddImport> changes = new ArrayList<AddImport>();
+        List<AddImport> changes = new ArrayList<>();
         changes.add(new AddImport(ontology1, factory
                 .getOWLImportsDeclaration(IRI.create(ontologyByName))));
         changes.add(new AddImport(ontology1, factory

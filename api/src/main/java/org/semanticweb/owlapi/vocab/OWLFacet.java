@@ -51,7 +51,7 @@ public enum OWLFacet implements HasShortForm, HasIRI, HasPrefixedName {
     /** all facet iris */
     public static final Set<IRI> FACET_IRIS;
     static {
-        Set<IRI> iris = new HashSet<IRI>();
+        Set<IRI> iris = new HashSet<>();
         for (OWLFacet v : values()) {
             iris.add(v.getIRI());
         }
@@ -149,7 +149,7 @@ public enum OWLFacet implements HasShortForm, HasIRI, HasPrefixedName {
 
     /** @return all facets */
     public static Set<String> getFacets() {
-        Set<String> result = new HashSet<String>();
+        Set<String> result = new HashSet<>();
         for (OWLFacet v : values()) {
             result.add(v.getSymbolicForm());
         }

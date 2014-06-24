@@ -76,9 +76,9 @@ public class OWLEntityRenamer {
             @Nonnull IRI newIRI) {
         checkNotNull(iri, "iri cannot be null");
         checkNotNull(newIRI, "newIRI cannot be null");
-        Map<IRI, IRI> uriMap = new HashMap<IRI, IRI>();
+        Map<IRI, IRI> uriMap = new HashMap<>();
         uriMap.put(iri, newIRI);
-        List<OWLOntologyChange<?>> changes = new ArrayList<OWLOntologyChange<?>>();
+        List<OWLOntologyChange<?>> changes = new ArrayList<>();
         OWLObjectDuplicator dup = new OWLObjectDuplicator(
                 owlOntologyManager.getOWLDataFactory(), uriMap);
         for (OWLOntology ont : ontologies) {
@@ -101,9 +101,9 @@ public class OWLEntityRenamer {
     @Nonnull
     public List<OWLOntologyChange<?>> changeIRI(@Nonnull OWLEntity entity,
             @Nonnull IRI newIRI) {
-        Map<OWLEntity, IRI> iriMap = new HashMap<OWLEntity, IRI>();
+        Map<OWLEntity, IRI> iriMap = new HashMap<>();
         iriMap.put(entity, newIRI);
-        List<OWLOntologyChange<?>> changes = new ArrayList<OWLOntologyChange<?>>();
+        List<OWLOntologyChange<?>> changes = new ArrayList<>();
         OWLObjectDuplicator duplicator = new OWLObjectDuplicator(iriMap,
                 owlOntologyManager.getOWLDataFactory());
         for (OWLOntology ont : ontologies) {
@@ -121,7 +121,7 @@ public class OWLEntityRenamer {
      */
     public List<OWLOntologyChange<?>> changeIRI(
             @Nonnull Map<OWLEntity, IRI> entity2IRIMap) {
-        List<OWLOntologyChange<?>> changes = new ArrayList<OWLOntologyChange<?>>();
+        List<OWLOntologyChange<?>> changes = new ArrayList<>();
         OWLObjectDuplicator duplicator = new OWLObjectDuplicator(entity2IRIMap,
                 owlOntologyManager.getOWLDataFactory());
         for (OWLOntology ont : ontologies) {
@@ -144,7 +144,7 @@ public class OWLEntityRenamer {
     }
 
     private Set<OWLAxiom> getAxioms(@Nonnull OWLOntology ont, @Nonnull IRI iri) {
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> axioms = new HashSet<>();
         axioms.addAll(ont.getReferencingAxioms(owlOntologyManager
                 .getOWLDataFactory().getOWLClass(iri), EXCLUDED));
         axioms.addAll(ont.getReferencingAxioms(owlOntologyManager

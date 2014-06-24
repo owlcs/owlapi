@@ -52,8 +52,8 @@ public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
             @Nonnull Set<? extends OWLClassExpression> classExpressions,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
-        this.classExpressions = new ArrayList<OWLClassExpression>(checkNotNull(
-                classExpressions, "classExpressions cannot be null"));
+        this.classExpressions = new ArrayList<>(checkNotNull(classExpressions,
+                "classExpressions cannot be null"));
         Collections.sort(this.classExpressions);
     }
 
@@ -65,7 +65,7 @@ public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
 
     @Override
     public List<OWLClassExpression> getClassExpressionsAsList() {
-        return new ArrayList<OWLClassExpression>(classExpressions);
+        return new ArrayList<>(classExpressions);
     }
 
     @Override
@@ -76,8 +76,7 @@ public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
     @Override
     public Set<OWLClassExpression> getClassExpressionsMinus(
             OWLClassExpression... desc) {
-        Set<OWLClassExpression> result = new HashSet<OWLClassExpression>(
-                classExpressions);
+        Set<OWLClassExpression> result = new HashSet<>(classExpressions);
         for (OWLClassExpression d : desc) {
             result.remove(d);
         }
@@ -108,7 +107,7 @@ public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
     @Override
     public <T> Collection<T> walkPairwise(
             OWLPairwiseVisitor<T, OWLClassExpression> visitor) {
-        List<T> l = new ArrayList<T>();
+        List<T> l = new ArrayList<>();
         for (int i = 0; i < classExpressions.size() - 1; i++) {
             for (int j = i + 1; j < classExpressions.size(); j++) {
                 T t = visitor.visit(classExpressions.get(i),

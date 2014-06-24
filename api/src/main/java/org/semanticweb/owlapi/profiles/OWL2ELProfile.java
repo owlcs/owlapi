@@ -78,7 +78,7 @@ import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitor;
  */
 public class OWL2ELProfile implements OWLProfile {
 
-    protected static final Set<IRI> allowedDatatypes = new HashSet<IRI>(
+    protected static final Set<IRI> allowedDatatypes = new HashSet<>(
             Arrays.asList(RDF_PLAIN_LITERAL.getIRI(), RDF_XML_LITERAL.getIRI(),
                     RDFS_LITERAL.getIRI(), OWL_RATIONAL.getIRI(),
                     OWL_REAL.getIRI(), XSD_DECIMAL.getIRI(),
@@ -105,7 +105,7 @@ public class OWL2ELProfile implements OWLProfile {
     public OWLProfileReport checkOntology(OWLOntology ontology) {
         OWL2DLProfile profile = new OWL2DLProfile();
         OWLProfileReport report = profile.checkOntology(ontology);
-        Set<OWLProfileViolation<?>> violations = new HashSet<OWLProfileViolation<?>>();
+        Set<OWLProfileViolation<?>> violations = new HashSet<>();
         violations.addAll(report.getViolations());
         OWLOntologyProfileWalker ontologyWalker = new OWLOntologyProfileWalker(
                 ontology.getImportsClosure());
@@ -122,7 +122,7 @@ public class OWL2ELProfile implements OWLProfile {
         private final OWLOntologyManager man;
         private OWLObjectPropertyManager propertyManager;
         @Nonnull
-        private final Set<OWLProfileViolation<?>> profileViolations = new HashSet<OWLProfileViolation<?>>();
+        private final Set<OWLProfileViolation<?>> profileViolations = new HashSet<>();
 
         public OWL2ELProfileObjectVisitor(@Nonnull OWLOntologyWalker walker,
                 @Nonnull OWLOntologyManager man) {
@@ -131,7 +131,7 @@ public class OWL2ELProfile implements OWLProfile {
         }
 
         public Set<OWLProfileViolation<?>> getProfileViolations() {
-            return new HashSet<OWLProfileViolation<?>>(profileViolations);
+            return new HashSet<>(profileViolations);
         }
 
         private OWLObjectPropertyManager getPropertyManager() {

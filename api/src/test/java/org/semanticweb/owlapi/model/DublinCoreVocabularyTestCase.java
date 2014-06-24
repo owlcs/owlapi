@@ -45,7 +45,7 @@ public class DublinCoreVocabularyTestCase {
     @Nonnull
     @Parameterized.Parameters
     public static Collection<Object[]> getData() {
-        List<Object[]> data = new ArrayList<Object[]>();
+        List<Object[]> data = new ArrayList<>();
         for (DublinCoreVocabulary v : DublinCoreVocabulary.values()) {
             data.add(new Object[] { v });
         }

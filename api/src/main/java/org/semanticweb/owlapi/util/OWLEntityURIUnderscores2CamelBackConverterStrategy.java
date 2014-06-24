@@ -37,7 +37,7 @@ import com.google.common.base.Optional;
 public class OWLEntityURIUnderscores2CamelBackConverterStrategy implements
         OWLEntityURIConverterStrategy {
 
-    private final Map<IRI, IRI> iriMap = new HashMap<IRI, IRI>();
+    private final Map<IRI, IRI> iriMap = new HashMap<>();
 
     @Override
     public IRI getConvertedIRI(@Nonnull OWLEntity entity) {
@@ -55,6 +55,7 @@ public class OWLEntityURIUnderscores2CamelBackConverterStrategy implements
         Optional<String> fragment = iri.getRemainder();
         if (fragment.isPresent()) {
             String base = iri.getNamespace();
+            @SuppressWarnings("null")
             String camelCaseFragment = toCamelCase(fragment.get());
             return IRI.create(base, camelCaseFragment);
         }

@@ -73,7 +73,7 @@ class AxiomConverter extends OWLAxiomVisitorExAdapter<OWLClassExpression> {
 
     @Nonnull
     private static <T> Set<T> set(@Nonnull T desc1, @Nonnull T desc2) {
-        Set<T> set = new HashSet<T>();
+        Set<T> set = new HashSet<>();
         set.add(desc1);
         set.add(desc2);
         return set;
@@ -116,7 +116,7 @@ class AxiomConverter extends OWLAxiomVisitorExAdapter<OWLClassExpression> {
 
     @Override
     public OWLClassExpression visit(OWLDifferentIndividualsAxiom axiom) {
-        Set<OWLClassExpression> nominals = new HashSet<OWLClassExpression>();
+        Set<OWLClassExpression> nominals = new HashSet<>();
         for (OWLIndividual ind : axiom.getIndividuals()) {
             assert ind != null;
             nominals.add(oneOf(ind));
@@ -192,7 +192,7 @@ class AxiomConverter extends OWLAxiomVisitorExAdapter<OWLClassExpression> {
 
     @Override
     public OWLClassExpression visit(OWLSameIndividualAxiom axiom) {
-        Set<OWLClassExpression> nominals = new HashSet<OWLClassExpression>();
+        Set<OWLClassExpression> nominals = new HashSet<>();
         for (OWLIndividual ind : axiom.getIndividuals()) {
             assert ind != null;
             nominals.add(not(oneOf(ind)));

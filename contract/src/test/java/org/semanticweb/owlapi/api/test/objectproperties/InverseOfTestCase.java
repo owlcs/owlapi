@@ -37,7 +37,7 @@ public class InverseOfTestCase extends AbstractFileRoundTrippingTestCase {
     public void testContains() {
         OWLObjectProperty propP = ObjectProperty(iri("p"));
         OWLObjectProperty propQ = ObjectProperty(iri("q"));
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> axioms = new HashSet<>();
         axioms.add(InverseObjectProperties(propP, propQ));
         assertEquals(axioms, getOnt().getAxioms());
     }

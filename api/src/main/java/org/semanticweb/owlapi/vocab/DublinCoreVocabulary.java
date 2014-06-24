@@ -12,7 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.vocab;
 
-import java.util.HashSet;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+
+import java.util.Arrays;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -21,6 +23,10 @@ import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.HasPrefixedName;
 import org.semanticweb.owlapi.model.HasShortForm;
 import org.semanticweb.owlapi.model.IRI;
+
+import com.google.common.base.Function;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Sets;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -81,13 +87,15 @@ public enum DublinCoreVocabulary
     }
 
     /** all IRIs */
-    public static final Set<IRI> ALL_URIS;
-    static {
-        ALL_URIS = new HashSet<IRI>();
-        for (DublinCoreVocabulary v : DublinCoreVocabulary.values()) {
-            ALL_URIS.add(v.getIRI());
-        }
-    }
+    public static final Set<IRI> ALL_URIS = Sets.newHashSet(Iterables
+            .transform(Arrays.asList(values()),
+                    new Function<DublinCoreVocabulary, IRI>() {
+
+                        @Override
+                        public IRI apply(DublinCoreVocabulary arg0) {
+                            return verifyNotNull(arg0).getIRI();
+                        }
+                    }));
 
     @Override
     public String toString() {

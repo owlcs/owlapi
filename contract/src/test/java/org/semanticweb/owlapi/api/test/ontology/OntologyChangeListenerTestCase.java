@@ -45,10 +45,10 @@ public class OntologyChangeListenerTestCase extends TestBase {
         OWLClass clsA = Class(iri("ClsA"));
         OWLClass clsB = Class(iri("ClsB"));
         OWLSubClassOfAxiom ax = SubClassOf(clsA, clsB);
-        final Set<OWLAxiom> impendingAdditions = new HashSet<OWLAxiom>();
-        final Set<OWLAxiom> impendingRemovals = new HashSet<OWLAxiom>();
-        final Set<OWLAxiom> additions = new HashSet<OWLAxiom>();
-        final Set<OWLAxiom> removals = new HashSet<OWLAxiom>();
+        final Set<OWLAxiom> impendingAdditions = new HashSet<>();
+        final Set<OWLAxiom> impendingRemovals = new HashSet<>();
+        final Set<OWLAxiom> additions = new HashSet<>();
+        final Set<OWLAxiom> removals = new HashSet<>();
         ont.getOWLOntologyManager().addImpendingOntologyChangeListener(
                 new ImpendingOWLOntologyChangeListener() {
 

@@ -114,7 +114,7 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
 
     @Nonnull
     protected Set<OWLEntity> getEntitiesThatRequireNamespaces() {
-        Set<OWLEntity> result = new HashSet<OWLEntity>();
+        Set<OWLEntity> result = new HashSet<>();
         result.addAll(ontology.getClassesInSignature());
         result.addAll(ontology.getObjectPropertiesInSignature());
         result.addAll(ontology.getDataPropertiesInSignature());

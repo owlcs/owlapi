@@ -50,7 +50,7 @@ public abstract class OWLReasonerBase implements OWLReasoner {
     private final OWLOntology rootOntology;
     @Nonnull
     private final BufferingMode bufferingMode;
-    private final List<OWLOntologyChange<?>> rawChanges = new ArrayList<OWLOntologyChange<?>>();
+    private final List<OWLOntologyChange<?>> rawChanges = new ArrayList<>();
     @Nonnull
     private final Set<OWLAxiom> reasonerAxioms;
     private final long timeOut;
@@ -78,7 +78,7 @@ public abstract class OWLReasonerBase implements OWLReasoner {
         timeOut = configuration.getTimeOut();
         manager = rootOntology.getOWLOntologyManager();
         manager.addOntologyChangeListener(ontologyChangeListener);
-        reasonerAxioms = new HashSet<OWLAxiom>();
+        reasonerAxioms = new HashSet<>();
         for (OWLOntology ont : rootOntology.getImportsClosure()) {
             for (OWLAxiom ax : ont.getLogicalAxioms()) {
                 reasonerAxioms.add(ax.getAxiomWithoutAnnotations());
@@ -130,19 +130,19 @@ public abstract class OWLReasonerBase implements OWLReasoner {
 
     @Override
     public List<OWLOntologyChange<?>> getPendingChanges() {
-        return new ArrayList<OWLOntologyChange<?>>(rawChanges);
+        return new ArrayList<>(rawChanges);
     }
 
     @Override
     public Set<OWLAxiom> getPendingAxiomAdditions() {
-        Set<OWLAxiom> added = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> added = new HashSet<>();
         computeDiff(added, new HashSet<OWLAxiom>());
         return added;
     }
 
     @Override
     public Set<OWLAxiom> getPendingAxiomRemovals() {
-        Set<OWLAxiom> removed = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> removed = new HashSet<>();
         computeDiff(new HashSet<OWLAxiom>(), removed);
         return removed;
     }
@@ -150,8 +150,8 @@ public abstract class OWLReasonerBase implements OWLReasoner {
     @Override
     public void flush() {
         // Process the changes
-        Set<OWLAxiom> added = new HashSet<OWLAxiom>();
-        Set<OWLAxiom> removed = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> added = new HashSet<>();
+        Set<OWLAxiom> removed = new HashSet<>();
         computeDiff(added, removed);
         reasonerAxioms.removeAll(removed);
         reasonerAxioms.addAll(added);
@@ -211,7 +211,7 @@ public abstract class OWLReasonerBase implements OWLReasoner {
      */
     @Nonnull
     public Collection<OWLAxiom> getReasonerAxioms() {
-        return new ArrayList<OWLAxiom>(reasonerAxioms);
+        return new ArrayList<>(reasonerAxioms);
     }
 
     /**

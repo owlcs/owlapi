@@ -108,8 +108,7 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
                     OWLOntologyFormat format)
                     throws OWLOntologyStorageException {
         if (format.isTextual() && target.isWriterAvailable()) {
-            try {
-                Writer w = target.getWriter();
+            try (Writer w = target.getWriter();) {
                 storeOntology(ontology, w, format);
                 w.flush();
             } catch (IOException e) {

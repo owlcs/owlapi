@@ -34,7 +34,7 @@ public class DeclarationsTestCase extends AbstractFileRoundTrippingTestCase {
 
     @Test
     public void testCorrectAxioms() {
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> axioms = new HashSet<>();
         axioms.add(Declaration(Class(IRI("http://www.semanticweb.org/ontologies/declarations#Cls"))));
         axioms.add(Declaration(ObjectProperty(IRI("http://www.semanticweb.org/ontologies/declarations#op"))));
         axioms.add(Declaration(DataProperty(IRI("http://www.semanticweb.org/ontologies/declarations#dp"))));

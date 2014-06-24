@@ -228,7 +228,7 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
             if (datatype == null || datatype.isRDFPlainLiteral()) {
                 literal = new OWLLiteralImplPlain(lexicalValue, lang);
             } else {
-            literal = new OWLLiteralImpl(lexicalValue, lang, datatype);
+                literal = new OWLLiteralImpl(lexicalValue, lang, datatype);
             }
         } else {
             literal = new OWLLiteralImplNoCompression(lexicalValue, lang,

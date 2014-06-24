@@ -49,7 +49,7 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  */
 public class OWLEntityRemover implements OWLEntityVisitor {
 
-    private final List<RemoveAxiom> changes = new ArrayList<RemoveAxiom>();
+    private final List<RemoveAxiom> changes = new ArrayList<>();
     @Nonnull
     private final Collection<OWLOntology> ontologies;
 
@@ -62,7 +62,7 @@ public class OWLEntityRemover implements OWLEntityVisitor {
      *        removed.
      */
     public OWLEntityRemover(@Nonnull Set<OWLOntology> ontologies) {
-        this.ontologies = new ArrayList<OWLOntology>(checkNotNull(ontologies,
+        this.ontologies = new ArrayList<>(checkNotNull(ontologies,
                 "ontologies cannot be null"));
     }
 
@@ -72,7 +72,7 @@ public class OWLEntityRemover implements OWLEntityVisitor {
      */
     @Nonnull
     public List<RemoveAxiom> getChanges() {
-        return new ArrayList<RemoveAxiom>(changes);
+        return new ArrayList<>(changes);
     }
 
     /**

@@ -22,18 +22,18 @@ public class OBODoc {
     protected Frame headerFrame;
     /** The term frame map. */
     @Nonnull
-    protected Map<String, Frame> termFrameMap = new HashMap<String, Frame>();
+    protected Map<String, Frame> termFrameMap = new HashMap<>();
     /** The typedef frame map. */
     @Nonnull
-    protected Map<String, Frame> typedefFrameMap = new HashMap<String, Frame>();
+    protected Map<String, Frame> typedefFrameMap = new HashMap<>();
     /** The instance frame map. */
     @Nonnull
-    protected Map<String, Frame> instanceFrameMap = new HashMap<String, Frame>();
+    protected Map<String, Frame> instanceFrameMap = new HashMap<>();
     /** The annotation frames. */
     @Nonnull
-    protected Collection<Frame> annotationFrames = new LinkedList<Frame>();
+    protected Collection<Frame> annotationFrames = new LinkedList<>();
     /** The imported obo docs. */
-    protected Collection<OBODoc> importedOBODocs = new LinkedList<OBODoc>();
+    protected Collection<OBODoc> importedOBODocs = new LinkedList<>();
 
     /** default constructor. */
     public OBODoc() {}
@@ -95,7 +95,7 @@ public class OBODoc {
             return termFrameMap.get(id);
         }
         // this set is used to check for cycles
-        Set<String> visited = new HashSet<String>();
+        Set<String> visited = new HashSet<>();
         visited.add(getHeaderDescriptor());
         return _getTermFrame(id, visited);
     }
@@ -149,7 +149,7 @@ public class OBODoc {
             return typedefFrameMap.get(id);
         }
         // this set is used to check for cycles
-        Set<String> visited = new HashSet<String>();
+        Set<String> visited = new HashSet<>();
         visited.add(getHeaderDescriptor());
         return _getTypedefFrame(id, visited);
     }
@@ -210,7 +210,7 @@ public class OBODoc {
      */
     public void addImportedOBODoc(OBODoc doc) {
         if (importedOBODocs == null) {
-            importedOBODocs = new ArrayList<OBODoc>();
+            importedOBODocs = new ArrayList<>();
         }
         importedOBODocs.add(doc);
     }

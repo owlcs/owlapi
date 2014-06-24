@@ -100,13 +100,12 @@ public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl
 
     @Override
     public Set<OWLDisjointClassesAxiom> asPairwiseAxioms() {
-        Set<OWLDisjointClassesAxiom> result = new HashSet<OWLDisjointClassesAxiom>();
+        Set<OWLDisjointClassesAxiom> result = new HashSet<>();
         List<OWLClassExpression> list = getClassExpressionsAsList();
         for (int i = 0; i < list.size() - 1; i++) {
             for (int j = i + 1; j < list.size(); j++) {
-                result.add(new OWLDisjointClassesAxiomImpl(
-                        new HashSet<OWLClassExpression>(Arrays.asList(
-                                list.get(i), list.get(j))), NO_ANNOTATIONS));
+                result.add(new OWLDisjointClassesAxiomImpl(new HashSet<>(Arrays
+                        .asList(list.get(i), list.get(j))), NO_ANNOTATIONS));
             }
         }
         return result;
@@ -115,7 +114,7 @@ public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl
     @SuppressWarnings("null")
     @Override
     public Set<OWLSubClassOfAxiom> asOWLSubClassOfAxioms() {
-        Set<OWLSubClassOfAxiom> result = new HashSet<OWLSubClassOfAxiom>();
+        Set<OWLSubClassOfAxiom> result = new HashSet<>();
         List<OWLClassExpression> list = getClassExpressionsAsList();
         for (int i = 0; i < list.size() - 1; i++) {
             for (int j = i + 1; j < list.size(); j++) {

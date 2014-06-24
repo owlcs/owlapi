@@ -53,8 +53,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     @Nonnull
     protected static List<? extends OWLObject> sort(
             @Nonnull Collection<? extends OWLObject> objects) {
-        List<? extends OWLObject> sortedObjects = new ArrayList<OWLObject>(
-                objects);
+        List<? extends OWLObject> sortedObjects = new ArrayList<>(objects);
         Collections.sort(sortedObjects);
         return sortedObjects;
     }
@@ -78,8 +77,8 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
 
     protected void writeCommaSeparatedList(
             @Nonnull Set<? extends OWLObject> objects) {
-        for (Iterator<OWLObject> it = new TreeSet<OWLObject>(objects)
-                .iterator(); it.hasNext();) {
+        for (Iterator<OWLObject> it = new TreeSet<>(objects).iterator(); it
+                .hasNext();) {
             it.next().accept(this);
             if (it.hasNext()) {
                 write(", ");

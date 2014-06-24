@@ -36,7 +36,7 @@ public class StringLiteralWithNewLineTestCase extends
     @Nonnull
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> axioms = new HashSet<>();
         OWLNamedIndividual ind = NamedIndividual(iri("i"));
         OWLDataProperty prop = DataProperty(iri("prop"));
         OWLLiteral literal = Literal("Test \"literal\"\nStuff");

@@ -36,7 +36,7 @@ public class CommentRemarkConversionTest extends OboFormatTestBasics {
                 OWLManager.createOWLOntologyManager());
         OWLOntology owlOntology = obo2Owl.convert(obo);
         Set<OWLAnnotation> annotations = owlOntology.getAnnotations();
-        Set<String> comments = new HashSet<String>();
+        Set<String> comments = new HashSet<>();
         for (OWLAnnotation owlAnnotation : annotations) {
             OWLAnnotationProperty property = owlAnnotation.getProperty();
             if (property.isComment()) {

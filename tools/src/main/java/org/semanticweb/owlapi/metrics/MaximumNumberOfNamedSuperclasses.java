@@ -52,7 +52,7 @@ public class MaximumNumberOfNamedSuperclasses extends IntegerValuedMetric {
     @Override
     public Integer recomputeMetric() {
         int count = 0;
-        Set<OWLClass> processedClasses = new HashSet<OWLClass>();
+        Set<OWLClass> processedClasses = new HashSet<>();
         for (OWLOntology ont : getOntologies()) {
             for (OWLClass cls : ont.getClassesInSignature()) {
                 assert cls != null;

@@ -25,9 +25,9 @@ public class XrefExpander {
     OBODoc targetOBODoc;
     String targetBase;
     @Nonnull
-    Map<String, Rule> treatMap = new HashMap<String, Rule>();
+    Map<String, Rule> treatMap = new HashMap<>();
     @Nonnull
-    Map<String, OBODoc> targetDocMap = new HashMap<String, OBODoc>();
+    Map<String, OBODoc> targetDocMap = new HashMap<>();
 
     /**
      * @param src
@@ -84,7 +84,7 @@ public class XrefExpander {
         // required for translation of IDs
         // obo2owl = new Obo2Owl();
         // obo2owl.setObodoc(sourceOBODoc);
-        Map<String, String> relationsUseByIdSpace = new HashMap<String, String>();
+        Map<String, String> relationsUseByIdSpace = new HashMap<>();
         for (Clause c : sourceOBODoc.getHeaderFrame().getClauses()) {
             String[] parts;
             String v = c.getValue(String.class);

@@ -45,13 +45,13 @@ public abstract class OWLNaryBooleanClassExpressionImpl extends
      */
     public OWLNaryBooleanClassExpressionImpl(
             @Nonnull Set<? extends OWLClassExpression> operands) {
-        this.operands = new TreeSet<OWLClassExpression>(checkNotNull(operands,
+        this.operands = new TreeSet<>(checkNotNull(operands,
                 "operands cannot be null"));
     }
 
     @Override
     public List<OWLClassExpression> getOperandsAsList() {
-        return new ArrayList<OWLClassExpression>(operands);
+        return new ArrayList<>(operands);
     }
 
     @Override

@@ -77,7 +77,7 @@ public abstract class ObjectCountMetric<E> extends IntegerValuedMetric {
      */
     @Nonnull
     protected Set<? extends E> getObjects() {
-        Set<E> objects = new HashSet<E>();
+        Set<E> objects = new HashSet<>();
         for (OWLOntology ont : getOntologies()) {
             assert ont != null;
             objects.addAll(getObjects(ont));

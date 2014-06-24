@@ -34,8 +34,8 @@ public class LargeDisjointClassesAxiomTestCase extends
     @Nonnull
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        Set<OWLClass> clses = new HashSet<OWLClass>();
+        Set<OWLAxiom> axioms = new HashSet<>();
+        Set<OWLClass> clses = new HashSet<>();
         for (int i = 0; i < 1000; i++) {
             clses.add(createClass());
         }

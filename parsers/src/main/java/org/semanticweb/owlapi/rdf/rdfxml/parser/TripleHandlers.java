@@ -408,7 +408,7 @@ public class TripleHandlers {
 
         @Nonnull
         private Set<RDFTriple> getRemainingTriples() {
-            final Set<RDFTriple> remainingTriples = new HashSet<RDFTriple>();
+            final Set<RDFTriple> remainingTriples = new HashSet<>();
             consumer.iterateResourceTriples(new ResourceTripleIterator() {
 
                 @Override
@@ -442,7 +442,7 @@ public class TripleHandlers {
         @Nonnull
         protected Map<IRI, TriplePredicateHandler> getPredicateHandlers(
                 @Nonnull OWLRDFConsumer r) {
-            Map<IRI, TriplePredicateHandler> predicateHandlers = new ConcurrentHashMap<IRI, TriplePredicateHandler>();
+            Map<IRI, TriplePredicateHandler> predicateHandlers = new ConcurrentHashMap<>();
             add(predicateHandlers, new TPDifferentFromHandler(r));
             add(predicateHandlers, new TPDisjointUnionHandler(r));
             add(predicateHandlers, new TPDisjointWithHandler(r));
@@ -484,7 +484,7 @@ public class TripleHandlers {
         @Nonnull
         public static Map<IRI, BuiltInTypeHandler> getAxiomTypeHandlers(
                 @Nonnull OWLRDFConsumer r) {
-            Map<IRI, BuiltInTypeHandler> map = new ConcurrentHashMap<IRI, BuiltInTypeHandler>();
+            Map<IRI, BuiltInTypeHandler> map = new ConcurrentHashMap<>();
             add(map, new TypeAxiomHandler(r));
             add(map, new TypeAllDifferentHandler(r));
             add(map, new TypeAllDisjointClassesHandler(r));
@@ -528,7 +528,7 @@ public class TripleHandlers {
         public static Map<IRI, BuiltInTypeHandler> getBasicTypeHandlers(
                 @Nonnull OWLRDFConsumer r,
                 @Nonnull OWLOntologyLoaderConfiguration config) {
-            Map<IRI, BuiltInTypeHandler> map = new ConcurrentHashMap<IRI, BuiltInTypeHandler>();
+            Map<IRI, BuiltInTypeHandler> map = new ConcurrentHashMap<>();
             add(map, new TypeOntologyPropertyHandler(r));
             add(map, new TypeAsymmetricPropertyHandler(r));
             add(map, new TypeClassHandler(r));
@@ -600,7 +600,7 @@ public class TripleHandlers {
         @Override
         public void handleTriple(IRI subject, IRI predicate, IRI object) {
             consumeTriple(subject, predicate, object);
-            Set<OWLClassExpression> operands = new HashSet<OWLClassExpression>();
+            Set<OWLClassExpression> operands = new HashSet<>();
             operands.add(translateClassExpression(subject));
             operands.add(translateEquivalentClass(object));
             addAxiom(df.getOWLEquivalentClassesAxiom(operands));
@@ -912,7 +912,7 @@ public class TripleHandlers {
                 return false;
             }
             IRI currentListNode = mainNode;
-            Set<IRI> visitedListNodes = new HashSet<IRI>();
+            Set<IRI> visitedListNodes = new HashSet<>();
             int size = 0;
             while (true) {
                 IRI firstObject = consumer.getResourceObject(currentListNode,
@@ -1460,7 +1460,7 @@ public class TripleHandlers {
         @Override
         public void handleTriple(@Nonnull IRI subject, IRI predicate,
                 @Nonnull IRI object) {
-            Set<OWLIndividual> inds = new HashSet<OWLIndividual>();
+            Set<OWLIndividual> inds = new HashSet<>();
             inds.add(translateIndividual(subject));
             inds.add(translateIndividual(object));
             addAxiom(df.getOWLDifferentIndividualsAxiom(inds,
@@ -1533,7 +1533,7 @@ public class TripleHandlers {
 
         @Override
         public void handleTriple(IRI subject, IRI predicate, IRI object) {
-            Set<OWLClassExpression> operands = new HashSet<OWLClassExpression>();
+            Set<OWLClassExpression> operands = new HashSet<>();
             operands.add(translateClassExpression(subject));
             operands.add(translateClassExpression(object));
             addAxiom(df.getOWLDisjointClassesAxiom(operands,
@@ -1624,7 +1624,7 @@ public class TripleHandlers {
 
         private void translateEquivalentClasses(@Nonnull IRI subject,
                 @Nonnull IRI predicate, @Nonnull IRI object) {
-            Set<OWLClassExpression> operands = new HashSet<OWLClassExpression>();
+            Set<OWLClassExpression> operands = new HashSet<>();
             operands.add(translateClassExpression(subject));
             operands.add(translateClassExpression(object));
             addAxiom(df.getOWLEquivalentClassesAxiom(operands,
@@ -1651,7 +1651,7 @@ public class TripleHandlers {
             Set<OWLAnnotation> pendingAnnotations = getPendingAnnotations();
             if (consumer.isObjectProperty(subject)
                     && consumer.isObjectProperty(object)) {
-                Set<OWLObjectPropertyExpression> props = new HashSet<OWLObjectPropertyExpression>();
+                Set<OWLObjectPropertyExpression> props = new HashSet<>();
                 props.add(translateObjectProperty(subject));
                 props.add(translateObjectProperty(object));
                 addAxiom(df.getOWLEquivalentObjectPropertiesAxiom(props,
@@ -1660,7 +1660,7 @@ public class TripleHandlers {
             }
             if (consumer.isDataProperty(subject)
                     && consumer.isDataProperty(object)) {
-                Set<OWLDataPropertyExpression> props = new HashSet<OWLDataPropertyExpression>();
+                Set<OWLDataPropertyExpression> props = new HashSet<>();
                 props.add(translateDataProperty(subject));
                 props.add(translateDataProperty(object));
                 addAxiom(df.getOWLEquivalentDataPropertiesAxiom(props,
@@ -2224,7 +2224,7 @@ public class TripleHandlers {
         @Override
         public void handleTriple(@Nonnull IRI subject, IRI predicate,
                 @Nonnull IRI object) {
-            Set<OWLIndividual> inds = new HashSet<OWLIndividual>();
+            Set<OWLIndividual> inds = new HashSet<>();
             inds.add(translateIndividual(subject));
             inds.add(translateIndividual(object));
             addAxiom(df.getOWLSameIndividualAxiom(inds,
@@ -2609,16 +2609,14 @@ public class TripleHandlers {
                 List<OWLObjectPropertyExpression> props = consumer.translatorAccessor
                         .translateToObjectPropertyList(listNode);
                 consumer.addAxiom(df.getOWLDisjointObjectPropertiesAxiom(
-                        new HashSet<OWLObjectPropertyExpression>(props),
-                        annotations));
+                        new HashSet<>(props), annotations));
             } else {
                 Set<OWLAnnotation> annotations = consumer
                         .translateAnnotations(subject);
                 List<OWLDataPropertyExpression> props = consumer.translatorAccessor
                         .translateToDataPropertyList(listNode);
                 consumer.addAxiom(df.getOWLDisjointDataPropertiesAxiom(
-                        new HashSet<OWLDataPropertyExpression>(props),
-                        annotations));
+                        new HashSet<>(props), annotations));
             }
         }
 

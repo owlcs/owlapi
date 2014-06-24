@@ -40,28 +40,19 @@ public abstract class AbstractAnnotatedAxiomRoundTrippingTestCase extends
         OWLAnnotation anno1 = df.getOWLAnnotation(prop, lit);
         OWLAnnotationProperty prop2 = AnnotationProperty(iri("prop2"));
         OWLAnnotation anno2 = df.getOWLAnnotation(prop2, lit);
-        Set<OWLAnnotation> annos = new HashSet<OWLAnnotation>();
+        Set<OWLAnnotation> annos = new HashSet<>();
         // Add two annotations per axiom
         annos.add(anno1);
         annos.add(anno2);
         OWLAxiom ax = getMainAxiom(annos);
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> axioms = new HashSet<>();
         axioms.add(ax.getAnnotatedAxiom(annos));
         axioms.add(Declaration(prop));
         axioms.add(Declaration(prop2));
         axioms.add(ax.getAnnotatedAxiom(singleton(anno1)));
         axioms.add(ax.getAnnotatedAxiom(singleton(anno2)));
-        // Set<OWLAxiom> declarations = getDeclarationsToAdd(ax);
-        // axioms.addAll(declarations);
         return axioms;
     }
 
-    // protected Set<OWLAxiom> getDeclarationsToAdd(OWLAxiom ax) {
-    // Set<OWLAxiom> declarations = new HashSet<OWLAxiom>();
-    // for(OWLEntity ent : ax.getSignature()) {
-    // declarations.add(getFactory().getOWLDeclarationAxiom(ent));
-    // }
-    // return declarations;
-    // }
     protected abstract OWLAxiom getMainAxiom(@Nonnull Set<OWLAnnotation> annos);
 }

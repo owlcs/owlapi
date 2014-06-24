@@ -35,7 +35,7 @@ import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
 public abstract class OWLEntityCollectingOntologyChangeListener implements
         OWLOntologyChangeListener {
 
-    private final Set<OWLEntity> entities = new HashSet<OWLEntity>();
+    private final Set<OWLEntity> entities = new HashSet<>();
 
     @Override
     public void ontologiesChanged(

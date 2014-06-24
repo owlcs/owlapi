@@ -34,12 +34,11 @@ public class ImmutableOWLOntologyChangeException extends
      * 
      * @param change
      *        The change.
-     *        @param o the ontology.
+     * @param o
+     *        the ontology.
      */
     public ImmutableOWLOntologyChangeException(
             @Nonnull OWLOntologyChangeData<?> change, String o) {
-        super(change,
-                "Cannot apply changes to immutable ontology: "
-                        + o);
+        super(change, "Cannot apply changes to immutable ontology: " + o);
     }
 }

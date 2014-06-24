@@ -14,11 +14,11 @@ public class Clause {
 
     protected String tag;
     @Nonnull
-    protected final Collection<Object> values = new ArrayList<Object>();
+    protected final Collection<Object> values = new ArrayList<>();
     @Nonnull
-    protected final Collection<Xref> xrefs = new ArrayList<Xref>();
+    protected final Collection<Xref> xrefs = new ArrayList<>();
     @Nonnull
-    protected final Collection<QualifierValue> qualifierValues = new ArrayList<QualifierValue>();
+    protected final Collection<QualifierValue> qualifierValues = new ArrayList<>();
 
     /**
      * @param tag

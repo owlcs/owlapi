@@ -46,11 +46,11 @@ public class RDFGraph implements Serializable {
             .getLogger(RDFGraph.class);
     private static final long serialVersionUID = 40000L;
     @Nonnull
-    private final Map<RDFResource, Set<RDFTriple>> triplesBySubject = new HashMap<RDFResource, Set<RDFTriple>>();
+    private final Map<RDFResource, Set<RDFTriple>> triplesBySubject = new HashMap<>();
     @Nonnull
-    private final Set<RDFResourceBlankNode> rootAnonymousNodes = new HashSet<RDFResourceBlankNode>();
+    private final Set<RDFResourceBlankNode> rootAnonymousNodes = new HashSet<>();
     @Nonnull
-    private final Set<RDFTriple> triples = new HashSet<RDFTriple>();
+    private final Set<RDFTriple> triples = new HashSet<>();
 
     /**
      * Determines if this graph is empty (i.e. whether or not it contains any
@@ -75,7 +75,7 @@ public class RDFGraph implements Serializable {
         triples.add(triple);
         Set<RDFTriple> tripleSet = triplesBySubject.get(triple.getSubject());
         if (tripleSet == null) {
-            tripleSet = new HashSet<RDFTriple>();
+            tripleSet = new HashSet<>();
             triplesBySubject.put(triple.getSubject(), tripleSet);
         }
         tripleSet.add(triple);
@@ -97,7 +97,7 @@ public class RDFGraph implements Serializable {
         if (!sort) {
             return set;
         }
-        List<RDFTriple> toReturn = new ArrayList<RDFTriple>(set);
+        List<RDFTriple> toReturn = new ArrayList<>(set);
         try {
             Collections.sort(toReturn);
         } catch (IllegalArgumentException e) {

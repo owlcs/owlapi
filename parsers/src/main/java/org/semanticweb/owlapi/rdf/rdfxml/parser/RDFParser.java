@@ -55,8 +55,8 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
     protected static final Locator s_nullDocumentLocator = new LocatorImpl();
     protected static final SAXParserFactory s_parserFactory = SAXParsers
             .initFactory();
-    private final Map<String, String> resolvedIRIs = new HashMap<String, String>();
-    protected Map<String, IRI> uriCache = new HashMap<String, IRI>();
+    private final Map<String, String> resolvedIRIs = new HashMap<>();
+    protected Map<String, IRI> uriCache = new HashMap<>();
     /** Registered error handler. */
     protected ErrorHandler m_errorHandler = new ErrorHandler() {
 
@@ -72,13 +72,13 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
         public void error(SAXParseException exception) {}
     };
     /** Stack of base IRIs. */
-    protected LinkedList<IRI> m_baseIRIs = new LinkedList<IRI>();
-    private final Map<IRI, URI> m_baseURICache = new HashMap<IRI, URI>();
+    protected LinkedList<IRI> m_baseIRIs = new LinkedList<>();
+    private final Map<IRI, URI> m_baseURICache = new HashMap<>();
     /** IRI of the document being parsed. */
     protected IRI baseIRI;
     /** The stack of languages. */
     @Nonnull
-    protected LinkedList<String> m_languages = new LinkedList<String>();
+    protected LinkedList<String> m_languages = new LinkedList<>();
     /** The current language. */
     protected String m_language;
     /** Consumer receiving notifications about parsing events. */
@@ -86,7 +86,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
     /** Current parser's state. */
     protected State state;
     /** Stack of parser states. */
-    protected List<State> m_states = new ArrayList<State>();
+    protected List<State> m_states = new ArrayList<>();
     /** Document locator. */
     protected Locator documentLocator;
 
@@ -423,7 +423,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
         try {
             StreamTokenizer tokenizer = new StreamTokenizer(new StringReader(
                     string));
-            Map<String, String> result = new HashMap<String, String>();
+            Map<String, String> result = new HashMap<>();
             tokenizer.nextToken();
             while (tokenizer.ttype != StreamTokenizer.TT_EOF) {
                 verify(tokenizer.ttype != StreamTokenizer.TT_WORD,

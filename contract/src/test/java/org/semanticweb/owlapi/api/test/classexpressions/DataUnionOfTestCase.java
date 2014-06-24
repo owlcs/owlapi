@@ -37,7 +37,7 @@ public class DataUnionOfTestCase extends AbstractFileRoundTrippingTestCase {
 
     @Test
     public void testCorrectAxioms() {
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> axioms = new HashSet<>();
         OWLDataRange intdr = Integer();
         OWLDataRange floatdr = Float();
         OWLDataRange union = DataUnionOf(intdr, floatdr);

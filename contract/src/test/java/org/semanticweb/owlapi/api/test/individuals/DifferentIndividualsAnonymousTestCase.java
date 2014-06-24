@@ -33,7 +33,7 @@ public class DifferentIndividualsAnonymousTestCase extends
     @Nonnull
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> axioms = new HashSet<>();
         axioms.add(DifferentIndividuals(AnonymousIndividual(),
                 AnonymousIndividual(), AnonymousIndividual()));
         return axioms;

@@ -44,7 +44,7 @@ public class SWRLBuiltInsVocabularyTestCase {
     @Nonnull
     @Parameterized.Parameters
     public static Collection<Object[]> getData() {
-        List<Object[]> data = new ArrayList<Object[]>();
+        List<Object[]> data = new ArrayList<>();
         for (SWRLBuiltInsVocabulary v : SWRLBuiltInsVocabulary.values()) {
             data.add(new Object[] { v });
         }

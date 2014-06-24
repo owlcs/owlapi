@@ -47,7 +47,6 @@ public class OWLAPIParsersModule extends AbstractModule {
         configureStorers();
     }
 
-    @SuppressWarnings("unchecked")
     protected void configureStorers() {
         multibind(OWLOntologyStorer.class, RDFXMLOntologyStorer.class,
                 OWLXMLOntologyStorer.class,
@@ -57,7 +56,6 @@ public class OWLAPIParsersModule extends AbstractModule {
                 LatexOntologyStorer.class);
     }
 
-    @SuppressWarnings("unchecked")
     protected void configureParsers() {
         multibind(OWLParser.class, ManchesterOWLSyntaxOntologyParser.class,
                 KRSS2OWLParser.class, TurtleOntologyParser.class,
@@ -65,7 +63,8 @@ public class OWLAPIParsersModule extends AbstractModule {
                 RDFXMLParser.class);
     }
 
-    private <T> Multibinder<T> multibind(Class<T> type,
+    @SafeVarargs
+    private final <T> Multibinder<T> multibind(Class<T> type,
             @Nonnull Class<? extends T>... implementations) {
         Multibinder<T> binder = Multibinder.newSetBinder(binder(), type);
         for (Class<? extends T> i : implementations) {

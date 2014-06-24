@@ -38,7 +38,7 @@ public class MutableTree<N> implements Tree<N> {
     private final N userObject;
     @Nullable
     private MutableTree<N> parent;
-    private final List<MutableTree<N>> children = new ArrayList<MutableTree<N>>();
+    private final List<MutableTree<N>> children = new ArrayList<>();
     private NodeRenderer<N> toStringRenderer = new NodeRenderer<N>() {
 
         @Override
@@ -120,7 +120,7 @@ public class MutableTree<N> implements Tree<N> {
 
     @Override
     public List<Tree<N>> getPathToRoot() {
-        List<Tree<N>> path = new ArrayList<Tree<N>>();
+        List<Tree<N>> path = new ArrayList<>();
         path.add(0, this);
         Tree<N> par = parent;
         while (par != null) {
@@ -132,7 +132,7 @@ public class MutableTree<N> implements Tree<N> {
 
     @Override
     public List<N> getUserObjectPathToRoot() {
-        List<N> path = new ArrayList<N>();
+        List<N> path = new ArrayList<>();
         path.add(0, getUserObject());
         Tree<N> par = parent;
         while (par != null) {
@@ -144,7 +144,7 @@ public class MutableTree<N> implements Tree<N> {
 
     @Override
     public Set<N> getUserObjectClosure() {
-        Set<N> objects = new HashSet<N>();
+        Set<N> objects = new HashSet<>();
         getUserObjectClosure(this, objects);
         return objects;
     }
@@ -190,7 +190,7 @@ public class MutableTree<N> implements Tree<N> {
 
     @Override
     public List<N> fillDepthFirst() {
-        List<N> results = new ArrayList<N>();
+        List<N> results = new ArrayList<>();
         fillDepthFirst(this, results);
         return results;
     }

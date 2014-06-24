@@ -101,7 +101,7 @@ public class ConvertSuperClassesToEquivalentClass extends
             @Nonnull OWLClass cls, @Nonnull Set<OWLOntology> ontologies) {
         // We remove the existing superclasses and then combine these
         // into an intersection which is made equivalent.
-        Set<OWLClassExpression> descs = new HashSet<OWLClassExpression>();
+        Set<OWLClassExpression> descs = new HashSet<>();
         for (OWLOntology ont : ontologies) {
             assert ont != null;
             for (OWLSubClassOfAxiom ax : ont.getSubClassAxiomsForSubClass(cls)) {
@@ -112,7 +112,7 @@ public class ConvertSuperClassesToEquivalentClass extends
         }
         OWLClassExpression equivalentClass = getDataFactory()
                 .getOWLObjectIntersectionOf(descs);
-        Set<OWLClassExpression> equivalentClasses = new HashSet<OWLClassExpression>();
+        Set<OWLClassExpression> equivalentClasses = new HashSet<>();
         equivalentClasses.add(cls);
         equivalentClasses.add(equivalentClass);
         addChange(new AddAxiom(targetOntology, getDataFactory()

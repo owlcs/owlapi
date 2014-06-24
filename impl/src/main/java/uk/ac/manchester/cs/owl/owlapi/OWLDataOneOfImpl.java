@@ -55,7 +55,7 @@ public class OWLDataOneOfImpl extends OWLObjectImpl implements OWLDataOneOf {
      *        lierals
      */
     public OWLDataOneOfImpl(@Nonnull Set<? extends OWLLiteral> values) {
-        this.values = new TreeSet<OWLLiteral>(checkNotNull(values,
+        this.values = new TreeSet<>(checkNotNull(values,
                 "values cannot be null"));
     }
 

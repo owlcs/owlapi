@@ -199,7 +199,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         @Nonnull
         public Set<OWLClassExpression> replaceBottom(
                 @Nonnull Set<OWLClassExpression> classExpressions) {
-            Set<OWLClassExpression> result = new HashSet<OWLClassExpression>();
+            Set<OWLClassExpression> result = new HashSet<>();
             for (OWLClassExpression desc : checkNotNull(classExpressions,
                     "classExpressions cannot be null")) {
                 assert desc != null;

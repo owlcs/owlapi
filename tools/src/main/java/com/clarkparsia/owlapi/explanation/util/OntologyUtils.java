@@ -80,7 +80,7 @@ public class OntologyUtils {
     public static Set<OWLOntology> removeAxiom(@Nonnull OWLAxiom axiom,
             @Nonnull Set<OWLOntology> ontologies,
             @Nonnull OWLOntologyManager manager) {
-        Set<OWLOntology> modifiedOnts = new HashSet<OWLOntology>();
+        Set<OWLOntology> modifiedOnts = new HashSet<>();
         checkNotNull(axiom, "axiom cannot be null");
         checkNotNull(manager, "manager cannot be null");
         for (OWLOntology ont : checkNotNull(ontologies,

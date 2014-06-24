@@ -69,7 +69,7 @@ public class OWLOntologyStorerFactoryImpl<T extends OWLOntologyStorer>
     @Nonnull
     private static <F extends OWLOntologyFormat> OWLOntologyFormatFactory
             factory(Class<F> c) {
-        return new OWLOntologyFormatFactoryImpl<F>(c);
+        return new OWLOntologyFormatFactoryImpl<>(c);
     }
 
     @Override

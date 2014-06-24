@@ -55,9 +55,9 @@ class OWLXMLParserHandler extends DefaultHandler {
     private final OWLOntology ontology;
     private final List<OWLElementHandler<?>> handlerStack;
     @Nonnull
-    private final Map<String, PARSER_OWLXMLVocabulary> handlerMap = new HashMap<String, PARSER_OWLXMLVocabulary>();
+    private final Map<String, PARSER_OWLXMLVocabulary> handlerMap = new HashMap<>();
     @Nonnull
-    private Map<String, String> prefixName2PrefixMap = new HashMap<String, String>();
+    private Map<String, String> prefixName2PrefixMap = new HashMap<>();
     private Locator locator;
     private final Stack<URI> bases;
     @Nonnull
@@ -126,10 +126,10 @@ class OWLXMLParserHandler extends DefaultHandler {
             @Nonnull OWLOntologyLoaderConfiguration configuration) {
         owlOntologyManager = ontology.getOWLOntologyManager();
         this.ontology = ontology;
-        bases = new Stack<URI>();
+        bases = new Stack<>();
         this.configuration = configuration;
-        handlerStack = new ArrayList<OWLElementHandler<?>>();
-        prefixName2PrefixMap = new HashMap<String, String>();
+        handlerStack = new ArrayList<>();
+        prefixName2PrefixMap = new HashMap<>();
         prefixName2PrefixMap.put("owl:", Namespaces.OWL.toString());
         prefixName2PrefixMap.put("xsd:", Namespaces.XSD.toString());
         if (topHandler != null) {
@@ -258,7 +258,7 @@ class OWLXMLParserHandler extends DefaultHandler {
         }
     }
 
-    private final Map<String, IRI> iriMap = new HashMap<String, IRI>();
+    private final Map<String, IRI> iriMap = new HashMap<>();
 
     /**
      * @param iriStr

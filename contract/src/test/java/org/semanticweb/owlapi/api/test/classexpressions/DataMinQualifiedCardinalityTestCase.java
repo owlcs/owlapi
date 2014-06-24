@@ -36,7 +36,7 @@ public class DataMinQualifiedCardinalityTestCase extends
     @Nonnull
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> axioms = new HashSet<>();
         OWLDataProperty prop = DataProperty(iri("prop"));
         OWLDataRange dr = Integer();
         OWLClass base = Class(iri("A"));

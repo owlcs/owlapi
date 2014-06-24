@@ -257,7 +257,7 @@ public class OWL2DatatypeImplTestCase extends TestBase {
     @Test
     public void contains() {
         IRI iri = OWL2Datatype.XSD_BYTE.getIRI();
-        Set<OWLDatatype> datatypes = new HashSet<OWLDatatype>();
+        Set<OWLDatatype> datatypes = new HashSet<>();
         OWLDatatypeImpl dtImpl = new OWLDatatypeImpl(iri);
         OWLDatatype dt2Impl = OWL2Datatype.XSD_BYTE.getDatatype(df);
         assertEquals(dtImpl, dt2Impl);

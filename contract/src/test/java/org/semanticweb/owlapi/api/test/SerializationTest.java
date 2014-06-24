@@ -91,17 +91,17 @@ public class SerializationTest {
     @Nonnull
     OWLAnnotationValue owlannotationvalue = owlliteral;
     @Nonnull
-    Set<OWLObjectPropertyExpression> setop = new HashSet<OWLObjectPropertyExpression>();
+    Set<OWLObjectPropertyExpression> setop = new HashSet<>();
     @Nonnull
-    Set<OWLAnnotation> setowlannotation = new HashSet<OWLAnnotation>();
+    Set<OWLAnnotation> setowlannotation = new HashSet<>();
     @Nonnull
-    Set<OWLDataPropertyExpression> setdp = new HashSet<OWLDataPropertyExpression>();
+    Set<OWLDataPropertyExpression> setdp = new HashSet<>();
     @Nonnull
-    List<OWLObjectPropertyExpression> listowlobjectpropertyexpression = new ArrayList<OWLObjectPropertyExpression>();
+    List<OWLObjectPropertyExpression> listowlobjectpropertyexpression = new ArrayList<>();
     @Nonnull
-    Set<OWLIndividual> setowlindividual = new HashSet<OWLIndividual>();
+    Set<OWLIndividual> setowlindividual = new HashSet<>();
     @Nonnull
-    Set<OWLPropertyExpression> setowlpropertyexpression = new HashSet<OWLPropertyExpression>();
+    Set<OWLPropertyExpression> setowlpropertyexpression = new HashSet<>();
     @Nonnull
     OWLFacetRestriction[] lowlfacetrestriction = { f.getOWLFacetRestriction(
             owlfacet, 1) };
@@ -109,9 +109,9 @@ public class SerializationTest {
     OWLFacetRestriction[] nulllowlfacetrestriction = { f
             .getOWLFacetRestriction(owlfacet, 1) };
     @Nonnull
-    Set<OWLClassExpression> setowlclassexpression = new HashSet<OWLClassExpression>();
+    Set<OWLClassExpression> setowlclassexpression = new HashSet<>();
     @Nonnull
-    Set<OWLFacetRestriction> setowlfacetrestriction = new HashSet<OWLFacetRestriction>();
+    Set<OWLFacetRestriction> setowlfacetrestriction = new HashSet<>();
     @Nonnull
     OWLPropertyExpression[] owlpropertyexpression = {};
 

@@ -56,12 +56,12 @@ public class AutoIRIMapper extends DefaultHandler implements
         OWLOntologyIRIMapper, Serializable {
 
     private static final long serialVersionUID = 40000L;
-    private final Set<String> fileExtensions = new HashSet<String>();
+    private final Set<String> fileExtensions = new HashSet<>();
     private boolean mapped;
     private final boolean recursive;
-    private final Map<String, OntologyRootElementHandler> handlerMap = new HashMap<String, OntologyRootElementHandler>();
-    private final Map<IRI, IRI> ontologyIRI2PhysicalURIMap = new HashMap<IRI, IRI>();
-    private final Map<String, IRI> oboFileMap = new HashMap<String, IRI>();
+    private final Map<String, OntologyRootElementHandler> handlerMap = new HashMap<>();
+    private final Map<IRI, IRI> ontologyIRI2PhysicalURIMap = new HashMap<>();
+    private final Map<String, IRI> oboFileMap = new HashMap<>();
     private final String directoryPath;
     private transient File currentFile;
 
@@ -126,7 +126,7 @@ public class AutoIRIMapper extends DefaultHandler implements
         if (!mapped) {
             mapFiles();
         }
-        return new HashSet<IRI>(ontologyIRI2PhysicalURIMap.keySet());
+        return new HashSet<>(ontologyIRI2PhysicalURIMap.keySet());
     }
 
     /** update the map. */
@@ -187,10 +187,9 @@ public class AutoIRIMapper extends DefaultHandler implements
     }
 
     private void parseFile(File file) {
-        InputStream is = null;
-        try {
-            is = OWLOntologyDocumentSourceBase.wrap(new BufferedInputStream(
-                    new FileInputStream(file)));
+        try (FileInputStream in = new FileInputStream(file);
+                BufferedInputStream delegate = new BufferedInputStream(in);
+                InputStream is = OWLOntologyDocumentSourceBase.wrap(delegate);) {
             currentFile = file;
             SAXParser parser = SAXParsers.initFactory().newSAXParser();
             parser.parse(is, this);
@@ -198,14 +197,6 @@ public class AutoIRIMapper extends DefaultHandler implements
             throw new OWLRuntimeException(e);
         } catch (Exception e) {
             // if we can't parse a file, then we can't map it
-        } finally {
-            if (is != null) {
-                try {
-                    is.close();
-                } catch (IOException e) {
-                    // nothing to do here
-                }
-            }
         }
     }
 

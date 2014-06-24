@@ -32,7 +32,7 @@ public class AnonymousRootRoundTrippingTestCase extends
     @Override
     protected OWLOntology createOntology() {
         OWLOntology ont = getOWLOntology("OntA");
-        Set<OWLIndividual> inds = new HashSet<OWLIndividual>();
+        Set<OWLIndividual> inds = new HashSet<>();
         for (int i = 0; i < 10; i++) {
             inds.add(createIndividual());
         }

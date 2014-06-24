@@ -80,7 +80,7 @@ public class BidirectionalShortFormProviderAdapter extends
             @Nonnull ShortFormProvider shortFormProvider) {
         this.shortFormProvider = checkNotNull(shortFormProvider,
                 "shortFormProvider cannot be null");
-        this.ontologies = new HashSet<OWLOntology>(checkNotNull(ontologies,
+        this.ontologies = new HashSet<>(checkNotNull(ontologies,
                 "ontologies cannot be null"));
         rebuild(new ReferencedEntitySetProvider(ontologies));
     }
@@ -129,7 +129,7 @@ public class BidirectionalShortFormProviderAdapter extends
         if (ontologies == null) {
             return;
         }
-        Set<OWLEntity> processed = new HashSet<OWLEntity>();
+        Set<OWLEntity> processed = new HashSet<>();
         for (OWLOntologyChange<?> chg : changes) {
             if (ontologies.contains(chg.getOntology())) {
                 if (chg.isAddAxiom()) {

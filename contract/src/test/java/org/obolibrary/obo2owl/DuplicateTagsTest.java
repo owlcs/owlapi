@@ -18,7 +18,7 @@ public class DuplicateTagsTest extends OboFormatTestBasics {
     @Test
     public void test() throws Exception {
         OWLOntology owl = parseOWLFile("duplicate-def.ofn");
-        final List<Clause> duplicates = new ArrayList<Clause>();
+        final List<Clause> duplicates = new ArrayList<>();
         OWLAPIOwl2Obo owl2Obo = new OWLAPIOwl2Obo(
                 OWLManager.createOWLOntologyManager()) {
 

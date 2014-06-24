@@ -90,20 +90,20 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
 
     private Set<OWLAxiom> currentExplanation;
     @Nonnull
-    private final Map<OWLEntity, Set<OWLAxiom>> lhs2AxiomMap = new HashMap<OWLEntity, Set<OWLAxiom>>();
+    private final Map<OWLEntity, Set<OWLAxiom>> lhs2AxiomMap = new HashMap<>();
     @Nonnull
-    private final Map<OWLAxiom, Set<OWLEntity>> entitiesByAxiomRHS = new HashMap<OWLAxiom, Set<OWLEntity>>();
+    private final Map<OWLAxiom, Set<OWLEntity>> entitiesByAxiomRHS = new HashMap<>();
     @Nonnull
     private final SeedExtractor seedExtractor = new SeedExtractor();
     @Nonnull
     private final OWLOntologyManager man;
     private OWLOntology ont;
     @Nonnull
-    private final Map<OWLObject, Set<OWLAxiom>> mappedAxioms = new HashMap<OWLObject, Set<OWLAxiom>>();
+    private final Map<OWLObject, Set<OWLAxiom>> mappedAxioms = new HashMap<>();
     @Nonnull
-    private final Set<OWLAxiom> consumedAxioms = new HashSet<OWLAxiom>();
+    private final Set<OWLAxiom> consumedAxioms = new HashSet<>();
     @Nonnull
-    private final Set<AxiomType<?>> passTypes = new HashSet<AxiomType<?>>();
+    private final Set<AxiomType<?>> passTypes = new HashSet<>();
 
     /**
      * Instantiates a new explanation orderer impl.
@@ -128,13 +128,13 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
     @Override
     public ExplanationTree getOrderedExplanation(@Nonnull OWLAxiom entailment,
             @Nonnull Set<OWLAxiom> axioms) {
-        currentExplanation = new HashSet<OWLAxiom>(axioms);
+        currentExplanation = new HashSet<>(axioms);
         buildIndices();
         ExplanationTree root = new EntailedAxiomTree(entailment);
         insertChildren(seedExtractor.getSource(entailment), root);
         OWLEntity currentTarget = seedExtractor.getTarget(entailment);
         Set<OWLAxiom> axs = root.getUserObjectClosure();
-        List<OWLAxiom> rootAxioms = new ArrayList<OWLAxiom>();
+        List<OWLAxiom> rootAxioms = new ArrayList<>();
         for (OWLAxiom ax : axioms) {
             if (!axs.contains(ax)) {
                 rootAxioms.add(ax);
@@ -158,7 +158,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
      */
     @Nonnull
     private Set<OWLAxiom> getTargetAxioms(@Nonnull OWLEntity currentTarget) {
-        Set<OWLAxiom> targetAxioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> targetAxioms = new HashSet<>();
         if (currentTarget.isOWLClass()) {
             targetAxioms.addAll(ont.getAxioms(currentTarget.asOWLClass(),
                     EXCLUDED));
@@ -181,14 +181,14 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
     @Nonnull
     private List<OWLEntity> getRHSEntitiesSorted(@Nonnull OWLAxiom ax) {
         Collection<OWLEntity> entities = getRHSEntities(ax);
-        List<OWLEntity> sortedEntities = new ArrayList<OWLEntity>(entities);
+        List<OWLEntity> sortedEntities = new ArrayList<>(entities);
         Collections.sort(sortedEntities, propertiesFirstComparator);
         return sortedEntities;
     }
 
     private void insertChildren(@Nonnull OWLEntity entity,
             @Nonnull ExplanationTree tree) {
-        Set<OWLAxiom> currentPath = new HashSet<OWLAxiom>(
+        Set<OWLAxiom> currentPath = new HashSet<>(
                 tree.getUserObjectPathToRoot());
         Set<? extends OWLAxiom> axioms = CollectionFactory.emptySet();
         if (entity.isOWLClass()) {
@@ -244,7 +244,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
             }
             ont = man.createOntology(IRI.create("http://www.semanticweb.org/",
                     "ontology" + randomstart.incrementAndGet()));
-            List<AddAxiom> changes = new ArrayList<AddAxiom>();
+            List<AddAxiom> changes = new ArrayList<>();
             for (OWLAxiom ax : currentExplanation) {
                 assert ax != null;
                 changes.add(new AddAxiom(verifyNotNull(ont), ax));
@@ -279,7 +279,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
             @Nonnull Map<K, Set<E>> map, boolean addIfEmpty) {
         Set<E> values = map.get(obj);
         if (values == null) {
-            values = new HashSet<E>();
+            values = new HashSet<>();
             if (addIfEmpty) {
                 map.put(obj, values);
             }

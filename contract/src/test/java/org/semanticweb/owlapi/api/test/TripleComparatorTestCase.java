@@ -45,7 +45,7 @@ public class TripleComparatorTestCase {
 
     @Test
     public void shouldSort() {
-        List<RDFTriple> list = new ArrayList<RDFTriple>(Arrays.asList(
+        List<RDFTriple> list = new ArrayList<>(Arrays.asList(
                 //@formatter:off
                 triple("MoleOfNiobiumAtom"), 
                 triple("MoleOfMercuryAtom"),

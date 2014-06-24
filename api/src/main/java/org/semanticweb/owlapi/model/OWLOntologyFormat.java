@@ -42,7 +42,7 @@ import com.google.common.collect.Multimap;
 public abstract class OWLOntologyFormat implements Serializable {
 
     private static final long serialVersionUID = 40000L;
-    private Map<Serializable, Serializable> parameterMap = new HashMap<Serializable, Serializable>();
+    private Map<Serializable, Serializable> parameterMap = new HashMap<>();
     private OWLOntologyLoaderMetaData loaderMetaData = new NullLoaderMetaData();
     private boolean addMissingTypes = true;
 
@@ -128,7 +128,7 @@ public abstract class OWLOntologyFormat implements Serializable {
                 punnings.put(e.getIRI(), e.getEntityType());
             }
         }
-        Collection<IRI> illegals = new HashSet<IRI>();
+        Collection<IRI> illegals = new HashSet<>();
         for (IRI i : punnings.keySet()) {
             Collection<EntityType<?>> puns = punnings.get(i);
             if (puns.contains(EntityType.OBJECT_PROPERTY)

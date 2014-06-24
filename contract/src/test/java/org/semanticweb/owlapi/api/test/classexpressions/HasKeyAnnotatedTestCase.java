@@ -42,14 +42,14 @@ public class HasKeyAnnotatedTestCase extends
         OWLAnnotationProperty ap = AnnotationProperty(IRI("http://annotation.com/annos#prop"));
         OWLLiteral val = Literal("Test", "");
         OWLAnnotation anno = Annotation(ap, val);
-        Set<OWLAnnotation> annos = new HashSet<OWLAnnotation>();
+        Set<OWLAnnotation> annos = new HashSet<>();
         annos.add(anno);
         OWLClassExpression ce = Class(iri("A"));
         OWLObjectProperty p1 = ObjectProperty(iri("p1"));
         OWLObjectProperty p2 = ObjectProperty(iri("p2"));
         OWLObjectProperty p3 = ObjectProperty(iri("p3"));
         OWLHasKeyAxiom ax = HasKey(annos, ce, p1, p2, p3);
-        Set<OWLAxiom> axs = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> axs = new HashSet<>();
         axs.add(ax);
         axs.add(Declaration(ap));
         axs.add(Declaration(p1));

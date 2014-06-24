@@ -64,7 +64,7 @@ public class AxiomType<C extends OWLAxiom> implements Serializable {
     private static <O extends OWLAxiom> AxiomType<O> getInstance(Class<O> c,
             int i, String name, boolean owl2Axiom,
             boolean nonSyntacticOWL2Axiom, boolean isLogical) {
-        return new AxiomType<O>(c, i, name, owl2Axiom, nonSyntacticOWL2Axiom,
+        return new AxiomType<>(c, i, name, owl2Axiom, nonSyntacticOWL2Axiom,
                 isLogical);
     }
 
@@ -141,7 +141,7 @@ public class AxiomType<C extends OWLAxiom> implements Serializable {
     public static Set<OWLAxiom> getAxiomsWithoutTypes(
             @Nonnull Set<OWLAxiom> sourceAxioms,
             @Nonnull AxiomType<?>... axiomTypes) {
-        Set<OWLAxiom> result = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> result = new HashSet<>();
         Set<AxiomType<?>> disallowed = Sets.newHashSet(axiomTypes);
         for (OWLAxiom ax : sourceAxioms) {
             if (!disallowed.contains(ax.getAxiomType())) {
@@ -167,7 +167,7 @@ public class AxiomType<C extends OWLAxiom> implements Serializable {
     public static Set<OWLAxiom> getAxiomsOfTypes(
             @Nonnull Set<OWLAxiom> sourceAxioms,
             @Nonnull AxiomType<?>... axiomTypes) {
-        Set<OWLAxiom> result = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> result = new HashSet<>();
         Set<AxiomType<?>> allowed = Sets.newHashSet(axiomTypes);
         for (OWLAxiom ax : sourceAxioms) {
             if (allowed.contains(ax.getAxiomType())) {

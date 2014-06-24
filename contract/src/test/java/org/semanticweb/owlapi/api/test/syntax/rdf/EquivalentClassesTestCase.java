@@ -38,7 +38,7 @@ public class EquivalentClassesTestCase extends AbstractRendererAndParser {
         OWLObjectProperty prop = createObjectProperty();
         OWLClassExpression descA = df.getOWLObjectSomeValuesFrom(prop,
                 df.getOWLThing());
-        Set<OWLClassExpression> classExpressions = new HashSet<OWLClassExpression>();
+        Set<OWLClassExpression> classExpressions = new HashSet<>();
         classExpressions.add(clsA);
         classExpressions.add(descA);
         OWLAxiom ax = df.getOWLEquivalentClassesAxiom(classExpressions);

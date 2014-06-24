@@ -37,7 +37,7 @@ public class DataHasValueTestCase extends AbstractFileRoundTrippingTestCase {
 
     @Test
     public void testCorrectAxioms() {
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> axioms = new HashSet<>();
         OWLClass clsA = Class(iri("A"));
         OWLLiteral literal = Literal(3);
         OWLLiteral stringLiteral = Literal("A", "");

@@ -101,7 +101,7 @@ public class StructuralTransformation implements Serializable {
     @Nonnull
     protected final OWLDataFactory df;
     private int nameCounter = 0;
-    protected final Set<OWLEntity> signature = new HashSet<OWLEntity>();
+    protected final Set<OWLEntity> signature = new HashSet<>();
 
     /**
      * @param dataFactory
@@ -131,7 +131,7 @@ public class StructuralTransformation implements Serializable {
             signature.addAll(ax.getSignature());
         }
         AxiomRewriter rewriter = new AxiomRewriter();
-        Set<OWLAxiom> transformedAxioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> transformedAxioms = new HashSet<>();
         for (OWLAxiom ax : axioms) {
             for (OWLAxiom transAx : ax.accept(rewriter)) {
                 if (transAx instanceof OWLSubClassOfAxiom) {
@@ -155,7 +155,7 @@ public class StructuralTransformation implements Serializable {
             OWLClassExpressionVisitorEx<OWLClassExpression> {
 
         private final OWLDataFactory ldf;
-        private final Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        private final Set<OWLAxiom> axioms = new HashSet<>();
         private final OWLClassExpression rhs;
 
         AxiomFlattener(OWLDataFactory df, OWLClassExpression rhs) {
@@ -303,7 +303,7 @@ public class StructuralTransformation implements Serializable {
 
         @Override
         public OWLClassExpression visit(OWLObjectUnionOf ce) {
-            Set<OWLClassExpression> descs = new HashSet<OWLClassExpression>();
+            Set<OWLClassExpression> descs = new HashSet<>();
             for (OWLClassExpression op : ce.getOperands()) {
                 OWLClassExpression flatOp = op.accept(this);
                 if (flatOp.isAnonymous()
@@ -389,8 +389,8 @@ public class StructuralTransformation implements Serializable {
         @Override
         public Set<OWLAxiom> visit(OWLDifferentIndividualsAxiom axiom) {
             // Explode into pairwise nominals?
-            Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-            List<OWLIndividual> individuals = new ArrayList<OWLIndividual>(
+            Set<OWLAxiom> axioms = new HashSet<>();
+            List<OWLIndividual> individuals = new ArrayList<>(
                     axiom.getIndividuals());
             for (int i = 0; i < individuals.size(); i++) {
                 for (int j = i + 1; j < individuals.size(); j++) {
@@ -411,8 +411,8 @@ public class StructuralTransformation implements Serializable {
         @Override
         public Set<OWLAxiom> visit(OWLDisjointDataPropertiesAxiom axiom) {
             // Explode
-            Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-            List<OWLDataPropertyExpression> props = new ArrayList<OWLDataPropertyExpression>(
+            Set<OWLAxiom> axioms = new HashSet<>();
+            List<OWLDataPropertyExpression> props = new ArrayList<>(
                     axiom.getProperties());
             for (int i = 0; i < props.size(); i++) {
                 for (int j = i + 1; j < props.size(); j++) {
@@ -425,8 +425,8 @@ public class StructuralTransformation implements Serializable {
 
         @Override
         public Set<OWLAxiom> visit(OWLDisjointObjectPropertiesAxiom axiom) {
-            Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-            List<OWLObjectPropertyExpression> props = new ArrayList<OWLObjectPropertyExpression>(
+            Set<OWLAxiom> axioms = new HashSet<>();
+            List<OWLObjectPropertyExpression> props = new ArrayList<>(
                     axiom.getProperties());
             for (int i = 0; i < props.size(); i++) {
                 for (int j = i + 1; j < props.size(); j++) {
@@ -439,7 +439,7 @@ public class StructuralTransformation implements Serializable {
 
         @Override
         public Set<OWLAxiom> visit(OWLDisjointUnionAxiom axiom) {
-            Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+            Set<OWLAxiom> axioms = new HashSet<>();
             axioms.addAll(df.getOWLEquivalentClassesAxiom(axiom.getOWLClass(),
                     df.getOWLObjectUnionOf(axiom.getClassExpressions()))
                     .accept(this));
@@ -455,15 +455,13 @@ public class StructuralTransformation implements Serializable {
 
         @Override
         public Set<OWLAxiom> visit(OWLEquivalentClassesAxiom axiom) {
-            Set<OWLAxiom> axioms = new HashSet<OWLAxiom>(
-                    axiom.asOWLSubClassOfAxioms());
-            return axioms;
+            return new HashSet<OWLAxiom>(axiom.asOWLSubClassOfAxioms());
         }
 
         @Override
         public Set<OWLAxiom> visit(OWLEquivalentDataPropertiesAxiom axiom) {
-            Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-            List<OWLDataPropertyExpression> props = new ArrayList<OWLDataPropertyExpression>(
+            Set<OWLAxiom> axioms = new HashSet<>();
+            List<OWLDataPropertyExpression> props = new ArrayList<>(
                     axiom.getProperties());
             for (int i = 0; i < props.size(); i++) {
                 for (int j = i + 1; j < props.size(); j++) {
@@ -478,8 +476,8 @@ public class StructuralTransformation implements Serializable {
 
         @Override
         public Set<OWLAxiom> visit(OWLEquivalentObjectPropertiesAxiom axiom) {
-            Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-            List<OWLObjectPropertyExpression> props = new ArrayList<OWLObjectPropertyExpression>(
+            Set<OWLAxiom> axioms = new HashSet<>();
+            List<OWLObjectPropertyExpression> props = new ArrayList<>(
                     axiom.getProperties());
             for (int i = 0; i < props.size(); i++) {
                 for (int j = i + 1; j < props.size(); j++) {
@@ -514,7 +512,7 @@ public class StructuralTransformation implements Serializable {
 
         @Override
         public Set<OWLAxiom> visit(OWLInverseObjectPropertiesAxiom axiom) {
-            Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+            Set<OWLAxiom> axioms = new HashSet<>();
             axioms.add(df.getOWLSubObjectPropertyOfAxiom(axiom
                     .getFirstProperty(), axiom.getSecondProperty()
                     .getInverseProperty()));

@@ -112,7 +112,7 @@ public class BFOROXrefTest extends OboFormatTestBasics {
             OWLAnnotationProperty property, int expected) {
         Set<OWLAnnotationAssertionAxiom> aaas = owlOnt
                 .getAnnotationAssertionAxioms(subjectIRI);
-        List<OWLAnnotationAssertionAxiom> matches = new ArrayList<OWLAnnotationAssertionAxiom>();
+        List<OWLAnnotationAssertionAxiom> matches = new ArrayList<>();
         for (OWLAnnotationAssertionAxiom annotationAssertionAxiom : aaas) {
             if (annotationAssertionAxiom.getProperty().equals(property)) {
                 matches.add(annotationAssertionAxiom);

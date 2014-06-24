@@ -30,7 +30,6 @@ public class ClassAssertionAnnotatedTestCase extends
 
     @Override
     protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
-        return ClassAssertion(Class(iri("A")), NamedIndividual(iri("i")),
-                annos);
+        return ClassAssertion(Class(iri("A")), NamedIndividual(iri("i")), annos);
     }
 }

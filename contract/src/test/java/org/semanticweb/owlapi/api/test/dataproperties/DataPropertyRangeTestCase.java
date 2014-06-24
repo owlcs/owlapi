@@ -33,7 +33,7 @@ public class DataPropertyRangeTestCase extends
     @Nonnull
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> axioms = new HashSet<>();
         axioms.add(DataPropertyRange(DataProperty(iri("p")), TopDatatype()));
         return axioms;
     }

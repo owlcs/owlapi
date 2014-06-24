@@ -57,7 +57,7 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
     public OWLAxiomImpl(@Nonnull Collection<? extends OWLAnnotation> annotations) {
         checkNotNull(annotations, "annotations cannot be null");
         if (!annotations.isEmpty()) {
-            this.annotations = new ArrayList<OWLAnnotation>(annotations);
+            this.annotations = new ArrayList<>(annotations);
             Collections.sort(this.annotations);
         } else {
             this.annotations = CollectionFactory.emptyList();
@@ -95,7 +95,7 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
         if (annotations.isEmpty()) {
             return CollectionFactory.emptySet();
         } else {
-            Set<OWLAnnotation> result = new HashSet<OWLAnnotation>();
+            Set<OWLAnnotation> result = new HashSet<>();
             for (OWLAnnotation anno : annotations) {
                 if (anno.getProperty().equals(annotationProperty)) {
                     result.add(anno);
@@ -136,7 +136,7 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
      */
     @Nonnull
     protected Set<OWLAnnotation> mergeAnnos(Set<OWLAnnotation> annos) {
-        Set<OWLAnnotation> merged = new HashSet<OWLAnnotation>(annos);
+        Set<OWLAnnotation> merged = new HashSet<>(annos);
         merged.addAll(annotations);
         return merged;
     }

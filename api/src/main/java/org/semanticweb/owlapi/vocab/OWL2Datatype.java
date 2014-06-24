@@ -53,6 +53,8 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
 
 
 
+
+
 //@formatter:off
     /** RDF_XML_LITERAL */          RDF_XML_LITERAL          (RDF,  "XMLLiteral",   Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, false, ".*"), 
     /** RDFS_LITERAL */             RDFS_LITERAL             (RDFS, "Literal",      Category.CAT_UNIVERSAL,                   false, ".*"),
@@ -95,11 +97,11 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
     @SuppressWarnings("null")
     @Nonnull
     static Set<IRI> init() {
-        List<IRI> iris = new ArrayList<IRI>();
+        List<IRI> iris = new ArrayList<>();
         for (OWL2Datatype v : OWL2Datatype.values()) {
             iris.add(v.iri);
         }
-        return Collections.unmodifiableSet(new TreeSet<IRI>(iris));
+        return Collections.unmodifiableSet(new TreeSet<>(iris));
     }
 
     /**
@@ -304,7 +306,7 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
 
         Category(String name, OWLFacet... facets) {
             this.name = name;
-            Set<OWLFacet> f = new HashSet<OWLFacet>(Arrays.asList(facets));
+            Set<OWLFacet> f = new HashSet<>(Arrays.asList(facets));
             this.facets = Collections.unmodifiableSet(f);
         }
 

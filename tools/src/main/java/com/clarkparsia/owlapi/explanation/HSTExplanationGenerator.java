@@ -132,11 +132,11 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
             if (firstMups.isEmpty()) {
                 return CollectionFactory.emptySet();
             }
-            Set<Set<OWLAxiom>> allMups = new LinkedHashSet<Set<OWLAxiom>>();
+            Set<Set<OWLAxiom>> allMups = new LinkedHashSet<>();
             progressMonitor.foundExplanation(firstMups);
             allMups.add(firstMups);
-            Set<Set<OWLAxiom>> satPaths = new HashSet<Set<OWLAxiom>>();
-            Set<OWLAxiom> currentPathContents = new HashSet<OWLAxiom>();
+            Set<Set<OWLAxiom>> satPaths = new HashSet<>();
+            Set<OWLAxiom> currentPathContents = new HashSet<>();
             singleExplanationGenerator.beginTransaction();
             try {
                 constructHittingSetTree(unsatClass, firstMups, allMups,
@@ -212,7 +212,7 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
      */
     @Nonnull
     private static Set<OWLEntity> getSignature(@Nonnull OWLAxiom axiom) {
-        Set<OWLEntity> toReturn = new HashSet<OWLEntity>();
+        Set<OWLEntity> toReturn = new HashSet<>();
         OWLEntityCollector collector = new OWLEntityCollector(toReturn);
         axiom.accept(collector);
         return toReturn;
@@ -253,8 +253,8 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
         }
         // We go through the current mups, axiom by axiom, and extend the tree
         // with edges for each axiom
-        List<OWLAxiom> orderedMups = getOrderedMUPS(new ArrayList<OWLAxiom>(
-                mups), allMups);
+        List<OWLAxiom> orderedMups = getOrderedMUPS(new ArrayList<>(mups),
+                allMups);
         while (!orderedMups.isEmpty()) {
             if (progressMonitor.isCancelled()) {
                 return;
@@ -270,7 +270,7 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
                     currentPathContents.size(), currentPathContents);
             // Removal may have dereferenced some entities, if so declarations
             // are added
-            List<OWLDeclarationAxiom> temporaryDeclarations = new ArrayList<OWLDeclarationAxiom>();
+            List<OWLDeclarationAxiom> temporaryDeclarations = new ArrayList<>();
             Set<OWLOntology> ontologies = removeAxiomAndAddDeclarations(axiom,
                     temporaryDeclarations);
             currentPathContents.add(axiom);
@@ -362,7 +362,7 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
         } else {
             LOGGER.info("Stop - satisfiable");
             // End of current path - add it to the list of paths
-            satPaths.add(new HashSet<OWLAxiom>(currentPathContents));
+            satPaths.add(new HashSet<>(currentPathContents));
         }
         return orderedMups;
     }
@@ -401,7 +401,7 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
             @Nonnull Set<OWLAxiom> currentPathContents) {
         Set<OWLAxiom> newMUPS = null;
         for (Set<OWLAxiom> foundMUPS : allMups) {
-            Set<OWLAxiom> foundMUPSCopy = new HashSet<OWLAxiom>(foundMUPS);
+            Set<OWLAxiom> foundMUPSCopy = new HashSet<>(foundMUPS);
             foundMUPSCopy.retainAll(currentPathContents);
             if (foundMUPSCopy.isEmpty()) {
                 newMUPS = foundMUPS;

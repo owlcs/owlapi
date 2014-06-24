@@ -96,7 +96,7 @@ public class ManchesterSyntaxTool {
             @Nullable Collection<OWLOntology> auxiliaryOntologies) {
         OWLOntologyManager manager = inputOntology.getOWLOntologyManager();
         dataFactory = manager.getOWLDataFactory();
-        Set<OWLOntology> ontologies = new HashSet<OWLOntology>(
+        Set<OWLOntology> ontologies = new HashSet<>(
                 inputOntology.getImportsClosure());
         if (auxiliaryOntologies != null && !auxiliaryOntologies.isEmpty()) {
             for (OWLOntology auxOnt : auxiliaryOntologies) {

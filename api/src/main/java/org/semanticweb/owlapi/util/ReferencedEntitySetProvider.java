@@ -44,7 +44,7 @@ public class ReferencedEntitySetProvider implements
 
     @Override
     public Set<OWLEntity> getEntities() {
-        Set<OWLEntity> entities = new HashSet<OWLEntity>();
+        Set<OWLEntity> entities = new HashSet<>();
         for (OWLOntology ont : ontologies) {
             entities.addAll(ont.getClassesInSignature());
             entities.addAll(ont.getObjectPropertiesInSignature());

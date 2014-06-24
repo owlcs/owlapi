@@ -32,11 +32,11 @@ import org.semanticweb.owlapi.model.IRI;
 public class XMLWriterNamespaceManager {
 
     @Nonnull
-    private final Map<String, String> prefixNamespaceMap = new HashMap<String, String>();
+    private final Map<String, String> prefixNamespaceMap = new HashMap<>();
     @Nonnull
-    private final Map<String, String> namespacePrefixMap = new HashMap<String, String>();
+    private final Map<String, String> namespacePrefixMap = new HashMap<>();
     @Nonnull
-    private final Map<String, String> wellknownNamespaces = new HashMap<String, String>();
+    private final Map<String, String> wellknownNamespaces = new HashMap<>();
     @Nonnull
     private String defaultNamespace;
 

@@ -64,7 +64,7 @@ public class DisjointsTestCase extends TestBase {
         OWLObjectProperty prop = createObjectProperty();
         OWLClassExpression descA = df.getOWLObjectSomeValuesFrom(prop, clsA);
         OWLClassExpression descB = df.getOWLObjectSomeValuesFrom(prop, clsB);
-        Set<OWLClassExpression> classExpressions = new HashSet<OWLClassExpression>();
+        Set<OWLClassExpression> classExpressions = new HashSet<>();
         classExpressions.add(descA);
         classExpressions.add(descB);
         OWLAxiom ax = df.getOWLDisjointClassesAxiom(classExpressions);

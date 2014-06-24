@@ -158,12 +158,12 @@ public class OWLAPIOwl2Obo {
      * Inits the.
      */
     protected void init() {
-        idSpaceMap = new HashMap<String, String>();
+        idSpaceMap = new HashMap<>();
         // legacy:
         idSpaceMap.put("http://www.obofoundry.org/ro/ro.owl#", "OBO_REL");
-        untranslatableAxioms = new HashSet<OWLAxiom>();
+        untranslatableAxioms = new HashSet<>();
         fac = manager.getOWLDataFactory();
-        apToDeclare = new HashSet<OWLAnnotationProperty>();
+        apToDeclare = new HashSet<>();
     }
 
     /**
@@ -184,7 +184,7 @@ public class OWLAPIOwl2Obo {
      */
     @Nonnull
     protected static HashMap<String, String> initAnnotationPropertyMap() {
-        HashMap<String, String> map = new HashMap<String, String>();
+        HashMap<String, String> map = new HashMap<>();
         for (String key : OWLAPIObo2Owl.annotationPropertyMap.keySet()) {
             IRI propIRI = OWLAPIObo2Owl.annotationPropertyMap.get(key);
             map.put(propIRI.toString(), key);
@@ -398,12 +398,12 @@ public class OWLAPIOwl2Obo {
         }
         if (viewRel != null) {
             // OWLObjectProperty vp = fac.getOWLObjectProperty(pIRI);
-            Set<OWLAxiom> rmAxioms = new HashSet<OWLAxiom>();
-            Set<OWLAxiom> newAxioms = new HashSet<OWLAxiom>();
+            Set<OWLAxiom> rmAxioms = new HashSet<>();
+            Set<OWLAxiom> newAxioms = new HashSet<>();
             for (OWLEquivalentClassesAxiom eca : getOWLOntology().getAxioms(
                     AxiomType.EQUIVALENT_CLASSES)) {
                 int numNamed = 0;
-                Set<OWLClassExpression> xs = new HashSet<OWLClassExpression>();
+                Set<OWLClassExpression> xs = new HashSet<>();
                 for (OWLClassExpression x : eca.getClassExpressions()) {
                     if (x instanceof OWLClass) {
                         xs.add(x);
@@ -587,7 +587,7 @@ public class OWLAPIOwl2Obo {
         }
         Clause clause;
         // set of unprocessed annotations
-        Set<OWLAnnotation> unprocessedAnnotations = new HashSet<OWLAnnotation>(
+        Set<OWLAnnotation> unprocessedAnnotations = new HashSet<>(
                 ax.getAnnotations());
         if (rel1.equals(f.getId())) {
             clause = new Clause(OboFormatTag.TAG_TRANSITIVE_OVER, rel2);
@@ -1009,8 +1009,7 @@ public class OWLAPIOwl2Obo {
             } else {
                 clause.addValue(value);
             }
-            Set<OWLAnnotation> unprocessedQualifiers = new HashSet<OWLAnnotation>(
-                    qualifiers);
+            Set<OWLAnnotation> unprocessedQualifiers = new HashSet<>(qualifiers);
             if (tag == OboFormatTag.TAG_DEF) {
                 for (OWLAnnotation aan : qualifiers) {
                     String propId = owlObjectToTag(aan.getProperty());
@@ -1409,7 +1408,7 @@ public class OWLAPIOwl2Obo {
             return;
         }
         boolean isUntranslateable = false;
-        List<Clause> equivalenceAxiomClauses = new ArrayList<Clause>();
+        List<Clause> equivalenceAxiomClauses = new ArrayList<>();
         String cls2 = getIdentifier(ce2);
         if (cls2 != null) {
             Clause c = new Clause(OboFormatTag.TAG_EQUIVALENT_TO.getTag());
@@ -2021,7 +2020,7 @@ public class OWLAPIOwl2Obo {
     protected void tr(@Nonnull OWLSubClassOfAxiom ax) {
         OWLClassExpression sub = ax.getSubClass();
         OWLClassExpression sup = ax.getSuperClass();
-        Set<QualifierValue> qvs = new HashSet<QualifierValue>();
+        Set<QualifierValue> qvs = new HashSet<>();
         if (sub.isOWLNothing() || sub.isTopEntity() || sup.isTopEntity()
                 || sup.isOWLNothing()) {
             error("Assertions using owl:Thing or owl:Nothing are not translateable OBO",
@@ -2108,7 +2107,7 @@ public class OWLAPIOwl2Obo {
                         cardinality, fillerId, qvs, ax));
             } else if (sup instanceof OWLObjectIntersectionOf) {
                 OWLObjectIntersectionOf i = (OWLObjectIntersectionOf) sup;
-                List<Clause> clauses = new ArrayList<Clause>();
+                List<Clause> clauses = new ArrayList<>();
                 for (OWLClassExpression operand : i.getOperands()) {
                     if (operand instanceof OWLQuantifiedObjectRestriction) {
                         OWLQuantifiedObjectRestriction restriction = (OWLQuantifiedObjectRestriction) operand;
@@ -2124,8 +2123,7 @@ public class OWLAPIOwl2Obo {
                             return;
                         }
                         clauses.add(createRelationshipClauseWithRestrictions(
-                                restriction, fillerId,
-                                new HashSet<QualifierValue>(qvs), ax));
+                                restriction, fillerId, new HashSet<>(qvs), ax));
                     } else if (operand instanceof OWLObjectCardinalityRestriction) {
                         OWLObjectCardinalityRestriction restriction = (OWLObjectCardinalityRestriction) operand;
                         OWLClassExpression filler = restriction.getFiller();
@@ -2140,8 +2138,7 @@ public class OWLAPIOwl2Obo {
                             return;
                         }
                         clauses.add(createRelationshipClauseWithCardinality(
-                                restriction, fillerId,
-                                new HashSet<QualifierValue>(qvs), ax));
+                                restriction, fillerId, new HashSet<>(qvs), ax));
                     } else {
                         error(ax, true);
                         return;
@@ -2238,7 +2235,7 @@ public class OWLAPIOwl2Obo {
     @Nonnull
     public static List<Clause> normalizeRelationshipClauses(
             @Nonnull List<Clause> clauses) {
-        List<Clause> normalized = new ArrayList<Clause>();
+        List<Clause> normalized = new ArrayList<>();
         while (!clauses.isEmpty()) {
             Clause target = clauses.remove(0);
             assert target != null;
@@ -2265,7 +2262,7 @@ public class OWLAPIOwl2Obo {
         String targetTag = target.getTag();
         Object targetValue = target.getValue();
         Object targetValue2 = target.getValue2();
-        List<Clause> similar = new ArrayList<Clause>();
+        List<Clause> similar = new ArrayList<>();
         Iterator<Clause> iterator = clauses.iterator();
         while (iterator.hasNext()) {
             Clause current = iterator.next();

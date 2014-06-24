@@ -86,7 +86,7 @@ public class BuilderImportsDeclaration implements
 
     @Override
     public List<OWLOntologyChange<?>> applyChanges(OWLOntology o) {
-        List<OWLOntologyChange<?>> list = new ArrayList<OWLOntologyChange<?>>();
+        List<OWLOntologyChange<?>> list = new ArrayList<>();
         list.add(new AddImport(o, buildObject()));
         return list;
     }

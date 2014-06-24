@@ -30,7 +30,6 @@ public class InverseFunctionalObjectPropertyAnnotatedTestCase extends
 
     @Override
     protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
-        return InverseFunctionalObjectProperty(ObjectProperty(iri("p")),
-                annos);
+        return InverseFunctionalObjectProperty(ObjectProperty(iri("p")), annos);
     }
 }

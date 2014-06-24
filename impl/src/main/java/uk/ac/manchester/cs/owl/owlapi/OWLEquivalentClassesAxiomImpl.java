@@ -86,15 +86,14 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl
 
     @Override
     public Set<OWLEquivalentClassesAxiom> asPairwiseAxioms() {
-        List<OWLClassExpression> classExpressions = new ArrayList<OWLClassExpression>(
+        List<OWLClassExpression> classExpressions = new ArrayList<>(
                 getClassExpressions());
-        Set<OWLEquivalentClassesAxiom> result = new HashSet<OWLEquivalentClassesAxiom>();
+        Set<OWLEquivalentClassesAxiom> result = new HashSet<>();
         for (int i = 0; i < classExpressions.size() - 1; i++) {
             OWLClassExpression ceI = classExpressions.get(i);
             OWLClassExpression ceJ = classExpressions.get(i + 1);
-            result.add(new OWLEquivalentClassesAxiomImpl(
-                    new HashSet<OWLClassExpression>(Arrays.asList(ceI, ceJ)),
-                    NO_ANNOTATIONS));
+            result.add(new OWLEquivalentClassesAxiomImpl(new HashSet<>(Arrays
+                    .asList(ceI, ceJ)), NO_ANNOTATIONS));
         }
         return result;
     }
@@ -131,7 +130,7 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl
             toReturn = verifyNotNull(namedClasses).get();
         }
         if (toReturn == null) {
-            Set<OWLClass> clses = new HashSet<OWLClass>(1);
+            Set<OWLClass> clses = new HashSet<>(1);
             for (OWLClassExpression desc : getClassExpressions()) {
                 if (!desc.isAnonymous() && !desc.isOWLNothing()
                         && !desc.isOWLThing()) {
@@ -140,7 +139,7 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl
             }
             toReturn = CollectionFactory
                     .getCopyOnRequestSetFromImmutableCollection(clses);
-            namedClasses = new WeakReference<Set<OWLClass>>(toReturn);
+            namedClasses = new WeakReference<>(toReturn);
         }
         return toReturn;
     }
@@ -148,8 +147,8 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl
     @SuppressWarnings("null")
     @Override
     public Set<OWLSubClassOfAxiom> asOWLSubClassOfAxioms() {
-        Set<OWLSubClassOfAxiom> result = new HashSet<OWLSubClassOfAxiom>();
-        List<OWLClassExpression> classExpressions = new ArrayList<OWLClassExpression>(
+        Set<OWLSubClassOfAxiom> result = new HashSet<>();
+        List<OWLClassExpression> classExpressions = new ArrayList<>(
                 getClassExpressions());
         for (int i = 0; i < classExpressions.size(); i++) {
             for (int j = 0; j < classExpressions.size(); j++) {

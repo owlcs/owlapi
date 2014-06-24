@@ -38,7 +38,7 @@ public class OWLMetricManager {
      *        the metrics to use
      */
     public OWLMetricManager(@Nonnull List<OWLMetric<?>> metrics) {
-        this.metrics = new ArrayList<OWLMetric<?>>(checkNotNull(metrics,
+        this.metrics = new ArrayList<>(checkNotNull(metrics,
                 "metrics cannot be null"));
     }
 
@@ -55,7 +55,7 @@ public class OWLMetricManager {
     /** @return the metrics */
     @Nonnull
     public List<OWLMetric<?>> getMetrics() {
-        return new ArrayList<OWLMetric<?>>(metrics);
+        return new ArrayList<>(metrics);
     }
 
     @Override

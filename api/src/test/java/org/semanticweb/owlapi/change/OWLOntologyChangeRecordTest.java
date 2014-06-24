@@ -23,7 +23,7 @@ public class OWLOntologyChangeRecordTest {
                 Optional.of(IRI.create("urn:v1")));
         OWLOntologyID id2 = new OWLOntologyID(Optional.of(IRI.create("urn:a")),
                 Optional.of(IRI.create("urn:v2")));
-        OWLOntologyChangeRecord<OWLOntologyID> idChangeRecord = new OWLOntologyChangeRecord<OWLOntologyID>(
+        OWLOntologyChangeRecord<OWLOntologyID> idChangeRecord = new OWLOntologyChangeRecord<>(
                 id1, new SetOntologyIDData(id2));
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         ObjectOutputStream out = new ObjectOutputStream(byteArrayOutputStream);

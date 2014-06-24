@@ -44,7 +44,7 @@ public class ShortFormProviderTestCase {
     @Test
     public void shouldFindShortFormForSetPRefix() {
         OWLClass c = Class(IRI("http://www.example.org/#Woman"));
-        Map<String, String> prefixes = new HashMap<String, String>();
+        Map<String, String> prefixes = new HashMap<>();
         prefixes.put("test", "http://www.example.org/#");
         QNameShortFormProvider shortener = new QNameShortFormProvider(prefixes);
         String shortform = shortener.getShortForm(c);
