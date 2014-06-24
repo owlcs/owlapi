@@ -12,7 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.atomicdecomposition;
 
-/** Atomic Decomposition modes */
-public enum AtomicDecompositionMode {
-    SYNTACTIC_COUNTING, SYNTACTIC_STANDARD, QUERY_ANSWERING
+/**
+ * Module types - for use with Chiara and Dmitry's implementation of
+ * modularisation and atomic decomposition, as implemented in FaCT++/OWLAPITOOLS
+ */
+public enum ModuleType {
+    SYNTACTIC_STANDARD, SYNTACTIC_COUNTING, QUERY_ANSWERING
 }
