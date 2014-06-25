@@ -40,4 +40,7 @@ public interface OWLRestriction extends OWLAnonymousClassExpression {
      *         {@code false}
      */
     boolean isDataRestriction();
+
+    /** @return property being restricted */
+    OWLPropertyExpression getProperty();
 }
