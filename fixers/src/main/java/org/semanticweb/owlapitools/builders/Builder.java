@@ -43,5 +43,5 @@ public interface Builder<T> {
      * @return changes the ontology to which the changes should be applied
      */
     @Nonnull
-    List<OWLOntologyChange<?>> applyChanges(@Nonnull OWLOntology o);
+    List<OWLOntologyChange> applyChanges(@Nonnull OWLOntology o);
 }

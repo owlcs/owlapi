@@ -120,8 +120,8 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
     }
 
     @Override
-    public void ontologiesChanged(List<? extends OWLOntologyChange<?>> changes) {
-        for (OWLOntologyChange<?> change : changes) {
+    public void ontologiesChanged(List<? extends OWLOntologyChange> changes) {
+        for (OWLOntologyChange change : changes) {
             if (!change.isAxiomChange()
                     || !ontology.getImportsClosure().contains(
                             change.getOntology())) {

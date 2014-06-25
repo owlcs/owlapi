@@ -16,14 +16,13 @@ import com.google.common.base.Optional;
 @SuppressWarnings("javadoc")
 public class OWLOntologyChangeRecordTest {
 
-    @SuppressWarnings("unchecked")
     @Test
     public void testSerializeChangeRecord() throws Exception {
         OWLOntologyID id1 = new OWLOntologyID(Optional.of(IRI.create("urn:a")),
                 Optional.of(IRI.create("urn:v1")));
         OWLOntologyID id2 = new OWLOntologyID(Optional.of(IRI.create("urn:a")),
                 Optional.of(IRI.create("urn:v2")));
-        OWLOntologyChangeRecord<OWLOntologyID> idChangeRecord = new OWLOntologyChangeRecord<>(
+        OWLOntologyChangeRecord idChangeRecord = new OWLOntologyChangeRecord(
                 id1, new SetOntologyIDData(id2));
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         ObjectOutputStream out = new ObjectOutputStream(byteArrayOutputStream);
@@ -31,7 +30,7 @@ public class OWLOntologyChangeRecordTest {
         out.close();
         ObjectInputStream in = new ObjectInputStream(new ByteArrayInputStream(
                 byteArrayOutputStream.toByteArray()));
-        OWLOntologyChangeRecord<OWLOntologyID> recordIn = (OWLOntologyChangeRecord<OWLOntologyID>) in
+        OWLOntologyChangeRecord recordIn = (OWLOntologyChangeRecord) in
                 .readObject();
         assertEquals(idChangeRecord, recordIn);
     }

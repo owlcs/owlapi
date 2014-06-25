@@ -79,8 +79,8 @@ public class AverageAssertedNamedSuperclassCount extends DoubleValuedMetric {
 
     @Override
     protected boolean isMetricInvalidated(
-            List<? extends OWLOntologyChange<?>> changes) {
-        for (OWLOntologyChange<?> chg : changes) {
+            List<? extends OWLOntologyChange> changes) {
+        for (OWLOntologyChange chg : changes) {
             if (chg.isAxiomChange()
                     && chg.getAxiom() instanceof OWLSubClassOfAxiom) {
                 return true;

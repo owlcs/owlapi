@@ -33,8 +33,6 @@ public interface OWLOntologyChangeListener {
      * @throws OWLException
      *         exception
      */
-    void
-            ontologiesChanged(
-                    @Nonnull List<? extends OWLOntologyChange<?>> changes)
-                    throws OWLException;
+    void ontologiesChanged(@Nonnull List<? extends OWLOntologyChange> changes)
+            throws OWLException;
 }

@@ -50,7 +50,6 @@ import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedObject;
-import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectComplementOf;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
@@ -64,6 +63,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLProperty;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.SetOntologyID;
+import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
@@ -1009,28 +1009,22 @@ public class OWLAPIObo2Owl {
     }
 
     /**
-     * Apply.
+     * Apply the change.
      * 
-     * @param <T>
-     *        the generic type
      * @param change
      *        the change
      */
-    @SuppressWarnings("null")
-    protected <T extends OWLObject> void apply(OWLOntologyChange<T> change) {
-        apply(Collections.singletonList(change));
+    protected void apply(OWLOntologyChange change) {
+        apply(CollectionFactory.list(change));
     }
 
     /**
-     * Apply.
+     * Apply the changes.
      * 
-     * @param <T>
-     *        the generic type
      * @param changes
      *        the changes
      */
-    protected <T extends OWLObject> void apply(
-            @Nonnull List<OWLOntologyChange<T>> changes) {
+    protected void apply(@Nonnull List<OWLOntologyChange> changes) {
         try {
             manager.applyChanges(changes);
         } catch (Exception e) {

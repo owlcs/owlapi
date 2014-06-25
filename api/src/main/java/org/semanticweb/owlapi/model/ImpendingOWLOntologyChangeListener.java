@@ -39,5 +39,5 @@ public interface ImpendingOWLOntologyChangeListener extends Serializable {
      *         prevent all of the changes being applied.
      */
     void handleImpendingOntologyChanges(
-            @Nonnull List<? extends OWLOntologyChange<?>> impendingChanges);
+            @Nonnull List<? extends OWLOntologyChange> impendingChanges);
 }

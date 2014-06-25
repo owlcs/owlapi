@@ -26,11 +26,8 @@ import org.semanticweb.owlapi.change.OWLOntologyChangeRecord;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0
- * @param <T>
- *        change type
  */
-public abstract class OWLOntologyChange<T> implements HasSignature,
-        Serializable {
+public abstract class OWLOntologyChange implements HasSignature, Serializable {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
@@ -111,7 +108,7 @@ public abstract class OWLOntologyChange<T> implements HasSignature,
      *         {@code OWLOntologyChange}.
      */
     @Nonnull
-    public abstract OWLOntologyChangeData<T> getChangeData();
+    public abstract OWLOntologyChangeData getChangeData();
 
     /**
      * Gets a {@link OWLOntologyChangeRecord} that is derived from this
@@ -124,9 +121,8 @@ public abstract class OWLOntologyChange<T> implements HasSignature,
      *         .
      */
     @Nonnull
-    public OWLOntologyChangeRecord<T> getChangeRecord() {
-        return new OWLOntologyChangeRecord<>(ont.getOntologyID(),
-                getChangeData());
+    public OWLOntologyChangeRecord getChangeRecord() {
+        return new OWLOntologyChangeRecord(ont.getOntologyID(), getChangeData());
     }
 
     /**

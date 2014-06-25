@@ -42,7 +42,7 @@ public class RemoveOntologyAnnotation extends AnnotationChange {
 
     @Nonnull
     @Override
-    public OWLOntologyChangeData<OWLAnnotation> getChangeData() {
+    public OWLOntologyChangeData getChangeData() {
         return new RemoveOntologyAnnotationData(getAnnotation());
     }
 

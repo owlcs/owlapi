@@ -29,11 +29,9 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group
  * @since 3.3
- * @param <T>
- *        change type
  * @see org.semanticweb.owlapi.model.OWLOntologyChange#getChangeData()
  */
-public abstract class OWLOntologyChangeData<T> implements HasSignature,
+public abstract class OWLOntologyChangeData implements HasSignature,
         Serializable {
 
     private static final long serialVersionUID = 40000L;
@@ -71,7 +69,7 @@ public abstract class OWLOntologyChangeData<T> implements HasSignature,
      *         {@code OWLOntologyChangeData} object.
      **/
     @Nonnull
-    public abstract OWLOntologyChange<T> createOntologyChange(
+    public abstract OWLOntologyChange createOntologyChange(
             @Nonnull OWLOntology ontology);
 
     /** @return a name for the object class */
@@ -92,7 +90,7 @@ public abstract class OWLOntologyChangeData<T> implements HasSignature,
 
     /** @return the object this change is adding or removing */
     @Nonnull
-    public abstract T getItem();
+    public abstract Object getItem();
 
     @Override
     public int hashCode() {
@@ -110,6 +108,6 @@ public abstract class OWLOntologyChangeData<T> implements HasSignature,
         if (!getClass().equals(obj.getClass())) {
             return false;
         }
-        return getItem().equals(((OWLOntologyChangeData<?>) obj).getItem());
+        return getItem().equals(((OWLOntologyChangeData) obj).getItem());
     }
 }

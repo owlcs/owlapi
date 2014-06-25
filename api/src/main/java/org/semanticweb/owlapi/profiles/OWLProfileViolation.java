@@ -93,7 +93,7 @@ public abstract class OWLProfileViolation<T> {
      *         removal, or a rewrite, or addition of other needed axioms.
      */
     @Nonnull
-    public List<OWLOntologyChange<?>> repair() {
+    public List<OWLOntologyChange> repair() {
         // default fix is to drop the axiom
         if (axiom != null) {
             return list(new RemoveAxiom(ontology, getAxiom()));
@@ -140,7 +140,7 @@ public abstract class OWLProfileViolation<T> {
     }
 
     @Nonnull
-    protected List<OWLOntologyChange<?>> list(OWLOntologyChange<?>... changes) {
+    protected List<OWLOntologyChange> list(OWLOntologyChange... changes) {
         return CollectionFactory.list(changes);
     }
 }

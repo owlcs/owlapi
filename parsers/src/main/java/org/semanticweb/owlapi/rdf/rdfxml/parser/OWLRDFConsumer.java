@@ -767,7 +767,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
      * @param change
      *        the change
      */
-    protected void applyChange(@Nonnull OWLOntologyChange<?> change) {
+    protected void applyChange(@Nonnull OWLOntologyChange change) {
         owlOntologyManager.applyChange(change);
     }
 

@@ -52,16 +52,14 @@ import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group
  * @since 3.3
- * @param <T>
- *        change type
  */
-public class OWLOntologyChangeRecord<T> implements Serializable {
+public class OWLOntologyChangeRecord implements Serializable {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
     private final OWLOntologyID ontologyID;
     @Nonnull
-    private final OWLOntologyChangeData<T> data;
+    private final OWLOntologyChangeData data;
 
     /**
      * Constructs an {@code OWLOntologyChangeRecord} object which holds
@@ -77,7 +75,7 @@ public class OWLOntologyChangeRecord<T> implements Serializable {
      *        details of the change.
      */
     public OWLOntologyChangeRecord(@Nonnull OWLOntologyID ontologyID,
-            @Nonnull OWLOntologyChangeData<T> data) {
+            @Nonnull OWLOntologyChangeData data) {
         this.ontologyID = checkNotNull(ontologyID,
                 "ontologyID must not be null");
         this.data = checkNotNull(data, "data must not be null");
@@ -89,17 +87,15 @@ public class OWLOntologyChangeRecord<T> implements Serializable {
      * 
      * @param change
      *        The {@link OWLOntologyChange} object.
-     * @param <T>
-     *        change type
      * @return instance of OntologychangeRecord
      */
     @Nonnull
-    public static <T> OWLOntologyChangeRecord<T> createFromOWLOntologyChange(
-            @Nonnull OWLOntologyChange<T> change) {
+    public static OWLOntologyChangeRecord createFromOWLOntologyChange(
+            @Nonnull OWLOntologyChange change) {
         checkNotNull(change, "change must not be null");
         OWLOntologyID ontologyId = change.getOntology().getOntologyID();
-        OWLOntologyChangeData<T> data = change.getChangeData();
-        return new OWLOntologyChangeRecord<>(ontologyId, data);
+        OWLOntologyChangeData data = change.getChangeData();
+        return new OWLOntologyChangeRecord(ontologyId, data);
     }
 
     /**
@@ -120,7 +116,7 @@ public class OWLOntologyChangeRecord<T> implements Serializable {
      * @return The {@link OWLOntologyChangeData}.
      */
     @Nonnull
-    public OWLOntologyChangeData<T> getData() {
+    public OWLOntologyChangeData getData() {
         return data;
     }
 
@@ -150,8 +146,7 @@ public class OWLOntologyChangeRecord<T> implements Serializable {
      *         an {@link OWLOntologyID} equal to the {@link OWLOntologyID}
      *         associated with this {@code OWLOntologyChangeRecord}.
      */
-    public OWLOntologyChange<T>
-            createOntologyChange(OWLOntologyManager manager) {
+    public OWLOntologyChange createOntologyChange(OWLOntologyManager manager) {
         OWLOntology ontology = checkNotNull(manager, "manager cannot be null")
                 .getOntology(ontologyID);
         if (ontology == null) {
@@ -168,7 +163,7 @@ public class OWLOntologyChangeRecord<T> implements Serializable {
         if (!(obj instanceof OWLOntologyChangeRecord)) {
             return false;
         }
-        OWLOntologyChangeRecord<?> other = (OWLOntologyChangeRecord<?>) obj;
+        OWLOntologyChangeRecord other = (OWLOntologyChangeRecord) obj;
         return ontologyID.equals(other.ontologyID) && data.equals(other.data);
     }
 

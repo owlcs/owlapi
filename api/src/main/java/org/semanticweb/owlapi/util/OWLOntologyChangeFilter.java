@@ -81,9 +81,9 @@ public class OWLOntologyChangeFilter extends OWLAxiomVisitorAdapter implements
      *        changes to process
      */
     public void processChanges(
-            @Nonnull List<? extends OWLOntologyChange<?>> changes) {
+            @Nonnull List<? extends OWLOntologyChange> changes) {
         checkNotNull(changes, "changes cannot be null");
-        for (OWLOntologyChange<?> change : changes) {
+        for (OWLOntologyChange change : changes) {
             change.accept(this);
         }
     }

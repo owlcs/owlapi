@@ -23,7 +23,7 @@ import javax.annotation.Nonnull;
  *         Informatics Group
  * @since 2.0.0
  */
-public abstract class OWLAxiomChange extends OWLOntologyChange<OWLAxiom> {
+public abstract class OWLAxiomChange extends OWLOntologyChange {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull

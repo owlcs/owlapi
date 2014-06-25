@@ -25,7 +25,7 @@ import org.semanticweb.owlapi.change.OWLOntologyChangeData;
 public abstract class OWLOntologyChangeException extends OWLRuntimeException {
 
     private static final long serialVersionUID = 40000L;
-    private final OWLOntologyChangeData<?> change;
+    private final OWLOntologyChangeData change;
 
     /**
      * @param change
@@ -33,7 +33,7 @@ public abstract class OWLOntologyChangeException extends OWLRuntimeException {
      * @param message
      *        message
      */
-    public OWLOntologyChangeException(OWLOntologyChangeData<?> change,
+    public OWLOntologyChangeException(OWLOntologyChangeData change,
             String message) {
         super(message);
         this.change = change;
@@ -47,7 +47,7 @@ public abstract class OWLOntologyChangeException extends OWLRuntimeException {
      * @param cause
      *        cause
      */
-    public OWLOntologyChangeException(OWLOntologyChangeData<?> change,
+    public OWLOntologyChangeException(OWLOntologyChangeData change,
             String message, Throwable cause) {
         super(message, cause);
         this.change = change;
@@ -59,14 +59,14 @@ public abstract class OWLOntologyChangeException extends OWLRuntimeException {
      * @param cause
      *        cause
      */
-    public OWLOntologyChangeException(OWLOntologyChangeData<?> change,
+    public OWLOntologyChangeException(OWLOntologyChangeData change,
             Throwable cause) {
         super(cause);
         this.change = change;
     }
 
     /** @return the ontology change that caused the exception. */
-    public OWLOntologyChangeData<?> getChange() {
+    public OWLOntologyChangeData getChange() {
         return change;
     }
 }

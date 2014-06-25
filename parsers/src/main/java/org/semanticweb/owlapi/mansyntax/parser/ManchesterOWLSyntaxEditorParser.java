@@ -2263,7 +2263,7 @@ public class ManchesterOWLSyntaxEditorParser implements
                         SAME_INDIVIDUAL).build();
             }
         }
-        List<OWLOntologyChange<?>> changes = new ArrayList<>(axioms.size());
+        List<OWLOntologyChange> changes = new ArrayList<>(axioms.size());
         changes.addAll(imports);
         changes.addAll(ontologyAnnotations);
         for (OntologyAxiomPair pair : axioms) {

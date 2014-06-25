@@ -92,7 +92,7 @@ public abstract class BaseBuilder<T extends OWLObject, B> implements Builder<T> 
 
     @Nonnull
     @Override
-    public List<OWLOntologyChange<?>> applyChanges(@Nonnull OWLOntology o) {
+    public List<OWLOntologyChange> applyChanges(@Nonnull OWLOntology o) {
         T object = buildObject();
         if (!(object instanceof OWLAxiom)) {
             return CollectionFactory.emptyList();
@@ -100,7 +100,7 @@ public abstract class BaseBuilder<T extends OWLObject, B> implements Builder<T> 
         // create and apply the new change
         AddAxiom change = new AddAxiom(o, (OWLAxiom) object);
         o.getOWLOntologyManager().applyChange(change);
-        List<OWLOntologyChange<?>> changes = new ArrayList<>();
+        List<OWLOntologyChange> changes = new ArrayList<>();
         // check conformity to the profile
         OWLProfileReport report = profile.checkOntology(o);
         for (OWLProfileViolation<?> v : report.getViolations()) {

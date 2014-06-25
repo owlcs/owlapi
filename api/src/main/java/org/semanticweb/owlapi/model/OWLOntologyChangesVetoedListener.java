@@ -33,6 +33,6 @@ public interface OWLOntologyChangesVetoedListener extends Serializable {
      *        The cause of the veto.
      */
     void ontologyChangesVetoed(
-            @Nonnull List<? extends OWLOntologyChange<?>> changes,
+            @Nonnull List<? extends OWLOntologyChange> changes,
             @Nonnull OWLOntologyChangeVetoException veto);
 }

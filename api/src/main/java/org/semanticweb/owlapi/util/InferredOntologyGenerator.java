@@ -66,7 +66,6 @@ public class InferredOntologyGenerator {
         this(reasoner, generators());
     }
 
-    @SuppressWarnings("unchecked")
     @Nonnull
     private static List<InferredAxiomGenerator<? extends OWLAxiom>>
             generators() {

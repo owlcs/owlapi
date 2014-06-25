@@ -65,7 +65,7 @@ public class UseOfUndeclaredDatatype extends OWLProfileViolation<OWLDatatype>
     }
 
     @Override
-    public List<OWLOntologyChange<?>> repair() {
+    public List<OWLOntologyChange> repair() {
         return list(addDeclaration(getExpression()));
     }
 

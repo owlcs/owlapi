@@ -23,7 +23,7 @@ import javax.annotation.Nonnull;
  *         Management Group
  * @since 3.0.0
  */
-public abstract class AnnotationChange extends OWLOntologyChange<OWLAnnotation> {
+public abstract class AnnotationChange extends OWLOntologyChange {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull

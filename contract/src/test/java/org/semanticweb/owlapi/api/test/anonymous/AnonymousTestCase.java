@@ -42,7 +42,7 @@ public class AnonymousTestCase extends TestBase {
         OWLDataProperty Q = DataProperty(IRI("urn:test#q"));
         OWLIndividual i = AnonymousIndividual();
         OWLOntology ontology = m.createOntology();
-        List<OWLOntologyChange<?>> changes = new ArrayList<>();
+        List<OWLOntologyChange> changes = new ArrayList<>();
         changes.add(new AddAxiom(ontology, SubClassOf(C, ObjectHasValue(P, i))));
         changes.add(new AddAxiom(ontology, ClassAssertion(D, i)));
         changes.add(new AddAxiom(ontology, DataPropertyAssertion(Q, i,

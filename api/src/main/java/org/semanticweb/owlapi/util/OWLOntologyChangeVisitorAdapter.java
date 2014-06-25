@@ -36,8 +36,8 @@ public class OWLOntologyChangeVisitorAdapter implements
      * @param c
      *        object visited
      */
-    protected void handleDefault(
-            @SuppressWarnings("unused") OWLOntologyChange<?> c) {}
+    protected void
+            handleDefault(@SuppressWarnings("unused") OWLOntologyChange c) {}
 
     @Override
     public void visit(RemoveAxiom change) {

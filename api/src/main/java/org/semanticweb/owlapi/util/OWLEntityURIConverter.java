@@ -88,10 +88,10 @@ public class OWLEntityURIConverter {
      * @return A list of ontology changes that should be applied in order to
      *         convert the URI of entities in the specified ontologies.
      */
-    public List<OWLOntologyChange<?>> getChanges() {
+    public List<OWLOntologyChange> getChanges() {
         replacementMap.clear();
         processedEntities = new HashSet<>();
-        List<OWLOntologyChange<?>> changes = new ArrayList<>();
+        List<OWLOntologyChange> changes = new ArrayList<>();
         for (OWLOntology ont : ontologies) {
             for (OWLClass cls : ont.getClassesInSignature()) {
                 if (!cls.isOWLThing() && !cls.isOWLNothing()) {

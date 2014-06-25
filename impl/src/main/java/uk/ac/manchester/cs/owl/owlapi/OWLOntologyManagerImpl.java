@@ -445,7 +445,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
      * @return {@code true} if the change is applicable, otherwise,
      *         {@code false}.
      */
-    private boolean isChangeApplicable(OWLOntologyChange<?> change) {
+    private boolean isChangeApplicable(OWLOntologyChange change) {
         OWLOntologyLoaderConfiguration config = ontologyConfigurationsByOntologyID
                 .get(change.getOntology().getOntologyID());
         if (config != null && !config.isLoadAnnotationAxioms()
@@ -464,8 +464,8 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
      *        The change to be applied.
      * @return A list of changes that were actually applied.
      */
-    private <T> List<OWLOntologyChange<T>> enactChangeApplication(
-            OWLOntologyChange<T> change) {
+    private List<OWLOntologyChange> enactChangeApplication(
+            OWLOntologyChange change) {
         if (!isChangeApplicable(change)) {
             return Collections.emptyList();
         }
@@ -485,8 +485,8 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     }
 
     @Override
-    public List<OWLOntologyChange<?>> applyChanges(
-            List<? extends OWLOntologyChange<?>> changes) {
+    public List<OWLOntologyChange> applyChanges(
+            List<? extends OWLOntologyChange> changes) {
         try {
             broadcastImpendingChanges(changes);
         } catch (OWLOntologyChangeVetoException e) {
@@ -494,10 +494,10 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
             broadcastOntologyChangesVetoed(changes, e);
             return CollectionFactory.emptyList();
         }
-        List<OWLOntologyChange<?>> appliedChanges = new ArrayList<>(
+        List<OWLOntologyChange> appliedChanges = new ArrayList<>(
                 changes.size() + 2);
         fireBeginChanges(changes.size());
-        for (OWLOntologyChange<?> change : changes) {
+        for (OWLOntologyChange change : changes) {
             assert change != null;
             appliedChanges.addAll(enactChangeApplication(change));
             fireChangeApplied(change);
@@ -508,13 +508,13 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     }
 
     @Override
-    public List<OWLOntologyChange<?>> addAxiom(@Nonnull OWLOntology ont,
+    public List<OWLOntologyChange> addAxiom(@Nonnull OWLOntology ont,
             @Nonnull OWLAxiom axiom) {
         return addAxioms(ont, CollectionFactory.createSet(axiom));
     }
 
     @Override
-    public List<OWLOntologyChange<?>> addAxioms(@Nonnull OWLOntology ont,
+    public List<OWLOntologyChange> addAxioms(@Nonnull OWLOntology ont,
             @Nonnull Set<? extends OWLAxiom> axioms) {
         List<AddAxiom> changes = new ArrayList<>(axioms.size() + 2);
         for (OWLAxiom ax : axioms) {
@@ -525,13 +525,13 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     }
 
     @Override
-    public List<OWLOntologyChange<?>> removeAxiom(@Nonnull OWLOntology ont,
+    public List<OWLOntologyChange> removeAxiom(@Nonnull OWLOntology ont,
             @Nonnull OWLAxiom axiom) {
         return removeAxioms(ont, CollectionFactory.createSet(axiom));
     }
 
     @Override
-    public List<OWLOntologyChange<?>> removeAxioms(@Nonnull OWLOntology ont,
+    public List<OWLOntologyChange> removeAxioms(@Nonnull OWLOntology ont,
             @Nonnull Set<? extends OWLAxiom> axioms) {
         List<RemoveAxiom> changes = new ArrayList<>(axioms.size() + 2);
         for (OWLAxiom ax : axioms) {
@@ -542,12 +542,12 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     }
 
     @Override
-    public List<OWLOntologyChange<?>> applyChange(
-            @Nonnull OWLOntologyChange<?> change) {
+    public List<OWLOntologyChange>
+            applyChange(@Nonnull OWLOntologyChange change) {
         return applyChanges(CollectionFactory.list(change));
     }
 
-    private void checkForImportsChange(OWLOntologyChange<?> change) {
+    private void checkForImportsChange(OWLOntologyChange change) {
         if (change.isImportChange()) {
             resetImportsClosureCache();
             if (change instanceof AddImport) {
@@ -587,7 +587,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         }
     }
 
-    private void checkForOntologyIDChange(OWLOntologyChange<?> change) {
+    private void checkForOntologyIDChange(OWLOntologyChange change) {
         if (change instanceof SetOntologyID) {
             SetOntologyID setID = (SetOntologyID) change;
             OWLOntology existingOntology = ontologiesByID
@@ -1221,7 +1221,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
      *        The ontology changes to broadcast
      */
     protected void broadcastChanges(
-            @Nonnull List<? extends OWLOntologyChange<?>> changes) {
+            @Nonnull List<? extends OWLOntologyChange> changes) {
         if (!broadcastChanges.get()) {
             return;
         }
@@ -1250,7 +1250,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     }
 
     protected void broadcastImpendingChanges(
-            @Nonnull List<? extends OWLOntologyChange<?>> changes) {
+            @Nonnull List<? extends OWLOntologyChange> changes) {
         if (!broadcastChanges.get()) {
             return;
         }
@@ -1309,7 +1309,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     }
 
     private void broadcastOntologyChangesVetoed(
-            @Nonnull List<? extends OWLOntologyChange<?>> changes,
+            @Nonnull List<? extends OWLOntologyChange> changes,
             @Nonnull OWLOntologyChangeVetoException veto) {
         for (OWLOntologyChangesVetoedListener listener : new ArrayList<>(
                 vetoListeners)) {
@@ -1449,7 +1449,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         }
     }
 
-    protected void fireChangeApplied(@Nonnull OWLOntologyChange<?> change) {
+    protected void fireChangeApplied(@Nonnull OWLOntologyChange change) {
         if (!broadcastChanges.get()) {
             return;
         }

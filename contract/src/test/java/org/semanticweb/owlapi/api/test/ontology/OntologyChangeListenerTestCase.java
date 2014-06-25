@@ -58,8 +58,8 @@ public class OntologyChangeListenerTestCase extends TestBase {
                     public
                             void
                             handleImpendingOntologyChanges(
-                                    @Nonnull List<? extends OWLOntologyChange<?>> impendingChanges) {
-                        for (OWLOntologyChange<?> change : impendingChanges) {
+                                    @Nonnull List<? extends OWLOntologyChange> impendingChanges) {
+                        for (OWLOntologyChange change : impendingChanges) {
                             if (change.isAddAxiom()) {
                                 impendingAdditions.add(change.getAxiom());
                             } else if (change.isRemoveAxiom()) {
@@ -72,11 +72,9 @@ public class OntologyChangeListenerTestCase extends TestBase {
                 new OWLOntologyChangeListener() {
 
                     @Override
-                    public
-                            void
-                            ontologiesChanged(
-                                    @Nonnull List<? extends OWLOntologyChange<?>> changes) {
-                        for (OWLOntologyChange<?> change : changes) {
+                    public void ontologiesChanged(
+                            @Nonnull List<? extends OWLOntologyChange> changes) {
+                        for (OWLOntologyChange change : changes) {
                             if (change.isAddAxiom()) {
                                 additions.add(change.getAxiom());
                             } else if (change.isRemoveAxiom()) {

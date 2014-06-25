@@ -54,7 +54,6 @@ import com.google.common.base.Optional;
 @SuppressWarnings({ "javadoc", "null" })
 public class NamesTestCase {
 
-    @SuppressWarnings("unchecked")
     @Test
     public void shoudReturnRightName() throws OWLOntologyCreationException {
         assertEquals("AddAxiomData", new AddAxiomData(mock(OWLAxiom.class)) {
@@ -86,18 +85,16 @@ public class NamesTestCase {
                         return super.getName();
                     }
                 }.getName());
-        assertEquals("OWLOntologyChangeRecord",
-                new OWLOntologyChangeRecord<OWLAxiom>(
-                        mock(OWLOntologyID.class),
-                        mock(OWLOntologyChangeData.class)) {
+        assertEquals("OWLOntologyChangeRecord", new OWLOntologyChangeRecord(
+                mock(OWLOntologyID.class), mock(OWLOntologyChangeData.class)) {
 
-                    private static final long serialVersionUID = 1L;
+            private static final long serialVersionUID = 1L;
 
-                    @Override
-                    public String getName() {
-                        return super.getName();
-                    }
-                }.getName());
+            @Override
+            public String getName() {
+                return super.getName();
+            }
+        }.getName());
         assertEquals("RemoveAxiomData", new RemoveAxiomData(
                 mock(OWLAxiom.class)) {
 

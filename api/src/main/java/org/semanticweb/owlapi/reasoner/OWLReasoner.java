@@ -267,7 +267,7 @@ public interface OWLReasoner {
      *         as applied to the imports closure of the root ontology.
      */
     @Nonnull
-    List<OWLOntologyChange<?>> getPendingChanges();
+    List<OWLOntologyChange> getPendingChanges();
 
     /**
      * Gets the axioms that as a result of ontology changes need to be added to

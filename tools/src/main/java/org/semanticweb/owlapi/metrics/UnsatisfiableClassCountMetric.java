@@ -56,7 +56,7 @@ public class UnsatisfiableClassCountMetric extends IntegerValuedMetric {
 
     @Override
     protected boolean isMetricInvalidated(
-            List<? extends OWLOntologyChange<?>> changes) {
+            List<? extends OWLOntologyChange> changes) {
         return false;
     }
 

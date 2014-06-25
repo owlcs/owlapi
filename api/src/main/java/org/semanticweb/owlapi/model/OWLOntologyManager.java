@@ -258,8 +258,8 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      */
     @Nonnull
     @Override
-    List<OWLOntologyChange<?>> applyChanges(
-            @Nonnull List<? extends OWLOntologyChange<?>> changes);
+    List<OWLOntologyChange> applyChanges(
+            @Nonnull List<? extends OWLOntologyChange> changes);
 
     /**
      * A convenience method that adds a set of axioms to an ontology. The
@@ -276,7 +276,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      */
     @Nonnull
     @Override
-    List<OWLOntologyChange<?>> addAxioms(@Nonnull OWLOntology ont,
+    List<OWLOntologyChange> addAxioms(@Nonnull OWLOntology ont,
             @Nonnull Set<? extends OWLAxiom> axioms);
 
     /**
@@ -293,7 +293,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      *         if there was a problem adding the axiom
      */
     @Nonnull
-    List<OWLOntologyChange<?>> addAxiom(@Nonnull OWLOntology ont,
+    List<OWLOntologyChange> addAxiom(@Nonnull OWLOntology ont,
             @Nonnull OWLAxiom axiom);
 
     /**
@@ -310,7 +310,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      *         if there was a problem removing the axiom
      */
     @Nonnull
-    List<OWLOntologyChange<?>> removeAxiom(@Nonnull OWLOntology ont,
+    List<OWLOntologyChange> removeAxiom(@Nonnull OWLOntology ont,
             @Nonnull OWLAxiom axiom);
 
     /**
@@ -327,7 +327,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      *         if there was a problem removing the axioms
      */
     @Nonnull
-    List<OWLOntologyChange<?>> removeAxioms(@Nonnull OWLOntology ont,
+    List<OWLOntologyChange> removeAxioms(@Nonnull OWLOntology ont,
             @Nonnull Set<? extends OWLAxiom> axioms);
 
     /**
@@ -347,8 +347,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      *         belongs to an ontology managed by this manager.
      */
     @Nonnull
-    List<OWLOntologyChange<?>>
-            applyChange(@Nonnull OWLOntologyChange<?> change);
+    List<OWLOntologyChange> applyChange(@Nonnull OWLOntologyChange change);
 
     // Ontology creation
     /**

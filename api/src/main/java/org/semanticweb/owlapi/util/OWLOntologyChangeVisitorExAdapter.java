@@ -32,7 +32,7 @@ import org.semanticweb.owlapi.model.SetOntologyID;
  *        return type
  */
 public class OWLOntologyChangeVisitorExAdapter<O> extends
-        OWLBaseVisitorExAdapter<O, OWLOntologyChange<?>> implements
+        OWLBaseVisitorExAdapter<O, OWLOntologyChange> implements
         OWLOntologyChangeVisitorEx<O> {
 
     /**

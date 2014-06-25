@@ -72,13 +72,13 @@ public class OWLEntityRenamer {
      *         specified IRI.
      */
     @Nonnull
-    public List<OWLOntologyChange<?>> changeIRI(@Nonnull IRI iri,
+    public List<OWLOntologyChange> changeIRI(@Nonnull IRI iri,
             @Nonnull IRI newIRI) {
         checkNotNull(iri, "iri cannot be null");
         checkNotNull(newIRI, "newIRI cannot be null");
         Map<IRI, IRI> uriMap = new HashMap<>();
         uriMap.put(iri, newIRI);
-        List<OWLOntologyChange<?>> changes = new ArrayList<>();
+        List<OWLOntologyChange> changes = new ArrayList<>();
         OWLObjectDuplicator dup = new OWLObjectDuplicator(
                 owlOntologyManager.getOWLDataFactory(), uriMap);
         for (OWLOntology ont : ontologies) {
@@ -99,11 +99,11 @@ public class OWLEntityRenamer {
      *         specified entity IRI.
      */
     @Nonnull
-    public List<OWLOntologyChange<?>> changeIRI(@Nonnull OWLEntity entity,
+    public List<OWLOntologyChange> changeIRI(@Nonnull OWLEntity entity,
             @Nonnull IRI newIRI) {
         Map<OWLEntity, IRI> iriMap = new HashMap<>();
         iriMap.put(entity, newIRI);
-        List<OWLOntologyChange<?>> changes = new ArrayList<>();
+        List<OWLOntologyChange> changes = new ArrayList<>();
         OWLObjectDuplicator duplicator = new OWLObjectDuplicator(iriMap,
                 owlOntologyManager.getOWLDataFactory());
         for (OWLOntology ont : ontologies) {
@@ -119,9 +119,9 @@ public class OWLEntityRenamer {
      *        map of IRIs to rename
      * @return list of changes
      */
-    public List<OWLOntologyChange<?>> changeIRI(
+    public List<OWLOntologyChange> changeIRI(
             @Nonnull Map<OWLEntity, IRI> entity2IRIMap) {
-        List<OWLOntologyChange<?>> changes = new ArrayList<>();
+        List<OWLOntologyChange> changes = new ArrayList<>();
         OWLObjectDuplicator duplicator = new OWLObjectDuplicator(entity2IRIMap,
                 owlOntologyManager.getOWLDataFactory());
         for (OWLOntology ont : ontologies) {
@@ -177,7 +177,7 @@ public class OWLEntityRenamer {
      *        The duplicator that will do the duplicating
      */
     private static void fillListWithTransformChanges(
-            List<OWLOntologyChange<?>> changes, Set<OWLAxiom> axioms,
+            List<OWLOntologyChange> changes, Set<OWLAxiom> axioms,
             @Nonnull OWLOntology ont, OWLObjectDuplicator duplicator) {
         for (OWLAxiom ax : axioms) {
             assert ax != null;

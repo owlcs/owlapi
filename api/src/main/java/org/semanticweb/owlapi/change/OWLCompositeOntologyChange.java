@@ -36,5 +36,5 @@ public interface OWLCompositeOntologyChange extends Serializable {
      * @return A list of ontology changes.
      */
     @Nonnull
-    List<OWLOntologyChange<?>> getChanges();
+    List<OWLOntologyChange> getChanges();
 }

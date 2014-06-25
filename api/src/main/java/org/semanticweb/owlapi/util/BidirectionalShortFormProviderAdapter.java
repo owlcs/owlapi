@@ -48,7 +48,7 @@ public class BidirectionalShortFormProviderAdapter extends
 
         @Override
         public void ontologiesChanged(
-                @Nonnull List<? extends OWLOntologyChange<?>> changes) {
+                @Nonnull List<? extends OWLOntologyChange> changes) {
             handleChanges(changes);
         }
     };
@@ -125,12 +125,12 @@ public class BidirectionalShortFormProviderAdapter extends
         }
     }
 
-    void handleChanges(@Nonnull List<? extends OWLOntologyChange<?>> changes) {
+    void handleChanges(@Nonnull List<? extends OWLOntologyChange> changes) {
         if (ontologies == null) {
             return;
         }
         Set<OWLEntity> processed = new HashSet<>();
-        for (OWLOntologyChange<?> chg : changes) {
+        for (OWLOntologyChange chg : changes) {
             if (ontologies.contains(chg.getOntology())) {
                 if (chg.isAddAxiom()) {
                     AddAxiom addAx = (AddAxiom) chg;

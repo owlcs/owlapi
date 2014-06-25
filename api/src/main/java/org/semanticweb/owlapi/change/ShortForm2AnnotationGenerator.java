@@ -117,13 +117,13 @@ public class ShortForm2AnnotationGenerator extends
                             shortForm);
                 }
                 if (ontology.containsEntityInSignature(ent)) {
-                    OWLOntologyChange<?> chg = new AddAxiom(ont,
-                            ontologyManager.getOWLDataFactory()
-                                    .getOWLAnnotationAssertionAxiom(
-                                            ontologyManager.getOWLDataFactory()
-                                                    .getOWLAnnotationProperty(
-                                                            annotationIRI),
-                                            ent.getIRI(), con));
+                    OWLOntologyChange chg = new AddAxiom(ont, ontologyManager
+                            .getOWLDataFactory()
+                            .getOWLAnnotationAssertionAxiom(
+                                    ontologyManager.getOWLDataFactory()
+                                            .getOWLAnnotationProperty(
+                                                    annotationIRI),
+                                    ent.getIRI(), con));
                     addChange(chg);
                 }
             }

@@ -37,7 +37,7 @@ public interface OWLOntologyChangeProgressListener extends Serializable {
      * @param change
      *        the change just applied
      */
-    void appliedChange(@Nonnull OWLOntologyChange<?> change);
+    void appliedChange(@Nonnull OWLOntologyChange change);
 
     /** end of the progress. */
     void end();
