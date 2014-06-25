@@ -76,7 +76,7 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
         } catch (OWLOntologyCreationException e) {
             throw new OWLRuntimeException(e);
         }
-        List<AddAxiom> changes = new ArrayList<AddAxiom>();
+        List<AddAxiom> changes = new ArrayList<>();
         for (OWLOntology ont : owlOntologyManager
                 .getImportsClosure(originalOntology)) {
             for (OWLAxiom ax : ont.getLogicalAxioms()) {
@@ -110,10 +110,10 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
         if (firstMups.isEmpty()) {
             return CollectionFactory.emptySet();
         }
-        Set<Set<OWLAxiom>> allMups = new HashSet<Set<OWLAxiom>>();
+        Set<Set<OWLAxiom>> allMups = new HashSet<>();
         allMups.add(firstMups);
-        Set<Set<OWLAxiom>> satPaths = new HashSet<Set<OWLAxiom>>();
-        Set<OWLAxiom> currentPathContents = new HashSet<OWLAxiom>();
+        Set<Set<OWLAxiom>> satPaths = new HashSet<>();
+        Set<OWLAxiom> currentPathContents = new HashSet<>();
         constructHittingSetTree(firstMups, allMups, satPaths,
                 currentPathContents);
         return allMups;
@@ -173,7 +173,7 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
                     }
                 } else {
                     // End of current path - add it to the list of paths
-                    satPaths.add(new HashSet<OWLAxiom>(currentPathContents));
+                    satPaths.add(new HashSet<>(currentPathContents));
                 }
             }
             // Back track - go one level up the tree and run for the next axiom

@@ -17,6 +17,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -64,7 +65,6 @@ import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
-import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
@@ -86,7 +86,6 @@ import org.semanticweb.owlapi.model.OWLObjectOneOf;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
@@ -220,7 +219,7 @@ public class BuildersEqualTestCase {
     @Nonnull
     private final IRI iri = IRI.create("urn:test#iri");
     @Nonnull
-    private final Set<OWLAnnotation> annotations = new HashSet<OWLAnnotation>(
+    private final Set<OWLAnnotation> annotations = new HashSet<>(
             Arrays.asList(df.getOWLAnnotation(ap, df.getOWLLiteral("test"))));
     @Nonnull
     private final OWLClass ce = df.getOWLClass(IRI.create("urn:test#c"));
@@ -230,17 +229,17 @@ public class BuildersEqualTestCase {
     @Nonnull
     private final OWLDatatype d = df.getBooleanOWLDatatype();
     @Nonnull
-    private final Set<OWLDataProperty> dps = new HashSet<OWLDataProperty>(
-            Arrays.asList(df.getOWLDataProperty(iri), dp));
+    private final Set<OWLDataProperty> dps = new HashSet<>(Arrays.asList(
+            df.getOWLDataProperty(iri), dp));
     @Nonnull
-    private final Set<OWLObjectProperty> ops = new HashSet<OWLObjectProperty>(
-            Arrays.asList(df.getOWLObjectProperty(iri), op));
+    private final Set<OWLObjectProperty> ops = new HashSet<>(Arrays.asList(
+            df.getOWLObjectProperty(iri), op));
     @Nonnull
-    private final Set<OWLClass> classes = new HashSet<OWLClass>(Arrays.asList(
+    private final Set<OWLClass> classes = new HashSet<>(Arrays.asList(
             df.getOWLClass(iri), ce));
     @Nonnull
-    private final Set<OWLIndividual> inds = new HashSet<OWLIndividual>(
-            Arrays.asList(i, df.getOWLNamedIndividual(iri)));
+    private final Set<OWLNamedIndividual> inds = new HashSet<>(Arrays.asList(i,
+            df.getOWLNamedIndividual(iri)));
     @Nonnull
     private final SWRLDArgument var1 = df.getSWRLVariable(IRI.create("var1"));
     @Nonnull
@@ -258,9 +257,9 @@ public class BuildersEqualTestCase {
                     (SWRLDArgument) df.getSWRLVariable(IRI.create("var5")),
                     df.getSWRLVariable(IRI.create("var6"))));
     @Nonnull
-    private final Set<SWRLAtom> body = new HashSet<SWRLAtom>(Arrays.asList(v1));
+    private final Set<SWRLAtom> body = new HashSet<>(Arrays.asList(v1));
     @Nonnull
-    private final Set<SWRLAtom> head = new HashSet<SWRLAtom>(Arrays.asList(v2));
+    private final Set<SWRLAtom> head = new HashSet<>(Arrays.asList(v2));
 
     @Test
     public void shouldBuildAnnotation() {
@@ -1045,8 +1044,7 @@ public class BuildersEqualTestCase {
     @Test
     public void shouldBuildPropertyChain() {
         // given
-        ArrayList<OWLObjectPropertyExpression> chain = new ArrayList<OWLObjectPropertyExpression>(
-                ops);
+        List<OWLObjectProperty> chain = new ArrayList<>(ops);
         OWLSubPropertyChainOfAxiom expected = df.getOWLSubPropertyChainOfAxiom(
                 chain, op, annotations);
         BuilderPropertyChain builder = new BuilderPropertyChain(expected, df);

@@ -86,7 +86,7 @@ public class AnonymousFunctionalRoundtripTestCase extends TestBase {
         OWLDataProperty Q = DataProperty(IRI(NS + "#q"));
         OWLIndividual i = AnonymousIndividual();
         OWLOntology ontology = m.createOntology(IRI(NS));
-        List<AddAxiom> changes = new ArrayList<AddAxiom>();
+        List<AddAxiom> changes = new ArrayList<>();
         changes.add(new AddAxiom(ontology, SubClassOf(C, ObjectHasValue(P, i))));
         changes.add(new AddAxiom(ontology, ClassAssertion(D, i)));
         changes.add(new AddAxiom(ontology, DataPropertyAssertion(Q, i,

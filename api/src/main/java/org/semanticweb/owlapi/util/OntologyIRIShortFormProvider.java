@@ -48,7 +48,7 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
     private static final long serialVersionUID = 40000L;
 
     private static Map<IRI, String> initWellKnownShortForms() {
-        Map<IRI, String> map = new HashMap<IRI, String>();
+        Map<IRI, String> map = new HashMap<>();
         for (Namespaces ns : Namespaces.values()) {
             String iriPrefix = ns.getPrefixIRI();
             String iri;

@@ -141,7 +141,7 @@ public class LatexRenderer extends AbstractOWLRenderer {
     }
 
     private <T extends OWLEntity> Collection<T> sortEntities(Set<T> entites) {
-        List<T> list = new ArrayList<T>(entites);
+        List<T> list = new ArrayList<>(entites);
         OWLEntityComparator entityComparator = new OWLEntityComparator(
                 shortFormProvider);
         Collections.sort(list, entityComparator);
@@ -150,7 +150,7 @@ public class LatexRenderer extends AbstractOWLRenderer {
 
     private static Collection<OWLAxiom> sortAxioms(
             Set<? extends OWLAxiom> axioms) {
-        List<OWLAxiom> list = new ArrayList<OWLAxiom>(axioms);
+        List<OWLAxiom> list = new ArrayList<>(axioms);
         Collections.sort(list, new OWLAxiomComparator());
         return list;
     }

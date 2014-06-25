@@ -475,8 +475,8 @@ public class OWLFunctionalSyntaxFactory {
     public static OWLEquivalentClassesAxiom EquivalentClasses(
             @Nonnull Set<OWLAnnotation> a,
             OWLClassExpression... classExpressions) {
-        return DF.getOWLEquivalentClassesAxiom(new HashSet<OWLClassExpression>(
-                Arrays.asList(classExpressions)), a);
+        return DF.getOWLEquivalentClassesAxiom(
+                new HashSet<>(Arrays.asList(classExpressions)), a);
     }
 
     @Nonnull
@@ -509,8 +509,8 @@ public class OWLFunctionalSyntaxFactory {
     public static OWLDisjointClassesAxiom DisjointClasses(
             @Nonnull Set<OWLAnnotation> a,
             OWLClassExpression... classExpressions) {
-        return DF.getOWLDisjointClassesAxiom(new HashSet<OWLClassExpression>(
-                Arrays.asList(classExpressions)), a);
+        return DF.getOWLDisjointClassesAxiom(
+                new HashSet<>(Arrays.asList(classExpressions)), a);
     }
 
     @Nonnull
@@ -555,8 +555,7 @@ public class OWLFunctionalSyntaxFactory {
             EquivalentObjectProperties(@Nonnull Set<OWLAnnotation> a,
                     OWLObjectPropertyExpression... properties) {
         return DF.getOWLEquivalentObjectPropertiesAxiom(
-                new HashSet<OWLObjectPropertyExpression>(Arrays
-                        .asList(properties)), a);
+                new HashSet<>(Arrays.asList(properties)), a);
     }
 
     @Nonnull
@@ -570,8 +569,7 @@ public class OWLFunctionalSyntaxFactory {
             @Nonnull Set<OWLAnnotation> a,
             OWLObjectPropertyExpression... properties) {
         return DF.getOWLDisjointObjectPropertiesAxiom(
-                new HashSet<OWLObjectPropertyExpression>(Arrays
-                        .asList(properties)), a);
+                new HashSet<>(Arrays.asList(properties)), a);
     }
 
     @Nonnull
@@ -728,8 +726,7 @@ public class OWLFunctionalSyntaxFactory {
             @Nonnull Set<OWLAnnotation> a,
             OWLDataPropertyExpression... properties) {
         return DF.getOWLEquivalentDataPropertiesAxiom(
-                new HashSet<OWLDataPropertyExpression>(Arrays
-                        .asList(properties)), a);
+                new HashSet<>(Arrays.asList(properties)), a);
     }
 
     @Nonnull
@@ -743,8 +740,7 @@ public class OWLFunctionalSyntaxFactory {
             @Nonnull Set<OWLAnnotation> a,
             OWLDataPropertyExpression... properties) {
         return DF.getOWLDisjointDataPropertiesAxiom(
-                new HashSet<OWLDataPropertyExpression>(Arrays
-                        .asList(properties)), a);
+                new HashSet<>(Arrays.asList(properties)), a);
     }
 
     @Nonnull
@@ -805,10 +801,8 @@ public class OWLFunctionalSyntaxFactory {
     public static OWLHasKeyAxiom HasKey(@Nonnull Set<OWLAnnotation> a,
             @Nonnull OWLClassExpression classExpression,
             OWLPropertyExpression... propertyExpressions) {
-        return DF.getOWLHasKeyAxiom(
-                classExpression,
-                new HashSet<OWLPropertyExpression>(Arrays
-                        .asList(propertyExpressions)), a);
+        return DF.getOWLHasKeyAxiom(classExpression,
+                new HashSet<>(Arrays.asList(propertyExpressions)), a);
     }
 
     @Nonnull

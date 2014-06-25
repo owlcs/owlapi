@@ -67,7 +67,7 @@ public class OBOFormatWriter {
 
     @Nonnull
     private static HashSet<String> buildTagsInformative() {
-        HashSet<String> set = new HashSet<String>();
+        HashSet<String> set = new HashSet<>();
         set.add(OboFormatTag.TAG_IS_A.getTag());
         set.add(OboFormatTag.TAG_RELATIONSHIP.getTag());
         set.add(OboFormatTag.TAG_DISJOINT_FROM.getTag());
@@ -199,13 +199,13 @@ public class OBOFormatWriter {
         }
         Frame headerFrame = doc.getHeaderFrame();
         writeHeader(headerFrame, writer, nameProvider);
-        List<Frame> termFrames = new ArrayList<Frame>();
+        List<Frame> termFrames = new ArrayList<>();
         termFrames.addAll(doc.getTermFrames());
         Collections.sort(termFrames, FramesComparator.instance);
-        List<Frame> typeDefFrames = new ArrayList<Frame>();
+        List<Frame> typeDefFrames = new ArrayList<>();
         typeDefFrames.addAll(doc.getTypedefFrames());
         Collections.sort(typeDefFrames, FramesComparator.instance);
-        List<Frame> instanceFrames = new ArrayList<Frame>();
+        List<Frame> instanceFrames = new ArrayList<>();
         typeDefFrames.addAll(doc.getInstanceFrames());
         Collections.sort(instanceFrames, FramesComparator.instance);
         for (Frame f : termFrames) {
@@ -237,7 +237,7 @@ public class OBOFormatWriter {
 
     @Nonnull
     private static List<String> duplicateTags(@Nonnull Set<String> src) {
-        List<String> tags = new ArrayList<String>(src.size());
+        List<String> tags = new ArrayList<>(src.size());
         for (String tag : src) {
             tags.add(tag);
         }
@@ -267,7 +267,7 @@ public class OBOFormatWriter {
             if (tag.equals(OboFormatTag.TAG_FORMAT_VERSION.getTag())) {
                 continue;
             }
-            List<Clause> clauses = new ArrayList<Clause>(frame.getClauses(tag));
+            List<Clause> clauses = new ArrayList<>(frame.getClauses(tag));
             Collections.sort(clauses, ClauseComparator.instance);
             for (Clause clause : clauses) {
                 assert clause != null;
@@ -338,7 +338,7 @@ public class OBOFormatWriter {
             defaultOboNamespace = nameProvider.getDefaultOboNamespace();
         }
         for (String tag : tags) {
-            List<Clause> clauses = new ArrayList<Clause>(frame.getClauses(tag));
+            List<Clause> clauses = new ArrayList<>(frame.getClauses(tag));
             Collections.sort(clauses, ClauseComparator.instance);
             for (Clause clause : clauses) {
                 String clauseTag = clause.getTag();
@@ -519,7 +519,7 @@ public class OBOFormatWriter {
     @SuppressWarnings("null")
     private static void appendXrefs(@Nonnull StringBuilder sb,
             @Nonnull Collection<Xref> xrefs) {
-        List<Xref> sortedXrefs = new ArrayList<Xref>(xrefs);
+        List<Xref> sortedXrefs = new ArrayList<>(xrefs);
         Collections.sort(sortedXrefs, XrefComparator.instance);
         sb.append(" [");
         Iterator<Xref> xrefsIterator = sortedXrefs.iterator();
@@ -824,7 +824,7 @@ public class OBOFormatWriter {
 
         @Nonnull
         private static Map<String, Integer> buildTagsPriorities() {
-            Map<String, Integer> table = new HashMap<String, Integer>();
+            Map<String, Integer> table = new HashMap<>();
             table.put(OboFormatTag.TAG_FORMAT_VERSION.getTag(), 0);
             table.put(OboFormatTag.TAG_DATA_VERSION.getTag(), 10);
             table.put(OboFormatTag.TAG_DATE.getTag(), 15);
@@ -875,7 +875,7 @@ public class OBOFormatWriter {
 
         @Nonnull
         private static Map<String, Integer> buildTagsPriorities() {
-            Map<String, Integer> table = new HashMap<String, Integer>();
+            Map<String, Integer> table = new HashMap<>();
             table.put(OboFormatTag.TAG_ID.getTag(), 5);
             table.put(OboFormatTag.TAG_IS_ANONYMOUS.getTag(), 10);
             table.put(OboFormatTag.TAG_NAME.getTag(), 15);
@@ -957,7 +957,7 @@ public class OBOFormatWriter {
 
         @Nonnull
         private static Map<String, Integer> buildTagsPriorities() {
-            Map<String, Integer> table = new HashMap<String, Integer>();
+            Map<String, Integer> table = new HashMap<>();
             table.put(OboFormatTag.TAG_ID.getTag(), 5);
             table.put(OboFormatTag.TAG_IS_ANONYMOUS.getTag(), 10);
             table.put(OboFormatTag.TAG_NAME.getTag(), 15);

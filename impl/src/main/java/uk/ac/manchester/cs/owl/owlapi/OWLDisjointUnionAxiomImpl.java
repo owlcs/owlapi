@@ -62,8 +62,8 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements
             @Nonnull Set<? extends OWLAnnotation> annotations) {
         super(annotations);
         this.owlClass = checkNotNull(owlClass, "owlClass cannot be null");
-        this.classExpressions = new TreeSet<OWLClassExpression>(checkNotNull(
-                classExpressions, "classExpressions cannot be null"));
+        this.classExpressions = new TreeSet<>(checkNotNull(classExpressions,
+                "classExpressions cannot be null"));
     }
 
     @Override
@@ -133,9 +133,8 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements
 
     @Override
     public OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom() {
-        return new OWLEquivalentClassesAxiomImpl(
-                new HashSet<OWLClassExpression>(Arrays.asList(owlClass,
-                        new OWLObjectUnionOfImpl(getClassExpressions()))),
+        return new OWLEquivalentClassesAxiomImpl(new HashSet<>(Arrays.asList(
+                owlClass, new OWLObjectUnionOfImpl(getClassExpressions()))),
                 NO_ANNOTATIONS);
     }
 

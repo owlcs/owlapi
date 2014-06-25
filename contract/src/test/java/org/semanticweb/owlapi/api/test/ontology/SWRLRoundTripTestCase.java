@@ -56,11 +56,11 @@ public class SWRLRoundTripTestCase extends TestBase {
         SWRLVariable X = df.getSWRLVariable(IRI(NS + "#X"));
         SWRLVariable Y = df.getSWRLVariable(IRI(NS + "#Y"));
         OWLOntology ontology = m.createOntology(IRI(NS));
-        Set<SWRLAtom> body = new TreeSet<SWRLAtom>();
+        Set<SWRLAtom> body = new TreeSet<>();
         body.add(df.getSWRLDataPropertyAtom(P, X, Y));
         body.add(df.getSWRLDataRangeAtom(
                 df.getOWLDatatype(XSDVocabulary.STRING.getIRI()), Y));
-        Set<SWRLAtom> head = new TreeSet<SWRLAtom>();
+        Set<SWRLAtom> head = new TreeSet<>();
         head.add(df.getSWRLClassAtom(A, X));
         SWRLRule rule = df.getSWRLRule(body, head);
         ontology.getOWLOntologyManager().addAxiom(ontology, rule);
@@ -77,11 +77,11 @@ public class SWRLRoundTripTestCase extends TestBase {
         SWRLVariable X = df.getSWRLVariable(IRI(NS + "#X"));
         SWRLVariable Y = df.getSWRLVariable(IRI(NS + "#Y"));
         OWLOntology ontology = m.createOntology(IRI(NS));
-        Set<SWRLAtom> body = new TreeSet<SWRLAtom>();
+        Set<SWRLAtom> body = new TreeSet<>();
         body.add(df.getSWRLDataPropertyAtom(P, X, Y));
         body.add(df.getSWRLDataRangeAtom(
                 df.getOWLDatatype(XSDVocabulary.STRING.getIRI()), Y));
-        Set<SWRLAtom> head = new TreeSet<SWRLAtom>();
+        Set<SWRLAtom> head = new TreeSet<>();
         head.add(df.getSWRLClassAtom(A, X));
         SWRLRule rule = df.getSWRLRule(body, head);
         ontology.getOWLOntologyManager().addAxiom(ontology, rule);
@@ -191,11 +191,11 @@ public class SWRLRoundTripTestCase extends TestBase {
         SWRLVariable X = df.getSWRLVariable(IRI(NS + "#X"));
         SWRLVariable Y = df.getSWRLVariable(IRI(NS + "#Y"));
         OWLOntology ontology = m.createOntology(IRI(NS));
-        Set<SWRLAtom> body = new TreeSet<SWRLAtom>();
+        Set<SWRLAtom> body = new TreeSet<>();
         body.add(df.getSWRLDataPropertyAtom(P, X, Y));
         body.add(df.getSWRLDataRangeAtom(
                 df.getOWLDatatype(XSDVocabulary.STRING.getIRI()), Y));
-        Set<SWRLAtom> head = new TreeSet<SWRLAtom>();
+        Set<SWRLAtom> head = new TreeSet<>();
         head.add(df.getSWRLClassAtom(A, X));
         OWLAnnotation ann = df.getOWLAnnotation(df.getRDFSLabel(),
                 df.getOWLLiteral("test", ""));

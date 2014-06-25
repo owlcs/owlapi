@@ -32,7 +32,7 @@ public class OWLOntologyChangeVetoException extends OWLOntologyChangeException {
      * @param message
      *        message
      */
-    public OWLOntologyChangeVetoException(OWLOntologyChangeData<?> change,
+    public OWLOntologyChangeVetoException(OWLOntologyChangeData change,
             String message) {
         super(change, message);
     }
@@ -45,7 +45,7 @@ public class OWLOntologyChangeVetoException extends OWLOntologyChangeException {
      * @param cause
      *        cause
      */
-    public OWLOntologyChangeVetoException(OWLOntologyChangeData<?> change,
+    public OWLOntologyChangeVetoException(OWLOntologyChangeData change,
             String message, Throwable cause) {
         super(change, message, cause);
     }
@@ -56,7 +56,7 @@ public class OWLOntologyChangeVetoException extends OWLOntologyChangeException {
      * @param cause
      *        cause
      */
-    public OWLOntologyChangeVetoException(OWLOntologyChangeData<?> change,
+    public OWLOntologyChangeVetoException(OWLOntologyChangeData change,
             Throwable cause) {
         super(change, cause);
     }

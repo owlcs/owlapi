@@ -28,15 +28,13 @@ public interface OWLMutableOntology extends OWLOntology {
     /**
      * @param change
      *        the change to apply
-     * @param <T>
-     *        type class
      * @return {@link ChangeApplied#SUCCESSFULLY} if the change was applied,
      *         {@link ChangeApplied#UNSUCCESSFULLY} otherwise
      * @throws OWLOntologyChangeException
      *         if errors happen
      */
     @Nonnull
-    <T> ChangeApplied applyChange(@Nonnull OWLOntologyChange<T> change);
+    ChangeApplied applyChange(@Nonnull OWLOntologyChange change);
 
     /**
      * @param changes
@@ -46,6 +44,6 @@ public interface OWLMutableOntology extends OWLOntology {
      *         if errors happen
      */
     @Nonnull
-    List<OWLOntologyChange<?>> applyChanges(
-            @Nonnull List<? extends OWLOntologyChange<?>> changes);
+    List<OWLOntologyChange> applyChanges(
+            @Nonnull List<? extends OWLOntologyChange> changes);
 }

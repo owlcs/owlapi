@@ -60,7 +60,7 @@ public class UseOfReservedVocabularyForVersionIRI extends
     }
 
     @Override
-    public List<OWLOntologyChange<?>> repair() {
+    public List<OWLOntologyChange> repair() {
         // XXX arbitrary replacement
         return list(new SetOntologyID(ontology, new OWLOntologyID(
                 Optional.of(IRI.create("urn:ontology#renamed")),

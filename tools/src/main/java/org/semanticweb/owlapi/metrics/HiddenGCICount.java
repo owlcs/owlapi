@@ -52,8 +52,8 @@ public class HiddenGCICount extends IntegerValuedMetric {
 
     @Override
     protected boolean isMetricInvalidated(
-            @Nonnull List<? extends OWLOntologyChange<?>> changes) {
-        for (OWLOntologyChange<?> chg : changes) {
+            @Nonnull List<? extends OWLOntologyChange> changes) {
+        for (OWLOntologyChange chg : changes) {
             if (chg.isAxiomChange()
                     && chg.getAxiom() instanceof OWLEquivalentClassesAxiom
                     || chg.getAxiom() instanceof OWLSubClassOfAxiom) {
@@ -66,8 +66,8 @@ public class HiddenGCICount extends IntegerValuedMetric {
     @SuppressWarnings("null")
     @Override
     protected Integer recomputeMetric() {
-        Set<OWLClass> processed = new HashSet<OWLClass>();
-        Set<OWLClass> result = new HashSet<OWLClass>();
+        Set<OWLClass> processed = new HashSet<>();
+        Set<OWLClass> result = new HashSet<>();
         for (OWLOntology ont : getOntologies()) {
             for (OWLClass cls : ont.getClassesInSignature()) {
                 assert cls != null;

@@ -126,7 +126,7 @@ public class TestCornerCasesTestCase extends TestBase {
                 + "    <owl:minCardinality rdf:datatype=\"&xsd;int\">1</owl:minCardinality>\n"
                 + "   </owl:Restriction>\n" + "  </rdf:type>\n"
                 + " </owl:Thing>\n" + "</rdf:RDF>";
-        Set<String> expectedResult = new TreeSet<String>();
+        Set<String> expectedResult = new TreeSet<>();
         expectedResult
                 .add("DataPropertyRange(<http://www.w3.org/2002/03owlt/oneOf/premises004#p> DataOneOf(\"1\"^^xsd:integer \"2\"^^xsd:integer \"3\"^^xsd:integer \"4\"^^xsd:integer ))");
         expectedResult
@@ -138,16 +138,16 @@ public class TestCornerCasesTestCase extends TestBase {
         expectedResult
                 .add("ClassAssertion(DataMinCardinality(1 <http://www.w3.org/2002/03owlt/oneOf/premises004#p> rdfs:Literal) <http://www.w3.org/2002/03owlt/oneOf/premises004#i>)");
         OWLOntology o = loadOntologyFromString(s);
-        Set<String> result = new TreeSet<String>();
+        Set<String> result = new TreeSet<>();
         for (OWLAxiom ax : o.getAxioms()) {
             result.add(ax.toString());
         }
         if (!result.equals(expectedResult)) {
-            Set<String> intersection = new TreeSet<String>(result);
+            Set<String> intersection = new TreeSet<>(result);
             intersection.retainAll(expectedResult);
-            Set<String> s1 = new TreeSet<String>(result);
+            Set<String> s1 = new TreeSet<>(result);
             s1.removeAll(intersection);
-            Set<String> s2 = new TreeSet<String>(expectedResult);
+            Set<String> s2 = new TreeSet<>(expectedResult);
             s2.removeAll(intersection);
         }
         assertEquals("Sets were supposed to be equal", result, expectedResult);

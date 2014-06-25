@@ -757,7 +757,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
                 getPredicateNode(RDF_TYPE.getIRI()),
                 getResourceNode(BUILT_IN_CLASS.getIRI()));
         addTriple(getResourceNode(node), getPredicateNode(ARGUMENTS.getIRI()),
-                translateList(new ArrayList<OWLObject>(node.getArguments())));
+                translateList(new ArrayList<>(node.getArguments())));
     }
 
     @Override
@@ -803,7 +803,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     // Methods to add triples
     /** Maps Objects to nodes. */
     @Nonnull
-    private final Map<OWLObject, N> nodeMap = new IdentityHashMap<OWLObject, N>();
+    private final Map<OWLObject, N> nodeMap = new IdentityHashMap<>();
 
     private void addSingleTripleAxiom(@Nonnull OWLAxiom ax,
             @Nonnull OWLObject subject, @Nonnull IRI pred,
@@ -822,7 +822,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
             @Nonnull OWLObject subj, @Nonnull IRI pred,
             @Nonnull Collection<? extends OWLObject> obj) {
         addSingleTripleAxiom(ax, getResourceNode(subj), getPredicateNode(pred),
-                translateList(new ArrayList<OWLObject>(obj)));
+                translateList(new ArrayList<>(obj)));
     }
 
     private void addSingleTripleAxiom(@Nonnull OWLAxiom ax,
@@ -1049,13 +1049,13 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     private void addListTriples(@Nonnull OWLObject subject, @Nonnull IRI pred,
             @Nonnull Set<? extends OWLObject> objects) {
         addTriple(getResourceNode(subject), getPredicateNode(pred),
-                translateList(new ArrayList<OWLObject>(objects)));
+                translateList(new ArrayList<>(objects)));
     }
 
     private void addTriple(@Nonnull OWLObject subject, @Nonnull IRI pred,
             @Nonnull Set<? extends OWLObject> objects, @Nonnull IRI listType) {
         addTriple(getResourceNode(subject), getPredicateNode(pred),
-                translateList(new ArrayList<OWLObject>(objects), listType));
+                translateList(new ArrayList<>(objects), listType));
     }
 
     @SuppressWarnings("null")
@@ -1076,7 +1076,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     }
 
     @Nonnull
-    private final Set<OWLIndividual> currentIndividuals = new HashSet<OWLIndividual>();
+    private final Set<OWLIndividual> currentIndividuals = new HashSet<>();
 
     private void processIfAnonymous(@Nonnull OWLIndividual ind,
             @Nullable OWLAxiom root) {
@@ -1118,7 +1118,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     @SuppressWarnings("null")
     private void addPairwise(@Nonnull OWLAxiom axiom,
             @Nonnull Collection<? extends OWLObject> objects, @Nonnull IRI IRI) {
-        List<? extends OWLObject> objectList = new ArrayList<OWLObject>(objects);
+        List<? extends OWLObject> objectList = new ArrayList<>(objects);
         for (int i = 0; i < objectList.size(); i++) {
             for (int j = i; j < objectList.size(); j++) {
                 if (i != j) {
@@ -1148,7 +1148,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
             addPairwiseClassExpressions(@Nonnull OWLAxiom axiom,
                     @Nonnull Set<OWLClassExpression> classExpressions,
                     @Nonnull IRI IRI) {
-        List<OWLClassExpression> classExpressionList = new ArrayList<OWLClassExpression>(
+        List<OWLClassExpression> classExpressionList = new ArrayList<>(
                 classExpressions);
         addPairwise(axiom, classExpressionList, IRI);
     }

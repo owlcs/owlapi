@@ -42,11 +42,11 @@ public class SWRLRuleAlternateNSTestCase extends
     @Nonnull
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> axioms = new HashSet<>();
         SWRLVariable varX = df.getSWRLVariable(IRI("http://www.owlapi#x"));
         SWRLVariable varY = df.getSWRLVariable(IRI("http://www.owlapi#y"));
         SWRLVariable varZ = df.getSWRLVariable(IRI("http://www.owlapi#z"));
-        Set<SWRLAtom> body = new HashSet<SWRLAtom>();
+        Set<SWRLAtom> body = new HashSet<>();
         body.add(df.getSWRLClassAtom(Class(iri("A")), varX));
         SWRLIndividualArgument indIArg = df
                 .getSWRLIndividualArgument(NamedIndividual(iri("i")));
@@ -56,16 +56,15 @@ public class SWRLRuleAlternateNSTestCase extends
         body.add(df.getSWRLClassAtom(Class(iri("B")), varX));
         SWRLVariable varQ = df.getSWRLVariable(IRI("http://www.owlapi#q"));
         SWRLVariable varR = df.getSWRLVariable(IRI("http://www.owlapi#r"));
-        body.add(df.getSWRLDataPropertyAtom(DataProperty(iri("d")), varX,
-                varQ));
+        body.add(df.getSWRLDataPropertyAtom(DataProperty(iri("d")), varX, varQ));
         OWLLiteral lit = Literal(33);
         SWRLLiteralArgument litArg = df.getSWRLLiteralArgument(lit);
         body.add(df.getSWRLDataPropertyAtom(DataProperty(iri("d")), varY,
                 litArg));
-        Set<SWRLAtom> head = new HashSet<SWRLAtom>();
+        Set<SWRLAtom> head = new HashSet<>();
         head.add(df.getSWRLClassAtom(Class(iri("C")), varX));
-        head.add(df.getSWRLObjectPropertyAtom(ObjectProperty(iri("p")),
-                varY, varZ));
+        head.add(df.getSWRLObjectPropertyAtom(ObjectProperty(iri("p")), varY,
+                varZ));
         head.add(df.getSWRLSameIndividualAtom(varX, varY));
         head.add(df.getSWRLSameIndividualAtom(indIArg, indJArg));
         head.add(df.getSWRLDifferentIndividualsAtom(varX, varZ));
@@ -74,7 +73,7 @@ public class SWRLRuleAlternateNSTestCase extends
         OWLObjectSomeValuesFrom svf = ObjectSomeValuesFrom(
                 ObjectProperty(iri("p")), Class(iri("A")));
         head.add(df.getSWRLClassAtom(svf, varX));
-        List<SWRLDArgument> args = new ArrayList<SWRLDArgument>();
+        List<SWRLDArgument> args = new ArrayList<>();
         args.add(varQ);
         args.add(varR);
         args.add(litArg);

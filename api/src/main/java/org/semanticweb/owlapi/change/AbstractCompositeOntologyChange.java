@@ -37,7 +37,7 @@ public abstract class AbstractCompositeOntologyChange implements
     private final OWLDataFactory dataFactory;
     /** The changes. */
     @Nonnull
-    private final List<OWLOntologyChange<?>> changes = new ArrayList<OWLOntologyChange<?>>();
+    private final List<OWLOntologyChange> changes = new ArrayList<>();
 
     /**
      * Instantiates a new abstract composite ontology change.
@@ -67,7 +67,7 @@ public abstract class AbstractCompositeOntologyChange implements
      * @param change
      *        the change
      */
-    protected void addChange(OWLOntologyChange<?> change) {
+    protected void addChange(OWLOntologyChange change) {
         changes.add(change);
     }
 
@@ -77,12 +77,12 @@ public abstract class AbstractCompositeOntologyChange implements
      * @param change
      *        the change
      */
-    protected void addChanges(Collection<OWLOntologyChange<?>> change) {
+    protected void addChanges(Collection<OWLOntologyChange> change) {
         changes.addAll(change);
     }
 
     @Override
-    public List<OWLOntologyChange<?>> getChanges() {
+    public List<OWLOntologyChange> getChanges() {
         return changes;
     }
 }

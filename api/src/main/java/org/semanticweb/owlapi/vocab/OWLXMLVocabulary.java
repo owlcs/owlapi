@@ -159,7 +159,7 @@ public enum OWLXMLVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
 
     static final Set<IRI> BUILT_IN_IRIS;
     static {
-        BUILT_IN_IRIS = new HashSet<IRI>();
+        BUILT_IN_IRIS = new HashSet<>();
         for (OWLRDFVocabulary v : OWLRDFVocabulary.values()) {
             BUILT_IN_IRIS.add(v.getIRI());
         }

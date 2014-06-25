@@ -49,8 +49,8 @@ public class NNFTestCase extends TestBase {
 
     @Test
     public void testPosAllValuesFrom() {
-        OWLClassExpression cls = ObjectAllValuesFrom(
-                ObjectProperty(iri("p")), Class(iri("A")));
+        OWLClassExpression cls = ObjectAllValuesFrom(ObjectProperty(iri("p")),
+                Class(iri("A")));
         assertEquals(cls.getNNF(), cls);
     }
 
@@ -68,8 +68,8 @@ public class NNFTestCase extends TestBase {
 
     @Test
     public void testPosSomeValuesFrom() {
-        OWLClassExpression cls = ObjectSomeValuesFrom(
-                ObjectProperty(iri("p")), Class(iri("A")));
+        OWLClassExpression cls = ObjectSomeValuesFrom(ObjectProperty(iri("p")),
+                Class(iri("A")));
         assertEquals(cls.getNNF(), cls);
     }
 

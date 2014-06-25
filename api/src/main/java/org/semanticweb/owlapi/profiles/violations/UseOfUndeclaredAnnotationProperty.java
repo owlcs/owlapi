@@ -80,7 +80,7 @@ public class UseOfUndeclaredAnnotationProperty extends
     }
 
     @Override
-    public List<OWLOntologyChange<?>> repair() {
+    public List<OWLOntologyChange> repair() {
         return list(new AddAxiom(ontology,
                 df.getOWLDeclarationAxiom(getExpression())));
     }

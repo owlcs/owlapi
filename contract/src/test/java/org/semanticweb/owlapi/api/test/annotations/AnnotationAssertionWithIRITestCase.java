@@ -36,7 +36,7 @@ public class AnnotationAssertionWithIRITestCase extends
     @Nonnull
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> axioms = new HashSet<>();
         OWLClass cls = Class(iri("ClsA"));
         axioms.add(Declaration(cls));
         IRI object = IRI("http://www.semanticweb.org/owlapi#object");

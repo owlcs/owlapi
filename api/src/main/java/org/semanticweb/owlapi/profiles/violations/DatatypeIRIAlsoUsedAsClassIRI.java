@@ -66,7 +66,7 @@ public class DatatypeIRIAlsoUsedAsClassIRI extends OWLProfileViolation<IRI> {
     }
 
     @Override
-    public List<OWLOntologyChange<?>> repair() {
+    public List<OWLOntologyChange> repair() {
         // XXX arbitrary decision: drop the axiom
         // better fix would be to look for usage and remove the smallest number
         // of axioms

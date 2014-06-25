@@ -71,14 +71,13 @@ public class OWLDisjointDataPropertiesAxiomImpl extends
 
     @Override
     public Set<OWLDisjointDataPropertiesAxiom> asPairwiseAxioms() {
-        Set<OWLDisjointDataPropertiesAxiom> result = new HashSet<OWLDisjointDataPropertiesAxiom>();
-        List<OWLDataPropertyExpression> list = new ArrayList<OWLDataPropertyExpression>(
-                getProperties());
+        Set<OWLDisjointDataPropertiesAxiom> result = new HashSet<>();
+        List<OWLDataPropertyExpression> list = new ArrayList<>(getProperties());
         for (int i = 0; i < list.size() - 1; i++) {
             for (int j = i + 1; j < list.size(); j++) {
                 result.add(new OWLDisjointDataPropertiesAxiomImpl(
-                        new HashSet<OWLDataPropertyExpression>(Arrays.asList(
-                                list.get(i), list.get(j))), NO_ANNOTATIONS));
+                        new HashSet<>(Arrays.asList(list.get(i), list.get(j))),
+                        NO_ANNOTATIONS));
             }
         }
         return result;

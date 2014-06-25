@@ -201,7 +201,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
         if (includeImportsClosure == EXCLUDED) {
             return ints.getAxioms();
         }
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> axioms = new HashSet<>();
         for (OWLOntology o : getImportsClosure()) {
             axioms.addAll(o.getAxioms());
         }
@@ -231,7 +231,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     @Nonnull
     @Override
     public Set<OWLAxiom> getTBoxAxioms(Imports includeImportsClosure) {
-        Set<OWLAxiom> toReturn = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> toReturn = new HashSet<>();
         for (AxiomType<?> type : AxiomType.TBoxAxiomTypes) {
             assert type != null;
             toReturn.addAll(getAxioms(type, includeImportsClosure));
@@ -242,7 +242,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     @Nonnull
     @Override
     public Set<OWLAxiom> getABoxAxioms(Imports includeImportsClosure) {
-        Set<OWLAxiom> toReturn = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> toReturn = new HashSet<>();
         for (AxiomType<?> type : AxiomType.ABoxAxiomTypes) {
             assert type != null;
             toReturn.addAll(getAxioms(type, includeImportsClosure));
@@ -253,7 +253,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     @Nonnull
     @Override
     public Set<OWLAxiom> getRBoxAxioms(Imports includeImportsClosure) {
-        Set<OWLAxiom> toReturn = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> toReturn = new HashSet<>();
         for (AxiomType<?> type : AxiomType.RBoxAxiomTypes) {
             assert type != null;
             toReturn.addAll(getAxioms(type, includeImportsClosure));
@@ -503,8 +503,8 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
 
     @Override
     public Set<IRI> getPunnedIRIs(Imports includeImportsClosure) {
-        Set<IRI> punned = new HashSet<IRI>();
-        Set<IRI> test = new HashSet<IRI>();
+        Set<IRI> punned = new HashSet<>();
+        Set<IRI> test = new HashSet<>();
         if (includeImportsClosure == INCLUDED) {
             for (OWLOntology o : getImportsClosure()) {
                 for (OWLEntity e : o.getClassesInSignature(EXCLUDED)) {
@@ -1113,7 +1113,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
             if (optional.isPresent()) {
                 return optional.get().getValues(entity);
             }
-            Set<A> toReturn = new HashSet<A>();
+            Set<A> toReturn = new HashSet<>();
             for (A ax : getAxioms(AxiomType.getTypeForClass(type))) {
                 if (ax.getSignature().contains(entity)) {
                     toReturn.add(ax);
@@ -1139,7 +1139,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
         }
         // iterating over the import closure; using a set because there might be
         // duplicate axioms
-        Set<T> toReturn = new HashSet<T>();
+        Set<T> toReturn = new HashSet<>();
         for (OWLOntology o : getImportsClosure()) {
             toReturn.addAll((Collection<T>) o.filterAxioms(filter, key,
                     EXCLUDED));

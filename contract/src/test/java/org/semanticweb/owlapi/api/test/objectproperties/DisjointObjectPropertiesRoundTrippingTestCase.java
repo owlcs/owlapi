@@ -34,7 +34,7 @@ public class DisjointObjectPropertiesRoundTrippingTestCase extends
     @Nonnull
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> axioms = new HashSet<>();
         OWLObjectProperty propA = ObjectProperty(iri("pA"));
         OWLObjectProperty propB = ObjectProperty(iri("pB"));
         OWLObjectProperty propC = ObjectProperty(iri("pC"));

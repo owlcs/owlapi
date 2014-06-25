@@ -35,14 +35,14 @@ import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
 public abstract class OWLEntityCollectingOntologyChangeListener implements
         OWLOntologyChangeListener {
 
-    private final Set<OWLEntity> entities = new HashSet<OWLEntity>();
+    private final Set<OWLEntity> entities = new HashSet<>();
 
     @Override
     public void ontologiesChanged(
-            @Nonnull List<? extends OWLOntologyChange<?>> changes)
+            @Nonnull List<? extends OWLOntologyChange> changes)
             throws OWLException {
         entities.clear();
-        for (OWLOntologyChange<?> change : changes) {
+        for (OWLOntologyChange change : changes) {
             if (change.isAxiomChange()) {
                 OWLAxiomChange axiomChange = (OWLAxiomChange) change;
                 entities.addAll(axiomChange.getSignature());

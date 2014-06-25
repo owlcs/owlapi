@@ -52,7 +52,7 @@ public class AlphaExplanationOrderer implements ExplanationOrderer {
     public ExplanationTree getOrderedExplanation(OWLAxiom entailment,
             @Nonnull Set<OWLAxiom> axioms) {
         EntailedAxiomTree root = new EntailedAxiomTree(entailment);
-        List<OWLAxiom> sortedAxioms = new ArrayList<OWLAxiom>(axioms);
+        List<OWLAxiom> sortedAxioms = new ArrayList<>(axioms);
         Collections.sort(sortedAxioms, new Comparator<OWLAxiom>() {
 
             @Override

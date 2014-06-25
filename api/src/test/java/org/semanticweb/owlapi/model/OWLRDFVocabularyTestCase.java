@@ -44,7 +44,7 @@ public class OWLRDFVocabularyTestCase {
     @Nonnull
     @Parameterized.Parameters
     public static Collection<Object[]> getData() {
-        List<Object[]> data = new ArrayList<Object[]>();
+        List<Object[]> data = new ArrayList<>();
         for (OWLRDFVocabulary v : OWLRDFVocabulary.values()) {
             data.add(new Object[] { v });
         }

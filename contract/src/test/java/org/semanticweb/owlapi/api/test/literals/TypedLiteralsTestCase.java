@@ -35,7 +35,7 @@ public class TypedLiteralsTestCase extends AbstractAxiomsRoundTrippingTestCase {
     @Nonnull
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> axioms = new HashSet<>();
         addAxiomForLiteral(Literal(3), axioms);
         addAxiomForLiteral(Literal(33.3), axioms);
         addAxiomForLiteral(Literal(true), axioms);

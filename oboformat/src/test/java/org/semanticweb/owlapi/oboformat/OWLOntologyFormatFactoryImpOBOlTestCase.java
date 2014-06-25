@@ -31,8 +31,7 @@ public class OWLOntologyFormatFactoryImpOBOlTestCase {
     @Test
     public void testOBOOntologyFormat() {
         Class<OBOOntologyFormat> format = OBOOntologyFormat.class;
-        OWLOntologyFormatFactory f = new OWLOntologyFormatFactoryImpl<OBOOntologyFormat>(
-                format);
+        OWLOntologyFormatFactory f = new OWLOntologyFormatFactoryImpl<>(format);
         assertEquals("OBO Format", format.getAnnotation(HasIdentifierKey.class)
                 .value());
         assertEquals("OBO Format", f.getKey());

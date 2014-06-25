@@ -39,7 +39,7 @@ import org.semanticweb.owlapi.util.OWLClassExpressionVisitorAdapter;
 public class OWLObjectComplementOfExtractor extends
         OWLClassExpressionVisitorAdapter {
 
-    private final Set<OWLClassExpression> result = new HashSet<OWLClassExpression>();
+    private final Set<OWLClassExpression> result = new HashSet<>();
 
     /**
      * Gets the complemented class expressions.
@@ -54,7 +54,7 @@ public class OWLObjectComplementOfExtractor extends
         // XXX a stateless visitor would not need copies
         reset();
         desc.accept(this);
-        return new HashSet<OWLClassExpression>(result);
+        return new HashSet<>(result);
     }
 
     /** clear the visitor. */

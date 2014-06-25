@@ -30,7 +30,7 @@ class AnnotationVisitor<C> extends OWLAxiomVisitorExAdapter<Set<C>> {
 
     @Nonnull
     private Set<C> get(@Nonnull Collection<OWLAnnotation> collection) {
-        Set<C> toReturn = new HashSet<C>();
+        Set<C> toReturn = new HashSet<>();
         for (OWLAnnotation c : collection) {
             if (value) {
                 toReturn.add((C) c.getValue());

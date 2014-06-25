@@ -38,7 +38,7 @@ public class NoQNameTestCase extends AbstractAxiomsRoundTrippingTestCase {
     @Nonnull
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> axioms = new HashSet<>();
         OWLNamedIndividual indA = NamedIndividual(IRI("http://example.com/place/112013e2-df48-4a34-8a9d-99ef572a395A"));
         OWLNamedIndividual indB = NamedIndividual(IRI("http://example.com/place/112013e2-df48-4a34-8a9d-99ef572a395B"));
         OWLObjectProperty property = ObjectProperty(IRI("http://example.com/place/123"));

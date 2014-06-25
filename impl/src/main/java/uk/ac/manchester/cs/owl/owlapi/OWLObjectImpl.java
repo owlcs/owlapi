@@ -80,13 +80,13 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
             set = verifyNotNull(signature).get();
         }
         if (set == null) {
-            set = new HashSet<OWLEntity>();
-            Set<OWLAnonymousIndividual> anon = new HashSet<OWLAnonymousIndividual>();
+            set = new HashSet<>();
+            Set<OWLAnonymousIndividual> anon = new HashSet<>();
             OWLEntityCollectionContainerCollector collector = new OWLEntityCollectionContainerCollector(
                     set, anon);
             accept(collector);
-            signature = new WeakReference<Set<OWLEntity>>(set);
-            anons = new WeakReference<Set<OWLAnonymousIndividual>>(anon);
+            signature = new WeakReference<>(set);
+            anons = new WeakReference<>(anon);
         }
         return CollectionFactory
                 .getCopyOnRequestSetFromImmutableCollection(set);
@@ -108,7 +108,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
 
     @Override
     public Set<OWLClass> getClassesInSignature() {
-        Set<OWLClass> result = new HashSet<OWLClass>();
+        Set<OWLClass> result = new HashSet<>();
         for (OWLEntity ent : getSignature()) {
             if (ent.isOWLClass()) {
                 result.add(ent.asOWLClass());
@@ -119,7 +119,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
 
     @Override
     public Set<OWLDataProperty> getDataPropertiesInSignature() {
-        Set<OWLDataProperty> result = new HashSet<OWLDataProperty>();
+        Set<OWLDataProperty> result = new HashSet<>();
         for (OWLEntity ent : getSignature()) {
             if (ent.isOWLDataProperty()) {
                 result.add(ent.asOWLDataProperty());
@@ -130,7 +130,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
 
     @Override
     public Set<OWLObjectProperty> getObjectPropertiesInSignature() {
-        Set<OWLObjectProperty> result = new HashSet<OWLObjectProperty>();
+        Set<OWLObjectProperty> result = new HashSet<>();
         for (OWLEntity ent : getSignature()) {
             if (ent.isOWLObjectProperty()) {
                 result.add(ent.asOWLObjectProperty());
@@ -141,7 +141,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
 
     @Override
     public Set<OWLNamedIndividual> getIndividualsInSignature() {
-        Set<OWLNamedIndividual> result = new HashSet<OWLNamedIndividual>();
+        Set<OWLNamedIndividual> result = new HashSet<>();
         for (OWLEntity ent : getSignature()) {
             if (ent.isOWLNamedIndividual()) {
                 result.add(ent.asOWLNamedIndividual());
@@ -152,7 +152,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
 
     @Override
     public Set<OWLDatatype> getDatatypesInSignature() {
-        Set<OWLDatatype> result = new HashSet<OWLDatatype>();
+        Set<OWLDatatype> result = new HashSet<>();
         for (OWLEntity ent : getSignature()) {
             if (ent.isOWLDatatype()) {
                 result.add(ent.asOWLDatatype());
@@ -226,13 +226,13 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
         if (set1 instanceof SortedSet) {
             ss1 = (SortedSet<? extends OWLObject>) set1;
         } else {
-            ss1 = new TreeSet<OWLObject>(set1);
+            ss1 = new TreeSet<>(set1);
         }
         SortedSet<? extends OWLObject> ss2;
         if (set2 instanceof SortedSet) {
             ss2 = (SortedSet<? extends OWLObject>) set2;
         } else {
-            ss2 = new TreeSet<OWLObject>(set2);
+            ss2 = new TreeSet<>(set2);
         }
         int i = 0;
         Iterator<? extends OWLObject> thisIt = ss1.iterator();

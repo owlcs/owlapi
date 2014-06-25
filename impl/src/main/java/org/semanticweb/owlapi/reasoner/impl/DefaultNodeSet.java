@@ -36,7 +36,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  */
 public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> {
 
-    private final Set<Node<E>> nodes = new LinkedHashSet<Node<E>>();
+    private final Set<Node<E>> nodes = new LinkedHashSet<>();
 
     /** constructor for an empty node set. */
     public DefaultNodeSet() {}
@@ -146,7 +146,7 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
     @Nonnull
     @Override
     public Set<E> getFlattened() {
-        Set<E> result = new HashSet<E>();
+        Set<E> result = new HashSet<>();
         for (Node<E> node : nodes) {
             result.addAll(node.getEntities());
         }

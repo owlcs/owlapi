@@ -121,7 +121,7 @@ import org.semanticweb.owlapi.model.SWRLVariable;
 public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
 
     protected final OWLObjectWalker<O> walkerCallback;
-    protected final Set<OWLObject> visited = new HashSet<OWLObject>();
+    protected final Set<OWLObject> visited = new HashSet<>();
 
     /**
      * @param owlObjectWalker

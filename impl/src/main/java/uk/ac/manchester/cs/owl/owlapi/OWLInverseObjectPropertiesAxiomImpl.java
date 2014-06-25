@@ -61,7 +61,7 @@ public class OWLInverseObjectPropertiesAxiomImpl extends
             @Nonnull OWLObjectPropertyExpression first,
             @Nonnull OWLObjectPropertyExpression second,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
-        super(new TreeSet<OWLObjectPropertyExpression>(Arrays.asList(
+        super(new TreeSet<>(Arrays.asList(
                 checkNotNull(first, "first cannot be null"),
                 checkNotNull(second, "second cannot be null"))), annotations);
         this.first = first;
@@ -133,7 +133,7 @@ public class OWLInverseObjectPropertiesAxiomImpl extends
 
     @Override
     public Set<OWLSubObjectPropertyOfAxiom> asSubObjectPropertyOfAxioms() {
-        Set<OWLSubObjectPropertyOfAxiom> axs = new HashSet<OWLSubObjectPropertyOfAxiom>();
+        Set<OWLSubObjectPropertyOfAxiom> axs = new HashSet<>();
         axs.add(new OWLSubObjectPropertyOfAxiomImpl(first, second
                 .getInverseProperty().getSimplified(), NO_ANNOTATIONS));
         axs.add(new OWLSubObjectPropertyOfAxiomImpl(second, first

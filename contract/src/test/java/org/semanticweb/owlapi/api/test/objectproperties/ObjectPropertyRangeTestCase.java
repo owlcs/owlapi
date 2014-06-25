@@ -33,7 +33,7 @@ public class ObjectPropertyRangeTestCase extends
     @Nonnull
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> axioms = new HashSet<>();
         axioms.add(ObjectPropertyRange(ObjectProperty(iri("p")),
                 Class(iri("A"))));
         return axioms;

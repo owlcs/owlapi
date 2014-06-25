@@ -88,7 +88,7 @@ public class MakePrimitiveSubClassesMutuallyDisjoint extends
     private void generateChanges(@Nonnull OWLClass cls,
             @Nonnull OWLOntology targetOntology,
             boolean usePairwiseDisjointAxioms) {
-        Set<OWLClass> subclasses = new HashSet<OWLClass>();
+        Set<OWLClass> subclasses = new HashSet<>();
         Collection<OWLClassExpression> sub = sub(
                 targetOntology.getSubClassAxiomsForSuperClass(cls),
                 OWLClassExpression.class);

@@ -551,7 +551,7 @@ abstract class AbstractNaryBooleanClassExpressionElementHandler extends
         AbstractClassExpressionElementHandler {
 
     @Nonnull
-    Set<OWLClassExpression> operands = new HashSet<OWLClassExpression>();
+    Set<OWLClassExpression> operands = new HashSet<>();
 
     AbstractNaryBooleanClassExpressionElementHandler(
             @Nonnull OWLXMLParserHandler handler) {
@@ -619,7 +619,7 @@ abstract class AbstractOperandAxiomElementHandler<O extends OWLObject> extends
         AbstractOWLAxiomElementHandler {
 
     @Nonnull
-    Set<O> operands = new HashSet<O>();
+    Set<O> operands = new HashSet<>();
 
     AbstractOperandAxiomElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
@@ -670,7 +670,7 @@ abstract class AbstractOWLAxiomElementHandler extends
 
     OWLAxiom axiom;
     @Nonnull
-    Set<OWLAnnotation> annotations = new HashSet<OWLAnnotation>();
+    Set<OWLAnnotation> annotations = new HashSet<>();
 
     AbstractOWLAxiomElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
@@ -1161,7 +1161,7 @@ class OWLAnnotationAssertionElementHandler extends
 class OWLAnnotationElementHandler extends OWLElementHandler<OWLAnnotation> {
 
     @Nonnull
-    Set<OWLAnnotation> annotations = new HashSet<OWLAnnotation>();
+    Set<OWLAnnotation> annotations = new HashSet<>();
     OWLAnnotationProperty property;
     OWLAnnotationValue object;
 
@@ -1491,7 +1491,7 @@ class OWLDataHasValueElementHandler extends
 class OWLDataIntersectionOfElementHandler extends AbstractOWLDataRangeHandler {
 
     @Nonnull
-    Set<OWLDataRange> dataRanges = new HashSet<OWLDataRange>();
+    Set<OWLDataRange> dataRanges = new HashSet<>();
 
     OWLDataIntersectionOfElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
@@ -1539,7 +1539,7 @@ class OWLDataMinCardinalityElementHandler extends
 class OWLDataOneOfElementHandler extends AbstractOWLDataRangeHandler {
 
     @Nonnull
-    Set<OWLLiteral> constants = new HashSet<OWLLiteral>();
+    Set<OWLLiteral> constants = new HashSet<>();
 
     OWLDataOneOfElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
@@ -1714,7 +1714,7 @@ class OWLDataSomeValuesFromElementHandler extends
 class OWLDataUnionOfElementHandler extends AbstractOWLDataRangeHandler {
 
     @Nonnull
-    Set<OWLDataRange> dataRanges = new HashSet<OWLDataRange>();
+    Set<OWLDataRange> dataRanges = new HashSet<>();
 
     OWLDataUnionOfElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
@@ -1818,7 +1818,7 @@ class OWLDatatypeRestrictionElementHandler extends AbstractOWLDataRangeHandler {
 
     OWLDatatype restrictedDataRange;
     @Nonnull
-    Set<OWLFacetRestriction> facetRestrictions = new HashSet<OWLFacetRestriction>();
+    Set<OWLFacetRestriction> facetRestrictions = new HashSet<>();
 
     OWLDatatypeRestrictionElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
@@ -1849,7 +1849,7 @@ class OWLDeclarationAxiomElementHandler extends AbstractOWLAxiomElementHandler {
     OWLEntity entity;
     // XXX this set seems unused
     @Nonnull
-    Set<OWLAnnotation> entityAnnotations = new HashSet<OWLAnnotation>();
+    Set<OWLAnnotation> entityAnnotations = new HashSet<>();
 
     OWLDeclarationAxiomElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
@@ -1967,7 +1967,7 @@ class OWLDisjointUnionElementHandler extends AbstractOWLAxiomElementHandler {
 
     OWLClass cls;
     @Nonnull
-    Set<OWLClassExpression> classExpressions = new HashSet<OWLClassExpression>();
+    Set<OWLClassExpression> classExpressions = new HashSet<>();
 
     OWLDisjointUnionElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
@@ -2073,7 +2073,7 @@ class OWLHasKeyElementHandler extends AbstractOWLAxiomElementHandler {
 
     OWLClassExpression ce;
     @Nonnull
-    Set<OWLPropertyExpression> props = new HashSet<OWLPropertyExpression>();
+    Set<OWLPropertyExpression> props = new HashSet<>();
 
     OWLHasKeyElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
@@ -2433,7 +2433,7 @@ class OWLObjectOneOfElementHandler extends
         AbstractClassExpressionElementHandler {
 
     @Nonnull
-    Set<OWLIndividual> individuals = new HashSet<OWLIndividual>();
+    Set<OWLIndividual> individuals = new HashSet<>();
 
     OWLObjectOneOfElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
@@ -2700,7 +2700,7 @@ class OWLSubObjectPropertyChainElementHandler extends
         OWLElementHandler<List<OWLObjectPropertyExpression>> {
 
     @Nonnull
-    List<OWLObjectPropertyExpression> propertyList = new ArrayList<OWLObjectPropertyExpression>();
+    List<OWLObjectPropertyExpression> propertyList = new ArrayList<>();
 
     OWLSubObjectPropertyChainElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
@@ -2818,7 +2818,7 @@ abstract class SWRLAtomElementHandler extends OWLElementHandler<SWRLAtom> {
 class SWRLAtomListElementHandler extends OWLElementHandler<List<SWRLAtom>> {
 
     @Nonnull
-    List<SWRLAtom> atoms = new ArrayList<SWRLAtom>();
+    List<SWRLAtom> atoms = new ArrayList<>();
 
     SWRLAtomListElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
@@ -2845,7 +2845,7 @@ class SWRLBuiltInAtomElementHandler extends SWRLAtomElementHandler {
 
     IRI iri;
     @Nonnull
-    List<SWRLDArgument> args = new ArrayList<SWRLDArgument>();
+    List<SWRLDArgument> args = new ArrayList<>();
 
     SWRLBuiltInAtomElementHandler(@Nonnull OWLXMLParserHandler handler) {
         super(handler);
@@ -3078,9 +3078,9 @@ class SWRLRuleElementHandler extends AbstractOWLAxiomElementHandler {
     @Override
     void handleChild(@Nonnull SWRLAtomListElementHandler h) {
         if (body == null) {
-            body = new LinkedHashSet<SWRLAtom>(h.getOWLObject());
+            body = new LinkedHashSet<>(h.getOWLObject());
         } else if (head == null) {
-            head = new LinkedHashSet<SWRLAtom>(h.getOWLObject());
+            head = new LinkedHashSet<>(h.getOWLObject());
         }
     }
 }

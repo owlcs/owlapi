@@ -35,7 +35,7 @@ public class NegativeObjectPropertyAssertionTestCase extends
     @Nonnull
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> axioms = new HashSet<>();
         OWLObjectProperty prop = ObjectProperty(iri("prop"));
         OWLIndividual subject = NamedIndividual(iri("iA"));
         OWLIndividual object = NamedIndividual(iri("iB"));

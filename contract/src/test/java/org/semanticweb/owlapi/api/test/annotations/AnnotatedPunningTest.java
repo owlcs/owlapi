@@ -99,7 +99,7 @@ public class AnnotatedPunningTest extends TestBase {
     public OWLOntology makeOwlOntologyWithDeclarationsAndAnnotationAssertions(
             @Nonnull OWLAnnotationProperty annotationProperty,
             OWLEntity... entities) throws OWLOntologyCreationException {
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> axioms = new HashSet<>();
         axioms.add(df.getOWLDeclarationAxiom(annotationProperty));
         for (OWLEntity entity : entities) {
             axioms.add(df.getOWLAnnotationAssertionAxiom(annotationProperty,

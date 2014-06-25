@@ -33,6 +33,7 @@ import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
@@ -81,7 +82,7 @@ public class LoadAnnotationAxiomsTestCase extends TestBase {
     private void reload(@Nonnull OWLOntology ontology,
             @Nonnull OWLOntologyFormat format)
             throws OWLOntologyStorageException, OWLOntologyCreationException {
-        Set<OWLAxiom> annotationAxioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> annotationAxioms = new HashSet<>();
         Set<OWLAxiom> axioms = ontology.getAxioms();
         for (OWLAxiom ax : axioms) {
             if (ax.isAnnotationAxiom()) {
@@ -98,8 +99,7 @@ public class LoadAnnotationAxiomsTestCase extends TestBase {
         OWLOntology reloadedWithoutAnnoAxioms = reload(ontology, format,
                 withoutAnnosConfig);
         assertFalse(axioms.equals(reloadedWithoutAnnoAxioms.getAxioms()));
-        Set<OWLAxiom> axiomsMinusAnnotationAxioms = new HashSet<OWLAxiom>(
-                axioms);
+        Set<OWLAxiom> axiomsMinusAnnotationAxioms = new HashSet<>(axioms);
         axiomsMinusAnnotationAxioms.removeAll(annotationAxioms);
         assertEquals(axiomsMinusAnnotationAxioms,
                 reloadedWithoutAnnoAxioms.getAxioms());
@@ -111,7 +111,7 @@ public class LoadAnnotationAxiomsTestCase extends TestBase {
             throws OWLOntologyStorageException, OWLOntologyCreationException {
         OWLOntology reloaded = loadOntologyWithConfig(
                 saveOntology(ontology, format), configuration);
-        HashSet<OWLAxiom> declarations = new HashSet<OWLAxiom>(
+        HashSet<OWLDeclarationAxiom> declarations = new HashSet<>(
                 reloaded.getAxioms(AxiomType.DECLARATION));
         reloaded.getOWLOntologyManager().removeAxioms(reloaded, declarations);
         return reloaded;

@@ -41,7 +41,7 @@ public class SWRLAtomOrderingTestCase {
     protected SWRLAtom atomD;
     private SWRLRuleImpl rule;
     @Nonnull
-    private final Set<SWRLAtom> body = new LinkedHashSet<SWRLAtom>();
+    private final Set<SWRLAtom> body = new LinkedHashSet<>();
 
     @Before
     public void setUp() {
@@ -57,7 +57,7 @@ public class SWRLAtomOrderingTestCase {
         body.add(atomC);
         body.add(atomB);
         body.add(atomA);
-        Set<SWRLAtom> head = new LinkedHashSet<SWRLAtom>();
+        Set<SWRLAtom> head = new LinkedHashSet<>();
         head.add(atomD);
         rule = new SWRLRuleImpl(body, head,
                 CollectionFactory.<OWLAnnotation> emptySet());
@@ -65,8 +65,8 @@ public class SWRLAtomOrderingTestCase {
 
     @Test
     public void shouldPreserveBodyOrdering() {
-        List<SWRLAtom> ruleImplBody = new ArrayList<SWRLAtom>(rule.getBody());
-        List<SWRLAtom> specifiedBody = new ArrayList<SWRLAtom>(body);
+        List<SWRLAtom> ruleImplBody = new ArrayList<>(rule.getBody());
+        List<SWRLAtom> specifiedBody = new ArrayList<>(body);
         assertThat(ruleImplBody, is(equalTo(specifiedBody)));
     }
 }

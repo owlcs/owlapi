@@ -66,7 +66,7 @@ public class ClosureAxioms {
         for (OWLClassAxiom axiom : axioms) {
             axiom.accept(collector);
         }
-        Map<OWLObjectPropertyExpression, Set<OWLClassExpression>> restrictions = new HashMap<OWLObjectPropertyExpression, Set<OWLClassExpression>>();
+        Map<OWLObjectPropertyExpression, Set<OWLClassExpression>> restrictions = new HashMap<>();
         /* For each axiom.... */
         for (OWLSubClassOfAxiom axiom : collector.getAxioms()) {
             /* Get the superclass */

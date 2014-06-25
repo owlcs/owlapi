@@ -72,14 +72,14 @@ public class OWLEquivalentObjectPropertiesAxiomImpl extends
 
     @Override
     public Set<OWLEquivalentObjectPropertiesAxiom> asPairwiseAxioms() {
-        Set<OWLEquivalentObjectPropertiesAxiom> result = new HashSet<OWLEquivalentObjectPropertiesAxiom>();
-        List<OWLObjectPropertyExpression> list = new ArrayList<OWLObjectPropertyExpression>(
+        Set<OWLEquivalentObjectPropertiesAxiom> result = new HashSet<>();
+        List<OWLObjectPropertyExpression> list = new ArrayList<>(
                 getProperties());
         for (int i = 0; i < list.size() - 1; i++) {
             for (int j = i + 1; j < list.size(); j++) {
                 result.add(new OWLEquivalentObjectPropertiesAxiomImpl(
-                        new HashSet<OWLObjectPropertyExpression>(Arrays.asList(
-                                list.get(i), list.get(j))), NO_ANNOTATIONS));
+                        new HashSet<>(Arrays.asList(list.get(i), list.get(j))),
+                        NO_ANNOTATIONS));
             }
         }
         return result;
@@ -119,8 +119,8 @@ public class OWLEquivalentObjectPropertiesAxiomImpl extends
     @SuppressWarnings("null")
     @Override
     public Set<OWLSubObjectPropertyOfAxiom> asSubObjectPropertyOfAxioms() {
-        Set<OWLSubObjectPropertyOfAxiom> result = new HashSet<OWLSubObjectPropertyOfAxiom>();
-        List<OWLObjectPropertyExpression> props = new ArrayList<OWLObjectPropertyExpression>(
+        Set<OWLSubObjectPropertyOfAxiom> result = new HashSet<>();
+        List<OWLObjectPropertyExpression> props = new ArrayList<>(
                 getProperties());
         for (int i = 0; i < props.size(); i++) {
             for (int j = 0; j < props.size(); j++) {

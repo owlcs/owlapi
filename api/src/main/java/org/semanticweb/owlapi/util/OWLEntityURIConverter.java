@@ -57,7 +57,7 @@ public class OWLEntityURIConverter {
     @Nonnull
     private final Collection<OWLOntology> ontologies;
     @Nonnull
-    private final Map<OWLEntity, IRI> replacementMap = new HashMap<OWLEntity, IRI>();
+    private final Map<OWLEntity, IRI> replacementMap = new HashMap<>();
     private Set<OWLEntity> processedEntities;
     @Nonnull
     private final OWLEntityURIConverterStrategy strategy;
@@ -77,7 +77,7 @@ public class OWLEntityURIConverter {
             @Nonnull Set<OWLOntology> ontologies,
             @Nonnull OWLEntityURIConverterStrategy strategy) {
         this.manager = checkNotNull(manager, "manager cannot be null");
-        this.ontologies = new ArrayList<OWLOntology>(checkNotNull(ontologies,
+        this.ontologies = new ArrayList<>(checkNotNull(ontologies,
                 "ontologies cannot be null"));
         this.strategy = checkNotNull(strategy, "strategy cannot be null");
     }
@@ -88,10 +88,10 @@ public class OWLEntityURIConverter {
      * @return A list of ontology changes that should be applied in order to
      *         convert the URI of entities in the specified ontologies.
      */
-    public List<OWLOntologyChange<?>> getChanges() {
+    public List<OWLOntologyChange> getChanges() {
         replacementMap.clear();
-        processedEntities = new HashSet<OWLEntity>();
-        List<OWLOntologyChange<?>> changes = new ArrayList<OWLOntologyChange<?>>();
+        processedEntities = new HashSet<>();
+        List<OWLOntologyChange> changes = new ArrayList<>();
         for (OWLOntology ont : ontologies) {
             for (OWLClass cls : ont.getClassesInSignature()) {
                 if (!cls.isOWLThing() && !cls.isOWLNothing()) {

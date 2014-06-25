@@ -53,7 +53,7 @@ public class AverageAssertedNamedSuperclassCount extends DoubleValuedMetric {
     public Double recomputeMetric() {
         int total = 0;
         int count = 0;
-        Set<OWLClass> processedClasses = new HashSet<OWLClass>();
+        Set<OWLClass> processedClasses = new HashSet<>();
         for (OWLOntology ont : getOntologies()) {
             for (OWLClass cls : ont.getClassesInSignature()) {
                 assert cls != null;
@@ -79,8 +79,8 @@ public class AverageAssertedNamedSuperclassCount extends DoubleValuedMetric {
 
     @Override
     protected boolean isMetricInvalidated(
-            List<? extends OWLOntologyChange<?>> changes) {
-        for (OWLOntologyChange<?> chg : changes) {
+            List<? extends OWLOntologyChange> changes) {
+        for (OWLOntologyChange chg : changes) {
             if (chg.isAxiomChange()
                     && chg.getAxiom() instanceof OWLSubClassOfAxiom) {
                 return true;

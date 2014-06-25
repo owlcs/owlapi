@@ -53,7 +53,7 @@ public class Frame {
 
     /** Init clauses. */
     protected void init() {
-        clauses = new ArrayList<Clause>();
+        clauses = new ArrayList<>();
     }
 
     /** @return the type */
@@ -94,7 +94,7 @@ public class Frame {
      */
     @Nonnull
     public Collection<Clause> getClauses(String tag) {
-        Collection<Clause> cls = new ArrayList<Clause>();
+        Collection<Clause> cls = new ArrayList<>();
         for (Clause cl : clauses) {
             if (cl.getTag().equals(tag)) {
                 cls.add(cl);
@@ -245,7 +245,7 @@ public class Frame {
      */
     @Nonnull
     public Collection<Object> getTagValues(String tag) {
-        Collection<Object> vals = new ArrayList<Object>();
+        Collection<Object> vals = new ArrayList<>();
         for (Clause c : getClauses(tag)) {
             vals.add(c.getValue());
         }
@@ -278,7 +278,7 @@ public class Frame {
      */
     @Nonnull
     public <T> Collection<T> getTagValues(String tag, @Nonnull Class<T> cls) {
-        Collection<T> vals = new ArrayList<T>();
+        Collection<T> vals = new ArrayList<>();
         for (Clause c : getClauses(tag)) {
             vals.add(c.getValue(cls));
         }
@@ -293,7 +293,7 @@ public class Frame {
     @SuppressWarnings("null")
     @Nonnull
     public Collection<Xref> getTagXrefs(String tag) {
-        Collection<Xref> xrefs = new ArrayList<Xref>();
+        Collection<Xref> xrefs = new ArrayList<>();
         for (Object ob : getClause(tag).getValues()) {
             if (ob instanceof Xref) {
                 xrefs.add((Xref) ob);
@@ -305,7 +305,7 @@ public class Frame {
     /** @return the tags */
     @Nonnull
     public Set<String> getTags() {
-        Set<String> tags = new HashSet<String>();
+        Set<String> tags = new HashSet<>();
         for (Clause cl : getClauses()) {
             tags.add(cl.getTag());
         }

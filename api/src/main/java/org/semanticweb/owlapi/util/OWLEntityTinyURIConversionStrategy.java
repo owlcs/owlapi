@@ -53,7 +53,7 @@ public class OWLEntityTinyURIConversionStrategy implements
     public static final String DEFAULT_BASE = "http://tinyname.org#";
     @Nonnull
     private final String base;
-    private final Map<OWLEntity, IRI> entityNameMap = new HashMap<OWLEntity, IRI>();
+    private final Map<OWLEntity, IRI> entityNameMap = new HashMap<>();
     private final OWLEntityFragmentProvider fragmentProvider = new OWLEntityFragmentProvider();
 
     /**

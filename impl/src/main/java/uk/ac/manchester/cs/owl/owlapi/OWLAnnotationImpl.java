@@ -66,7 +66,7 @@ public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
         this.property = checkNotNull(property, "property cannot be null");
         this.value = checkNotNull(value, "value cannot be null");
         anns = CollectionFactory
-                .getCopyOnRequestSetFromMutableCollection(new TreeSet<OWLAnnotation>(
+                .getCopyOnRequestSetFromMutableCollection(new TreeSet<>(
                         checkNotNull(annotations, "annotations cannot be null")));
     }
 
@@ -91,7 +91,7 @@ public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
         if (annotations.isEmpty()) {
             return this;
         }
-        Set<OWLAnnotation> merged = new HashSet<OWLAnnotation>(anns);
+        Set<OWLAnnotation> merged = new HashSet<>(anns);
         merged.addAll(annotations);
         return new OWLAnnotationImpl(property, value, merged);
     }

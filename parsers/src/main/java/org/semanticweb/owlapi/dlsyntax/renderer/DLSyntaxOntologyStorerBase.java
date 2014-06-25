@@ -50,24 +50,23 @@ public abstract class DLSyntaxOntologyStorerBase extends
         PrintWriter printWriter = new PrintWriter(checkNotNull(writer,
                 "writer cannot be null"));
         beginWritingOntology(ontology, printWriter);
-        for (OWLObjectProperty prop : new TreeSet<OWLObjectProperty>(
+        for (OWLObjectProperty prop : new TreeSet<>(
                 ontology.getObjectPropertiesInSignature())) {
             assert prop != null;
             write(ontology, prop, ontology.getAxioms(prop, EXCLUDED),
                     printWriter);
         }
-        for (OWLDataProperty prop : new TreeSet<OWLDataProperty>(
+        for (OWLDataProperty prop : new TreeSet<>(
                 ontology.getDataPropertiesInSignature())) {
             assert prop != null;
             write(ontology, prop, ontology.getAxioms(prop, EXCLUDED),
                     printWriter);
         }
-        for (OWLClass cls : new TreeSet<OWLClass>(
-                ontology.getClassesInSignature())) {
+        for (OWLClass cls : new TreeSet<>(ontology.getClassesInSignature())) {
             assert cls != null;
             write(ontology, cls, ontology.getAxioms(cls, EXCLUDED), printWriter);
         }
-        for (OWLNamedIndividual ind : new TreeSet<OWLNamedIndividual>(
+        for (OWLNamedIndividual ind : new TreeSet<>(
                 ontology.getIndividualsInSignature())) {
             assert ind != null;
             write(ontology, ind, ontology.getAxioms(ind, EXCLUDED), printWriter);
@@ -89,14 +88,14 @@ public abstract class DLSyntaxOntologyStorerBase extends
                     @Nonnull Set<? extends OWLAxiom> axioms,
                     @Nonnull PrintWriter writer) {
         beginWritingAxioms(entity, axioms, writer);
-        for (OWLAxiom ax : new TreeSet<OWLAxiom>(axioms)) {
+        for (OWLAxiom ax : new TreeSet<>(axioms)) {
             assert ax != null;
             beginWritingAxiom(ax, writer);
             writeAxiom(entity, ax, writer);
             endWritingAxiom(ax, writer);
         }
-        Set<OWLAxiom> usages = new TreeSet<OWLAxiom>(ont.getReferencingAxioms(
-                entity, EXCLUDED));
+        Set<OWLAxiom> usages = new TreeSet<>(ont.getReferencingAxioms(entity,
+                EXCLUDED));
         usages.removeAll(axioms);
         beginWritingUsage(entity, usages, writer);
         for (OWLAxiom usage : usages) {

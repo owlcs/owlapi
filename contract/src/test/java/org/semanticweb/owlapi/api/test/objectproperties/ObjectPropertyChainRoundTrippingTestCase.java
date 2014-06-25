@@ -37,7 +37,7 @@ public class ObjectPropertyChainRoundTrippingTestCase extends
         OWLObjectProperty propB = ObjectProperty(iri("propB"));
         OWLObjectProperty propC = ObjectProperty(iri("propC"));
         OWLObjectProperty propD = ObjectProperty(iri("propD"));
-        List<OWLObjectProperty> props = new ArrayList<OWLObjectProperty>();
+        List<OWLObjectProperty> props = new ArrayList<>();
         props.add(propA);
         props.add(propB);
         props.add(propC);

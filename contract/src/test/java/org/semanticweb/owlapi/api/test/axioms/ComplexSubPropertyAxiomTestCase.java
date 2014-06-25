@@ -38,11 +38,11 @@ public class ComplexSubPropertyAxiomTestCase extends
 
     @Test
     public void testContains() {
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> axioms = new HashSet<>();
         OWLObjectProperty propP = ObjectProperty(iri("p"));
         OWLObjectProperty propQ = ObjectProperty(iri("q"));
         OWLObjectProperty propR = ObjectProperty(iri("r"));
-        List<OWLObjectProperty> chain = new ArrayList<OWLObjectProperty>();
+        List<OWLObjectProperty> chain = new ArrayList<>();
         chain.add(propP);
         chain.add(propQ);
         axioms.add(df.getOWLSubPropertyChainOfAxiom(chain, propR));

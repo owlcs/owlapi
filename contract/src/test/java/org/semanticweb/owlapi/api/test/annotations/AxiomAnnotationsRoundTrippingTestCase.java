@@ -40,7 +40,7 @@ public class AxiomAnnotationsRoundTrippingTestCase extends
         OWLAnnotationProperty prop = AnnotationProperty(OWLRDFVocabulary.RDFS_LABEL
                 .getIRI());
         addAxiom(ont, Declaration(prop));
-        Set<OWLAnnotation> annotations = new HashSet<OWLAnnotation>();
+        Set<OWLAnnotation> annotations = new HashSet<>();
         for (int i = 0; i < 2; i++) {
             OWLLiteral lit = Literal("Annotation " + (i + 1));
             annotations.add(df.getOWLAnnotation(RDFSLabel(), lit));

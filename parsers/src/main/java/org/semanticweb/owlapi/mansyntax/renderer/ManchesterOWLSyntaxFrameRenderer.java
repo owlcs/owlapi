@@ -107,7 +107,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
     static class SectionMap<O, V extends OWLAxiom> {
 
         @Nonnull
-        private final Map<O, Set<V>> object2Axioms = new LinkedHashMap<O, Set<V>>();
+        private final Map<O, Set<V>> object2Axioms = new LinkedHashMap<>();
 
         /** @return true if empty */
         public boolean isNotEmpty() {
@@ -123,7 +123,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
         public void put(O o, V forAxiom) {
             Set<V> axioms = object2Axioms.get(o);
             if (axioms == null) {
-                axioms = new LinkedHashSet<V>();
+                axioms = new LinkedHashSet<>();
                 object2Axioms.put(o, axioms);
             }
             axioms.add(forAxiom);
@@ -154,9 +154,9 @@ public class ManchesterOWLSyntaxFrameRenderer extends
                 Object sectionObject) {
             Collection<V> axioms = object2Axioms.get(sectionObject);
             if (axioms == null) {
-                return new HashSet<Set<OWLAnnotation>>();
+                return new HashSet<>();
             }
-            Set<Set<OWLAnnotation>> annos = new HashSet<Set<OWLAnnotation>>();
+            Set<Set<OWLAnnotation>> annos = new HashSet<>();
             for (OWLAxiom ax : axioms) {
                 annos.add(ax.getAnnotations());
             }
@@ -170,12 +170,12 @@ public class ManchesterOWLSyntaxFrameRenderer extends
     private OntologyIRIShortFormProvider shortFormProvider = new OntologyIRIShortFormProvider();
     /** The filtered axiom types. */
     @Nonnull
-    private final Set<AxiomType<?>> filteredAxiomTypes = new HashSet<AxiomType<?>>();
+    private final Set<AxiomType<?>> filteredAxiomTypes = new HashSet<>();
     /** The render extensions. */
     private boolean renderExtensions = false;
     /** The listeners. */
     @Nonnull
-    private final List<RendererListener> listeners = new ArrayList<RendererListener>();
+    private final List<RendererListener> listeners = new ArrayList<>();
     /** The axiom filter. */
     private OWLAxiomFilter axiomFilter = new OWLAxiomFilter() {
 
@@ -220,7 +220,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
             @Nonnull Set<OWLOntology> ontologies, Writer writer,
             @Nonnull ShortFormProvider entityShortFormProvider) {
         super(writer, entityShortFormProvider);
-        this.ontologies = new LinkedHashSet<OWLOntology>(ontologies);
+        this.ontologies = new LinkedHashSet<>(ontologies);
         owlObjectComparator = new OWLObjectComparator(entityShortFormProvider);
     }
 
@@ -352,7 +352,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
         for (OWLDisjointClassesAxiom ax : ontology
                 .getAxioms(AxiomType.DISJOINT_CLASSES)) {
             if (ax.getClassExpressions().size() > 2) {
-                SectionMap<Object, OWLAxiom> map = new SectionMap<Object, OWLAxiom>();
+                SectionMap<Object, OWLAxiom> map = new SectionMap<>();
                 map.put(ax.getClassExpressions(), ax);
                 writeSection(DISJOINT_CLASSES, map, ",", false, ontology);
             }
@@ -361,7 +361,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
         for (OWLEquivalentClassesAxiom ax : ontology
                 .getAxioms(AxiomType.EQUIVALENT_CLASSES)) {
             if (ax.getClassExpressions().size() > 2) {
-                SectionMap<Object, OWLAxiom> map = new SectionMap<Object, OWLAxiom>();
+                SectionMap<Object, OWLAxiom> map = new SectionMap<>();
                 map.put(ax.getClassExpressions(), ax);
                 writeSection(EQUIVALENT_CLASSES, map, ",", false, ontology);
             }
@@ -370,7 +370,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
         for (OWLDisjointObjectPropertiesAxiom ax : ontology
                 .getAxioms(AxiomType.DISJOINT_OBJECT_PROPERTIES)) {
             if (ax.getProperties().size() > 2) {
-                SectionMap<Object, OWLAxiom> map = new SectionMap<Object, OWLAxiom>();
+                SectionMap<Object, OWLAxiom> map = new SectionMap<>();
                 map.put(ax.getProperties(), ax);
                 writeSection(DISJOINT_PROPERTIES, map, ",", false, ontology);
             }
@@ -379,7 +379,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
         for (OWLEquivalentObjectPropertiesAxiom ax : ontology
                 .getAxioms(AxiomType.EQUIVALENT_OBJECT_PROPERTIES)) {
             if (ax.getProperties().size() > 2) {
-                SectionMap<Object, OWLAxiom> map = new SectionMap<Object, OWLAxiom>();
+                SectionMap<Object, OWLAxiom> map = new SectionMap<>();
                 map.put(ax.getProperties(), ax);
                 writeSection(EQUIVALENT_PROPERTIES, map, ",", false, ontology);
             }
@@ -388,7 +388,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
         for (OWLDisjointDataPropertiesAxiom ax : ontology
                 .getAxioms(AxiomType.DISJOINT_DATA_PROPERTIES)) {
             if (ax.getProperties().size() > 2) {
-                SectionMap<Object, OWLAxiom> map = new SectionMap<Object, OWLAxiom>();
+                SectionMap<Object, OWLAxiom> map = new SectionMap<>();
                 map.put(ax.getProperties(), ax);
                 writeSection(DISJOINT_PROPERTIES, map, ",", false, ontology);
             }
@@ -397,7 +397,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
         for (OWLEquivalentDataPropertiesAxiom ax : ontology
                 .getAxioms(AxiomType.EQUIVALENT_DATA_PROPERTIES)) {
             if (ax.getProperties().size() > 2) {
-                SectionMap<Object, OWLAxiom> map = new SectionMap<Object, OWLAxiom>();
+                SectionMap<Object, OWLAxiom> map = new SectionMap<>();
                 map.put(ax.getProperties(), ax);
                 writeSection(EQUIVALENT_PROPERTIES, map, ",", false, ontology);
             }
@@ -406,7 +406,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
         for (OWLDifferentIndividualsAxiom ax : ontology
                 .getAxioms(AxiomType.DIFFERENT_INDIVIDUALS)) {
             if (ax.getIndividuals().size() > 2) {
-                SectionMap<Object, OWLAxiom> map = new SectionMap<Object, OWLAxiom>();
+                SectionMap<Object, OWLAxiom> map = new SectionMap<>();
                 map.put(ax.getIndividuals(), ax);
                 writeSection(DIFFERENT_INDIVIDUALS, map, ",", false, ontology);
             }
@@ -556,11 +556,11 @@ public class ManchesterOWLSyntaxFrameRenderer extends
      */
     @Nonnull
     public Set<OWLAxiom> write(@Nonnull OWLClass cls) {
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> axioms = new HashSet<>();
         axioms.addAll(writeEntityStart(CLASS, cls));
         if (!isFiltered(AxiomType.EQUIVALENT_CLASSES)) {
             for (OWLOntology ontology : ontologies) {
-                SectionMap<Object, OWLAxiom> equivalentClasses = new SectionMap<Object, OWLAxiom>();
+                SectionMap<Object, OWLAxiom> equivalentClasses = new SectionMap<>();
                 for (OWLEquivalentClassesAxiom ax : ontology
                         .getEquivalentClassesAxioms(cls)) {
                     if (ax.getClassExpressions().size() == 2 && isDisplayed(ax)) {
@@ -578,7 +578,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
         }
         if (!isFiltered(AxiomType.SUBCLASS_OF)) {
             for (OWLOntology ontology : ontologies) {
-                SectionMap<Object, OWLAxiom> superclasses = new SectionMap<Object, OWLAxiom>();
+                SectionMap<Object, OWLAxiom> superclasses = new SectionMap<>();
                 for (OWLSubClassOfAxiom ax : ontology
                         .getSubClassAxiomsForSubClass(cls)) {
                     if (isDisplayed(ax)) {
@@ -590,7 +590,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
             }
             if (renderExtensions) {
                 for (OWLOntology ont : ontologies) {
-                    SectionMap<Object, OWLAxiom> subClasses = new SectionMap<Object, OWLAxiom>();
+                    SectionMap<Object, OWLAxiom> subClasses = new SectionMap<>();
                     for (OWLSubClassOfAxiom ax : ont
                             .getSubClassAxiomsForSuperClass(cls)) {
                         if (isDisplayed(ax)) {
@@ -619,7 +619,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
         }
         if (!isFiltered(AxiomType.DISJOINT_CLASSES)) {
             for (OWLOntology ontology : ontologies) {
-                SectionMap<Object, OWLAxiom> disjointClasses = new SectionMap<Object, OWLAxiom>();
+                SectionMap<Object, OWLAxiom> disjointClasses = new SectionMap<>();
                 for (OWLDisjointClassesAxiom ax : ontology
                         .getDisjointClassesAxioms(cls)) {
                     if (isDisplayed(ax)) {
@@ -654,7 +654,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
             for (OWLOntology ontology : ontologies) {
                 for (OWLHasKeyAxiom ax : ontology.getHasKeyAxioms(cls)) {
                     if (isDisplayed(ax)) {
-                        SectionMap<Object, OWLAxiom> map = new SectionMap<Object, OWLAxiom>();
+                        SectionMap<Object, OWLAxiom> map = new SectionMap<>();
                         map.put(ax.getPropertyExpressions(), ax);
                         writeSection(HAS_KEY, map, ", ", true, ontology);
                     }
@@ -663,7 +663,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
         }
         if (!isFiltered(AxiomType.CLASS_ASSERTION)) {
             for (OWLOntology ontology : ontologies) {
-                SectionMap<Object, OWLAxiom> individuals = new SectionMap<Object, OWLAxiom>();
+                SectionMap<Object, OWLAxiom> individuals = new SectionMap<>();
                 for (OWLClassAssertionAxiom ax : ontology
                         .getClassAssertionAxioms(cls)) {
                     if (isDisplayed(ax)
@@ -678,7 +678,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
         }
         if (!isFiltered(AxiomType.SWRL_RULE)) {
             for (OWLOntology ontology : ontologies) {
-                Set<OWLAxiom> rules = new HashSet<OWLAxiom>();
+                Set<OWLAxiom> rules = new HashSet<>();
                 for (SWRLRule rule : ontology.getAxioms(AxiomType.SWRL_RULE)) {
                     if (isDisplayed(rule)) {
                         for (SWRLAtom atom : rule.getHead()) {
@@ -714,11 +714,11 @@ public class ManchesterOWLSyntaxFrameRenderer extends
      */
     @Nonnull
     public Set<OWLAxiom> write(@Nonnull OWLObjectPropertyExpression property) {
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> axioms = new HashSet<>();
         axioms.addAll(writeEntityStart(OBJECT_PROPERTY, property));
         if (!isFiltered(AxiomType.SUB_OBJECT_PROPERTY)) {
             for (OWLOntology ontology : ontologies) {
-                SectionMap<Object, OWLAxiom> properties = new SectionMap<Object, OWLAxiom>();
+                SectionMap<Object, OWLAxiom> properties = new SectionMap<>();
                 for (OWLSubObjectPropertyOfAxiom ax : ontology
                         .getObjectSubPropertyAxiomsForSubProperty(property)) {
                     if (isDisplayed(ax)) {
@@ -730,7 +730,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
             }
             if (renderExtensions) {
                 for (OWLOntology ontology : ontologies) {
-                    SectionMap<Object, OWLAxiom> properties = new SectionMap<Object, OWLAxiom>();
+                    SectionMap<Object, OWLAxiom> properties = new SectionMap<>();
                     for (OWLSubObjectPropertyOfAxiom ax : ontology
                             .getObjectSubPropertyAxiomsForSuperProperty(property)) {
                         if (isDisplayed(ax)) {
@@ -745,7 +745,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
         }
         if (!isFiltered(AxiomType.EQUIVALENT_OBJECT_PROPERTIES)) {
             for (OWLOntology ontology : ontologies) {
-                SectionMap<Object, OWLAxiom> properties = new SectionMap<Object, OWLAxiom>();
+                SectionMap<Object, OWLAxiom> properties = new SectionMap<>();
                 for (OWLEquivalentObjectPropertiesAxiom ax : ontology
                         .getEquivalentObjectPropertiesAxioms(property)) {
                     if (isDisplayed(ax) && ax.getProperties().size() == 2) {
@@ -760,7 +760,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
         }
         if (!isFiltered(AxiomType.DISJOINT_OBJECT_PROPERTIES)) {
             for (OWLOntology ontology : ontologies) {
-                SectionMap<Object, OWLAxiom> properties = new SectionMap<Object, OWLAxiom>();
+                SectionMap<Object, OWLAxiom> properties = new SectionMap<>();
                 for (OWLDisjointObjectPropertiesAxiom ax : ontology
                         .getDisjointObjectPropertiesAxioms(property)) {
                     if (ax.getProperties().size() == 2 && isDisplayed(ax)) {
@@ -779,7 +779,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
                         .getAxioms(AxiomType.SUB_PROPERTY_CHAIN_OF)) {
                     if (ax.getSuperProperty().equals(property)
                             && isDisplayed(ax)) {
-                        SectionMap<Object, OWLAxiom> map = new SectionMap<Object, OWLAxiom>();
+                        SectionMap<Object, OWLAxiom> map = new SectionMap<>();
                         map.put(ax.getPropertyChain(), ax);
                         writeSection(SUB_PROPERTY_CHAIN, map, " o ", false,
                                 ontology);
@@ -789,7 +789,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
             }
         }
         for (OWLOntology ontology : ontologies) {
-            SectionMap<Object, OWLAxiom> characteristics = new SectionMap<Object, OWLAxiom>();
+            SectionMap<Object, OWLAxiom> characteristics = new SectionMap<>();
             if (!isFiltered(AxiomType.FUNCTIONAL_OBJECT_PROPERTY)) {
                 for (OWLFunctionalObjectPropertyAxiom ax : ontology
                         .getFunctionalObjectPropertyAxioms(property)) {
@@ -857,7 +857,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
         }
         if (!isFiltered(AxiomType.OBJECT_PROPERTY_DOMAIN)) {
             for (OWLOntology ontology : ontologies) {
-                SectionMap<Object, OWLAxiom> expressions = new SectionMap<Object, OWLAxiom>();
+                SectionMap<Object, OWLAxiom> expressions = new SectionMap<>();
                 for (OWLObjectPropertyDomainAxiom ax : ontology
                         .getObjectPropertyDomainAxioms(property)) {
                     if (isDisplayed(ax)) {
@@ -870,7 +870,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
         }
         if (!isFiltered(AxiomType.OBJECT_PROPERTY_RANGE)) {
             for (OWLOntology ontology : ontologies) {
-                SectionMap<Object, OWLAxiom> expressions = new SectionMap<Object, OWLAxiom>();
+                SectionMap<Object, OWLAxiom> expressions = new SectionMap<>();
                 for (OWLObjectPropertyRangeAxiom ax : ontology
                         .getObjectPropertyRangeAxioms(property)) {
                     if (isDisplayed(ax)) {
@@ -900,7 +900,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
         }
         if (!isFiltered(AxiomType.SWRL_RULE)) {
             for (OWLOntology ontology : ontologies) {
-                Set<OWLAxiom> rules = new HashSet<OWLAxiom>();
+                Set<OWLAxiom> rules = new HashSet<>();
                 for (SWRLRule rule : ontology.getAxioms(AxiomType.SWRL_RULE)) {
                     if (isDisplayed(rule)) {
                         for (SWRLAtom atom : rule.getHead()) {
@@ -925,11 +925,11 @@ public class ManchesterOWLSyntaxFrameRenderer extends
      */
     @Nonnull
     public Set<OWLAxiom> write(@Nonnull OWLDataProperty property) {
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> axioms = new HashSet<>();
         axioms.addAll(writeEntityStart(DATA_PROPERTY, property));
         if (!isFiltered(AxiomType.FUNCTIONAL_DATA_PROPERTY)) {
             for (OWLOntology ontology : ontologies) {
-                SectionMap<Object, OWLAxiom> characteristics = new SectionMap<Object, OWLAxiom>();
+                SectionMap<Object, OWLAxiom> characteristics = new SectionMap<>();
                 for (OWLAxiom ax : ontology
                         .getFunctionalDataPropertyAxioms(property)) {
                     if (isDisplayed(ax)) {
@@ -943,7 +943,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
         }
         if (!isFiltered(AxiomType.DATA_PROPERTY_DOMAIN)) {
             for (OWLOntology ontology : ontologies) {
-                SectionMap<Object, OWLAxiom> domains = new SectionMap<Object, OWLAxiom>();
+                SectionMap<Object, OWLAxiom> domains = new SectionMap<>();
                 for (OWLDataPropertyDomainAxiom ax : ontology
                         .getDataPropertyDomainAxioms(property)) {
                     if (isDisplayed(ax)) {
@@ -956,7 +956,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
         }
         if (!isFiltered(AxiomType.DATA_PROPERTY_RANGE)) {
             for (OWLOntology ontology : ontologies) {
-                SectionMap<Object, OWLAxiom> ranges = new SectionMap<Object, OWLAxiom>();
+                SectionMap<Object, OWLAxiom> ranges = new SectionMap<>();
                 for (OWLDataPropertyRangeAxiom ax : ontology
                         .getDataPropertyRangeAxioms(property)) {
                     if (isDisplayed(ax)) {
@@ -969,7 +969,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
         }
         if (!isFiltered(AxiomType.SUB_DATA_PROPERTY)) {
             for (OWLOntology ontology : ontologies) {
-                SectionMap<Object, OWLAxiom> supers = new SectionMap<Object, OWLAxiom>();
+                SectionMap<Object, OWLAxiom> supers = new SectionMap<>();
                 for (OWLSubDataPropertyOfAxiom ax : ontology
                         .getDataSubPropertyAxiomsForSubProperty(property)) {
                     if (isDisplayed(ax)) {
@@ -982,7 +982,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
         }
         if (!isFiltered(AxiomType.EQUIVALENT_DATA_PROPERTIES)) {
             for (OWLOntology ontology : ontologies) {
-                SectionMap<Object, OWLAxiom> props = new SectionMap<Object, OWLAxiom>();
+                SectionMap<Object, OWLAxiom> props = new SectionMap<>();
                 for (OWLEquivalentDataPropertiesAxiom ax : ontology
                         .getEquivalentDataPropertiesAxioms(property)) {
                     if (isDisplayed(ax) && ax.getProperties().size() == 2) {
@@ -996,7 +996,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
         }
         if (!isFiltered(AxiomType.DISJOINT_DATA_PROPERTIES)) {
             for (OWLOntology ontology : ontologies) {
-                SectionMap<Object, OWLAxiom> props = new SectionMap<Object, OWLAxiom>();
+                SectionMap<Object, OWLAxiom> props = new SectionMap<>();
                 for (OWLDisjointDataPropertiesAxiom ax : ontology
                         .getDisjointDataPropertiesAxioms(property)) {
                     if (ax.getProperties().size() == 2 && isDisplayed(ax)) {
@@ -1011,7 +1011,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
         }
         if (!isFiltered(AxiomType.SWRL_RULE)) {
             for (OWLOntology ontology : ontologies) {
-                Set<OWLAxiom> rules = new HashSet<OWLAxiom>();
+                Set<OWLAxiom> rules = new HashSet<>();
                 for (SWRLRule rule : ontology.getAxioms(AxiomType.SWRL_RULE)) {
                     if (isDisplayed(rule)) {
                         for (SWRLAtom atom : rule.getHead()) {
@@ -1035,11 +1035,11 @@ public class ManchesterOWLSyntaxFrameRenderer extends
      */
     @Nonnull
     public Set<OWLAxiom> write(@Nonnull OWLIndividual individual) {
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> axioms = new HashSet<>();
         axioms.addAll(writeEntityStart(INDIVIDUAL, individual));
         if (!isFiltered(AxiomType.CLASS_ASSERTION)) {
             for (OWLOntology ontology : ontologies) {
-                SectionMap<Object, OWLAxiom> expressions = new SectionMap<Object, OWLAxiom>();
+                SectionMap<Object, OWLAxiom> expressions = new SectionMap<>();
                 for (OWLClassAssertionAxiom ax : ontology
                         .getClassAssertionAxioms(individual)) {
                     if (isDisplayed(ax)) {
@@ -1051,7 +1051,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
             }
         }
         for (OWLOntology ontology : ontologies) {
-            List<OWLPropertyAssertionAxiom<?, ?>> assertions = new ArrayList<OWLPropertyAssertionAxiom<?, ?>>();
+            List<OWLPropertyAssertionAxiom<?, ?>> assertions = new ArrayList<>();
             assertions.addAll(ontology
                     .getObjectPropertyAssertionAxioms(individual));
             assertions.addAll(ontology
@@ -1148,7 +1148,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
      */
     @Nonnull
     public Set<OWLAxiom> write(@Nonnull OWLDatatype datatype) {
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> axioms = new HashSet<>();
         axioms.addAll(writeEntityStart(DATATYPE, datatype));
         if (!isFiltered(AxiomType.DATATYPE_DEFINITION)) {
             for (OWLOntology ontology : ontologies) {
@@ -1174,7 +1174,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
      */
     @Nonnull
     public Set<OWLAxiom> write(@Nonnull SWRLRule rule) {
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>(1);
+        Set<OWLAxiom> axioms = new HashSet<>(1);
         for (OWLOntology ontology : ontologies) {
             if (ontology.containsAxiom(rule)) {
                 writeSection(RULE, CollectionFactory.createSet(rule), "", true,
@@ -1192,7 +1192,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
      */
     @Nonnull
     public Set<OWLAxiom> write(@Nonnull OWLAnnotationProperty property) {
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> axioms = new HashSet<>();
         axioms.addAll(writeEntityStart(ANNOTATION_PROPERTY, property));
         if (!isFiltered(AxiomType.ANNOTATION_ASSERTION)) {
             for (OWLOntology ont : ontologies) {
@@ -1284,10 +1284,10 @@ public class ManchesterOWLSyntaxFrameRenderer extends
     @Nonnull
     public Set<OWLAnnotationAssertionAxiom> writeAnnotations(
             @Nonnull OWLAnnotationSubject subject) {
-        Set<OWLAnnotationAssertionAxiom> axioms = new HashSet<OWLAnnotationAssertionAxiom>();
+        Set<OWLAnnotationAssertionAxiom> axioms = new HashSet<>();
         if (!isFiltered(AxiomType.ANNOTATION_ASSERTION)) {
             for (OWLOntology ontology : ontologies) {
-                SectionMap<Object, OWLAxiom> sectionMap = new SectionMap<Object, OWLAxiom>();
+                SectionMap<Object, OWLAxiom> sectionMap = new SectionMap<>();
                 for (OWLAnnotationAssertionAxiom ax : ontology
                         .getAnnotationAssertionAxioms(subject)) {
                     if (isDisplayed(ax)) {
@@ -1643,7 +1643,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
 
     @Nonnull
     private <E extends OWLObject> Collection<E> sortedCollection() {
-        return new TreeSet<E>(owlObjectComparator);
+        return new TreeSet<>(owlObjectComparator);
     }
 
     @Nonnull

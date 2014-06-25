@@ -1,5 +1,7 @@
 Features and bug fixes in 4.0.0
 
+Supported Java versions: Java 7, Java 8
+
 Features
     Add a copy/move ontology method to OWLOntologyManager #12
     Search introduced to replace forSuperPosition, forSubPosition, ignoreAnnotations booleans

@@ -79,7 +79,7 @@ public class OWLClassExpressionCollector extends
 
     @Override
     public Set<OWLClassExpression> visit(OWLSubClassOfAxiom axiom) {
-        Set<OWLClassExpression> result = new HashSet<OWLClassExpression>();
+        Set<OWLClassExpression> result = new HashSet<>();
         result.addAll(axiom.getSubClass().accept(this));
         result.addAll(axiom.getSuperClass().accept(this));
         return result;
@@ -87,7 +87,7 @@ public class OWLClassExpressionCollector extends
 
     @Override
     public Set<OWLClassExpression> visit(OWLOntology ontology) {
-        Set<OWLClassExpression> result = new HashSet<OWLClassExpression>();
+        Set<OWLClassExpression> result = new HashSet<>();
         for (OWLAxiom ax : ontology.getLogicalAxioms()) {
             result.addAll(ax.accept(this));
         }
@@ -101,7 +101,7 @@ public class OWLClassExpressionCollector extends
 
     @Override
     public Set<OWLClassExpression> visit(OWLObjectIntersectionOf ce) {
-        Set<OWLClassExpression> result = new HashSet<OWLClassExpression>();
+        Set<OWLClassExpression> result = new HashSet<>();
         result.add(ce);
         for (OWLClassExpression op : ce.getOperands()) {
             result.addAll(op.accept(this));
@@ -111,7 +111,7 @@ public class OWLClassExpressionCollector extends
 
     @Override
     public Set<OWLClassExpression> visit(OWLObjectUnionOf ce) {
-        Set<OWLClassExpression> result = new HashSet<OWLClassExpression>();
+        Set<OWLClassExpression> result = new HashSet<>();
         result.add(ce);
         for (OWLClassExpression op : ce.getOperands()) {
             result.addAll(op.accept(this));
@@ -121,7 +121,7 @@ public class OWLClassExpressionCollector extends
 
     @Override
     public Set<OWLClassExpression> visit(OWLObjectComplementOf ce) {
-        Set<OWLClassExpression> result = new HashSet<OWLClassExpression>();
+        Set<OWLClassExpression> result = new HashSet<>();
         result.add(ce);
         result.addAll(ce.getOperand().accept(this));
         return result;
@@ -129,7 +129,7 @@ public class OWLClassExpressionCollector extends
 
     @Override
     public Set<OWLClassExpression> visit(OWLObjectSomeValuesFrom ce) {
-        Set<OWLClassExpression> result = new HashSet<OWLClassExpression>();
+        Set<OWLClassExpression> result = new HashSet<>();
         result.add(ce);
         result.addAll(ce.getFiller().accept(this));
         return result;
@@ -137,7 +137,7 @@ public class OWLClassExpressionCollector extends
 
     @Override
     public Set<OWLClassExpression> visit(OWLObjectAllValuesFrom ce) {
-        Set<OWLClassExpression> result = new HashSet<OWLClassExpression>();
+        Set<OWLClassExpression> result = new HashSet<>();
         result.add(ce);
         result.addAll(ce.getFiller().accept(this));
         return result;
@@ -145,7 +145,7 @@ public class OWLClassExpressionCollector extends
 
     @Override
     public Set<OWLClassExpression> visit(OWLDisjointClassesAxiom axiom) {
-        Set<OWLClassExpression> result = new HashSet<OWLClassExpression>();
+        Set<OWLClassExpression> result = new HashSet<>();
         for (OWLClassExpression ce : axiom.getClassExpressions()) {
             result.addAll(ce.accept(this));
         }
@@ -164,7 +164,7 @@ public class OWLClassExpressionCollector extends
 
     @Override
     public Set<OWLClassExpression> visit(OWLObjectMinCardinality ce) {
-        Set<OWLClassExpression> result = new HashSet<OWLClassExpression>();
+        Set<OWLClassExpression> result = new HashSet<>();
         result.add(ce);
         result.addAll(ce.getFiller().accept(this));
         return result;
@@ -177,7 +177,7 @@ public class OWLClassExpressionCollector extends
 
     @Override
     public Set<OWLClassExpression> visit(OWLObjectExactCardinality ce) {
-        Set<OWLClassExpression> result = new HashSet<OWLClassExpression>();
+        Set<OWLClassExpression> result = new HashSet<>();
         result.add(ce);
         result.addAll(ce.getFiller().accept(this));
         return result;
@@ -185,7 +185,7 @@ public class OWLClassExpressionCollector extends
 
     @Override
     public Set<OWLClassExpression> visit(OWLObjectMaxCardinality ce) {
-        Set<OWLClassExpression> result = new HashSet<OWLClassExpression>();
+        Set<OWLClassExpression> result = new HashSet<>();
         result.add(ce);
         result.addAll(ce.getFiller().accept(this));
         return result;
@@ -238,7 +238,7 @@ public class OWLClassExpressionCollector extends
 
     @Override
     public Set<OWLClassExpression> visit(OWLDisjointUnionAxiom axiom) {
-        Set<OWLClassExpression> result = new HashSet<OWLClassExpression>();
+        Set<OWLClassExpression> result = new HashSet<>();
         result.add(axiom.getOWLClass());
         for (OWLClassExpression ce : axiom.getClassExpressions()) {
             result.addAll(ce.accept(this));
@@ -258,7 +258,7 @@ public class OWLClassExpressionCollector extends
 
     @Override
     public Set<OWLClassExpression> visit(OWLEquivalentClassesAxiom axiom) {
-        Set<OWLClassExpression> result = new HashSet<OWLClassExpression>();
+        Set<OWLClassExpression> result = new HashSet<>();
         for (OWLClassExpression ce : axiom.getClassExpressions()) {
             result.addAll(ce.accept(this));
         }
@@ -272,7 +272,7 @@ public class OWLClassExpressionCollector extends
 
     @Override
     public Set<OWLClassExpression> visit(SWRLRule rule) {
-        Set<OWLClassExpression> result = new HashSet<OWLClassExpression>();
+        Set<OWLClassExpression> result = new HashSet<>();
         for (SWRLAtom atom : rule.getBody()) {
             result.addAll(atom.accept(this));
         }

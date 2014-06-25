@@ -33,7 +33,7 @@ public class PercentCharacterInEntityNameTestCase extends
     @Nonnull
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> axioms = new HashSet<>();
         axioms.add(Declaration(Class(IRI("http://www.test.com/ontology#Class%37A"))));
         axioms.add(Declaration(ObjectProperty(IRI("http://www.test.com/ontology#prop%37A"))));
         return axioms;

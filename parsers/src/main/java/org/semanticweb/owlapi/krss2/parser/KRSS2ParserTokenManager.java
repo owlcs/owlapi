@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.krss2.parser;
 
 import org.semanticweb.owlapi.io.OWLParserException;
 
-
 class KRSS2ParserTokenManager implements KRSS2ParserConstants {
 
     java.io.PrintStream debugStream = System.out;

@@ -99,8 +99,8 @@ public abstract class TestBase {
         if (!axioms1.equals(axioms2)) {
             int counter = 0;
             StringBuilder sb = new StringBuilder();
-            Set<OWLAxiom> leftOnly = new HashSet<OWLAxiom>();
-            Set<OWLAxiom> rightOnly = new HashSet<OWLAxiom>();
+            Set<OWLAxiom> leftOnly = new HashSet<>();
+            Set<OWLAxiom> rightOnly = new HashSet<>();
             for (OWLAxiom ax : axioms1) {
                 if (!axioms2.contains(ax)) {
                     if (!isIgnorableAxiom(ax, false)) {
@@ -159,8 +159,8 @@ public abstract class TestBase {
      */
     public static boolean verifyErrorIsDueToBlankNodesId(
             @Nonnull Set<OWLAxiom> leftOnly, @Nonnull Set<OWLAxiom> rightOnly) {
-        Set<String> leftOnlyStrings = new HashSet<String>();
-        Set<String> rightOnlyStrings = new HashSet<String>();
+        Set<String> leftOnlyStrings = new HashSet<>();
+        Set<String> rightOnlyStrings = new HashSet<>();
         for (OWLAxiom ax : leftOnly) {
             leftOnlyStrings.add(ax.toString()
                     .replaceAll("_:anon-ind-[0-9]+", "blank")
@@ -283,12 +283,12 @@ public abstract class TestBase {
     // @Test
     public void checkVerify() {
         OWLDataProperty t = df.getOWLDataProperty(IRI.create("urn:test#t"));
-        Set<OWLAxiom> ax1 = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> ax1 = new HashSet<>();
         ax1.add(df.getOWLDataPropertyAssertionAxiom(t,
                 df.getOWLAnonymousIndividual(), df.getOWLLiteral("test1")));
         ax1.add(df.getOWLDataPropertyAssertionAxiom(t,
                 df.getOWLAnonymousIndividual(), df.getOWLLiteral("test2")));
-        Set<OWLAxiom> ax2 = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> ax2 = new HashSet<>();
         ax2.add(df.getOWLDataPropertyAssertionAxiom(t,
                 df.getOWLAnonymousIndividual(), df.getOWLLiteral("test1")));
         ax2.add(df.getOWLDataPropertyAssertionAxiom(t,

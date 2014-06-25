@@ -51,8 +51,8 @@ public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl
             @Nonnull Set<? extends OWLIndividual> individuals,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
-        this.individuals = new ArrayList<OWLIndividual>(checkNotNull(
-                individuals, "individuals cannot be null"));
+        this.individuals = new ArrayList<>(checkNotNull(individuals,
+                "individuals cannot be null"));
         Collections.sort(this.individuals);
     }
 
@@ -64,7 +64,7 @@ public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl
 
     @Override
     public List<OWLIndividual> getIndividualsAsList() {
-        return new ArrayList<OWLIndividual>(individuals);
+        return new ArrayList<>(individuals);
     }
 
     @Override
@@ -91,7 +91,7 @@ public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl
     @Override
     public <T> Collection<T> walkPairwise(
             OWLPairwiseVisitor<T, OWLIndividual> visitor) {
-        List<T> l = new ArrayList<T>();
+        List<T> l = new ArrayList<>();
         for (int i = 0; i < individuals.size() - 1; i++) {
             for (int j = i + 1; j < individuals.size(); j++) {
                 T t = visitor.visit(individuals.get(i), individuals.get(j));

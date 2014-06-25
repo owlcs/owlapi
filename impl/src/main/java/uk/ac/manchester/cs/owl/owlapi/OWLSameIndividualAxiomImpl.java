@@ -72,13 +72,12 @@ public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl
     @Override
     public Set<OWLSameIndividualAxiom> asPairwiseAxioms() {
         List<OWLIndividual> inds = getIndividualsAsList();
-        Set<OWLSameIndividualAxiom> result = new HashSet<OWLSameIndividualAxiom>();
+        Set<OWLSameIndividualAxiom> result = new HashSet<>();
         for (int i = 0; i < inds.size() - 1; i++) {
             OWLIndividual indI = inds.get(i);
             OWLIndividual indJ = inds.get(i + 1);
-            result.add(new OWLSameIndividualAxiomImpl(
-                    new HashSet<OWLIndividual>(Arrays.asList(indI, indJ)),
-                    NO_ANNOTATIONS));
+            result.add(new OWLSameIndividualAxiomImpl(new HashSet<>(Arrays
+                    .asList(indI, indJ)), NO_ANNOTATIONS));
         }
         return result;
     }
@@ -95,13 +94,13 @@ public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl
 
     @Override
     public Set<OWLSubClassOfAxiom> asOWLSubClassOfAxioms() {
-        List<OWLClassExpression> nominalsList = new ArrayList<OWLClassExpression>();
+        List<OWLClassExpression> nominalsList = new ArrayList<>();
         for (OWLIndividual individual : getIndividuals()) {
             assert individual != null;
             nominalsList.add(new OWLObjectOneOfImpl(CollectionFactory
                     .createSet(individual)));
         }
-        Set<OWLSubClassOfAxiom> result = new HashSet<OWLSubClassOfAxiom>();
+        Set<OWLSubClassOfAxiom> result = new HashSet<>();
         for (int i = 0; i < nominalsList.size() - 1; i++) {
             OWLClassExpression ceI = nominalsList.get(i);
             OWLClassExpression ceJ = nominalsList.get(i + 1);

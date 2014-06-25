@@ -138,26 +138,26 @@ public class ManchesterOWLSyntaxEditorParser implements
         }
     };
     @Nonnull
-    protected Set<String> classNames = new HashSet<String>();
+    protected Set<String> classNames = new HashSet<>();
     @Nonnull
-    protected Set<String> objectPropertyNames = new HashSet<String>();
+    protected Set<String> objectPropertyNames = new HashSet<>();
     @Nonnull
-    protected Set<String> dataPropertyNames = new HashSet<String>();
+    protected Set<String> dataPropertyNames = new HashSet<>();
     @Nonnull
-    protected Set<String> individualNames = new HashSet<String>();
+    protected Set<String> individualNames = new HashSet<>();
     @Nonnull
-    protected Set<String> dataTypeNames = new HashSet<String>();
+    protected Set<String> dataTypeNames = new HashSet<>();
     @Nonnull
-    protected Set<String> annotationPropertyNames = new HashSet<String>();
+    protected Set<String> annotationPropertyNames = new HashSet<>();
     @Nonnull
-    private final Map<String, SWRLBuiltInsVocabulary> ruleBuiltIns = new TreeMap<String, SWRLBuiltInsVocabulary>();
+    private final Map<String, SWRLBuiltInsVocabulary> ruleBuiltIns = new TreeMap<>();
     @Nonnull
     protected DefaultPrefixManager pm = new DefaultPrefixManager();
     @Nonnull
-    protected Set<ManchesterOWLSyntax> potentialKeywords = new HashSet<ManchesterOWLSyntax>();
+    protected Set<ManchesterOWLSyntax> potentialKeywords = new HashSet<>();
     private OWLOntology defaultOntology;
     private final boolean allowEmptyFrameSections = false;
-    private final Map<ManchesterOWLSyntax, AnnotatedListItemParser<OWLDataProperty, ?>> dataPropertyFrameSections = new EnumMap<ManchesterOWLSyntax, AnnotatedListItemParser<OWLDataProperty, ?>>(
+    private final Map<ManchesterOWLSyntax, AnnotatedListItemParser<OWLDataProperty, ?>> dataPropertyFrameSections = new EnumMap<>(
             ManchesterOWLSyntax.class);
 
     /**
@@ -210,7 +210,7 @@ public class ManchesterOWLSyntaxEditorParser implements
                     + (fragment != null ? fragment : ""));
         }
         owlEntityChecker = new DefaultEntityChecker();
-        tokens = new ArrayList<Token>();
+        tokens = new ArrayList<>();
         tokens.addAll(getTokenizer(s).tokenize());
         tokenIndex = 0;
         for (SWRLBuiltInsVocabulary v : SWRLBuiltInsVocabulary.values()) {
@@ -223,7 +223,7 @@ public class ManchesterOWLSyntaxEditorParser implements
         return new ManchesterOWLSyntaxTokenizer(s);
     }
 
-    private final Map<ManchesterOWLSyntax, AnnotatedListItemParser<OWLClass, ?>> classFrameSections = new EnumMap<ManchesterOWLSyntax, AnnotatedListItemParser<OWLClass, ?>>(
+    private final Map<ManchesterOWLSyntax, AnnotatedListItemParser<OWLClass, ?>> classFrameSections = new EnumMap<>(
             ManchesterOWLSyntax.class);
 
     private void initialiseClassFrameSections() {
@@ -247,7 +247,7 @@ public class ManchesterOWLSyntaxEditorParser implements
                 classFrameSections);
     }
 
-    private final Map<ManchesterOWLSyntax, AnnotatedListItemParser<OWLObjectProperty, ?>> objectPropertyFrameSections = new EnumMap<ManchesterOWLSyntax, AnnotatedListItemParser<OWLObjectProperty, ?>>(
+    private final Map<ManchesterOWLSyntax, AnnotatedListItemParser<OWLObjectProperty, ?>> objectPropertyFrameSections = new EnumMap<>(
             ManchesterOWLSyntax.class);
 
     private void initialiseObjectPropertyFrameSections() {
@@ -293,7 +293,7 @@ public class ManchesterOWLSyntaxEditorParser implements
                 dataPropertyFrameSections);
     }
 
-    private final Map<ManchesterOWLSyntax, AnnotatedListItemParser<OWLAnnotationProperty, ?>> annotationPropertyFrameSections = new EnumMap<ManchesterOWLSyntax, AnnotatedListItemParser<OWLAnnotationProperty, ?>>(
+    private final Map<ManchesterOWLSyntax, AnnotatedListItemParser<OWLAnnotationProperty, ?>> annotationPropertyFrameSections = new EnumMap<>(
             ManchesterOWLSyntax.class);
 
     private void initialiseAnnotationPropertyFrameSections() {
@@ -308,7 +308,7 @@ public class ManchesterOWLSyntaxEditorParser implements
                 annotationPropertyFrameSections);
     }
 
-    private final Map<ManchesterOWLSyntax, AnnotatedListItemParser<OWLIndividual, ?>> individualFrameSections = new EnumMap<ManchesterOWLSyntax, AnnotatedListItemParser<OWLIndividual, ?>>(
+    private final Map<ManchesterOWLSyntax, AnnotatedListItemParser<OWLIndividual, ?>> individualFrameSections = new EnumMap<>(
             ManchesterOWLSyntax.class);
 
     private void initialiseIndividualFrameSections() {
@@ -517,7 +517,7 @@ public class ManchesterOWLSyntaxEditorParser implements
     }
 
     protected OWLClassExpression parseIntersection() {
-        Set<OWLClassExpression> ops = new HashSet<OWLClassExpression>();
+        Set<OWLClassExpression> ops = new HashSet<>();
         String kw = AND.keyword();
         while (AND.matches(kw)) {
             potentialKeywords.remove(AND);
@@ -541,7 +541,7 @@ public class ManchesterOWLSyntaxEditorParser implements
     @SuppressWarnings("null")
     @Nonnull
     protected OWLClassExpression parseUnion() {
-        Set<OWLClassExpression> ops = new HashSet<OWLClassExpression>();
+        Set<OWLClassExpression> ops = new HashSet<>();
         String kw = OR.keyword();
         while (OR.matches(kw)) {
             potentialKeywords.remove(OR);
@@ -676,13 +676,13 @@ public class ManchesterOWLSyntaxEditorParser implements
             return dataFactory.getOWLObjectExactCardinality(card, prop, filler);
         } else if (ONLYSOME.matches(kw)) {
             String tok = peekToken();
-            Set<OWLClassExpression> descs = new HashSet<OWLClassExpression>();
+            Set<OWLClassExpression> descs = new HashSet<>();
             if (!OPENBRACKET.matches(tok)) {
                 descs.add(parseUnion());
             } else {
                 descs.addAll(parseClassExpressionList(OPENBRACKET, CLOSEBRACKET));
             }
-            Set<OWLClassExpression> ops = new HashSet<OWLClassExpression>();
+            Set<OWLClassExpression> ops = new HashSet<>();
             for (OWLClassExpression desc : descs) {
                 assert desc != null;
                 ops.add(dataFactory.getOWLObjectSomeValuesFrom(prop, desc));
@@ -768,7 +768,7 @@ public class ManchesterOWLSyntaxEditorParser implements
     @Nonnull
     private OWLDataRange parseDataIntersectionOf() {
         String sep = AND.keyword();
-        Set<OWLDataRange> ranges = new HashSet<OWLDataRange>();
+        Set<OWLDataRange> ranges = new HashSet<>();
         while (AND.matches(sep)) {
             ranges.add(parseDataUnionOf());
             sep = peekToken();
@@ -787,7 +787,7 @@ public class ManchesterOWLSyntaxEditorParser implements
 
     private OWLDataRange parseDataUnionOf() {
         String sep = OR.keyword();
-        Set<OWLDataRange> ranges = new HashSet<OWLDataRange>();
+        Set<OWLDataRange> ranges = new HashSet<>();
         while (OR.matches(sep)) {
             ranges.add(parseDataRangePrimary());
             sep = peekToken();
@@ -813,7 +813,7 @@ public class ManchesterOWLSyntaxEditorParser implements
                 // Restricted data range
                 consumeToken();
                 String sep = COMMA.keyword();
-                Set<OWLFacetRestriction> facetRestrictions = new HashSet<OWLFacetRestriction>();
+                Set<OWLFacetRestriction> facetRestrictions = new HashSet<>();
                 while (COMMA.matches(sep)) {
                     OWLFacet fv = parseFacet();
                     if (fv == null) {
@@ -852,7 +852,7 @@ public class ManchesterOWLSyntaxEditorParser implements
 
     private Set<OWLDataRange> parseDataRangeList() {
         String sep = COMMA.keyword();
-        Set<OWLDataRange> ranges = new HashSet<OWLDataRange>();
+        Set<OWLDataRange> ranges = new HashSet<>();
         while (COMMA.matches(sep)) {
             potentialKeywords.remove(COMMA);
             OWLDataRange rng = parseDataRange();
@@ -869,7 +869,7 @@ public class ManchesterOWLSyntaxEditorParser implements
     @Nonnull
     private OWLDataRange parseDataOneOf() {
         consumeToken();
-        Set<OWLLiteral> cons = new HashSet<OWLLiteral>();
+        Set<OWLLiteral> cons = new HashSet<>();
         String sep = COMMA.keyword();
         while (COMMA.matches(sep)) {
             OWLLiteral con = parseLiteral(null);
@@ -1029,7 +1029,7 @@ public class ManchesterOWLSyntaxEditorParser implements
             throw new ExceptionBuilder().withKeyword(OPENBRACE).build();
         }
         String sep = COMMA.keyword();
-        Set<OWLIndividual> inds = new HashSet<OWLIndividual>();
+        Set<OWLIndividual> inds = new HashSet<>();
         while (COMMA.matches(sep)) {
             inds.add(parseIndividual());
             sep = peekToken();
@@ -1061,8 +1061,8 @@ public class ManchesterOWLSyntaxEditorParser implements
      */
     @Nonnull
     public Set<OntologyAxiomPair> parseFrames() {
-        Set<OntologyAxiomPair> axioms = new HashSet<OntologyAxiomPair>();
-        Set<ManchesterOWLSyntax> possible = new HashSet<ManchesterOWLSyntax>();
+        Set<OntologyAxiomPair> axioms = new HashSet<>();
+        Set<ManchesterOWLSyntax> possible = new HashSet<>();
         resetPossible(possible);
         while (true) {
             String tok = peekToken();
@@ -1120,7 +1120,7 @@ public class ManchesterOWLSyntaxEditorParser implements
     @Override
     public Set<OntologyAxiomPair> parseDatatypeFrame() {
         String tok = consumeToken();
-        Set<OntologyAxiomPair> axioms = new HashSet<OntologyAxiomPair>();
+        Set<OntologyAxiomPair> axioms = new HashSet<>();
         if (!DATATYPE.matches(tok)) {
             throw new ExceptionBuilder().withKeyword(DATATYPE).build();
         }
@@ -1175,7 +1175,7 @@ public class ManchesterOWLSyntaxEditorParser implements
         Set<OWLOntology> ontologies = getOntologies();
         Set<OWLAnnotation> annotations = parseAnnotations();
         Set<OWLClassExpression> classExpressions = parseClassExpressionList();
-        Set<OntologyAxiomPair> pairs = new HashSet<OntologyAxiomPair>();
+        Set<OntologyAxiomPair> pairs = new HashSet<>();
         for (OWLOntology ont : ontologies) {
             assert ont != null;
             pairs.add(new OntologyAxiomPair(ont,
@@ -1196,21 +1196,21 @@ public class ManchesterOWLSyntaxEditorParser implements
         Set<OWLPropertyExpression> properties = parsePropertyList();
         OWLAxiom propertyAxiom;
         if (properties.iterator().next().isObjectPropertyExpression()) {
-            Set<OWLObjectPropertyExpression> ope = new HashSet<OWLObjectPropertyExpression>();
+            Set<OWLObjectPropertyExpression> ope = new HashSet<>();
             for (OWLPropertyExpression pe : properties) {
                 ope.add((OWLObjectPropertyExpression) pe);
             }
             propertyAxiom = dataFactory.getOWLEquivalentObjectPropertiesAxiom(
                     ope, annotations);
         } else {
-            Set<OWLDataPropertyExpression> dpe = new HashSet<OWLDataPropertyExpression>();
+            Set<OWLDataPropertyExpression> dpe = new HashSet<>();
             for (OWLPropertyExpression pe : properties) {
                 dpe.add((OWLDataPropertyExpression) pe);
             }
             propertyAxiom = dataFactory.getOWLEquivalentDataPropertiesAxiom(
                     dpe, annotations);
         }
-        Set<OntologyAxiomPair> pairs = new HashSet<OntologyAxiomPair>();
+        Set<OntologyAxiomPair> pairs = new HashSet<>();
         for (OWLOntology ont : ontologies) {
             assert ont != null;
             pairs.add(new OntologyAxiomPair(ont, propertyAxiom));
@@ -1237,7 +1237,7 @@ public class ManchesterOWLSyntaxEditorParser implements
             throw new ExceptionBuilder().withKeyword(ANNOTATIONS).build();
         }
         Set<OWLOntology> onts = getOntologies();
-        Set<OntologyAxiomPair> pairs = new HashSet<OntologyAxiomPair>();
+        Set<OntologyAxiomPair> pairs = new HashSet<>();
         Set<OWLAnnotation> annos = parseAnnotationList();
         for (OWLOntology ont : onts) {
             assert ont != null;
@@ -1255,7 +1255,7 @@ public class ManchesterOWLSyntaxEditorParser implements
     @Nonnull
     private Set<OWLAnnotation> parseAnnotationList() {
         String sep = COMMA.keyword();
-        Set<OWLAnnotation> annos = new HashSet<OWLAnnotation>();
+        Set<OWLAnnotation> annos = new HashSet<>();
         while (COMMA.matches(sep)) {
             potentialKeywords.clear();
             Set<OWLAnnotation> annotations = parseAnnotations();
@@ -1308,7 +1308,7 @@ public class ManchesterOWLSyntaxEditorParser implements
     @Nonnull
     private Set<OntologyAxiomPair> parseClassFrame(boolean eof) {
         String tok = consumeToken();
-        Set<OntologyAxiomPair> axioms = new HashSet<OntologyAxiomPair>();
+        Set<OntologyAxiomPair> axioms = new HashSet<>();
         if (!CLASS.matches(tok)) {
             throw new ExceptionBuilder().withKeyword(CLASS).build();
         }
@@ -1326,7 +1326,7 @@ public class ManchesterOWLSyntaxEditorParser implements
         consumeToken(OPENBRACKET.keyword());
         consumeToken("in");
         String sep = COMMA.keyword();
-        Set<OWLOntology> onts = new HashSet<OWLOntology>();
+        Set<OWLOntology> onts = new HashSet<>();
         while (COMMA.matches(sep)) {
             String tok = consumeToken();
             if (isOntologyName(tok)) {
@@ -1395,7 +1395,7 @@ public class ManchesterOWLSyntaxEditorParser implements
                             onts));
                 }
             } else if (eof && !eof(sect)) {
-                List<ManchesterOWLSyntax> expected = new ArrayList<ManchesterOWLSyntax>();
+                List<ManchesterOWLSyntax> expected = new ArrayList<>();
                 expected.addAll(sectionParsers.keySet());
                 if (frameSubject instanceof OWLAnnotationSubject
                         || frameSubject instanceof OWLEntity) {
@@ -1415,7 +1415,7 @@ public class ManchesterOWLSyntaxEditorParser implements
 
     @Nonnull
     private Set<OntologyAxiomPair> parseObjectPropertyFrame(boolean eof) {
-        Set<OntologyAxiomPair> axioms = new HashSet<OntologyAxiomPair>();
+        Set<OntologyAxiomPair> axioms = new HashSet<>();
         consumeToken(OBJECT_PROPERTY);
         String token = consumeToken();
         OWLObjectProperty prop = getOWLObjectProperty(token);
@@ -1429,7 +1429,7 @@ public class ManchesterOWLSyntaxEditorParser implements
 
     @Override
     public Set<OntologyAxiomPair> parseDataPropertyFrame() {
-        Set<OntologyAxiomPair> axioms = new HashSet<OntologyAxiomPair>();
+        Set<OntologyAxiomPair> axioms = new HashSet<>();
         String tok = consumeToken();
         if (!DATA_PROPERTY.matches(tok)) {
             throw new ExceptionBuilder().withKeyword(DATA_PROPERTY).build();
@@ -1444,7 +1444,7 @@ public class ManchesterOWLSyntaxEditorParser implements
 
     @Override
     public Set<OntologyAxiomPair> parseAnnotationPropertyFrame() {
-        Set<OntologyAxiomPair> axioms = new HashSet<OntologyAxiomPair>();
+        Set<OntologyAxiomPair> axioms = new HashSet<>();
         String tok = consumeToken();
         if (!ANNOTATION_PROPERTY.matches(tok)) {
             throw new ExceptionBuilder().withKeyword(ANNOTATION_PROPERTY)
@@ -1463,7 +1463,7 @@ public class ManchesterOWLSyntaxEditorParser implements
     @Override
     public Set<OntologyAxiomPair> parseIndividualFrame() {
         String tok = consumeToken();
-        Set<OntologyAxiomPair> axioms = new HashSet<OntologyAxiomPair>();
+        Set<OntologyAxiomPair> axioms = new HashSet<>();
         if (!INDIVIDUAL.matches(tok)) {
             throw new ExceptionBuilder().withKeyword(INDIVIDUAL).build();
         }
@@ -1524,7 +1524,7 @@ public class ManchesterOWLSyntaxEditorParser implements
             throw new ExceptionBuilder().withObject().build();
         }
         OWLClass cls = getOWLClass(clsName);
-        Set<OntologyAxiomPair> axioms = new HashSet<OntologyAxiomPair>();
+        Set<OntologyAxiomPair> axioms = new HashSet<>();
         axioms.addAll(parseValuePartitionValues(onts, cls));
         for (OWLOntology ont : onts) {
             assert ont != null;
@@ -1539,8 +1539,8 @@ public class ManchesterOWLSyntaxEditorParser implements
     @Nonnull
     private Set<OntologyAxiomPair> parseValuePartitionValues(
             @Nonnull Set<OWLOntology> onts, @Nonnull OWLClass superclass) {
-        Set<OntologyAxiomPair> axioms = new HashSet<OntologyAxiomPair>();
-        Set<OWLClass> siblings = new HashSet<OWLClass>();
+        Set<OntologyAxiomPair> axioms = new HashSet<>();
+        Set<OWLClass> siblings = new HashSet<>();
         consumeToken(OPENBRACKET.keyword());
         String sep = COMMA.keyword();
         while (COMMA.matches(sep)) {
@@ -1584,9 +1584,9 @@ public class ManchesterOWLSyntaxEditorParser implements
         }
         consumeToken(">");
         List<SWRLAtom> head = parseRuleAtoms();
-        SWRLRule rule = dataFactory.getSWRLRule(new LinkedHashSet<SWRLAtom>(
-                body), new LinkedHashSet<SWRLAtom>(head));
-        List<OntologyAxiomPair> pairs = new ArrayList<OntologyAxiomPair>();
+        SWRLRule rule = dataFactory.getSWRLRule(new LinkedHashSet<>(body),
+                new LinkedHashSet<>(head));
+        List<OntologyAxiomPair> pairs = new ArrayList<>();
         for (OWLOntology ont : ontologies) {
             assert ont != null;
             pairs.add(new OntologyAxiomPair(ont, rule));
@@ -1596,7 +1596,7 @@ public class ManchesterOWLSyntaxEditorParser implements
 
     private List<SWRLAtom> parseRuleAtoms() {
         String sep = COMMA.keyword();
-        List<SWRLAtom> atoms = new ArrayList<SWRLAtom>();
+        List<SWRLAtom> atoms = new ArrayList<>();
         while (COMMA.matches(sep)) {
             potentialKeywords.remove(COMMA);
             SWRLAtom atom = parseRuleAtom();
@@ -1630,7 +1630,7 @@ public class ManchesterOWLSyntaxEditorParser implements
             return parseBuiltInAtom();
         } else {
             consumeToken();
-            Set<String> kw = new TreeSet<String>();
+            Set<String> kw = new TreeSet<>();
             kw.addAll(ruleBuiltIns.keySet());
             kw.add(DIFFERENT_FROM.toString());
             kw.add(SAME_AS.toString());
@@ -1780,7 +1780,7 @@ public class ManchesterOWLSyntaxEditorParser implements
             v = ruleBuiltIns.get(predicate);
             iri = v.getIRI();
         }
-        List<SWRLDArgument> args = new ArrayList<SWRLDArgument>();
+        List<SWRLDArgument> args = new ArrayList<>();
         if (v != null && v.getMaxArity() >= 0) {
             // We know the arity!
             for (int i = 0; i < v.getMaxArity(); i++) {
@@ -1821,7 +1821,7 @@ public class ManchesterOWLSyntaxEditorParser implements
         Set<OWLOntology> ontologies = getOntologies();
         Set<OWLAnnotation> annotations = parseAnnotations();
         Set<OWLClassExpression> classExpressions = parseClassExpressionList();
-        Set<OntologyAxiomPair> pairs = new HashSet<OntologyAxiomPair>();
+        Set<OntologyAxiomPair> pairs = new HashSet<>();
         for (OWLOntology ont : ontologies) {
             assert ont != null;
             pairs.add(new OntologyAxiomPair(ont, dataFactory
@@ -1838,7 +1838,7 @@ public class ManchesterOWLSyntaxEditorParser implements
         Set<OWLIndividual> individuals = parseIndividualList();
         Set<OWLOntology> ontologies = getOntologies();
         Set<OWLAnnotation> annotations = parseAnnotations();
-        Set<OntologyAxiomPair> pairs = new HashSet<OntologyAxiomPair>();
+        Set<OntologyAxiomPair> pairs = new HashSet<>();
         for (OWLOntology ont : ontologies) {
             assert ont != null;
             pairs.add(new OntologyAxiomPair(ont, dataFactory
@@ -1856,17 +1856,17 @@ public class ManchesterOWLSyntaxEditorParser implements
         Set<OWLOntology> ontologies = getOntologies();
         Set<OWLAnnotation> annotations = parseAnnotations();
         Set<OWLPropertyExpression> props = parsePropertyList();
-        Set<OntologyAxiomPair> pairs = new HashSet<OntologyAxiomPair>();
+        Set<OntologyAxiomPair> pairs = new HashSet<>();
         OWLAxiom propertiesAxiom;
         if (props.iterator().next().isObjectPropertyExpression()) {
-            Set<OWLObjectPropertyExpression> ope = new HashSet<OWLObjectPropertyExpression>();
+            Set<OWLObjectPropertyExpression> ope = new HashSet<>();
             for (OWLPropertyExpression pe : props) {
                 ope.add((OWLObjectPropertyExpression) pe);
             }
             propertiesAxiom = dataFactory.getOWLDisjointObjectPropertiesAxiom(
                     ope, annotations);
         } else {
-            Set<OWLDataPropertyExpression> dpe = new HashSet<OWLDataPropertyExpression>();
+            Set<OWLDataPropertyExpression> dpe = new HashSet<>();
             for (OWLPropertyExpression pe : props) {
                 dpe.add((OWLDataPropertyExpression) pe);
             }
@@ -1889,7 +1889,7 @@ public class ManchesterOWLSyntaxEditorParser implements
         Set<OWLOntology> ontologies = getOntologies();
         Set<OWLAnnotation> annotations = parseAnnotations();
         Set<OWLIndividual> individuals = parseIndividualList();
-        Set<OntologyAxiomPair> pairs = new HashSet<OntologyAxiomPair>();
+        Set<OntologyAxiomPair> pairs = new HashSet<>();
         for (OWLOntology ontology : ontologies) {
             assert ontology != null;
             pairs.add(new OntologyAxiomPair(ontology, dataFactory
@@ -1939,7 +1939,7 @@ public class ManchesterOWLSyntaxEditorParser implements
 
     @Override
     public Set<OWLClassExpression> parseClassExpressionList() {
-        Set<OWLClassExpression> descs = new HashSet<OWLClassExpression>();
+        Set<OWLClassExpression> descs = new HashSet<>();
         String sep = COMMA.keyword();
         while (COMMA.matches(sep)) {
             potentialKeywords.remove(COMMA);
@@ -1957,7 +1957,7 @@ public class ManchesterOWLSyntaxEditorParser implements
             parseClassExpressionList(ManchesterOWLSyntax expectedOpen,
                     ManchesterOWLSyntax expectedClose) {
         String open = consumeToken();
-        Set<OWLClassExpression> descs = new HashSet<OWLClassExpression>();
+        Set<OWLClassExpression> descs = new HashSet<>();
         if (!expectedOpen.matches(open)) {
             throw new ExceptionBuilder().withKeyword(expectedOpen).build();
         }
@@ -1981,7 +1981,7 @@ public class ManchesterOWLSyntaxEditorParser implements
 
     @Override
     public Set<OWLPropertyExpression> parsePropertyList() {
-        Set<OWLPropertyExpression> props = new HashSet<OWLPropertyExpression>();
+        Set<OWLPropertyExpression> props = new HashSet<>();
         String sep = COMMA.keyword();
         while (COMMA.matches(sep)) {
             OWLPropertyExpression prop = parsePropertyExpression();
@@ -1996,7 +1996,7 @@ public class ManchesterOWLSyntaxEditorParser implements
 
     @Override
     public Set<OWLObjectPropertyExpression> parseObjectPropertyList() {
-        Set<OWLObjectPropertyExpression> props = new HashSet<OWLObjectPropertyExpression>();
+        Set<OWLObjectPropertyExpression> props = new HashSet<>();
         String sep = COMMA.keyword();
         while (COMMA.matches(sep)) {
             OWLObjectPropertyExpression prop = parseObjectPropertyExpression(false);
@@ -2011,7 +2011,7 @@ public class ManchesterOWLSyntaxEditorParser implements
 
     @Nonnull
     protected Set<OWLIndividual> parseIndividualList() {
-        Set<OWLIndividual> inds = new HashSet<OWLIndividual>();
+        Set<OWLIndividual> inds = new HashSet<>();
         String sep = COMMA.keyword();
         while (COMMA.matches(sep)) {
             inds.add(parseIndividual());
@@ -2026,7 +2026,7 @@ public class ManchesterOWLSyntaxEditorParser implements
     @Override
     public List<OWLObjectPropertyExpression> parseObjectPropertyChain() {
         String delim = "o";
-        List<OWLObjectPropertyExpression> properties = new ArrayList<OWLObjectPropertyExpression>();
+        List<OWLObjectPropertyExpression> properties = new ArrayList<>();
         while (delim.equals("o")) {
             OWLObjectPropertyExpression prop = parseObjectPropertyExpression(false);
             properties.add(prop);
@@ -2067,7 +2067,7 @@ public class ManchesterOWLSyntaxEditorParser implements
 
     private Map<String, IRI> parsePrefixDeclaration() {
         consumeToken(PREFIX);
-        Map<String, IRI> map = new HashMap<String, IRI>(2);
+        Map<String, IRI> map = new HashMap<>(2);
         String prefixName = consumeToken();
         // Handle legacy = character if necessart
         if (peekToken().equals("=")) {
@@ -2175,10 +2175,10 @@ public class ManchesterOWLSyntaxEditorParser implements
     @Override
     public ManchesterOWLSyntaxOntologyFormat parseOntology(
             @Nonnull OWLOntology ont) {
-        Set<OntologyAxiomPair> axioms = new HashSet<OntologyAxiomPair>();
+        Set<OntologyAxiomPair> axioms = new HashSet<>();
         OWLOntologyID ontologyID = new OWLOntologyID();
-        Set<AddImport> imports = new HashSet<AddImport>();
-        Set<AddOntologyAnnotation> ontologyAnnotations = new HashSet<AddOntologyAnnotation>();
+        Set<AddImport> imports = new HashSet<>();
+        Set<AddOntologyAnnotation> ontologyAnnotations = new HashSet<>();
         defaultOntology = ont;
         processDeclaredEntities();
         while (true) {
@@ -2263,8 +2263,7 @@ public class ManchesterOWLSyntaxEditorParser implements
                         SAME_INDIVIDUAL).build();
             }
         }
-        List<OWLOntologyChange<?>> changes = new ArrayList<OWLOntologyChange<?>>(
-                axioms.size());
+        List<OWLOntologyChange> changes = new ArrayList<>(axioms.size());
         changes.addAll(imports);
         changes.addAll(ontologyAnnotations);
         for (OntologyAxiomPair pair : axioms) {
@@ -2291,8 +2290,8 @@ public class ManchesterOWLSyntaxEditorParser implements
                 versionIRI = parseIRI();
             }
         }
-        Set<OWLAnnotation> annotations = new HashSet<OWLAnnotation>();
-        Set<OWLImportsDeclaration> imports = new HashSet<OWLImportsDeclaration>();
+        Set<OWLAnnotation> annotations = new HashSet<>();
+        Set<OWLImportsDeclaration> imports = new HashSet<>();
         while (true) {
             String section = peekToken();
             if (IMPORT.matches(section)) {
@@ -2346,7 +2345,7 @@ public class ManchesterOWLSyntaxEditorParser implements
         boolean datatypeNameExpected = false;
         boolean annotationPropertyNameExpected = false;
         boolean integerExpected = false;
-        Set<String> keywords = new HashSet<String>();
+        Set<String> keywords = new HashSet<>();
         List<String> tokenSequence;
         int start = -1;
         int line = -1;
@@ -2467,7 +2466,7 @@ public class ManchesterOWLSyntaxEditorParser implements
     }
 
     protected List<String> getTokenSequence() {
-        List<String> seq = new ArrayList<String>();
+        List<String> seq = new ArrayList<>();
         int index = tokenIndex - 1;
         if (index < 0) {
             index = 0;
@@ -2537,7 +2536,7 @@ public class ManchesterOWLSyntaxEditorParser implements
         }
     }
 
-    private final Map<String, IRI> nameIRIMap = new HashMap<String, IRI>();
+    private final Map<String, IRI> nameIRIMap = new HashMap<>();
 
     @Nonnull
     protected IRI getIRI(@Nonnull String _name) {
@@ -2768,7 +2767,7 @@ public class ManchesterOWLSyntaxEditorParser implements
             return dataFactory.getOWLObjectPropertyRangeAxiom(prop, range);
         } else if (CHAIN_CONNECT.matches(kw)) {
             String sep = kw;
-            List<OWLObjectPropertyExpression> chain = new ArrayList<OWLObjectPropertyExpression>();
+            List<OWLObjectPropertyExpression> chain = new ArrayList<>();
             chain.add(prop);
             while (sep.equals("o")) {
                 OWLObjectPropertyExpression chainProp = parseObjectPropertyExpression(false);
@@ -2872,7 +2871,7 @@ public class ManchesterOWLSyntaxEditorParser implements
     private <F, O> Set<OntologyAxiomPair> parseAnnotatedListItems(@Nonnull F s,
             @Nonnull AnnotatedListItemParser<F, O> itemParser,
             @Nonnull Set<OWLOntology> ontologies) {
-        Set<OntologyAxiomPair> result = new HashSet<OntologyAxiomPair>();
+        Set<OntologyAxiomPair> result = new HashSet<>();
         String sep = COMMA.keyword();
         while (COMMA.matches(sep)) {
             Set<OWLAnnotation> annotations = parseAnnotations();
@@ -2982,7 +2981,7 @@ public class ManchesterOWLSyntaxEditorParser implements
         @Override
         public OWLAxiom createAxiom(OWLClass s, OWLClassExpression o,
                 Set<OWLAnnotation> anns) {
-            Set<OWLClassExpression> disjointClasses = new HashSet<OWLClassExpression>();
+            Set<OWLClassExpression> disjointClasses = new HashSet<>();
             disjointClasses.add(s);
             disjointClasses.add(o);
             return dataFactory
@@ -3148,7 +3147,7 @@ public class ManchesterOWLSyntaxEditorParser implements
         @Override
         public OWLAxiom createAxiom(OWLObjectProperty s,
                 OWLObjectPropertyExpression o, Set<OWLAnnotation> anns) {
-            Set<OWLObjectPropertyExpression> properties = new HashSet<OWLObjectPropertyExpression>();
+            Set<OWLObjectPropertyExpression> properties = new HashSet<>();
             properties.add(s);
             properties.add(o);
             return dataFactory.getOWLDisjointObjectPropertiesAxiom(properties,
@@ -3296,7 +3295,7 @@ public class ManchesterOWLSyntaxEditorParser implements
         @Override
         public OWLAxiom createAxiom(OWLDataProperty s,
                 OWLDataPropertyExpression o, Set<OWLAnnotation> anns) {
-            Set<OWLDataPropertyExpression> properties = new HashSet<OWLDataPropertyExpression>();
+            Set<OWLDataPropertyExpression> properties = new HashSet<>();
             properties.add(s);
             properties.add(o);
             return dataFactory.getOWLDisjointDataPropertiesAxiom(properties,
@@ -3411,7 +3410,7 @@ public class ManchesterOWLSyntaxEditorParser implements
         @Override
         public OWLAxiom createAxiom(OWLIndividual s, OWLIndividual o,
                 @Nonnull Set<OWLAnnotation> anns) {
-            Set<OWLIndividual> individuals = new HashSet<OWLIndividual>();
+            Set<OWLIndividual> individuals = new HashSet<>();
             individuals.add(s);
             individuals.add(o);
             return dataFactory.getOWLSameIndividualAxiom(individuals, anns);
@@ -3429,7 +3428,7 @@ public class ManchesterOWLSyntaxEditorParser implements
         @Override
         public OWLAxiom createAxiom(OWLIndividual s, OWLIndividual o,
                 Set<OWLAnnotation> anns) {
-            Set<OWLIndividual> individuals = new HashSet<OWLIndividual>();
+            Set<OWLIndividual> individuals = new HashSet<>();
             individuals.add(s);
             individuals.add(o);
             return dataFactory.getOWLDifferentIndividualsAxiom(individuals,
@@ -3453,7 +3452,7 @@ public class ManchesterOWLSyntaxEditorParser implements
         @Override
         public OWLAxiom createAxiom(OWLIndividual s, Set<OWLIndividual> o,
                 Set<OWLAnnotation> anns) {
-            Set<OWLIndividual> individuals = new HashSet<OWLIndividual>();
+            Set<OWLIndividual> individuals = new HashSet<>();
             individuals.add(s);
             individuals.addAll(o);
             return dataFactory.getOWLDifferentIndividualsAxiom(individuals,

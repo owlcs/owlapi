@@ -20,7 +20,7 @@ public class IdTranslator {
     @Nonnull
     static final String OBO_IRI_PREFIX = "http://purl.obolibrary.org/obo/";
     @Nonnull
-    private final Map<String, String> idspaceMap = new HashMap<String, String>();
+    private final Map<String, String> idspaceMap = new HashMap<>();
 
     /**
      * @param iri

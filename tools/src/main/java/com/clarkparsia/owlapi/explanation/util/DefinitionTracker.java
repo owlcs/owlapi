@@ -33,9 +33,9 @@ import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
 public class DefinitionTracker implements OWLOntologyChangeListener {
 
     /** Mapping from entities to the number of axioms. */
-    private final Map<OWLEntity, Integer> referenceCounts = new HashMap<OWLEntity, Integer>();
+    private final Map<OWLEntity, Integer> referenceCounts = new HashMap<>();
     private final OWLOntology ontology;
-    private final Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+    private final Set<OWLAxiom> axioms = new HashSet<>();
     private final static Integer ONE = Integer.valueOf(1);
 
     /**
@@ -120,8 +120,8 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
     }
 
     @Override
-    public void ontologiesChanged(List<? extends OWLOntologyChange<?>> changes) {
-        for (OWLOntologyChange<?> change : changes) {
+    public void ontologiesChanged(List<? extends OWLOntologyChange> changes) {
+        for (OWLOntologyChange change : changes) {
             if (!change.isAxiomChange()
                     || !ontology.getImportsClosure().contains(
                             change.getOntology())) {

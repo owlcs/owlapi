@@ -34,7 +34,7 @@ public class OBODocDiffer {
     @Nonnull
     public static List<Diff>
             getDiffs(@Nonnull OBODoc doc1, @Nonnull OBODoc doc2) {
-        List<Diff> diffs = new ArrayList<Diff>();
+        List<Diff> diffs = new ArrayList<>();
         diffs.addAll(getDiffs("Header", doc1.getHeaderFrame(),
                 doc2.getHeaderFrame()));
         diffs.addAll(getDiffs("Term", doc1.getTermFrames(),
@@ -52,8 +52,8 @@ public class OBODocDiffer {
     private static List<Diff> getDiffsAsym(String ftype,
             @Nonnull Collection<Frame> fl1, @Nonnull Collection<Frame> fl2,
             int n, boolean isCheckFrame) {
-        List<Diff> diffs = new ArrayList<Diff>();
-        Map<String, Frame> fm2 = new HashMap<String, Frame>();
+        List<Diff> diffs = new ArrayList<>();
+        Map<String, Frame> fm2 = new HashMap<>();
         for (Frame f : fl2) {
             fm2.put(f.getId(), f);
         }
@@ -84,7 +84,7 @@ public class OBODocDiffer {
     @Nonnull
     private static List<Diff> getDiffsAsym(String ftype, @Nonnull Frame f1,
             @Nonnull Frame f2, int n) {
-        List<Diff> diffs = new ArrayList<Diff>();
+        List<Diff> diffs = new ArrayList<>();
         for (Clause c : f1.getClauses()) {
             boolean isMatched = false;
             for (Clause c2 : f2.getClauses()) {

@@ -19,8 +19,7 @@ import javax.annotation.Nonnull;
  *         Informatics Group
  * @since 2.0.0
  */
-class OWLXMLParserAttributeNotFoundException extends
-        OWLXMLParserException {
+class OWLXMLParserAttributeNotFoundException extends OWLXMLParserException {
 
     private static final long serialVersionUID = 40000L;
 

@@ -34,7 +34,7 @@ public class EquivalentObjectPropertiesTestCase extends
     @Nonnull
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> axioms = new HashSet<>();
         OWLObjectProperty propA = ObjectProperty(iri("propA"));
         OWLObjectProperty propB = ObjectProperty(iri("propB"));
         axioms.add(EquivalentObjectProperties(propA, propB));

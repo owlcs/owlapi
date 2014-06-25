@@ -44,7 +44,7 @@ public class XSDVocabularyTestCase {
     @Nonnull
     @Parameterized.Parameters
     public static Collection<Object[]> getData() {
-        List<Object[]> data = new ArrayList<Object[]>();
+        List<Object[]> data = new ArrayList<>();
         for (XSDVocabulary v : XSDVocabulary.values()) {
             data.add(new Object[] { v });
         }

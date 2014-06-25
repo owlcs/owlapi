@@ -175,7 +175,7 @@ public class RioRendererTest {
         assertEquals(6, testHandlerStatementCollector.getNamespaces().size());
         assertEquals(171, testHandlerStatementCollector.getStatements().size());
         // check for duplicate statements
-        HashSet<Statement> resultStatements = new HashSet<Statement>(
+        HashSet<Statement> resultStatements = new HashSet<>(
                 testHandlerStatementCollector.getStatements());
         assertEquals("Duplicate statements were emitted", 171,
                 resultStatements.size());
@@ -211,7 +211,7 @@ public class RioRendererTest {
         assertEquals(5, testHandlerStatementCollector.getNamespaces().size());
         assertEquals(171, testHandlerStatementCollector.getStatements().size());
         // check for duplicate statements
-        HashSet<Statement> resultStatements = new HashSet<Statement>(
+        HashSet<Statement> resultStatements = new HashSet<>(
                 testHandlerStatementCollector.getStatements());
         assertEquals("Duplicate statements were emitted", 171,
                 resultStatements.size());
@@ -241,7 +241,7 @@ public class RioRendererTest {
         assertEquals(6, testHandlerStatementCollector.getNamespaces().size());
         assertEquals(171, testHandlerStatementCollector.getStatements().size());
         // check for duplicate statements
-        HashSet<Statement> resultStatements = new HashSet<Statement>(
+        HashSet<Statement> resultStatements = new HashSet<>(
                 testHandlerStatementCollector.getStatements());
         assertEquals("Duplicate statements were emitted", 171,
                 resultStatements.size());
@@ -275,7 +275,7 @@ public class RioRendererTest {
         assertEquals(0, testHandlerStatementCollector.getNamespaces().size());
         assertEquals(171, testHandlerStatementCollector.getStatements().size());
         // check for duplicate statements
-        HashSet<Statement> resultStatements = new HashSet<Statement>(
+        HashSet<Statement> resultStatements = new HashSet<>(
                 testHandlerStatementCollector.getStatements());
         assertEquals("Duplicate statements were emitted", 171,
                 resultStatements.size());

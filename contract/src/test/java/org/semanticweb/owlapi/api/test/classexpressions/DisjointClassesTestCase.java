@@ -35,7 +35,7 @@ public class DisjointClassesTestCase extends AbstractFileRoundTrippingTestCase {
 
     @Test
     public void testContains() {
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> axioms = new HashSet<>();
         OWLClass clsA = Class(iri("A"));
         OWLClass clsB = Class(iri("B"));
         OWLClass clsC = Class(iri("C"));

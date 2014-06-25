@@ -109,7 +109,8 @@ public class FileDocumentSource extends OWLOntologyDocumentSourceBase {
     @Override
     public Reader getReader() {
         try {
-            return new BufferedReader(new InputStreamReader(getInputStream(), "UTF-8"));
+            return new BufferedReader(new InputStreamReader(getInputStream(),
+                    "UTF-8"));
         } catch (UnsupportedEncodingException e) {
             // it cannot not support UTF-8
             throw new OWLOntologyInputSourceException(e);

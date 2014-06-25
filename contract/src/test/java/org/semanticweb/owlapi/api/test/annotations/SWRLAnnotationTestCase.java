@@ -51,13 +51,13 @@ public class SWRLAnnotationTestCase extends TestBase {
         SWRLVariable x = df.getSWRLVariable(IRI(NS + "#x"));
         SWRLAtom atom1 = df.getSWRLClassAtom(a, x);
         SWRLAtom atom2 = df.getSWRLClassAtom(b, x);
-        Set<SWRLAtom> consequent = new TreeSet<SWRLAtom>();
+        Set<SWRLAtom> consequent = new TreeSet<>();
         consequent.add(atom1);
         OWLAnnotation annotation = df.getOWLAnnotation(RDFSComment(),
                 Literal("Not a great rule"));
-        Set<OWLAnnotation> annotations = new TreeSet<OWLAnnotation>();
+        Set<OWLAnnotation> annotations = new TreeSet<>();
         annotations.add(annotation);
-        Set<SWRLAtom> body = new TreeSet<SWRLAtom>();
+        Set<SWRLAtom> body = new TreeSet<>();
         body.add(atom2);
         axiom = df.getSWRLRule(body, consequent, annotations);
     }
@@ -72,7 +72,7 @@ public class SWRLAnnotationTestCase extends TestBase {
 
     public OWLOntology createOntology() throws OWLOntologyCreationException {
         OWLOntology ontology = m.createOntology(IRI(NS));
-        List<AddAxiom> changes = new ArrayList<AddAxiom>();
+        List<AddAxiom> changes = new ArrayList<>();
         changes.add(new AddAxiom(ontology, axiom));
         m.applyChanges(changes);
         return ontology;

@@ -46,7 +46,7 @@ public class ClassAxiomByClassPointer extends
 
     @Nonnull
     @Override
-    public ClassAxiomByClassPointer init() {
+    public synchronized ClassAxiomByClassPointer init() {
         if (isInitialized()) {
             return this;
         }

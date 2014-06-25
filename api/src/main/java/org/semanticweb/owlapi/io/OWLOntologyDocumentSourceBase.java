@@ -2,7 +2,6 @@ package org.semanticweb.owlapi.io;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.io.BufferedInputStream;
 import java.io.InputStream;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -36,7 +35,7 @@ public abstract class OWLOntologyDocumentSourceBase implements
     }
 
     /**
-     * Wrap an input stream to  strip BOMs.
+     * Wrap an input stream to strip BOMs.
      * 
      * @param delegate
      *        delegate to wrap
@@ -45,10 +44,9 @@ public abstract class OWLOntologyDocumentSourceBase implements
     @Nonnull
     public static InputStream wrap(@Nonnull InputStream delegate) {
         checkNotNull(delegate, "delegate cannot be null");
-        return new BOMInputStream(delegate,
-                ByteOrderMark.UTF_8, ByteOrderMark.UTF_16BE,
-                ByteOrderMark.UTF_16LE, ByteOrderMark.UTF_32BE,
-                ByteOrderMark.UTF_32LE);
+        return new BOMInputStream(delegate, ByteOrderMark.UTF_8,
+                ByteOrderMark.UTF_16BE, ByteOrderMark.UTF_16LE,
+                ByteOrderMark.UTF_32BE, ByteOrderMark.UTF_32LE);
     }
 
     private final OWLOntologyFormat format;

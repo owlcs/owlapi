@@ -163,10 +163,13 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
     private void write(@Nonnull IRI iri) {
         String qname = prefixManager.getPrefixIRI(iri);
         if (qname != null) {
-            write(qname);
-        } else {
-            writeFullIRI(iri);
+            boolean lastCharIsColon = qname.charAt(qname.length() - 1) == ':';
+            if (!lastCharIsColon) {
+                write(qname);
+                return;
+            }
         }
+        writeFullIRI(iri);
     }
 
     private void writeFullIRI(@Nonnull IRI iri) {
@@ -204,9 +207,8 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
             writeReturn();
         }
         writeReturn();
-        Set<OWLAxiom> writtenAxioms = new HashSet<OWLAxiom>();
-        List<OWLEntity> signature = new ArrayList<OWLEntity>(
-                ontology.getSignature());
+        Set<OWLAxiom> writtenAxioms = new HashSet<>();
+        List<OWLEntity> signature = new ArrayList<>(ontology.getSignature());
         Collections.sort(signature);
         Collection<IRI> illegals = OWLOntologyFormat.determineIllegalPunnings(
                 addMissingDeclarations, signature,
@@ -236,7 +238,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
      */
     @Nonnull
     protected Set<OWLAxiom> writeAxioms(@Nonnull OWLEntity entity) {
-        Set<OWLAxiom> writtenAxioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> writtenAxioms = new HashSet<>();
         writeAxioms(entity, writtenAxioms);
         return writtenAxioms;
     }
@@ -245,7 +247,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
             @Nonnull Set<OWLAxiom> alreadyWrittenAxioms) {
         setFocusedObject(entity);
         writeAnnotations(entity, alreadyWrittenAxioms);
-        List<OWLAxiom> axs = new ArrayList<OWLAxiom>();
+        List<OWLAxiom> axs = new ArrayList<>();
         axs.addAll(entity
                 .accept(new OWLEntityVisitorEx<Set<? extends OWLAxiom>>() {
 
@@ -284,7 +286,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
                     }
                 }));
         Collections.sort(axs);
-        Set<OWLAxiom> writtenAxioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> writtenAxioms = new HashSet<>();
         for (OWLAxiom ax : axs) {
             if (alreadyWrittenAxioms.contains(ax)) {
                 continue;
@@ -313,7 +315,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
      */
     @Nonnull
     protected Set<OWLAxiom> writeDeclarations(@Nonnull OWLEntity entity) {
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> axioms = new HashSet<>();
         for (OWLAxiom ax : ont.getDeclarationAxioms(entity)) {
             ax.accept(this);
             axioms.add(ax);

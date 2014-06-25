@@ -59,7 +59,7 @@ public class OntologyVersionIRINotAbsolute extends
     }
 
     @Override
-    public List<OWLOntologyChange<?>> repair() {
+    public List<OWLOntologyChange> repair() {
         // XXX arbitrary choice
         return list(new SetOntologyID(ontology, new OWLOntologyID(
                 Optional.of(IRI.create("urn:ontology#replaced")),

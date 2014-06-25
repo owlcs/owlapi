@@ -34,14 +34,14 @@ public class AnnotationOnAnnotationTestCase extends
     @Nonnull
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> axioms = new HashSet<>();
         OWLAnnotation annoOuterOuter1 = df.getOWLAnnotation(
                 AnnotationProperty(iri("myOuterOuterLabel1")),
                 Literal("Outer Outer label 1"));
         OWLAnnotation annoOuterOuter2 = df.getOWLAnnotation(
                 AnnotationProperty(iri("myOuterOuterLabel2")),
                 Literal("Outer Outer label 2"));
-        Set<OWLAnnotation> outerOuterAnnos = new HashSet<OWLAnnotation>();
+        Set<OWLAnnotation> outerOuterAnnos = new HashSet<>();
         outerOuterAnnos.add(annoOuterOuter1);
         outerOuterAnnos.add(annoOuterOuter2);
         OWLAnnotation annoOuter = df.getOWLAnnotation(

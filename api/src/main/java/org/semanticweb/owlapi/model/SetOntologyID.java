@@ -28,7 +28,7 @@ import com.google.common.base.Optional;
  *         Management Group
  * @since 3.0.0
  */
-public class SetOntologyID extends OWLOntologyChange<OWLOntologyID> {
+public class SetOntologyID extends OWLOntologyChange {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull

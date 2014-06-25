@@ -105,7 +105,7 @@ public class ConvertPropertyAssertionsToAnnotations extends
     @Nonnull
     private Collection<OWLNamedIndividual> getPunnedIndividuals(
             @Nonnull Collection<OWLNamedIndividual> individuals) {
-        List<OWLNamedIndividual> punned = new ArrayList<OWLNamedIndividual>();
+        List<OWLNamedIndividual> punned = new ArrayList<>();
         for (OWLNamedIndividual ind : individuals) {
             for (OWLOntology ont : ontologies) {
                 if (ont.containsClassInSignature(ind.getIRI(), EXCLUDED)) {
@@ -118,7 +118,7 @@ public class ConvertPropertyAssertionsToAnnotations extends
 
     private void generateChanges() {
         Collection<OWLNamedIndividual> individuals = getPunnedIndividuals(collectIndividuals());
-        Set<OWLDataProperty> convertedDataProperties = new HashSet<OWLDataProperty>();
+        Set<OWLDataProperty> convertedDataProperties = new HashSet<>();
         for (OWLNamedIndividual ind : individuals) {
             assert ind != null;
             convertDataAssertionsToAnnotations(convertedDataProperties, ind);
@@ -189,7 +189,7 @@ public class ConvertPropertyAssertionsToAnnotations extends
 
     @Nonnull
     private Set<OWLNamedIndividual> collectIndividuals() {
-        Set<OWLNamedIndividual> individuals = new HashSet<OWLNamedIndividual>();
+        Set<OWLNamedIndividual> individuals = new HashSet<>();
         for (OWLOntology ont : ontologies) {
             individuals.addAll(ont.getIndividualsInSignature());
         }

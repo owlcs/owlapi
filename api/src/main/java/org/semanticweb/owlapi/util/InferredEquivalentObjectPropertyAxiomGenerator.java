@@ -36,8 +36,8 @@ public class InferredEquivalentObjectPropertyAxiomGenerator
     protected void addAxioms(OWLObjectProperty entity,
             @Nonnull OWLReasoner reasoner, OWLDataFactory dataFactory,
             Set<OWLEquivalentObjectPropertiesAxiom> result) {
-        Set<OWLObjectPropertyExpression> equivProps = new HashSet<OWLObjectPropertyExpression>(
-                reasoner.getEquivalentObjectProperties(entity).getEntities());
+        Set<OWLObjectPropertyExpression> equivProps = new HashSet<>(reasoner
+                .getEquivalentObjectProperties(entity).getEntities());
         equivProps.add(entity);
         result.add(dataFactory
                 .getOWLEquivalentObjectPropertiesAxiom(equivProps));

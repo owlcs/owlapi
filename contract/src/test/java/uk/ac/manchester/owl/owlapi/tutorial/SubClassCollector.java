@@ -39,7 +39,7 @@ public class SubClassCollector extends OWLAxiomVisitorAdapter {
     private final OWLClass clazz;
 
     public SubClassCollector(OWLClass clazz) {
-        axioms = new HashSet<OWLSubClassOfAxiom>();
+        axioms = new HashSet<>();
         this.clazz = clazz;
     }
 

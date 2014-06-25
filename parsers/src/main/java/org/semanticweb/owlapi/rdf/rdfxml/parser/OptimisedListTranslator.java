@@ -94,12 +94,12 @@ class OptimisedListTranslator<O extends OWLObject> {
             if (o != null && o instanceof List) {
                 list = (List<O>) o;
             } else {
-                list = new ArrayList<O>();
+                list = new ArrayList<>();
                 translateList(mainNode, list);
                 consumer.addSharedAnonymousNode(mainNode, list);
             }
         } else {
-            list = new ArrayList<O>();
+            list = new ArrayList<>();
             translateList(mainNode, list);
         }
         return list;
@@ -112,6 +112,6 @@ class OptimisedListTranslator<O extends OWLObject> {
      */
     @Nonnull
     public Set<O> translateToSet(@Nonnull IRI mainNode) {
-        return new LinkedHashSet<O>(translateList(mainNode));
+        return new LinkedHashSet<>(translateList(mainNode));
     }
 }

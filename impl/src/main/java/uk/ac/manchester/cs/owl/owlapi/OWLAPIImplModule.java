@@ -59,18 +59,17 @@ public class OWLAPIImplModule extends AbstractModule {
         configureIRIMappers();
     }
 
-    @SuppressWarnings("unchecked")
     protected void configureIRIMappers() {
         multibind(OWLOntologyIRIMapper.class, NonMappingOntologyIRIMapper.class);
     }
 
-    @SuppressWarnings("unchecked")
     protected void configureOntologyFactories() {
         multibind(OWLOntologyFactory.class, EmptyInMemOWLOntologyFactory.class,
                 ParsableOWLOntologyFactory.class);
     }
 
-    private <T> Multibinder<T> multibind(Class<T> type,
+    @SafeVarargs
+    private final <T> Multibinder<T> multibind(Class<T> type,
             @Nonnull Class<? extends T>... implementations) {
         Multibinder<T> binder = Multibinder.newSetBinder(binder(), type);
         for (Class<? extends T> i : implementations) {

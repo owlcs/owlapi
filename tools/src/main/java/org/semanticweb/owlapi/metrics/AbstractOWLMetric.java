@@ -103,7 +103,7 @@ public abstract class AbstractOWLMetric<M extends Serializable> implements
     }
 
     @Override
-    public void ontologiesChanged(List<? extends OWLOntologyChange<?>> changes) {
+    public void ontologiesChanged(List<? extends OWLOntologyChange> changes) {
         if (isMetricInvalidated(changes)) {
             setDirty(true);
         }
@@ -143,7 +143,7 @@ public abstract class AbstractOWLMetric<M extends Serializable> implements
      *         cause the value of this metric to be invalidated.
      */
     protected abstract boolean isMetricInvalidated(
-            @Nonnull List<? extends OWLOntologyChange<?>> changes);
+            @Nonnull List<? extends OWLOntologyChange> changes);
 
     /** Dispose metric. */
     protected abstract void disposeMetric();

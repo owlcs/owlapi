@@ -68,7 +68,7 @@ public class CoerceConstantsIntoDataPropertyRange extends
             @Nonnull OWLDataFactory dataFactory,
             @Nonnull Set<OWLOntology> ontologies) {
         super(dataFactory);
-        Map<OWLDataPropertyExpression, OWLDatatype> map = new HashMap<OWLDataPropertyExpression, OWLDatatype>();
+        Map<OWLDataPropertyExpression, OWLDatatype> map = new HashMap<>();
         for (OWLOntology ont : checkNotNull(ontologies,
                 "ontologies cannot be null")) {
             for (OWLDataPropertyRangeAxiom ax : ont
@@ -113,7 +113,7 @@ public class CoerceConstantsIntoDataPropertyRange extends
         @Nonnull
         private OWLDataOneOf process(@Nonnull OWLDataPropertyExpression prop,
                 @Nonnull OWLDataOneOf oneOf) {
-            Set<OWLLiteral> vals = new HashSet<OWLLiteral>();
+            Set<OWLLiteral> vals = new HashSet<>();
             for (OWLLiteral con : oneOf.getValues()) {
                 assert con != null;
                 vals.add(process(prop, con));

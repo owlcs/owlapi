@@ -10,8 +10,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
- package org.semanticweb.owlapi.util;
+package org.semanticweb.owlapi.util;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -126,10 +127,12 @@ import org.semanticweb.owlapi.model.SWRLVariable;
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 13-Nov-2006
- * @deprecated the old OWLEntityCollector is still used in non trivial 
- * ways in third party software. For new code, use OWLEntityCollector.
- */@Deprecated
-public class DeprecatedOWLEntityCollector implements OWLObjectVisitor, SWRLObjectVisitor {
+ * @deprecated the old OWLEntityCollector is still used in non trivial ways in
+ *             third party software. For new code, use OWLEntityCollector.
+ */
+@Deprecated
+public class DeprecatedOWLEntityCollector implements OWLObjectVisitor,
+        SWRLObjectVisitor {
 
     private Collection<OWLEntity> objects;
     private final Collection<OWLAnonymousIndividual> anonymousIndividuals;
@@ -231,7 +234,7 @@ public class DeprecatedOWLEntityCollector implements OWLObjectVisitor, SWRLObjec
      */
     @Deprecated
     public Set<OWLEntity> getObjects() {
-        return new HashSet<OWLEntity>(objects);
+        return new HashSet<>(objects);
     }
 
     /**
@@ -245,7 +248,7 @@ public class DeprecatedOWLEntityCollector implements OWLObjectVisitor, SWRLObjec
      */
     @Deprecated
     public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
-        return new HashSet<OWLAnonymousIndividual>(anonymousIndividuals);
+        return new HashSet<>(anonymousIndividuals);
     }
 
     protected void processAxiomAnnotations(OWLAxiom ax) {
@@ -820,7 +823,9 @@ public class DeprecatedOWLEntityCollector implements OWLObjectVisitor, SWRLObjec
         node.getSecondArgument().accept(this);
     }
 
-    private static final List<OWLAnonymousIndividual> fake = new List<OWLAnonymousIndividual>() {
+    private static final List<OWLAnonymousIndividual> fake = new ArrayList<OWLAnonymousIndividual>() {
+
+        private static final long serialVersionUID = 40000L;
 
         @Override
         public <T> T[] toArray(T[] arg0) {

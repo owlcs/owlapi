@@ -29,7 +29,7 @@ import org.semanticweb.owlapi.model.OWLEntity;
  *         Research Group
  * @since 3.3
  */
-public abstract class AxiomChangeData extends OWLOntologyChangeData<OWLAxiom> {
+public abstract class AxiomChangeData extends OWLOntologyChangeData {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull

@@ -70,7 +70,7 @@ public class UseOfUndeclaredObjectProperty extends
     }
 
     @Override
-    public List<OWLOntologyChange<?>> repair() {
+    public List<OWLOntologyChange> repair() {
         return list(addDeclaration(getExpression()));
     }
 }

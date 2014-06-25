@@ -37,7 +37,7 @@ import org.semanticweb.owlapi.util.OWLObjectDuplicator;
 @SuppressWarnings("javadoc")
 public class AnonymousIndividualsNormaliser extends OWLObjectDuplicator {
 
-    private final Map<OWLAnonymousIndividual, OWLAnonymousIndividual> renamingMap = new HashMap<OWLAnonymousIndividual, OWLAnonymousIndividual>();
+    private final Map<OWLAnonymousIndividual, OWLAnonymousIndividual> renamingMap = new HashMap<>();
     private int counter = 0;
 
     /**
@@ -53,9 +53,9 @@ public class AnonymousIndividualsNormaliser extends OWLObjectDuplicator {
 
     @Nonnull
     public Set<OWLAxiom> getNormalisedAxioms(@Nonnull Set<OWLAxiom> axioms) {
-        List<OWLAxiom> axiomsList = new ArrayList<OWLAxiom>(axioms);
+        List<OWLAxiom> axiomsList = new ArrayList<>(axioms);
         Collections.sort(axiomsList);
-        Set<OWLAxiom> normalised = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> normalised = new HashSet<>();
         for (OWLAxiom ax : axiomsList) {
             assert ax != null;
             OWLAxiom dup = duplicateObject(ax);

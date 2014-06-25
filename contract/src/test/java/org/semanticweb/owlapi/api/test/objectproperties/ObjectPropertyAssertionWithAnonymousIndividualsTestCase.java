@@ -38,7 +38,7 @@ public class ObjectPropertyAssertionWithAnonymousIndividualsTestCase extends
         OWLIndividual subject = AnonymousIndividual();
         OWLIndividual object = AnonymousIndividual();
         OWLObjectProperty prop = ObjectProperty(iri("prop"));
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> axioms = new HashSet<>();
         axioms.add(ObjectPropertyAssertion(prop, subject, object));
         axioms.add(Declaration(prop));
         return axioms;

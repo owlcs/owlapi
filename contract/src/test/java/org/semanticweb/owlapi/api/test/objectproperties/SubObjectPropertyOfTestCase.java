@@ -34,7 +34,7 @@ public class SubObjectPropertyOfTestCase extends
     @Nonnull
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> axioms = new HashSet<>();
         OWLObjectProperty propA = ObjectProperty(iri("p"));
         OWLObjectProperty propB = ObjectProperty(iri("q"));
         axioms.add(SubObjectPropertyOf(propA, propB));

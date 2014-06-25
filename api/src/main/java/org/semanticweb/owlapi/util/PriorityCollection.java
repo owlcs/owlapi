@@ -28,7 +28,7 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>,
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
-    private final List<T> delegate = new ArrayList<T>();
+    private final List<T> delegate = new ArrayList<>();
 
     /**
      * @return size of the collection
@@ -54,13 +54,14 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>,
      * @param c
      *        list of elements to set
      */
-    public void set(T... c) {
+    @SafeVarargs
+    public final void set(T... c) {
         clear();
         add(c);
     }
 
     private void sort() {
-        Collections.sort(delegate, new HasPriorityComparator<T>());
+        Collections.sort(delegate, new HasPriorityComparator<>());
     }
 
     /**
@@ -69,7 +70,8 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>,
      * @param c
      *        list of elements to add
      */
-    public void add(T... c) {
+    @SafeVarargs
+    public final void add(T... c) {
         for (T t : c) {
             delegate.add(0, t);
         }
@@ -95,7 +97,8 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>,
      * @param c
      *        list of elements to remove
      */
-    public void remove(T... c) {
+    @SafeVarargs
+    public final void remove(T... c) {
         for (T t : c) {
             delegate.remove(t);
         }
@@ -127,7 +130,7 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>,
      */
     public PriorityCollection<T> getByMIMEType(@Nonnull String mimeType) {
         checkNotNull(mimeType, "MIME-Type cannot be null");
-        PriorityCollection<T> pc = new PriorityCollection<T>();
+        PriorityCollection<T> pc = new PriorityCollection<>();
         // adding directly to the delegate. No need to order because insertion
         // will be ordered as in this PriorityCollection
         for (T t : delegate) {

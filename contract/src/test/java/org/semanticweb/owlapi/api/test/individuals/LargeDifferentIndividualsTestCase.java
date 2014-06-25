@@ -34,7 +34,7 @@ public class LargeDifferentIndividualsTestCase extends
     @Nonnull
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> axioms = new HashSet<>();
         OWLNamedIndividual[] inds = new OWLNamedIndividual[1000];
         for (int i = 0; i < 1000; i++) {
             inds[i] = createIndividual();

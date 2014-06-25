@@ -57,8 +57,8 @@ public class MacroExpansionVisitor {
 
     /** @return ontology with expanded macros */
     public OWLOntology expandAll() {
-        Set<OWLAxiom> newAxioms = new HashSet<OWLAxiom>();
-        Set<OWLAxiom> rmAxioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> newAxioms = new HashSet<>();
+        Set<OWLAxiom> rmAxioms = new HashSet<>();
         for (OWLAxiom ax : inputOntology.getAxioms()) {
             OWLAxiom exAx = ax;
             if (ax instanceof OWLSubClassOfAxiom) {
@@ -96,7 +96,7 @@ public class MacroExpansionVisitor {
     private Set<OWLAxiom> expand(@Nonnull OWLAnnotationAssertionAxiom ax) {
         OWLAnnotationProperty prop = ax.getProperty();
         String expandTo = visitor.expandAssertionToMap.get(prop.getIRI());
-        HashSet<OWLAxiom> setAx = new HashSet<OWLAxiom>();
+        HashSet<OWLAxiom> setAx = new HashSet<>();
         if (expandTo != null) {
             // when expanding assertions, the axiom is an annotation assertion,
             // and the value may be not be explicitly declared. If it is not,

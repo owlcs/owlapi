@@ -35,6 +35,6 @@ public interface OWLOntologyChangeBroadcastStrategy extends Serializable {
      *         for any exception raised
      */
     void broadcastChanges(@Nonnull OWLOntologyChangeListener listener,
-            @Nonnull List<? extends OWLOntologyChange<?>> changes)
+            @Nonnull List<? extends OWLOntologyChange> changes)
             throws OWLException;
 }

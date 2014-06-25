@@ -288,7 +288,7 @@ public class InitVisitorFactory {
         @Nonnull
         @Override
         public Collection<K> visit(@Nonnull OWLDisjointClassesAxiom axiom) {
-            List<OWLClassExpression> list = new ArrayList<OWLClassExpression>(
+            List<OWLClassExpression> list = new ArrayList<>(
                     axiom.getClassExpressions());
             if (named) {
                 deleteAnonymousClasses(list);
@@ -350,7 +350,7 @@ public class InitVisitorFactory {
         @Nonnull
         @Override
         public Collection<K> visit(@Nonnull OWLEquivalentClassesAxiom axiom) {
-            List<OWLClassExpression> list = new ArrayList<OWLClassExpression>(
+            List<OWLClassExpression> list = new ArrayList<>(
                     axiom.getClassExpressions());
             if (named) {
                 deleteAnonymousClasses(list);
@@ -372,30 +372,19 @@ public class InitVisitorFactory {
         }
     }
 
-    static final InitVisitor<OWLClass> classsubnamed = new InitVisitor<OWLClass>(
-            true, true);
-    static final InitVisitor<OWLClassExpression> classexpressions = new InitVisitor<OWLClassExpression>(
-            true, true);
-    static final InitVisitor<OWLClass> classsupernamed = new InitVisitor<OWLClass>(
-            false, true);
-    static final InitCollectionVisitor<OWLClass> classcollections = new InitCollectionVisitor<OWLClass>(
-            true);
-    static final InitCollectionVisitor<OWLObjectPropertyExpression> opcollections = new InitCollectionVisitor<OWLObjectPropertyExpression>(
-            true);
-    static final InitCollectionVisitor<OWLDataPropertyExpression> dpcollections = new InitCollectionVisitor<OWLDataPropertyExpression>(
-            true);
-    static final InitCollectionVisitor<OWLIndividual> icollections = new InitCollectionVisitor<OWLIndividual>(
-            true);
-    static final InitVisitor<OWLObjectPropertyExpression> opsubnamed = new InitVisitor<OWLObjectPropertyExpression>(
-            true, true);
-    static final InitVisitor<OWLObjectPropertyExpression> opsupernamed = new InitVisitor<OWLObjectPropertyExpression>(
-            false, true);
-    static final InitVisitor<OWLDataPropertyExpression> dpsubnamed = new InitVisitor<OWLDataPropertyExpression>(
-            true, true);
-    static final InitVisitor<OWLDataPropertyExpression> dpsupernamed = new InitVisitor<OWLDataPropertyExpression>(
-            false, true);
-    static final InitVisitor<OWLIndividual> individualsubnamed = new InitIndividualVisitor<OWLIndividual>(
-            true, true);
-    static final InitVisitor<OWLAnnotationSubject> annotsupernamed = new InitVisitor<OWLAnnotationSubject>(
-            true, true);
+//@formatter:off
+    static final InitVisitor<OWLClass>                              classsubnamed      = new InitVisitor<>          (true,  true);
+    static final InitVisitor<OWLClassExpression>                    classexpressions   = new InitVisitor<>          (true,  true);
+    static final InitVisitor<OWLClass>                              classsupernamed    = new InitVisitor<>          (false, true);
+    static final InitCollectionVisitor<OWLClass>                    classcollections   = new InitCollectionVisitor<>(true);
+    static final InitCollectionVisitor<OWLObjectPropertyExpression> opcollections      = new InitCollectionVisitor<>(true);
+    static final InitCollectionVisitor<OWLDataPropertyExpression>   dpcollections      = new InitCollectionVisitor<>(true);
+    static final InitCollectionVisitor<OWLIndividual>               icollections       = new InitCollectionVisitor<>(true);
+    static final InitVisitor<OWLObjectPropertyExpression>           opsubnamed         = new InitVisitor<>          (true,  true);
+    static final InitVisitor<OWLObjectPropertyExpression>           opsupernamed       = new InitVisitor<>          (false, true);
+    static final InitVisitor<OWLDataPropertyExpression>             dpsubnamed         = new InitVisitor<>          (true,  true);
+    static final InitVisitor<OWLDataPropertyExpression>             dpsupernamed       = new InitVisitor<>          (false, true);
+    static final InitVisitor<OWLIndividual>                         individualsubnamed = new InitIndividualVisitor<>(true,  true);
+    static final InitVisitor<OWLAnnotationSubject>                  annotsupernamed    = new InitVisitor<>          (true,  true);
+  //@formatter:on
 }

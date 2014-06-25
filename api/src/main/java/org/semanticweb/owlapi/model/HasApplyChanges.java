@@ -20,6 +20,6 @@ public interface HasApplyChanges {
      * @throws OWLOntologyChangeException
      *         If one or more of the changes could not be applied.
      */
-    List<OWLOntologyChange<?>> applyChanges(
-            @Nonnull List<? extends OWLOntologyChange<?>> changes);
+    List<OWLOntologyChange> applyChanges(
+            @Nonnull List<? extends OWLOntologyChange> changes);
 }

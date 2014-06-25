@@ -61,19 +61,19 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
     private OWLClass currentClass;
     private OWLOntology debuggingOntology;
     @Nonnull
-    private final Set<OWLAxiom> debuggingAxioms = new LinkedHashSet<OWLAxiom>();
+    private final Set<OWLAxiom> debuggingAxioms = new LinkedHashSet<>();
     @Nonnull
-    private final Set<OWLEntity> objectsExpandedWithDefiningAxioms = new HashSet<OWLEntity>();
+    private final Set<OWLEntity> objectsExpandedWithDefiningAxioms = new HashSet<>();
     @Nonnull
-    private final Set<OWLEntity> objectsExpandedWithReferencingAxioms = new HashSet<OWLEntity>();
+    private final Set<OWLEntity> objectsExpandedWithReferencingAxioms = new HashSet<>();
     @Nonnull
-    private final Set<OWLAxiom> expandedWithDefiningAxioms = new HashSet<OWLAxiom>();
+    private final Set<OWLAxiom> expandedWithDefiningAxioms = new HashSet<>();
     @Nonnull
-    private final Set<OWLAxiom> expandedWithReferencingAxioms = new HashSet<OWLAxiom>();
+    private final Set<OWLAxiom> expandedWithReferencingAxioms = new HashSet<>();
     @Nonnull
     private final OWLReasonerFactory reasonerFactory;
     @Nonnull
-    private final Set<OWLAxiom> temporaryAxioms = new HashSet<OWLAxiom>();
+    private final Set<OWLAxiom> temporaryAxioms = new HashSet<>();
     private static final int DEFAULT_INITIAL_EXPANSION_LIMIT = 50;
     private final int initialExpansionLimit = DEFAULT_INITIAL_EXPANSION_LIMIT;
     private int expansionLimit = initialExpansionLimit;
@@ -140,7 +140,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
             // The class is anonymous, so we need to assign it a name
             OWLClass curCls = owlOntologyManager.getOWLDataFactory()
                     .getOWLClass(createIRI());
-            Set<OWLClassExpression> operands = new HashSet<OWLClassExpression>();
+            Set<OWLClassExpression> operands = new HashSet<>();
             operands.add(curCls);
             operands.add(cls);
             temporaryAxioms.add(owlOntologyManager.getOWLDataFactory()
@@ -166,7 +166,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
                     .applyChange(new RemoveAxiom(getOWLOntology(), ax));
         }
         debuggingAxioms.removeAll(temporaryAxioms);
-        return new HashSet<OWLAxiom>(debuggingAxioms);
+        return new HashSet<>(debuggingAxioms);
     }
 
     // Expansion
@@ -182,7 +182,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
         int axiomsAdded = 0;
         int remainingSpace = expansionLimit;
         double expansionFactor = 1.25;
-        for (OWLAxiom ax : new ArrayList<OWLAxiom>(debuggingAxioms)) {
+        for (OWLAxiom ax : new ArrayList<>(debuggingAxioms)) {
             if (expandedWithDefiningAxioms.contains(ax)) {
                 // Skip if already done
                 continue;
@@ -211,7 +211,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
         }
         // No axioms added at this point. Start adding axioms that reference
         // entities contained in the current set of debugging axioms
-        for (OWLAxiom ax : new ArrayList<OWLAxiom>(debuggingAxioms)) {
+        for (OWLAxiom ax : new ArrayList<>(debuggingAxioms)) {
             if (expandedWithReferencingAxioms.contains(ax)) {
                 // Skip - already done this one
                 continue;
@@ -247,7 +247,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
      * @return the int
      */
     private int expandWithDefiningAxioms(@Nonnull OWLEntity obj, int limit) {
-        Set<OWLAxiom> expansionAxioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> expansionAxioms = new HashSet<>();
         if (obj instanceof OWLClass) {
             expansionAxioms.addAll(getOWLOntology().getAxioms((OWLClass) obj,
                     INCLUDED));
@@ -276,7 +276,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
      * @return the int
      */
     private int expandWithReferencingAxioms(@Nonnull OWLEntity obj, int limit) {
-        Set<OWLAxiom> expansionAxioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> expansionAxioms = new HashSet<>();
         // First expand by getting the defining axioms - if this doesn't
         // return any axioms, then get the axioms that reference the entity
         expansionAxioms.addAll(getOWLOntology().getReferencingAxioms(obj,
@@ -317,7 +317,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
     // Contraction/Pruning - Fast pruning is performed and then slow pruning is
     // performed.
     private void performFastPruning() throws OWLException {
-        Set<OWLAxiom> axiomWindow = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> axiomWindow = new HashSet<>();
         Object[] axioms = debuggingAxioms.toArray();
         LOGGER.info("Fast pruning: ");
         LOGGER.info("     - Window size: {}", fastPruningWindowSize);
@@ -358,7 +358,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
         // Simply remove axioms one at a time. If the class
         // being debugged turns satisfiable then we know we have
         // an SOS axoiom.
-        List<OWLAxiom> axiomsCopy = new ArrayList<OWLAxiom>(debuggingAxioms);
+        List<OWLAxiom> axiomsCopy = new ArrayList<>(debuggingAxioms);
         for (OWLAxiom ax : axiomsCopy) {
             debuggingAxioms.remove(ax);
             if (isSatisfiable()) {
@@ -403,7 +403,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
         owlOntologyManager.getIRIMappers().add(mapper);
         debuggingOntology = owlOntologyManager.createOntology(iri);
         owlOntologyManager.getIRIMappers().remove(mapper);
-        List<AddAxiom> changes = new ArrayList<AddAxiom>();
+        List<AddAxiom> changes = new ArrayList<>();
         for (OWLAxiom ax : debuggingAxioms) {
             assert ax != null;
             changes.add(new AddAxiom(getDebuggingOntology(), ax));

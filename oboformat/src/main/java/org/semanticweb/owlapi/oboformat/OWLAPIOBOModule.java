@@ -34,17 +34,16 @@ public class OWLAPIOBOModule extends AbstractModule {
         configureStorers();
     }
 
-    @SuppressWarnings("unchecked")
     protected void configureStorers() {
         multibind(OWLOntologyStorer.class, OBOFormatStorer.class);
     }
 
-    @SuppressWarnings("unchecked")
     protected void configureParsers() {
         multibind(OWLParser.class, OBOFormatOWLAPIParser.class);
     }
 
-    private <T> Multibinder<T> multibind(Class<T> type,
+    @SafeVarargs
+    private final <T> Multibinder<T> multibind(Class<T> type,
             @Nonnull Class<? extends T>... implementations) {
         Multibinder<T> binder = Multibinder.newSetBinder(binder(), type);
         for (Class<? extends T> i : implementations) {

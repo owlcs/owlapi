@@ -114,7 +114,7 @@ public class MapPointer<K, V extends OWLAxiom> {
                 set.add((IRI) k);
             }
         }
-        iris = new SoftReference<Set<IRI>>(set);
+        iris = new SoftReference<>(set);
         return set;
     }
 
@@ -254,7 +254,7 @@ public class MapPointer<K, V extends OWLAxiom> {
     @Nonnull
     public synchronized Set<V> getAllValues() {
         init();
-        return new HashSet<V>(map.values());
+        return new HashSet<>(map.values());
     }
 
     /** @return number of mapping contained */

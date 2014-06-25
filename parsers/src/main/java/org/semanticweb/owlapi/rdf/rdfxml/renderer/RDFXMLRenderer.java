@@ -53,7 +53,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
 
     private final RDFXMLWriter writer;
     @Nonnull
-    private final Set<RDFResource> pending = new HashSet<RDFResource>();
+    private final Set<RDFResource> pending = new HashSet<>();
     @Nonnull
     private final RDFXMLNamespaceManager qnameManager;
     @Nonnull
@@ -220,7 +220,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
                     // Special rendering for lists
                     if (isObjectList(objectRes)) {
                         writer.writeParseTypeAttribute();
-                        List<RDFNode> list = new ArrayList<RDFNode>();
+                        List<RDFNode> list = new ArrayList<>();
                         toJavaList(objectRes, list);
                         for (RDFNode n : list) {
                             if (n.isAnonymous()) {

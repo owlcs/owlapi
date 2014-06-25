@@ -16,10 +16,37 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLAxiomVisitor;
+import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectVisitor;
+import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
+import org.semanticweb.owlapi.model.SWRLAtom;
+import org.semanticweb.owlapi.model.SWRLBuiltInAtom;
+import org.semanticweb.owlapi.model.SWRLClassAtom;
+import org.semanticweb.owlapi.model.SWRLDataPropertyAtom;
+import org.semanticweb.owlapi.model.SWRLDataRangeAtom;
+import org.semanticweb.owlapi.model.SWRLDifferentIndividualsAtom;
+import org.semanticweb.owlapi.model.SWRLIndividualArgument;
+import org.semanticweb.owlapi.model.SWRLLiteralArgument;
+import org.semanticweb.owlapi.model.SWRLObject;
+import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
+import org.semanticweb.owlapi.model.SWRLObjectVisitor;
+import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
+import org.semanticweb.owlapi.model.SWRLRule;
+import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
+import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.SWRLVariableExtractor;
 
@@ -56,9 +83,9 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
             @Nonnull Set<? extends SWRLAtom> head,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
-        this.head = new LinkedHashSet<SWRLAtom>(checkNotNull(head,
+        this.head = new LinkedHashSet<>(checkNotNull(head,
                 "head cannot be null"));
-        this.body = new LinkedHashSet<SWRLAtom>(checkNotNull(body,
+        this.body = new LinkedHashSet<>(checkNotNull(body,
                 "body cannot be null"));
         containsAnonymousClassExpressions = hasAnon();
     }
@@ -100,7 +127,7 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
         SWRLVariableExtractor extractor = new SWRLVariableExtractor();
         accept(extractor);
         toReturn = extractor.getVariables();
-        variables = new WeakReference<Set<SWRLVariable>>(toReturn);
+        variables = new WeakReference<>(toReturn);
         return toReturn;
     }
 
@@ -134,7 +161,7 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
         if (toReturn != null) {
             return toReturn;
         }
-        toReturn = new LinkedHashSet<OWLClassExpression>();
+        toReturn = new LinkedHashSet<>();
         for (SWRLAtom atom : head) {
             if (atom instanceof SWRLClassAtom) {
                 toReturn.add(((SWRLClassAtom) atom).getPredicate());
@@ -145,8 +172,7 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
                 toReturn.add(((SWRLClassAtom) atom).getPredicate());
             }
         }
-        classAtomsPredicates = new WeakReference<Set<OWLClassExpression>>(
-                toReturn);
+        classAtomsPredicates = new WeakReference<>(toReturn);
         return toReturn;
     }
 
@@ -232,11 +258,11 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
 
         @Override
         public SWRLRule visit(SWRLRule node) {
-            Set<SWRLAtom> nodebody = new HashSet<SWRLAtom>();
+            Set<SWRLAtom> nodebody = new HashSet<>();
             for (SWRLAtom atom : node.getBody()) {
                 nodebody.add((SWRLAtom) atom.accept(this));
             }
-            Set<SWRLAtom> nodehead = new HashSet<SWRLAtom>();
+            Set<SWRLAtom> nodehead = new HashSet<>();
             for (SWRLAtom atom : node.getHead()) {
                 nodehead.add((SWRLAtom) atom.accept(this));
             }

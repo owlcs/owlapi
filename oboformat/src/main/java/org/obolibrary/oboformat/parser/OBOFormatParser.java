@@ -316,7 +316,7 @@ public class OBOFormatParser {
         parseOBODoc(obodoc);
         // handle imports
         Frame hf = obodoc.getHeaderFrame();
-        List<OBODoc> imports = new LinkedList<OBODoc>();
+        List<OBODoc> imports = new LinkedList<>();
         if (hf != null) {
             for (Clause cl : hf.getClauses(OboFormatTag.TAG_IMPORT)) {
                 @SuppressWarnings("null")
@@ -395,7 +395,7 @@ public class OBOFormatParser {
     @SuppressWarnings("null")
     @Nonnull
     public List<String> checkDanglingReferences(@Nonnull OBODoc doc) {
-        List<String> danglingReferences = new ArrayList<String>();
+        List<String> danglingReferences = new ArrayList<>();
         // check term frames
         for (Frame f : doc.getTermFrames()) {
             for (String tag : f.getTags()) {
@@ -520,6 +520,7 @@ public class OBOFormatParser {
             return false;
         }
         parseHeaderClause(h);
+        parseHiddenComment();
         forceParseNlOrEof();
         return true;
     }
@@ -564,6 +565,12 @@ public class OBOFormatParser {
         String rest = stream.rest();
         if (rest != null && rest.startsWith("[Term]")) {
             parseTermFrame(obodoc);
+        } else if (rest != null && rest.startsWith("[Instance]")) {
+            LOG.error("Error: Instance frames are not supported yet. Parsing stopped at line: "
+                    + stream.getLineNo());
+            while (!stream.eof()) {
+                stream.advanceLine();
+            }
         } else {
             parseTypedefFrame(obodoc);
         }

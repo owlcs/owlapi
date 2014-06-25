@@ -47,9 +47,9 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 public class SWRLAtomOrderingRoundTripTestCase {
 
     @Nonnull
-    private final Set<SWRLAtom> body = new LinkedHashSet<SWRLAtom>();
+    private final Set<SWRLAtom> body = new LinkedHashSet<>();
     @Nonnull
-    private final Set<SWRLAtom> head = new LinkedHashSet<SWRLAtom>();
+    private final Set<SWRLAtom> head = new LinkedHashSet<>();
     @Nonnull
     private SWRLRule rule;
 
@@ -100,13 +100,11 @@ public class SWRLAtomOrderingRoundTripTestCase {
         assertThat(rules.size(), is(1));
         SWRLRule parsedRule = rules.iterator().next();
         assertThat(parsedRule, is(equalTo(rule)));
-        List<SWRLAtom> originalBody = new ArrayList<SWRLAtom>(body);
-        List<SWRLAtom> parsedBody = new ArrayList<SWRLAtom>(
-                parsedRule.getBody());
+        List<SWRLAtom> originalBody = new ArrayList<>(body);
+        List<SWRLAtom> parsedBody = new ArrayList<>(parsedRule.getBody());
         assertThat(parsedBody, is(equalTo(originalBody)));
-        List<SWRLAtom> originalHead = new ArrayList<SWRLAtom>(head);
-        List<SWRLAtom> parsedHead = new ArrayList<SWRLAtom>(
-                parsedRule.getHead());
+        List<SWRLAtom> originalHead = new ArrayList<>(head);
+        List<SWRLAtom> parsedHead = new ArrayList<>(parsedRule.getHead());
         assertThat(originalHead, is(equalTo(parsedHead)));
     }
 

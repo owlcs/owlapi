@@ -900,7 +900,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
     public OWLDisjointClassesAxiom getOWLDisjointClassesAxiom(
             OWLClassExpression... classExpressions) {
         checkNull(classExpressions, "classExpressions", true);
-        Set<OWLClassExpression> clses = new HashSet<OWLClassExpression>();
+        Set<OWLClassExpression> clses = new HashSet<>();
         clses.addAll(Arrays.asList(classExpressions));
         return getOWLDisjointClassesAxiom(clses);
     }
@@ -993,7 +993,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
     public OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom(
             OWLClassExpression... classExpressions) {
         checkNull(classExpressions, "classExpressions", true);
-        Set<OWLClassExpression> clses = new HashSet<OWLClassExpression>();
+        Set<OWLClassExpression> clses = new HashSet<>();
         clses.addAll(Arrays.asList(classExpressions));
         return getOWLEquivalentClassesAxiom(clses);
     }
@@ -1427,7 +1427,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
     public OWLSameIndividualAxiom getOWLSameIndividualAxiom(
             OWLIndividual... individual) {
         checkNull(individual, "individuals", true);
-        Set<OWLIndividual> inds = new HashSet<OWLIndividual>();
+        Set<OWLIndividual> inds = new HashSet<>();
         inds.addAll(Arrays.asList(individual));
         return getOWLSameIndividualAxiom(inds);
     }

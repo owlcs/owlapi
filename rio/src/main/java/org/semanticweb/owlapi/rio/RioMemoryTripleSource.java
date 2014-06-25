@@ -69,7 +69,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  */
 public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
 
-    private final Map<String, String> namespaces = new LinkedHashMap<String, String>();
+    private final Map<String, String> namespaces = new LinkedHashMap<>();
     @Nonnull
     private final Iterator<Statement> statementIterator;
     @Nonnull

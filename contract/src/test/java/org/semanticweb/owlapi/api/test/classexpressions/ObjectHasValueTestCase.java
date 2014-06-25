@@ -37,7 +37,7 @@ public class ObjectHasValueTestCase extends AbstractFileRoundTrippingTestCase {
 
     @Test
     public void testCorrectAxioms() {
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> axioms = new HashSet<>();
         OWLClass clsA = Class(iri("A"));
         OWLIndividual ind = NamedIndividual(iri("a"));
         OWLObjectProperty propP = ObjectProperty(iri("p"));

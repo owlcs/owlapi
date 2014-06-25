@@ -34,7 +34,7 @@ public class OWLOntologyRenameException extends OWLOntologyChangeException {
      * @param ontologyID
      *        ontology id that cannot be renamed
      */
-    public OWLOntologyRenameException(OWLOntologyChangeData<?> change,
+    public OWLOntologyRenameException(OWLOntologyChangeData change,
             OWLOntologyID ontologyID) {
         super(change,
                 "Could not rename ontology. An ontology with this ID already exists: "

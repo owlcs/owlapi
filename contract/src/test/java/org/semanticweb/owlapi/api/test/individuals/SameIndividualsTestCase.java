@@ -33,7 +33,7 @@ public class SameIndividualsTestCase extends
     @Nonnull
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> axioms = new HashSet<>();
         // Can't round trip more than two in RDF!
         axioms.add(SameIndividual(NamedIndividual(iri("i")),
                 NamedIndividual(iri("j"))));

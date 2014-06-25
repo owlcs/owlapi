@@ -27,7 +27,7 @@ public abstract class RDFOntologyFormat extends PrefixOWLOntologyFormat {
 
     private static final long serialVersionUID = 40000L;
     // TODO make something of these
-    private final Set<RDFResourceParseError> errors = new HashSet<RDFResourceParseError>();
+    private final Set<RDFResourceParseError> errors = new HashSet<>();
 
     @Override
     public RDFParserMetaData getOntologyLoaderMetaData() {

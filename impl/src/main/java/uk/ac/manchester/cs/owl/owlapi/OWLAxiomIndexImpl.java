@@ -86,7 +86,7 @@ public abstract class OWLAxiomIndexImpl extends OWLObjectImpl implements
     @Override
     public Set<OWLDatatypeDefinitionAxiom> getDatatypeDefinitions(
             OWLDatatype datatype) {
-        Set<OWLDatatypeDefinitionAxiom> toReturn = new HashSet<OWLDatatypeDefinitionAxiom>();
+        Set<OWLDatatypeDefinitionAxiom> toReturn = new HashSet<>();
         for (OWLAxiom ax : ints.filterAxioms(Filters.datatypeDefFilter,
                 datatype)) {
             toReturn.add((OWLDatatypeDefinitionAxiom) ax);
@@ -97,7 +97,7 @@ public abstract class OWLAxiomIndexImpl extends OWLObjectImpl implements
     @Override
     public Set<OWLSubAnnotationPropertyOfAxiom>
             getSubAnnotationPropertyOfAxioms(OWLAnnotationProperty subProperty) {
-        Set<OWLSubAnnotationPropertyOfAxiom> toReturn = new HashSet<OWLSubAnnotationPropertyOfAxiom>();
+        Set<OWLSubAnnotationPropertyOfAxiom> toReturn = new HashSet<>();
         for (OWLAxiom ax : ints.filterAxioms(Filters.subAnnotationWithSub,
                 subProperty)) {
             toReturn.add((OWLSubAnnotationPropertyOfAxiom) ax);
@@ -108,7 +108,7 @@ public abstract class OWLAxiomIndexImpl extends OWLObjectImpl implements
     @Override
     public Set<OWLAnnotationPropertyDomainAxiom>
             getAnnotationPropertyDomainAxioms(OWLAnnotationProperty property) {
-        Set<OWLAnnotationPropertyDomainAxiom> toReturn = new HashSet<OWLAnnotationPropertyDomainAxiom>();
+        Set<OWLAnnotationPropertyDomainAxiom> toReturn = new HashSet<>();
         for (OWLAxiom ax : ints.filterAxioms(Filters.apDomainFilter, property)) {
             toReturn.add((OWLAnnotationPropertyDomainAxiom) ax);
         }
@@ -118,7 +118,7 @@ public abstract class OWLAxiomIndexImpl extends OWLObjectImpl implements
     @Override
     public Set<OWLAnnotationPropertyRangeAxiom>
             getAnnotationPropertyRangeAxioms(OWLAnnotationProperty property) {
-        Set<OWLAnnotationPropertyRangeAxiom> toReturn = new HashSet<OWLAnnotationPropertyRangeAxiom>();
+        Set<OWLAnnotationPropertyRangeAxiom> toReturn = new HashSet<>();
         for (OWLAxiom ax : ints.filterAxioms(Filters.apRangeFilter, property)) {
             toReturn.add((OWLAnnotationPropertyRangeAxiom) ax);
         }

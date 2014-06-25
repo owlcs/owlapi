@@ -111,7 +111,7 @@ public abstract class RDFRendererBase {
 
     @Nonnull
     protected static Set<IRI> initPrettyTypes() {
-        return new HashSet<IRI>(Arrays.asList(OWL_CLASS.getIRI(),
+        return new HashSet<>(Arrays.asList(OWL_CLASS.getIRI(),
                 OWL_OBJECT_PROPERTY.getIRI(), OWL_DATA_PROPERTY.getIRI(),
                 OWL_ANNOTATION_PROPERTY.getIRI(), OWL_RESTRICTION.getIRI(),
                 OWL_THING.getIRI(), OWL_NOTHING.getIRI(),
@@ -354,7 +354,7 @@ public abstract class RDFRendererBase {
     }
 
     private void renderUntypedIRIAnnotationAssertions() throws IOException {
-        Set<IRI> annotatedIRIs = new HashSet<IRI>();
+        Set<IRI> annotatedIRIs = new HashSet<>();
         for (OWLAnnotationAssertionAxiom ax : ontology
                 .getAxioms(AxiomType.ANNOTATION_ASSERTION)) {
             OWLAnnotationSubject subject = ax.getSubject();
@@ -384,7 +384,7 @@ public abstract class RDFRendererBase {
                 .getReferencedAnonymousIndividuals(EXCLUDED)) {
             assert anonInd != null;
             boolean anonRoot = true;
-            Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+            Set<OWLAxiom> axioms = new HashSet<>();
             for (OWLAxiom ax : ontology.getReferencingAxioms(anonInd, EXCLUDED)) {
                 if (!(ax instanceof OWLDifferentIndividualsAxiom)) {
                     assert ax != null;
@@ -445,7 +445,7 @@ public abstract class RDFRendererBase {
      */
     @Nonnull
     private Set<OWLAxiom> getGeneralAxioms() {
-        Set<OWLAxiom> generalAxioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> generalAxioms = new HashSet<>();
         generalAxioms.addAll(ontology.getGeneralClassAxioms());
         generalAxioms.addAll(ontology
                 .getAxioms(AxiomType.DIFFERENT_INDIVIDUALS));
@@ -555,7 +555,7 @@ public abstract class RDFRendererBase {
 
     private boolean createGraph(@Nonnull OWLEntity entity,
             Collection<IRI> illegalPuns) {
-        final Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        final Set<OWLAxiom> axioms = new HashSet<>();
         // Don't write out duplicates for punned annotations!
         if (!punned.contains(entity.getIRI())) {
             axioms.addAll(ontology.filterAxioms(Filters.annotations,
@@ -666,7 +666,7 @@ public abstract class RDFRendererBase {
     @Nonnull
     private static List<OWLEntity> toSortedSet(
             @Nonnull Set<? extends OWLEntity> entities) {
-        List<OWLEntity> results = new ArrayList<OWLEntity>(entities);
+        List<OWLEntity> results = new ArrayList<>(entities);
         Collections.sort(results, OWL_ENTITY_IRI_COMPARATOR);
         return results;
     }
@@ -698,7 +698,7 @@ public abstract class RDFRendererBase {
             if (triple.getPredicate().getIRI().equals(RDF_TYPE.getIRI())
                     && !triple.getObject().isAnonymous()
                     && triple.getObject().getIRI().equals(RDF_LIST.getIRI())) {
-                List<RDFNode> items = new ArrayList<RDFNode>();
+                List<RDFNode> items = new ArrayList<>();
                 toJavaList(node, items);
                 for (RDFNode n : items) {
                     if (n.isLiteral()) {

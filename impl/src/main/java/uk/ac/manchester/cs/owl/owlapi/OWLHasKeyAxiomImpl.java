@@ -61,9 +61,8 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
         this.expression = checkNotNull(expression, "expression cannot be null");
-        this.propertyExpressions = new TreeSet<OWLPropertyExpression>(
-                checkNotNull(propertyExpressions,
-                        "propertyExpressions cannot be null"));
+        this.propertyExpressions = new TreeSet<>(checkNotNull(
+                propertyExpressions, "propertyExpressions cannot be null"));
     }
 
     @Override
@@ -99,7 +98,7 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements
 
     @Override
     public Set<OWLDataPropertyExpression> getDataPropertyExpressions() {
-        Set<OWLDataPropertyExpression> props = new TreeSet<OWLDataPropertyExpression>();
+        Set<OWLDataPropertyExpression> props = new TreeSet<>();
         for (OWLPropertyExpression prop : propertyExpressions) {
             if (prop.isDataPropertyExpression()) {
                 props.add((OWLDataPropertyExpression) prop);
@@ -110,7 +109,7 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements
 
     @Override
     public Set<OWLObjectPropertyExpression> getObjectPropertyExpressions() {
-        Set<OWLObjectPropertyExpression> props = new TreeSet<OWLObjectPropertyExpression>();
+        Set<OWLObjectPropertyExpression> props = new TreeSet<>();
         for (OWLPropertyExpression prop : propertyExpressions) {
             if (prop.isObjectPropertyExpression()) {
                 props.add((OWLObjectPropertyExpression) prop);

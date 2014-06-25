@@ -37,8 +37,8 @@ import org.semanticweb.owlapi.vocab.Namespaces;
 public class NamespaceUtil implements Serializable {
 
     private static final long serialVersionUID = 40000L;
-    private final Map<String, String> namespace2PrefixMap = new HashMap<String, String>();
-    private final Map<String, String> standardNamespacePrefixMappings = new HashMap<String, String>();
+    private final Map<String, String> namespace2PrefixMap = new HashMap<>();
+    private final Map<String, String> standardNamespacePrefixMappings = new HashMap<>();
     private final AtomicInteger candidateIndex = new AtomicInteger(1);
 
     /** default constructor */

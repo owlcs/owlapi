@@ -24,6 +24,8 @@ public class OBOFormatConstants {
 
 
 
+
+
         //@formatter:off
         /**TAG_FORMAT_VERSION*/ TAG_FORMAT_VERSION("format-version"),
         /**TAG_ONTOLOGY*/ TAG_ONTOLOGY( "ontology"),
@@ -124,7 +126,7 @@ public class OBOFormatConstants {
     
     private static final Map<String, OboFormatTag> tagsTable=initTagsTable();
     static Map<String, OboFormatTag> initTagsTable(){
-        Map<String, OboFormatTag> tags = new HashMap<String, OboFormatTag>();
+        Map<String, OboFormatTag> tags = new HashMap<>();
         for (OboFormatTag tag : OboFormatTag.values()) {
             tags.put(tag.getTag(), tag);
         }

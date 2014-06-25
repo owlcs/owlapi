@@ -292,7 +292,7 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
                 .getLogger(RioParserRDFHandler.class);
         private final RDFHandler consumer;
         private long owlParseStart;
-        private final Set<Resource> typedLists = new HashSet<Resource>();
+        private final Set<Resource> typedLists = new HashSet<>();
         private final ValueFactory vf = ValueFactoryImpl.getInstance();
 
         RioParserRDFHandler(RDFHandler consumer) {

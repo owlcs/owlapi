@@ -40,7 +40,7 @@ public class ObjectInverseOfTestCase extends
         OWLObjectProperty prop = ObjectProperty(iri("prop"));
         OWLClassExpression ce = ObjectSomeValuesFrom(prop.getInverseProperty(),
                 clsA);
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> axioms = new HashSet<>();
         axioms.add(SubClassOf(Class(iri("B")), ce));
         return axioms;
     }

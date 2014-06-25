@@ -42,17 +42,17 @@ public class ObjectPropertyChainAnnotatedRoundTrippingTestCase extends
         OWLObjectProperty propB = ObjectProperty(iri("propB"));
         OWLObjectProperty propC = ObjectProperty(iri("propC"));
         OWLObjectProperty propD = ObjectProperty(iri("propD"));
-        List<OWLObjectProperty> props = new ArrayList<OWLObjectProperty>();
+        List<OWLObjectProperty> props = new ArrayList<>();
         props.add(propA);
         props.add(propB);
         props.add(propC);
-        Set<OWLAnnotation> annos = new HashSet<OWLAnnotation>();
+        Set<OWLAnnotation> annos = new HashSet<>();
         OWLAnnotationProperty annoPropA = AnnotationProperty(iri("annoPropA"));
         OWLAnnotationProperty annoPropB = AnnotationProperty(iri("annoPropB"));
         annos.add(Annotation(annoPropA, Literal("Test", "en")));
         annos.add(Annotation(annoPropB, Literal("Test", "")));
         OWLAxiom ax = SubPropertyChainOf(props, propD, annos);
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> axioms = new HashSet<>();
         axioms.add(ax);
         return axioms;
     }

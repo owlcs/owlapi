@@ -208,7 +208,7 @@ public class OboInOwlCardinalityTools {
     @Nonnull
     private static Set<OWLAnnotationProperty> getProperties(
             @Nonnull OWLDataFactory factory, @Nonnull OboFormatTag... tags) {
-        Set<OWLAnnotationProperty> set = new HashSet<OWLAnnotationProperty>();
+        Set<OWLAnnotationProperty> set = new HashSet<>();
         for (OboFormatTag tag : tags) {
             IRI iri = OWLAPIObo2Owl.trTagToIRI(tag.getTag());
             OWLAnnotationProperty property = factory
@@ -226,7 +226,7 @@ public class OboInOwlCardinalityTools {
             @Nonnull OWLOntologyManager manager)
             throws AnnotationCardinalityException {
         Set<OWLAnnotation> annotations = ontology.getAnnotations();
-        Map<OWLAnnotationProperty, Set<OWLAnnotation>> groupedAnnotations = new HashMap<OWLAnnotationProperty, Set<OWLAnnotation>>();
+        Map<OWLAnnotationProperty, Set<OWLAnnotation>> groupedAnnotations = new HashMap<>();
         for (OWLAnnotation annotation : annotations) {
             OWLAnnotationProperty current = annotation.getProperty();
             if (properties.contains(current)) {
@@ -235,7 +235,7 @@ public class OboInOwlCardinalityTools {
                     groupedAnnotations.put(current,
                             Collections.singleton(annotation));
                 } else if (set.size() == 1) {
-                    set = new HashSet<OWLAnnotation>(set);
+                    set = new HashSet<>(set);
                     set.add(annotation);
                     groupedAnnotations.put(current, set);
                 } else {
@@ -281,7 +281,7 @@ public class OboInOwlCardinalityTools {
             throws AnnotationCardinalityException {
         Set<OWLAnnotationAssertionAxiom> axioms = ontology
                 .getAnnotationAssertionAxioms(owlClass.getIRI());
-        Map<OWLAnnotationProperty, Set<OWLAnnotationAssertionAxiom>> groupedAxioms = new HashMap<OWLAnnotationProperty, Set<OWLAnnotationAssertionAxiom>>();
+        Map<OWLAnnotationProperty, Set<OWLAnnotationAssertionAxiom>> groupedAxioms = new HashMap<>();
         for (OWLAnnotationAssertionAxiom axiom : axioms) {
             OWLAnnotationProperty current = axiom.getProperty();
             if (properties.contains(current)) {
@@ -290,7 +290,7 @@ public class OboInOwlCardinalityTools {
                 if (set == null) {
                     groupedAxioms.put(current, Collections.singleton(axiom));
                 } else if (set.size() == 1) {
-                    set = new HashSet<OWLAnnotationAssertionAxiom>(set);
+                    set = new HashSet<>(set);
                     set.add(axiom);
                     groupedAxioms.put(current, set);
                 } else {

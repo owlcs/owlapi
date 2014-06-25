@@ -39,7 +39,7 @@ public class IRISubstringTestCase extends AbstractAxiomsRoundTrippingTestCase {
         XMLWriterPreferences.getInstance().setUseNamespaceEntities(true);
         IRI iriA = IRI("http://owlapi.sourceforge.net/properties#propA");
         IRI iriB = IRI("http://owlapi.sourceforge.net/properties2#propB");
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> axioms = new HashSet<>();
         OWLClass clsA = Class(iri("A"));
         OWLAnnotationProperty propA = AnnotationProperty(iriA);
         OWLAnnotationProperty propB = AnnotationProperty(iriB);

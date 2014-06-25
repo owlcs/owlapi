@@ -87,6 +87,7 @@ public enum Namespaces {
     /** The DBO namespace. */      DBO         ("dbo",     "http://dbpedia.org/ontology/"),
     /** The YAGO namespace. */     YAGO        ("yago",    "http://dbpedia.org/class/yago/");
     //@formatter:on
+    @Nonnull
     final String prefix;
     @Nonnull
     final String ns;
@@ -116,11 +117,13 @@ public enum Namespaces {
      * @return A short, human-readable, prefix name that matches, and expands to
      *         the full IRI. Not {@code null}.
      */
+    @Nonnull
     public String getPrefixName() {
         return prefix;
     }
 
     /** @return The prefix IRI which matches the prefix name. Not {@code null}. */
+    @Nonnull
     public String getPrefixIRI() {
         return ns;
     }

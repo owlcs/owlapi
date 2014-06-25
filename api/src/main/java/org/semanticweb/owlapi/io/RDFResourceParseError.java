@@ -38,7 +38,7 @@ public class RDFResourceParseError implements Serializable {
     private static final long serialVersionUID = 40000L;
     private final OWLEntity parserGeneratedErrorEntity;
     private final RDFNode mainNode;
-    private final Set<RDFTriple> mainNodeTriples = new HashSet<RDFTriple>();
+    private final Set<RDFTriple> mainNodeTriples = new HashSet<>();
 
     /**
      * @param parserGeneratedErrorEntity

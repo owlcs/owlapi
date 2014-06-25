@@ -51,7 +51,7 @@ public class AnnotationShortFormProviderTestCase extends TestBase {
     @Nonnull
     List<OWLAnnotationProperty> props = CollectionFactory.list(prop);
     @Nonnull
-    Map<OWLAnnotationProperty, List<String>> langMap = new HashMap<OWLAnnotationProperty, List<String>>();
+    Map<OWLAnnotationProperty, List<String>> langMap = new HashMap<>();
 
     @Test
     public void testLiteralWithoutLanguageValue() {
@@ -77,7 +77,7 @@ public class AnnotationShortFormProviderTestCase extends TestBase {
         AnnotationValueShortFormProvider sfp = new AnnotationValueShortFormProvider(
                 props, langMap, m);
         assertEquals(sfp.getShortForm(root), label1);
-        Map<OWLAnnotationProperty, List<String>> langMap2 = new HashMap<OWLAnnotationProperty, List<String>>();
+        Map<OWLAnnotationProperty, List<String>> langMap2 = new HashMap<>();
         langMap2.put(prop, Arrays.asList("xy", "ab"));
         AnnotationValueShortFormProvider sfp2 = new AnnotationValueShortFormProvider(
                 props, langMap2, m);

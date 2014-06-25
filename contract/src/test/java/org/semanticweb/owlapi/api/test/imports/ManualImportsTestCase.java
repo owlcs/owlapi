@@ -40,13 +40,13 @@ public class ManualImportsTestCase extends TestBase {
                 .createOntology(IRI("http://semanticweb.org/ontologies/base"));
         IRI importedIRI = IRI("http://semanticweb.org/ontologies/imported");
         OWLOntology importedOnt = m.createOntology(importedIRI);
-        Set<OWLOntology> preImportsClosureCache = new HashSet<OWLOntology>(
+        Set<OWLOntology> preImportsClosureCache = new HashSet<>(
                 m.getImportsClosure(baseOnt));
         assertTrue(preImportsClosureCache.contains(baseOnt));
         assertFalse(preImportsClosureCache.contains(importedOnt));
         m.applyChange(new AddImport(baseOnt, m.getOWLDataFactory()
                 .getOWLImportsDeclaration(importedIRI)));
-        Set<OWLOntology> postImportsClosureCache = new HashSet<OWLOntology>(
+        Set<OWLOntology> postImportsClosureCache = new HashSet<>(
                 m.getImportsClosure(baseOnt));
         assertTrue(postImportsClosureCache.contains(baseOnt));
         assertTrue(postImportsClosureCache.contains(importedOnt));

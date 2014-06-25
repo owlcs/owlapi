@@ -44,7 +44,7 @@ public class SKOSVocabularyTestCase {
     @Nonnull
     @Parameterized.Parameters
     public static Collection<Object[]> getData() {
-        List<Object[]> data = new ArrayList<Object[]>();
+        List<Object[]> data = new ArrayList<>();
         for (SKOSVocabulary v : SKOSVocabulary.values()) {
             data.add(new Object[] { v });
         }

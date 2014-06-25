@@ -41,7 +41,7 @@ import org.semanticweb.owlapi.model.SWRLVariable;
 public class SWRLVariableExtractor implements SWRLObjectVisitor {
 
     @Nonnull
-    private final LinkedHashSet<SWRLVariable> variables = new LinkedHashSet<SWRLVariable>();
+    private final LinkedHashSet<SWRLVariable> variables = new LinkedHashSet<>();
 
     /** @return the set of variables */
     @Nonnull

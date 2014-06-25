@@ -41,7 +41,7 @@ public class HasKeyTestCase extends AbstractFileRoundTrippingTestCase {
         OWLClass cls = Class(IRI("http://example.com/Person"));
         OWLDataProperty propP = DataProperty(IRI("http://example.com/dataProperty"));
         OWLObjectProperty propQ = ObjectProperty(IRI("http://example.com/objectPoperty"));
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> axioms = new HashSet<>();
         OWLHasKeyAxiom owlHasKeyAxiom = HasKey(cls, propQ, propP);
         axioms.add(owlHasKeyAxiom);
         Set<OWLAxiom> axioms2 = getOnt().getAxioms();

@@ -49,10 +49,10 @@ public class OWLObjectWalker<O extends OWLObject> {
     protected final boolean visitDuplicates;
     protected OWLAxiom ax;
     protected OWLAnnotation annotation;
-    private final List<OWLClassExpression> classExpressionPath = new ArrayList<OWLClassExpression>();
-    private final List<OWLDataRange> dataRangePath = new ArrayList<OWLDataRange>();
+    private final List<OWLClassExpression> classExpressionPath = new ArrayList<>();
+    private final List<OWLDataRange> dataRangePath = new ArrayList<>();
     @Nonnull
-    private StructureWalker<O> walker = new StructureWalker<O>(this);
+    private StructureWalker<O> walker = new StructureWalker<>(this);
 
     /**
      * @param objects
@@ -90,7 +90,7 @@ public class OWLObjectWalker<O extends OWLObject> {
      *        the set of objects to visit
      */
     public OWLObjectWalker(@Nonnull Set<O> objects, boolean visitDuplicates) {
-        this.objects = new ArrayList<O>(checkNotNull(objects,
+        this.objects = new ArrayList<>(checkNotNull(objects,
                 "objects cannot be null"));
         this.visitDuplicates = visitDuplicates;
     }
@@ -169,7 +169,7 @@ public class OWLObjectWalker<O extends OWLObject> {
      */
     @Nonnull
     public List<OWLClassExpression> getClassExpressionPath() {
-        return new ArrayList<OWLClassExpression>(classExpressionPath);
+        return new ArrayList<>(classExpressionPath);
     }
 
     /**
@@ -224,7 +224,7 @@ public class OWLObjectWalker<O extends OWLObject> {
      */
     @Nonnull
     public List<OWLDataRange> getDataRangePath() {
-        return new ArrayList<OWLDataRange>(dataRangePath);
+        return new ArrayList<>(dataRangePath);
     }
 
     /**

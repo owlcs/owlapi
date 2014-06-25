@@ -268,7 +268,7 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
     @Override
     public Set<OWLOntologyFormatFactory> getSupportedFormats() {
         return CollectionFactory
-                .createSet((OWLOntologyFormatFactory) new OWLOntologyFormatFactoryImpl<OWLOntologyFormat>(
+                .createSet((OWLOntologyFormatFactory) new OWLOntologyFormatFactoryImpl<>(
                         (Class<OWLOntologyFormat>) getFormatClass()));
     }
 }

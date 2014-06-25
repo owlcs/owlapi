@@ -271,7 +271,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
     private static <N extends OWLObject> Set<N> toSortedSet(Set<N> set) {
-        return new TreeSet<N>(set);
+        return new TreeSet<>(set);
     }
 
     @Override

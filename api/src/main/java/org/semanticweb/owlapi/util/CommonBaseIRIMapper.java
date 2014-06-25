@@ -34,7 +34,7 @@ public class CommonBaseIRIMapper implements OWLOntologyIRIMapper {
 
     private static final long serialVersionUID = 40000L;
     private final IRI base;
-    private final Map<IRI, IRI> iriMap = new HashMap<IRI, IRI>();
+    private final Map<IRI, IRI> iriMap = new HashMap<>();
 
     /**
      * Creates a mapper, which maps ontology URIs to URIs which share the

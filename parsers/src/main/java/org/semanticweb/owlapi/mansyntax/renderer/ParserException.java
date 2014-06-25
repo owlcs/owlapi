@@ -58,7 +58,7 @@ public class ParserException extends OWLParserException {
     /** The ontology name expected. */
     private boolean ontologyNameExpected = false;
     /** The expected keywords. */
-    private final Set<String> expectedKeywords = new LinkedHashSet<String>();
+    private final Set<String> expectedKeywords = new LinkedHashSet<>();
     /** The start pos. */
     private final int startPos;
 

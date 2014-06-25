@@ -38,7 +38,7 @@ public class AxiomTypeCountMetricFactory {
      */
     @Nonnull
     public static Set<OWLMetric<?>> createMetrics(@Nonnull OWLOntology o) {
-        Set<OWLMetric<?>> metrics = new HashSet<OWLMetric<?>>();
+        Set<OWLMetric<?>> metrics = new HashSet<>();
         for (AxiomType<?> axiomType : AxiomType.AXIOM_TYPES) {
             assert axiomType != null;
             metrics.add(new AxiomTypeMetric(o, axiomType));

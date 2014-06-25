@@ -37,7 +37,7 @@ public class ChainedAnonymousIndividualsTestCase extends
     @Nonnull
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> axioms = new HashSet<>();
         IRI annoPropIRI = IRI("http://owlapi.sourceforge.net/ontology#annoProp");
         OWLAnnotationProperty property = AnnotationProperty(annoPropIRI);
         IRI subject = IRI("http://owlapi.sourceforge.net/ontology#subject");

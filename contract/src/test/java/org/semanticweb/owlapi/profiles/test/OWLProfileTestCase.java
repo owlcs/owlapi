@@ -154,8 +154,8 @@ public class OWLProfileTestCase {
 
     public void checkInCollection(
             @Nonnull List<OWLProfileViolation<?>> violations, Class[] _list) {
-        List<Class> list = new ArrayList<Class>(Arrays.asList(_list));
-        List<Class> list1 = new ArrayList<Class>();
+        List<Class> list = new ArrayList<>(Arrays.asList(_list));
+        List<Class> list1 = new ArrayList<>();
         for (OWLProfileViolation v : violations) {
             list1.add(v.getClass());
         }

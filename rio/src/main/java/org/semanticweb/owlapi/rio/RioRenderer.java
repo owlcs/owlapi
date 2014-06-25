@@ -74,9 +74,9 @@ public class RioRenderer extends RDFRendererBase {
     private final RDFHandler writer;
     private final DefaultPrefixManager pm;
     @Nonnull
-    private final Set<RDFResource> pendingNodes = new LinkedHashSet<RDFResource>();
+    private final Set<RDFResource> pendingNodes = new LinkedHashSet<>();
     @Nonnull
-    private final Set<RDFTriple> renderedStatements = new LinkedHashSet<RDFTriple>();
+    private final Set<RDFTriple> renderedStatements = new LinkedHashSet<>();
     private final Resource[] contexts;
 
     /**

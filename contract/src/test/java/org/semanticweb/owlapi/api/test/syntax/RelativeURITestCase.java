@@ -42,7 +42,7 @@ public class RelativeURITestCase extends AbstractAxiomsRoundTrippingTestCase {
         OWLOntology ont = getOWLOntology("Ont");
         OWLClass cls = Class(IRI(ont.getOntologyID().getOntologyIRI().get()
                 + "/Office"));
-        Set<OWLAxiom> axs = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> axs = new HashSet<>();
         axs.add(Declaration(cls));
         return axs;
     }

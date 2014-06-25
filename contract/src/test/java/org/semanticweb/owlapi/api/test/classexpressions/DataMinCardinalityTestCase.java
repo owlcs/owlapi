@@ -37,7 +37,7 @@ public class DataMinCardinalityTestCase extends
 
     @Test
     public void testCorrectAxioms() {
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> axioms = new HashSet<>();
         OWLClass clsA = Class(iri("A"));
         OWLDataProperty prop = DataProperty(iri("p"));
         axioms.add(SubClassOf(clsA, DataMinCardinality(3, prop, TopDatatype())));

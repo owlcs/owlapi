@@ -77,7 +77,7 @@ public class TurtleRenderer extends RDFRendererBase {
         super(ontology, format);
         this.format = checkNotNull(format, "format cannot be null");
         this.writer = new PrintWriter(writer);
-        pending = new HashSet<RDFResource>();
+        pending = new HashSet<>();
         pm = new DefaultPrefixManager();
         if (!ontology.isAnonymous()) {
             String ontologyIRIString = ontology.getOntologyID()
@@ -112,7 +112,7 @@ public class TurtleRenderer extends RDFRendererBase {
     int bufferLength = 0;
     int lastNewLineIndex = 0;
     @Nonnull
-    Stack<Integer> tabs = new Stack<Integer>();
+    Stack<Integer> tabs = new Stack<>();
 
     protected void pushTab() {
         tabs.push(getIndent());
@@ -233,7 +233,7 @@ public class TurtleRenderer extends RDFRendererBase {
                 render(node);
             } else {
                 // List - special syntax
-                List<RDFNode> list = new ArrayList<RDFNode>();
+                List<RDFNode> list = new ArrayList<>();
                 toJavaList(node, list);
                 pushTab();
                 write("(");

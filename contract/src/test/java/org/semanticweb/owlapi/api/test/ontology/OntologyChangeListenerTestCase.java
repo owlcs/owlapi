@@ -45,10 +45,10 @@ public class OntologyChangeListenerTestCase extends TestBase {
         OWLClass clsA = Class(iri("ClsA"));
         OWLClass clsB = Class(iri("ClsB"));
         OWLSubClassOfAxiom ax = SubClassOf(clsA, clsB);
-        final Set<OWLAxiom> impendingAdditions = new HashSet<OWLAxiom>();
-        final Set<OWLAxiom> impendingRemovals = new HashSet<OWLAxiom>();
-        final Set<OWLAxiom> additions = new HashSet<OWLAxiom>();
-        final Set<OWLAxiom> removals = new HashSet<OWLAxiom>();
+        final Set<OWLAxiom> impendingAdditions = new HashSet<>();
+        final Set<OWLAxiom> impendingRemovals = new HashSet<>();
+        final Set<OWLAxiom> additions = new HashSet<>();
+        final Set<OWLAxiom> removals = new HashSet<>();
         ont.getOWLOntologyManager().addImpendingOntologyChangeListener(
                 new ImpendingOWLOntologyChangeListener() {
 
@@ -58,8 +58,8 @@ public class OntologyChangeListenerTestCase extends TestBase {
                     public
                             void
                             handleImpendingOntologyChanges(
-                                    @Nonnull List<? extends OWLOntologyChange<?>> impendingChanges) {
-                        for (OWLOntologyChange<?> change : impendingChanges) {
+                                    @Nonnull List<? extends OWLOntologyChange> impendingChanges) {
+                        for (OWLOntologyChange change : impendingChanges) {
                             if (change.isAddAxiom()) {
                                 impendingAdditions.add(change.getAxiom());
                             } else if (change.isRemoveAxiom()) {
@@ -72,11 +72,9 @@ public class OntologyChangeListenerTestCase extends TestBase {
                 new OWLOntologyChangeListener() {
 
                     @Override
-                    public
-                            void
-                            ontologiesChanged(
-                                    @Nonnull List<? extends OWLOntologyChange<?>> changes) {
-                        for (OWLOntologyChange<?> change : changes) {
+                    public void ontologiesChanged(
+                            @Nonnull List<? extends OWLOntologyChange> changes) {
+                        for (OWLOntologyChange change : changes) {
                             if (change.isAddAxiom()) {
                                 additions.add(change.getAxiom());
                             } else if (change.isRemoveAxiom()) {

@@ -76,7 +76,7 @@ public class XMLWriterImpl implements XMLWriter {
         // for XML.
         // Must be set correctly for the Writer anyway, or bugs will ensue.
         // this.encoding = "UTF-8";
-        elementStack = new Stack<XMLElement>();
+        elementStack = new Stack<>();
         setupEntities();
     }
 
@@ -84,7 +84,7 @@ public class XMLWriterImpl implements XMLWriter {
         List<String> namespaces = Lists.newArrayList(xmlWriterNamespaceManager
                 .getNamespaces());
         Collections.sort(namespaces, new StringLengthComparator());
-        entities = new LinkedHashMap<String, String>();
+        entities = new LinkedHashMap<>();
         for (String curNamespace : namespaces) {
             assert curNamespace != null;
             String curPrefix = "";
@@ -290,7 +290,7 @@ public class XMLWriterImpl implements XMLWriter {
          */
         public XMLElement(String name, int indentation) {
             this.name = name;
-            attributes = new LinkedHashMap<String, String>();
+            attributes = new LinkedHashMap<>();
             this.indentation = indentation;
             textContent = null;
             startWritten = false;

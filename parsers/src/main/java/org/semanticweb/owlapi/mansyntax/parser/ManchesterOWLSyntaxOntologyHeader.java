@@ -54,9 +54,8 @@ public class ManchesterOWLSyntaxOntologyHeader {
             Set<OWLImportsDeclaration> importsDeclarations) {
         ontologyID = new OWLOntologyID(Optional.fromNullable(ontologyIRI),
                 Optional.fromNullable(versionIRI));
-        this.annotations = new ArrayList<OWLAnnotation>(annotations);
-        this.importsDeclarations = new ArrayList<OWLImportsDeclaration>(
-                importsDeclarations);
+        this.annotations = new ArrayList<>(annotations);
+        this.importsDeclarations = new ArrayList<>(importsDeclarations);
     }
 
     /** @return the ontology ID */

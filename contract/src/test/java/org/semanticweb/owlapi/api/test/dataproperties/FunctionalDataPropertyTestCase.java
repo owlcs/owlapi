@@ -33,7 +33,7 @@ public class FunctionalDataPropertyTestCase extends
     @Nonnull
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> axioms = new HashSet<>();
         axioms.add(FunctionalDataProperty(DataProperty(iri("p"))));
         return axioms;
     }

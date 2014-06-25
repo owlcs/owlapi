@@ -34,7 +34,7 @@ public class FilteringOWLOntologyChangeListener extends OWLOntologyChangeFilter
 
     @Override
     public void ontologiesChanged(
-            @Nonnull List<? extends OWLOntologyChange<?>> changes) {
+            @Nonnull List<? extends OWLOntologyChange> changes) {
         processChanges(changes);
     }
 }

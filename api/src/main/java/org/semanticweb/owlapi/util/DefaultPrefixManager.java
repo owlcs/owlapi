@@ -44,7 +44,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
     @Nonnull
     private Map<String, String> prefix2NamespaceMap;
     @Nonnull
-    private final Map<String, String> reverseprefix2NamespaceMap = new HashMap<String, String>();
+    private final Map<String, String> reverseprefix2NamespaceMap = new HashMap<>();
     @Nonnull
     private StringComparator comparator;
 
@@ -59,7 +59,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
     public DefaultPrefixManager(@Nullable PrefixManager pm,
             @Nullable StringComparator c, @Nullable String defaultPrefix) {
         comparator = c == null ? new StringLengthComparator() : c;
-        prefix2NamespaceMap = new TreeMap<String, String>(comparator);
+        prefix2NamespaceMap = new TreeMap<>(comparator);
         setupDefaultPrefixes();
         if (pm != null) {
             copyPrefixesFrom(pm);
@@ -86,7 +86,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
         checkNotNull(comparator, "comparator cannot be null");
         this.comparator = comparator;
         Map<String, String> p = prefix2NamespaceMap;
-        prefix2NamespaceMap = new TreeMap<String, String>(comparator);
+        prefix2NamespaceMap = new TreeMap<>(comparator);
         prefix2NamespaceMap.putAll(p);
     }
 
@@ -98,7 +98,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
 
     @Override
     public Set<String> getPrefixNames() {
-        return new HashSet<String>(prefix2NamespaceMap.keySet());
+        return new HashSet<>(prefix2NamespaceMap.keySet());
     }
 
     private void setupDefaultPrefixes() {
@@ -197,7 +197,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
 
     @Override
     public void unregisterNamespace(String namespace) {
-        List<String> toRemove = new ArrayList<String>();
+        List<String> toRemove = new ArrayList<>();
         for (Map.Entry<String, String> e : prefix2NamespaceMap.entrySet()) {
             if (e.getValue().equals(namespace)) {
                 toRemove.add(e.getKey());

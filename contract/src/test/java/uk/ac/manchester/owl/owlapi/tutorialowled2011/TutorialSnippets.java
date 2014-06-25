@@ -315,7 +315,7 @@ public class TutorialSnippets {
                 var, var);
         SWRLObjectPropertyAtom propAtom2 = df.getSWRLObjectPropertyAtom(propB,
                 var, var);
-        Set<SWRLAtom> antecedent = new HashSet<SWRLAtom>();
+        Set<SWRLAtom> antecedent = new HashSet<>();
         antecedent.add(propAtom);
         antecedent.add(propAtom2);
         SWRLRule rule2 = df.getSWRLRule(antecedent,
@@ -566,8 +566,8 @@ public class TutorialSnippets {
         private final Set<OWLOntology> onts;
 
         RestrictionVisitor(Set<OWLOntology> onts) {
-            restrictedProperties = new HashSet<OWLObjectPropertyExpression>();
-            processedClasses = new HashSet<OWLClass>();
+            restrictedProperties = new HashSet<>();
+            processedClasses = new HashSet<>();
             this.onts = onts;
         }
 
@@ -665,7 +665,7 @@ public class TutorialSnippets {
         reasoner.precomputeInferences(InferenceType.CLASS_HIERARCHY);
         // To generate an inferred ontology, use implementations of inferred
         // axiom generators
-        List<InferredAxiomGenerator<? extends OWLAxiom>> gens = new ArrayList<InferredAxiomGenerator<? extends OWLAxiom>>();
+        List<InferredAxiomGenerator<? extends OWLAxiom>> gens = new ArrayList<>();
         gens.add(new InferredSubClassAxiomGenerator());
         OWLOntology infOnt = m.createOntology();
         // create the inferred ontology generator
@@ -781,11 +781,11 @@ public class TutorialSnippets {
         // extract a module for all toppings.
         // start by creating a signature that consists of "Quokka".
         OWLClass quokkaCls = df.getOWLClass(IRI.create(koala_iri + "#Quokka"));
-        Set<OWLEntity> sig = new HashSet<OWLEntity>();
+        Set<OWLEntity> sig = new HashSet<>();
         sig.add(quokkaCls);
         // We now add all subclasses (direct and indirect) of the chosen
         // classes.
-        Set<OWLEntity> seedSig = new HashSet<OWLEntity>();
+        Set<OWLEntity> seedSig = new HashSet<>();
         OWLReasoner reasoner = reasonerFactory.createNonBufferingReasoner(o);
         for (OWLEntity ent : sig) {
             seedSig.add(ent);
