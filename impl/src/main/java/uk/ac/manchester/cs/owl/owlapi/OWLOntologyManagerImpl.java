@@ -275,13 +275,19 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         return result;
     }
 
+    private boolean matchingIDs(OWLOntologyID first, OWLOntologyID second) {
+        if (first.isAnonymous() || second.isAnonymous()) {
+            return first.equals(second);
+        }
+        return first.getOntologyIRI().equals(second.getOntologyIRI());
+    }
+
     @Override
     public OWLOntology getOntology(OWLOntologyID ontologyID) {
         OWLOntology result = ontologiesByID.get(ontologyID);
-        if (result == null) {
+        if (result == null && !ontologyID.isAnonymous()) {
             for (OWLOntologyID nextOntologyID : ontologiesByID.keySet()) {
-                if (ontologyID.getOntologyIRI().equals(
-                        nextOntologyID.getOntologyIRI())) {
+                if (matchingIDs(ontologyID, nextOntologyID)) {
                     result = ontologiesByID.get(nextOntologyID);
                 }
             }
