@@ -7,8 +7,8 @@ package org.semanticweb.owlapi.functional.parser;
  * JavaCCParser.  The user is free to use any implementation
  * of their choice.
  */
-
-public interface TokenManager {
+@SuppressWarnings("javadoc")
+ interface TokenManager {
 
   /** This gets the next token from the input stream.
    *  A token of kind 0 (EOF) should be returned on EOF.

@@ -1,15 +1,15 @@
 package org.semanticweb.owlapi.functional.parser;
 
+import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.*;
+
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.Reader;
 
-import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.*;
-
 /**
  * Created by ses on 6/9/14.
  */
-public class CustomTokenizer implements TokenManager {
+class CustomTokenizer implements TokenManager {
 
     private int unreadChar = -1;
     private final Reader in;
@@ -17,13 +17,12 @@ public class CustomTokenizer implements TokenManager {
     private StringBuilder buf = new StringBuilder();
 
     public CustomTokenizer(Reader reader) {
-        this.in = reader;
-
+        in = reader;
     }
 
     /**
-     * This gets the next token from the input stream.
-     * A token of kind 0 (EOF) should be returned on EOF.
+     * This gets the next token from the input stream. A token of kind 0 (EOF)
+     * should be returned on EOF.
      */
     @Override
     public Token getNextToken() {
@@ -33,20 +32,20 @@ public class CustomTokenizer implements TokenManager {
                 c = findTokenStart();
                 switch (c) {
                     case '(':
-                        return makeToken(OPENPAR,"(");
+                        return makeToken(OPENPAR, "(");
                     case ')':
-                        return makeToken(CLOSEPAR,")");
+                        return makeToken(CLOSEPAR, ")");
                     case '@':
-                        return makeToken(LANGIDENTIFIER,"@");
+                        return makeToken(LANGIDENTIFIER, "@");
                     case '^':
                         c = readChar();
-                        if(c == '^') {
-                          return makeToken(DATATYPEIDENTIFIER,"^^");
-                        }  else {
-                            return makeToken(ERROR,"^" + c);
+                        if (c == '^') {
+                            return makeToken(DATATYPEIDENTIFIER, "^^");
+                        } else {
+                            return makeToken(ERROR, "^" + c);
                         }
                     case '=':
-                        return makeToken(EQUALS,"=");
+                        return makeToken(EQUALS, "=");
                     case '#':
                         skipComment();
                         break;
@@ -64,10 +63,7 @@ public class CustomTokenizer implements TokenManager {
     }
 
     private void skipComment() throws IOException {
-        for(char c = readChar(); c != '\n'; c = readChar()) {
-
-        }
-
+        for (char c = readChar(); c != '\n'; c = readChar()) {}
     }
 
     private Token readStringLiteralToken() throws IOException {
@@ -75,17 +71,19 @@ public class CustomTokenizer implements TokenManager {
         buf.append('"');
         while (true) {
             char c = readChar();
-            switch(c) {
+            switch (c) {
                 case '"':
                     buf.append(c);
-                    return makeToken(STRINGLITERAL,buf.toString());
+                    return makeToken(STRINGLITERAL, buf.toString());
                 case '\\':
                     buf.append(c);
                     c = readChar();
-                    if(c != '\\' && c != '\"') {
-                        return makeToken(ERROR,"Bad escape sequence in StringLiteral");
+                    if (c != '\\' && c != '\"') {
+                        return makeToken(ERROR,
+                                "Bad escape sequence in StringLiteral");
                     }
                     // fallthrough
+                    //$FALL-THROUGH$
                 default:
                     buf.append(c);
             }
@@ -106,21 +104,19 @@ public class CustomTokenizer implements TokenManager {
         } catch (IOException e) {
             return makeToken(ERROR, "<");
         }
-
     }
 
     private Token readTextualToken(char c) throws IOException {
-        if(c >='0' && c <='9') {
+        if (c >= '0' && c <= '9') {
             return readNumber(c);
         }
         buf.setLength(0);
         buf.append(c);
         int colonIndex = -1;
-        if(c == ':') {
+        if (c == ':') {
             colonIndex = 0;
         }
-        loop:
-        while (true) {
+        loop: while (true) {
             try {
                 c = readChar();
                 switch (c) {
@@ -140,6 +136,7 @@ public class CustomTokenizer implements TokenManager {
                         break loop;
                     case ':':
                         colonIndex = buf.length();  // and fall through
+                        //$FALL-THROUGH$
                     default:
                         buf.append(c);
                 }
@@ -148,13 +145,14 @@ public class CustomTokenizer implements TokenManager {
             }
         }
         String s = buf.toString();
-        if(colonIndex >=0) {
-           // System.out.println("colonIndex >=0 - so expect abbreviated IRI from " + buf);
-            if(colonIndex == s.length()-1) {
-                return makeToken(PNAME_NS,s);
+        if (colonIndex >= 0) {
+            // System.out.println("colonIndex >=0 - so expect abbreviated IRI from "
+            // + buf);
+            if (colonIndex == s.length() - 1) {
+                return makeToken(PNAME_NS, s);
             } else {
-                if(s.startsWith("_:")) {
-                    return makeToken(NODEID,s);
+                if (s.startsWith("_:")) {
+                    return makeToken(NODEID, s);
                 }
                 return makeToken(OWLFunctionalSyntaxParserConstants.PNAME_LN, s);
             }
@@ -191,7 +189,7 @@ public class CustomTokenizer implements TokenManager {
             case "HasKey":
                 return makeToken(HASKEY, s);
             case "Declaration":
-                return makeToken(DECLARATION , s);
+                return makeToken(DECLARATION, s);
             case "Documentation":
                 return makeToken(DOCUMENTATION, s);
             case "Class":
@@ -363,37 +361,35 @@ public class CustomTokenizer implements TokenManager {
             case "MainClasses":
                 return makeToken(MAINCLASSES, s);
             default:
-                return makeToken(PN_LOCAL,s);
+                return makeToken(PN_LOCAL, s);
         }
-
     }
 
     private Token readNumber(char c) throws IOException {
         buf.setLength(0);
         buf.append(c);
-        while(true) {
+        while (true) {
             c = readChar();
-            if(!Character.isDigit(c)) {
+            if (!Character.isDigit(c)) {
                 unread(c);
-                return makeToken(OWLFunctionalSyntaxParserConstants.INT,buf.toString());
+                return makeToken(OWLFunctionalSyntaxParserConstants.INT,
+                        buf.toString());
             }
         }
     }
 
+    private int lineNo = 1;
+    private int colNo = 0;
+    private int startLine = -1;
+    private int startCol = -1;
 
-
-    private int lineNo=1;
-    private int colNo=0;
-
-    private int startLine=-1;
-    private int startCol=-1;
-    
-    private Token makeToken(int kind,String image) {
-        Token result = new Token(kind,image);
+    private Token makeToken(int kind, String image) {
+        Token result = new Token(kind, image);
         result.beginLine = startLine;
         result.beginColumn = startCol;
         return result;
     }
+
     private char findTokenStart() throws IOException {
         while (true) {
             char c = readChar();
@@ -407,7 +403,7 @@ public class CustomTokenizer implements TokenManager {
 
     private void unread(char c) {
         unreadChar = c;
-        if(c != '\n') {
+        if (c != '\n') {
             colNo--;
         }
     }
@@ -419,9 +415,9 @@ public class CustomTokenizer implements TokenManager {
         int c;
         if (unreadChar < 0) {
             c = in.read();
-            if(c == '\n') {
+            if (c == '\n') {
                 lineNo++;
-                colNo=0;
+                colNo = 0;
             }
         } else {
             c = unreadChar;
