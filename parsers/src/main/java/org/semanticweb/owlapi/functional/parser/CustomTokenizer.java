@@ -23,7 +23,7 @@ public class CustomTokenizer implements TokenManager {
 
     /**
      * This gets the next token from the input stream.
-     * A token of kind 0 (<EOF>) should be returned on EOF.
+     * A token of kind 0 (EOF) should be returned on EOF.
      */
     @Override
     public Token getNextToken() {

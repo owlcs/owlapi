@@ -11,7 +11,7 @@ package org.semanticweb.owlapi.functional.parser;
 public interface TokenManager {
 
   /** This gets the next token from the input stream.
-   *  A token of kind 0 (<EOF>) should be returned on EOF.
+   *  A token of kind 0 (EOF) should be returned on EOF.
    */
   public Token getNextToken();
 
