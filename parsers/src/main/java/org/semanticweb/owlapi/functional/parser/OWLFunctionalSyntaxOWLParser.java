@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.functional.parser;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.Reader;
 
 import javax.annotation.Nonnull;
@@ -61,14 +62,14 @@ public class OWLFunctionalSyntaxOWLParser extends AbstractOWLParser {
             OWLFunctionalSyntaxParser parser;
             if (documentSource.isReaderAvailable()) {
                 reader = documentSource.getReader();
-                parser = new OWLFunctionalSyntaxParser(reader);
+                parser = new OWLFunctionalSyntaxParser(new CustomTokenizer(reader));
             } else if (documentSource.isInputStreamAvailable()) {
                 is = documentSource.getInputStream();
-                parser = new OWLFunctionalSyntaxParser(is);
+                parser = new OWLFunctionalSyntaxParser(new CustomTokenizer(new InputStreamReader(is,"UTF-8")));
             } else {
                 is = getInputStream(documentSource.getDocumentIRI(),
                         configuration);
-                parser = new OWLFunctionalSyntaxParser(is);
+                parser = new OWLFunctionalSyntaxParser(new CustomTokenizer(new InputStreamReader(is,"UTF-8")));
             }
             parser.setUp(ontology, configuration);
             return parser.parse();
