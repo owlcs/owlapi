@@ -31,6 +31,7 @@ import java.util.TreeSet;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.inject.Inject;
 
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.expression.OWLOntologyChecker;
@@ -99,6 +100,7 @@ import org.semanticweb.owlapi.vocab.SWRLBuiltInsVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 import com.google.common.base.Optional;
+import com.google.inject.Provider;
 
 /**
  * A parser for the Manchester OWL Syntax. All properties must be defined before
@@ -115,8 +117,7 @@ import com.google.common.base.Optional;
  *         Informatics Group
  * @since 2.2.0
  */
-public class ManchesterOWLSyntaxEditorParser implements
-        ManchesterOWLSyntaxParser {
+public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser {
 
     // This parser was built by hand! After struggling with terrible
     // error messages produced by ANTLR (or JavaCC) I decides to construct
@@ -124,7 +125,9 @@ public class ManchesterOWLSyntaxEditorParser implements
     // are specific to the Manchester OWL Syntax and are such that it should
     // be easy to use this parser in tools such as editors.
     @Nonnull
-    private final OWLOntologyLoaderConfiguration configuration;
+    private Provider<OWLOntologyLoaderConfiguration> configProvider;
+    @Nonnull
+    private Optional<OWLOntologyLoaderConfiguration> config = Optional.absent();
     protected OWLDataFactory dataFactory;
     private List<Token> tokens;
     private int tokenIndex;
@@ -161,28 +164,16 @@ public class ManchesterOWLSyntaxEditorParser implements
             ManchesterOWLSyntax.class);
 
     /**
+     * @param configurationProvider
+     *        configuration provider
      * @param dataFactory
      *        dataFactory
-     * @param s
-     *        s
      */
-    public ManchesterOWLSyntaxEditorParser(@Nonnull OWLDataFactory dataFactory,
-            @Nonnull String s) {
-        this(new OWLOntologyLoaderConfiguration(), dataFactory, s);
-    }
-
-    /**
-     * @param configuration
-     *        configuration
-     * @param dataFactory
-     *        dataFactory
-     * @param s
-     *        s
-     */
-    public ManchesterOWLSyntaxEditorParser(
-            @Nonnull OWLOntologyLoaderConfiguration configuration,
-            @Nonnull OWLDataFactory dataFactory, @Nonnull String s) {
-        this.configuration = configuration;
+    @Inject
+    public ManchesterOWLSyntaxParserImpl(
+            @Nonnull Provider<OWLOntologyLoaderConfiguration> configurationProvider,
+            @Nonnull OWLDataFactory dataFactory) {
+        configProvider = configurationProvider;
         this.dataFactory = dataFactory;
         pm.setPrefix("rdf:", Namespaces.RDF.toString());
         pm.setPrefix("rdfs:", Namespaces.RDFS.toString());
@@ -210,13 +201,39 @@ public class ManchesterOWLSyntaxEditorParser implements
                     + (fragment != null ? fragment : ""));
         }
         owlEntityChecker = new DefaultEntityChecker();
-        tokens = new ArrayList<>();
-        tokens.addAll(getTokenizer(s).tokenize());
-        tokenIndex = 0;
         for (SWRLBuiltInsVocabulary v : SWRLBuiltInsVocabulary.values()) {
             ruleBuiltIns.put(v.getShortForm(), v);
             ruleBuiltIns.put(v.getIRI().toQuotedString(), v);
         }
+    }
+
+    @SuppressWarnings("null")
+    @Nonnull
+    private OWLOntologyLoaderConfiguration getConfig() {
+        if (config.isPresent()) {
+            return config.get();
+        }
+        config = Optional.of(configProvider.get());
+        return config.get();
+    }
+
+    @Override
+    public void setOntologyLoaderConfigurationProvider(
+            Provider<OWLOntologyLoaderConfiguration> provider) {
+        configProvider = provider;
+    }
+
+    @Override
+    public void setOntologyLoaderConfiguration(
+            OWLOntologyLoaderConfiguration config) {
+        this.config = Optional.fromNullable(config);
+    }
+
+    @Override
+    public void setStringToParse(String s) {
+        tokens = new ArrayList<>();
+        tokens.addAll(getTokenizer(s).tokenize());
+        tokenIndex = 0;
     }
 
     protected static ManchesterOWLSyntaxTokenizer getTokenizer(String s) {
@@ -1054,11 +1071,7 @@ public class ManchesterOWLSyntaxEditorParser implements
         }
     }
 
-    /**
-     * @return frames
-     * @throws ParserException
-     *         parsing error
-     */
+    @Override
     @Nonnull
     public Set<OntologyAxiomPair> parseFrames() {
         Set<OntologyAxiomPair> axioms = new HashSet<>();
@@ -1243,7 +1256,7 @@ public class ManchesterOWLSyntaxEditorParser implements
             assert ont != null;
             for (OWLAnnotation anno : annos) {
                 assert anno != null;
-                if (configuration.isLoadAnnotationAxioms()) {
+                if (getConfig().isLoadAnnotationAxioms()) {
                     pairs.add(new OntologyAxiomPair(ont, dataFactory
                             .getOWLAnnotationAssertionAxiom(s, anno)));
                 }
@@ -1358,10 +1371,7 @@ public class ManchesterOWLSyntaxEditorParser implements
         }
     }
 
-    /**
-     * @param defaultOntology
-     *        defaultOntology
-     */
+    @Override
     public void setDefaultOntology(@Nonnull OWLOntology defaultOntology) {
         this.defaultOntology = defaultOntology;
     }
@@ -2190,7 +2200,7 @@ public class ManchesterOWLSyntaxEditorParser implements
                     assert decl != null;
                     imports.add(new AddImport(ont, decl));
                     ont.getOWLOntologyManager().makeLoadImportRequest(decl,
-                            configuration);
+                            getConfig());
                     OWLOntology imported = ont.getOWLOntologyManager()
                             .getOntology(decl.getIRI());
                     assert imported != null;
@@ -2234,7 +2244,7 @@ public class ManchesterOWLSyntaxEditorParser implements
             } else if (IMPORT.matches(section)) {
                 OWLImportsDeclaration decl = parseImportsDeclaration();
                 ont.getOWLOntologyManager().makeLoadImportRequest(decl,
-                        configuration);
+                        getConfig());
                 imports.add(new AddImport(ont, decl));
                 OWLOntology imported = ont.getOWLOntologyManager().getOntology(
                         decl.getIRI());

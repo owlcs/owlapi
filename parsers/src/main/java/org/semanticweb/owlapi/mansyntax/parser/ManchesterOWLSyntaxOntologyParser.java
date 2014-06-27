@@ -19,14 +19,15 @@ import java.io.InputStreamReader;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.annotations.HasPriority;
+import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormat;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.mansyntax.renderer.ParserException;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
+import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -107,10 +108,10 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
                 }
                 String s = sb.toString();
                 assert s != null;
-                OWLDataFactory df = ontology.getOWLOntologyManager()
-                        .getOWLDataFactory();
-                ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(
-                        configuration, df, s);
+                ManchesterOWLSyntaxParser parser = OWLManager
+                        .createManchesterParser();
+                parser.setOntologyLoaderConfiguration(configuration);
+                parser.setStringToParse(s);
                 format = parser.parseOntology(ontology);
             } finally {
                 if (br != null) {

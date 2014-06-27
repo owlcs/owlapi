@@ -16,11 +16,15 @@ import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.expression.OWLOntologyChecker;
 import org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormat;
 import org.semanticweb.owlapi.io.OWLParserException;
+import org.semanticweb.owlapi.mansyntax.renderer.ParserException;
+import org.semanticweb.owlapi.model.HasOntologyLoaderConfiguration;
+import org.semanticweb.owlapi.model.HasOntologyLoaderConfigurationProvider;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -39,7 +43,28 @@ import org.semanticweb.owlapi.util.OntologyAxiomPair;
  * 
  * @author ignazio
  */
-public interface ManchesterOWLSyntaxParser {
+public interface ManchesterOWLSyntaxParser extends
+        HasOntologyLoaderConfigurationProvider, HasOntologyLoaderConfiguration {
+
+    /**
+     * @param s
+     *        String to parse
+     */
+    void setStringToParse(@Nonnull String s);
+
+    /**
+     * @param defaultOntology
+     *        ontology to use to resolve classes and entities during parsing
+     */
+    void setDefaultOntology(@Nonnull OWLOntology defaultOntology);
+
+    /**
+     * @return frames
+     * @throws ParserException
+     *         parsing error
+     */
+    @Nonnull
+    Set<OntologyAxiomPair> parseFrames();
 
     /**
      * Parsing "Inline" Axioms.
@@ -59,6 +84,7 @@ public interface ManchesterOWLSyntaxParser {
      * @throws OWLParserException
      *         If a class expression could not be parsed.
      */
+    @Nonnull
     OWLClassExpression parseClassExpression();
 
     /**
@@ -131,7 +157,8 @@ public interface ManchesterOWLSyntaxParser {
      *        datatype will be decided by the literal itself.
      * @return parsed literal
      */
-    OWLLiteral parseLiteral(OWLDatatype datatype);
+    @Nonnull
+    OWLLiteral parseLiteral(@Nullable OWLDatatype datatype);
 
     /**
      * @param owlEntityChecker

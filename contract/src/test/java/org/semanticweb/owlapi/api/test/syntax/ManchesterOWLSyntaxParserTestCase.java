@@ -26,10 +26,10 @@ import javax.annotation.Nonnull;
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.expression.ShortFormEntityChecker;
 import org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormat;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
-import org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser;
 import org.semanticweb.owlapi.mansyntax.renderer.ManchesterOWLSyntaxPrefixNameShortFormProvider;
 import org.semanticweb.owlapi.mansyntax.renderer.ParserException;
 import org.semanticweb.owlapi.model.IRI;
@@ -52,6 +52,7 @@ import org.semanticweb.owlapi.util.AnnotationValueShortFormProvider;
 import org.semanticweb.owlapi.util.BidirectionalShortFormProvider;
 import org.semanticweb.owlapi.util.BidirectionalShortFormProviderAdapter;
 import org.semanticweb.owlapi.util.ShortFormProvider;
+import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
@@ -139,8 +140,8 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
                 wine.getOWLOntologyManager().getOntologyFormat(wine));
         BidirectionalShortFormProvider shortFormProvider = new BidirectionalShortFormProviderAdapter(
                 ontologies, sfp);
-        ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(
-                m.getOWLDataFactory(), expression);
+        ManchesterOWLSyntaxParser parser = OWLManager.createManchesterParser();
+        parser.setStringToParse(expression);
         parser.setDefaultOntology(wine);
         parser.setOWLEntityChecker(new ShortFormEntityChecker(shortFormProvider));
         parser.parseClassExpression();
@@ -247,8 +248,8 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
                 Collections.<OWLAnnotationProperty, List<String>> emptyMap(), m);
         BidirectionalShortFormProvider shortFormProvider = new BidirectionalShortFormProviderAdapter(
                 m.getOntologies(), sfp);
-        ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(
-                df, text1);
+        ManchesterOWLSyntaxParser parser = OWLManager.createManchesterParser();
+        parser.setStringToParse(text1);
         ShortFormEntityChecker owlEntityChecker = new ShortFormEntityChecker(
                 shortFormProvider);
         parser.setOWLEntityChecker(owlEntityChecker);
@@ -289,8 +290,8 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
                 Collections.<OWLAnnotationProperty, List<String>> emptyMap(), m);
         BidirectionalShortFormProvider shortFormProvider = new BidirectionalShortFormProviderAdapter(
                 m.getOntologies(), sfp);
-        ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(
-                df, text1);
+        ManchesterOWLSyntaxParser parser = OWLManager.createManchesterParser();
+        parser.setStringToParse(text1);
         ShortFormEntityChecker owlEntityChecker = new ShortFormEntityChecker(
                 shortFormProvider);
         parser.setOWLEntityChecker(owlEntityChecker);
@@ -326,8 +327,8 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
                 Collections.<OWLAnnotationProperty, List<String>> emptyMap(), m);
         BidirectionalShortFormProvider shortFormProvider = new BidirectionalShortFormProviderAdapter(
                 m.getOntologies(), sfp);
-        ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(
-                df, text1);
+        ManchesterOWLSyntaxParser parser = OWLManager.createManchesterParser();
+        parser.setStringToParse(text1);
         ShortFormEntityChecker owlEntityChecker = new ShortFormEntityChecker(
                 shortFormProvider);
         parser.setOWLEntityChecker(owlEntityChecker);
@@ -377,8 +378,8 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
                 Collections.<OWLAnnotationProperty, List<String>> emptyMap(), m);
         BidirectionalShortFormProvider shortFormProvider = new BidirectionalShortFormProviderAdapter(
                 m.getOntologies(), sfp);
-        ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(
-                df, text1);
+        ManchesterOWLSyntaxParser parser = OWLManager.createManchesterParser();
+        parser.setStringToParse(text1);
         ShortFormEntityChecker owlEntityChecker = new ShortFormEntityChecker(
                 shortFormProvider);
         parser.setOWLEntityChecker(owlEntityChecker);
@@ -421,8 +422,8 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
                 Collections.<OWLAnnotationProperty, List<String>> emptyMap(), m);
         BidirectionalShortFormProvider shortFormProvider = new BidirectionalShortFormProviderAdapter(
                 m.getOntologies(), sfp);
-        ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(
-                df, in);
+        ManchesterOWLSyntaxParser parser = OWLManager.createManchesterParser();
+        parser.setStringToParse(in);
         ShortFormEntityChecker owlEntityChecker = new ShortFormEntityChecker(
                 shortFormProvider);
         parser.setOWLEntityChecker(owlEntityChecker);

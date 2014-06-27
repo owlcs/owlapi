@@ -24,6 +24,7 @@ import org.semanticweb.owlapi.model.OWLOntologyFactory;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
+import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManagerFactory;
 import org.semanticweb.owlapi.model.OWLOntologyStorer;
 import org.semanticweb.owlapi.model.OWLOntologyStorerFactory;
@@ -49,6 +50,8 @@ public class OWLAPIServiceLoaderModule extends AbstractModule {
         loadFactories(OWLParserFactory.class, OWLParser.class);
         loadFactories(OWLOntologyStorerFactory.class, OWLOntologyStorer.class);
         loadOntologyManagerFactory();
+        bind(OWLOntologyLoaderConfiguration.class).toProvider(
+                OWLAPIConfigProvider.class);
     }
 
     protected <T> void loadInstancesFromServiceLoader(Class<T> type) {

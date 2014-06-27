@@ -22,6 +22,7 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyManagerFactory;
 import org.semanticweb.owlapi.oboformat.OWLAPIOBOModule;
+import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLAPIImplModule;
 
@@ -70,5 +71,12 @@ public class OWLManager implements OWLOntologyManagerFactory {
     @Nonnull
     public static OWLDataFactory getOWLDataFactory() {
         return verifyNotNull(injector.getInstance(OWLDataFactory.class));
+    }
+
+    /**
+     * @return an initialized manchester syntax parser for parsing strings
+     */
+    public static ManchesterOWLSyntaxParser createManchesterParser() {
+        return injector.getInstance(ManchesterOWLSyntaxParser.class);
     }
 }

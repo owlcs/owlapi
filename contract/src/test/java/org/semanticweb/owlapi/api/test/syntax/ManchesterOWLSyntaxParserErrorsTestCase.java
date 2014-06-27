@@ -10,8 +10,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
-import org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser;
 import org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxTokenizer;
 import org.semanticweb.owlapi.mansyntax.renderer.ParserException;
 import org.semanticweb.owlapi.model.IRI;
@@ -21,6 +21,7 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 
@@ -598,10 +599,10 @@ public class ManchesterOWLSyntaxParserErrorsTestCase {
         ParserWrapper() {}
 
         public void parse(@Nonnull String input) {
-            OWLDataFactory dataFactory = new OWLDataFactoryImpl();
-            ManchesterOWLSyntaxEditorParser actualParser = new ManchesterOWLSyntaxEditorParser(
-                    dataFactory, input);
+            ManchesterOWLSyntaxParser actualParser = OWLManager
+                    .createManchesterParser();
             actualParser.setOWLEntityChecker(entityChecker);
+            actualParser.setStringToParse(input);
             actualParser.parseFrames();
         }
     }

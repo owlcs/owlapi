@@ -19,8 +19,8 @@ import javax.annotation.Nullable;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
-import org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser;
 import org.semanticweb.owlapi.mansyntax.renderer.ParserException;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -30,6 +30,7 @@ import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
 
 @SuppressWarnings("javadoc")
 public class ManchesterParseErrorTestCase extends TestBase {
@@ -50,8 +51,8 @@ public class ManchesterParseErrorTestCase extends TestBase {
 
     private OWLClassExpression parse(@Nonnull String text) {
         MockEntityChecker checker = new MockEntityChecker(df);
-        ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(
-                df, text);
+        ManchesterOWLSyntaxParser parser = OWLManager.createManchesterParser();
+        parser.setStringToParse(text);
         parser.setOWLEntityChecker(checker);
         return parser.parseClassExpression();
     }

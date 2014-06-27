@@ -22,7 +22,10 @@ import org.semanticweb.owlapi.krss2.parser.KRSS2OWLParser;
 import org.semanticweb.owlapi.krss2.renderer.KRSS2OWLSyntaxOntologyStorer;
 import org.semanticweb.owlapi.latex.renderer.LatexOntologyStorer;
 import org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxOntologyParser;
+import org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxParserImpl;
 import org.semanticweb.owlapi.mansyntax.renderer.ManchesterOWLSyntaxOntologyStorer;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyStorer;
 import org.semanticweb.owlapi.owlxml.parser.OWLXMLParser;
 import org.semanticweb.owlapi.owlxml.renderer.OWLXMLOntologyStorer;
@@ -30,8 +33,11 @@ import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParser;
 import org.semanticweb.owlapi.rdf.rdfxml.renderer.RDFXMLOntologyStorer;
 import org.semanticweb.owlapi.rdf.turtle.parser.TurtleOntologyParser;
 import org.semanticweb.owlapi.rdf.turtle.renderer.TurtleOntologyStorer;
+import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
 
 import com.google.inject.AbstractModule;
+import com.google.inject.Provider;
+import com.google.inject.Provides;
 import com.google.inject.multibindings.Multibinder;
 
 /**
@@ -71,5 +77,20 @@ public class OWLAPIParsersModule extends AbstractModule {
             binder.addBinding().to(i);
         }
         return binder;
+    }
+
+    /**
+     * @param df
+     *        data factory for parser
+     * @param provider
+     *        config provider for parser
+     * @return implementation of manchester parser for parsing strings
+     */
+    @Provides
+    @Nonnull
+    public ManchesterOWLSyntaxParser provideManchesterSyntaxParser(
+            @Nonnull OWLDataFactory df,
+            @Nonnull Provider<OWLOntologyLoaderConfiguration> provider) {
+        return new ManchesterOWLSyntaxParserImpl(provider, df);
     }
 }

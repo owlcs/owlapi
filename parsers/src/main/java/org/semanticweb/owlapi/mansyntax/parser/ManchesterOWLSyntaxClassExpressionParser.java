@@ -16,10 +16,12 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.expression.OWLExpressionParser;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
 
 /**
  * An expression parser that parses class expressions written in the Manchester
@@ -52,14 +54,14 @@ public class ManchesterOWLSyntaxClassExpressionParser implements
 
     @Override
     public OWLClassExpression parse(String expression) {
-        ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(
-                dataFactory, expression);
+        ManchesterOWLSyntaxParser parser = OWLManager.createManchesterParser();
         parser.setOWLEntityChecker(checker);
+        parser.setStringToParse(expression);
         return parser.parseClassExpression();
     }
 
     @Override
     public void setOWLEntityChecker(OWLEntityChecker entityChecker) {
-        this.checker = entityChecker;
+        checker = entityChecker;
     }
 }

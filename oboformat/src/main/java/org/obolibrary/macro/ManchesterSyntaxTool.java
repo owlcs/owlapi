@@ -10,9 +10,9 @@ import javax.annotation.Nullable;
 
 import org.obolibrary.obo2owl.OWLAPIObo2Owl;
 import org.obolibrary.oboformat.model.OBODoc;
+import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.expression.ShortFormEntityChecker;
-import org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser;
 import org.semanticweb.owlapi.mansyntax.renderer.ParserException;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
@@ -37,6 +37,7 @@ import org.semanticweb.owlapi.util.IRIShortFormProvider;
 import org.semanticweb.owlapi.util.OntologyAxiomPair;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleIRIShortFormProvider;
+import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -121,7 +122,7 @@ public class ManchesterSyntaxTool {
      */
     public Set<OntologyAxiomPair> parseManchesterExpressionFrames(
             @Nonnull String expression) {
-        ManchesterOWLSyntaxEditorParser parser = createParser(expression);
+        ManchesterOWLSyntaxParser parser = createParser(expression);
         return parser.parseFrames();
     }
 
@@ -136,19 +137,18 @@ public class ManchesterSyntaxTool {
      */
     public OWLClassExpression parseManchesterExpression(
             @Nonnull String expression) {
-        ManchesterOWLSyntaxEditorParser parser = createParser(expression);
+        ManchesterOWLSyntaxParser parser = createParser(expression);
         return parser.parseClassExpression();
     }
 
     @Nonnull
-    private ManchesterOWLSyntaxEditorParser createParser(
-            @Nonnull String expression) {
+    private ManchesterOWLSyntaxParser createParser(@Nonnull String expression) {
         if (disposed.get()) {
             throw new RuntimeException(
                     "Illegal State: Trying to use an disposed instance.");
         }
-        ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(
-                dataFactory, expression);
+        ManchesterOWLSyntaxParser parser = OWLManager.createManchesterParser();
+        parser.setStringToParse(expression);
         parser.setOWLEntityChecker(entityChecker);
         log.info("parsing: {}", expression);
         return parser;

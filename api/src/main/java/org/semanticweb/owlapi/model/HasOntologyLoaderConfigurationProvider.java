@@ -10,53 +10,26 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.mansyntax.parser;
+package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.expression.OWLEntityChecker;
-import org.semanticweb.owlapi.expression.OWLExpressionParser;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
+import com.google.inject.Provider;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
- * @since 3.0.0
+ * An interface for objects that allow a loader configuration provider to be
+ * set.
+ * 
+ * @since 4.0.0
  */
-public class ManchesterOWLSyntaxInlineAxiomParser implements
-        OWLExpressionParser<OWLAxiom> {
-
-    @Nonnull
-    private final OWLDataFactory dataFactory;
-    @Nonnull
-    private OWLEntityChecker checker;
+public interface HasOntologyLoaderConfigurationProvider {
 
     /**
-     * @param dataFactory
-     *        dataFactory
-     * @param checker
-     *        checker
+     * Sets the configuration provider.
+     * 
+     * @param provider
+     *        the provider to be used
      */
-    public ManchesterOWLSyntaxInlineAxiomParser(
-            @Nonnull OWLDataFactory dataFactory,
-            @Nonnull OWLEntityChecker checker) {
-        this.dataFactory = dataFactory;
-        this.checker = checker;
-    }
-
-    @Override
-    public void setOWLEntityChecker(OWLEntityChecker entityChecker) {
-        checker = entityChecker;
-    }
-
-    @Override
-    public OWLAxiom parse(String expression) {
-        ManchesterOWLSyntaxParser parser = OWLManager.createManchesterParser();
-        parser.setOWLEntityChecker(checker);
-        parser.setStringToParse(expression);
-        return parser.parseAxiom();
-    }
+    void setOntologyLoaderConfigurationProvider(
+            @Nonnull Provider<OWLOntologyLoaderConfiguration> provider);
 }
