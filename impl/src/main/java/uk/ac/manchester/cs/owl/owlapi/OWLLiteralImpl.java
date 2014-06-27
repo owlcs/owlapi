@@ -59,6 +59,12 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     private static final OWLDatatype RDF_PLAIN_LITERAL = new OWL2DatatypeImpl(
             OWL2Datatype.RDF_PLAIN_LITERAL);
     @Nonnull
+    private static final OWLDatatype RDF_LANG_STRING = new OWL2DatatypeImpl(
+            OWL2Datatype.RDF_LANG_STRING);
+    @Nonnull
+    private static final OWLDatatype XSD_STRING = new OWL2DatatypeImpl(
+            OWL2Datatype.XSD_STRING);
+    @Nonnull
     private final OWLDatatype datatype;
     @Nonnull
     private final String language;
@@ -86,7 +92,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
         if (lang == null || lang.isEmpty()) {
             language = "";
             if (datatype == null) {
-                this.datatype = RDF_PLAIN_LITERAL;
+                this.datatype = XSD_STRING;
             } else {
                 this.datatype = datatype;
             }
@@ -99,7 +105,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
                                 + datatype.getIRI() + " and language: " + lang);
             }
             language = lang;
-            this.datatype = RDF_PLAIN_LITERAL;
+            this.datatype = RDF_LANG_STRING;
         }
         hashcode = getHashCode();
     }
