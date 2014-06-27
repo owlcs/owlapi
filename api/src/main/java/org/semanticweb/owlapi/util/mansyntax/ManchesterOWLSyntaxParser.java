@@ -22,7 +22,6 @@ import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.expression.OWLOntologyChecker;
 import org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormat;
 import org.semanticweb.owlapi.io.OWLParserException;
-import org.semanticweb.owlapi.mansyntax.renderer.ParserException;
 import org.semanticweb.owlapi.model.HasOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.HasOntologyLoaderConfigurationProvider;
 import org.semanticweb.owlapi.model.IRI;
@@ -60,8 +59,6 @@ public interface ManchesterOWLSyntaxParser extends
 
     /**
      * @return frames
-     * @throws ParserException
-     *         parsing error
      */
     @Nonnull
     Set<OntologyAxiomPair> parseFrames();
