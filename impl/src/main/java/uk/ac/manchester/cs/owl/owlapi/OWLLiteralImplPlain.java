@@ -29,7 +29,7 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
- * An OWLLiteral whose datatype is RDF_PLAIN_LITERAL
+ * An OWLLiteral whose datatype is RDF_LANG_STRING or XSD_STRING
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 26-Oct-2006
@@ -41,7 +41,15 @@ public class OWLLiteralImplPlain extends OWLObjectImpl implements OWLLiteral {
     private static final OWLDatatype RDF_PLAIN_LITERAL = new OWL2DatatypeImpl(
             OWL2Datatype.RDF_PLAIN_LITERAL);
     @Nonnull
+    private static final OWLDatatype RDF_LANG_STRING = new OWL2DatatypeImpl(
+            OWL2Datatype.RDF_LANG_STRING);
+    @Nonnull
+    private static final OWLDatatype XSD_STRING = new OWL2DatatypeImpl(
+            OWL2Datatype.XSD_STRING);
+    @Nonnull
     private final String literal;
+    @Nonnull
+    private final OWLDatatype datatype;
     @Nonnull
     private final String lang;
     private final int hashcode;
@@ -56,8 +64,10 @@ public class OWLLiteralImplPlain extends OWLObjectImpl implements OWLLiteral {
         this.literal = literal;
         if (lang == null || lang.length() == 0) {
             this.lang = "";
+            this.datatype = XSD_STRING;
         } else {
             this.lang = lang;
+            this.datatype = RDF_LANG_STRING;
         }
         hashcode = getHashCode();
     }
@@ -84,7 +94,7 @@ public class OWLLiteralImplPlain extends OWLObjectImpl implements OWLLiteral {
 
     @Override
     public boolean isRDFPlainLiteral() {
-        return true;
+        return false;
     }
 
     @Override
@@ -140,7 +150,7 @@ public class OWLLiteralImplPlain extends OWLObjectImpl implements OWLLiteral {
 
     @Override
     public OWLDatatype getDatatype() {
-        return RDF_PLAIN_LITERAL;
+        return this.datatype;
     }
 
     @Override
