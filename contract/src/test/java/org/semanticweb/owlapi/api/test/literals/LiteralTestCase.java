@@ -77,8 +77,9 @@ public class LiteralTestCase extends AbstractAxiomsRoundTrippingTestCase {
     @Test
     public void testPlainLiteralWithLang() {
         OWLLiteral literalWithLang = Literal("abc", "en");
-        assertTrue(literalWithLang.getDatatype().getIRI().isPlainLiteral());
-        assertTrue(literalWithLang.isRDFPlainLiteral());
+        assertFalse(literalWithLang.getDatatype().getIRI().isPlainLiteral());
+        assertFalse(literalWithLang.isRDFPlainLiteral());
+        assertTrue(literalWithLang.hasLang());
     }
 
     @Test
