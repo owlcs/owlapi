@@ -16,7 +16,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.OWLAPIConfigProvider;
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.expression.OWLExpressionParser;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -54,7 +54,8 @@ public class ManchesterOWLSyntaxClassExpressionParser implements
 
     @Override
     public OWLClassExpression parse(String expression) {
-        ManchesterOWLSyntaxParser parser = OWLManager.createManchesterParser();
+        ManchesterOWLSyntaxParser parser = new ManchesterOWLSyntaxParserImpl(
+                new OWLAPIConfigProvider(), dataFactory);
         parser.setOWLEntityChecker(checker);
         parser.setStringToParse(expression);
         return parser.parseClassExpression();

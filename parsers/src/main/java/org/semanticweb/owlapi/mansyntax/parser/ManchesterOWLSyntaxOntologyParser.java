@@ -18,8 +18,8 @@ import java.io.InputStreamReader;
 
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.OWLAPIConfigProvider;
 import org.semanticweb.owlapi.annotations.HasPriority;
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormat;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
@@ -108,8 +108,9 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
                 }
                 String s = sb.toString();
                 assert s != null;
-                ManchesterOWLSyntaxParser parser = OWLManager
-                        .createManchesterParser();
+                ManchesterOWLSyntaxParser parser = new ManchesterOWLSyntaxParserImpl(
+                        new OWLAPIConfigProvider(), ontology
+                                .getOWLOntologyManager().getOWLDataFactory());
                 parser.setOntologyLoaderConfiguration(configuration);
                 parser.setStringToParse(s);
                 format = parser.parseOntology(ontology);

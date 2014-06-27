@@ -10,9 +10,10 @@ import javax.annotation.Nullable;
 
 import org.obolibrary.obo2owl.OWLAPIObo2Owl;
 import org.obolibrary.oboformat.model.OBODoc;
-import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.OWLAPIConfigProvider;
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.expression.ShortFormEntityChecker;
+import org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxParserImpl;
 import org.semanticweb.owlapi.mansyntax.renderer.ParserException;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
@@ -147,7 +148,8 @@ public class ManchesterSyntaxTool {
             throw new RuntimeException(
                     "Illegal State: Trying to use an disposed instance.");
         }
-        ManchesterOWLSyntaxParser parser = OWLManager.createManchesterParser();
+        ManchesterOWLSyntaxParser parser = new ManchesterOWLSyntaxParserImpl(
+                new OWLAPIConfigProvider(), dataFactory);
         parser.setStringToParse(expression);
         parser.setOWLEntityChecker(entityChecker);
         log.info("parsing: {}", expression);
