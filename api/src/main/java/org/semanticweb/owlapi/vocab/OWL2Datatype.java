@@ -44,6 +44,7 @@ public enum OWL2Datatype implements HasIRI,HasShortForm,HasPrefixedName {
     /** RDF_XML_LITERAL. */          RDF_XML_LITERAL          (RDF,  "XMLLiteral",   Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, false, ".*"), 
     /** RDFS_LITERAL. */             RDFS_LITERAL             (RDFS, "Literal",      Category.CAT_UNIVERSAL,                   false, ".*"),
     /** RDF_PLAIN_LITERAL. */        RDF_PLAIN_LITERAL        (RDF,  "PlainLiteral", Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, false, ".*"),
+    /** RDF_LANG_STRING */           RDF_LANG_STRING          (RDF,  "langString",   Category.CAT_STRING_WITH_LANGUAGE_TAG,    false, ".*"),
     /** OWL_REAL. */                 OWL_REAL                 (OWL,  "real",         Category.CAT_NUMBER,                      false, ".*"),
     /** OWL_RATIONAL. */             OWL_RATIONAL             (OWL,  "rational",     Category.CAT_NUMBER,                      false, "(\\+|-)?([0-9]+)(\\s)*(/)(\\s)*([0-9]+)"),
     /** XSD_STRING. */               XSD_STRING               (STRING,               Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, false, ".*"),
