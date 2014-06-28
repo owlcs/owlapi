@@ -47,11 +47,12 @@ import java.util.StringTokenizer;
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntax;
 import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.io.OWLRendererIOException;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 25-Apr-2007
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 25-Apr-2007
  */
 public class AbstractRenderer {
 
@@ -155,7 +156,7 @@ public class AbstractRenderer {
         try {
             writer.write(s);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new OWLRuntimeException(e);
         }
     }
 
