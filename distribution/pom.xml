@@ -55,6 +55,11 @@
 			<artifactId>owlapi-rio</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>owlapi-compatibility</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -73,7 +78,7 @@
 							org.semanticweb.owlapi.*;-split-package:=merge-first,
 							org.semanticweb.owlapitools.*;-split-package:=merge-first,
 							uk.ac.manchester.*;-split-package:=merge-first,
-							org.obolibrary.*
+							org.obolibrary.*,org.coode.*,de.uulm.*
 						</Export-Package>
 					</instructions>
 					<executions>
@@ -105,6 +110,7 @@
 								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-tools</dependencySourceInclude>
 								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-impl</dependencySourceInclude>
 								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-oboparser</dependencySourceInclude>
+								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-compatibility</dependencySourceInclude>
 								<dependencySourceInclude>net.sourceforge.owlapi:owlapitools-fixers</dependencySourceInclude>
 							</dependencySourceIncludes>
 						</configuration>
