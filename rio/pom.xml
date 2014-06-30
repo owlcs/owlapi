@@ -134,6 +134,11 @@
 				<artifactId>jackson-annotations</artifactId>
 				<version>2.3.3</version>
 			</dependency>
+			<dependency>
+				<groupId>org.openrdf.sesame</groupId>
+				<artifactId>sesame-bom</artifactId>
+				<version>${sesame.version}</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 </project>
