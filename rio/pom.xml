@@ -13,7 +13,7 @@
 	<description>Extends OWLAPI to export ontologies to any Sesame Rio RDFHandler, including databases and in-memory RDF statement collections.</description>
 	
 	<properties>
-		<sesame.version>2.7.11</sesame.version>
+		<sesame.version>2.7.12</sesame.version>
 	</properties>
 	
 	<dependencies>
@@ -133,6 +133,11 @@
 				<groupId>com.fasterxml.jackson.core</groupId>
 				<artifactId>jackson-annotations</artifactId>
 				<version>2.3.3</version>
+			</dependency>
+			<dependency>
+				<groupId>org.openrdf.sesame</groupId>
+				<artifactId>sesame-bom</artifactId>
+				<version>${sesame.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
