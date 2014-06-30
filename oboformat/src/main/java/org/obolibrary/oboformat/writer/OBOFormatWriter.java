@@ -508,6 +508,7 @@ public class OBOFormatWriter {
         if (!xrefs.isEmpty()) {
             appendXrefs(sb, xrefs);
         } else if (OboFormatTag.TAG_DEF.getTag().equals(clause.getTag())
+                || OboFormatTag.TAG_SYNONYM.getTag().equals(clause.getTag())
                 || OboFormatTag.TAG_EXPAND_EXPRESSION_TO.getTag().equals(
                         clause.getTag())
                 || OboFormatTag.TAG_EXPAND_ASSERTION_TO.getTag().equals(
