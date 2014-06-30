@@ -78,7 +78,7 @@ public class TestPlainLiteralTestCase extends TestBase {
                 m.getOWLDataFactory().getOWLDataPropertyAssertionAxiom(p, i, l));
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         m.saveOntology(o, out);
-        String expected = "<test:p>test</test:p>";
+        String expected = "<test:p rdf:datatype=\"http://www.w3.org/2001/XMLSchema#string\">test</test:p>";
         assertTrue(out.toString(), out.toString().contains(expected));
     }
 
@@ -90,8 +90,10 @@ public class TestPlainLiteralTestCase extends TestBase {
                 OWL2Datatype.RDF_PLAIN_LITERAL);
         m.addAxiom(o, df.getOWLAnnotationAssertionAxiom(df.getRDFSComment(), i
                 .asOWLNamedIndividual().getIRI(), l));
-        String expected = "<rdfs:comment>test</rdfs:comment>";
-        assertTrue(saveOntology(o).toString().contains(expected));
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        m.saveOntology(o, out);
+        String expected = "<rdfs:comment rdf:datatype=\"http://www.w3.org/2001/XMLSchema#string\">test</rdfs:comment>";
+        assertTrue(out.toString(), out.toString().contains(expected));
     }
 
     @Test
@@ -104,7 +106,7 @@ public class TestPlainLiteralTestCase extends TestBase {
         m.applyChange(new AddOntologyAnnotation(o, a));
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         m.saveOntology(o, out);
-        String expected = "<rdfs:comment>test</rdfs:comment>";
+        String expected = "<rdfs:comment rdf:datatype=\"http://www.w3.org/2001/XMLSchema#string\">test</rdfs:comment>";
         assertTrue(out.toString(), out.toString().contains(expected));
     }
 }
