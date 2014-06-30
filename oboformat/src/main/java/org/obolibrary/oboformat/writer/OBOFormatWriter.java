@@ -1,5 +1,7 @@
 package org.obolibrary.oboformat.writer;
 
+import static org.semanticweb.owlapi.model.parameters.Search.*;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -25,6 +27,7 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.obolibrary.obo2owl.OWLAPIObo2Owl;
 import org.obolibrary.oboformat.model.Clause;
 import org.obolibrary.oboformat.model.Frame;
 import org.obolibrary.oboformat.model.Frame.FrameType;
@@ -35,6 +38,13 @@ import org.obolibrary.oboformat.parser.OBOFormatConstants;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 import org.obolibrary.oboformat.parser.OBOFormatParser;
 import org.obolibrary.oboformat.parser.OBOFormatParserException;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationSubject;
+import org.semanticweb.owlapi.model.OWLAnnotationValue;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.util.StringComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -217,6 +227,8 @@ public class OBOFormatWriter {
         for (Frame f : instanceFrames) {
             write(f, writer, nameProvider);
         }
+        // to be save always flush writer
+        writer.flush();
     }
 
     private static void writeLine(@Nonnull StringBuilder ln,
@@ -506,6 +518,7 @@ public class OBOFormatWriter {
         if (!xrefs.isEmpty()) {
             appendXrefs(sb, xrefs);
         } else if (OboFormatTag.TAG_DEF.getTag().equals(clause.getTag())
+                || OboFormatTag.TAG_SYNONYM.getTag().equals(clause.getTag())
                 || OboFormatTag.TAG_EXPAND_EXPRESSION_TO.getTag().equals(
                         clause.getTag())
                 || OboFormatTag.TAG_EXPAND_ASSERTION_TO.getTag().equals(
@@ -1207,5 +1220,56 @@ public class OBOFormatWriter {
         public String getDefaultOboNamespace() {
             return defaultOboNamespace;
         }
+    }
+
+    /**
+     * Alternative implementation to lookup labels in an {@link OWLOntology}.<br>
+     * This implementation might be a bit slower as it involves additional id
+     * conversion back into OWL.
+     */
+    public static class OWLOntologyNameProvider implements NameProvider {
+
+        @Nonnull
+        private final OWLOntology ont;
+        @Nullable
+        private final String defaultOboNamespace;
+
+        /**
+         * @param ont
+         *        ontology
+         * @param defaultOboNamespace
+         */
+        public OWLOntologyNameProvider(OWLOntology ont,
+                String defaultOboNamespace) {
+            this.ont = ont;
+            this.defaultOboNamespace = defaultOboNamespace;
+        }
+
+        @Override
+        public String getName(String id) {
+            // convert OBO id to IRI
+            OWLAPIObo2Owl obo2owl = new OWLAPIObo2Owl(ont.getOWLOntologyManager());
+            IRI iri = obo2owl.oboIdToIRI(id);
+            
+            // look for label of entity
+            Set<OWLAnnotationAssertionAxiom> axioms = ont.getAxioms(OWLAnnotationAssertionAxiom.class,
+                    OWLAnnotationSubject.class, iri, Imports.INCLUDED, IN_SUB_POSITION);
+            for (OWLAnnotationAssertionAxiom axiom : axioms) {
+                if (axiom.getProperty().isLabel()) {
+                    OWLAnnotationValue value = axiom.getValue();
+                    if (value != null && value instanceof OWLLiteral) {
+                        return ((OWLLiteral) value).getLiteral();
+                    }
+                }
+            }
+            
+            return null;
+        }
+
+        @Override
+        public String getDefaultOboNamespace() {
+            return defaultOboNamespace;
+        }
+
     }
 }
