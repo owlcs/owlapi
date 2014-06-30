@@ -64,8 +64,10 @@ public class TestPlainLiteralTestCase extends TestBase {
         o.add(df.getOWLDataPropertyAssertionAxiom(p, i, l));
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         o.saveOntology(out);
-        String expected = "<test:p rdf:datatype=\"http://www.w3.org/2001/XMLSchema#string\">test</test:p>";
-        assertTrue(out.toString(), out.toString().contains(expected));
+        String expectedStart = "<test:p";
+        String expectedEnd = ">test</test:p>";
+        assertTrue(out.toString(), out.toString().contains(expectedStart));
+        assertTrue(out.toString(), out.toString().contains(expectedEnd));
     }
 
     @Test
@@ -74,8 +76,10 @@ public class TestPlainLiteralTestCase extends TestBase {
         OWLIndividual i = df.getOWLNamedIndividual("urn:test#ind");
         OWLLiteral l = df.getOWLLiteral("test", OWL2Datatype.RDF_PLAIN_LITERAL);
         o.add(df.getOWLAnnotationAssertionAxiom(df.getRDFSComment(), i.asOWLNamedIndividual().getIRI(), l));
-        String expected = "<rdfs:comment rdf:datatype=\"http://www.w3.org/2001/XMLSchema#string\">test</rdfs:comment>";
-        assertTrue(saveOntology(o).toString().contains(expected));
+        String expectedStart = "<rdfs:comment";
+   		String expectedEnd = ">test</rdfs:comment>";
+        assertTrue(out.toString(), out.toString().contains(expectedStart));
+        assertTrue(out.toString(), out.toString().contains(expectedEnd));
     }
 
     @Test
@@ -86,7 +90,9 @@ public class TestPlainLiteralTestCase extends TestBase {
         o.applyChange(new AddOntologyAnnotation(o, a));
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         o.saveOntology(out);
-        String expected = "<rdfs:comment rdf:datatype=\"http://www.w3.org/2001/XMLSchema#string\">test</rdfs:comment>";
-        assertTrue(out.toString(), out.toString().contains(expected));
+        String expectedStart = "<rdfs:comment";
+        String expectedEnd = ">test</rdfs:comment>";
+        assertTrue(out.toString(), out.toString().contains(expectedStart));
+        assertTrue(out.toString(), out.toString().contains(expectedEnd));
     }
 }
