@@ -80,7 +80,6 @@ import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
-import org.semanticweb.owlapi.search.Filters;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
@@ -1601,8 +1600,8 @@ public class OWLAPIOwl2Obo {
         if (entity.isBottomEntity() || entity.isTopEntity()) {
             return;
         }
-        Collection<OWLAnnotationAssertionAxiom> set = getOWLOntology()
-                .filterAxioms(Filters.annotations, entity.getIRI(), INCLUDED);
+        Set<OWLAnnotationAssertionAxiom> set  = this.owlOntology.getAnnotationAssertionAxioms(entity.getIRI());
+        
         if (set.isEmpty()) {
             return;
         }
@@ -1744,10 +1743,8 @@ public class OWLAPIOwl2Obo {
         if (obj instanceof OWLObjectProperty
                 || obj instanceof OWLAnnotationProperty) {
             OWLEntity entity = (OWLEntity) obj;
-            Collection<OWLAxiom> filterAxioms = ont.filterAxioms(
-                    Filters.annotations, entity.getIRI(), INCLUDED);
-            for (OWLAxiom a : filterAxioms) {
-                OWLAnnotationAssertionAxiom ax = (OWLAnnotationAssertionAxiom) a;
+            Set<OWLAnnotationAssertionAxiom> axioms = ont.getAnnotationAssertionAxioms(entity.getIRI());
+            for (OWLAnnotationAssertionAxiom ax : axioms) {
                 String propId = getIdentifierFromObject(ax.getProperty()
                         .getIRI(), ont);
                 // see BFOROXrefTest
