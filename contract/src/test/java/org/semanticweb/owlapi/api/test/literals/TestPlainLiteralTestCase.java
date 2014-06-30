@@ -78,8 +78,10 @@ public class TestPlainLiteralTestCase extends TestBase {
                 m.getOWLDataFactory().getOWLDataPropertyAssertionAxiom(p, i, l));
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         m.saveOntology(o, out);
-        String expected = "<test:p rdf:datatype=\"http://www.w3.org/2001/XMLSchema#string\">test</test:p>";
-        assertTrue(out.toString(), out.toString().contains(expected));
+        String expectedStart = "<test:p";
+        String expectedEnd = ">test</test:p>";
+        assertTrue(out.toString(), out.toString().contains(expectedStart));
+        assertTrue(out.toString(), out.toString().contains(expectedEnd));
     }
 
     @Test
@@ -92,8 +94,10 @@ public class TestPlainLiteralTestCase extends TestBase {
                 .asOWLNamedIndividual().getIRI(), l));
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         m.saveOntology(o, out);
-        String expected = "<rdfs:comment rdf:datatype=\"http://www.w3.org/2001/XMLSchema#string\">test</rdfs:comment>";
-        assertTrue(out.toString(), out.toString().contains(expected));
+        String expectedStart = "<rdfs:comment";
+   		String expectedEnd = ">test</rdfs:comment>";
+        assertTrue(out.toString(), out.toString().contains(expectedStart));
+        assertTrue(out.toString(), out.toString().contains(expectedEnd));
     }
 
     @Test
@@ -106,7 +110,9 @@ public class TestPlainLiteralTestCase extends TestBase {
         m.applyChange(new AddOntologyAnnotation(o, a));
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         m.saveOntology(o, out);
-        String expected = "<rdfs:comment rdf:datatype=\"http://www.w3.org/2001/XMLSchema#string\">test</rdfs:comment>";
-        assertTrue(out.toString(), out.toString().contains(expected));
+        String expectedStart = "<rdfs:comment";
+        String expectedEnd = ">test</rdfs:comment>";
+        assertTrue(out.toString(), out.toString().contains(expectedStart));
+        assertTrue(out.toString(), out.toString().contains(expectedEnd));
     }
 }
