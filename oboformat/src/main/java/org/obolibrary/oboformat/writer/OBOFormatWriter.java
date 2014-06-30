@@ -217,6 +217,8 @@ public class OBOFormatWriter {
         for (Frame f : instanceFrames) {
             write(f, writer, nameProvider);
         }
+        // to be save always flush writer
+        writer.flush();
     }
 
     private static void writeLine(@Nonnull StringBuilder ln,
