@@ -206,10 +206,10 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
             OWLOntologyDocumentSource documentSource,
             PriorityCollection<OWLParser> parsers) {
         PriorityCollection<OWLParser> candidateParsers = getParsersByFormat(documentSource, parsers);
-        if(candidateParsers.size() == 0) {
+        if(candidateParsers.isEmpty()) {
         	candidateParsers = getParserCandidatesByMIME(documentSource, parsers);
         }
-        if(candidateParsers.size() == 0) {
+        if(candidateParsers.isEmpty()) {
         	return parsers;
         } else {
         	return candidateParsers;
