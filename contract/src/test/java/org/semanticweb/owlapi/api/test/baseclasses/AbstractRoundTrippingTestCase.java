@@ -18,6 +18,8 @@ import org.junit.Test;
 import org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormat;
 import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormat;
 import org.semanticweb.owlapi.formats.OWLXMLOntologyFormat;
+import org.semanticweb.owlapi.formats.RDFJsonOntologyFormat;
+import org.semanticweb.owlapi.formats.TrigOntologyFormat;
 import org.semanticweb.owlapi.formats.TurtleOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
@@ -46,6 +48,11 @@ public abstract class AbstractRoundTrippingTestCase extends TestBase {
     }
 
     @Test
+    public void testRDFJSON() throws Exception {
+        roundTripOntology(ont, new RDFJsonOntologyFormat());
+    }
+
+    @Test
     public void testOWLXML() throws Exception {
         roundTripOntology(ont, new OWLXMLOntologyFormat());
     }
@@ -58,6 +65,11 @@ public abstract class AbstractRoundTrippingTestCase extends TestBase {
     @Test
     public void testTurtle() throws Exception {
         roundTripOntology(ont, new TurtleOntologyFormat());
+    }
+
+    @Test
+    public void testTrig() throws Exception {
+        roundTripOntology(ont, new TrigOntologyFormat());
     }
 
     @Test
