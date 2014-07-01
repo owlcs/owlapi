@@ -16,8 +16,11 @@ import javax.annotation.Nonnull;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormat;
+import org.semanticweb.owlapi.formats.NQuadsOntologyFormat;
+import org.semanticweb.owlapi.formats.NTriplesOntologyFormat;
 import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormat;
 import org.semanticweb.owlapi.formats.OWLXMLOntologyFormat;
+import org.semanticweb.owlapi.formats.RDFJsonLDOntologyFormat;
 import org.semanticweb.owlapi.formats.RDFJsonOntologyFormat;
 import org.semanticweb.owlapi.formats.TrigOntologyFormat;
 import org.semanticweb.owlapi.formats.TurtleOntologyFormat;
@@ -53,6 +56,11 @@ public abstract class AbstractRoundTrippingTestCase extends TestBase {
     }
 
     @Test
+    public void testJSONLD() throws Exception {
+        roundTripOntology(ont, new RDFJsonLDOntologyFormat());
+    }
+
+    @Test
     public void testOWLXML() throws Exception {
         roundTripOntology(ont, new OWLXMLOntologyFormat());
     }
@@ -60,6 +68,16 @@ public abstract class AbstractRoundTrippingTestCase extends TestBase {
     @Test
     public void testFunctionalSyntax() throws Exception {
         roundTripOntology(ont, new OWLFunctionalSyntaxOntologyFormat());
+    }
+
+    @Test
+    public void testNTriples() throws Exception {
+        roundTripOntology(ont, new NTriplesOntologyFormat());
+    }
+
+    @Test
+    public void testNQuads() throws Exception {
+        roundTripOntology(ont, new NQuadsOntologyFormat());
     }
 
     @Test
