@@ -106,7 +106,7 @@
 		<dependency>
 			<groupId>com.github.jsonld-java</groupId>
 			<artifactId>jsonld-java-sesame</artifactId>
-			<version>0.4.1</version>
+			<version>0.5-SNAPSHOT</version>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
