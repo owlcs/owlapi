@@ -20,12 +20,12 @@ import java.util.Map;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.formats.PrefixOWLOntologyFormat;
+import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.io.AbstractOWLRenderer;
 import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.io.OWLRendererIOException;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.vocab.Namespaces;
 
 /**
@@ -46,7 +46,7 @@ public class OWLXMLRenderer extends AbstractOWLRenderer {
      *         renderer error
      */
     public static void render(@Nonnull OWLOntology ontology,
-            @Nonnull Writer writer, @Nonnull OWLOntologyFormat format)
+            @Nonnull Writer writer, @Nonnull OWLDocumentFormat format)
             throws OWLRendererException {
         checkNotNull(ontology, "ontology cannot be null");
         checkNotNull(writer, "writer cannot be null");
@@ -54,8 +54,8 @@ public class OWLXMLRenderer extends AbstractOWLRenderer {
         try {
             OWLXMLWriter w = new OWLXMLWriter(writer, ontology);
             w.startDocument(ontology);
-            if (format instanceof PrefixOWLOntologyFormat) {
-                PrefixOWLOntologyFormat fromPrefixFormat = (PrefixOWLOntologyFormat) format;
+            if (format instanceof PrefixDocumentFormat) {
+                PrefixDocumentFormat fromPrefixFormat = (PrefixDocumentFormat) format;
                 Map<String, String> map = fromPrefixFormat
                         .getPrefixName2PrefixMap();
                 for (String prefixName : map.keySet()) {

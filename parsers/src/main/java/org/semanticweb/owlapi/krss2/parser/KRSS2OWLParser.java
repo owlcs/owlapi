@@ -19,11 +19,11 @@ import java.io.Reader;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.annotations.HasPriority;
-import org.semanticweb.owlapi.formats.KRSS2OntologyFormat;
+import org.semanticweb.owlapi.formats.KRSS2DocumentFormat;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 
 /**
@@ -241,18 +241,18 @@ public class KRSS2OWLParser extends AbstractOWLParser {
     }
 
     @Override
-    protected Class<? extends OWLOntologyFormat> getFormatClass() {
-        return KRSS2OntologyFormat.class;
+    protected Class<? extends OWLDocumentFormat> getFormatClass() {
+        return KRSS2DocumentFormat.class;
     }
 
     @Override
-    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
+    public OWLDocumentFormat parse(OWLOntologyDocumentSource documentSource,
             OWLOntology ontology, OWLOntologyLoaderConfiguration configuration)
             throws IOException {
         Reader reader = null;
         InputStream is = null;
         try {
-            KRSS2OntologyFormat format = new KRSS2OntologyFormat();
+            KRSS2DocumentFormat format = new KRSS2DocumentFormat();
             KRSS2Parser parser;
             if (documentSource.isReaderAvailable()) {
                 reader = documentSource.getReader();

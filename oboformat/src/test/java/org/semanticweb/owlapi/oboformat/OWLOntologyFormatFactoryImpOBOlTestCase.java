@@ -16,9 +16,9 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.annotations.HasIdentifierKey;
-import org.semanticweb.owlapi.formats.OBOOntologyFormat;
-import org.semanticweb.owlapi.model.OWLOntologyFormatFactory;
-import org.semanticweb.owlapi.util.OWLOntologyFormatFactoryImpl;
+import org.semanticweb.owlapi.formats.OBODocumentFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
+import org.semanticweb.owlapi.util.OWLDocumentFormatFactoryImpl;
 
 /**
  * Test the generic factory and all the formats it can build
@@ -30,8 +30,8 @@ public class OWLOntologyFormatFactoryImpOBOlTestCase {
 
     @Test
     public void testOBOOntologyFormat() {
-        Class<OBOOntologyFormat> format = OBOOntologyFormat.class;
-        OWLOntologyFormatFactory f = new OWLOntologyFormatFactoryImpl<>(format);
+        Class<OBODocumentFormat> format = OBODocumentFormat.class;
+        OWLDocumentFormatFactory f = new OWLDocumentFormatFactoryImpl<>(format);
         assertEquals("OBO Format", format.getAnnotation(HasIdentifierKey.class)
                 .value());
         assertEquals("OBO Format", f.getKey());

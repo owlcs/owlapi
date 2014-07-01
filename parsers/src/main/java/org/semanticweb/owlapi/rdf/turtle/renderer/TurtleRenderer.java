@@ -28,7 +28,7 @@ import java.util.Stack;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.formats.PrefixOWLOntologyFormat;
+import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.io.RDFLiteral;
 import org.semanticweb.owlapi.io.RDFNode;
 import org.semanticweb.owlapi.io.RDFResource;
@@ -42,7 +42,7 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.rdf.RDFRendererBase;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
@@ -62,7 +62,7 @@ public class TurtleRenderer extends RDFRendererBase {
     private final PrefixManager pm;
     private final Set<RDFResource> pending;
     private final String base;
-    private final OWLOntologyFormat format;
+    private final OWLDocumentFormat format;
 
     /**
      * @param ontology
@@ -73,7 +73,7 @@ public class TurtleRenderer extends RDFRendererBase {
      *        format
      */
     public TurtleRenderer(@Nonnull OWLOntology ontology, Writer writer,
-            OWLOntologyFormat format) {
+            OWLDocumentFormat format) {
         super(ontology, format);
         this.format = checkNotNull(format, "format cannot be null");
         this.writer = new PrintWriter(writer);
@@ -88,8 +88,8 @@ public class TurtleRenderer extends RDFRendererBase {
             }
             pm.setDefaultPrefix(defaultPrefix);
         }
-        if (format instanceof PrefixOWLOntologyFormat) {
-            PrefixOWLOntologyFormat prefixFormat = (PrefixOWLOntologyFormat) format;
+        if (format instanceof PrefixDocumentFormat) {
+            PrefixDocumentFormat prefixFormat = (PrefixDocumentFormat) format;
             pm.copyPrefixesFrom(prefixFormat);
             pm.setPrefixComparator(prefixFormat.getPrefixComparator());
         }

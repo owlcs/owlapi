@@ -16,11 +16,11 @@ package org.coode.owlapi.latex;
  * @author Matthew Horridge, The University Of Manchester, Information
  *         Management Group, Date: 03-Aug-2008
  * @deprecated use
- *             {@link org.semanticweb.owlapi.formats.LatexAxiomsListOntologyFormat}
+ *             {@link org.semanticweb.owlapi.formats.LatexAxiomsListDocumentFormat}
  */
 @Deprecated
 public class LatexAxiomsListOntologyFormat extends
-        org.semanticweb.owlapi.formats.LatexAxiomsListOntologyFormat {
+        org.semanticweb.owlapi.formats.LatexAxiomsListDocumentFormat {
 
     private static final long serialVersionUID = 30406L;
 }

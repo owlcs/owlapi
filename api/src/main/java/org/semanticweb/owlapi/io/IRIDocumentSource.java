@@ -20,7 +20,7 @@ import java.io.Reader;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -41,7 +41,7 @@ public class IRIDocumentSource extends OWLOntologyDocumentSourceBase {
      *        mime type
      */
     public IRIDocumentSource(@Nonnull IRI documentIRI,
-            OWLOntologyFormat format, String mime) {
+            OWLDocumentFormat format, String mime) {
         super(format, mime);
         this.documentIRI = checkNotNull(documentIRI,
                 "document iri cannot be null");

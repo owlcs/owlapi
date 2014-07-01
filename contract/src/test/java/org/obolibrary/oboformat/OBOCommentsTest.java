@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.formats.OBOOntologyFormat;
+import org.semanticweb.owlapi.formats.OBODocumentFormat;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 
@@ -17,12 +17,12 @@ public class OBOCommentsTest extends TestBase {
                 + "data-version: beta2 ! WSIO Beta 2\n"
                 + "date: 19:06:2014 18:57 ! CE(S)T";
         OWLOntology o1 = loadOntologyFromString(in1, IRI.create("urn:test1"),
-                new OBOOntologyFormat());
+                new OBODocumentFormat());
         String in2 = "format-version: 1.2\n"
                 + "date: 19:06:2014 18:57 ! CE(S)T"
                 + "data-version: beta2 ! WSIO Beta 2\n";
         OWLOntology o2 = loadOntologyFromString(in2, IRI.create("urn:test2"),
-                new OBOOntologyFormat());
+                new OBODocumentFormat());
         assertEquals(o1.getAxioms(), o2.getAxioms());
     }
 
@@ -113,6 +113,6 @@ public class OBOCommentsTest extends TestBase {
                 + "instance_of: HIV:00010\n"
                 + "property value: host_range human\n" + "type_of: HIV:00000";
         loadOntologyFromString(in, IRI.create("urn:test"),
-                new OBOOntologyFormat());
+                new OBODocumentFormat());
     }
 }

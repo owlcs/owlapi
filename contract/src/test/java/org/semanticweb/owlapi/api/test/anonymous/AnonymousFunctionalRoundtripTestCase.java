@@ -22,8 +22,8 @@ import javax.annotation.Nonnull;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormat;
-import org.semanticweb.owlapi.formats.RDFXMLOntologyFormat;
+import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
+import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
@@ -72,7 +72,7 @@ public class AnonymousFunctionalRoundtripTestCase extends TestBase {
     @Test
     public void shouldRoundTripBroken() throws Exception {
         OWLOntology o = loadOntologyFromString(broken);
-        OWLFunctionalSyntaxOntologyFormat format = new OWLFunctionalSyntaxOntologyFormat();
+        FunctionalSyntaxDocumentFormat format = new FunctionalSyntaxDocumentFormat();
         format.setDefaultPrefix(NS + '#');
         OWLOntology o1 = roundTrip(o, format);
         assertEquals(o.getLogicalAxioms(), o1.getLogicalAxioms());
@@ -92,10 +92,10 @@ public class AnonymousFunctionalRoundtripTestCase extends TestBase {
         changes.add(new AddAxiom(ontology, DataPropertyAssertion(Q, i,
                 Literal("hello"))));
         m.applyChanges(changes);
-        RDFXMLOntologyFormat format = new RDFXMLOntologyFormat();
+        RDFXMLDocumentFormat format = new RDFXMLDocumentFormat();
         format.setDefaultPrefix(NS + '#');
         ontology = roundTrip(ontology, format);
-        OWLFunctionalSyntaxOntologyFormat format2 = new OWLFunctionalSyntaxOntologyFormat();
+        FunctionalSyntaxDocumentFormat format2 = new FunctionalSyntaxDocumentFormat();
         format2.setDefaultPrefix(NS + '#');
         ontology = roundTrip(ontology, format2);
     }

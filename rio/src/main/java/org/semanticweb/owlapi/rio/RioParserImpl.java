@@ -63,15 +63,15 @@ import org.openrdf.rio.Rio;
 import org.openrdf.rio.UnsupportedRDFormatException;
 import org.openrdf.rio.helpers.StatementCollector;
 import org.semanticweb.owlapi.annotations.HasPriority;
-import org.semanticweb.owlapi.formats.RioRDFOntologyFormat;
-import org.semanticweb.owlapi.formats.RioRDFOntologyFormatFactory;
+import org.semanticweb.owlapi.formats.RioRDFDocumentFormat;
+import org.semanticweb.owlapi.formats.RioRDFDocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
-import org.semanticweb.owlapi.model.OWLOntologyFormatFactory;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.util.AnonymousNodeChecker;
@@ -88,46 +88,46 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
     protected final static Logger log = LoggerFactory
             .getLogger(RioParserImpl.class);
     @Nonnull
-    private final RioRDFOntologyFormatFactory owlFormatFactory;
+    private final RioRDFDocumentFormatFactory owlFormatFactory;
     @Nonnull
-    private final Set<OWLOntologyFormatFactory> supportedFormats;
+    private final Set<OWLDocumentFormatFactory> supportedFormats;
 
     /**
      * @param nextFormat
      *        format factory
      */
-    public RioParserImpl(@Nonnull RioRDFOntologyFormatFactory nextFormat) {
+    public RioParserImpl(@Nonnull RioRDFDocumentFormatFactory nextFormat) {
         owlFormatFactory = checkNotNull(nextFormat, "nextFormat cannot be null");
         supportedFormats = CollectionFactory
-                .createSet((OWLOntologyFormatFactory) owlFormatFactory);
+                .createSet((OWLDocumentFormatFactory) owlFormatFactory);
     }
 
     @Override
-    public Set<Class<OWLOntologyFormat>> getSupportedFormatClasses() {
+    public Set<Class<OWLDocumentFormat>> getSupportedFormatClasses() {
         // not needed for this parser
         return CollectionFactory.emptySet();
     }
 
     @Nonnull
     @Override
-    protected Class<? extends OWLOntologyFormat> getFormatClass() {
+    protected Class<? extends OWLDocumentFormat> getFormatClass() {
         // not needed for this parser
         // XXX should be better designed
         return null;
     }
 
     @Override
-    public RioRDFOntologyFormat getParserFormat() {
+    public RioRDFDocumentFormat getParserFormat() {
         return owlFormatFactory.createFormat();
     }
 
     @Override
-    public Set<OWLOntologyFormatFactory> getSupportedFormats() {
+    public Set<OWLDocumentFormatFactory> getSupportedFormats() {
         return supportedFormats;
     }
 
     @Override
-    public OWLOntologyFormat parse(
+    public OWLDocumentFormat parse(
             final OWLOntologyDocumentSource documentSource,
             final OWLOntology ontology,
             final OWLOntologyLoaderConfiguration configuration)

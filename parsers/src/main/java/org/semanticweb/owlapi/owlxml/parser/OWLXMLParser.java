@@ -20,12 +20,12 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.semanticweb.owlapi.annotations.HasPriority;
-import org.semanticweb.owlapi.formats.OWLXMLOntologyFormat;
+import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.SAXParsers;
@@ -49,17 +49,17 @@ public class OWLXMLParser extends AbstractOWLParser {
     }
 
     @Override
-    protected Class<? extends OWLOntologyFormat> getFormatClass() {
-        return OWLXMLOntologyFormat.class;
+    protected Class<? extends OWLDocumentFormat> getFormatClass() {
+        return OWLXMLDocumentFormat.class;
     }
 
     @Override
-    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
+    public OWLDocumentFormat parse(OWLOntologyDocumentSource documentSource,
             OWLOntology ontology, OWLOntologyLoaderConfiguration configuration)
             throws IOException {
         InputSource isrc = null;
         try {
-            OWLXMLOntologyFormat format = new OWLXMLOntologyFormat();
+            OWLXMLDocumentFormat format = new OWLXMLDocumentFormat();
             SAXParserFactory factory = SAXParsers.initFactory();
             SAXParser parser = factory.newSAXParser();
             isrc = getInputSource(documentSource, configuration);

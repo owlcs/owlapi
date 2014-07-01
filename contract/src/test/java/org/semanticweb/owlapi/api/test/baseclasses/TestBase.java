@@ -28,9 +28,9 @@ import org.junit.rules.TemporaryFolder;
 import org.junit.rules.Timeout;
 import org.semanticweb.owlapi.api.test.anonymous.AnonymousIndividualsNormaliser;
 import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.formats.PrefixOWLOntologyFormat;
-import org.semanticweb.owlapi.formats.RDFOntologyFormat;
-import org.semanticweb.owlapi.formats.RDFXMLOntologyFormat;
+import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
+import org.semanticweb.owlapi.formats.AbstractRDFDocumentFormat;
+import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.io.IRIDocumentSource;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSourceBase;
 import org.semanticweb.owlapi.io.StringDocumentSource;
@@ -42,7 +42,7 @@ import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
@@ -237,7 +237,7 @@ public abstract class TestBase {
 
     public void roundTripOntology(@Nonnull OWLOntology ont)
             throws OWLOntologyStorageException, OWLOntologyCreationException {
-        roundTripOntology(ont, new RDFXMLOntologyFormat());
+        roundTripOntology(ont, new RDFXMLDocumentFormat());
     }
 
     /**
@@ -253,18 +253,18 @@ public abstract class TestBase {
      *        The format to use when doing the round trip.
      */
     public OWLOntology roundTripOntology(@Nonnull OWLOntology ont,
-            @Nonnull OWLOntologyFormat format)
+            @Nonnull OWLDocumentFormat format)
             throws OWLOntologyStorageException, OWLOntologyCreationException {
         StringDocumentTarget target = new StringDocumentTarget();
-        OWLOntologyFormat fromFormat = m.getOntologyFormat(ont);
-        if (fromFormat instanceof PrefixOWLOntologyFormat
-                && format instanceof PrefixOWLOntologyFormat) {
-            PrefixOWLOntologyFormat fromPrefixFormat = (PrefixOWLOntologyFormat) fromFormat;
-            PrefixOWLOntologyFormat toPrefixFormat = (PrefixOWLOntologyFormat) format;
+        OWLDocumentFormat fromFormat = m.getOntologyFormat(ont);
+        if (fromFormat instanceof PrefixDocumentFormat
+                && format instanceof PrefixDocumentFormat) {
+            PrefixDocumentFormat fromPrefixFormat = (PrefixDocumentFormat) fromFormat;
+            PrefixDocumentFormat toPrefixFormat = (PrefixDocumentFormat) format;
             toPrefixFormat.copyPrefixesFrom(fromPrefixFormat);
         }
-        if (format instanceof RDFOntologyFormat) {
-            ((RDFOntologyFormat) format).setAddMissingTypes(false);
+        if (format instanceof AbstractRDFDocumentFormat) {
+            ((AbstractRDFDocumentFormat) format).setAddMissingTypes(false);
         }
         m.saveOntology(ont, format, target);
         handleSaved(target, format);
@@ -298,13 +298,13 @@ public abstract class TestBase {
     }
 
     @SuppressWarnings("unused")
-    protected boolean isIgnoreDeclarationAxioms(OWLOntologyFormat format) {
+    protected boolean isIgnoreDeclarationAxioms(OWLDocumentFormat format) {
         return true;
     }
 
     @SuppressWarnings("unused")
     protected void handleSaved(StringDocumentTarget target,
-            OWLOntologyFormat format) {
+            OWLDocumentFormat format) {
         // System.out.println(target.toString());
     }
 
@@ -318,7 +318,7 @@ public abstract class TestBase {
 
     @Nonnull
     protected OWLOntology loadOntologyFromString(@Nonnull String input,
-            @Nonnull IRI i, @Nonnull OWLOntologyFormat f) {
+            @Nonnull IRI i, @Nonnull OWLDocumentFormat f) {
         StringDocumentSource documentSource = new StringDocumentSource(input,
                 i, f, null);
         try {
@@ -348,7 +348,7 @@ public abstract class TestBase {
 
     @Nonnull
     protected OWLOntology loadOntologyFromString(
-            @Nonnull StringDocumentTarget input, OWLOntologyFormat f)
+            @Nonnull StringDocumentTarget input, OWLDocumentFormat f)
             throws OWLOntologyCreationException {
         return OWLManager.createOWLOntologyManager()
                 .loadOntologyFromOntologyDocument(
@@ -383,7 +383,7 @@ public abstract class TestBase {
 
     @Nonnull
     protected StringDocumentTarget saveOntology(@Nonnull OWLOntology o,
-            @Nonnull OWLOntologyFormat format)
+            @Nonnull OWLDocumentFormat format)
             throws OWLOntologyStorageException {
         StringDocumentTarget t = new StringDocumentTarget();
         o.getOWLOntologyManager().saveOntology(o, format, t);
@@ -392,14 +392,14 @@ public abstract class TestBase {
 
     @Nonnull
     protected OWLOntology roundTrip(@Nonnull OWLOntology o,
-            @Nonnull OWLOntologyFormat format)
+            @Nonnull OWLDocumentFormat format)
             throws OWLOntologyCreationException, OWLOntologyStorageException {
         return loadOntologyFromString(saveOntology(o, format), format);
     }
 
     @Nonnull
     protected OWLOntology roundTrip(@Nonnull OWLOntology o,
-            @Nonnull OWLOntologyFormat format,
+            @Nonnull OWLDocumentFormat format,
             @Nonnull OWLOntologyLoaderConfiguration c)
             throws OWLOntologyCreationException, OWLOntologyStorageException {
         return loadOntologyWithConfig(saveOntology(o, format), c);

@@ -40,11 +40,11 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import org.openrdf.rio.RDFFormat;
-import org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormat;
-import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormat;
-import org.semanticweb.owlapi.formats.OWLXMLOntologyFormat;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
-import org.semanticweb.owlapi.model.OWLOntologyFormatFactory;
+import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
+import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
+import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 
 /**
  * Extended {@link RDFFormat} constants for OWL formats that can be translated
@@ -71,7 +71,7 @@ public class OWLAPIRDFFormat extends RDFFormat {
             "Manchester OWL Syntax", Arrays.asList("text/owl-manchester"),
             Charset.forName("UTF-8"), Arrays.asList("omn"),
             SUPPORTS_NAMESPACES, NO_CONTEXTS,
-            new ManchesterOWLSyntaxOntologyFormat());
+            new ManchesterSyntaxDocumentFormat());
     /**
      * The <a href="http://www.w3.org/TR/owl2-xml-serialization/">OWL/XML</a>
      * file format.
@@ -86,7 +86,7 @@ public class OWLAPIRDFFormat extends RDFFormat {
     public static final OWLAPIRDFFormat OWL_XML = new OWLAPIRDFFormat(
             "OWL/XML Syntax", Arrays.asList("application/owl+xml"),
             Charset.forName("UTF-8"), Arrays.asList("owx"),
-            SUPPORTS_NAMESPACES, NO_CONTEXTS, new OWLXMLOntologyFormat());
+            SUPPORTS_NAMESPACES, NO_CONTEXTS, new OWLXMLDocumentFormat());
     /**
      * The <a href="http://www.w3.org/TR/owl2-syntax/">OWL Functional Syntax</a>
      * file format.
@@ -104,9 +104,9 @@ public class OWLAPIRDFFormat extends RDFFormat {
             "OWL Functional Syntax", Arrays.asList("text/owl-functional"),
             Charset.forName("UTF-8"), Arrays.asList("ofn"),
             SUPPORTS_NAMESPACES, NO_CONTEXTS,
-            new OWLFunctionalSyntaxOntologyFormat());
-    private OWLOntologyFormat owlFormat;
-    private OWLOntologyFormatFactory owlFormatFactory;
+            new FunctionalSyntaxDocumentFormat());
+    private OWLDocumentFormat owlFormat;
+    private OWLDocumentFormatFactory owlFormatFactory;
 
     /**
      * @param name
@@ -126,7 +126,7 @@ public class OWLAPIRDFFormat extends RDFFormat {
      */
     public OWLAPIRDFFormat(String name, String mimeType, Charset charset,
             String fileExtension, boolean supportsNamespaces,
-            boolean supportsContexts, OWLOntologyFormatFactory owlFormat) {
+            boolean supportsContexts, OWLDocumentFormatFactory owlFormat) {
         super(name, mimeType, charset, fileExtension, supportsNamespaces,
                 supportsContexts);
         owlFormatFactory = owlFormat;
@@ -150,7 +150,7 @@ public class OWLAPIRDFFormat extends RDFFormat {
      */
     public OWLAPIRDFFormat(String name, String mimeType, Charset charset,
             Collection<String> fileExtensions, boolean supportsNamespaces,
-            boolean supportsContexts, OWLOntologyFormatFactory owlFormat) {
+            boolean supportsContexts, OWLDocumentFormatFactory owlFormat) {
         super(name, mimeType, charset, fileExtensions, supportsNamespaces,
                 supportsContexts);
         owlFormatFactory = owlFormat;
@@ -175,7 +175,7 @@ public class OWLAPIRDFFormat extends RDFFormat {
     public OWLAPIRDFFormat(String name, Collection<String> mimeTypes,
             Charset charset, Collection<String> fileExtensions,
             boolean supportsNamespaces, boolean supportsContexts,
-            OWLOntologyFormatFactory owlFormat) {
+            OWLDocumentFormatFactory owlFormat) {
         super(name, mimeTypes, charset, fileExtensions, supportsNamespaces,
                 supportsContexts);
         owlFormatFactory = owlFormat;
@@ -199,7 +199,7 @@ public class OWLAPIRDFFormat extends RDFFormat {
      */
     public OWLAPIRDFFormat(String name, String mimeType, Charset charset,
             String fileExtension, boolean supportsNamespaces,
-            boolean supportsContexts, OWLOntologyFormat owlFormat) {
+            boolean supportsContexts, OWLDocumentFormat owlFormat) {
         super(name, mimeType, charset, fileExtension, supportsNamespaces,
                 supportsContexts);
         this.owlFormat = owlFormat;
@@ -223,7 +223,7 @@ public class OWLAPIRDFFormat extends RDFFormat {
      */
     public OWLAPIRDFFormat(String name, String mimeType, Charset charset,
             Collection<String> fileExtensions, boolean supportsNamespaces,
-            boolean supportsContexts, OWLOntologyFormat owlFormat) {
+            boolean supportsContexts, OWLDocumentFormat owlFormat) {
         super(name, mimeType, charset, fileExtensions, supportsNamespaces,
                 supportsContexts);
         this.owlFormat = owlFormat;
@@ -248,17 +248,17 @@ public class OWLAPIRDFFormat extends RDFFormat {
     public OWLAPIRDFFormat(String name, Collection<String> mimeTypes,
             Charset charset, Collection<String> fileExtensions,
             boolean supportsNamespaces, boolean supportsContexts,
-            OWLOntologyFormat owlFormat) {
+            OWLDocumentFormat owlFormat) {
         super(name, mimeTypes, charset, fileExtensions, supportsNamespaces,
                 supportsContexts);
         this.owlFormat = owlFormat;
     }
 
     /**
-     * @return A fresh instance of the matching {@link OWLOntologyFormat} for
+     * @return A fresh instance of the matching {@link OWLDocumentFormat} for
      *         this OWLAPIRDFFormat.
      */
-    public OWLOntologyFormat getOWLFormat() {
+    public OWLDocumentFormat getOWLFormat() {
         if (owlFormatFactory != null) {
             return owlFormatFactory.createFormat();
         } else {

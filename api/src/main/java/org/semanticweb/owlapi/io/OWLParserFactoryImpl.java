@@ -8,7 +8,7 @@ import java.util.Set;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.annotations.SupportsMIMEType;
-import org.semanticweb.owlapi.model.OWLOntologyFormatFactory;
+import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
@@ -45,7 +45,7 @@ public class OWLParserFactoryImpl<T extends OWLParser> implements
     }
 
     @Override
-    public Set<OWLOntologyFormatFactory> getSupportedFormats() {
+    public Set<OWLDocumentFormatFactory> getSupportedFormats() {
         return createParser().getSupportedFormats();
     }
 

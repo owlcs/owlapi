@@ -95,7 +95,7 @@ import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
 import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
@@ -166,13 +166,13 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         // any undeclared entities?
         if (!declared.isEmpty()) {
             boolean addMissing = true;
-            OWLOntologyFormat format = ontology.getOWLOntologyManager()
+            OWLDocumentFormat format = ontology.getOWLOntologyManager()
                     .getOntologyFormat(ontology);
             if (format != null) {
                 addMissing = format.isAddMissingTypes();
             }
             if (addMissing) {
-                Collection<IRI> illegalPunnings = OWLOntologyFormat
+                Collection<IRI> illegalPunnings = OWLDocumentFormat
                         .determineIllegalPunnings(addMissing,
                                 ontology.getSignature(),
                                 ontology.getPunnedIRIs(Imports.INCLUDED));

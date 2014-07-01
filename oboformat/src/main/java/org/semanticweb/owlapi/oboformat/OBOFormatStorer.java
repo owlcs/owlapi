@@ -18,11 +18,11 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.annotations.SupportsFormat;
-import org.semanticweb.owlapi.formats.OBOOntologyFormat;
+import org.semanticweb.owlapi.formats.OBODocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
-import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
+import org.semanticweb.owlapi.util.AbstractOWLStorer;
 
 /**
  * @author Nick Drummond, The University Of Manchester, Bio Health Informatics
@@ -30,19 +30,19 @@ import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
  * @since 3.4.10
  */
 @HasPriority(5)
-@SupportsFormat(OBOOntologyFormat.class)
-public class OBOFormatStorer extends AbstractOWLOntologyStorer {
+@SupportsFormat(OBODocumentFormat.class)
+public class OBOFormatStorer extends AbstractOWLStorer {
 
     private static final long serialVersionUID = 40000L;
 
     @Override
-    public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {
-        return ontologyFormat instanceof OBOOntologyFormat;
+    public boolean canStoreOntology(OWLDocumentFormat ontologyFormat) {
+        return ontologyFormat instanceof OBODocumentFormat;
     }
 
     @Override
     protected void storeOntology(@Nonnull OWLOntology ontology,
-            @Nonnull Writer writer, OWLOntologyFormat format)
+            @Nonnull Writer writer, OWLDocumentFormat format)
             throws OWLOntologyStorageException {
         OBOFormatRenderer.render(ontology, writer);
     }

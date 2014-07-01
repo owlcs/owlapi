@@ -40,7 +40,7 @@ import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.rdf.RDFRendererBase;
 import org.semanticweb.owlapi.util.VersionInfo;
 
@@ -57,7 +57,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
     @Nonnull
     private final RDFXMLNamespaceManager qnameManager;
     @Nonnull
-    private final OWLOntologyFormat format;
+    private final OWLDocumentFormat format;
 
     /**
      * @param ontology
@@ -80,7 +80,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
      *        format
      */
     public RDFXMLRenderer(@Nonnull OWLOntology ontology, @Nonnull Writer w,
-            @Nonnull OWLOntologyFormat format) {
+            @Nonnull OWLDocumentFormat format) {
         super(checkNotNull(ontology, "ontology cannot be null"), checkNotNull(
                 format, "format cannot be null"));
         this.format = checkNotNull(format, "format cannot be null");

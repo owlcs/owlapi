@@ -12,10 +12,10 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormat;
-import org.semanticweb.owlapi.formats.OWLXMLOntologyFormat;
-import org.semanticweb.owlapi.formats.RDFXMLOntologyFormat;
-import org.semanticweb.owlapi.formats.TurtleOntologyFormat;
+import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
+import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
+import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
+import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -23,7 +23,7 @@ import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 @SuppressWarnings("javadoc")
@@ -33,15 +33,15 @@ public class PunnedDeclarationsNotAddedTestCase extends TestBase {
     @Parameters(name = "{0}")
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][] {
-                { new OWLFunctionalSyntaxOntologyFormat() },
-                { new OWLXMLOntologyFormat() }, { new RDFXMLOntologyFormat() },
-                { new TurtleOntologyFormat() }, });
+                { new FunctionalSyntaxDocumentFormat() },
+                { new OWLXMLDocumentFormat() }, { new RDFXMLDocumentFormat() },
+                { new TurtleDocumentFormat() }, });
     }
 
     @Nonnull
-    private OWLOntologyFormat format;
+    private OWLDocumentFormat format;
 
-    public PunnedDeclarationsNotAddedTestCase(@Nonnull OWLOntologyFormat format) {
+    public PunnedDeclarationsNotAddedTestCase(@Nonnull OWLDocumentFormat format) {
         this.format = format;
     }
 

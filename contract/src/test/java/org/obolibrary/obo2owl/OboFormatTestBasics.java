@@ -22,7 +22,7 @@ import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.parser.OBOFormatParser;
 import org.obolibrary.oboformat.writer.OBOFormatWriter;
 import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.formats.OWLXMLOntologyFormat;
+import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
@@ -33,7 +33,7 @@ import org.semanticweb.owlapi.model.OWLAnnotationValue;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
@@ -168,12 +168,12 @@ public class OboFormatTestBasics {
 
     @Nonnull
     protected StringDocumentTarget writeOWL(@Nonnull OWLOntology ontology) {
-        return writeOWL(ontology, new OWLXMLOntologyFormat());
+        return writeOWL(ontology, new OWLXMLDocumentFormat());
     }
 
     @Nonnull
     protected StringDocumentTarget writeOWL(@Nonnull OWLOntology ontology,
-            @Nonnull OWLOntologyFormat format) {
+            @Nonnull OWLDocumentFormat format) {
         StringDocumentTarget target = new StringDocumentTarget();
         OWLOntologyManager manager = ontology.getOWLOntologyManager();
         try {
@@ -217,12 +217,12 @@ public class OboFormatTestBasics {
     protected static void renderOWL(@Nonnull OWLOntology owlOntology)
             throws OWLOntologyStorageException {
         OWLOntologyManager manager = owlOntology.getOWLOntologyManager();
-        manager.saveOntology(owlOntology, new OWLXMLOntologyFormat(),
+        manager.saveOntology(owlOntology, new OWLXMLDocumentFormat(),
                 new StringDocumentTarget());
     }
 
     protected static String renderOWL(@Nonnull OWLOntology owlOntology,
-            @Nonnull OWLOntologyFormat ontologyFormat)
+            @Nonnull OWLDocumentFormat ontologyFormat)
             throws OWLOntologyStorageException, IOException {
         OWLOntologyManager manager = owlOntology.getOWLOntologyManager();
         ByteArrayOutputStream out = new ByteArrayOutputStream();

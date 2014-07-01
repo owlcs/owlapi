@@ -27,17 +27,17 @@ import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.parser.OBOFormatParser;
 import org.obolibrary.oboformat.parser.OBOFormatParserException;
 import org.semanticweb.owlapi.annotations.HasPriority;
-import org.semanticweb.owlapi.formats.OBOOntologyFormat;
+import org.semanticweb.owlapi.formats.OBODocumentFormat;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
-import org.semanticweb.owlapi.model.OWLOntologyFormatFactory;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
-import org.semanticweb.owlapi.util.OWLOntologyFormatFactoryImpl;
+import org.semanticweb.owlapi.util.OWLDocumentFormatFactoryImpl;
 
 /** oboformat parser */
 @HasPriority(5)
@@ -47,7 +47,7 @@ public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
 
     @Nonnull
     @Override
-    public OWLOntologyFormat parse(IRI documentIRI,
+    public OWLDocumentFormat parse(IRI documentIRI,
             @Nonnull OWLOntology ontology) throws IOException {
         try {
             parse(documentIRI, null, ontology);
@@ -56,12 +56,12 @@ public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
         } catch (OWLOntologyCreationException e) {
             throw new OWLParserException(e);
         }
-        return new OBOOntologyFormat();
+        return new OBODocumentFormat();
     }
 
     @Nonnull
     @Override
-    public OWLOntologyFormat parse(
+    public OWLDocumentFormat parse(
             @Nonnull OWLOntologyDocumentSource documentSource,
             @Nonnull OWLOntology ontology,
             OWLOntologyLoaderConfiguration configuration) throws IOException {
@@ -73,7 +73,7 @@ public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
         } catch (OWLOntologyCreationException e) {
             throw new OWLParserException(e);
         }
-        return new OBOOntologyFormat();
+        return new OBODocumentFormat();
     }
 
     @SuppressWarnings("null")
@@ -118,17 +118,17 @@ public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
     @Nonnull
     @SuppressWarnings({ "unchecked", "null" })
     @Override
-    public Set<Class<OWLOntologyFormat>> getSupportedFormatClasses() {
+    public Set<Class<OWLDocumentFormat>> getSupportedFormatClasses() {
         return Collections
-                .singleton((Class<OWLOntologyFormat>) (Class<? extends OWLOntologyFormat>) OBOOntologyFormat.class);
+                .singleton((Class<OWLDocumentFormat>) (Class<? extends OWLDocumentFormat>) OBODocumentFormat.class);
     }
 
     @SuppressWarnings("null")
     @Nonnull
     @Override
-    public Set<OWLOntologyFormatFactory> getSupportedFormats() {
+    public Set<OWLDocumentFormatFactory> getSupportedFormats() {
         return Collections
-                .singleton((OWLOntologyFormatFactory) new OWLOntologyFormatFactoryImpl<>(
-                        OBOOntologyFormat.class));
+                .singleton((OWLDocumentFormatFactory) new OWLDocumentFormatFactoryImpl<>(
+                        OBODocumentFormat.class));
     }
 }

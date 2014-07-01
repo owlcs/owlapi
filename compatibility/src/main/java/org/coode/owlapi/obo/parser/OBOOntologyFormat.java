@@ -15,11 +15,11 @@ package org.coode.owlapi.obo.parser;
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 10-Jan-2007
- * @deprecated use {@link org.semanticweb.owlapi.formats.OBOOntologyFormat}
+ * @deprecated use {@link org.semanticweb.owlapi.formats.OBODocumentFormat}
  */
 @Deprecated
 public class OBOOntologyFormat extends
-        org.semanticweb.owlapi.formats.OBOOntologyFormat {
+        org.semanticweb.owlapi.formats.OBODocumentFormat {
 
     private static final long serialVersionUID = 30406L;
 }

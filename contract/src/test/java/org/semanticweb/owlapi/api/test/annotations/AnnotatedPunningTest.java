@@ -11,11 +11,11 @@ import javax.annotation.Nonnull;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormat;
-import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormat;
-import org.semanticweb.owlapi.formats.PrefixOWLOntologyFormat;
-import org.semanticweb.owlapi.formats.RDFXMLOntologyFormat;
-import org.semanticweb.owlapi.formats.TurtleOntologyFormat;
+import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
+import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
+import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
+import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
+import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -66,19 +66,19 @@ public class AnnotatedPunningTest extends TestBase {
             OWLOntologyStorageException, IllegalAccessException,
             InstantiationException {
         runTestForAnnotationsOnPunnedEntitiesForFormat(
-                RDFXMLOntologyFormat.class, annotationProperty, entities);
+                RDFXMLDocumentFormat.class, annotationProperty, entities);
         runTestForAnnotationsOnPunnedEntitiesForFormat(
-                TurtleOntologyFormat.class, annotationProperty, entities);
+                TurtleDocumentFormat.class, annotationProperty, entities);
         runTestForAnnotationsOnPunnedEntitiesForFormat(
-                OWLFunctionalSyntaxOntologyFormat.class, annotationProperty,
+                FunctionalSyntaxDocumentFormat.class, annotationProperty,
                 entities);
         runTestForAnnotationsOnPunnedEntitiesForFormat(
-                ManchesterOWLSyntaxOntologyFormat.class, annotationProperty,
+                ManchesterSyntaxDocumentFormat.class, annotationProperty,
                 entities);
     }
 
     public void runTestForAnnotationsOnPunnedEntitiesForFormat(
-            Class<? extends PrefixOWLOntologyFormat> formatClass,
+            Class<? extends PrefixDocumentFormat> formatClass,
             @Nonnull OWLAnnotationProperty annotationProperty,
             OWLEntity... entities) throws OWLOntologyCreationException,
             OWLOntologyStorageException, IllegalAccessException,
@@ -86,7 +86,7 @@ public class AnnotatedPunningTest extends TestBase {
         OWLOntology o = makeOwlOntologyWithDeclarationsAndAnnotationAssertions(
                 annotationProperty, entities);
         for (int i = 0; i < 10; i++) {
-            PrefixOWLOntologyFormat format = formatClass.newInstance();
+            PrefixDocumentFormat format = formatClass.newInstance();
             format.setPrefixManager(new DefaultPrefixManager(null, null,
                     "http://localhost#"));
             o = roundTrip(o);

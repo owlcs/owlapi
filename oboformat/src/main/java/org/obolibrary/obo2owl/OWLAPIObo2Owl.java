@@ -33,7 +33,7 @@ import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 import org.obolibrary.oboformat.parser.OBOFormatException;
 import org.obolibrary.oboformat.parser.OBOFormatParser;
 import org.obolibrary.oboformat.parser.OBOFormatParserException;
-import org.semanticweb.owlapi.formats.RDFXMLOntologyFormat;
+import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi.model.AxiomType;
@@ -56,7 +56,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
@@ -167,7 +167,7 @@ public class OWLAPIObo2Owl {
         OBODoc obodoc = p.parse(new URL(iri));
         OWLOntology ontology = bridge.convert(obodoc);
         IRI outputStream = IRI.create(outFile);
-        OWLOntologyFormat format = new RDFXMLOntologyFormat();
+        OWLDocumentFormat format = new RDFXMLDocumentFormat();
         LOG.info("saving to {} fmt={}", outputStream, format);
         manager.saveOntology(ontology, format, outputStream);
     }
@@ -204,7 +204,7 @@ public class OWLAPIObo2Owl {
         obodoc.addDefaultOntologyHeader(defaultOnt);
         OWLOntology ontology = bridge.convert(obodoc);
         IRI outputStream = IRI.create(outFile);
-        OWLOntologyFormat format = new RDFXMLOntologyFormat();
+        OWLDocumentFormat format = new RDFXMLDocumentFormat();
         LOG.info("saving to {} fmt={}", outputStream, format);
         manager.saveOntology(ontology, format, outputStream);
     }

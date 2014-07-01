@@ -21,7 +21,7 @@ import org.junit.Test;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.rdf.rdfxml.renderer.RDFXMLOntologyStorer;
+import org.semanticweb.owlapi.rdf.rdfxml.renderer.RDFXMLStorer;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyBuilderImpl;
@@ -42,7 +42,7 @@ public class RDFParserTestCase {
     public void setUp() {
         // Use the reference implementation
         man = new OWLOntologyManagerImpl(new OWLDataFactoryImpl());
-        man.getOntologyStorers().add(new RDFXMLOntologyStorer());
+        man.getOntologyStorers().add(new RDFXMLStorer());
         ParsableOWLOntologyFactory factory = new ParsableOWLOntologyFactory(
                 new OWLOntologyBuilderImpl());
         man.getOntologyFactories().add(factory);

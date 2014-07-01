@@ -13,7 +13,7 @@ import javax.annotation.Nonnull;
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.formats.PrefixOWLOntologyFormat;
+import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.io.StreamDocumentSource;
 import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.IRI;
@@ -25,7 +25,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLProperty;
@@ -56,7 +56,7 @@ public class GuessRDFSPropertyTypeTestCase {
     @Nonnull
     private OWLOntology cidocOntology;
     @Nonnull
-    private PrefixOWLOntologyFormat prefixOWLOntologyFormat;
+    private PrefixDocumentFormat prefixOWLOntologyFormat;
 
     @Before
     public void setUp() throws OWLOntologyCreationException {
@@ -69,7 +69,7 @@ public class GuessRDFSPropertyTypeTestCase {
         cidocOntology = manager.loadOntologyFromOntologyDocument(
                 new StreamDocumentSource(in), config);
         assertNotNull(cidocOntology);
-        OWLOntologyFormat format = manager.getOntologyFormat(cidocOntology);
+        OWLDocumentFormat format = manager.getOntologyFormat(cidocOntology);
         assertNotNull(format);
         assertTrue(format.isPrefixOWLOntologyFormat());
         prefixOWLOntologyFormat = format.asPrefixOWLOntologyFormat();

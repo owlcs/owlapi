@@ -24,7 +24,7 @@ import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health
@@ -40,7 +40,7 @@ public class RDFXMLNamespaceManager extends OWLOntologyXMLNamespaceManager {
      *        format
      */
     public RDFXMLNamespaceManager(@Nonnull OWLOntology ontology,
-            @Nonnull OWLOntologyFormat format) {
+            @Nonnull OWLDocumentFormat format) {
         super(ontology, format);
     }
 

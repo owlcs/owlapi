@@ -18,7 +18,7 @@ import javax.annotation.Nonnull;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.formats.OWLXMLOntologyFormat;
+import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -62,7 +62,7 @@ public class OWLXMLNullPointerTestCase extends TestBase {
         OWLAxiom objAss = df.getOWLObjectPropertyAssertionAxiom(hasTopping, i,
                 j);
         m.addAxiom(ontology, objAss);
-        roundTrip(ontology, new OWLXMLOntologyFormat());
+        roundTrip(ontology, new OWLXMLDocumentFormat());
     }
 
     @Test
@@ -74,7 +74,7 @@ public class OWLXMLNullPointerTestCase extends TestBase {
         OWLSubClassOfAxiom sub = df.getOWLSubClassOfAxiom(c,
                 df.getOWLObjectHasValue(p, i));
         o.getOWLOntologyManager().addAxiom(o, sub);
-        OWLOntology roundtrip = roundTrip(o, new OWLXMLOntologyFormat());
+        OWLOntology roundtrip = roundTrip(o, new OWLXMLDocumentFormat());
         equal(o, roundtrip);
     }
 }

@@ -16,7 +16,7 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormat;
+import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
@@ -44,6 +44,6 @@ public class AnonymousRoundTripTestCase extends TestBase {
         OWLAnnotation annotation2 = df.getOWLAnnotation(df.getRDFSLabel(),
                 Literal("Second", "en"));
         m.addAxiom(ontology, df.getOWLAnnotationAssertionAxiom(h, annotation2));
-        roundTrip(ontology, new ManchesterOWLSyntaxOntologyFormat());
+        roundTrip(ontology, new ManchesterSyntaxDocumentFormat());
     }
 }

@@ -21,13 +21,13 @@ import org.semanticweb.owlapi.annotations.OwlapiModule;
 import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserFactory;
 import org.semanticweb.owlapi.model.OWLOntologyFactory;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
-import org.semanticweb.owlapi.model.OWLOntologyFormatFactory;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManagerFactory;
-import org.semanticweb.owlapi.model.OWLOntologyStorer;
-import org.semanticweb.owlapi.model.OWLOntologyStorerFactory;
+import org.semanticweb.owlapi.model.OWLStorer;
+import org.semanticweb.owlapi.model.OWLStorerFactory;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 import com.google.inject.AbstractModule;
@@ -43,12 +43,12 @@ public class OWLAPIServiceLoaderModule extends AbstractModule {
     @Override
     protected void configure() {
         loadInstancesFromServiceLoader(OWLParser.class);
-        loadInstancesFromServiceLoader(OWLOntologyStorer.class);
+        loadInstancesFromServiceLoader(OWLStorer.class);
         loadInstancesFromServiceLoader(OWLOntologyFactory.class);
         loadInstancesFromServiceLoader(OWLOntologyIRIMapper.class);
-        loadFactories(OWLOntologyFormatFactory.class, OWLOntologyFormat.class);
+        loadFactories(OWLDocumentFormatFactory.class, OWLDocumentFormat.class);
         loadFactories(OWLParserFactory.class, OWLParser.class);
-        loadFactories(OWLOntologyStorerFactory.class, OWLOntologyStorer.class);
+        loadFactories(OWLStorerFactory.class, OWLStorer.class);
         loadOntologyManagerFactory();
         bind(OWLOntologyLoaderConfiguration.class).toProvider(
                 OWLAPIConfigProvider.class);

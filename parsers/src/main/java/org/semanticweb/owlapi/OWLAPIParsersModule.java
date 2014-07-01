@@ -16,23 +16,23 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.annotations.OwlapiModule;
 import org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxOWLParser;
-import org.semanticweb.owlapi.functional.renderer.OWLFunctionalSyntaxOntologyStorer;
+import org.semanticweb.owlapi.functional.renderer.FunctionalSyntaxStorer;
 import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.krss2.parser.KRSS2OWLParser;
-import org.semanticweb.owlapi.krss2.renderer.KRSS2OWLSyntaxOntologyStorer;
-import org.semanticweb.owlapi.latex.renderer.LatexOntologyStorer;
+import org.semanticweb.owlapi.krss2.renderer.KRSS2OWLSyntaxStorer;
+import org.semanticweb.owlapi.latex.renderer.LatexStorer;
 import org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxOntologyParser;
 import org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxParserImpl;
-import org.semanticweb.owlapi.mansyntax.renderer.ManchesterOWLSyntaxOntologyStorer;
+import org.semanticweb.owlapi.mansyntax.renderer.ManchesterSyntaxStorer;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
-import org.semanticweb.owlapi.model.OWLOntologyStorer;
+import org.semanticweb.owlapi.model.OWLStorer;
 import org.semanticweb.owlapi.owlxml.parser.OWLXMLParser;
-import org.semanticweb.owlapi.owlxml.renderer.OWLXMLOntologyStorer;
+import org.semanticweb.owlapi.owlxml.renderer.OWLXMLStorer;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParser;
-import org.semanticweb.owlapi.rdf.rdfxml.renderer.RDFXMLOntologyStorer;
+import org.semanticweb.owlapi.rdf.rdfxml.renderer.RDFXMLStorer;
 import org.semanticweb.owlapi.rdf.turtle.parser.TurtleOntologyParser;
-import org.semanticweb.owlapi.rdf.turtle.renderer.TurtleOntologyStorer;
+import org.semanticweb.owlapi.rdf.turtle.renderer.TurtleStorer;
 import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
 
 import com.google.inject.AbstractModule;
@@ -54,12 +54,12 @@ public class OWLAPIParsersModule extends AbstractModule {
     }
 
     protected void configureStorers() {
-        multibind(OWLOntologyStorer.class, RDFXMLOntologyStorer.class,
-                OWLXMLOntologyStorer.class,
-                OWLFunctionalSyntaxOntologyStorer.class,
-                ManchesterOWLSyntaxOntologyStorer.class,
-                KRSS2OWLSyntaxOntologyStorer.class, TurtleOntologyStorer.class,
-                LatexOntologyStorer.class);
+        multibind(OWLStorer.class, RDFXMLStorer.class,
+                OWLXMLStorer.class,
+                FunctionalSyntaxStorer.class,
+                ManchesterSyntaxStorer.class,
+                KRSS2OWLSyntaxStorer.class, TurtleStorer.class,
+                LatexStorer.class);
     }
 
     protected void configureParsers() {

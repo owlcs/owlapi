@@ -15,11 +15,11 @@ package org.semanticweb.owlapi.io;
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 02-Jan-2007
- * @deprecated use {@link org.semanticweb.owlapi.formats.RDFXMLOntologyFormat}
+ * @deprecated use {@link org.semanticweb.owlapi.formats.RDFXMLDocumentFormat}
  */
 @Deprecated
 public class RDFXMLOntologyFormat extends
-        org.semanticweb.owlapi.formats.RDFXMLOntologyFormat {
+        org.semanticweb.owlapi.formats.RDFXMLDocumentFormat {
 
     private static final long serialVersionUID = 30406L;
 }

@@ -19,11 +19,11 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormat;
+import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
@@ -49,7 +49,7 @@ public abstract class AbstractAxiomsRoundTrippingTestCase extends
     protected abstract Set<? extends OWLAxiom> createAxioms();
 
     @Override
-    protected boolean isIgnoreDeclarationAxioms(OWLOntologyFormat format) {
-        return format instanceof ManchesterOWLSyntaxOntologyFormat;
+    protected boolean isIgnoreDeclarationAxioms(OWLDocumentFormat format) {
+        return format instanceof ManchesterSyntaxDocumentFormat;
     }
 }

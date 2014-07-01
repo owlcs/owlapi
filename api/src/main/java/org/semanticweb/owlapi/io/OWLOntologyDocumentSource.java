@@ -19,7 +19,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 
 /**
  * A document source provides a point for loading an ontology. A document source
@@ -95,7 +95,7 @@ public interface OWLOntologyDocumentSource {
 
     /** @return format for the ontology, if known, null otherwise */
     @Nullable
-    OWLOntologyFormat getFormat();
+    OWLDocumentFormat getFormat();
 
     /** @return true if the format is known */
     boolean isFormatKnown();

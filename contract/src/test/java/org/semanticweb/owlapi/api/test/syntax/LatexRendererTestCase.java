@@ -16,7 +16,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.formats.LatexOntologyFormat;
+import org.semanticweb.owlapi.formats.LatexDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 @SuppressWarnings("javadoc")
@@ -36,7 +36,7 @@ public class LatexRendererTestCase extends TestBase {
                 + "<owl:ObjectProperty rdf:about=\"http://namespace.owl#p\"/>"
                 + "</rdf:RDF>";
         OWLOntology o = loadOntologyFromString(input);
-        assertTrue(saveOntology(o, new LatexOntologyFormat()).toString()
+        assertTrue(saveOntology(o, new LatexDocumentFormat()).toString()
                 .contains("C\\_Test"));
     }
 }

@@ -38,14 +38,14 @@ package org.semanticweb.owlapi.rio;
 import org.openrdf.rio.RDFParser;
 import org.openrdf.rio.RDFParserFactory;
 import org.semanticweb.owlapi.OWLAPIServiceLoaderModule;
-import org.semanticweb.owlapi.formats.OWLXMLOntologyFormat;
+import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
 /**
  * {@link RDFParserFactory} that creates RDF statements from
- * {@link OWLXMLOntologyFormat} documents.
+ * {@link OWLXMLDocumentFormat} documents.
  * 
  * @author Peter Ansell p_ansell@yahoo.com
  */

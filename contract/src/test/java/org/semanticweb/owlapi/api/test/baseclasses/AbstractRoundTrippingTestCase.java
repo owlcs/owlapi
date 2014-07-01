@@ -15,12 +15,12 @@ package org.semanticweb.owlapi.api.test.baseclasses;
 import javax.annotation.Nonnull;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormat;
-import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormat;
-import org.semanticweb.owlapi.formats.OWLXMLOntologyFormat;
-import org.semanticweb.owlapi.formats.TurtleOntologyFormat;
+import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
+import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
+import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
+import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -47,26 +47,26 @@ public abstract class AbstractRoundTrippingTestCase extends TestBase {
 
     @Test
     public void testOWLXML() throws Exception {
-        roundTripOntology(ont, new OWLXMLOntologyFormat());
+        roundTripOntology(ont, new OWLXMLDocumentFormat());
     }
 
     @Test
     public void testFunctionalSyntax() throws Exception {
-        roundTripOntology(ont, new OWLFunctionalSyntaxOntologyFormat());
+        roundTripOntology(ont, new FunctionalSyntaxDocumentFormat());
     }
 
     @Test
     public void testTurtle() throws Exception {
-        roundTripOntology(ont, new TurtleOntologyFormat());
+        roundTripOntology(ont, new TurtleDocumentFormat());
     }
 
     @Test
     public void testManchesterOWLSyntax() throws Exception {
-        roundTripOntology(ont, new ManchesterOWLSyntaxOntologyFormat());
+        roundTripOntology(ont, new ManchesterSyntaxDocumentFormat());
     }
 
     @Override
-    protected boolean isIgnoreDeclarationAxioms(OWLOntologyFormat format) {
-        return format instanceof ManchesterOWLSyntaxOntologyFormat;
+    protected boolean isIgnoreDeclarationAxioms(OWLDocumentFormat format) {
+        return format instanceof ManchesterSyntaxDocumentFormat;
     }
 }

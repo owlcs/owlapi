@@ -1,0 +1,11 @@
+org.semanticweb.owlapi.formats.BinaryRDFDocumentFormatFactory
+org.semanticweb.owlapi.formats.N3DocumentFormatFactory
+org.semanticweb.owlapi.formats.NQuadsDocumentFormatFactory
+org.semanticweb.owlapi.formats.NTriplesDocumentFormatFactory
+org.semanticweb.owlapi.formats.RDFaDocumentFormatFactory
+org.semanticweb.owlapi.formats.RDFJsonLDDocumentFormatFactory
+org.semanticweb.owlapi.formats.RDFJsonDocumentFormatFactory
+org.semanticweb.owlapi.formats.RioRDFXMLDocumentFormatFactory
+org.semanticweb.owlapi.formats.RioTurtleDocumentFormatFactory
+org.semanticweb.owlapi.formats.TrigDocumentFormatFactory
+org.semanticweb.owlapi.formats.TrixDocumentFormatFactory

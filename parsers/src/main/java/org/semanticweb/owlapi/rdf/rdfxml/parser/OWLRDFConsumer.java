@@ -28,7 +28,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.formats.RDFOntologyFormat;
+import org.semanticweb.owlapi.formats.AbstractRDFDocumentFormat;
 import org.semanticweb.owlapi.io.RDFLiteral;
 import org.semanticweb.owlapi.io.RDFOntologyHeaderStatus;
 import org.semanticweb.owlapi.io.RDFParserMetaData;
@@ -168,7 +168,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
     /** The parsed axioms. */
     private int parsedAxioms = 0;
     /** The ontology format. */
-    private RDFOntologyFormat ontologyFormat;
+    private AbstractRDFDocumentFormat ontologyFormat;
     /** The data factory. */
     private final OWLDataFactory dataFactory;
     /** The last added axiom. */
@@ -502,7 +502,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
      * @return the ontology format
      */
     @Nonnull
-    public RDFOntologyFormat getOntologyFormat() {
+    public AbstractRDFDocumentFormat getOntologyFormat() {
         return verifyNotNull(ontologyFormat,
                 "ontology format has not been set yet");
     }
@@ -513,7 +513,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
      * @param format
      *        the new ontology format
      */
-    public void setOntologyFormat(RDFOntologyFormat format) {
+    public void setOntologyFormat(AbstractRDFDocumentFormat format) {
         ontologyFormat = format;
         tripleLogger.setPrefixManager(ontologyFormat == null ? null
                 : ontologyFormat.asPrefixOWLOntologyFormat());

@@ -16,11 +16,11 @@ package uk.ac.manchester.cs.owlapi.dlsyntax;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 10-Feb-2008
  * @deprecated use
- *             {@link org.semanticweb.owlapi.formats.DLSyntaxHTMLOntologyFormat}
+ *             {@link org.semanticweb.owlapi.formats.DLSyntaxHTMLDocumentFormat}
  */
 @Deprecated
 public class DLSyntaxHTMLOntologyFormat extends
-        org.semanticweb.owlapi.formats.DLSyntaxHTMLOntologyFormat {
+        org.semanticweb.owlapi.formats.DLSyntaxHTMLDocumentFormat {
 
     private static final long serialVersionUID = 30406L;
 }

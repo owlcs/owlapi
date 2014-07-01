@@ -18,7 +18,7 @@ import java.lang.annotation.RetentionPolicy;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 
 /**
  * Supported format.
@@ -34,5 +34,5 @@ public @interface SupportsFormat {
      * @return supported format
      */
     @Nonnull
-    Class<? extends OWLOntologyFormat> value();
+    Class<? extends OWLDocumentFormat> value();
 }

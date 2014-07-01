@@ -20,12 +20,12 @@ import javax.annotation.Nonnull;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileTestCase;
-import org.semanticweb.owlapi.formats.RDFXMLOntologyFormat;
+import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.io.RDFTriple;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 
 /**
@@ -47,10 +47,10 @@ public class SubClassOfUntypedOWLClassStrictTestCase extends
     public void testAxioms() throws OWLOntologyCreationException {
         OWLOntology ont = createOntology();
         assertTrue(ont.getAxioms(AxiomType.SUBCLASS_OF).isEmpty());
-        OWLOntologyFormat format = ont.getOWLOntologyManager()
+        OWLDocumentFormat format = ont.getOWLOntologyManager()
                 .getOntologyFormat(ont);
-        assertTrue(format instanceof RDFXMLOntologyFormat);
-        RDFXMLOntologyFormat rdfxmlFormat = (RDFXMLOntologyFormat) format;
+        assertTrue(format instanceof RDFXMLDocumentFormat);
+        RDFXMLDocumentFormat rdfxmlFormat = (RDFXMLDocumentFormat) format;
         Set<RDFTriple> triples = rdfxmlFormat.getOntologyLoaderMetaData()
                 .getUnparsedTriples();
         assertEquals(1, triples.size());

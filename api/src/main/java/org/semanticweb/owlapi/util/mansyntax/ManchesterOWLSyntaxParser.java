@@ -20,7 +20,7 @@ import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.expression.OWLOntologyChecker;
-import org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormat;
+import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.HasOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.HasOntologyLoaderConfigurationProvider;
@@ -183,7 +183,7 @@ public interface ManchesterOWLSyntaxParser extends
      *         import error
      */
     @Nonnull
-    ManchesterOWLSyntaxOntologyFormat parseOntology(@Nonnull OWLOntology ont);
+    ManchesterSyntaxDocumentFormat parseOntology(@Nonnull OWLOntology ont);
 
     /** @return list of class expressions */
     @Nonnull

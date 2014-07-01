@@ -20,14 +20,14 @@ import javax.annotation.Nonnull;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormat;
-import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormat;
-import org.semanticweb.owlapi.formats.OWLXMLOntologyFormat;
-import org.semanticweb.owlapi.formats.RDFXMLOntologyFormat;
-import org.semanticweb.owlapi.formats.TurtleOntologyFormat;
+import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
+import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
+import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
+import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
+import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 /**
@@ -44,18 +44,18 @@ public class ExistingOutputStreamTestCase extends TestBase {
     @Test
     public void testOutputStreamRemainsOpen() throws Exception {
         OWLOntology ontology = m.createOntology();
-        saveOntology(ontology, new RDFXMLOntologyFormat());
-        saveOntology(ontology, new OWLXMLOntologyFormat());
-        saveOntology(ontology, new TurtleOntologyFormat());
-        saveOntology(ontology, new OWLFunctionalSyntaxOntologyFormat());
-        saveOntology(ontology, new ManchesterOWLSyntaxOntologyFormat());
+        saveOntology(ontology, new RDFXMLDocumentFormat());
+        saveOntology(ontology, new OWLXMLDocumentFormat());
+        saveOntology(ontology, new TurtleDocumentFormat());
+        saveOntology(ontology, new FunctionalSyntaxDocumentFormat());
+        saveOntology(ontology, new ManchesterSyntaxDocumentFormat());
     }
 
     // test that the stream is not closed by adding a comment at the end
     @Nonnull
     @Override
     protected StringDocumentTarget saveOntology(@Nonnull OWLOntology o,
-            OWLOntologyFormat format) throws OWLOntologyStorageException {
+            OWLDocumentFormat format) throws OWLOntologyStorageException {
         BufferedOutputStream os = new BufferedOutputStream(
                 new ByteArrayOutputStream());
         o.getOWLOntologyManager().saveOntology(o, format, os);

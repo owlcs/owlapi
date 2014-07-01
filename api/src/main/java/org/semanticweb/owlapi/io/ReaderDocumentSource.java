@@ -17,7 +17,7 @@ import java.io.Reader;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 
 /**
  * An ontology document source which reads an ontology from a reader.
@@ -54,7 +54,7 @@ public class ReaderDocumentSource extends StreamDocumentSourceBase {
      *        mime type
      */
     public ReaderDocumentSource(@Nonnull Reader reader,
-            @Nonnull IRI documentIRI, OWLOntologyFormat f, String mime) {
+            @Nonnull IRI documentIRI, OWLDocumentFormat f, String mime) {
         super(reader, documentIRI, f, mime);
     }
 }

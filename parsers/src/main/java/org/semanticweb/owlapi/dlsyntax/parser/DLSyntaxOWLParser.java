@@ -20,13 +20,13 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.annotations.HasPriority;
-import org.semanticweb.owlapi.formats.DLSyntaxHTMLOntologyFormat;
+import org.semanticweb.owlapi.formats.DLSyntaxHTMLDocumentFormat;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 
 /**
@@ -46,12 +46,12 @@ public class DLSyntaxOWLParser extends AbstractOWLParser {
     }
 
     @Override
-    protected Class<? extends OWLOntologyFormat> getFormatClass() {
-        return DLSyntaxHTMLOntologyFormat.class;
+    protected Class<? extends OWLDocumentFormat> getFormatClass() {
+        return DLSyntaxHTMLDocumentFormat.class;
     }
 
     @Override
-    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
+    public OWLDocumentFormat parse(OWLOntologyDocumentSource documentSource,
             OWLOntology ontology, OWLOntologyLoaderConfiguration configuration)
             throws IOException {
         Reader reader = null;
@@ -71,7 +71,7 @@ public class DLSyntaxOWLParser extends AbstractOWLParser {
             }
             Set<OWLAxiom> set = parser.parseAxioms();
             ontology.getOWLOntologyManager().addAxioms(ontology, set);
-            return new DLSyntaxHTMLOntologyFormat();
+            return new DLSyntaxHTMLDocumentFormat();
         } catch (ParseException e) {
             throw new OWLParserException(e.getMessage(), e,
                     e.currentToken.beginLine, e.currentToken.beginColumn);

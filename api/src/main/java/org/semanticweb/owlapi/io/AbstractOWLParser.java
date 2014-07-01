@@ -35,11 +35,11 @@ import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
-import org.semanticweb.owlapi.model.OWLOntologyFormatFactory;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.util.CollectionFactory;
-import org.semanticweb.owlapi.util.OWLOntologyFormatFactoryImpl;
+import org.semanticweb.owlapi.util.OWLDocumentFormatFactoryImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.InputSource;
@@ -72,13 +72,13 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
     @Nonnull
     @SuppressWarnings("unchecked")
     @Override
-    public Set<Class<OWLOntologyFormat>> getSupportedFormatClasses() {
+    public Set<Class<OWLDocumentFormat>> getSupportedFormatClasses() {
         return CollectionFactory
-                .createSet((Class<OWLOntologyFormat>) getFormatClass());
+                .createSet((Class<OWLDocumentFormat>) getFormatClass());
     }
 
     @Nonnull
-    protected abstract Class<? extends OWLOntologyFormat> getFormatClass();
+    protected abstract Class<? extends OWLDocumentFormat> getFormatClass();
 
     @Nonnull
     protected String getRequestTypes() {
@@ -251,7 +251,7 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
 
     @Nonnull
     @Override
-    public OWLOntologyFormat parse(IRI documentIRI, OWLOntology ontology)
+    public OWLDocumentFormat parse(IRI documentIRI, OWLOntology ontology)
             throws IOException {
         return parse(new IRIDocumentSource(documentIRI, null, null), ontology,
                 new OWLOntologyLoaderConfiguration());
@@ -266,9 +266,9 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
     @Nonnull
     @SuppressWarnings("unchecked")
     @Override
-    public Set<OWLOntologyFormatFactory> getSupportedFormats() {
+    public Set<OWLDocumentFormatFactory> getSupportedFormats() {
         return CollectionFactory
-                .createSet((OWLOntologyFormatFactory) new OWLOntologyFormatFactoryImpl<>(
-                        (Class<OWLOntologyFormat>) getFormatClass()));
+                .createSet((OWLDocumentFormatFactory) new OWLDocumentFormatFactoryImpl<>(
+                        (Class<OWLDocumentFormat>) getFormatClass()));
     }
 }

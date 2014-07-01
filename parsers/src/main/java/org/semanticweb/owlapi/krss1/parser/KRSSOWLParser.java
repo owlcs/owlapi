@@ -16,11 +16,11 @@ import java.io.IOException;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.formats.KRSSOntologyFormat;
+import org.semanticweb.owlapi.formats.KRSSDocumentFormat;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 
 /**
@@ -39,16 +39,16 @@ public class KRSSOWLParser extends AbstractOWLParser {
     }
 
     @Override
-    protected Class<? extends OWLOntologyFormat> getFormatClass() {
-        return KRSSOntologyFormat.class;
+    protected Class<? extends OWLDocumentFormat> getFormatClass() {
+        return KRSSDocumentFormat.class;
     }
 
     @Override
-    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
+    public OWLDocumentFormat parse(OWLOntologyDocumentSource documentSource,
             OWLOntology ontology, OWLOntologyLoaderConfiguration configuration)
             throws IOException {
         try {
-            KRSSOntologyFormat format = new KRSSOntologyFormat();
+            KRSSDocumentFormat format = new KRSSDocumentFormat();
             KRSSParser parser;
             if (documentSource.isReaderAvailable()) {
                 parser = new KRSSParser(documentSource.getReader());

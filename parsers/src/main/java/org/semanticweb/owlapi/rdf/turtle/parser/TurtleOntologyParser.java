@@ -19,11 +19,11 @@ import java.io.Reader;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.annotations.HasPriority;
-import org.semanticweb.owlapi.formats.TurtleOntologyFormat;
+import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.PrefixManager;
 
@@ -46,13 +46,13 @@ public class TurtleOntologyParser extends AbstractOWLParser {
     }
 
     @Override
-    protected Class<? extends OWLOntologyFormat> getFormatClass() {
-        return TurtleOntologyFormat.class;
+    protected Class<? extends OWLDocumentFormat> getFormatClass() {
+        return TurtleDocumentFormat.class;
     }
 
     @SuppressWarnings("null")
     @Override
-    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
+    public OWLDocumentFormat parse(OWLOntologyDocumentSource documentSource,
             OWLOntology ontology, OWLOntologyLoaderConfiguration configuration)
             throws IOException {
         Reader reader = null;
@@ -75,7 +75,7 @@ public class TurtleOntologyParser extends AbstractOWLParser {
             }
             OWLRDFConsumerAdapter consumer = new OWLRDFConsumerAdapter(
                     ontology, configuration);
-            TurtleOntologyFormat format = new TurtleOntologyFormat();
+            TurtleDocumentFormat format = new TurtleDocumentFormat();
             consumer.setOntologyFormat(format);
             consumer.startModel(documentSource.getDocumentIRI());
             parser.setTripleHandler(consumer);

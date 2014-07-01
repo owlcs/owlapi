@@ -15,7 +15,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
-import org.semanticweb.owlapi.formats.RDFXMLOntologyFormat;
+import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -60,7 +60,7 @@ public class EmptyInMemOWLOntologyFactory extends
             OWLOntologyCreationHandler handler) {
         OWLOntology ont = super.createOWLOntology(manager, ontologyID,
                 documentIRI, handler);
-        handler.setOntologyFormat(ont, new RDFXMLOntologyFormat());
+        handler.setOntologyFormat(ont, new RDFXMLDocumentFormat());
         return ont;
     }
 

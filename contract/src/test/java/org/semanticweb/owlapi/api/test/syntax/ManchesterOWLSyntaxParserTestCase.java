@@ -28,7 +28,7 @@ import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.expression.ShortFormEntityChecker;
-import org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormat;
+import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.mansyntax.renderer.ManchesterOWLSyntaxPrefixNameShortFormProvider;
 import org.semanticweb.owlapi.mansyntax.renderer.ParserException;
@@ -87,7 +87,7 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
         OWLSubClassOfAxiom axiom = df.getOWLSubClassOfAxiom(display, r);
         m.addAxiom(ontology, axiom);
         StringDocumentTarget target = saveOntology(ontology,
-                new ManchesterOWLSyntaxOntologyFormat());
+                new ManchesterSyntaxDocumentFormat());
         assertFalse(target.toString().contains(
                 "((<urn:test#crt> or <urn:test#led>))"));
     }
@@ -106,7 +106,7 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
         o.getOWLOntologyManager().addAxiom(o, Declaration(c));
         o.getOWLOntologyManager().addAxiom(o, Declaration(d));
         OWLOntology roundtripped = roundTrip(o,
-                new ManchesterOWLSyntaxOntologyFormat());
+                new ManchesterSyntaxDocumentFormat());
         assertEquals(o.getAxioms(), roundtripped.getAxioms());
     }
 
@@ -162,7 +162,7 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
                 + "Individual: <http://www.owl-ontologies.com/Ontology1307394066.owl#p1>\n Types: \n <http://www.owl-ontologies.com/Ontology1307394066.owl#Person>\n"
                 + "Rule: \n xsd:decimal(?<urn:swrl#x>), <http://www.owl-ontologies.com/Ontology1307394066.owl#hasAge>(?<urn:swrl#p>, ?<urn:swrl#x>) -> <http://www.owl-ontologies.com/Ontology1307394066.owl#Person>(?<urn:swrl#p>)";
         OWLOntology o = loadOntologyFromString(inputManSyntax);
-        OWLOntology o1 = roundTrip(o, new ManchesterOWLSyntaxOntologyFormat());
+        OWLOntology o1 = roundTrip(o, new ManchesterSyntaxDocumentFormat());
         assertEquals(o.getLogicalAxioms(), o1.getLogicalAxioms());
     }
 
@@ -192,7 +192,7 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
                 + "Rule: \n"
                 + "    xsd:decimal(?x), <http://www.owl-ontologies.com/Ontology1307394066.owl#hasAge>(?p, ?x) -> <http://www.owl-ontologies.com/Ontology1307394066.owl#Person>(?p)";
         OWLOntology o = loadOntologyFromString(inputManSyntax);
-        OWLOntology o1 = roundTrip(o, new ManchesterOWLSyntaxOntologyFormat());
+        OWLOntology o1 = roundTrip(o, new ManchesterSyntaxDocumentFormat());
         assertEquals(o.getLogicalAxioms(), o1.getLogicalAxioms());
     }
 
@@ -400,7 +400,7 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
                 + "AnnotationAssertion(Annotation(<http://x.org/p2> \"foo\") <http://x.org/p> <http://x.org/c> \"v1\"))";
         OWLOntology o = loadOntologyFromString(in);
         OWLOntology result = roundTrip(o,
-                new ManchesterOWLSyntaxOntologyFormat());
+                new ManchesterSyntaxDocumentFormat());
         for (OWLAxiom ax : o.getAxioms()) {
             assert ax != null;
             assertTrue(result.containsAxiom(ax));

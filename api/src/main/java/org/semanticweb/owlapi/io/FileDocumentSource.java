@@ -26,7 +26,7 @@ import java.io.UnsupportedEncodingException;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 
 /**
  * A convenience class which will prepare an input source from a file.
@@ -60,7 +60,7 @@ public class FileDocumentSource extends OWLOntologyDocumentSourceBase {
      * @param format
      *        ontology format. Can be null.
      */
-    public FileDocumentSource(@Nonnull File file, OWLOntologyFormat format) {
+    public FileDocumentSource(@Nonnull File file, OWLDocumentFormat format) {
         this(file, format, null);
     }
 
@@ -75,7 +75,7 @@ public class FileDocumentSource extends OWLOntologyDocumentSourceBase {
      * @param mime
      *        mime type
      */
-    public FileDocumentSource(@Nonnull File file, OWLOntologyFormat format,
+    public FileDocumentSource(@Nonnull File file, OWLDocumentFormat format,
             String mime) {
         super(format, mime);
         this.file = checkNotNull(file, "file cannot be null");

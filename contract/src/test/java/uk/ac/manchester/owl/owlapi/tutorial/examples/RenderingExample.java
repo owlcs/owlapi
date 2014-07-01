@@ -22,7 +22,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 import uk.ac.manchester.owl.owlapi.tutorialowled2011.OWLTutorialSyntaxOntologyFormat;
-import uk.ac.manchester.owl.owlapi.tutorialowled2011.OWLTutorialSyntaxOntologyStorer;
+import uk.ac.manchester.owl.owlapi.tutorialowled2011.TutorialSyntaxStorer;
 
 /**
  * Simple Rendering Example. Reads an ontology and then renders it.
@@ -61,7 +61,7 @@ public class RenderingExample {
         System.out.println("Format      : "
                 + manager.getOntologyFormat(ontology));
         /* Register the ontology storer with the manager */
-        manager.getOntologyStorers().add(new OWLTutorialSyntaxOntologyStorer());
+        manager.getOntologyStorers().add(new TutorialSyntaxStorer());
         /* Save using a different format */
         System.out.println("Storing     : " + outputDocumentIRI);
         manager.saveOntology(ontology, new OWLTutorialSyntaxOntologyFormat(),

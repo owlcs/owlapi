@@ -8,7 +8,7 @@ import javax.annotation.Nonnull;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.formats.RDFXMLOntologyFormat;
+import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -36,7 +36,7 @@ public class TestUndeclaredAnnotation extends TestBase {
         OWLOntology oo = loadOntologyFromString(input);
         @SuppressWarnings("null")
         @Nonnull
-        RDFXMLOntologyFormat format = (RDFXMLOntologyFormat) oo
+        RDFXMLDocumentFormat format = (RDFXMLDocumentFormat) oo
                 .getOWLOntologyManager().getOntologyFormat(oo);
         assertEquals("Should have no unparsed triples", 0, format
                 .getOntologyLoaderMetaData().getUnparsedTriples().size());

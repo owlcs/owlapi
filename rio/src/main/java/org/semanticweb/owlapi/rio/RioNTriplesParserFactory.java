@@ -37,8 +37,8 @@ package org.semanticweb.owlapi.rio;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.formats.NTriplesOntologyFormatFactory;
-import org.semanticweb.owlapi.formats.RioRDFOntologyFormatFactory;
+import org.semanticweb.owlapi.formats.NTriplesDocumentFormatFactory;
+import org.semanticweb.owlapi.formats.RioRDFDocumentFormatFactory;
 import org.semanticweb.owlapi.io.OWLParserFactory;
 
 /**
@@ -51,7 +51,7 @@ public class RioNTriplesParserFactory extends AbstractRioParserFactory
 
     @Nonnull
     @Override
-    public RioRDFOntologyFormatFactory getRioFormatFactory() {
-        return new NTriplesOntologyFormatFactory();
+    public RioRDFDocumentFormatFactory getRioFormatFactory() {
+        return new NTriplesDocumentFormatFactory();
     }
 }

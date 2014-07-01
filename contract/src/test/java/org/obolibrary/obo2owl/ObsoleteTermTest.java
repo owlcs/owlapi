@@ -9,7 +9,7 @@ import org.obolibrary.oboformat.model.Clause;
 import org.obolibrary.oboformat.model.Frame;
 import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
-import org.semanticweb.owlapi.formats.RDFXMLOntologyFormat;
+import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationSubject;
@@ -43,7 +43,7 @@ public class ObsoleteTermTest extends OboFormatTestBasics {
         }
         assertTrue(okDeprecated);
         // CONVERT TO OWL FILE
-        writeOWL(ontology, new RDFXMLOntologyFormat());
+        writeOWL(ontology, new RDFXMLDocumentFormat());
         // CONVERT BACK TO OBO
         OBODoc obodoc = convert(ontology);
         Frame tf = obodoc.getTermFrame("XX:0000034");

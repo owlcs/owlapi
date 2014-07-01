@@ -27,7 +27,7 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.formats.PrefixOWLOntologyFormat;
+import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
@@ -63,17 +63,17 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         ont = ontology;
         this.writer = writer;
         prefixManager = new DefaultPrefixManager();
-        OWLOntologyFormat ontologyFormat = ontology.getOWLOntologyManager()
+        OWLDocumentFormat ontologyFormat = ontology.getOWLOntologyManager()
                 .getOntologyFormat(ontology);
         // reuse the setting on the existing format, if there is one
         if (ontologyFormat != null) {
             addMissingDeclarations = ontologyFormat.isAddMissingTypes();
         }
-        if (ontologyFormat instanceof PrefixOWLOntologyFormat) {
+        if (ontologyFormat instanceof PrefixDocumentFormat) {
             prefixManager
-                    .copyPrefixesFrom((PrefixOWLOntologyFormat) ontologyFormat);
+                    .copyPrefixesFrom((PrefixDocumentFormat) ontologyFormat);
             prefixManager
-                    .setPrefixComparator(((PrefixOWLOntologyFormat) ontologyFormat)
+                    .setPrefixComparator(((PrefixDocumentFormat) ontologyFormat)
                             .getPrefixComparator());
         }
         if (!ontology.isAnonymous()) {
@@ -210,7 +210,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         Set<OWLAxiom> writtenAxioms = new HashSet<>();
         List<OWLEntity> signature = new ArrayList<>(ontology.getSignature());
         Collections.sort(signature);
-        Collection<IRI> illegals = OWLOntologyFormat.determineIllegalPunnings(
+        Collection<IRI> illegals = OWLDocumentFormat.determineIllegalPunnings(
                 addMissingDeclarations, signature,
                 ont.getPunnedIRIs(Imports.INCLUDED));
         for (OWLEntity ent : signature) {

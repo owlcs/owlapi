@@ -19,7 +19,7 @@ import java.util.TreeSet;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.formats.PrefixOWLOntologyFormat;
+import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.io.OWLObjectRenderer;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -92,7 +92,7 @@ import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
@@ -182,16 +182,16 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
                 }
             }
         }
-        OWLOntologyFormat format = manager.getOntologyFormat(ontology);
+        OWLDocumentFormat format = manager.getOntologyFormat(ontology);
         copyPrefixes(format);
     }
 
     @SuppressWarnings("null")
-    private void copyPrefixes(OWLOntologyFormat ontologyFormat) {
-        if (!(ontologyFormat instanceof PrefixOWLOntologyFormat)) {
+    private void copyPrefixes(OWLDocumentFormat ontologyFormat) {
+        if (!(ontologyFormat instanceof PrefixDocumentFormat)) {
             return;
         }
-        PrefixOWLOntologyFormat prefixFormat = (PrefixOWLOntologyFormat) ontologyFormat;
+        PrefixDocumentFormat prefixFormat = (PrefixDocumentFormat) ontologyFormat;
         for (Map.Entry<String, String> e : prefixFormat
                 .getPrefixName2PrefixMap().entrySet()) {
             setPrefix(e.getKey(), e.getValue());

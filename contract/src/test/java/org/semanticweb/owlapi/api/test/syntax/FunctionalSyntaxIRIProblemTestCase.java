@@ -17,9 +17,9 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormat;
-import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormat;
-import org.semanticweb.owlapi.formats.RDFXMLOntologyFormat;
+import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
+import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
+import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
@@ -42,14 +42,14 @@ public class FunctionalSyntaxIRIProblemTestCase extends TestBase {
         m.addAxiom(ontology,
                 SubClassOf(b, factory.getOWLObjectSomeValuesFrom(p, a)));
         OWLOntology loadOntology = roundTrip(ontology,
-                new RDFXMLOntologyFormat());
-        OWLFunctionalSyntaxOntologyFormat functionalFormat = new OWLFunctionalSyntaxOntologyFormat();
+                new RDFXMLDocumentFormat());
+        FunctionalSyntaxDocumentFormat functionalFormat = new FunctionalSyntaxDocumentFormat();
         functionalFormat.asPrefixOWLOntologyFormat().setPrefix("example",
                 "http://example.org/");
         OWLOntology loadOntology2 = roundTrip(ontology, functionalFormat);
         // won't reach here if functional syntax fails - comment it out and
         // uncomment this to test Manchester
-        ManchesterOWLSyntaxOntologyFormat manchesterFormat = new ManchesterOWLSyntaxOntologyFormat();
+        ManchesterSyntaxDocumentFormat manchesterFormat = new ManchesterSyntaxDocumentFormat();
         manchesterFormat.asPrefixOWLOntologyFormat().setPrefix("example",
                 "http://example.org/");
         OWLOntology loadOntology3 = roundTrip(ontology, manchesterFormat);

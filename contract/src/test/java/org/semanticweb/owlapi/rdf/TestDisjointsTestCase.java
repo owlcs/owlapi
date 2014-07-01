@@ -21,7 +21,7 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.formats.RDFXMLOntologyFormat;
+import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSourceBase;
 import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.model.AddAxiom;
@@ -30,9 +30,9 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyStorer;
+import org.semanticweb.owlapi.model.OWLStorer;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParser;
-import org.semanticweb.owlapi.rdf.rdfxml.renderer.RDFXMLOntologyStorer;
+import org.semanticweb.owlapi.rdf.rdfxml.renderer.RDFXMLStorer;
 
 /**
  * Test cases for rendering of disjoint axioms. The OWL 1.1 specification makes
@@ -51,7 +51,7 @@ public class TestDisjointsTestCase extends TestBase {
 
     @Before
     public void setUp() {
-        m.setOntologyStorers(singleton((OWLOntologyStorer) new RDFXMLOntologyStorer()));
+        m.setOntologyStorers(singleton((OWLStorer) new RDFXMLStorer()));
         m.setOntologyParsers(singleton((OWLParser) new RDFXMLParser()));
     }
 
@@ -69,7 +69,7 @@ public class TestDisjointsTestCase extends TestBase {
         classExpressions.add(descB);
         OWLAxiom ax = df.getOWLDisjointClassesAxiom(classExpressions);
         m.applyChange(new AddAxiom(ontA, ax));
-        OWLOntology ontB = roundTrip(ontA, new RDFXMLOntologyFormat());
+        OWLOntology ontB = roundTrip(ontA, new RDFXMLDocumentFormat());
         assertTrue(ontB.getAxioms().contains(ax));
     }
 }

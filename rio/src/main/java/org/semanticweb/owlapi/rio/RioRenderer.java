@@ -47,7 +47,7 @@ import org.openrdf.model.Resource;
 import org.openrdf.model.Statement;
 import org.openrdf.rio.RDFHandler;
 import org.openrdf.rio.RDFHandlerException;
-import org.semanticweb.owlapi.formats.PrefixOWLOntologyFormat;
+import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.io.RDFResource;
 import org.semanticweb.owlapi.io.RDFTriple;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -57,7 +57,7 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.rdf.RDFRendererBase;
 import org.semanticweb.owlapi.rio.utils.RioUtils;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
@@ -90,7 +90,7 @@ public class RioRenderer extends RDFRendererBase {
      *        contexts
      */
     public RioRenderer(@Nonnull final OWLOntology ontology,
-            final RDFHandler writer, final OWLOntologyFormat format,
+            final RDFHandler writer, final OWLDocumentFormat format,
             final Resource... contexts) {
         super(ontology, format);
         OpenRDFUtil.verifyContextNotNull(contexts);
@@ -108,8 +108,8 @@ public class RioRenderer extends RDFRendererBase {
         }
         // copy prefixes out of the given format if it is a
         // PrefixOWLOntologyFormat
-        if (format instanceof PrefixOWLOntologyFormat) {
-            PrefixOWLOntologyFormat prefixFormat = (PrefixOWLOntologyFormat) format;
+        if (format instanceof PrefixDocumentFormat) {
+            PrefixDocumentFormat prefixFormat = (PrefixDocumentFormat) format;
             pm.copyPrefixesFrom(prefixFormat);
             pm.setPrefixComparator(prefixFormat.getPrefixComparator());
         }

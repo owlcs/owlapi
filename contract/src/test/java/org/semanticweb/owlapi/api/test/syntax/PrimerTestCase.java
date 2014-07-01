@@ -10,11 +10,11 @@ import javax.annotation.Nonnull;
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormat;
-import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormat;
-import org.semanticweb.owlapi.formats.OWLXMLOntologyFormat;
-import org.semanticweb.owlapi.formats.RDFXMLOntologyFormat;
-import org.semanticweb.owlapi.formats.TurtleOntologyFormat;
+import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
+import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
+import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
+import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
+import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAxiom;
@@ -30,7 +30,7 @@ public class PrimerTestCase extends TestBase {
     @Nonnull
     OWLOntology func = loadOntologyFromString(functional,
             IRI.create("urn:primer#functional"),
-            new OWLFunctionalSyntaxOntologyFormat());
+            new FunctionalSyntaxDocumentFormat());
     OWL2DLProfile profile = new OWL2DLProfile();
 
     @Before
@@ -42,7 +42,7 @@ public class PrimerTestCase extends TestBase {
     public void shouldManchBeEquivalent() {
         OWLOntology manch = loadOntologyFromString(manchester,
                 IRI.create("urn:primer#manchester"),
-                new ManchesterOWLSyntaxOntologyFormat());
+                new ManchesterSyntaxDocumentFormat());
         for (OWLProfileViolation<?> v : profile.checkOntology(manch)
                 .getViolations()) {
             System.out
@@ -85,7 +85,7 @@ public class PrimerTestCase extends TestBase {
     @Test
     public void shouldRDFXMLBeEquivalent() {
         OWLOntology rdf = loadOntologyFromString(rdfxml,
-                IRI.create("urn:primer#rdfxml"), new RDFXMLOntologyFormat());
+                IRI.create("urn:primer#rdfxml"), new RDFXMLDocumentFormat());
         for (OWLProfileViolation<?> v : profile.checkOntology(rdf)
                 .getViolations()) {
             System.out.println("PrimerTestCase.shouldallBeEquivalent() rdf "
@@ -97,7 +97,7 @@ public class PrimerTestCase extends TestBase {
     @Test
     public void shouldOWLXMLBeEquivalent() {
         OWLOntology owl = loadOntologyFromString(owlxml,
-                IRI.create("urn:primer#owlxml"), new OWLXMLOntologyFormat());
+                IRI.create("urn:primer#owlxml"), new OWLXMLDocumentFormat());
         for (OWLProfileViolation<?> v : profile.checkOntology(owl)
                 .getViolations()) {
             System.out.println("PrimerTestCase.shouldallBeEquivalent() owl "
@@ -109,7 +109,7 @@ public class PrimerTestCase extends TestBase {
     @Test
     public void shouldTURTLEBeEquivalent() {
         OWLOntology turt = loadOntologyFromString(turtle,
-                IRI.create("urn:primer#turtle"), new TurtleOntologyFormat());
+                IRI.create("urn:primer#turtle"), new TurtleDocumentFormat());
         for (OWLProfileViolation<?> v : profile.checkOntology(turt)
                 .getViolations()) {
             System.out.println("PrimerTestCase.shouldallBeEquivalent() turtle "

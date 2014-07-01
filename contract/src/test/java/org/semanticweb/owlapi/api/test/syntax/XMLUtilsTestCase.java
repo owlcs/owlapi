@@ -18,7 +18,7 @@ import javax.annotation.Nonnull;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.formats.RDFXMLOntologyFormat;
+import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSourceBase;
 import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -121,7 +121,7 @@ public class XMLUtilsTestCase extends TestBase {
         OWLOntology o = loadOntologyFromString(input,
                 OWLOntologyDocumentSourceBase
                         .getNextDocumentIRI("testuriwithblankspace"),
-                new RDFXMLOntologyFormat());
+                new RDFXMLDocumentFormat());
         // then
         assertEquals(15, o.getAxiomCount());
     }

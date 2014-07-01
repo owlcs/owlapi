@@ -79,7 +79,7 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyDocumentAlreadyExistsException;
 import org.semanticweb.owlapi.model.OWLOntologyFactory;
 import org.semanticweb.owlapi.model.OWLOntologyFactoryNotFoundException;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
 import org.semanticweb.owlapi.model.OWLOntologyIRIMappingNotFoundException;
@@ -88,8 +88,8 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderListener;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyRenameException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
-import org.semanticweb.owlapi.model.OWLOntologyStorer;
-import org.semanticweb.owlapi.model.OWLOntologyStorerNotFoundException;
+import org.semanticweb.owlapi.model.OWLStorer;
+import org.semanticweb.owlapi.model.OWLStorerNotFoundException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 import org.semanticweb.owlapi.model.RemoveImport;
@@ -125,7 +125,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     @Nonnull
     protected Map<OWLOntologyID, OWLOntologyLoaderConfiguration> ontologyConfigurationsByOntologyID = new HashMap<>();
     @Nonnull
-    protected final Map<OWLOntologyID, OWLOntologyFormat> ontologyFormatsByOntology = createSyncMap();
+    protected final Map<OWLOntologyID, OWLDocumentFormat> ontologyFormatsByOntology = createSyncMap();
     @Nonnull
     protected final Map<OWLImportsDeclaration, OWLOntologyID> ontologyIDsByImportsDeclaration = createSyncMap();
     @Nonnull
@@ -135,7 +135,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     @Nonnull
     protected PriorityCollection<OWLParser> parserFactories = new PriorityCollection<>();
     @Nonnull
-    protected PriorityCollection<OWLOntologyStorer> ontologyStorers = new PriorityCollection<>();
+    protected PriorityCollection<OWLStorer> ontologyStorers = new PriorityCollection<>();
     private final AtomicBoolean broadcastChanges = new AtomicBoolean(true);
     protected AtomicInteger loadCount = new AtomicInteger(0);
     protected AtomicInteger importsLoadCount = new AtomicInteger(0);
@@ -624,7 +624,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
 
     @Override
     public void setOntologyFormat(OWLOntology ontology,
-            OWLOntologyFormat ontologyFormat) {
+            OWLDocumentFormat ontologyFormat) {
         OWLOntologyID ontologyID = ontology.getOntologyID();
         ontologyFormatsByOntology.put(ontologyID, ontologyFormat);
     }
@@ -632,7 +632,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     @SuppressWarnings("null")
     @Nonnull
     @Override
-    public OWLOntologyFormat getOntologyFormat(@Nonnull OWLOntology ontology) {
+    public OWLDocumentFormat getOntologyFormat(@Nonnull OWLOntology ontology) {
         OWLOntologyID ontologyID = ontology.getOntologyID();
         return ontologyFormatsByOntology.get(ontologyID);
     }
@@ -762,7 +762,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         OWLOntologyManager m = toCopy.getOWLOntologyManager();
         if (settings == OntologyCopy.MOVE || settings == OntologyCopy.DEEP) {
             setOntologyDocumentIRI(toReturn, m.getOntologyDocumentIRI(toCopy));
-            OWLOntologyFormat f = m.getOntologyFormat(toCopy);
+            OWLDocumentFormat f = m.getOntologyFormat(toCopy);
             if (f != null) {
                 setOntologyFormat(toReturn, f);
             }
@@ -1032,13 +1032,13 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     @Override
     public void saveOntology(OWLOntology ontology)
             throws OWLOntologyStorageException {
-        OWLOntologyFormat format = getOntologyFormat(ontology);
+        OWLDocumentFormat format = getOntologyFormat(ontology);
         saveOntology(ontology, format);
     }
 
     @Override
     public void saveOntology(@Nonnull OWLOntology ontology,
-            OWLOntologyFormat ontologyFormat)
+            OWLDocumentFormat ontologyFormat)
             throws OWLOntologyStorageException {
         saveOntology(ontology, ontologyFormat, getOntologyDocumentIRI(ontology));
     }
@@ -1046,22 +1046,22 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     @Override
     public void saveOntology(OWLOntology ontology, IRI documentIRI)
             throws OWLOntologyStorageException {
-        OWLOntologyFormat format = getOntologyFormat(ontology);
+        OWLDocumentFormat format = getOntologyFormat(ontology);
         saveOntology(ontology, format, documentIRI);
     }
 
     @Override
     public void saveOntology(OWLOntology ontology,
-            OWLOntologyFormat ontologyFormat, IRI documentIRI)
+            OWLDocumentFormat ontologyFormat, IRI documentIRI)
             throws OWLOntologyStorageException {
         try {
-            for (OWLOntologyStorer storer : ontologyStorers) {
+            for (OWLStorer storer : ontologyStorers) {
                 if (storer.canStoreOntology(ontologyFormat)) {
                     storer.storeOntology(ontology, documentIRI, ontologyFormat);
                     return;
                 }
             }
-            throw new OWLOntologyStorerNotFoundException(ontologyFormat);
+            throw new OWLStorerNotFoundException(ontologyFormat);
         } catch (IOException e) {
             throw new OWLOntologyStorageIOException(e);
         }
@@ -1075,7 +1075,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
 
     @Override
     public void saveOntology(OWLOntology ontology,
-            OWLOntologyFormat ontologyFormat, OutputStream outputStream)
+            OWLDocumentFormat ontologyFormat, OutputStream outputStream)
             throws OWLOntologyStorageException {
         saveOntology(ontology, ontologyFormat, new StreamDocumentTarget(
                 outputStream));
@@ -1090,18 +1090,18 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
 
     @Override
     public void saveOntology(OWLOntology ontology,
-            OWLOntologyFormat ontologyFormat,
+            OWLDocumentFormat ontologyFormat,
             OWLOntologyDocumentTarget documentTarget)
             throws OWLOntologyStorageException {
         try {
-            for (OWLOntologyStorer storer : ontologyStorers) {
+            for (OWLStorer storer : ontologyStorers) {
                 if (storer.canStoreOntology(ontologyFormat)) {
                     storer.storeOntology(ontology, documentTarget,
                             ontologyFormat);
                     return;
                 }
             }
-            throw new OWLOntologyStorerNotFoundException(ontologyFormat);
+            throw new OWLStorerNotFoundException(ontologyFormat);
         } catch (IOException e) {
             throw new OWLOntologyStorageIOException(e);
         }
@@ -1109,12 +1109,12 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
 
     @Override
     @Inject
-    public void setOntologyStorers(Set<OWLOntologyStorer> storers) {
+    public void setOntologyStorers(Set<OWLStorer> storers) {
         ontologyStorers.set(storers);
     }
 
     @Override
-    public PriorityCollection<OWLOntologyStorer> getOntologyStorers() {
+    public PriorityCollection<OWLStorer> getOntologyStorers() {
         return ontologyStorers;
     }
 

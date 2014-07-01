@@ -19,7 +19,7 @@ import javax.annotation.Nonnull;
 import javax.inject.Provider;
 
 import org.semanticweb.owlapi.model.MIMETypeAware;
-import org.semanticweb.owlapi.model.OWLOntologyFormatFactory;
+import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 
 /**
  * An object that can create an {@code OWLParser}.
@@ -42,5 +42,5 @@ public interface OWLParserFactory extends Serializable, Provider<OWLParser>,
     /**
      * @return set of factories for supported formats
      */
-    Set<OWLOntologyFormatFactory> getSupportedFormats();
+    Set<OWLDocumentFormatFactory> getSupportedFormats();
 }

@@ -11,7 +11,7 @@ import javax.annotation.Nullable;
 import org.apache.commons.io.ByteOrderMark;
 import org.apache.commons.io.input.BOMInputStream;
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 
 /**
  * Base class for OWLOntologyDocumentSource.
@@ -49,7 +49,7 @@ public abstract class OWLOntologyDocumentSourceBase implements
                 ByteOrderMark.UTF_32BE, ByteOrderMark.UTF_32LE);
     }
 
-    private final OWLOntologyFormat format;
+    private final OWLDocumentFormat format;
     private final String mimeType;
 
     /**
@@ -60,14 +60,14 @@ public abstract class OWLOntologyDocumentSourceBase implements
      * @param mime
      *        mime type. If null or empty, it is considered unspecified.
      */
-    public OWLOntologyDocumentSourceBase(@Nullable OWLOntologyFormat format,
+    public OWLOntologyDocumentSourceBase(@Nullable OWLDocumentFormat format,
             @Nullable String mime) {
         this.format = format;
         mimeType = mime;
     }
 
     @Override
-    public OWLOntologyFormat getFormat() {
+    public OWLDocumentFormat getFormat() {
         return format;
     }
 

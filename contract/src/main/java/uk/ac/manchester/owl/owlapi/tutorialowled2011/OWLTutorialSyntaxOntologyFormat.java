@@ -16,7 +16,7 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.annotations.HasIdentifierKey;
 import org.semanticweb.owlapi.annotations.IsBinaryFormat;
-import org.semanticweb.owlapi.formats.PrefixOWLOntologyFormat;
+import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 
 /**
  * @author Sean Bechhofer, The University Of Manchester, Information Management
@@ -25,7 +25,7 @@ import org.semanticweb.owlapi.formats.PrefixOWLOntologyFormat;
  */
 @HasIdentifierKey("OWL Tutorial Syntax")
 @IsBinaryFormat(false)
-public class OWLTutorialSyntaxOntologyFormat extends PrefixOWLOntologyFormat {
+public class OWLTutorialSyntaxOntologyFormat extends PrefixDocumentFormat {
 
     private static final long serialVersionUID = 40000L;
 

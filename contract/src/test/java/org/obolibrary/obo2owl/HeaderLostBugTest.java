@@ -6,7 +6,7 @@ import java.util.Set;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.formats.RDFXMLOntologyFormat;
+import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.IRI;
@@ -44,7 +44,7 @@ public class HeaderLostBugTest extends OboFormatTestBasics {
         StringDocumentTarget target = new StringDocumentTarget();
         try {
             ontology.getOWLOntologyManager().saveOntology(ontology,
-                    new RDFXMLOntologyFormat(), target);
+                    new RDFXMLDocumentFormat(), target);
             return OWLManager.createOWLOntologyManager()
                     .loadOntologyFromOntologyDocument(
                             new StringDocumentSource(target));

@@ -15,11 +15,11 @@ package org.coode.owlapi.turtle;
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 26-Jan-2008
- * @deprecated use {@link org.semanticweb.owlapi.formats.TurtleOntologyFormat}
+ * @deprecated use {@link org.semanticweb.owlapi.formats.TurtleDocumentFormat}
  */
 @Deprecated
 public class TurtleOntologyFormat extends
-        org.semanticweb.owlapi.formats.TurtleOntologyFormat {
+        org.semanticweb.owlapi.formats.TurtleDocumentFormat {
 
     private static final long serialVersionUID = 30406L;
 }

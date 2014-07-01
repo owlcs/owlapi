@@ -36,11 +36,11 @@
 package org.semanticweb.owlapi.rio;
 
 import org.openrdf.rio.RDFParserFactory;
-import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormat;
+import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 
 /**
  * {@link RDFParserFactory} that creates RDF statements from
- * {@link OWLFunctionalSyntaxOntologyFormat} documents.
+ * {@link FunctionalSyntaxDocumentFormat} documents.
  * 
  * @author Peter Ansell p_ansell@yahoo.com
  */

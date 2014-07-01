@@ -32,9 +32,9 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormat;
-import org.semanticweb.owlapi.formats.OWLXMLOntologyFormat;
-import org.semanticweb.owlapi.formats.TurtleOntologyFormat;
+import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
+import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
+import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.io.StreamDocumentTarget;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
@@ -79,7 +79,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
@@ -239,10 +239,10 @@ public class Examples extends TestBase {
         // By default ontologies are saved in the format from which they were
         // loaded. In this case the ontology was loaded from an rdf/xml file We
         // can get information about the format of an ontology from its manager
-        OWLOntologyFormat format = manager.getOntologyFormat(pizzaOntology);
+        OWLDocumentFormat format = manager.getOntologyFormat(pizzaOntology);
         // We can save the ontology in a different format Lets save the ontology
         // in owl/xml format
-        OWLXMLOntologyFormat owlxmlFormat = new OWLXMLOntologyFormat();
+        OWLXMLDocumentFormat owlxmlFormat = new OWLXMLDocumentFormat();
         // Some ontology formats support prefix names and prefix IRIs. In our
         // case we loaded the pizza ontology from an rdf/xml format, which
         // supports prefixes. When we save the ontology in the new format we
@@ -259,7 +259,7 @@ public class Examples extends TestBase {
         // OWLOntologyDocumentTarget documentTarget = new
         // SystemOutDocumentTarget();
         // Try another format - The Manchester OWL Syntax
-        ManchesterOWLSyntaxOntologyFormat manSyntaxFormat = new ManchesterOWLSyntaxOntologyFormat();
+        ManchesterSyntaxDocumentFormat manSyntaxFormat = new ManchesterSyntaxDocumentFormat();
         if (format.isPrefixOWLOntologyFormat()) {
             manSyntaxFormat
                     .copyPrefixesFrom(format.asPrefixOWLOntologyFormat());
@@ -515,7 +515,7 @@ public class Examples extends TestBase {
         // the format that the ontology was loaded in).
         File f = folder.newFile("owlapiexample_example1.xml");
         IRI documentIRI2 = IRI.create(f);
-        manager.saveOntology(ontology, new OWLXMLOntologyFormat(), documentIRI2);
+        manager.saveOntology(ontology, new OWLXMLDocumentFormat(), documentIRI2);
         // Remove the ontology from the manager
         manager.removeOntology(ontology);
     }
@@ -2071,15 +2071,15 @@ public class Examples extends TestBase {
         manager.saveOntology(ont, new StringDocumentTarget());
         // OWL/XML
         // System.out.println("OWL/XML: ");
-        manager.saveOntology(ont, new OWLXMLOntologyFormat(),
+        manager.saveOntology(ont, new OWLXMLDocumentFormat(),
                 new StringDocumentTarget());
         // Manchester Syntax
         // System.out.println("Manchester syntax: ");
-        manager.saveOntology(ont, new ManchesterOWLSyntaxOntologyFormat(),
+        manager.saveOntology(ont, new ManchesterSyntaxDocumentFormat(),
                 new StringDocumentTarget());
         // Turtle
         // System.out.println("Turtle: ");
-        manager.saveOntology(ont, new TurtleOntologyFormat(),
+        manager.saveOntology(ont, new TurtleDocumentFormat(),
                 new StringDocumentTarget());
     }
 }

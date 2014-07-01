@@ -28,7 +28,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /**
@@ -63,7 +63,7 @@ public abstract class StreamDocumentSourceBase extends
      *        mime type
      */
     public StreamDocumentSourceBase(@Nonnull InputStream stream,
-            @Nonnull IRI documentIRI, OWLOntologyFormat format, String mime) {
+            @Nonnull IRI documentIRI, OWLDocumentFormat format, String mime) {
         super(format, mime);
         this.documentIRI = checkNotNull(documentIRI,
                 "document iri cannot be null");
@@ -85,7 +85,7 @@ public abstract class StreamDocumentSourceBase extends
      *        mime type
      */
     public StreamDocumentSourceBase(@Nonnull Reader stream,
-            @Nonnull IRI documentIRI, OWLOntologyFormat format, String mime) {
+            @Nonnull IRI documentIRI, OWLDocumentFormat format, String mime) {
         super(format, mime);
         this.documentIRI = checkNotNull(documentIRI,
                 "document iri cannot be null");

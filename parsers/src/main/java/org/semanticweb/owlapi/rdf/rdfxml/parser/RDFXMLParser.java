@@ -17,11 +17,11 @@ import java.io.IOException;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.annotations.HasPriority;
-import org.semanticweb.owlapi.formats.RDFXMLOntologyFormat;
+import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
@@ -44,17 +44,17 @@ public class RDFXMLParser extends AbstractOWLParser {
     }
 
     @Override
-    protected Class<? extends OWLOntologyFormat> getFormatClass() {
-        return RDFXMLOntologyFormat.class;
+    protected Class<? extends OWLDocumentFormat> getFormatClass() {
+        return RDFXMLDocumentFormat.class;
     }
 
     @Override
-    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
+    public OWLDocumentFormat parse(OWLOntologyDocumentSource documentSource,
             OWLOntology ontology, OWLOntologyLoaderConfiguration configuration)
             throws IOException {
         InputSource is = null;
         try {
-            final RDFXMLOntologyFormat format = new RDFXMLOntologyFormat();
+            final RDFXMLDocumentFormat format = new RDFXMLDocumentFormat();
             RDFParser parser = new RDFParser() {
 
                 @Override

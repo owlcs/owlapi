@@ -25,7 +25,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /**
@@ -65,7 +65,7 @@ public class GZipStreamDocumentSource extends OWLOntologyDocumentSourceBase {
      *        mime type
      */
     public GZipStreamDocumentSource(@Nonnull InputStream stream,
-            @Nonnull IRI documentIRI, @Nullable OWLOntologyFormat format,
+            @Nonnull IRI documentIRI, @Nullable OWLDocumentFormat format,
             @Nullable String mime) {
         super(format, mime);
         this.documentIRI = documentIRI;

@@ -55,7 +55,7 @@ import org.semanticweb.owlapi.io.StreamDocumentSource;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntologyManagerFactory;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
@@ -108,7 +108,7 @@ public class RioOWLRDFParser extends RDFParserBase {
 
     @Override
     public void parse(InputStream in, String baseURI) throws IOException {
-        OWLOntologyFormat nextFormat = getRDFFormat().getOWLFormat();
+        OWLDocumentFormat nextFormat = getRDFFormat().getOWLFormat();
         StreamDocumentSource source = new StreamDocumentSource(checkNotNull(in,
                 "in cannot be null"), IRI.create(checkNotNull(baseURI,
                 "baseURI cannot be null")), nextFormat, getRDFFormat()
@@ -146,7 +146,7 @@ public class RioOWLRDFParser extends RDFParserBase {
 
     @Override
     public void parse(Reader reader, String baseURI) throws IOException {
-        OWLOntologyFormat nextFormat = getRDFFormat().getOWLFormat();
+        OWLDocumentFormat nextFormat = getRDFFormat().getOWLFormat();
         ReaderDocumentSource source = new ReaderDocumentSource(checkNotNull(
                 reader, "reader cannot be null"), IRI.create(checkNotNull(
                 baseURI, "baseURI cannot be null")), nextFormat, getRDFFormat()

@@ -59,7 +59,7 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
@@ -106,7 +106,7 @@ public abstract class RDFRendererBase {
     protected RDFGraph graph;
     @Nonnull
     protected Set<IRI> prettyPrintedTypes = initPrettyTypes();
-    private final OWLOntologyFormat format;
+    private final OWLDocumentFormat format;
     private Set<IRI> punned;
 
     @Nonnull
@@ -130,7 +130,7 @@ public abstract class RDFRendererBase {
     }
 
     protected RDFRendererBase(@Nonnull OWLOntology ontology,
-            OWLOntologyFormat format) {
+            OWLDocumentFormat format) {
         this.ontology = ontology;
         this.format = format;
     }
@@ -256,7 +256,7 @@ public abstract class RDFRendererBase {
     }
 
     private void renderOntologyComponents() throws IOException {
-        renderInOntologySignatureEntities(OWLOntologyFormat
+        renderInOntologySignatureEntities(OWLDocumentFormat
                 .determineIllegalPunnings(shouldInsertDeclarations(),
                         ontology.getSignature(),
                         ontology.getPunnedIRIs(INCLUDED)));
@@ -638,7 +638,7 @@ public abstract class RDFRendererBase {
         });
         if (axioms.isEmpty() && shouldInsertDeclarations()
                 && !illegalPuns.contains(entity.getIRI())
-                && OWLOntologyFormat.isMissingType(entity, ontology)) {
+                && OWLDocumentFormat.isMissingType(entity, ontology)) {
             axioms.add(ontology.getOWLOntologyManager().getOWLDataFactory()
                     .getOWLDeclarationAxiom(entity));
         }

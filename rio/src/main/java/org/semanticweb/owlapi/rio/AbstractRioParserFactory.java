@@ -41,10 +41,10 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.formats.RioRDFOntologyFormatFactory;
+import org.semanticweb.owlapi.formats.RioRDFDocumentFormatFactory;
 import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserFactory;
-import org.semanticweb.owlapi.model.OWLOntologyFormatFactory;
+import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com
@@ -60,16 +60,16 @@ public abstract class AbstractRioParserFactory implements OWLParserFactory {
     }
 
     @Override
-    public Set<OWLOntologyFormatFactory> getSupportedFormats() {
+    public Set<OWLDocumentFormatFactory> getSupportedFormats() {
         return Collections
-                .<OWLOntologyFormatFactory> singleton(getRioFormatFactory());
+                .<OWLDocumentFormatFactory> singleton(getRioFormatFactory());
     }
 
     /**
      * @return Rio format factory
      */
     @Nonnull
-    public abstract RioRDFOntologyFormatFactory getRioFormatFactory();
+    public abstract RioRDFDocumentFormatFactory getRioFormatFactory();
 
     @Override
     public OWLParser get() {

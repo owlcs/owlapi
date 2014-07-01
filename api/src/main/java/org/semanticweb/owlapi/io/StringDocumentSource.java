@@ -21,7 +21,7 @@ import java.io.StringReader;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 
 /**
  * An ontology input source that wraps a string.
@@ -65,7 +65,7 @@ public class StringDocumentSource extends OWLOntologyDocumentSourceBase {
      *        mime type
      */
     public StringDocumentSource(@Nonnull String string,
-            @Nonnull IRI documentIRI, OWLOntologyFormat f, String mime) {
+            @Nonnull IRI documentIRI, OWLDocumentFormat f, String mime) {
         super(f, mime);
         this.string = checkNotNull(string, "string cannot be null");
         this.documentIRI = checkNotNull(documentIRI,

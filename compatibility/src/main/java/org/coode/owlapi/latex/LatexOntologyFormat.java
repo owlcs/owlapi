@@ -15,11 +15,11 @@ package org.coode.owlapi.latex;
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 26-Jan-2008
- * @deprecated use {@link org.semanticweb.owlapi.formats.LatexOntologyFormat}
+ * @deprecated use {@link org.semanticweb.owlapi.formats.LatexDocumentFormat}
  */
 @Deprecated
 public class LatexOntologyFormat extends
-        org.semanticweb.owlapi.formats.LatexOntologyFormat {
+        org.semanticweb.owlapi.formats.LatexDocumentFormat {
 
     private static final long serialVersionUID = 30406L;
 

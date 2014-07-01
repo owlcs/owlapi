@@ -23,7 +23,7 @@ import javax.annotation.Nonnull;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.formats.TurtleOntologyFormat;
+import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
@@ -56,7 +56,7 @@ public class TurtleTestCase extends TestBase {
     @Nonnull
     private final IRI iri = IRI.create("urn:testliterals");
     @Nonnull
-    private final TurtleOntologyFormat tf = new TurtleOntologyFormat();
+    private final TurtleDocumentFormat tf = new TurtleDocumentFormat();
     @Nonnull
     private final IRI s = IRI.create("urn:test#s");
 
@@ -160,7 +160,7 @@ public class TurtleTestCase extends TestBase {
     public void shouldRoundTripTurtleWithsharedBnodes() throws Exception {
         String input = "@prefix ex: <http://example.com/test> .\n ex:ex1 a ex:Something ; ex:prop1 _:a .\n _:a a ex:Something1 ; ex:prop2 _:b .\n _:b a ex:Something ; ex:prop3 _:a .";
         OWLOntology ontology = loadOntologyFromString(input);
-        OWLOntology onto2 = roundTrip(ontology, new TurtleOntologyFormat());
+        OWLOntology onto2 = roundTrip(ontology, new TurtleDocumentFormat());
         equal(ontology, onto2);
     }
 
@@ -241,7 +241,7 @@ public class TurtleTestCase extends TestBase {
                 + ":DM rdf:type owl:NamedIndividual , prov:Person .\n"
                 + ":FMDomain rdf:type owl:NamedIndividual , prov:Activity ; prov:ass :DM .";
         OWLOntology ontology = loadOntologyFromString(input);
-        OWLOntology o = roundTrip(ontology, new TurtleOntologyFormat());
+        OWLOntology o = roundTrip(ontology, new TurtleDocumentFormat());
         Set<OWLSubClassOfAxiom> axioms = o.getAxioms(AxiomType.SUBCLASS_OF);
         assertEquals(1, axioms.size());
         OWLAnnotation next = axioms.iterator().next().getAnnotations()
@@ -278,7 +278,7 @@ public class TurtleTestCase extends TestBase {
                 df.getOWLSubClassOfAxiom(
                         df.getOWLClass(IRI.create(string + 't')),
                         df.getOWLClass(IRI.create(string + 'q'))));
-        OWLOntology o = roundTrip(ontology, new TurtleOntologyFormat());
+        OWLOntology o = roundTrip(ontology, new TurtleDocumentFormat());
         equal(o, in);
     }
 

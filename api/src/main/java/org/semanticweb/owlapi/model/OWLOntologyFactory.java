@@ -130,6 +130,6 @@ public interface OWLOntologyFactory extends Serializable {
          *        the format
          */
         void setOntologyFormat(@Nonnull OWLOntology ontology,
-                @Nonnull OWLOntologyFormat format);
+                @Nonnull OWLDocumentFormat format);
     }
 }

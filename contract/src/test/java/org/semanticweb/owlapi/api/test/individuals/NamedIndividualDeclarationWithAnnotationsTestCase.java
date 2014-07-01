@@ -21,7 +21,7 @@ import org.semanticweb.owlapi.api.test.baseclasses.AbstractAnnotatedAxiomRoundTr
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health
@@ -38,7 +38,7 @@ public class NamedIndividualDeclarationWithAnnotationsTestCase extends
     }
 
     @Override
-    protected boolean isIgnoreDeclarationAxioms(OWLOntologyFormat format) {
+    protected boolean isIgnoreDeclarationAxioms(OWLDocumentFormat format) {
         return false;
     }
 

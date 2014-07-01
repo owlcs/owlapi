@@ -16,11 +16,11 @@ import java.util.Map;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.formats.PrefixOWLOntologyFormat;
+import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 
@@ -60,10 +60,10 @@ public class ManchesterOWLSyntaxPrefixNameShortFormProvider implements
      *        The format from which prefix name mappings will be reused
      */
     public ManchesterOWLSyntaxPrefixNameShortFormProvider(
-            OWLOntologyFormat format) {
+            OWLDocumentFormat format) {
         prefixManager = new DefaultPrefixManager();
-        if (format instanceof PrefixOWLOntologyFormat) {
-            PrefixOWLOntologyFormat ontFormat = (PrefixOWLOntologyFormat) format;
+        if (format instanceof PrefixDocumentFormat) {
+            PrefixDocumentFormat ontFormat = (PrefixDocumentFormat) format;
             prefixManager.copyPrefixesFrom(ontFormat);
             prefixManager.setPrefixComparator(ontFormat.getPrefixComparator());
         }

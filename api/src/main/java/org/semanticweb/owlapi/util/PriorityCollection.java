@@ -12,7 +12,7 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.annotations.SupportsMIMEType;
 import org.semanticweb.owlapi.model.MIMETypeAware;
-import org.semanticweb.owlapi.model.OWLOntologyFormatFactory;
+import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 
 import com.google.common.collect.Iterators;
 
@@ -124,8 +124,8 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>,
      * are always unique, the correct item will always be chosen
      * 
      * @param mimeType
-     *        A MIME type to return an {@link OWLOntologyFormatFactory} for
-     * @return An {@link OWLOntologyFormatFactory} matching the given mime type
+     *        A MIME type to return an {@link OWLDocumentFormatFactory} for
+     * @return An {@link OWLDocumentFormatFactory} matching the given mime type
      *         or null if none were found.
      */
     public PriorityCollection<T> getByMIMEType(@Nonnull String mimeType) {

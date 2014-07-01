@@ -30,7 +30,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.formats.OWLXMLOntologyFormat;
+import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi.io.StreamDocumentTarget;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
@@ -227,7 +227,7 @@ public class TutorialSnippets {
         // File output = File.createTempFile("saved_pizza", ".owl");
         IRI documentIRI2 = IRI.create(output);
         // save in OWL/XML format
-        m.saveOntology(o, new OWLXMLOntologyFormat(), documentIRI2);
+        m.saveOntology(o, new OWLXMLDocumentFormat(), documentIRI2);
         // save in RDF/XML
         m.saveOntology(o, documentIRI2);
         // print out the ontology
@@ -1006,7 +1006,7 @@ public class TutorialSnippets {
         OWLOntologyManager m = create();
         OWLOntology o = loadPizzaOntology(m);
         // Register the ontology storer with the manager
-        m.getOntologyStorers().add(new OWLTutorialSyntaxOntologyStorer());
+        m.getOntologyStorers().add(new TutorialSyntaxStorer());
         // Save using a different format
         StreamDocumentTarget target = new StreamDocumentTarget(
                 new ByteArrayOutputStream());

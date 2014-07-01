@@ -878,7 +878,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      *         If the specified ontology is not managed by this manager.
      */
     @Nullable
-    OWLOntologyFormat getOntologyFormat(@Nonnull OWLOntology ontology);
+    OWLDocumentFormat getOntologyFormat(@Nonnull OWLOntology ontology);
 
     /**
      * Sets the format for the specified ontology.
@@ -891,7 +891,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      *         If the specified ontology is not managed by this manager.
      */
     void setOntologyFormat(@Nonnull OWLOntology ontology,
-            @Nonnull OWLOntologyFormat ontologyFormat);
+            @Nonnull OWLDocumentFormat ontologyFormat);
 
     /**
      * Saves the specified ontology. The ontology will be saved to the location
@@ -960,7 +960,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      *         if the specified ontology is not managed by this manager
      */
     void saveOntology(@Nonnull OWLOntology ontology,
-            @Nonnull OWLOntologyFormat ontologyFormat)
+            @Nonnull OWLDocumentFormat ontologyFormat)
             throws OWLOntologyStorageException;
 
     /**
@@ -980,7 +980,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      */
     void
             saveOntology(@Nonnull OWLOntology ontology,
-                    @Nonnull OWLOntologyFormat ontologyFormat,
+                    @Nonnull OWLDocumentFormat ontologyFormat,
                     @Nonnull IRI documentIRI)
                     throws OWLOntologyStorageException;
 
@@ -1000,7 +1000,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      *         if the specified ontology is not managed by the manager.
      */
     void saveOntology(@Nonnull OWLOntology ontology,
-            @Nonnull OWLOntologyFormat ontologyFormat,
+            @Nonnull OWLDocumentFormat ontologyFormat,
             @Nonnull OutputStream outputStream)
             throws OWLOntologyStorageException;
 
@@ -1037,7 +1037,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      *         If the specified ontology is not managed by this manager.
      */
     void saveOntology(@Nonnull OWLOntology ontology,
-            @Nonnull OWLOntologyFormat ontologyFormat,
+            @Nonnull OWLDocumentFormat ontologyFormat,
             @Nonnull OWLOntologyDocumentTarget documentTarget)
             throws OWLOntologyStorageException;
 
@@ -1111,14 +1111,14 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      * @param storers
      *        The storers to be used
      */
-    void setOntologyStorers(@Nonnull Set<OWLOntologyStorer> storers);
+    void setOntologyStorers(@Nonnull Set<OWLStorer> storers);
 
     /**
      * @return the collection of storers. This allows for iteration and
      *         modification of the list.
      */
     @Nonnull
-    PriorityCollection<OWLOntologyStorer> getOntologyStorers();
+    PriorityCollection<OWLStorer> getOntologyStorers();
 
     /**
      * Adds an ontology change listener, which listens to all changes for all

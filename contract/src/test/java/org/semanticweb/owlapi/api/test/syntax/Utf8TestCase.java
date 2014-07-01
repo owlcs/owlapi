@@ -23,8 +23,8 @@ import javax.annotation.Nonnull;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormat;
-import org.semanticweb.owlapi.formats.RDFXMLOntologyFormat;
+import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
+import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.io.StreamDocumentSource;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -124,7 +124,7 @@ public class Utf8TestCase extends TestBase {
                 df.getOWLLiteral("Chinese=處方"));
         OWLAxiom axiom = df.getOWLAnnotationAssertionAxiom(a.getIRI(), ann);
         m.addAxiom(ontology, axiom);
-        ontology = roundTrip(ontology, new OWLFunctionalSyntaxOntologyFormat());
+        ontology = roundTrip(ontology, new FunctionalSyntaxDocumentFormat());
     }
 
     @Test
@@ -144,7 +144,7 @@ public class Utf8TestCase extends TestBase {
         OWLOntology ontology = createOriginalOntology(NS, C, CHINESE);
         checkOntology(ontology, C, CHINESE);
         OWLOntology newOntology = roundTrip(ontology,
-                new RDFXMLOntologyFormat());
+                new RDFXMLDocumentFormat());
         checkOntology(newOntology, C, CHINESE);
     }
 

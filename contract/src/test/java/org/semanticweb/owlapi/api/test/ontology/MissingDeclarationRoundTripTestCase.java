@@ -20,7 +20,7 @@ import javax.annotation.Nonnull;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.formats.RDFXMLOntologyFormat;
+import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -37,7 +37,7 @@ public class MissingDeclarationRoundTripTestCase extends TestBase {
         assertTrue(ontology.containsAnnotationPropertyInSignature(p.getIRI(),
                 EXCLUDED));
         assertEquals(1, ontology.getAxiomCount());
-        RDFXMLOntologyFormat format = new RDFXMLOntologyFormat();
+        RDFXMLDocumentFormat format = new RDFXMLDocumentFormat();
         format.setAddMissingTypes(false);
         ontology = loadOntologyStrict(saveOntology(ontology, format));
         assertFalse(ontology.containsAnnotationPropertyInSignature(p.getIRI(),

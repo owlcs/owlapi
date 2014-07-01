@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormat;
+import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.AddImport;
@@ -147,7 +147,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         prefixMap.putAll(nsm.getPrefixName2PrefixMap());
     }
 
-    final public OWLFunctionalSyntaxOntologyFormat parse()
+    final public FunctionalSyntaxDocumentFormat parse()
             throws ParseException, OWLParserException,
             UnloadableImportException {
         label_1: while (true) {
@@ -164,7 +164,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         }
         Ontology();
         jj_consume_token(0);
-        OWLFunctionalSyntaxOntologyFormat format = new OWLFunctionalSyntaxOntologyFormat();
+        FunctionalSyntaxDocumentFormat format = new FunctionalSyntaxDocumentFormat();
         for (String pn : prefixMap.keySet()) {
             format.setPrefix(pn, prefixMap.get(pn));
         }

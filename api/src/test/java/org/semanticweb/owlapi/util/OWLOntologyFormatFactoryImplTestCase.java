@@ -16,18 +16,18 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.annotations.HasIdentifierKey;
-import org.semanticweb.owlapi.formats.DLSyntaxHTMLOntologyFormat;
-import org.semanticweb.owlapi.formats.DLSyntaxOntologyFormat;
-import org.semanticweb.owlapi.formats.KRSS2OntologyFormat;
-import org.semanticweb.owlapi.formats.KRSSOntologyFormat;
-import org.semanticweb.owlapi.formats.LabelFunctionalFormat;
-import org.semanticweb.owlapi.formats.LatexAxiomsListOntologyFormat;
-import org.semanticweb.owlapi.formats.LatexOntologyFormat;
-import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormat;
-import org.semanticweb.owlapi.formats.OWLXMLOntologyFormat;
-import org.semanticweb.owlapi.formats.RDFXMLOntologyFormat;
-import org.semanticweb.owlapi.formats.TurtleOntologyFormat;
-import org.semanticweb.owlapi.model.OWLOntologyFormatFactory;
+import org.semanticweb.owlapi.formats.DLSyntaxHTMLDocumentFormat;
+import org.semanticweb.owlapi.formats.DLSyntaxDocumentFormat;
+import org.semanticweb.owlapi.formats.KRSS2DocumentFormat;
+import org.semanticweb.owlapi.formats.KRSSDocumentFormat;
+import org.semanticweb.owlapi.formats.LabelFunctionalDocumentFormat;
+import org.semanticweb.owlapi.formats.LatexAxiomsListDocumentFormat;
+import org.semanticweb.owlapi.formats.LatexDocumentFormat;
+import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
+import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
+import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
+import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 
 /**
  * Test the generic factory and all the formats it can build
@@ -39,8 +39,8 @@ public class OWLOntologyFormatFactoryImplTestCase {
 
     @Test
     public void testDLSyntaxHTMLFormat() {
-        Class<DLSyntaxHTMLOntologyFormat> format = DLSyntaxHTMLOntologyFormat.class;
-        OWLOntologyFormatFactory f = new OWLOntologyFormatFactoryImpl<>(format);
+        Class<DLSyntaxHTMLDocumentFormat> format = DLSyntaxHTMLDocumentFormat.class;
+        OWLDocumentFormatFactory f = new OWLDocumentFormatFactoryImpl<>(format);
         assertEquals("DL Syntax - HTML Format",
                 format.getAnnotation(HasIdentifierKey.class).value());
         assertEquals("DL Syntax - HTML Format", f.getKey());
@@ -50,8 +50,8 @@ public class OWLOntologyFormatFactoryImplTestCase {
 
     @Test
     public void testDLSyntaxOntologyFormat() {
-        Class<DLSyntaxOntologyFormat> format = DLSyntaxOntologyFormat.class;
-        OWLOntologyFormatFactory f = new OWLOntologyFormatFactoryImpl<>(format);
+        Class<DLSyntaxDocumentFormat> format = DLSyntaxDocumentFormat.class;
+        OWLDocumentFormatFactory f = new OWLDocumentFormatFactoryImpl<>(format);
         assertEquals("DL Syntax Format",
                 format.getAnnotation(HasIdentifierKey.class).value());
         assertEquals("DL Syntax Format", f.getKey());
@@ -61,8 +61,8 @@ public class OWLOntologyFormatFactoryImplTestCase {
 
     @Test
     public void testKRSS2OntologyFormat() {
-        Class<KRSS2OntologyFormat> format = KRSS2OntologyFormat.class;
-        OWLOntologyFormatFactory f = new OWLOntologyFormatFactoryImpl<>(format);
+        Class<KRSS2DocumentFormat> format = KRSS2DocumentFormat.class;
+        OWLDocumentFormatFactory f = new OWLDocumentFormatFactoryImpl<>(format);
         assertEquals("KRSS2 Syntax",
                 format.getAnnotation(HasIdentifierKey.class).value());
         assertEquals("KRSS2 Syntax", f.getKey());
@@ -72,8 +72,8 @@ public class OWLOntologyFormatFactoryImplTestCase {
 
     @Test
     public void testKRSSOntologyFormat() {
-        Class<KRSSOntologyFormat> format = KRSSOntologyFormat.class;
-        OWLOntologyFormatFactory f = new OWLOntologyFormatFactoryImpl<>(format);
+        Class<KRSSDocumentFormat> format = KRSSDocumentFormat.class;
+        OWLDocumentFormatFactory f = new OWLDocumentFormatFactoryImpl<>(format);
         assertEquals("KRSS Syntax", format
                 .getAnnotation(HasIdentifierKey.class).value());
         assertEquals("KRSS Syntax", f.getKey());
@@ -83,8 +83,8 @@ public class OWLOntologyFormatFactoryImplTestCase {
 
     @Test
     public void testLabelFunctionalFormat() {
-        Class<LabelFunctionalFormat> format = LabelFunctionalFormat.class;
-        OWLOntologyFormatFactory f = new OWLOntologyFormatFactoryImpl<>(format);
+        Class<LabelFunctionalDocumentFormat> format = LabelFunctionalDocumentFormat.class;
+        OWLDocumentFormatFactory f = new OWLDocumentFormatFactoryImpl<>(format);
         assertEquals("Label functional Syntax",
                 format.getAnnotation(HasIdentifierKey.class).value());
         assertEquals("Label functional Syntax", f.getKey());
@@ -94,8 +94,8 @@ public class OWLOntologyFormatFactoryImplTestCase {
 
     @Test
     public void testLatexAxiomsListOntologyFormat() {
-        Class<LatexAxiomsListOntologyFormat> format = LatexAxiomsListOntologyFormat.class;
-        OWLOntologyFormatFactory f = new OWLOntologyFormatFactoryImpl<>(format);
+        Class<LatexAxiomsListDocumentFormat> format = LatexAxiomsListDocumentFormat.class;
+        OWLDocumentFormatFactory f = new OWLDocumentFormatFactoryImpl<>(format);
         assertEquals("Latex Axiom List",
                 format.getAnnotation(HasIdentifierKey.class).value());
         assertEquals("Latex Axiom List", f.getKey());
@@ -105,8 +105,8 @@ public class OWLOntologyFormatFactoryImplTestCase {
 
     @Test
     public void testLatexOntologyFormat() {
-        Class<LatexOntologyFormat> format = LatexOntologyFormat.class;
-        OWLOntologyFormatFactory f = new OWLOntologyFormatFactoryImpl<>(format);
+        Class<LatexDocumentFormat> format = LatexDocumentFormat.class;
+        OWLDocumentFormatFactory f = new OWLDocumentFormatFactoryImpl<>(format);
         assertEquals("LaTeX Syntax",
                 format.getAnnotation(HasIdentifierKey.class).value());
         assertEquals("LaTeX Syntax", f.getKey());
@@ -116,8 +116,8 @@ public class OWLOntologyFormatFactoryImplTestCase {
 
     @Test
     public void testOWLFunctionalSyntaxOntologyFormat() {
-        Class<OWLFunctionalSyntaxOntologyFormat> format = OWLFunctionalSyntaxOntologyFormat.class;
-        OWLOntologyFormatFactory f = new OWLOntologyFormatFactoryImpl<>(format);
+        Class<FunctionalSyntaxDocumentFormat> format = FunctionalSyntaxDocumentFormat.class;
+        OWLDocumentFormatFactory f = new OWLDocumentFormatFactoryImpl<>(format);
         assertEquals("OWL Functional Syntax",
                 format.getAnnotation(HasIdentifierKey.class).value());
         assertEquals("OWL Functional Syntax", f.getKey());
@@ -127,8 +127,8 @@ public class OWLOntologyFormatFactoryImplTestCase {
 
     @Test
     public void testOWLXMLOntologyFormat() {
-        Class<OWLXMLOntologyFormat> format = OWLXMLOntologyFormat.class;
-        OWLOntologyFormatFactory f = new OWLOntologyFormatFactoryImpl<>(format);
+        Class<OWLXMLDocumentFormat> format = OWLXMLDocumentFormat.class;
+        OWLDocumentFormatFactory f = new OWLDocumentFormatFactoryImpl<>(format);
         assertEquals("OWL/XML Syntax",
                 format.getAnnotation(HasIdentifierKey.class).value());
         assertEquals("OWL/XML Syntax", f.getKey());
@@ -138,8 +138,8 @@ public class OWLOntologyFormatFactoryImplTestCase {
 
     @Test
     public void testRDFXMLOntologyFormat() {
-        Class<RDFXMLOntologyFormat> format = RDFXMLOntologyFormat.class;
-        OWLOntologyFormatFactory f = new OWLOntologyFormatFactoryImpl<>(format);
+        Class<RDFXMLDocumentFormat> format = RDFXMLDocumentFormat.class;
+        OWLDocumentFormatFactory f = new OWLDocumentFormatFactoryImpl<>(format);
         assertEquals("RDF/XML Syntax",
                 format.getAnnotation(HasIdentifierKey.class).value());
         assertEquals("RDF/XML Syntax", f.getKey());
@@ -149,8 +149,8 @@ public class OWLOntologyFormatFactoryImplTestCase {
 
     @Test
     public void testTurtleOntologyFormat() {
-        Class<TurtleOntologyFormat> format = TurtleOntologyFormat.class;
-        OWLOntologyFormatFactory f = new OWLOntologyFormatFactoryImpl<>(format);
+        Class<TurtleDocumentFormat> format = TurtleDocumentFormat.class;
+        OWLDocumentFormatFactory f = new OWLDocumentFormatFactoryImpl<>(format);
         assertEquals("Turtle Syntax",
                 format.getAnnotation(HasIdentifierKey.class).value());
         assertEquals("Turtle Syntax", f.getKey());

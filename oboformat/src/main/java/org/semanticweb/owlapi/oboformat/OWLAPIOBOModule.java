@@ -16,7 +16,7 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.annotations.OwlapiModule;
 import org.semanticweb.owlapi.io.OWLParser;
-import org.semanticweb.owlapi.model.OWLOntologyStorer;
+import org.semanticweb.owlapi.model.OWLStorer;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.multibindings.Multibinder;
@@ -35,7 +35,7 @@ public class OWLAPIOBOModule extends AbstractModule {
     }
 
     protected void configureStorers() {
-        multibind(OWLOntologyStorer.class, OBOFormatStorer.class);
+        multibind(OWLStorer.class, OBOFormatStorer.class);
     }
 
     protected void configureParsers() {

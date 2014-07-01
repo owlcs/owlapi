@@ -15,10 +15,10 @@ package org.semanticweb.owlapi.api.test.ontology;
 import static org.junit.Assert.*;
 
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractRoundTrippingTestCase;
-import org.semanticweb.owlapi.formats.PrefixOWLOntologyFormat;
+import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
@@ -34,7 +34,7 @@ public class PrefixOntologyFormatTestCase extends AbstractRoundTrippingTestCase 
         OWLOntology ont;
         try {
             ont = m.createOntology();
-            PrefixOWLOntologyFormat format = (PrefixOWLOntologyFormat) ont
+            PrefixDocumentFormat format = (PrefixDocumentFormat) ont
                     .getOWLOntologyManager().getOntologyFormat(ont);
             assert format != null;
             format.setDefaultPrefix("http://default.com");
@@ -48,16 +48,16 @@ public class PrefixOntologyFormatTestCase extends AbstractRoundTrippingTestCase 
 
     @Override
     public OWLOntology roundTripOntology(OWLOntology ont,
-            OWLOntologyFormat format) throws OWLOntologyStorageException,
+            OWLDocumentFormat format) throws OWLOntologyStorageException,
             OWLOntologyCreationException {
         OWLOntology ont2 = super.roundTripOntology(ont, format);
-        OWLOntologyFormat ont2Format = ont2.getOWLOntologyManager()
+        OWLDocumentFormat ont2Format = ont2.getOWLOntologyManager()
                 .getOntologyFormat(ont2);
-        if (format instanceof PrefixOWLOntologyFormat
-                && ont2Format instanceof PrefixOWLOntologyFormat) {
-            PrefixOWLOntologyFormat prefixFormat = (PrefixOWLOntologyFormat) format;
+        if (format instanceof PrefixDocumentFormat
+                && ont2Format instanceof PrefixDocumentFormat) {
+            PrefixDocumentFormat prefixFormat = (PrefixDocumentFormat) format;
             prefixFormat.getPrefixName2PrefixMap();
-            PrefixOWLOntologyFormat prefixFormat2 = (PrefixOWLOntologyFormat) ont2Format;
+            PrefixDocumentFormat prefixFormat2 = (PrefixDocumentFormat) ont2Format;
             for (String prefixName : prefixFormat.getPrefixNames()) {
                 assert prefixName != null;
                 assertTrue(prefixFormat2.containsPrefixMapping(prefixName));

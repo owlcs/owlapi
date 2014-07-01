@@ -56,7 +56,7 @@ import org.openrdf.model.util.Namespaces;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSourceBase;
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /**
@@ -248,7 +248,7 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
     }
 
     @Override
-    public OWLOntologyFormat getFormat() {
+    public OWLDocumentFormat getFormat() {
         return null;
     }
 

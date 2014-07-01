@@ -16,11 +16,11 @@ package org.coode.owlapi.manchesterowlsyntax;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 10-May-2007
  * @deprecated use
- *             {@link org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormat}
+ *             {@link org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat}
  */
 @Deprecated
 public class ManchesterOWLSyntaxOntologyFormat extends
-        org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormat {
+        org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat {
 
     private static final long serialVersionUID = 30406L;
 }

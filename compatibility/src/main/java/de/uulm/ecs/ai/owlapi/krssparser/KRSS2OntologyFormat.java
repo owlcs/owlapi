@@ -14,11 +14,11 @@ package de.uulm.ecs.ai.owlapi.krssparser;
 
 /**
  * @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence
- * @deprecated use {@link org.semanticweb.owlapi.formats.KRSS2OntologyFormat}
+ * @deprecated use {@link org.semanticweb.owlapi.formats.KRSS2DocumentFormat}
  */
 @Deprecated
 public class KRSS2OntologyFormat extends
-        org.semanticweb.owlapi.formats.KRSS2OntologyFormat {
+        org.semanticweb.owlapi.formats.KRSS2DocumentFormat {
 
     private static final long serialVersionUID = 30406L;
     /** ignore ontology iri parameter */

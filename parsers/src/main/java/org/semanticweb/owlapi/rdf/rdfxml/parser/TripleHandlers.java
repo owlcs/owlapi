@@ -25,7 +25,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.formats.RDFOntologyFormat;
+import org.semanticweb.owlapi.formats.AbstractRDFDocumentFormat;
 import org.semanticweb.owlapi.io.RDFTriple;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
@@ -51,7 +51,7 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
@@ -1789,9 +1789,9 @@ public class TripleHandlers {
                 OWLOntology importedOntology = man
                         .getImportedOntology(importsDeclaration);
                 if (importedOntology != null) {
-                    OWLOntologyFormat importedOntologyFormat = man
+                    OWLDocumentFormat importedOntologyFormat = man
                             .getOntologyFormat(importedOntology);
-                    if (importedOntologyFormat instanceof RDFOntologyFormat
+                    if (importedOntologyFormat instanceof AbstractRDFDocumentFormat
                             && importedOntology.isAnonymous()) {
                         if (consumer.getConfiguration()
                                 .getMissingOntologyHeaderStrategy() == INCLUDE_GRAPH) {

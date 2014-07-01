@@ -36,7 +36,7 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyBuilder;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
@@ -156,7 +156,7 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
                     ont = createOWLOntology(manager, ontologyID,
                             documentSource.getDocumentIRI(), handler);
                 }
-                OWLOntologyFormat format = parser.parse(documentSource, ont,
+                OWLDocumentFormat format = parser.parse(documentSource, ont,
                         configuration);
                 handler.setOntologyFormat(ont, format);
                 return ont;

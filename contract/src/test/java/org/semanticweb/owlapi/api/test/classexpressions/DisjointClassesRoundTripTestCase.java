@@ -19,8 +19,8 @@ import javax.annotation.Nonnull;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormat;
-import org.semanticweb.owlapi.formats.PrefixOWLOntologyFormat;
+import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
+import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -44,7 +44,7 @@ public class DisjointClassesRoundTripTestCase extends TestBase {
     public void shouldRoundTrip() throws Exception {
         String NS = "http://ns.owl";
         OWLOntology ontology = buildOntology(NS);
-        PrefixOWLOntologyFormat format = new ManchesterOWLSyntaxOntologyFormat();
+        PrefixDocumentFormat format = new ManchesterSyntaxDocumentFormat();
         format.setPrefix("piz", NS + '#');
         OWLOntology roundtripped = roundTrip(ontology, format);
         assertEquals(ontology.getLogicalAxioms(),

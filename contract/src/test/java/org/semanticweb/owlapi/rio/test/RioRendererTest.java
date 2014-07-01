@@ -29,10 +29,10 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.rio.RioManchesterSyntaxParserFactory;
-import org.semanticweb.owlapi.rio.RioNTriplesOntologyStorerFactory;
-import org.semanticweb.owlapi.rio.RioRDFXMLOntologyStorerFactory;
+import org.semanticweb.owlapi.rio.RioNTriplesStorerFactory;
+import org.semanticweb.owlapi.rio.RioRDFXMLStorerFactory;
 import org.semanticweb.owlapi.rio.RioRenderer;
-import org.semanticweb.owlapi.rio.RioTurtleOntologyStorerFactory;
+import org.semanticweb.owlapi.rio.RioTurtleStorerFactory;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com
@@ -71,9 +71,9 @@ public class RioRendererTest {
         // storerRegistry, parserRegistry);
         OWLOntologyManager testManager = OWLManager.createOWLOntologyManager();
         testManager.getOntologyStorers().set(
-                new RioNTriplesOntologyStorerFactory().get(),
-                new RioRDFXMLOntologyStorerFactory().get(),
-                new RioTurtleOntologyStorerFactory().get());
+                new RioNTriplesStorerFactory().get(),
+                new RioRDFXMLStorerFactory().get(),
+                new RioTurtleStorerFactory().get());
         testOntologyEmpty = testManager.createOntology(testOntologyUri1);
         testOntologyKoala = testManager
                 .loadOntologyFromOntologyDocument(getClass()

@@ -10,8 +10,8 @@ import javax.annotation.Nonnull;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormat;
-import org.semanticweb.owlapi.formats.TurtleOntologyFormat;
+import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
+import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
@@ -27,7 +27,7 @@ public class IRIShorteningTestCase extends TestBase {
     @Test
     public void testIriEqualToPrefixNotShortenedInFSS() throws Exception {
         OWLOntology o = createTestOntology();
-        String output = saveOntology(o, new OWLFunctionalSyntaxOntologyFormat())
+        String output = saveOntology(o, new FunctionalSyntaxDocumentFormat())
                 .toString();
         matchExact(output, "NamedIndividual(rdf:)", false);
         matchExact(output, "NamedIndividual(rdf:type)", true);
@@ -42,7 +42,7 @@ public class IRIShorteningTestCase extends TestBase {
     @Test
     public void testIriEqualToPrefixShortenedInTurtle() throws Exception {
         OWLOntology o = createTestOntology();
-        String output = saveOntology(o, new TurtleOntologyFormat()).toString();
+        String output = saveOntology(o, new TurtleDocumentFormat()).toString();
         matchRegex(output, "rdf:\\s+rdf:type\\s+owl:NamedIndividual");
         matchRegex(output, "rdf:type\\s+rdf:type\\s+owl:NamedIndividual");
     }

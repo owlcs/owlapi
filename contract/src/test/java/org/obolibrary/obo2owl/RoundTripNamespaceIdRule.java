@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 import org.obolibrary.oboformat.model.OBODoc;
 import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.formats.OWLXMLOntologyFormat;
+import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
@@ -34,7 +34,7 @@ public class RoundTripNamespaceIdRule extends RoundTripTest {
         OWLOntology owlOntology = convert(oboDoc);
         OWLOntologyManager manager = owlOntology.getOWLOntologyManager();
         StringDocumentTarget documentTarget = new StringDocumentTarget();
-        manager.saveOntology(owlOntology, new OWLXMLOntologyFormat(),
+        manager.saveOntology(owlOntology, new OWLXMLDocumentFormat(),
                 documentTarget);
         String owlString = documentTarget.toString();
         OWLOntologyDocumentSource documentSource = new StringDocumentSource(

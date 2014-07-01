@@ -21,8 +21,8 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChangeException;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
-import org.semanticweb.owlapi.model.OWLOntologyFormatFactory;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.UnloadableImportException;
@@ -69,7 +69,7 @@ public interface OWLParser extends Serializable {
      *         if one or more imports could not be loaded.
      */
     @Nonnull
-    OWLOntologyFormat parse(@Nonnull IRI documentIRI,
+    OWLDocumentFormat parse(@Nonnull IRI documentIRI,
             @Nonnull OWLOntology ontology) throws IOException;
 
     /**
@@ -98,7 +98,7 @@ public interface OWLParser extends Serializable {
      *         if one or more imports could not be loaded.
      */
     @Nonnull
-    OWLOntologyFormat parse(@Nonnull OWLOntologyDocumentSource documentSource,
+    OWLDocumentFormat parse(@Nonnull OWLOntologyDocumentSource documentSource,
             @Nonnull OWLOntology ontology,
             @Nonnull OWLOntologyLoaderConfiguration configuration)
             throws IOException;
@@ -110,10 +110,10 @@ public interface OWLParser extends Serializable {
     /**
      * @return set of supported format factories
      */
-    Set<OWLOntologyFormatFactory> getSupportedFormats();
+    Set<OWLDocumentFormatFactory> getSupportedFormats();
 
     /**
      * @return set of supported format classes
      */
-    Set<Class<OWLOntologyFormat>> getSupportedFormatClasses();
+    Set<Class<OWLDocumentFormat>> getSupportedFormatClasses();
 }

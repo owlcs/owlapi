@@ -35,7 +35,7 @@ import javax.inject.Inject;
 
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.expression.OWLOntologyChecker;
-import org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormat;
+import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxTokenizer.Token;
 import org.semanticweb.owlapi.mansyntax.renderer.ParserException;
@@ -2183,7 +2183,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     }
 
     @Override
-    public ManchesterOWLSyntaxOntologyFormat parseOntology(
+    public ManchesterSyntaxDocumentFormat parseOntology(
             @Nonnull OWLOntology ont) {
         Set<OntologyAxiomPair> axioms = new HashSet<>();
         OWLOntologyID ontologyID = new OWLOntologyID();
@@ -2281,7 +2281,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         }
         changes.add(new SetOntologyID(ont, ontologyID));
         ont.getOWLOntologyManager().applyChanges(changes);
-        ManchesterOWLSyntaxOntologyFormat format = new ManchesterOWLSyntaxOntologyFormat();
+        ManchesterSyntaxDocumentFormat format = new ManchesterSyntaxDocumentFormat();
         format.copyPrefixesFrom(pm);
         return format;
     }

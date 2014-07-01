@@ -25,10 +25,10 @@ import javax.annotation.Nonnull;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormat;
-import org.semanticweb.owlapi.formats.OWLXMLOntologyFormat;
-import org.semanticweb.owlapi.formats.RDFXMLOntologyFormat;
-import org.semanticweb.owlapi.formats.TurtleOntologyFormat;
+import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
+import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
+import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
+import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.io.StreamDocumentTarget;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.IRI;
@@ -39,7 +39,7 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 /**
@@ -77,13 +77,13 @@ public class OntologyContainsAxiomTestCase extends TestBase {
 
     @Test
     public void testOntologyContainsAxiomsForRDFXML1() throws Exception {
-        RDFXMLOntologyFormat format = createRDFXMLFormat();
+        RDFXMLDocumentFormat format = createRDFXMLFormat();
         runTestOntologyContainsAxioms1(format);
     }
 
     @Nonnull
-    private static RDFXMLOntologyFormat createRDFXMLFormat() {
-        RDFXMLOntologyFormat format = new RDFXMLOntologyFormat();
+    private static RDFXMLDocumentFormat createRDFXMLFormat() {
+        RDFXMLDocumentFormat format = new RDFXMLDocumentFormat();
         // This test case relies on certain declarations being in certain
         // ontologies. The default
         // behaviour is to add missing declarations. Therefore, this needs to be
@@ -94,31 +94,31 @@ public class OntologyContainsAxiomTestCase extends TestBase {
 
     @Test
     public void testOntologyContainsAxiomsForOWLXML1() throws Exception {
-        runTestOntologyContainsAxioms1(new OWLXMLOntologyFormat());
+        runTestOntologyContainsAxioms1(new OWLXMLDocumentFormat());
     }
 
     @Test
     public void testOntologyContainsAxiomsForOWLFunctionalSyntax1()
             throws Exception {
-        runTestOntologyContainsAxioms1(new OWLFunctionalSyntaxOntologyFormat());
+        runTestOntologyContainsAxioms1(new FunctionalSyntaxDocumentFormat());
     }
 
     @Test
     public void testOntologyContainsAxiomsForTurtleSyntax1() throws Exception {
-        TurtleOntologyFormat format = createTurtleOntologyFormat();
+        TurtleDocumentFormat format = createTurtleOntologyFormat();
         runTestOntologyContainsAxioms1(format);
     }
 
     @Nonnull
-    private static TurtleOntologyFormat createTurtleOntologyFormat() {
-        TurtleOntologyFormat format = new TurtleOntologyFormat();
+    private static TurtleDocumentFormat createTurtleOntologyFormat() {
+        TurtleDocumentFormat format = new TurtleDocumentFormat();
         format.setAddMissingTypes(false);
         return format;
     }
 
     @SuppressWarnings("resource")
     private void runTestOntologyContainsAxioms1(
-            @Nonnull OWLOntologyFormat format) throws Exception {
+            @Nonnull OWLDocumentFormat format) throws Exception {
         OWLOntology ont1 = getOWLOntology("testont1A");
         @SuppressWarnings("null")
         @Nonnull
@@ -224,13 +224,13 @@ public class OntologyContainsAxiomTestCase extends TestBase {
 
     @Test
     public void testOntologyContainsAxiomsForOWLXML2() throws Exception {
-        runTestOntologyContainsAxioms2(new OWLXMLOntologyFormat());
+        runTestOntologyContainsAxioms2(new OWLXMLDocumentFormat());
     }
 
     @Test
     public void testOntologyContainsAxiomsForOWLFunctionalSyntax2()
             throws Exception {
-        runTestOntologyContainsAxioms2(new OWLFunctionalSyntaxOntologyFormat());
+        runTestOntologyContainsAxioms2(new FunctionalSyntaxDocumentFormat());
     }
 
     @Test
@@ -240,7 +240,7 @@ public class OntologyContainsAxiomTestCase extends TestBase {
 
     @SuppressWarnings("resource")
     private void runTestOntologyContainsAxioms2(
-            @Nonnull OWLOntologyFormat format) throws Exception {
+            @Nonnull OWLDocumentFormat format) throws Exception {
         OWLOntology ont1 = getOWLOntology("testont1B");
         IRI ont1_iri = ont1.getOntologyID().getOntologyIRI().get();
         OWLOntology ont2 = getOWLOntology("testont2B");

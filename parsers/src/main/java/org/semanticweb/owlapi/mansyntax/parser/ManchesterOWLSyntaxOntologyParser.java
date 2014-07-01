@@ -20,12 +20,12 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.OWLAPIConfigProvider;
 import org.semanticweb.owlapi.annotations.HasPriority;
-import org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormat;
+import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.mansyntax.renderer.ParserException;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
 
@@ -48,17 +48,17 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
     }
 
     @Override
-    protected Class<? extends OWLOntologyFormat> getFormatClass() {
-        return ManchesterOWLSyntaxOntologyFormat.class;
+    protected Class<? extends OWLDocumentFormat> getFormatClass() {
+        return ManchesterSyntaxDocumentFormat.class;
     }
 
     @Override
-    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
+    public OWLDocumentFormat parse(OWLOntologyDocumentSource documentSource,
             OWLOntology ontology, OWLOntologyLoaderConfiguration configuration)
             throws IOException {
         try {
             BufferedReader br = null;
-            ManchesterOWLSyntaxOntologyFormat format = new ManchesterOWLSyntaxOntologyFormat();
+            ManchesterSyntaxDocumentFormat format = new ManchesterSyntaxDocumentFormat();
             try {
                 if (documentSource.isReaderAvailable()) {
                     br = new BufferedReader(documentSource.getReader());
