@@ -22,6 +22,7 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.obolibrary.obo2owl.OWLAPIObo2Owl;
 import org.obolibrary.oboformat.model.Clause;
 import org.obolibrary.oboformat.model.Frame;
 import org.obolibrary.oboformat.model.Frame.FrameType;
@@ -32,6 +33,11 @@ import org.obolibrary.oboformat.parser.OBOFormatConstants;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 import org.obolibrary.oboformat.parser.OBOFormatParser;
 import org.obolibrary.oboformat.parser.OBOFormatParserException;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationValue;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
  * The Class OBOFormatWriter.
@@ -1354,6 +1360,56 @@ public class OBOFormatWriter {
                 }
             }
             return name;
+        }
+
+        @Override
+        public String getDefaultOboNamespace() {
+            return defaultOboNamespace;
+        }
+    }
+
+    /**
+     * Alternative implementation to lookup labels in an {@link OWLOntology}.<br>
+     * This implementation might be a bit slower as it involves additional id
+     * conversion back into OWL.
+     */
+    public static class OWLOntologyNameProvider implements NameProvider {
+
+        private final OWLOntology ont;
+        private final String defaultOboNamespace;
+
+        /**
+         * @param ont
+         *        ontology
+         * @param defaultOboNamespace
+         *        the default OBO namespace
+         */
+        public OWLOntologyNameProvider(OWLOntology ont,
+                String defaultOboNamespace) {
+            this.ont = ont;
+            this.defaultOboNamespace = defaultOboNamespace;
+        }
+
+        @Override
+        public String getName(String id) {
+            // convert OBO id to IRI
+            OWLAPIObo2Owl obo2owl = new OWLAPIObo2Owl(
+                    ont.getOWLOntologyManager());
+            IRI iri = obo2owl.oboIdToIRI(id);
+            // look for label of entity
+            for (OWLOntology o : ont.getImportsClosure()) {
+                Set<OWLAnnotationAssertionAxiom> axioms = o
+                        .getAnnotationAssertionAxioms(iri);
+                for (OWLAnnotationAssertionAxiom axiom : axioms) {
+                    if (axiom.getProperty().isLabel()) {
+                        OWLAnnotationValue value = axiom.getValue();
+                        if (value != null && value instanceof OWLLiteral) {
+                            return ((OWLLiteral) value).getLiteral();
+                        }
+                    }
+                }
+            }
+            return null;
         }
 
         @Override
