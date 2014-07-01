@@ -218,6 +218,8 @@ public class OBOFormatWriter {
         for (Frame f : instanceFrames) {
             write(f, writer, nameProvider);
         }
+        // to be safe always flush writer
+        writer.flush();
     }
 
     /**
@@ -965,7 +967,7 @@ public class OBOFormatWriter {
             table.put(OboFormatTag.TAG_TREAT_XREFS_AS_IS_A.getTag(), 70);
             table.put(OboFormatTag.TAG_REMARK.getTag(), 75);
             // moved from pos 30 to emulate OBO-Edit behavior
-            table.put(OboFormatTag.TAG_IMPORT.getTag(), 80); 
+            table.put(OboFormatTag.TAG_IMPORT.getTag(), 80);
             // moved from pos 5 to emulate OBO-Edit behavior
             table.put(OboFormatTag.TAG_ONTOLOGY.getTag(), 85);
             table.put(OboFormatTag.TAG_PROPERTY_VALUE.getTag(), 100);
