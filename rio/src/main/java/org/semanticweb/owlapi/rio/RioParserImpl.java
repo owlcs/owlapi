@@ -42,6 +42,7 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
@@ -61,6 +62,7 @@ import org.openrdf.rio.RDFParseException;
 import org.openrdf.rio.RDFParser;
 import org.openrdf.rio.Rio;
 import org.openrdf.rio.UnsupportedRDFormatException;
+import org.openrdf.rio.helpers.BasicParserSettings;
 import org.openrdf.rio.helpers.StatementCollector;
 import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.formats.RioRDFOntologyFormat;
@@ -98,8 +100,8 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
      */
     public RioParserImpl(@Nonnull RioRDFOntologyFormatFactory nextFormat) {
         owlFormatFactory = checkNotNull(nextFormat, "nextFormat cannot be null");
-        supportedFormats = CollectionFactory
-                .createSet((OWLOntologyFormatFactory) owlFormatFactory);
+        supportedFormats = Collections.unmodifiableSet(CollectionFactory
+                .createSet((OWLOntologyFormatFactory) owlFormatFactory));
     }
 
     @Override
@@ -263,6 +265,8 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
             RDFParseException, RDFHandlerException {
         final RDFParser createParser = Rio.createParser(owlFormatFactory
                 .getRioFormat());
+        createParser.getParserConfig().addNonFatalError(BasicParserSettings.VERIFY_DATATYPE_VALUES);
+        createParser.getParserConfig().addNonFatalError(BasicParserSettings.VERIFY_LANGUAGE_TAGS);
         createParser.setRDFHandler(handler);
         long rioParseStart = System.currentTimeMillis();
         if (owlFormatFactory.isTextual() && documentSource.isReaderAvailable()) {
