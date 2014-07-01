@@ -37,6 +37,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyBuilder;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLOntologyFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
@@ -204,10 +205,15 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
     private static PriorityCollection<OWLParser> getParsers(
             OWLOntologyDocumentSource documentSource,
             PriorityCollection<OWLParser> parsers) {
-        PriorityCollection<OWLParser> candidateParsers = parsers;
-        candidateParsers = getParserCandidatesByMIME(documentSource, parsers);
-        candidateParsers = getParsersByFormat(documentSource, candidateParsers);
-        return candidateParsers;
+        PriorityCollection<OWLParser> candidateParsers = getParsersByFormat(documentSource, parsers);
+        if(candidateParsers.size() == 0) {
+        	candidateParsers = getParserCandidatesByMIME(documentSource, parsers);
+        }
+        if(candidateParsers.size() == 0) {
+        	return parsers;
+        } else {
+        	return candidateParsers;
+        }
     }
 
     /**
@@ -226,15 +232,14 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
         if (!documentSource.isFormatKnown()) {
             return parsers;
         }
+        verifyNotNull(documentSource.getFormat());
         PriorityCollection<OWLParser> candidateParsers = new PriorityCollection<>();
         for (OWLParser parser : parsers) {
-            if (parser.getSupportedFormatClasses().contains(
-                    verifyNotNull(documentSource.getFormat()).getClass())) {
-                candidateParsers.add(parser);
+            for(OWLOntologyFormatFactory nextFormat : parser.getSupportedFormats()) {
+            	if(nextFormat.getKey().equals(documentSource.getFormat().getKey())) {
+            		candidateParsers.add(parser);
+            	}
             }
-        }
-        if (candidateParsers.size() == 0) {
-            return parsers;
         }
         return candidateParsers;
     }
@@ -257,10 +262,6 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
         }
         PriorityCollection<OWLParser> candidateParsers = parsers
                 .getByMIMEType(verifyNotNull(documentSource.getMIMEType()));
-        if (candidateParsers.size() == 0) {
-            // if no parsers match the MIME type, ignore it
-            return parsers;
-        }
         return candidateParsers;
     }
 }
