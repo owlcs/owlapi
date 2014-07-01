@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
+import java.util.concurrent.ConcurrentSkipListSet;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.annotation.Nonnull;
 
@@ -28,8 +31,12 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>,
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
-    private final List<T> delegate = new ArrayList<>();
+    private final Set<T> delegate = new ConcurrentSkipListSet<>(new HasPriorityComparator<>());
 
+    public boolean isEmpty() {
+    	return delegate.isEmpty();
+    }
+    
     /**
      * @return size of the collection
      */
@@ -60,10 +67,6 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>,
         add(c);
     }
 
-    private void sort() {
-        Collections.sort(delegate, new HasPriorityComparator<>());
-    }
-
     /**
      * add the arguments and sort according to priority
      * 
@@ -73,9 +76,8 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>,
     @SafeVarargs
     public final void add(T... c) {
         for (T t : c) {
-            delegate.add(0, t);
+            delegate.add(t);
         }
-        sort();
     }
 
     /**
@@ -88,7 +90,6 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>,
         for (T t : c) {
             delegate.add(t);
         }
-        sort();
     }
 
     /**
@@ -138,11 +139,11 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>,
                     SupportsMIMEType.class);
             if (mime != null) {
                 if (mimeType.equals(mime.defaultMIMEType())) {
-                    pc.delegate.add(t);
+                    pc.add(t);
                 } else {
                     for (String mimeName : mime.supportedMIMEtypes()) {
                         if (mimeType.equals(mimeName)) {
-                            pc.delegate.add(t);
+                            pc.add(t);
                         }
                     }
                 }
@@ -151,10 +152,10 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>,
                 if (t instanceof MIMETypeAware) {
                     MIMETypeAware mimeTypeAware = (MIMETypeAware) t;
                     if (mimeType.equals(mimeTypeAware.getDefaultMIMEType())) {
-                        pc.delegate.add(t);
+                        pc.add(t);
                     } else {
                         if (mimeTypeAware.getMIMETypes().contains(mimeType)) {
-                            pc.delegate.add(t);
+                            pc.add(t);
                         }
                     }
                 }

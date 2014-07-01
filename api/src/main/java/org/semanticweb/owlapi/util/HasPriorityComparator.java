@@ -31,20 +31,24 @@ public class HasPriorityComparator<T> implements Comparator<T>, Serializable {
 
     private static final long serialVersionUID = 40000L;
 
-    private static double getPriority(@Nonnull Object p) {
+    private static int getPriority(@Nonnull Object p) {
         HasPriority priority = p.getClass().getAnnotation(HasPriority.class);
         if (priority != null) {
             return priority.value();
         }
         // if the object does not have a priority annotation, only use
         // it last
-        return Double.MAX_VALUE;
+        return Integer.MAX_VALUE;
     }
 
     @Override
     public int compare(T o1, T o2) {
         assert o1 != null;
         assert o2 != null;
-        return Double.compare(getPriority(o1), getPriority(o2));
+        int result = Integer.compare(getPriority(o1), getPriority(o2));
+        if(result == 0) {
+        	result = Integer.compare(o1.hashCode(), o2.hashCode());
+        }
+        return result;
     }
 }

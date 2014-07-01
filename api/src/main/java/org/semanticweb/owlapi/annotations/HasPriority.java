@@ -30,5 +30,5 @@ import java.lang.annotation.RetentionPolicy;
 public @interface HasPriority {
 
     /** @return priority value for this object */
-    double value();
+    int value();
 }
