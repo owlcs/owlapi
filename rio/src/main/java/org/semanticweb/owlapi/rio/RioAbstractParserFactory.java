@@ -38,14 +38,13 @@ package org.semanticweb.owlapi.rio;
 import org.openrdf.rio.RDFParser;
 import org.openrdf.rio.RDFParserFactory;
 import org.semanticweb.owlapi.OWLAPIServiceLoaderModule;
-import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
 /**
- * {@link RDFParserFactory} that creates RDF statements from
- * {@link OWLXMLDocumentFormat} documents.
+ * {@link RDFParserFactory} that creates RDF statements from OWL Ontologies. It
+ * is used to access OWLAPI parsers from Sesame Rio APIs.
  * 
  * @author Peter Ansell p_ansell@yahoo.com
  */
