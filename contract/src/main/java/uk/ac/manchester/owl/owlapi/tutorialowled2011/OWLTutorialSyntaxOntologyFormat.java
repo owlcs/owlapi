@@ -14,7 +14,6 @@ package uk.ac.manchester.owl.owlapi.tutorialowled2011;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.annotations.HasIdentifierKey;
 import org.semanticweb.owlapi.annotations.IsBinaryFormat;
 import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 
@@ -23,7 +22,6 @@ import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
  *         Group
  * @since 2.0.0
  */
-@HasIdentifierKey("OWL Tutorial Syntax")
 @IsBinaryFormat(false)
 public class OWLTutorialSyntaxOntologyFormat extends PrefixDocumentFormat {
 

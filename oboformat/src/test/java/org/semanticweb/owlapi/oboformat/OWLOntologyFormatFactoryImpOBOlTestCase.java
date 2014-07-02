@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.oboformat;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.annotations.HasIdentifierKey;
 import org.semanticweb.owlapi.formats.OBODocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 import org.semanticweb.owlapi.util.OWLDocumentFormatFactoryImpl;
@@ -32,8 +31,6 @@ public class OWLOntologyFormatFactoryImpOBOlTestCase {
     public void testOBOOntologyFormat() {
         Class<OBODocumentFormat> format = OBODocumentFormat.class;
         OWLDocumentFormatFactory f = new OWLDocumentFormatFactoryImpl<>(format);
-        assertEquals("OBO Format", format.getAnnotation(HasIdentifierKey.class)
-                .value());
         assertEquals("OBO Format", f.getKey());
         assertEquals(0, f.getMIMETypes().size());
         assertNull(f.getDefaultMIMEType());

@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.formats;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.annotations.HasIdentifierKey;
 import org.semanticweb.owlapi.annotations.IsBinaryFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 
@@ -24,7 +23,6 @@ import org.semanticweb.owlapi.model.OWLDocumentFormat;
  * cannot be read with the OWL-API. This is only intended to be used as basis
  * for human readable version version control diffs.
  */
-@HasIdentifierKey("Label functional Syntax")
 @IsBinaryFormat(false)
 public class LabelFunctionalDocumentFormat extends OWLDocumentFormat {
 

@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.formats;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.annotations.HasIdentifierKey;
 import org.semanticweb.owlapi.annotations.IsBinaryFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 
@@ -23,7 +22,6 @@ import org.semanticweb.owlapi.model.OWLDocumentFormat;
  *         Informatics Group
  * @since 2.2.0
  */
-@HasIdentifierKey("DL Syntax - HTML Format")
 @IsBinaryFormat(false)
 public class DLSyntaxHTMLDocumentFormat extends OWLDocumentFormat {
 

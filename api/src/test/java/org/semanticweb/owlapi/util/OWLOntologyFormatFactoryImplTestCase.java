@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.util;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.annotations.HasIdentifierKey;
 import org.semanticweb.owlapi.formats.DLSyntaxHTMLDocumentFormat;
 import org.semanticweb.owlapi.formats.DLSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.KRSS2DocumentFormat;
@@ -41,8 +40,6 @@ public class OWLOntologyFormatFactoryImplTestCase {
     public void testDLSyntaxHTMLFormat() {
         Class<DLSyntaxHTMLDocumentFormat> format = DLSyntaxHTMLDocumentFormat.class;
         OWLDocumentFormatFactory f = new OWLDocumentFormatFactoryImpl<>(format);
-        assertEquals("DL Syntax - HTML Format",
-                format.getAnnotation(HasIdentifierKey.class).value());
         assertEquals("DL Syntax - HTML Format", f.getKey());
         assertEquals(0, f.getMIMETypes().size());
         assertNull(f.getDefaultMIMEType());
@@ -52,8 +49,6 @@ public class OWLOntologyFormatFactoryImplTestCase {
     public void testDLSyntaxOntologyFormat() {
         Class<DLSyntaxDocumentFormat> format = DLSyntaxDocumentFormat.class;
         OWLDocumentFormatFactory f = new OWLDocumentFormatFactoryImpl<>(format);
-        assertEquals("DL Syntax Format",
-                format.getAnnotation(HasIdentifierKey.class).value());
         assertEquals("DL Syntax Format", f.getKey());
         assertEquals(0, f.getMIMETypes().size());
         assertNull(f.getDefaultMIMEType());
@@ -63,8 +58,6 @@ public class OWLOntologyFormatFactoryImplTestCase {
     public void testKRSS2OntologyFormat() {
         Class<KRSS2DocumentFormat> format = KRSS2DocumentFormat.class;
         OWLDocumentFormatFactory f = new OWLDocumentFormatFactoryImpl<>(format);
-        assertEquals("KRSS2 Syntax",
-                format.getAnnotation(HasIdentifierKey.class).value());
         assertEquals("KRSS2 Syntax", f.getKey());
         assertEquals(0, f.getMIMETypes().size());
         assertNull(f.getDefaultMIMEType());
@@ -74,8 +67,6 @@ public class OWLOntologyFormatFactoryImplTestCase {
     public void testKRSSOntologyFormat() {
         Class<KRSSDocumentFormat> format = KRSSDocumentFormat.class;
         OWLDocumentFormatFactory f = new OWLDocumentFormatFactoryImpl<>(format);
-        assertEquals("KRSS Syntax", format
-                .getAnnotation(HasIdentifierKey.class).value());
         assertEquals("KRSS Syntax", f.getKey());
         assertEquals(0, f.getMIMETypes().size());
         assertNull(f.getDefaultMIMEType());
@@ -85,8 +76,6 @@ public class OWLOntologyFormatFactoryImplTestCase {
     public void testLabelFunctionalFormat() {
         Class<LabelFunctionalDocumentFormat> format = LabelFunctionalDocumentFormat.class;
         OWLDocumentFormatFactory f = new OWLDocumentFormatFactoryImpl<>(format);
-        assertEquals("Label functional Syntax",
-                format.getAnnotation(HasIdentifierKey.class).value());
         assertEquals("Label functional Syntax", f.getKey());
         assertEquals(0, f.getMIMETypes().size());
         assertNull(f.getDefaultMIMEType());
@@ -96,8 +85,6 @@ public class OWLOntologyFormatFactoryImplTestCase {
     public void testLatexAxiomsListOntologyFormat() {
         Class<LatexAxiomsListDocumentFormat> format = LatexAxiomsListDocumentFormat.class;
         OWLDocumentFormatFactory f = new OWLDocumentFormatFactoryImpl<>(format);
-        assertEquals("Latex Axiom List",
-                format.getAnnotation(HasIdentifierKey.class).value());
         assertEquals("Latex Axiom List", f.getKey());
         assertEquals(0, f.getMIMETypes().size());
         assertNull(f.getDefaultMIMEType());
@@ -107,8 +94,6 @@ public class OWLOntologyFormatFactoryImplTestCase {
     public void testLatexOntologyFormat() {
         Class<LatexDocumentFormat> format = LatexDocumentFormat.class;
         OWLDocumentFormatFactory f = new OWLDocumentFormatFactoryImpl<>(format);
-        assertEquals("LaTeX Syntax",
-                format.getAnnotation(HasIdentifierKey.class).value());
         assertEquals("LaTeX Syntax", f.getKey());
         assertEquals(0, f.getMIMETypes().size());
         assertNull(f.getDefaultMIMEType());
@@ -118,8 +103,6 @@ public class OWLOntologyFormatFactoryImplTestCase {
     public void testOWLFunctionalSyntaxOntologyFormat() {
         Class<FunctionalSyntaxDocumentFormat> format = FunctionalSyntaxDocumentFormat.class;
         OWLDocumentFormatFactory f = new OWLDocumentFormatFactoryImpl<>(format);
-        assertEquals("OWL Functional Syntax",
-                format.getAnnotation(HasIdentifierKey.class).value());
         assertEquals("OWL Functional Syntax", f.getKey());
         assertEquals(0, f.getMIMETypes().size());
         assertNull(f.getDefaultMIMEType());
@@ -129,8 +112,6 @@ public class OWLOntologyFormatFactoryImplTestCase {
     public void testOWLXMLOntologyFormat() {
         Class<OWLXMLDocumentFormat> format = OWLXMLDocumentFormat.class;
         OWLDocumentFormatFactory f = new OWLDocumentFormatFactoryImpl<>(format);
-        assertEquals("OWL/XML Syntax",
-                format.getAnnotation(HasIdentifierKey.class).value());
         assertEquals("OWL/XML Syntax", f.getKey());
         assertEquals(0, f.getMIMETypes().size());
         assertNull(f.getDefaultMIMEType());
@@ -140,8 +121,6 @@ public class OWLOntologyFormatFactoryImplTestCase {
     public void testRDFXMLOntologyFormat() {
         Class<RDFXMLDocumentFormat> format = RDFXMLDocumentFormat.class;
         OWLDocumentFormatFactory f = new OWLDocumentFormatFactoryImpl<>(format);
-        assertEquals("RDF/XML Syntax",
-                format.getAnnotation(HasIdentifierKey.class).value());
         assertEquals("RDF/XML Syntax", f.getKey());
         assertEquals(0, f.getMIMETypes().size());
         assertNull(f.getDefaultMIMEType());
@@ -151,8 +130,6 @@ public class OWLOntologyFormatFactoryImplTestCase {
     public void testTurtleOntologyFormat() {
         Class<TurtleDocumentFormat> format = TurtleDocumentFormat.class;
         OWLDocumentFormatFactory f = new OWLDocumentFormatFactoryImpl<>(format);
-        assertEquals("Turtle Syntax",
-                format.getAnnotation(HasIdentifierKey.class).value());
         assertEquals("Turtle Syntax", f.getKey());
         assertEquals(0, f.getMIMETypes().size());
         assertNull(f.getDefaultMIMEType());

@@ -14,12 +14,10 @@ package org.semanticweb.owlapi.formats;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.annotations.HasIdentifierKey;
 import org.semanticweb.owlapi.annotations.IsBinaryFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 
 /** @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence */
-@HasIdentifierKey("KRSS2 Syntax")
 @IsBinaryFormat(false)
 public class KRSS2DocumentFormat extends OWLDocumentFormat {
 

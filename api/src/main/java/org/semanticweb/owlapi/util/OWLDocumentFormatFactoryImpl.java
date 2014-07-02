@@ -16,7 +16,6 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.annotations.HasIdentifierKey;
 import org.semanticweb.owlapi.annotations.IsBinaryFormat;
 import org.semanticweb.owlapi.annotations.SupportsMIMEType;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
@@ -64,12 +63,7 @@ public class OWLDocumentFormatFactoryImpl<T extends OWLDocumentFormat>
 
     @Override
     public String getKey() {
-        HasIdentifierKey id = type.getAnnotation(HasIdentifierKey.class);
-        if (id != null) {
-            return id.value();
-        }
-        // if there is no annotation, it is necessary to create a throwaway
-        // instance
+    	// TODO: Add the key here to prevent this being necessary
         return createFormat().getKey();
     }
 

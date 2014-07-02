@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.formats;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.annotations.HasIdentifierKey;
 import org.semanticweb.owlapi.annotations.IsBinaryFormat;
 
 /**
@@ -22,7 +21,6 @@ import org.semanticweb.owlapi.annotations.IsBinaryFormat;
  *         Informatics Group
  * @since 2.0.0
  */
-@HasIdentifierKey("OWL/XML Syntax")
 @IsBinaryFormat(false)
 public class OWLXMLDocumentFormat extends PrefixDocumentFormat {
 
