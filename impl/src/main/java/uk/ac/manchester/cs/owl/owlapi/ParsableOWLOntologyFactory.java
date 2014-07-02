@@ -191,7 +191,7 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
     }
 
     /**
-     * select parsers by MIMe type and format of the input surce, if known. If
+     * Select parsers by MIME type and format of the input source, if known. If
      * format and MIME type are not known or not matched by any parser, return
      * all known parsers.
      * 
@@ -204,15 +204,29 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
     private static PriorityCollection<OWLParser> getParsers(
             OWLOntologyDocumentSource documentSource,
             PriorityCollection<OWLParser> parsers) {
+        if (parsers.isEmpty()) {
+            return parsers;
+        }
+        if (!documentSource.isFormatKnown()
+                && !documentSource.isMIMETypeKnown()) {
+            return parsers;
+        }
         PriorityCollection<OWLParser> candidateParsers = parsers;
-        candidateParsers = getParserCandidatesByMIME(documentSource, parsers);
-        candidateParsers = getParsersByFormat(documentSource, candidateParsers);
+        if (documentSource.isFormatKnown()) {
+            candidateParsers = getParsersByFormat(documentSource, parsers);
+        }
+        if (candidateParsers.isEmpty() && documentSource.isMIMETypeKnown()) {
+            candidateParsers = getParserCandidatesByMIME(documentSource,
+                    parsers);
+        }
+        if (candidateParsers.isEmpty()) {
+            return parsers;
+        }
         return candidateParsers;
     }
 
     /**
-     * If the format is known, use it to select a sublist of parsers. If it is
-     * not known, or there is no matching parser, return all parsers
+     * If the format is known, use it to select a sublist of parsers.
      * 
      * @param documentSource
      *        document source
@@ -223,25 +237,19 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
     private static PriorityCollection<OWLParser> getParsersByFormat(
             OWLOntologyDocumentSource documentSource,
             PriorityCollection<OWLParser> parsers) {
-        if (!documentSource.isFormatKnown()) {
-            return parsers;
-        }
+        verifyNotNull(documentSource.getFormat());
         PriorityCollection<OWLParser> candidateParsers = new PriorityCollection<>();
         for (OWLParser parser : parsers) {
-            if (parser.getSupportedFormatClasses().contains(
-                    verifyNotNull(documentSource.getFormat()).getClass())) {
+            if (parser.getSupportedFormat().getKey()
+                    .equals(documentSource.getFormat().getKey())) {
                 candidateParsers.add(parser);
             }
-        }
-        if (candidateParsers.size() == 0) {
-            return parsers;
         }
         return candidateParsers;
     }
 
     /**
-     * If the MIME type is known, use it to select a sublist of parsers. If it
-     * is not known, or there is no matching parser, return all parsers
+     * If the MIME type is known, use it to select a sublist of parsers.
      * 
      * @param documentSource
      *        document source
@@ -252,15 +260,9 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
     private static PriorityCollection<OWLParser> getParserCandidatesByMIME(
             OWLOntologyDocumentSource documentSource,
             PriorityCollection<OWLParser> parsers) {
-        if (!documentSource.isMIMETypeKnown()) {
-            return parsers;
-        }
+        verifyNotNull(documentSource.getMIMEType());
         PriorityCollection<OWLParser> candidateParsers = parsers
-                .getByMIMEType(verifyNotNull(documentSource.getMIMEType()));
-        if (candidateParsers.size() == 0) {
-            // if no parsers match the MIME type, ignore it
-            return parsers;
-        }
+                .getByMIMEType(documentSource.getMIMEType());
         return candidateParsers;
     }
 }
