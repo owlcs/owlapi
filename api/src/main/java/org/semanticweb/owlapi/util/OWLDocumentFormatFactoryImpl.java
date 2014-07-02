@@ -27,8 +27,6 @@ import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
  * (the default type of OWLOntologyFormat).
  * 
  * @author ignazio
- * @param <T>
- *            built type
  */
 public abstract class OWLDocumentFormatFactoryImpl implements
 		OWLDocumentFormatFactory {

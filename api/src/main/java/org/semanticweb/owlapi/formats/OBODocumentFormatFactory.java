@@ -29,7 +29,7 @@ public class OBODocumentFormatFactory extends OWLDocumentFormatFactoryImpl {
     @Nonnull
     @Override
     public String getKey() {
-        return "OBO Syntax";
+        return "OBO Format";
     }
 
     @Override
