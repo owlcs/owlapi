@@ -36,19 +36,15 @@
 package org.semanticweb.owlapi.rio;
 
 import org.semanticweb.owlapi.formats.RDFJsonLDDocumentFormatFactory;
-import org.semanticweb.owlapi.formats.RioRDFDocumentFormatFactory;
-import org.semanticweb.owlapi.io.OWLParserFactory;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com
  */
-public class RioJsonLDParserFactory extends AbstractRioParserFactory implements
-        OWLParserFactory {
+public class RioJsonLDParserFactory extends AbstractRioParserFactory {
 
     private static final long serialVersionUID = 40000L;
 
-    @Override
-    public RioRDFDocumentFormatFactory getRioFormatFactory() {
-        return new RDFJsonLDDocumentFormatFactory();
+    protected RioJsonLDParserFactory() {
+        super(new RDFJsonLDDocumentFormatFactory());
     }
 }

@@ -35,8 +35,6 @@
  */
 package org.semanticweb.owlapi.formats;
 
-import java.util.List;
-
 import org.openrdf.rio.RDFFormat;
 import org.semanticweb.owlapi.util.OWLDocumentFormatFactoryImpl;
 
@@ -50,20 +48,19 @@ public abstract class AbstractRioRDFDocumentFormatFactory extends
         OWLDocumentFormatFactoryImpl implements RioRDFDocumentFormatFactory {
 
     private static final long serialVersionUID = 40000L;
+    private RDFFormat rioFormat;
 
-    @Override
-    public String getKey() {
-        return createFormat().getKey();
+    protected AbstractRioRDFDocumentFormatFactory(RDFFormat rioFormat) {
+        this(rioFormat, true);
     }
 
-    @SuppressWarnings("null")
-    @Override
-    public List<String> getMIMETypes() {
-        return getRioFormat().getMIMETypes();
+    protected AbstractRioRDFDocumentFormatFactory(RDFFormat rioFormat, boolean isTextual) {
+        super(rioFormat.getMIMETypes(), isTextual, rioFormat.getName());
+        this.rioFormat = rioFormat;
     }
 
     @Override
     public RDFFormat getRioFormat() {
-        return createFormat().getRioFormat();
+        return rioFormat;
     }
 }

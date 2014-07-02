@@ -35,23 +35,16 @@
  */
 package org.semanticweb.owlapi.rio;
 
-import javax.annotation.Nonnull;
-
-import org.semanticweb.owlapi.formats.RioRDFDocumentFormatFactory;
 import org.semanticweb.owlapi.formats.RioRDFXMLDocumentFormatFactory;
-import org.semanticweb.owlapi.io.OWLParserFactory;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com
  */
-public class RioRDFXMLParserFactory extends AbstractRioParserFactory implements
-        OWLParserFactory {
+public class RioRDFXMLParserFactory extends AbstractRioParserFactory {
 
     private static final long serialVersionUID = 40000L;
 
-    @Nonnull
-    @Override
-    public RioRDFDocumentFormatFactory getRioFormatFactory() {
-        return new RioRDFXMLDocumentFormatFactory();
+    public RioRDFXMLParserFactory() {
+        super(new RioRDFXMLDocumentFormatFactory());
     }
 }

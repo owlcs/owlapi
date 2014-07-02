@@ -44,14 +44,21 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.formats.RioRDFDocumentFormatFactory;
 import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserFactory;
+import org.semanticweb.owlapi.io.OWLParserFactoryImpl;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com
  */
-public abstract class AbstractRioParserFactory implements OWLParserFactory {
+public abstract class AbstractRioParserFactory extends OWLParserFactoryImpl {
 
     private static final long serialVersionUID = 40000L;
+    private RioRDFDocumentFormatFactory rioFormat;
+
+    protected AbstractRioParserFactory(RioRDFDocumentFormatFactory rioFormat) {
+        super(rioFormat);
+        this.rioFormat = rioFormat;
+    }
 
     @Nonnull
     @Override
@@ -59,39 +66,11 @@ public abstract class AbstractRioParserFactory implements OWLParserFactory {
         return new RioParserImpl(getRioFormatFactory());
     }
 
-    @Override
-    public Set<OWLDocumentFormatFactory> getSupportedFormats() {
-        return Collections
-                .<OWLDocumentFormatFactory> singleton(getRioFormatFactory());
-    }
-
     /**
      * @return Rio format factory
      */
     @Nonnull
-    public abstract RioRDFDocumentFormatFactory getRioFormatFactory();
-
-    @Override
-    public OWLParser get() {
-        return createParser();
-    }
-
-    @Override
-    public String getDefaultMIMEType() {
-        return getRioFormatFactory().createFormat().getRioFormat()
-                .getDefaultMIMEType();
-    }
-
-    @SuppressWarnings("null")
-    @Override
-    public List<String> getMIMETypes() {
-        return getRioFormatFactory().createFormat().getRioFormat()
-                .getMIMETypes();
-    }
-
-    @Override
-    public boolean handlesMimeType(String mimeType) {
-        return getRioFormatFactory().createFormat().getRioFormat()
-                .hasMIMEType(mimeType);
+    public RioRDFDocumentFormatFactory getRioFormatFactory() {
+        return rioFormat;
     }
 }

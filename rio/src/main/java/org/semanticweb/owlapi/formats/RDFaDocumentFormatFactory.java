@@ -35,6 +35,8 @@
  */
 package org.semanticweb.owlapi.formats;
 
+import org.openrdf.rio.RDFFormat;
+
 /**
  * @author Peter Ansell p_ansell@yahoo.com
  */
@@ -42,6 +44,10 @@ public class RDFaDocumentFormatFactory extends
         AbstractRioRDFDocumentFormatFactory {
 
     private static final long serialVersionUID = 40000L;
+
+    public RDFaDocumentFormatFactory() {
+        super(RDFFormat.RDFA);
+    }
 
     @Override
     public RioRDFDocumentFormat createFormat() {

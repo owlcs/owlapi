@@ -35,7 +35,10 @@
  */
 package org.semanticweb.owlapi.formats;
 
+import java.util.List;
+
 import org.openrdf.rio.RDFFormat;
+import org.semanticweb.owlapi.model.MIMETypeAware;
 
 /**
  * This format is designed to encapsulate any Sesame Rio RDFFormat within
@@ -44,7 +47,8 @@ import org.openrdf.rio.RDFFormat;
  * @author Peter Ansell p_ansell@yahoo.com
  */
 public class RioRDFDocumentFormat extends
-        org.semanticweb.owlapi.formats.AbstractRDFDocumentFormat {
+        org.semanticweb.owlapi.formats.AbstractRDFDocumentFormat implements
+        MIMETypeAware {
 
     private static final long serialVersionUID = 40000L;
     private final RDFFormat format;
@@ -71,5 +75,20 @@ public class RioRDFDocumentFormat extends
      */
     public RDFFormat getRioFormat() {
         return format;
+    }
+
+    @Override
+    public String getDefaultMIMEType() {
+        return format.getDefaultMIMEType();
+    }
+
+    @Override
+    public List<String> getMIMETypes() {
+        return format.getMIMETypes();
+    }
+
+    @Override
+    public boolean handlesMimeType(String mimeType) {
+        return format.hasMIMEType(mimeType);
     }
 }
