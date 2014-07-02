@@ -35,28 +35,23 @@
  */
 package org.semanticweb.owlapi.rio;
 
-import org.semanticweb.owlapi.formats.RioRDFDocumentFormatFactory;
-import org.semanticweb.owlapi.formats.RioRDFStorerFactory;
+import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLStorer;
+import org.semanticweb.owlapi.util.OWLStorerFactoryImpl;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com
  */
-public abstract class AbstractRioStorerFactory implements
-        RioRDFStorerFactory {
+public abstract class AbstractRioStorerFactory extends OWLStorerFactoryImpl {
 
     private static final long serialVersionUID = 40000L;
 
-    @Override
-    public abstract RioRDFDocumentFormatFactory getFormatFactory();
+    protected AbstractRioStorerFactory(OWLDocumentFormatFactory format) {
+        super(format);
+    }
 
     @Override
     public OWLStorer createStorer() {
         return new RioStorer(getFormatFactory());
-    }
-
-    @Override
-    public OWLStorer get() {
-        return createStorer();
     }
 }

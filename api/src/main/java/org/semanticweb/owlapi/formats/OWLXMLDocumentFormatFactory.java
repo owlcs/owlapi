@@ -14,22 +14,26 @@ package org.semanticweb.owlapi.formats;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.annotations.IsBinaryFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
+import org.semanticweb.owlapi.util.OWLDocumentFormatFactoryImpl;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0
+ * @since 2.2.0
  */
-@IsBinaryFormat(false)
-public class OBODocumentFormat extends OWLDocumentFormat {
+public class OWLXMLDocumentFormatFactory extends OWLDocumentFormatFactoryImpl {
 
     private static final long serialVersionUID = 40000L;
 
     @Nonnull
     @Override
     public String getKey() {
-        return "OBO Format";
+        return "OWL/XML Syntax";
+    }
+
+    @Override
+    public OWLDocumentFormat createFormat() {
+        return new OWLXMLDocumentFormat();
     }
 }

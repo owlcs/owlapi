@@ -14,11 +14,9 @@ package org.semanticweb.owlapi.formats;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.annotations.IsBinaryFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 
 /** @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence */
-@IsBinaryFormat(false)
 public class KRSS2DocumentFormat extends OWLDocumentFormat {
 
     private static final long serialVersionUID = 40000L;

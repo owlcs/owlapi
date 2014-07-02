@@ -2,12 +2,13 @@ package org.semanticweb.owlapi.io;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.annotations.SupportsMIMEType;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.CollectionFactory;
@@ -19,65 +20,46 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  * @param <T>
  *        type to build
  */
-public class OWLParserFactoryImpl<T extends OWLParser> implements
-        OWLParserFactory {
+public abstract class OWLParserFactoryImpl implements OWLParserFactory {
 
     private static final long serialVersionUID = 40000L;
-    private final Class<T> type;
+    private final List<String> mimeTypes;
 
-    /**
-     * @param type
-     *        type to build
-     */
-    public OWLParserFactoryImpl(Class<T> type) {
-        this.type = type;
+    protected OWLParserFactoryImpl() {
+        this(new ArrayList<String>());
+    }
+
+    protected OWLParserFactoryImpl(List<String> mimeTypes) {
+        this.mimeTypes = Collections
+                .unmodifiableList(new ArrayList<>(mimeTypes));
     }
 
     @Override
-    public OWLParser createParser() {
-        try {
-            return verifyNotNull(type.newInstance());
-        } catch (InstantiationException e) {
-            throw new OWLRuntimeException(e);
-        } catch (IllegalAccessException e) {
-            throw new OWLRuntimeException(e);
-        }
-    }
-
-    @Override
-    public Set<OWLDocumentFormatFactory> getSupportedFormats() {
-        return createParser().getSupportedFormats();
-    }
-
-    @Override
-    public OWLParser get() {
+    public final OWLParser get() {
         return createParser();
     }
 
     @Nullable
     @Override
-    public String getDefaultMIMEType() {
-        SupportsMIMEType annotation = type
-                .getAnnotation(SupportsMIMEType.class);
-        if (annotation != null) {
-            return annotation.defaultMIMEType();
+    public final String getDefaultMIMEType() {
+        if (mimeTypes.isEmpty()) {
+            return null;
+        } else {
+            return mimeTypes.get(0);
         }
-        return null;
     }
 
     @Override
-    public List<String> getMIMETypes() {
-        SupportsMIMEType annotation = type
-                .getAnnotation(SupportsMIMEType.class);
-        if (annotation != null) {
-            return CollectionFactory.list(annotation.supportedMIMEtypes());
+    public final List<String> getMIMETypes() {
+        if (mimeTypes.isEmpty()) {
+            return CollectionFactory.emptyList();
+        } else {
+            return mimeTypes;
         }
-        return CollectionFactory.emptyList();
     }
 
     @Override
-    public boolean handlesMimeType(String mimeType) {
-        return mimeType.equals(getDefaultMIMEType())
-                || getMIMETypes().contains(mimeType);
+    public final boolean handlesMimeType(String mimeType) {
+        return mimeTypes.contains(mimeType);
     }
 }

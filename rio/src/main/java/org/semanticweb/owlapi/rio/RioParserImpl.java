@@ -89,8 +89,6 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
             .getLogger(RioParserImpl.class);
     @Nonnull
     private final RioRDFDocumentFormatFactory owlFormatFactory;
-    @Nonnull
-    private final Set<OWLDocumentFormatFactory> supportedFormats;
 
     /**
      * @param nextFormat
@@ -98,32 +96,12 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
      */
     public RioParserImpl(@Nonnull RioRDFDocumentFormatFactory nextFormat) {
         owlFormatFactory = checkNotNull(nextFormat, "nextFormat cannot be null");
-        supportedFormats = CollectionFactory
-                .createSet((OWLDocumentFormatFactory) owlFormatFactory);
-    }
-
-    @Override
-    public Set<Class<OWLDocumentFormat>> getSupportedFormatClasses() {
-        // not needed for this parser
-        return CollectionFactory.emptySet();
     }
 
     @Nonnull
     @Override
-    protected Class<? extends OWLDocumentFormat> getFormatClass() {
-        // not needed for this parser
-        // XXX should be better designed
-        return null;
-    }
-
-    @Override
-    public RioRDFDocumentFormat getParserFormat() {
-        return owlFormatFactory.createFormat();
-    }
-
-    @Override
-    public Set<OWLDocumentFormatFactory> getSupportedFormats() {
-        return supportedFormats;
+    public RioRDFDocumentFormatFactory getSupportedFormat() {
+        return owlFormatFactory;
     }
 
     @Override

@@ -20,7 +20,6 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.annotations.SupportsFormat;
 import org.semanticweb.owlapi.formats.DLSyntaxHTMLDocumentFormat;
 import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -34,7 +33,6 @@ import org.semanticweb.owlapi.util.SimpleShortFormProvider;
  *         Informatics Group
  * @since 2.2.0
  */
-@SupportsFormat(DLSyntaxHTMLDocumentFormat.class)
 public class DLSyntaxHTMLStorer extends DLSyntaxStorerBase {
 
     private static final long serialVersionUID = 40000L;

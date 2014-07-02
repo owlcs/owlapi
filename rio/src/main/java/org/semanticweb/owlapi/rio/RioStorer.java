@@ -54,6 +54,7 @@ import org.openrdf.rio.UnsupportedRDFormatException;
 import org.openrdf.rio.helpers.StatementCollector;
 import org.semanticweb.owlapi.formats.RioRDFDocumentFormat;
 import org.semanticweb.owlapi.formats.RioRDFDocumentFormatFactory;
+import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
@@ -71,7 +72,7 @@ public class RioStorer extends AbstractOWLStorer {
 
     private static final long serialVersionUID = 40000L;
     private transient RDFHandler rioHandler;
-    private final RioRDFDocumentFormatFactory ontFormat;
+    private final OWLDocumentFormatFactory ontFormat;
     private final Resource[] contexts;
 
     /**
@@ -82,7 +83,7 @@ public class RioStorer extends AbstractOWLStorer {
      * @param contexts
      *        contexts
      */
-    public RioStorer(RioRDFDocumentFormatFactory ontologyFormat,
+    public RioStorer(OWLDocumentFormatFactory ontologyFormat,
             RDFHandler rioHandler, Resource... contexts) {
         this(ontologyFormat, contexts);
         this.rioHandler = rioHandler;
@@ -94,7 +95,7 @@ public class RioStorer extends AbstractOWLStorer {
      * @param contexts
      *        contexts
      */
-    public RioStorer(RioRDFDocumentFormatFactory ontologyFormat,
+    public RioStorer(OWLDocumentFormatFactory ontologyFormat,
             Resource... contexts) {
         OpenRDFUtil.verifyContextNotNull(contexts);
         ontFormat = ontologyFormat;

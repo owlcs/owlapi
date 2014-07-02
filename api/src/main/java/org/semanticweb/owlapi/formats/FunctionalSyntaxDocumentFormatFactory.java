@@ -10,34 +10,30 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.annotations;
-
-import java.lang.annotation.Documented;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
+package org.semanticweb.owlapi.formats;
 
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
+import org.semanticweb.owlapi.util.OWLDocumentFormatFactoryImpl;
+
 /**
- * MIME types (default and supported ones). This annotation is meant for
- * OWLOntologyFormats, but is not limited to them.
- * 
- * @author ignazio
- * @since 4.0.0
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
+ * @since 2.2.0
  */
-@Retention(RetentionPolicy.RUNTIME)
-@Documented
-public @interface SupportsMIMEType {
+public class FunctionalSyntaxDocumentFormatFactory extends OWLDocumentFormatFactoryImpl {
 
-    /**
-     * Default MIME type. This attribute is necessary; if it is missing, the
-     * annotation should be removed.
-     * 
-     * @return the default MIME type
-     */
+    private static final long serialVersionUID = 40000L;
+
     @Nonnull
-    String defaultMIMEType();
+    @Override
+    public String getKey() {
+        return "OWL Functional Syntax";
+    }
 
-    /** @return list of supported MIME types. Can be empty. */
-    String[] supportedMIMEtypes() default {};
+    @Override
+    public OWLDocumentFormat createFormat() {
+        return new FunctionalSyntaxDocumentFormat();
+    }
 }

@@ -70,17 +70,6 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
     protected AbstractOWLParser() {}
 
     @Nonnull
-    @SuppressWarnings("unchecked")
-    @Override
-    public Set<Class<OWLDocumentFormat>> getSupportedFormatClasses() {
-        return CollectionFactory
-                .createSet((Class<OWLDocumentFormat>) getFormatClass());
-    }
-
-    @Nonnull
-    protected abstract Class<? extends OWLDocumentFormat> getFormatClass();
-
-    @Nonnull
     protected String getRequestTypes() {
         return "application/rdf+xml, application/xml; q=0.5, text/xml; q=0.3, */*; q=0.2";
     }
@@ -261,14 +250,5 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
     @Override
     public String getName() {
         return getClass().getSimpleName();
-    }
-
-    @Nonnull
-    @SuppressWarnings("unchecked")
-    @Override
-    public Set<OWLDocumentFormatFactory> getSupportedFormats() {
-        return CollectionFactory
-                .createSet((OWLDocumentFormatFactory) new OWLDocumentFormatFactoryImpl<>(
-                        (Class<OWLDocumentFormat>) getFormatClass()));
     }
 }

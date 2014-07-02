@@ -12,16 +12,14 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.annotations.IsBinaryFormat;
-import org.semanticweb.owlapi.annotations.SupportsMIMEType;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
-
-import com.google.common.collect.Lists;
 
 /**
  * A generic factory class for OWLOntologyFormats. This class can act as a
@@ -30,100 +28,96 @@ import com.google.common.collect.Lists;
  * 
  * @author ignazio
  * @param <T>
- *        built type
+ *            built type
  */
-public class OWLDocumentFormatFactoryImpl<T extends OWLDocumentFormat>
-        implements OWLDocumentFormatFactory {
+public abstract class OWLDocumentFormatFactoryImpl implements
+		OWLDocumentFormatFactory {
 
-    private static final long serialVersionUID = 40000L;
-    private final Class<T> type;
+	private static final long serialVersionUID = 40000L;
+	private final List<String> mimeTypes;
+	private final String key;
+	private final boolean isTextualFormat;
 
-    /**
-     * @param type
-     *        type of format that this factory provides
-     */
-    public OWLDocumentFormatFactoryImpl(Class<T> type) {
-        this.type = type;
-    }
+	/**
+	 * Default, for a textual format with no mime types. 
+	 */
+	protected OWLDocumentFormatFactoryImpl() {
+		this(new ArrayList<String>(0), true);
+	}
 
-    @Override
-    public OWLDocumentFormat createFormat() {
-        try {
-            return type.newInstance();
-        } catch (InstantiationException e) {
-            throw new RuntimeException(
-                    "Cannot instantiate an OWLOntologyFormat of type " + type,
-                    e);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(
-                    "Cannot instantiate an OWLOntologyFormat of type " + type,
-                    e);
-        }
-    }
+	protected OWLDocumentFormatFactoryImpl(List<String> mimeTypes) {
+		this(mimeTypes, true);
+	}
+	
+	protected OWLDocumentFormatFactoryImpl(List<String> mimeTypes, boolean isTextualFormat) {
+		this.mimeTypes = new ArrayList<>(mimeTypes);
+		this.isTextualFormat = isTextualFormat;
+		this.key = this.getClass().getName();
+	}
+	
+	protected OWLDocumentFormatFactoryImpl(List<String> mimeTypes, boolean isTextualFormat, String key) {
+		this.mimeTypes = new ArrayList<>(mimeTypes);
+		this.isTextualFormat = isTextualFormat;
+		this.key = key;
+	}
+	
+	@Override
+	public String getKey() {
+		return this.key;
+	}
 
-    @Override
-    public String getKey() {
-    	// TODO: Add the key here to prevent this being necessary
-        return createFormat().getKey();
-    }
-
-    @Nullable
+	@Nullable
     @Override
     public String getDefaultMIMEType() {
-        SupportsMIMEType types = type.getAnnotation(SupportsMIMEType.class);
-        if (types == null) {
-            return null;
+        if(this.mimeTypes.isEmpty()) {
+        	return null;
+        } else {
+        	return this.mimeTypes.get(0);
         }
-        return types.defaultMIMEType();
     }
 
-    @SuppressWarnings("null")
-    @Override
-    public List<String> getMIMETypes() {
-        SupportsMIMEType types = type.getAnnotation(SupportsMIMEType.class);
-        if (types == null) {
-            return CollectionFactory.emptyList();
-        }
-        return Lists
-                .asList(types.defaultMIMEType(), types.supportedMIMEtypes());
-    }
+	@SuppressWarnings("null")
+	@Override
+	public List<String> getMIMETypes() {
+		if (this.mimeTypes.isEmpty()) {
+			return Collections.emptyList();
+		} else {
+			return Collections.unmodifiableList(mimeTypes);
+		}
+	}
 
-    @Override
-    public boolean handlesMimeType(String mimeType) {
-        return getMIMETypes().contains(mimeType);
-    }
+	@Override
+	public boolean handlesMimeType(String mimeType) {
+		return getMIMETypes().contains(mimeType);
+	}
 
-    @Override
-    public boolean isTextual() {
-        IsBinaryFormat binary = type.getAnnotation(IsBinaryFormat.class);
-        if (binary == null) {
-            return true;
-        }
-        return !binary.value();
-    }
+	@Override
+	public boolean isTextual() {
+		return this.isTextualFormat ;
+	}
 
-    @Override
-    public OWLDocumentFormat get() {
-        return createFormat();
-    }
+	@Override
+	public OWLDocumentFormat get() {
+		return createFormat();
+	}
 
-    @Override
-    public int hashCode() {
-        return getKey().hashCode();
-    }
+	@Override
+	public int hashCode() {
+		return getKey().hashCode();
+	}
 
-    @Override
-    public boolean equals(Object obj) {
-        if (null == obj) {
-            return false;
-        }
-        if (obj == this) {
-            return true;
-        }
-        if (!(obj instanceof OWLDocumentFormatFactory)) {
-            return false;
-        }
-        OWLDocumentFormatFactory otherFactory = (OWLDocumentFormatFactory) obj;
-        return getKey().equals(otherFactory.getKey());
-    }
+	@Override
+	public boolean equals(Object obj) {
+		if (null == obj) {
+			return false;
+		}
+		if (obj == this) {
+			return true;
+		}
+		if (!(obj instanceof OWLDocumentFormatFactory)) {
+			return false;
+		}
+		OWLDocumentFormatFactory otherFactory = (OWLDocumentFormatFactory) obj;
+		return getKey().equals(otherFactory.getKey());
+	}
 }

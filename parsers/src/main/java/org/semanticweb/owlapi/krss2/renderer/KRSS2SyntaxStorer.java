@@ -16,7 +16,6 @@ import java.io.Writer;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.annotations.SupportsFormat;
 import org.semanticweb.owlapi.formats.KRSS2DocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
@@ -29,7 +28,6 @@ import org.semanticweb.owlapi.util.AbstractOWLStorer;
  * 
  * @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence
  */
-@SupportsFormat(KRSS2DocumentFormat.class)
 public class KRSS2SyntaxStorer extends AbstractOWLStorer {
 
     private static final long serialVersionUID = 40000L;

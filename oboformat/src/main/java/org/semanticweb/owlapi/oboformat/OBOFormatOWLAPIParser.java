@@ -28,6 +28,7 @@ import org.obolibrary.oboformat.parser.OBOFormatParser;
 import org.obolibrary.oboformat.parser.OBOFormatParserException;
 import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.formats.OBODocumentFormat;
+import org.semanticweb.owlapi.formats.OBODocumentFormatFactory;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserException;
@@ -116,19 +117,8 @@ public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
     }
 
     @Nonnull
-    @SuppressWarnings({ "unchecked", "null" })
     @Override
-    public Set<Class<OWLDocumentFormat>> getSupportedFormatClasses() {
-        return Collections
-                .singleton((Class<OWLDocumentFormat>) (Class<? extends OWLDocumentFormat>) OBODocumentFormat.class);
-    }
-
-    @SuppressWarnings("null")
-    @Nonnull
-    @Override
-    public Set<OWLDocumentFormatFactory> getSupportedFormats() {
-        return Collections
-                .singleton((OWLDocumentFormatFactory) new OWLDocumentFormatFactoryImpl<>(
-                        OBODocumentFormat.class));
+    public OWLDocumentFormatFactory getSupportedFormat() {
+        return new OBODocumentFormatFactory();
     }
 }

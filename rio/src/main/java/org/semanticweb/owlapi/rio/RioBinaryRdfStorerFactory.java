@@ -35,23 +35,16 @@
  */
 package org.semanticweb.owlapi.rio;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.formats.BinaryRDFDocumentFormatFactory;
-import org.semanticweb.owlapi.formats.RioRDFDocumentFormatFactory;
-import org.semanticweb.owlapi.formats.RioRDFStorerFactory;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com
  */
-public class RioBinaryRdfStorerFactory extends
-        AbstractRioStorerFactory implements RioRDFStorerFactory {
+public class RioBinaryRdfStorerFactory extends AbstractRioStorerFactory {
+
+    public RioBinaryRdfStorerFactory() {
+        super(new BinaryRDFDocumentFormatFactory());
+    }
 
     private static final long serialVersionUID = 40000L;
-
-    @Nonnull
-    @Override
-    public RioRDFDocumentFormatFactory getFormatFactory() {
-        return new BinaryRDFDocumentFormatFactory();
-    }
 }

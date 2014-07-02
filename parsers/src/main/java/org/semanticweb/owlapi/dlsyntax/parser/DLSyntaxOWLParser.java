@@ -21,10 +21,12 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.formats.DLSyntaxHTMLDocumentFormat;
+import org.semanticweb.owlapi.formats.DLSyntaxHTMLDocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
@@ -46,8 +48,8 @@ public class DLSyntaxOWLParser extends AbstractOWLParser {
     }
 
     @Override
-    protected Class<? extends OWLDocumentFormat> getFormatClass() {
-        return DLSyntaxHTMLDocumentFormat.class;
+    public OWLDocumentFormatFactory getSupportedFormat() {
+        return new DLSyntaxHTMLDocumentFormatFactory();
     }
 
     @Override

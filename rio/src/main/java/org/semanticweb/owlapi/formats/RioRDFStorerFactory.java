@@ -35,17 +35,9 @@
  */
 package org.semanticweb.owlapi.formats;
 
-import javax.annotation.Nonnull;
-
-import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLStorerFactory;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com
  */
-public interface RioRDFStorerFactory extends OWLStorerFactory {
-
-    @Nonnull
-    @Override
-    OWLDocumentFormatFactory getFormatFactory();
-}
+public interface RioRDFStorerFactory extends OWLStorerFactory {}

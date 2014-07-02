@@ -103,17 +103,12 @@ public interface OWLParser extends Serializable {
             @Nonnull OWLOntologyLoaderConfiguration configuration)
             throws IOException;
 
-    /** @return a name for the parser, typically the simple class name */
+    /** @return a unique name for the parser, typically the simple class name */
     @Nonnull
     String getName();
 
     /**
-     * @return set of supported format factories
+     * @return The supported format for this parser.
      */
-    Set<OWLDocumentFormatFactory> getSupportedFormats();
-
-    /**
-     * @return set of supported format classes
-     */
-    Set<Class<OWLDocumentFormat>> getSupportedFormatClasses();
+    OWLDocumentFormatFactory getSupportedFormat();
 }

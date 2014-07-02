@@ -14,14 +14,11 @@ package org.semanticweb.owlapi.formats;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.annotations.IsBinaryFormat;
-
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.2.0
  */
-@IsBinaryFormat(false)
 public class TurtleDocumentFormat extends AbstractRDFDocumentFormat {
 
     private static final long serialVersionUID = 40000L;

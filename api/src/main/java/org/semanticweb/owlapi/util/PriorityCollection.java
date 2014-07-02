@@ -10,7 +10,6 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.annotations.SupportsMIMEType;
 import org.semanticweb.owlapi.model.MIMETypeAware;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 
@@ -30,6 +29,10 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>,
     @Nonnull
     private final List<T> delegate = new ArrayList<>();
 
+    public boolean isEmpty() {
+    	return delegate.isEmpty();
+    }
+    
     /**
      * @return size of the collection
      */
@@ -134,28 +137,14 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>,
         // adding directly to the delegate. No need to order because insertion
         // will be ordered as in this PriorityCollection
         for (T t : delegate) {
-            SupportsMIMEType mime = t.getClass().getAnnotation(
-                    SupportsMIMEType.class);
-            if (mime != null) {
-                if (mimeType.equals(mime.defaultMIMEType())) {
-                    pc.delegate.add(t);
+            // if the instance has MIME types associated
+            if (t instanceof MIMETypeAware) {
+                MIMETypeAware mimeTypeAware = (MIMETypeAware) t;
+                if (mimeType.equals(mimeTypeAware.getDefaultMIMEType())) {
+                    pc.add(t);
                 } else {
-                    for (String mimeName : mime.supportedMIMEtypes()) {
-                        if (mimeType.equals(mimeName)) {
-                            pc.delegate.add(t);
-                        }
-                    }
-                }
-            } else {
-                // if the instance has MIME types associated
-                if (t instanceof MIMETypeAware) {
-                    MIMETypeAware mimeTypeAware = (MIMETypeAware) t;
-                    if (mimeType.equals(mimeTypeAware.getDefaultMIMEType())) {
-                        pc.delegate.add(t);
-                    } else {
-                        if (mimeTypeAware.getMIMETypes().contains(mimeType)) {
-                            pc.delegate.add(t);
-                        }
+                    if (mimeTypeAware.getMIMETypes().contains(mimeType)) {
+                        pc.add(t);
                     }
                 }
             }

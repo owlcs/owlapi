@@ -12,68 +12,31 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
-
-import javax.annotation.Nonnull;
-
-import org.semanticweb.owlapi.annotations.SupportsFormat;
-import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLStorer;
 import org.semanticweb.owlapi.model.OWLStorerFactory;
 
 /**
- * A generic factory class for OWLOntologyStorers. This class can act as a
- * factory for any OWLOntologyStorer type that has a no argument constructor
- * (the default type of OWLOntologyStorer).
+ * A factory class for OWLOntologyStorers.
  * 
  * @author ignazio
- * @param <T>
- *        built type
  */
-public class OWLStorerFactoryImpl<T extends OWLStorer>
-        implements OWLStorerFactory {
+public abstract class OWLStorerFactoryImpl implements OWLStorerFactory {
 
     private static final long serialVersionUID = 40000L;
-    private final Class<T> type;
+    private final OWLDocumentFormatFactory format;
 
-    /**
-     * @param type
-     *        type to be built
-     */
-    public OWLStorerFactoryImpl(Class<T> type) {
-        this.type = type;
+    protected OWLStorerFactoryImpl(OWLDocumentFormatFactory format) {
+        this.format = format;
     }
 
     @Override
-    public OWLStorer createStorer() {
-        try {
-            return verifyNotNull(type.newInstance());
-        } catch (InstantiationException e) {
-            throw new RuntimeException(
-                    "Cannot instantiate an OWLOntologyStorer of type " + type,
-                    e);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(
-                    "Cannot instantiate an OWLOntologyStorer of type " + type,
-                    e);
-        }
+    public final OWLDocumentFormatFactory getFormatFactory() {
+        return format;
     }
-
-    @Nonnull
+    
     @Override
-    public OWLDocumentFormatFactory getFormatFactory() {
-        return factory(type.getAnnotation(SupportsFormat.class).value());
-    }
-
-    @Nonnull
-    private static <F extends OWLDocumentFormat> OWLDocumentFormatFactory
-            factory(Class<F> c) {
-        return new OWLDocumentFormatFactoryImpl<>(c);
-    }
-
-    @Override
-    public OWLStorer get() {
+    public final OWLStorer get() {
         return createStorer();
     }
 }

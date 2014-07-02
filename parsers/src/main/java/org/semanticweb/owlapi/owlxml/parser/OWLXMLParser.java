@@ -21,9 +21,11 @@ import javax.xml.parsers.SAXParserFactory;
 
 import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
+import org.semanticweb.owlapi.formats.OWLXMLDocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParserException;
+import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
@@ -49,8 +51,8 @@ public class OWLXMLParser extends AbstractOWLParser {
     }
 
     @Override
-    protected Class<? extends OWLDocumentFormat> getFormatClass() {
-        return OWLXMLDocumentFormat.class;
+    public OWLDocumentFormatFactory getSupportedFormat() {
+        return new OWLXMLDocumentFormatFactory();
     }
 
     @Override

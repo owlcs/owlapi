@@ -7,7 +7,6 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.annotations.SupportsFormat;
 import org.semanticweb.owlapi.formats.LabelFunctionalDocumentFormat;
 import org.semanticweb.owlapi.functional.renderer.FunctionalSyntaxObjectRenderer;
 import org.semanticweb.owlapi.model.IRI;
@@ -23,7 +22,6 @@ import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.StringComparator;
 
 /** Implement the writer for {@link LabelFunctionalDocumentFormat}. */
-@SupportsFormat(LabelFunctionalDocumentFormat.class)
 public class LabelFunctionalSyntaxStorer extends
         AbstractOWLStorer {
 
