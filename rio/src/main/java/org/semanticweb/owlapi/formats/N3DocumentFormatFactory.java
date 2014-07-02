@@ -9,8 +9,7 @@ import javax.annotation.Nonnull;
  * @author Peter Ansell p_ansell@yahoo.com
  */
 public class N3DocumentFormatFactory extends
-        AbstractRioRDFDocumentFormatFactory implements
-        RioRDFDocumentFormatFactory {
+        AbstractRioRDFDocumentFormatFactory {
 
     private static final long serialVersionUID = 40000L;
 
