@@ -38,6 +38,7 @@ package org.semanticweb.owlapi.formats;
 import java.util.List;
 
 import org.openrdf.rio.RDFFormat;
+import org.semanticweb.owlapi.util.OWLDocumentFormatFactoryImpl;
 
 /**
  * An abstract implementation of the RioRDFOntologyFormatFactory interface that
@@ -46,7 +47,7 @@ import org.openrdf.rio.RDFFormat;
  * @author Peter Ansell p_ansell@yahoo.com
  */
 public abstract class AbstractRioRDFDocumentFormatFactory extends
-        AbstractOWLDocumentFormatFactory implements RioRDFDocumentFormatFactory {
+        OWLDocumentFormatFactoryImpl implements RioRDFDocumentFormatFactory {
 
     private static final long serialVersionUID = 40000L;
 

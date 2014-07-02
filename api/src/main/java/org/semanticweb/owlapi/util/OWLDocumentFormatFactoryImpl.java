@@ -88,7 +88,23 @@ public abstract class OWLDocumentFormatFactoryImpl implements
 
 	@Override
 	public boolean handlesMimeType(String mimeType) {
-		return getMIMETypes().contains(mimeType);
+        if (mimeType == null) {
+            return false;
+        }
+        String type = mimeType;
+        if (mimeType.indexOf(';') > 0) {
+            type = mimeType.substring(0, mimeType.indexOf(';'));
+        }
+        List<String> mimeTypes = getMIMETypes();
+        for (String nextMimeType : mimeTypes) {
+            if (mimeType.equalsIgnoreCase(nextMimeType)) {
+                return true;
+            }
+            if (mimeType != type && type.equalsIgnoreCase(nextMimeType)) {
+                return true;
+            }
+        }
+        return false;
 	}
 
 	@Override
