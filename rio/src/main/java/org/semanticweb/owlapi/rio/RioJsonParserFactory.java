@@ -44,7 +44,7 @@ public class RioJsonParserFactory extends AbstractRioParserFactory {
 
     private static final long serialVersionUID = 40000L;
 
-    protected RioJsonParserFactory() {
+    public RioJsonParserFactory() {
         super(new RDFJsonDocumentFormatFactory());
     }
 }

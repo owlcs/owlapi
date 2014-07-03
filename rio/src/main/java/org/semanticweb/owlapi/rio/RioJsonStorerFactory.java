@@ -47,7 +47,7 @@ public class RioJsonStorerFactory extends AbstractRioStorerFactory implements
 
     private static final long serialVersionUID = 40000L;
 
-    protected RioJsonStorerFactory(OWLDocumentFormatFactory format) {
+    public RioJsonStorerFactory() {
         super(new RDFJsonDocumentFormatFactory());
     }
 }
