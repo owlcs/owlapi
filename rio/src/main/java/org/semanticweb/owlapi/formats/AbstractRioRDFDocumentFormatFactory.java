@@ -35,6 +35,9 @@
  */
 package org.semanticweb.owlapi.formats;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+
 import org.openrdf.rio.RDFFormat;
 import org.semanticweb.owlapi.util.OWLDocumentFormatFactoryImpl;
 
@@ -48,15 +51,24 @@ public abstract class AbstractRioRDFDocumentFormatFactory extends
         OWLDocumentFormatFactoryImpl implements RioRDFDocumentFormatFactory {
 
     private static final long serialVersionUID = 40000L;
-    private RDFFormat rioFormat;
+    private transient RDFFormat rioFormat;
+    private final String formatName;
+
+    private void readObject(ObjectInputStream in) throws IOException,
+            ClassNotFoundException {
+        in.defaultReadObject();
+        rioFormat = RDFFormat.valueOf(formatName);
+    }
 
     protected AbstractRioRDFDocumentFormatFactory(RDFFormat rioFormat) {
         this(rioFormat, true);
     }
 
-    protected AbstractRioRDFDocumentFormatFactory(RDFFormat rioFormat, boolean isTextual) {
+    protected AbstractRioRDFDocumentFormatFactory(RDFFormat rioFormat,
+            boolean isTextual) {
         super(rioFormat.getMIMETypes(), isTextual, rioFormat.getName());
         this.rioFormat = rioFormat;
+        formatName = this.rioFormat.getName();
     }
 
     @Override

@@ -35,6 +35,8 @@
  */
 package org.semanticweb.owlapi.formats;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.List;
 
 import org.openrdf.rio.RDFFormat;
@@ -51,7 +53,14 @@ public class RioRDFDocumentFormat extends
         MIMETypeAware {
 
     private static final long serialVersionUID = 40000L;
-    private final RDFFormat format;
+    private transient RDFFormat format;
+    private final String formatName;
+
+    private void readObject(ObjectInputStream in) throws IOException,
+            ClassNotFoundException {
+        in.defaultReadObject();
+        format = RDFFormat.valueOf(formatName);
+    }
 
     /**
      * Constructor for super-classes to specify which {@link RDFFormat} they
@@ -62,6 +71,7 @@ public class RioRDFDocumentFormat extends
      */
     public RioRDFDocumentFormat(RDFFormat format) {
         this.format = format;
+        formatName = this.format.getName();
     }
 
     @SuppressWarnings("null")
