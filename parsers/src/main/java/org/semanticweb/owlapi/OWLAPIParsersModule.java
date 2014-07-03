@@ -50,7 +50,8 @@ public class OWLAPIParsersModule extends AbstractModule {
     @Override
     protected void configure() {
         configureParsers();
-        configureStorers();
+        // Loading these using META-INF/services now
+        //configureStorers();
     }
 
     protected void configureStorers() {

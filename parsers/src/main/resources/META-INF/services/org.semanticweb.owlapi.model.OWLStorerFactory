@@ -1,10 +1,7 @@
-org.semanticweb.owlapi.dlsyntax.renderer.DLSyntaxHTMLStorerFactory
-org.semanticweb.owlapi.dlsyntax.renderer.DLSyntaxStorerFactory
-org.semanticweb.owlapi.functional.renderer.FunctionalSyntaxStorerFactory
-org.semanticweb.owlapi.krss2.renderer.KRSS2OWLSyntaxStorerFactory
-org.semanticweb.owlapi.krss2.renderer.KRSSSyntaxStorerFactory
-org.semanticweb.owlapi.latex.renderer.LatexStorerFactory
-org.semanticweb.owlapi.mansyntax.renderer.ManchesterSyntaxStorerFactory
-org.semanticweb.owlapi.owlxml.renderer.OWLXMLStorerFactory
 org.semanticweb.owlapi.rdf.rdfxml.renderer.RDFXMLStorerFactory
+org.semanticweb.owlapi.owlxml.renderer.OWLXMLStorerFactory
+org.semanticweb.owlapi.functional.renderer.FunctionalSyntaxStorerFactory
+org.semanticweb.owlapi.mansyntax.renderer.ManchesterSyntaxStorerFactory
+org.semanticweb.owlapi.krss2.renderer.KRSS2OWLSyntaxStorerFactory
 org.semanticweb.owlapi.rdf.turtle.renderer.TurtleStorerFactory
+org.semanticweb.owlapi.latex.renderer.LatexStorerFactory
