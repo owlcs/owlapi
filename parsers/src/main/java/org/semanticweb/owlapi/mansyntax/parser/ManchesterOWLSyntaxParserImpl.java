@@ -50,6 +50,7 @@ import org.semanticweb.owlapi.model.OWLAnnotationSubject;
 import org.semanticweb.owlapi.model.OWLAnnotationValue;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
@@ -2614,6 +2615,11 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
                 .withKeyword(OPEN, OPENBRACE, INV, FUNCTIONAL,
                         INVERSE_FUNCTIONAL, SYMMETRIC, ASYMMETRIC, TRANSITIVE,
                         REFLEXIVE, IRREFLEXIVE).build();
+    }
+
+    @Override
+    public OWLClassAxiom parseClassAxiom() {
+        return (OWLClassAxiom) parseAxiom();
     }
 
     @Nonnull

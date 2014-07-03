@@ -26,6 +26,7 @@ import org.semanticweb.owlapi.model.HasOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.HasOntologyLoaderConfigurationProvider;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClassAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLDatatype;
@@ -72,6 +73,19 @@ public interface ManchesterOWLSyntaxParser extends
      */
     @Nonnull
     OWLAxiom parseAxiom();
+
+    /**
+     * Parsing "Inline" class Axioms.
+     * 
+     * @return axiom
+     * @throws OWLParserException
+     *         parsing error
+     * @deprecated use parseAxiom(). parseClassAxiom() only casts the result of
+     *             parseAxiom() to OWLClassAxiom.
+     */
+    @Deprecated
+    @Nonnull
+    OWLClassAxiom parseClassAxiom();
 
     /**
      * Parses an OWL class expression that is represented in Manchester OWL
