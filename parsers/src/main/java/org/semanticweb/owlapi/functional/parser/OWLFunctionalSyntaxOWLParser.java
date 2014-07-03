@@ -20,14 +20,13 @@ import java.io.Reader;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.annotations.HasPriority;
-import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParserException;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 
 /**
@@ -64,14 +63,17 @@ public class OWLFunctionalSyntaxOWLParser extends AbstractOWLParser {
             OWLFunctionalSyntaxParser parser;
             if (documentSource.isReaderAvailable()) {
                 reader = documentSource.getReader();
-                parser = new OWLFunctionalSyntaxParser(new CustomTokenizer(reader));
+                parser = new OWLFunctionalSyntaxParser(new CustomTokenizer(
+                        reader));
             } else if (documentSource.isInputStreamAvailable()) {
                 is = documentSource.getInputStream();
-                parser = new OWLFunctionalSyntaxParser(new CustomTokenizer(new InputStreamReader(is,"UTF-8")));
+                parser = new OWLFunctionalSyntaxParser(new CustomTokenizer(
+                        new InputStreamReader(is, "UTF-8")));
             } else {
                 is = getInputStream(documentSource.getDocumentIRI(),
                         configuration);
-                parser = new OWLFunctionalSyntaxParser(new CustomTokenizer(new InputStreamReader(is,"UTF-8")));
+                parser = new OWLFunctionalSyntaxParser(new CustomTokenizer(
+                        new InputStreamReader(is, "UTF-8")));
             }
             parser.setUp(ontology, configuration);
             return parser.parse();

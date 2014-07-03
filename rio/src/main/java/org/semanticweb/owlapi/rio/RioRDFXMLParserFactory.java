@@ -39,11 +39,13 @@ import org.semanticweb.owlapi.formats.RioRDFXMLDocumentFormatFactory;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com
+ * @since 4.0.0
  */
 public class RioRDFXMLParserFactory extends AbstractRioParserFactory {
 
     private static final long serialVersionUID = 40000L;
 
+    /** default constructor */
     public RioRDFXMLParserFactory() {
         super(new RioRDFXMLDocumentFormatFactory());
     }

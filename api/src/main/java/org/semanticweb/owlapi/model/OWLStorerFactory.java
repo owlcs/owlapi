@@ -29,8 +29,7 @@ import javax.inject.Provider;
  */
 // XXX this could be replaced with an annotation for priority and a @Provides
 // method
-public interface OWLStorerFactory extends Serializable,
-        Provider<OWLStorer> {
+public interface OWLStorerFactory extends Serializable, Provider<OWLStorer> {
 
     /**
      * Create new storer.

@@ -39,11 +39,13 @@ import org.semanticweb.owlapi.formats.N3DocumentFormatFactory;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com
+ * @since 4.0.0
  */
 public class RioN3ParserFactory extends AbstractRioParserFactory {
 
     private static final long serialVersionUID = 40000L;
 
+    /** default constructor */
     public RioN3ParserFactory() {
         super(new N3DocumentFormatFactory());
     }

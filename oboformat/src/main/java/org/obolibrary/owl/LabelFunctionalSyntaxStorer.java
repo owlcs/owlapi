@@ -12,9 +12,9 @@ import org.semanticweb.owlapi.functional.renderer.FunctionalSyntaxObjectRenderer
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationValue;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.util.AbstractOWLStorer;
@@ -22,8 +22,7 @@ import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.StringComparator;
 
 /** Implement the writer for {@link LabelFunctionalDocumentFormat}. */
-public class LabelFunctionalSyntaxStorer extends
-        AbstractOWLStorer {
+public class LabelFunctionalSyntaxStorer extends AbstractOWLStorer {
 
     // generated
     private static final long serialVersionUID = 40000L;

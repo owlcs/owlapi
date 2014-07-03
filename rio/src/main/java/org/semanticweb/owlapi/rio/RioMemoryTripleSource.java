@@ -66,6 +66,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  * to be interpreted by a Sesame Rio based OWLParser implementation.
  * 
  * @author Peter Ansell p_ansell@yahoo.com
+ * @since 4.0.0
  */
 public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
 

@@ -17,8 +17,8 @@ import java.io.Writer;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.formats.KRSS2DocumentFormat;
-import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
+import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.util.AbstractOWLStorer;
 

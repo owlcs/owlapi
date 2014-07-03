@@ -40,12 +40,14 @@ import org.semanticweb.owlapi.formats.RioRDFStorerFactory;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com
+ * @since 4.0.0
  */
 public class RioNTriplesStorerFactory extends AbstractRioStorerFactory
         implements RioRDFStorerFactory {
 
     private static final long serialVersionUID = 40000L;
 
+    /** default constructor */
     public RioNTriplesStorerFactory() {
         super(new NTriplesDocumentFormatFactory());
     }

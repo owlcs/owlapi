@@ -47,6 +47,7 @@ import org.semanticweb.owlapi.model.MIMETypeAware;
  * RDFOntologyFormat, and more generally OWLOntologyFormat. <br>
  * 
  * @author Peter Ansell p_ansell@yahoo.com
+ * @since 4.0.0
  */
 public class RioRDFDocumentFormat extends
         org.semanticweb.owlapi.formats.AbstractRDFDocumentFormat implements
@@ -74,10 +75,11 @@ public class RioRDFDocumentFormat extends
         formatName = this.format.getName();
     }
 
-    @SuppressWarnings("null")
     @Override
     public String getKey() {
-        return format.getName();
+        String name = format.getName();
+        assert name != null;
+        return name;
     }
 
     /**
@@ -94,7 +96,9 @@ public class RioRDFDocumentFormat extends
 
     @Override
     public List<String> getMIMETypes() {
-        return format.getMIMETypes();
+        List<String> mimeTypes = format.getMIMETypes();
+        assert mimeTypes != null;
+        return mimeTypes;
     }
 
     @Override

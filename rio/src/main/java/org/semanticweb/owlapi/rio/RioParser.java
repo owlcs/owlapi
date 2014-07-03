@@ -36,13 +36,12 @@
 package org.semanticweb.owlapi.rio;
 
 import org.openrdf.rio.RDFFormat;
-import org.semanticweb.owlapi.formats.RioRDFDocumentFormat;
 import org.semanticweb.owlapi.io.OWLParser;
 
 /**
  * An {@link OWLParser} that knows which Sesame {@link RDFFormat} it maps to.
  * 
  * @author Peter Ansell p_ansell@yahoo.com
+ * @since 4.0.0
  */
-public interface RioParser extends OWLParser {
-}
+public interface RioParser extends OWLParser {}

@@ -47,6 +47,7 @@ import com.google.inject.Injector;
  * is used to access OWLAPI parsers from Sesame Rio APIs.
  * 
  * @author Peter Ansell p_ansell@yahoo.com
+ * @since 4.0.0
  */
 public abstract class RioAbstractParserFactory implements RDFParserFactory {
 

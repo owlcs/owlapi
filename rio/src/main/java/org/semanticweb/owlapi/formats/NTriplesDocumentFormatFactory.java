@@ -41,12 +41,14 @@ import org.openrdf.rio.RDFFormat;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com
+ * @since 4.0.0
  */
 public class NTriplesDocumentFormatFactory extends
         AbstractRioRDFDocumentFormatFactory {
 
     private static final long serialVersionUID = 40000L;
 
+    /** default constructor */
     public NTriplesDocumentFormatFactory() {
         super(RDFFormat.NTRIPLES);
     }

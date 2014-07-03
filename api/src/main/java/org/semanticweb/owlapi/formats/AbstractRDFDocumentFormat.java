@@ -17,7 +17,6 @@ import java.util.Set;
 
 import org.semanticweb.owlapi.io.RDFParserMetaData;
 import org.semanticweb.owlapi.io.RDFResourceParseError;
-import org.semanticweb.owlapi.model.MIMETypeAware;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information

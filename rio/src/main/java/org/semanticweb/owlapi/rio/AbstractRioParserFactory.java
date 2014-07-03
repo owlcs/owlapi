@@ -35,27 +35,24 @@
  */
 package org.semanticweb.owlapi.rio;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
-
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.formats.RioRDFDocumentFormatFactory;
 import org.semanticweb.owlapi.io.OWLParser;
-import org.semanticweb.owlapi.io.OWLParserFactory;
 import org.semanticweb.owlapi.io.OWLParserFactoryImpl;
-import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com
+ * @since 4.0.0
  */
 public abstract class AbstractRioParserFactory extends OWLParserFactoryImpl {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private RioRDFDocumentFormatFactory rioFormat;
 
-    protected AbstractRioParserFactory(RioRDFDocumentFormatFactory rioFormat) {
+    protected AbstractRioParserFactory(
+            @Nonnull RioRDFDocumentFormatFactory rioFormat) {
         super(rioFormat);
         this.rioFormat = rioFormat;
     }

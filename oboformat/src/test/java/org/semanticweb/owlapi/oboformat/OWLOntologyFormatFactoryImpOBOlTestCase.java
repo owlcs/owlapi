@@ -15,10 +15,8 @@ package org.semanticweb.owlapi.oboformat;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.formats.OBODocumentFormat;
 import org.semanticweb.owlapi.formats.OBODocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
-import org.semanticweb.owlapi.util.OWLDocumentFormatFactoryImpl;
 
 /**
  * Test the generic factory and all the formats it can build

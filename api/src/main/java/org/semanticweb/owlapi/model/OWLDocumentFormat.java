@@ -192,8 +192,8 @@ public abstract class OWLDocumentFormat implements Serializable {
      * to shorted IRIs.
      * 
      * @return {@code true} if this format is an instance of
-     *         {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat}
-     *         other wise {@code false}.
+     *         {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat} other
+     *         wise {@code false}.
      */
     public boolean isPrefixOWLOntologyFormat() {
         return this instanceof PrefixDocumentFormat;

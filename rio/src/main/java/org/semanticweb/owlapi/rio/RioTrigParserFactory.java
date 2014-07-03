@@ -39,11 +39,13 @@ import org.semanticweb.owlapi.formats.TrigDocumentFormatFactory;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com
+ * @since 4.0.0
  */
 public class RioTrigParserFactory extends AbstractRioParserFactory {
 
     private static final long serialVersionUID = 40000L;
 
+    /** default constructor */
     public RioTrigParserFactory() {
         super(new TrigDocumentFormatFactory());
     }

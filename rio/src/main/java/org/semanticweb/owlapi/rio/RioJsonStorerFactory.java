@@ -37,16 +37,17 @@ package org.semanticweb.owlapi.rio;
 
 import org.semanticweb.owlapi.formats.RDFJsonDocumentFormatFactory;
 import org.semanticweb.owlapi.formats.RioRDFStorerFactory;
-import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com
+ * @since 4.0.0
  */
 public class RioJsonStorerFactory extends AbstractRioStorerFactory implements
         RioRDFStorerFactory {
 
     private static final long serialVersionUID = 40000L;
 
+    /** default constructor */
     public RioJsonStorerFactory() {
         super(new RDFJsonDocumentFormatFactory());
     }

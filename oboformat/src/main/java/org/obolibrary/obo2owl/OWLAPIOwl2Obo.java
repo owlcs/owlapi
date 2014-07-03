@@ -1,6 +1,5 @@
 package org.obolibrary.obo2owl;
 
-import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.search.Searcher.annotations;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
@@ -1600,8 +1599,8 @@ public class OWLAPIOwl2Obo {
         if (entity.isBottomEntity() || entity.isTopEntity()) {
             return;
         }
-        Set<OWLAnnotationAssertionAxiom> set  = this.owlOntology.getAnnotationAssertionAxioms(entity.getIRI());
-        
+        Set<OWLAnnotationAssertionAxiom> set = this.owlOntology
+                .getAnnotationAssertionAxioms(entity.getIRI());
         if (set.isEmpty()) {
             return;
         }
@@ -1743,7 +1742,8 @@ public class OWLAPIOwl2Obo {
         if (obj instanceof OWLObjectProperty
                 || obj instanceof OWLAnnotationProperty) {
             OWLEntity entity = (OWLEntity) obj;
-            Set<OWLAnnotationAssertionAxiom> axioms = ont.getAnnotationAssertionAxioms(entity.getIRI());
+            Set<OWLAnnotationAssertionAxiom> axioms = ont
+                    .getAnnotationAssertionAxioms(entity.getIRI());
             for (OWLAnnotationAssertionAxiom ax : axioms) {
                 String propId = getIdentifierFromObject(ax.getProperty()
                         .getIRI(), ont);

@@ -17,8 +17,7 @@ package org.semanticweb.owlapi.model;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLStorerNotFoundException extends
-        OWLOntologyStorageException {
+public class OWLStorerNotFoundException extends OWLOntologyStorageException {
 
     private static final long serialVersionUID = 40000L;
 

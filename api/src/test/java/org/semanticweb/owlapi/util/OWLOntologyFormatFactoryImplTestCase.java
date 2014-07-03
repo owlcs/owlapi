@@ -16,26 +16,15 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.formats.DLSyntaxDocumentFormatFactory;
-import org.semanticweb.owlapi.formats.DLSyntaxHTMLDocumentFormat;
-import org.semanticweb.owlapi.formats.DLSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.DLSyntaxHTMLDocumentFormatFactory;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormatFactory;
-import org.semanticweb.owlapi.formats.KRSS2DocumentFormat;
 import org.semanticweb.owlapi.formats.KRSS2DocumentFormatFactory;
-import org.semanticweb.owlapi.formats.KRSSDocumentFormat;
 import org.semanticweb.owlapi.formats.KRSSDocumentFormatFactory;
-import org.semanticweb.owlapi.formats.LabelFunctionalDocumentFormat;
 import org.semanticweb.owlapi.formats.LabelFunctionalDocumentFormatFactory;
-import org.semanticweb.owlapi.formats.LatexAxiomsListDocumentFormat;
 import org.semanticweb.owlapi.formats.LatexAxiomsListDocumentFormatFactory;
-import org.semanticweb.owlapi.formats.LatexDocumentFormat;
-import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.LatexDocumentFormatFactory;
-import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormatFactory;
-import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormatFactory;
-import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 

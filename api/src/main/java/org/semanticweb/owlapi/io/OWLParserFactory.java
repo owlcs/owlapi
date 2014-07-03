@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.io;
 
 import java.io.Serializable;
-import java.util.Set;
 
 import javax.annotation.Nonnull;
 import javax.inject.Provider;

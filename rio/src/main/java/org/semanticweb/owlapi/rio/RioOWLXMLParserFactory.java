@@ -43,6 +43,7 @@ import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
  * {@link OWLXMLDocumentFormat} documents.
  * 
  * @author Peter Ansell p_ansell@yahoo.com
+ * @since 4.0.0
  */
 public class RioOWLXMLParserFactory extends RioAbstractParserFactory {
 

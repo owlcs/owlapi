@@ -38,8 +38,7 @@ public class ManchesterSyntaxStorerException extends
      * @param cause
      *        the cause
      */
-    public ManchesterSyntaxStorerException(String message,
-            Throwable cause) {
+    public ManchesterSyntaxStorerException(String message, Throwable cause) {
         super(message, cause);
     }
 

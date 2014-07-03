@@ -39,11 +39,13 @@ import org.semanticweb.owlapi.formats.RioTurtleDocumentFormatFactory;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com
+ * @since 4.0.0
  */
 public class RioTurtleParserFactory extends AbstractRioParserFactory {
 
     private static final long serialVersionUID = 40000L;
 
+    /** default constructor */
     public RioTurtleParserFactory() {
         super(new RioTurtleDocumentFormatFactory());
     }

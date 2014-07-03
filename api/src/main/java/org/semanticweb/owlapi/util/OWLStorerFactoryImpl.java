@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLStorer;
 import org.semanticweb.owlapi.model.OWLStorerFactory;
@@ -24,9 +26,10 @@ import org.semanticweb.owlapi.model.OWLStorerFactory;
 public abstract class OWLStorerFactoryImpl implements OWLStorerFactory {
 
     private static final long serialVersionUID = 40000L;
+    @Nonnull
     private final OWLDocumentFormatFactory format;
 
-    protected OWLStorerFactoryImpl(OWLDocumentFormatFactory format) {
+    protected OWLStorerFactoryImpl(@Nonnull OWLDocumentFormatFactory format) {
         this.format = format;
     }
 
@@ -34,7 +37,7 @@ public abstract class OWLStorerFactoryImpl implements OWLStorerFactory {
     public final OWLDocumentFormatFactory getFormatFactory() {
         return format;
     }
-    
+
     @Override
     public final OWLStorer get() {
         return createStorer();

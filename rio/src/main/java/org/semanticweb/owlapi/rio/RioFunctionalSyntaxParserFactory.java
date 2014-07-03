@@ -43,6 +43,7 @@ import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
  * {@link FunctionalSyntaxDocumentFormat} documents.
  * 
  * @author Peter Ansell p_ansell@yahoo.com
+ * @since 4.0.0
  */
 public class RioFunctionalSyntaxParserFactory extends RioAbstractParserFactory {
 

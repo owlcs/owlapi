@@ -19,8 +19,8 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
-import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
+import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.util.AbstractOWLStorer;
 
@@ -30,8 +30,7 @@ import org.semanticweb.owlapi.util.AbstractOWLStorer;
  * @since 2.0.0
  */
 @HasPriority(2)
-public class FunctionalSyntaxStorer extends
-        AbstractOWLStorer {
+public class FunctionalSyntaxStorer extends AbstractOWLStorer {
 
     private static final long serialVersionUID = 40000L;
 

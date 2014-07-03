@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -33,10 +31,10 @@ import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.io.UnparsableOntologyException;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyBuilder;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
@@ -213,11 +211,14 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
         }
         PriorityCollection<OWLParser> candidateParsers = parsers;
         if (documentSource.isFormatKnown()) {
-            candidateParsers = getParsersByFormat(documentSource, parsers);
+            OWLDocumentFormat format = documentSource.getFormat();
+            assert format != null;
+            candidateParsers = getParsersByFormat(format, parsers);
         }
         if (candidateParsers.isEmpty() && documentSource.isMIMETypeKnown()) {
-            candidateParsers = getParserCandidatesByMIME(documentSource,
-                    parsers);
+            String mimeType = documentSource.getMIMEType();
+            assert mimeType != null;
+            candidateParsers = getParserCandidatesByMIME(mimeType, parsers);
         }
         if (candidateParsers.isEmpty()) {
             return parsers;
@@ -226,22 +227,20 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
     }
 
     /**
-     * If the format is known, use it to select a sublist of parsers.
+     * Use the format to select a sublist of parsers.
      * 
-     * @param documentSource
-     *        document source
+     * @param format
+     *        document format
      * @param parsers
      *        parsers
      * @return candidate parsers
      */
     private static PriorityCollection<OWLParser> getParsersByFormat(
-            OWLOntologyDocumentSource documentSource,
+            @Nonnull OWLDocumentFormat format,
             PriorityCollection<OWLParser> parsers) {
-        verifyNotNull(documentSource.getFormat());
         PriorityCollection<OWLParser> candidateParsers = new PriorityCollection<>();
         for (OWLParser parser : parsers) {
-            if (parser.getSupportedFormat().getKey()
-                    .equals(documentSource.getFormat().getKey())) {
+            if (parser.getSupportedFormat().getKey().equals(format.getKey())) {
                 candidateParsers.add(parser);
             }
         }
@@ -249,20 +248,18 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
     }
 
     /**
-     * If the MIME type is known, use it to select a sublist of parsers.
+     * Use the MIME type it to select a sublist of parsers.
      * 
-     * @param documentSource
-     *        document source
+     * @param mimeType
+     *        MIME type
      * @param parsers
      *        parsers
      * @return candidate parsers
      */
     private static PriorityCollection<OWLParser> getParserCandidatesByMIME(
-            OWLOntologyDocumentSource documentSource,
-            PriorityCollection<OWLParser> parsers) {
-        verifyNotNull(documentSource.getMIMEType());
+            @Nonnull String mimeType, PriorityCollection<OWLParser> parsers) {
         PriorityCollection<OWLParser> candidateParsers = parsers
-                .getByMIMEType(documentSource.getMIMEType());
+                .getByMIMEType(mimeType);
         return candidateParsers;
     }
 }

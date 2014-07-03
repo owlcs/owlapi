@@ -20,6 +20,7 @@ import javax.inject.Provider;
  * Factory for ontology formats.
  * 
  * @author Peter Ansell p_ansell@yahoo.com
+ * @since 4.0.0
  */
 public interface OWLDocumentFormatFactory extends Serializable,
         Provider<OWLDocumentFormat>, MIMETypeAware {

@@ -399,8 +399,7 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
                 + "AnnotationAssertion(<http://x.org/p> <http://x.org/c> \"orifice\")\n"
                 + "AnnotationAssertion(Annotation(<http://x.org/p2> \"foo\") <http://x.org/p> <http://x.org/c> \"v1\"))";
         OWLOntology o = loadOntologyFromString(in);
-        OWLOntology result = roundTrip(o,
-                new ManchesterSyntaxDocumentFormat());
+        OWLOntology result = roundTrip(o, new ManchesterSyntaxDocumentFormat());
         for (OWLAxiom ax : o.getAxioms()) {
             assert ax != null;
             assertTrue(result.containsAxiom(ax));

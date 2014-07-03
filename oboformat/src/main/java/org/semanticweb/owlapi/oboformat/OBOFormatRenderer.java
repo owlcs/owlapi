@@ -55,7 +55,7 @@ public class OBOFormatRenderer implements OWLRenderer {
             final OBODoc result = translator.convert(ontology);
             boolean hasImports = ontology.getImports().isEmpty() == false;
             NameProvider nameProvider;
-            if(hasImports) {
+            if (hasImports) {
                 // if the ontology has imports
                 // use it as secondary lookup for labels
                 final NameProvider primary = new OBODocNameProvider(result);
@@ -63,7 +63,7 @@ public class OBOFormatRenderer implements OWLRenderer {
                         ontology, primary.getDefaultOboNamespace());
                 // combine primary and secondary name provider
                 nameProvider = new NameProvider() {
-                    
+
                     @Override
                     public String getName(String id) {
                         String name = primary.getName(id);
@@ -72,17 +72,17 @@ public class OBOFormatRenderer implements OWLRenderer {
                         }
                         return secondary.getName(id);
                     }
-                    
+
                     @Override
                     public String getDefaultOboNamespace() {
                         return primary.getDefaultOboNamespace();
                     }
                 };
-            }
-            else {
+            } else {
                 nameProvider = new OBODocNameProvider(result);
             }
-            new OBOFormatWriter().write(result, new BufferedWriter(writer), nameProvider);
+            new OBOFormatWriter().write(result, new BufferedWriter(writer),
+                    nameProvider);
         } catch (IOException e) {
             throw new OWLOntologyStorageException(e);
         }

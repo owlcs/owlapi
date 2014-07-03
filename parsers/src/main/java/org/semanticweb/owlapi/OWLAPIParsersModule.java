@@ -50,15 +50,13 @@ public class OWLAPIParsersModule extends AbstractModule {
     @Override
     protected void configure() {
         // Loading these using META-INF/services now
-        //configureParsers();
-        //configureStorers();
+        // configureParsers();
+        // configureStorers();
     }
 
     protected void configureStorers() {
-        multibind(OWLStorer.class, RDFXMLStorer.class,
-                OWLXMLStorer.class,
-                FunctionalSyntaxStorer.class,
-                ManchesterSyntaxStorer.class,
+        multibind(OWLStorer.class, RDFXMLStorer.class, OWLXMLStorer.class,
+                FunctionalSyntaxStorer.class, ManchesterSyntaxStorer.class,
                 KRSS2OWLSyntaxStorer.class, TurtleStorer.class,
                 LatexStorer.class);
     }

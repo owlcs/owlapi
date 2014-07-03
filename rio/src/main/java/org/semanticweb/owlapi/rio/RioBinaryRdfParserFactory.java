@@ -39,11 +39,13 @@ import org.semanticweb.owlapi.formats.BinaryRDFDocumentFormatFactory;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com
+ * @since 4.0.0
  */
 public class RioBinaryRdfParserFactory extends AbstractRioParserFactory {
 
     private static final long serialVersionUID = 40000L;
 
+    /** default constructor */
     public RioBinaryRdfParserFactory() {
         super(new BinaryRDFDocumentFormatFactory());
     }

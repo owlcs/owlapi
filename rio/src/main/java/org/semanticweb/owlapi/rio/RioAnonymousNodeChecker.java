@@ -42,6 +42,7 @@ import org.semanticweb.owlapi.util.AnonymousNodeChecker;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com
+ * @since 4.0.0
  */
 public class RioAnonymousNodeChecker implements AnonymousNodeChecker {
 

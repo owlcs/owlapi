@@ -21,6 +21,7 @@ import com.google.common.collect.Iterators;
  * @author ignazio
  * @param <T>
  *        type of the collection
+ * @since 4.0.0
  */
 public class PriorityCollection<T extends Serializable> implements Iterable<T>,
         Serializable {
@@ -29,10 +30,11 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>,
     @Nonnull
     private final List<T> delegate = new ArrayList<>();
 
+    /** @return true if the collection is empty */
     public boolean isEmpty() {
-    	return delegate.isEmpty();
+        return delegate.isEmpty();
     }
-    
+
     /**
      * @return size of the collection
      */

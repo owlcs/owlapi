@@ -126,6 +126,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     // be easy to use this parser in tools such as editors.
     @Nonnull
     private Provider<OWLOntologyLoaderConfiguration> configProvider;
+    @SuppressWarnings("null")
     @Nonnull
     private Optional<OWLOntologyLoaderConfiguration> config = Optional.absent();
     protected OWLDataFactory dataFactory;
@@ -223,6 +224,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         configProvider = provider;
     }
 
+    @SuppressWarnings("null")
     @Override
     public void setOntologyLoaderConfiguration(
             OWLOntologyLoaderConfiguration config) {
@@ -2183,8 +2185,8 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     }
 
     @Override
-    public ManchesterSyntaxDocumentFormat parseOntology(
-            @Nonnull OWLOntology ont) {
+    public ManchesterSyntaxDocumentFormat
+            parseOntology(@Nonnull OWLOntology ont) {
         Set<OntologyAxiomPair> axioms = new HashSet<>();
         OWLOntologyID ontologyID = new OWLOntologyID();
         Set<AddImport> imports = new HashSet<>();

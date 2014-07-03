@@ -43,11 +43,14 @@ import org.semanticweb.owlapi.io.OWLParserFactoryImpl;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com
+ * @since 4.0.0
  */
-public class ManchesterOWLSyntaxOntologyParserFactory extends OWLParserFactoryImpl {
+public class ManchesterOWLSyntaxOntologyParserFactory extends
+        OWLParserFactoryImpl {
 
     private static final long serialVersionUID = 40000L;
 
+    /** default constructor */
     public ManchesterOWLSyntaxOntologyParserFactory() {
         super(new ManchesterSyntaxDocumentFormatFactory());
     }

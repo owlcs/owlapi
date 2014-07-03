@@ -55,6 +55,7 @@ import org.slf4j.LoggerFactory;
  * {@link RDFHandler} interface.
  * 
  * @author Peter Ansell p_ansell@yahoo.com
+ * @since 4.0.0
  */
 public class RioOWLRDFConsumerAdapter extends OWLRDFConsumer implements
         RDFHandler {

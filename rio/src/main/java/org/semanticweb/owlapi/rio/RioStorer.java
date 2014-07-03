@@ -54,19 +54,20 @@ import org.openrdf.rio.UnsupportedRDFormatException;
 import org.openrdf.rio.helpers.StatementCollector;
 import org.semanticweb.owlapi.formats.RioRDFDocumentFormat;
 import org.semanticweb.owlapi.formats.RioRDFDocumentFormatFactory;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLStorer;
 import org.semanticweb.owlapi.util.AbstractOWLStorer;
 
 /**
- * An implementation of {@link OWLStorer} that writes statements to
- * Sesame {@link RDFHandler}s, including {@link RDFWriter} implementations based
- * on the given {@link RioRDFDocumentFormatFactory}.
+ * An implementation of {@link OWLStorer} that writes statements to Sesame
+ * {@link RDFHandler}s, including {@link RDFWriter} implementations based on the
+ * given {@link RioRDFDocumentFormatFactory}.
  * 
  * @author Peter Ansell p_ansell@yahoo.com
+ * @since 4.0.0
  */
 public class RioStorer extends AbstractOWLStorer {
 

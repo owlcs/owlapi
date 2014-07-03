@@ -22,7 +22,8 @@ import org.semanticweb.owlapi.util.OWLDocumentFormatFactoryImpl;
  *         Informatics Group
  * @since 2.2.0
  */
-public class DLSyntaxHTMLDocumentFormatFactory extends OWLDocumentFormatFactoryImpl {
+public class DLSyntaxHTMLDocumentFormatFactory extends
+        OWLDocumentFormatFactoryImpl {
 
     private static final long serialVersionUID = 40000L;
 

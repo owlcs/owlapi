@@ -43,11 +43,13 @@ import org.semanticweb.owlapi.io.OWLParserFactoryImpl;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com
+ * @since 4.0.0
  */
 public class OWLXMLParserFactory extends OWLParserFactoryImpl {
 
     private static final long serialVersionUID = 40000L;
 
+    /** default constructor */
     public OWLXMLParserFactory() {
         super(new OWLXMLDocumentFormatFactory());
     }

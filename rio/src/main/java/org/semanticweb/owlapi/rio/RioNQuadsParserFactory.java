@@ -39,11 +39,13 @@ import org.semanticweb.owlapi.formats.NQuadsDocumentFormatFactory;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com
+ * @since 4.0.0
  */
 public class RioNQuadsParserFactory extends AbstractRioParserFactory {
 
     private static final long serialVersionUID = 40000L;
 
+    /** default constructor */
     public RioNQuadsParserFactory() {
         super(new NQuadsDocumentFormatFactory());
     }

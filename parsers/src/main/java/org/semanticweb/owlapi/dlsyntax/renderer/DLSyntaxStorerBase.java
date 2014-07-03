@@ -26,11 +26,11 @@ import javax.annotation.Nullable;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.util.AbstractOWLStorer;
 
 /**
@@ -38,8 +38,7 @@ import org.semanticweb.owlapi.util.AbstractOWLStorer;
  *         Informatics Group
  * @since 2.2.0
  */
-public abstract class DLSyntaxStorerBase extends
-        AbstractOWLStorer {
+public abstract class DLSyntaxStorerBase extends AbstractOWLStorer {
 
     private static final long serialVersionUID = 40000L;
 

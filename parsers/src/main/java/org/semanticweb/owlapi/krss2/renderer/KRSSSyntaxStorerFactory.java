@@ -41,11 +41,13 @@ import org.semanticweb.owlapi.util.OWLStorerFactoryImpl;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com
+ * @since 4.0.0
  */
 public class KRSSSyntaxStorerFactory extends OWLStorerFactoryImpl {
 
     private static final long serialVersionUID = 40000L;
 
+    /** default constructor */
     public KRSSSyntaxStorerFactory() {
         super(new KRSSDocumentFormatFactory());
     }

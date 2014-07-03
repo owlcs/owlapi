@@ -1,6 +1,6 @@
 package org.obolibrary.oboformat.writer;
 
-import static org.semanticweb.owlapi.model.parameters.Search.*;
+import static org.semanticweb.owlapi.model.parameters.Search.IN_SUB_POSITION;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -1159,7 +1159,7 @@ public class OBOFormatWriter {
          * @return name or null
          */
         @Nullable
-        String getName(String id);
+        String getName(@Nonnull String id);
 
         /**
          * Retrieve the default OBO namespace.
@@ -1238,8 +1238,9 @@ public class OBOFormatWriter {
          * @param ont
          *        ontology
          * @param defaultOboNamespace
+         *        default OBO namespace
          */
-        public OWLOntologyNameProvider(OWLOntology ont,
+        public OWLOntologyNameProvider(@Nonnull OWLOntology ont,
                 String defaultOboNamespace) {
             this.ont = ont;
             this.defaultOboNamespace = defaultOboNamespace;
@@ -1248,21 +1249,22 @@ public class OBOFormatWriter {
         @Override
         public String getName(String id) {
             // convert OBO id to IRI
-            OWLAPIObo2Owl obo2owl = new OWLAPIObo2Owl(ont.getOWLOntologyManager());
+            OWLAPIObo2Owl obo2owl = new OWLAPIObo2Owl(
+                    ont.getOWLOntologyManager());
             IRI iri = obo2owl.oboIdToIRI(id);
-            
             // look for label of entity
-            Set<OWLAnnotationAssertionAxiom> axioms = ont.getAxioms(OWLAnnotationAssertionAxiom.class,
-                    OWLAnnotationSubject.class, iri, Imports.INCLUDED, IN_SUB_POSITION);
+            Set<OWLAnnotationAssertionAxiom> axioms = ont.getAxioms(
+                    OWLAnnotationAssertionAxiom.class,
+                    OWLAnnotationSubject.class, iri, Imports.INCLUDED,
+                    IN_SUB_POSITION);
             for (OWLAnnotationAssertionAxiom axiom : axioms) {
                 if (axiom.getProperty().isLabel()) {
                     OWLAnnotationValue value = axiom.getValue();
-                    if (value != null && value instanceof OWLLiteral) {
+                    if (value instanceof OWLLiteral) {
                         return ((OWLLiteral) value).getLiteral();
                     }
                 }
             }
-            
             return null;
         }
 
@@ -1270,6 +1272,5 @@ public class OBOFormatWriter {
         public String getDefaultOboNamespace() {
             return defaultOboNamespace;
         }
-
     }
 }

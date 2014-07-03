@@ -57,6 +57,7 @@ import org.slf4j.LoggerFactory;
  * Utilities for translating between OWLAPI and Sesame Rio.
  * 
  * @author Peter Ansell p_ansell@yahoo.com
+ * @since 4.0.0
  */
 public class RioUtils {
 

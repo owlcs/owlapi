@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.AddAxiom;
@@ -147,9 +149,9 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         prefixMap.putAll(nsm.getPrefixName2PrefixMap());
     }
 
-    final public FunctionalSyntaxDocumentFormat parse()
-            throws ParseException, OWLParserException,
-            UnloadableImportException {
+    @Nonnull
+    final public FunctionalSyntaxDocumentFormat parse() throws ParseException,
+            OWLParserException, UnloadableImportException {
         label_1: while (true) {
             switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
                 case PREFIX: {

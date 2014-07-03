@@ -40,6 +40,7 @@ import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com
+ * @since 4.0.0
  */
 public interface RioRDFDocumentFormatFactory extends OWLDocumentFormatFactory {
 

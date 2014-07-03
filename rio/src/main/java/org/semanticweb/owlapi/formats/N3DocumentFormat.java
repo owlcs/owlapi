@@ -7,6 +7,7 @@ import org.openrdf.rio.RDFFormat;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com
+ * @since 4.0.0
  */
 public class N3DocumentFormat extends RioRDFDocumentFormat {
 

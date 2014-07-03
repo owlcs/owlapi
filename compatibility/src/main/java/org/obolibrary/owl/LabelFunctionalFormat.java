@@ -6,7 +6,8 @@ package org.obolibrary.owl;
  * cannot be read with the OWL-API. This is only intended to be used as basis
  * for human readable version version control diffs.
  * 
- * @deprecated use {@link org.semanticweb.owlapi.formats.LabelFunctionalDocumentFormat}
+ * @deprecated use
+ *             {@link org.semanticweb.owlapi.formats.LabelFunctionalDocumentFormat}
  */
 @Deprecated
 public class LabelFunctionalFormat extends

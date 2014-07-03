@@ -39,9 +39,11 @@ import org.semanticweb.owlapi.formats.BinaryRDFDocumentFormatFactory;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com
+ * @since 4.0.0
  */
 public class RioBinaryRdfStorerFactory extends AbstractRioStorerFactory {
 
+    /** default constructor */
     public RioBinaryRdfStorerFactory() {
         super(new BinaryRDFDocumentFormatFactory());
     }
