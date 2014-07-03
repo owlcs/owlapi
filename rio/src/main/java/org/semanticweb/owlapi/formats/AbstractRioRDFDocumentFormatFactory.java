@@ -39,6 +39,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 
 import org.openrdf.rio.RDFFormat;
+import org.openrdf.rio.RDFParserRegistry;
 import org.semanticweb.owlapi.util.OWLDocumentFormatFactoryImpl;
 
 /**
@@ -58,7 +59,12 @@ public abstract class AbstractRioRDFDocumentFormatFactory extends
     private void readObject(ObjectInputStream in) throws IOException,
             ClassNotFoundException {
         in.defaultReadObject();
-        rioFormat = RDFFormat.valueOf(formatName);
+        for (RDFFormat f : RDFParserRegistry.getInstance().getKeys()) {
+            if (f.getName().equals(formatName)) {
+                rioFormat = f;
+                return;
+            }
+        }
     }
 
     protected AbstractRioRDFDocumentFormatFactory(RDFFormat rioFormat) {
