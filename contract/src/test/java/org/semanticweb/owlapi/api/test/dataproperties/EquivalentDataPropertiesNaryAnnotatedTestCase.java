@@ -43,6 +43,12 @@ public class EquivalentDataPropertiesNaryAnnotatedTestCase extends
 
     @Override
     @Test
+    public void testRDFJSON() {
+        // Can't serialise nary equivalent data properties in RDF
+    }
+
+    @Override
+    @Test
     public void testTurtle() {
         // Can't serialise nary equivalent data properties in RDF
     }

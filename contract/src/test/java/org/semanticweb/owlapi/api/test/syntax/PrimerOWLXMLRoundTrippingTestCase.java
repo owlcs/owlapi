@@ -37,6 +37,10 @@ public class PrimerOWLXMLRoundTrippingTestCase extends
 
     @Override
     @Test
+    public void testRDFJSON() {}
+
+    @Override
+    @Test
     public void testFunctionalSyntax() {}
 
     @Override

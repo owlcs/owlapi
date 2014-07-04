@@ -44,6 +44,13 @@ public class EquivalentClassesAxiomNaryAnnotatedTestCase extends
 
     @Override
     @Test
+    public void testRDFJSON() {
+        // Not supported in RDF. Only binary equivalent classes axioms can be
+        // saved in RDF representations
+    }
+
+    @Override
+    @Test
     public void testTurtle() {
         // Not supported in RDF. Only binary equivalent classes axioms can be
         // saved in RDF representations
