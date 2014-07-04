@@ -35,6 +35,7 @@
  */
 package org.semanticweb.owlapi.rdf.turtle.renderer;
 
+import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLStorer;
 import org.semanticweb.owlapi.util.OWLStorerFactoryImpl;
@@ -43,6 +44,7 @@ import org.semanticweb.owlapi.util.OWLStorerFactoryImpl;
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0
  */
+@HasPriority(4)
 public class TurtleStorerFactory extends OWLStorerFactoryImpl {
 
     private static final long serialVersionUID = 40000L;

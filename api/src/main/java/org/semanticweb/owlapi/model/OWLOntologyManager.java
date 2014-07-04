@@ -1112,14 +1112,14 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      * @param storers
      *        The storers to be used
      */
-    void setOntologyStorers(@Nonnull Set<OWLStorer> storers);
+    void setOntologyStorers(@Nonnull Set<OWLStorerFactory> storers);
 
     /**
      * @return the collection of storers. This allows for iteration and
      *         modification of the list.
      */
     @Nonnull
-    PriorityCollection<OWLStorer> getOntologyStorers();
+    PriorityCollection<OWLStorerFactory> getOntologyStorers();
 
     /**
      * Adds an ontology change listener, which listens to all changes for all

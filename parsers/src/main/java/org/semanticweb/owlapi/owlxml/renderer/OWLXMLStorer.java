@@ -16,7 +16,6 @@ import java.io.Writer;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -28,7 +27,6 @@ import org.semanticweb.owlapi.util.AbstractOWLStorer;
  *         Informatics Group
  * @since 2.0.0
  */
-@HasPriority(1)
 public class OWLXMLStorer extends AbstractOWLStorer {
 
     private static final long serialVersionUID = 40000L;

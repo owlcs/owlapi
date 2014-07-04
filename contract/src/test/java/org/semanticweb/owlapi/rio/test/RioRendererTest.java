@@ -71,9 +71,9 @@ public class RioRendererTest {
         // storerRegistry, parserRegistry);
         OWLOntologyManager testManager = OWLManager.createOWLOntologyManager();
         testManager.getOntologyStorers().set(
-                new RioNTriplesStorerFactory().get(),
-                new RioRDFXMLStorerFactory().get(),
-                new RioTurtleStorerFactory().get());
+                new RioNTriplesStorerFactory(),
+                new RioRDFXMLStorerFactory(),
+                new RioTurtleStorerFactory());
         testOntologyEmpty = testManager.createOntology(testOntologyUri1);
         testOntologyKoala = testManager
                 .loadOntologyFromOntologyDocument(getClass()

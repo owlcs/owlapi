@@ -91,6 +91,7 @@ import org.semanticweb.owlapi.model.OWLOntologyRenameException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OWLStorer;
+import org.semanticweb.owlapi.model.OWLStorerFactory;
 import org.semanticweb.owlapi.model.OWLStorerNotFoundException;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 import org.semanticweb.owlapi.model.RemoveImport;
@@ -136,7 +137,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     @Nonnull
     protected PriorityCollection<OWLParserFactory> parserFactories = new PriorityCollection<>();
     @Nonnull
-    protected PriorityCollection<OWLStorer> ontologyStorers = new PriorityCollection<>();
+    protected PriorityCollection<OWLStorerFactory> ontologyStorers = new PriorityCollection<>();
     private final AtomicBoolean broadcastChanges = new AtomicBoolean(true);
     protected AtomicInteger loadCount = new AtomicInteger(0);
     protected AtomicInteger importsLoadCount = new AtomicInteger(0);
@@ -1056,9 +1057,9 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
             OWLDocumentFormat ontologyFormat, IRI documentIRI)
             throws OWLOntologyStorageException {
         try {
-            for (OWLStorer storer : ontologyStorers) {
-                if (storer.canStoreOntology(ontologyFormat)) {
-                    storer.storeOntology(ontology, documentIRI, ontologyFormat);
+            for (OWLStorerFactory storer : ontologyStorers) {
+                if (storer.getFormatFactory().getKey().equals(ontologyFormat.getKey())) {
+                    storer.get().storeOntology(ontology, documentIRI, ontologyFormat);
                     return;
                 }
             }
@@ -1095,9 +1096,9 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
             OWLOntologyDocumentTarget documentTarget)
             throws OWLOntologyStorageException {
         try {
-            for (OWLStorer storer : ontologyStorers) {
-                if (storer.canStoreOntology(ontologyFormat)) {
-                    storer.storeOntology(ontology, documentTarget,
+            for (OWLStorerFactory storer : ontologyStorers) {
+                if (storer.getFormatFactory().getKey().equals(ontologyFormat.getKey())) {
+                    storer.get().storeOntology(ontology, documentTarget,
                             ontologyFormat);
                     return;
                 }
@@ -1110,12 +1111,12 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
 
     @Override
     @Inject
-    public void setOntologyStorers(Set<OWLStorer> storers) {
+    public void setOntologyStorers(Set<OWLStorerFactory> storers) {
         ontologyStorers.set(storers);
     }
 
     @Override
-    public PriorityCollection<OWLStorer> getOntologyStorers() {
+    public PriorityCollection<OWLStorerFactory> getOntologyStorers() {
         return ontologyStorers;
     }
 

@@ -1006,7 +1006,7 @@ public class TutorialSnippets {
         OWLOntologyManager m = create();
         OWLOntology o = loadPizzaOntology(m);
         // Register the ontology storer with the manager
-        m.getOntologyStorers().add(new TutorialSyntaxStorer());
+        m.getOntologyStorers().add(new TutorialSyntaxStorerFactory());
         // Save using a different format
         StreamDocumentTarget target = new StreamDocumentTarget(
                 new ByteArrayOutputStream());
