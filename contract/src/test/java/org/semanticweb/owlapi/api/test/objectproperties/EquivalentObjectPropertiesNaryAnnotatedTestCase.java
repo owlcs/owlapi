@@ -46,4 +46,10 @@ public class EquivalentObjectPropertiesNaryAnnotatedTestCase extends
     public void testRDFXML() {
         // Can't serialise nary equivalent properties axioms in RDF
     }
+
+    @Override
+    @Test
+    public void testRDFJSON() {
+        // Can't serialise nary equivalent properties axioms in RDF
+    }
 }

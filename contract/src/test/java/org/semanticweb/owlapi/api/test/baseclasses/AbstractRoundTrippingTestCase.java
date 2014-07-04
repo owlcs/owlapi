@@ -18,6 +18,7 @@ import org.junit.Test;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
+import org.semanticweb.owlapi.formats.RDFJsonDocumentFormat;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -43,6 +44,11 @@ public abstract class AbstractRoundTrippingTestCase extends TestBase {
     @Test
     public void testRDFXML() throws Exception {
         roundTripOntology(ont);
+    }
+
+    @Test
+    public void testRDFJSON() throws Exception {
+        roundTripOntology(ont, new RDFJsonDocumentFormat());
     }
 
     @Test

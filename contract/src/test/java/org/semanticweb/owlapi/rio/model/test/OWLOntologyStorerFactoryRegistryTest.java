@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLStorer;
+import org.semanticweb.owlapi.model.OWLStorerFactory;
 import org.semanticweb.owlapi.util.PriorityCollection;
 
 /**
@@ -20,7 +21,7 @@ public class OWLOntologyStorerFactoryRegistryTest {
     public void setUp() {
         // XXX refactor this to be able to check what ontology storers would be
         // injected before creating an OWLOntologyManager
-        PriorityCollection<OWLStorer> ontologyStorers = OWLManager
+        PriorityCollection<OWLStorerFactory> ontologyStorers = OWLManager
                 .createOWLOntologyManager().getOntologyStorers();
         assertEquals(EXPECTED_STORERS, ontologyStorers.size());
     }

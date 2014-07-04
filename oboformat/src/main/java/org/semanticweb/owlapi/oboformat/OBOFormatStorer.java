@@ -28,7 +28,6 @@ import org.semanticweb.owlapi.util.AbstractOWLStorer;
  *         Group
  * @since 3.4.10
  */
-@HasPriority(5)
 public class OBOFormatStorer extends AbstractOWLStorer {
 
     private static final long serialVersionUID = 40000L;

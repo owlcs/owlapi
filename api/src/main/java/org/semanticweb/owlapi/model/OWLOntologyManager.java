@@ -25,6 +25,7 @@ import javax.annotation.Nullable;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 import org.semanticweb.owlapi.io.OWLParser;
+import org.semanticweb.owlapi.io.OWLParserFactory;
 import org.semanticweb.owlapi.model.parameters.MissingImportHandlingStrategy;
 import org.semanticweb.owlapi.model.parameters.OntologyCopy;
 import org.semanticweb.owlapi.util.PriorityCollection;
@@ -1073,14 +1074,14 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      * @param parsers
      *        the factories to be injected
      */
-    void setOntologyParsers(Set<OWLParser> parsers);
+    void setOntologyParsers(Set<OWLParserFactory> parsers);
 
     /**
      * @return the collection of parsers. This allows for iteration and
      *         modification of the list.
      */
     @Nonnull
-    PriorityCollection<OWLParser> getOntologyParsers();
+    PriorityCollection<OWLParserFactory> getOntologyParsers();
 
     /**
      * Set the collection of ontology factories. It is used by Guice injection,
@@ -1111,14 +1112,14 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      * @param storers
      *        The storers to be used
      */
-    void setOntologyStorers(@Nonnull Set<OWLStorer> storers);
+    void setOntologyStorers(@Nonnull Set<OWLStorerFactory> storers);
 
     /**
      * @return the collection of storers. This allows for iteration and
      *         modification of the list.
      */
     @Nonnull
-    PriorityCollection<OWLStorer> getOntologyStorers();
+    PriorityCollection<OWLStorerFactory> getOntologyStorers();
 
     /**
      * Adds an ontology change listener, which listens to all changes for all

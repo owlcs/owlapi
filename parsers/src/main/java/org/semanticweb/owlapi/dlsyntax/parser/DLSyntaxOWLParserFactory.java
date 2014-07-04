@@ -37,6 +37,7 @@ package org.semanticweb.owlapi.dlsyntax.parser;
 
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.formats.DLSyntaxDocumentFormatFactory;
 import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserFactoryImpl;
@@ -45,6 +46,7 @@ import org.semanticweb.owlapi.io.OWLParserFactoryImpl;
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0
  */
+@HasPriority(9)
 public class DLSyntaxOWLParserFactory extends OWLParserFactoryImpl {
 
     private static final long serialVersionUID = 40000L;

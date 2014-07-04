@@ -17,7 +17,6 @@ import java.io.Writer;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -29,7 +28,6 @@ import org.semanticweb.owlapi.util.AbstractOWLStorer;
  *         Informatics Group
  * @since 2.2.0
  */
-@HasPriority(4)
 public class TurtleStorer extends AbstractOWLStorer {
 
     private static final long serialVersionUID = 40000L;

@@ -19,7 +19,6 @@ import java.io.Reader;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
@@ -34,7 +33,6 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
  *         Informatics Group
  * @since 2.0.0
  */
-@HasPriority(2)
 public class OWLFunctionalSyntaxOWLParser extends AbstractOWLParser {
 
     private static final long serialVersionUID = 40000L;

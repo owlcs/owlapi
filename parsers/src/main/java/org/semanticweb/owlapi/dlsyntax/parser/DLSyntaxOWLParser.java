@@ -19,7 +19,6 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.formats.DLSyntaxHTMLDocumentFormat;
 import org.semanticweb.owlapi.formats.DLSyntaxHTMLDocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
@@ -36,7 +35,6 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
  *         Informatics Group
  * @since 4.0.0
  */
-@HasPriority(9)
 public class DLSyntaxOWLParser extends AbstractOWLParser {
 
     private static final long serialVersionUID = 40000L;

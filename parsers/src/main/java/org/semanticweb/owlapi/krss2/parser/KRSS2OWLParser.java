@@ -18,7 +18,6 @@ import java.io.Reader;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.formats.KRSS2DocumentFormat;
 import org.semanticweb.owlapi.formats.KRSS2DocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
@@ -231,7 +230,6 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
  * 
  * @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence
  */
-@HasPriority(6)
 public class KRSS2OWLParser extends AbstractOWLParser {
 
     private static final long serialVersionUID = 40000L;

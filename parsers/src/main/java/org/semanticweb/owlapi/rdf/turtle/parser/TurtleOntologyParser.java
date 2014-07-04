@@ -18,7 +18,6 @@ import java.io.Reader;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
@@ -36,7 +35,6 @@ import org.semanticweb.owlapi.model.PrefixManager;
  *         Informatics Group
  * @since 2.2.0
  */
-@HasPriority(3)
 public class TurtleOntologyParser extends AbstractOWLParser {
 
     private static final long serialVersionUID = 40000L;

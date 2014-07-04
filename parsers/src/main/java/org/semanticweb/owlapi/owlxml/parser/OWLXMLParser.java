@@ -19,7 +19,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
@@ -39,7 +38,6 @@ import org.xml.sax.SAXException;
  *         Informatics Group
  * @since 2.0.0
  */
-@HasPriority(1)
 public class OWLXMLParser extends AbstractOWLParser {
 
     private static final long serialVersionUID = 40000L;

@@ -37,6 +37,7 @@ package org.semanticweb.owlapi.krss2.parser;
 
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.formats.KRSS2DocumentFormatFactory;
 import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserFactoryImpl;
@@ -45,6 +46,7 @@ import org.semanticweb.owlapi.io.OWLParserFactoryImpl;
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0
  */
+@HasPriority(6)
 public class KRSS2OWLParserFactory extends OWLParserFactoryImpl {
 
     private static final long serialVersionUID = 40000L;

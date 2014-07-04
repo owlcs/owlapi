@@ -29,7 +29,6 @@ import org.semanticweb.owlapi.util.AbstractOWLStorer;
  *         Informatics Group
  * @since 2.0.0
  */
-@HasPriority(2)
 public class FunctionalSyntaxStorer extends AbstractOWLStorer {
 
     private static final long serialVersionUID = 40000L;

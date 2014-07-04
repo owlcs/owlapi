@@ -53,4 +53,8 @@ public class AnonymousTurtle2TestCase extends AbstractFileRoundTrippingTestCase 
     @Override
     @Test
     public void testRDFXML() {}
+
+    @Override
+    @Test
+    public void testRDFJSON() {}
 }

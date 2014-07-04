@@ -78,7 +78,6 @@ import org.slf4j.LoggerFactory;
 
 /**
  */
-@HasPriority(7)
 public class RioParserImpl extends AbstractOWLParser implements RioParser {
 
     private static final long serialVersionUID = 40000L;

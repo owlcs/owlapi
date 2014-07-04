@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.mansyntax.renderer;
 
 import java.io.Writer;
 
-import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -26,7 +25,6 @@ import org.semanticweb.owlapi.util.AbstractOWLStorer;
  *         Informatics Group
  * @since 2.0.0
  */
-@HasPriority(3)
 public class ManchesterSyntaxStorer extends AbstractOWLStorer {
 
     private static final long serialVersionUID = 40000L;

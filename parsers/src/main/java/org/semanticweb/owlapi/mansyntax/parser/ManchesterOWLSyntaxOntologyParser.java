@@ -19,7 +19,6 @@ import java.io.InputStreamReader;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.OWLAPIConfigProvider;
-import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
@@ -36,7 +35,6 @@ import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
  *         Informatics Group
  * @since 2.1.1
  */
-@HasPriority(4)
 public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
 
     private static final long serialVersionUID = 40000L;

@@ -35,6 +35,7 @@
  */
 package org.semanticweb.owlapi.functional.renderer;
 
+import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLStorer;
 import org.semanticweb.owlapi.util.OWLStorerFactoryImpl;
@@ -43,6 +44,7 @@ import org.semanticweb.owlapi.util.OWLStorerFactoryImpl;
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0
  */
+@HasPriority(2)
 public class FunctionalSyntaxStorerFactory extends OWLStorerFactoryImpl {
 
     private static final long serialVersionUID = 40000L;

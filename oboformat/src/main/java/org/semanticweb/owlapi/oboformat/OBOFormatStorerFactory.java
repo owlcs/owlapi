@@ -33,22 +33,29 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.semanticweb.owlapi.rio;
+package org.semanticweb.owlapi.oboformat;
 
 import org.semanticweb.owlapi.annotations.HasPriority;
-import org.semanticweb.owlapi.formats.RDFJsonLDDocumentFormatFactory;
+import org.semanticweb.owlapi.formats.OBODocumentFormatFactory;
+import org.semanticweb.owlapi.model.OWLStorer;
+import org.semanticweb.owlapi.util.OWLStorerFactoryImpl;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0
  */
-@HasPriority(10)
-public class RioJsonLDParserFactory extends AbstractRioParserFactory {
+@HasPriority(5)
+public class OBOFormatStorerFactory extends OWLStorerFactoryImpl {
 
     private static final long serialVersionUID = 40000L;
 
     /** default constructor */
-    public RioJsonLDParserFactory() {
-        super(new RDFJsonLDDocumentFormatFactory());
+    public OBOFormatStorerFactory() {
+        super(new OBODocumentFormatFactory());
+    }
+
+    @Override
+    public OWLStorer createStorer() {
+        return new OBOFormatStorer();
     }
 }

@@ -37,7 +37,7 @@ public class RioParserTest extends TestBase {
         // OWLOntologyManagerFactoryRegistry.getOWLDataFactory(),
         // storerRegistry, parserRegistry);
         m = OWLManager.createOWLOntologyManager();
-        m.getOntologyParsers().set(new RioRDFXMLParserFactory().get());
+        m.getOntologyParsers().set(new RioRDFXMLParserFactory());
         // testOntologyKoala =
         // testManager.loadOntologyFromOntologyDocument(this.getClass().getResourceAsStream("/koala.owl"));
     }

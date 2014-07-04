@@ -37,6 +37,7 @@ package org.semanticweb.owlapi.mansyntax.parser;
 
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormatFactory;
 import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserFactoryImpl;
@@ -45,6 +46,7 @@ import org.semanticweb.owlapi.io.OWLParserFactoryImpl;
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0
  */
+@HasPriority(4)
 public class ManchesterOWLSyntaxOntologyParserFactory extends
         OWLParserFactoryImpl {
 
