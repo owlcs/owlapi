@@ -24,7 +24,6 @@ import org.obolibrary.obo2owl.OWLAPIObo2Owl;
 import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.parser.OBOFormatParser;
 import org.obolibrary.oboformat.parser.OBOFormatParserException;
-import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.formats.OBODocumentFormat;
 import org.semanticweb.owlapi.formats.OBODocumentFormatFactory;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
@@ -38,7 +37,6 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 
 /** oboformat parser */
-@HasPriority(5)
 public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
 
     private static final long serialVersionUID = 40000L;
