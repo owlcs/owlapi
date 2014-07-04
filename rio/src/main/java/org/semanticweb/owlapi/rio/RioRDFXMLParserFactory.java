@@ -35,12 +35,14 @@
  */
 package org.semanticweb.owlapi.rio;
 
+import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.formats.RioRDFXMLDocumentFormatFactory;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0
  */
+@HasPriority(11)
 public class RioRDFXMLParserFactory extends AbstractRioParserFactory {
 
     private static final long serialVersionUID = 40000L;

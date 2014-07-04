@@ -29,6 +29,7 @@ import org.semanticweb.owlapi.io.OWLOntologyCreationIOException;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserException;
+import org.semanticweb.owlapi.io.OWLParserFactory;
 import org.semanticweb.owlapi.io.UnparsableOntologyException;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
@@ -144,9 +145,10 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
         // Now parse the input into the empty ontology that we created
         // select a parser if the input source has format information and MIME
         // information
-        PriorityCollection<OWLParser> parsers = getParsers(documentSource,
+        PriorityCollection<OWLParserFactory> parsers = getParsers(documentSource,
                 manager.getOntologyParsers());
-        for (OWLParser parser : parsers) {
+        for (OWLParserFactory parserFactory : parsers) {
+            OWLParser parser = parserFactory.createParser();
             try {
                 if (existingOntology == null && !ont.isEmpty()) {
                     // Junk from a previous parse. We should clear the ont
@@ -199,9 +201,9 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
      *        parsers
      * @return selected parsers
      */
-    private static PriorityCollection<OWLParser> getParsers(
+    private static PriorityCollection<OWLParserFactory> getParsers(
             OWLOntologyDocumentSource documentSource,
-            PriorityCollection<OWLParser> parsers) {
+            PriorityCollection<OWLParserFactory> parsers) {
         if (parsers.isEmpty()) {
             return parsers;
         }
@@ -209,7 +211,7 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
                 && !documentSource.isMIMETypeKnown()) {
             return parsers;
         }
-        PriorityCollection<OWLParser> candidateParsers = parsers;
+        PriorityCollection<OWLParserFactory> candidateParsers = parsers;
         if (documentSource.isFormatKnown()) {
             OWLDocumentFormat format = documentSource.getFormat();
             assert format != null;
@@ -235,11 +237,11 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
      *        parsers
      * @return candidate parsers
      */
-    private static PriorityCollection<OWLParser> getParsersByFormat(
+    private static PriorityCollection<OWLParserFactory> getParsersByFormat(
             @Nonnull OWLDocumentFormat format,
-            PriorityCollection<OWLParser> parsers) {
-        PriorityCollection<OWLParser> candidateParsers = new PriorityCollection<>();
-        for (OWLParser parser : parsers) {
+            PriorityCollection<OWLParserFactory> parsers) {
+        PriorityCollection<OWLParserFactory> candidateParsers = new PriorityCollection<>();
+        for (OWLParserFactory parser : parsers) {
             if (parser.getSupportedFormat().getKey().equals(format.getKey())) {
                 candidateParsers.add(parser);
             }
@@ -256,9 +258,9 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
      *        parsers
      * @return candidate parsers
      */
-    private static PriorityCollection<OWLParser> getParserCandidatesByMIME(
-            @Nonnull String mimeType, PriorityCollection<OWLParser> parsers) {
-        PriorityCollection<OWLParser> candidateParsers = parsers
+    private static PriorityCollection<OWLParserFactory> getParserCandidatesByMIME(
+            @Nonnull String mimeType, PriorityCollection<OWLParserFactory> parsers) {
+        PriorityCollection<OWLParserFactory> candidateParsers = parsers
                 .getByMIMEType(mimeType);
         return candidateParsers;
     }

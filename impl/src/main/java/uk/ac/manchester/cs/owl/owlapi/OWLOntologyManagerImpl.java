@@ -46,6 +46,7 @@ import org.semanticweb.owlapi.io.OWLOntologyDocumentSourceBase;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 import org.semanticweb.owlapi.io.OWLOntologyStorageIOException;
 import org.semanticweb.owlapi.io.OWLParser;
+import org.semanticweb.owlapi.io.OWLParserFactory;
 import org.semanticweb.owlapi.io.OntologyIRIMappingNotFoundException;
 import org.semanticweb.owlapi.io.StreamDocumentSource;
 import org.semanticweb.owlapi.io.StreamDocumentTarget;
@@ -133,7 +134,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     @Nonnull
     protected PriorityCollection<OWLOntologyFactory> ontologyFactories = new PriorityCollection<>();
     @Nonnull
-    protected PriorityCollection<OWLParser> parserFactories = new PriorityCollection<>();
+    protected PriorityCollection<OWLParserFactory> parserFactories = new PriorityCollection<>();
     @Nonnull
     protected PriorityCollection<OWLStorer> ontologyStorers = new PriorityCollection<>();
     private final AtomicBoolean broadcastChanges = new AtomicBoolean(true);
@@ -1137,12 +1138,12 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
 
     @Override
     @Inject
-    public void setOntologyParsers(Set<OWLParser> parsers) {
+    public void setOntologyParsers(Set<OWLParserFactory> parsers) {
         parserFactories.set(parsers);
     }
 
     @Override
-    public PriorityCollection<OWLParser> getOntologyParsers() {
+    public PriorityCollection<OWLParserFactory> getOntologyParsers() {
         return parserFactories;
     }
 

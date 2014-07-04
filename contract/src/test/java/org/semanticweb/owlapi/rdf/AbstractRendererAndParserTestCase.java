@@ -30,6 +30,7 @@ import org.semanticweb.owlapi.model.OWLLogicalAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParser;
+import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParserFactory;
 import org.semanticweb.owlapi.rdf.rdfxml.renderer.RDFXMLStorer;
 
 import uk.ac.manchester.cs.owl.owlapi.EmptyInMemOWLOntologyFactory;
@@ -57,7 +58,7 @@ public abstract class AbstractRendererAndParserTestCase extends TestBase {
                 new EmptyInMemOWLOntologyFactory(builder),
                 new ParsableOWLOntologyFactory(builder));
         man.getOntologyStorers().add(new RDFXMLStorer());
-        man.getOntologyParsers().add(new RDFXMLParser());
+        man.getOntologyParsers().add(new RDFXMLParserFactory());
     }
 
     @Nonnull
