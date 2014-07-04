@@ -16,23 +16,38 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.annotations.OwlapiModule;
 import org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxOWLParser;
+import org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxOWLParserFactory;
 import org.semanticweb.owlapi.functional.renderer.FunctionalSyntaxStorer;
+import org.semanticweb.owlapi.functional.renderer.FunctionalSyntaxStorerFactory;
 import org.semanticweb.owlapi.io.OWLParser;
+import org.semanticweb.owlapi.io.OWLParserFactory;
 import org.semanticweb.owlapi.krss2.parser.KRSS2OWLParser;
+import org.semanticweb.owlapi.krss2.parser.KRSS2OWLParserFactory;
 import org.semanticweb.owlapi.krss2.renderer.KRSS2OWLSyntaxStorer;
+import org.semanticweb.owlapi.krss2.renderer.KRSS2OWLSyntaxStorerFactory;
 import org.semanticweb.owlapi.latex.renderer.LatexStorer;
+import org.semanticweb.owlapi.latex.renderer.LatexStorerFactory;
 import org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxOntologyParser;
+import org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxOntologyParserFactory;
 import org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxParserImpl;
 import org.semanticweb.owlapi.mansyntax.renderer.ManchesterSyntaxStorer;
+import org.semanticweb.owlapi.mansyntax.renderer.ManchesterSyntaxStorerFactory;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLStorer;
+import org.semanticweb.owlapi.model.OWLStorerFactory;
 import org.semanticweb.owlapi.owlxml.parser.OWLXMLParser;
+import org.semanticweb.owlapi.owlxml.parser.OWLXMLParserFactory;
 import org.semanticweb.owlapi.owlxml.renderer.OWLXMLStorer;
+import org.semanticweb.owlapi.owlxml.renderer.OWLXMLStorerFactory;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParser;
+import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParserFactory;
 import org.semanticweb.owlapi.rdf.rdfxml.renderer.RDFXMLStorer;
+import org.semanticweb.owlapi.rdf.rdfxml.renderer.RDFXMLStorerFactory;
 import org.semanticweb.owlapi.rdf.turtle.parser.TurtleOntologyParser;
+import org.semanticweb.owlapi.rdf.turtle.parser.TurtleOntologyParserFactory;
 import org.semanticweb.owlapi.rdf.turtle.renderer.TurtleStorer;
+import org.semanticweb.owlapi.rdf.turtle.renderer.TurtleStorerFactory;
 import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
 
 import com.google.inject.AbstractModule;
@@ -55,17 +70,17 @@ public class OWLAPIParsersModule extends AbstractModule {
     }
 
     protected void configureStorers() {
-        multibind(OWLStorer.class, RDFXMLStorer.class, OWLXMLStorer.class,
-                FunctionalSyntaxStorer.class, ManchesterSyntaxStorer.class,
-                KRSS2OWLSyntaxStorer.class, TurtleStorer.class,
-                LatexStorer.class);
+        multibind(OWLStorerFactory.class, RDFXMLStorerFactory.class, OWLXMLStorerFactory.class,
+                FunctionalSyntaxStorerFactory.class, ManchesterSyntaxStorerFactory.class,
+                KRSS2OWLSyntaxStorerFactory.class, TurtleStorerFactory.class,
+                LatexStorerFactory.class);
     }
 
     protected void configureParsers() {
-        multibind(OWLParser.class, ManchesterOWLSyntaxOntologyParser.class,
-                KRSS2OWLParser.class, TurtleOntologyParser.class,
-                OWLFunctionalSyntaxOWLParser.class, OWLXMLParser.class,
-                RDFXMLParser.class);
+        multibind(OWLParserFactory.class, ManchesterOWLSyntaxOntologyParserFactory.class,
+                KRSS2OWLParserFactory.class, TurtleOntologyParserFactory.class,
+                OWLFunctionalSyntaxOWLParserFactory.class, OWLXMLParserFactory.class,
+                RDFXMLParserFactory.class);
     }
 
     @SafeVarargs
