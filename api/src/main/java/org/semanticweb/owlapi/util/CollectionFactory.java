@@ -54,6 +54,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.semanticweb.owlapi.model.OWLObject;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -61,7 +65,48 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  */
 public class CollectionFactory {
 
+    private static final Logger logger = Logger
+            .getLogger(CollectionFactory.class.getName());
     private static final AtomicInteger expectedThreads = new AtomicInteger(8);
+
+    /**
+     * Sort the input collection; if the ordering is unstable and an error is
+     * thrown (due to the use of TimSort in JDK 1.7 and newer), catch it and
+     * leave the collection unsorted. NOTE: use this method if ordering is
+     * desirable but not necessary.
+     * 
+     * @param toReturn
+     *        list to sort
+     */
+    public static <T extends Comparable<T>> void sortOptionallyComparables(
+            List<T> toReturn) {
+        try {
+            Collections.sort(toReturn);
+        } catch (IllegalArgumentException e) {
+            // catch possible sorting misbehaviour
+            if (!e.getMessage().contains(
+                    "Comparison method violates its general contract!")) {
+                throw e;
+            }
+            // otherwise print a warning and leave the list unsorted
+            logger.log(Level.WARNING,
+                    "Misbehaving triple comparator, leaving triples unsorted: "
+                            + toReturn, e);
+        }
+    }
+
+    /**
+     * Sort the input collection; if the ordering is unstable and an error is
+     * thrown (due to the use of TimSort in JDK 1.7 and newer), catch it and
+     * leave the collection unsorted. NOTE: use this method if ordering is
+     * desirable but not necessary.
+     * 
+     * @param toReturn
+     *        list to sort
+     */
+    public static void sortOptionally(List<? extends OWLObject> toReturn) {
+        sortOptionallyComparables((List<Comparable>) toReturn);
+    }
 
     /**
      * @param value

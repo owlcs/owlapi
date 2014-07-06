@@ -53,8 +53,8 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.NNF;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 26-Oct-2006
  */
 public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
         CollectionContainer<OWLAnnotation> {
@@ -71,7 +71,7 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
         super();
         if (!annotations.isEmpty()) {
             this.annotations = new ArrayList<OWLAnnotation>(annotations);
-            Collections.sort(this.annotations);
+            CollectionFactory.sortOptionally(this.annotations);
         } else {
             this.annotations = Collections.emptyList();
         }

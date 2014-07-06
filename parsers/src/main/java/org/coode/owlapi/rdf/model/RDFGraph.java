@@ -48,12 +48,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.semanticweb.owlapi.util.CollectionFactory;
+
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 06-Dec-2006
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 06-Dec-2006
  */
 public class RDFGraph {
 
@@ -132,19 +133,7 @@ public class RDFGraph {
             toReturn.addAll(set);
         }
         if (sort) {
-            try {
-                Collections.sort(toReturn);
-            } catch (IllegalArgumentException e) {
-                // catch possible sorting misbehaviour
-                if (!e.getMessage().contains(
-                        "Comparison method violates its general contract!")) {
-                    throw e;
-                }
-                // otherwise print a warning and leave the list unsorted
-                logger.log(Level.WARNING,
-                        "Misbehaving triple comparator, leaving triples unsorted: "
-                                + toReturn, e);
-            }
+            CollectionFactory.sortOptionallyComparables(toReturn);
         }
         return toReturn;
     }
@@ -166,19 +155,7 @@ public class RDFGraph {
             return set;
         }
         List<RDFTriple> toReturn = new ArrayList<RDFTriple>(set);
-        try {
-            Collections.sort(toReturn);
-        } catch (IllegalArgumentException e) {
-            // catch possible sorting misbehaviour
-            if (!e.getMessage().contains(
-                    "Comparison method violates its general contract!")) {
-                throw e;
-            }
-            // otherwise print a warning and leave the list unsorted
-            logger.log(Level.WARNING,
-                    "Misbehaving triple comparator, leaving triples unsorted: "
-                            + toReturn, e);
-        }
+        CollectionFactory.sortOptionallyComparables(toReturn);
         return toReturn;
     }
 

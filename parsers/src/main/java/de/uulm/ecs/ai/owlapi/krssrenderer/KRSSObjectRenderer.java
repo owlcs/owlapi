@@ -45,7 +45,6 @@ import java.io.PrintWriter;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -144,6 +143,7 @@ import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
 import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
+import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
  * A {@code KRSSObjectRenderer} renderes an OWLOntology in the original KRSS
@@ -330,7 +330,7 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
 
     protected <T extends OWLObject> List<T> sort(Collection<T> objects) {
         List<T> sortedDescriptions = new ArrayList<T>(objects);
-        Collections.sort(sortedDescriptions);
+        CollectionFactory.sortOptionally(sortedDescriptions);
         return sortedDescriptions;
     }
 

@@ -41,7 +41,6 @@ package org.coode.owlapi.owlxml.renderer;
 import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.*;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -136,6 +135,7 @@ import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
 import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
+import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -170,7 +170,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
             annotation.accept(this);
         }
         List<OWLAxiom> axioms = new ArrayList<OWLAxiom>(ontology.getAxioms());
-        Collections.sort(axioms);
+        CollectionFactory.sortOptionally(axioms);
         for (OWLAxiom ax : axioms) {
             ax.accept(this);
         }

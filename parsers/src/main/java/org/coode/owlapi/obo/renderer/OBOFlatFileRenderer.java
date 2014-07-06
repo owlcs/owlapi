@@ -43,7 +43,6 @@ import java.io.Writer;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -83,6 +82,7 @@ import org.semanticweb.owlapi.model.OWLRestriction;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
+import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.NamespaceUtil;
 import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 import org.semanticweb.owlapi.util.VersionInfo;
@@ -221,7 +221,7 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements
                 writer);
         final List<OWLClass> sortedClasses = new ArrayList<OWLClass>(
                 ontology.getClassesInSignature());
-        Collections.sort(sortedClasses);
+        CollectionFactory.sortOptionally(sortedClasses);
         for (OWLClass cls : sortedClasses) {
             writeTermStanza(cls, ontology, writer);
         }
@@ -229,13 +229,13 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements
                 writer);
         final List<OWLObjectProperty> objProps = new ArrayList<OWLObjectProperty>(
                 ontology.getObjectPropertiesInSignature());
-        Collections.sort(objProps);
+        CollectionFactory.sortOptionally(objProps);
         for (OWLObjectProperty property : objProps) {
             writeTypeDefStanza(property, ontology, writer);
         }
         final List<OWLDataProperty> dataProps = new ArrayList<OWLDataProperty>(
                 ontology.getDataPropertiesInSignature());
-        Collections.sort(dataProps);
+        CollectionFactory.sortOptionally(dataProps);
         for (OWLDataProperty property : dataProps) {
             writeTypeDefStanza(property, ontology, writer);
         }
@@ -243,7 +243,7 @@ public class OBOFlatFileRenderer extends AbstractOWLRenderer implements
                 writer);
         final List<OWLNamedIndividual> individuals = new ArrayList<OWLNamedIndividual>(
                 ontology.getIndividualsInSignature());
-        Collections.sort(individuals);
+        CollectionFactory.sortOptionally(individuals);
         for (OWLNamedIndividual individual : individuals) {
             writeInstanceStanza(individual, ontology, writer);
         }

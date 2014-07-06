@@ -44,13 +44,13 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.EscapeUtils;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
@@ -257,7 +257,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
         Set<OWLAxiom> writtenAxioms = new HashSet<OWLAxiom>();
         List<OWLEntity> signature = new ArrayList<OWLEntity>(
                 ontology1.getSignature());
-        Collections.sort(signature);
+        CollectionFactory.sortOptionally(signature);
         for (OWLEntity ent : signature) {
             writeDeclarations(ent, writtenAxioms);
         }
@@ -339,7 +339,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
                         return ontology.getAxioms(property);
                     }
                 }));
-        Collections.sort(axs);
+        CollectionFactory.sortOptionally(axs);
         for (OWLAxiom ax : axs) {
             if (alreadyWrittenAxioms.contains(ax)) {
                 continue;
