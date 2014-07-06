@@ -27,6 +27,7 @@ import org.semanticweb.owlapi.rio.RioTrixStorerFactory;
 import org.semanticweb.owlapi.rio.RioTurtleStorerFactory;
 import org.semanticweb.owlapi.util.PriorityCollection;
 
+@SuppressWarnings("javadoc")
 public class PriorityCollectionTestCase {
 
     @Test

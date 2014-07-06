@@ -33,8 +33,6 @@ import org.semanticweb.owlapi.io.RDFResource;
 import org.semanticweb.owlapi.io.RDFResourceBlankNode;
 import org.semanticweb.owlapi.io.RDFTriple;
 import org.semanticweb.owlapi.util.CollectionFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -43,8 +41,6 @@ import org.slf4j.LoggerFactory;
  */
 public class RDFGraph implements Serializable {
 
-    private static final Logger logger = LoggerFactory
-            .getLogger(RDFGraph.class);
     private static final long serialVersionUID = 40000L;
     @Nonnull
     private final Map<RDFResource, Set<RDFTriple>> triplesBySubject = new HashMap<>();
