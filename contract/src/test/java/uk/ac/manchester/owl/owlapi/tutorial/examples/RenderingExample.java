@@ -22,7 +22,6 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 import uk.ac.manchester.owl.owlapi.tutorialowled2011.OWLTutorialSyntaxOntologyFormat;
-import uk.ac.manchester.owl.owlapi.tutorialowled2011.TutorialSyntaxStorer;
 import uk.ac.manchester.owl.owlapi.tutorialowled2011.TutorialSyntaxStorerFactory;
 
 /**

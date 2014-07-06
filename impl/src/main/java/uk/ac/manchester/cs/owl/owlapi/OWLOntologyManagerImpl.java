@@ -45,7 +45,6 @@ import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSourceBase;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 import org.semanticweb.owlapi.io.OWLOntologyStorageIOException;
-import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserFactory;
 import org.semanticweb.owlapi.io.OntologyIRIMappingNotFoundException;
 import org.semanticweb.owlapi.io.StreamDocumentSource;
@@ -90,7 +89,6 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyRenameException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
-import org.semanticweb.owlapi.model.OWLStorer;
 import org.semanticweb.owlapi.model.OWLStorerFactory;
 import org.semanticweb.owlapi.model.OWLStorerNotFoundException;
 import org.semanticweb.owlapi.model.RemoveAxiom;
@@ -1058,8 +1056,10 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
             throws OWLOntologyStorageException {
         try {
             for (OWLStorerFactory storer : ontologyStorers) {
-                if (storer.getFormatFactory().getKey().equals(ontologyFormat.getKey())) {
-                    storer.get().storeOntology(ontology, documentIRI, ontologyFormat);
+                if (storer.getFormatFactory().getKey()
+                        .equals(ontologyFormat.getKey())) {
+                    storer.get().storeOntology(ontology, documentIRI,
+                            ontologyFormat);
                     return;
                 }
             }
@@ -1095,9 +1095,11 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
             OWLDocumentFormat ontologyFormat,
             OWLOntologyDocumentTarget documentTarget)
             throws OWLOntologyStorageException {
+        String formatKey = ontologyFormat.getKey();
         try {
             for (OWLStorerFactory storer : ontologyStorers) {
-                if (storer.getFormatFactory().getKey().equals(ontologyFormat.getKey())) {
+                String key = storer.getFormatFactory().getKey();
+                if (key.equals(formatKey)) {
                     storer.get().storeOntology(ontology, documentTarget,
                             ontologyFormat);
                     return;

@@ -7,9 +7,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
-import java.util.concurrent.ConcurrentSkipListSet;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.annotation.Nonnull;
 
@@ -29,8 +26,10 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>,
         Serializable {
 
     private static final long serialVersionUID = 40000L;
+    @SuppressWarnings("null")
     @Nonnull
-    private final Set<T> delegate = new ConcurrentSkipListSet<>(new HasPriorityComparator<>());
+    private final List<T> delegate = Collections
+            .synchronizedList(new ArrayList<T>());
 
     /** @return true if the collection is empty */
     public boolean isEmpty() {
@@ -42,6 +41,10 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>,
      */
     public int size() {
         return delegate.size();
+    }
+
+    private void sort() {
+        Collections.sort(delegate, new HasPriorityComparator<>());
     }
 
     /**
@@ -78,6 +81,7 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>,
         for (T t : c) {
             delegate.add(t);
         }
+        sort();
     }
 
     /**
@@ -90,6 +94,7 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>,
         for (T t : c) {
             delegate.add(t);
         }
+        sort();
     }
 
     /**
@@ -125,9 +130,8 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>,
      * are always unique, the correct item will always be chosen
      * 
      * @param mimeType
-     *        A MIME type to return an {@link OWLDocumentFormatFactory} for
-     * @return An {@link OWLDocumentFormatFactory} matching the given mime type
-     *         or null if none were found.
+     *        A MIME type to use for choosing an item
+     * @return An item matching the given mime type or null if none were found.
      */
     public PriorityCollection<T> getByMIMEType(@Nonnull String mimeType) {
         checkNotNull(mimeType, "MIME-Type cannot be null");
@@ -148,5 +152,10 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>,
             }
         }
         return pc;
+    }
+
+    @Override
+    public String toString() {
+        return delegate.toString();
     }
 }

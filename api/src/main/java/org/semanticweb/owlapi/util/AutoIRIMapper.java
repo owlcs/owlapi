@@ -33,6 +33,7 @@ import javax.annotation.Nullable;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 
+import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSourceBase;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
@@ -52,6 +53,7 @@ import org.xml.sax.helpers.DefaultHandler;
  *         Informatics Group
  * @since 2.0.0
  */
+@HasPriority(1)
 public class AutoIRIMapper extends DefaultHandler implements
         OWLOntologyIRIMapper, Serializable {
 

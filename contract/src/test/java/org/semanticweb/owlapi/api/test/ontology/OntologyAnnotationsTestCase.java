@@ -41,7 +41,7 @@ public class OntologyAnnotationsTestCase extends AbstractRoundTrippingTestCase {
     }
 
     @Override
-    public void testRDFJSON() throws Exception {
+    public void testRDFJSON() {
         // XXX ignored. The parser parses the annotation correctly but it is not
         // associated to the ontology.
         // super.testRDFJSON();

@@ -17,6 +17,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
 
@@ -25,6 +26,7 @@ import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
  *         Informatics Group
  * @since 2.0.0
  */
+@HasPriority(0)
 public class SimpleIRIMapper implements OWLOntologyIRIMapper {
 
     private static final long serialVersionUID = 40000L;

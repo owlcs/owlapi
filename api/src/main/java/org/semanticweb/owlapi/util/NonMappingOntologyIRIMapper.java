@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.util;
 
 import java.io.Serializable;
 
+import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
 
@@ -25,6 +26,7 @@ import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
  *         Informatics Group
  * @since 2.0.0
  */
+@HasPriority(10)
 public class NonMappingOntologyIRIMapper implements OWLOntologyIRIMapper,
         Serializable {
 
