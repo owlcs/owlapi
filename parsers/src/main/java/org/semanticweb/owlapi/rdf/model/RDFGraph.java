@@ -17,12 +17,10 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.io.IOException;
 import java.io.Serializable;
 import java.io.Writer;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -94,9 +92,7 @@ public class RDFGraph implements Serializable {
         if (!sort) {
             return set;
         }
-        List<RDFTriple> toReturn = new ArrayList<>(set);
-        CollectionFactory.sortOptionallyComparables(toReturn);
-        return toReturn;
+        return CollectionFactory.sortOptionallyComparables(set);
     }
 
     /** @return root anonymous nodes */

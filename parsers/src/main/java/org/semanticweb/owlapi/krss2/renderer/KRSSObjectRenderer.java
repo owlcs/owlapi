@@ -261,20 +261,17 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
     @Nonnull
     protected static <T extends OWLObject> List<T> sort(
             @Nonnull Collection<T> objects) {
-        List<T> sortedDescriptions = new ArrayList<>(objects);
-        CollectionFactory.sortOptionally(sortedDescriptions);
-        return sortedDescriptions;
+        return CollectionFactory.sortOptionally(objects);
     }
 
     @Nonnull
     protected static <T extends OWLObject> List<T> sort(
             @Nonnull Iterable<T> objects) {
-        List<T> sortedDescriptions = new ArrayList<>();
+        Collection<T> sortedDescriptions = new ArrayList<>();
         for (T t : objects) {
             sortedDescriptions.add(t);
         }
-        CollectionFactory.sortOptionally(sortedDescriptions);
-        return sortedDescriptions;
+        return CollectionFactory.sortOptionally(sortedDescriptions);
     }
 
     protected void writeOpenBracket() {

@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static org.semanticweb.owlapi.util.CollectionFactory.*;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.ArrayList;
@@ -27,7 +28,6 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLNaryClassAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLPairwiseVisitor;
-import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -51,15 +51,13 @@ public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
             @Nonnull Set<? extends OWLClassExpression> classExpressions,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
-        this.classExpressions = new ArrayList<>(checkNotNull(classExpressions,
-                "classExpressions cannot be null"));
-        CollectionFactory.sortOptionally(this.classExpressions);
+        checkNotNull(classExpressions, "classExpressions cannot be null");
+        this.classExpressions = (List<OWLClassExpression>) sortOptionally(classExpressions);
     }
 
     @Override
     public Set<OWLClassExpression> getClassExpressions() {
-        return CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(classExpressions);
+        return getCopyOnRequestSetFromImmutableCollection(classExpressions);
     }
 
     @Override

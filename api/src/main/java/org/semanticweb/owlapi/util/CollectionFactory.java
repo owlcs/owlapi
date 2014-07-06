@@ -59,7 +59,7 @@ public class CollectionFactory {
      *        list to sort
      */
     public static <T extends Comparable<T>> void sortOptionallyComparables(
-            List<T> toReturn) {
+            @Nonnull List<T> toReturn) {
         try {
             Collections.sort(toReturn);
         } catch (IllegalArgumentException e) {
@@ -70,9 +70,11 @@ public class CollectionFactory {
             }
             // otherwise print a warning and leave the list unsorted
             logger.warn(
-                    "Misbehaving triple comparator, leaving triples unsorted", e);
+                    "Misbehaving triple comparator, leaving triples unsorted",
+                    e);
         }
     }
+
     /**
      * Sort the input collection; if the ordering is unstable and an error is
      * thrown (due to the use of TimSort in JDK 1.7 and newer), catch it and
@@ -82,7 +84,8 @@ public class CollectionFactory {
      * @param toReturn
      *        list to sort
      */
-    public static void sortOptionally(List<? extends OWLObject> toReturn) {
+    public static void sortOptionally(
+            @Nonnull List<? extends OWLObject> toReturn) {
         try {
             Collections.sort(toReturn);
         } catch (IllegalArgumentException e) {
@@ -93,8 +96,71 @@ public class CollectionFactory {
             }
             // otherwise print a warning and leave the list unsorted
             logger.warn(
-                    "Misbehaving triple comparator, leaving triples unsorted", e);
+                    "Misbehaving triple comparator, leaving triples unsorted",
+                    e);
         }
+    }
+
+    /**
+     * Sort a copy of the input collection; if the ordering is unstable and an
+     * error is thrown (due to the use of TimSort in JDK 1.7 and newer), catch
+     * it and leave the collection unsorted. NOTE: use this method if ordering
+     * is desirable but not necessary.
+     * 
+     * @param toReturn
+     *        collection to sort
+     * @return sorted copy of the input, if no errors are raised. Copy of the
+     *         original otherwise.
+     */
+    @Nonnull
+    public static <T extends Comparable<T>> List<T> sortOptionallyComparables(
+            @Nonnull Collection<T> toReturn) {
+        List<T> list = new ArrayList<>(toReturn);
+        try {
+            Collections.sort(list);
+        } catch (IllegalArgumentException e) {
+            // catch possible sorting misbehaviour
+            if (!e.getMessage().contains(
+                    "Comparison method violates its general contract!")) {
+                throw e;
+            }
+            // otherwise print a warning and leave the list unsorted
+            logger.warn(
+                    "Misbehaving triple comparator, leaving triples unsorted",
+                    e);
+        }
+        return list;
+    }
+
+    /**
+     * Sort a copy of the input collection; if the ordering is unstable and an
+     * error is thrown (due to the use of TimSort in JDK 1.7 and newer), catch
+     * it and leave the collection unsorted. NOTE: use this method if ordering
+     * is desirable but not necessary.
+     * 
+     * @param toReturn
+     *        collection to sort
+     * @return sorted copy of the input, if no errors are raised. Copy of the
+     *         original otherwise.
+     */
+    @Nonnull
+    public static <T extends OWLObject> List<T> sortOptionally(
+            @Nonnull Collection<T> toReturn) {
+        List<T> list = new ArrayList<>(toReturn);
+        try {
+            Collections.sort(list);
+        } catch (IllegalArgumentException e) {
+            // catch possible sorting misbehaviour
+            if (!e.getMessage().contains(
+                    "Comparison method violates its general contract!")) {
+                throw e;
+            }
+            // otherwise print a warning and leave the list unsorted
+            logger.warn(
+                    "Misbehaving triple comparator, leaving triples unsorted",
+                    e);
+        }
+        return list;
     }
 
     /**

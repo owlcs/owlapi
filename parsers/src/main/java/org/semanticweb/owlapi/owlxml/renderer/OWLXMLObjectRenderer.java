@@ -18,7 +18,6 @@ import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -185,14 +184,13 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
                 }
             }
         }
-        List<OWLAxiom> axioms = new ArrayList<>();
+        Collection<OWLAxiom> axioms = new ArrayList<>();
         for (AxiomType<?> t : AxiomType.AXIOM_TYPES) {
             if (!t.equals(AxiomType.DECLARATION)) {
                 axioms.addAll(ontology.getAxioms(t));
             }
         }
-        CollectionFactory.sortOptionally(axioms);
-        for (OWLAxiom ax : axioms) {
+        for (OWLAxiom ax : CollectionFactory.sortOptionally(axioms)) {
             ax.accept(this);
         }
     }

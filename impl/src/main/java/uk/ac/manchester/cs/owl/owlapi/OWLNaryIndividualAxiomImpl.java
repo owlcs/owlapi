@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static org.semanticweb.owlapi.util.CollectionFactory.*;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.ArrayList;
@@ -26,7 +27,6 @@ import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLNaryIndividualAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLPairwiseVisitor;
-import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -50,15 +50,13 @@ public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl
             @Nonnull Set<? extends OWLIndividual> individuals,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
-        this.individuals = new ArrayList<>(checkNotNull(individuals,
-                "individuals cannot be null"));
-        CollectionFactory.sortOptionally(this.individuals);
+        checkNotNull(individuals, "individuals cannot be null");
+        this.individuals = (List<OWLIndividual>) sortOptionally(individuals);
     }
 
     @Override
     public Set<OWLIndividual> getIndividuals() {
-        return CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(individuals);
+        return getCopyOnRequestSetFromImmutableCollection(individuals);
     }
 
     @Override

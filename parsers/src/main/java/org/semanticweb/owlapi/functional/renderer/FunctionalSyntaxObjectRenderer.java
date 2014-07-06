@@ -12,11 +12,12 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.functional.renderer;
 
+import static org.semanticweb.owlapi.model.parameters.Imports.*;
+import static org.semanticweb.owlapi.util.CollectionFactory.sortOptionally;
 import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.*;
 
 import java.io.IOException;
 import java.io.Writer;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -29,7 +30,6 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.model.parameters.Imports;
-import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.EscapeUtils;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
@@ -208,11 +208,9 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         }
         writeReturn();
         Set<OWLAxiom> writtenAxioms = new HashSet<>();
-        List<OWLEntity> signature = new ArrayList<>(ontology.getSignature());
-        CollectionFactory.sortOptionally(signature);
+        List<OWLEntity> signature = sortOptionally(ontology.getSignature());
         Collection<IRI> illegals = OWLDocumentFormat.determineIllegalPunnings(
-                addMissingDeclarations, signature,
-                ont.getPunnedIRIs(Imports.INCLUDED));
+                addMissingDeclarations, signature, ont.getPunnedIRIs(INCLUDED));
         for (OWLEntity ent : signature) {
             writeDeclarations(ent, writtenAxioms, illegals);
         }
@@ -247,45 +245,44 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
             @Nonnull Set<OWLAxiom> alreadyWrittenAxioms) {
         setFocusedObject(entity);
         writeAnnotations(entity, alreadyWrittenAxioms);
-        List<OWLAxiom> axs = new ArrayList<>();
-        axs.addAll(entity
-                .accept(new OWLEntityVisitorEx<Set<? extends OWLAxiom>>() {
+        List<? extends OWLAxiom> axs = entity
+                .accept(new OWLEntityVisitorEx<List<? extends OWLAxiom>>() {
 
                     @Override
-                    public Set<? extends OWLAxiom> visit(OWLClass cls) {
-                        return ont.getAxioms(cls, Imports.EXCLUDED);
+                    public List<? extends OWLAxiom> visit(OWLClass cls) {
+                        return sortOptionally(ont.getAxioms(cls, EXCLUDED));
                     }
 
                     @Override
-                    public Set<? extends OWLAxiom> visit(
+                    public List<? extends OWLAxiom> visit(
                             OWLObjectProperty property) {
-                        return ont.getAxioms(property, Imports.EXCLUDED);
+                        return sortOptionally(ont.getAxioms(property, EXCLUDED));
                     }
 
                     @Override
-                    public Set<? extends OWLAxiom> visit(
+                    public List<? extends OWLAxiom> visit(
                             OWLDataProperty property) {
-                        return ont.getAxioms(property, Imports.EXCLUDED);
+                        return sortOptionally(ont.getAxioms(property, EXCLUDED));
                     }
 
                     @Override
-                    public Set<? extends OWLAxiom> visit(
+                    public List<? extends OWLAxiom> visit(
                             OWLNamedIndividual individual) {
-                        return ont.getAxioms(individual, Imports.EXCLUDED);
+                        return sortOptionally(ont.getAxioms(individual,
+                                EXCLUDED));
                     }
 
                     @Override
-                    public Set<? extends OWLAxiom> visit(OWLDatatype datatype) {
-                        return ont.getAxioms(datatype, Imports.EXCLUDED);
+                    public List<? extends OWLAxiom> visit(OWLDatatype datatype) {
+                        return sortOptionally(ont.getAxioms(datatype, EXCLUDED));
                     }
 
                     @Override
-                    public Set<? extends OWLAxiom> visit(
+                    public List<? extends OWLAxiom> visit(
                             OWLAnnotationProperty property) {
-                        return ont.getAxioms(property, Imports.EXCLUDED);
+                        return sortOptionally(ont.getAxioms(property, EXCLUDED));
                     }
-                }));
-        CollectionFactory.sortOptionally(axs);
+                });
         Set<OWLAxiom> writtenAxioms = new HashSet<>();
         for (OWLAxiom ax : axs) {
             if (alreadyWrittenAxioms.contains(ax)) {

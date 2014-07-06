@@ -52,9 +52,9 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression>
     public OWLNaryPropertyAxiomImpl(@Nonnull Set<? extends P> properties,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
-        this.properties = new ArrayList<>(checkNotNull(properties,
-                "properties cannot be null"));
-        CollectionFactory.sortOptionally(this.properties);
+        checkNotNull(properties, "properties cannot be null");
+        this.properties = (List<P>) CollectionFactory
+                .sortOptionally(properties);
     }
 
     @Override
