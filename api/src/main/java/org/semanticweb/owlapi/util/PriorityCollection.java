@@ -7,11 +7,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
+import java.util.concurrent.ConcurrentSkipListSet;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.MIMETypeAware;
-import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 
 import com.google.common.collect.Iterators;
 
@@ -28,7 +30,7 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>,
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
-    private final List<T> delegate = new ArrayList<>();
+    private final Set<T> delegate = new ConcurrentSkipListSet<>(new HasPriorityComparator<>());
 
     /** @return true if the collection is empty */
     public boolean isEmpty() {
@@ -65,10 +67,6 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>,
         add(c);
     }
 
-    private void sort() {
-        Collections.sort(delegate, new HasPriorityComparator<>());
-    }
-
     /**
      * add the arguments and sort according to priority
      * 
@@ -78,9 +76,8 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>,
     @SafeVarargs
     public final void add(T... c) {
         for (T t : c) {
-            delegate.add(0, t);
+            delegate.add(t);
         }
-        sort();
     }
 
     /**
@@ -93,7 +90,6 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>,
         for (T t : c) {
             delegate.add(t);
         }
-        sort();
     }
 
     /**
