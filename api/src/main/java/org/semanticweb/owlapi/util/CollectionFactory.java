@@ -31,6 +31,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.semanticweb.owlapi.model.OWLObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
@@ -41,9 +45,57 @@ import com.google.common.collect.Sets;
  */
 public class CollectionFactory {
 
+    private static final Logger logger = LoggerFactory
+            .getLogger(CollectionFactory.class.getName());
     private static final AtomicInteger expectedThreads = new AtomicInteger(8);
 
-    private CollectionFactory() {}
+    /**
+     * Sort the input collection; if the ordering is unstable and an error is
+     * thrown (due to the use of TimSort in JDK 1.7 and newer), catch it and
+     * leave the collection unsorted. NOTE: use this method if ordering is
+     * desirable but not necessary.
+     * 
+     * @param toReturn
+     *        list to sort
+     */
+    public static <T extends Comparable<T>> void sortOptionallyComparables(
+            List<T> toReturn) {
+        try {
+            Collections.sort(toReturn);
+        } catch (IllegalArgumentException e) {
+            // catch possible sorting misbehaviour
+            if (!e.getMessage().contains(
+                    "Comparison method violates its general contract!")) {
+                throw e;
+            }
+            // otherwise print a warning and leave the list unsorted
+            logger.warn(
+                    "Misbehaving triple comparator, leaving triples unsorted", e);
+        }
+    }
+    /**
+     * Sort the input collection; if the ordering is unstable and an error is
+     * thrown (due to the use of TimSort in JDK 1.7 and newer), catch it and
+     * leave the collection unsorted. NOTE: use this method if ordering is
+     * desirable but not necessary.
+     * 
+     * @param toReturn
+     *        list to sort
+     */
+    public static void sortOptionally(List<? extends OWLObject> toReturn) {
+        try {
+            Collections.sort(toReturn);
+        } catch (IllegalArgumentException e) {
+            // catch possible sorting misbehaviour
+            if (!e.getMessage().contains(
+                    "Comparison method violates its general contract!")) {
+                throw e;
+            }
+            // otherwise print a warning and leave the list unsorted
+            logger.warn(
+                    "Misbehaving triple comparator, leaving triples unsorted", e);
+        }
+    }
 
     /**
      * Wrapper for Collections.emptySet() to allow nullity annotations.

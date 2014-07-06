@@ -22,7 +22,6 @@ import java.io.PrintWriter;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -67,6 +66,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.search.Filters;
+import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLObjectVisitorAdapter;
 
 /**
@@ -262,7 +262,7 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
     protected static <T extends OWLObject> List<T> sort(
             @Nonnull Collection<T> objects) {
         List<T> sortedDescriptions = new ArrayList<>(objects);
-        Collections.sort(sortedDescriptions);
+        CollectionFactory.sortOptionally(sortedDescriptions);
         return sortedDescriptions;
     }
 
@@ -273,7 +273,7 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
         for (T t : objects) {
             sortedDescriptions.add(t);
         }
-        Collections.sort(sortedDescriptions);
+        CollectionFactory.sortOptionally(sortedDescriptions);
         return sortedDescriptions;
     }
 

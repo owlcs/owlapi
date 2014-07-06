@@ -32,6 +32,7 @@ import org.semanticweb.owlapi.io.RDFNode;
 import org.semanticweb.owlapi.io.RDFResource;
 import org.semanticweb.owlapi.io.RDFResourceBlankNode;
 import org.semanticweb.owlapi.io.RDFTriple;
+import org.semanticweb.owlapi.util.CollectionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -98,19 +99,7 @@ public class RDFGraph implements Serializable {
             return set;
         }
         List<RDFTriple> toReturn = new ArrayList<>(set);
-        try {
-            Collections.sort(toReturn);
-        } catch (IllegalArgumentException e) {
-            // catch possible sorting misbehaviour
-            if (!e.getMessage().contains(
-                    "Comparison method violates its general contract!")) {
-                throw e;
-            }
-            // otherwise print a warning and leave the list unsorted
-            logger.warn(
-                    "Misbehaving triple comparator, leaving triples unsorted: {} {}",
-                    e, toReturn);
-        }
+        CollectionFactory.sortOptionallyComparables(toReturn);
         return toReturn;
     }
 

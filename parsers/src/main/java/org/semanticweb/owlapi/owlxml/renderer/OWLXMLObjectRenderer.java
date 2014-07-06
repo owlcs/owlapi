@@ -17,7 +17,6 @@ import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -119,6 +118,7 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.model.parameters.Imports;
+import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -191,7 +191,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
                 axioms.addAll(ontology.getAxioms(t));
             }
         }
-        Collections.sort(axioms);
+        CollectionFactory.sortOptionally(axioms);
         for (OWLAxiom ax : axioms) {
             ax.accept(this);
         }

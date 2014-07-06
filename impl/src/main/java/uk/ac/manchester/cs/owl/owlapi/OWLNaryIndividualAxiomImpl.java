@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -53,7 +52,7 @@ public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl
         super(annotations);
         this.individuals = new ArrayList<>(checkNotNull(individuals,
                 "individuals cannot be null"));
-        Collections.sort(this.individuals);
+        CollectionFactory.sortOptionally(this.individuals);
     }
 
     @Override

@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -54,7 +53,7 @@ public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
         super(annotations);
         this.classExpressions = new ArrayList<>(checkNotNull(classExpressions,
                 "classExpressions cannot be null"));
-        Collections.sort(this.classExpressions);
+        CollectionFactory.sortOptionally(this.classExpressions);
     }
 
     @Override

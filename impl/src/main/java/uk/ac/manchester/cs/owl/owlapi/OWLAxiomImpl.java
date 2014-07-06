@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -58,7 +57,7 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
         checkNotNull(annotations, "annotations cannot be null");
         if (!annotations.isEmpty()) {
             this.annotations = new ArrayList<>(annotations);
-            Collections.sort(this.annotations);
+            CollectionFactory.sortOptionally(this.annotations);
         } else {
             this.annotations = CollectionFactory.emptyList();
         }

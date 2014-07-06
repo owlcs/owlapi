@@ -17,7 +17,6 @@ import static org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntax.*;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -27,6 +26,7 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntax;
 import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.vocab.SWRLBuiltInsVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
@@ -54,7 +54,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     protected static List<? extends OWLObject> sort(
             @Nonnull Collection<? extends OWLObject> objects) {
         List<? extends OWLObject> sortedObjects = new ArrayList<>(objects);
-        Collections.sort(sortedObjects);
+        CollectionFactory.sortOptionally(sortedObjects);
         return sortedObjects;
     }
 

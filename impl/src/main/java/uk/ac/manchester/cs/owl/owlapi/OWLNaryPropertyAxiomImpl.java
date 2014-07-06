@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -55,7 +54,7 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression>
         super(annotations);
         this.properties = new ArrayList<>(checkNotNull(properties,
                 "properties cannot be null"));
-        Collections.sort(this.properties);
+        CollectionFactory.sortOptionally(this.properties);
     }
 
     @Override
