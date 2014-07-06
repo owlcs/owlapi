@@ -64,16 +64,16 @@ public class UnparsableOntologyException extends OWLOntologyCreationException {
         for (OWLParser parser : exceptions.keySet()) {
             msg.append(counter);
             msg.append(") ");
-            msg.append(parser.getName());
+            msg.append(parser.toString());
             msg.append('\n');
             counter++;
         }
         msg.append("\n\nDetailed logs:\n");
-        for (OWLParser parser : exceptions.keySet()) {
-            Throwable exception = exceptions.get(parser);
+        for (Map.Entry<OWLParser, OWLParserException> nextException : exceptions.entrySet()) {
+            Throwable exception = nextException.getValue();
             msg.append("--------------------------------------------------------------------------------\n");
             msg.append("Parser: ");
-            msg.append(parser.getName());
+            msg.append(nextException.getKey().toString());
             msg.append('\n');
             if (!includeStackTraceInMessage) {
                 msg.append(exception.getMessage());
