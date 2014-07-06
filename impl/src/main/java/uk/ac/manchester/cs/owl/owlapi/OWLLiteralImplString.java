@@ -12,18 +12,28 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import java.util.Set;
+
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLAnnotationValueVisitor;
 import org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataVisitor;
 import org.semanticweb.owlapi.model.OWLDataVisitorEx;
 import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
@@ -33,7 +43,7 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 26-Oct-2006
  */
-public class OWLLiteralImplString extends OWLObjectImpl implements OWLLiteral {
+public class OWLLiteralImplString implements OWLLiteral {
 
     private static final long serialVersionUID = 30406L;
     @Nonnull
@@ -50,8 +60,7 @@ public class OWLLiteralImplString extends OWLObjectImpl implements OWLLiteral {
         this.literal = literal;
     }
 
-    @Override
-    protected int index() {
+    private static int index() {
         return OWLObjectTypeIndexProvider.DATA_TYPE_INDEX_BASE + 8;
     }
 
@@ -135,16 +144,19 @@ public class OWLLiteralImplString extends OWLObjectImpl implements OWLLiteral {
 
     @Override
     public boolean equals(Object obj) {
-        if (super.equals(obj)) {
-            if (!(obj instanceof OWLLiteral)) {
-                return false;
-            }
-            OWLLiteral other = (OWLLiteral) obj;
-            return getLiteral().equals(other.getLiteral())
-                    && getDatatype().equals(other.getDatatype())
-                    && getLang().equals(other.getLang());
+        if (obj == null) {
+            return false;
         }
-        return false;
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof OWLLiteral)) {
+            return false;
+        }
+        OWLLiteral other = (OWLLiteral) obj;
+        return getLiteral().equals(other.getLiteral())
+                && getDatatype().equals(other.getDatatype())
+                && getLang().equals(other.getLang());
     }
 
     @Override
@@ -167,7 +179,6 @@ public class OWLLiteralImplString extends OWLObjectImpl implements OWLLiteral {
         return visitor.visit(this);
     }
 
-    @Override
     protected int compareObjectOfSameType(OWLObject object) {
         OWLLiteral other = (OWLLiteral) object;
         int diff = getLiteral().compareTo(other.getLiteral());
@@ -189,5 +200,79 @@ public class OWLLiteralImplString extends OWLObjectImpl implements OWLLiteral {
     @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
+    }
+
+    @Override
+    public Set<OWLEntity> getSignature() {
+        return CollectionFactory.emptySet();
+    }
+
+    @Override
+    public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
+        return CollectionFactory.emptySet();
+    }
+
+    @Override
+    public Set<OWLClass> getClassesInSignature() {
+        return CollectionFactory.emptySet();
+    }
+
+    @Override
+    public Set<OWLDataProperty> getDataPropertiesInSignature() {
+        return CollectionFactory.emptySet();
+    }
+
+    @Override
+    public Set<OWLObjectProperty> getObjectPropertiesInSignature() {
+        return CollectionFactory.emptySet();
+    }
+
+    @Override
+    public Set<OWLNamedIndividual> getIndividualsInSignature() {
+        return CollectionFactory.emptySet();
+    }
+
+    @Override
+    public Set<OWLDatatype> getDatatypesInSignature() {
+        return CollectionFactory.emptySet();
+    }
+
+    @Override
+    public Set<OWLClassExpression> getNestedClassExpressions() {
+        return CollectionFactory.emptySet();
+    }
+
+    @Override
+    public boolean isTopEntity() {
+        return false;
+    }
+
+    @Override
+    public boolean isBottomEntity() {
+        return false;
+    }
+
+    @Override
+    public int compareTo(OWLObject o) {
+        int thisTypeIndex = index();
+        int otherTypeIndex = 0;
+        if (o instanceof OWLObjectImpl) {
+            otherTypeIndex = ((OWLObjectImpl) o).index();
+        } else {
+            otherTypeIndex = OWLObjectImpl.owlObjectTypeIndexProvider
+                    .getTypeIndex(o);
+        }
+        int diff = thisTypeIndex - otherTypeIndex;
+        if (diff == 0) {
+            // Objects are the same type
+            return compareObjectOfSameType(o);
+        } else {
+            return diff;
+        }
+    }
+
+    @Override
+    public boolean containsEntityInSignature(OWLEntity owlEntity) {
+        return false;
     }
 }

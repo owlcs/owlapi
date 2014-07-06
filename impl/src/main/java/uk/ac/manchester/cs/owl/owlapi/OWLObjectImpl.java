@@ -57,7 +57,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
     @Nonnull
     protected static final Set<OWLAnnotation> NO_ANNOTATIONS = CollectionFactory
             .emptySet();
-    private static final OWLObjectTypeIndexProvider owlObjectTypeIndexProvider = new OWLObjectTypeIndexProvider();
+    static final OWLObjectTypeIndexProvider owlObjectTypeIndexProvider = new OWLObjectTypeIndexProvider();
     private int hashCode = 0;
     @Nullable
     private transient WeakReference<Set<OWLEntity>> signature = null;
