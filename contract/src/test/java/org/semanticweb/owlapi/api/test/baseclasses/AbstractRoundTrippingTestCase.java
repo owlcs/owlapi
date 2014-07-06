@@ -17,8 +17,11 @@ import javax.annotation.Nonnull;
 import org.junit.Test;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
+import org.semanticweb.owlapi.formats.NQuadsDocumentFormat;
+import org.semanticweb.owlapi.formats.NTriplesDocumentFormat;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFJsonDocumentFormat;
+import org.semanticweb.owlapi.formats.RDFJsonLDDocumentFormat;
 import org.semanticweb.owlapi.formats.TrigDocumentFormat;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
@@ -82,5 +85,18 @@ public abstract class AbstractRoundTrippingTestCase extends TestBase {
         roundTripOntology(ont, new TrigDocumentFormat());
     }
 
+    @Test
+    public void testJSONLD() throws Exception {
+        roundTripOntology(ont, new RDFJsonLDDocumentFormat());
+    }
+    @Test
+    public void testNTriples() throws Exception {
+        roundTripOntology(ont, new NTriplesDocumentFormat());
+    }
+
+    @Test
+    public void testNQuads() throws Exception {
+        roundTripOntology(ont, new NQuadsDocumentFormat());
+    }
 
 }
