@@ -105,7 +105,19 @@ public class CollectionFactory {
      *        list to sort
      */
     public static void sortOptionally(List<? extends OWLObject> toReturn) {
-        sortOptionallyComparables((List<Comparable>) toReturn);
+        try {
+            Collections.sort(toReturn);
+        } catch (IllegalArgumentException e) {
+            // catch possible sorting misbehaviour
+            if (!e.getMessage().contains(
+                    "Comparison method violates its general contract!")) {
+                throw e;
+            }
+            // otherwise print a warning and leave the list unsorted
+            logger.log(Level.WARNING,
+                    "Misbehaving triple comparator, leaving triples unsorted: "
+                            + toReturn, e);
+        }
     }
 
     /**
