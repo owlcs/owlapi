@@ -1134,6 +1134,21 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     }
 
     @Override
+    public void addIRIMapper(OWLOntologyIRIMapper mapper) {
+        documentMappers.add(mapper);
+    }
+
+    @Override
+    public void removeIRIMapper(OWLOntologyIRIMapper mapper) {
+        documentMappers.remove(mapper);
+    }
+
+    @Override
+    public void clearIRIMappers() {
+        documentMappers.clear();
+    }
+
+    @Override
     @Inject
     public void setOntologyFactories(Set<OWLOntologyFactory> factories) {
         ontologyFactories.set(factories);

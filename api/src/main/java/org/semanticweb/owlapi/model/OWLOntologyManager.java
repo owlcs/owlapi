@@ -1042,6 +1042,30 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
             throws OWLOntologyStorageException;
 
     /**
+     * @param mapper
+     *        the mapper to add Add an IRI mapper to the manager
+     * @deprecated use getIRIMappers().add() instead
+     */
+    @Deprecated
+    void addIRIMapper(@Nonnull OWLOntologyIRIMapper mapper);
+
+    /**
+     * @param mapper
+     *        the mapper to remove remove an IRI mapper from the manager
+     * @deprecated use getIRIMappers().remove() instead
+     */
+    @Deprecated
+    void removeIRIMapper(@Nonnull OWLOntologyIRIMapper mapper);
+
+    /**
+     * Clear the manager mappers
+     * 
+     * @deprecated use getIRIMappers().clear() instead
+     */
+    @Deprecated
+    void clearIRIMappers();
+
+    /**
      * Set the collection of IRI mappers. It is used by Guice injection, but can
      * be used manually as well to replace the existing mappers with new ones.
      * The mappers are used to obtain ontology document IRIs for ontology IRIs.
