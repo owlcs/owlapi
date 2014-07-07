@@ -29,7 +29,13 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
 /**
  * An {@code OWLParser} parses an ontology document and adds the axioms of the
  * parsed ontology to the {@code OWLOntology} object passed to the {@code parse}
- * methods. OWLParsers are typically used by {@link OWLOntologyManager
+ * methods. <br>
+ * {@code OWLParser} implementations are supposed to be stateless, and therefore
+ * immutable. By default, implementation factories are injected in
+ * OWLOntologyManager instances by a Guice injector at creation in OWLManager.
+ * This is not mandatory, and a specific manager can have different
+ * implementations injected at any time after creation.<br>
+ * OWLParsers are typically used by {@link OWLOntologyManager
  * OWLOntologyManagers} to populate empty {@link OWLOntology OWLOntologies}, but
  * can be used to add axioms to an {@code OWLOntology} that already contains
  * axioms.<br>
