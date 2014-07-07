@@ -40,6 +40,19 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
     Set<OWLAxiom> getAxioms();
 
     /**
+     * @param b
+     *        true if imports are included Equivalent to
+     *        {@link #getAxioms(Imports)} with Imports.INCLUDED if b is true,
+     *        EXCLUDED otherwise.
+     * @return All of the axioms in this collection. The set is a copy of the
+     *         data.
+     * @deprecated use getAxioms(Imports) instead
+     */
+    @Nonnull
+    @Deprecated
+    Set<OWLAxiom> getAxioms(boolean b);
+
+    /**
      * @param includeImportsClosure
      *        if INCLUDED, include imports closure.
      * @return All of the axioms in this collection, and optionally in the

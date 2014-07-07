@@ -197,6 +197,14 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     }
 
     @Override
+    public Set<OWLAxiom> getAxioms(boolean b) {
+        if (b) {
+            return getAxioms(INCLUDED);
+        }
+        return getAxioms(EXCLUDED);
+    }
+
+    @Override
     public Set<OWLAxiom> getAxioms(Imports includeImportsClosure) {
         if (includeImportsClosure == EXCLUDED) {
             return ints.getAxioms();
