@@ -12,26 +12,32 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import java.util.List;
-
 import javax.annotation.Nonnull;
 
 /**
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group
- * @since 3.5
+ * @since 4.0.0
  */
-public interface HasApplyChanges {
+public interface HasOntologyChangeListeners {
 
     /**
-     * Applies a list ontology changes to some ontologies.
+     * Removes a previously added listener.
      * 
-     * @param changes
-     *        The changes to be applied.
-     * @return The changes that were actually applied.
-     * @throws OWLOntologyChangeException
-     *         If one or more of the changes could not be applied.
+     * @param listener
+     *        The listener to be removed.
      */
-    List<OWLOntologyChange> applyChanges(
-            @Nonnull List<? extends OWLOntologyChange> changes);
+    void removeOntologyChangeListener(
+            @Nonnull OWLOntologyChangeListener listener);
+
+    /**
+     * Adds an ontology change listener, which listens to all changes for all
+     * ontologies. To customise the changes/ontologies that are listened to, the
+     * {@code addOntologyChangeListener} method which takes a broadcast strategy
+     * as an argument should be used.
+     * 
+     * @param listener
+     *        The listener to be added.
+     */
+    void addOntologyChangeListener(@Nonnull OWLOntologyChangeListener listener);
 }

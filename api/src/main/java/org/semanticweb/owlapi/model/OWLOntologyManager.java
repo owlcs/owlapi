@@ -41,7 +41,7 @@ import org.semanticweb.owlapi.util.PriorityCollection;
  */
 public interface OWLOntologyManager extends OWLOntologySetProvider,
         HasDataFactory, HasGetOntologyById, HasApplyChanges, HasAddAxioms,
-        HasContainsOntology, Serializable {
+        HasContainsOntology, HasOntologyChangeListeners, Serializable {
 
     /**
      * Gets a data factory which can be used to create OWL API objects such as
@@ -1145,17 +1145,6 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
     PriorityCollection<OWLStorerFactory> getOntologyStorers();
 
     /**
-     * Adds an ontology change listener, which listens to all changes for all
-     * ontologies. To customise the changes/ontologies that are listened to, the
-     * {@code addOntologyChangeListener} method which takes a broadcast strategy
-     * as an argument should be used.
-     * 
-     * @param listener
-     *        The listener to be added.
-     */
-    void addOntologyChangeListener(@Nonnull OWLOntologyChangeListener listener);
-
-    /**
      * Adds an ontology change listener, which listens to ontology changes. An
      * ontology change broadcast strategy must be specified, which determines
      * the changes that are broadcast to the listener.
@@ -1208,15 +1197,6 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      */
     void setDefaultChangeBroadcastStrategy(
             @Nonnull OWLOntologyChangeBroadcastStrategy strategy);
-
-    /**
-     * Removes a previously added listener.
-     * 
-     * @param listener
-     *        The listener to be removed.
-     */
-    void removeOntologyChangeListener(
-            @Nonnull OWLOntologyChangeListener listener);
 
     /**
      * Requests that the manager loads an imported ontology that is described by
