@@ -50,6 +50,10 @@
 			<outputDirectory>.</outputDirectory>
 		</fileSet>
 		<fileSet>
+			<directory>../compatibility/src/main/java</directory>
+			<outputDirectory>.</outputDirectory>
+		</fileSet>
+		<fileSet>
 			<directory>../contract/src/main/java</directory>
 			<outputDirectory>.</outputDirectory>
 		</fileSet>

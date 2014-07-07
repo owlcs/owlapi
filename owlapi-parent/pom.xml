@@ -35,6 +35,7 @@
 		<module>contract</module>
 		<!-- The distribution module is a single-jar build of the whole OWL API. -->
 		<module>distribution</module>
+		<module>compatibilitydistribution</module>
 	</modules>
 
 
@@ -199,6 +200,25 @@
 								<Export-Package>{local-packages}</Export-Package>
 							</instructions>
 						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-shade-plugin</artifactId>
+						<version>2.3</version>
+						<executions>
+							<execution>
+								<phase>package</phase>
+								<goals>
+									<goal>shade</goal>
+								</goals>
+								<configuration>
+									<transformers>
+										<transformer
+											implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
+									</transformers>
+								</configuration>
+							</execution>
+						</executions>
 					</plugin>
 				</plugins>
 			</build>

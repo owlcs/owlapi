@@ -1,9 +1,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>owlapi-distribution</artifactId>
+	<artifactId>owlapi-compatibilitydistribution</artifactId>
 	<packaging>bundle</packaging>
-	<name>OWLAPI Distribution</name>
+	<name>OWLAPI Compatibility Distribution</name>
 
 	<parent>
 		<groupId>net.sourceforge.owlapi</groupId>
@@ -55,6 +55,11 @@
 			<artifactId>owlapi-rio</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>owlapi-compatibility</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -73,7 +78,7 @@
 							org.semanticweb.owlapi.*;-split-package:=merge-first,
 							org.semanticweb.owlapitools.*;-split-package:=merge-first,
 							uk.ac.manchester.*;-split-package:=merge-first,
-							org.obolibrary.*
+							org.obolibrary.*,org.coode.*,de.uulm.*
 						</Export-Package>
 					</instructions>
 					<executions>
@@ -124,6 +129,7 @@
 								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-tools</dependencySourceInclude>
 								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-impl</dependencySourceInclude>
 								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-oboparser</dependencySourceInclude>
+								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-compatibility</dependencySourceInclude>
 								<dependencySourceInclude>net.sourceforge.owlapi:owlapitools-fixers</dependencySourceInclude>
 							</dependencySourceIncludes>
 						</configuration>
