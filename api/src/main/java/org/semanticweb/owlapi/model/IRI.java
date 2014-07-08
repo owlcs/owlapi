@@ -345,7 +345,6 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
     private final String remainder;
     @Nonnull
     private final String namespace;
-    private int length;
 
     /**
      * Constructs an IRI which is built from the concatenation of the specified
@@ -359,7 +358,6 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
     protected IRI(@Nonnull String prefix, @Nullable String suffix) {
         namespace = cache(prefix);
         remainder = suffix == null ? "" : suffix;
-        length = prefix.length() + remainder.length();
     }
 
     /**

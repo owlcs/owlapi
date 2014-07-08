@@ -20,9 +20,10 @@ public abstract class OWLParserFactoryImpl implements OWLParserFactory {
         this.format = format;
     }
 
+    @SuppressWarnings("null")
     @Override
     public OWLDocumentFormatFactory getSupportedFormat() {
-        return this.format;
+        return format;
     }
 
     @Override
