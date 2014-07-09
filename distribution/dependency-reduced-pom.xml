@@ -46,6 +46,28 @@
               <goal>shade</goal>
             </goals>
             <configuration>
+              <artifactSet>
+                <excludes>
+                  <exclude>org.apache.felix:org.osgi.core</exclude>
+                  <exclude>org.openrdf.sesame:*</exclude>
+                  <exclude>com.fasterxml.jackson.core:*</exclude>
+                  <exclude>com.github.jsonld-java:*</exclude>
+                  <exclude>com.fasterxml.jackson.core:*</exclude>
+                  <exclude>org.apache.httpcomponents:*</exclude>
+                  <exclude>commons-codec:commons-codec:*</exclude>
+                  <exclude>org.slf4j:*</exclude>
+                  <exclude>org.semarglproject:*</exclude>
+                  <exclude>com.google.guava:*</exclude>
+                  <exclude>com.google.inject:*</exclude>
+                  <exclude>javax.inject:*</exclude>
+                  <exclude>aopalliance:*</exclude>
+                  <exclude>com.google.inject.extensions:*</exclude>
+                  <exclude>com.google.code.findbugs:*</exclude>
+                  <exclude>org.slf4j:slf4j-api</exclude>
+                  <exclude>org.apache.directory.studio:*</exclude>
+                  <exclude>commons-io:*</exclude>
+                </excludes>
+              </artifactSet>
               <transformers>
                 <transformer />
               </transformers>
@@ -71,7 +93,7 @@
                 <dependencySourceInclude>net.sourceforge.owlapi:owlapi-tools</dependencySourceInclude>
                 <dependencySourceInclude>net.sourceforge.owlapi:owlapi-impl</dependencySourceInclude>
                 <dependencySourceInclude>net.sourceforge.owlapi:owlapi-oboparser</dependencySourceInclude>
-                <dependencySourceInclude>net.sourceforge.owlapi:owlapitools-fixers</dependencySourceInclude>
+                <dependencySourceInclude>net.sourceforge.owlapi:owlapi-fixers</dependencySourceInclude>
               </dependencySourceIncludes>
             </configuration>
           </execution>
@@ -118,10 +140,46 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>17.0</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.google.inject</groupId>
+      <artifactId>guice</artifactId>
+      <version>4.0-beta</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.google.inject.extensions</groupId>
+      <artifactId>guice-multibindings</artifactId>
+      <version>4.0-beta</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.google.code.findbugs</groupId>
+      <artifactId>jsr305</artifactId>
+      <version>2.0.1</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>1.7.7</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-simple</artifactId>
       <version>1.7.7</version>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.directory.studio</groupId>
+      <artifactId>org.apache.commons.io</artifactId>
+      <version>2.4</version>
+      <scope>compile</scope>
     </dependency>
   </dependencies>
 </project>

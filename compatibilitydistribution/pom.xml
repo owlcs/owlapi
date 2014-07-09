@@ -47,7 +47,7 @@
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>owlapitools-fixers</artifactId>
+			<artifactId>owlapi-fixers</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
@@ -103,6 +103,28 @@
 							<goal>shade</goal>
 						</goals>
 						<configuration>
+							<artifactSet>
+								<excludes>
+									<exclude>org.apache.felix:org.osgi.core</exclude>
+									<exclude>org.openrdf.sesame:*</exclude>
+									<exclude>com.fasterxml.jackson.core:*</exclude>
+									<exclude>com.github.jsonld-java:*</exclude>
+									<exclude>com.fasterxml.jackson.core:*</exclude>
+									<exclude>org.apache.httpcomponents:*</exclude>
+									<exclude>commons-codec:commons-codec:*</exclude>
+									<exclude>org.slf4j:*</exclude>
+									<exclude>org.semarglproject:*</exclude>
+									<exclude>com.google.guava:*</exclude>
+									<exclude>com.google.inject:*</exclude>
+									<exclude>javax.inject:*</exclude>
+									<exclude>aopalliance:*</exclude>
+									<exclude>com.google.inject.extensions:*</exclude>
+									<exclude>com.google.code.findbugs:*</exclude>
+									<exclude>org.slf4j:slf4j-api</exclude>
+									<exclude>org.apache.directory.studio:*</exclude>
+									<exclude>commons-io:*</exclude>
+								</excludes>
+							</artifactSet>
 							<transformers>
 								<transformer
 									implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
@@ -130,7 +152,7 @@
 								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-impl</dependencySourceInclude>
 								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-oboparser</dependencySourceInclude>
 								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-compatibility</dependencySourceInclude>
-								<dependencySourceInclude>net.sourceforge.owlapi:owlapitools-fixers</dependencySourceInclude>
+								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-fixers</dependencySourceInclude>
 							</dependencySourceIncludes>
 						</configuration>
 					</execution>
