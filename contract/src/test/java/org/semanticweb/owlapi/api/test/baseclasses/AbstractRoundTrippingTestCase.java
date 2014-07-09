@@ -102,7 +102,7 @@ public abstract class AbstractRoundTrippingTestCase extends TestBase {
     }
 
     @Test
-    @Ignore
+    @Ignore("NQuad rendering appears to not be roundtrippable")
     public void testNQuads() throws Exception {
         roundTripOntology(ont, new NQuadsDocumentFormat());
     }
