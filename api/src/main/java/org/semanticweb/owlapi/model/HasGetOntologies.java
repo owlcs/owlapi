@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group
@@ -28,5 +30,6 @@ public interface HasGetOntologies {
      * 
      * @return The set of ontologies. Possibly empty. Not {@code null}.
      */
+    @Nonnull
     Set<OWLOntology> getOntologies();
 }

@@ -72,13 +72,13 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
 
     /**
      * Sets the manager for this ontology. This method is used when moving
-     * ontologies from one manager to another and should be used by
-     * OWLOntologyManager implementations only.
+     * ontologies from one manager to another and when removing an ontology form
+     * a manager, and should be used by OWLOntologyManager implementations only.
      * 
      * @param manager
      *        the new manager for this ontology
      */
-    void setOWLOntologyManager(@Nonnull OWLOntologyManager manager);
+    void setOWLOntologyManager(OWLOntologyManager manager);
 
     /**
      * Gets the identity of this ontology (i.e. ontology IRI + version IRI).

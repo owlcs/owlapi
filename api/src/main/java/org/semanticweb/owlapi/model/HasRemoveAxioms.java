@@ -38,6 +38,6 @@ public interface HasRemoveAxioms {
      *         if there was a problem removing the axioms
      */
     @Nonnull
-    List<OWLOntologyChange> removeAxioms(OWLOntology ont,
-            Set<? extends OWLAxiom> axioms);
+    List<OWLOntologyChange> removeAxioms(@Nonnull OWLOntology ont,
+            @Nonnull Set<? extends OWLAxiom> axioms);
 }

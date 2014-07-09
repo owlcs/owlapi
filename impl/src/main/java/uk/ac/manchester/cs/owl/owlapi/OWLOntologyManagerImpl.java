@@ -508,9 +508,14 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     }
 
     @Override
-    public List<OWLOntologyChange> addAxiom(@Nonnull OWLOntology ont,
+    public ChangeApplied addAxiom(@Nonnull OWLOntology ont,
             @Nonnull OWLAxiom axiom) {
-        return addAxioms(ont, CollectionFactory.createSet(axiom));
+        List<OWLOntologyChange> addAxioms = addAxioms(ont,
+                CollectionFactory.createSet(axiom));
+        if (addAxioms.isEmpty()) {
+            return ChangeApplied.UNSUCCESSFULLY;
+        }
+        return ChangeApplied.SUCCESSFULLY;
     }
 
     @Override
@@ -542,9 +547,13 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     }
 
     @Override
-    public List<OWLOntologyChange>
-            applyChange(@Nonnull OWLOntologyChange change) {
-        return applyChanges(CollectionFactory.list(change));
+    public ChangeApplied applyChange(@Nonnull OWLOntologyChange change) {
+        List<OWLOntologyChange> applyChanges = applyChanges(CollectionFactory
+                .list(change));
+        if (applyChanges.isEmpty()) {
+            return ChangeApplied.UNSUCCESSFULLY;
+        }
+        return ChangeApplied.SUCCESSFULLY;
     }
 
     private void checkForImportsChange(OWLOntologyChange change) {
@@ -965,6 +974,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     @Override
     public void removeOntology(OWLOntology ontology) {
         removeOntology(ontology.getOntologyID());
+        ontology.setOWLOntologyManager(null);
     }
 
     @Override

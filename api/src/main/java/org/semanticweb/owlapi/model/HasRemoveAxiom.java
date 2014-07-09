@@ -21,21 +21,22 @@ import javax.annotation.Nonnull;
  *         Research Group
  * @since 3.5
  */
-public interface HasApplyChanges {
+public interface HasRemoveAxiom {
 
     /**
-     * Applies a list ontology changes to a collection of ontologies. Note that
-     * the ontologies need to be managed by this manager, since import closures,
-     * ontology ids and configurations might be affected by the changes, and
-     * they are held by the manager.
+     * A convenience method that removes a single axiom from an ontology. The
+     * appropriate RemoveAxiom change object is automatically generated.
      * 
-     * @param changes
-     *        The changes to be applied.
-     * @return The changes that were actually applied.
+     * @param ont
+     *        The ontology to remove the axiom from.
+     * @param axiom
+     *        The axiom to be removed
+     * @return A list of ontology changes that represent the changes that
+     *         actually took place.
      * @throws OWLOntologyChangeException
-     *         If one or more of the changes could not be applied.
+     *         if there was a problem removing the axiom
      */
     @Nonnull
-    List<OWLOntologyChange> applyChanges(
-            @Nonnull List<? extends OWLOntologyChange> changes);
+    List<OWLOntologyChange> removeAxiom(@Nonnull OWLOntology ont,
+            @Nonnull OWLAxiom axiom);
 }

@@ -13,29 +13,28 @@
 package org.semanticweb.owlapi.model;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Nonnull;
 
 /**
+ * Interface for an object that accepts axiom additions (tipycally, an
+ * OWLOntology).
+ * 
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group
  * @since 3.5
  */
-public interface HasApplyChanges {
+public interface HasDirectAddAxioms {
 
     /**
-     * Applies a list ontology changes to a collection of ontologies. Note that
-     * the ontologies need to be managed by this manager, since import closures,
-     * ontology ids and configurations might be affected by the changes, and
-     * they are held by the manager.
+     * A convenience method that adds a set of axioms to an ontology. The
+     * appropriate AddAxiom change objects are automatically generated.
      * 
-     * @param changes
-     *        The changes to be applied.
-     * @return The changes that were actually applied.
-     * @throws OWLOntologyChangeException
-     *         If one or more of the changes could not be applied.
+     * @param axioms
+     *        The axioms to be added. Not {@code null}.
+     * @return A list of ontology changes that represent the changes which took
+     *         place in order to add the axioms.
      */
-    @Nonnull
-    List<OWLOntologyChange> applyChanges(
-            @Nonnull List<? extends OWLOntologyChange> changes);
+    List<OWLOntologyChange> addAxioms(@Nonnull Set<? extends OWLAxiom> axioms);
 }

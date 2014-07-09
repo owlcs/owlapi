@@ -12,30 +12,30 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import java.util.List;
-
 import javax.annotation.Nonnull;
+
+import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 
 /**
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group
- * @since 3.5
+ * @since 4.0.0
  */
-public interface HasApplyChanges {
+public interface HasAddAxiom {
 
     /**
-     * Applies a list ontology changes to a collection of ontologies. Note that
-     * the ontologies need to be managed by this manager, since import closures,
-     * ontology ids and configurations might be affected by the changes, and
-     * they are held by the manager.
+     * A convenience method that adds a single axiom to an ontology. The
+     * appropriate AddAxiom change object is automatically generated.
      * 
-     * @param changes
-     *        The changes to be applied.
-     * @return The changes that were actually applied.
+     * @param ont
+     *        The ontology to add the axiom to.
+     * @param axiom
+     *        The axiom to be added
+     * @return ChangeApplied.SUCCESSFULLY if the axiom is added,
+     *         ChangeApplied.UNSUCCESSFULLY otherwise.
      * @throws OWLOntologyChangeException
-     *         If one or more of the changes could not be applied.
+     *         if there was a problem adding the axiom
      */
     @Nonnull
-    List<OWLOntologyChange> applyChanges(
-            @Nonnull List<? extends OWLOntologyChange> changes);
+    ChangeApplied addAxiom(@Nonnull OWLOntology ont, @Nonnull OWLAxiom axiom);
 }

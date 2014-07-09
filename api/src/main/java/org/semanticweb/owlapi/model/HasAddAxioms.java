@@ -36,6 +36,7 @@ public interface HasAddAxioms {
      * @return A list of ontology changes that represent the changes which took
      *         place in order to add the axioms.
      */
+    @Nonnull
     List<OWLOntologyChange> addAxioms(@Nonnull OWLOntology ont,
             @Nonnull Set<? extends OWLAxiom> axioms);
 }

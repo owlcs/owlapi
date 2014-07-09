@@ -12,38 +12,11 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
-import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0
  */
-public interface OWLMutableOntology extends OWLOntology {
-
-    /**
-     * @param change
-     *        the change to apply
-     * @return {@link ChangeApplied#SUCCESSFULLY} if the change was applied,
-     *         {@link ChangeApplied#UNSUCCESSFULLY} otherwise
-     * @throws OWLOntologyChangeException
-     *         if errors happen
-     */
-    @Nonnull
-    ChangeApplied applyChange(@Nonnull OWLOntologyChange change);
-
-    /**
-     * @param changes
-     *        the changes to apply
-     * @return the list of ontology changes NOT applied
-     * @throws OWLOntologyChangeException
-     *         if errors happen
-     */
-    @Nonnull
-    List<OWLOntologyChange> applyChanges(
-            @Nonnull List<? extends OWLOntologyChange> changes);
-}
+public interface OWLMutableOntology extends OWLOntology, HasApplyChange,
+        HasApplyChanges, HasDirectAddAxiom, HasDirectAddAxioms {}

@@ -40,22 +40,9 @@ import org.semanticweb.owlapi.util.PriorityCollection;
  * @since 2.0.0
  */
 public interface OWLOntologyManager extends OWLOntologySetProvider,
-        HasDataFactory, HasGetOntologyById, HasApplyChanges, HasAddAxioms,
+        HasDataFactory, HasGetOntologyById, HasApplyChanges, HasApplyChange,
+        HasAddAxioms, HasAddAxiom, HasRemoveAxioms, HasRemoveAxiom,
         HasContainsOntology, HasOntologyChangeListeners, Serializable {
-
-    /**
-     * Gets a data factory which can be used to create OWL API objects such as
-     * classes, properties, individuals, axioms etc.
-     * 
-     * @return A reference to a data factory for creating OWL API objects.
-     */
-    @Nonnull
-    @Override
-    OWLDataFactory getOWLDataFactory();
-
-    @Nonnull
-    @Override
-    Set<OWLOntology> getOntologies();
 
     /**
      * Gets the ontologies that are managed by this manager that contain the
@@ -238,117 +225,6 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
     List<OWLOntology> getSortedImportsClosure(@Nonnull OWLOntology ontology);
 
     // Ontology change
-    /**
-     * Applies a list of changes to some or all of the ontologies that are
-     * managed by this manager. The changes will be applied to the appropriate
-     * ontologies.
-     * 
-     * @param changes
-     *        The changes to be applied.
-     * @return The changes that were actually applied.
-     * @throws OWLOntologyChangeException
-     *         If one or more of the changes could not be applied. See
-     *         subclasses of ontology change exception for more specific
-     *         details.
-     * @throws OWLOntologyRenameException
-     *         If one or more of the changes is an instance of
-     *         {@link org.semanticweb.owlapi.model.SetOntologyID} where the new
-     *         {@link org.semanticweb.owlapi.model.OWLOntologyID} already
-     *         belongs to an ontology managed by this manager.
-     */
-    @Nonnull
-    @Override
-    List<OWLOntologyChange> applyChanges(
-            @Nonnull List<? extends OWLOntologyChange> changes);
-
-    /**
-     * A convenience method that adds a set of axioms to an ontology. The
-     * appropriate AddAxiom change objects are automatically generated.
-     * 
-     * @param ont
-     *        The ontology to which the axioms should be added.
-     * @param axioms
-     *        The axioms to be added.
-     * @return A list of ontology changes that represent the changes which took
-     *         place in order to add the axioms.
-     * @throws OWLOntologyChangeException
-     *         if there was a problem adding the axioms
-     */
-    @Nonnull
-    @Override
-    List<OWLOntologyChange> addAxioms(@Nonnull OWLOntology ont,
-            @Nonnull Set<? extends OWLAxiom> axioms);
-
-    /**
-     * A convenience method that adds a single axiom to an ontology. The
-     * appropriate AddAxiom change object is automatically generated.
-     * 
-     * @param ont
-     *        The ontology to add the axiom to.
-     * @param axiom
-     *        The axiom to be added
-     * @return A list of ontology changes that represent the changes that
-     *         actually took place.
-     * @throws OWLOntologyChangeException
-     *         if there was a problem adding the axiom
-     */
-    @Nonnull
-    List<OWLOntologyChange> addAxiom(@Nonnull OWLOntology ont,
-            @Nonnull OWLAxiom axiom);
-
-    /**
-     * A convenience method that removes a single axiom from an ontology. The
-     * appropriate RemoveAxiom change object is automatically generated.
-     * 
-     * @param ont
-     *        The ontology to remove the axiom from.
-     * @param axiom
-     *        The axiom to be removed
-     * @return A list of ontology changes that represent the changes that
-     *         actually took place.
-     * @throws OWLOntologyChangeException
-     *         if there was a problem removing the axiom
-     */
-    @Nonnull
-    List<OWLOntologyChange> removeAxiom(@Nonnull OWLOntology ont,
-            @Nonnull OWLAxiom axiom);
-
-    /**
-     * A convenience method that removes a set of axioms from an ontology. The
-     * appropriate RemoveAxiom change objects are automatically generated.
-     * 
-     * @param ont
-     *        The ontology from which the axioms should be removed.
-     * @param axioms
-     *        The axioms to be removed.
-     * @return A list of ontology changes that represent the changes which took
-     *         place in order to remove the axioms.
-     * @throws OWLOntologyChangeException
-     *         if there was a problem removing the axioms
-     */
-    @Nonnull
-    List<OWLOntologyChange> removeAxioms(@Nonnull OWLOntology ont,
-            @Nonnull Set<? extends OWLAxiom> axioms);
-
-    /**
-     * A convenience method that applies just one change to an ontology that is
-     * managed by this manager.
-     * 
-     * @param change
-     *        The change to be applied
-     * @return The changes that resulted of the applied ontology change.
-     * @throws OWLOntologyChangeException
-     *         If the change could not be applied. See subclasses of ontology
-     *         change exception for more specific details.
-     * @throws OWLOntologyRenameException
-     *         If one or more of the changes is an instance of
-     *         {@link org.semanticweb.owlapi.model.SetOntologyID} where the new
-     *         {@link org.semanticweb.owlapi.model.OWLOntologyID} already
-     *         belongs to an ontology managed by this manager.
-     */
-    @Nonnull
-    List<OWLOntologyChange> applyChange(@Nonnull OWLOntologyChange change);
-
     // Ontology creation
     /**
      * Creates a new (empty) ontology that does not have an ontology IRI (and

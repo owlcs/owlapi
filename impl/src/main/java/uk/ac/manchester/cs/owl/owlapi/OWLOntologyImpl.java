@@ -17,12 +17,14 @@ import static org.semanticweb.owlapi.model.parameters.ChangeApplied.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
+import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLMutableOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyChangeVisitorEx;
@@ -73,6 +75,16 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements
             }
         }
         return appliedChanges;
+    }
+
+    @Override
+    public ChangeApplied addAxiom(OWLAxiom axiom) {
+        return getOWLOntologyManager().addAxiom(this, axiom);
+    }
+
+    @Override
+    public List<OWLOntologyChange> addAxioms(Set<? extends OWLAxiom> axioms) {
+        return getOWLOntologyManager().addAxioms(this, axioms);
     }
 
     protected class OWLOntologyChangeFilter implements
