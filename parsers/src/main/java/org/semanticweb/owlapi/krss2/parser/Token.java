@@ -14,6 +14,7 @@
 /* JavaCCOptions:TOKEN_EXTENDS=,KEEP_LINE_COL=null,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 package org.semanticweb.owlapi.krss2.parser;
 
+@SuppressWarnings("all")
 class Token implements java.io.Serializable {
 
     private static final long serialVersionUID = 40000L;

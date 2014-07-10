@@ -739,7 +739,6 @@ public class OBOFormatWriter {
         return result;
     }
 
-    @SuppressWarnings("null")
     private static void appendQualifiers(@Nonnull StringBuilder sb,
             @Nonnull Clause clause) {
         Collection<QualifierValue> qvs = clause.getQualifierValues();
@@ -750,8 +749,7 @@ public class OBOFormatWriter {
                 QualifierValue qv = qvsIterator.next();
                 sb.append(qv.getQualifier());
                 sb.append("=\"");
-                sb.append(escapeOboString(qv.getValue().toString(),
-                        EscapeMode.quotes));
+                sb.append(escapeOboString(qv.getValue(), EscapeMode.quotes));
                 sb.append('"');
                 if (qvsIterator.hasNext()) {
                     sb.append(", ");

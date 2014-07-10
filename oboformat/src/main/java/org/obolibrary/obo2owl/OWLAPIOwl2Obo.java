@@ -1257,6 +1257,7 @@ public class OWLAPIOwl2Obo {
             } else if (ann.getValue() instanceof IRI) {
                 value = getIdentifier((IRI) ann.getValue());
             }
+            assert value != null;
             QualifierValue qv = new QualifierValue(prop, value);
             c.addQualifierValue(qv);
         }
@@ -1366,6 +1367,7 @@ public class OWLAPIOwl2Obo {
      * @param ax
      *        the ax
      */
+    @SuppressWarnings("null")
     protected void tr(@Nonnull OWLEquivalentClassesAxiom ax) {
         /*
          * Assumption: the underlying data structure is a set The order is not
@@ -1599,7 +1601,7 @@ public class OWLAPIOwl2Obo {
         if (entity.isBottomEntity() || entity.isTopEntity()) {
             return;
         }
-        Set<OWLAnnotationAssertionAxiom> set = this.owlOntology
+        Set<OWLAnnotationAssertionAxiom> set = owlOntology
                 .getAnnotationAssertionAxioms(entity.getIRI());
         if (set.isEmpty()) {
             return;
@@ -2014,6 +2016,7 @@ public class OWLAPIOwl2Obo {
      * @param ax
      *        the ax
      */
+    @SuppressWarnings("null")
     protected void tr(@Nonnull OWLSubClassOfAxiom ax) {
         OWLClassExpression sub = ax.getSubClass();
         OWLClassExpression sup = ax.getSuperClass();
@@ -2197,6 +2200,7 @@ public class OWLAPIOwl2Obo {
      *        the ax
      * @return the clause
      */
+    @SuppressWarnings("null")
     @Nonnull
     protected Clause createRelationshipClauseWithCardinality(
             @Nonnull OWLObjectCardinalityRestriction restriction,
@@ -2346,6 +2350,7 @@ public class OWLAPIOwl2Obo {
      * @param newQV
      *        the new qv
      */
+    @SuppressWarnings("null")
     static void mergeQualifierValues(@Nonnull QualifierValue target,
             @Nonnull QualifierValue newQV) {
         // do nothing, if they are equal

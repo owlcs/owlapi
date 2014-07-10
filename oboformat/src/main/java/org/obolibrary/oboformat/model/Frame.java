@@ -165,7 +165,8 @@ public class Frame {
             sb.append(cl);
         }
         sb.append(')');
-        return sb.toString();
+        String string = sb.toString();
+        return string;
     }
 
     /**

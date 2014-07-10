@@ -2,6 +2,7 @@
 /* JavaCCOptions:TOKEN_EXTENDS=,KEEP_LINE_COL=null,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 package org.semanticweb.owlapi.rdf.turtle.parser;
 
+@SuppressWarnings("all")
 class Token implements java.io.Serializable {
 
     private static final long serialVersionUID = 1L;

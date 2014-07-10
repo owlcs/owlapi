@@ -196,7 +196,6 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
         write(renderEntity(checkNotNull(entity, "entity cannot be null")));
     }
 
-    @SuppressWarnings("null")
     protected void write(@Nonnull DLSyntax keyword) {
         write(checkNotNull(keyword, "keyword cannot be null").toString());
     }
