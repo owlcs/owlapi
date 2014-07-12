@@ -25,7 +25,7 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
  *         Management Group
  */
 public class UseOfTopDataPropertyAsSubPropertyInSubPropertyAxiom extends
-        OWLProfileViolation<OWLSubDataPropertyOfAxiom> {
+        OWLProfileViolation {
 
     /**
      * @param ontology
@@ -37,6 +37,11 @@ public class UseOfTopDataPropertyAsSubPropertyInSubPropertyAxiom extends
             @Nonnull OWLOntology ontology,
             @Nonnull OWLSubDataPropertyOfAxiom axiom) {
         super(ontology, axiom, axiom);
+    }
+
+    @Override
+    public OWLSubDataPropertyOfAxiom getExpression() {
+        return (OWLSubDataPropertyOfAxiom) super.getExpression();
     }
 
     @Override

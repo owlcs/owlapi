@@ -26,7 +26,7 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
  *         Management Group
  */
 public class UseOfReservedVocabularyForAnnotationPropertyIRI extends
-        OWLProfileViolation<OWLAnnotationProperty> {
+        OWLProfileViolation {
 
     /**
      * @param ontology
@@ -40,6 +40,11 @@ public class UseOfReservedVocabularyForAnnotationPropertyIRI extends
             @Nonnull OWLOntology ontology, @Nonnull OWLAxiom axiom,
             @Nonnull OWLAnnotationProperty property) {
         super(ontology, axiom, property);
+    }
+
+    @Override
+    public OWLAnnotationProperty getExpression() {
+        return (OWLAnnotationProperty) super.getExpression();
     }
 
     @Override

@@ -31,8 +31,7 @@ import com.google.common.base.Optional;
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
  */
-public class OntologyVersionIRINotAbsolute extends
-        OWLProfileViolation<OWLOntologyID> {
+public class OntologyVersionIRINotAbsolute extends OWLProfileViolation {
 
     /**
      * @param ontology
@@ -40,6 +39,11 @@ public class OntologyVersionIRINotAbsolute extends
      */
     public OntologyVersionIRINotAbsolute(@Nonnull OWLOntology ontology) {
         super(ontology, null, ontology.getOntologyID());
+    }
+
+    @Override
+    public OWLOntologyID getExpression() {
+        return (OWLOntologyID) super.getExpression();
     }
 
     @Override

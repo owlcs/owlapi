@@ -28,7 +28,7 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
  * 
  * @author ignazio
  */
-public class IllegalPunning extends OWLProfileViolation<IRI> {
+public class IllegalPunning extends OWLProfileViolation {
 
     /**
      * @param currentOntology
@@ -41,6 +41,11 @@ public class IllegalPunning extends OWLProfileViolation<IRI> {
     public IllegalPunning(@Nonnull OWLOntology currentOntology,
             @Nonnull OWLAxiom node, @Nonnull IRI iri) {
         super(currentOntology, node, checkNotNull(iri));
+    }
+
+    @Override
+    public IRI getExpression() {
+        return (IRI) super.getExpression();
     }
 
     @Override

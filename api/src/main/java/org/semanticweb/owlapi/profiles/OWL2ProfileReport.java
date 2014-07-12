@@ -40,7 +40,7 @@ public class OWL2ProfileReport extends OWLProfileReport {
      *        the collection of simple roles
      */
     public OWL2ProfileReport(OWLProfile profile,
-            Set<OWLProfileViolation<?>> disallowedConstructs,
+            Set<OWLProfileViolation> disallowedConstructs,
             Set<OWLObjectPropertyExpression> nonSimpleRoles,
             Set<OWLObjectPropertyExpression> simpleRoles) {
         super(profile, disallowedConstructs);

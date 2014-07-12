@@ -26,7 +26,7 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
  *         Management Group
  */
 public class UseOfDefinedDatatypeInDatatypeRestriction extends
-        OWLProfileViolation<OWLDatatypeRestriction> {
+        OWLProfileViolation {
 
     /**
      * @param ontology
@@ -40,6 +40,11 @@ public class UseOfDefinedDatatypeInDatatypeRestriction extends
             @Nonnull OWLOntology ontology, @Nonnull OWLAxiom axiom,
             @Nonnull OWLDatatypeRestriction restriction) {
         super(ontology, axiom, restriction);
+    }
+
+    @Override
+    public OWLDatatypeRestriction getExpression() {
+        return (OWLDatatypeRestriction) super.getExpression();
     }
 
     @Override

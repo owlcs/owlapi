@@ -25,8 +25,7 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
  */
-public class LastPropertyInChainNotInImposedRange extends
-        OWLProfileViolation<OWLObjectPropertyRangeAxiom> {
+public class LastPropertyInChainNotInImposedRange extends OWLProfileViolation {
 
     /**
      * @param ontology
@@ -40,6 +39,11 @@ public class LastPropertyInChainNotInImposedRange extends
             @Nonnull OWLSubPropertyChainOfAxiom axiom,
             @Nonnull OWLObjectPropertyRangeAxiom rangeAxiom) {
         super(ontology, axiom, rangeAxiom);
+    }
+
+    @Override
+    public OWLObjectPropertyRangeAxiom getExpression() {
+        return (OWLObjectPropertyRangeAxiom) super.getExpression();
     }
 
     @Override

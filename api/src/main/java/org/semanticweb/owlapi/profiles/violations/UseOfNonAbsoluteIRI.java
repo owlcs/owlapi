@@ -25,7 +25,7 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
  */
-public class UseOfNonAbsoluteIRI extends OWLProfileViolation<IRI> {
+public class UseOfNonAbsoluteIRI extends OWLProfileViolation {
 
     /**
      * @param ontology
@@ -38,6 +38,11 @@ public class UseOfNonAbsoluteIRI extends OWLProfileViolation<IRI> {
     public UseOfNonAbsoluteIRI(@Nonnull OWLOntology ontology,
             @Nonnull OWLAxiom axiom, IRI iri) {
         super(ontology, axiom, iri);
+    }
+
+    @Override
+    public IRI getExpression() {
+        return (IRI) super.getExpression();
     }
 
     @Override

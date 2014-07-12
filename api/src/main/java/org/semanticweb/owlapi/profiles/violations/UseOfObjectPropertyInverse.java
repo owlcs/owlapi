@@ -25,8 +25,7 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
  */
-public class UseOfObjectPropertyInverse extends
-        OWLProfileViolation<OWLObjectPropertyExpression> {
+public class UseOfObjectPropertyInverse extends OWLProfileViolation {
 
     /**
      * @param ontology
@@ -40,6 +39,11 @@ public class UseOfObjectPropertyInverse extends
             @Nonnull OWLAxiom axiom,
             @Nonnull OWLObjectPropertyExpression propertyExpression) {
         super(ontology, axiom, propertyExpression);
+    }
+
+    @Override
+    public OWLObjectPropertyExpression getExpression() {
+        return (OWLObjectPropertyExpression) super.getExpression();
     }
 
     @Override

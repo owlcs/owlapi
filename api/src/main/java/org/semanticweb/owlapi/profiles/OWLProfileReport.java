@@ -26,7 +26,7 @@ public class OWLProfileReport {
 
     private final OWLProfile profile;
     @Nonnull
-    private final List<OWLProfileViolation<?>> violations;
+    private final List<OWLProfileViolation> violations;
 
     /**
      * @param profile
@@ -35,7 +35,7 @@ public class OWLProfileReport {
      *        the set of violations
      */
     public OWLProfileReport(OWLProfile profile,
-            Set<OWLProfileViolation<?>> violations) {
+            Set<OWLProfileViolation> violations) {
         this.profile = profile;
         this.violations = new ArrayList<>(violations);
     }
@@ -51,7 +51,7 @@ public class OWLProfileReport {
     }
 
     /** @return the violations found */
-    public List<OWLProfileViolation<?>> getViolations() {
+    public List<OWLProfileViolation> getViolations() {
         return violations;
     }
 
@@ -65,7 +65,7 @@ public class OWLProfileReport {
         } else {
             sb.append("Ontology and imports closure NOT in profile. The following violations are present:\n");
         }
-        for (OWLProfileViolation<?> na : violations) {
+        for (OWLProfileViolation na : violations) {
             sb.append(na);
             sb.append('\n');
         }

@@ -26,7 +26,7 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
  *         Management Group
  */
 public class UseOfNonSimplePropertyInIrreflexivePropertyAxiom extends
-        OWLProfileViolation<OWLObjectPropertyExpression> {
+        OWLProfileViolation {
 
     /**
      * @param ontology
@@ -38,6 +38,11 @@ public class UseOfNonSimplePropertyInIrreflexivePropertyAxiom extends
             @Nonnull OWLOntology ontology,
             @Nonnull OWLIrreflexiveObjectPropertyAxiom axiom) {
         super(ontology, axiom, axiom.getProperty());
+    }
+
+    @Override
+    public OWLObjectPropertyExpression getExpression() {
+        return (OWLObjectPropertyExpression) super.getExpression();
     }
 
     @Override

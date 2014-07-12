@@ -29,8 +29,7 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
  */
-public class UseOfIllegalClassExpression extends
-        OWLProfileViolation<OWLClassExpression> {
+public class UseOfIllegalClassExpression extends OWLProfileViolation {
 
     /**
      * @param ontology
@@ -43,6 +42,11 @@ public class UseOfIllegalClassExpression extends
     public UseOfIllegalClassExpression(@Nonnull OWLOntology ontology,
             @Nonnull OWLAxiom axiom, @Nonnull OWLClassExpression classExpression) {
         super(ontology, axiom, checkNotNull(classExpression));
+    }
+
+    @Override
+    public OWLClassExpression getExpression() {
+        return (OWLClassExpression) super.getExpression();
     }
 
     @Override

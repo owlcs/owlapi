@@ -29,7 +29,7 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
  */
-public class UseOfUnknownDatatype extends OWLProfileViolation<OWLDatatype> {
+public class UseOfUnknownDatatype extends OWLProfileViolation {
 
     /**
      * @param ontology
@@ -42,6 +42,11 @@ public class UseOfUnknownDatatype extends OWLProfileViolation<OWLDatatype> {
     public UseOfUnknownDatatype(@Nonnull OWLOntology ontology,
             @Nonnull OWLAxiom axiom, @Nonnull OWLDatatype datatype) {
         super(ontology, axiom, datatype);
+    }
+
+    @Override
+    public OWLDatatype getExpression() {
+        return (OWLDatatype) super.getExpression();
     }
 
     @Override

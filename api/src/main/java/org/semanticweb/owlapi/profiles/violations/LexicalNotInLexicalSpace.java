@@ -25,7 +25,7 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
  */
-public class LexicalNotInLexicalSpace extends OWLProfileViolation<OWLLiteral> {
+public class LexicalNotInLexicalSpace extends OWLProfileViolation {
 
     /**
      * @param ontology
@@ -38,6 +38,11 @@ public class LexicalNotInLexicalSpace extends OWLProfileViolation<OWLLiteral> {
     public LexicalNotInLexicalSpace(@Nonnull OWLOntology ontology,
             @Nonnull OWLAxiom axiom, @Nonnull OWLLiteral literal) {
         super(ontology, axiom, literal);
+    }
+
+    @Override
+    public OWLLiteral getExpression() {
+        return (OWLLiteral) super.getExpression();
     }
 
     @Override

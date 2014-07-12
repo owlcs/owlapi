@@ -26,7 +26,7 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
  *         Management Group
  */
 public class UseOfNonSimplePropertyInCardinalityRestriction extends
-        OWLProfileViolation<OWLObjectCardinalityRestriction> {
+        OWLProfileViolation {
 
     /**
      * @param ontology
@@ -40,6 +40,11 @@ public class UseOfNonSimplePropertyInCardinalityRestriction extends
             @Nonnull OWLOntology ontology, @Nonnull OWLAxiom axiom,
             @Nonnull OWLObjectCardinalityRestriction restriction) {
         super(ontology, axiom, restriction);
+    }
+
+    @Override
+    public OWLObjectCardinalityRestriction getExpression() {
+        return (OWLObjectCardinalityRestriction) super.getExpression();
     }
 
     @Override

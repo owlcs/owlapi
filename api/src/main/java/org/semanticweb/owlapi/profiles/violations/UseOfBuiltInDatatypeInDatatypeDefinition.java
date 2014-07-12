@@ -25,7 +25,7 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
  *         Management Group
  */
 public class UseOfBuiltInDatatypeInDatatypeDefinition extends
-        OWLProfileViolation<Object> {
+        OWLProfileViolation {
 
     /**
      * @param ontology

@@ -36,10 +36,8 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
  * @since 4.0.0
- * @param <T>
- *        violation type
  */
-public abstract class OWLProfileViolation<T> {
+public abstract class OWLProfileViolation {
 
     @Nonnull
     protected final OWLOntology ontology;
@@ -48,7 +46,7 @@ public abstract class OWLProfileViolation<T> {
     @Nullable
     protected final OWLAxiom axiom;
     @Nullable
-    protected final T expression;
+    protected final Object expression;
 
     /**
      * @param ontology
@@ -59,7 +57,7 @@ public abstract class OWLProfileViolation<T> {
      *        violation expression
      */
     public OWLProfileViolation(@Nonnull OWLOntology ontology,
-            @Nullable OWLAxiom axiom, @Nullable T o) {
+            @Nullable OWLAxiom axiom, @Nullable Object o) {
         this.axiom = axiom;
         this.ontology = ontology;
         df = ontology.getOWLOntologyManager().getOWLDataFactory();
@@ -78,7 +76,7 @@ public abstract class OWLProfileViolation<T> {
 
     /** @return the expression object of this violation */
     @Nonnull
-    public T getExpression() {
+    public Object getExpression() {
         return verifyNotNull(expression);
     }
 

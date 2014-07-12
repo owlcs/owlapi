@@ -69,7 +69,7 @@ import org.semanticweb.owlapi.util.OWLBaseVisitorExAdapter;
  *        return type
  */
 public class OWLProfileViolationVisitorExAdapter<O> extends
-        OWLBaseVisitorExAdapter<O, OWLProfileViolation<?>> implements
+        OWLBaseVisitorExAdapter<O, OWLProfileViolation> implements
         OWLProfileViolationVisitorEx<O> {
 
     /** default returned value is null */

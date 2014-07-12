@@ -31,8 +31,7 @@ import com.google.common.base.Optional;
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
  */
-public class UseOfReservedVocabularyForVersionIRI extends
-        OWLProfileViolation<IRI> {
+public class UseOfReservedVocabularyForVersionIRI extends OWLProfileViolation {
 
     /**
      * @param ontology
@@ -40,6 +39,11 @@ public class UseOfReservedVocabularyForVersionIRI extends
      */
     public UseOfReservedVocabularyForVersionIRI(@Nonnull OWLOntology ontology) {
         super(ontology, null, ontology.getOntologyID().getVersionIRI().get());
+    }
+
+    @Override
+    public IRI getExpression() {
+        return (IRI) super.getExpression();
     }
 
     @Override

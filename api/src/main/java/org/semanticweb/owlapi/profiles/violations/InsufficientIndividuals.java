@@ -21,7 +21,7 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
 /** @author ignazio */
-public class InsufficientIndividuals extends OWLProfileViolation<Object> {
+public class InsufficientIndividuals extends OWLProfileViolation {
 
     /**
      * @param currentOntology

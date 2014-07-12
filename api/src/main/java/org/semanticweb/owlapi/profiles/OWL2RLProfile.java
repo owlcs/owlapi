@@ -123,7 +123,7 @@ public class OWL2RLProfile implements OWLProfile {
     public OWLProfileReport checkOntology(OWLOntology ontology) {
         OWL2DLProfile profile = new OWL2DLProfile();
         OWLProfileReport report = profile.checkOntology(ontology);
-        Set<OWLProfileViolation<?>> violations = new HashSet<>();
+        Set<OWLProfileViolation> violations = new HashSet<>();
         violations.addAll(report.getViolations());
         OWLOntologyProfileWalker walker = new OWLOntologyProfileWalker(
                 ontology.getImportsClosure());
@@ -135,13 +135,13 @@ public class OWL2RLProfile implements OWLProfile {
 
     private class OWL2RLObjectVisitor extends OWLOntologyWalkerVisitor {
 
-        private final Set<OWLProfileViolation<?>> violations = new HashSet<>();
+        private final Set<OWLProfileViolation> violations = new HashSet<>();
 
         OWL2RLObjectVisitor(@Nonnull OWLOntologyWalker walker) {
             super(walker);
         }
 
-        public Set<OWLProfileViolation<?>> getProfileViolations() {
+        public Set<OWLProfileViolation> getProfileViolations() {
             return new HashSet<>(violations);
         }
 

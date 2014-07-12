@@ -26,8 +26,7 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
  */
-public class UseOfNonSimplePropertyInObjectHasSelf extends
-        OWLProfileViolation<OWLObjectHasSelf> {
+public class UseOfNonSimplePropertyInObjectHasSelf extends OWLProfileViolation {
 
     /**
      * @param ontology
@@ -40,6 +39,11 @@ public class UseOfNonSimplePropertyInObjectHasSelf extends
     public UseOfNonSimplePropertyInObjectHasSelf(@Nonnull OWLOntology ontology,
             @Nonnull OWLAxiom axiom, @Nonnull OWLObjectHasSelf hasSelf) {
         super(ontology, axiom, hasSelf);
+    }
+
+    @Override
+    public OWLObjectHasSelf getExpression() {
+        return (OWLObjectHasSelf) super.getExpression();
     }
 
     @Override

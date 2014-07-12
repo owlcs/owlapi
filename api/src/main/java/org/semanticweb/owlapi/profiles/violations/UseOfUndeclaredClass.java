@@ -31,12 +31,17 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
  */
-public class UseOfUndeclaredClass extends OWLProfileViolation<OWLClass>
-        implements UndeclaredEntityViolation {
+public class UseOfUndeclaredClass extends OWLProfileViolation implements
+        UndeclaredEntityViolation {
 
     @Override
     public OWLEntity getEntity() {
         return getExpression();
+    }
+
+    @Override
+    public OWLClass getExpression() {
+        return (OWLClass) super.getExpression();
     }
 
     /**

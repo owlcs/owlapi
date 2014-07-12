@@ -33,8 +33,8 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
  */
-public class UseOfUndeclaredDatatype extends OWLProfileViolation<OWLDatatype>
-        implements UndeclaredEntityViolation {
+public class UseOfUndeclaredDatatype extends OWLProfileViolation implements
+        UndeclaredEntityViolation {
 
     @Override
     public OWLEntity getEntity() {
@@ -52,6 +52,11 @@ public class UseOfUndeclaredDatatype extends OWLProfileViolation<OWLDatatype>
     public UseOfUndeclaredDatatype(@Nonnull OWLOntology ontology,
             @Nonnull OWLAxiom axiom, @Nonnull OWLDatatype datatype) {
         super(ontology, axiom, checkNotNull(datatype));
+    }
+
+    @Override
+    public OWLDatatype getExpression() {
+        return (OWLDatatype) super.getExpression();
     }
 
     @Override

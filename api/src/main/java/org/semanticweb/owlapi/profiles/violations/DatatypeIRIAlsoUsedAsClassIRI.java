@@ -34,7 +34,7 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
  */
-public class DatatypeIRIAlsoUsedAsClassIRI extends OWLProfileViolation<IRI> {
+public class DatatypeIRIAlsoUsedAsClassIRI extends OWLProfileViolation {
 
     /**
      * @param ontology
@@ -47,6 +47,11 @@ public class DatatypeIRIAlsoUsedAsClassIRI extends OWLProfileViolation<IRI> {
     public DatatypeIRIAlsoUsedAsClassIRI(@Nonnull OWLOntology ontology,
             @Nonnull OWLAxiom axiom, @Nonnull IRI iri) {
         super(ontology, checkNotNull(axiom), iri);
+    }
+
+    @Override
+    public IRI getExpression() {
+        return (IRI) super.getExpression();
     }
 
     @Override

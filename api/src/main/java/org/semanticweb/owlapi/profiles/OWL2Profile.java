@@ -78,7 +78,7 @@ public class OWL2Profile implements OWLProfile {
         OWL2ProfileObjectWalker visitor = new OWL2ProfileObjectWalker(walker,
                 ontology.getOWLOntologyManager());
         walker.walkStructure(visitor);
-        Set<OWLProfileViolation<?>> pv = visitor.getProfileViolations();
+        Set<OWLProfileViolation> pv = visitor.getProfileViolations();
         return new OWLProfileReport(this, pv);
     }
 
@@ -88,7 +88,7 @@ public class OWL2Profile implements OWLProfile {
         @Nonnull
         private final OWLOntologyManager man;
         @Nonnull
-        private final Set<OWLProfileViolation<?>> profileViolations = new HashSet<>();
+        private final Set<OWLProfileViolation> profileViolations = new HashSet<>();
 
         OWL2ProfileObjectWalker(@Nonnull OWLOntologyWalker walker,
                 @Nonnull OWLOntologyManager man) {
@@ -96,7 +96,7 @@ public class OWL2Profile implements OWLProfile {
             this.man = man;
         }
 
-        public Set<OWLProfileViolation<?>> getProfileViolations() {
+        public Set<OWLProfileViolation> getProfileViolations() {
             return new HashSet<>(profileViolations);
         }
 

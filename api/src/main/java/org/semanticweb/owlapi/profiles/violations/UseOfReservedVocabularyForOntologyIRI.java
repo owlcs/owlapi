@@ -28,8 +28,7 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
  */
-public class UseOfReservedVocabularyForOntologyIRI extends
-        OWLProfileViolation<IRI> {
+public class UseOfReservedVocabularyForOntologyIRI extends OWLProfileViolation {
 
     /**
      * @param ontology
@@ -37,6 +36,11 @@ public class UseOfReservedVocabularyForOntologyIRI extends
      */
     public UseOfReservedVocabularyForOntologyIRI(@Nonnull OWLOntology ontology) {
         super(ontology, null, ontology.getOntologyID().getOntologyIRI().get());
+    }
+
+    @Override
+    public IRI getExpression() {
+        return (IRI) super.getExpression();
     }
 
     @Override

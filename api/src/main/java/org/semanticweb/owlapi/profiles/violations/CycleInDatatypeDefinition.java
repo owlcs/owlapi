@@ -24,7 +24,7 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
  */
-public class CycleInDatatypeDefinition extends OWLProfileViolation<Object> {
+public class CycleInDatatypeDefinition extends OWLProfileViolation {
 
     /**
      * @param ontology

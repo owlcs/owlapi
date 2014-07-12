@@ -31,9 +31,8 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
  */
-public class UseOfUndeclaredObjectProperty extends
-        OWLProfileViolation<OWLObjectProperty> implements
-        UndeclaredEntityViolation {
+public class UseOfUndeclaredObjectProperty extends OWLProfileViolation
+        implements UndeclaredEntityViolation {
 
     @Override
     public OWLEntity getEntity() {
@@ -51,6 +50,11 @@ public class UseOfUndeclaredObjectProperty extends
     public UseOfUndeclaredObjectProperty(@Nonnull OWLOntology ontology,
             @Nonnull OWLAxiom axiom, @Nonnull OWLObjectProperty prop) {
         super(ontology, axiom, checkNotNull(prop));
+    }
+
+    @Override
+    public OWLObjectProperty getExpression() {
+        return (OWLObjectProperty) super.getExpression();
     }
 
     @Override

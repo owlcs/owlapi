@@ -29,7 +29,7 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
  */
-public class OntologyIRINotAbsolute extends OWLProfileViolation<OWLOntologyID> {
+public class OntologyIRINotAbsolute extends OWLProfileViolation {
 
     /**
      * @param ontology
@@ -37,6 +37,11 @@ public class OntologyIRINotAbsolute extends OWLProfileViolation<OWLOntologyID> {
      */
     public OntologyIRINotAbsolute(@Nonnull OWLOntology ontology) {
         super(ontology, null, ontology.getOntologyID());
+    }
+
+    @Override
+    public OWLOntologyID getExpression() {
+        return (OWLOntologyID) super.getExpression();
     }
 
     @Override

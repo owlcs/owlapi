@@ -26,7 +26,7 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
  */
-public class UseOfIllegalFacetRestriction extends OWLProfileViolation<OWLFacet> {
+public class UseOfIllegalFacetRestriction extends OWLProfileViolation {
 
     @Nonnull
     private final OWLDatatypeRestriction datatypeRestriction;
@@ -46,6 +46,11 @@ public class UseOfIllegalFacetRestriction extends OWLProfileViolation<OWLFacet> 
             @Nonnull OWLFacet facet) {
         super(ontology, axiom, facet);
         datatypeRestriction = dtr;
+    }
+
+    @Override
+    public OWLFacet getExpression() {
+        return (OWLFacet) super.getExpression();
     }
 
     @Override

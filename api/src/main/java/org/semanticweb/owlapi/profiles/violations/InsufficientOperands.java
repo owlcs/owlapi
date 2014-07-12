@@ -22,7 +22,7 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
 /** @author ignazio */
-public class InsufficientOperands extends OWLProfileViolation<OWLObject> {
+public class InsufficientOperands extends OWLProfileViolation {
 
     /**
      * @param currentOntology
@@ -35,6 +35,11 @@ public class InsufficientOperands extends OWLProfileViolation<OWLObject> {
     public InsufficientOperands(@Nonnull OWLOntology currentOntology,
             @Nonnull OWLAxiom node, @Nonnull OWLObject c) {
         super(currentOntology, node, c);
+    }
+
+    @Override
+    public OWLObject getExpression() {
+        return (OWLObject) super.getExpression();
     }
 
     @Override

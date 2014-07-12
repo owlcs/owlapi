@@ -26,7 +26,7 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
  *         Management Group
  */
 public class UseOfReservedVocabularyForIndividualIRI extends
-        OWLProfileViolation<OWLNamedIndividual> {
+        OWLProfileViolation {
 
     /**
      * @param ontology
@@ -40,6 +40,11 @@ public class UseOfReservedVocabularyForIndividualIRI extends
             @Nonnull OWLOntology ontology, @Nonnull OWLAxiom axiom,
             @Nonnull OWLNamedIndividual ind) {
         super(ontology, axiom, ind);
+    }
+
+    @Override
+    public OWLNamedIndividual getExpression() {
+        return (OWLNamedIndividual) super.getExpression();
     }
 
     @Override

@@ -25,7 +25,7 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
  */
-public class UseOfIllegalAxiom extends OWLProfileViolation<AxiomType<?>> {
+public class UseOfIllegalAxiom extends OWLProfileViolation {
 
     /**
      * @param ontology
@@ -36,6 +36,11 @@ public class UseOfIllegalAxiom extends OWLProfileViolation<AxiomType<?>> {
     public UseOfIllegalAxiom(@Nonnull OWLOntology ontology,
             @Nonnull OWLAxiom axiom) {
         super(ontology, axiom, axiom.getAxiomType());
+    }
+
+    @Override
+    public AxiomType<?> getExpression() {
+        return (AxiomType<?>) super.getExpression();
     }
 
     @Override

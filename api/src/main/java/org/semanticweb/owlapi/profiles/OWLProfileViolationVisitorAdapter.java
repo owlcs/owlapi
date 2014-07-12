@@ -69,8 +69,7 @@ public class OWLProfileViolationVisitorAdapter implements
      * @param v
      *        violation
      */
-    protected void doDefault(
-            @SuppressWarnings("unused") OWLProfileViolation<?> v) {}
+    protected void doDefault(@SuppressWarnings("unused") OWLProfileViolation v) {}
 
     @Override
     public void visit(IllegalPunning v) {

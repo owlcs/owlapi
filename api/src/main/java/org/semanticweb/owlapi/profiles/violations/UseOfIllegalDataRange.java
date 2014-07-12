@@ -25,7 +25,7 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
  */
-public class UseOfIllegalDataRange extends OWLProfileViolation<OWLDataRange> {
+public class UseOfIllegalDataRange extends OWLProfileViolation {
 
     /**
      * @param ontology
@@ -38,6 +38,11 @@ public class UseOfIllegalDataRange extends OWLProfileViolation<OWLDataRange> {
     public UseOfIllegalDataRange(@Nonnull OWLOntology ontology,
             @Nonnull OWLAxiom axiom, @Nonnull OWLDataRange dataRange) {
         super(ontology, axiom, dataRange);
+    }
+
+    @Override
+    public OWLDataRange getExpression() {
+        return (OWLDataRange) super.getExpression();
     }
 
     @Override

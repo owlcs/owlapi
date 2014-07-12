@@ -25,8 +25,7 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
  */
-public class UseOfAnonymousIndividual extends
-        OWLProfileViolation<OWLAnonymousIndividual> {
+public class UseOfAnonymousIndividual extends OWLProfileViolation {
 
     /**
      * @param ontology
@@ -39,6 +38,11 @@ public class UseOfAnonymousIndividual extends
     public UseOfAnonymousIndividual(@Nonnull OWLOntology ontology,
             @Nonnull OWLAxiom axiom, @Nonnull OWLAnonymousIndividual individual) {
         super(ontology, axiom, individual);
+    }
+
+    @Override
+    public OWLAnonymousIndividual getExpression() {
+        return (OWLAnonymousIndividual) super.getExpression();
     }
 
     @Override
