@@ -30,7 +30,7 @@ public class KRSS2OWLSyntaxRenderer extends AbstractOWLRenderer {
     public void render(@Nonnull OWLOntology ontology, Writer writer)
             throws OWLRendererException {
         try {
-            ontology.accept(new KRSS2OWLObjectRenderer(ontology, writer));
+            ontology.accept(new KRSS2OWLObjectRenderer(writer));
             writer.flush();
         } catch (IOException io) {
             throw new OWLRendererIOException(io);

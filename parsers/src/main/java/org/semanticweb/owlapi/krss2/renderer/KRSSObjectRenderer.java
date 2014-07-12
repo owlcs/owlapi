@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.krss2.renderer;
 
 import static org.semanticweb.owlapi.krss2.renderer.KRSSVocabulary.*;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
+import static org.semanticweb.owlapi.search.EntitySearcher.isDefined;
 import static org.semanticweb.owlapi.search.Searcher.*;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
@@ -403,7 +404,7 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
         classes.remove(ontology.getOWLOntologyManager().getOWLDataFactory()
                 .getOWLNothing());
         for (OWLClass eachClass : sort(classes)) {
-            boolean primitive = !isDefined(ontology, eachClass);
+            boolean primitive = !isDefined(eachClass, ontology);
             if (primitive) {
                 writeOpenBracket();
                 write(DEFINE_PRIMITIVE_CONCEPT);

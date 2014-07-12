@@ -219,7 +219,7 @@ public class EntitySearcher {
     @Nonnull
     public static Collection<OWLAnnotationProperty> getSubProperties(
             @Nonnull OWLAnnotationProperty e,
-            @Nonnull Collection<OWLOntology> ontologies) {
+            @Nonnull Iterable<OWLOntology> ontologies) {
         Collection<OWLAnnotationProperty> collection = new ArrayList<>();
         for (OWLOntology o : ontologies) {
             assert o != null;
@@ -293,7 +293,7 @@ public class EntitySearcher {
     @Nonnull
     public static Collection<OWLAnnotationProperty> getSuperProperties(
             @Nonnull OWLAnnotationProperty e,
-            @Nonnull Collection<OWLOntology> ontologies) {
+            @Nonnull Iterable<OWLOntology> ontologies) {
         Collection<OWLAnnotationProperty> collection = new ArrayList<>();
         for (OWLOntology o : ontologies) {
             assert o != null;
@@ -367,7 +367,7 @@ public class EntitySearcher {
     @Nonnull
     public static Collection<OWLObjectProperty> getSubProperties(
             @Nonnull OWLObjectProperty e,
-            @Nonnull Collection<OWLOntology> ontologies) {
+            @Nonnull Iterable<OWLOntology> ontologies) {
         Collection<OWLObjectProperty> collection = new ArrayList<>();
         for (OWLOntology o : ontologies) {
             assert o != null;
@@ -441,7 +441,7 @@ public class EntitySearcher {
     @Nonnull
     public static Collection<OWLObjectProperty> getSuperProperties(
             @Nonnull OWLObjectProperty e,
-            @Nonnull Collection<OWLOntology> ontologies) {
+            @Nonnull Iterable<OWLOntology> ontologies) {
         Collection<OWLObjectProperty> collection = new ArrayList<>();
         for (OWLOntology o : ontologies) {
             assert o != null;
@@ -515,7 +515,7 @@ public class EntitySearcher {
     @Nonnull
     public static Collection<OWLDataProperty> getSubProperties(
             @Nonnull OWLDataProperty e,
-            @Nonnull Collection<OWLOntology> ontologies) {
+            @Nonnull Iterable<OWLOntology> ontologies) {
         Collection<OWLDataProperty> collection = new ArrayList<>();
         for (OWLOntology o : ontologies) {
             assert o != null;
@@ -589,7 +589,7 @@ public class EntitySearcher {
     @Nonnull
     public static Collection<OWLDataProperty> getSuperProperties(
             @Nonnull OWLDataProperty e,
-            @Nonnull Collection<OWLOntology> ontologies) {
+            @Nonnull Iterable<OWLOntology> ontologies) {
         Collection<OWLDataProperty> collection = new ArrayList<>();
         for (OWLOntology o : ontologies) {
             assert o != null;
@@ -631,7 +631,7 @@ public class EntitySearcher {
      */
     @Nonnull
     public static Collection<OWLClassExpression> getSuperClasses(
-            @Nonnull OWLClass e, @Nonnull Collection<OWLOntology> ontologies) {
+            @Nonnull OWLClass e, @Nonnull Iterable<OWLOntology> ontologies) {
         Collection<OWLClassExpression> collection = new ArrayList<>();
         for (OWLOntology o : ontologies) {
             assert o != null;
@@ -670,7 +670,7 @@ public class EntitySearcher {
      */
     @Nonnull
     public static Collection<OWLClassExpression> getSubClasses(
-            @Nonnull OWLClass e, @Nonnull Collection<OWLOntology> ontologies) {
+            @Nonnull OWLClass e, @Nonnull Iterable<OWLOntology> ontologies) {
         Collection<OWLClassExpression> collection = new ArrayList<>();
         for (OWLOntology o : ontologies) {
             assert o != null;
@@ -713,7 +713,7 @@ public class EntitySearcher {
      */
     @Nonnull
     public static Collection<OWLClassExpression> getEquivalentClasses(
-            @Nonnull OWLClass e, @Nonnull Collection<OWLOntology> ontologies) {
+            @Nonnull OWLClass e, @Nonnull Iterable<OWLOntology> ontologies) {
         Collection<OWLClassExpression> collection = new ArrayList<>();
         for (OWLOntology o : ontologies) {
             assert o != null;
@@ -752,7 +752,7 @@ public class EntitySearcher {
      */
     @Nonnull
     public static Collection<OWLClassExpression> getDisjointClasses(
-            @Nonnull OWLClass e, @Nonnull Collection<OWLOntology> ontologies) {
+            @Nonnull OWLClass e, @Nonnull Iterable<OWLOntology> ontologies) {
         Collection<OWLClassExpression> collection = new ArrayList<>();
         for (OWLOntology o : ontologies) {
             assert o != null;
@@ -798,7 +798,7 @@ public class EntitySearcher {
     @Nonnull
     public static Collection<OWLDataPropertyExpression>
             getEquivalentProperties(@Nonnull OWLDataProperty e,
-                    @Nonnull Collection<OWLOntology> ontologies) {
+                    @Nonnull Iterable<OWLOntology> ontologies) {
         Collection<OWLDataPropertyExpression> collection = new ArrayList<>();
         for (OWLOntology o : ontologies) {
             assert o != null;
@@ -838,7 +838,7 @@ public class EntitySearcher {
     @Nonnull
     public static Collection<OWLDataPropertyExpression> getDisjointProperties(
             @Nonnull OWLDataProperty e,
-            @Nonnull Collection<OWLOntology> ontologies) {
+            @Nonnull Iterable<OWLOntology> ontologies) {
         Collection<OWLDataPropertyExpression> collection = new ArrayList<>();
         for (OWLOntology o : ontologies) {
             assert o != null;
@@ -884,7 +884,7 @@ public class EntitySearcher {
     @Nonnull
     public static Collection<OWLObjectPropertyExpression>
             getEquivalentProperties(@Nonnull OWLObjectProperty e,
-                    @Nonnull Collection<OWLOntology> ontologies) {
+                    @Nonnull Iterable<OWLOntology> ontologies) {
         Collection<OWLObjectPropertyExpression> collection = new ArrayList<>();
         for (OWLOntology o : ontologies) {
             assert o != null;
@@ -926,7 +926,7 @@ public class EntitySearcher {
     @Nonnull
     public static Collection<OWLObjectPropertyExpression>
             getDisjointProperties(@Nonnull OWLObjectProperty e,
-                    @Nonnull Collection<OWLOntology> ontologies) {
+                    @Nonnull Iterable<OWLOntology> ontologies) {
         Collection<OWLObjectPropertyExpression> collection = new ArrayList<>();
         for (OWLOntology o : ontologies) {
             assert o != null;
@@ -969,7 +969,7 @@ public class EntitySearcher {
      */
     @Nonnull
     public static Collection<OWLIndividual> getIndividuals(@Nonnull OWLClass e,
-            @Nonnull Collection<OWLOntology> ontologies) {
+            @Nonnull Iterable<OWLOntology> ontologies) {
         List<OWLIndividual> list = new ArrayList<>();
         for (OWLOntology o : ontologies) {
             assert o != null;
@@ -1050,7 +1050,7 @@ public class EntitySearcher {
     @Nonnull
     public static Collection<OWLClassExpression> getDomains(
             @Nonnull OWLDataProperty e,
-            @Nonnull Collection<OWLOntology> ontologies) {
+            @Nonnull Iterable<OWLOntology> ontologies) {
         List<OWLClassExpression> list = new ArrayList<>();
         for (OWLOntology o : ontologies) {
             assert o != null;
@@ -1090,7 +1090,7 @@ public class EntitySearcher {
     @Nonnull
     public static Collection<OWLDataRange> getRanges(
             @Nonnull OWLDataProperty e,
-            @Nonnull Collection<OWLOntology> ontologies) {
+            @Nonnull Iterable<OWLOntology> ontologies) {
         List<OWLDataRange> list = new ArrayList<>();
         for (OWLOntology o : ontologies) {
             assert o != null;
@@ -1131,7 +1131,7 @@ public class EntitySearcher {
     @Nonnull
     public static Collection<OWLClassExpression> getDomains(
             @Nonnull OWLObjectProperty e,
-            @Nonnull Collection<OWLOntology> ontologies) {
+            @Nonnull Iterable<OWLOntology> ontologies) {
         List<OWLClassExpression> list = new ArrayList<>();
         for (OWLOntology o : ontologies) {
             assert o != null;
@@ -1171,7 +1171,7 @@ public class EntitySearcher {
     @Nonnull
     public static Collection<OWLClassExpression> getRanges(
             @Nonnull OWLObjectProperty e,
-            @Nonnull Collection<OWLOntology> ontologies) {
+            @Nonnull Iterable<OWLOntology> ontologies) {
         List<OWLClassExpression> list = new ArrayList<>();
         for (OWLOntology o : ontologies) {
             assert o != null;
@@ -1211,7 +1211,7 @@ public class EntitySearcher {
      */
     @Nonnull
     public static Collection<IRI> getDomains(@Nonnull OWLAnnotationProperty e,
-            @Nonnull Collection<OWLOntology> ontologies) {
+            @Nonnull Iterable<OWLOntology> ontologies) {
         List<IRI> list = new ArrayList<>();
         for (OWLOntology o : ontologies) {
             assert o != null;
@@ -1250,12 +1250,319 @@ public class EntitySearcher {
      */
     @Nonnull
     public static Collection<IRI> getRanges(@Nonnull OWLAnnotationProperty e,
-            @Nonnull Collection<OWLOntology> ontologies) {
+            @Nonnull Iterable<OWLOntology> ontologies) {
         List<IRI> list = new ArrayList<>();
         for (OWLOntology o : ontologies) {
             assert o != null;
             list.addAll(getRanges(e, o));
         }
         return list;
+    }
+
+    /**
+     * Checks if e is declared transitive in o.
+     * 
+     * @param o
+     *        ontology
+     * @param e
+     *        property
+     * @return true for transitive properties
+     */
+    public static boolean isTransitive(@Nonnull OWLObjectProperty e,
+            @Nonnull OWLOntology o) {
+        return !o.getTransitiveObjectPropertyAxioms(e).isEmpty();
+    }
+
+    /**
+     * Checks if e is declared transitive in a collection of ontologies.
+     * 
+     * @param ontologies
+     *        ontologies
+     * @param e
+     *        property
+     * @return true for transitive properties
+     */
+    public static boolean isTransitive(@Nonnull OWLObjectProperty e,
+            @Nonnull Iterable<OWLOntology> ontologies) {
+        for (OWLOntology o : ontologies) {
+            assert o != null;
+            if (isTransitive(e, o)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks if e is declared symmetric in o.
+     * 
+     * @param o
+     *        ontology
+     * @param e
+     *        property
+     * @return true for symmetric properties
+     */
+    public static boolean isSymmetric(@Nonnull OWLObjectProperty e,
+            @Nonnull OWLOntology o) {
+        return !o.getSymmetricObjectPropertyAxioms(e).isEmpty();
+    }
+
+    /**
+     * Checks if e is declared symmetric in a collection of ontologies.
+     * 
+     * @param ontologies
+     *        ontologies
+     * @param e
+     *        property
+     * @return true for symmetric properties
+     */
+    public static boolean isSymmetric(@Nonnull OWLObjectProperty e,
+            @Nonnull Iterable<OWLOntology> ontologies) {
+        for (OWLOntology o : ontologies) {
+            assert o != null;
+            if (isSymmetric(e, o)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks if e is declared asymmetric in o.
+     * 
+     * @param o
+     *        ontology
+     * @param e
+     *        property
+     * @return true for asymmetric properties
+     */
+    public static boolean isAsymmetric(@Nonnull OWLObjectProperty e,
+            @Nonnull OWLOntology o) {
+        return !o.getAsymmetricObjectPropertyAxioms(e).isEmpty();
+    }
+
+    /**
+     * Checks if e is declared asymmetric in a collection of ontologies.
+     * 
+     * @param ontologies
+     *        ontologies
+     * @param e
+     *        property
+     * @return true for asymmetric properties
+     */
+    public static boolean isAsymmetric(@Nonnull OWLObjectProperty e,
+            @Nonnull Iterable<OWLOntology> ontologies) {
+        for (OWLOntology o : ontologies) {
+            assert o != null;
+            if (isAsymmetric(e, o)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks if e is declared reflexive in o.
+     * 
+     * @param o
+     *        ontology
+     * @param e
+     *        property
+     * @return true for reflexive properties
+     */
+    public static boolean isReflexive(@Nonnull OWLObjectProperty e,
+            @Nonnull OWLOntology o) {
+        return !o.getReflexiveObjectPropertyAxioms(e).isEmpty();
+    }
+
+    /**
+     * Checks if e is declared reflexive in a collection of ontologies.
+     * 
+     * @param ontologies
+     *        ontologies
+     * @param e
+     *        property
+     * @return true for reflexive properties
+     */
+    public static boolean isReflexive(@Nonnull OWLObjectProperty e,
+            @Nonnull Iterable<OWLOntology> ontologies) {
+        for (OWLOntology o : ontologies) {
+            assert o != null;
+            if (isReflexive(e, o)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks if e is declared irreflexive in o.
+     * 
+     * @param o
+     *        ontology
+     * @param e
+     *        property
+     * @return true for irreflexive properties
+     */
+    public static boolean isIrreflexive(@Nonnull OWLObjectProperty e,
+            @Nonnull OWLOntology o) {
+        return !o.getIrreflexiveObjectPropertyAxioms(e).isEmpty();
+    }
+
+    /**
+     * Checks if e is declared irreflexive in a collection of ontologies.
+     * 
+     * @param ontologies
+     *        ontologies
+     * @param e
+     *        property
+     * @return true for irreflexive properties
+     */
+    public static boolean isIrreflexive(@Nonnull OWLObjectProperty e,
+            @Nonnull Iterable<OWLOntology> ontologies) {
+        for (OWLOntology o : ontologies) {
+            assert o != null;
+            if (isIrreflexive(e, o)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks if e is declared inverse functional in o.
+     * 
+     * @param o
+     *        ontology
+     * @param e
+     *        property
+     * @return true for inverse functional properties
+     */
+    public static boolean isInverseFunctional(@Nonnull OWLObjectProperty e,
+            @Nonnull OWLOntology o) {
+        return !o.getInverseFunctionalObjectPropertyAxioms(e).isEmpty();
+    }
+
+    /**
+     * Checks if e is declared inverse functional in a collection of ontologies.
+     * 
+     * @param ontologies
+     *        ontologies
+     * @param e
+     *        property
+     * @return true for inverse functional properties
+     */
+    public static boolean isInverseFunctional(@Nonnull OWLObjectProperty e,
+            @Nonnull Iterable<OWLOntology> ontologies) {
+        for (OWLOntology o : ontologies) {
+            assert o != null;
+            if (isInverseFunctional(e, o)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks if e is declared functional in o.
+     * 
+     * @param o
+     *        ontology
+     * @param e
+     *        property
+     * @return true for functional object properties
+     */
+    public static boolean isFunctional(@Nonnull OWLObjectProperty e,
+            @Nonnull OWLOntology o) {
+        return !o.getFunctionalObjectPropertyAxioms(e).isEmpty();
+    }
+
+    /**
+     * Checks if e is declared functional in a collection of ontologies.
+     * 
+     * @param ontologies
+     *        ontologies
+     * @param e
+     *        property
+     * @return true for functional object properties
+     */
+    public static boolean isFunctional(@Nonnull OWLObjectProperty e,
+            @Nonnull Iterable<OWLOntology> ontologies) {
+        for (OWLOntology o : ontologies) {
+            assert o != null;
+            if (isFunctional(e, o)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks if e is declared functional in o.
+     * 
+     * @param o
+     *        ontology
+     * @param e
+     *        property
+     * @return true for functional data properties
+     */
+    public static boolean isFunctional(@Nonnull OWLDataProperty e,
+            @Nonnull OWLOntology o) {
+        return !o.getFunctionalDataPropertyAxioms(e).isEmpty();
+    }
+
+    /**
+     * Checks if e is declared functional in a collection of ontologies.
+     * 
+     * @param ontologies
+     *        ontologies
+     * @param e
+     *        property
+     * @return true for functional data properties
+     */
+    public static boolean isFunctional(@Nonnull OWLDataProperty e,
+            @Nonnull Iterable<OWLOntology> ontologies) {
+        for (OWLOntology o : ontologies) {
+            assert o != null;
+            if (isFunctional(e, o)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks if c is defined (is included in equivalent axioms) in o.
+     * 
+     * @param o
+     *        ontology
+     * @param c
+     *        class
+     * @return true for defined classes
+     */
+    public static boolean
+            isDefined(@Nonnull OWLClass c, @Nonnull OWLOntology o) {
+        return !o.getEquivalentClassesAxioms(c).isEmpty();
+    }
+
+    /**
+     * Checks if c is defined (is included in equivalent axioms) in a collection
+     * of ontologies.
+     * 
+     * @param ontologies
+     *        ontologies
+     * @param c
+     *        class
+     * @return true for defined classes
+     */
+    public static boolean isDefined(@Nonnull OWLClass c,
+            @Nonnull Iterable<OWLOntology> ontologies) {
+        for (OWLOntology o : ontologies) {
+            assert o != null;
+            if (isDefined(c, o)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

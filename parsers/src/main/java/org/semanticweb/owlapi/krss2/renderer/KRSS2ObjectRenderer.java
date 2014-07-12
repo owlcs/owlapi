@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.krss2.renderer;
 
 import static org.semanticweb.owlapi.krss2.renderer.KRSS2Vocabulary.*;
 import static org.semanticweb.owlapi.model.parameters.Imports.*;
+import static org.semanticweb.owlapi.search.EntitySearcher.*;
 import static org.semanticweb.owlapi.search.Searcher.*;
 
 import java.io.IOException;
@@ -314,7 +315,7 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
                     continue;
                 }
             }
-            boolean primitive = !isDefined(ontology, eachClass);
+            boolean primitive = !isDefined(eachClass, ontology);
             writeOpenBracket();
             if (primitive) { // there is no equivalentclasses axiom!
                 write(DEFINE_PRIMITIVE_CONCEPT);
@@ -427,19 +428,19 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
                     writeSpace();
                 }
             }
-            if (isTransitive(ontology, property)) {
+            if (isTransitive(property, ontology)) {
                 writeSpace();
                 write(TRANSITIVE_ATTR);
                 writeSpace();
                 write(TRUE);
             }
-            if (isSymmetric(ontology, property)) {
+            if (isSymmetric(property, ontology)) {
                 writeSpace();
                 write(SYMMETRIC_ATTR);
                 writeSpace();
                 write(TRUE);
             }
-            if (isReflexive(ontology, property)) {
+            if (isReflexive(property, ontology)) {
                 writeSpace();
                 write(REFLEXIVE_ATTR);
                 writeSpace();

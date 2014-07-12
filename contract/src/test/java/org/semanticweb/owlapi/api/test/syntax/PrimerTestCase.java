@@ -43,7 +43,7 @@ public class PrimerTestCase extends TestBase {
         OWLOntology manch = loadOntologyFromString(manchester,
                 IRI.create("urn:primer#manchester"),
                 new ManchesterSyntaxDocumentFormat());
-        for (OWLProfileViolation<?> v : profile.checkOntology(manch)
+        for (OWLProfileViolation v : profile.checkOntology(manch)
                 .getViolations()) {
             System.out
                     .println("PrimerTestCase.shouldallBeEquivalent() manchester "
@@ -86,8 +86,7 @@ public class PrimerTestCase extends TestBase {
     public void shouldRDFXMLBeEquivalent() {
         OWLOntology rdf = loadOntologyFromString(rdfxml,
                 IRI.create("urn:primer#rdfxml"), new RDFXMLDocumentFormat());
-        for (OWLProfileViolation<?> v : profile.checkOntology(rdf)
-                .getViolations()) {
+        for (OWLProfileViolation v : profile.checkOntology(rdf).getViolations()) {
             System.out.println("PrimerTestCase.shouldallBeEquivalent() rdf "
                     + v);
         }
@@ -98,8 +97,7 @@ public class PrimerTestCase extends TestBase {
     public void shouldOWLXMLBeEquivalent() {
         OWLOntology owl = loadOntologyFromString(owlxml,
                 IRI.create("urn:primer#owlxml"), new OWLXMLDocumentFormat());
-        for (OWLProfileViolation<?> v : profile.checkOntology(owl)
-                .getViolations()) {
+        for (OWLProfileViolation v : profile.checkOntology(owl).getViolations()) {
             System.out.println("PrimerTestCase.shouldallBeEquivalent() owl "
                     + v);
         }
@@ -110,7 +108,7 @@ public class PrimerTestCase extends TestBase {
     public void shouldTURTLEBeEquivalent() {
         OWLOntology turt = loadOntologyFromString(turtle,
                 IRI.create("urn:primer#turtle"), new TurtleDocumentFormat());
-        for (OWLProfileViolation<?> v : profile.checkOntology(turt)
+        for (OWLProfileViolation v : profile.checkOntology(turt)
                 .getViolations()) {
             System.out.println("PrimerTestCase.shouldallBeEquivalent() turtle "
                     + v);

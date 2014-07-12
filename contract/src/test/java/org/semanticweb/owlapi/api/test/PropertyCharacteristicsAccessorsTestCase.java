@@ -14,7 +14,7 @@ package org.semanticweb.owlapi.api.test;
 
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
-import static org.semanticweb.owlapi.search.Searcher.*;
+import static org.semanticweb.owlapi.search.EntitySearcher.*;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
@@ -35,79 +35,79 @@ public class PropertyCharacteristicsAccessorsTestCase extends TestBase {
     public void testTransitive() {
         OWLOntology ont = getOWLOntology("Ont");
         OWLObjectProperty prop = ObjectProperty(iri("prop"));
-        assertFalse(isTransitive(ont, prop));
+        assertFalse(isTransitive(prop, ont));
         OWLAxiom ax = TransitiveObjectProperty(prop);
         m.addAxiom(ont, ax);
-        assertTrue(isTransitive(ont, prop));
+        assertTrue(isTransitive(prop, ont));
     }
 
     @Test
     public void testSymmetric() {
         OWLOntology ont = getOWLOntology("Ont");
         OWLObjectProperty prop = ObjectProperty(iri("prop"));
-        assertFalse(isSymmetric(ont, prop));
+        assertFalse(isSymmetric(prop, ont));
         OWLAxiom ax = SymmetricObjectProperty(prop);
         m.addAxiom(ont, ax);
-        assertTrue(isSymmetric(ont, prop));
+        assertTrue(isSymmetric(prop, ont));
     }
 
     @Test
     public void testAsymmetric() {
         OWLOntology ont = getOWLOntology("Ont");
         OWLObjectProperty prop = ObjectProperty(iri("prop"));
-        assertFalse(isAsymmetric(ont, prop));
+        assertFalse(isAsymmetric(prop, ont));
         OWLAxiom ax = AsymmetricObjectProperty(prop);
         m.addAxiom(ont, ax);
-        assertTrue(isAsymmetric(ont, prop));
+        assertTrue(isAsymmetric(prop, ont));
     }
 
     @Test
     public void testReflexive() {
         OWLOntology ont = getOWLOntology("Ont");
         OWLObjectProperty prop = ObjectProperty(iri("prop"));
-        assertFalse(isReflexive(ont, prop));
+        assertFalse(isReflexive(prop, ont));
         OWLAxiom ax = ReflexiveObjectProperty(prop);
         m.addAxiom(ont, ax);
-        assertTrue(isReflexive(ont, prop));
+        assertTrue(isReflexive(prop, ont));
     }
 
     @Test
     public void testIrreflexive() {
         OWLOntology ont = getOWLOntology("Ont");
         OWLObjectProperty prop = ObjectProperty(iri("prop"));
-        assertFalse(isIrreflexive(ont, prop));
+        assertFalse(isIrreflexive(prop, ont));
         OWLAxiom ax = IrreflexiveObjectProperty(prop);
         m.addAxiom(ont, ax);
-        assertTrue(isIrreflexive(ont, prop));
+        assertTrue(isIrreflexive(prop, ont));
     }
 
     @Test
     public void testFunctional() {
         OWLOntology ont = getOWLOntology("Ont");
         OWLObjectProperty prop = ObjectProperty(iri("prop"));
-        assertFalse(isFunctional(ont, prop));
+        assertFalse(isFunctional(prop, ont));
         OWLAxiom ax = FunctionalObjectProperty(prop);
         m.addAxiom(ont, ax);
-        assertTrue(isFunctional(ont, prop));
+        assertTrue(isFunctional(prop, ont));
     }
 
     @Test
     public void testInverseFunctional() {
         OWLOntology ont = getOWLOntology("Ont");
         OWLObjectProperty prop = ObjectProperty(iri("prop"));
-        assertFalse(isInverseFunctional(ont, prop));
+        assertFalse(isInverseFunctional(prop, ont));
         OWLAxiom ax = InverseFunctionalObjectProperty(prop);
         m.addAxiom(ont, ax);
-        assertTrue(isInverseFunctional(ont, prop));
+        assertTrue(isInverseFunctional(prop, ont));
     }
 
     @Test
     public void testFunctionalDataProperty() {
         OWLOntology ont = getOWLOntology("Ont");
         OWLDataProperty prop = DataProperty(iri("prop"));
-        assertFalse(isFunctional(ont, prop));
+        assertFalse(isFunctional(prop, ont));
         OWLAxiom ax = FunctionalDataProperty(prop);
         m.addAxiom(ont, ax);
-        assertTrue(isFunctional(ont, prop));
+        assertTrue(isFunctional(prop, ont));
     }
 }

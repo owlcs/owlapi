@@ -15,6 +15,7 @@ package org.semanticweb.owlapi.api.test.ontology;
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 import static org.semanticweb.owlapi.model.parameters.Imports.*;
+import static org.semanticweb.owlapi.search.EntitySearcher.*;
 import static org.semanticweb.owlapi.search.Filters.*;
 import static org.semanticweb.owlapi.search.Searcher.*;
 
@@ -254,7 +255,7 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
         performAxiomTests(ont, ax);
         assertTrue(ont.getFunctionalObjectPropertyAxioms(propP).contains(ax));
         assertTrue(ont.getAxioms(propP, EXCLUDED).contains(ax));
-        assertTrue(isFunctional(ont, propP));
+        assertTrue(isFunctional(propP, ont));
     }
 
     @Test
@@ -268,7 +269,7 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
         assertTrue(ont.getInverseFunctionalObjectPropertyAxioms(propP)
                 .contains(ax));
         assertTrue(ont.getAxioms(propP, EXCLUDED).contains(ax));
-        assertTrue(isInverseFunctional(ont, propP));
+        assertTrue(isInverseFunctional(propP, ont));
     }
 
     @Test
@@ -281,7 +282,7 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
         performAxiomTests(ont, ax);
         assertTrue(ont.getTransitiveObjectPropertyAxioms(propP).contains(ax));
         assertTrue(ont.getAxioms(propP, EXCLUDED).contains(ax));
-        assertTrue(isTransitive(ont, propP));
+        assertTrue(isTransitive(propP, ont));
     }
 
     @Test
@@ -294,7 +295,7 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
         performAxiomTests(ont, ax);
         assertTrue(ont.getSymmetricObjectPropertyAxioms(propP).contains(ax));
         assertTrue(ont.getAxioms(propP, EXCLUDED).contains(ax));
-        assertTrue(isSymmetric(ont, propP));
+        assertTrue(isSymmetric(propP, ont));
     }
 
     @Test
@@ -307,7 +308,7 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
         performAxiomTests(ont, ax);
         assertTrue(ont.getAsymmetricObjectPropertyAxioms(propP).contains(ax));
         assertTrue(ont.getAxioms(propP, EXCLUDED).contains(ax));
-        assertTrue(isAsymmetric(ont, propP));
+        assertTrue(isAsymmetric(propP, ont));
     }
 
     @Test
@@ -320,7 +321,7 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
         performAxiomTests(ont, ax);
         assertTrue(ont.getReflexiveObjectPropertyAxioms(propP).contains(ax));
         assertTrue(ont.getAxioms(propP, EXCLUDED).contains(ax));
-        assertTrue(isReflexive(ont, propP));
+        assertTrue(isReflexive(propP, ont));
     }
 
     @Test
@@ -333,7 +334,7 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
         performAxiomTests(ont, ax);
         assertTrue(ont.getIrreflexiveObjectPropertyAxioms(propP).contains(ax));
         assertTrue(ont.getAxioms(propP, EXCLUDED).contains(ax));
-        assertTrue(isIrreflexive(ont, propP));
+        assertTrue(isIrreflexive(propP, ont));
     }
 
     @Test
@@ -429,7 +430,7 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
         performAxiomTests(ont, ax);
         assertTrue(ont.getFunctionalDataPropertyAxioms(propP).contains(ax));
         assertTrue(ont.getAxioms(propP, EXCLUDED).contains(ax));
-        assertTrue(isFunctional(ont, propP));
+        assertTrue(isFunctional(propP, ont));
     }
 
     @Test

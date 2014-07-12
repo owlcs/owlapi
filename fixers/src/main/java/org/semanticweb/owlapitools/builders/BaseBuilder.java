@@ -103,7 +103,7 @@ public abstract class BaseBuilder<T extends OWLObject, B> implements Builder<T> 
         List<OWLOntologyChange> changes = new ArrayList<>();
         // check conformity to the profile
         OWLProfileReport report = profile.checkOntology(o);
-        for (OWLProfileViolation<?> v : report.getViolations()) {
+        for (OWLProfileViolation v : report.getViolations()) {
             // collect all changes to fix the ontology
             changes.addAll(v.repair());
         }

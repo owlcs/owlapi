@@ -45,7 +45,21 @@ public class ReaderDocumentSource extends StreamDocumentSourceBase {
      * 
      * @param reader
      *        The reader that will be used to read an ontology.
-     * @param documentIRI
+     * @param iri
+     *        The ontology document IRI which will be used as the base of the
+     *        document if needed.
+     */
+    public ReaderDocumentSource(@Nonnull Reader reader, @Nonnull IRI iri) {
+        this(reader, iri, null, null);
+    }
+
+    /**
+     * Constructs and ontology input source which will read an ontology from a
+     * reader.
+     * 
+     * @param reader
+     *        The reader that will be used to read an ontology.
+     * @param iri
      *        The ontology document IRI which will be used as the base of the
      *        document if needed.
      * @param f
@@ -53,8 +67,8 @@ public class ReaderDocumentSource extends StreamDocumentSourceBase {
      * @param mime
      *        mime type
      */
-    public ReaderDocumentSource(@Nonnull Reader reader,
-            @Nonnull IRI documentIRI, OWLDocumentFormat f, String mime) {
-        super(reader, documentIRI, f, mime);
+    public ReaderDocumentSource(@Nonnull Reader reader, @Nonnull IRI iri,
+            OWLDocumentFormat f, String mime) {
+        super(reader, iri, f, mime);
     }
 }

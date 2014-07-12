@@ -49,6 +49,15 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
     private StringComparator comparator;
 
     /**
+     * @param defaultPrefix
+     *        default prefix
+     */
+    @Deprecated
+    public DefaultPrefixManager(@Nullable String defaultPrefix) {
+        this(null, null, defaultPrefix);
+    }
+
+    /**
      * @param pm
      *        the prefix manager to copy
      * @param c

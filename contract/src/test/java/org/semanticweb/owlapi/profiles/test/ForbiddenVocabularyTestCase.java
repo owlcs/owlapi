@@ -47,7 +47,7 @@ public class ForbiddenVocabularyTestCase extends TestBase {
         OWL2DLProfile p = new OWL2DLProfile();
         OWLProfileReport checkOntology = p.checkOntology(o);
         assertEquals(2, checkOntology.getViolations().size());
-        OWLProfileViolation<?> v = checkOntology.getViolations().get(0);
+        OWLProfileViolation v = checkOntology.getViolations().get(0);
         assertTrue(v instanceof UseOfUndeclaredAnnotationProperty
                 || v instanceof UseOfReservedVocabularyForAnnotationPropertyIRI);
         v = checkOntology.getViolations().get(1);
@@ -141,10 +141,10 @@ public class ForbiddenVocabularyTestCase extends TestBase {
         assertTrue(manager.isLessThan(brother, brother));
         assertTrue(manager.isLessThan(uncle, uncle));
         OWL2DLProfile profile = new OWL2DLProfile();
-        List<OWLProfileViolation<?>> violations = profile.checkOntology(o)
+        List<OWLProfileViolation> violations = profile.checkOntology(o)
                 .getViolations();
         assertFalse(violations.isEmpty());
-        for (OWLProfileViolation<?> v : violations) {
+        for (OWLProfileViolation v : violations) {
             assertTrue(brokenAxiom1.equals(v.getAxiom())
                     || brokenAxiom2.equals(v.getAxiom()));
         }
@@ -175,10 +175,10 @@ public class ForbiddenVocabularyTestCase extends TestBase {
         o.getOWLOntologyManager().addAxiom(o, brokenAxiom1);
         assertTrue(manager.isLessThan(brother, uncle));
         OWL2DLProfile profile = new OWL2DLProfile();
-        List<OWLProfileViolation<?>> violations = profile.checkOntology(o)
+        List<OWLProfileViolation> violations = profile.checkOntology(o)
                 .getViolations();
         assertTrue(violations.isEmpty());
-        for (OWLProfileViolation<?> v : violations) {
+        for (OWLProfileViolation v : violations) {
             assertEquals(brokenAxiom1, v.getAxiom());
         }
     }
@@ -509,7 +509,7 @@ public class ForbiddenVocabularyTestCase extends TestBase {
                 .loadOntologyFromOntologyDocument(
                         new ByteArrayInputStream(input1.getBytes()));
         OWL2DLProfile profile = new OWL2DLProfile();
-        List<OWLProfileViolation<?>> violations = profile.checkOntology(o)
+        List<OWLProfileViolation> violations = profile.checkOntology(o)
                 .getViolations();
         assertTrue(violations.isEmpty());
     }
@@ -521,7 +521,7 @@ public class ForbiddenVocabularyTestCase extends TestBase {
                 .loadOntologyFromOntologyDocument(
                         new ByteArrayInputStream(input2.getBytes()));
         OWL2DLProfile profile = new OWL2DLProfile();
-        List<OWLProfileViolation<?>> violations = profile.checkOntology(o)
+        List<OWLProfileViolation> violations = profile.checkOntology(o)
                 .getViolations();
         assertTrue(violations.isEmpty());
     }

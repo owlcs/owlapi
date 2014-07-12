@@ -166,6 +166,7 @@ public class Frame {
         }
         sb.append(')');
         String string = sb.toString();
+        assert string != null;
         return string;
     }
 

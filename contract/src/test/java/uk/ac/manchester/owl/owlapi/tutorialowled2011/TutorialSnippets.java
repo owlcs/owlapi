@@ -1020,7 +1020,7 @@ public class TutorialSnippets {
         // Available profiles: DL, EL, QL, RL, OWL2 (Full)
         OWL2DLProfile profile = new OWL2DLProfile();
         OWLProfileReport report = profile.checkOntology(o);
-        for (OWLProfileViolation<?> v : report.getViolations()) {
+        for (OWLProfileViolation v : report.getViolations()) {
             // deal with violations
             System.out.println(v);
         }

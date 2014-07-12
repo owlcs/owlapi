@@ -153,7 +153,7 @@ public class OWLProfileTestCase {
     };
 
     public void checkInCollection(
-            @Nonnull List<OWLProfileViolation<?>> violations, Class[] _list) {
+            @Nonnull List<OWLProfileViolation> violations, Class[] _list) {
         List<Class> list = new ArrayList<>(Arrays.asList(_list));
         List<Class> list1 = new ArrayList<>();
         for (OWLProfileViolation v : violations) {
@@ -166,18 +166,17 @@ public class OWLProfileTestCase {
 
     public void runAssert(@Nonnull OWLOntology o, @Nonnull OWLProfile profile,
             int expected, Class[] expectedViolations) {
-        List<OWLProfileViolation<?>> violations = profile.checkOntology(o)
+        List<OWLProfileViolation> violations = profile.checkOntology(o)
                 .getViolations();
         assertEquals(expected, violations.size());
         checkInCollection(violations, expectedViolations);
-        for (OWLProfileViolation<?> violation : violations) {
+        for (OWLProfileViolation violation : violations) {
             o.getOWLOntologyManager().applyChanges(violation.repair());
             violation.accept(new OWLProfileViolationVisitorAdapter());
             violation.accept(new OWLProfileViolationVisitorExAdapter<String>() {
 
                 @Override
-                protected String doDefault(
-                        @Nonnull OWLProfileViolation<?> object) {
+                protected String doDefault(@Nonnull OWLProfileViolation object) {
                     return object.toString();
                 }
             });

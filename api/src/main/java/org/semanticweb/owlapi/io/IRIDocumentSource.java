@@ -35,6 +35,14 @@ public class IRIDocumentSource extends OWLOntologyDocumentSourceBase {
     /**
      * @param documentIRI
      *        the source document IRI
+     */
+    public IRIDocumentSource(@Nonnull IRI documentIRI) {
+        this(documentIRI, null, null);
+    }
+
+    /**
+     * @param documentIRI
+     *        the source document IRI
      * @param format
      *        ontology format
      * @param mime

@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.krss2.renderer;
 
 import static org.semanticweb.owlapi.krss2.renderer.KRSS2Vocabulary.*;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
+import static org.semanticweb.owlapi.search.EntitySearcher.*;
 import static org.semanticweb.owlapi.search.Searcher.*;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
@@ -65,19 +66,13 @@ import org.semanticweb.owlapi.util.OWLObjectVisitorAdapter;
 public class KRSS2OWLObjectRenderer extends OWLObjectVisitorAdapter {
 
     @Nonnull
-    private final OWLOntology ont;
-    @Nonnull
     private final Writer writer;
 
     /**
-     * @param ontology
-     *        ontology
      * @param writer
      *        writer
      */
-    public KRSS2OWLObjectRenderer(@Nonnull OWLOntology ontology,
-            @Nonnull Writer writer) {
-        ont = checkNotNull(ontology);
+    public KRSS2OWLObjectRenderer(@Nonnull Writer writer) {
         this.writer = checkNotNull(writer);
     }
 
@@ -194,7 +189,7 @@ public class KRSS2OWLObjectRenderer extends OWLObjectVisitorAdapter {
     public void visit(OWLOntology ontology) {
         for (OWLClass eachClass : ontology.getClassesInSignature()) {
             assert eachClass != null;
-            boolean primitive = !isDefined(ontology, eachClass);
+            boolean primitive = !isDefined(eachClass, ontology);
             if (primitive) {
                 writeOpenBracket();
                 write(DEFINE_PRIMITIVE_CONCEPT);
@@ -260,12 +255,12 @@ public class KRSS2OWLObjectRenderer extends OWLObjectVisitorAdapter {
             writeOpenBracket();
             write(DEFINE_PRIMITIVE_ROLE);
             write(property);
-            if (isTransitive(ontology, property)) {
+            if (isTransitive(property, ontology)) {
                 writeAttribute(TRANSITIVE_ATTR);
                 writeSpace();
                 write(TRUE);
             }
-            if (isSymmetric(ont, property)) {
+            if (isSymmetric(property, ontology)) {
                 writeAttribute(SYMMETRIC_ATTR);
                 writeSpace();
                 write(TRUE);
