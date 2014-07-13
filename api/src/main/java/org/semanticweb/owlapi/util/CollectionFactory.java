@@ -55,6 +55,8 @@ public class CollectionFactory {
      * leave the collection unsorted. NOTE: use this method if ordering is
      * desirable but not necessary.
      * 
+     * @param <T>
+     *        list type
      * @param toReturn
      *        list to sort
      */
@@ -109,6 +111,8 @@ public class CollectionFactory {
      * 
      * @param toReturn
      *        collection to sort
+     * @param <T>
+     *        list type
      * @return sorted copy of the input, if no errors are raised. Copy of the
      *         original otherwise.
      */
@@ -140,6 +144,8 @@ public class CollectionFactory {
      * 
      * @param toReturn
      *        collection to sort
+     * @param <T>
+     *        list type
      * @return sorted copy of the input, if no errors are raised. Copy of the
      *         original otherwise.
      */
