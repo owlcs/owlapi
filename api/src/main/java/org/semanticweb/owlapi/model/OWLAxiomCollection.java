@@ -403,7 +403,8 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      * Gets the axioms that form the definition/description of a class.
      * 
      * @param cls
-     *        The class whose describing axioms are to be retrieved. @return A set of class axioms that describe the class. This set includes
+     *        The class whose describing axioms are to be retrieved.
+     * @return A set of class axioms that describe the class. This set includes
      *         <ul>
      *         <li>Subclass axioms where the subclass is equal to the specified
      *         class</li>
@@ -426,7 +427,8 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      * property.
      * 
      * @param property
-     *        The property whose defining axioms are to be retrieved. @return A set of object property axioms that includes
+     *        The property whose defining axioms are to be retrieved.
+     * @return A set of object property axioms that includes
      *         <ul>
      *         <li>Sub-property axioms where the sub property is the specified
      *         property</li>

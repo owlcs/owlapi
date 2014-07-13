@@ -30,13 +30,20 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLIndividual;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.parameters.Imports;
+import org.semanticweb.owlapi.model.parameters.Search;
+
+import com.google.common.collect.LinkedListMultimap;
+import com.google.common.collect.Multimap;
 
 /**
  * Convenience methods moved from OWLEntity and its subinterfaces.
@@ -318,8 +325,9 @@ public class EntitySearcher {
      * @since 3.2
      */
     @Nonnull
-    public static Collection<OWLObjectProperty> getSubProperties(
-            @Nonnull OWLObjectProperty e, @Nonnull OWLOntology ontology) {
+    public static Collection<OWLObjectPropertyExpression> getSubProperties(
+            @Nonnull OWLObjectPropertyExpression e,
+            @Nonnull OWLOntology ontology) {
         return Searcher.sub(ontology.filterAxioms(subObjectPropertyWithSuper,
                 e, EXCLUDED));
     }
@@ -342,9 +350,9 @@ public class EntitySearcher {
      * @since 3.2
      */
     @Nonnull
-    public static Collection<OWLObjectProperty> getSubProperties(
-            @Nonnull OWLObjectProperty e, @Nonnull OWLOntology ontology,
-            boolean imports) {
+    public static Collection<OWLObjectPropertyExpression> getSubProperties(
+            @Nonnull OWLObjectPropertyExpression e,
+            @Nonnull OWLOntology ontology, boolean imports) {
         return Searcher.sub(ontology.filterAxioms(subObjectPropertyWithSuper,
                 e, imports ? INCLUDED : EXCLUDED));
     }
@@ -365,10 +373,10 @@ public class EntitySearcher {
      * @since 3.2
      */
     @Nonnull
-    public static Collection<OWLObjectProperty> getSubProperties(
-            @Nonnull OWLObjectProperty e,
+    public static Collection<OWLObjectPropertyExpression> getSubProperties(
+            @Nonnull OWLObjectPropertyExpression e,
             @Nonnull Iterable<OWLOntology> ontologies) {
-        Collection<OWLObjectProperty> collection = new ArrayList<>();
+        Collection<OWLObjectPropertyExpression> collection = new ArrayList<>();
         for (OWLOntology o : ontologies) {
             assert o != null;
             collection.addAll(getSubProperties(e, o));
@@ -392,8 +400,9 @@ public class EntitySearcher {
      * @since 3.2
      */
     @Nonnull
-    public static Collection<OWLObjectProperty> getSuperProperties(
-            @Nonnull OWLObjectProperty e, @Nonnull OWLOntology ontology) {
+    public static Collection<OWLObjectPropertyExpression> getSuperProperties(
+            @Nonnull OWLObjectPropertyExpression e,
+            @Nonnull OWLOntology ontology) {
         return Searcher.sup(ontology.filterAxioms(subObjectPropertyWithSub, e,
                 EXCLUDED));
     }
@@ -416,9 +425,9 @@ public class EntitySearcher {
      * @since 3.2
      */
     @Nonnull
-    public static Collection<OWLObjectProperty> getSuperProperties(
-            @Nonnull OWLObjectProperty e, @Nonnull OWLOntology ontology,
-            boolean imports) {
+    public static Collection<OWLObjectPropertyExpression> getSuperProperties(
+            @Nonnull OWLObjectPropertyExpression e,
+            @Nonnull OWLOntology ontology, boolean imports) {
         return Searcher.sup(ontology.filterAxioms(subObjectPropertyWithSub, e,
                 imports ? INCLUDED : EXCLUDED));
     }
@@ -439,10 +448,10 @@ public class EntitySearcher {
      * @since 3.2
      */
     @Nonnull
-    public static Collection<OWLObjectProperty> getSuperProperties(
-            @Nonnull OWLObjectProperty e,
+    public static Collection<OWLObjectPropertyExpression> getSuperProperties(
+            @Nonnull OWLObjectPropertyExpression e,
             @Nonnull Iterable<OWLOntology> ontologies) {
-        Collection<OWLObjectProperty> collection = new ArrayList<>();
+        Collection<OWLObjectPropertyExpression> collection = new ArrayList<>();
         for (OWLOntology o : ontologies) {
             assert o != null;
             collection.addAll(getSuperProperties(e, o));
@@ -466,8 +475,9 @@ public class EntitySearcher {
      * @since 3.2
      */
     @Nonnull
-    public static Collection<OWLDataProperty> getSubProperties(
-            @Nonnull OWLDataProperty e, @Nonnull OWLOntology ontology) {
+    public static Collection<OWLDataPropertyExpression>
+            getSubProperties(@Nonnull OWLDataPropertyExpression e,
+                    @Nonnull OWLOntology ontology) {
         return Searcher.sub(ontology.filterAxioms(subDataPropertyWithSuper, e,
                 EXCLUDED));
     }
@@ -490,9 +500,9 @@ public class EntitySearcher {
      * @since 3.2
      */
     @Nonnull
-    public static Collection<OWLDataProperty> getSubProperties(
-            @Nonnull OWLDataProperty e, @Nonnull OWLOntology ontology,
-            boolean imports) {
+    public static Collection<OWLDataPropertyExpression> getSubProperties(
+            @Nonnull OWLDataPropertyExpression e,
+            @Nonnull OWLOntology ontology, boolean imports) {
         return Searcher.sub(ontology.filterAxioms(subDataPropertyWithSuper, e,
                 imports ? INCLUDED : EXCLUDED));
     }
@@ -513,10 +523,10 @@ public class EntitySearcher {
      * @since 3.2
      */
     @Nonnull
-    public static Collection<OWLDataProperty> getSubProperties(
-            @Nonnull OWLDataProperty e,
+    public static Collection<OWLDataPropertyExpression> getSubProperties(
+            @Nonnull OWLDataPropertyExpression e,
             @Nonnull Iterable<OWLOntology> ontologies) {
-        Collection<OWLDataProperty> collection = new ArrayList<>();
+        Collection<OWLDataPropertyExpression> collection = new ArrayList<>();
         for (OWLOntology o : ontologies) {
             assert o != null;
             collection.addAll(getSubProperties(e, o));
@@ -540,8 +550,9 @@ public class EntitySearcher {
      * @since 3.2
      */
     @Nonnull
-    public static Collection<OWLDataProperty> getSuperProperties(
-            @Nonnull OWLDataProperty e, @Nonnull OWLOntology ontology) {
+    public static Collection<OWLDataPropertyExpression>
+            getSuperProperties(@Nonnull OWLDataPropertyExpression e,
+                    @Nonnull OWLOntology ontology) {
         return Searcher.sup(ontology.filterAxioms(subDataPropertyWithSub, e,
                 EXCLUDED));
     }
@@ -564,9 +575,9 @@ public class EntitySearcher {
      * @since 3.2
      */
     @Nonnull
-    public static Collection<OWLDataProperty> getSuperProperties(
-            @Nonnull OWLDataProperty e, @Nonnull OWLOntology ontology,
-            boolean imports) {
+    public static Collection<OWLDataPropertyExpression> getSuperProperties(
+            @Nonnull OWLDataPropertyExpression e,
+            @Nonnull OWLOntology ontology, boolean imports) {
         return Searcher.sup(ontology.filterAxioms(subDataPropertyWithSub, e,
                 imports ? INCLUDED : EXCLUDED));
     }
@@ -587,10 +598,10 @@ public class EntitySearcher {
      * @since 3.2
      */
     @Nonnull
-    public static Collection<OWLDataProperty> getSuperProperties(
-            @Nonnull OWLDataProperty e,
+    public static Collection<OWLDataPropertyExpression> getSuperProperties(
+            @Nonnull OWLDataPropertyExpression e,
             @Nonnull Iterable<OWLOntology> ontologies) {
-        Collection<OWLDataProperty> collection = new ArrayList<>();
+        Collection<OWLDataPropertyExpression> collection = new ArrayList<>();
         for (OWLOntology o : ontologies) {
             assert o != null;
             collection.addAll(getSuperProperties(e, o));
@@ -762,6 +773,78 @@ public class EntitySearcher {
     }
 
     /**
+     * Gets the different individuals in the specified ontology.
+     * 
+     * @param e
+     *        individual
+     * @param ontology
+     *        The ontology to search for different individuals
+     * @return A {@code Set} of different {@code OWLIndividual}s.
+     */
+    @Nonnull
+    public static Collection<OWLIndividual> getDifferentIndividuals(
+            @Nonnull OWLIndividual e, @Nonnull OWLOntology ontology) {
+        return Searcher.different(ontology.getDifferentIndividualAxioms(e));
+    }
+
+    /**
+     * Gets the different individuals in the specified ontologies.
+     * 
+     * @param e
+     *        individual
+     * @param ontologies
+     *        The ontologies to search for different individuals
+     * @return A {@code Set} of different {@code OWLIndividual}s.
+     */
+    @Nonnull
+    public static Collection<OWLIndividual>
+            getDifferentIndividuals(@Nonnull OWLIndividual e,
+                    @Nonnull Iterable<OWLOntology> ontologies) {
+        Collection<OWLIndividual> collection = new ArrayList<>();
+        for (OWLOntology o : ontologies) {
+            assert o != null;
+            collection.addAll(getDifferentIndividuals(e, o));
+        }
+        return collection;
+    }
+
+    /**
+     * Gets the same individuals in the specified ontology.
+     * 
+     * @param e
+     *        individual
+     * @param ontology
+     *        The ontology to search for same individuals
+     * @return A {@code Set} of same {@code OWLIndividual}s.
+     */
+    @Nonnull
+    public static Collection<OWLIndividual> getSameIndividuals(
+            @Nonnull OWLIndividual e, @Nonnull OWLOntology ontology) {
+        return Searcher.equivalent(ontology.getSameIndividualAxioms(e));
+    }
+
+    /**
+     * Gets the same individuals in the specified ontologies.
+     * 
+     * @param e
+     *        individual
+     * @param ontologies
+     *        The ontologies to search for same individuals
+     * @return A {@code Set} of same {@code OWLIndividual}s.
+     */
+    @Nonnull
+    public static Collection<OWLIndividual>
+            getSameIndividuals(@Nonnull OWLIndividual e,
+                    @Nonnull Iterable<OWLOntology> ontologies) {
+        Collection<OWLIndividual> collection = new ArrayList<>();
+        for (OWLOntology o : ontologies) {
+            assert o != null;
+            collection.addAll(getSameIndividuals(e, o));
+        }
+        return collection;
+    }
+
+    /**
      * A convenience method that examines the axioms in the specified ontology
      * and returns the class expressions corresponding to equivalent classes of
      * this class.
@@ -862,7 +945,7 @@ public class EntitySearcher {
      */
     @Nonnull
     public static Collection<OWLObjectPropertyExpression>
-            getEquivalentProperties(@Nonnull OWLObjectProperty e,
+            getEquivalentProperties(@Nonnull OWLObjectPropertyExpression e,
                     @Nonnull OWLOntology ontology) {
         return Searcher.equivalent(ontology
                 .getEquivalentObjectPropertiesAxioms(e));
@@ -883,7 +966,7 @@ public class EntitySearcher {
      */
     @Nonnull
     public static Collection<OWLObjectPropertyExpression>
-            getEquivalentProperties(@Nonnull OWLObjectProperty e,
+            getEquivalentProperties(@Nonnull OWLObjectPropertyExpression e,
                     @Nonnull Iterable<OWLOntology> ontologies) {
         Collection<OWLObjectPropertyExpression> collection = new ArrayList<>();
         for (OWLOntology o : ontologies) {
@@ -906,7 +989,7 @@ public class EntitySearcher {
      */
     @Nonnull
     public static Collection<OWLObjectPropertyExpression>
-            getDisjointProperties(@Nonnull OWLObjectProperty e,
+            getDisjointProperties(@Nonnull OWLObjectPropertyExpression e,
                     @Nonnull OWLOntology ontology) {
         return Searcher
                 .different(ontology.getDisjointObjectPropertiesAxioms(e));
@@ -925,7 +1008,7 @@ public class EntitySearcher {
      */
     @Nonnull
     public static Collection<OWLObjectPropertyExpression>
-            getDisjointProperties(@Nonnull OWLObjectProperty e,
+            getDisjointProperties(@Nonnull OWLObjectPropertyExpression e,
                     @Nonnull Iterable<OWLOntology> ontologies) {
         Collection<OWLObjectPropertyExpression> collection = new ArrayList<>();
         for (OWLOntology o : ontologies) {
@@ -1033,30 +1116,26 @@ public class EntitySearcher {
     @Nonnull
     public static Collection<OWLClassExpression> getDomains(
             @Nonnull OWLDataProperty e, @Nonnull OWLOntology ontology) {
-        return Searcher.domain(ontology.getDataPropertyRangeAxioms(e));
+        return Searcher.domain(ontology.getDataPropertyDomainAxioms(e));
     }
 
     /**
-     * Gets the asserted domains of this property by examining the axioms in the
-     * specified ontologies.
+     * Gets the asserted domains of this property.
      * 
      * @param e
      *        entity
-     * @param ontologies
-     *        The ontologies to be examined.
-     * @return A set of {@code OWLClassExpression}s that represent the asserted
-     *         domains of this property.
+     * @param ontology
+     *        The ontology that should be examined for axioms which assert a
+     *        domain of this property
+     * @return A set of {@code OWLClassExpression}s corresponding to the domains
+     *         of this property (the domain of the property is essentially the
+     *         intersection of these class expressions).
      */
     @Nonnull
     public static Collection<OWLClassExpression> getDomains(
-            @Nonnull OWLDataProperty e,
-            @Nonnull Iterable<OWLOntology> ontologies) {
-        List<OWLClassExpression> list = new ArrayList<>();
-        for (OWLOntology o : ontologies) {
-            assert o != null;
-            list.addAll(getDomains(e, o));
-        }
-        return list;
+            @Nonnull OWLObjectPropertyExpression e,
+            @Nonnull OWLOntology ontology) {
+        return Searcher.domain(ontology.getObjectPropertyDomainAxioms(e));
     }
 
     /**
@@ -1100,24 +1179,6 @@ public class EntitySearcher {
     }
 
     /**
-     * Gets the asserted domains of this property.
-     * 
-     * @param e
-     *        entity
-     * @param ontology
-     *        The ontology that should be examined for axioms which assert a
-     *        domain of this property
-     * @return A set of {@code OWLClassExpression}s corresponding to the domains
-     *         of this property (the domain of the property is essentially the
-     *         intersection of these class expressions).
-     */
-    @Nonnull
-    public static Collection<OWLClassExpression> getDomains(
-            @Nonnull OWLObjectProperty e, @Nonnull OWLOntology ontology) {
-        return Searcher.domain(ontology.getObjectPropertyRangeAxioms(e));
-    }
-
-    /**
      * Gets the asserted domains of this property by examining the axioms in the
      * specified ontologies.
      * 
@@ -1130,7 +1191,7 @@ public class EntitySearcher {
      */
     @Nonnull
     public static Collection<OWLClassExpression> getDomains(
-            @Nonnull OWLObjectProperty e,
+            @Nonnull OWLObjectPropertyExpression e,
             @Nonnull Iterable<OWLOntology> ontologies) {
         List<OWLClassExpression> list = new ArrayList<>();
         for (OWLOntology o : ontologies) {
@@ -1153,7 +1214,8 @@ public class EntitySearcher {
      */
     @Nonnull
     public static Collection<OWLClassExpression> getRanges(
-            @Nonnull OWLObjectProperty e, @Nonnull OWLOntology ontology) {
+            @Nonnull OWLObjectPropertyExpression e,
+            @Nonnull OWLOntology ontology) {
         return Searcher.range(ontology.getObjectPropertyRangeAxioms(e));
     }
 
@@ -1170,7 +1232,7 @@ public class EntitySearcher {
      */
     @Nonnull
     public static Collection<OWLClassExpression> getRanges(
-            @Nonnull OWLObjectProperty e,
+            @Nonnull OWLObjectPropertyExpression e,
             @Nonnull Iterable<OWLOntology> ontologies) {
         List<OWLClassExpression> list = new ArrayList<>();
         for (OWLOntology o : ontologies) {
@@ -1268,7 +1330,7 @@ public class EntitySearcher {
      *        property
      * @return true for transitive properties
      */
-    public static boolean isTransitive(@Nonnull OWLObjectProperty e,
+    public static boolean isTransitive(@Nonnull OWLObjectPropertyExpression e,
             @Nonnull OWLOntology o) {
         return !o.getTransitiveObjectPropertyAxioms(e).isEmpty();
     }
@@ -1282,7 +1344,7 @@ public class EntitySearcher {
      *        property
      * @return true for transitive properties
      */
-    public static boolean isTransitive(@Nonnull OWLObjectProperty e,
+    public static boolean isTransitive(@Nonnull OWLObjectPropertyExpression e,
             @Nonnull Iterable<OWLOntology> ontologies) {
         for (OWLOntology o : ontologies) {
             assert o != null;
@@ -1302,7 +1364,7 @@ public class EntitySearcher {
      *        property
      * @return true for symmetric properties
      */
-    public static boolean isSymmetric(@Nonnull OWLObjectProperty e,
+    public static boolean isSymmetric(@Nonnull OWLObjectPropertyExpression e,
             @Nonnull OWLOntology o) {
         return !o.getSymmetricObjectPropertyAxioms(e).isEmpty();
     }
@@ -1316,7 +1378,7 @@ public class EntitySearcher {
      *        property
      * @return true for symmetric properties
      */
-    public static boolean isSymmetric(@Nonnull OWLObjectProperty e,
+    public static boolean isSymmetric(@Nonnull OWLObjectPropertyExpression e,
             @Nonnull Iterable<OWLOntology> ontologies) {
         for (OWLOntology o : ontologies) {
             assert o != null;
@@ -1336,7 +1398,7 @@ public class EntitySearcher {
      *        property
      * @return true for asymmetric properties
      */
-    public static boolean isAsymmetric(@Nonnull OWLObjectProperty e,
+    public static boolean isAsymmetric(@Nonnull OWLObjectPropertyExpression e,
             @Nonnull OWLOntology o) {
         return !o.getAsymmetricObjectPropertyAxioms(e).isEmpty();
     }
@@ -1350,7 +1412,7 @@ public class EntitySearcher {
      *        property
      * @return true for asymmetric properties
      */
-    public static boolean isAsymmetric(@Nonnull OWLObjectProperty e,
+    public static boolean isAsymmetric(@Nonnull OWLObjectPropertyExpression e,
             @Nonnull Iterable<OWLOntology> ontologies) {
         for (OWLOntology o : ontologies) {
             assert o != null;
@@ -1370,7 +1432,7 @@ public class EntitySearcher {
      *        property
      * @return true for reflexive properties
      */
-    public static boolean isReflexive(@Nonnull OWLObjectProperty e,
+    public static boolean isReflexive(@Nonnull OWLObjectPropertyExpression e,
             @Nonnull OWLOntology o) {
         return !o.getReflexiveObjectPropertyAxioms(e).isEmpty();
     }
@@ -1384,7 +1446,7 @@ public class EntitySearcher {
      *        property
      * @return true for reflexive properties
      */
-    public static boolean isReflexive(@Nonnull OWLObjectProperty e,
+    public static boolean isReflexive(@Nonnull OWLObjectPropertyExpression e,
             @Nonnull Iterable<OWLOntology> ontologies) {
         for (OWLOntology o : ontologies) {
             assert o != null;
@@ -1404,7 +1466,7 @@ public class EntitySearcher {
      *        property
      * @return true for irreflexive properties
      */
-    public static boolean isIrreflexive(@Nonnull OWLObjectProperty e,
+    public static boolean isIrreflexive(@Nonnull OWLObjectPropertyExpression e,
             @Nonnull OWLOntology o) {
         return !o.getIrreflexiveObjectPropertyAxioms(e).isEmpty();
     }
@@ -1418,7 +1480,7 @@ public class EntitySearcher {
      *        property
      * @return true for irreflexive properties
      */
-    public static boolean isIrreflexive(@Nonnull OWLObjectProperty e,
+    public static boolean isIrreflexive(@Nonnull OWLObjectPropertyExpression e,
             @Nonnull Iterable<OWLOntology> ontologies) {
         for (OWLOntology o : ontologies) {
             assert o != null;
@@ -1438,8 +1500,8 @@ public class EntitySearcher {
      *        property
      * @return true for inverse functional properties
      */
-    public static boolean isInverseFunctional(@Nonnull OWLObjectProperty e,
-            @Nonnull OWLOntology o) {
+    public static boolean isInverseFunctional(
+            @Nonnull OWLObjectPropertyExpression e, @Nonnull OWLOntology o) {
         return !o.getInverseFunctionalObjectPropertyAxioms(e).isEmpty();
     }
 
@@ -1452,7 +1514,8 @@ public class EntitySearcher {
      *        property
      * @return true for inverse functional properties
      */
-    public static boolean isInverseFunctional(@Nonnull OWLObjectProperty e,
+    public static boolean isInverseFunctional(
+            @Nonnull OWLObjectPropertyExpression e,
             @Nonnull Iterable<OWLOntology> ontologies) {
         for (OWLOntology o : ontologies) {
             assert o != null;
@@ -1472,7 +1535,7 @@ public class EntitySearcher {
      *        property
      * @return true for functional object properties
      */
-    public static boolean isFunctional(@Nonnull OWLObjectProperty e,
+    public static boolean isFunctional(@Nonnull OWLObjectPropertyExpression e,
             @Nonnull OWLOntology o) {
         return !o.getFunctionalObjectPropertyAxioms(e).isEmpty();
     }
@@ -1486,7 +1549,7 @@ public class EntitySearcher {
      *        property
      * @return true for functional object properties
      */
-    public static boolean isFunctional(@Nonnull OWLObjectProperty e,
+    public static boolean isFunctional(@Nonnull OWLObjectPropertyExpression e,
             @Nonnull Iterable<OWLOntology> ontologies) {
         for (OWLOntology o : ontologies) {
             assert o != null;
@@ -1564,5 +1627,711 @@ public class EntitySearcher {
             }
         }
         return false;
+    }
+
+    /**
+     * Checks if o contains axiom a, with or without imports closure.
+     * 
+     * @param o
+     *        ontology
+     * @param a
+     *        axiom
+     * @param imports
+     *        true if imports closure is included
+     * @return true if a is contained
+     */
+    public static boolean containsAxiom(@Nonnull OWLAxiom a,
+            @Nonnull OWLOntology o, boolean imports) {
+        return o.containsAxiom(a,
+                imports ? Imports.INCLUDED : Imports.EXCLUDED,
+                Search.CONSIDER_ANNOTATIONS);
+    }
+
+    /**
+     * Checks if any of the ontologies contains axiom a, with or without imports
+     * closure.
+     * 
+     * @param ontologies
+     *        ontologies
+     * @param a
+     *        axiom
+     * @param imports
+     *        true if imports closure is included @return true if a is contained
+     * @return true if a is contained
+     */
+    public static boolean containsAxiom(@Nonnull OWLAxiom a,
+            @Nonnull Iterable<OWLOntology> ontologies, boolean imports) {
+        for (OWLOntology o : ontologies) {
+            assert o != null;
+            if (containsAxiom(a, o, imports)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks if o contains axiom a, with or without imports closure, ignoring
+     * annotations.
+     * 
+     * @param o
+     *        ontology
+     * @param a
+     *        axiom
+     * @param imports
+     *        true if imports closure is included
+     * @return true if a is contained
+     */
+    public static boolean containsAxiomIgnoreAnnotations(@Nonnull OWLAxiom a,
+            @Nonnull OWLOntology o, boolean imports) {
+        return o.containsAxiom(a, imports == true ? Imports.INCLUDED
+                : Imports.EXCLUDED, Search.IGNORE_ANNOTATIONS);
+    }
+
+    /**
+     * Checks if any of the ontologies contains axiom a, with or without imports
+     * closure.
+     * 
+     * @param ontologies
+     *        ontologies
+     * @param a
+     *        axiom
+     * @param imports
+     *        true if imports closure is included @return true if a is contained
+     * @return true if a is contained
+     */
+    public static boolean containsAxiomIgnoreAnnotations(@Nonnull OWLAxiom a,
+            @Nonnull Iterable<OWLOntology> ontologies, boolean imports) {
+        for (OWLOntology o : ontologies) {
+            assert o != null;
+            if (containsAxiomIgnoreAnnotations(a, o, imports)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Get matching axioms for a, ignoring annotations.
+     * 
+     * @param o
+     *        ontology
+     * @param a
+     *        axiom
+     * @param imports
+     *        true if imports closure is included
+     * @return matching axioms
+     */
+    public static Collection<OWLAxiom> getAxiomsIgnoreAnnotations(
+            @Nonnull OWLAxiom a, @Nonnull OWLOntology o, boolean imports) {
+        return o.getAxiomsIgnoreAnnotations(a,
+                imports == true ? Imports.INCLUDED : Imports.EXCLUDED);
+    }
+
+    /**
+     * @param i
+     *        individual
+     * @param p
+     *        property to search
+     * @param ontology
+     *        ontology to search
+     * @return literal values
+     */
+    @Nonnull
+    public static Collection<OWLLiteral> getDataPropertyValues(
+            @Nonnull OWLIndividual i, @Nonnull OWLDataPropertyExpression p,
+            @Nonnull OWLOntology ontology) {
+        return Searcher.values(ontology.getDataPropertyAssertionAxioms(i), p);
+    }
+
+    /**
+     * @param i
+     *        individual
+     * @param p
+     *        property to search
+     * @param ontologies
+     *        ontologies to search
+     * @return literal values
+     */
+    @Nonnull
+    public static Collection<OWLLiteral> getDataPropertyValues(
+            @Nonnull OWLIndividual i, @Nonnull OWLDataPropertyExpression p,
+            @Nonnull Iterable<OWLOntology> ontologies) {
+        Collection<OWLLiteral> collection = new ArrayList<>();
+        for (OWLOntology o : ontologies) {
+            assert o != null;
+            collection.addAll(getDataPropertyValues(i, p, o));
+        }
+        return collection;
+    }
+
+    /**
+     * @param i
+     *        individual
+     * @param p
+     *        property to search
+     * @param ontology
+     *        ontology to search
+     * @return property values
+     */
+    @Nonnull
+    public static Collection<OWLIndividual> getObjectPropertyValues(
+            @Nonnull OWLIndividual i, @Nonnull OWLObjectPropertyExpression p,
+            @Nonnull OWLOntology ontology) {
+        return Searcher.values(ontology.getObjectPropertyAssertionAxioms(i), p);
+    }
+
+    /**
+     * @param i
+     *        individual
+     * @param p
+     *        property to search
+     * @param ontologies
+     *        ontologies to search
+     * @return property values
+     */
+    @Nonnull
+    public static Collection<OWLIndividual> getObjectPropertyValues(
+            @Nonnull OWLIndividual i, @Nonnull OWLObjectPropertyExpression p,
+            @Nonnull Iterable<OWLOntology> ontologies) {
+        Collection<OWLIndividual> collection = new ArrayList<>();
+        for (OWLOntology o : ontologies) {
+            assert o != null;
+            collection.addAll(getObjectPropertyValues(i, p, o));
+        }
+        return collection;
+    }
+
+    /**
+     * @param i
+     *        individual
+     * @param p
+     *        property to search
+     * @param ontology
+     *        ontology to search
+     * @return property values
+     */
+    @Nonnull
+    public static Collection<OWLLiteral> getNegativeDataPropertyValues(
+            @Nonnull OWLIndividual i, @Nonnull OWLDataPropertyExpression p,
+            @Nonnull OWLOntology ontology) {
+        return Searcher.negValues(
+                ontology.getNegativeDataPropertyAssertionAxioms(i), p);
+    }
+
+    /**
+     * @param i
+     *        individual
+     * @param p
+     *        property to search
+     * @param ontologies
+     *        ontologies to search
+     * @return property values
+     */
+    @Nonnull
+    public static Collection<OWLLiteral> getNegativeDataPropertyValues(
+            @Nonnull OWLIndividual i, @Nonnull OWLDataPropertyExpression p,
+            @Nonnull Iterable<OWLOntology> ontologies) {
+        Collection<OWLLiteral> collection = new ArrayList<>();
+        for (OWLOntology o : ontologies) {
+            assert o != null;
+            collection.addAll(getNegativeDataPropertyValues(i, p, o));
+        }
+        return collection;
+    }
+
+    /**
+     * @param i
+     *        individual
+     * @param p
+     *        property to search
+     * @param ontology
+     *        ontology to search
+     * @return property values
+     */
+    @Nonnull
+    public static Collection<OWLIndividual> getNegativeObjectPropertyValues(
+            @Nonnull OWLIndividual i, @Nonnull OWLObjectPropertyExpression p,
+            @Nonnull OWLOntology ontology) {
+        return Searcher.negValues(
+                ontology.getNegativeObjectPropertyAssertionAxioms(i), p);
+    }
+
+    /**
+     * @param i
+     *        individual
+     * @param p
+     *        property to search
+     * @param ontologies
+     *        ontologies to search
+     * @return property values
+     */
+    @Nonnull
+    public static Collection<OWLIndividual> getNegativeObjectPropertyValues(
+            @Nonnull OWLIndividual i, @Nonnull OWLObjectPropertyExpression p,
+            @Nonnull Iterable<OWLOntology> ontologies) {
+        Collection<OWLIndividual> collection = new ArrayList<>();
+        for (OWLOntology o : ontologies) {
+            assert o != null;
+            collection.addAll(getNegativeObjectPropertyValues(i, p, o));
+        }
+        return collection;
+    }
+
+    /**
+     * @param i
+     *        individual
+     * @param p
+     *        property to search
+     * @param ontology
+     *        ontology to search
+     * @return true if values are present
+     */
+    public static boolean hasDataPropertyValues(@Nonnull OWLIndividual i,
+            OWLDataPropertyExpression p, @Nonnull OWLOntology ontology) {
+        return !Searcher.values(ontology.getDataPropertyAssertionAxioms(i), p)
+                .isEmpty();
+    }
+
+    /**
+     * @param i
+     *        individual
+     * @param p
+     *        property to search
+     * @param ontologies
+     *        ontologies to search
+     * @return true if value present
+     */
+    public static boolean hasDataPropertyValues(@Nonnull OWLIndividual i,
+            @Nonnull OWLDataPropertyExpression p,
+            @Nonnull Iterable<OWLOntology> ontologies) {
+        for (OWLOntology o : ontologies) {
+            assert o != null;
+            if (hasDataPropertyValues(i, p, o)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * @param i
+     *        individual
+     * @param p
+     *        property to search
+     * @param ontology
+     *        ontology to search
+     * @return true if value present
+     */
+    public static boolean hasObjectPropertyValues(@Nonnull OWLIndividual i,
+            @Nonnull OWLObjectPropertyExpression p,
+            @Nonnull OWLOntology ontology) {
+        return !Searcher
+                .values(ontology.getObjectPropertyAssertionAxioms(i), p)
+                .isEmpty();
+    }
+
+    /**
+     * @param i
+     *        individual
+     * @param p
+     *        property to search
+     * @param ontologies
+     *        ontologies to search
+     * @return true if value present
+     */
+    public static boolean hasObjectPropertyValues(@Nonnull OWLIndividual i,
+            @Nonnull OWLObjectPropertyExpression p,
+            @Nonnull Iterable<OWLOntology> ontologies) {
+        for (OWLOntology o : ontologies) {
+            assert o != null;
+            if (hasObjectPropertyValues(i, p, o)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * @param i
+     *        individual
+     * @param p
+     *        property to search
+     * @param ontology
+     *        ontology to search
+     * @return true if value present
+     */
+    public static boolean hasNegativeDataPropertyValues(
+            @Nonnull OWLIndividual i, @Nonnull OWLDataPropertyExpression p,
+            @Nonnull OWLOntology ontology) {
+        return !Searcher.negValues(
+                ontology.getNegativeDataPropertyAssertionAxioms(i), p)
+                .isEmpty();
+    }
+
+    /**
+     * @param i
+     *        individual
+     * @param p
+     *        property to search
+     * @param ontologies
+     *        ontologies to search
+     * @return true if value present
+     */
+    public static boolean hasNegativeDataPropertyValues(
+            @Nonnull OWLIndividual i, @Nonnull OWLDataPropertyExpression p,
+            @Nonnull Iterable<OWLOntology> ontologies) {
+        for (OWLOntology o : ontologies) {
+            assert o != null;
+            if (hasNegativeDataPropertyValues(i, p, o)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * @param i
+     *        individual
+     * @param p
+     *        property to search
+     * @param ontology
+     *        ontology to search
+     * @return true if value present
+     */
+    public static boolean hasNegativeObjectPropertyValues(
+            @Nonnull OWLIndividual i, @Nonnull OWLObjectPropertyExpression p,
+            @Nonnull OWLOntology ontology) {
+        return !Searcher.negValues(
+                ontology.getNegativeObjectPropertyAssertionAxioms(i), p)
+                .isEmpty();
+    }
+
+    /**
+     * @param i
+     *        individual
+     * @param p
+     *        property to search
+     * @param ontologies
+     *        ontologies to search
+     * @return true if value present
+     */
+    public static boolean hasNegativeObjectPropertyValues(
+            @Nonnull OWLIndividual i, @Nonnull OWLObjectPropertyExpression p,
+            @Nonnull Iterable<OWLOntology> ontologies) {
+        for (OWLOntology o : ontologies) {
+            assert o != null;
+            if (hasNegativeObjectPropertyValues(i, p, o)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * @param i
+     *        individual
+     * @param p
+     *        property to search
+     * @param lit
+     *        literal to search
+     * @param ontology
+     *        ontology to search
+     * @return true if value present
+     */
+    public static boolean hasDataPropertyValue(@Nonnull OWLIndividual i,
+            @Nonnull OWLDataPropertyExpression p, @Nonnull OWLLiteral lit,
+            @Nonnull OWLOntology ontology) {
+        return Searcher.values(ontology.getDataPropertyAssertionAxioms(i), p)
+                .contains(lit);
+    }
+
+    /**
+     * @param i
+     *        individual
+     * @param p
+     *        property to search
+     * @param lit
+     *        literal to search
+     * @param ontologies
+     *        ontologies to search
+     * @return true if value present
+     */
+    public static boolean hasDataPropertyValue(@Nonnull OWLIndividual i,
+            @Nonnull OWLDataPropertyExpression p, @Nonnull OWLLiteral lit,
+            @Nonnull Iterable<OWLOntology> ontologies) {
+        for (OWLOntology o : ontologies) {
+            assert o != null;
+            if (hasDataPropertyValue(i, p, lit, o)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * @param i
+     *        individual
+     * @param p
+     *        property to search
+     * @param j
+     *        individual to search
+     * @param ontology
+     *        ontology to search
+     * @return true if value present
+     */
+    public static boolean hasObjectPropertyValue(@Nonnull OWLIndividual i,
+            @Nonnull OWLObjectPropertyExpression p, @Nonnull OWLIndividual j,
+            @Nonnull OWLOntology ontology) {
+        return Searcher.values(ontology.getObjectPropertyAssertionAxioms(i), p)
+                .contains(j);
+    }
+
+    /**
+     * @param i
+     *        individual
+     * @param p
+     *        property to search
+     * @param j
+     *        individual to search
+     * @param ontologies
+     *        ontologies to search
+     * @return true if value present
+     */
+    public static boolean hasObjectPropertyValue(@Nonnull OWLIndividual i,
+            @Nonnull OWLObjectPropertyExpression p, @Nonnull OWLIndividual j,
+            @Nonnull Iterable<OWLOntology> ontologies) {
+        for (OWLOntology o : ontologies) {
+            assert o != null;
+            if (hasObjectPropertyValue(i, p, j, o)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * @param i
+     *        individual
+     * @param p
+     *        property to search
+     * @param lit
+     *        literal to search
+     * @param ontology
+     *        ontology to search
+     * @return true if value present
+     */
+    public static boolean hasNegativeDataPropertyValue(
+            @Nonnull OWLIndividual i, @Nonnull OWLDataPropertyExpression p,
+            @Nonnull OWLLiteral lit, @Nonnull OWLOntology ontology) {
+        return Searcher.negValues(
+                ontology.getNegativeDataPropertyAssertionAxioms(i), p)
+                .contains(lit);
+    }
+
+    /**
+     * @param i
+     *        individual
+     * @param p
+     *        property to search
+     * @param lit
+     *        literal to search
+     * @param ontologies
+     *        ontologies to search
+     * @return true if value present
+     */
+    public static boolean hasNegativeDataPropertyValue(
+            @Nonnull OWLIndividual i, @Nonnull OWLDataPropertyExpression p,
+            @Nonnull OWLLiteral lit, @Nonnull Iterable<OWLOntology> ontologies) {
+        for (OWLOntology o : ontologies) {
+            assert o != null;
+            if (hasNegativeDataPropertyValue(i, p, lit, o)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * @param i
+     *        individual
+     * @param p
+     *        property to search
+     * @param j
+     *        individual to search
+     * @param ontology
+     *        ontology to search
+     * @return true if value present
+     */
+    public static boolean hasNegativeObjectPropertyValue(
+            @Nonnull OWLIndividual i, @Nonnull OWLObjectPropertyExpression p,
+            @Nonnull OWLIndividual j, @Nonnull OWLOntology ontology) {
+        return Searcher.negValues(
+                ontology.getNegativeObjectPropertyAssertionAxioms(i), p)
+                .contains(j);
+    }
+
+    /**
+     * @param i
+     *        individual
+     * @param p
+     *        property to search
+     * @param j
+     *        individual to search
+     * @param ontologies
+     *        ontologies to search
+     * @return true if value present
+     */
+    public static boolean
+            hasNegativeObjectPropertyValue(@Nonnull OWLIndividual i,
+                    @Nonnull OWLObjectPropertyExpression p,
+                    @Nonnull OWLIndividual j,
+                    @Nonnull Iterable<OWLOntology> ontologies) {
+        for (OWLOntology o : ontologies) {
+            assert o != null;
+            if (hasNegativeObjectPropertyValue(i, p, j, o)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * @param i
+     *        individual
+     * @param ontology
+     *        ontology to search
+     * @return property values
+     */
+    @SuppressWarnings("null")
+    @Nonnull
+    public static Multimap<OWLDataPropertyExpression, OWLLiteral>
+            getDataPropertyValues(@Nonnull OWLIndividual i,
+                    @Nonnull OWLOntology ontology) {
+        Multimap<OWLDataPropertyExpression, OWLLiteral> map = LinkedListMultimap
+                .create();
+        for (OWLDataPropertyAssertionAxiom ax : ontology
+                .getDataPropertyAssertionAxioms(i)) {
+            map.put(ax.getProperty(), ax.getObject());
+        }
+        return map;
+    }
+
+    /**
+     * @param i
+     *        individual
+     * @param ontology
+     *        ontology to search
+     * @return property values
+     */
+    @SuppressWarnings("null")
+    @Nonnull
+    public static Multimap<OWLObjectPropertyExpression, OWLIndividual>
+            getObjectPropertyValues(@Nonnull OWLIndividual i,
+                    @Nonnull OWLOntology ontology) {
+        Multimap<OWLObjectPropertyExpression, OWLIndividual> map = LinkedListMultimap
+                .create();
+        for (OWLObjectPropertyAssertionAxiom ax : ontology
+                .getObjectPropertyAssertionAxioms(i)) {
+            map.put(ax.getProperty(), ax.getObject());
+        }
+        return map;
+    }
+
+    /**
+     * @param e
+     *        object property
+     * @param ontology
+     *        ontology to search
+     * @return property inverses
+     */
+    @Nonnull
+    public static Collection<OWLObjectPropertyExpression> getInverses(
+            @Nonnull OWLObjectPropertyExpression e,
+            @Nonnull OWLOntology ontology) {
+        return Searcher.inverse(ontology.getInverseObjectPropertyAxioms(e), e);
+    }
+
+    /**
+     * @param e
+     *        object property
+     * @param ontologies
+     *        ontologies to search
+     * @return property inverses
+     */
+    @Nonnull
+    public static Collection<OWLObjectPropertyExpression> getInverses(
+            @Nonnull OWLObjectPropertyExpression e,
+            @Nonnull Iterable<OWLOntology> ontologies) {
+        Collection<OWLObjectPropertyExpression> collection = new ArrayList<>();
+        for (OWLOntology o : ontologies) {
+            assert o != null;
+            collection.addAll(getInverses(e, o));
+        }
+        return collection;
+    }
+
+    /**
+     * @param e
+     *        class
+     * @param ontology
+     *        ontology to search
+     * @return instances of class
+     */
+    @Nonnull
+    public static Collection<OWLIndividual> getInstances(
+            @Nonnull OWLClassExpression e, @Nonnull OWLOntology ontology) {
+        return Searcher.instances(ontology.getClassAssertionAxioms(e));
+    }
+
+    /**
+     * @param e
+     *        class
+     * @param ontologies
+     *        ontologies to search
+     * @return instances of class
+     */
+    @Nonnull
+    public static Collection<OWLIndividual> getInstances(
+            @Nonnull OWLClassExpression e,
+            @Nonnull Iterable<OWLOntology> ontologies) {
+        Collection<OWLIndividual> list = new ArrayList<>();
+        for (OWLOntology o : ontologies) {
+            assert o != null;
+            list.addAll(getInstances(e, o));
+        }
+        return list;
+    }
+
+    /**
+     * @param e
+     *        individual
+     * @param ontology
+     *        ontology to search
+     * @return types for individual
+     */
+    @Nonnull
+    public static Collection<OWLClassExpression> getTypes(
+            @Nonnull OWLIndividual e, @Nonnull OWLOntology ontology) {
+        return Searcher.types(ontology.getClassAssertionAxioms(e));
+    }
+
+    /**
+     * @param e
+     *        individual
+     * @param ontologies
+     *        ontologies to search
+     * @return types for individual
+     */
+    @Nonnull
+    public static Collection<OWLClassExpression>
+            getTypes(@Nonnull OWLIndividual e,
+                    @Nonnull Iterable<OWLOntology> ontologies) {
+        Collection<OWLClassExpression> list = new ArrayList<>();
+        for (OWLOntology o : ontologies) {
+            assert o != null;
+            list.addAll(getTypes(e, o));
+        }
+        return list;
     }
 }
