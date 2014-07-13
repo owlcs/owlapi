@@ -1168,4 +1168,78 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
         }
         return false;
     }
+
+    @Override
+    public Set<OWLClassAxiom> getAxioms(OWLClass cls) {
+        return getAxioms(cls, false);
+    }
+
+    @Override
+    public Set<OWLObjectPropertyAxiom> getAxioms(
+            OWLObjectPropertyExpression property) {
+        return getAxioms(property, false);
+    }
+
+    @Override
+    public Set<OWLDataPropertyAxiom> getAxioms(OWLDataProperty property) {
+        return getAxioms(property, false);
+    }
+
+    @Override
+    public Set<OWLIndividualAxiom> getAxioms(OWLIndividual individual) {
+        return getAxioms(individual, false);
+    }
+
+    @Override
+    public Set<OWLAnnotationAxiom> getAxioms(OWLAnnotationProperty property) {
+        return getAxioms(property, false);
+    }
+
+    @Override
+    public Set<OWLDatatypeDefinitionAxiom> getAxioms(OWLDatatype datatype) {
+        return getAxioms(datatype, false);
+    }
+
+    @Override
+    public Set<OWLClassAxiom> getAxioms(OWLClass cls,
+            boolean includeImportsClosure) {
+        return getAxioms(cls, includeImportsClosure ? Imports.INCLUDED
+                : Imports.EXCLUDED);
+    }
+
+    @Override
+    public Set<OWLObjectPropertyAxiom>
+            getAxioms(OWLObjectPropertyExpression property,
+                    boolean includeImportsClosure) {
+        return getAxioms(property, includeImportsClosure ? Imports.INCLUDED
+                : Imports.EXCLUDED);
+    }
+
+    @Override
+    public Set<OWLDataPropertyAxiom> getAxioms(OWLDataProperty property,
+            boolean includeImportsClosure) {
+        return getAxioms(property, includeImportsClosure ? Imports.INCLUDED
+                : Imports.EXCLUDED);
+    }
+
+    @Override
+    public Set<OWLIndividualAxiom> getAxioms(OWLIndividual individual,
+            boolean includeImportsClosure) {
+        return getAxioms(individual, includeImportsClosure ? Imports.INCLUDED
+                : Imports.EXCLUDED);
+    }
+
+    @Override
+    public Set<OWLAnnotationAxiom> getAxioms(OWLAnnotationProperty property,
+            boolean includeImportsClosure) {
+        return getAxioms(property, includeImportsClosure ? Imports.INCLUDED
+                : Imports.EXCLUDED);
+    }
+
+    @Override
+    public Set<OWLDatatypeDefinitionAxiom> getAxioms(OWLDatatype datatype,
+            boolean includeImportsClosure) {
+        return getAxioms(datatype, includeImportsClosure ? Imports.INCLUDED
+                : Imports.EXCLUDED);
+    }
 }
