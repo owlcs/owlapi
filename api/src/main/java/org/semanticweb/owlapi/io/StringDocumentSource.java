@@ -45,6 +45,16 @@ public class StringDocumentSource extends OWLOntologyDocumentSourceBase {
     }
 
     /**
+     * @param string
+     *        the source string
+     * @param iri
+     *        The document IRI
+     */
+    public StringDocumentSource(@Nonnull String string, @Nonnull IRI iri) {
+        this(string, iri, null, null);
+    }
+
+    /**
      * @param target
      *        a document target
      */

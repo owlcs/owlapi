@@ -43,6 +43,19 @@ public class StreamDocumentSource extends StreamDocumentSourceBase {
      * Constructs an input source which will read an ontology from a
      * representation from the specified stream.
      * 
+     * @param is
+     *        The stream that the ontology representation will be read from.
+     * @param iri
+     *        The document IRI
+     */
+    public StreamDocumentSource(@Nonnull InputStream is, IRI iri) {
+        this(is, iri, null, null);
+    }
+
+    /**
+     * Constructs an input source which will read an ontology from a
+     * representation from the specified stream.
+     * 
      * @param stream
      *        The stream that the ontology representation will be read from.
      * @param documentIRI
