@@ -58,6 +58,6 @@
   <classpathentry kind="var" path="M2_REPO/org/semarglproject/semargl-core/0.6.1/semargl-core-0.6.1.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/semarglproject/semargl-rdfa/0.6.1/semargl-rdfa-0.6.1.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/semarglproject/semargl-rdf/0.6.1/semargl-rdf-0.6.1.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JDK 8"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
