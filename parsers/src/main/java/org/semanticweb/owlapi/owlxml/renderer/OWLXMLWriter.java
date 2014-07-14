@@ -279,7 +279,6 @@ public class OWLXMLWriter {
         }
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     String iriMinusBase(String iriString) {
         return iriString.substring(writer.getXMLBase().length(),

@@ -277,7 +277,6 @@ public class AxiomType<C extends OWLAxiom> implements Serializable {
     private static final Map<String, AxiomType<?>> NAME_TYPE_MAP = Maps
             .uniqueIndex(AXIOM_TYPES, new Function<AxiomType<?>, String>() {
 
-                @SuppressWarnings("null")
                 @Override
                 public String apply(AxiomType<?> input) {
                     return input.getName();
@@ -286,7 +285,6 @@ public class AxiomType<C extends OWLAxiom> implements Serializable {
     private static final Map<Class<?>, AxiomType<?>> CLASS_TYPE_MAP = Maps
             .uniqueIndex(AXIOM_TYPES, new Function<AxiomType<?>, Class<?>>() {
 
-                @SuppressWarnings("null")
                 @Override
                 public Class<?> apply(AxiomType<?> input) {
                     return input.getActualClass();
@@ -338,7 +336,6 @@ public class AxiomType<C extends OWLAxiom> implements Serializable {
                     SUB_OBJECT_PROPERTY, EQUIVALENT_OBJECT_PROPERTIES,
                     SUB_PROPERTY_CHAIN_OF);
     /** set of tbox and rbox axiom types */
-    @SuppressWarnings("null")
     @Nonnull
     public static final Set<AxiomType<?>> TBoxAndRBoxAxiomTypes = Sets
             .newHashSet(Iterables.concat(TBoxAxiomTypes, RBoxAxiomTypes));

@@ -170,19 +170,6 @@ public class CollectionFactory {
     }
 
     /**
-     * Wrapper for Collections.emptySet() to allow nullity annotations.
-     * 
-     * @param <T>
-     *        set type
-     * @return empty set
-     */
-    @SuppressWarnings("null")
-    @Nonnull
-    public static <T> Set<T> emptySet() {
-        return Collections.emptySet();
-    }
-
-    /**
      * @param value
      *        the number of expected threads that will access threadsafe
      *        collections; useful for increasing the concurrency in
@@ -235,7 +222,6 @@ public class CollectionFactory {
      * @param <T>
      *        type
      */
-    @SuppressWarnings("null")
     @Nonnull
     public static <T> List<T> list(Iterable<T> i) {
         return Lists.newArrayList(i);
@@ -248,7 +234,6 @@ public class CollectionFactory {
      * @param <T>
      *        type
      */
-    @SuppressWarnings("null")
     @Nonnull
     @SafeVarargs
     public static <T> List<T> list(T... i) {
@@ -262,21 +247,9 @@ public class CollectionFactory {
      * @param <T>
      *        type
      */
-    @SuppressWarnings("null")
     @Nonnull
     public static <T> List<T> list(T i) {
         return Collections.singletonList(i);
-    }
-
-    /**
-     * @return empty list
-     * @param <T>
-     *        type
-     */
-    @SuppressWarnings("null")
-    @Nonnull
-    public static <T> List<T> emptyList() {
-        return Collections.emptyList();
     }
 
     /**
@@ -334,7 +307,6 @@ public class CollectionFactory {
      * @param <T>
      *        axiom type
      */
-    @SuppressWarnings("null")
     @Nonnull
     @SafeVarargs
     public static <T> Set<T> createSet(@Nonnull T... elements) {
@@ -360,7 +332,6 @@ public class CollectionFactory {
      * @param <T>
      *        set type
      */
-    @SuppressWarnings("null")
     @Nonnull
     public static <T> Set<T> createSyncSet() {
         ConcurrentHashMap<T, Boolean> internalMap = createSyncMap();
@@ -404,7 +375,7 @@ public class CollectionFactory {
     public static <T> Set<T> getCopyOnRequestSetFromMutableCollection(
             @Nullable Collection<T> source) {
         if (source == null || source.isEmpty()) {
-            return emptySet();
+            return Collections.emptySet();
         }
         return new ConditionalCopySet<>(source, true);
     }
@@ -420,7 +391,7 @@ public class CollectionFactory {
     public static <T> Set<T> getCopyOnRequestSetFromImmutableCollection(
             @Nullable Collection<T> source) {
         if (source == null || source.isEmpty()) {
-            return emptySet();
+            return Collections.emptySet();
         }
         return new ConditionalCopySet<>(source, false);
     }
@@ -560,7 +531,6 @@ public class CollectionFactory {
             return delegate.isEmpty();
         }
 
-        @SuppressWarnings("null")
         @Nonnull
         @Override
         public Iterator<T> iterator() {
@@ -599,14 +569,12 @@ public class CollectionFactory {
             return delegate.size();
         }
 
-        @SuppressWarnings("null")
         @Nonnull
         @Override
         public Object[] toArray() {
             return delegate.toArray();
         }
 
-        @SuppressWarnings("null")
         @Nonnull
         @Override
         public <Type> Type[] toArray(Type[] a) {

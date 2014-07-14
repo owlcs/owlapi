@@ -25,7 +25,7 @@ import org.semanticweb.owlapi.rio.RioRDFXMLParserFactory;
 /**
  * @author Peter Ansell p_ansell@yahoo.com
  */
-@SuppressWarnings({ "javadoc", "null" })
+@SuppressWarnings({ "javadoc" })
 public class RioParserTest extends TestBase {
 
     @Before

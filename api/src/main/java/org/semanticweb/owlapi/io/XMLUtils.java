@@ -260,7 +260,6 @@ public class XMLUtils {
      * @return the prefix split at the last non-ncname character, or the whole
      *         input if no ncname is found
      */
-    @SuppressWarnings("null")
     @Nonnull
     public static String getNCNamePrefix(CharSequence s) {
         if (s.length() > 1 && s.charAt(0) == '_' && s.charAt(1) == ':') {
@@ -281,7 +280,6 @@ public class XMLUtils {
      *        The character sequence.
      * @return The escaped version of the character sequence.
      */
-    @SuppressWarnings("null")
     @Nonnull
     public static String escapeXML(CharSequence s) {
         // double quote -- quot

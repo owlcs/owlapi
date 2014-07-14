@@ -72,7 +72,6 @@ public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
         return new OBODocumentFormat();
     }
 
-    @SuppressWarnings("null")
     private static OWLOntology
             parse(@Nullable IRI iri,
                     @Nullable OWLOntologyDocumentSource source,

@@ -85,13 +85,11 @@ public class RioOWLRDFConsumerAdapter extends OWLRDFConsumer implements
     @Override
     public void handleComment(String comment) {}
 
-    @SuppressWarnings("null")
     @Override
     public void handleNamespace(String prefix, String uri) {
         getOntologyFormat().setPrefix(prefix + ':', uri);
     }
 
-    @SuppressWarnings("null")
     @Override
     public void handleStatement(final Statement st) {
         @Nonnull

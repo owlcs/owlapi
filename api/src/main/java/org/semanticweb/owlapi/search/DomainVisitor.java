@@ -11,8 +11,7 @@ import org.semanticweb.owlapi.util.OWLAxiomVisitorExAdapter;
 @SuppressWarnings("unchecked")
 class DomainVisitor<C extends OWLObject> extends OWLAxiomVisitorExAdapter<C> {
 
-    @SuppressWarnings("null")
-    /**default constructor*/
+    /** default constructor */
     public DomainVisitor() {
         super(null);
     }

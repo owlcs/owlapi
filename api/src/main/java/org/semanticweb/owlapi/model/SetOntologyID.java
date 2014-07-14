@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.model;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
+import java.util.Collections;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -75,8 +76,7 @@ public class SetOntologyID extends OWLOntologyChange {
     @Override
     public Set<OWLEntity> getSignature() {
         return CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(CollectionFactory
-                        .<OWLEntity> emptySet());
+                .getCopyOnRequestSetFromImmutableCollection(Collections.emptySet());
     }
 
     @Override

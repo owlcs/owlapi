@@ -277,7 +277,6 @@ public class OBOFormatParser {
         return parse(url);
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     private String resolvePath(@Nonnull String _path) {
         String path = _path;
@@ -319,7 +318,6 @@ public class OBOFormatParser {
         List<OBODoc> imports = new LinkedList<>();
         if (hf != null) {
             for (Clause cl : hf.getClauses(OboFormatTag.TAG_IMPORT)) {
-                @SuppressWarnings("null")
                 String path = resolvePath(cl.getValue(String.class));
                 // TBD -- changing the relative path to absolute
                 cl.setValue(path);
@@ -392,7 +390,6 @@ public class OBOFormatParser {
      * @throws OBOFormatDanglingReferenceException
      *         dangling reference error
      */
-    @SuppressWarnings("null")
     @Nonnull
     public List<String> checkDanglingReferences(@Nonnull OBODoc doc) {
         List<String> danglingReferences = new ArrayList<>();
@@ -885,7 +882,6 @@ public class OBOFormatParser {
     // ----------------------------------------
     // TVP
     // ----------------------------------------
-    @SuppressWarnings("null")
     @Nonnull
     private String getParseTag() {
         if (stream.eof()) {
@@ -1213,7 +1209,6 @@ public class OBOFormatParser {
             warn("accepting bad xref with spaces:<" + id + '>');
         }
         id = id.replaceAll(" +\\Z", "");
-        @SuppressWarnings("null")
         Xref xref = new Xref(id);
         cl.addValue(xref);
         parseZeroOrMoreWs();
@@ -1411,7 +1406,6 @@ public class OBOFormatParser {
         return getParseUntil(compl, false);
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     private String
             getParseUntil(@Nonnull String compl, boolean commaWhitespace) {

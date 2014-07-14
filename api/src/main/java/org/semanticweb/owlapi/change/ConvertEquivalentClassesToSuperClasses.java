@@ -35,6 +35,7 @@ package org.semanticweb.owlapi.change;/*
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -48,7 +49,6 @@ import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.RemoveAxiom;
-import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLClassExpressionVisitorExAdapter;
 
 /**
@@ -138,11 +138,11 @@ public class ConvertEquivalentClassesToSuperClasses extends
     @Nonnull
     private Set<OWLClassExpression> getClassExpressions(
             @Nonnull OWLClassExpression desc) {
-        Set<OWLClassExpression> result = CollectionFactory.emptySet();
+        Set<OWLClassExpression> result = Collections.emptySet();
         if (splitIntersections) {
             result = desc
                     .accept(new OWLClassExpressionVisitorExAdapter<Set<OWLClassExpression>>(
-                            CollectionFactory.<OWLClassExpression> emptySet()) {
+                            Collections.emptySet()) {
 
                         @Override
                         public Set<OWLClassExpression> visit(

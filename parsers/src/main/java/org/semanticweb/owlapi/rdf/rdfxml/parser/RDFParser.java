@@ -186,7 +186,6 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
         verify(state != null, "RDF content not finished.");
     }
 
-    @SuppressWarnings("null")
     @Override
     public void startElement(String uri, String localName, String qName,
             Attributes attributes) throws SAXException {
@@ -313,7 +312,6 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
      *        the IRI being resolved
      * @return the resolved IRI
      */
-    @SuppressWarnings("null")
     @Nonnull
     public String resolveIRI(@Nonnull String uri) {
         checkNotNull(uri, "uri cannot be null");
@@ -443,7 +441,6 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
         }
     }
 
-    @SuppressWarnings("null")
     @Override
     @Nonnull
     public IRI getIRI(@Nonnull String s) {

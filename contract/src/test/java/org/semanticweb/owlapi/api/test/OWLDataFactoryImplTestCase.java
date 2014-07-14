@@ -39,7 +39,7 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
  *         Research Group
  * @since 3.2.0
  */
-@SuppressWarnings({ "javadoc", "null" })
+@SuppressWarnings({ "javadoc" })
 @RunWith(Parameterized.class)
 public class OWLDataFactoryImplTestCase {
 

@@ -16,6 +16,7 @@ import static org.semanticweb.owlapi.util.CollectionFactory.*;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -57,7 +58,7 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
         if (!annotations.isEmpty()) {
             this.annotations = (List<OWLAnnotation>) sortOptionally(annotations);
         } else {
-            this.annotations = emptyList();
+            this.annotations = Collections.emptyList();
         }
     }
 
@@ -71,12 +72,11 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
     @Override
     public Set<OWLAnnotation> getAnnotations() {
         if (annotations.isEmpty()) {
-            return emptySet();
+            return Collections.emptySet();
         }
         return getCopyOnRequestSetFromImmutableCollection(annotations);
     }
 
-    @SuppressWarnings("null")
     @Override
     public void accept(CollectionContainerVisitor<OWLAnnotation> t) {
         int size = annotations.size();
@@ -89,7 +89,7 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
     public Set<OWLAnnotation> getAnnotations(
             OWLAnnotationProperty annotationProperty) {
         if (annotations.isEmpty()) {
-            return emptySet();
+            return Collections.emptySet();
         } else {
             Set<OWLAnnotation> result = new HashSet<>();
             for (OWLAnnotation anno : annotations) {

@@ -48,7 +48,6 @@ public class UnsatisfiableClassCountMetric extends IntegerValuedMetric {
         return "Unsatisfiable class count";
     }
 
-    @SuppressWarnings("null")
     @Override
     protected Integer recomputeMetric() {
         return reasoner.getUnsatisfiableClasses().getSize();

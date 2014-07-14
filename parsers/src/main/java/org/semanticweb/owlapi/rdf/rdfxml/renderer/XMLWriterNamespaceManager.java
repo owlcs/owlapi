@@ -175,14 +175,12 @@ public class XMLWriterNamespaceManager {
     }
 
     /** @return iterable on prefixes */
-    @SuppressWarnings("null")
     @Nonnull
     public Iterable<String> getPrefixes() {
         return prefixNamespaceMap.keySet();
     }
 
     /** @return iterable of namespaces */
-    @SuppressWarnings("null")
     @Nonnull
     public Iterable<String> getNamespaces() {
         return namespacePrefixMap.keySet();

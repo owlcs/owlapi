@@ -34,7 +34,6 @@ public class TestUndeclaredAnnotation extends TestBase {
                 + "    <rdf:Description rdf:about=\"&ns;test\"><ns:rel><rdf:Description ns:pred =\"Not visible\"/></ns:rel></rdf:Description>\n"
                 + "</rdf:RDF>";
         OWLOntology oo = loadOntologyFromString(input);
-        @SuppressWarnings("null")
         @Nonnull
         RDFXMLDocumentFormat format = (RDFXMLDocumentFormat) oo
                 .getOWLOntologyManager().getOntologyFormat(oo);
@@ -52,7 +51,6 @@ public class TestUndeclaredAnnotation extends TestBase {
                 .getAnonymousIndividuals();
         assertEquals("should be one anonymous individual", 1,
                 anonymousIndividualSet.size());
-        @SuppressWarnings("null")
         @Nonnull
         OWLAnonymousIndividual anonymousIndividual = anonymousIndividualSet
                 .iterator().next();

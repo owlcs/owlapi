@@ -100,7 +100,7 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
 
 import com.google.common.base.Optional;
 
-@SuppressWarnings({ "javadoc", "rawtypes", "null" })
+@SuppressWarnings({ "javadoc", "rawtypes" })
 public class OWLProfileTestCase {
 
     @Nonnull

@@ -376,7 +376,6 @@ public class OWLAPIOwl2Obo {
     /**
      * Pre process.
      */
-    @SuppressWarnings("null")
     protected void preProcess() {
         // converse of postProcess in obo2owl
         String viewRel = null;
@@ -454,7 +453,6 @@ public class OWLAPIOwl2Obo {
      *        the annotations
      * @return true, if successful
      */
-    @SuppressWarnings("null")
     protected boolean trObjectProperty(@Nullable OWLObjectProperty prop,
             @Nullable String tag, @Nullable String value,
             @Nonnull Set<OWLAnnotation> annotations) {
@@ -822,7 +820,6 @@ public class OWLAPIOwl2Obo {
         error(ax, false);
     }
 
-    @SuppressWarnings("null")
     protected void tr(@Nonnull OWLSubObjectPropertyOfAxiom ax) {
         OWLObjectPropertyExpression sup = ax.getSuperProperty();
         OWLObjectPropertyExpression sub = ax.getSubProperty();
@@ -847,7 +844,6 @@ public class OWLAPIOwl2Obo {
         }
     }
 
-    @SuppressWarnings("null")
     protected void tr(@Nonnull OWLSubAnnotationPropertyOfAxiom ax) {
         OWLAnnotationProperty sup = ax.getSuperProperty();
         OWLAnnotationProperty sub = ax.getSubProperty();
@@ -956,7 +952,6 @@ public class OWLAPIOwl2Obo {
      *        the frame
      * @return true, if successful
      */
-    @SuppressWarnings("null")
     protected boolean tr(OWLAnnotationProperty prop,
             @Nonnull OWLAnnotationValue annVal,
             @Nonnull Set<OWLAnnotation> qualifiers, @Nonnull Frame frame) {
@@ -1162,7 +1157,6 @@ public class OWLAPIOwl2Obo {
      *        the frame
      * @return true, if successful
      */
-    @SuppressWarnings("null")
     protected boolean trGenericPropertyValue(OWLAnnotationProperty prop,
             OWLAnnotationValue annVal, @Nonnull Set<OWLAnnotation> qualifiers,
             @Nonnull Frame frame) {
@@ -1206,7 +1200,6 @@ public class OWLAPIOwl2Obo {
      *        the tag
      * @return the value
      */
-    @SuppressWarnings("null")
     @Nullable
     protected String getValue(@Nonnull OWLAnnotationValue annVal, String tag) {
         String value = annVal.toString();
@@ -1271,7 +1264,6 @@ public class OWLAPIOwl2Obo {
      *        the ontology
      * @return The OBO ID of the ontology
      */
-    @SuppressWarnings("null")
     public static String getOntologyId(@Nonnull OWLOntology ontology) {
         return getOntologyId(ontology.getOntologyID().getOntologyIRI().get());
     }
@@ -1367,7 +1359,6 @@ public class OWLAPIOwl2Obo {
      * @param ax
      *        the ax
      */
-    @SuppressWarnings("null")
     protected void tr(@Nonnull OWLEquivalentClassesAxiom ax) {
         /*
          * Assumption: the underlying data structure is a set The order is not
@@ -1737,7 +1728,6 @@ public class OWLAPIOwl2Obo {
      *         the untranslatable axiom exception
      *         {@link UntranslatableAxiomException} is thrown.
      */
-    @SuppressWarnings("null")
     @Nullable
     public static String getIdentifierFromObject(OWLObject obj,
             @Nonnull OWLOntology ont) throws UntranslatableAxiomException {
@@ -1941,7 +1931,6 @@ public class OWLAPIOwl2Obo {
      * @param ax
      *        the ax
      */
-    @SuppressWarnings("null")
     protected void tr(@Nonnull OWLClassAssertionAxiom ax) {
         OWLObject cls = ax.getClassExpression();
         if (!(cls instanceof OWLClass)) {
@@ -2016,7 +2005,6 @@ public class OWLAPIOwl2Obo {
      * @param ax
      *        the ax
      */
-    @SuppressWarnings("null")
     protected void tr(@Nonnull OWLSubClassOfAxiom ax) {
         OWLClassExpression sub = ax.getSubClass();
         OWLClassExpression sup = ax.getSuperClass();
@@ -2200,7 +2188,6 @@ public class OWLAPIOwl2Obo {
      *        the ax
      * @return the clause
      */
-    @SuppressWarnings("null")
     @Nonnull
     protected Clause createRelationshipClauseWithCardinality(
             @Nonnull OWLObjectCardinalityRestriction restriction,
@@ -2256,7 +2243,6 @@ public class OWLAPIOwl2Obo {
      *        the target
      * @return the list
      */
-    @SuppressWarnings("null")
     @Nonnull
     static List<Clause> findSimilarClauses(@Nonnull List<Clause> clauses,
             @Nonnull Clause target) {
@@ -2350,7 +2336,6 @@ public class OWLAPIOwl2Obo {
      * @param newQV
      *        the new qv
      */
-    @SuppressWarnings("null")
     static void mergeQualifierValues(@Nonnull QualifierValue target,
             @Nonnull QualifierValue newQV) {
         // do nothing, if they are equal

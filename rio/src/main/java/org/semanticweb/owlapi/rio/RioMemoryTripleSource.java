@@ -118,7 +118,6 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
      *        A {@link CloseableIteration} of {@link Statement} objects that
      *        make up this source.
      */
-    @SuppressWarnings("null")
     public RioMemoryTripleSource(@Nonnull Iterable<Statement> statements) {
         documentIRI = OWLOntologyDocumentSourceBase
                 .getNextDocumentIRI("rio-memory-triples:");

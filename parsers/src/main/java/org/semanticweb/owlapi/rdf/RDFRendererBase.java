@@ -492,7 +492,6 @@ public abstract class RDFRendererBase {
         }
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     private RDFResource createOntologyHeaderNode() {
         Optional<IRI> id = ontology.getOntologyID().getOntologyIRI();
@@ -503,7 +502,6 @@ public abstract class RDFRendererBase {
         }
     }
 
-    @SuppressWarnings("null")
     private void addVersionIRIToOntologyHeader(
             @Nonnull RDFResource ontologyHeaderNode) {
         OWLOntologyID ontID = ontology.getOntologyID();

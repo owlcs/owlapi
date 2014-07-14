@@ -53,7 +53,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  *         Informatics Group
  * @since 2.2.0
  */
-@SuppressWarnings({ "javadoc", "null" })
+@SuppressWarnings({ "javadoc" })
 public abstract class TestBase {
 
     @Nonnull

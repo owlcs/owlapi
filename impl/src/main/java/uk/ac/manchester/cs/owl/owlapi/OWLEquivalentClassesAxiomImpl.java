@@ -144,7 +144,6 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl
         return toReturn;
     }
 
-    @SuppressWarnings("null")
     @Override
     public Set<OWLSubClassOfAxiom> asOWLSubClassOfAxioms() {
         Set<OWLSubClassOfAxiom> result = new HashSet<>();

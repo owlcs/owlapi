@@ -70,12 +70,6 @@ import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitor;
  */
 public class OWL2RLProfile implements OWLProfile {
 
-    @SuppressWarnings("null")
-    @Nonnull
-    static Boolean b(boolean b) {
-        return b;
-    }
-
     protected static final Set<IRI> allowedDatatypes = new HashSet<>(
             Arrays.asList(RDF_PLAIN_LITERAL.getIRI(), RDF_XML_LITERAL.getIRI(),
                     RDFS_LITERAL.getIRI(), XSD_DECIMAL.getIRI(),
@@ -286,58 +280,58 @@ public class OWL2RLProfile implements OWLProfile {
             OWLClassExpressionVisitorExAdapter<Boolean> {
 
         OWL2RLSubClassExpressionChecker() {
-            super(b(false));
+            super(false);
         }
 
         @Override
         public Boolean visit(OWLClass ce) {
-            return b(!ce.isOWLThing());
+            return !ce.isOWLThing();
         }
 
         @Override
         public Boolean visit(OWLObjectIntersectionOf ce) {
             for (OWLClassExpression op : ce.getOperands()) {
                 if (!isOWL2RLSubClassExpression(op)) {
-                    return b(false);
+                    return false;
                 }
             }
-            return b(true);
+            return true;
         }
 
         @Override
         public Boolean visit(OWLObjectUnionOf ce) {
             for (OWLClassExpression op : ce.getOperands()) {
                 if (!isOWL2RLSubClassExpression(op)) {
-                    return b(false);
+                    return false;
                 }
             }
-            return b(true);
+            return true;
         }
 
         @Override
         public Boolean visit(OWLObjectSomeValuesFrom ce) {
-            return b(ce.getFiller().isOWLThing()
-                    || isOWL2RLSubClassExpression(ce.getFiller()));
+            return ce.getFiller().isOWLThing()
+            || isOWL2RLSubClassExpression(ce.getFiller());
         }
 
         @Override
         public Boolean visit(OWLObjectHasValue ce) {
-            return b(true);
+            return true;
         }
 
         @Override
         public Boolean visit(OWLObjectOneOf ce) {
-            return b(true);
+            return true;
         }
 
         @Override
         public Boolean visit(OWLDataSomeValuesFrom ce) {
-            return b(true);
+            return true;
         }
 
         @Override
         public Boolean visit(OWLDataHasValue ce) {
-            return b(true);
+            return true;
         }
     }
 
@@ -352,28 +346,28 @@ public class OWL2RLProfile implements OWLProfile {
             OWLClassExpressionVisitorExAdapter<Boolean> {
 
         OWL2RLSuperClassExpressionChecker() {
-            super(b(false));
+            super(false);
         }
 
         @Override
         public Boolean visit(OWLClass ce) {
-            return b(!ce.isOWLThing());
+            return !ce.isOWLThing();
         }
 
         @Override
         public Boolean visit(OWLObjectIntersectionOf ce) {
             for (OWLClassExpression e : ce.getOperands()) {
                 if (!e.accept(this).booleanValue()) {
-                    return b(false);
+                    return false;
                 }
             }
-            return b(true);
+            return true;
         }
 
         // XXX difference in subclass and superclass - correct?
         @Override
         public Boolean visit(OWLObjectComplementOf ce) {
-            return b(isOWL2RLSubClassExpression(ce.getOperand()));
+            return isOWL2RLSubClassExpression(ce.getOperand());
         }
 
         @Override
@@ -383,29 +377,29 @@ public class OWL2RLProfile implements OWLProfile {
 
         @Override
         public Boolean visit(OWLObjectHasValue ce) {
-            return b(true);
+            return true;
         }
 
         @Override
         public Boolean visit(OWLObjectMaxCardinality ce) {
-            return b((ce.getCardinality() == 0 || ce.getCardinality() == 1)
-                    && (ce.getFiller().isOWLThing() || isOWL2RLSubClassExpression(ce
-                            .getFiller())));
+            return (ce.getCardinality() == 0 || ce.getCardinality() == 1)
+            && (ce.getFiller().isOWLThing() || isOWL2RLSubClassExpression(ce
+                    .getFiller()));
         }
 
         @Override
         public Boolean visit(OWLDataAllValuesFrom ce) {
-            return b(true);
+            return true;
         }
 
         @Override
         public Boolean visit(OWLDataHasValue ce) {
-            return b(true);
+            return true;
         }
 
         @Override
         public Boolean visit(OWLDataMaxCardinality ce) {
-            return b(ce.getCardinality() == 0 || ce.getCardinality() == 1);
+            return ce.getCardinality() == 0 || ce.getCardinality() == 1;
         }
     }
 
@@ -425,32 +419,32 @@ public class OWL2RLProfile implements OWLProfile {
             OWLClassExpressionVisitorExAdapter<Boolean> {
 
         OWL2RLEquivalentClassExpressionChecker() {
-            super(b(false));
+            super(false);
         }
 
         @Override
         public Boolean visit(OWLClass ce) {
-            return b(!ce.isOWLThing());
+            return !ce.isOWLThing();
         }
 
         @Override
         public Boolean visit(OWLObjectIntersectionOf ce) {
             for (OWLClassExpression e : ce.getOperands()) {
                 if (!e.accept(this).booleanValue()) {
-                    return b(false);
+                    return false;
                 }
             }
-            return b(true);
+            return true;
         }
 
         @Override
         public Boolean visit(OWLObjectHasValue ce) {
-            return b(true);
+            return true;
         }
 
         @Override
         public Boolean visit(OWLDataHasValue ce) {
-            return b(true);
+            return true;
         }
     }
 

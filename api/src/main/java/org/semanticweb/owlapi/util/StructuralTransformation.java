@@ -16,6 +16,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -405,7 +406,7 @@ public class StructuralTransformation implements Serializable {
         @Override
         public Set<OWLAxiom> visit(OWLDisjointClassesAxiom axiom) {
             // Explode
-            return new HashSet<OWLAxiom>(axiom.asOWLSubClassOfAxioms());
+            return new HashSet<>(axiom.asOWLSubClassOfAxioms());
         }
 
         @Override
@@ -455,7 +456,7 @@ public class StructuralTransformation implements Serializable {
 
         @Override
         public Set<OWLAxiom> visit(OWLEquivalentClassesAxiom axiom) {
-            return new HashSet<OWLAxiom>(axiom.asOWLSubClassOfAxioms());
+            return new HashSet<>(axiom.asOWLSubClassOfAxioms());
         }
 
         @Override
@@ -581,7 +582,7 @@ public class StructuralTransformation implements Serializable {
 
         @Override
         public Set<OWLAxiom> visit(OWLSameIndividualAxiom axiom) {
-            return CollectionFactory.emptySet();
+            return Collections.emptySet();
         }
 
         @Override

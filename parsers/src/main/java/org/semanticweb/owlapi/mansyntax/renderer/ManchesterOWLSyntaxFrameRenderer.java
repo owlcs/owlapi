@@ -138,7 +138,6 @@ public class ManchesterOWLSyntaxFrameRenderer extends
         }
 
         /** @return sections */
-        @SuppressWarnings("null")
         @Nonnull
         public Collection<O> getSectionObjects() {
             return object2Axioms.keySet();
@@ -412,7 +411,6 @@ public class ManchesterOWLSyntaxFrameRenderer extends
             }
         }
         for (SWRLRule rule : ontology.getAxioms(AxiomType.SWRL_RULE)) {
-            @SuppressWarnings("null")
             @Nonnull
             Set<SWRLRule> singleton = Collections.singleton(rule);
             writeSection(RULE, singleton, ", ", false);
@@ -546,7 +544,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
         if (entity.isOWLDatatype()) {
             return write(entity.asOWLDatatype());
         }
-        return CollectionFactory.emptySet();
+        return Collections.emptySet();
     }
 
     /**
@@ -1271,7 +1269,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
         } else if (entity instanceof OWLAnonymousIndividual) {
             return writeAnnotations((OWLAnonymousIndividual) entity);
         }
-        return CollectionFactory.emptySet();
+        return Collections.emptySet();
     }
 
     /**

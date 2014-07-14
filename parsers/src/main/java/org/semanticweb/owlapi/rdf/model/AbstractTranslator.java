@@ -329,7 +329,6 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
                 RDFS_SUBCLASS_OF.getIRI(), axiom.getSuperClass());
     }
 
-    @SuppressWarnings("null")
     @Override
     public void visit(@Nonnull OWLEquivalentClassesAxiom axiom) {
         if (axiom.getClassExpressions().size() == 2) {
@@ -679,7 +678,6 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
         translateAnonymousNode(individual);
     }
 
-    @SuppressWarnings("null")
     @Override
     public void visit(@Nonnull OWLOntology ontology) {
         Optional<IRI> ontologyIRI = ontology.getOntologyID().getOntologyIRI();
@@ -1019,12 +1017,9 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
         R main = getResourceNode(RDF_NIL.getIRI());
         int listSize = list.size() - 1;
         for (int i = listSize; i >= 0; i--) {
-            @SuppressWarnings("null")
             R anonNode = getAnonymousNode(list.subList(i, listSize));
             addTriple(anonNode, getPredicateNode(RDF_TYPE.getIRI()),
                     getResourceNode(listType));
-            @SuppressWarnings("null")
-            @Nonnull
             OWLObject obj = list.get(i);
             addTriple(anonNode, getPredicateNode(RDF_FIRST.getIRI()),
                     getNode(obj));
@@ -1058,7 +1053,6 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
                 translateList(new ArrayList<>(objects), listType));
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     private OWLLiteral toTypedConstant(int i) {
         return manager.getOWLDataFactory().getOWLLiteral(
@@ -1115,7 +1109,6 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
         }
     }
 
-    @SuppressWarnings("null")
     private void addPairwise(@Nonnull OWLAxiom axiom,
             @Nonnull Collection<? extends OWLObject> objects, @Nonnull IRI IRI) {
         List<? extends OWLObject> objectList = new ArrayList<>(objects);

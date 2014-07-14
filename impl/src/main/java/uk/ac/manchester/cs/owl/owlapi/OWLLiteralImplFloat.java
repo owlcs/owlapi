@@ -70,7 +70,6 @@ public class OWLLiteralImplFloat extends OWLObjectImpl implements OWLLiteral {
         return hashCode;
     }
 
-    @SuppressWarnings("null")
     @Override
     public String getLiteral() {
         return Float.toString(literal);

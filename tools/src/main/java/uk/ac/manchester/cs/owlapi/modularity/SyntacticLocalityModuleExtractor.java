@@ -82,7 +82,6 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
          * @param axs
          *        the set of axioms representing the ontology
          */
-        @SuppressWarnings("null")
         OntologyAxiomSet(@Nonnull Set<OWLAxiom> axs) {
             ax = axs.toArray(new OWLAxiom[axs.size()]);
         }
@@ -103,7 +102,6 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
          *        a number for an axiom
          * @return the i-th axiom in this set
          */
-        @SuppressWarnings("null")
         @Nonnull
         public OWLAxiom getAxiom(int i) {
             return ax[i];
@@ -403,7 +401,6 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      *        a flag for verbose output (test purposes)
      * @return a set of axioms representing the module
      */
-    @SuppressWarnings("null")
     @Nonnull
     Set<OWLAxiom> extract(@Nonnull Set<OWLAxiom> subOnt,
             @Nonnull Set<OWLEntity> signature,
@@ -533,7 +530,6 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      *        the s
      * @return the string
      */
-    @SuppressWarnings("null")
     @Nonnull
     String minusOntologyURI(@Nonnull String s) {
         String uri = manager.getOntologyDocumentIRI(rootOntology) + "#";
@@ -596,7 +592,6 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      *        the classes in sig
      * @return the sets the
      */
-    @SuppressWarnings("null")
     @Nonnull
     static Set<OWLClass> SuperOrSubClasses(int superOrSubClassLevel,
             boolean superVsSub, @Nonnull OWLReasoner reasoner,
@@ -655,7 +650,6 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      *        the reasoner
      * @return the sets the
      */
-    @SuppressWarnings("null")
     @Nonnull
     Set<OWLEntity> enrichSignature(@Nonnull Set<OWLEntity> sig,
             int superClassLevel, int subClassLevel, OWLReasoner reasoner) {

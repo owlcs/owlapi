@@ -17,6 +17,7 @@ import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 import static org.semanticweb.owlapi.vocab.SWRLVocabulary.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -65,7 +66,6 @@ import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLDArgument;
 import org.semanticweb.owlapi.model.SWRLIArgument;
 import org.semanticweb.owlapi.model.SWRLRule;
-import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
@@ -2085,7 +2085,7 @@ public class Translators {
                 }
             }
             @Nonnull
-            Set<SWRLAtom> consequent = CollectionFactory.emptySet();
+            Set<SWRLAtom> consequent = Collections.emptySet();
             // XXX annotations on rules are not parsed correctly
             IRI ruleHeadIRI = consumer.getResourceObject(mainNode,
                     SWRLVocabulary.HEAD.getIRI(), true);
@@ -2093,7 +2093,7 @@ public class Translators {
                 consequent = listTranslator.translateToSet(ruleHeadIRI);
             }
             @Nonnull
-            Set<SWRLAtom> antecedent = CollectionFactory.emptySet();
+            Set<SWRLAtom> antecedent = Collections.emptySet();
             IRI ruleBodyIRI = consumer.getResourceObject(mainNode,
                     SWRLVocabulary.BODY.getIRI(), true);
             if (ruleBodyIRI != null) {

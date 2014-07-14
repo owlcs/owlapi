@@ -91,7 +91,6 @@ public class RDFXMLRenderer extends RDFRendererBase {
                 checkNotNull(w, "w cannot be null"), qnameManager, base));
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     private static String base(@Nonnull String defaultNamespace) {
         String base;

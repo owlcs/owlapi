@@ -50,6 +50,7 @@ public enum OWLRDFVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
 
 
 
+
     //@formatter:off
     // OWL Vocab
     /** http://www.w3.org/2002/07/owl#Thing                 **/    OWL_THING(Namespaces.OWL, "Thing"),
@@ -236,7 +237,6 @@ public enum OWLRDFVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
      *        collection of HasIRI to convert to IRI
      * @return unmodifiable set of IRIs
      */
-    @SuppressWarnings("null")
     @Nonnull
     public static Set<IRI> asIRISet(HasIRI... i) {
         return Collections.unmodifiableSet(new HashSet<>(Collections2

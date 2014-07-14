@@ -294,36 +294,36 @@ public class OWL2DatatypeImpl implements OWLDatatype {
     @Override
     public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
         return CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(CollectionFactory
-                        .<OWLAnonymousIndividual> emptySet());
+                .getCopyOnRequestSetFromImmutableCollection(Collections
+                        .emptySet());
     }
 
     @Override
     public Set<OWLClass> getClassesInSignature() {
         return CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(CollectionFactory
-                        .<OWLClass> emptySet());
+                .getCopyOnRequestSetFromImmutableCollection(Collections
+                        .emptySet());
     }
 
     @Override
     public Set<OWLDataProperty> getDataPropertiesInSignature() {
         return CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(CollectionFactory
-                        .<OWLDataProperty> emptySet());
+                .getCopyOnRequestSetFromImmutableCollection(Collections
+                        .emptySet());
     }
 
     @Override
     public Set<OWLObjectProperty> getObjectPropertiesInSignature() {
         return CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(CollectionFactory
-                        .<OWLObjectProperty> emptySet());
+                .getCopyOnRequestSetFromImmutableCollection(Collections
+                        .emptySet());
     }
 
     @Override
     public Set<OWLNamedIndividual> getIndividualsInSignature() {
         return CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(CollectionFactory
-                        .<OWLNamedIndividual> emptySet());
+                .getCopyOnRequestSetFromImmutableCollection(Collections
+                        .emptySet());
     }
 
     @Override
@@ -336,8 +336,8 @@ public class OWL2DatatypeImpl implements OWLDatatype {
     @Override
     public Set<OWLClassExpression> getNestedClassExpressions() {
         return CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(CollectionFactory
-                        .<OWLClassExpression> emptySet());
+                .getCopyOnRequestSetFromImmutableCollection(Collections
+                        .emptySet());
     }
 
     @Override
@@ -350,7 +350,6 @@ public class OWL2DatatypeImpl implements OWLDatatype {
         return false;
     }
 
-    @SuppressWarnings("null")
     @Override
     public int compareTo(OWLObject o) {
         if (!(o instanceof OWLDatatype)) {

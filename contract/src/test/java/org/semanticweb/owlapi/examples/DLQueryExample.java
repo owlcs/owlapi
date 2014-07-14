@@ -16,6 +16,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Collections;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -38,7 +39,6 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.semanticweb.owlapi.reasoner.structural.StructuralReasonerFactory;
 import org.semanticweb.owlapi.util.BidirectionalShortFormProvider;
 import org.semanticweb.owlapi.util.BidirectionalShortFormProviderAdapter;
-import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
@@ -56,7 +56,7 @@ import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
  *         Informatics Group
  * @since 3.1.0
  */
-@SuppressWarnings({ "javadoc", "null" })
+@SuppressWarnings({ "javadoc" })
 public class DLQueryExample {
 
     @Nonnull
@@ -205,7 +205,7 @@ class DLQueryEngine {
     public Set<OWLClass> getSuperClasses(@Nonnull String classExpressionString,
             boolean direct) {
         if (classExpressionString.trim().isEmpty()) {
-            return CollectionFactory.emptySet();
+            return Collections.emptySet();
         }
         OWLClassExpression classExpression = parser
                 .parseClassExpression(classExpressionString);
@@ -226,7 +226,7 @@ class DLQueryEngine {
     public Set<OWLClass> getEquivalentClasses(
             @Nonnull String classExpressionString) {
         if (classExpressionString.trim().isEmpty()) {
-            return CollectionFactory.emptySet();
+            return Collections.emptySet();
         }
         OWLClassExpression classExpression = parser
                 .parseClassExpression(classExpressionString);
@@ -256,7 +256,7 @@ class DLQueryEngine {
     public Set<OWLClass> getSubClasses(@Nonnull String classExpressionString,
             boolean direct) {
         if (classExpressionString.trim().isEmpty()) {
-            return CollectionFactory.emptySet();
+            return Collections.emptySet();
         }
         OWLClassExpression classExpression = parser
                 .parseClassExpression(classExpressionString);
@@ -279,7 +279,7 @@ class DLQueryEngine {
     public Set<OWLNamedIndividual> getInstances(
             @Nonnull String classExpressionString, boolean direct) {
         if (classExpressionString.trim().isEmpty()) {
-            return CollectionFactory.emptySet();
+            return Collections.emptySet();
         }
         OWLClassExpression classExpression = parser
                 .parseClassExpression(classExpressionString);

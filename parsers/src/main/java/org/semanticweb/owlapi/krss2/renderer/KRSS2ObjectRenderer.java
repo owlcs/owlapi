@@ -270,7 +270,6 @@ import org.semanticweb.owlapi.search.Filters;
  * 
  * @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence
  */
-@SuppressWarnings("null")
 public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
 
     @Nonnull

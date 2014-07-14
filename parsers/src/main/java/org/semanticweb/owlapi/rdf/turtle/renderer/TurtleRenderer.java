@@ -96,7 +96,6 @@ public class TurtleRenderer extends RDFRendererBase {
         base = "";
     }
 
-    @SuppressWarnings("null")
     private void writeNamespaces() {
         for (Map.Entry<String, String> e : pm.getPrefixName2PrefixMap()
                 .entrySet()) {
@@ -141,7 +140,6 @@ public class TurtleRenderer extends RDFRendererBase {
         return getCurrentPos() - lastNewLineIndex;
     }
 
-    @SuppressWarnings("null")
     private void writeAsURI(@Nonnull String s) {
         write("<");
         if (s.startsWith(base)) {

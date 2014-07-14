@@ -18,6 +18,7 @@ import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Collections;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicLong;
@@ -26,7 +27,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.io.XMLUtils;
-import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
@@ -51,7 +51,6 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
      * 
      * @return The URI
      */
-    @SuppressWarnings("null")
     @Nonnull
     public URI toURI() {
         return URI.create(namespace + remainder);
@@ -100,7 +99,6 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
      * @return s resolved against this IRI (with the URI::resolve() method,
      *         unless this IRI is opaque)
      */
-    @SuppressWarnings("null")
     @Nonnull
     public IRI resolve(@Nonnull String s) {
         // shortcut: checking absolute and opaque here saves the creation of an
@@ -184,7 +182,6 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
     /**
      * @return the remainder (coincident with NCName usually) for this IRI.
      */
-    @SuppressWarnings("null")
     @Nonnull
     public Optional<String> getRemainder() {
         if (remainder.isEmpty()) {
@@ -210,7 +207,6 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
      *        The String that specifies the IRI
      * @return The IRI that has the specified string representation.
      */
-    @SuppressWarnings("null")
     @Nonnull
     public static IRI create(@Nonnull String str) {
         checkNotNull(str, "str cannot be null");
@@ -270,7 +266,6 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
      *        the file to create the IRI from
      * @return file.toURI() IRI
      */
-    @SuppressWarnings("null")
     @Nonnull
     public static IRI create(@Nonnull File file) {
         checkNotNull(file, "file cannot be null");
@@ -295,7 +290,6 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
      * @throws OWLRuntimeException
      *         if the URL is ill formed
      */
-    @SuppressWarnings("null")
     @Nonnull
     public static IRI create(@Nonnull URL url) {
         checkNotNull(url, "url cannot be null");
@@ -331,7 +325,6 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
                 }
             });
 
-    @SuppressWarnings("null")
     @Nonnull
     private static String cache(@Nonnull String s) {
         try {
@@ -365,7 +358,6 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
      *        suffix to turn to optional. Empty string is the same as null
      * @return optional value for remainder
      */
-    @SuppressWarnings("null")
     @Nonnull
     protected Optional<String> asOptional(String suffix) {
         if (suffix == null) {
@@ -380,7 +372,6 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
         this(XMLUtils.getNCNamePrefix(s), XMLUtils.getNCNameSuffix(s));
     }
 
-    @SuppressWarnings("null")
     protected IRI(@Nonnull URI uri) {
         this(checkNotNull(uri, "uri cannot be null").toString());
     }
@@ -424,7 +415,6 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
     }
 
     @Override
-    @SuppressWarnings("null")
     @Nonnull
     public String getShortForm() {
         if (!remainder.isEmpty()) {
@@ -460,31 +450,31 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
     @Nonnull
     @Override
     public Set<OWLClass> getClassesInSignature() {
-        return CollectionFactory.emptySet();
+        return Collections.emptySet();
     }
 
     @Nonnull
     @Override
     public Set<OWLDataProperty> getDataPropertiesInSignature() {
-        return CollectionFactory.emptySet();
+        return Collections.emptySet();
     }
 
     @Nonnull
     @Override
     public Set<OWLNamedIndividual> getIndividualsInSignature() {
-        return CollectionFactory.emptySet();
+        return Collections.emptySet();
     }
 
     @Nonnull
     @Override
     public Set<OWLObjectProperty> getObjectPropertiesInSignature() {
-        return CollectionFactory.emptySet();
+        return Collections.emptySet();
     }
 
     @Nonnull
     @Override
     public Set<OWLEntity> getSignature() {
-        return CollectionFactory.emptySet();
+        return Collections.emptySet();
     }
 
     @Override
@@ -495,19 +485,19 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
     @Nonnull
     @Override
     public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
-        return CollectionFactory.emptySet();
+        return Collections.emptySet();
     }
 
     @Nonnull
     @Override
     public Set<OWLDatatype> getDatatypesInSignature() {
-        return CollectionFactory.emptySet();
+        return Collections.emptySet();
     }
 
     @Nonnull
     @Override
     public Set<OWLClassExpression> getNestedClassExpressions() {
-        return CollectionFactory.emptySet();
+        return Collections.emptySet();
     }
 
     @Override

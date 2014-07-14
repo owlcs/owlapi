@@ -72,7 +72,6 @@ public class ManchesterOWLSyntaxOWLObjectRendererImpl implements
             delegate = new StringWriter();
         }
 
-        @SuppressWarnings("null")
         @Nonnull
         @Override
         public String toString() {

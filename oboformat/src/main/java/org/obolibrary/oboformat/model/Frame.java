@@ -203,7 +203,6 @@ public class Frame {
      *        the cls
      * @return the tag value for tag and class
      */
-    @SuppressWarnings("null")
     @Nullable
     public <T> T getTagValue(String tag, @Nonnull Class<T> cls) {
         if (getClause(tag) == null) {
@@ -292,7 +291,6 @@ public class Frame {
      *        the tag
      * @return the tag xrefs for tg
      */
-    @SuppressWarnings("null")
     @Nonnull
     public Collection<Xref> getTagXrefs(String tag) {
         Collection<Xref> xrefs = new ArrayList<>();
@@ -343,7 +341,6 @@ public class Frame {
      *         the frame structure exception
      * @see OboInOwlCardinalityTools for equivalent checks in OWL
      */
-    @SuppressWarnings("null")
     public void check() throws FrameStructureException {
         if (FrameType.HEADER.equals(type)) {
             checkMaxOneCardinality(OboFormatTag.TAG_ONTOLOGY,
@@ -396,7 +393,6 @@ public class Frame {
      * @throws FrameStructureException
      *         frame structure exception
      */
-    @SuppressWarnings("null")
     private void checkMaxOneCardinality(@Nonnull OboFormatTag... tags)
             throws FrameStructureException {
         for (OboFormatTag tag : tags) {

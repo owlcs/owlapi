@@ -115,7 +115,6 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
         expansionLimit = initialExpansionLimit;
     }
 
-    @SuppressWarnings("null")
     @Override
     protected OWLClassExpression getCurrentClass() {
         if (currentClass == null) {

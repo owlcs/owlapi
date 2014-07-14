@@ -2203,7 +2203,6 @@ public class EntitySearcher {
      *        ontology to search
      * @return property values
      */
-    @SuppressWarnings("null")
     @Nonnull
     public static Multimap<OWLDataPropertyExpression, OWLLiteral>
             getDataPropertyValues(@Nonnull OWLIndividual i,
@@ -2224,7 +2223,6 @@ public class EntitySearcher {
      *        ontology to search
      * @return property values
      */
-    @SuppressWarnings("null")
     @Nonnull
     public static Multimap<OWLObjectPropertyExpression, OWLIndividual>
             getObjectPropertyValues(@Nonnull OWLIndividual i,

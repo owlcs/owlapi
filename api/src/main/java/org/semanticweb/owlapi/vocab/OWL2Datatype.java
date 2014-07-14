@@ -56,6 +56,7 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
 
 
 
+
 //@formatter:off
     /** RDF_XML_LITERAL */          RDF_XML_LITERAL          (RDF,  "XMLLiteral",   Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, false, ".*"), 
     /** RDFS_LITERAL */             RDFS_LITERAL             (RDFS, "Literal",      Category.CAT_UNIVERSAL,                   false, ".*"),
@@ -95,7 +96,6 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
     @Nonnull
     private static final Set<IRI> ALL_IRIS = init();
 
-    @SuppressWarnings("null")
     @Nonnull
     static Set<IRI> init() {
         List<IRI> iris = new ArrayList<>();
@@ -187,7 +187,6 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
     @Nonnull
     private final String prefixedName;
 
-    @SuppressWarnings("null")
     OWL2Datatype(@Nonnull Namespaces namespace, @Nonnull String shortForm,
             @Nonnull Category category, boolean finite, @Nonnull String regEx) {
         iri = IRI.create(namespace.toString(), shortForm);
@@ -199,7 +198,6 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
         pattern = Pattern.compile(regEx, Pattern.DOTALL);
     }
 
-    @SuppressWarnings("null")
     OWL2Datatype(@Nonnull XSDVocabulary xsd, @Nonnull Category category,
             boolean finite, @Nonnull String regEx) {
         iri = xsd.getIRI();

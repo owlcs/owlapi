@@ -31,7 +31,7 @@ import org.semanticweb.owlapi.util.OWLOntologyIRIChanger;
  *         Informatics Group
  * @since 2.0.0
  */
-@SuppressWarnings({ "javadoc", "null" })
+@SuppressWarnings({ "javadoc" })
 public class ChangeOntologyURITestCase extends TestBase {
 
     @Test

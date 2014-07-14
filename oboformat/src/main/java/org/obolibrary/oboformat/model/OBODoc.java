@@ -52,21 +52,18 @@ public class OBODoc {
     }
 
     /** @return the term frames */
-    @SuppressWarnings("null")
     @Nonnull
     public Collection<Frame> getTermFrames() {
         return termFrameMap.values();
     }
 
     /** @return the typedef frames */
-    @SuppressWarnings("null")
     @Nonnull
     public Collection<Frame> getTypedefFrames() {
         return typedefFrameMap.values();
     }
 
     /** @return the instance frames */
-    @SuppressWarnings("null")
     @Nonnull
     public Collection<Frame> getInstanceFrames() {
         return instanceFrameMap.values();

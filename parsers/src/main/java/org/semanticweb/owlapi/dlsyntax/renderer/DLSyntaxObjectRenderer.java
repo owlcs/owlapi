@@ -164,7 +164,6 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
                 "shortFormProvider cannot be null");
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     @Override
     public String render(OWLObject object) {
@@ -200,7 +199,6 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
         write(checkNotNull(keyword, "keyword cannot be null").toString());
     }
 
-    @SuppressWarnings("null")
     protected void write(int i) {
         write(Integer.toString(i));
     }

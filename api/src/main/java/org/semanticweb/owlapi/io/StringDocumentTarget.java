@@ -36,7 +36,6 @@ public class StringDocumentTarget implements OWLOntologyDocumentTarget {
         writer = new StringWriter();
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     @Override
     public String toString() {

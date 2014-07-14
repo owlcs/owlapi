@@ -58,7 +58,6 @@ public class OWLMetricManager {
         return new ArrayList<>(metrics);
     }
 
-    @SuppressWarnings("null")
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

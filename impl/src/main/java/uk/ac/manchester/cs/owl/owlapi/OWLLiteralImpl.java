@@ -304,7 +304,6 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
             }
         }
 
-        @SuppressWarnings("null")
         @Nonnull
         static byte[] compress(String s) throws IOException {
             ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -317,7 +316,6 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
             return out.toByteArray();
         }
 
-        @SuppressWarnings("null")
         @Nonnull
         static String decompress(byte[] result) throws IOException {
             ByteArrayInputStream in = new ByteArrayInputStream(result);

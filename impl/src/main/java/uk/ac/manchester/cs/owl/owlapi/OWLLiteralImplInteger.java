@@ -70,7 +70,6 @@ public class OWLLiteralImplInteger extends OWLObjectImpl implements OWLLiteral {
         return hashCode;
     }
 
-    @SuppressWarnings("null")
     @Override
     public String getLiteral() {
         return Integer.toString(literal);

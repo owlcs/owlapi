@@ -26,7 +26,7 @@ import org.semanticweb.owlapi.model.parameters.OntologyCopy;
  *         Informatics Group
  * @since 2.0.0
  */
-@SuppressWarnings({ "javadoc", "null" })
+@SuppressWarnings({ "javadoc" })
 public class MoveOntologyTestCase extends TestBase {
 
     private String s = "<?xml version=\"1.0\"?>\n"

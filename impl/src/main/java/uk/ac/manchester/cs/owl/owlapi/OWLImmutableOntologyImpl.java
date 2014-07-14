@@ -18,6 +18,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -60,7 +61,6 @@ import org.semanticweb.owlapi.model.OWLPrimitive;
 import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
 import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.model.parameters.Search;
-import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
@@ -97,7 +97,6 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
         this.ontologyID = checkNotNull(ontologyID, "ontologyID cannot be null");
     }
 
-    @SuppressWarnings("null")
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -548,7 +547,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
                 }
             }
             if (punned.isEmpty()) {
-                return CollectionFactory.<IRI> emptySet();
+                return Collections.emptySet();
             }
             return punned;
         }
@@ -581,7 +580,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
             }
         }
         if (punned.isEmpty()) {
-            return CollectionFactory.<IRI> emptySet();
+            return Collections.emptySet();
         }
         return punned;
     }
@@ -1089,11 +1088,10 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
                     .getValues((OWLAnonymousIndividual) owlEntity);
         }
         // TODO add support for looking up by IRI, OWLLiteral, etc.
-        return CollectionFactory.emptySet();
+        return Collections.emptySet();
     }
 
     // OWLAxiomIndex
-    @SuppressWarnings("null")
     @Override
     public <A extends OWLAxiom> Set<A> getAxioms(@Nonnull Class<A> type,
             @Nonnull OWLObject entity, Imports includeImports,

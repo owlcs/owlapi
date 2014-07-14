@@ -72,7 +72,6 @@ import com.google.common.collect.Multimap;
  *         Informatics Group
  * @since 2.0.0
  */
-@SuppressWarnings("null")
 public class JustificationMap {
 
     @Nonnull

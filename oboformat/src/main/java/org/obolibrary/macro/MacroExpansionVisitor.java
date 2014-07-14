@@ -91,7 +91,6 @@ public class MacroExpansionVisitor {
         return inputOntology;
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     private Set<OWLAxiom> expand(@Nonnull OWLAnnotationAssertionAxiom ax) {
         OWLAnnotationProperty prop = ax.getProperty();
@@ -162,7 +161,6 @@ public class MacroExpansionVisitor {
             return result;
         }
 
-        @SuppressWarnings("null")
         @Nullable
         OWLClassExpression expandObject(Object filler,
                 @Nonnull OWLObjectPropertyExpression p) {

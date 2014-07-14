@@ -28,7 +28,6 @@ public class Obo2OWLConstants {
      *        date to format
      * @return formatted string
      */
-    @SuppressWarnings("null")
     @Nonnull
     public static synchronized String format(@Nonnull Date d) {
         return formatter.format(d);

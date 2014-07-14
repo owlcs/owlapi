@@ -23,7 +23,7 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-@SuppressWarnings({ "javadoc", "null" })
+@SuppressWarnings({ "javadoc" })
 public class BFOROXrefTest extends OboFormatTestBasics {
 
     public static final OWLAnnotationProperty OBO_ID = OWLManager

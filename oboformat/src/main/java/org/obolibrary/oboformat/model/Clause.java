@@ -212,7 +212,6 @@ public class Clause {
         qualifierValues.add(qv);
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     @Override
     public String toString() {

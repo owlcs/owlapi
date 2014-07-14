@@ -30,7 +30,6 @@ public class OBODocDiffer {
      *        doc2
      * @return list of diffs
      */
-    @SuppressWarnings("null")
     @Nonnull
     public static List<Diff>
             getDiffs(@Nonnull OBODoc doc1, @Nonnull OBODoc doc2) {
@@ -47,7 +46,6 @@ public class OBODocDiffer {
     }
 
     // FRAME LISTS
-    @SuppressWarnings("null")
     @Nonnull
     private static List<Diff> getDiffsAsym(String ftype,
             @Nonnull Collection<Frame> fl1, @Nonnull Collection<Frame> fl2,
@@ -80,7 +78,6 @@ public class OBODocDiffer {
     }
 
     // FRAMES
-    @SuppressWarnings("null")
     @Nonnull
     private static List<Diff> getDiffsAsym(String ftype, @Nonnull Frame f1,
             @Nonnull Frame f2, int n) {
@@ -122,7 +119,6 @@ public class OBODocDiffer {
      * @throws Exception
      *         Exception
      */
-    @SuppressWarnings("null")
     public static void main(String[] args) throws Exception {
         OBOFormatParser p = new OBOFormatParser();
         OBODoc obodoc1 = p.parse(args[0]);

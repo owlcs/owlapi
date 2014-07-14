@@ -51,7 +51,7 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
 import com.google.common.base.Optional;
 
-@SuppressWarnings({ "javadoc", "null" })
+@SuppressWarnings({ "javadoc" })
 public class NamesTestCase {
 
     @Test

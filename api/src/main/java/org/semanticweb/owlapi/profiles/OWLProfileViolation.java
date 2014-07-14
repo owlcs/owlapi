@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.profiles;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.annotation.Nonnull;
@@ -96,7 +97,7 @@ public abstract class OWLProfileViolation {
         if (axiom != null) {
             return list(new RemoveAxiom(ontology, getAxiom()));
         }
-        return CollectionFactory.emptyList();
+        return Collections.emptyList();
     }
 
     protected AddAxiom addDeclaration(@Nonnull OWLEntity e) {

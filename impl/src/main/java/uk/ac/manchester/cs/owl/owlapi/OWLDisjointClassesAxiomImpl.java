@@ -111,7 +111,6 @@ public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl
         return result;
     }
 
-    @SuppressWarnings("null")
     @Override
     public Set<OWLSubClassOfAxiom> asOWLSubClassOfAxioms() {
         Set<OWLSubClassOfAxiom> result = new HashSet<>();

@@ -40,7 +40,7 @@ import com.google.common.base.Optional;
  * 
  * @author Peter Ansell p_ansell@yahoo.com
  */
-@SuppressWarnings({ "javadoc", "null" })
+@SuppressWarnings({ "javadoc" })
 public class MultipleDistinctOntologyLoadsTest extends TestBase {
 
     private OWLOntologyManager manager;

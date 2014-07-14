@@ -116,7 +116,6 @@ public class OWLEquivalentObjectPropertiesAxiomImpl extends
         return AxiomType.EQUIVALENT_OBJECT_PROPERTIES;
     }
 
-    @SuppressWarnings("null")
     @Override
     public Set<OWLSubObjectPropertyOfAxiom> asSubObjectPropertyOfAxioms() {
         Set<OWLSubObjectPropertyOfAxiom> result = new HashSet<>();

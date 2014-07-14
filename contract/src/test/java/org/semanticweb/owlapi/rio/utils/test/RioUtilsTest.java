@@ -23,7 +23,7 @@ import org.semanticweb.owlapi.rio.utils.RioUtils;
 /**
  * @author Peter Ansell p_ansell@yahoo.com
  */
-@SuppressWarnings({ "javadoc", "null" })
+@SuppressWarnings({ "javadoc" })
 public class RioUtilsTest {
 
     private static final ValueFactory vf = ValueFactoryImpl.getInstance();

@@ -476,7 +476,7 @@ public class Internals implements Serializable {
      */
     // not always not null, but supposed to be
     @Nonnull
-    @SuppressWarnings({ "unchecked", "null" })
+    @SuppressWarnings({ "unchecked" })
     <T extends OWLObject, A extends OWLAxiom> Optional<MapPointer<T, A>> get(
             @Nonnull Class<T> type, @Nonnull Class<A> axiom, Search position) {
         if (OWLEntity.class.isAssignableFrom(type)
@@ -1564,7 +1564,6 @@ public class Internals implements Serializable {
         }
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     @Override
     public String toString() {

@@ -50,7 +50,6 @@ public class TurtleOntologyParser extends AbstractOWLParser {
         return new TurtleDocumentFormatFactory();
     }
 
-    @SuppressWarnings("null")
     @Override
     public OWLDocumentFormat parse(OWLOntologyDocumentSource documentSource,
             OWLOntology ontology, OWLOntologyLoaderConfiguration configuration)

@@ -38,7 +38,6 @@ public class OWLOntologyWalkerVisitorEx<E> extends OWLObjectVisitorExAdapter<E> 
      * @param walker
      *        walker
      */
-    @SuppressWarnings("null")
     public OWLOntologyWalkerVisitorEx(@Nonnull OWLOntologyWalker walker) {
         super(null);
         this.walker = checkNotNull(walker, "walker cannot be null");

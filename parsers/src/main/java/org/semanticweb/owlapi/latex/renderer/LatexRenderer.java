@@ -57,7 +57,6 @@ public class LatexRenderer extends AbstractOWLRenderer {
         w.write("}\n\n");
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     private static String escapeName(String name) {
         return name.replace("_", "\\_");

@@ -35,7 +35,7 @@ import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
  *         Informatics Group
  * @since 2.0.0
  */
-@SuppressWarnings({ "javadoc", "null" })
+@SuppressWarnings({ "javadoc" })
 public class OWLOntologyManagerImplTestCase {
 
     private OWLOntologyManager manager;

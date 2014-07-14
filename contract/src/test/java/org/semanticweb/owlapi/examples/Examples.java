@@ -126,7 +126,7 @@ import com.google.common.base.Optional;
  *         Informatics Group
  * @since 2.0.0
  */
-@SuppressWarnings({ "javadoc", "unused", "null" })
+@SuppressWarnings({ "javadoc", "unused" })
 public class Examples extends TestBase {
 
     @Nonnull

@@ -123,7 +123,6 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
      * @return The short form with the extension removed if it was present, or
      *         the original short form if no extension was present.
      */
-    @SuppressWarnings("null")
     @Nonnull
     private static String stripExtensionIfPresent(String shortForm) {
         String lowerCaseShortForm = shortForm.toLowerCase();

@@ -127,7 +127,6 @@ public class SimpleHierarchyExample {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         // We load an ontology from the URI specified
         // on the command line
-        @SuppressWarnings("null")
         @Nonnull
         String x = args[0];
         System.out.println(x);
@@ -142,7 +141,6 @@ public class SimpleHierarchyExample {
         System.out.println("Format      : "
                 + manager.getOntologyFormat(ontology));
         // / Create a new SimpleHierarchy object with the given reasoner.
-        @SuppressWarnings("null")
         SimpleHierarchyExample simpleHierarchy = new SimpleHierarchyExample(
                 (OWLReasonerFactory) Class.forName(reasonerFactoryClassName)
                         .newInstance(), ontology);

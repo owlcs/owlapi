@@ -115,7 +115,6 @@ public class OWLEquivalentDataPropertiesAxiomImpl extends
         return AxiomType.EQUIVALENT_DATA_PROPERTIES;
     }
 
-    @SuppressWarnings("null")
     @Override
     public Set<OWLSubDataPropertyOfAxiom> asSubDataPropertyOfAxioms() {
         Set<OWLSubDataPropertyOfAxiom> result = new HashSet<>();

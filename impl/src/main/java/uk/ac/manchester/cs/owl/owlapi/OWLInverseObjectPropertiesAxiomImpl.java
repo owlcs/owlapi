@@ -16,6 +16,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
@@ -148,6 +149,6 @@ public class OWLInverseObjectPropertiesAxiomImpl extends
         if (t != null) {
             return CollectionFactory.createSet(t);
         }
-        return CollectionFactory.emptyList();
+        return Collections.emptyList();
     }
 }

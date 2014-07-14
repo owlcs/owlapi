@@ -69,12 +69,6 @@ import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitor;
  */
 public class OWL2QLProfile implements OWLProfile {
 
-    @SuppressWarnings("null")
-    @Nonnull
-    static Boolean b(boolean b) {
-        return b;
-    }
-
     protected static final Set<IRI> allowedDatatypes = new HashSet<>(
             Arrays.asList(
             //@formatter:off
@@ -317,22 +311,22 @@ public class OWL2QLProfile implements OWLProfile {
             OWLClassExpressionVisitorExAdapter<Boolean> {
 
         OWL2QLSubClassExpressionChecker() {
-            super(b(false));
+            super(false);
         }
 
         @Override
         public Boolean visit(OWLClass ce) {
-            return b(true);
+            return true;
         }
 
         @Override
         public Boolean visit(OWLObjectSomeValuesFrom ce) {
-            return b(ce.getFiller().isOWLThing());
+            return ce.getFiller().isOWLThing();
         }
 
         @Override
         public Boolean visit(OWLDataSomeValuesFrom ce) {
-            return b(true);
+            return true;
         }
     }
 
@@ -347,37 +341,37 @@ public class OWL2QLProfile implements OWLProfile {
             OWLClassExpressionVisitorExAdapter<Boolean> {
 
         OWL2QLSuperClassExpressionChecker() {
-            super(b(false));
+            super(false);
         }
 
         @Override
         public Boolean visit(OWLClass ce) {
-            return b(true);
+            return true;
         }
 
         @Override
         public Boolean visit(OWLObjectIntersectionOf ce) {
             for (OWLClassExpression e : ce.getOperands()) {
                 if (!e.accept(this).booleanValue()) {
-                    return b(false);
+                    return false;
                 }
             }
-            return b(true);
+            return true;
         }
 
         @Override
         public Boolean visit(OWLObjectComplementOf ce) {
-            return b(isOWL2QLSubClassExpression(ce.getOperand()));
+            return isOWL2QLSubClassExpression(ce.getOperand());
         }
 
         @Override
         public Boolean visit(OWLObjectSomeValuesFrom ce) {
-            return b(!ce.getFiller().isAnonymous());
+            return !ce.getFiller().isAnonymous();
         }
 
         @Override
         public Boolean visit(OWLDataSomeValuesFrom ce) {
-            return b(true);
+            return true;
         }
     }
 

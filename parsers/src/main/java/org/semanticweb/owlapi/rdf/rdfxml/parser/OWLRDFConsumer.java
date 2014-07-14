@@ -18,6 +18,7 @@ import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -208,7 +209,6 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
     HandlerAccessor handlerAccessor;
     TranslatorAccessor translatorAccessor;
     private final AnonymousNodeChecker nodeCheckerDelegate;
-    @SuppressWarnings("null")
     @Nonnull
     private final ArrayListMultimap<IRI, Class<?>> guessedDeclarations = ArrayListMultimap
             .create();
@@ -1138,7 +1138,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
         if (mainNodes != null) {
             return mainNodes;
         } else {
-            return CollectionFactory.emptySet();
+            return Collections.emptySet();
         }
     }
 

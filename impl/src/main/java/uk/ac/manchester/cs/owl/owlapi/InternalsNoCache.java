@@ -145,7 +145,6 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
         return new OWLLiteralImplDouble(value, getDoubleOWLDatatype());
     }
 
-    @SuppressWarnings("null")
     @Override
     public OWLLiteral getOWLLiteral(@Nonnull String lexicalValue,
             @Nonnull OWLDatatype datatype) {

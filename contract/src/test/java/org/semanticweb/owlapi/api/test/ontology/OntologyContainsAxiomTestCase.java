@@ -120,11 +120,9 @@ public class OntologyContainsAxiomTestCase extends TestBase {
     private void runTestOntologyContainsAxioms1(
             @Nonnull OWLDocumentFormat format) throws Exception {
         OWLOntology ont1 = getOWLOntology("testont1A");
-        @SuppressWarnings("null")
         @Nonnull
         IRI ont1_iri = ont1.getOntologyID().getOntologyIRI().get();
         OWLOntology ont2 = getOWLOntology("testont2A");
-        @SuppressWarnings("null")
         @Nonnull
         IRI ont2_iri = ont2.getOntologyID().getOntologyIRI().get();
         OWLImportsDeclaration ont2_import = ImportsDeclaration(ont1_iri);
@@ -170,13 +168,11 @@ public class OntologyContainsAxiomTestCase extends TestBase {
                 .containsAxiom(ax_AsubB, INCLUDED, CONSIDER_ANNOTATIONS));
         assertTrue(ont2.containsAxiom(ax_AsubB, EXCLUDED, CONSIDER_ANNOTATIONS));
         assertTrue(ont2.containsAxiom(ax_AsubB, INCLUDED, CONSIDER_ANNOTATIONS));
-        @SuppressWarnings("null")
         @Nonnull
         File savedLocation1 = folder.newFile("testont1A.owl");
         FileOutputStream out1 = new FileOutputStream(savedLocation1);
         StreamDocumentTarget writer1 = new StreamDocumentTarget(out1);
         ont1.getOWLOntologyManager().saveOntology(ont1, format, writer1);
-        @SuppressWarnings("null")
         @Nonnull
         File savedLocation2 = folder.newFile("testont2A.owl");
         FileOutputStream out2 = new FileOutputStream(savedLocation2);
@@ -290,13 +286,11 @@ public class OntologyContainsAxiomTestCase extends TestBase {
                 .containsAxiom(ax_AsubB, INCLUDED, CONSIDER_ANNOTATIONS));
         assertTrue(ont2.containsAxiom(ax_AsubB, EXCLUDED, CONSIDER_ANNOTATIONS));
         assertTrue(ont2.containsAxiom(ax_AsubB, INCLUDED, CONSIDER_ANNOTATIONS));
-        @SuppressWarnings("null")
         @Nonnull
         File savedLocation1 = folder.newFile("testont1B.owl");
         FileOutputStream out1 = new FileOutputStream(savedLocation1);
         StreamDocumentTarget writer1 = new StreamDocumentTarget(out1);
         ont1.getOWLOntologyManager().saveOntology(ont1, format, writer1);
-        @SuppressWarnings("null")
         @Nonnull
         File savedLocation2 = folder.newFile("testont2B.owl");
         FileOutputStream out2 = new FileOutputStream(savedLocation2);

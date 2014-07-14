@@ -186,7 +186,6 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         copyPrefixes(format);
     }
 
-    @SuppressWarnings("null")
     private void copyPrefixes(OWLDocumentFormat ontologyFormat) {
         if (!(ontologyFormat instanceof PrefixDocumentFormat)) {
             return;
@@ -229,7 +228,6 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         return iriShortFormProvider.getShortForm(iri);
     }
 
-    @SuppressWarnings("null")
     @Override
     public String render(OWLObject object) {
         reset();

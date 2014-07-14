@@ -132,7 +132,6 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         writeReturn();
     }
 
-    @SuppressWarnings("null")
     protected void writePrefixes() {
         for (Map.Entry<String, String> e : prefixManager
                 .getPrefixName2PrefixMap().entrySet()) {
@@ -178,7 +177,6 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         write(">");
     }
 
-    @SuppressWarnings("null")
     @Override
     public void visit(@Nonnull OWLOntology ontology) {
         writePrefixes();
@@ -801,7 +799,6 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         }
     }
 
-    @SuppressWarnings("null")
     private <F extends OWLPropertyRange> void writeRestriction(
             @Nonnull OWLXMLVocabulary v,
             @Nonnull OWLCardinalityRestriction<F> restriction,

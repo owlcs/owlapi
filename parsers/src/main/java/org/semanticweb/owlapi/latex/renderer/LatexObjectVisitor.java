@@ -95,7 +95,6 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         writer.write(o);
     }
 
-    @SuppressWarnings("null")
     private void write(int i) {
         writer.write(Integer.toString(i));
     }
@@ -775,7 +774,6 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         }
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     private static String escapeName(String name) {
         return name.replace("_", "\\_");

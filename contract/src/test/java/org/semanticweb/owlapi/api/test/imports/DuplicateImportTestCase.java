@@ -31,7 +31,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 import com.google.common.base.Optional;
 
-@SuppressWarnings({ "javadoc", "null" })
+@SuppressWarnings({ "javadoc" })
 public class DuplicateImportTestCase extends TestBase {
 
     @Test

@@ -6,6 +6,7 @@ import static org.hamcrest.core.Is.is;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -17,9 +18,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.SWRLAtom;
-import org.semanticweb.owlapi.util.CollectionFactory;
 
 import uk.ac.manchester.cs.owl.owlapi.SWRLRuleImpl;
 
@@ -59,8 +58,7 @@ public class SWRLAtomOrderingTestCase {
         body.add(atomA);
         Set<SWRLAtom> head = new LinkedHashSet<>();
         head.add(atomD);
-        rule = new SWRLRuleImpl(body, head,
-                CollectionFactory.<OWLAnnotation> emptySet());
+        rule = new SWRLRuleImpl(body, head, Collections.emptySet());
     }
 
     @Test

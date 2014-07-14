@@ -414,7 +414,6 @@ public class OboInOwlCardinalityTools {
         }
     };
 
-    @SuppressWarnings("null")
     @Nonnull
     static <T> List<T> listOfFirst(Collection<T> t) {
         return Collections.singletonList(t.iterator().next());

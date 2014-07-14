@@ -274,7 +274,6 @@ public class ManchesterSyntaxTool {
             return defaultInstance.getOWLAnnotationProperty(name);
         }
 
-        @SuppressWarnings("null")
         @Nullable
         IRI getIRI(@Nonnull String name) {
             if (isQuoted(name)) {

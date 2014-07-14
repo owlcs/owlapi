@@ -492,7 +492,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         } catch (OWLOntologyChangeVetoException e) {
             // Some listener blocked the changes.
             broadcastOntologyChangesVetoed(changes, e);
-            return CollectionFactory.emptyList();
+            return Collections.emptyList();
         }
         List<OWLOntologyChange> appliedChanges = new ArrayList<>(
                 changes.size() + 2);
@@ -638,7 +638,6 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         ontologyFormatsByOntology.put(ontologyID, ontologyFormat);
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     @Override
     public OWLDocumentFormat getOntologyFormat(@Nonnull OWLOntology ontology) {

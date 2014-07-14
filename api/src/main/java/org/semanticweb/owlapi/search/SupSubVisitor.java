@@ -14,7 +14,6 @@ class SupSubVisitor<C extends OWLObject> extends OWLAxiomVisitorExAdapter<C> {
 
     private final boolean sup;
 
-    @SuppressWarnings("null")
     SupSubVisitor(boolean sup) {
         super(null);
         this.sup = sup;

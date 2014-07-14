@@ -91,7 +91,6 @@ public class OWLXMLRenderer extends AbstractOWLRenderer {
         }
     }
 
-    @SuppressWarnings("null")
     @Override
     public void render(OWLOntology ontology, Writer writer)
             throws OWLRendererException {

@@ -148,7 +148,6 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
         copyPrefixesFrom(from.getPrefixName2PrefixMap());
     }
 
-    @SuppressWarnings("null")
     @Override
     public void copyPrefixesFrom(Map<String, String> from) {
         for (Map.Entry<String, String> e : from.entrySet()) {
@@ -156,7 +155,6 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
         }
     }
 
-    @SuppressWarnings("null")
     @Override
     public IRI getIRI(String prefixIRI) {
         if (prefixIRI.startsWith("<")) {
@@ -181,7 +179,6 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
         }
     }
 
-    @SuppressWarnings("null")
     @Override
     public Map<String, String> getPrefixName2PrefixMap() {
         return Collections.unmodifiableMap(prefix2NamespaceMap);

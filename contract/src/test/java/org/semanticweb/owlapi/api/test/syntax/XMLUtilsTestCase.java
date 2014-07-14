@@ -28,7 +28,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  *         Informatics Group
  * @since 3.3.0
  */
-@SuppressWarnings({ "javadoc", "null" })
+@SuppressWarnings({ "javadoc" })
 public class XMLUtilsTestCase extends TestBase {
 
     private static final int CODE_POINT = 0xEFFFF;

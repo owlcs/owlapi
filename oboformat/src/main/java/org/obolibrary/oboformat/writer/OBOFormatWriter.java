@@ -201,7 +201,6 @@ public class OBOFormatWriter {
      * @throws IOException
      *         Signals that an I/O exception has occurred.
      */
-    @SuppressWarnings("null")
     public void write(@Nonnull OBODoc doc, @Nonnull BufferedWriter writer,
             NameProvider nameProvider) throws IOException {
         if (isCheckStructure) {
@@ -311,7 +310,6 @@ public class OBOFormatWriter {
      * @throws IOException
      *         Signals that an I/O exception has occurred.
      */
-    @SuppressWarnings("null")
     public void write(@Nonnull Frame frame, @Nonnull BufferedWriter writer,
             @Nullable NameProvider nameProvider) throws IOException {
         StringComparator comparator = null;
@@ -386,7 +384,6 @@ public class OBOFormatWriter {
         writeEmptyLine(writer);
     }
 
-    @SuppressWarnings("null")
     private static void writeXRefClause(@Nonnull Clause clause,
             @Nonnull BufferedWriter writer) throws IOException {
         Xref xref = clause.getValue(Xref.class);
@@ -529,7 +526,6 @@ public class OBOFormatWriter {
         writeLine(sb, writer);
     }
 
-    @SuppressWarnings("null")
     private static void appendXrefs(@Nonnull StringBuilder sb,
             @Nonnull Collection<Xref> xrefs) {
         List<Xref> sortedXrefs = new ArrayList<>(xrefs);
@@ -1081,7 +1077,6 @@ public class OBOFormatWriter {
          *        the o2
          * @return the int
          */
-        @SuppressWarnings("null")
         private static int compareValues(@Nullable Object o1,
                 @Nullable Object o2) {
             if (o1 == null && o2 == null) {

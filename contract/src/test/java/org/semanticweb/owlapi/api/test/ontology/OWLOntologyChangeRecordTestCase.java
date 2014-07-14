@@ -35,7 +35,7 @@ import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
  *         Research Group
  * @since 3.2.0
  */
-@SuppressWarnings({ "javadoc", "null" })
+@SuppressWarnings({ "javadoc" })
 public class OWLOntologyChangeRecordTestCase {
 
     @Nonnull

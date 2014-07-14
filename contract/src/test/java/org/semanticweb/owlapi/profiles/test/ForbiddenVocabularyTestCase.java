@@ -124,11 +124,9 @@ public class ForbiddenVocabularyTestCase extends TestBase {
                 df.getOWLDeclarationAxiom(brother));
         o.getOWLOntologyManager().addAxiom(o, df.getOWLDeclarationAxiom(child));
         o.getOWLOntologyManager().addAxiom(o, df.getOWLDeclarationAxiom(uncle));
-        @SuppressWarnings("null")
         OWLSubPropertyChainOfAxiom brokenAxiom1 = df
                 .getOWLSubPropertyChainOfAxiom(Arrays.asList(father, brother),
                         uncle);
-        @SuppressWarnings("null")
         OWLSubPropertyChainOfAxiom brokenAxiom2 = df
                 .getOWLSubPropertyChainOfAxiom(Arrays.asList(child, uncle),
                         brother);

@@ -67,7 +67,6 @@ public class ProfileValidationTestCase extends TestBase {
                 + "rdfXmlPremiseOntology");
         URL resourceURL = ProfileValidationTestCase.class
                 .getResource("/all.rdf");
-        @SuppressWarnings("null")
         IRI allTestURI = IRI.create(resourceURL);
         OWLOntology testCasesOntology = m
                 .loadOntologyFromOntologyDocument(allTestURI);

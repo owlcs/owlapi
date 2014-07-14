@@ -96,7 +96,6 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
     protected final LocalityClass localityCls;
     @Nonnull
     private final AxiomLocalityVisitor axiomVisitor = new AxiomLocalityVisitor();
-    @SuppressWarnings("null")
     @Nonnull
     private static final EnumSet<LocalityClass> SUPPORTED_LOCALITY_CLASSES = EnumSet
             .of(LocalityClass.TOP_BOTTOM, LocalityClass.BOTTOM_BOTTOM,

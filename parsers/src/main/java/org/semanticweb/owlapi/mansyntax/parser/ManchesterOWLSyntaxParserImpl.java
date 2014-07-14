@@ -19,6 +19,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -127,7 +128,6 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     // be easy to use this parser in tools such as editors.
     @Nonnull
     private Provider<OWLOntologyLoaderConfiguration> configProvider;
-    @SuppressWarnings("null")
     @Nonnull
     private Optional<OWLOntologyLoaderConfiguration> config = Optional.absent();
     protected OWLDataFactory dataFactory;
@@ -209,7 +209,6 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         }
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     private OWLOntologyLoaderConfiguration getConfig() {
         if (config.isPresent()) {
@@ -225,7 +224,6 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         configProvider = provider;
     }
 
-    @SuppressWarnings("null")
     @Override
     public void setOntologyLoaderConfiguration(
             OWLOntologyLoaderConfiguration config) {
@@ -558,7 +556,6 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         }
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     protected OWLClassExpression parseUnion() {
         Set<OWLClassExpression> ops = new HashSet<>();
@@ -784,7 +781,6 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         return parseDataIntersectionOf();
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     private OWLDataRange parseDataIntersectionOf() {
         String sep = AND.keyword();
@@ -988,7 +984,6 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         return verifyNotNull(lit);
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     private static String asFloat(float f) {
         return Float.toString(f).replace("Infinity", "INF");
@@ -1238,7 +1233,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     private Set<OWLAnnotation> parseAnnotations() {
         String next = peekToken();
         @Nonnull
-        Set<OWLAnnotation> annotations = CollectionFactory.emptySet();
+        Set<OWLAnnotation> annotations = Collections.emptySet();
         if (ANNOTATIONS.matches(next)) {
             consumeToken();
             annotations = parseAnnotationList();
@@ -1364,7 +1359,6 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         return onts;
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     private Set<OWLOntology> getOntologies() {
         if (peekToken().equals(OPENBRACKET.keyword())) {
@@ -2098,7 +2092,6 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         return dataFactory.getOWLImportsDeclaration(parseIRI());
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     protected IRI parseIRI() {
         String iriString = consumeToken();

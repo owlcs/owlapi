@@ -438,7 +438,6 @@ abstract class OWLElementHandler<O> {
     }
 
     /** @return text handled */
-    @SuppressWarnings("null")
     @Nonnull
     String getText() {
         return sb.toString();
@@ -1322,7 +1321,6 @@ class OWLAnonymousIndividualElementHandler extends
         return verifyNotNull(ind);
     }
 
-    @SuppressWarnings("null")
     @Override
     void attribute(@Nonnull String localName, @Nonnull String value) {
         if (localName.equals(NODE_ID.getShortForm())) {

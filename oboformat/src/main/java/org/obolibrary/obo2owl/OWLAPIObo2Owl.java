@@ -355,7 +355,6 @@ public class OWLAPIObo2Owl {
      * @throws OWLOntologyCreationException
      *         the oWL ontology creation exception
      */
-    @SuppressWarnings("null")
     @Nonnull
     protected OWLOntology tr(@Nonnull OWLOntology in)
             throws OWLOntologyCreationException {
@@ -499,7 +498,6 @@ public class OWLAPIObo2Owl {
      * @param headerFrame
      *        the header frame
      */
-    @SuppressWarnings("null")
     public void trHeaderFrame(@Nonnull Frame headerFrame) {
         for (String t : headerFrame.getTags()) {
             OboFormatTag tag = OBOFormatConstants.getTag(t);
@@ -633,7 +631,6 @@ public class OWLAPIObo2Owl {
      * @param clauses
      *        the clauses
      */
-    @SuppressWarnings("null")
     protected void addPropertyValueHeaders(@Nonnull Collection<Clause> clauses) {
         for (Clause clause : clauses) {
             Set<OWLAnnotation> annotations = trAnnotations(clause);
@@ -707,7 +704,6 @@ public class OWLAPIObo2Owl {
      *        the term frame
      * @return the oWL class expression
      */
-    @SuppressWarnings("null")
     public OWLClassExpression trTermFrame(@Nonnull Frame termFrame) {
         OWLClass cls = trClass(termFrame.getId());
         add(fac.getOWLDeclarationAxiom(cls));
@@ -758,7 +754,6 @@ public class OWLAPIObo2Owl {
      *        the typedef frame
      * @return the oWL named object
      */
-    @SuppressWarnings("null")
     @Nullable
     protected OWLNamedObject trTypedefToAnnotationProperty(
             @Nonnull Frame typedefFrame) {
@@ -804,7 +799,6 @@ public class OWLAPIObo2Owl {
      *        the typedef frame
      * @return the oWL named object
      */
-    @SuppressWarnings("null")
     @Nullable
     public OWLNamedObject trTypedefFrame(@Nonnull Frame typedefFrame) {
         // TODO - annotation props
@@ -915,7 +909,6 @@ public class OWLAPIObo2Owl {
      *        the clauses
      * @return the oWL axiom
      */
-    @SuppressWarnings("null")
     @Nonnull
     protected OWLAxiom trUnionOf(OWLClass cls,
             @Nonnull Collection<Clause> clauses) {
@@ -954,7 +947,6 @@ public class OWLAPIObo2Owl {
      *        the clauses
      * @return the oWL axiom
      */
-    @SuppressWarnings("null")
     protected OWLAxiom trIntersectionOf(OWLClass cls,
             @Nonnull Collection<Clause> clauses) {
         Set<? extends OWLAnnotation> annotations = trAnnotations(clauses);
@@ -1043,7 +1035,6 @@ public class OWLAPIObo2Owl {
      *        the clause
      * @return axiom
      */
-    @SuppressWarnings("null")
     protected OWLAxiom trTermClause(@Nonnull OWLClass cls, String tag,
             @Nonnull Clause clause) {
         Collection<QualifierValue> qvs = clause.getQualifierValues();
@@ -1105,7 +1096,6 @@ public class OWLAPIObo2Owl {
      *        the clause
      * @return the oWL axiom
      */
-    @SuppressWarnings("null")
     @Nullable
     protected OWLAxiom trTypedefClause(@Nonnull OWLObjectProperty p,
             String tag, @Nonnull Clause clause) {
@@ -1232,7 +1222,6 @@ public class OWLAPIObo2Owl {
      *        the clause
      * @return the oWL axiom
      */
-    @SuppressWarnings("null")
     @Nullable
     protected OWLAxiom trGenericClause(@Nonnull OWLAnnotationSubject sub,
             @Nonnull String tag, @Nonnull Clause clause) {
@@ -1374,7 +1363,6 @@ public class OWLAPIObo2Owl {
      * @param anns
      *        the anns
      */
-    @SuppressWarnings("null")
     protected void trAnnotations(@Nonnull Clause clause,
             @Nonnull Set<OWLAnnotation> anns) {
         Collection<Xref> xrefs = clause.getXrefs();
@@ -1713,7 +1701,6 @@ public class OWLAPIObo2Owl {
      *        the value
      * @return the oWL annotation value
      */
-    @SuppressWarnings("null")
     @Nonnull
     protected OWLAnnotationValue trLiteral(@Nonnull Object _value) {
         Object value = _value;

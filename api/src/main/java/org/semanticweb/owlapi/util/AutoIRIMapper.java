@@ -244,7 +244,6 @@ public class AutoIRIMapper extends DefaultHandler implements
      *        token
      * @return IRI without quotes (&lt; and &gt;)
      */
-    @SuppressWarnings("null")
     @Nonnull
     static IRI unquote(String tok) {
         return IRI.create(tok.substring(1, tok.length() - 1));

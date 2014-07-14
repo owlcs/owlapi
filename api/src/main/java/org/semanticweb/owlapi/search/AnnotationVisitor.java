@@ -1,6 +1,7 @@
 package org.semanticweb.owlapi.search;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,7 +19,7 @@ class AnnotationVisitor<C> extends OWLAxiomVisitorExAdapter<Set<C>> {
     private final boolean value;
 
     AnnotationVisitor(boolean value) {
-        super(CollectionFactory.<C> emptySet());
+        super(Collections.emptySet());
         this.value = value;
     }
 

@@ -63,7 +63,6 @@ public class HiddenGCICount extends IntegerValuedMetric {
         return false;
     }
 
-    @SuppressWarnings("null")
     @Override
     protected Integer recomputeMetric() {
         Set<OWLClass> processed = new HashSet<>();

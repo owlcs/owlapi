@@ -67,7 +67,6 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         checkNotNull(iriReplacementMap, "iriReplacementMap cannot be null");
         replacementMap = new HashMap<>();
         for (Map.Entry<IRI, IRI> e : iriReplacementMap.entrySet()) {
-            @SuppressWarnings("null")
             @Nonnull
             IRI iri = e.getKey();
             IRI repIRI = e.getValue();
@@ -119,7 +118,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         this.obj = obj;
     }
 
-    @SuppressWarnings({ "unchecked", "null" })
+    @SuppressWarnings({ "unchecked" })
     @Nonnull
     protected <O> O getLastObject() {
         return (O) obj;

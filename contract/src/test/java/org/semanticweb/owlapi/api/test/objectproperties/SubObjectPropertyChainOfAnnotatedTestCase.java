@@ -35,7 +35,7 @@ import com.google.common.collect.Lists;
  *         Management Group
  * @since 3.0.0
  */
-@SuppressWarnings({ "javadoc", "null" })
+@SuppressWarnings({ "javadoc" })
 public class SubObjectPropertyChainOfAnnotatedTestCase extends
         AbstractAnnotatedAxiomRoundTrippingTestCase {
 

@@ -32,7 +32,6 @@ public class TestImportByLocationTestCase extends TestBase {
 
     @Test
     public void testImportOntologyByLocation() throws Exception {
-        @SuppressWarnings("null")
         @Nonnull
         File f = folder.newFile("a.owl");
         createOntologyFile(IRI("http://a.com"), f);

@@ -70,7 +70,6 @@ public class OWLLiteralImplBoolean extends OWLObjectImpl implements OWLLiteral {
         return hashCode;
     }
 
-    @SuppressWarnings("null")
     @Override
     public String getLiteral() {
         return Boolean.toString(literal);

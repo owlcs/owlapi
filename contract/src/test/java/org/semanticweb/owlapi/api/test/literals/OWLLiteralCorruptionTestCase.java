@@ -18,7 +18,7 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Liter
 import org.junit.Test;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
-@SuppressWarnings({ "javadoc", "null" })
+@SuppressWarnings({ "javadoc" })
 public class OWLLiteralCorruptionTestCase {
 
     @Test

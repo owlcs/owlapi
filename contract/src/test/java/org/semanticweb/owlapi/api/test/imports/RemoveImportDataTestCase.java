@@ -28,7 +28,7 @@ import org.semanticweb.owlapi.model.RemoveImport;
  *         Research Group
  * @since 3.2.0
  */
-@SuppressWarnings({ "javadoc", "null" })
+@SuppressWarnings({ "javadoc" })
 public class RemoveImportDataTestCase {
 
     @Nonnull

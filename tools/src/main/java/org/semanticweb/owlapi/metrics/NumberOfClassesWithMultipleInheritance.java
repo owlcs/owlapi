@@ -50,7 +50,6 @@ public class NumberOfClassesWithMultipleInheritance extends IntegerValuedMetric 
         return "Number of classes with asserted multiple inheritance";
     }
 
-    @SuppressWarnings("null")
     @Override
     public Integer recomputeMetric() {
         Set<OWLClass> processed = new HashSet<>();

@@ -73,7 +73,6 @@ public class OWLProfileViolationVisitorExAdapter<O> extends
         OWLProfileViolationVisitorEx<O> {
 
     /** default returned value is null */
-    @SuppressWarnings("null")
     public OWLProfileViolationVisitorExAdapter() {
         this(null);
     }

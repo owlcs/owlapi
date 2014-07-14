@@ -200,7 +200,7 @@ import org.semanticweb.owlapitools.builders.BuilderUnionOf;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 
-@SuppressWarnings({ "javadoc", "null" })
+@SuppressWarnings({ "javadoc" })
 public class BuildersEqualTestCase {
 
     @Nonnull

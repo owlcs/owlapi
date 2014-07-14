@@ -9,25 +9,11 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 /** oboformat constants */
-@SuppressWarnings("null")
 public class OBOFormatConstants {
 
+    //@formatter:off
     /** oboformat tags */
     public enum OboFormatTag {
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //@formatter:off
         /**TAG_FORMAT_VERSION*/ TAG_FORMAT_VERSION("format-version"),
         /**TAG_ONTOLOGY*/ TAG_ONTOLOGY( "ontology"),
         /**TAG_DATA_VERSION*/ TAG_DATA_VERSION( "data-version"),

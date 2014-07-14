@@ -14,6 +14,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import javax.annotation.Nonnull;
@@ -82,7 +83,6 @@ public class InitVisitorFactory {
          * @param named
          *        true for named classes
          */
-        @SuppressWarnings("null")
         public InitVisitor(boolean sub, boolean named) {
             super(null);
             this.sub = sub;
@@ -281,7 +281,7 @@ public class InitVisitorFactory {
          *        true for named classes
          */
         public InitCollectionVisitor(boolean named) {
-            super(CollectionFactory.<K> emptySet());
+            super(Collections.emptySet());
             this.named = named;
         }
 

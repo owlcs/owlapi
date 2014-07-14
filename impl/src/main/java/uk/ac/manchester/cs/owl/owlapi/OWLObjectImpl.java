@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.lang.ref.WeakReference;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -55,7 +56,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
     private static final long serialVersionUID = 40000L;
     /** a convenience reference for an empty annotation set, saves on typing. */
     @Nonnull
-    protected static final Set<OWLAnnotation> NO_ANNOTATIONS = CollectionFactory
+    protected static final Set<OWLAnnotation> NO_ANNOTATIONS = Collections
             .emptySet();
     static final OWLObjectTypeIndexProvider owlObjectTypeIndexProvider = new OWLObjectTypeIndexProvider();
     private int hashCode = 0;
@@ -182,7 +183,6 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
 
     protected abstract int index();
 
-    @SuppressWarnings("null")
     @Override
     public int compareTo(OWLObject o) {
         int thisTypeIndex = index();
@@ -203,7 +203,6 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
 
     protected abstract int compareObjectOfSameType(@Nonnull OWLObject object);
 
-    @SuppressWarnings("null")
     @Override
     @Nonnull
     public String toString() {

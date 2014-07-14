@@ -11,7 +11,7 @@ import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 import org.obolibrary.oboformat.parser.OBOFormatParserException;
 
-@SuppressWarnings({ "javadoc", "null" })
+@SuppressWarnings({ "javadoc" })
 public class CurlyBracesInCommentsTest extends OboFormatTestBasics {
 
     @Test(expected = OBOFormatParserException.class)

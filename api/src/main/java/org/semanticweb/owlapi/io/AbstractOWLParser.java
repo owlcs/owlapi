@@ -166,7 +166,6 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
                 .matches();
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     private static InputStream getInputStreamFromContentEncoding(
             @Nonnull URLConnection conn, @Nullable String contentEncoding)
@@ -242,7 +241,6 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
                 new OWLOntologyLoaderConfiguration());
     }
 
-    @SuppressWarnings("null")
     @Override
     public String getName() {
         return getClass().getSimpleName();

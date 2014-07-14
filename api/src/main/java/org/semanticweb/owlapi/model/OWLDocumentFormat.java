@@ -16,6 +16,7 @@ import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -25,7 +26,6 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.io.OWLOntologyLoaderMetaData;
-import org.semanticweb.owlapi.util.CollectionFactory;
 
 import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.Multimap;
@@ -116,7 +116,7 @@ public abstract class OWLDocumentFormat implements Serializable {
     public static Collection<IRI> determineIllegalPunnings(boolean add,
             Collection<OWLEntity> signature, Collection<IRI> punnedEntities) {
         if (!add) {
-            return CollectionFactory.emptySet();
+            return Collections.emptySet();
         }
         // determine what entities are illegally punned
         Multimap<IRI, EntityType<?>> punnings = LinkedListMultimap.create();

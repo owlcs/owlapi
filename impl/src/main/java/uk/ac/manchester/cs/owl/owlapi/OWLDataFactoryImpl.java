@@ -17,6 +17,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -1868,8 +1869,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
                 arg0, arg1);
     }
     @Nonnull
-    private static final Set<OWLAnnotation> EMPTY_ANNOTATIONS_SET = CollectionFactory
-            .emptySet();
+    private static final Set<OWLAnnotation> EMPTY_ANNOTATIONS_SET = Collections.emptySet();
 
     @Nonnull
     @Override

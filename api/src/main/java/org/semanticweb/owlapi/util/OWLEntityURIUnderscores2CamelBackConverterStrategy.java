@@ -55,7 +55,6 @@ public class OWLEntityURIUnderscores2CamelBackConverterStrategy implements
         Optional<String> fragment = iri.getRemainder();
         if (fragment.isPresent()) {
             String base = iri.getNamespace();
-            @SuppressWarnings("null")
             String camelCaseFragment = toCamelCase(fragment.get());
             return IRI.create(base, camelCaseFragment);
         }

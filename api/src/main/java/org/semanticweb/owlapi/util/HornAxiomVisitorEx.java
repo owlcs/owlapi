@@ -46,12 +46,6 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 /** Returns true if the visited axioms are an ontology in Horn-SHIQ form. */
 public class HornAxiomVisitorEx extends OWLAxiomVisitorExAdapter<Boolean> {
 
-    @SuppressWarnings("null")
-    @Nonnull
-    static Boolean b(boolean b) {
-        return b;
-    }
-
     @Nonnull
     private final PositiveAppearanceVisitorEx positive = new PositiveAppearanceVisitorEx();
     @Nonnull
@@ -67,144 +61,144 @@ public class HornAxiomVisitorEx extends OWLAxiomVisitorExAdapter<Boolean> {
 
     /** default constructor */
     public HornAxiomVisitorEx() {
-        super(b(false));
+        super(false);
     }
 
     @Override
     public Boolean visit(OWLSubAnnotationPropertyOfAxiom axiom) {
-        return b(true);
+        return true;
     }
 
     @Override
     public Boolean visit(OWLAnnotationPropertyDomainAxiom axiom) {
-        return b(true);
+        return true;
     }
 
     @Override
     public Boolean visit(OWLAnnotationPropertyRangeAxiom axiom) {
-        return b(true);
+        return true;
     }
 
     @Override
     public Boolean visit(@Nonnull OWLSubClassOfAxiom axiom) {
-        return b(checkNegative(axiom.getSubClass())
-                && checkNegative(axiom.getSuperClass()));
+        return checkNegative(axiom.getSubClass())
+        && checkNegative(axiom.getSuperClass());
     }
 
     @Override
     public Boolean visit(OWLDisjointClassesAxiom axiom) {
         for (OWLClassExpression c : axiom.getClassExpressions()) {
             if (!checkNegative(c)) {
-                return b(false);
+                return false;
             }
         }
-        return b(true);
+        return true;
     }
 
     @Override
     public Boolean visit(OWLObjectPropertyDomainAxiom axiom) {
-        return b(checkPositive(axiom.getDomain()));
+        return checkPositive(axiom.getDomain());
     }
 
     @Override
     public Boolean visit(OWLEquivalentObjectPropertiesAxiom axiom) {
-        return b(true);
+        return true;
     }
 
     @Override
     public Boolean visit(OWLObjectPropertyRangeAxiom axiom) {
-        return b(checkPositive(axiom.getRange()));
+        return checkPositive(axiom.getRange());
     }
 
     @Override
     public Boolean visit(OWLFunctionalObjectPropertyAxiom axiom) {
-        return b(true);
+        return true;
     }
 
     @Override
     public Boolean visit(OWLSubObjectPropertyOfAxiom axiom) {
-        return b(true);
+        return true;
     }
 
     @Override
     public Boolean visit(OWLDisjointUnionAxiom axiom) {
         OWLClassExpression c1 = axiom.getOWLClass();
         if (!checkPositive(c1) || !checkNegative(c1)) {
-            return b(false);
+            return false;
         }
         for (OWLClassExpression c : axiom.getClassExpressions()) {
             if (!checkPositive(c) || !checkNegative(c)) {
-                return b(false);
+                return false;
             }
         }
-        return b(true);
+        return true;
     }
 
     @Override
     public Boolean visit(OWLDeclarationAxiom axiom) {
-        return b(true);
+        return true;
     }
 
     @Override
     public Boolean visit(OWLAnnotationAssertionAxiom axiom) {
-        return b(true);
+        return true;
     }
 
     @Override
     public Boolean visit(OWLSymmetricObjectPropertyAxiom axiom) {
-        return b(true);
+        return true;
     }
 
     @Override
     public Boolean visit(OWLEquivalentClassesAxiom axiom) {
         for (OWLClassExpression c : axiom.getClassExpressions()) {
             if (!checkPositive(c) || !checkNegative(c)) {
-                return b(false);
+                return false;
             }
         }
-        return b(true);
+        return true;
     }
 
     @Override
     public Boolean visit(OWLTransitiveObjectPropertyAxiom axiom) {
-        return b(true);
+        return true;
     }
 
     @Override
     public Boolean visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
-        return b(true);
+        return true;
     }
 
     @Override
     public Boolean visit(OWLInverseObjectPropertiesAxiom axiom) {
-        return b(true);
+        return true;
     }
 
     private class PositiveAppearanceVisitorEx extends
             OWLClassExpressionVisitorExAdapter<Boolean> {
 
         PositiveAppearanceVisitorEx() {
-            super(b(false));
+            super(false);
         }
 
         @Override
         public Boolean visit(OWLClass ce) {
-            return b(true);
+            return true;
         }
 
         @Override
         public Boolean visit(OWLObjectIntersectionOf ce) {
             for (OWLClassExpression c : ce.getOperands()) {
                 if (c.accept(this).equals(Boolean.FALSE)) {
-                    return b(false);
+                    return false;
                 }
             }
-            return b(true);
+            return true;
         }
 
         @Override
         public Boolean visit(OWLObjectComplementOf ce) {
-            return b(checkNegative(ce.getOperand()));
+            return checkNegative(ce.getOperand());
         }
 
         @Override
@@ -224,14 +218,14 @@ public class HornAxiomVisitorEx extends OWLAxiomVisitorExAdapter<Boolean> {
 
         @Override
         public Boolean visit(OWLObjectExactCardinality ce) {
-            return b(ce.getCardinality() <= 1
-                    && ce.getFiller().accept(this).booleanValue()
-                    && checkNegative(ce.getFiller()));
+            return ce.getCardinality() <= 1
+            && ce.getFiller().accept(this).booleanValue()
+            && checkNegative(ce.getFiller());
         }
 
         @Override
         public Boolean visit(OWLObjectMaxCardinality ce) {
-            return b(ce.getCardinality() <= 1 && checkNegative(ce.getFiller()));
+            return ce.getCardinality() <= 1 && checkNegative(ce.getFiller());
         }
     }
 
@@ -239,32 +233,32 @@ public class HornAxiomVisitorEx extends OWLAxiomVisitorExAdapter<Boolean> {
             OWLClassExpressionVisitorExAdapter<Boolean> {
 
         NegativeAppearanceVisitorEx() {
-            super(b(false));
+            super(false);
         }
 
         @Override
         public Boolean visit(OWLClass ce) {
-            return b(true);
+            return true;
         }
 
         @Override
         public Boolean visit(OWLObjectIntersectionOf ce) {
             for (OWLClassExpression c : ce.getOperands()) {
                 if (c.accept(this).equals(Boolean.FALSE)) {
-                    return b(false);
+                    return false;
                 }
             }
-            return b(true);
+            return true;
         }
 
         @Override
         public Boolean visit(OWLObjectUnionOf ce) {
             for (OWLClassExpression c : ce.getOperands()) {
                 if (c.accept(this).equals(Boolean.FALSE)) {
-                    return b(false);
+                    return false;
                 }
             }
-            return b(true);
+            return true;
         }
 
         @Override
@@ -274,8 +268,8 @@ public class HornAxiomVisitorEx extends OWLAxiomVisitorExAdapter<Boolean> {
 
         @Override
         public Boolean visit(OWLObjectMinCardinality ce) {
-            return b(ce.getCardinality() <= 1
-                    && ce.getFiller().accept(this).booleanValue());
+            return ce.getCardinality() <= 1
+            && ce.getFiller().accept(this).booleanValue();
         }
     }
 }

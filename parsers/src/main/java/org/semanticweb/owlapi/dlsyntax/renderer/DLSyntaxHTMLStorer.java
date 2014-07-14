@@ -44,7 +44,6 @@ public class DLSyntaxHTMLStorer extends DLSyntaxStorerBase {
         return ontologyFormat instanceof DLSyntaxHTMLDocumentFormat;
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     @Override
     protected String getRendering(@Nullable final OWLEntity subject,

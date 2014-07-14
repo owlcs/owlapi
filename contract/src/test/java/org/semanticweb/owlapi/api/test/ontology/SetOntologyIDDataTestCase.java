@@ -32,7 +32,7 @@ import com.google.common.base.Optional;
  *         Research Group
  * @since 3.2.0
  */
-@SuppressWarnings({ "javadoc", "null" })
+@SuppressWarnings({ "javadoc" })
 public class SetOntologyIDDataTestCase {
 
     @Nonnull

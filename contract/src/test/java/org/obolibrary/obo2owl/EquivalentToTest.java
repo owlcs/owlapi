@@ -29,7 +29,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * @author cjm see 5.9.3 and 8.2.2 of spec See
  *         http://code.google.com/p/oboformat/issues/detail?id=13
  */
-@SuppressWarnings({ "javadoc", "null" })
+@SuppressWarnings({ "javadoc" })
 public class EquivalentToTest extends OboFormatTestBasics {
 
     @Test

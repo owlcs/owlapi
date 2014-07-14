@@ -18,6 +18,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -1514,12 +1515,12 @@ public class StructuralReasoner extends OWLReasonerBase {
         public Collection<OWLObjectPropertyExpression> getParents(
                 @Nonnull OWLObjectPropertyExpression child) {
             if (child.isBottomEntity()) {
-                return CollectionFactory.emptySet();
+                return Collections.emptySet();
             }
             Set<OWLObjectPropertyExpression> propertyExpressions = sub2Super
                     .get(child);
             if (propertyExpressions == null) {
-                return CollectionFactory.emptySet();
+                return Collections.emptySet();
             } else {
                 return new HashSet<>(propertyExpressions);
             }
@@ -1530,12 +1531,12 @@ public class StructuralReasoner extends OWLReasonerBase {
         public Collection<OWLObjectPropertyExpression> getChildren(
                 @Nonnull OWLObjectPropertyExpression parent) {
             if (parent.isTopEntity()) {
-                return CollectionFactory.emptySet();
+                return Collections.emptySet();
             }
             Set<OWLObjectPropertyExpression> propertyExpressions = super2Sub
                     .get(parent);
             if (propertyExpressions == null) {
-                return CollectionFactory.emptySet();
+                return Collections.emptySet();
             } else {
                 return new HashSet<>(propertyExpressions);
             }

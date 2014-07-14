@@ -42,7 +42,6 @@ public class LatexOWLObjectRenderer implements OWLObjectRenderer {
         this.dataFactory = checkNotNull(dataFactory);
     }
 
-    @SuppressWarnings("null")
     @Override
     public String render(@Nonnull OWLObject object) {
         StringWriter writer = new StringWriter();

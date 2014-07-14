@@ -70,7 +70,6 @@ public class OWLLiteralImplDouble extends OWLObjectImpl implements OWLLiteral {
         return hashCode;
     }
 
-    @SuppressWarnings("null")
     @Override
     public String getLiteral() {
         return Double.toString(literal);

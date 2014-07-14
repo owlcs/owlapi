@@ -160,14 +160,12 @@ public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
         return entities.size() == 1;
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     @Override
     public E getRepresentativeElement() {
         return entities.iterator().next();
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     @Override
     public Iterator<E> iterator() {

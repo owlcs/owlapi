@@ -75,7 +75,6 @@ public class NamespaceUtil implements Serializable {
     }
 
     /** @return namespace to prefix map */
-    @SuppressWarnings("null")
     @Nonnull
     public Map<String, String> getNamespace2PrefixMap() {
         return Collections.unmodifiableMap(namespace2PrefixMap);

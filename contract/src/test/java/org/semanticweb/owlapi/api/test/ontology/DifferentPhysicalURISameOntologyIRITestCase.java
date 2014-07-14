@@ -24,7 +24,7 @@ import org.semanticweb.owlapi.model.OWLOntologyAlreadyExistsException;
  *         Management Group
  * @since 3.0.0
  */
-@SuppressWarnings({ "javadoc", "null" })
+@SuppressWarnings({ "javadoc" })
 public class DifferentPhysicalURISameOntologyIRITestCase extends TestBase {
 
     private static final String ONTOLOGY_A = "ImportsTestOntologyA.owl";

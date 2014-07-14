@@ -50,7 +50,6 @@ public class SatisfiabilityReducer extends
      * @param dataFactory
      *        data factory to use
      */
-    @SuppressWarnings("null")
     public SatisfiabilityReducer(@Nonnull OWLDataFactory dataFactory) {
         super(null);
         df = checkNotNull(dataFactory, "dataFactory cannot be null");

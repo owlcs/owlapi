@@ -75,7 +75,6 @@ import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
-import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
 
 /**
@@ -112,7 +111,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
      *        the manager to use
      */
     public ExplanationOrdererImpl(@Nonnull OWLOntologyManager m) {
-        currentExplanation = CollectionFactory.emptySet();
+        currentExplanation = Collections.emptySet();
         man = checkNotNull(m, "m cannot be null");
         // I'm not sure what to do with disjoint classes yet. At the
         // moment, we just shove them at the end at the top level.
@@ -190,7 +189,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
             @Nonnull ExplanationTree tree) {
         Set<OWLAxiom> currentPath = new HashSet<>(
                 tree.getUserObjectPathToRoot());
-        Set<? extends OWLAxiom> axioms = CollectionFactory.emptySet();
+        Set<? extends OWLAxiom> axioms = Collections.emptySet();
         if (entity.isOWLClass()) {
             axioms = ont.getAxioms(entity.asOWLClass(), EXCLUDED);
         } else if (entity.isOWLObjectProperty()) {

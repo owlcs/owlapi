@@ -102,7 +102,7 @@ import org.semanticweb.owlapi.util.ShortFormProvider;
  *         Group
  * @since 2.0.0
  */
-@SuppressWarnings({ "javadoc", "null" })
+@SuppressWarnings({ "javadoc" })
 public class OWLTutorialSyntaxObjectRenderer extends OWLObjectVisitorAdapter {
 
     @Nonnull

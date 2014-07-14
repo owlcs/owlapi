@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import java.util.Collections;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -33,7 +34,6 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
-import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
@@ -204,42 +204,42 @@ public class OWLLiteralImplString implements OWLLiteral {
 
     @Override
     public Set<OWLEntity> getSignature() {
-        return CollectionFactory.emptySet();
+        return Collections.emptySet();
     }
 
     @Override
     public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
-        return CollectionFactory.emptySet();
+        return Collections.emptySet();
     }
 
     @Override
     public Set<OWLClass> getClassesInSignature() {
-        return CollectionFactory.emptySet();
+        return Collections.emptySet();
     }
 
     @Override
     public Set<OWLDataProperty> getDataPropertiesInSignature() {
-        return CollectionFactory.emptySet();
+        return Collections.emptySet();
     }
 
     @Override
     public Set<OWLObjectProperty> getObjectPropertiesInSignature() {
-        return CollectionFactory.emptySet();
+        return Collections.emptySet();
     }
 
     @Override
     public Set<OWLNamedIndividual> getIndividualsInSignature() {
-        return CollectionFactory.emptySet();
+        return Collections.emptySet();
     }
 
     @Override
     public Set<OWLDatatype> getDatatypesInSignature() {
-        return CollectionFactory.emptySet();
+        return Collections.emptySet();
     }
 
     @Override
     public Set<OWLClassExpression> getNestedClassExpressions() {
-        return CollectionFactory.emptySet();
+        return Collections.emptySet();
     }
 
     @Override

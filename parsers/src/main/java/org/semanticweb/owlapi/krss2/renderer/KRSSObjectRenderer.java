@@ -231,7 +231,6 @@ import org.semanticweb.owlapi.util.OWLObjectVisitorAdapter;
  * 
  * @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence
  */
-@SuppressWarnings("null")
 public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
 
     @Nonnull

@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.change;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
+import java.util.Collections;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -22,7 +23,6 @@ import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.SetOntologyID;
-import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
  * Represents the specific non-ontology data required by a
@@ -75,7 +75,7 @@ public class SetOntologyIDData extends OWLOntologyChangeData {
 
     @Override
     public Set<OWLEntity> getSignature() {
-        return CollectionFactory.emptySet();
+        return Collections.emptySet();
     }
 
     @Override

@@ -128,7 +128,7 @@ public class MapPointer<K, V extends OWLAxiom> {
      * 
      * @return the map pointer
      */
-    @SuppressWarnings({ "unchecked", "null" })
+    @SuppressWarnings({ "unchecked" })
     public synchronized MapPointer<K, V> init() {
         if (initialized) {
             return this;
@@ -231,7 +231,6 @@ public class MapPointer<K, V extends OWLAxiom> {
      *        key to look up
      * @return true if there are values for key
      */
-    @SuppressWarnings("null")
     @Nonnull
     public synchronized Boolean containsKey(K key) {
         init();

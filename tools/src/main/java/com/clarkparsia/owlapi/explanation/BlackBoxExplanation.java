@@ -16,6 +16,7 @@ import static org.semanticweb.owlapi.model.parameters.Imports.*;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -41,7 +42,6 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
-import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -123,12 +123,12 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
     @Override
     public Set<OWLAxiom> getExplanation(OWLClassExpression unsatClass) {
         if (!getDefinitionTracker().isDefined(unsatClass)) {
-            return CollectionFactory.emptySet();
+            return Collections.emptySet();
         }
         try {
             satTestCount++;
             if (isFirstExplanation() && getReasoner().isSatisfiable(unsatClass)) {
-                return CollectionFactory.emptySet();
+                return Collections.emptySet();
             }
             reset();
             expandUntilUnsatisfiable(unsatClass);
