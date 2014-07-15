@@ -15,11 +15,12 @@ package org.semanticweb.owlapi.mansyntax.renderer;
 import static org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntax.*;
 
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-import java.util.TreeSet;
 
 import javax.annotation.Nonnull;
 
@@ -74,8 +75,9 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
 
     protected void writeCommaSeparatedList(
             @Nonnull Set<? extends OWLObject> objects) {
-        for (Iterator<OWLObject> it = new TreeSet<>(objects).iterator(); it
-                .hasNext();) {
+        List<OWLObject> list = new ArrayList<>(objects);
+        Collections.sort(list);
+        for (Iterator<OWLObject> it = list.iterator(); it.hasNext();) {
             it.next().accept(this);
             if (it.hasNext()) {
                 write(", ");
