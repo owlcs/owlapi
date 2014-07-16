@@ -1388,10 +1388,14 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker, Anonym
      *         params)
      */
     OWLLiteral getOWLLiteral(String literal, @Nullable IRI datatype, @Nullable String lang) {
-        if (datatype == null) {
-            return df.getOWLLiteral(literal, lang);
+        if (lang != null && !lang.trim().isEmpty()) {
+            return dataFactory.getOWLLiteral(literal, lang);
+        } else if (datatype != null) {
+            return dataFactory.getOWLLiteral(literal,
+                    dataFactory.getOWLDatatype(datatype));
+        } else {
+            return dataFactory.getOWLLiteral(literal);
         }
-        return df.getOWLLiteral(literal, df.getOWLDatatype(datatype));
     }
 
     /**
