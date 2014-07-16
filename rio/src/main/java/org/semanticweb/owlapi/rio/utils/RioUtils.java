@@ -49,7 +49,9 @@ import org.openrdf.model.Resource;
 import org.openrdf.model.Statement;
 import org.openrdf.model.URI;
 import org.openrdf.model.Value;
-import org.openrdf.model.impl.ValueFactoryImpl;
+import org.openrdf.model.ValueFactory;
+import org.openrdf.model.impl.SimpleValueFactory;
+import org.openrdf.model.vocabulary.XMLSchema;
 import org.semanticweb.owlapi.io.RDFLiteral;
 import org.semanticweb.owlapi.io.RDFNode;
 import org.semanticweb.owlapi.io.RDFResourceIRI;
@@ -143,16 +145,14 @@ public final class RioUtils {
      *        literal
      * @return value
      */
-    protected static Value literal(final ValueFactoryImpl vf, final RDFLiteral literalObject) {
+    protected static Value literal(final ValueFactory vf, final RDFLiteral literalObject) {
         Value object;
-        // TODO: When updating to Sesame-2.8 the following may need to be
-        // rewritten
-        if (literalObject.isPlainLiteral()) {
-            if (literalObject.hasLang()) {
-                object = vf.createLiteral(literalObject.getLexicalValue(), literalObject.getLang());
-            } else {
-                object = vf.createLiteral(literalObject.getLexicalValue());
-            }
+        if (literalObject.hasLang()) {
+            object = vf.createLiteral(literalObject.getLexicalValue(),
+                    literalObject.getLang());
+        } else if (literalObject.getDatatype() == null) {
+            object = vf.createLiteral(literalObject.getLexicalValue(),
+                    XMLSchema.STRING);
         } else {
             object = vf.createLiteral(literalObject.getLexicalValue(),
                     vf.createURI(literalObject.getDatatype().toString()));

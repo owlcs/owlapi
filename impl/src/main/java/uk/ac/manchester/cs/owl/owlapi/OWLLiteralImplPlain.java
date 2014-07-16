@@ -43,11 +43,11 @@ public class OWLLiteralImplPlain extends OWLObjectImpl implements OWLLiteral {
      */
     public OWLLiteralImplPlain(String literal, @Nullable String lang) {
         this.literal = literal;
-        if (lang == null || lang.length() == 0) {
+        if (lang == null || lang.isEmpty()) {
             this.lang = "";
             this.datatype = XSD_STRING;
         } else {
-            this.lang = lang;
+            this.lang = lang.trim();
             this.datatype = RDF_LANG_STRING;
         }
         hashCode = getHashCode();
@@ -65,7 +65,7 @@ public class OWLLiteralImplPlain extends OWLObjectImpl implements OWLLiteral {
 
     @Override
     public boolean hasLang() {
-        return !lang.equals("");
+        return !lang.isEmpty();
     }
 
     @Override
@@ -128,19 +128,19 @@ public class OWLLiteralImplPlain extends OWLObjectImpl implements OWLLiteral {
     public boolean equals(@Nullable Object obj) {
         if (this == obj) {
             return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (!(obj instanceof OWLLiteral)) {
-            return false;
-        }
-        OWLLiteral other = (OWLLiteral) obj;
-        if (other instanceof OWLLiteralImplPlain) {
-            return literal.equals(((OWLLiteralImplPlain) other).literal) && lang.equals(other.getLang());
-        }
-        return getLiteral().equals(other.getLiteral()) && getDatatype().equals(other.getDatatype())
+        if (super.equals(obj)) {
+            if (!(obj instanceof OWLLiteral)) {
+                return false;
+            }
+            OWLLiteral other = (OWLLiteral) obj;
+            if (other instanceof OWLLiteralImplPlain) {
+                return literal.equals(((OWLLiteralImplPlain) other).literal) && lang.equals(other.getLang());
+            }
+            return getLiteral().equals(other.getLiteral()) && getDatatype().equals(other.getDatatype())
                 && lang.equals(other.getLang());
+        }
+
+        return false;
     }
 
     @Override
@@ -150,10 +150,10 @@ public class OWLLiteralImplPlain extends OWLObjectImpl implements OWLLiteral {
         if (diff != 0) {
             return diff;
         }
-        diff = getDatatype().compareTo(other.getDatatype());
-        if (diff != 0) {
+        diff = lang.compareToIgnoreCase(other.getLang());
+        if(diff != 0) {
             return diff;
         }
-        return lang.compareTo(other.getLang());
+        return getDatatype().compareTo(other.getDatatype());
     }
 }
