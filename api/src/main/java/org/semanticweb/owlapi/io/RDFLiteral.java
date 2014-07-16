@@ -51,8 +51,15 @@ public class RDFLiteral extends RDFNode {
             @Nullable IRI datatype) {
         lexicalValue = checkNotNull(literal, "literal cannot be null");
         this.lang = lang;
-        this.datatype = datatype == null ? OWL2Datatype.RDF_PLAIN_LITERAL
-                .getIRI() : datatype;
+        if (lang == null || lang.isEmpty()) {
+            if (datatype == null) {
+               this.datatype = OWL2Datatype.XSD_STRING.getIRI();
+           } else {
+               this.datatype = datatype;
+           }
+        } else {
+            this.datatype = OWL2Datatype.RDF_LANG_STRING.getIRI();
+        }
     }
 
     /**
@@ -133,7 +140,7 @@ public class RDFLiteral extends RDFNode {
 
     /** @return true if this literal has a non empty lang tag */
     public boolean hasLang() {
-        return !lang.isEmpty();
+        return lang != null && !lang.isEmpty();
     }
 
     /** @return true if the datatype of this literal is plain literal */

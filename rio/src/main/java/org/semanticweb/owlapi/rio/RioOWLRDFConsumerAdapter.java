@@ -124,9 +124,7 @@ public class RioOWLRDFConsumerAdapter extends OWLRDFConsumer implements
             final Literal literalObject = (Literal) st.getObject();
             String literalDatatype = null;
             final String literalLanguage = literalObject.getLanguage();
-            // TODO: When updating to Sesame-2.8 with RDF-1.1 support, the
-            // following if condition will always be true
-            if (literalObject.getDatatype() != null) {
+            if (literalLanguage == null) {
                 literalDatatype = literalObject.getDatatype().stringValue();
             }
             logger.trace("statement with literal value");

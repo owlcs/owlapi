@@ -1667,11 +1667,13 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
     @Nonnull
     OWLLiteral getOWLLiteral(@Nonnull String literal, @Nullable IRI datatype,
             @Nullable String lang) {
-        if (datatype != null) {
+        if (lang != null && !lang.trim().isEmpty()) {
+            return dataFactory.getOWLLiteral(literal, lang);
+        } else if (datatype != null) {
             return dataFactory.getOWLLiteral(literal,
                     dataFactory.getOWLDatatype(datatype));
         } else {
-            return dataFactory.getOWLLiteral(literal, lang);
+            return dataFactory.getOWLLiteral(literal);
         }
     }
 

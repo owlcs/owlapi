@@ -116,8 +116,7 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
     @Override
     public OWLLiteral getOWLLiteral(@Nonnull String value) {
         if (useCompression) {
-            return new OWLLiteralImpl(value, "",
-                    getOWLDatatype(XSDVocabulary.STRING.getIRI()));
+            return new OWLLiteralImpl(value, "", XSDSTRING);
         }
         return new OWLLiteralImplString(value);
     }
@@ -130,10 +129,17 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
         } else {
             normalisedLang = lang.trim().toLowerCase(Locale.ENGLISH);
         }
-        if (useCompression) {
-            return new OWLLiteralImpl(literal, normalisedLang, null);
+        if (normalisedLang.isEmpty()) {
+            if (useCompression) {
+                return new OWLLiteralImpl(literal, null, XSDSTRING);
+            }
+            return new OWLLiteralImplString(literal);
+        } else {
+            if (useCompression) {
+                return new OWLLiteralImpl(literal, normalisedLang, null);
+            }
+            return new OWLLiteralImplPlain(literal, normalisedLang);
         }
-        return new OWLLiteralImplPlain(literal, normalisedLang);
     }
 
     @Override
