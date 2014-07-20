@@ -14,6 +14,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.model.parameters.ChangeApplied.*;
 
+import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,15 +22,19 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLMutableOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyChangeVisitorEx;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 import org.semanticweb.owlapi.model.RemoveImport;
 import org.semanticweb.owlapi.model.RemoveOntologyAnnotation;
@@ -150,5 +155,55 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements
             }
             return UNSUCCESSFULLY;
         }
+    }
+
+    @Override
+    public void saveOntology() throws OWLOntologyStorageException {
+        getOWLOntologyManager().saveOntology(this);
+    }
+
+    @Override
+    public void saveOntology(IRI documentIRI)
+            throws OWLOntologyStorageException {
+        getOWLOntologyManager().saveOntology(this, documentIRI);
+    }
+
+    @Override
+    public void saveOntology(OutputStream outputStream)
+            throws OWLOntologyStorageException {
+        getOWLOntologyManager().saveOntology(this, outputStream);
+    }
+
+    @Override
+    public void saveOntology(OWLDocumentFormat ontologyFormat)
+            throws OWLOntologyStorageException {
+        getOWLOntologyManager().saveOntology(this, ontologyFormat);
+    }
+
+    @Override
+    public void saveOntology(OWLDocumentFormat ontologyFormat, IRI documentIRI)
+            throws OWLOntologyStorageException {
+        getOWLOntologyManager().saveOntology(this, ontologyFormat, documentIRI);
+    }
+
+    @Override
+    public void saveOntology(OWLDocumentFormat ontologyFormat,
+            OutputStream outputStream) throws OWLOntologyStorageException {
+        getOWLOntologyManager()
+                .saveOntology(this, ontologyFormat, outputStream);
+    }
+
+    @Override
+    public void saveOntology(OWLOntologyDocumentTarget documentTarget)
+            throws OWLOntologyStorageException {
+        getOWLOntologyManager().saveOntology(this, documentTarget);
+    }
+
+    @Override
+    public void saveOntology(OWLDocumentFormat ontologyFormat,
+            OWLOntologyDocumentTarget documentTarget)
+            throws OWLOntologyStorageException {
+        getOWLOntologyManager().saveOntology(this, ontologyFormat,
+                documentTarget);
     }
 }
