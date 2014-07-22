@@ -12,10 +12,12 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
+import java.io.OutputStream;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 import org.semanticweb.owlapi.model.parameters.Imports;
 
 /**
@@ -339,4 +341,109 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
      */
     boolean isDeclared(@Nonnull OWLEntity owlEntity,
             @Nonnull Imports includeImportsClosure);
+
+    /**
+     * Saves the ontology. The ontology will be saved to the location that it
+     * was loaded from, or if it was created programmatically, it will be saved
+     * to the location specified by an ontology IRI mapper at creation time. The
+     * ontology will be saved in the same format which it was loaded from, or
+     * the default ontology format if the ontology was created programmatically.
+     * 
+     * @throws OWLOntologyStorageException
+     *         An exception will be thrown if there is a problem with saving the
+     *         ontology, or the ontology can't be saved in the format it was
+     *         loaded from.
+     */
+    void saveOntology() throws OWLOntologyStorageException;
+
+    /**
+     * Saves the ontology, using the specified document IRI to determine
+     * where/how the ontology should be saved.
+     * 
+     * @param documentIRI
+     *        The document IRI where the ontology should be saved to
+     * @throws OWLOntologyStorageException
+     *         If the ontology cannot be saved
+     */
+    void saveOntology(@Nonnull IRI documentIRI)
+            throws OWLOntologyStorageException;
+
+    /**
+     * Saves the ontology, to the specified output stream
+     * 
+     * @param outputStream
+     *        The output stream where the ontology will be saved to
+     * @throws OWLOntologyStorageException
+     *         If there was a problem saving this ontology to the specified
+     *         output stream
+     */
+    void saveOntology(@Nonnull OutputStream outputStream)
+            throws OWLOntologyStorageException;
+
+    /**
+     * Saves the ontology in the specified ontology format to its document URI.
+     * 
+     * @param ontologyFormat
+     *        The format in which the ontology should be saved.
+     * @throws OWLOntologyStorageException
+     *         If the ontology cannot be saved.
+     */
+    void saveOntology(@Nonnull OWLDocumentFormat ontologyFormat)
+            throws OWLOntologyStorageException;
+
+    /**
+     * Saves the ontology to the specified document IRI in the specified
+     * ontology format.
+     * 
+     * @param ontologyFormat
+     *        The format in which to save the ontology
+     * @param documentIRI
+     *        The document IRI where the ontology should be saved to
+     * @throws OWLOntologyStorageException
+     *         If the ontology could not be saved.
+     */
+    void saveOntology(@Nonnull OWLDocumentFormat ontologyFormat,
+            @Nonnull IRI documentIRI) throws OWLOntologyStorageException;
+
+    /**
+     * Saves the ontology to the specified output stream in the specified
+     * ontology format.
+     * 
+     * @param ontologyFormat
+     *        The format in which to save the ontology
+     * @param outputStream
+     *        The output stream where the ontology will be saved to.
+     * @throws OWLOntologyStorageException
+     *         If the ontology could not be saved.
+     */
+    void saveOntology(@Nonnull OWLDocumentFormat ontologyFormat,
+            @Nonnull OutputStream outputStream)
+            throws OWLOntologyStorageException;
+
+    /**
+     * Saves the ontology to the specified
+     * {@link org.semanticweb.owlapi.io.OWLOntologyDocumentTarget}.
+     * 
+     * @param documentTarget
+     *        The output target where the ontology will be saved to.
+     * @throws OWLOntologyStorageException
+     *         If the ontology could not be saved.
+     */
+    void saveOntology(@Nonnull OWLOntologyDocumentTarget documentTarget)
+            throws OWLOntologyStorageException;
+
+    /**
+     * Saves the ontology to the specified output target in the specified
+     * ontology format.
+     * 
+     * @param ontologyFormat
+     *        The output format in which to save the ontology
+     * @param documentTarget
+     *        The output target where the ontology will be saved to
+     * @throws OWLOntologyStorageException
+     *         If the ontology could not be saved.
+     */
+    void saveOntology(@Nonnull OWLDocumentFormat ontologyFormat,
+            @Nonnull OWLOntologyDocumentTarget documentTarget)
+            throws OWLOntologyStorageException;
 }
