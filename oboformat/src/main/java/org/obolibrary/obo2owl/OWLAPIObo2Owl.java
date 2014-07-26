@@ -1404,8 +1404,8 @@ public class OWLAPIObo2Owl {
     public IRI oboIdToIRI(String id) {
         if (id.contains(" ")) {
             LOG.log(Level.SEVERE, "id contains space: \"" + id + "\"");
-            // throw new UnsupportedEncodingException();
-            return null;
+            throw new IllegalArgumentException("spaces not allowed: '" + id
+                    + '\'');
         }
         // No conversion is required if this is already an IRI (ID-as-URI rule)
         if (id.startsWith("http:")) {
