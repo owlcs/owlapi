@@ -42,6 +42,7 @@ import org.coode.owlapi.functionalparser.OWLFunctionalSyntaxParserFactory;
 import org.coode.owlapi.functionalrenderer.OWLFunctionalSyntaxOntologyStorer;
 import org.coode.owlapi.latex.LatexOntologyStorer;
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxParserFactory;
+import org.coode.owlapi.obo12.parser.OBO12ParserFactory;
 import org.coode.owlapi.oboformat.OBOFormatParserFactory;
 import org.coode.owlapi.oboformat.OBOFormatStorer;
 import org.coode.owlapi.owlxml.renderer.OWLXMLOntologyStorer;
@@ -77,6 +78,7 @@ public class OWLManager implements OWLOntologyManagerFactory {
         // Register useful parsers
         OWLParserFactoryRegistry registry = OWLParserFactoryRegistry
                 .getInstance();
+        registry.registerParserFactory(new OBO12ParserFactory());
         registry.registerParserFactory(new OBOFormatParserFactory());
         registry.registerParserFactory(new ManchesterOWLSyntaxParserFactory());
         registry.registerParserFactory(new KRSS2OWLParserFactory());

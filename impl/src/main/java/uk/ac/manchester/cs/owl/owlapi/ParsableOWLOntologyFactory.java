@@ -188,7 +188,7 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
         // for example (perhaps the parser list could be ordered based on most
         // likely parser, which
         // could be determined by file extension).
-        Map<OWLParser, OWLParserException> exceptions = new LinkedHashMap<OWLParser, OWLParserException>();
+        Map<OWLParser, Exception> exceptions = new LinkedHashMap<OWLParser, Exception>();
         // Call the super method to create the ontology - this is needed,
         // because
         // we throw an exception if someone tries to create an ontology directly
@@ -226,9 +226,8 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
                 // Record this attempts and continue trying to parse.
                 exceptions.put(parser, e);
             } catch (RuntimeException e) {
-                // Clean up and rethrow
-                getOWLOntologyManager().removeOntology(ont);
-                throw e;
+                // Record this attempts and continue trying to parse.
+                exceptions.put(parser, e);
             }
         }
         if (existingOntology == null) {
