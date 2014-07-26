@@ -44,8 +44,6 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.vocab.DublinCoreVocabulary;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
@@ -171,7 +169,7 @@ public enum OBOVocabulary {
      *        The Id to convert
      * @return The IRI of the converted Id
      */
-    public static IRI ID2IRI(@Nonnull String oboId) {
+    public static IRI ID2IRI(String oboId) {
         return ID2IRI(oboId, DEFAULT_ID_SPACE_MANAGER);
     }
 
@@ -188,8 +186,7 @@ public enum OBOVocabulary {
      * @return The IRI of the converted Id.
      */
     @SuppressWarnings("null")
-    public static IRI ID2IRI(@Nonnull String oboId,
-            IDSpaceManager idSpaceManager) {
+    public static IRI ID2IRI(String oboId, IDSpaceManager idSpaceManager) {
         Matcher matcher = OBO_ID_PATTERN.matcher(oboId);
         if (matcher.matches()) {
             String idSpace = matcher.group(2);
@@ -255,60 +252,55 @@ public enum OBOVocabulary {
                     INSTANCE_OF, PROPERTY_VALUE, IS_OBSOLETE, REPLACED_BY,
                     CONSIDER);
 
-    OBOVocabulary(@Nonnull String name) {
+    OBOVocabulary(String name) {
         this.name = name;
         iri = IRI.create(OBOPrefix.OBO.getPrefix() + name);
     }
 
-    OBOVocabulary(@Nonnull String name, @Nonnull OBOPrefix prefix) {
+    OBOVocabulary(String name, OBOPrefix prefix) {
         this.name = name;
         iri = IRI.create(prefix.getPrefix() + name);
     }
 
-    OBOVocabulary(@Nonnull String name, OBOPrefix prefix, String localName) {
+    OBOVocabulary(String name, OBOPrefix prefix, String localName) {
         this.name = name;
         iri = IRI.create(prefix.getPrefix() + localName);
     }
 
-    OBOVocabulary(@Nonnull String name, @Nonnull IRI iri) {
+    OBOVocabulary(String name, IRI iri) {
         this.name = name;
         this.iri = iri;
     }
 
-    @Nonnull
     private String name;
-    @Nonnull
     private IRI iri;
 
-    @Nonnull
     public String getName() {
         return name;
     }
 
-    @Nonnull
     public IRI getIRI() {
         return iri;
     }
 
     @Override
-    @Nonnull
     public String toString() {
         return name;
     }
 
     public static List<OBOVocabulary> getHeaderTags() {
-        return new ArrayList<>(headerTags);
+        return new ArrayList<OBOVocabulary>(headerTags);
     }
 
     public static List<OBOVocabulary> getTermStanzaTags() {
-        return new ArrayList<>(termStanzaTags);
+        return new ArrayList<OBOVocabulary>(termStanzaTags);
     }
 
     public static List<OBOVocabulary> getTypeDefStanzaTags() {
-        return new ArrayList<>(typeDefStanzaTags);
+        return new ArrayList<OBOVocabulary>(typeDefStanzaTags);
     }
 
     public static List<OBOVocabulary> getInstanceStanzaTags() {
-        return new ArrayList<>(instanceStanzaTags);
+        return new ArrayList<OBOVocabulary>(instanceStanzaTags);
     }
 }

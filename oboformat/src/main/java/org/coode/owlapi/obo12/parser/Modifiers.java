@@ -52,7 +52,7 @@ import java.util.StringTokenizer;
  */
 class Modifiers {
 
-    private Map<String, Set<String>> modifierNameValuesMap = new LinkedHashMap<>();
+    private Map<String, Set<String>> modifierNameValuesMap = new LinkedHashMap<String, Set<String>>();
 
     public Modifiers() {}
 
@@ -89,7 +89,7 @@ class Modifiers {
     public void addModifier(String name, String value) {
         Set<String> values = modifierNameValuesMap.get(name);
         if (values == null) {
-            values = new HashSet<>();
+            values = new HashSet<String>();
             modifierNameValuesMap.put(name, values);
         }
         values.add(value);
@@ -105,7 +105,7 @@ class Modifiers {
     }
 
     public Set<String> getModifierValues(String modifierName) {
-        Set<String> valuesToReturn = new HashSet<>();
+        Set<String> valuesToReturn = new HashSet<String>();
         Set<String> values = modifierNameValuesMap.get(modifierName);
         if (values != null) {
             valuesToReturn.addAll(values);

@@ -38,8 +38,6 @@
  */
 package org.coode.owlapi.obo12.parser;
 
-import javax.annotation.Nonnull;
-
 /**
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -58,6 +56,6 @@ public interface OBOParserHandler {
 
     void endFrame();
 
-    void handleTagValue(@Nonnull String tag, @Nonnull String value,
-            @Nonnull String qualifierBlock, @Nonnull String comment);
+    void handleTagValue(String tag, String value, String qualifierBlock,
+            String comment);
 }

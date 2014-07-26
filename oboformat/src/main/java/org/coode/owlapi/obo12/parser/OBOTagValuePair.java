@@ -38,8 +38,6 @@
  */
 package org.coode.owlapi.obo12.parser;
 
-import javax.annotation.Nonnull;
-
 /**
  * Author: Matthew Horridge<br>
  * Stanford University<br>
@@ -49,13 +47,9 @@ import javax.annotation.Nonnull;
 @SuppressWarnings("all")
 class OBOTagValuePair {
 
-    @Nonnull
     private String tagName;
-    @Nonnull
     private String value;
-    @Nonnull
     private String qualifier;
-    @Nonnull
     private String comment;
 
     /**
@@ -64,8 +58,8 @@ class OBOTagValuePair {
      * @param qualifier
      * @param comment
      */
-    public OBOTagValuePair(@Nonnull String tagName, @Nonnull String value,
-            @Nonnull String qualifier, @Nonnull String comment) {
+    public OBOTagValuePair(String tagName, String value, String qualifier,
+            String comment) {
         this.tagName = tagName;
         this.value = value;
         this.qualifier = qualifier;
@@ -73,25 +67,21 @@ class OBOTagValuePair {
     }
 
     /** @return the tag name */
-    @Nonnull
     public String getTagName() {
         return tagName;
     }
 
     /** @return the value */
-    @Nonnull
     public String getValue() {
         return value;
     }
 
     /** @return the qualifier */
-    @Nonnull
     public String getQualifier() {
         return qualifier;
     }
 
     /** @return the comment */
-    @Nonnull
     public String getComment() {
         return comment;
     }

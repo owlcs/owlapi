@@ -47,8 +47,6 @@ import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.annotation.Nonnull;
-
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi.model.IRI;
@@ -127,7 +125,6 @@ interface TagValueHandler {
      * 
      * @return The name of the tag
      */
-    @Nonnull
     String getTagName();
 
     /**
@@ -144,19 +141,16 @@ interface TagValueHandler {
      *        The hidden comment. This is made up of any characters between !
      *        and the end of line.
      */
-    void handle(String currentId, @Nonnull String value, String qualifierBlock,
+    void handle(String currentId, String value, String qualifierBlock,
             String comment);
 }
 
 abstract class AbstractTagValueHandler implements TagValueHandler {
 
-    @Nonnull
     private String tag;
-    @Nonnull
     private OBOConsumer consumer;
 
-    public AbstractTagValueHandler(@Nonnull String tag,
-            @Nonnull OBOConsumer consumer) {
+    public AbstractTagValueHandler(String tag, OBOConsumer consumer) {
         this.tag = tag;
         this.consumer = consumer;
     }
@@ -170,16 +164,14 @@ abstract class AbstractTagValueHandler implements TagValueHandler {
         return consumer.getOWLOntologyManager();
     }
 
-    @Nonnull
     public OWLOntology getOntology() {
         return consumer.getOntology();
     }
 
-    public void applyChange(@Nonnull OWLOntologyChange change) {
+    public void applyChange(OWLOntologyChange change) {
         consumer.getOWLOntologyManager().applyChange(change);
     }
 
-    @Nonnull
     public OBOConsumer getConsumer() {
         return consumer;
     }
@@ -188,7 +180,6 @@ abstract class AbstractTagValueHandler implements TagValueHandler {
         return consumer.getOWLOntologyManager().getOWLDataFactory();
     }
 
-    @Nonnull
     public IRI getTagIRI(OBOVocabulary vocabulary) {
         return consumer.getIRIFromTagName(vocabulary.getName());
     }
@@ -201,12 +192,10 @@ abstract class AbstractTagValueHandler implements TagValueHandler {
      *        The tag name.
      * @return The IRI corresponding to the tag name.
      */
-    @Nonnull
     public IRI getTagIRI(String tagName) {
         return consumer.getIRIFromTagName(tagName);
     }
 
-    @Nonnull
     public IRI getIRIFromOBOId(String id) {
         return consumer.getIRIFromOBOId(id);
     }
@@ -226,7 +215,6 @@ abstract class AbstractTagValueHandler implements TagValueHandler {
      *         to an IRI and then to an {@link OWLAnnotationProperty} and the
      *         value to an {@link OWLLiteral}.
      */
-    @Nonnull
     public OWLAnnotation getAnnotationForTagValuePair(String tagName,
             String value) {
         IRI tagIRI = getTagIRI(tagName);
@@ -238,29 +226,24 @@ abstract class AbstractTagValueHandler implements TagValueHandler {
         return df.getOWLAnnotation(annotationProperty, annotationValue);
     }
 
-    @Nonnull
     public OWLClass getClassFromId(String s) {
         return getDataFactory().getOWLClass(getIRIFromOBOId(s));
     }
 
-    @Nonnull
     public OWLClass getCurrentClass() {
         return getDataFactory().getOWLClass(
                 getIRIFromOBOId(consumer.getCurrentId()));
     }
 
-    @Nonnull
     protected OWLClass getOWLClass(String id) {
         return getDataFactory().getOWLClass(getIRIFromOBOId(id));
     }
 
-    @Nonnull
     protected OWLObjectProperty getOWLObjectProperty(String id) {
         return getDataFactory().getOWLObjectProperty(getIRIFromOBOId(id));
     }
 
     @SuppressWarnings("null")
-    @Nonnull
     protected String getUnquotedString(String value) {
         String unquotedString;
         if (value.startsWith("\"") && value.endsWith("\"")) {
@@ -271,7 +254,6 @@ abstract class AbstractTagValueHandler implements TagValueHandler {
         return unquotedString;
     }
 
-    @Nonnull
     protected OWLClassExpression getOWLClassOrRestriction(String termList) {
         StringTokenizer tok = new StringTokenizer(termList, " ", false);
         String id0 = null;
@@ -293,13 +275,11 @@ abstract class AbstractTagValueHandler implements TagValueHandler {
         }
     }
 
-    @Nonnull
     protected OWLLiteral getBooleanConstant(boolean b) {
         return getDataFactory().getOWLLiteral(b);
     }
 
-    protected void addAnnotation(String id, String uriID,
-            @Nonnull OWLLiteral value) {
+    protected void addAnnotation(String id, String uriID, OWLLiteral value) {
         IRI subject = getIRIFromOBOId(id);
         OWLAnnotationProperty annotationProperty = getDataFactory()
                 .getOWLAnnotationProperty(getIRIFromOBOId(uriID));
@@ -311,7 +291,7 @@ abstract class AbstractTagValueHandler implements TagValueHandler {
 
 class AltIdTagValueHandler extends AbstractTagValueHandler {
 
-    public AltIdTagValueHandler(@Nonnull OBOConsumer consumer) {
+    public AltIdTagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.ALT_ID.getName(), consumer);
     }
 
@@ -331,7 +311,7 @@ class AltIdTagValueHandler extends AbstractTagValueHandler {
 
 class AsymmetricHandler extends AbstractTagValueHandler {
 
-    public AsymmetricHandler(@Nonnull OBOConsumer consumer) {
+    public AsymmetricHandler(OBOConsumer consumer) {
         super(OBOVocabulary.IS_ASYMMETRIC.getName(), consumer);
     }
 
@@ -352,7 +332,7 @@ class AsymmetricHandler extends AbstractTagValueHandler {
 
 class DataVersionTagValueHandler extends AbstractTagValueHandler {
 
-    public DataVersionTagValueHandler(@Nonnull OBOConsumer consumer) {
+    public DataVersionTagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.DATA_VERSION.getName(), consumer);
     }
 
@@ -417,7 +397,7 @@ class DataVersionTagValueHandler extends AbstractTagValueHandler {
  */
 class DefaultNamespaceTagValueHandler extends AbstractTagValueHandler {
 
-    public DefaultNamespaceTagValueHandler(@Nonnull OBOConsumer consumer) {
+    public DefaultNamespaceTagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.DEFAULT_NAMESPACE.getName(), consumer);
     }
 
@@ -441,7 +421,7 @@ class DefTagValueHandler extends AbstractTagValueHandler {
     private static final int QUOTED_STRING_CONTENT_GROUP = 1;
     private static final int XREF_GROUP = 3;
 
-    public DefTagValueHandler(@Nonnull OBOConsumer consumer) {
+    public DefTagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.DEF.getName(), consumer);
     }
 
@@ -469,9 +449,8 @@ class DefTagValueHandler extends AbstractTagValueHandler {
         applyChange(new AddAxiom(getOntology(), ax));
     }
 
-    @Nonnull
     private Set<OWLAnnotation> getXRefAnnotations(Matcher matcher) {
-        Set<OWLAnnotation> annotations = new HashSet<>();
+        Set<OWLAnnotation> annotations = new HashSet<OWLAnnotation>();
         String xrefs = matcher.group(XREF_GROUP);
         if (xrefs != null) {
             StringTokenizer tokenizer = new StringTokenizer(xrefs, ",");
@@ -489,7 +468,7 @@ class DefTagValueHandler extends AbstractTagValueHandler {
 
 class DisjointFromHandler extends AbstractTagValueHandler {
 
-    public DisjointFromHandler(@Nonnull OBOConsumer consumer) {
+    public DisjointFromHandler(OBOConsumer consumer) {
         super("disjoint_from", consumer);
     }
 
@@ -505,7 +484,7 @@ class DisjointFromHandler extends AbstractTagValueHandler {
 
 class DomainHandler extends AbstractTagValueHandler {
 
-    public DomainHandler(@Nonnull OBOConsumer consumer) {
+    public DomainHandler(OBOConsumer consumer) {
         super(OBOVocabulary.DOMAIN.getName(), consumer);
     }
 
@@ -527,7 +506,7 @@ class IDSpaceTagValueHandler extends AbstractTagValueHandler {
     private static final int ID_PREFIX_GROUP = 1;
     private static final int IRI_PREFIX_GROUP = 2;
 
-    public IDSpaceTagValueHandler(@Nonnull OBOConsumer consumer) {
+    public IDSpaceTagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.ID_SPACE.getName(), consumer);
     }
 
@@ -545,7 +524,7 @@ class IDSpaceTagValueHandler extends AbstractTagValueHandler {
 
 class IDTagValueHandler extends AbstractTagValueHandler {
 
-    public IDTagValueHandler(@Nonnull OBOConsumer consumer) {
+    public IDTagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.ID.getName(), consumer);
     }
 
@@ -563,7 +542,7 @@ class IDTagValueHandler extends AbstractTagValueHandler {
 
 class IntersectionOfHandler extends AbstractTagValueHandler {
 
-    public IntersectionOfHandler(@Nonnull OBOConsumer consumer) {
+    public IntersectionOfHandler(OBOConsumer consumer) {
         super("intersection_of", consumer);
     }
 
@@ -576,7 +555,7 @@ class IntersectionOfHandler extends AbstractTagValueHandler {
 
 class InverseHandler extends AbstractTagValueHandler {
 
-    public InverseHandler(@Nonnull OBOConsumer consumer) {
+    public InverseHandler(OBOConsumer consumer) {
         super(OBOVocabulary.INVERSE.getName(), consumer);
     }
 
@@ -591,7 +570,7 @@ class InverseHandler extends AbstractTagValueHandler {
 
 class IsATagValueHandler extends AbstractTagValueHandler {
 
-    public IsATagValueHandler(@Nonnull OBOConsumer consumer) {
+    public IsATagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.IS_A.getName(), consumer);
     }
 
@@ -615,7 +594,7 @@ class IsATagValueHandler extends AbstractTagValueHandler {
 
 class IsObsoleteTagValueHandler extends AbstractTagValueHandler {
 
-    public IsObsoleteTagValueHandler(@Nonnull OBOConsumer consumer) {
+    public IsObsoleteTagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.IS_OBSOLETE.getName(), consumer);
     }
 
@@ -634,13 +613,13 @@ class IsObsoleteTagValueHandler extends AbstractTagValueHandler {
 
 class NameTagValueHandler extends AbstractTagValueHandler {
 
-    public NameTagValueHandler(@Nonnull OBOConsumer consumer) {
+    public NameTagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.NAME.getName(), consumer);
     }
 
     @Override
-    public void handle(String currentId, @Nonnull String value,
-            String qualifierBlock, String comment) {
+    public void handle(String currentId, String value, String qualifierBlock,
+            String comment) {
         // This is an annotation - but add as a label
         OWLEntity ent;
         if (getConsumer().isTerm()) {
@@ -663,7 +642,7 @@ class NameTagValueHandler extends AbstractTagValueHandler {
 
 class OntologyTagValueHandler extends AbstractTagValueHandler {
 
-    public OntologyTagValueHandler(@Nonnull OBOConsumer consumer) {
+    public OntologyTagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.ONTOLOGY.getName(), consumer);
     }
 
@@ -676,7 +655,7 @@ class OntologyTagValueHandler extends AbstractTagValueHandler {
 
 class PartOfTagValueHandler extends AbstractTagValueHandler {
 
-    public PartOfTagValueHandler(@Nonnull OBOConsumer consumer) {
+    public PartOfTagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.RELATIONSHIP.getName(), consumer);
     }
 
@@ -699,10 +678,10 @@ class PartOfTagValueHandler extends AbstractTagValueHandler {
 class RawFrameHandler implements OBOParserHandler {
 
     private String currentFrameType;
-    private List<OBOTagValuePair> currentTagValuePairs = new ArrayList<>();
+    private List<OBOTagValuePair> currentTagValuePairs = new ArrayList<OBOTagValuePair>();
     private OBOFrame headerFrame;
-    private List<OBOFrame> typeDefFrames = new ArrayList<>();
-    private List<OBOFrame> nonTypeDefFrames = new ArrayList<>();
+    private List<OBOFrame> typeDefFrames = new ArrayList<OBOFrame>();
+    private List<OBOFrame> nonTypeDefFrames = new ArrayList<OBOFrame>();
 
     @Override
     public void startHeader() {
@@ -761,7 +740,7 @@ class RawFrameHandler implements OBOParserHandler {
 
 class ReflexiveHandler extends AbstractTagValueHandler {
 
-    public ReflexiveHandler(@Nonnull OBOConsumer consumer) {
+    public ReflexiveHandler(OBOConsumer consumer) {
         super(OBOVocabulary.IS_REFLEXIVE.getName(), consumer);
     }
 
@@ -785,7 +764,7 @@ class RelationshipTagValueHandler extends AbstractTagValueHandler {
     private Pattern tagValuePattern = Pattern
             .compile("([^\\s]*)\\s*([^\\s]*)\\s*(\\{([^\\}]*)\\})?");
 
-    public RelationshipTagValueHandler(@Nonnull OBOConsumer consumer) {
+    public RelationshipTagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.RELATIONSHIP.getName(), consumer);
     }
 
@@ -814,7 +793,7 @@ class RelationshipTagValueHandler extends AbstractTagValueHandler {
 
 class SymmetricTagValueHandler extends AbstractTagValueHandler {
 
-    public SymmetricTagValueHandler(@Nonnull OBOConsumer consumer) {
+    public SymmetricTagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.IS_SYMMETRIC.getName(), consumer);
     }
 
@@ -835,7 +814,6 @@ class SymmetricTagValueHandler extends AbstractTagValueHandler {
 
 class SynonymTagValueHandler extends AbstractTagValueHandler {
 
-    @Nonnull
     private static final String TAG_NAME = OBOVocabulary.SYNONYM.toString();
     // synonym: "synonym" (EXACT|BROAD|NARROW|RELATED) TYPE? XRefList
     private static final Pattern valuePattern = Pattern
@@ -844,12 +822,11 @@ class SynonymTagValueHandler extends AbstractTagValueHandler {
     private static final int SCOPE_GROUP = 2;
     private static final int SYNONYM_TYPE_GROUP = 3;
     private static final int XREF_GROUP = 4;
-    @Nonnull
     public static final IRI SYNONYM_TYPE_IRI = OBOVocabulary.SYNONYM_TYPE
             .getIRI();
     public static final IRI XREF_IRI = OBOVocabulary.XREF.getIRI();
 
-    public SynonymTagValueHandler(@Nonnull OBOConsumer consumer) {
+    public SynonymTagValueHandler(OBOConsumer consumer) {
         super(TAG_NAME, consumer);
     }
 
@@ -860,7 +837,7 @@ class SynonymTagValueHandler extends AbstractTagValueHandler {
         if (matcher.matches()) {
             OWLDataFactory df = getDataFactory();
             OWLAnnotationProperty property = getSynonymAnnotationProperty(matcher);
-            Set<OWLAnnotation> annotations = new HashSet<>();
+            Set<OWLAnnotation> annotations = new HashSet<OWLAnnotation>();
             annotations.addAll(getSynonymTypeAnnotations(matcher));
             annotations.addAll(getXRefAnnotations(matcher));
             OWLEntity subject = getConsumer().getCurrentEntity();
@@ -884,7 +861,7 @@ class SynonymTagValueHandler extends AbstractTagValueHandler {
     }
 
     private Set<OWLAnnotation> getXRefAnnotations(Matcher matcher) {
-        Set<OWLAnnotation> annotations = new HashSet<>();
+        Set<OWLAnnotation> annotations = new HashSet<OWLAnnotation>();
         String xrefs = matcher.group(XREF_GROUP);
         if (xrefs != null) {
             StringTokenizer tokenizer = new StringTokenizer(xrefs, ",");
@@ -898,7 +875,6 @@ class SynonymTagValueHandler extends AbstractTagValueHandler {
         return annotations;
     }
 
-    @Nonnull
     private OWLAnnotationProperty getSynonymAnnotationProperty(Matcher matcher) {
         String synonymScope = matcher.group(SCOPE_GROUP);
         IRI annotationPropertyIRI;
@@ -933,7 +909,7 @@ class SynonymTypeDefTagHandler extends AbstractTagValueHandler {
     private static final int ID_GROUP = 1;
     private static final int NAME_GROUP = 2;
 
-    public SynonymTypeDefTagHandler(@Nonnull OBOConsumer consumer) {
+    public SynonymTypeDefTagHandler(OBOConsumer consumer) {
         super(OBOVocabulary.SYNONYM_TYPE_DEF.getName(), consumer);
     }
 
@@ -977,7 +953,7 @@ class SynonymTypeDefTagHandler extends AbstractTagValueHandler {
 
 class TransitiveOverHandler extends AbstractTagValueHandler {
 
-    public TransitiveOverHandler(@Nonnull OBOConsumer consumer) {
+    public TransitiveOverHandler(OBOConsumer consumer) {
         super("is_transitive_over", consumer);
     }
 
@@ -986,7 +962,7 @@ class TransitiveOverHandler extends AbstractTagValueHandler {
             String comment) {
         OWLObjectProperty first = getOWLObjectProperty(currentId);
         OWLObjectProperty second = getOWLObjectProperty(value);
-        List<OWLObjectProperty> chain = new ArrayList<>();
+        List<OWLObjectProperty> chain = new ArrayList<OWLObjectProperty>();
         chain.add(first);
         chain.add(second);
         OWLAxiom ax = getDataFactory().getOWLSubPropertyChainOfAxiom(chain,
@@ -997,7 +973,7 @@ class TransitiveOverHandler extends AbstractTagValueHandler {
 
 class TransitiveTagValueHandler extends AbstractTagValueHandler {
 
-    public TransitiveTagValueHandler(@Nonnull OBOConsumer consumer) {
+    public TransitiveTagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.IS_TRANSITIVE.getName(), consumer);
     }
 
@@ -1016,7 +992,7 @@ class TransitiveTagValueHandler extends AbstractTagValueHandler {
 
 class UnionOfHandler extends AbstractTagValueHandler {
 
-    public UnionOfHandler(@Nonnull OBOConsumer consumer) {
+    public UnionOfHandler(OBOConsumer consumer) {
         super("union_of", consumer);
     }
 
@@ -1029,7 +1005,7 @@ class UnionOfHandler extends AbstractTagValueHandler {
 
 class XRefTagHandler extends AbstractTagValueHandler {
 
-    public XRefTagHandler(@Nonnull OBOConsumer consumer) {
+    public XRefTagHandler(OBOConsumer consumer) {
         super(OBOVocabulary.XREF.getName(), consumer);
     }
 
