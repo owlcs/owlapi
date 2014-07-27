@@ -1,0 +1,1542 @@
+format-version: 1.2
+date: 21:06:2009 22:43
+auto-generated-by: OBO-Edit 2.000-beta56
+default-namespace: DC-CL
+
+[Term]
+id: CARO:0000013
+name: cell
+namespace: CARO
+xref: CARO:0000013
+
+[Term]
+id: CARO:0000043
+name: portion of tissue
+namespace: CARO
+xref: CARO:0000043
+
+[Term]
+id: CL:0000048
+name: multi fate stem cell
+namespace: CL
+xref: CL:0000048
+is_a: CARO:0000013 ! cell
+
+[Term]
+id: CL:0000738
+name: leukocyte
+namespace: CL
+xref: CL:0000738
+is_a: CARO:0000013 ! cell
+
+[Term]
+id: DC_CL:0000001
+name: CD11c-low plasmacytoid dendritic cell
+def: "CD11c-low plasmacytoid dendritic cell is_a leukocyte that has_low_plasma_membrane_amount_relative_to_leukocyte CD11c, has_plasma_membrane_part CD45R and GR1 and lacks_plasma_membrane_part CD11b, CD3, CD34, CD56, and CD19." [AMM:amm]
+comment: Immunological Reviews 2007 219: 118-142; Annual Review of Immunology 2005 23: 275-306
+xref: CL:0000784
+intersection_of: CL:0000738 ! leukocyte
+intersection_of: has_low_plasma_membrane_amount_relative_to_leukocyte PRO:000001013 ! CD11c
+intersection_of: has_plasma_membrane_part DC_CL:0000100 ! GR1
+intersection_of: has_plasma_membrane_part PRO:000001014 ! CD45R
+intersection_of: lacks_plasma_membrane_part PRO:000001002 ! CD19
+intersection_of: lacks_plasma_membrane_part PRO:000001003 ! CD34
+intersection_of: lacks_plasma_membrane_part PRO:000001012 ! CD11b
+intersection_of: lacks_plasma_membrane_part PRO:000001024 ! CD56
+intersection_of: lacks_plasma_membrane_part PRO:000001027 ! CD3
+relationship: has_disposition DC_CL:0000127 ! to secrete type I interferon
+relationship: has_function DC_CL:0000133 ! T cell antigen presentation activity
+relationship: has_function DC_CL:0000134 ! cytokine secretion activity
+relationship: has_plasma_membrane_part DC_CL:0000065 ! CD281
+relationship: has_plasma_membrane_part DC_CL:0000066 ! CD282
+relationship: has_plasma_membrane_part DC_CL:0000069 ! CD286
+relationship: has_plasma_membrane_part DC_CL:0000070 ! CD288
+relationship: has_plasma_membrane_part DC_CL:0000071 ! CD289
+relationship: has_plasma_membrane_part DC_CL:0000108 ! TLR5
+relationship: has_plasma_membrane_part DC_CL:0000109 ! TLR7
+
+[Term]
+id: DC_CL:0000003
+name: conventional dendritic cell
+def: "conventional dendritic cell is_a leukocyte that has_high_plasma_membrane_amount_relative_to_leukocyte CD11c and lacks_plasma_membrane_part CD19, CD3, C34, and CD56." [AMM:amm]
+comment: Immunological Reviews 2007 219: 118-142
+intersection_of: CL:0000738 ! leukocyte
+intersection_of: has_high_plasma_membrane_amount_relative_to_leukocyte PRO:000001013 ! CD11c
+intersection_of: lacks_plasma_membrane_part PRO:000001002 ! CD19
+intersection_of: lacks_plasma_membrane_part PRO:000001003 ! CD34
+intersection_of: lacks_plasma_membrane_part PRO:000001024 ! CD56
+intersection_of: lacks_plasma_membrane_part PRO:000001027 ! CD3
+
+[Term]
+id: DC_CL:0000004
+name: CD11c-negative plasmacytoid dendritic cell
+def: "CD11c-negative plasmacytoid dendritic cell is_a leukocyte that lacks_plasma_membrane_part CD11c, CD19, CD3, CD34, and CD56 and has_plasma_membrane_part CD123, CD303, CD45RA, and ILT7." [AMM:amm]
+comment: Immunological Reviews 2007 219: 118-142; Annual Review of Immunology 2005 23: 275-306
+xref: CL:0000784
+intersection_of: CL:0000738 ! leukocyte
+intersection_of: has_plasma_membrane_part DC_CL:0000101 ! ILT7
+intersection_of: has_plasma_membrane_part PRO:000001015 ! CD45RA
+intersection_of: has_plasma_membrane_part PRO:000001292 ! CD303
+intersection_of: has_plasma_membrane_part PRO:000001865 ! CD123
+intersection_of: lacks_plasma_membrane_part PRO:000001002 ! CD19
+intersection_of: lacks_plasma_membrane_part PRO:000001003 ! CD34
+intersection_of: lacks_plasma_membrane_part PRO:000001013 ! CD11c
+intersection_of: lacks_plasma_membrane_part PRO:000001024 ! CD56
+intersection_of: lacks_plasma_membrane_part PRO:000001027 ! CD3
+relationship: has_disposition DC_CL:0000127 ! to secrete type I interferon
+relationship: has_function DC_CL:0000133 ! T cell antigen presentation activity
+relationship: has_function DC_CL:0000134 ! cytokine secretion activity
+relationship: has_plasma_membrane_part DC_CL:0000065 ! CD281
+relationship: has_plasma_membrane_part DC_CL:0000069 ! CD286
+relationship: has_plasma_membrane_part DC_CL:0000071 ! CD289
+relationship: has_plasma_membrane_part DC_CL:0000107 ! TLR10
+relationship: has_plasma_membrane_part DC_CL:0000109 ! TLR7
+
+[Term]
+id: DC_CL:0000006
+name: immature CD11c-low plasmacytoid dendritic cell
+def: "immature CD11c-low plasmacytoid dendritic cell is_a CD11c-low plasmacytoid dendritic cell that has_low_plasma_membrane_amount_relative_to_leukocyte CD80 and CD86." [AMM:amm]
+comment: Immunological Reviews 2007 219: 118-142; Annual Review of Immunology 2005 23: 275-306
+intersection_of: DC_CL:0000001 ! CD11c-low plasmacytoid dendritic cell
+intersection_of: has_low_plasma_membrane_amount_relative_to_leukocyte PRO:000001412 ! CD86
+intersection_of: has_low_plasma_membrane_amount_relative_to_leukocyte PRO:000001438 ! CD80
+relationship: arises_from DC_CL:0000041 ! common dendritic precursor
+relationship: has_disposition DC_CL:0000125 ! to circulate in the blood
+relationship: has_function DC_CL:0000135 ! antigen processing activity
+
+[Term]
+id: DC_CL:0000007
+name: mature CD11c-low plasmacytoid dendritic cell
+def: "mature CD11c-low plasmacytoid dendritic cell is_a CD11c-low plasmacytoid dendritic cell that has_plasma_membrane_part CD83 and has_high_plasma_membrane_amount_relative_to_leukocyte CD80, CD86, and MHCII." [AMM:amm]
+comment: Immunological Reviews 2007 219: 118-142; Annual Review of Immunology 2005 23: 275-306
+intersection_of: DC_CL:0000001 ! CD11c-low plasmacytoid dendritic cell
+intersection_of: has_high_plasma_membrane_amount_relative_to_leukocyte DC_CL:0000103 ! MHCII
+intersection_of: has_high_plasma_membrane_amount_relative_to_leukocyte PRO:000001412 ! CD86
+intersection_of: has_high_plasma_membrane_amount_relative_to_leukocyte PRO:000001438 ! CD80
+intersection_of: has_plasma_membrane_part PRO:000001310 ! CD83
+relationship: transformation_of DC_CL:0000006 ! immature CD11c-low plasmacytoid dendritic cell
+
+[Term]
+id: DC_CL:0000008
+name: immature CD11c-negative plasmacytoid dendritic cell
+def: "immature CD11c-negative plasmacytoid dendritic cell is_a CD11c-negative plasmacytoid dendritic cell that lacks_plasma_membrane_part CD80 and has_low_plasma_membrane_amount_relative_to_leukocyte CD86 and MHCII." [AMM:amm]
+comment: Immunological Reviews 2007 219: 118-142; Annual Review of Immunology 2005 23: 275-306
+intersection_of: DC_CL:0000004 ! CD11c-negative plasmacytoid dendritic cell
+intersection_of: has_low_plasma_membrane_amount_relative_to_leukocyte DC_CL:0000103 ! MHCII
+intersection_of: has_low_plasma_membrane_amount_relative_to_leukocyte PRO:000001412 ! CD86
+intersection_of: lacks_plasma_membrane_part PRO:000001438 ! CD80
+relationship: arises_from DC_CL:1100000 ! CD71-positive common myeloid precursor OR CD7-negative lymphoid precursor OR CD7-positive lymphoid precursor
+relationship: has_disposition DC_CL:0000125 ! to circulate in the blood
+relationship: has_function DC_CL:0000135 ! antigen processing activity
+
+[Term]
+id: DC_CL:0000009
+name: mature CD11c-negative plasmacytoid dendritic cell
+def: "mature CD11c-negative plasmacytoid dendritic cell is_a CD11c-negative plasmacytoid dendritic cell that has_high_plasma_membrane_amount_relative_to_leukocyte CD80, CD86, and MHCII and has_plasma_membrane_part CD83," [AMM:amm]
+comment: Immunological Reviews 2007 219: 118-142; Annual Review of Immunology 2005 23: 275-306
+intersection_of: DC_CL:0000004 ! CD11c-negative plasmacytoid dendritic cell
+intersection_of: has_high_plasma_membrane_amount_relative_to_leukocyte DC_CL:0000103 ! MHCII
+intersection_of: has_high_plasma_membrane_amount_relative_to_leukocyte PRO:000001412 ! CD86
+intersection_of: has_high_plasma_membrane_amount_relative_to_leukocyte PRO:000001438 ! CD80
+intersection_of: has_plasma_membrane_part PRO:000001310 ! CD83
+relationship: transformation_of DC_CL:0000008 ! immature CD11c-negative plasmacytoid dendritic cell
+
+[Term]
+id: DC_CL:0000010
+name: immature CD8_alpha-negative CD11b-positive dendritic cell
+def: "immature CD8_alpha-negative CD11b-positive dendritic cell is_a CD8_alpha-negative CD11b-positive dendritic cell that has_low_plasma_membrane_amount_relative_to_leukocyte CD80, CD86, and MHCII." [AMM:amm]
+comment: Current Opinion In Immunology 2008 20: 61-67
+intersection_of: DC_CL:0000012 ! CD8_alpha-negative CD11b-positive dendritic cell
+intersection_of: has_low_plasma_membrane_amount_relative_to_leukocyte DC_CL:0000103 ! MHCII
+intersection_of: has_low_plasma_membrane_amount_relative_to_leukocyte PRO:000001412 ! CD86
+intersection_of: has_low_plasma_membrane_amount_relative_to_leukocyte PRO:000001438 ! CD80
+relationship: arises_from DC_CL:0000041 ! common dendritic precursor
+relationship: has_function DC_CL:0000135 ! antigen processing activity
+
+[Term]
+id: DC_CL:0000011
+name: CD8_alpha-negative CD11b-negative dendritic cell
+def: "CD8_alpha-negative CD11b-negative dendritic cell is_a conventional dendritic cell that lacks_plasma_membrane_part CD11b, CD4 and CD8_alpha and has_plasma_membrane_part CD205." [AMM:amm]
+comment: Current Opinion In Immunology 2008 20: 61-67
+intersection_of: DC_CL:0000003 ! conventional dendritic cell
+intersection_of: has_plasma_membrane_part PRO:000001026 ! CD205
+intersection_of: lacks_plasma_membrane_part DC_CL:0000090 ! CD8_alpha
+intersection_of: lacks_plasma_membrane_part PRO:000001004 ! CD4
+intersection_of: lacks_plasma_membrane_part PRO:000001012 ! CD11b
+relationship: has_function DC_CL:0000133 ! T cell antigen presentation activity
+relationship: has_function DC_CL:0000134 ! cytokine secretion activity
+relationship: has_plasma_membrane_part DC_CL:0000065 ! CD281
+relationship: has_plasma_membrane_part DC_CL:0000066 ! CD282
+relationship: has_plasma_membrane_part DC_CL:0000067 ! CD283
+relationship: has_plasma_membrane_part DC_CL:0000068 ! CD284
+relationship: has_plasma_membrane_part DC_CL:0000069 ! CD286
+relationship: has_plasma_membrane_part DC_CL:0000070 ! CD288
+relationship: has_plasma_membrane_part DC_CL:0000071 ! CD289
+relationship: has_plasma_membrane_part DC_CL:0000108 ! TLR5
+relationship: has_plasma_membrane_part DC_CL:0000109 ! TLR7
+
+[Term]
+id: DC_CL:0000012
+name: CD8_alpha-negative CD11b-positive dendritic cell
+def: "CD8_alpha-negative CD11b-positive dendritic cell is_a conventional dendritic cell that has_plasma_membrane_part CD11b and CD4 and lacks_plasma_membrane_part CD205 and CD8_alpha." [AMM:amm]
+comment: Current Opinion In Immunology 2008 20: 61-67
+intersection_of: DC_CL:0000003 ! conventional dendritic cell
+intersection_of: has_plasma_membrane_part PRO:000001004 ! CD4
+intersection_of: has_plasma_membrane_part PRO:000001012 ! CD11b
+intersection_of: lacks_plasma_membrane_part DC_CL:0000090 ! CD8_alpha
+intersection_of: lacks_plasma_membrane_part PRO:000001026 ! CD205
+relationship: has_disposition DC_CL:0000128 ! to secrete anti-inflammatory cytokines
+relationship: has_function DC_CL:0000133 ! T cell antigen presentation activity
+relationship: has_function DC_CL:0000134 ! cytokine secretion activity
+relationship: has_plasma_membrane_part DC_CL:0000065 ! CD281
+relationship: has_plasma_membrane_part DC_CL:0000066 ! CD282
+relationship: has_plasma_membrane_part DC_CL:0000067 ! CD283
+relationship: has_plasma_membrane_part DC_CL:0000068 ! CD284
+relationship: has_plasma_membrane_part DC_CL:0000069 ! CD286
+relationship: has_plasma_membrane_part DC_CL:0000070 ! CD288
+relationship: has_plasma_membrane_part DC_CL:0000071 ! CD289
+relationship: has_plasma_membrane_part DC_CL:0000108 ! TLR5
+relationship: has_plasma_membrane_part DC_CL:0000109 ! TLR7
+
+[Term]
+id: DC_CL:0000013
+name: CD8_alpha-positive CD11b-negative dendritic cell
+def: "CD8_alpha-positive CD11b-negative dendritic cell is_a conventional dendritic cell that lacks_plasma_membrane_part CD11b and CD4 and has_plasma_membrane_part CD205 and CD8_alpha." [AMM:amm]
+comment: Current Opinion In Immunology 2008 20: 61-67
+intersection_of: DC_CL:0000003 ! conventional dendritic cell
+intersection_of: has_plasma_membrane_part DC_CL:0000090 ! CD8_alpha
+intersection_of: has_plasma_membrane_part PRO:000001026 ! CD205
+intersection_of: lacks_plasma_membrane_part PRO:000001004 ! CD4
+intersection_of: lacks_plasma_membrane_part PRO:000001012 ! CD11b
+relationship: has_disposition DC_CL:0000124 ! to cross-present antigen to CD8 T cells
+relationship: has_disposition DC_CL:0000129 ! to secrete inflammatory cytokines
+relationship: has_function DC_CL:0000133 ! T cell antigen presentation activity
+relationship: has_plasma_membrane_part DC_CL:0000065 ! CD281
+relationship: has_plasma_membrane_part DC_CL:0000066 ! CD282
+relationship: has_plasma_membrane_part DC_CL:0000067 ! CD283
+relationship: has_plasma_membrane_part DC_CL:0000068 ! CD284
+relationship: has_plasma_membrane_part DC_CL:0000069 ! CD286
+relationship: has_plasma_membrane_part DC_CL:0000070 ! CD288
+relationship: has_plasma_membrane_part DC_CL:0000071 ! CD289
+
+[Term]
+id: DC_CL:0000014
+name: immature CD8_alpha-negative CD11b-negative dendritic cell
+def: "immature CD8_alpha-negative CD11b-negative dendritic cell is_a CD8_alpha-negative CD11b-negative dendritic cell that has_low_plasma_membrane_amount_relative_to_leukocyte CD80, CD86, and MHCII." [AMM:amm]
+comment: Current Opinion In Immunology 2008 20: 61-67
+intersection_of: DC_CL:0000011 ! CD8_alpha-negative CD11b-negative dendritic cell
+intersection_of: has_low_plasma_membrane_amount_relative_to_leukocyte DC_CL:0000103 ! MHCII
+intersection_of: has_low_plasma_membrane_amount_relative_to_leukocyte PRO:000001412 ! CD86
+intersection_of: has_low_plasma_membrane_amount_relative_to_leukocyte PRO:000001438 ! CD80
+relationship: arises_from DC_CL:0000041 ! common dendritic precursor
+relationship: has_function DC_CL:0000135 ! antigen processing activity
+
+[Term]
+id: DC_CL:0000015
+name: mature CD8_alpha-negative CD11b-negative dendritic cell
+def: "mature CD8_alpha-negative CD11b-negative dendritic cell is_a CD8_alpha-negative CD11b-negative dendritic cell that has_high_plasma_membrane_amount_relative_to_leukocyte CD80, CD86, and MHCII and has_plasma_membrane_part CD83." [AMM:amm]
+comment: Current Opinion In Immunology 2008 20: 61-67
+intersection_of: DC_CL:0000011 ! CD8_alpha-negative CD11b-negative dendritic cell
+intersection_of: has_high_plasma_membrane_amount_relative_to_leukocyte DC_CL:0000103 ! MHCII
+intersection_of: has_high_plasma_membrane_amount_relative_to_leukocyte PRO:000001412 ! CD86
+intersection_of: has_high_plasma_membrane_amount_relative_to_leukocyte PRO:000001438 ! CD80
+intersection_of: has_plasma_membrane_part PRO:000001310 ! CD83
+relationship: has_disposition DC_CL:0000128 ! to secrete anti-inflammatory cytokines
+relationship: transformation_of DC_CL:0000014 ! immature CD8_alpha-negative CD11b-negative dendritic cell
+
+[Term]
+id: DC_CL:0000016
+name: mature CD8_alpha-negative CD11b-positive dendritic cell
+def: "mature CD8_alpha-negative CD11b-positive dendritic cell is_a CD8_alpha-negative CD11b-positive dendritic cell that has_high_plasma_membrane_amount_relative_to_leukocyte CD80, CD86, and MHCII and has_plasma_membrane_part CD83." [AMM:amm]
+comment: Current Opinion In Immunology 2008 20: 61-67
+intersection_of: DC_CL:0000012 ! CD8_alpha-negative CD11b-positive dendritic cell
+intersection_of: has_high_plasma_membrane_amount_relative_to_leukocyte DC_CL:0000103 ! MHCII
+intersection_of: has_high_plasma_membrane_amount_relative_to_leukocyte PRO:000001412 ! CD86
+intersection_of: has_high_plasma_membrane_amount_relative_to_leukocyte PRO:000001438 ! CD80
+intersection_of: has_plasma_membrane_part PRO:000001310 ! CD83
+relationship: transformation_of DC_CL:0000010 ! immature CD8_alpha-negative CD11b-positive dendritic cell
+
+[Term]
+id: DC_CL:0000017
+name: immature CD8_alpha-positive CD11b-negative dendritic cell
+def: "immature CD8_alpha-positive CD11b-negative dendritic cell is_a CD8_alpha-positive CD11b-negative dendritic cell that has_low_plasma_membrane_amount_relative_to_leukocyte CD80, CD86, and MHCII." [AMM:amm]
+comment: Current Opinion In Immunology 2008 20: 61-67
+intersection_of: DC_CL:0000013 ! CD8_alpha-positive CD11b-negative dendritic cell
+intersection_of: has_low_plasma_membrane_amount_relative_to_leukocyte DC_CL:0000103 ! MHCII
+intersection_of: has_low_plasma_membrane_amount_relative_to_leukocyte PRO:000001412 ! CD86
+intersection_of: has_low_plasma_membrane_amount_relative_to_leukocyte PRO:000001438 ! CD80
+relationship: arises_from DC_CL:0000041 ! common dendritic precursor
+
+[Term]
+id: DC_CL:0000018
+name: mature CD8_alpha-positive CD11b-negative dendritic cell
+def: "mature CD8_alpha-positive CD11b-negative dendritic cell is_a CD8_alpha-positive CD11b-negative dendritic cell that has_high_plasma_membrane_amount_relative_to_leukocyte CD80, CD86, and MHCII and has_plasma_membrane_part CD83." [AMM:amm]
+comment: Current Opinion In Immunology 2008 20: 61-67
+intersection_of: DC_CL:0000013 ! CD8_alpha-positive CD11b-negative dendritic cell
+intersection_of: has_high_plasma_membrane_amount_relative_to_leukocyte DC_CL:0000103 ! MHCII
+intersection_of: has_high_plasma_membrane_amount_relative_to_leukocyte PRO:000001412 ! CD86
+intersection_of: has_high_plasma_membrane_amount_relative_to_leukocyte PRO:000001438 ! CD80
+intersection_of: has_plasma_membrane_part PRO:000001310 ! CD83
+relationship: transformation_of DC_CL:0000017 ! immature CD8_alpha-positive CD11b-negative dendritic cell
+
+[Term]
+id: DC_CL:0000019
+name: dermal dendritic cell
+def: "dermal dendritic cell is_a conventional dendritic cell that has_plasma_membrane_part CD11b and CD205 and lacks_plasma_membrane_part CD8_alpha." [AMM:amm]
+comment: Current Opinion In Immunology 2008 20: 61-67
+intersection_of: DC_CL:0000003 ! conventional dendritic cell
+intersection_of: has_plasma_membrane_part PRO:000001012 ! CD11b
+intersection_of: has_plasma_membrane_part PRO:000001026 ! CD205
+intersection_of: lacks_plasma_membrane_part DC_CL:0000090 ! CD8_alpha
+relationship: has_function DC_CL:0000133 ! T cell antigen presentation activity
+relationship: has_function DC_CL:0000134 ! cytokine secretion activity
+relationship: has_plasma_membrane_part DC_CL:0000065 ! CD281
+relationship: has_plasma_membrane_part DC_CL:0000066 ! CD282
+relationship: has_plasma_membrane_part DC_CL:0000067 ! CD283
+relationship: has_plasma_membrane_part DC_CL:0000068 ! CD284
+relationship: has_plasma_membrane_part DC_CL:0000070 ! CD288
+relationship: has_plasma_membrane_part DC_CL:0000071 ! CD289
+relationship: has_plasma_membrane_part DC_CL:0000108 ! TLR5
+
+[Term]
+id: DC_CL:0000020
+name: interstitial dendritic cell
+def: "interstitial dendritic cell is_a conventional dendritic cell that has_plasma_membrane_part CD11b, CD1a, CD206, CD209, and CD36." [AMM:amm]
+comment: Immunological Reviews 2007 219: 118-142
+intersection_of: DC_CL:0000003 ! conventional dendritic cell
+intersection_of: has_plasma_membrane_part DC_CL:0000061 ! CD206
+intersection_of: has_plasma_membrane_part PRO:000001012 ! CD11b
+intersection_of: has_plasma_membrane_part PRO:000001300 ! CD209
+intersection_of: has_plasma_membrane_part PRO:000001905 ! CD36
+intersection_of: has_plasma_membrane_part PRO:000002025 ! CD1a
+relationship: has_disposition DC_CL:0000126 ! to migrate to the lymph node
+relationship: has_function DC_CL:0000133 ! T cell antigen presentation activity
+relationship: has_function DC_CL:0000134 ! cytokine secretion activity
+relationship: has_plasma_membrane_part DC_CL:0000065 ! CD281
+relationship: has_plasma_membrane_part DC_CL:0000066 ! CD282
+relationship: has_plasma_membrane_part DC_CL:0000067 ! CD283
+relationship: has_plasma_membrane_part DC_CL:0000068 ! CD284
+relationship: has_plasma_membrane_part DC_CL:0000069 ! CD286
+relationship: has_plasma_membrane_part DC_CL:0000070 ! CD288
+relationship: has_plasma_membrane_part DC_CL:0000107 ! TLR10
+
+[Term]
+id: DC_CL:0000021
+name: Langerhans cell
+def: "Langerhans cell is_a conventional dendritic cell that has_plasma_membrane_part CD207." [AMM:amm]
+comment: Current Opinion In Immunology 2008 20: 61-67; Immunological Reviews 2007 219: 118-142
+xref: CL:0000453
+intersection_of: DC_CL:0000003 ! conventional dendritic cell
+intersection_of: has_plasma_membrane_part PRO:000001293 ! CD207
+
+[Term]
+id: DC_CL:0000022
+name: immature dermal dendritic cell
+def: "immature dermal dendritic cell is_a dermal dendritic cell that has_low_plasma_membrane_amount_relative_to_leukocyte CD80, CD86, and MHCII." [AMM:amm]
+comment: Current Opinion In Immunology 2008 20: 61-67
+intersection_of: DC_CL:0000019 ! dermal dendritic cell
+intersection_of: has_low_plasma_membrane_amount_relative_to_leukocyte DC_CL:0000103 ! MHCII
+intersection_of: has_low_plasma_membrane_amount_relative_to_leukocyte PRO:000001412 ! CD86
+intersection_of: has_low_plasma_membrane_amount_relative_to_leukocyte PRO:000001438 ! CD80
+relationship: arises_from DC_CL:0000041 ! common dendritic precursor
+
+[Term]
+id: DC_CL:0000023
+name: mature dermal dendritic cell
+def: "mature dermal dendritic cell is_a dermal dendritic cell that has_high_plasma_membrane_amount_relative_to_leukocyte CD80, CD86, and MHCII and has_plasma_membrane_part CD83." [AMM:amm]
+comment: Current Opinion In Immunology 2008 20: 61-67
+intersection_of: DC_CL:0000019 ! dermal dendritic cell
+intersection_of: has_high_plasma_membrane_amount_relative_to_leukocyte DC_CL:0000103 ! MHCII
+intersection_of: has_high_plasma_membrane_amount_relative_to_leukocyte PRO:000001412 ! CD86
+intersection_of: has_high_plasma_membrane_amount_relative_to_leukocyte PRO:000001438 ! CD80
+intersection_of: has_plasma_membrane_part PRO:000001310 ! CD83
+relationship: transformation_of DC_CL:0000022 ! immature dermal dendritic cell
+
+[Term]
+id: DC_CL:0000024
+name: immature interstitial dendritic cell
+def: "immature interstitial dendritic cell is_a interstitial dendritic cell that has_low_plasma_membrane_amount_relative_to_leukocyte CD80, CD86, and MHCII." [AMM:amm]
+comment: Immunological Reviews 2007 219: 118-142
+intersection_of: DC_CL:0000020 ! interstitial dendritic cell
+intersection_of: has_low_plasma_membrane_amount_relative_to_leukocyte DC_CL:0000103 ! MHCII
+intersection_of: has_low_plasma_membrane_amount_relative_to_leukocyte PRO:000001412 ! CD86
+intersection_of: has_low_plasma_membrane_amount_relative_to_leukocyte PRO:000001438 ! CD80
+relationship: arises_from DC_CL:1110000 ! CD7-negative lymphoid precursor OR granulocyte monocyte progenitor
+relationship: has_function DC_CL:0000135 ! antigen processing activity
+relationship: has_function DC_CL:0000136 ! transportation of antigen activity
+
+[Term]
+id: DC_CL:0000025
+name: mature interstitial dendritic cell
+def: "mature interstitial dendritic cell is_a interstitial dendritic cell that has_high_plasma_membrane_amount_relative_to_leukocyte CD80, CD86, and MHCII and has_plasma_membrane_part CD83." [AMM:amm]
+comment: Immunological Reviews 2007 219: 118-142
+intersection_of: DC_CL:0000020 ! interstitial dendritic cell
+intersection_of: has_high_plasma_membrane_amount_relative_to_leukocyte DC_CL:0000103 ! MHCII
+intersection_of: has_high_plasma_membrane_amount_relative_to_leukocyte PRO:000001412 ! CD86
+intersection_of: has_high_plasma_membrane_amount_relative_to_leukocyte PRO:000001438 ! CD80
+intersection_of: has_plasma_membrane_part PRO:000001310 ! CD83
+relationship: transformation_of DC_CL:0000024 ! immature interstitial dendritic cell
+
+[Term]
+id: DC_CL:0000026
+name: CD1a-positive Langerhans cell
+def: "CD1a-positive Langerhans cell is_a Langerhans_cell that has_plasma_membrane_part CD1a and CD324." [AMM:amm]
+comment: Immunological Reviews 2007 219: 118-142
+intersection_of: DC_CL:0000021 ! Langerhans cell
+intersection_of: has_plasma_membrane_part PRO:000001447 ! CD324
+intersection_of: has_plasma_membrane_part PRO:000002025 ! CD1a
+relationship: has_disposition DC_CL:0000126 ! to migrate to the lymph node
+relationship: has_function DC_CL:0000133 ! T cell antigen presentation activity
+relationship: has_function DC_CL:0000134 ! cytokine secretion activity
+relationship: has_plasma_membrane_part DC_CL:0000065 ! CD281
+relationship: has_plasma_membrane_part DC_CL:0000066 ! CD282
+relationship: has_plasma_membrane_part DC_CL:0000068 ! CD284
+relationship: has_plasma_membrane_part DC_CL:0000069 ! CD286
+relationship: has_plasma_membrane_part DC_CL:0000107 ! TLR10
+relationship: has_plasma_membrane_part DC_CL:0000109 ! TLR7
+
+[Term]
+id: DC_CL:0000027
+name: CD8_alpha-low Langerhans cell
+def: "CD8_alpha-low Langerhans cell is_a Langerhans cell that has_high_plasma_membrane_amount_relative_to_leukocyte CD205 and has_low_plasma_membrane_amount_relative_to_leukocyte CD8_alpha." [AMM:amm]
+comment: Current Opinion In Immunology 2008 20: 61-67
+intersection_of: DC_CL:0000021 ! Langerhans cell
+intersection_of: has_high_plasma_membrane_amount_relative_to_leukocyte PRO:000001026 ! CD205
+intersection_of: has_low_plasma_membrane_amount_relative_to_leukocyte DC_CL:0000090 ! CD8_alpha
+relationship: has_disposition DC_CL:0000126 ! to migrate to the lymph node
+relationship: has_function DC_CL:0000133 ! T cell antigen presentation activity
+relationship: has_function DC_CL:0000134 ! cytokine secretion activity
+relationship: has_plasma_membrane_part DC_CL:0000065 ! CD281
+relationship: has_plasma_membrane_part DC_CL:0000066 ! CD282
+relationship: has_plasma_membrane_part DC_CL:0000067 ! CD283
+relationship: has_plasma_membrane_part DC_CL:0000068 ! CD284
+relationship: has_plasma_membrane_part DC_CL:0000069 ! CD286
+relationship: has_plasma_membrane_part DC_CL:0000070 ! CD288
+relationship: has_plasma_membrane_part DC_CL:0000071 ! CD289
+relationship: has_plasma_membrane_part DC_CL:0000107 ! TLR10
+relationship: has_plasma_membrane_part DC_CL:0000108 ! TLR5
+
+[Term]
+id: DC_CL:0000028
+name: immature CD1a-positive Langerhans cell
+def: "immature CD1a-positive Langerhans cell is_a CD1a-positive Langerhans cell that has_low_plasma_membrane_amount_relative_to_leukocyte CD80, CD86, and MHCII." [AMM:amm]
+comment: Immunological Reviews 2007 219: 118-142
+intersection_of: DC_CL:0000026 ! CD1a-positive Langerhans cell
+intersection_of: has_low_plasma_membrane_amount_relative_to_leukocyte DC_CL:0000103 ! MHCII
+intersection_of: has_low_plasma_membrane_amount_relative_to_leukocyte PRO:000001412 ! CD86
+intersection_of: has_low_plasma_membrane_amount_relative_to_leukocyte PRO:000001438 ! CD80
+relationship: has_function DC_CL:0000135 ! antigen processing activity
+relationship: has_function DC_CL:0000136 ! transportation of antigen activity
+
+[Term]
+id: DC_CL:0000029
+name: mature CD1a-positive Langerhans cell
+def: "mature CD1a-positive Langerhans cell is_a CD1a-positive Langerhans cell that has_high_plasma_membrane_amount_relative_to_leukocyte CD80, CD86, and MHCII and has_plasma_membrane_part CD83." [AMM:amm]
+comment: Immunological Reviews 2007 219: 118-142
+intersection_of: DC_CL:0000026 ! CD1a-positive Langerhans cell
+intersection_of: has_high_plasma_membrane_amount_relative_to_leukocyte DC_CL:0000103 ! MHCII
+intersection_of: has_high_plasma_membrane_amount_relative_to_leukocyte PRO:000001412 ! CD86
+intersection_of: has_high_plasma_membrane_amount_relative_to_leukocyte PRO:000001438 ! CD80
+intersection_of: has_plasma_membrane_part PRO:000001310 ! CD83
+relationship: transformation_of DC_CL:0000028 ! immature CD1a-positive Langerhans cell
+
+[Term]
+id: DC_CL:0000030
+name: immature CD8_alpha-low Langerhans cell
+def: "immature CD8_alpha-low Langerhans cell is_a CD8_alpha-low Langerhans cell that has_low_plasma_membrane_amount_relative_to_leukocyte CD80, CD86, and MHCII." [AMM:amm]
+comment: Current Opinion In Immunology 2008 20: 61-67
+intersection_of: DC_CL:0000027 ! CD8_alpha-low Langerhans cell
+intersection_of: has_low_plasma_membrane_amount_relative_to_leukocyte DC_CL:0000103 ! MHCII
+intersection_of: has_low_plasma_membrane_amount_relative_to_leukocyte PRO:000001412 ! CD86
+intersection_of: has_low_plasma_membrane_amount_relative_to_leukocyte PRO:000001438 ! CD80
+relationship: arises_from DC_CL:1111000 ! CD115-positive monocyte OR common dendritic precursor
+
+[Term]
+id: DC_CL:0000031
+name: mature CD8_alpha-low Langerhans cell
+def: "mature CD8_alpha-low Langerhans cell is_a CD8_alpha-low Langerhans cell that has_high_plasma_membrane_amount_relative_to_leukocyte CD80, CD86, and MHCII and has_plasma_membrane_part CD83." [AMM:amm]
+comment: Current Opinion In Immunology 2008 20: 61-67
+intersection_of: DC_CL:0000027 ! CD8_alpha-low Langerhans cell
+intersection_of: has_high_plasma_membrane_amount_relative_to_leukocyte DC_CL:0000103 ! MHCII
+intersection_of: has_high_plasma_membrane_amount_relative_to_leukocyte PRO:000001412 ! CD86
+intersection_of: has_high_plasma_membrane_amount_relative_to_leukocyte PRO:000001438 ! CD80
+intersection_of: has_plasma_membrane_part PRO:000001310 ! CD83
+relationship: transformation_of DC_CL:0000030 ! immature CD8_alpha-low Langerhans cell
+
+[Term]
+id: DC_CL:0000032
+name: CD10-positive common lymphoid precursor
+def: "CD10-positive common lymphoid precursor is_a multi fate stem cell that has_plasma_membrane_part CD10, CD45RA, and CD34 and lacks_plasma_membrane_part CD19, CD3, and CD4." [AMM:amm]
+comment: Current Opinion In Immunology 2008 20: 61-67
+intersection_of: CL:0000048 ! multi fate stem cell
+intersection_of: has_plasma_membrane_part PRO:000001003 ! CD34
+intersection_of: has_plasma_membrane_part PRO:000001015 ! CD45RA
+intersection_of: has_plasma_membrane_part PRO:000001898 ! CD10
+intersection_of: lacks_plasma_membrane_part PRO:000001002 ! CD19
+intersection_of: lacks_plasma_membrane_part PRO:000001004 ! CD4
+intersection_of: lacks_plasma_membrane_part PRO:000001027 ! CD3
+relationship: arises_from DC_CL:0000035 ! CD133-positive hematopoietic stem cell
+
+[Term]
+id: DC_CL:0000033
+name: CD115-positive monocyte
+def: "CD115-positive monocyte is_a leukocyte that has_plasma_membrane_part CD115 and CD11b." [AMM:amm]
+comment: Nature Immunology 2007 8: 1199-1201
+intersection_of: CL:0000738 ! leukocyte
+intersection_of: has_plasma_membrane_part PRO:000001012 ! CD11b
+intersection_of: has_plasma_membrane_part PRO:000002062 ! CD115
+relationship: arises_from DC_CL:0000034 ! CD117-positive common myeloid precursor
+relationship: has_disposition DC_CL:0000125 ! to circulate in the blood
+
+[Term]
+id: DC_CL:0000034
+name: CD117-positive common myeloid precursor
+def: "CD117-positive common myeloid precursor is_a multi fate stem cell that has_plasma_membrane_part CD117 and CD34 and lacks_plasma_membrane_part CD2, CD217, CD3, CD4, CD45R, CD5, CD8, GR1, NK1.1, SCA1, and Ter-119." [AMM:amm]
+comment: Nature Immunology 2007 8: 1199-1201
+intersection_of: CL:0000048 ! multi fate stem cell
+intersection_of: has_plasma_membrane_part PRO:000001003 ! CD34
+intersection_of: has_plasma_membrane_part PRO:000002065 ! CD117
+intersection_of: lacks_plasma_membrane_part DC_CL:0000089 ! CD8
+intersection_of: lacks_plasma_membrane_part DC_CL:0000100 ! GR1
+intersection_of: lacks_plasma_membrane_part DC_CL:0000104 ! NK1.1
+intersection_of: lacks_plasma_membrane_part DC_CL:0000105 ! SCA1
+intersection_of: lacks_plasma_membrane_part DC_CL:0000106 ! Ter-119
+intersection_of: lacks_plasma_membrane_part PRO:000001004 ! CD4
+intersection_of: lacks_plasma_membrane_part PRO:000001014 ! CD45R
+intersection_of: lacks_plasma_membrane_part PRO:000001027 ! CD3
+intersection_of: lacks_plasma_membrane_part PRO:000001083 ! CD2
+intersection_of: lacks_plasma_membrane_part PRO:000001375 ! CD217
+intersection_of: lacks_plasma_membrane_part PRO:000001839 ! CD5
+relationship: arises_from DC_CL:0000043 ! SCA1-positive hematopoietic stem cell
+
+[Term]
+id: DC_CL:0000035
+name: CD133-positive hematopoietic stem cell
+def: "CD133-positive hematopoietic stem_cell is_a multi fate stem cell that has_plasma_membrane_part CD133 and CD34 and lacks_plasma_membrane_part CD11b, CD15, CD16, CD19, CD2, CD3, CD33, CD56, and CD71." [AMM:amm]
+comment: Annual Review of Immunology 2006 24: 287-320
+intersection_of: CL:0000048 ! multi fate stem cell
+intersection_of: has_plasma_membrane_part PRO:000001003 ! CD34
+intersection_of: has_plasma_membrane_part PRO:000001786 ! CD133
+intersection_of: lacks_plasma_membrane_part PRO:000001002 ! CD19
+intersection_of: lacks_plasma_membrane_part PRO:000001012 ! CD11b
+intersection_of: lacks_plasma_membrane_part PRO:000001024 ! CD56
+intersection_of: lacks_plasma_membrane_part PRO:000001027 ! CD3
+intersection_of: lacks_plasma_membrane_part PRO:000001083 ! CD2
+intersection_of: lacks_plasma_membrane_part PRO:000001456 ! CD15
+intersection_of: lacks_plasma_membrane_part PRO:000001483 ! CD16
+intersection_of: lacks_plasma_membrane_part PRO:000001892 ! CD33
+intersection_of: lacks_plasma_membrane_part PRO:000001945 ! CD71
+
+[Term]
+id: DC_CL:0000036
+name: CD217-positive common lymphoid precursor
+def: "CD217-positive common lymphoid precursor is_a multi fate stem cell that has_plasma_membrane_part CD117, CD217, SCA1 and lacks_plasma_membrane_part CD2, CD3, CD4, CD45R, CD5, GR1, CD8, NK1.1, Ter-119." [AMM:amm]
+comment: Nature Immunology 2007 8: 1199-1201
+intersection_of: CL:0000048 ! multi fate stem cell
+intersection_of: has_plasma_membrane_part PRO:000001375 ! CD217
+intersection_of: has_plasma_membrane_part PRO:000002065 ! CD117
+intersection_of: lacks_plasma_membrane_part DC_CL:0000089 ! CD8
+intersection_of: lacks_plasma_membrane_part DC_CL:0000100 ! GR1
+intersection_of: lacks_plasma_membrane_part DC_CL:0000104 ! NK1.1
+intersection_of: lacks_plasma_membrane_part DC_CL:0000106 ! Ter-119
+intersection_of: lacks_plasma_membrane_part PRO:000001004 ! CD4
+intersection_of: lacks_plasma_membrane_part PRO:000001014 ! CD45R
+intersection_of: lacks_plasma_membrane_part PRO:000001027 ! CD3
+intersection_of: lacks_plasma_membrane_part PRO:000001083 ! CD2
+intersection_of: lacks_plasma_membrane_part PRO:000001839 ! CD5
+relationship: arises_from DC_CL:0000043 ! SCA1-positive hematopoietic stem cell
+
+[Term]
+id: DC_CL:0000038
+name: CD71-positive common myeloid precursor
+def: "CD71-positive common myeloid precursor is_a multi fate stem cell that has_plasma_membrane_part CD34, CD45RA, and CD71 and lacks_plasma_membrane_part CD10, CD19, CD3, CD4, and CD7." [AMM:amm]
+comment: Annual Review of Immunology 2006 24: 287-320
+intersection_of: CL:0000048 ! multi fate stem cell
+intersection_of: has_plasma_membrane_part PRO:000001003 ! CD34
+intersection_of: has_plasma_membrane_part PRO:000001015 ! CD45RA
+intersection_of: has_plasma_membrane_part PRO:000001945 ! CD71
+intersection_of: lacks_plasma_membrane_part PRO:000001002 ! CD19
+intersection_of: lacks_plasma_membrane_part PRO:000001004 ! CD4
+intersection_of: lacks_plasma_membrane_part PRO:000001027 ! CD3
+intersection_of: lacks_plasma_membrane_part PRO:000001836 ! CD7
+intersection_of: lacks_plasma_membrane_part PRO:000001898 ! CD10
+relationship: arises_from DC_CL:0000035 ! CD133-positive hematopoietic stem cell
+
+[Term]
+id: DC_CL:0000039
+name: CD7-negative lymphoid precursor
+def: "CD7-negative lymphoid precursor is_a leukocyte that has_plasma_membrane_part CD34 and lacks_plasma_membrane_part CD19, CD3, CD4, CD45RA, and CD7." [AMM:amm]
+comment: Annual Review of Immunology 2006 24: 287-320
+intersection_of: CL:0000738 ! leukocyte
+intersection_of: has_plasma_membrane_part PRO:000001003 ! CD34
+intersection_of: lacks_plasma_membrane_part PRO:000001002 ! CD19
+intersection_of: lacks_plasma_membrane_part PRO:000001004 ! CD4
+intersection_of: lacks_plasma_membrane_part PRO:000001015 ! CD45RA
+intersection_of: lacks_plasma_membrane_part PRO:000001027 ! CD3
+intersection_of: lacks_plasma_membrane_part PRO:000001836 ! CD7
+relationship: arises_from DC_CL:0000032 ! CD10-positive common lymphoid precursor
+
+[Term]
+id: DC_CL:0000040
+name: CD7-positive lymphoid precursor
+def: "CD7-positive lymphoid precursor is_a leukocyte that has_plasma_membrane_part CD34 and CD7 and lacks_plasma_membrane_part CD19, CD3, CD4, CD45RA." [AMM:amm]
+comment: Annual Review of Immunology 2006 24: 287-320
+intersection_of: CL:0000738 ! leukocyte
+intersection_of: has_plasma_membrane_part PRO:000001003 ! CD34
+intersection_of: has_plasma_membrane_part PRO:000001836 ! CD7
+intersection_of: lacks_plasma_membrane_part PRO:000001002 ! CD19
+intersection_of: lacks_plasma_membrane_part PRO:000001004 ! CD4
+intersection_of: lacks_plasma_membrane_part PRO:000001015 ! CD45RA
+intersection_of: lacks_plasma_membrane_part PRO:000001027 ! CD3
+relationship: arises_from DC_CL:0000032 ! CD10-positive common lymphoid precursor
+
+[Term]
+id: DC_CL:0000041
+name: common dendritic precursor
+def: "common dendritic precursor is_a leukocyte that has_plasma_membrane_part CD117, CD135, and M-CSFR." [AMM:amm]
+comment: Annual Review of Immunology 2006 24: 287-320
+intersection_of: CL:0000738 ! leukocyte
+intersection_of: has_plasma_membrane_part DC_CL:0000102 ! M-CSFR
+intersection_of: has_plasma_membrane_part PRO:000002001 ! CD135
+intersection_of: has_plasma_membrane_part PRO:000002065 ! CD117
+relationship: arises_from DC_CL:1111100 ! CD117-positive common myeloid precursor OR CD217-positive common lymphoid precursor
+
+[Term]
+id: DC_CL:0000042
+name: granulocyte monocyte progenitor
+def: "granulocyte monocyte progenitor is_a leukocyte that has_plasma_membrane_part CD123, CD34, and CD45RA and lacks_plasma_membrane_part CD19 and CD3." [AMM:amm]
+comment: Annual Review of Immunology 2006 24: 287-320
+intersection_of: CL:0000738 ! leukocyte
+intersection_of: has_plasma_membrane_part PRO:000001003 ! CD34
+intersection_of: has_plasma_membrane_part PRO:000001015 ! CD45RA
+intersection_of: has_plasma_membrane_part PRO:000001865 ! CD123
+intersection_of: lacks_plasma_membrane_part PRO:000001027 ! CD3
+relationship: arises_from DC_CL:0000038 ! CD71-positive common myeloid precursor
+
+[Term]
+id: DC_CL:0000043
+name: SCA1-positive hematopoietic stem cell
+def: "SCA1-positive hematopoietic stem cell is_a multi fate stem cell that has_plasma_membrane_part CD117 and SCA1 and lacks_plasma_membrane_part CD2, CD3, C34, CD4, CD45R, CD5, CD8, CD90,GR1, NK1.1, Ter-119." [AMM:amm]
+comment: Nature Immunology 2007 8: 1199-1201
+intersection_of: CL:0000048 ! multi fate stem cell
+intersection_of: has_plasma_membrane_part DC_CL:0000105 ! SCA1
+intersection_of: has_plasma_membrane_part PRO:000002065 ! CD117
+intersection_of: lacks_plasma_membrane_part DC_CL:0000089 ! CD8
+intersection_of: lacks_plasma_membrane_part DC_CL:0000100 ! GR1
+intersection_of: lacks_plasma_membrane_part DC_CL:0000104 ! NK1.1
+intersection_of: lacks_plasma_membrane_part DC_CL:0000106 ! Ter-119
+intersection_of: lacks_plasma_membrane_part PRO:000001003 ! CD34
+intersection_of: lacks_plasma_membrane_part PRO:000001004 ! CD4
+intersection_of: lacks_plasma_membrane_part PRO:000001014 ! CD45R
+intersection_of: lacks_plasma_membrane_part PRO:000001027 ! CD3
+intersection_of: lacks_plasma_membrane_part PRO:000001083 ! CD2
+intersection_of: lacks_plasma_membrane_part PRO:000001839 ! CD5
+intersection_of: lacks_plasma_membrane_part PRO:000001843 ! CD90
+
+[Term]
+id: DC_CL:0000046
+name: CD2
+is_obsolete: true
+
+[Term]
+id: DC_CL:0000047
+name: CD10
+is_obsolete: true
+
+[Term]
+id: DC_CL:0000048
+name: CD115
+synonym: "CSF1R" EXACT []
+is_obsolete: true
+
+[Term]
+id: DC_CL:0000049
+name: CD117
+synonym: "cKit" EXACT []
+is_obsolete: true
+
+[Term]
+id: DC_CL:0000052
+name: CD123
+is_obsolete: true
+
+[Term]
+id: DC_CL:0000053
+name: CD133
+is_obsolete: true
+
+[Term]
+id: DC_CL:0000054
+name: CD135
+synonym: "FLT3" EXACT []
+is_obsolete: true
+
+[Term]
+id: DC_CL:0000055
+name: CD14
+is_a: FMA:63887 ! biological macromolecule
+
+[Term]
+id: DC_CL:0000056
+name: CD15
+is_obsolete: true
+
+[Term]
+id: DC_CL:0000057
+name: CD16
+synonym: "FCGR3" EXACT []
+is_obsolete: true
+
+[Term]
+id: DC_CL:0000059
+name: CD1a
+is_obsolete: true
+
+[Term]
+id: DC_CL:0000061
+name: CD206
+synonym: "Mannose Receptor Protein" EXACT []
+is_a: FMA:63887 ! biological macromolecule
+
+[Term]
+id: DC_CL:0000062
+name: CD207
+synonym: "langerin" EXACT []
+is_obsolete: true
+
+[Term]
+id: DC_CL:0000063
+name: CD209
+synonym: "DC-SIGN" EXACT []
+is_obsolete: true
+
+[Term]
+id: DC_CL:0000064
+name: CD217
+synonym: "IL7R alpha" EXACT []
+is_obsolete: true
+
+[Term]
+id: DC_CL:0000065
+name: CD281
+synonym: "TLR1" EXACT []
+is_a: FMA:63887 ! biological macromolecule
+
+[Term]
+id: DC_CL:0000066
+name: CD282
+synonym: "TLR2" EXACT []
+is_a: FMA:63887 ! biological macromolecule
+
+[Term]
+id: DC_CL:0000067
+name: CD283
+synonym: "TLR3" EXACT []
+is_a: FMA:63887 ! biological macromolecule
+
+[Term]
+id: DC_CL:0000068
+name: CD284
+synonym: "TLR4" EXACT []
+is_a: FMA:63887 ! biological macromolecule
+
+[Term]
+id: DC_CL:0000069
+name: CD286
+synonym: "TLR6" EXACT []
+is_a: FMA:63887 ! biological macromolecule
+
+[Term]
+id: DC_CL:0000070
+name: CD288
+synonym: "TLR8" EXACT []
+is_a: FMA:63887 ! biological macromolecule
+
+[Term]
+id: DC_CL:0000071
+name: CD289
+synonym: "TLR9" EXACT []
+is_a: FMA:63887 ! biological macromolecule
+
+[Term]
+id: DC_CL:0000072
+name: CD3
+is_obsolete: true
+
+[Term]
+id: DC_CL:0000073
+name: CD303
+synonym: "BDCA_2" EXACT []
+is_obsolete: true
+
+[Term]
+id: DC_CL:0000074
+name: CD31
+is_a: FMA:63887 ! biological macromolecule
+
+[Term]
+id: DC_CL:0000075
+name: CD32
+is_a: FMA:63887 ! biological macromolecule
+
+[Term]
+id: DC_CL:0000076
+name: CD324
+synonym: "E-cadherin" EXACT []
+is_obsolete: true
+
+[Term]
+id: DC_CL:0000077
+name: CD33
+is_obsolete: true
+
+[Term]
+id: DC_CL:0000079
+name: CD36
+is_obsolete: true
+
+[Term]
+id: DC_CL:0000081
+name: CD43
+is_a: FMA:63887 ! biological macromolecule
+
+[Term]
+id: DC_CL:0000082
+name: CD45
+is_a: FMA:63887 ! biological macromolecule
+
+[Term]
+id: DC_CL:0000083
+name: CD5
+is_obsolete: true
+
+[Term]
+id: DC_CL:0000085
+name: CD62L
+is_a: FMA:63887 ! biological macromolecule
+
+[Term]
+id: DC_CL:0000086
+name: CD64
+is_a: FMA:63887 ! biological macromolecule
+
+[Term]
+id: DC_CL:0000087
+name: CD7
+is_obsolete: true
+
+[Term]
+id: DC_CL:0000088
+name: CD71
+is_obsolete: true
+
+[Term]
+id: DC_CL:0000089
+name: CD8
+is_a: FMA:63887 ! biological macromolecule
+
+[Term]
+id: DC_CL:0000090
+name: CD8_alpha
+is_a: DC_CL:0000089 ! CD8
+
+[Term]
+id: DC_CL:0000091
+name: CD8_beta
+is_a: DC_CL:0000089 ! CD8
+
+[Term]
+id: DC_CL:0000092
+name: CD45R
+comment: Synonym B220 used to refer to mouse isoform.
+synonym: "B220" NARROW []
+is_obsolete: true
+
+[Term]
+id: DC_CL:0000094
+name: CD80
+is_obsolete: true
+
+[Term]
+id: DC_CL:0000095
+name: CD83
+is_obsolete: true
+
+[Term]
+id: DC_CL:0000096
+name: CD86
+is_obsolete: true
+
+[Term]
+id: DC_CL:0000097
+name: CD90
+synonym: "THy1.1" EXACT []
+is_obsolete: true
+
+[Term]
+id: DC_CL:0000098
+name: CXCR2
+is_a: FMA:63887 ! biological macromolecule
+
+[Term]
+id: DC_CL:0000099
+name: CXCR4
+is_a: FMA:63887 ! biological macromolecule
+
+[Term]
+id: DC_CL:0000100
+name: GR1
+is_a: FMA:63887 ! biological macromolecule
+
+[Term]
+id: DC_CL:0000101
+name: ILT7
+is_a: FMA:63887 ! biological macromolecule
+
+[Term]
+id: DC_CL:0000102
+name: M-CSFR
+is_a: FMA:63887 ! biological macromolecule
+
+[Term]
+id: DC_CL:0000103
+name: MHCII
+is_a: FMA:63887 ! biological macromolecule
+
+[Term]
+id: DC_CL:0000104
+name: NK1.1
+is_a: FMA:63887 ! biological macromolecule
+
+[Term]
+id: DC_CL:0000105
+name: SCA1
+is_a: FMA:63887 ! biological macromolecule
+
+[Term]
+id: DC_CL:0000106
+name: Ter-119
+is_a: FMA:63887 ! biological macromolecule
+
+[Term]
+id: DC_CL:0000107
+name: TLR10
+is_a: FMA:63887 ! biological macromolecule
+
+[Term]
+id: DC_CL:0000108
+name: TLR5
+is_a: FMA:63887 ! biological macromolecule
+
+[Term]
+id: DC_CL:0000109
+name: TLR7
+is_a: FMA:63887 ! biological macromolecule
+
+[Term]
+id: DC_CL:0000118
+name: mouse lamina propria
+comment: There is currently no corresponding term in the mouse anatomy ontology.
+is_a: UBERON:0000030 ! lamina propria
+relationship: is_location_of DC_CL:0000012 ! CD8_alpha-negative CD11b-positive dendritic cell
+relationship: is_location_of DC_CL:0000013 ! CD8_alpha-positive CD11b-negative dendritic cell
+
+[Term]
+id: DC_CL:0000124
+name: to cross-present antigen to CD8 T cells
+namespace: IO
+is_a: DC_CL:1000000 ! cell disposition
+
+[Term]
+id: DC_CL:0000125
+name: to circulate in the blood
+namespace: IO
+is_a: DC_CL:1000000 ! cell disposition
+
+[Term]
+id: DC_CL:0000126
+name: to migrate to the lymph node
+namespace: IO
+is_a: DC_CL:1000000 ! cell disposition
+
+[Term]
+id: DC_CL:0000127
+name: to secrete type I interferon
+namespace: IO
+is_a: DC_CL:1000000 ! cell disposition
+
+[Term]
+id: DC_CL:0000128
+name: to secrete anti-inflammatory cytokines
+namespace: IO
+is_a: DC_CL:1000000 ! cell disposition
+
+[Term]
+id: DC_CL:0000129
+name: to secrete inflammatory cytokines
+namespace: IO
+is_a: DC_CL:1000000 ! cell disposition
+
+[Term]
+id: DC_CL:0000133
+name: T cell antigen presentation activity
+namespace: IO
+is_a: DC_CL:0100000 ! cell function
+
+[Term]
+id: DC_CL:0000134
+name: cytokine secretion activity
+namespace: IO
+is_a: DC_CL:0100000 ! cell function
+
+[Term]
+id: DC_CL:0000135
+name: antigen processing activity
+namespace: IO
+is_a: DC_CL:0100000 ! cell function
+
+[Term]
+id: DC_CL:0000136
+name: transportation of antigen activity
+namespace: IO
+is_a: DC_CL:0100000 ! cell function
+
+[Term]
+id: DC_CL:0100000
+name: cell function
+
+[Term]
+id: DC_CL:1000000
+name: cell disposition
+
+[Term]
+id: DC_CL:1100000
+name: CD71-positive common myeloid precursor OR CD7-negative lymphoid precursor OR CD7-positive lymphoid precursor
+namespace: DC_CL
+is_a: CARO:0000013 ! cell
+union_of: DC_CL:0000038 ! CD71-positive common myeloid precursor
+union_of: DC_CL:0000039 ! CD7-negative lymphoid precursor
+union_of: DC_CL:0000040 ! CD7-positive lymphoid precursor
+
+[Term]
+id: DC_CL:1110000
+name: CD7-negative lymphoid precursor OR granulocyte monocyte progenitor
+is_a: CARO:0000013 ! cell
+union_of: DC_CL:0000039 ! CD7-negative lymphoid precursor
+union_of: DC_CL:0000042 ! granulocyte monocyte progenitor
+
+[Term]
+id: DC_CL:1111000
+name: CD115-positive monocyte OR common dendritic precursor
+is_a: CARO:0000013 ! cell
+union_of: DC_CL:0000033 ! CD115-positive monocyte
+union_of: DC_CL:0000041 ! common dendritic precursor
+
+[Term]
+id: DC_CL:1111100
+name: CD117-positive common myeloid precursor OR CD217-positive common lymphoid precursor
+is_a: CARO:0000013 ! cell
+union_of: DC_CL:0000034 ! CD117-positive common myeloid precursor
+union_of: DC_CL:0000036 ! CD217-positive common lymphoid precursor
+
+[Term]
+id: FMA:5034
+name: human lymph node
+namespace: FMA
+comment: Defined in the FMA as 'lymph node'.
+xref: FMA:5034
+is_a: UBERON:0000029 ! lymph node
+relationship: is_location_of DC_CL:0000004 ! CD11c-negative plasmacytoid dendritic cell
+relationship: is_location_of DC_CL:0000020 ! interstitial dendritic cell
+relationship: is_location_of DC_CL:0000026 ! CD1a-positive Langerhans cell
+
+[Term]
+id: FMA:63887
+name: biological macromolecule
+namespace: FMA
+comment: We use the FMA term because there is no corresponding term in CARO. The FMA term may refer only to human entities. We include as sub-types, types observed in mouse or human or both. In addition, we included types of proteins as well as types of protein complexes. Protein types will be defined in PRO; protein complexes will be defined in GO CC. Where PRO types have already been defined, we include the PRO ID.
+xref: FMA:63887
+
+[Term]
+id: FMA:67498
+name: organ
+namespace: FMA
+comment: We use the FMA term because there is no corresponding term in CARO. The FMA term may refer only to human entities. We include as sub-types, types observed in mouse or human or both.
+xref: FMA:67498
+
+[Term]
+id: FMA:70323
+name: human dermis
+namespace: FMA
+comment: Defined in the FMA as 'dermis'.
+xref: FMA:70323
+is_a: UBERON:FMA_70323-MA_0000152-MIAA_0000153-XAO_0000217-ZFA_0001119 ! dermis
+relationship: is_location_of DC_CL:0000020 ! interstitial dendritic cell
+
+[Term]
+id: FMA:70596
+name: human epidermis
+namespace: FMA
+comment: Defined in the FMA using the term 'epidermis'.
+xref: FMA:70596
+is_a: UBERON:FBbt_00004993-FBbt_00005401-FMA_70596-MA_0000153-MIAA_0000154-WBbt_0005733-XAO_0000028-ZFA_0000105 ! epidermis
+relationship: is_location_of DC_CL:0000026 ! CD1a-positive Langerhans cell
+
+[Term]
+id: FMA:7196
+name: human spleen
+namespace: FMA
+comment: Defined in the FMA as 'spleen'.
+xref: FMA:7196
+is_a: UBERON:FMA_7196-MA_0000141-MIAA_0000085-XAO_0000328-ZFA_0000436 ! spleen
+relationship: is_location_of DC_CL:0000003 ! conventional dendritic cell
+relationship: is_location_of DC_CL:0000004 ! CD11c-negative plasmacytoid dendritic cell
+
+[Term]
+id: FMA:9607
+name: human thymus
+namespace: FMA
+comment: Defined in the Foundational Model of Anatomy as 'thymus'.
+xref: FMA:9607
+is_a: UBERON:FMA_9607-MA_0000142-MIAA_0000080-XAO_0000163-ZFA_0001078 ! thymus
+relationship: is_location_of DC_CL:0000001 ! CD11c-low plasmacytoid dendritic cell
+relationship: is_location_of DC_CL:0000020 ! interstitial dendritic cell
+
+[Term]
+id: FMA:9608
+name: human bone marrow
+namespace: FMA
+comment: Defined in the FMA as 'bone marrow'.
+xref: FMA:9608
+is_a: UBERON:FMA_9608-MA_0000134-MIAA_0000084-XAO_0000123-ZFA_0000669 ! bone marrow
+relationship: is_location_of DC_CL:0000032 ! CD10-positive common lymphoid precursor
+relationship: is_location_of DC_CL:0000033 ! CD115-positive monocyte
+relationship: is_location_of DC_CL:0000035 ! CD133-positive hematopoietic stem cell
+relationship: is_location_of DC_CL:0000038 ! CD71-positive common myeloid precursor
+relationship: is_location_of DC_CL:0000039 ! CD7-negative lymphoid precursor
+relationship: is_location_of DC_CL:0000040 ! CD7-positive lymphoid precursor
+relationship: is_location_of DC_CL:0000042 ! granulocyte monocyte progenitor
+
+[Term]
+id: MA:0000134
+name: mouse bone marrow
+namespace: MA
+comment: Defined in the mouse anatomy ontology as 'bone marrow'.
+xref: MA:0000134
+is_a: UBERON:FMA_9608-MA_0000134-MIAA_0000084-XAO_0000123-ZFA_0000669 ! bone marrow
+relationship: is_location_of DC_CL:0000034 ! CD117-positive common myeloid precursor
+relationship: is_location_of DC_CL:0000036 ! CD217-positive common lymphoid precursor
+relationship: is_location_of DC_CL:0000041 ! common dendritic precursor
+relationship: is_location_of DC_CL:0000043 ! SCA1-positive hematopoietic stem cell
+
+[Term]
+id: MA:0000137
+name: mouse Peyer's patch
+namespace: MA
+comment: Defined in the mouse anatomy ontology as 'peyer's patch'.
+xref: MA:0000137
+is_a: UBERON:FMA_15054-MA_0000137 ! aggregated lymphoid follicle of small intestine
+relationship: is_location_of DC_CL:0000011 ! CD8_alpha-negative CD11b-negative dendritic cell
+relationship: is_location_of DC_CL:0000012 ! CD8_alpha-negative CD11b-positive dendritic cell
+relationship: is_location_of DC_CL:0000013 ! CD8_alpha-positive CD11b-negative dendritic cell
+
+[Term]
+id: MA:0000139
+name: mouse lymph node
+namespace: MA
+comment: Defined in the mouse anatomy ontology as 'lymph node'.
+xref: MA:0000139
+is_a: UBERON:0000029 ! lymph node
+relationship: is_location_of DC_CL:0000001 ! CD11c-low plasmacytoid dendritic cell
+relationship: is_location_of DC_CL:0000012 ! CD8_alpha-negative CD11b-positive dendritic cell
+relationship: is_location_of DC_CL:0000013 ! CD8_alpha-positive CD11b-negative dendritic cell
+relationship: is_location_of DC_CL:0000019 ! dermal dendritic cell
+relationship: is_location_of DC_CL:0000027 ! CD8_alpha-low Langerhans cell
+
+[Term]
+id: MA:0000141
+name: mouse spleen
+namespace: MA
+comment: Defined in the mouse anatomy ontology as 'spleen'.
+xref: MA:0000141
+is_a: UBERON:FMA_7196-MA_0000141-MIAA_0000085-XAO_0000328-ZFA_0000436 ! spleen
+relationship: is_location_of DC_CL:0000001 ! CD11c-low plasmacytoid dendritic cell
+relationship: is_location_of DC_CL:0000012 ! CD8_alpha-negative CD11b-positive dendritic cell
+relationship: is_location_of DC_CL:0000013 ! CD8_alpha-positive CD11b-negative dendritic cell
+
+[Term]
+id: MA:0000142
+name: mouse thymus
+namespace: MA
+comment: Defined in the mouse anatomy ontology as 'thymus'.
+xref: MA:0000142
+is_a: UBERON:FMA_9607-MA_0000142-MIAA_0000080-XAO_0000163-ZFA_0001078 ! thymus
+relationship: is_location_of DC_CL:0000011 ! CD8_alpha-negative CD11b-negative dendritic cell
+relationship: is_location_of DC_CL:0000012 ! CD8_alpha-negative CD11b-positive dendritic cell
+relationship: is_location_of DC_CL:0000013 ! CD8_alpha-positive CD11b-negative dendritic cell
+
+[Term]
+id: MA:0000152
+name: mouse dermis
+namespace: MA
+comment: Defined in the mouse anatomy ontology as 'dermis'.
+xref: MA:0000152
+is_a: UBERON:FMA_70323-MA_0000152-MIAA_0000153-XAO_0000217-ZFA_0001119 ! dermis
+relationship: is_location_of DC_CL:0000019 ! dermal dendritic cell
+
+[Term]
+id: MA:0000153
+name: mouse epidermis
+namespace: MA
+comment: Defined in the mouse anatomy ontology as 'epidermis'.
+xref: MA:0000153
+is_a: UBERON:FBbt_00004993-FBbt_00005401-FMA_70596-MA_0000153-MIAA_0000154-WBbt_0005733-XAO_0000028-ZFA_0000105 ! epidermis
+relationship: is_location_of DC_CL:0000027 ! CD8_alpha-low Langerhans cell
+
+[Term]
+id: PRO:000001002
+name: CD19
+namespace: PRO
+xref: PRO:000001002
+is_a: FMA:63887 ! biological macromolecule
+
+[Term]
+id: PRO:000001003
+name: CD34
+namespace: PRO
+xref: PRO:000001003
+is_a: FMA:63887 ! biological macromolecule
+
+[Term]
+id: PRO:000001004
+name: CD4
+namespace: PRO
+xref: PRO:000001004
+is_a: FMA:63887 ! biological macromolecule
+
+[Term]
+id: PRO:000001012
+name: CD11b
+namespace: PRO
+xref: PRO:000001012
+is_a: FMA:63887 ! biological macromolecule
+
+[Term]
+id: PRO:000001013
+name: CD11c
+namespace: PRO
+xref: PRO:000001013
+is_a: FMA:63887 ! biological macromolecule
+
+[Term]
+id: PRO:000001014
+name: CD45R
+namespace: PRO
+comment: Synonym B220 used to refer to mouse isoform.
+synonym: "B220" NARROW []
+is_a: DC_CL:0000082 ! CD45
+
+[Term]
+id: PRO:000001015
+name: CD45RA
+namespace: PRO
+xref: PRO:000001015
+is_a: DC_CL:0000082 ! CD45
+
+[Term]
+id: PRO:000001024
+name: CD56
+namespace: PRO
+xref: PRO:000001024
+is_a: FMA:63887 ! biological macromolecule
+
+[Term]
+id: PRO:000001026
+name: CD205
+namespace: PRO
+synonym: "DEC 205" EXACT []
+synonym: "Ly75" EXACT []
+xref: PRO:000001026
+is_a: FMA:63887 ! biological macromolecule
+
+[Term]
+id: PRO:000001027
+name: CD3
+namespace: PRO
+is_a: FMA:63887 ! biological macromolecule
+
+[Term]
+id: PRO:000001083
+name: CD2
+namespace: PRO
+is_a: FMA:63887 ! biological macromolecule
+
+[Term]
+id: PRO:000001292
+name: CD303
+namespace: PRO
+synonym: "BDCA_2" EXACT []
+is_a: FMA:63887 ! biological macromolecule
+
+[Term]
+id: PRO:000001293
+name: CD207
+namespace: PRO
+synonym: "langerin" EXACT []
+is_a: FMA:63887 ! biological macromolecule
+
+[Term]
+id: PRO:000001300
+name: CD209
+namespace: PRO
+synonym: "DC-SIGN" EXACT []
+is_a: FMA:63887 ! biological macromolecule
+
+[Term]
+id: PRO:000001310
+name: CD83
+namespace: PRO
+is_a: FMA:63887 ! biological macromolecule
+
+[Term]
+id: PRO:000001375
+name: CD217
+namespace: PRO
+synonym: "IL7R alpha" EXACT []
+is_a: FMA:63887 ! biological macromolecule
+
+[Term]
+id: PRO:000001412
+name: CD86
+namespace: PRO
+is_a: FMA:63887 ! biological macromolecule
+
+[Term]
+id: PRO:000001438
+name: CD80
+namespace: PRO
+is_a: FMA:63887 ! biological macromolecule
+
+[Term]
+id: PRO:000001447
+name: CD324
+namespace: PRO
+synonym: "E-cadherin" EXACT []
+is_a: FMA:63887 ! biological macromolecule
+
+[Term]
+id: PRO:000001456
+name: CD15
+namespace: PRO
+is_a: FMA:63887 ! biological macromolecule
+
+[Term]
+id: PRO:000001483
+name: CD16
+namespace: PRO
+synonym: "FCGR3" EXACT []
+is_a: FMA:63887 ! biological macromolecule
+
+[Term]
+id: PRO:000001786
+name: CD133
+namespace: PRO
+is_a: FMA:63887 ! biological macromolecule
+
+[Term]
+id: PRO:000001836
+name: CD7
+namespace: PRO
+is_a: FMA:63887 ! biological macromolecule
+
+[Term]
+id: PRO:000001839
+name: CD5
+namespace: PRO
+is_a: FMA:63887 ! biological macromolecule
+
+[Term]
+id: PRO:000001843
+name: CD90
+namespace: PRO
+synonym: "THy1.1" EXACT []
+is_a: FMA:63887 ! biological macromolecule
+
+[Term]
+id: PRO:000001865
+name: CD123
+namespace: PRO
+is_a: FMA:63887 ! biological macromolecule
+
+[Term]
+id: PRO:000001892
+name: CD33
+namespace: PRO
+is_a: FMA:63887 ! biological macromolecule
+
+[Term]
+id: PRO:000001898
+name: CD10
+namespace: PRO
+is_a: FMA:63887 ! biological macromolecule
+
+[Term]
+id: PRO:000001905
+name: CD36
+namespace: PRO
+is_a: FMA:63887 ! biological macromolecule
+
+[Term]
+id: PRO:000001945
+name: CD71
+namespace: PRO
+is_a: FMA:63887 ! biological macromolecule
+
+[Term]
+id: PRO:000002001
+name: CD135
+namespace: PRO
+synonym: "FLT3" EXACT []
+is_a: FMA:63887 ! biological macromolecule
+
+[Term]
+id: PRO:000002025
+name: CD1a
+namespace: PRO
+is_a: FMA:63887 ! biological macromolecule
+
+[Term]
+id: PRO:000002062
+name: CD115
+namespace: PRO
+synonym: "CSF1R" EXACT []
+is_a: FMA:63887 ! biological macromolecule
+
+[Term]
+id: PRO:000002065
+name: CD117
+namespace: PRO
+synonym: "cKit" EXACT []
+is_a: FMA:63887 ! biological macromolecule
+
+[Term]
+id: UBERON:0000029
+name: lymph node
+namespace: UBERON
+xref: UBERON:0000029
+is_a: FMA:67498 ! organ
+
+[Term]
+id: UBERON:0000030
+name: lamina propria
+namespace: UBERON
+xref: UBERON:0000030
+is_a: CARO:0000043 ! portion of tissue
+
+[Term]
+id: UBERON:FBbt_00004993-FBbt_00005401-FMA_70596-MA_0000153-MIAA_0000154-WBbt_0005733-XAO_0000028-ZFA_0000105
+name: epidermis
+namespace: UBERON
+xref: FBbt:00004993
+xref: FBbt:00005401
+xref: FMA:70596
+xref: MA:0000153
+xref: MIAA:0000154
+xref: UBERON:FBbt_00004993-FBbt_00005401-FMA_70596-MA_0000153-MIAA_0000154-WBbt_0005733-XAO_0000028-ZFA_0000105
+xref: WBbt:0005733
+xref: XAO:0000028
+xref: ZFA:0000105
+is_a: CARO:0000043 ! portion of tissue
+
+[Term]
+id: UBERON:FMA_15054-MA_0000137
+name: aggregated lymphoid follicle of small intestine
+namespace: UBERON
+xref: FMA:15054
+xref: MA:0000137
+xref: UBERON:FMA_15054-MA_0000137
+is_a: CARO:0000043 ! portion of tissue
+
+[Term]
+id: UBERON:FMA_70323-MA_0000152-MIAA_0000153-XAO_0000217-ZFA_0001119
+name: dermis
+namespace: UBERON
+xref: FMA:70323
+xref: MA:0000152
+xref: MIAA:0000153
+xref: UBERON:FMA_70323-MA_0000152-MIAA_0000153-XAO_0000217-ZFA_0001119
+xref: XAO:0000217
+xref: ZFA:0001119
+is_a: CARO:0000043 ! portion of tissue
+
+[Term]
+id: UBERON:FMA_7196-MA_0000141-MIAA_0000085-XAO_0000328-ZFA_0000436
+name: spleen
+namespace: UBERON
+xref: FMA:7196
+xref: MA:0000141
+xref: MIAA:0000085
+xref: UBERON:FMA_7196-MA_0000141-MIAA_0000085-XAO_0000328-ZFA_0000436
+xref: XAO:0000328
+xref: ZFA:0000436
+is_a: FMA:67498 ! organ
+
+[Term]
+id: UBERON:FMA_9607-MA_0000142-MIAA_0000080-XAO_0000163-ZFA_0001078
+name: thymus
+namespace: UBERON
+xref: FMA:9607
+xref: MA:0000142
+xref: MIAA:0000080
+xref: UBERON:FMA_9607-MA_0000142-MIAA_0000080-XAO_0000163-ZFA_0001078
+xref: XAO:0000163
+xref: ZFA:0001078
+is_a: FMA:67498 ! organ
+
+[Term]
+id: UBERON:FMA_9608-MA_0000134-MIAA_0000084-XAO_0000123-ZFA_0000669
+name: bone marrow
+namespace: UBERON
+xref: FMA:9608
+xref: MA:0000134
+xref: MIAA:0000084
+xref: UBERON:FMA_9608-MA_0000134-MIAA_0000084-XAO_0000123-ZFA_0000669
+xref: XAO:0000123
+xref: ZFA:0000669
+is_a: CARO:0000043 ! portion of tissue
+
+[Typedef]
+id: arises_from
+name: arises_from
+
+[Typedef]
+id: has_disposition
+name: has_disposition
+
+[Typedef]
+id: has_function
+name: has_function
+
+[Typedef]
+id: has_high_plasma_membrane_amount_relative_to_leukocyte
+name: has_high_plasma_membrane_amount_relative_to_leukocyte
+
+[Typedef]
+id: has_low_plasma_membrane_amount_relative_to_leukocyte
+name: has_low_plasma_membrane_amount_relative_to_leukocyte
+
+[Typedef]
+id: has_plasma_membrane_part
+name: has_plasma_membrane_part
+
+[Typedef]
+id: is_location_of
+name: is_location_of
+
+[Typedef]
+id: lacks_plasma_membrane_part
+name: lacks_plasma_membrane_part
+
+[Typedef]
+id: transformation_of
+name: transformation_of

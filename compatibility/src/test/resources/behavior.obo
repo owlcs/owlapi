@@ -1,0 +1,21 @@
+format-version: 1.2
+data-version: 2012-07-09
+import: http://purl.obolibrary.org/obo/chebi.owl
+import: http://purl.obolibrary.org/obo/go.owl
+import: http://purl.obolibrary.org/obo/pato.owl
+import: http://purl.obolibrary.org/obo/uberon.owl
+remark: 2012-07-09
+ontology: nbo
+
+
+[Term]
+id: NBO:0000541
+name: dipsosis
+def: "\"A pathological drinking behavior characterised by an excessive desire to drink.\" [NBO:GVG]" []
+xref: MP:0002119
+is_a: NBO:0000961 ! increased frequency of drinking
+property_value: created:by "George Gkoutos" xsd:string
+property_value: http://purl.obolibrary.org/obo/namespace "behavior_ontology" xsd:string
+property_value: http://purl.org/dc/elements/1.1/date 2011-04-10T10:41:10Z xsd:string
+property_value: note "'participates in' some \n('regulation of drinking behavior' and (has_quality some \n('increased frequency' and towards some 'liquid consumption' and owl:qualifier some chronic)))"
+
