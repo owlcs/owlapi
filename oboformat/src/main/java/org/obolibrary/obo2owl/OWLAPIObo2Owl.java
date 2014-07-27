@@ -34,6 +34,7 @@ import org.obolibrary.oboformat.parser.OBOFormatException;
 import org.obolibrary.oboformat.parser.OBOFormatParser;
 import org.obolibrary.oboformat.parser.OBOFormatParserException;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
+import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi.model.AxiomType;
@@ -1733,8 +1734,7 @@ public class OWLAPIObo2Owl {
     public IRI oboIdToIRI(@Nonnull String id) {
         if (id.contains(" ")) {
             LOG.error("id contains space: \"{}\"", id);
-            throw new IllegalArgumentException("spaces not allowed: '" + id
-                    + '\'');
+            throw new OWLParserException("spaces not allowed: '" + id + '\'');
         }
         // No conversion is required if this is already an IRI (ID-as-URI rule)
         if (id.startsWith("http:")) {

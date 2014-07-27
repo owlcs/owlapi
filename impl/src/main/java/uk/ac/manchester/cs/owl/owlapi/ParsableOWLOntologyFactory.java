@@ -145,8 +145,8 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
         // Now parse the input into the empty ontology that we created
         // select a parser if the input source has format information and MIME
         // information
-        PriorityCollection<OWLParserFactory> parsers = getParsers(documentSource,
-                manager.getOntologyParsers());
+        PriorityCollection<OWLParserFactory> parsers = getParsers(
+                documentSource, manager.getOntologyParsers());
         for (OWLParserFactory parserFactory : parsers) {
             OWLParser parser = parserFactory.createParser();
             try {
@@ -161,11 +161,15 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
                 handler.setOntologyFormat(ont, format);
                 return ont;
             } catch (IOException e) {
-                // No hope of any parsers working?
+                // For input/output exceptions, we assume that it means the
+                // source cannot be read regardless of the parsers, so we stop
+                // early
                 // First clean up
                 manager.removeOntology(ont);
                 throw new OWLOntologyCreationIOException(e);
             } catch (UnloadableImportException e) {
+                // If an import cannot be located, all parsers will fail. Again,
+                // terminate early
                 // First clean up
                 manager.removeOntology(ont);
                 throw e;
@@ -174,6 +178,7 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
                 exceptions.put(parser, e);
             } catch (RuntimeException e) {
                 // Clean up and rethrow
+                exceptions.put(parser, new OWLParserException(e));
                 manager.removeOntology(ont);
                 throw e;
             }
@@ -258,8 +263,9 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
      *        parsers
      * @return candidate parsers
      */
-    private static PriorityCollection<OWLParserFactory> getParserCandidatesByMIME(
-            @Nonnull String mimeType, PriorityCollection<OWLParserFactory> parsers) {
+    private static PriorityCollection<OWLParserFactory>
+            getParserCandidatesByMIME(@Nonnull String mimeType,
+                    PriorityCollection<OWLParserFactory> parsers) {
         PriorityCollection<OWLParserFactory> candidateParsers = parsers
                 .getByMIMEType(mimeType);
         return candidateParsers;

@@ -13,12 +13,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>owlapi-parsers</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>owlapi-oboformat</artifactId>
+			<artifactId>owlapi-apibinding</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 	</dependencies>
