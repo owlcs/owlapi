@@ -7,6 +7,7 @@ import org.semanticweb.owlapi.io.OWLOntologyLoaderMetaData;
 
 /** @deprecated this class is here only to help with backwards compatibility */
 @Deprecated
+@SuppressWarnings("javadoc")
 public interface OWLOntologyFormat {
 
     boolean isAddMissingTypes();

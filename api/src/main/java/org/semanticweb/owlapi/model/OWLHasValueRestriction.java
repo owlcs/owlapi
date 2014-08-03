@@ -35,7 +35,10 @@ public interface OWLHasValueRestriction<V extends OWLObject> extends
     @Override
     V getFiller();
 
-    /** @deprecated use getFiller instead */
+    /**
+     * @deprecated use getFiller instead
+     * @return the value
+     */
     @Deprecated
     V getValue();
 
