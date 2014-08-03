@@ -239,7 +239,8 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
     public OWLDocumentFormat parse(IRI documentIRI, OWLOntology ontology)
             throws IOException {
         return parse(new IRIDocumentSource(documentIRI, null, null), ontology,
-                new OWLOntologyLoaderConfiguration());
+                ontology.getOWLOntologyManager()
+                        .getOntologyLoaderConfiguration());
     }
 
     @SuppressWarnings("null")

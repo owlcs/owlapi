@@ -17,7 +17,6 @@ import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
@@ -105,7 +104,7 @@ public class OwlStringTools {
                     axioms);
             OWLOntology ontology = translationManager.createOntology();
             p.parse(documentSource, ontology,
-                    new OWLOntologyLoaderConfiguration());
+                    translationManager.getOntologyLoaderConfiguration());
             return ontology.getAxioms();
         } catch (UnloadableImportException e) {
             throw new OwlStringException(e);

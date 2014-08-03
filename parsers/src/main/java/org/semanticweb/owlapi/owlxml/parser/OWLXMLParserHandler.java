@@ -68,7 +68,8 @@ class OWLXMLParserHandler extends DefaultHandler {
      *        ontology to parse into
      */
     public OWLXMLParserHandler(@Nonnull OWLOntology ontology) {
-        this(ontology, null, new OWLOntologyLoaderConfiguration());
+        this(ontology, null, ontology.getOWLOntologyManager()
+                .getOntologyLoaderConfiguration());
     }
 
     /**
@@ -104,7 +105,8 @@ class OWLXMLParserHandler extends DefaultHandler {
      */
     public OWLXMLParserHandler(OWLOntology ontology,
             OWLElementHandler<?> topHandler) {
-        this(ontology, topHandler, new OWLOntologyLoaderConfiguration());
+        this(ontology, topHandler, ontology.getOWLOntologyManager()
+                .getOntologyLoaderConfiguration());
     }
 
     /**
