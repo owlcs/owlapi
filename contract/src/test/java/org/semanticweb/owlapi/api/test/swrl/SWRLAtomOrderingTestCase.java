@@ -18,6 +18,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.SWRLAtom;
 
 import uk.ac.manchester.cs.owl.owlapi.SWRLRuleImpl;
@@ -58,7 +59,8 @@ public class SWRLAtomOrderingTestCase {
         body.add(atomA);
         Set<SWRLAtom> head = new LinkedHashSet<>();
         head.add(atomD);
-        rule = new SWRLRuleImpl(body, head, Collections.emptySet());
+        rule = new SWRLRuleImpl(body, head,
+                Collections.<OWLAnnotation> emptySet());
     }
 
     @Test

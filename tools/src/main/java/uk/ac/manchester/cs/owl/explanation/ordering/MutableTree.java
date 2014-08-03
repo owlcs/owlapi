@@ -92,7 +92,7 @@ public class MutableTree<N> implements Tree<N> {
 
     @Override
     public List<Tree<N>> getChildren() {
-        return new ArrayList<>(children);
+        return new ArrayList<Tree<N>>(children);
     }
 
     @Override

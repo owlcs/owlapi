@@ -70,7 +70,7 @@ public class OWLClassExpressionCollector extends
      * default constructor
      */
     public OWLClassExpressionCollector() {
-        super(Collections.emptySet());
+        super(Collections.<OWLClassExpression> emptySet());
     }
 
     @Override

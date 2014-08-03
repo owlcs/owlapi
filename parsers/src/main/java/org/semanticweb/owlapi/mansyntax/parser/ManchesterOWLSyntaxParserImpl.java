@@ -209,8 +209,10 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         }
     }
 
+    @Override
+    @SuppressWarnings("null")
     @Nonnull
-    private OWLOntologyLoaderConfiguration getConfig() {
+    public OWLOntologyLoaderConfiguration getOntologyLoaderConfiguration() {
         if (config.isPresent()) {
             return config.get();
         }
@@ -1254,7 +1256,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
             assert ont != null;
             for (OWLAnnotation anno : annos) {
                 assert anno != null;
-                if (getConfig().isLoadAnnotationAxioms()) {
+                if (getOntologyLoaderConfiguration().isLoadAnnotationAxioms()) {
                     pairs.add(new OntologyAxiomPair(ont, dataFactory
                             .getOWLAnnotationAssertionAxiom(s, anno)));
                 }
@@ -1370,7 +1372,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
 
     @Override
     public void setDefaultOntology(@Nonnull OWLOntology defaultOntology) {
-        this.defaultOntology = defaultOntology;
+        defaultOntology = defaultOntology;
     }
 
     private boolean isEmptyFrameSection(Map<ManchesterOWLSyntax, ?> parsers) {
@@ -2196,7 +2198,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
                     assert decl != null;
                     imports.add(new AddImport(ont, decl));
                     ont.getOWLOntologyManager().makeLoadImportRequest(decl,
-                            getConfig());
+                            getOntologyLoaderConfiguration());
                     OWLOntology imported = ont.getOWLOntologyManager()
                             .getOntology(decl.getIRI());
                     assert imported != null;
@@ -2240,7 +2242,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
             } else if (IMPORT.matches(section)) {
                 OWLImportsDeclaration decl = parseImportsDeclaration();
                 ont.getOWLOntologyManager().makeLoadImportRequest(decl,
-                        getConfig());
+                        getOntologyLoaderConfiguration());
                 imports.add(new AddImport(ont, decl));
                 OWLOntology imported = ont.getOWLOntologyManager().getOntology(
                         decl.getIRI());

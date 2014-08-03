@@ -42,7 +42,9 @@ import org.semanticweb.owlapi.util.PriorityCollection;
 public interface OWLOntologyManager extends OWLOntologySetProvider,
         HasDataFactory, HasGetOntologyById, HasApplyChanges, HasApplyChange,
         HasAddAxioms, HasAddAxiom, HasRemoveAxioms, HasRemoveAxiom,
-        HasContainsOntology, HasOntologyChangeListeners, Serializable {
+        HasContainsOntology, HasOntologyChangeListeners,
+        HasOntologyLoaderConfigurationProvider, HasOntologyLoaderConfiguration,
+        Serializable {
 
     /**
      * Gets the ontologies that are managed by this manager that contain the
@@ -1073,6 +1075,26 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      */
     void setDefaultChangeBroadcastStrategy(
             @Nonnull OWLOntologyChangeBroadcastStrategy strategy);
+
+    /**
+     * Requests that the manager loads an imported ontology that is described by
+     * an imports statement. This method is generally used by parsers and other
+     * kinds of loaders. For simply loading an ontology, use the loadOntologyXXX
+     * methods. The method respects the list of ignored imports in the specified
+     * configuration. In other words, if this methods is called for an ignored
+     * import as specified by the configuration object then the import won't be
+     * loaded. The ontology loader configuration used is the default one for
+     * this manager.
+     * 
+     * @param declaration
+     *        The declaration that describes the import to be loaded.
+     * @throws UnloadableImportException
+     *         if there was a problem creating and loading the import and silent
+     *         missing imports handling is not turned on. If silent missing
+     *         import handling is turned on then this exception will not be
+     *         thrown.
+     */
+    void makeLoadImportRequest(@Nonnull OWLImportsDeclaration declaration);
 
     /**
      * Requests that the manager loads an imported ontology that is described by

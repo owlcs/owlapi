@@ -281,7 +281,7 @@ public class InitVisitorFactory {
          *        true for named classes
          */
         public InitCollectionVisitor(boolean named) {
-            super(Collections.emptySet());
+            super(Collections.<K> emptySet());
             this.named = named;
         }
 

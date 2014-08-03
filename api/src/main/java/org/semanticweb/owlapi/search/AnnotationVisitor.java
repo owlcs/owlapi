@@ -19,7 +19,7 @@ class AnnotationVisitor<C> extends OWLAxiomVisitorExAdapter<Set<C>> {
     private final boolean value;
 
     AnnotationVisitor(boolean value) {
-        super(Collections.emptySet());
+        super(Collections.<C> emptySet());
         this.value = value;
     }
 

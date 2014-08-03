@@ -36,8 +36,8 @@ public class InferredEquivalentClassAxiomGenerator extends
     @Override
     protected void addAxioms(OWLClass entity, @Nonnull OWLReasoner reasoner,
             OWLDataFactory dataFactory, Set<OWLEquivalentClassesAxiom> result) {
-        Set<OWLClassExpression> equivalentClasses = new HashSet<>(reasoner
-                .getEquivalentClasses(entity).getEntities());
+        Set<OWLClassExpression> equivalentClasses = new HashSet<OWLClassExpression>(
+                reasoner.getEquivalentClasses(entity).getEntities());
         equivalentClasses.add(entity);
         if (equivalentClasses.size() > 1) {
             result.add(dataFactory

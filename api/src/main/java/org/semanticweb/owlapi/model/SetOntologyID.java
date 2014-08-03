@@ -76,7 +76,8 @@ public class SetOntologyID extends OWLOntologyChange {
     @Override
     public Set<OWLEntity> getSignature() {
         return CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(Collections.emptySet());
+                .getCopyOnRequestSetFromImmutableCollection(Collections
+                        .<OWLEntity> emptySet());
     }
 
     @Override

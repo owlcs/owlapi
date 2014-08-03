@@ -93,9 +93,10 @@ public class InferredObjectPropertyCharacteristicAxiomGenerator
         OWLAnonymousIndividual a = df.getOWLAnonymousIndividual();
         OWLAnonymousIndividual b = df.getOWLAnonymousIndividual();
         OWLAnonymousIndividual c = df.getOWLAnonymousIndividual();
-        Set<OWLAxiom> trivialityCheckAxioms = new HashSet<>(Arrays.asList(
-                df.getOWLObjectPropertyAssertionAxiom(property, a, b),
-                df.getOWLObjectPropertyAssertionAxiom(property, b, c)));
+        Set<OWLAxiom> trivialityCheckAxioms = new HashSet<OWLAxiom>(
+                Arrays.asList(
+                        df.getOWLObjectPropertyAssertionAxiom(property, a, b),
+                        df.getOWLObjectPropertyAssertionAxiom(property, b, c)));
         return !reasoner.isEntailed(trivialityCheckAxioms);
     }
 

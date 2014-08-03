@@ -23,7 +23,7 @@ class EquivalentVisitor<C extends OWLObject> extends
     private final boolean equiv;
 
     EquivalentVisitor(boolean equiv) {
-        super(Collections.emptySet());
+        super(Collections.<C> emptySet());
         this.equiv = equiv;
     }
 

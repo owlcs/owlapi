@@ -78,7 +78,7 @@ public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements
 
     @Override
     public Collection<SWRLArgument> getAllArguments() {
-        return new ArrayList<>(args);
+        return new ArrayList<SWRLArgument>(args);
     }
 
     @Override

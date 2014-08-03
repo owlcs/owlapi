@@ -39,6 +39,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
+import org.semanticweb.owlapi.OWLAPIConfigProvider;
 import org.semanticweb.owlapi.io.FileDocumentSource;
 import org.semanticweb.owlapi.io.IRIDocumentSource;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
@@ -106,6 +107,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Optional;
+import com.google.inject.Provider;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -160,6 +162,11 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     private transient Map<OWLOntologyChangeListener, OWLOntologyChangeBroadcastStrategy> listenerMap = createSyncMap();
     private transient Map<ImpendingOWLOntologyChangeListener, ImpendingOWLOntologyChangeBroadcastStrategy> impendingChangeListenerMap = createSyncMap();
     private transient List<OWLOntologyChangesVetoedListener> vetoListeners = new ArrayList<>();
+    @Nonnull
+    private Provider<OWLOntologyLoaderConfiguration> configProvider = new OWLAPIConfigProvider();
+    @SuppressWarnings("null")
+    @Nonnull
+    private Optional<OWLOntologyLoaderConfiguration> config = Optional.absent();
 
     /**
      * @param dataFactory
@@ -170,6 +177,30 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
                 "dataFactory cannot be null");
         installDefaultURIMappers();
         installDefaultOntologyFactories();
+
+    }
+
+    @Override
+    public void setOntologyLoaderConfigurationProvider(
+            Provider<OWLOntologyLoaderConfiguration> provider) {
+        configProvider = provider;
+    }
+
+    @SuppressWarnings("null")
+    @Override
+    public void setOntologyLoaderConfiguration(
+            OWLOntologyLoaderConfiguration newConfig) {
+        config = Optional.fromNullable(newConfig);
+    }
+    @Override
+    @SuppressWarnings("null")
+    @Nonnull
+    public OWLOntologyLoaderConfiguration getOntologyLoaderConfiguration() {
+        if (config.isPresent()) {
+            return config.get();
+        }
+        config = Optional.of(configProvider.get());
+        return config.get();
     }
 
     @Override
@@ -446,9 +477,9 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
      *         {@code false}.
      */
     private boolean isChangeApplicable(OWLOntologyChange change) {
-        OWLOntologyLoaderConfiguration config = ontologyConfigurationsByOntologyID
+        OWLOntologyLoaderConfiguration ontologyConfig = ontologyConfigurationsByOntologyID
                 .get(change.getOntology().getOntologyID());
-        if (config != null && !config.isLoadAnnotationAxioms()
+        if (ontologyConfig != null && !ontologyConfig.isLoadAnnotationAxioms()
                 && change.isAddAxiom()
                 && change.getAxiom() instanceof OWLAnnotationAxiom) {
             return false;
@@ -788,7 +819,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     public OWLOntology loadOntology(IRI ontologyIRI)
             throws OWLOntologyCreationException {
         return loadOntology(ontologyIRI, false,
-                new OWLOntologyLoaderConfiguration());
+                getOntologyLoaderConfiguration());
     }
 
     @Nonnull
@@ -854,7 +885,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         // Ontology URI not known in advance
         return loadOntology(null,
                 new IRIDocumentSource(documentIRI, null, null),
-                new OWLOntologyLoaderConfiguration());
+                getOntologyLoaderConfiguration());
     }
 
     @Override
@@ -863,7 +894,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
             throws OWLOntologyCreationException {
         // Ontology URI not known in advance
         return loadOntology(null, documentSource,
-                new OWLOntologyLoaderConfiguration());
+                getOntologyLoaderConfiguration());
     }
 
     @Override
@@ -1366,6 +1397,11 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
             importsLoadCount.decrementAndGet();
         }
         return ont;
+    }
+
+    @Override
+    public void makeLoadImportRequest(OWLImportsDeclaration declaration) {
+        makeLoadImportRequest(declaration, getOntologyLoaderConfiguration());
     }
 
     @Override

@@ -295,35 +295,35 @@ public class OWL2DatatypeImpl implements OWLDatatype {
     public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
         return CollectionFactory
                 .getCopyOnRequestSetFromImmutableCollection(Collections
-                        .emptySet());
+                        .<OWLAnonymousIndividual> emptySet());
     }
 
     @Override
     public Set<OWLClass> getClassesInSignature() {
         return CollectionFactory
                 .getCopyOnRequestSetFromImmutableCollection(Collections
-                        .emptySet());
+                        .<OWLClass> emptySet());
     }
 
     @Override
     public Set<OWLDataProperty> getDataPropertiesInSignature() {
         return CollectionFactory
                 .getCopyOnRequestSetFromImmutableCollection(Collections
-                        .emptySet());
+                        .<OWLDataProperty> emptySet());
     }
 
     @Override
     public Set<OWLObjectProperty> getObjectPropertiesInSignature() {
         return CollectionFactory
                 .getCopyOnRequestSetFromImmutableCollection(Collections
-                        .emptySet());
+                        .<OWLObjectProperty> emptySet());
     }
 
     @Override
     public Set<OWLNamedIndividual> getIndividualsInSignature() {
         return CollectionFactory
                 .getCopyOnRequestSetFromImmutableCollection(Collections
-                        .emptySet());
+                        .<OWLNamedIndividual> emptySet());
     }
 
     @Override
@@ -337,7 +337,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
     public Set<OWLClassExpression> getNestedClassExpressions() {
         return CollectionFactory
                 .getCopyOnRequestSetFromImmutableCollection(Collections
-                        .emptySet());
+                        .<OWLClassExpression> emptySet());
     }
 
     @Override
