@@ -237,6 +237,21 @@ public class ParserException extends OWLParserException {
     }
 
     /**
+     * @param delegate
+     *        delegate
+     */
+    public ParserException(ParserException delegate) {
+        this(delegate.tokenSequence, delegate.startPos, delegate.lineNumber,
+                delegate.columnNumber, delegate.ontologyNameExpected,
+                delegate.classNameExpected,
+                delegate.objectPropertyNameExpected,
+                delegate.dataPropertyNameExpected,
+                delegate.individualNameExpected, delegate.datatypeNameExpected,
+                delegate.annotationPropertyExpected, delegate.integerExpected,
+                delegate.expectedKeywords);
+    }
+
+    /**
      * Gets the token sequence.
      * 
      * @return the token sequence
