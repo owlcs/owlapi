@@ -12,13 +12,16 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package de.uulm.ecs.ai.owlapi.krssparser;
 
+import org.semanticweb.owlapi.model.OWLOntologyFormat;
+
 /**
  * @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence
  * @deprecated use {@link org.semanticweb.owlapi.formats.KRSS2DocumentFormat}
  */
 @Deprecated
 public class KRSS2OntologyFormat extends
-        org.semanticweb.owlapi.formats.KRSS2DocumentFormat {
+        org.semanticweb.owlapi.formats.KRSS2DocumentFormat implements
+        OWLOntologyFormat {
 
     private static final long serialVersionUID = 30406L;
     /** ignore ontology iri parameter */

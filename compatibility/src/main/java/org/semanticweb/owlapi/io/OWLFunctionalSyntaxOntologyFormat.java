@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.io;
 
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
+import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -22,7 +23,7 @@ import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
  */
 @Deprecated
 public class OWLFunctionalSyntaxOntologyFormat extends
-        FunctionalSyntaxDocumentFormat {
+        FunctionalSyntaxDocumentFormat implements OWLOntologyFormat {
 
     private static final long serialVersionUID = 30406L;
 
