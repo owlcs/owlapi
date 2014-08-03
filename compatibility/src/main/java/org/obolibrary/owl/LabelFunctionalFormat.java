@@ -1,5 +1,7 @@
 package org.obolibrary.owl;
 
+import org.semanticweb.owlapi.model.OWLOntologyFormat;
+
 /**
  * Format for serializing an OWL ontology in a functional syntax format and
  * labels instead of identifiers. WARNING: This will produce a file, which
@@ -11,7 +13,8 @@ package org.obolibrary.owl;
  */
 @Deprecated
 public class LabelFunctionalFormat extends
-        org.semanticweb.owlapi.formats.LabelFunctionalDocumentFormat {
+        org.semanticweb.owlapi.formats.LabelFunctionalDocumentFormat implements
+        OWLOntologyFormat {
 
     private static final long serialVersionUID = 30406L;
 }

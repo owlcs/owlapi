@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owlapi.dlsyntax;
 
+import org.semanticweb.owlapi.model.OWLOntologyFormat;
+
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 10-Feb-2008
@@ -20,7 +22,8 @@ package uk.ac.manchester.cs.owlapi.dlsyntax;
  */
 @Deprecated
 public class DLSyntaxHTMLOntologyFormat extends
-        org.semanticweb.owlapi.formats.DLSyntaxHTMLDocumentFormat {
+        org.semanticweb.owlapi.formats.DLSyntaxHTMLDocumentFormat implements
+        OWLOntologyFormat {
 
     private static final long serialVersionUID = 30406L;
 }

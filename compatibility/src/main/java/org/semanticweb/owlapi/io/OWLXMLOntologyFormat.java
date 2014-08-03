@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.io;
 
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
+import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -20,7 +21,8 @@ import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
  * @deprecated use {@link org.semanticweb.owlapi.formats.OWLXMLDocumentFormat}
  */
 @Deprecated
-public class OWLXMLOntologyFormat extends OWLXMLDocumentFormat {
+public class OWLXMLOntologyFormat extends OWLXMLDocumentFormat implements
+        OWLOntologyFormat {
 
     private static final long serialVersionUID = 30406L;
 

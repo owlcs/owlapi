@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.coode.owlapi.obo.parser;
 
+import org.semanticweb.owlapi.model.OWLOntologyFormat;
+
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 10-Jan-2007
@@ -19,7 +21,8 @@ package org.coode.owlapi.obo.parser;
  */
 @Deprecated
 public class OBOOntologyFormat extends
-        org.semanticweb.owlapi.formats.OBODocumentFormat {
+        org.semanticweb.owlapi.formats.OBODocumentFormat implements
+        OWLOntologyFormat {
 
     private static final long serialVersionUID = 30406L;
 }
