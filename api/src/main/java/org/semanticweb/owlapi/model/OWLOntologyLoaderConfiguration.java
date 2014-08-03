@@ -18,8 +18,6 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.parameters.MissingImportHandlingStrategy;
-import org.semanticweb.owlapi.model.parameters.MissingOntologyHeaderStrategy;
 import org.semanticweb.owlapi.vocab.Namespaces;
 
 /**
@@ -43,6 +41,17 @@ import org.semanticweb.owlapi.vocab.Namespaces;
 public class OWLOntologyLoaderConfiguration implements Serializable {
 
     private static final long serialVersionUID = 40000L;
+
+    /**
+     * what action to take if the ontology header is missing.
+     */
+    public enum MissingOntologyHeaderStrategy {
+        /** include triples */
+        INCLUDE_GRAPH,
+        /** keep import structure */
+        IMPORT_GRAPH
+    }
+
     /** true if http compression should be used */
     private boolean acceptHTTPCompression = true;
     /** timeout for connections */
