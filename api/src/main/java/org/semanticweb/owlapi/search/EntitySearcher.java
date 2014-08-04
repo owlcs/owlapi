@@ -36,6 +36,8 @@ import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -2234,6 +2236,88 @@ public class EntitySearcher {
         for (OWLObjectPropertyAssertionAxiom ax : ontology
                 .getObjectPropertyAssertionAxioms(i)) {
             map.put(ax.getProperty(), ax.getObject());
+        }
+        return map;
+    }
+
+    /**
+     * @param i
+     *        individual
+     * @param ontology
+     *        ontology to search
+     * @return property values
+     */
+    @SuppressWarnings("null")
+    @Nonnull
+    public static Multimap<OWLObjectPropertyExpression, OWLIndividual>
+            getNegativeObjectPropertyValues(@Nonnull OWLIndividual i,
+                    @Nonnull OWLOntology ontology) {
+        Multimap<OWLObjectPropertyExpression, OWLIndividual> map = LinkedListMultimap
+                .create();
+        for (OWLNegativeObjectPropertyAssertionAxiom ax : ontology
+                .getNegativeObjectPropertyAssertionAxioms(i)) {
+            map.put(ax.getProperty(), ax.getObject());
+        }
+        return map;
+    }
+
+    /**
+     * @param i
+     *        individual
+     * @param ontology
+     *        ontology to search
+     * @return property values
+     */
+    @SuppressWarnings("null")
+    @Nonnull
+    public static Multimap<OWLDataPropertyExpression, OWLLiteral>
+            getNegativeDataPropertyValues(@Nonnull OWLIndividual i,
+                    @Nonnull OWLOntology ontology) {
+        Multimap<OWLDataPropertyExpression, OWLLiteral> map = LinkedListMultimap
+                .create();
+        for (OWLNegativeDataPropertyAssertionAxiom ax : ontology
+                .getNegativeDataPropertyAssertionAxioms(i)) {
+            map.put(ax.getProperty(), ax.getObject());
+        }
+        return map;
+    }
+
+    /**
+     * @param i
+     *        individual
+     * @param ontologies
+     *        ontologies to search
+     * @return property values
+     */
+    @SuppressWarnings("null")
+    @Nonnull
+    public static Multimap<OWLObjectPropertyExpression, OWLIndividual>
+            getNegativeObjectPropertyValues(@Nonnull OWLIndividual i,
+                    @Nonnull Iterable<OWLOntology> ontologies) {
+        Multimap<OWLObjectPropertyExpression, OWLIndividual> map = LinkedListMultimap
+                .create();
+        for (OWLOntology o : ontologies) {
+            map.putAll(getNegativeObjectPropertyValues(i, o));
+        }
+        return map;
+    }
+
+    /**
+     * @param i
+     *        individual
+     * @param ontologies
+     *        ontologies to search
+     * @return property values
+     */
+    @SuppressWarnings("null")
+    @Nonnull
+    public static Multimap<OWLDataPropertyExpression, OWLLiteral>
+            getNegativeDataPropertyValues(@Nonnull OWLIndividual i,
+                    @Nonnull Iterable<OWLOntology> ontologies) {
+        Multimap<OWLDataPropertyExpression, OWLLiteral> map = LinkedListMultimap
+                .create();
+        for (OWLOntology o : ontologies) {
+            map.putAll(getNegativeDataPropertyValues(i, o));
         }
         return map;
     }
