@@ -320,6 +320,13 @@ public class OWL2DatatypeImpl implements OWLDatatype {
     }
 
     @Override
+    public Set<OWLAnnotationProperty> getAnnotationPropertiesInSignature() {
+        return CollectionFactory
+                .getCopyOnRequestSetFromImmutableCollection(CollectionFactory
+                        .<OWLAnnotationProperty> emptySet());
+
+    }
+    @Override
     public Set<OWLNamedIndividual> getIndividualsInSignature() {
         return CollectionFactory
                 .getCopyOnRequestSetFromImmutableCollection(CollectionFactory

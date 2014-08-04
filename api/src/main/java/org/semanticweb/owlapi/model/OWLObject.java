@@ -26,7 +26,7 @@ public interface OWLObject extends Comparable<OWLObject>, Serializable,
         HasSignature, HasContainsEntityInSignature, HasAnonymousIndividuals,
         HasClassesInSignature, HasObjectPropertiesInSignature,
         HasDataPropertiesInSignature, HasIndividualsInSignature,
-        HasDatatypesInSignature {
+        HasDatatypesInSignature, HasAnnotationPropertiesInSignature {
 
     /**
      * Gets the signature of this object
