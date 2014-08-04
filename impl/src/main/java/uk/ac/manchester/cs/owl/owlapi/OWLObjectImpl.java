@@ -31,6 +31,7 @@ import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.io.ToStringRenderer;
 import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -157,6 +158,17 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
         for (OWLEntity ent : getSignature()) {
             if (ent.isOWLDatatype()) {
                 result.add(ent.asOWLDatatype());
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public Set<OWLAnnotationProperty> getAnnotationPropertiesInSignature() {
+        Set<OWLAnnotationProperty> result = new HashSet<>();
+        for (OWLEntity ent : getSignature()) {
+            if (ent.isOWLAnnotationProperty()) {
+                result.add(ent.asOWLAnnotationProperty());
             }
         }
         return result;

@@ -17,6 +17,7 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnnotationValueVisitor;
 import org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
@@ -217,6 +218,10 @@ public class OWLLiteralImplString implements OWLLiteral {
         return Collections.emptySet();
     }
 
+    @Override
+    public Set<OWLAnnotationProperty> getAnnotationPropertiesInSignature() {
+        return CollectionFactory.emptySet();
+    }
     @Override
     public Set<OWLDataProperty> getDataPropertiesInSignature() {
         return Collections.emptySet();

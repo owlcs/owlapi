@@ -494,6 +494,11 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
         return Collections.emptySet();
     }
 
+    @Override
+    public Set<OWLAnnotationProperty> getAnnotationPropertiesInSignature() {
+        return CollectionFactory.emptySet();
+    }
+
     @Nonnull
     @Override
     public Set<OWLClassExpression> getNestedClassExpressions() {
