@@ -738,9 +738,9 @@ public class StructuralReasoner extends OWLReasonerBase {
             FreshEntitiesException, ReasonerInterruptedException,
             TimeOutException {
         ensurePrepared();
-        Set<OWLNamedIndividual> inds = new HashSet<>();
-        Set<OWLDifferentIndividualsAxiom> processed = new HashSet<>();
-        List<OWLNamedIndividual> stack = new LinkedList<>();
+        Set<OWLNamedIndividual> inds = new HashSet<OWLNamedIndividual>();
+        Set<OWLDifferentIndividualsAxiom> processed = new HashSet<OWLDifferentIndividualsAxiom>();
+        List<OWLNamedIndividual> stack = new LinkedList<OWLNamedIndividual>();
         stack.add(ind);
         while (!stack.isEmpty()) {
             OWLNamedIndividual currentInd = stack.remove(0);
@@ -766,7 +766,7 @@ public class StructuralReasoner extends OWLReasonerBase {
         if (inds.isEmpty()) {
             inds.add(ind);
         }
-        Set<Node<OWLNamedIndividual>> set = new HashSet<>();
+        Set<Node<OWLNamedIndividual>> set = new HashSet<Node<OWLNamedIndividual>>();
         for (OWLNamedIndividual n : inds) {
             set.add(getSameIndividuals(n));
         }
