@@ -16,11 +16,11 @@ import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.search.Searcher.*;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -39,6 +39,7 @@ import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
+import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
@@ -652,7 +653,7 @@ public class StructuralReasoner extends OWLReasonerBase {
         ensurePrepared();
         Set<OWLNamedIndividual> inds = new HashSet<>();
         Set<OWLSameIndividualAxiom> processed = new HashSet<>();
-        List<OWLNamedIndividual> stack = new ArrayList<>();
+        List<OWLNamedIndividual> stack = new LinkedList<>();
         stack.add(ind);
         while (!stack.isEmpty()) {
             OWLNamedIndividual currentInd = stack.remove(0);
@@ -666,8 +667,7 @@ public class StructuralReasoner extends OWLReasonerBase {
                             if (!i.isAnonymous()) {
                                 OWLNamedIndividual namedInd = i
                                         .asOWLNamedIndividual();
-                                if (!inds.contains(namedInd)) {
-                                    inds.add(namedInd);
+                                if (inds.add(namedInd)) {
                                     stack.add(namedInd);
                                 }
                             }
@@ -676,6 +676,9 @@ public class StructuralReasoner extends OWLReasonerBase {
                 }
             }
         }
+        if (inds.isEmpty()) {
+            inds.add(ind);
+        }
         return new OWLNamedIndividualNode(inds);
     }
 
@@ -683,7 +686,40 @@ public class StructuralReasoner extends OWLReasonerBase {
     @Override
     public NodeSet<OWLNamedIndividual> getDifferentIndividuals(
             OWLNamedIndividual ind) {
-        return new OWLNamedIndividualNodeSet();
+        ensurePrepared();
+        Set<OWLNamedIndividual> inds = new HashSet<>();
+        Set<OWLDifferentIndividualsAxiom> processed = new HashSet<>();
+        List<OWLNamedIndividual> stack = new LinkedList<>();
+        stack.add(ind);
+        while (!stack.isEmpty()) {
+            OWLNamedIndividual currentInd = stack.remove(0);
+            assert currentInd != null;
+            for (OWLOntology ontology : getRootOntology().getImportsClosure()) {
+                for (OWLDifferentIndividualsAxiom axiom : ontology
+                        .getDifferentIndividualAxioms(currentInd)) {
+                    if (!processed.contains(axiom)) {
+                        processed.add(axiom);
+                        for (OWLIndividual i : axiom.getIndividuals()) {
+                            if (!i.isAnonymous()) {
+                                OWLNamedIndividual namedInd = i
+                                        .asOWLNamedIndividual();
+                                if (inds.add(namedInd)) {
+                                    stack.add(namedInd);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        if (inds.isEmpty()) {
+            inds.add(ind);
+        }
+        Set<Node<OWLNamedIndividual>> set = new HashSet<>();
+        for (OWLNamedIndividual n : inds) {
+            set.add(getSameIndividuals(n));
+        }
+        return new OWLNamedIndividualNodeSet(set);
     }
 
     protected OWLDataFactory getDataFactory() {
