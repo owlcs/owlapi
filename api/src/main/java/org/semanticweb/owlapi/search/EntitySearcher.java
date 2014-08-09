@@ -1122,6 +1122,29 @@ public class EntitySearcher {
     }
 
     /**
+     * Gets the asserted domains of this property by examining the axioms in the
+     * specified ontologies.
+     * 
+     * @param e
+     *        entity
+     * @param ontologies
+     *        The ontologies to be examined.
+     * @return A set of {@code OWLClassExpression}s that represent the asserted
+     *         domains of this property.
+     */
+    @Nonnull
+    public static Collection<OWLClassExpression> getDomains(
+            @Nonnull OWLDataProperty e,
+            @Nonnull Iterable<OWLOntology> ontologies) {
+        List<OWLClassExpression> list = new ArrayList<>();
+        for (OWLOntology o : ontologies) {
+            assert o != null;
+            list.addAll(getDomains(e, o));
+        }
+        return list;
+    }
+
+    /**
      * Gets the asserted domains of this property.
      * 
      * @param e
