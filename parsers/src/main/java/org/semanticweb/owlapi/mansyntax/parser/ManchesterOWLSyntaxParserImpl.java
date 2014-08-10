@@ -872,7 +872,9 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         }
     }
 
-    private Set<OWLDataRange> parseDataRangeList() {
+    @Override
+    @Nonnull
+    public Set<OWLDataRange> parseDataRangeList() {
         String sep = COMMA.keyword();
         Set<OWLDataRange> ranges = new HashSet<>();
         while (COMMA.matches(sep)) {
@@ -2024,8 +2026,39 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         return props;
     }
 
+    @Override
+    public Set<OWLDataProperty> parseDataPropertyList() {
+        Set<OWLDataProperty> props = new HashSet<>();
+        String sep = COMMA.keyword();
+        while (COMMA.matches(sep)) {
+            OWLDataProperty prop = parseDataProperty();
+            props.add(prop);
+            sep = peekToken();
+            if (COMMA.matches(sep)) {
+                consumeToken();
+            }
+        }
+        return props;
+    }
+
+    @Override
+    public Set<OWLAnnotationProperty> parseAnnotationPropertyList() {
+        Set<OWLAnnotationProperty> props = new HashSet<>();
+        String sep = COMMA.keyword();
+        while (COMMA.matches(sep)) {
+            OWLAnnotationProperty prop = parseAnnotationProperty();
+            props.add(prop);
+            sep = peekToken();
+            if (COMMA.matches(sep)) {
+                consumeToken();
+            }
+        }
+        return props;
+    }
+
+    @Override
     @Nonnull
-    protected Set<OWLIndividual> parseIndividualList() {
+    public Set<OWLIndividual> parseIndividualList() {
         Set<OWLIndividual> inds = new HashSet<>();
         String sep = COMMA.keyword();
         while (COMMA.matches(sep)) {
