@@ -17,7 +17,9 @@ import static org.semanticweb.owlapi.search.Filters.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Nonnull;
 
@@ -131,6 +133,57 @@ public class EntitySearcher {
             @Nonnull OWLAnnotationProperty annotationProperty) {
         return Searcher.annotations(ontology.getAnnotationAssertionAxioms(e),
                 annotationProperty);
+    }
+
+    /**
+     * Obtains the annotations on this entity where the annotation has the
+     * specified annotation property.
+     * 
+     * @param e
+     *        entity
+     * @param ontologies
+     *        The ontologies to examine for annotation axioms
+     * @param annotationProperty
+     *        The annotation property
+     * @return A set of {@code OWLAnnotation} objects that have the specified
+     *         URI.
+     */
+    @Nonnull
+    public static Collection<OWLAnnotation> getAnnotations(
+            @Nonnull OWLAnnotationSubject e,
+            @Nonnull Iterable<OWLOntology> ontologies,
+            @Nonnull OWLAnnotationProperty annotationProperty) {
+        Set<OWLAnnotation> toReturn = new HashSet<>();
+        for (OWLOntology o : ontologies) {
+            assert o != null;
+            toReturn.addAll(getAnnotations(e, o, annotationProperty));
+        }
+        return toReturn;
+    }
+
+    /**
+     * Obtains the annotations on this entity where the annotation has the
+     * specified annotation property.
+     * 
+     * @param e
+     *        entity
+     * @param ontologies
+     *        The ontologies to examine for annotation axioms
+     * @param annotationProperty
+     *        The annotation property
+     * @return A set of {@code OWLAnnotation} objects that have the specified
+     *         URI.
+     */
+    @Nonnull
+    public static Collection<OWLAnnotation> getAnnotations(
+            @Nonnull OWLEntity e, @Nonnull Iterable<OWLOntology> ontologies,
+            @Nonnull OWLAnnotationProperty annotationProperty) {
+        Set<OWLAnnotation> toReturn = new HashSet<>();
+        for (OWLOntology o : ontologies) {
+            assert o != null;
+            toReturn.addAll(getAnnotations(e, o, annotationProperty));
+        }
+        return toReturn;
     }
 
     /**
@@ -2244,6 +2297,27 @@ public class EntitySearcher {
     /**
      * @param i
      *        individual
+     * @param ontologies
+     *        ontologies to search
+     * @return literal values
+     */
+    @Nonnull
+    public static Multimap<OWLDataPropertyExpression, OWLLiteral>
+            getDataPropertyValues(@Nonnull OWLIndividual i,
+                    @Nonnull Iterable<OWLOntology> ontologies) {
+        Multimap<OWLDataPropertyExpression, OWLLiteral> collection = LinkedListMultimap
+                .create();
+        assert collection != null;
+        for (OWLOntology o : ontologies) {
+            assert o != null;
+            collection.putAll(getDataPropertyValues(i, o));
+        }
+        return collection;
+    }
+
+    /**
+     * @param i
+     *        individual
      * @param ontology
      *        ontology to search
      * @return property values
@@ -2257,6 +2331,26 @@ public class EntitySearcher {
         for (OWLObjectPropertyAssertionAxiom ax : ontology
                 .getObjectPropertyAssertionAxioms(i)) {
             map.put(ax.getProperty(), ax.getObject());
+        }
+        return map;
+    }
+
+    /**
+     * @param i
+     *        individual
+     * @param ontologies
+     *        ontologies to search
+     * @return property values
+     */
+    @SuppressWarnings("null")
+    @Nonnull
+    public static Multimap<OWLObjectPropertyExpression, OWLIndividual>
+            getObjectPropertyValues(@Nonnull OWLIndividual i,
+                    @Nonnull Iterable<OWLOntology> ontologies) {
+        Multimap<OWLObjectPropertyExpression, OWLIndividual> map = LinkedListMultimap
+                .create();
+        for (OWLOntology o : ontologies) {
+            map.putAll(getObjectPropertyValues(i, o));
         }
         return map;
     }

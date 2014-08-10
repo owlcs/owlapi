@@ -25,11 +25,14 @@ import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.HasOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.HasOntologyLoaderConfigurationProvider;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -211,6 +214,25 @@ public interface ManchesterOWLSyntaxParser extends
     @Nonnull
     Set<OWLObjectPropertyExpression> parseObjectPropertyList();
 
+    /**
+     * @return list of object properties
+     * @throws OWLParserException
+     *         if a parser exception is raised
+     */
+    @Nonnull
+    Set<OWLDataProperty> parseDataPropertyList();
+
+    /** @return parsed list of individuals */
+    @Nonnull
+    Set<OWLIndividual> parseIndividualList();
+
+    /** @return parsed list of data ranges */
+    @Nonnull
+    Set<OWLDataRange> parseDataRangeList();
+
+    /** @return parsed list of annotation properties */
+    @Nonnull
+    Set<OWLAnnotationProperty> parseAnnotationPropertyList();
     /** @return data range */
     @Nonnull
     OWLDataRange parseDataRange();
