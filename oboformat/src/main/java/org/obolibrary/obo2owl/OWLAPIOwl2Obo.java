@@ -2058,23 +2058,6 @@ public class OWLAPIOwl2Obo {
                 c.setQualifierValues(qvs);
                 f.addClause(c);
                 addQualifiers(c, ax.getAnnotations());
-            } else if (sup instanceof OWLQuantifiedObjectRestriction) {
-                // OWLObjectSomeValuesFrom
-                // OWLObjectAllValuesFrom
-                OWLQuantifiedObjectRestriction r = (OWLQuantifiedObjectRestriction) sup;
-                OWLClassExpression filler = r.getFiller();
-                if (filler.isBottomEntity() || filler.isTopEntity()) {
-                    error("Assertions using owl:Thing or owl:Nothing are not translateable OBO",
-                            ax, false);
-                    return;
-                }
-                String fillerId = getIdentifier(filler);
-                if (fillerId == null) {
-                    error(ax, true);
-                    return;
-                }
-                f.addClause(createRelationshipClauseWithRestrictions(r,
-                        fillerId, qvs, ax));
             } else if (sup instanceof OWLObjectCardinalityRestriction) {
                 // OWLObjectExactCardinality
                 // OWLObjectMinCardinality
@@ -2093,26 +2076,28 @@ public class OWLAPIOwl2Obo {
                 }
                 f.addClause(createRelationshipClauseWithCardinality(
                         cardinality, fillerId, qvs, ax));
+            } else if (sup instanceof OWLQuantifiedObjectRestriction) {
+                // OWLObjectSomeValuesFrom
+                // OWLObjectAllValuesFrom
+                OWLQuantifiedObjectRestriction r = (OWLQuantifiedObjectRestriction) sup;
+                OWLClassExpression filler = r.getFiller();
+                if (filler.isBottomEntity() || filler.isTopEntity()) {
+                    error("Assertions using owl:Thing or owl:Nothing are not translateable OBO",
+                            ax, false);
+                    return;
+                }
+                String fillerId = getIdentifier(filler);
+                if (fillerId == null) {
+                    error(ax, true);
+                    return;
+                }
+                f.addClause(createRelationshipClauseWithRestrictions(r,
+                        fillerId, qvs, ax));
             } else if (sup instanceof OWLObjectIntersectionOf) {
                 OWLObjectIntersectionOf i = (OWLObjectIntersectionOf) sup;
                 List<Clause> clauses = new ArrayList<>();
                 for (OWLClassExpression operand : i.getOperands()) {
-                    if (operand instanceof OWLQuantifiedObjectRestriction) {
-                        OWLQuantifiedObjectRestriction restriction = (OWLQuantifiedObjectRestriction) operand;
-                        OWLClassExpression filler = restriction.getFiller();
-                        if (filler.isBottomEntity() || filler.isTopEntity()) {
-                            error("Assertions using owl:Thing or owl:Nothing are not translateable OBO",
-                                    ax, false);
-                            return;
-                        }
-                        String fillerId = getIdentifier(filler);
-                        if (fillerId == null) {
-                            error(ax, true);
-                            return;
-                        }
-                        clauses.add(createRelationshipClauseWithRestrictions(
-                                restriction, fillerId, new HashSet<>(qvs), ax));
-                    } else if (operand instanceof OWLObjectCardinalityRestriction) {
+                    if (operand instanceof OWLObjectCardinalityRestriction) {
                         OWLObjectCardinalityRestriction restriction = (OWLObjectCardinalityRestriction) operand;
                         OWLClassExpression filler = restriction.getFiller();
                         if (filler.isBottomEntity() || filler.isTopEntity()) {
@@ -2126,6 +2111,21 @@ public class OWLAPIOwl2Obo {
                             return;
                         }
                         clauses.add(createRelationshipClauseWithCardinality(
+                                restriction, fillerId, new HashSet<>(qvs), ax));
+                    } else if (operand instanceof OWLQuantifiedObjectRestriction) {
+                        OWLQuantifiedObjectRestriction restriction = (OWLQuantifiedObjectRestriction) operand;
+                        OWLClassExpression filler = restriction.getFiller();
+                        if (filler.isBottomEntity() || filler.isTopEntity()) {
+                            error("Assertions using owl:Thing or owl:Nothing are not translateable OBO",
+                                    ax, false);
+                            return;
+                        }
+                        String fillerId = getIdentifier(filler);
+                        if (fillerId == null) {
+                            error(ax, true);
+                            return;
+                        }
+                        clauses.add(createRelationshipClauseWithRestrictions(
                                 restriction, fillerId, new HashSet<>(qvs), ax));
                     } else {
                         error(ax, true);
