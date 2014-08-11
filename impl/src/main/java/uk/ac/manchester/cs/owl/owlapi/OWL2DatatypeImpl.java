@@ -322,15 +322,15 @@ public class OWL2DatatypeImpl implements OWLDatatype {
     @Override
     public Set<OWLAnnotationProperty> getAnnotationPropertiesInSignature() {
         return CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(CollectionFactory
-                        .<OWLAnnotationProperty> emptySet());
-
+                .getCopyOnRequestSetFromImmutableCollection(Collections
+                        .emptySet());
     }
+
     @Override
     public Set<OWLNamedIndividual> getIndividualsInSignature() {
         return CollectionFactory
                 .getCopyOnRequestSetFromImmutableCollection(Collections
-                        .<OWLNamedIndividual> emptySet());
+                        .emptySet());
     }
 
     @Override

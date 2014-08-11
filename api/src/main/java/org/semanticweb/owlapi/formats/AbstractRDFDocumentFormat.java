@@ -23,7 +23,8 @@ import org.semanticweb.owlapi.io.RDFResourceParseError;
  *         Management Group
  * @since 3.0.0
  */
-public abstract class AbstractRDFDocumentFormat extends PrefixDocumentFormat {
+public abstract class AbstractRDFDocumentFormat extends
+        PrefixDocumentFormatImpl {
 
     private static final long serialVersionUID = 40000L;
     // TODO make something of these

@@ -19,7 +19,7 @@ import javax.annotation.Nonnull;
  *         Informatics Group
  * @since 2.0.0
  */
-public class ManchesterSyntaxDocumentFormat extends PrefixDocumentFormat {
+public class ManchesterSyntaxDocumentFormat extends PrefixDocumentFormatImpl {
 
     private static final long serialVersionUID = 40000L;
 

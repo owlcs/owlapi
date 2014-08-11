@@ -12,17 +12,19 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
+import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
+
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.io.OWLOntologyLoaderMetaData;
-import org.semanticweb.owlapi.model.parameters.Imports;
 
 import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.Multimap;
@@ -36,17 +38,18 @@ import com.google.common.collect.Multimap;
  *         Informatics Group
  * @since 2.0.0
  */
-public interface OWLDocumentFormat extends Serializable {
+public abstract class OWLDocumentFormatImpl implements OWLDocumentFormat {
 
-    /**
-     * Determines if untyped entities should automatically be typed (declared)
-     * during rendering. (This is a hint to an RDF renderer - the reference
-     * implementation will respect this).
-     * 
-     * @return {@code true} if untyped entities should automatically be typed
-     *         during rendering, otherwise {@code false}.
-     */
-    boolean isAddMissingTypes();
+    private static final long serialVersionUID = 40000L;
+    private Map<Serializable, Serializable> parameterMap = new HashMap<>();
+    @Nonnull
+    private OWLOntologyLoaderMetaData loaderMetaData = new NullLoaderMetaData();
+    private boolean addMissingTypes = true;
+
+    @Override
+    public boolean isAddMissingTypes() {
+        return addMissingTypes;
+    }
 
     /**
      * Determines if a declaration axiom (type triple) needs to be added to the
@@ -75,7 +78,7 @@ public interface OWLDocumentFormat extends Serializable {
         if (!ontology.containsEntityInSignature(entity)) {
             return false;
         }
-        if (ontology.isDeclared(entity, Imports.INCLUDED)) {
+        if (ontology.isDeclared(entity, INCLUDED)) {
             return false;
         }
         Set<OWLOntology> transitiveImports = ontology.getImports();
@@ -136,93 +139,72 @@ public interface OWLDocumentFormat extends Serializable {
         return illegals;
     }
 
-    /**
-     * Determines if untyped entities should automatically be typed during
-     * rendering. By default this is true.
-     * 
-     * @param addMissingTypes
-     *        {@code true} if untyped entities should automatically be typed
-     *        during rendering, otherwise {@code false}.
-     */
-    void setAddMissingTypes(boolean addMissingTypes);
+    @Override
+    public void setAddMissingTypes(boolean addMissingTypes) {
+        this.addMissingTypes = addMissingTypes;
+    }
 
-    /**
-     * @param key
-     *        key for the new entry
-     * @param value
-     *        value for the new entry
-     */
-    void setParameter(Serializable key, Serializable value);
+    @Override
+    public void setParameter(Serializable key, Serializable value) {
+        parameterMap.put(key, value);
+    }
 
-    /**
-     * @param key
-     *        key for the new entry
-     * @param defaultValue
-     *        value for the new entry
-     * @return the value
-     */
-    Serializable getParameter(Serializable key, Serializable defaultValue);
+    @Override
+    public Serializable
+            getParameter(Serializable key, Serializable defaultValue) {
+        Serializable val = parameterMap.get(key);
+        if (val != null) {
+            return val;
+        } else {
+            return defaultValue;
+        }
+    }
 
-    /**
-     * Determines if this format is an instance of a format that uses prefixes
-     * to shorted IRIs.
-     * 
-     * @return {@code true} if this format is an instance of
-     *         {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat} other
-     *         wise {@code false}.
-     */
-    boolean isPrefixOWLOntologyFormat();
+    @Override
+    public OWLOntologyLoaderMetaData getOntologyLoaderMetaData() {
+        return loaderMetaData;
+    }
 
-    /**
-     * If this format is an instance of
-     * {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat} then this
-     * method will obtain it as a
-     * {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat}.
-     * 
-     * @return This format as a more specific
-     *         {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat}.
-     * @throws ClassCastException
-     *         if this format is not an instance of
-     *         {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat}
-     */
-    @Nonnull
-    PrefixDocumentFormat asPrefixOWLOntologyFormat();
+    @Override
+    public void setOntologyLoaderMetaData(
+            OWLOntologyLoaderMetaData loaderMetaData) {
+        this.loaderMetaData = loaderMetaData;
+    }
 
-    /**
-     * If this format describes an ontology that was loaded from some ontology
-     * document (rather than created programmatically) there may be some meta
-     * data about the loading process. Subclasses of {@code OWLOntologyFormat}
-     * will provide accessors etc. to details pertaining to the meta data about
-     * loading.
-     * 
-     * @return An object containing the meta data about loading. .
-     */
-    @Nonnull
-    public OWLOntologyLoaderMetaData getOntologyLoaderMetaData();
+    @Override
+    public boolean isTextual() {
+        return true;
+    }
 
-    /**
-     * Sets the meta data for the ontology loader.
-     * 
-     * @param loaderMetaData
-     *        The metadata.
-     * @throws NullPointerException
-     *         if the {@code loaderMetaData} is {@code null}.
-     */
-    void setOntologyLoaderMetaData(
-            @Nonnull OWLOntologyLoaderMetaData loaderMetaData);
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (obj == this) {
+            return true;
+        }
+        if (obj instanceof OWLDocumentFormat) {
+            return ((OWLDocumentFormat) obj).getKey().equals(getKey());
+        }
+        return false;
+    }
 
-    /**
-     * @return A unique key for this format.
-     */
-    @Nonnull
-    String getKey();
+    @Override
+    public int hashCode() {
+        return getKey().hashCode();
+    }
 
-    /**
-     * Determines whether this format contains textual output, as opposed to
-     * binary output.
-     * 
-     * @return True if this format represents a textual format, as opposed to a
-     *         binary format. Defaults to true if not overridden.
-     */
-    boolean isTextual();
+    @Override
+    public String toString() {
+        return getKey();
+    }
+
+    private static class NullLoaderMetaData implements
+            OWLOntologyLoaderMetaData, Serializable {
+
+        private static final long serialVersionUID = 40000L;
+
+        NullLoaderMetaData() {}
+    }
 }

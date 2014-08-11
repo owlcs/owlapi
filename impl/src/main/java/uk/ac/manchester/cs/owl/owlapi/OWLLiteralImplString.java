@@ -220,8 +220,9 @@ public class OWLLiteralImplString implements OWLLiteral {
 
     @Override
     public Set<OWLAnnotationProperty> getAnnotationPropertiesInSignature() {
-        return CollectionFactory.emptySet();
+        return Collections.emptySet();
     }
+
     @Override
     public Set<OWLDataProperty> getDataPropertiesInSignature() {
         return Collections.emptySet();

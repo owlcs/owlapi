@@ -14,7 +14,7 @@ package org.semanticweb.owlapi.formats;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.OWLDocumentFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormatImpl;
 
 /**
  * Format for serializing an OWL ontology in a functional syntax format and
@@ -22,7 +22,7 @@ import org.semanticweb.owlapi.model.OWLDocumentFormat;
  * cannot be read with the OWL-API. This is only intended to be used as basis
  * for human readable version version control diffs.
  */
-public class LabelFunctionalDocumentFormat extends OWLDocumentFormat {
+public class LabelFunctionalDocumentFormat extends OWLDocumentFormatImpl {
 
     private static final long serialVersionUID = 40000L;
 
@@ -30,5 +30,16 @@ public class LabelFunctionalDocumentFormat extends OWLDocumentFormat {
     @Override
     public String getKey() {
         return "Label functional Syntax";
+    }
+
+    @Override
+    public boolean isPrefixOWLOntologyFormat() {
+        return false;
+    }
+
+    @Override
+    public PrefixDocumentFormat asPrefixOWLOntologyFormat() {
+        throw new UnsupportedOperationException(getClass().getName()
+                + " is not a PrefixDocumentFormat");
     }
 }

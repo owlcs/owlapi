@@ -51,6 +51,7 @@ import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormatImpl;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLEntityVisitor;
 import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
@@ -256,7 +257,7 @@ public abstract class RDFRendererBase {
     }
 
     private void renderOntologyComponents() throws IOException {
-        renderInOntologySignatureEntities(OWLDocumentFormat
+        renderInOntologySignatureEntities(OWLDocumentFormatImpl
                 .determineIllegalPunnings(shouldInsertDeclarations(),
                         ontology.getSignature(),
                         ontology.getPunnedIRIs(INCLUDED)));
@@ -636,7 +637,7 @@ public abstract class RDFRendererBase {
         });
         if (axioms.isEmpty() && shouldInsertDeclarations()
                 && !illegalPuns.contains(entity.getIRI())
-                && OWLDocumentFormat.isMissingType(entity, ontology)) {
+                && OWLDocumentFormatImpl.isMissingType(entity, ontology)) {
             axioms.add(ontology.getOWLOntologyManager().getOWLDataFactory()
                     .getOWLDeclarationAxiom(entity));
         }
