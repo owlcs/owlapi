@@ -24,6 +24,7 @@ import java.util.TreeSet;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.io.OWLObjectRenderer;
+import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
@@ -33,6 +34,7 @@ import org.semanticweb.owlapi.model.OWLDataCardinalityRestriction;
 import org.semanticweb.owlapi.model.OWLDataComplementOf;
 import org.semanticweb.owlapi.model.OWLDataExactCardinality;
 import org.semanticweb.owlapi.model.OWLDataHasValue;
+import org.semanticweb.owlapi.model.OWLDataIntersectionOf;
 import org.semanticweb.owlapi.model.OWLDataMaxCardinality;
 import org.semanticweb.owlapi.model.OWLDataMinCardinality;
 import org.semanticweb.owlapi.model.OWLDataOneOf;
@@ -41,6 +43,7 @@ import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
+import org.semanticweb.owlapi.model.OWLDataUnionOf;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
 import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
@@ -515,6 +518,15 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
         write(" .");
         write(SELF);
     }
+    @Override
+    public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
+        axiom.getProperty().accept(this);
+        writeSpace();
+        write(DISJOINT_WITH);
+        writeSpace();
+        axiom.getProperty().accept(this);
+        write(INVERSE);
+    }
 
     @Override
     public void visit(OWLSubDataPropertyOfAxiom axiom) {
@@ -881,5 +893,15 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
         write(", ");
         node.getSecondArgument().accept(this);
         write(")");
+    }
+
+    @Override
+    public void visit(OWLDataIntersectionOf node) {
+        write(node.getOperands(), AND, true);
+    }
+
+    @Override
+    public void visit(OWLDataUnionOf node) {
+        write(node.getOperands(), OR, true);
     }
 }
