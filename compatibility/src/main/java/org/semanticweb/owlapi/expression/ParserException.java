@@ -27,6 +27,7 @@ public class ParserException extends
 
     private static final long serialVersionUID = 40000L;
 
+    @SuppressWarnings("javadoc")
     public ParserException(
             org.semanticweb.owlapi.mansyntax.renderer.ParserException delegate) {
         super(delegate);
