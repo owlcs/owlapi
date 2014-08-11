@@ -22,4 +22,5 @@ package org.semanticweb.owlapi.model;
  * @since 2.0.0
  */
 public interface OWLDataCardinalityRestriction extends
-        OWLCardinalityRestriction<OWLDataRange>, OWLDataRestriction {}
+        OWLCardinalityRestriction<OWLDataRange>, OWLQuantifiedDataRestriction,
+        OWLDataRestriction {}
