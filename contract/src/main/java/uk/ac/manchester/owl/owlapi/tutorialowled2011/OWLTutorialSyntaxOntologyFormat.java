@@ -14,14 +14,14 @@ package uk.ac.manchester.owl.owlapi.tutorialowled2011;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
+import org.semanticweb.owlapi.formats.PrefixDocumentFormatImpl;
 
 /**
  * @author Sean Bechhofer, The University Of Manchester, Information Management
  *         Group
  * @since 2.0.0
  */
-public class OWLTutorialSyntaxOntologyFormat extends PrefixDocumentFormat {
+public class OWLTutorialSyntaxOntologyFormat extends PrefixDocumentFormatImpl {
 
     private static final long serialVersionUID = 40000L;
 

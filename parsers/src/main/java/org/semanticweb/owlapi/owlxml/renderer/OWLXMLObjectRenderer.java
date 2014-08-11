@@ -58,6 +58,7 @@ import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormatImpl;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
@@ -171,7 +172,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
                 addMissing = format.isAddMissingTypes();
             }
             if (addMissing) {
-                Collection<IRI> illegalPunnings = OWLDocumentFormat
+                Collection<IRI> illegalPunnings = OWLDocumentFormatImpl
                         .determineIllegalPunnings(addMissing,
                                 ontology.getSignature(),
                                 ontology.getPunnedIRIs(Imports.INCLUDED));

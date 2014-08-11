@@ -14,14 +14,14 @@ package org.semanticweb.owlapi.formats;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.OWLDocumentFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormatImpl;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0
  */
-public class KRSSDocumentFormat extends OWLDocumentFormat {
+public class KRSSDocumentFormat extends OWLDocumentFormatImpl {
 
     private static final long serialVersionUID = 40000L;
 
@@ -29,5 +29,16 @@ public class KRSSDocumentFormat extends OWLDocumentFormat {
     @Override
     public String getKey() {
         return "KRSS Syntax";
+    }
+
+    @Override
+    public boolean isPrefixOWLOntologyFormat() {
+        return false;
+    }
+
+    @Override
+    public PrefixDocumentFormat asPrefixOWLOntologyFormat() {
+        throw new UnsupportedOperationException(getClass().getName()
+                + " is not a PrefixDocumentFormat");
     }
 }

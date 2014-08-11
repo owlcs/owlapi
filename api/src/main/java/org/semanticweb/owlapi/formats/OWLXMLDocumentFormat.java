@@ -19,7 +19,7 @@ import javax.annotation.Nonnull;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLXMLDocumentFormat extends PrefixDocumentFormat {
+public class OWLXMLDocumentFormat extends PrefixDocumentFormatImpl {
 
     private static final long serialVersionUID = 40000L;
 

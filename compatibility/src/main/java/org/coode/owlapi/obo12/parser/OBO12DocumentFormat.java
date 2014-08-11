@@ -38,7 +38,8 @@
  */
 package org.coode.owlapi.obo12.parser;
 
-import org.semanticweb.owlapi.model.OWLDocumentFormat;
+import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormatImpl;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
 /**
@@ -48,7 +49,7 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
  * Date: 10-Jan-2007<br>
  * <br>
  */
-public class OBO12DocumentFormat extends OWLDocumentFormat implements
+public class OBO12DocumentFormat extends OWLDocumentFormatImpl implements
         OWLOntologyFormat {
 
     private static final long serialVersionUID = 30406L;
@@ -83,5 +84,16 @@ public class OBO12DocumentFormat extends OWLDocumentFormat implements
     @Override
     public String getKey() {
         return "OBO 1.2 Format";
+    }
+
+    @Override
+    public boolean isPrefixOWLOntologyFormat() {
+        return false;
+    }
+
+    @Override
+    public PrefixDocumentFormat asPrefixOWLOntologyFormat() {
+        throw new UnsupportedOperationException(getClass().getName()
+                + " is not a PrefixDocumentFormat");
     }
 }

@@ -41,7 +41,7 @@ public class RoundTripTest extends OboFormatTestBasics {
         writeOBO(obodoc2);
         List<Diff> diffs = OBODocDiffer.getDiffs(obodoc, obodoc2);
         if (isExpectRoundtrip) {
-            assertEquals("Expected no diffs", 0, diffs.size());
+            assertEquals("Expected no diffs but " + diffs, 0, diffs.size());
         }
         return diffs;
     }

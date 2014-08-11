@@ -19,7 +19,7 @@ import javax.annotation.Nonnull;
  *         Informatics Group
  * @since 2.0.0
  */
-public class FunctionalSyntaxDocumentFormat extends PrefixDocumentFormat {
+public class FunctionalSyntaxDocumentFormat extends PrefixDocumentFormatImpl {
 
     private static final long serialVersionUID = 40000L;
 
@@ -28,4 +28,5 @@ public class FunctionalSyntaxDocumentFormat extends PrefixDocumentFormat {
     public String getKey() {
         return "OWL Functional Syntax";
     }
+
 }
