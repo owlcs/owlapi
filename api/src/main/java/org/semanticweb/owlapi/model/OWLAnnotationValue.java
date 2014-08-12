@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
+import com.google.common.base.Optional;
+
 /**
  * A marker interface for annotation values, which can either be an IRI (URI),
  * Literal or Anonymous Individual, with visitor methods.
@@ -42,4 +44,25 @@ public interface OWLAnnotationValue extends OWLAnnotationObject, OWLPrimitive {
      */
     @Nonnull
     <O> O accept(@Nonnull OWLAnnotationValueVisitorEx<O> visitor);
+
+    /**
+     * @return if the value is a literal, return an optional containing it.
+     *         Return Optional.absent otherwise.
+     */
+    @Nonnull
+    Optional<OWLLiteral> asLiteral();
+
+    /**
+     * @return if the value is an IRI, return an optional containing it. Return
+     *         Optional.absent otherwise.
+     */
+    @Nonnull
+    Optional<IRI> asIRI();
+
+    /**
+     * @return if the value is an anonymous, return an optional containing it.
+     *         Return Optional.absent otherwise.
+     */
+    @Nonnull
+    Optional<OWLAnonymousIndividual> asAnonymousIndividual();
 }

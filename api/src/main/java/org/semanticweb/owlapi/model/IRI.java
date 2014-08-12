@@ -555,6 +555,24 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
         return visitor.visit(this);
     }
 
+    @SuppressWarnings("null")
+    @Override
+    public Optional<IRI> asIRI() {
+        return Optional.of(this);
+    }
+
+    @SuppressWarnings("null")
+    @Override
+    public Optional<OWLAnonymousIndividual> asAnonymousIndividual() {
+        return Optional.absent();
+    }
+
+    @SuppressWarnings("null")
+    @Override
+    public Optional<OWLLiteral> asLiteral() {
+        return Optional.absent();
+    }
+
     @Override
     public boolean isTopEntity() {
         return false;
