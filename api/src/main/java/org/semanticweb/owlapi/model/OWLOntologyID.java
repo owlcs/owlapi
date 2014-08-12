@@ -156,9 +156,11 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
     }
 
     /**
-     * Gets the ontology IRI.
+     * Gets the ontology IRI. If the ontology is anonymous, it will return an
+     * absent Optional (i.e., getOntologyIRI().isPresent() will return false.
      * 
-     * @return the ontology IRI, or {@code null} if there is no ontology IRI.
+     * @return Optional of the ontology IRI, or Optional.absent if there is no
+     *         ontology IRI.
      */
     public Optional<IRI> getOntologyIRI() {
         return ontologyIRI;
@@ -167,7 +169,8 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
     /**
      * Gets the version IRI.
      * 
-     * @return the version IRI, or {@code null} if there is no version IRI.
+     * @return an optional of the version IRI, or Optional.absent if there is no
+     *         version IRI.
      */
     public Optional<IRI> getVersionIRI() {
         return versionIRI;
@@ -182,9 +185,9 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
      * href="http://www.w3.org/TR/owl2-syntax/#Ontology_Documents">Ontology
      * Documents</a> in the OWL 2 Structural Specification.
      * 
-     * @return The IRI that can be used as a default for an ontology document
-     *         containing an ontology as identified by this ontology ID. Returns
-     *         the default IRI or {@code null}.
+     * @return An Optional of the IRI that can be used as a default for an
+     *         ontology document containing an ontology as identified by this
+     *         ontology ID. Returns the default IRI or an Optional.absent.
      */
     @SuppressWarnings("null")
     @Nonnull
@@ -202,7 +205,8 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
 
     /**
      * Determines if this ID names an ontology or whether it is an ID for an
-     * ontology without an IRI.
+     * ontology without an IRI. If the result of this method is true,
+     * getOntologyIRI() will return an Optional.absent.
      * 
      * @return {@code true} if this ID is an ID for an ontology without an IRI,
      *         or {@code false} if this ID is an ID for an ontology with an IRI.
