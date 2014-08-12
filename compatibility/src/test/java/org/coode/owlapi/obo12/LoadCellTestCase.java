@@ -38,6 +38,7 @@ public class LoadCellTestCase {
         m.loadOntologyFromOntologyDocument(source);
     }
 
+    @SuppressWarnings("null")
     @Test
     public void shouldParseGenericOBO() throws OWLOntologyCreationException {
         OWLOntologyManager m = OWLManager.createOWLOntologyManager();

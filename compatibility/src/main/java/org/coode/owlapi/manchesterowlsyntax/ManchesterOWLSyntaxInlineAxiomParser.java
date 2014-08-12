@@ -21,12 +21,12 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group, Date: 13-May-2009
  * @deprecated use
- *             {@link org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxInlineAxiomParser}
+ *             {@link org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxInlineAxiomParser}
  */
 @Deprecated
 public class ManchesterOWLSyntaxInlineAxiomParser
         extends
-        org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxInlineAxiomParser {
+        org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxInlineAxiomParser {
 
     /**
      * @param dataFactory

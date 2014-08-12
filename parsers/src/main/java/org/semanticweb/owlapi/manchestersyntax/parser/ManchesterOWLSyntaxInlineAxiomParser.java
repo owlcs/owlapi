@@ -10,69 +10,54 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.mansyntax.parser;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Set;
+package org.semanticweb.owlapi.manchestersyntax.parser;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLImportsDeclaration;
-import org.semanticweb.owlapi.model.OWLOntologyID;
-
-import com.google.common.base.Optional;
+import org.semanticweb.owlapi.OWLAPIConfigProvider;
+import org.semanticweb.owlapi.expression.OWLEntityChecker;
+import org.semanticweb.owlapi.expression.OWLExpressionParser;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
  * @since 3.0.0
  */
-public class ManchesterOWLSyntaxOntologyHeader {
+public class ManchesterOWLSyntaxInlineAxiomParser implements
+        OWLExpressionParser<OWLAxiom> {
 
     @Nonnull
-    private final OWLOntologyID ontologyID;
+    private final OWLDataFactory dataFactory;
     @Nonnull
-    private final Collection<OWLAnnotation> annotations;
-    @Nonnull
-    private final Collection<OWLImportsDeclaration> importsDeclarations;
+    private OWLEntityChecker checker;
 
     /**
-     * @param ontologyIRI
-     *        the ontology IRI
-     * @param versionIRI
-     *        the version IRI
-     * @param annotations
-     *        the ontology annotations
-     * @param importsDeclarations
-     *        the imports declarations
+     * @param dataFactory
+     *        dataFactory
+     * @param checker
+     *        checker
      */
-    public ManchesterOWLSyntaxOntologyHeader(IRI ontologyIRI, IRI versionIRI,
-            @Nonnull Set<OWLAnnotation> annotations,
-            Set<OWLImportsDeclaration> importsDeclarations) {
-        ontologyID = new OWLOntologyID(Optional.fromNullable(ontologyIRI),
-                Optional.fromNullable(versionIRI));
-        this.annotations = new ArrayList<>(annotations);
-        this.importsDeclarations = new ArrayList<>(importsDeclarations);
+    public ManchesterOWLSyntaxInlineAxiomParser(
+            @Nonnull OWLDataFactory dataFactory,
+            @Nonnull OWLEntityChecker checker) {
+        this.dataFactory = dataFactory;
+        this.checker = checker;
     }
 
-    /** @return the ontology ID */
-    @Nonnull
-    public OWLOntologyID getOntologyID() {
-        return ontologyID;
+    @Override
+    public void setOWLEntityChecker(OWLEntityChecker entityChecker) {
+        checker = entityChecker;
     }
 
-    /** @return the annotations */
-    @Nonnull
-    public Collection<OWLAnnotation> getAnnotations() {
-        return annotations;
-    }
-
-    /** @return the imports declarations */
-    @Nonnull
-    public Collection<OWLImportsDeclaration> getImportsDeclarations() {
-        return importsDeclarations;
+    @Override
+    public OWLAxiom parse(String expression) {
+        ManchesterOWLSyntaxParser parser = new ManchesterOWLSyntaxParserImpl(
+                new OWLAPIConfigProvider(), dataFactory);
+        parser.setOWLEntityChecker(checker);
+        parser.setStringToParse(expression);
+        return parser.parseAxiom();
     }
 }

@@ -1,7 +1,7 @@
 org.semanticweb.owlapi.rdf.rdfxml.renderer.RDFXMLStorerFactory
 org.semanticweb.owlapi.owlxml.renderer.OWLXMLStorerFactory
 org.semanticweb.owlapi.functional.renderer.FunctionalSyntaxStorerFactory
-org.semanticweb.owlapi.mansyntax.renderer.ManchesterSyntaxStorerFactory
+org.semanticweb.owlapi.manchestersyntax.renderer.ManchesterSyntaxStorerFactory
 org.semanticweb.owlapi.krss2.renderer.KRSS2OWLSyntaxStorerFactory
 org.semanticweb.owlapi.rdf.turtle.renderer.TurtleStorerFactory
 org.semanticweb.owlapi.latex.renderer.LatexStorerFactory

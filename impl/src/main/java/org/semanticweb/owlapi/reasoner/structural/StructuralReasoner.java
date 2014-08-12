@@ -681,6 +681,7 @@ public class StructuralReasoner extends OWLReasonerBase {
         return new OWLNamedIndividualNode(inds);
     }
 
+    @SuppressWarnings("null")
     @Nonnull
     @Override
     public NodeSet<OWLNamedIndividual> getDifferentIndividuals(

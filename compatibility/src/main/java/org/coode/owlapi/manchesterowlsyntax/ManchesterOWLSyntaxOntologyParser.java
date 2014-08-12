@@ -16,12 +16,12 @@ package org.coode.owlapi.manchesterowlsyntax;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 13-Aug-2007
  * @deprecated use
- *             {@link org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxOntologyParser}
+ *             {@link org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxOntologyParser}
  */
 @Deprecated
 public class ManchesterOWLSyntaxOntologyParser
         extends
-        org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxOntologyParser {
+        org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxOntologyParser {
 
     /**
      * 

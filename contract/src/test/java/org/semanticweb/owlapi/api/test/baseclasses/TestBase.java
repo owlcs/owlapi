@@ -48,6 +48,8 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
+import com.google.common.base.Optional;
+
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -73,6 +75,15 @@ public abstract class TestBase {
     @Nonnull
     protected OWLOntologyManager m1 = OWLManager.createOWLOntologyManager();
 
+    @Nonnull
+    protected <T> Optional<T> of(T t) {
+        return Optional.fromNullable(t);
+    }
+
+    @Nonnull
+    protected Optional<IRI> absent() {
+        return Optional.absent();
+    }
     @Nonnull
     protected <S> Set<S> singleton(S s) {
         return Collections.singleton(s);

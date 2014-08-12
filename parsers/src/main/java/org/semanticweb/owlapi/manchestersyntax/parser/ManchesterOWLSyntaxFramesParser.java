@@ -10,59 +10,81 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.mansyntax.parser;
+package org.semanticweb.owlapi.manchestersyntax.parser;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
+
+import java.util.Set;
 
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.OWLAPIConfigProvider;
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.expression.OWLExpressionParser;
-import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.expression.OWLOntologyChecker;
 import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.util.OntologyAxiomPair;
 import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
 
 /**
- * An expression parser that parses class expressions written in the Manchester
- * OWL Syntax.
- * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
- * @since 2.2.0
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group
+ * @since 3.0.0
  */
-public class ManchesterOWLSyntaxClassExpressionParser implements
-        OWLExpressionParser<OWLClassExpression> {
+public class ManchesterOWLSyntaxFramesParser implements
+        OWLExpressionParser<Set<OntologyAxiomPair>> {
 
     @Nonnull
     private final OWLDataFactory dataFactory;
     @Nonnull
     private OWLEntityChecker checker;
+    private OWLOntologyChecker ontologyChecker;
+    private OWLOntology defaultOntology;
 
     /**
      * @param dataFactory
-     *        dataFactory
+     *        the data factory
      * @param checker
-     *        checker
+     *        the entity checker
      */
-    public ManchesterOWLSyntaxClassExpressionParser(
-            @Nonnull OWLDataFactory dataFactory,
+    public ManchesterOWLSyntaxFramesParser(@Nonnull OWLDataFactory dataFactory,
             @Nonnull OWLEntityChecker checker) {
-        this.dataFactory = checkNotNull(dataFactory);
-        this.checker = checkNotNull(checker);
+        this.dataFactory = dataFactory;
+        this.checker = checker;
     }
 
     @Override
-    public OWLClassExpression parse(String expression) {
+    public void setOWLEntityChecker(@Nonnull OWLEntityChecker entityChecker) {
+        checker = entityChecker;
+    }
+
+    /**
+     * @param ontologyChecker
+     *        the ontology checker
+     */
+    public void setOWLOntologyChecker(
+            @Nonnull OWLOntologyChecker ontologyChecker) {
+        this.ontologyChecker = ontologyChecker;
+    }
+
+    /**
+     * @param ontology
+     *        the ontology to use
+     */
+    public void setDefaultOntology(@Nonnull OWLOntology ontology) {
+        defaultOntology = ontology;
+    }
+
+    @Nonnull
+    @Override
+    public Set<OntologyAxiomPair> parse(String expression) {
         ManchesterOWLSyntaxParser parser = new ManchesterOWLSyntaxParserImpl(
                 new OWLAPIConfigProvider(), dataFactory);
         parser.setOWLEntityChecker(checker);
         parser.setStringToParse(expression);
-        return parser.parseClassExpression();
-    }
-
-    @Override
-    public void setOWLEntityChecker(OWLEntityChecker entityChecker) {
-        checker = entityChecker;
+        parser.setDefaultOntology(verifyNotNull(defaultOntology));
+        parser.setOWLOntologyChecker(verifyNotNull(ontologyChecker));
+        return parser.parseFrames();
     }
 }

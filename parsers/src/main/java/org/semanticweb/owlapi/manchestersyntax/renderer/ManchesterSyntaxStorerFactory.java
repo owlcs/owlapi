@@ -33,7 +33,7 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.semanticweb.owlapi.mansyntax.renderer;
+package org.semanticweb.owlapi.manchestersyntax.renderer;
 
 import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormatFactory;

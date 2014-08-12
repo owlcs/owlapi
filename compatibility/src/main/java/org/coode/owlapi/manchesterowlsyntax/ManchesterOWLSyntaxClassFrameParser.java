@@ -24,12 +24,12 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 13-Sep-2007
  * @deprecated use
- *             {@link org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxClassFrameParser}
+ *             {@link org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxClassFrameParser}
  */
 @Deprecated
 public class ManchesterOWLSyntaxClassFrameParser
         extends
-        org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxClassFrameParser {
+        org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxClassFrameParser {
 
     /**
      * @param dataFactory

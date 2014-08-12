@@ -63,6 +63,7 @@ public class UseOfReservedVocabularyForVersionIRI extends OWLProfileViolation {
                 getExpression());
     }
 
+    @SuppressWarnings("null")
     @Override
     public List<OWLOntologyChange> repair() {
         // XXX arbitrary replacement

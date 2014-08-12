@@ -177,7 +177,6 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
                 "dataFactory cannot be null");
         installDefaultURIMappers();
         installDefaultOntologyFactories();
-
     }
 
     @Override
@@ -192,6 +191,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
             OWLOntologyLoaderConfiguration newConfig) {
         config = Optional.fromNullable(newConfig);
     }
+
     @Override
     @SuppressWarnings("null")
     @Nonnull
@@ -287,8 +287,8 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
 
     @Override
     public OWLOntology getOntology(IRI ontologyIRI) {
-        OWLOntologyID ontologyID = new OWLOntologyID(
-                Optional.fromNullable(ontologyIRI), Optional.<IRI> absent());
+        OWLOntologyID ontologyID = new OWLOntologyID(of(ontologyIRI),
+                of((IRI) null));
         OWLOntology result = ontologiesByID.get(ontologyID);
         if (result == null) {
             for (OWLOntologyID nextOntologyID : ontologiesByID.keySet()) {
@@ -686,8 +686,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     @Override
     public OWLOntology createOntology(@Nonnull IRI ontologyIRI)
             throws OWLOntologyCreationException {
-        return createOntology(new OWLOntologyID(
-                Optional.fromNullable(ontologyIRI), Optional.<IRI> absent()));
+        return createOntology(new OWLOntologyID(of(ontologyIRI), absent()));
     }
 
     @Override
@@ -734,9 +733,8 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
             Set<OWLOntology> ontologies, boolean copyLogicalAxiomsOnly)
             throws OWLOntologyCreationException {
         if (contains(ontologyIRI)) {
-            throw new OWLOntologyAlreadyExistsException(
-                    new OWLOntologyID(Optional.fromNullable(ontologyIRI),
-                            Optional.<IRI> absent()));
+            throw new OWLOntologyAlreadyExistsException(new OWLOntologyID(
+                    of(ontologyIRI), absent()));
         }
         OWLOntology ont = createOntology(ontologyIRI);
         Set<OWLAxiom> axioms = new HashSet<>();
@@ -755,9 +753,8 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     public OWLOntology createOntology(Set<OWLAxiom> axioms, IRI ontologyIRI)
             throws OWLOntologyCreationException {
         if (contains(ontologyIRI)) {
-            throw new OWLOntologyAlreadyExistsException(
-                    new OWLOntologyID(Optional.fromNullable(ontologyIRI),
-                            Optional.<IRI> absent()));
+            throw new OWLOntologyAlreadyExistsException(new OWLOntologyID(
+                    of(ontologyIRI), absent()));
         }
         OWLOntology ont = createOntology(ontologyIRI);
         addAxioms(ont, axioms);
@@ -847,8 +844,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         if (ontByID != null) {
             return ontByID;
         }
-        OWLOntologyID id = new OWLOntologyID(
-                Optional.fromNullable(ontologyIRI), Optional.<IRI> absent());
+        OWLOntologyID id = new OWLOntologyID(of(ontologyIRI), absent());
         IRI documentIRI = getDocumentIRIFromMappers(id, true);
         if (documentIRI != null) {
             if (documentIRIsByID.values().contains(documentIRI) && !allowExists) {
@@ -901,9 +897,9 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     @Override
     public OWLOntology loadOntologyFromOntologyDocument(
             OWLOntologyDocumentSource documentSource,
-            OWLOntologyLoaderConfiguration config)
+            OWLOntologyLoaderConfiguration conf)
             throws OWLOntologyCreationException {
-        return loadOntology(null, documentSource, config);
+        return loadOntology(null, documentSource, conf);
     }
 
     @Override
@@ -944,9 +940,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
             System.err
                     .println("Runtime Warning: Parsers should load imported ontologies using the makeImportLoadRequest method.");
         }
-        fireStartedLoadingEvent(
-                new OWLOntologyID(Optional.fromNullable(ontologyIRI),
-                        Optional.<IRI> absent()),
+        fireStartedLoadingEvent(new OWLOntologyID(of(ontologyIRI), absent()),
                 documentSource.getDocumentIRI(), loadCount.get() > 0);
         loadCount.incrementAndGet();
         broadcastChanges.set(false);
@@ -1530,5 +1524,17 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
                 progressListeners.remove(listener);
             }
         }
+    }
+
+    @SuppressWarnings("null")
+    @Nonnull
+    protected <T> Optional<T> of(T t) {
+        return Optional.fromNullable(t);
+    }
+
+    @SuppressWarnings("null")
+    @Nonnull
+    protected Optional<IRI> absent() {
+        return Optional.absent();
     }
 }

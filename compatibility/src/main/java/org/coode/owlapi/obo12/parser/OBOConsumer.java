@@ -314,6 +314,7 @@ class OBOConsumer implements OBOParserHandler {
             versionIRI = IRI.create(ontologyIRI.toString() + "/"
                     + dataVersionTagValue);
         }
+        @SuppressWarnings("null")
         OWLOntologyID ontologyID = new OWLOntologyID(
                 Optional.fromNullable(ontologyIRI),
                 Optional.fromNullable(versionIRI));

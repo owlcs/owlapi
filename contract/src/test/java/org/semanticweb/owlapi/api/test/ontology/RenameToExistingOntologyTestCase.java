@@ -23,8 +23,6 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyRenameException;
 import org.semanticweb.owlapi.model.SetOntologyID;
 
-import com.google.common.base.Optional;
-
 /**
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
@@ -42,7 +40,7 @@ public class RenameToExistingOntologyTestCase extends TestBase {
                 df.getOWLDeclarationAxiom(Class(IRI("urn:test:testclass"))));
         IRI ontologyBIRI = IRI("http://www.semanticweb.org/ontologies/ontologyB");
         OWLOntology ontologyB = m.createOntology(ontologyBIRI);
-        m.applyChange(new SetOntologyID(ontologyB, new OWLOntologyID(Optional
-                .of(ontologyAIRI), Optional.<IRI> absent())));
+        m.applyChange(new SetOntologyID(ontologyB, new OWLOntologyID(
+                of(ontologyAIRI), absent())));
     }
 }

@@ -64,6 +64,7 @@ public class OWLOntologyIRIChanger {
      *         specified ontology, and also update the imports declarations in
      *         any ontologies which import the specified ontology.
      */
+    @SuppressWarnings("null")
     @Nonnull
     public List<OWLOntologyChange> getChanges(@Nonnull OWLOntology ontology,
             @Nonnull IRI newIRI) {
