@@ -29,6 +29,7 @@ import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
@@ -38,6 +39,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAxiom;
 import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
@@ -47,6 +49,7 @@ import org.semanticweb.owlapi.model.OWLEntityVisitor;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLIndividualAxiom;
+import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLLogicalAxiom;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLNamedObjectVisitor;
@@ -67,6 +70,7 @@ import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.model.parameters.Search;
 import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 import com.google.common.base.Optional;
 
@@ -1090,8 +1094,56 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
         } else if (owlEntity instanceof OWLAnonymousIndividual) {
             return ints.get(OWLAnonymousIndividual.class, OWLAxiom.class).get()
                     .getValues((OWLAnonymousIndividual) owlEntity);
+        } else if (owlEntity instanceof IRI) {
+            Set<OWLAxiom> axioms = new HashSet<>();
+            // axioms referring entities with this IRI, data property assertions
+            // with IRI as subject, annotations with IRI as subject or object.
+            Set<OWLEntity> entities = getEntitiesInSignature((IRI) owlEntity,
+                    includeImportsClosure);
+            for (OWLEntity e : entities) {
+                assert e != null;
+                axioms.addAll(getReferencingAxioms(e, includeImportsClosure));
+            }
+            for (OWLDataPropertyAssertionAxiom ax : getAxioms(AxiomType.DATA_PROPERTY_ASSERTION)) {
+                if (ax.getObject().getDatatype().getIRI()
+                        .equals(OWL2Datatype.XSD_ANY_URI.getIRI())) {
+                    if (ax.getObject().getLiteral()
+                            .equals(owlEntity.toString())) {
+                        axioms.add(ax);
+                    }
+                }
+            }
+            for (OWLAnnotationAssertionAxiom ax : getAxioms(AxiomType.ANNOTATION_ASSERTION)) {
+                if (ax.getSubject().equals(owlEntity)) {
+                    axioms.add(ax);
+                } else if (ax.getValue().asLiteral().isPresent()) {
+                    Optional<OWLLiteral> lit = ax.getValue().asLiteral();
+                    if (lit.get().getDatatype().getIRI()
+                            .equals(OWL2Datatype.XSD_ANY_URI.getIRI())) {
+                        if (lit.get().getLiteral().equals(owlEntity.toString())) {
+                            axioms.add(ax);
+                        }
+                    }
+                }
+            }
+            return axioms;
+        } else if (owlEntity instanceof OWLLiteral) {
+            Set<OWLAxiom> axioms = new HashSet<>();
+            for (OWLDataPropertyAssertionAxiom ax : getAxioms(AxiomType.DATA_PROPERTY_ASSERTION)) {
+                if (ax.getObject().getDatatype().getIRI()
+                        .equals(OWL2Datatype.XSD_ANY_URI.getIRI())) {
+                    if (ax.getObject().getLiteral().equals(owlEntity)) {
+                        axioms.add(ax);
+                    }
+                }
+            }
+            for (OWLAnnotationAssertionAxiom ax : getAxioms(AxiomType.ANNOTATION_ASSERTION)) {
+                if (owlEntity.equals(ax.getValue().asLiteral().orNull())) {
+                    axioms.add(ax);
+                }
+            }
+            return axioms;
         }
-        // TODO add support for looking up by IRI, OWLLiteral, etc.
         return Collections.emptySet();
     }
 

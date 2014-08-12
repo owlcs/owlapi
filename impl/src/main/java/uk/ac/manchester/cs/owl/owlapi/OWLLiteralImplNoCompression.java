@@ -15,8 +15,10 @@ package uk.ac.manchester.cs.owl.owlapi;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationValueVisitor;
 import org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx;
+import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLDataVisitor;
 import org.semanticweb.owlapi.model.OWLDataVisitorEx;
 import org.semanticweb.owlapi.model.OWLDatatype;
@@ -27,6 +29,8 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
+
+import com.google.common.base.Optional;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -278,5 +282,23 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements
     @Override
     public <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
+    }
+
+    @SuppressWarnings("null")
+    @Override
+    public Optional<IRI> asIRI() {
+        return Optional.absent();
+    }
+
+    @SuppressWarnings("null")
+    @Override
+    public Optional<OWLAnonymousIndividual> asAnonymousIndividual() {
+        return Optional.absent();
+    }
+
+    @SuppressWarnings("null")
+    @Override
+    public Optional<OWLLiteral> asLiteral() {
+        return Optional.<OWLLiteral> of(this);
     }
 }

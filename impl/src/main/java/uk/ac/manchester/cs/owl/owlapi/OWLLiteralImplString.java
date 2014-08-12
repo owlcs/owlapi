@@ -17,6 +17,7 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnnotationValueVisitor;
 import org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx;
@@ -37,6 +38,8 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
+
+import com.google.common.base.Optional;
 
 /**
  * An OWLLiteral with xsd:string datatype and no language tag
@@ -281,4 +284,23 @@ public class OWLLiteralImplString implements OWLLiteral {
     public boolean containsEntityInSignature(OWLEntity owlEntity) {
         return false;
     }
+
+    @SuppressWarnings("null")
+    @Override
+    public Optional<IRI> asIRI() {
+        return Optional.absent();
+    }
+
+    @SuppressWarnings("null")
+    @Override
+    public Optional<OWLAnonymousIndividual> asAnonymousIndividual() {
+        return Optional.absent();
+    }
+
+    @SuppressWarnings("null")
+    @Override
+    public Optional<OWLLiteral> asLiteral() {
+        return Optional.<OWLLiteral> of(this);
+    }
+
 }

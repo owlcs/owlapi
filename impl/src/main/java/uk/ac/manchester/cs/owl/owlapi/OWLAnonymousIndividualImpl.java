@@ -16,6 +16,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.NodeID;
 import org.semanticweb.owlapi.model.OWLAnnotationSubjectVisitor;
 import org.semanticweb.owlapi.model.OWLAnnotationSubjectVisitorEx;
@@ -24,12 +25,15 @@ import org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLIndividualVisitor;
 import org.semanticweb.owlapi.model.OWLIndividualVisitorEx;
+import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
+
+import com.google.common.base.Optional;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
@@ -132,6 +136,24 @@ public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements
     @Override
     public <E> E accept(OWLAnnotationSubjectVisitorEx<E> visitor) {
         return visitor.visit(this);
+    }
+
+    @SuppressWarnings("null")
+    @Override
+    public Optional<IRI> asIRI() {
+        return Optional.absent();
+    }
+
+    @SuppressWarnings("null")
+    @Override
+    public Optional<OWLAnonymousIndividual> asAnonymousIndividual() {
+        return Optional.<OWLAnonymousIndividual> of(this);
+    }
+
+    @SuppressWarnings("null")
+    @Override
+    public Optional<OWLLiteral> asLiteral() {
+        return Optional.absent();
     }
 
     @Override
