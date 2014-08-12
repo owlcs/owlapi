@@ -1080,6 +1080,11 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     }
 
     @Override
+    public Set<OWLAxiom> getReferencingAxioms(OWLPrimitive owlEntity) {
+        return getReferencingAxioms(owlEntity, EXCLUDED);
+    }
+
+    @Override
     public Set<OWLAxiom> getReferencingAxioms(OWLPrimitive owlEntity,
             Imports includeImportsClosure) {
         if (owlEntity instanceof OWLEntity) {
