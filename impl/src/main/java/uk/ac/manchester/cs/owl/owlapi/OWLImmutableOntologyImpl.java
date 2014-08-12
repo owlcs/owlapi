@@ -1296,4 +1296,46 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
         getOWLOntologyManager().saveOntology(this, ontologyFormat,
                 documentTarget);
     }
+
+    @Override
+    public boolean containsDatatypeInSignature(IRI owlDatatypeIRI) {
+        return containsDatatypeInSignature(owlDatatypeIRI, EXCLUDED);
+    }
+
+    @Override
+    public boolean containsEntityInSignature(IRI entityIRI) {
+        return containsEntityInSignature(entityIRI, EXCLUDED);
+    }
+
+    @Override
+    public boolean containsClassInSignature(IRI owlClassIRI) {
+        return containsClassInSignature(owlClassIRI, EXCLUDED);
+    }
+
+    @Override
+    public boolean containsObjectPropertyInSignature(IRI owlObjectPropertyIRI) {
+        return containsObjectPropertyInSignature(owlObjectPropertyIRI, EXCLUDED);
+    }
+
+    @Override
+    public boolean containsDataPropertyInSignature(IRI owlDataPropertyIRI) {
+        return containsDataPropertyInSignature(owlDataPropertyIRI, EXCLUDED);
+    }
+
+    @Override
+    public boolean containsAnnotationPropertyInSignature(
+            IRI owlAnnotationPropertyIRI) {
+        return containsAnnotationPropertyInSignature(owlAnnotationPropertyIRI,
+                EXCLUDED);
+    }
+
+    @Override
+    public boolean containsIndividualInSignature(IRI owlIndividualIRI) {
+        return containsIndividualInSignature(owlIndividualIRI, EXCLUDED);
+    }
+
+    @Override
+    public boolean containsReference(OWLEntity entity) {
+        return containsReference(entity, EXCLUDED);
+    }
 }
