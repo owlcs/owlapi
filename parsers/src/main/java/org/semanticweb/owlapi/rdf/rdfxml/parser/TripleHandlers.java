@@ -2476,6 +2476,7 @@ public class TripleHandlers {
                 if (!ontologyIRI.isPresent() && !isAnonymous(subject)) {
                     ontologyIRI = Optional.of(subject);
                 }
+                @SuppressWarnings("null")
                 OWLOntologyID ontologyID = new OWLOntologyID(ontologyIRI,
                         versionIRI);
                 consumer.setOntologyID(ontologyID);
@@ -3264,6 +3265,7 @@ public class TripleHandlers {
                 // preserve the version IRI if it also existed before this point
                 if (!consumer.getOntology().getOntologyID().getOntologyIRI()
                         .isPresent()) {
+                    @SuppressWarnings("null")
                     OWLOntologyID id = new OWLOntologyID(Optional.of(subject),
                             consumer.getOntology().getOntologyID()
                                     .getVersionIRI());

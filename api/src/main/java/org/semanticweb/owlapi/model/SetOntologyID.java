@@ -63,6 +63,7 @@ public class SetOntologyID extends OWLOntologyChange {
      * @param ontologyIRI
      *        The ontology iri
      */
+    @SuppressWarnings("null")
     public SetOntologyID(@Nonnull OWLOntology ont, @Nonnull IRI ontologyIRI) {
         this(ont, new OWLOntologyID(Optional.of(ontologyIRI),
                 Optional.<IRI> absent()));

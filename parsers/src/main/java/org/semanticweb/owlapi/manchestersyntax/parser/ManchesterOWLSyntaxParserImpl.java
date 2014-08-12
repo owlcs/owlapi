@@ -10,10 +10,10 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.mansyntax.parser;
+package org.semanticweb.owlapi.manchestersyntax.parser;
 
-import static org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntax.*;
-import static org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxTokenizer.*;
+import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.*;
+import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxTokenizer.*;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import java.util.ArrayList;
@@ -38,8 +38,8 @@ import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.expression.OWLOntologyChecker;
 import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi.io.XMLUtils;
-import org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxTokenizer.Token;
-import org.semanticweb.owlapi.mansyntax.renderer.ParserException;
+import org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxTokenizer.Token;
+import org.semanticweb.owlapi.manchestersyntax.renderer.ParserException;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
@@ -208,6 +208,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
             ruleBuiltIns.put(v.getIRI().toQuotedString(), v);
         }
     }
+
 
     @Override
     @SuppressWarnings("null")
@@ -1374,7 +1375,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
 
     @Override
     public void setDefaultOntology(@Nonnull OWLOntology defaultOntology) {
-        defaultOntology = defaultOntology;
+        this.defaultOntology = defaultOntology;
     }
 
     private boolean isEmptyFrameSection(Map<ManchesterOWLSyntax, ?> parsers) {

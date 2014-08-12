@@ -10,54 +10,36 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.mansyntax.parser;
+package org.semanticweb.owlapi.manchestersyntax.renderer;
 
-import javax.annotation.Nonnull;
+import java.io.Writer;
 
-import org.semanticweb.owlapi.OWLAPIConfigProvider;
-import org.semanticweb.owlapi.expression.OWLEntityChecker;
-import org.semanticweb.owlapi.expression.OWLExpressionParser;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.util.mansyntax.ManchesterOWLSyntaxParser;
+import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.util.AbstractOWLStorer;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
- * @since 3.0.0
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
+ * @since 2.0.0
  */
-public class ManchesterOWLSyntaxInlineAxiomParser implements
-        OWLExpressionParser<OWLAxiom> {
+public class ManchesterSyntaxStorer extends AbstractOWLStorer {
 
-    @Nonnull
-    private final OWLDataFactory dataFactory;
-    @Nonnull
-    private OWLEntityChecker checker;
+    private static final long serialVersionUID = 40000L;
 
-    /**
-     * @param dataFactory
-     *        dataFactory
-     * @param checker
-     *        checker
-     */
-    public ManchesterOWLSyntaxInlineAxiomParser(
-            @Nonnull OWLDataFactory dataFactory,
-            @Nonnull OWLEntityChecker checker) {
-        this.dataFactory = dataFactory;
-        this.checker = checker;
+    @Override
+    public boolean canStoreOntology(OWLDocumentFormat ontologyFormat) {
+        return ontologyFormat instanceof ManchesterSyntaxDocumentFormat;
     }
 
     @Override
-    public void setOWLEntityChecker(OWLEntityChecker entityChecker) {
-        checker = entityChecker;
-    }
-
-    @Override
-    public OWLAxiom parse(String expression) {
-        ManchesterOWLSyntaxParser parser = new ManchesterOWLSyntaxParserImpl(
-                new OWLAPIConfigProvider(), dataFactory);
-        parser.setOWLEntityChecker(checker);
-        parser.setStringToParse(expression);
-        return parser.parseAxiom();
+    protected void storeOntology(OWLOntology ontology, Writer writer,
+            OWLDocumentFormat format) throws OWLOntologyStorageException {
+        ManchesterOWLSyntaxFrameRenderer ren = new ManchesterOWLSyntaxFrameRenderer(
+                ontology, writer,
+                new ManchesterOWLSyntaxPrefixNameShortFormProvider(format));
+        ren.writeOntology();
     }
 }

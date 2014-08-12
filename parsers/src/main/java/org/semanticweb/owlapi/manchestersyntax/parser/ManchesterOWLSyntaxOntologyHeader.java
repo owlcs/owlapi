@@ -10,64 +10,70 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.profiles.violations;
+package org.semanticweb.owlapi.manchestersyntax.parser;
 
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Set;
 
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyChange;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLOntologyID;
-import org.semanticweb.owlapi.model.SetOntologyID;
-import org.semanticweb.owlapi.profiles.OWLProfileViolation;
-import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
-import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
 import com.google.common.base.Optional;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
+ * @since 3.0.0
  */
-public class OntologyVersionIRINotAbsolute extends OWLProfileViolation {
+public class ManchesterOWLSyntaxOntologyHeader {
+
+    @Nonnull
+    private final OWLOntologyID ontologyID;
+    @Nonnull
+    private final Collection<OWLAnnotation> annotations;
+    @Nonnull
+    private final Collection<OWLImportsDeclaration> importsDeclarations;
 
     /**
-     * @param ontology
-     *        ontology
+     * @param ontologyIRI
+     *        the ontology IRI
+     * @param versionIRI
+     *        the version IRI
+     * @param annotations
+     *        the ontology annotations
+     * @param importsDeclarations
+     *        the imports declarations
      */
-    public OntologyVersionIRINotAbsolute(@Nonnull OWLOntology ontology) {
-        super(ontology, null, ontology.getOntologyID());
-    }
-
-    @Override
-    public OWLOntologyID getExpression() {
-        return (OWLOntologyID) super.getExpression();
-    }
-
-    @Override
-    public void accept(OWLProfileViolationVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
-    public <O> O accept(OWLProfileViolationVisitorEx<O> visitor) {
-        return visitor.visit(this);
-    }
-
-    @Override
-    public String toString() {
-        return toString("Ontology version IRI not absolute: %s",
-                getExpression());
-    }
-
     @SuppressWarnings("null")
-    @Override
-    public List<OWLOntologyChange> repair() {
-        // XXX arbitrary choice
-        return list(new SetOntologyID(ontology, new OWLOntologyID(
-                Optional.of(IRI.create("urn:ontology#replaced")),
-                Optional.of(IRI.create("urn:ontology#replaced1")))));
+    public ManchesterOWLSyntaxOntologyHeader(IRI ontologyIRI, IRI versionIRI,
+            @Nonnull Set<OWLAnnotation> annotations,
+            Set<OWLImportsDeclaration> importsDeclarations) {
+        ontologyID = new OWLOntologyID(Optional.fromNullable(ontologyIRI),
+                Optional.fromNullable(versionIRI));
+        this.annotations = new ArrayList<>(annotations);
+        this.importsDeclarations = new ArrayList<>(importsDeclarations);
+    }
+
+    /** @return the ontology ID */
+    @Nonnull
+    public OWLOntologyID getOntologyID() {
+        return ontologyID;
+    }
+
+    /** @return the annotations */
+    @Nonnull
+    public Collection<OWLAnnotation> getAnnotations() {
+        return annotations;
+    }
+
+    /** @return the imports declarations */
+    @Nonnull
+    public Collection<OWLImportsDeclaration> getImportsDeclarations() {
+        return importsDeclarations;
     }
 }

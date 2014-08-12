@@ -33,7 +33,7 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.semanticweb.owlapi.mansyntax.parser;
+package org.semanticweb.owlapi.manchestersyntax.parser;
 
 import javax.annotation.Nonnull;
 

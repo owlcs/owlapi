@@ -261,6 +261,7 @@ public class OWLLiteralImplString implements OWLLiteral {
         return false;
     }
 
+    @SuppressWarnings("null")
     @Override
     public int compareTo(OWLObject o) {
         int thisTypeIndex = index();

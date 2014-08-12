@@ -16,6 +16,7 @@ import com.google.common.base.Optional;
 @SuppressWarnings("javadoc")
 public class OWLOntologyChangeRecordTest {
 
+    @SuppressWarnings("null")
     @Test
     public void testSerializeChangeRecord() throws Exception {
         OWLOntologyID id1 = new OWLOntologyID(Optional.of(IRI.create("urn:a")),

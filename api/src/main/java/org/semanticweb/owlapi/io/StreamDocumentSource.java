@@ -48,7 +48,7 @@ public class StreamDocumentSource extends StreamDocumentSourceBase {
      * @param iri
      *        The document IRI
      */
-    public StreamDocumentSource(@Nonnull InputStream is, IRI iri) {
+    public StreamDocumentSource(@Nonnull InputStream is, @Nonnull IRI iri) {
         this(is, iri, null, null);
     }
 

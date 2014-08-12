@@ -16,7 +16,7 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxParserImpl;
+import org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxParserImpl;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;

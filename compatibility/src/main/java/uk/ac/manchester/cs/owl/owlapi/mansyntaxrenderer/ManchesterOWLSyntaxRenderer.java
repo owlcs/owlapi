@@ -22,6 +22,6 @@ package uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer;
  */
 @Deprecated
 public class ManchesterOWLSyntaxRenderer extends
-        org.semanticweb.owlapi.mansyntax.renderer.ManchesterOWLSyntaxRenderer {
+        org.semanticweb.owlapi.manchestersyntax.renderer.ManchesterOWLSyntaxRenderer {
 
 }

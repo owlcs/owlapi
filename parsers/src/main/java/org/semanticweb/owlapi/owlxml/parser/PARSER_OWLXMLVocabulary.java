@@ -3155,6 +3155,7 @@ class OWLOntologyHandler extends OWLElementHandler<OWLOntology> {
     @Override
     void attribute(@Nonnull String localName, String value) {
         if (localName.equals("ontologyIRI")) {
+            @SuppressWarnings("null")
             OWLOntologyID newID = new OWLOntologyID(Optional.of(IRI
                     .create(value)), handler.getOntology().getOntologyID()
                     .getVersionIRI());
@@ -3162,6 +3163,7 @@ class OWLOntologyHandler extends OWLElementHandler<OWLOntology> {
                     new SetOntologyID(handler.getOntology(), newID));
         }
         if (localName.equals("versionIRI")) {
+            @SuppressWarnings("null")
             OWLOntologyID newID = new OWLOntologyID(handler.getOntology()
                     .getOntologyID().getOntologyIRI(), Optional.of(IRI
                     .create(value)));

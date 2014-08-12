@@ -23,13 +23,13 @@ package org.semanticweb.owlapi.expression;
  */
 @Deprecated
 public class ParserException extends
-        org.semanticweb.owlapi.mansyntax.renderer.ParserException {
+        org.semanticweb.owlapi.manchestersyntax.renderer.ParserException {
 
     private static final long serialVersionUID = 40000L;
 
     @SuppressWarnings("javadoc")
     public ParserException(
-            org.semanticweb.owlapi.mansyntax.renderer.ParserException delegate) {
+            org.semanticweb.owlapi.manchestersyntax.renderer.ParserException delegate) {
         super(delegate);
     }
 

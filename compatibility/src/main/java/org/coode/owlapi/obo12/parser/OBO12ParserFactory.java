@@ -66,6 +66,7 @@ public class OBO12ParserFactory implements OWLParserFactory {
         return null;
     }
 
+    @SuppressWarnings("null")
     @Override
     public List<String> getMIMETypes() {
         return Collections.emptyList();

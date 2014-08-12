@@ -15,7 +15,7 @@ import org.semanticweb.owlapi.util.ShortFormProvider;
 @Deprecated
 public class ManchesterOWLSyntaxFrameRenderer
         extends
-        org.semanticweb.owlapi.mansyntax.renderer.ManchesterOWLSyntaxFrameRenderer {
+        org.semanticweb.owlapi.manchestersyntax.renderer.ManchesterOWLSyntaxFrameRenderer {
 
     /**
      * @param ontology
