@@ -53,6 +53,7 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
      *        The ontology IRI (may be {@code null})
      * @deprecated use the Optional based constructor instead
      */
+    @SuppressWarnings("null")
     @Deprecated
     public OWLOntologyID(IRI iri) {
         this(opt(iri), Optional.<IRI> absent());
@@ -73,6 +74,8 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
         this(opt(iri), opt(versionIRI));
     }
 
+    @SuppressWarnings("null")
+    @Nonnull
     private static Optional<IRI> opt(IRI i) {
         if (NodeID.isAnonymousNodeIRI(i)) {
             return Optional.absent();
@@ -96,6 +99,12 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
         return i;
     }
 
+    @SuppressWarnings("null")
+    @Nonnull
+    private static <T> Optional<T> opt(T i) {
+        return Optional.fromNullable(i);
+    }
+
     /**
      * Constructs an ontology identifier specifiying the ontology IRI and
      * version IRI.
@@ -105,13 +114,14 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
      * @param version
      *        The version IRI (must be absent if the ontologyIRI is absent)
      */
-    public OWLOntologyID(Optional<IRI> iri, Optional<IRI> version) {
+    public OWLOntologyID(@Nonnull Optional<IRI> iri,
+            @Nonnull Optional<IRI> version) {
         ontologyIRI = opt(iri);
         hashCode = 17;
         if (ontologyIRI.isPresent()) {
             hashCode += 37 * ontologyIRI.hashCode();
         } else {
-            internalID = Optional.of(ANON_PREFIX + COUNTER.getAndIncrement());
+            internalID = opt(ANON_PREFIX + COUNTER.getAndIncrement());
             hashCode += 37 * internalID.hashCode();
         }
         versionIRI = opt(version);
@@ -128,6 +138,7 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
      * Constructs an ontology identifier specifying that the ontology IRI (and
      * hence the version IRI) is not present.
      */
+    @SuppressWarnings("null")
     public OWLOntologyID() {
         this(Optional.<IRI> absent(), Optional.<IRI> absent());
     }
@@ -159,6 +170,7 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
      * @return Optional of the ontology IRI, or Optional.absent if there is no
      *         ontology IRI.
      */
+    @Nonnull
     public Optional<IRI> getOntologyIRI() {
         return ontologyIRI;
     }
@@ -169,6 +181,7 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
      * @return an optional of the version IRI, or Optional.absent if there is no
      *         version IRI.
      */
+    @Nonnull
     public Optional<IRI> getVersionIRI() {
         return versionIRI;
     }
