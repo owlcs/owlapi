@@ -92,7 +92,8 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
 
     /**
      * Determines whether or not this ontology is anonymous. An ontology is
-     * anonymous if it does not have an ontology IRI.
+     * anonymous if it does not have an ontology IRI. In this case,
+     * getOntologyID().getOntologyIRI() will return an Optional.absent.
      * 
      * @return {@code true} if this ontology is anonymous, otherwise
      *         {@code false}
