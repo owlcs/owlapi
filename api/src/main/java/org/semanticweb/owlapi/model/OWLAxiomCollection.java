@@ -246,6 +246,22 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
     Set<OWLAxiom> getReferencingAxioms(@Nonnull OWLPrimitive owlEntity,
             @Nonnull Imports includeImportsClosure);
 
+    /**
+     * Gets the axioms where the specified {@link OWLPrimitive} appears in the
+     * signature of the axiom.<br>
+     * Note that currently signatures contain {@link OWLEntity} only. This
+     * method accepts OWLPrimitive so that also anonymous individuals, literals,
+     * IRIs and annotation values can be passed in, although they are not
+     * included in the axioms' signatures.
+     * 
+     * @param owlEntity
+     *        The entity that should be directly referred to by all axioms in
+     *        the results set.
+     * @return All axioms referencing the entity. The set is a copy of the data.
+     */
+    @Nonnull
+    Set<OWLAxiom> getReferencingAxioms(@Nonnull OWLPrimitive owlEntity);
+
     // Axioms that form part of a description of a named entity
     /**
      * Gets the axioms that form the definition/description of a class.
