@@ -8,19 +8,21 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 
-@SuppressWarnings("javadoc")
-public class OWLOntologyChangeRecordTest extends TestBase {
+import com.google.common.base.Optional;
 
+@SuppressWarnings("javadoc")
+public class OWLOntologyChangeRecordTest {
+
+    @SuppressWarnings("null")
     @Test
     public void testSerializeChangeRecord() throws Exception {
-        OWLOntologyID id1 = new OWLOntologyID(of(IRI.create("urn:a")),
-                of(IRI.create("urn:v1")));
-        OWLOntologyID id2 = new OWLOntologyID(of(IRI.create("urn:a")),
-                of(IRI.create("urn:v2")));
+        OWLOntologyID id1 = new OWLOntologyID(Optional.of(IRI.create("urn:a")),
+                Optional.of(IRI.create("urn:v1")));
+        OWLOntologyID id2 = new OWLOntologyID(Optional.of(IRI.create("urn:a")),
+                Optional.of(IRI.create("urn:v2")));
         OWLOntologyChangeRecord idChangeRecord = new OWLOntologyChangeRecord(
                 id1, new SetOntologyIDData(id2));
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
