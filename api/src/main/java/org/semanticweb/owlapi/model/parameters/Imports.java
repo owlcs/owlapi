@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model.parameters;
 
+import javax.annotation.Nonnull;
+
 /**
  * An enumeration for human readable values to include/exclude imports from
  * searches
@@ -23,5 +25,20 @@ public enum Imports {
     /** imports are included */
     INCLUDED,
     /** imports are excluded */
-    EXCLUDED
+    EXCLUDED;
+
+    /**
+     * Transform a boolean arg in an Imports arg. True means INCLUDED
+     * 
+     * @param b
+     *        boolean argument
+     * @return INCLUDED for true, EXCLUDED for false.
+     */
+    @Nonnull
+    public static Imports fromBoolean(boolean b) {
+        if (b) {
+            return INCLUDED;
+        }
+        return EXCLUDED;
+    }
 }

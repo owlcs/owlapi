@@ -37,10 +37,11 @@ import org.semanticweb.owlapi.model.parameters.Imports;
  *         Informatics Group
  * @since 2.0.0
  */
-public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
-        HasAxiomsByType, HasContainsAxiom, HasAnnotations, HasDirectImports,
-        HasImportsClosure, HasOntologyID, HasGetEntitiesInSignature,
-        OWLAxiomCollection, OWLSignature, OWLAxiomIndex {
+public interface OWLOntology extends OWLObject, HasAnnotations,
+        HasDirectImports, HasImportsClosure, HasOntologyID,
+        OWLAxiomCollection, OWLAxiomCollectionBooleanArgs,
+ OWLAxiomCollectionNoArgs, OWLSignature,
+        OWLSignatureBooleanArgs, OWLAxiomIndex {
 
     /**
      * accept for named object visitor
