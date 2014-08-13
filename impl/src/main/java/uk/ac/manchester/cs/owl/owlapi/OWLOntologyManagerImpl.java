@@ -1183,6 +1183,21 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     }
 
     @Override
+    public void addOntologyStorer(OWLStorerFactory storer) {
+        ontologyStorers.add(storer);
+    }
+
+    @Override
+    public void removeOntologyStorer(OWLStorerFactory storer) {
+        ontologyStorers.remove(storer);
+    }
+
+    @Override
+    public void clearOntologyStorers() {
+        ontologyStorers.clear();
+    }
+
+    @Override
     @Inject
     public void setOntologyFactories(Set<OWLOntologyFactory> factories) {
         ontologyFactories.set(factories);

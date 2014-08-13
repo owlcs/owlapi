@@ -919,16 +919,20 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
             throws OWLOntologyStorageException;
 
     /**
+     * Add an IRI mapper to the manager
+     * 
      * @param mapper
-     *        the mapper to add Add an IRI mapper to the manager
+     *        the mapper to add
      * @deprecated use getIRIMappers().add() instead
      */
     @Deprecated
     void addIRIMapper(@Nonnull OWLOntologyIRIMapper mapper);
 
     /**
+     * Remove an IRI mapper from the manager
+     * 
      * @param mapper
-     *        the mapper to remove remove an IRI mapper from the manager
+     *        the mapper to remove
      * @deprecated use getIRIMappers().remove() instead
      */
     @Deprecated
@@ -941,6 +945,34 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      */
     @Deprecated
     void clearIRIMappers();
+
+    /**
+     * Add astorer to the manager
+     * 
+     * @param storer
+     *        the storer to add
+     * @deprecated use getOntologyStorers().add() instead
+     */
+    @Deprecated
+    void addOntologyStorer(@Nonnull OWLStorerFactory storer);
+
+    /**
+     * Remove a storer from the manager
+     * 
+     * @param storer
+     *        the storer to remove
+     * @deprecated use getOntologyStorers().remove() instead
+     */
+    @Deprecated
+    void removeOntologyStorer(@Nonnull OWLStorerFactory storer);
+
+    /**
+     * Clear the manager storers
+     * 
+     * @deprecated use getOntologyStorers().clear() instead
+     */
+    @Deprecated
+    void clearOntologyStorers();
 
     /**
      * Set the collection of IRI mappers. It is used by Guice injection, but can
