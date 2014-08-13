@@ -1,6 +1,6 @@
 package org.obolibrary.oboformat.writer;
 
-import static org.semanticweb.owlapi.model.parameters.Search.IN_SUB_POSITION;
+import static org.semanticweb.owlapi.model.parameters.Navigation.IN_SUB_POSITION;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

@@ -18,7 +18,7 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.parameters.Imports;
-import org.semanticweb.owlapi.model.parameters.Search;
+import org.semanticweb.owlapi.model.parameters.Navigation;
 import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
 
 /**
@@ -54,7 +54,7 @@ public interface OWLAxiomIndex {
     @Nonnull
     <T extends OWLAxiom> Set<T> getAxioms(@Nonnull Class<T> type,
             @Nonnull OWLObject entity, @Nonnull Imports includeImports,
-            @Nonnull Search forSubPosition);
+            @Nonnull Navigation forSubPosition);
 
     /**
      * Generic filter type for further refining search by axiom type. The
@@ -94,6 +94,7 @@ public interface OWLAxiomIndex {
     boolean contains(@Nonnull OWLAxiomSearchFilter filter, @Nonnull Object key,
             @Nonnull Imports includeImportsClosure);
 
+
     /**
      * Generic search method: resutns all axioms which refer entity, are
      * instances of type, optionally including the imports closure in the
@@ -122,7 +123,7 @@ public interface OWLAxiomIndex {
     <T extends OWLAxiom> Set<T> getAxioms(@Nonnull Class<T> type,
             @Nonnull Class<? extends OWLObject> explicitClass,
             @Nonnull OWLObject entity, @Nonnull Imports includeImports,
-            @Nonnull Search forSubPosition);
+            @Nonnull Navigation forSubPosition);
 
     // Annotation axioms
     /**

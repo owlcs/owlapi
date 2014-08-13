@@ -66,8 +66,9 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLPrimitive;
 import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
+import org.semanticweb.owlapi.model.parameters.Annotations;
 import org.semanticweb.owlapi.model.parameters.Imports;
-import org.semanticweb.owlapi.model.parameters.Search;
+import org.semanticweb.owlapi.model.parameters.Navigation;
 import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
@@ -355,14 +356,14 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     public boolean containsAxiom(@Nonnull OWLAxiom axiom,
             boolean includeImportsClosure) {
         return containsAxiom(axiom, Imports.fromBoolean(includeImportsClosure),
-                Search.CONSIDER_ANNOTATIONS);
+                Annotations.CONSIDER_AXIOM_ANNOTATIONS);
     }
 
     @Override
     public boolean containsAxiom(@Nonnull OWLAxiom axiom,
-            Imports includeImportsClosure, Search ignoreAnnotations) {
+            Imports includeImportsClosure, Annotations ignoreAnnotations) {
         if (includeImportsClosure == EXCLUDED) {
-            if (ignoreAnnotations == Search.CONSIDER_ANNOTATIONS) {
+            if (ignoreAnnotations == Annotations.CONSIDER_AXIOM_ANNOTATIONS) {
                 return containsAxiom(axiom);
             } else {
                 return containsAxiomIgnoreAnnotations(axiom);
@@ -378,14 +379,21 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
 
     @Override
     public boolean containsAxiomIgnoreAnnotations(@Nonnull OWLAxiom axiom) {
-        return containsAxiom(axiom, EXCLUDED, Search.IGNORE_ANNOTATIONS);
+        Set<OWLAxiom> set = ints.getAxiomsByType().getValues(
+                axiom.getAxiomType());
+        for (OWLAxiom ax : set) {
+            if (ax.equalsIgnoreAnnotations(axiom)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
     public boolean containsAxiomIgnoreAnnotations(@Nonnull OWLAxiom axiom,
             boolean importsIncluded) {
         return containsAxiom(axiom, Imports.fromBoolean(importsIncluded),
-                Search.IGNORE_ANNOTATIONS);
+                Annotations.IGNORE_AXIOM_ANNOTATIONS);
     }
 
     @Override
@@ -864,7 +872,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
         if (includeImportsClosure == EXCLUDED) {
             props.addAll(ints
                     .get(OWLAnnotationProperty.class, OWLAxiom.class,
-                            Search.IN_SUB_POSITION).get().keySet());
+                            Navigation.IN_SUB_POSITION).get().keySet());
             for (OWLAnnotation anno : ints.getOntologyAnnotations(false)) {
                 props.add(anno.getProperty());
             }
@@ -1204,7 +1212,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     @Override
     public <A extends OWLAxiom> Set<A> getAxioms(@Nonnull Class<A> type,
             @Nonnull OWLObject entity, Imports includeImports,
-            Search forSubPosition) {
+            Navigation forSubPosition) {
         if (includeImports == EXCLUDED) {
             return getAxioms(type, entity.getClass(), entity, EXCLUDED,
                     forSubPosition);
@@ -1221,7 +1229,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     public <A extends OWLAxiom> Set<A> getAxioms(@Nonnull Class<A> type,
             @Nonnull Class<? extends OWLObject> explicitClass,
             @Nonnull OWLObject entity, @Nonnull Imports includeImports,
-            @Nonnull Search forSubPosition) {
+            @Nonnull Navigation forSubPosition) {
         if (includeImports == EXCLUDED) {
             Optional<MapPointer<OWLObject, A>> optional = ints.get(
                     (Class<OWLObject>) explicitClass, type, forSubPosition);
