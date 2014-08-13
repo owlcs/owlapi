@@ -18,19 +18,9 @@ package org.semanticweb.owlapi.model.parameters;
  * @author ignazio
  * @since 4.0.0
  */
-public enum Search {
-    /**
-     * search for entities in sub position (for subclasses, subproperties
-     * axioms)
-     */
-    IN_SUB_POSITION,
-    /**
-     * search for entities in super position (for subclasses, subproperties
-     * axioms)
-     */
-    IN_SUPER_POSITION,
+public enum Annotations {
     /** search for axioms ignoring annotations */
-    IGNORE_ANNOTATIONS,
+    IGNORE_AXIOM_ANNOTATIONS,
     /** search for axioms taking annotations into account */
-    CONSIDER_ANNOTATIONS
+    CONSIDER_AXIOM_ANNOTATIONS
 }

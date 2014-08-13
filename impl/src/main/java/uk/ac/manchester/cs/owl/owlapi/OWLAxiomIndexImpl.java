@@ -1,7 +1,7 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
-import static org.semanticweb.owlapi.model.parameters.Search.*;
+import static org.semanticweb.owlapi.model.parameters.Navigation.*;
 
 import java.util.HashSet;
 import java.util.Set;

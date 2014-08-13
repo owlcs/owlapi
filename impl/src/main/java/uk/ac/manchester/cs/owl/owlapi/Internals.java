@@ -85,7 +85,7 @@ import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.parameters.Search;
+import org.semanticweb.owlapi.model.parameters.Navigation;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
 import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
@@ -457,7 +457,7 @@ public class Internals implements Serializable {
     @Nonnull
     <T extends OWLObject, A extends OWLAxiom> Optional<MapPointer<T, A>> get(
             @Nonnull Class<T> type, @Nonnull Class<A> axiom) {
-        return get(type, axiom, Search.IN_SUB_POSITION);
+        return get(type, axiom, Navigation.IN_SUB_POSITION);
     }
 
     /**
@@ -478,7 +478,8 @@ public class Internals implements Serializable {
     @Nonnull
     @SuppressWarnings({ "unchecked", "null" })
     <T extends OWLObject, A extends OWLAxiom> Optional<MapPointer<T, A>> get(
-            @Nonnull Class<T> type, @Nonnull Class<A> axiom, Search position) {
+@Nonnull Class<T> type, @Nonnull Class<A> axiom,
+                    Navigation position) {
         if (OWLEntity.class.isAssignableFrom(type)
                 && axiom.equals(OWLDeclarationAxiom.class)) {
             return Optional.of((MapPointer<T, A>) declarationsByEntity);
@@ -515,7 +516,7 @@ public class Internals implements Serializable {
         }
         if (type.equals(OWLObjectPropertyExpression.class)) {
             if (axiom.equals(OWLSubObjectPropertyOfAxiom.class)) {
-                if (position == Search.IN_SUPER_POSITION) {
+                if (position == Navigation.IN_SUPER_POSITION) {
                     return Optional
                             .of((MapPointer<T, A>) objectSubPropertyAxiomsBySuperPosition);
                 } else {
@@ -574,7 +575,7 @@ public class Internals implements Serializable {
         }
         if (type.equals(OWLDataPropertyExpression.class)) {
             if (axiom.equals(OWLSubDataPropertyOfAxiom.class)) {
-                if (position == Search.IN_SUPER_POSITION) {
+                if (position == Navigation.IN_SUPER_POSITION) {
                     return Optional
                             .of((MapPointer<T, A>) dataSubPropertyAxiomsBySuperPosition);
                 } else {
@@ -639,7 +640,7 @@ public class Internals implements Serializable {
         }
         if (type.equals(OWLClass.class)) {
             if (axiom.equals(OWLSubClassOfAxiom.class)) {
-                if (position == Search.IN_SUPER_POSITION) {
+                if (position == Navigation.IN_SUPER_POSITION) {
                     return Optional
                             .of((MapPointer<T, A>) subClassAxiomsBySuperPosition);
                 } else {
