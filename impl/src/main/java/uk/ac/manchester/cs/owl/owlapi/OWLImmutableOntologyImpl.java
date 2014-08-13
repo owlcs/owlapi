@@ -66,7 +66,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLPrimitive;
 import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
-import org.semanticweb.owlapi.model.parameters.Annotations;
+import org.semanticweb.owlapi.model.parameters.AxiomAnnotations;
 import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.model.parameters.Navigation;
 import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
@@ -356,14 +356,14 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     public boolean containsAxiom(@Nonnull OWLAxiom axiom,
             boolean includeImportsClosure) {
         return containsAxiom(axiom, Imports.fromBoolean(includeImportsClosure),
-                Annotations.CONSIDER_AXIOM_ANNOTATIONS);
+                AxiomAnnotations.CONSIDER_AXIOM_ANNOTATIONS);
     }
 
     @Override
     public boolean containsAxiom(@Nonnull OWLAxiom axiom,
-            Imports includeImportsClosure, Annotations ignoreAnnotations) {
+            Imports includeImportsClosure, AxiomAnnotations ignoreAnnotations) {
         if (includeImportsClosure == EXCLUDED) {
-            if (ignoreAnnotations == Annotations.CONSIDER_AXIOM_ANNOTATIONS) {
+            if (ignoreAnnotations == AxiomAnnotations.CONSIDER_AXIOM_ANNOTATIONS) {
                 return containsAxiom(axiom);
             } else {
                 return containsAxiomIgnoreAnnotations(axiom);
@@ -393,7 +393,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     public boolean containsAxiomIgnoreAnnotations(@Nonnull OWLAxiom axiom,
             boolean importsIncluded) {
         return containsAxiom(axiom, Imports.fromBoolean(importsIncluded),
-                Annotations.IGNORE_AXIOM_ANNOTATIONS);
+                AxiomAnnotations.IGNORE_AXIOM_ANNOTATIONS);
     }
 
     @Override

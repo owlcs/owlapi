@@ -44,7 +44,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.parameters.Imports;
-import org.semanticweb.owlapi.model.parameters.Annotations;
+import org.semanticweb.owlapi.model.parameters.AxiomAnnotations;
 
 import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.Multimap;
@@ -1722,7 +1722,7 @@ public class EntitySearcher {
             @Nonnull OWLOntology o, boolean imports) {
         return o.containsAxiom(a,
                 imports ? Imports.INCLUDED : Imports.EXCLUDED,
-                Annotations.CONSIDER_AXIOM_ANNOTATIONS);
+                AxiomAnnotations.CONSIDER_AXIOM_ANNOTATIONS);
     }
 
     /**
@@ -1763,7 +1763,7 @@ public class EntitySearcher {
     public static boolean containsAxiomIgnoreAnnotations(@Nonnull OWLAxiom a,
             @Nonnull OWLOntology o, boolean imports) {
         return o.containsAxiom(a, imports == true ? Imports.INCLUDED
-                : Imports.EXCLUDED, Annotations.IGNORE_AXIOM_ANNOTATIONS);
+                : Imports.EXCLUDED, AxiomAnnotations.IGNORE_AXIOM_ANNOTATIONS);
     }
 
     /**

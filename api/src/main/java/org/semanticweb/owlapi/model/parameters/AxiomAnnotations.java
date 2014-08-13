@@ -18,7 +18,7 @@ package org.semanticweb.owlapi.model.parameters;
  * @author ignazio
  * @since 4.0.0
  */
-public enum Annotations {
+public enum AxiomAnnotations {
     /** search for axioms ignoring annotations */
     IGNORE_AXIOM_ANNOTATIONS,
     /** search for axioms taking annotations into account */

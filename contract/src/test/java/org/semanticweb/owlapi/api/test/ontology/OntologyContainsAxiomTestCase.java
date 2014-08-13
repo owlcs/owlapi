@@ -14,7 +14,7 @@ package org.semanticweb.owlapi.api.test.ontology;
 
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
-import static org.semanticweb.owlapi.model.parameters.Annotations.*;
+import static org.semanticweb.owlapi.model.parameters.AxiomAnnotations.*;
 import static org.semanticweb.owlapi.model.parameters.Imports.*;
 
 import java.io.File;
