@@ -17,7 +17,7 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.parameters.Imports;
-import org.semanticweb.owlapi.model.parameters.Annotations;
+import org.semanticweb.owlapi.model.parameters.AxiomAnnotations;
 
 /**
  * Ontology methods related to it being a collection of axioms.
@@ -121,7 +121,7 @@ public interface OWLAxiomCollection extends HasAxioms, HasLogicalAxioms,
      */
     boolean containsAxiom(@Nonnull OWLAxiom axiom,
             @Nonnull Imports includeImportsClosure,
-            @Nonnull Annotations ignoreAnnotations);
+            @Nonnull AxiomAnnotations ignoreAnnotations);
 
     /**
      * Gets the set of axioms contained in this collection that have the same
