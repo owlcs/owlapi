@@ -46,6 +46,13 @@ public class OWLBaseVisitorExAdapter<O, I> {
         return defaultReturnValue;
     }
 
+    /** @deprecated use doDefault() instead */
+    @Deprecated
+    @Nonnull
+    protected O getDefaultReturnValue(@Nonnull I object) {
+        return doDefault(object);
+    }
+
     /**
      * @param defaultReturnValue
      *        default return value
