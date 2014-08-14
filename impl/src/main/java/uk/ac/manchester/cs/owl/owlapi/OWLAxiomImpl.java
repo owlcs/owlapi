@@ -145,7 +145,12 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
         if (!(obj instanceof OWLAxiom)) {
             return false;
         }
+
         OWLAxiom other = (OWLAxiom) obj;
+        // for OWLAxiomImpl comparisons, do not create wrapper objects
+        if (other instanceof OWLAxiomImpl) {
+            return annotations.equals(((OWLAxiomImpl) other).annotations);
+        }
         return getAnnotations().equals(other.getAnnotations());
     }
 
