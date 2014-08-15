@@ -40,5 +40,6 @@
 	<classpathentry kind="var" path="M2_REPO/com/google/inject/guice/4.0-beta/guice-4.0-beta.jar" sourcepath="/M2_REPO/com/google/inject/guice/4.0-beta/guice-4.0-beta-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/com/google/guava/guava/17.0/guava-17.0.jar" sourcepath="/M2_REPO/com/google/guava/guava/17.0/guava-17.0-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/javax/inject/javax.inject/1/javax.inject-1.jar"/>
+	<classpathentry kind="var" path="M2_REPO/net/sf/trove4j/trove4j/3.0.3/trove4j-3.0.3.jar" sourcepath="/M2_REPO/net/sf/trove4j/trove4j/3.0.3/trove4j-3.0.3-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
