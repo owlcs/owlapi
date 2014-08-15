@@ -23,6 +23,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -91,6 +92,7 @@ import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
 import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
 
 import com.google.common.base.Optional;
+import com.google.common.collect.Iterables;
 
 /** @author ignazio */
 public class Internals implements Serializable {
@@ -229,7 +231,7 @@ public class Internals implements Serializable {
     @Nonnull protected transient MapPointer<OWLEntity, OWLDeclarationAxiom>      declarationsByEntity                = build();
 //@formatter:on
     @Nullable
-    private Set<OWLAxiom> axiomsForSerialization;
+    private List<OWLAxiom> axiomsForSerialization;
 
     @SuppressWarnings("null")
     private void readObject(ObjectInputStream stream) throws IOException,
@@ -320,7 +322,8 @@ public class Internals implements Serializable {
     }
 
     private void writeObject(ObjectOutputStream stream) throws IOException {
-        axiomsForSerialization = axiomsByType.getAllValues();
+        axiomsForSerialization = new ArrayList<OWLAxiom>();
+        Iterables.addAll(axiomsForSerialization, axiomsByType.getAllValues());
         stream.defaultWriteObject();
     }
 
@@ -956,7 +959,7 @@ public class Internals implements Serializable {
      * @return the axioms by type
      */
     @Nonnull
-    public Set<OWLAxiom> getAxioms() {
+    public Iterable<OWLAxiom> getAxioms() {
         return axiomsByType.getAllValues();
     }
 
@@ -971,7 +974,7 @@ public class Internals implements Serializable {
         if (!axiomsByType.isInitialized()) {
             return 0;
         }
-        return axiomsByType.getValues(axiomType).size();
+        return Iterables.size(axiomsByType.getValues(axiomType));
     }
 
     /**
@@ -982,8 +985,8 @@ public class Internals implements Serializable {
         Set<OWLLogicalAxiom> axioms = createSet();
         for (AxiomType<?> type : AXIOM_TYPES) {
             if (type.isLogical()) {
-                Collection<OWLAxiom> axiomSet = axiomsByType.getValues(type);
-                for (OWLAxiom ax : axiomSet) {
+                for (OWLAxiom ax : (Collection<OWLAxiom>) axiomsByType
+                        .getValues(type)) {
                     axioms.add((OWLLogicalAxiom) ax);
                 }
             }
@@ -998,8 +1001,7 @@ public class Internals implements Serializable {
         int count = 0;
         for (AxiomType<?> type : AXIOM_TYPES) {
             if (type.isLogical()) {
-                Collection<OWLAxiom> axiomSet = axiomsByType.getValues(type);
-                count += axiomSet.size();
+                count += Iterables.size(axiomsByType.getValues(type));
             }
         }
         return count;
@@ -1568,8 +1570,8 @@ public class Internals implements Serializable {
     @Nonnull
     @Override
     public String toString() {
-        StringBuilder b = new StringBuilder("Internals{");
-        for (OWLAxiom ax : getAxioms()) {
+        StringBuilder b = new StringBuilder("Internals{(first 20 axioms) ");
+        for (OWLAxiom ax : Iterables.limit(axiomsByType.getAllValues(), 20)) {
             b.append(ax).append('\n');
         }
         b.append('}');
@@ -1591,44 +1593,45 @@ public class Internals implements Serializable {
      * @return referencing axioms
      */
     @Nonnull
-    public Set<OWLAxiom> getReferencingAxioms(@Nonnull OWLEntity owlEntity) {
+    public Iterable<OWLAxiom>
+            getReferencingAxioms(@Nonnull OWLEntity owlEntity) {
         return owlEntity.accept(refAxiomsCollector);
     }
 
     private class ReferencedAxiomsCollector implements
-            OWLEntityVisitorEx<Set<OWLAxiom>>, Serializable {
+            OWLEntityVisitorEx<Iterable<OWLAxiom>>, Serializable {
 
         private static final long serialVersionUID = 40000L;
 
         ReferencedAxiomsCollector() {}
 
         @Override
-        public Set<OWLAxiom> visit(OWLClass cls) {
+        public Iterable<OWLAxiom> visit(OWLClass cls) {
             return owlClassReferences.getValues(cls);
         }
 
         @Override
-        public Set<OWLAxiom> visit(OWLObjectProperty property) {
+        public Iterable<OWLAxiom> visit(OWLObjectProperty property) {
             return owlObjectPropertyReferences.getValues(property);
         }
 
         @Override
-        public Set<OWLAxiom> visit(OWLDataProperty property) {
+        public Iterable<OWLAxiom> visit(OWLDataProperty property) {
             return owlDataPropertyReferences.getValues(property);
         }
 
         @Override
-        public Set<OWLAxiom> visit(OWLNamedIndividual individual) {
+        public Iterable<OWLAxiom> visit(OWLNamedIndividual individual) {
             return owlIndividualReferences.getValues(individual);
         }
 
         @Override
-        public Set<OWLAxiom> visit(OWLDatatype datatype) {
+        public Iterable<OWLAxiom> visit(OWLDatatype datatype) {
             return owlDatatypeReferences.getValues(datatype);
         }
 
         @Override
-        public Set<OWLAxiom> visit(OWLAnnotationProperty property) {
+        public Iterable<OWLAxiom> visit(OWLAnnotationProperty property) {
             return owlAnnotationPropertyReferences.getValues(property);
         }
     }

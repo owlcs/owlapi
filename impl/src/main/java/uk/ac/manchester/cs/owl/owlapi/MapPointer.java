@@ -13,10 +13,12 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import gnu.trove.map.hash.THashMap;
+import gnu.trove.set.hash.THashSet;
 
 import java.lang.ref.SoftReference;
 import java.util.Collection;
-import java.util.HashSet;
+import java.util.Collections;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -32,8 +34,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 import uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.InitCollectionVisitor;
 import uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.InitVisitor;
 
-import com.google.common.collect.LinkedHashMultimap;
-import com.google.common.collect.Multimap;
+import com.google.common.collect.Iterables;
 
 /**
  * * Objects that identify contained maps - so that getting the keys of a
@@ -47,8 +48,10 @@ import com.google.common.collect.Multimap;
  *        value
  */
 public class MapPointer<K, V extends OWLAxiom> {
+    
+    
 
-    private final Multimap<K, V> map;
+
     @Nullable
     private final AxiomType<?> type;
     @Nullable
@@ -57,6 +60,13 @@ public class MapPointer<K, V extends OWLAxiom> {
     @Nonnull
     protected final Internals i;
     private SoftReference<Set<IRI>> iris;
+
+    private int size = 0;
+    private THashMap<K, THashSet<V>> map = new THashMap<>(17, 0.75F);
+
+    private THashSet<V> set() {
+        return new THashSet<V>(17, 0.75F);
+    }
 
     /**
      * @param t
@@ -73,7 +83,6 @@ public class MapPointer<K, V extends OWLAxiom> {
             @Nonnull Internals i) {
         type = t;
         visitor = v;
-        map = LinkedHashMultimap.create();
         this.initialized = initialized;
         this.i = checkNotNull(i, "i cannot be null");
     }
@@ -144,7 +153,7 @@ public class MapPointer<K, V extends OWLAxiom> {
                 // this can only be null because the visitor return nulls in
                 // methods that do not declare it
                 if (key != null) {
-                    map.put(key, ax);
+                    putInternal(key, ax);
                 }
             }
         } else {
@@ -152,7 +161,7 @@ public class MapPointer<K, V extends OWLAxiom> {
                 Collection<K> keys = ax
                         .accept((InitCollectionVisitor<K>) visitor);
                 for (K key : keys) {
-                    map.put(key, ax);
+                    putInternal(key, ax);
                 }
             }
         }
@@ -167,10 +176,9 @@ public class MapPointer<K, V extends OWLAxiom> {
 
     /** @return keyset */
     @Nonnull
-    public synchronized Set<K> keySet() {
+    public synchronized Iterable<K> keySet() {
         init();
-        return CollectionFactory.getCopyOnRequestSetFromMutableCollection(map
-                .keySet());
+        return map.keySet();
     }
 
     /**
@@ -179,10 +187,9 @@ public class MapPointer<K, V extends OWLAxiom> {
      * @return value
      */
     @Nonnull
-    public synchronized Set<V> getValues(K key) {
+    public synchronized Iterable<V> getValues(K key) {
         init();
-        return CollectionFactory.getCopyOnRequestSetFromMutableCollection(map
-                .get(key));
+        return get(key);
     }
 
     /**
@@ -208,7 +215,7 @@ public class MapPointer<K, V extends OWLAxiom> {
             return false;
         }
         iris = null;
-        return map.put(key, value);
+        return putInternal(key, value);
     }
 
     /**
@@ -223,7 +230,7 @@ public class MapPointer<K, V extends OWLAxiom> {
             return false;
         }
         iris = null;
-        return map.remove(key, value);
+        return removeInternal(key, value);
     }
 
     /**
@@ -246,25 +253,76 @@ public class MapPointer<K, V extends OWLAxiom> {
      */
     public synchronized boolean contains(K key, V value) {
         init();
-        return map.containsEntry(key, value);
+        return containsEntry(key, value);
     }
 
     /** @return all values contained */
     @Nonnull
-    public synchronized Set<V> getAllValues() {
+    public synchronized Iterable<V> getAllValues() {
         init();
-        return new HashSet<>(map.values());
+        return values();
     }
 
     /** @return number of mapping contained */
     public synchronized int size() {
         init();
-        return map.size();
+        return size;
     }
 
     /** @return true if empty */
     public synchronized boolean isEmpty() {
         init();
-        return map.isEmpty();
+        return size == 0;
     }
+
+    private boolean putInternal(K k, V v) {
+        THashSet<V> t = map.get(k);
+        if (t == null) {
+            t = set();
+            map.put(k, t);
+        }
+        boolean added = t.add(v);
+        if (added) {
+            size++;
+        }
+        return added;
+    }
+
+    private boolean containsEntry(K k, V v) {
+        THashSet<V> t = map.get(k);
+        if (t == null) {
+            return false;
+        }
+        return t.contains(v);
+    }
+
+    private boolean removeInternal(K k, V v) {
+        THashSet<V> t = map.get(k);
+        if (t == null) {
+            return false;
+        }
+        boolean removed = t.remove(v);
+        if (removed) {
+            size--;
+        }
+        if (t.isEmpty()) {
+            map.remove(k);
+        }
+        return removed;
+    }
+
+    @SuppressWarnings("null")
+    @Nonnull
+    private Iterable<V> values() {
+        return Iterables.concat(map.values());
+    }
+
+    private Set<V> get(K k) {
+        THashSet<V> t = map.get(k);
+        if (t == null) {
+            return Collections.emptySet();
+        }
+        return t;
+    }
+
 }
