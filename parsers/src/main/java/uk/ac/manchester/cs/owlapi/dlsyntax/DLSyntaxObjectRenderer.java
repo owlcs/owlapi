@@ -229,9 +229,6 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer,
     }
 
     @Override
-    public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {}
-
-    @Override
     public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
         write(TOP);
         writeSpace();
@@ -757,12 +754,6 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer,
     public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {}
 
     @Override
-    public void visit(OWLDataIntersectionOf node) {}
-
-    @Override
-    public void visit(OWLDataUnionOf node) {}
-
-    @Override
     public void visit(OWLAnnotationProperty property) {}
 
     @Override
@@ -850,5 +841,25 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer,
         write(", ");
         node.getSecondArgument().accept(this);
         write(")");
+    }
+
+    @Override
+    public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
+        axiom.getProperty().accept(this);
+        writeSpace();
+        write(DISJOINT_WITH);
+        writeSpace();
+        axiom.getProperty().accept(this);
+        write(INVERSE);
+    }
+
+    @Override
+    public void visit(OWLDataIntersectionOf node) {
+        write(node.getOperands(), AND, true);
+    }
+
+    @Override
+    public void visit(OWLDataUnionOf node) {
+        write(node.getOperands(), OR, true);
     }
 }
