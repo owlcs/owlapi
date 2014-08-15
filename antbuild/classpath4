@@ -21,6 +21,8 @@
 	<classpathentry kind="src" output="fixers/target/test-classes" path="fixers/src/test/java"/>
 	<classpathentry kind="src" output="oboformat/target/test-classes" path="oboformat/src/test/java"/>
 	<classpathentry kind="src" output="parsers/target/test-classes" path="parsers/src/test/java"/>
+	<classpathentry kind="src" path="compatibility/src/test/java"/>
+	<classpathentry kind="src" path="compatibility/src/test/resources"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/com/google/code/findbugs/jsr305/2.0.1/jsr305-2.0.1.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/commons-io/commons-io/2.4/commons-io-2.4.jar" sourcepath="/M2_REPO/commons-io/commons-io/2.4/commons-io-2.4-sources.jar"/>
@@ -58,6 +60,7 @@
 	<classpathentry kind="var" path="M2_REPO/org/semarglproject/semargl-core/0.6.1/semargl-core-0.6.1.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/semarglproject/semargl-rdfa/0.6.1/semargl-rdfa-0.6.1.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/semarglproject/semargl-rdf/0.6.1/semargl-rdf-0.6.1.jar"/>
+	<classpathentry kind="var" path="M2_REPO/net/sf/trove4j/trove4j/3.0.3/trove4j-3.0.3.jar" sourcepath="/M2_REPO/net/sf/trove4j/trove4j/3.0.3/trove4j-3.0.3-sources.jar"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
