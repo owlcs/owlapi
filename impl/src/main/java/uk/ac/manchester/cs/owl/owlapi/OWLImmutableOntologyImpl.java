@@ -18,8 +18,10 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.OutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -74,6 +76,7 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 import com.google.common.base.Optional;
+import com.google.common.collect.Iterables;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -118,13 +121,8 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
         sb.append(" Logical Axioms: ");
         sb.append(ints.getLogicalAxiomCount());
         sb.append("] First 20 axioms: {");
-        int counter = 0;
-        for (OWLAxiom ax : ints.getAxioms()) {
+        for (OWLAxiom ax : Iterables.limit(ints.getAxioms(), 20)) {
             sb.append(ax).append(' ');
-            counter++;
-            if (counter == 20) {
-                break;
-            }
         }
         sb.append('}');
         return sb.toString();
@@ -225,7 +223,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     @Override
     public Set<OWLAxiom> getAxioms(Imports includeImportsClosure) {
         if (includeImportsClosure == EXCLUDED) {
-            return ints.getAxioms();
+            return asSet(ints.getAxioms());
         }
         Set<OWLAxiom> axioms = new HashSet<>();
         for (OWLOntology o : getImportsClosure()) {
@@ -238,7 +236,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     @Override
     @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> Set<T> getAxioms(AxiomType<T> axiomType) {
-        return (Set<T>) ints.getAxiomsByType().getValues(axiomType);
+        return (Set<T>) asSet(ints.getAxiomsByType().getValues(axiomType));
     }
 
     @Override
@@ -380,9 +378,8 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
 
     @Override
     public boolean containsAxiomIgnoreAnnotations(@Nonnull OWLAxiom axiom) {
-        Set<OWLAxiom> set = ints.getAxiomsByType().getValues(
-                axiom.getAxiomType());
-        for (OWLAxiom ax : set) {
+        for (OWLAxiom ax : ints.getAxiomsByType().getValues(
+                axiom.getAxiomType())) {
             if (ax.equalsIgnoreAnnotations(axiom)) {
                 return true;
             }
@@ -404,9 +401,8 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
         if (containsAxiom(axiom)) {
             result.add(axiom);
         }
-        Set<OWLAxiom> set = ints.getAxiomsByType().getValues(
-                axiom.getAxiomType());
-        for (OWLAxiom ax : set) {
+        for (OWLAxiom ax : ints.getAxiomsByType().getValues(
+                axiom.getAxiomType())) {
             if (ax.equalsIgnoreAnnotations(axiom)) {
                 result.add(ax);
             }
@@ -756,36 +752,45 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
         return entities;
     }
 
+    @Nonnull
+    private <T> Set<T> asSet(Iterable<T> i) {
+        List<T> list = new ArrayList<>();
+        Iterables.addAll(list, i);
+        return CollectionFactory
+                .getCopyOnRequestSetFromImmutableCollection(list);
+    }
     @Override
     public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
-        return ints.get(OWLAnonymousIndividual.class, OWLAxiom.class).get()
-                .keySet();
+        return asSet(ints.get(OWLAnonymousIndividual.class, OWLAxiom.class)
+                .get().keySet());
     }
 
     @Override
     public Set<OWLClass> getClassesInSignature() {
-        return ints.get(OWLClass.class, OWLAxiom.class).get().keySet();
+        return asSet(ints.get(OWLClass.class, OWLAxiom.class).get().keySet());
     }
 
     @Override
     public Set<OWLDataProperty> getDataPropertiesInSignature() {
-        return ints.get(OWLDataProperty.class, OWLAxiom.class).get().keySet();
+        return asSet(ints.get(OWLDataProperty.class, OWLAxiom.class).get()
+                .keySet());
     }
 
     @Override
     public Set<OWLObjectProperty> getObjectPropertiesInSignature() {
-        return ints.get(OWLObjectProperty.class, OWLAxiom.class).get().keySet();
+        return asSet(ints.get(OWLObjectProperty.class, OWLAxiom.class).get()
+                .keySet());
     }
 
     @Override
     public Set<OWLNamedIndividual> getIndividualsInSignature() {
-        return ints.get(OWLNamedIndividual.class, OWLAxiom.class).get()
-                .keySet();
+        return asSet(ints.get(OWLNamedIndividual.class, OWLAxiom.class).get()
+                .keySet());
     }
 
     @Override
     public Set<OWLDatatype> getDatatypesInSignature() {
-        return ints.get(OWLDatatype.class, OWLAxiom.class).get().keySet();
+        return asSet(ints.get(OWLDatatype.class, OWLAxiom.class).get().keySet());
     }
 
     @Override
@@ -843,8 +848,8 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     public Set<OWLAnonymousIndividual> getReferencedAnonymousIndividuals(
             Imports includeImportsClosure) {
         if (includeImportsClosure == EXCLUDED) {
-            return ints.get(OWLAnonymousIndividual.class, OWLAxiom.class).get()
-                    .keySet();
+            return asSet(ints.get(OWLAnonymousIndividual.class, OWLAxiom.class)
+                    .get().keySet());
         }
         Set<OWLAnonymousIndividual> result = createSet();
         for (OWLOntology o : getImportsClosure()) {
@@ -871,7 +876,9 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
             Imports includeImportsClosure) {
         Set<OWLAnnotationProperty> props = createSet();
         if (includeImportsClosure == EXCLUDED) {
-            props.addAll(ints
+            Iterables.addAll(
+                    props,
+                    ints
                     .get(OWLAnnotationProperty.class, OWLAxiom.class,
                             Navigation.IN_SUB_POSITION).get().keySet());
             for (OWLAnnotation anno : ints.getOntologyAnnotations(false)) {
@@ -1012,8 +1019,8 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     public Set<OWLClassAxiom> getAxioms(OWLClass cls,
             Imports includeImportsClosure) {
         if (includeImportsClosure == EXCLUDED) {
-            return ints.get(OWLClass.class, OWLClassAxiom.class).get()
-                    .getValues(cls);
+            return asSet(ints.get(OWLClass.class, OWLClassAxiom.class).get()
+                    .getValues(cls));
         }
         Set<OWLClassAxiom> result = createSet();
         for (OWLOntology o : getImportsClosure()) {
@@ -1146,7 +1153,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
             Imports includeImportsClosure) {
         if (owlEntity instanceof OWLEntity) {
             if (includeImportsClosure == EXCLUDED) {
-                return ints.getReferencingAxioms((OWLEntity) owlEntity);
+                return asSet(ints.getReferencingAxioms((OWLEntity) owlEntity));
             }
             Set<OWLAxiom> result = createSet();
             for (OWLOntology ont : getImportsClosure()) {
@@ -1154,8 +1161,8 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
             }
             return result;
         } else if (owlEntity instanceof OWLAnonymousIndividual) {
-            return ints.get(OWLAnonymousIndividual.class, OWLAxiom.class).get()
-                    .getValues((OWLAnonymousIndividual) owlEntity);
+            return asSet(ints.get(OWLAnonymousIndividual.class, OWLAxiom.class)
+                    .get().getValues((OWLAnonymousIndividual) owlEntity));
         } else if (owlEntity instanceof IRI) {
             Set<OWLAxiom> axioms = new HashSet<>();
             // axioms referring entities with this IRI, data property assertions
@@ -1236,7 +1243,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
             Optional<MapPointer<OWLObject, A>> optional = ints.get(
                     (Class<OWLObject>) explicitClass, type, forSubPosition);
             if (optional.isPresent()) {
-                return optional.get().getValues(entity);
+                return asSet(optional.get().getValues(entity));
             }
             Set<A> toReturn = new HashSet<>();
             for (A ax : getAxioms(AxiomType.getTypeForClass(type))) {

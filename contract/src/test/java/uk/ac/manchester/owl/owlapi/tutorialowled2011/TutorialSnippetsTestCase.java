@@ -106,14 +106,14 @@ import uk.ac.manchester.cs.owlapi.modularity.ModuleType;
 import uk.ac.manchester.cs.owlapi.modularity.SyntacticLocalityModuleExtractor;
 
 @SuppressWarnings({ "javadoc", "null" })
-public class TutorialSnippets {
+public class TutorialSnippetsTestCase {
 
     @Nonnull
     @Rule
     public TemporaryFolder temporaryFolder = new TemporaryFolder();
     @Nonnull
     private static final Logger log = LoggerFactory
-            .getLogger(TutorialSnippets.class);
+            .getLogger(TutorialSnippetsTestCase.class);
     @Nonnull
     private static final String koala = "<?xml version=\"1.0\"?>\n"
             + "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\""
@@ -362,6 +362,7 @@ public class TutorialSnippets {
         OWLEntityRemover remover = new OWLEntityRemover(
                 Collections.singleton(o));
         int previousNumberOfIndividuals = o.getIndividualsInSignature().size();
+
         // Visit all individuals with the remover
         // Changes needed for removal will be prepared
         for (OWLNamedIndividual ind : o.getIndividualsInSignature()) {
@@ -369,8 +370,9 @@ public class TutorialSnippets {
         }
         // Now apply the changes
         m.applyChanges(remover.getChanges());
-        assertTrue(previousNumberOfIndividuals > o.getIndividualsInSignature()
-                .size());
+        int size = o.getIndividualsInSignature().size();
+        assertTrue(previousNumberOfIndividuals + " supposed to be larger than "
+                + size, previousNumberOfIndividuals > size);
     }
 
     @Test
