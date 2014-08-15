@@ -38,6 +38,9 @@
  */
 package org.semanticweb.owlapi.util;
 
+import gnu.trove.map.hash.THashMap;
+import gnu.trove.set.hash.THashSet;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -73,9 +76,11 @@ public class MultiMap<Key, Value> implements Serializable {
     public MultiMap(boolean threadsafe) {
         threadSafe = threadsafe;
         if (threadSafe) {
-            map = CollectionFactory.createSyncMap();
+            map = Collections
+                    .synchronizedMap(new THashMap<Key, Collection<Value>>(17,
+                            0.75F));
         } else {
-            map = CollectionFactory.createMap();
+            map = new THashMap<Key, Collection<Value>>(17, 0.75F);
         }
     }
 
@@ -114,9 +119,10 @@ public class MultiMap<Key, Value> implements Serializable {
         Collection<Value> toReturn;
         if (useSets) {
             if (threadSafe) {
-                toReturn = CollectionFactory.createSyncSet();
+                toReturn = Collections.synchronizedSet(new THashSet<Value>(17,
+                        0.75F));
             } else {
-                toReturn = CollectionFactory.createSet();
+                toReturn = new THashSet<Value>(17, 0.75F);
             }
         } else {
             if (threadSafe) {
