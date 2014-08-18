@@ -316,7 +316,7 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
     public void visit(OWLDisjointClassesAxiom axiom) {
         List<OWLClassExpression> descs = new ArrayList<>(
                 axiom.getClassExpressions());
-        for (int i = 0; i < descs.size(); i++) {
+        for (int i = 0; i < descs.size() - 1; i++) {
             for (int j = i + 1; j < descs.size(); j++) {
                 descs.get(i).accept(this);
                 writeSpace();
@@ -326,6 +326,9 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
                 if (j < descs.size() - 1) {
                     write(", ");
                 }
+            }
+            if (i < descs.size() - 2) {
+                write(", ");
             }
         }
     }
