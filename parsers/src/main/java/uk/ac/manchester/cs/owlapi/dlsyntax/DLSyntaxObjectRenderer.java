@@ -256,8 +256,10 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer,
                     write(", ");
                 }
             }
+            if (i < descs.size() - 2) {
+                write(", ");
+            }
         }
-        // write(axiom.getClassExpressions(), DISJOINT_WITH, true);
     }
 
     private void writeDomainAxiom(OWLPropertyDomainAxiom<?> axiom) {
