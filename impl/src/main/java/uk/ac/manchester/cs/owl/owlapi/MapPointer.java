@@ -65,7 +65,7 @@ public class MapPointer<K, V extends OWLAxiom> {
     private THashMap<K, THashSet<V>> map = new THashMap<>(17, 0.75F);
 
     private THashSet<V> set() {
-        return new THashSet<V>(17, 0.75F);
+        return new THashSet<V>(2, 0.75F);
     }
 
     /**
