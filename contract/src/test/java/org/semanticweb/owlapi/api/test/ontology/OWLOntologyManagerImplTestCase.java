@@ -44,6 +44,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.TestUtils;
 import org.semanticweb.owlapi.model.AddImport;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -115,5 +116,24 @@ public class OWLOntologyManagerImplTestCase {
         assertTrue(manager.getImportsClosure(ontA).contains(ontC));
         assertTrue(manager.getImportsClosure(ontB).contains(ontB));
         assertTrue(manager.getImportsClosure(ontB).contains(ontC));
+    }
+
+    @Test
+    public void testImportsLoad() throws OWLException{
+        OWLOntology ontA = manager.createOntology
+            (IRI.create("a"));
+
+        assertTrue( ontA.getDirectImports().size() == 0 );
+
+        OWLImportsDeclaration declB = manager
+            .getOWLDataFactory()
+            .getOWLImportsDeclaration(IRI.create("b"));
+
+        manager.applyChange(new AddImport(ontA, declB));
+
+        OWLOntology ontB = manager.createOntology
+            (IRI.create("b"));
+        assertTrue( ontA.getDirectImports().size() == 1 );
+        assertTrue( ontA.getDirectImports().contains( ontB ) );
     }
 }
