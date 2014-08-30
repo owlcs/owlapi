@@ -57,7 +57,7 @@ public class OWLAPIServiceLoaderModule extends AbstractModule {
     protected <T> void loadInstancesFromServiceLoader(Class<T> type) {
         try {
             Multibinder<T> binder = Multibinder.newSetBinder(binder(), type);
-            for (T o : ServiceLoader.load(type)) {
+            for (T o : ServiceLoader.load(type, getClass().getClassLoader())) {
                 binder.addBinding().toInstance(o);
             }
         } catch (ServiceConfigurationError e) {
@@ -72,7 +72,7 @@ public class OWLAPIServiceLoaderModule extends AbstractModule {
             Multibinder<F> factoryBinder = Multibinder.newSetBinder(binder(),
                     factory);
             Multibinder<T> binder = Multibinder.newSetBinder(binder(), type);
-            for (F o : ServiceLoader.load(factory)) {
+            for (F o : ServiceLoader.load(factory, getClass().getClassLoader())) {
                 factoryBinder.addBinding().toInstance(o);
                 binder.addBinding().toInstance(o.get());
             }
@@ -87,8 +87,9 @@ public class OWLAPIServiceLoaderModule extends AbstractModule {
         try {
             Multibinder<OWLOntologyManagerFactory> binder = Multibinder
                     .newSetBinder(binder(), OWLOntologyManagerFactory.class);
-            for (OWLOntologyManagerFactory o : ServiceLoader
-                    .load(OWLOntologyManagerFactory.class)) {
+            for (OWLOntologyManagerFactory o : ServiceLoader.load(
+                    OWLOntologyManagerFactory.class, getClass()
+                            .getClassLoader())) {
                 binder.addBinding().toInstance(o);
             }
         } catch (ServiceConfigurationError e) {
