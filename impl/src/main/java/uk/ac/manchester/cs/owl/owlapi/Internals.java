@@ -322,7 +322,7 @@ public class Internals implements Serializable {
     }
 
     private void writeObject(ObjectOutputStream stream) throws IOException {
-        axiomsForSerialization = new ArrayList<OWLAxiom>();
+        axiomsForSerialization = new ArrayList<>();
         Iterables.addAll(axiomsForSerialization, axiomsByType.getAllValues());
         stream.defaultWriteObject();
     }

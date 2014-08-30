@@ -198,7 +198,7 @@ public class TurtleTestCase extends TestBase {
                 + "    <http://www.example.com/ontologies/2014/6/medicine#m.0hyckjg> <http://www.example.com/ontologies/2014/6/medicine#medicine.drug_strength.strength_value> 20.0 . \n"
                 + "    <http://www.example.com/ontologies/2014/6/medicine#m.0hyckjg> <http://www.example.com/ontologies/2014/6/medicine#medicine.drug_strength.strength_value> 30.0 . \n"
                 + "    <http://www.example.com/ontologies/2014/6/medicine#m.0hyckjg> <http://www.example.com/ontologies/2014/6/medicine#medicine.drug_strength.strength_value> 3.5 . ";
-        OWLOntology ontology = loadOntologyFromString(input);
+        loadOntologyFromString(input);
     }
 
     @Test
