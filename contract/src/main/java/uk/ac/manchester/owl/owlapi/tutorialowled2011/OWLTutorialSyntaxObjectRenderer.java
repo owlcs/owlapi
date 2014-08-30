@@ -291,7 +291,7 @@ public class OWLTutorialSyntaxObjectRenderer extends OWLObjectVisitorAdapter {
         write(" ");
     }
 
-    public void writeAnnotations(OWLAxiom ax) {
+    public void writeAnnotations(@SuppressWarnings("unused") OWLAxiom ax) {
         // TODO: IMPLEMENT
     }
 
