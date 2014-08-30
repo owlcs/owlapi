@@ -1,9 +1,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>owlapi-compatibilitydistribution</artifactId>
+	<artifactId>owlapi-osgidistribution</artifactId>
 	<packaging>bundle</packaging>
-	<name>OWLAPI Compatibility Distribution</name>
+	<name>OWLAPI OSGi and Compatibility Distribution</name>
 
 	<parent>
 		<groupId>net.sourceforge.owlapi</groupId>
@@ -58,14 +58,9 @@
 			<artifactId>owlapi-rio</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-		<dependency>
+				<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>owlapi-compatibility</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>owlapi-parsers</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
@@ -156,7 +151,6 @@
 			<version>0.6.1</version>
 			<scope>runtime</scope>
 		</dependency>
-
 	</dependencies>
 
 	<build>
@@ -175,8 +169,29 @@
 							org.semanticweb.owlapi.*;-split-package:=merge-first,
 							org.semanticweb.owlapitools.*;-split-package:=merge-first,
 							uk.ac.manchester.*;-split-package:=merge-first,
-							org.obolibrary.*,org.coode.*,de.uulm.*
+							org.obolibrary.*;-split-package:=merge-first,
+							org.coode.*;-split-package:=merge-first,
+							de.uulm.*;-split-package:=merge-first,
+							com.fasterxml.jackson.*;-split-package:=merge-first,
+							com.github.jsonldjava.*;-split-package:=merge-first,
+							com.google.common.*;-split-package:=merge-first,
+							com.google.thirdparty.*;-split-package:=merge-first,
+							com.google.inject.*;-split-package:=merge-first,
+							org.semarglproject.*;-split-package:=merge-first,
+							org.apache.commons.*;-split-package:=merge-first,
+							org.apache.http.*;-split-package:=merge-first,
+							org.aopalliance.*;-split-package:=merge-first,
+							gnu.trove.*;-split-package:=merge-first,
+							javax.annotation.*;-split-package:=merge-first,
+							javax.inject.*;-split-package:=merge-first
 						</Export-Package>
+						<Import-Package>
+						!net.sf.ehcache,!sun.misc,!javax.swing, !net.spy.memcached,
+						org.slf4j.*, org.openrdf.*,info.aduna.*,
+						javax.crypto, javax.crypto.spec, javax.imageio, 
+						javax.net.*, javax.security.*, javax.xml.*, org.ietf.jgss, 
+						org.slf4j.*, org.w3c.dom.*, org.xml.sax.*
+						</Import-Package>
 					</instructions>
 					<executions>
 						<execution>
@@ -203,18 +218,6 @@
 							<artifactSet>
 								<excludes>
 									<exclude>org.apache.felix:org.osgi.core</exclude>
-									<exclude>org.openrdf.sesame:*</exclude>
-									<exclude>com.fasterxml.jackson.core:*</exclude>
-									<exclude>com.github.jsonld-java:*</exclude>
-									<exclude>com.fasterxml.jackson.core:*</exclude>
-									<exclude>org.apache.httpcomponents:*</exclude>
-									<exclude>commons-codec:commons-codec:*</exclude>
-									<exclude>org.slf4j:*</exclude>
-									<exclude>org.semarglproject:*</exclude>
-									<exclude>com.google.guava:*</exclude>
-									<exclude>org.slf4j:slf4j-api</exclude>
-									<exclude>org.apache.directory.studio:*</exclude>
-									<exclude>commons-io:*</exclude>
 								</excludes>
 							</artifactSet>
 							<transformers>

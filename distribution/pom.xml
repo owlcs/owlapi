@@ -170,7 +170,11 @@
 					<instructions>
 						<Bundle-SymbolicName>org.semanticweb.owl.owlapi</Bundle-SymbolicName>
 						<Export-Package>
-							{local-packages},com.google.inject.*,javax.inject.*
+							com.clarkparsia.*,
+							org.semanticweb.owlapi.*;-split-package:=merge-first,
+							org.semanticweb.owlapitools.*;-split-package:=merge-first,
+							uk.ac.manchester.*;-split-package:=merge-first,
+							org.obolibrary.*
 						</Export-Package>
 					</instructions>
 					<executions>
@@ -207,6 +211,11 @@
 									<exclude>org.slf4j:*</exclude>
 									<exclude>org.semarglproject:*</exclude>
 									<exclude>com.google.guava:*</exclude>
+									<exclude>com.google.inject:*</exclude>
+									<exclude>javax.inject:*</exclude>
+									<exclude>aopalliance:*</exclude>
+									<exclude>com.google.inject.extensions:*</exclude>
+									<exclude>com.google.code.findbugs:*</exclude>
 									<exclude>org.slf4j:slf4j-api</exclude>
 									<exclude>org.apache.directory.studio:*</exclude>
 									<exclude>commons-io:*</exclude>

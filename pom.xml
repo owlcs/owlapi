@@ -35,7 +35,7 @@
 		<module>contract</module>
 		<!-- The distribution module is a single-jar build of the whole OWL API. -->
 		<module>distribution</module>
-		<module>compatibilitydistribution</module>
+		<module>osgidistribution</module>
 	</modules>
 
 
@@ -60,7 +60,7 @@
 
 
 	<dependencies>
-			<dependency>
+		<dependency>
 			<groupId>net.sf.trove4j</groupId>
 			<artifactId>trove4j</artifactId>
 			<version>3.0.3</version>
