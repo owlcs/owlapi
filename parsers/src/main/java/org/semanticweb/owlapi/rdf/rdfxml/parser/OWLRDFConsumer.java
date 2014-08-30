@@ -1676,6 +1676,18 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
     }
 
     /**
+     * compatibility proxy for TranslatorAccessor#translateClassExpression
+     * 
+     * @param i
+     *        iri fr the class expression
+     * @return translated class expression
+     */
+    @Nonnull
+    public OWLClassExpression translateClassExpression(@Nonnull IRI i) {
+        return translatorAccessor.translateClassExpression(i);
+    }
+
+    /**
      * Given a main node, translated data ranges according to Table 12.
      * 
      * @param mainNode
@@ -1684,7 +1696,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
      *         translated then an OWLDatatype with the given IRI is returned.
      */
     @Nonnull
-    protected OWLDataRange translateDataRange(@Nonnull IRI mainNode) {
+    public OWLDataRange translateDataRange(@Nonnull IRI mainNode) {
         if (!isDataRange(mainNode) && configuration.isStrict()) {
             // Can't translated ANY according to Table 12
             return generateAndLogParseError(EntityType.DATATYPE, mainNode);
@@ -1769,7 +1781,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
      * @return the oWL data property expression
      */
     @Nonnull
-    protected OWLDataPropertyExpression translateDataPropertyExpression(
+    public OWLDataPropertyExpression translateDataPropertyExpression(
             @Nonnull IRI iri) {
         return dataFactory.getOWLDataProperty(iri);
     }
@@ -1786,7 +1798,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
      * @return the oWL object property expression
      */
     @Nonnull
-    protected OWLObjectPropertyExpression translateObjectPropertyExpression(
+    public OWLObjectPropertyExpression translateObjectPropertyExpression(
             @Nonnull IRI mainNode) {
         OWLObjectPropertyExpression prop = translatedProperties.get(mainNode);
         if (prop != null) {
@@ -1821,7 +1833,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
      * @return the oWL individual
      */
     @Nonnull
-    protected OWLIndividual translateIndividual(@Nonnull IRI node) {
+    public OWLIndividual translateIndividual(@Nonnull IRI node) {
         return getOWLIndividual(node);
     }
 
@@ -1836,7 +1848,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
      * @return The set of annotations on the main node
      */
     @Nonnull
-    protected Set<OWLAnnotation> translateAnnotations(IRI mainNode) {
+    public Set<OWLAnnotation> translateAnnotations(IRI mainNode) {
         // Are we the subject of an annotation? If so, we need to ensure that
         // the annotations annotate us. This
         // will only happen if we are an annotation!
