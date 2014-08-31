@@ -119,10 +119,10 @@ public class MultiMap<Key, Value> implements Serializable {
         Collection<Value> toReturn;
         if (useSets) {
             if (threadSafe) {
-                toReturn = Collections.synchronizedSet(new THashSet<Value>(17,
+                toReturn = Collections.synchronizedSet(new THashSet<Value>(2,
                         0.75F));
             } else {
-                toReturn = new THashSet<Value>(17, 0.75F);
+                toReturn = new THashSet<Value>(2, 0.75F);
             }
         } else {
             if (threadSafe) {
