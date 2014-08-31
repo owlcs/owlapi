@@ -2,7 +2,6 @@ package org.obolibrary.oboformat;
 
 import static org.junit.Assert.*;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.obolibrary.obo2owl.OboFormatTestBasics;
 import org.obolibrary.oboformat.model.Clause;
@@ -23,16 +22,16 @@ public class XrefExpanderTest extends OboFormatTestBasics {
         assertTrue(!tdoc.getTermFrames().isEmpty());
         Frame termFrame = tdoc.getTermFrame("ZFA:0001689");
         assert termFrame != null;
-        Assert.assertEquals(2,
-                termFrame.getClauses(OboFormatTag.TAG_INTERSECTION_OF).size());
+        assertEquals(2, termFrame.getClauses(OboFormatTag.TAG_INTERSECTION_OF)
+                .size());
         termFrame = tdoc.getTermFrame("EHDAA:571");
         assert termFrame != null;
-        Assert.assertEquals("UBERON:0002539",
+        assertEquals("UBERON:0002539",
                 termFrame.getClause(OboFormatTag.TAG_IS_A).getValue());
         termFrame = tdoc.getTermFrame("UBERON:0006800");
         assert termFrame != null;
-        Assert.assertEquals("CARO:0000008",
-                termFrame.getClause(OboFormatTag.TAG_IS_A).getValue());
+        assertEquals("CARO:0000008", termFrame.getClause(OboFormatTag.TAG_IS_A)
+                .getValue());
     }
 
     @Test
@@ -53,23 +52,23 @@ public class XrefExpanderTest extends OboFormatTestBasics {
             String tid = impClause.getValue(String.class)
                     .replace("bridge-", "");
             if (tid.equals("zfa")) {
-                Assert.assertEquals(2, tdoc.getTermFrame("ZFA:0001689")
-                        .getClauses(OboFormatTag.TAG_INTERSECTION_OF).size());
+                assertEquals(
+                        2,
+                        tdoc.getTermFrame("ZFA:0001689")
+                                .getClauses(OboFormatTag.TAG_INTERSECTION_OF)
+                                .size());
                 Frame pf = tdoc.getTypedefFrame("part_of");
-                Assert.assertEquals("BFO:0000050",
-                        pf.getClause(OboFormatTag.TAG_XREF).getValue()
-                                .toString());
+                assertEquals("BFO:0000050", pf.getClause(OboFormatTag.TAG_XREF)
+                        .getValue().toString());
                 n++;
             }
             if (tid.equals("ehdaa")) {
-                Assert.assertEquals(
-                        "UBERON:0002539",
-                        tdoc.getTermFrame("EHDAA:571")
-                                .getClause(OboFormatTag.TAG_IS_A).getValue());
+                assertEquals("UBERON:0002539", tdoc.getTermFrame("EHDAA:571")
+                        .getClause(OboFormatTag.TAG_IS_A).getValue());
                 n++;
             }
             if (tid.equals("caro")) {
-                Assert.assertEquals(
+                assertEquals(
                         "CARO:0000008",
                         tdoc.getTermFrame("UBERON:0006800")
                                 .getClause(OboFormatTag.TAG_IS_A).getValue());

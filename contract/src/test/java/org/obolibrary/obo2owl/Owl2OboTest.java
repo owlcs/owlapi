@@ -2,7 +2,6 @@ package org.obolibrary.obo2owl;
 
 import static org.junit.Assert.*;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.obolibrary.oboformat.model.OBODoc;
 import org.semanticweb.owlapi.apibinding.OWLManager;
@@ -27,22 +26,22 @@ public class Owl2OboTest extends OboFormatTestBasics {
         OWLOntology ontology = manager.createOntology(ontologyIRI);
         convert(ontology);
         String ontId = OWLAPIOwl2Obo.getOntologyId(ontology);
-        Assert.assertEquals("test", ontId);
+        assertEquals("test", ontId);
         IRI iri = IRI.create("http://purl.obolibrary.org/obo/OBI_0000306");
         String id = OWLAPIOwl2Obo.getIdentifier(iri);
         assertTrue("OBI:0000306".endsWith(id));
         iri = IRI.create("http://purl.obolibrary.org/obo/IAO_0000119");
         id = OWLAPIOwl2Obo.getIdentifier(iri);
-        Assert.assertEquals("IAO:0000119", id);
+        assertEquals("IAO:0000119", id);
         iri = IRI.create("http://purl.obolibrary.org/obo/caro_part_of");
         id = OWLAPIOwl2Obo.getIdentifier(iri);
-        Assert.assertEquals("http://purl.obolibrary.org/obo/caro_part_of", id);
+        assertEquals("http://purl.obolibrary.org/obo/caro_part_of", id);
         iri = IRI.create("http://purl.obolibrary.org/obo/MyOnt#_part_of");
         id = OWLAPIOwl2Obo.getIdentifier(iri);
-        Assert.assertEquals("MyOnt:part_of", id);
+        assertEquals("MyOnt:part_of", id);
         iri = IRI.create("http://purl.obolibrary.org/obo/MyOnt#termid");
         id = OWLAPIOwl2Obo.getIdentifier(iri);
-        Assert.assertEquals("termid", id);
+        assertEquals("termid", id);
         // unprefixed IDs from different ontology
         iri = IRI.create("http://purl.obolibrary.org/obo/MyOnt#termid");
         id = OWLAPIOwl2Obo.getIdentifier(iri);
