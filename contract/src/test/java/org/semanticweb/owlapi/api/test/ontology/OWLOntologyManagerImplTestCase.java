@@ -14,10 +14,13 @@ package org.semanticweb.owlapi.api.test.ontology;
 
 import static org.junit.Assert.*;
 
+import java.util.Set;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSourceBase;
 import org.semanticweb.owlapi.model.AddImport;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -100,5 +103,24 @@ public class OWLOntologyManagerImplTestCase {
         assertTrue(manager.getImportsClosure(ontA).contains(ontC));
         assertTrue(manager.getImportsClosure(ontB).contains(ontB));
         assertTrue(manager.getImportsClosure(ontB).contains(ontC));
+    }
+
+    @Test
+    public void testImportsLoad() throws OWLException {
+        OWLOntology ontA = manager.createOntology(IRI.create("a"));
+        assertTrue(ontA.getDirectImports().size() == 0);
+        IRI b = IRI.create("b");
+        OWLImportsDeclaration declB = manager.getOWLDataFactory()
+                .getOWLImportsDeclaration(b);
+        manager.applyChange(new AddImport(ontA, declB));
+        Set<IRI> directImportsDocuments = ontA.getDirectImportsDocuments();
+        assertEquals(1, directImportsDocuments.size());
+        assertTrue(directImportsDocuments.contains(b));
+        OWLOntology ontB = manager.createOntology(b);
+        directImportsDocuments = ontA.getDirectImportsDocuments();
+        assertEquals(1, directImportsDocuments.size());
+        assertTrue(directImportsDocuments.contains(b));
+        assertEquals(1, ontA.getDirectImports().size());
+        assertTrue(ontA.getDirectImports().contains(ontB));
     }
 }

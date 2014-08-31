@@ -374,8 +374,11 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         OWLOntologyID ontologyID = ontologyIDsByImportsDeclaration
                 .get(declaration);
         if (ontologyID == null) {
-            // No such ontology
-            return null;
+            // No such ontology has been loaded through an import declaration,
+            // but it might have been loaded manually.
+            // Using the IRI to retrieve it will either find the ontology or
+            // return null
+            return getOntology(declaration.getIRI());
         } else {
             return getOntology(ontologyID);
         }
