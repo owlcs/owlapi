@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.Collection;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.obolibrary.oboformat.model.Clause;
 import org.obolibrary.oboformat.model.Frame;
@@ -20,9 +19,9 @@ public class DanglingRestrictionOwl2OboTest extends OboFormatTestBasics {
         OBODoc doc = convert(parseOWLFile("dangling_restriction_test.owl"));
         Frame f = doc.getTermFrame("FUNCARO:0000014");
         Clause rc = f.getClause(OboFormatTag.TAG_NAME);
-        Assert.assertEquals("digestive system", rc.getValue());
+        assertEquals("digestive system", rc.getValue());
         Collection<Clause> isas = f.getClauses(OboFormatTag.TAG_IS_A);
-        Assert.assertEquals(1, isas.size());
+        assertEquals(1, isas.size());
         Collection<Clause> rs = f.getClauses(OboFormatTag.TAG_RELATIONSHIP);
         assertEquals(1, rs.size());
         writeOBO(doc);
