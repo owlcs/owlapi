@@ -1201,7 +1201,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
             for (OWLDataPropertyAssertionAxiom ax : getAxioms(AxiomType.DATA_PROPERTY_ASSERTION)) {
                 if (ax.getObject().getDatatype().getIRI()
                         .equals(OWL2Datatype.XSD_ANY_URI.getIRI())) {
-                    if (ax.getObject().getLiteral().equals(owlEntity)) {
+                    if (ax.getObject().equals(owlEntity)) {
                         axioms.add(ax);
                     }
                 }
