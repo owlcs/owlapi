@@ -162,12 +162,12 @@ public class KRSS2OWLObjectRenderer extends OWLObjectVisitorAdapter {
         obj.accept(this);
     }
 
-    private void flatten(Collection<OWLClassExpression> _classExpressions) {
+    private void flatten(Collection<OWLClassExpression> inputClassExpressions) {
         List<OWLClassExpression> classExpressions;
-        if (_classExpressions instanceof List) {
-            classExpressions = (List<OWLClassExpression>) _classExpressions;
+        if (inputClassExpressions instanceof List) {
+            classExpressions = (List<OWLClassExpression>) inputClassExpressions;
         } else {
-            classExpressions = new ArrayList<>(_classExpressions);
+            classExpressions = new ArrayList<>(inputClassExpressions);
         }
         if (classExpressions.isEmpty()) {
             return;

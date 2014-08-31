@@ -45,9 +45,9 @@ import com.google.common.collect.Sets;
  */
 public class CollectionFactory {
 
-    private static final Logger logger = LoggerFactory
+    private static final Logger LOGGER = LoggerFactory
             .getLogger(CollectionFactory.class.getName());
-    private static final AtomicInteger expectedThreads = new AtomicInteger(8);
+    private static final AtomicInteger EXPECTEDTHREADS = new AtomicInteger(8);
 
     /**
      * Sort the input collection; if the ordering is unstable and an error is
@@ -71,7 +71,7 @@ public class CollectionFactory {
                 throw e;
             }
             // otherwise print a warning and leave the list unsorted
-            logger.warn(
+            LOGGER.warn(
                     "Misbehaving triple comparator, leaving triples unsorted",
                     e);
         }
@@ -97,7 +97,7 @@ public class CollectionFactory {
                 throw e;
             }
             // otherwise print a warning and leave the list unsorted
-            logger.warn(
+            LOGGER.warn(
                     "Misbehaving triple comparator, leaving triples unsorted",
                     e);
         }
@@ -129,7 +129,7 @@ public class CollectionFactory {
                 throw e;
             }
             // otherwise print a warning and leave the list unsorted
-            logger.warn(
+            LOGGER.warn(
                     "Misbehaving triple comparator, leaving triples unsorted",
                     e);
         }
@@ -162,7 +162,7 @@ public class CollectionFactory {
                 throw e;
             }
             // otherwise print a warning and leave the list unsorted
-            logger.warn(
+            LOGGER.warn(
                     "Misbehaving triple comparator, leaving triples unsorted",
                     e);
         }
@@ -176,12 +176,12 @@ public class CollectionFactory {
      *        ConcurrentHashMaps
      */
     public static void setExpectedThreads(int value) {
-        expectedThreads.set(value);
+        EXPECTEDTHREADS.set(value);
     }
 
     /** @return The current number of expected threads. */
     public static int getExpectedThreads() {
-        return expectedThreads.get();
+        return EXPECTEDTHREADS.get();
     }
 
     /**
@@ -347,7 +347,7 @@ public class CollectionFactory {
      */
     @Nonnull
     public static <K, V> ConcurrentHashMap<K, V> createSyncMap() {
-        return new ConcurrentHashMap<>(16, 0.75F, expectedThreads.get());
+        return new ConcurrentHashMap<>(16, 0.75F, EXPECTEDTHREADS.get());
     }
 
     /**
@@ -421,7 +421,7 @@ public class CollectionFactory {
      */
     public static class ConditionalCopySet<T> implements Set<T> {
 
-        private static final int maxContains = 10;
+        private static final int MAXCONTAINS = 10;
         private boolean copyDone = false;
         protected Collection<T> delegate;
         private int containsCounter = 0;
@@ -502,7 +502,7 @@ public class CollectionFactory {
         @Override
         public boolean contains(Object o) {
             containsCounter++;
-            if (containsCounter >= maxContains && !copyDone) {
+            if (containsCounter >= MAXCONTAINS && !copyDone) {
                 checkDelegate();
             }
             return delegate.contains(o);
@@ -520,7 +520,7 @@ public class CollectionFactory {
         @Override
         public boolean containsAll(Collection<?> c) {
             containsCounter++;
-            if (containsCounter >= maxContains && !copyDone) {
+            if (containsCounter >= MAXCONTAINS && !copyDone) {
                 checkDelegate();
             }
             return delegate.containsAll(c);

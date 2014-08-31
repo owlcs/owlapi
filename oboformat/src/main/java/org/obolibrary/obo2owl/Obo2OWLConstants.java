@@ -30,10 +30,10 @@ public class Obo2OWLConstants {
      */
     @Nonnull
     public static synchronized String format(@Nonnull Date d) {
-        return formatter.format(d);
+        return FORMATTER.format(d);
     }
 
-    private static final SimpleDateFormat formatter = new SimpleDateFormat(
+    private static final SimpleDateFormat FORMATTER = new SimpleDateFormat(
             "yyyy-MM-dd'T'HH:mm:ss'Z'");
 
     /** obo to owl vocabulary */
@@ -42,7 +42,7 @@ public class Obo2OWLConstants {
         /**IRI_IAO_0000424*/    IRI_IAO_0000424(DEFAULT_IRI_PREFIX, "IAO_0000424", "expand expression to", OboFormatTag.TAG_EXPAND_EXPRESSION_TO.getTag()),
         /**IRI_IAO_0000425*/    IRI_IAO_0000425(DEFAULT_IRI_PREFIX, "IAO_0000425", "expand assertion to", OboFormatTag.TAG_EXPAND_ASSERTION_TO.getTag()),
         /**IRI_IAO_0000115*/    IRI_IAO_0000115(DEFAULT_IRI_PREFIX, "IAO_0000115", "definition", OboFormatTag.TAG_DEF.getTag()),
-                                //IRI_IAO_0000118(Obo2OWLConstants.DEFAULT_IRI_PREFIX, "IAO_0000118", "alternative term", OboFormatTag.TAG_SYNONYM.getTag()),
+        //                      IRI_IAO_0000118(DEFAULT_IRI_PREFIX, "IAO_0000118", "alternative term", OboFormatTag.TAG_SYNONYM.getTag()),
         /**IRI_IAO_0000427*/    IRI_IAO_0000427(DEFAULT_IRI_PREFIX, "IAO_0000427", "antisymmetric property", OboFormatTag.TAG_IS_ANTI_SYMMETRIC.getTag()),
         /**IRI_IAO_0100001*/    IRI_IAO_0100001(DEFAULT_IRI_PREFIX, "IAO_0100001", "term replaced by", OboFormatTag.TAG_REPLACED_BY.getTag()),
         /**IRI_OIO_shorthand*/  IRI_OIO_shorthand(OIOVOCAB_IRI_PREFIX, "shorthand", "shorthand", "shorthand"),
@@ -133,7 +133,7 @@ public class Obo2OWLConstants {
         }
     }
 
-    private static final Map<String, Obo2OWLVocabulary> tagsToVocab = initTagsToVocab();
+    private static final Map<String, Obo2OWLVocabulary> TAGSTOVOCAB = initTagsToVocab();
 
     static Map<String, Obo2OWLVocabulary> initTagsToVocab() {
         Map<String, Obo2OWLVocabulary> tags = new HashMap<>();
@@ -149,6 +149,6 @@ public class Obo2OWLConstants {
      * @return obj for tag
      */
     public static Obo2OWLVocabulary getVocabularyObj(String tag) {
-        return tagsToVocab.get(tag);
+        return TAGSTOVOCAB.get(tag);
     }
 }

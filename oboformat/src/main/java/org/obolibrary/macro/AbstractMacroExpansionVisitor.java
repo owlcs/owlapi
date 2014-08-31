@@ -106,7 +106,7 @@ public abstract class AbstractMacroExpansionVisitor extends
         OWLClassExpressionVisitorEx<OWLClassExpression>,
         OWLDataVisitorEx<OWLDataRange>, OWLAxiomVisitorEx<OWLAxiom> {
 
-    static final Logger log = LoggerFactory
+    static final Logger LOG = LoggerFactory
             .getLogger(AbstractMacroExpansionVisitor.class);
     final OWLDataFactory dataFactory;
     @Nonnull
@@ -133,7 +133,7 @@ public abstract class AbstractMacroExpansionVisitor extends
                 OWLAnnotationValue v = a.getValue();
                 if (v instanceof OWLLiteral) {
                     String str = ((OWLLiteral) v).getLiteral();
-                    log.info("mapping {} to {}", p, str);
+                    LOG.info("mapping {} to {}", p, str);
                     expandExpressionMap.put(p.getIRI(), str);
                 }
             }
@@ -146,7 +146,7 @@ public abstract class AbstractMacroExpansionVisitor extends
                 OWLAnnotationValue v = a.getValue();
                 if (v instanceof OWLLiteral) {
                     String str = ((OWLLiteral) v).getLiteral();
-                    log.info("assertion mapping {} to {}", p, str);
+                    LOG.info("assertion mapping {} to {}", p, str);
                     expandAssertionToMap.put(p.getIRI(), str);
                 }
             }

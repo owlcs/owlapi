@@ -44,7 +44,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
  * 
  * @author ignazio
  */
-public class Searcher {
+public final class Searcher {
 
     private Searcher() {}
 

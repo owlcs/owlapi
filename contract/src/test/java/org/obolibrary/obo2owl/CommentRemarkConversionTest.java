@@ -27,7 +27,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 public class CommentRemarkConversionTest extends OboFormatTestBasics {
 
     @Test
-    public void test_conversion() throws Exception {
+    public void testConversion() throws Exception {
         OBODoc obo = parseOBOFile("comment_remark_conversion.obo", true);
         Frame headerFrame = obo.getHeaderFrame();
         Collection<String> remarks = headerFrame.getTagValues(

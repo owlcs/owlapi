@@ -33,6 +33,7 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.BidirectionalShortFormProviderAdapter;
 import org.semanticweb.owlapi.util.IRIShortFormProvider;
 import org.semanticweb.owlapi.util.OntologyAxiomPair;
@@ -49,7 +50,7 @@ import org.slf4j.LoggerFactory;
  */
 public class ManchesterSyntaxTool {
 
-    private static final Logger log = LoggerFactory
+    private static final Logger LOG = LoggerFactory
             .getLogger(ManchesterSyntaxTool.class);
     @Nonnull
     protected IRIShortFormProvider iriShortFormProvider = new SimpleIRIShortFormProvider();
@@ -145,14 +146,14 @@ public class ManchesterSyntaxTool {
     @Nonnull
     private ManchesterOWLSyntaxParser createParser(@Nonnull String expression) {
         if (disposed.get()) {
-            throw new RuntimeException(
+            throw new OWLRuntimeException(
                     "Illegal State: Trying to use an disposed instance.");
         }
         ManchesterOWLSyntaxParser parser = new ManchesterOWLSyntaxParserImpl(
                 new OWLAPIConfigProvider(), dataFactory);
         parser.setStringToParse(expression);
         parser.setOWLEntityChecker(entityChecker);
-        log.info("parsing: {}", expression);
+        LOG.info("parsing: {}", expression);
         return parser;
     }
 
@@ -165,7 +166,7 @@ public class ManchesterSyntaxTool {
      */
     public String getId(@Nonnull IRI iri) {
         if (disposed.get()) {
-            throw new RuntimeException(
+            throw new OWLRuntimeException(
                     "Illegal State: Trying to use an disposed instance.");
         }
         return iriShortFormProvider.getShortForm(iri);
@@ -181,7 +182,7 @@ public class ManchesterSyntaxTool {
      */
     public String getId(@Nonnull OWLEntity entity) {
         if (disposed.get()) {
-            throw new RuntimeException(
+            throw new OWLRuntimeException(
                     "Illegal State: Trying to use an disposed instance.");
         }
         return shortFormProvider.getShortForm(entity);

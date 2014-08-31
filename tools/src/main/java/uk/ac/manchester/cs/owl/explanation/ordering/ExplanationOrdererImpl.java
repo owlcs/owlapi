@@ -181,7 +181,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
     private List<OWLEntity> getRHSEntitiesSorted(@Nonnull OWLAxiom ax) {
         Collection<OWLEntity> entities = getRHSEntities(ax);
         List<OWLEntity> sortedEntities = new ArrayList<>(entities);
-        Collections.sort(sortedEntities, propertiesFirstComparator);
+        Collections.sort(sortedEntities, PROPERTIESFIRSTCOMPARATOR);
         return sortedEntities;
     }
 
@@ -222,13 +222,13 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
 
     /** The comparator. */
     @Nonnull
-    private static final Comparator<Tree<OWLAxiom>> comparator = new OWLAxiomTreeComparator();
+    private static final Comparator<Tree<OWLAxiom>> COMPARATOR = new OWLAxiomTreeComparator();
 
     private static void sortChildrenAxioms(@Nonnull ExplanationTree tree) {
-        tree.sortChildren(comparator);
+        tree.sortChildren(COMPARATOR);
     }
 
-    private static final AtomicLong randomstart = new AtomicLong(
+    private static final AtomicLong RANDOMSTART = new AtomicLong(
             System.currentTimeMillis());
 
     private void buildIndices() {
@@ -242,7 +242,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
                 man.removeOntology(verifyNotNull(ont));
             }
             ont = man.createOntology(IRI.create("http://www.semanticweb.org/",
-                    "ontology" + randomstart.incrementAndGet()));
+                    "ontology" + RANDOMSTART.incrementAndGet()));
             List<AddAxiom> changes = new ArrayList<>();
             for (OWLAxiom ax : currentExplanation) {
                 assert ax != null;
@@ -377,7 +377,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
     }
 
     /** The properties first comparator. */
-    private static final PropertiesFirstComparator propertiesFirstComparator = new PropertiesFirstComparator();
+    private static final PropertiesFirstComparator PROPERTIESFIRSTCOMPARATOR = new PropertiesFirstComparator();
 
     /** tree comparator. */
     private static class OWLAxiomTreeComparator implements

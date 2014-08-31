@@ -14,6 +14,8 @@ public class OBOFormatConstants {
     //@formatter:off
     /** oboformat tags */
     public enum OboFormatTag {
+
+        //@formatter:off
         /**TAG_FORMAT_VERSION*/ TAG_FORMAT_VERSION("format-version"),
         /**TAG_ONTOLOGY*/ TAG_ONTOLOGY( "ontology"),
         /**TAG_DATA_VERSION*/ TAG_DATA_VERSION( "data-version"),
@@ -111,7 +113,7 @@ public class OBOFormatConstants {
     }
 
     
-    private static final Map<String, OboFormatTag> tagsTable=initTagsTable();
+    private static final Map<String, OboFormatTag> TAGSTABLE=initTagsTable();
     static Map<String, OboFormatTag> initTagsTable(){
         Map<String, OboFormatTag> tags = new HashMap<>();
         for (OboFormatTag tag : OboFormatTag.values()) {
@@ -120,17 +122,19 @@ public class OBOFormatConstants {
         return tags;
     }
     /** tags */@Nonnull
-    public static final Set<String> TAGS=tagsTable.keySet();
+    public static final Set<String> TAGS=TAGSTABLE.keySet();
 
     /** @param tag
      *            tag
      * @return oboformat tag */
     public static OboFormatTag getTag(String tag) {
-        return tagsTable.get(tag);
+        return TAGSTABLE.get(tag);
     }
 
     /** Date format for OboFormatTag.TAG_DATE Use Thread local to ensure thread
-     * safety, as {@link SimpleDateFormat} is not thread safe. */
+     * safety, as {@link SimpleDateFormat} is not thread safe. 
+     * @deprecated use headerDateFormat() - ThreadLocal do not work nicely with web applications*/
+    @Deprecated
     public static final ThreadLocal<DateFormat> headerDateFormat = new ThreadLocal<DateFormat>() {
         @Nonnull
         @Override
@@ -138,6 +142,11 @@ public class OBOFormatConstants {
             return new SimpleDateFormat("dd:MM:yyyy HH:mm");
         }
     };
+    /** @return Date format for OboFormatTag.TAG_DATE*/
+    public static final DateFormat headerDateFormat() {
+            return new SimpleDateFormat("dd:MM:yyyy HH:mm");
+        }
+    
     /** UTF-8 default encoding */
     public static final String DEFAULT_CHARACTER_ENCODING = "UTF-8";
 }

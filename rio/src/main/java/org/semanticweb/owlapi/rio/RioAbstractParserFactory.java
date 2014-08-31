@@ -51,7 +51,7 @@ import com.google.inject.Injector;
  */
 public abstract class RioAbstractParserFactory implements RDFParserFactory {
 
-    private static final Injector injector = Guice
+    private static final Injector INJECTOR = Guice
             .createInjector(new OWLAPIServiceLoaderModule());
 
     @Override
@@ -60,7 +60,7 @@ public abstract class RioAbstractParserFactory implements RDFParserFactory {
     @Override
     public RDFParser getParser() {
         RioOWLRDFParser rioOWLRDFParser = new RioOWLRDFParser(getRDFFormat());
-        injector.injectMembers(rioOWLRDFParser);
+        INJECTOR.injectMembers(rioOWLRDFParser);
         return rioOWLRDFParser;
     }
 }

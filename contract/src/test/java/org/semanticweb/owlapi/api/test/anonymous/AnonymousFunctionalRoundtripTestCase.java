@@ -38,7 +38,7 @@ public class AnonymousFunctionalRoundtripTestCase extends TestBase {
     @Nonnull
     private static final String NS = "http://namespace.owl";
     @Nonnull
-    private static final String broken = "<?xml version=\"1.0\"?>\n"
+    private static final String BROKEN = "<?xml version=\"1.0\"?>\n"
             + "<rdf:RDF xmlns=\"http://namespace.owl#\"\n"
             + "     xml:base=\"http://namespace.owl\"\n"
             + "     xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"\n"
@@ -49,7 +49,7 @@ public class AnonymousFunctionalRoundtripTestCase extends TestBase {
             + "    <owl:Class rdf:about=\"http://namespace.owl#A\"/>\n"
             + "<A/></rdf:RDF>";
     @Nonnull
-    private static final String fixed = "Prefix(:=<http://namespace.owl#>)\n"
+    private static final String FIXED = "Prefix(:=<http://namespace.owl#>)\n"
             + "Prefix(owl:=<http://www.w3.org/2002/07/owl#>)\n"
             + "Prefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)\n"
             + "Prefix(xml:=<http://www.w3.org/XML/1998/namespace>)\n"
@@ -66,12 +66,12 @@ public class AnonymousFunctionalRoundtripTestCase extends TestBase {
 
     @Test
     public void shouldRoundTripFixed() throws OWLOntologyCreationException {
-        loadOntologyFromString(fixed);
+        loadOntologyFromString(FIXED);
     }
 
     @Test
     public void shouldRoundTripBroken() throws Exception {
-        OWLOntology o = loadOntologyFromString(broken);
+        OWLOntology o = loadOntologyFromString(BROKEN);
         FunctionalSyntaxDocumentFormat format = new FunctionalSyntaxDocumentFormat();
         format.setDefaultPrefix(NS + '#');
         OWLOntology o1 = roundTrip(o, format);
@@ -80,16 +80,16 @@ public class AnonymousFunctionalRoundtripTestCase extends TestBase {
 
     @Test
     public void shouldRoundTrip() throws Exception {
-        OWLClass C = Class(IRI(NS + "#C"));
-        OWLClass D = Class(IRI(NS + "#D"));
-        OWLObjectProperty P = ObjectProperty(IRI(NS + "#p"));
-        OWLDataProperty Q = DataProperty(IRI(NS + "#q"));
+        OWLClass c = Class(IRI(NS + "#C"));
+        OWLClass d = Class(IRI(NS + "#D"));
+        OWLObjectProperty p = ObjectProperty(IRI(NS + "#p"));
+        OWLDataProperty q = DataProperty(IRI(NS + "#q"));
         OWLIndividual i = AnonymousIndividual();
         OWLOntology ontology = m.createOntology(IRI(NS));
         List<AddAxiom> changes = new ArrayList<>();
-        changes.add(new AddAxiom(ontology, SubClassOf(C, ObjectHasValue(P, i))));
-        changes.add(new AddAxiom(ontology, ClassAssertion(D, i)));
-        changes.add(new AddAxiom(ontology, DataPropertyAssertion(Q, i,
+        changes.add(new AddAxiom(ontology, SubClassOf(c, ObjectHasValue(p, i))));
+        changes.add(new AddAxiom(ontology, ClassAssertion(d, i)));
+        changes.add(new AddAxiom(ontology, DataPropertyAssertion(q, i,
                 Literal("hello"))));
         m.applyChanges(changes);
         RDFXMLDocumentFormat format = new RDFXMLDocumentFormat();

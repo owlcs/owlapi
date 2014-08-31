@@ -94,7 +94,7 @@ public class OBODoc {
         // this set is used to check for cycles
         Set<String> visited = new HashSet<>();
         visited.add(getHeaderDescriptor());
-        return _getTermFrame(id, visited);
+        return getTermFrame(id, visited);
     }
 
     /**
@@ -105,7 +105,7 @@ public class OBODoc {
      * @return the frame
      */
     @Nullable
-    private Frame _getTermFrame(String id, @Nonnull Set<String> visitedDocs) {
+    private Frame getTermFrame(String id, @Nonnull Set<String> visitedDocs) {
         Frame f = termFrameMap.get(id);
         if (f != null) {
             return f;
@@ -148,7 +148,7 @@ public class OBODoc {
         // this set is used to check for cycles
         Set<String> visited = new HashSet<>();
         visited.add(getHeaderDescriptor());
-        return _getTypedefFrame(id, visited);
+        return getTypedefFrame(id, visited);
     }
 
     /**
@@ -159,7 +159,7 @@ public class OBODoc {
      * @return the frame
      */
     @Nullable
-    private Frame _getTypedefFrame(String id, @Nonnull Set<String> visitedDocs) {
+    private Frame getTypedefFrame(String id, @Nonnull Set<String> visitedDocs) {
         Frame f = typedefFrameMap.get(id);
         if (f != null) {
             return f;

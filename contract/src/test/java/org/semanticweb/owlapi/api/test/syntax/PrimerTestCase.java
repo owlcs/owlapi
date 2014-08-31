@@ -28,7 +28,7 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolation;
 public class PrimerTestCase extends TestBase {
 
     @Nonnull
-    OWLOntology func = loadOntologyFromString(functional,
+    OWLOntology func = loadOntologyFromString(FUNCTIONAL,
             IRI.create("urn:primer#functional"),
             new FunctionalSyntaxDocumentFormat());
     OWL2DLProfile profile = new OWL2DLProfile();
@@ -40,7 +40,7 @@ public class PrimerTestCase extends TestBase {
 
     @Test
     public void shouldManchBeEquivalent() {
-        OWLOntology manch = loadOntologyFromString(manchester,
+        OWLOntology manch = loadOntologyFromString(MANCHESTER,
                 IRI.create("urn:primer#manchester"),
                 new ManchesterSyntaxDocumentFormat());
         for (OWLProfileViolation v : profile.checkOntology(manch)
@@ -54,9 +54,9 @@ public class PrimerTestCase extends TestBase {
         // asserting a new named class equivalent to the right hand side of the
         // GCI and subclass of the left hand side
         // Rectifying this to be able to assert equality
-        OWLClass X = df.getOWLClass(IRI
+        OWLClass x = df.getOWLClass(IRI
                 .create("http://example.com/owl/families/X"));
-        Set<OWLClassAxiom> axioms = manch.getAxioms(X, EXCLUDED);
+        Set<OWLClassAxiom> axioms = manch.getAxioms(x, EXCLUDED);
         manch.getOWLOntologyManager().removeAxioms(manch, axioms);
         OWLClass female = df.getOWLClass(IRI
                 .create("http://example.com/owl/families/Female"));
@@ -84,7 +84,7 @@ public class PrimerTestCase extends TestBase {
 
     @Test
     public void shouldRDFXMLBeEquivalent() {
-        OWLOntology rdf = loadOntologyFromString(rdfxml,
+        OWLOntology rdf = loadOntologyFromString(RDFXML,
                 IRI.create("urn:primer#rdfxml"), new RDFXMLDocumentFormat());
         for (OWLProfileViolation v : profile.checkOntology(rdf).getViolations()) {
             System.out.println("PrimerTestCase.shouldallBeEquivalent() rdf "
@@ -95,7 +95,7 @@ public class PrimerTestCase extends TestBase {
 
     @Test
     public void shouldOWLXMLBeEquivalent() {
-        OWLOntology owl = loadOntologyFromString(owlxml,
+        OWLOntology owl = loadOntologyFromString(OWLXML,
                 IRI.create("urn:primer#owlxml"), new OWLXMLDocumentFormat());
         for (OWLProfileViolation v : profile.checkOntology(owl).getViolations()) {
             System.out.println("PrimerTestCase.shouldallBeEquivalent() owl "
@@ -106,7 +106,7 @@ public class PrimerTestCase extends TestBase {
 
     @Test
     public void shouldTURTLEBeEquivalent() {
-        OWLOntology turt = loadOntologyFromString(turtle,
+        OWLOntology turt = loadOntologyFromString(TURTLE,
                 IRI.create("urn:primer#turtle"), new TurtleDocumentFormat());
         for (OWLProfileViolation v : profile.checkOntology(turt)
                 .getViolations()) {
@@ -126,7 +126,7 @@ public class PrimerTestCase extends TestBase {
     }
 
     @Nonnull
-    private static final String rdfxml = "<!DOCTYPE rdf:RDF [\n"
+    private static final String RDFXML = "<!DOCTYPE rdf:RDF [\n"
             + "    <!ENTITY owl \"http://www.w3.org/2002/07/owl#\" >\n"
             + "    <!ENTITY xsd \"http://www.w3.org/2001/XMLSchema#\" >\n"
             + "    <!ENTITY rdfs \"http://www.w3.org/2000/01/rdf-schema#\" >\n"
@@ -209,7 +209,7 @@ public class PrimerTestCase extends TestBase {
             + "   <owl:NegativePropertyAssertion><owl:sourceIndividual rdf:resource=\"Bill\"/><owl:assertionProperty rdf:resource=\"hasDaughter\"/><owl:targetIndividual rdf:resource=\"Susan\"/></owl:NegativePropertyAssertion>\n"
             + " </rdf:RDF>";
     @Nonnull
-    private static final String owlxml = "<!DOCTYPE Ontology [\n"
+    private static final String OWLXML = "<!DOCTYPE Ontology [\n"
             + "        <!ENTITY xsd \"http://www.w3.org/2001/XMLSchema#\" >\n"
             + "        <!ENTITY rdfs \"http://www.w3.org/2000/01/rdf-schema#\" >\n"
             + "        ]>\n"
@@ -352,7 +352,7 @@ public class PrimerTestCase extends TestBase {
             + "    <NegativeObjectPropertyAssertion><ObjectProperty IRI=\"hasDaughter\"/><NamedIndividual IRI=\"Bill\"/><NamedIndividual IRI=\"Susan\"/></NegativeObjectPropertyAssertion>\n"
             + '\n' + "</Ontology>";
     @Nonnull
-    private static final String functional = " Prefix(:=<http://example.com/owl/families/>)\n"
+    private static final String FUNCTIONAL = " Prefix(:=<http://example.com/owl/families/>)\n"
             + " Prefix(otherOnt:=<http://example.org/otherOntologies/families/>)\n"
             + " Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)\n"
             + " Prefix(owl:=<http://www.w3.org/2002/07/owl#>)\n"
@@ -489,7 +489,7 @@ public class PrimerTestCase extends TestBase {
             + "   SameIndividual( :Mary otherOnt:MaryBrown )\n"
             + "   DifferentIndividuals( :John :Bill )\n" + " )";
     @Nonnull
-    private static final String manchester = "Prefix: : <http://example.com/owl/families/>\n"
+    private static final String MANCHESTER = "Prefix: : <http://example.com/owl/families/>\n"
             + "Prefix: xsd: <http://www.w3.org/2001/XMLSchema#>\n"
             + "Prefix: owl: <http://www.w3.org/2002/07/owl#>\n"
             + "Prefix: otherOnt: <http://example.org/otherOntologies/families/>\n"
@@ -631,7 +631,7 @@ public class PrimerTestCase extends TestBase {
             + "SameIndividual: John, otherOnt:JohnBrown\n"
             + "SameIndividual: Mary, otherOnt:MaryBrown";
     @Nonnull
-    private static final String turtle = "@prefix : <http://example.com/owl/families/> .\n"
+    private static final String TURTLE = "@prefix : <http://example.com/owl/families/> .\n"
             + "@prefix otherOnt: <http://example.org/otherOntologies/families/> .\n"
             + "@prefix owl: <http://www.w3.org/2002/07/owl#> .\n"
             + "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n"

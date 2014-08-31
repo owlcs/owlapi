@@ -44,7 +44,7 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
     private static final String OBO_EXTENSION = ".obo";
     private static final String[] EXTENSIONS = { OWL_EXTENSION, RDF_EXTENSION,
             XML_EXTENSION, OBO_EXTENSION };
-    private static final Map<IRI, String> wellKnownShortForms = initWellKnownShortForms();
+    private static final Map<IRI, String> WELL_KNOWN_SHORTFORMS = initWellKnownShortForms();
     private static final long serialVersionUID = 40000L;
 
     private static Map<IRI, String> initWellKnownShortForms() {
@@ -107,7 +107,7 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
     }
 
     private static String getWellKnownShortForm(IRI iri) {
-        String wellKnownShortForm = wellKnownShortForms.get(iri);
+        String wellKnownShortForm = WELL_KNOWN_SHORTFORMS.get(iri);
         if (wellKnownShortForm != null) {
             return wellKnownShortForm;
         }

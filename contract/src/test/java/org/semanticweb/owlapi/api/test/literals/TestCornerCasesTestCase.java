@@ -38,7 +38,7 @@ public class TestCornerCasesTestCase extends TestBase {
     }
 
     @Test
-    public void testIntegerRange2_4() {
+    public void testIntegerRange() {
         String expected = "2147483648";
         OWLDatatype type = df.getIntegerOWLDatatype();
         OWLLiteral lit = df.getOWLLiteral(expected, type);
@@ -46,7 +46,7 @@ public class TestCornerCasesTestCase extends TestBase {
     }
 
     @Test
-    public void testEnumInt_5() {
+    public void testEnumInt() {
         OWLDatatype type = df.getIntegerOWLDatatype();
         df.getOWLLiteral("1000000000000000000000000000000000000000", type);
     }

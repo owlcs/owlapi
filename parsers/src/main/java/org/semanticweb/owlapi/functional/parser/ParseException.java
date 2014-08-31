@@ -107,7 +107,7 @@ class ParseException extends OWLParserException {
             }
             retval += " " + tokenImage[tok.kind];
             retval += " \"";
-            retval += add_escapes(tok.image);
+            retval += addEscapes(tok.image);
             retval += " \"";
             tok = tok.next;
         }
@@ -132,7 +132,7 @@ class ParseException extends OWLParserException {
      * Used to convert raw characters to their escaped version when these raw
      * version cannot be used as part of an ASCII string literal.
      */
-    static String add_escapes(String str) {
+    static String addEscapes(String str) {
         StringBuffer retval = new StringBuffer();
         char ch;
         for (int i = 0; i < str.length(); i++) {

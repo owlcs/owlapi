@@ -15,7 +15,7 @@ package org.semanticweb.owlapi.rdf.rdfxml.parser;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.vocab.Namespaces;
 
-class DeprecatedVocabulary {
+final class DeprecatedVocabulary {
 
     //@formatter:off
     private static final String OWL = Namespaces.OWL.toString();

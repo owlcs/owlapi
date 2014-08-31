@@ -116,9 +116,9 @@ public class Utf8TestCase extends TestBase {
 
     @Test
     public void testPositiveUTF8roundTrip() throws Exception {
-        String NS = "http://protege.org/UTF8.owl";
-        OWLOntology ontology = m.createOntology(IRI(NS));
-        OWLClass a = Class(IRI(NS + "#A"));
+        String ns = "http://protege.org/UTF8.owl";
+        OWLOntology ontology = m.createOntology(IRI(ns));
+        OWLClass a = Class(IRI(ns + "#A"));
         m.addAxiom(ontology, df.getOWLDeclarationAxiom(a));
         OWLAnnotation ann = df.getOWLAnnotation(df.getRDFSLabel(),
                 df.getOWLLiteral("Chinese=處方"));
@@ -129,8 +129,8 @@ public class Utf8TestCase extends TestBase {
 
     @Test
     public void testRoundTrip() throws Exception {
-        String NS = "http://protege.org/ontologies/UTF8RoundTrip.owl";
-        OWLClass C = Class(IRI(NS + "#C"));
+        String ns = "http://protege.org/ontologies/UTF8RoundTrip.owl";
+        OWLClass c = Class(IRI(ns + "#C"));
         /*
          * The two unicode characters entered here are valid and can be found in
          * the code chart http://www.unicode.org/charts/PDF/U4E00.pdf. It has
@@ -139,32 +139,32 @@ public class Utf8TestCase extends TestBase {
          * \346\226\271 where the right hand side is in octal. (I chose octal
          * because this is how emacs represents it with find-file-literally).
          */
-        String CHINESE = "Rx\u8655\u65b9";
+        String chinese = "Rx\u8655\u65b9";
         System.setProperty("file.encoding", "UTF-8");
-        OWLOntology ontology = createOriginalOntology(NS, C, CHINESE);
-        checkOntology(ontology, C, CHINESE);
+        OWLOntology ontology = createOriginalOntology(ns, c, chinese);
+        checkOntology(ontology, c, chinese);
         OWLOntology newOntology = roundTrip(ontology,
                 new RDFXMLDocumentFormat());
-        checkOntology(newOntology, C, CHINESE);
+        checkOntology(newOntology, c, chinese);
     }
 
     @Nonnull
-    private OWLOntology createOriginalOntology(@Nonnull String NS,
-            @Nonnull OWLClass C, @Nonnull String CHINESE)
+    private OWLOntology createOriginalOntology(@Nonnull String ns,
+            @Nonnull OWLClass c, @Nonnull String chinese)
             throws OWLOntologyCreationException {
-        OWLOntology ontology = m.createOntology(IRI(NS));
-        OWLAxiom annotationAxiom = AnnotationAssertion(RDFSLabel(), C.getIRI(),
-                Literal(CHINESE));
+        OWLOntology ontology = m.createOntology(IRI(ns));
+        OWLAxiom annotationAxiom = AnnotationAssertion(RDFSLabel(), c.getIRI(),
+                Literal(chinese));
         m.addAxiom(ontology, annotationAxiom);
         return ontology;
     }
 
     private static boolean checkOntology(@Nonnull OWLOntology ontology,
-            @Nonnull OWLClass C, @Nonnull String CHINESE) {
+            @Nonnull OWLClass c, @Nonnull String chinese) {
         for (OWLAnnotation annotation : annotations(ontology
-                .getAnnotationAssertionAxioms(C.getIRI()))) {
+                .getAnnotationAssertionAxioms(c.getIRI()))) {
             String value = ((OWLLiteral) annotation.getValue()).getLiteral();
-            return CHINESE.equals(value);
+            return chinese.equals(value);
         }
         return false;
     }

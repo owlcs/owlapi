@@ -52,10 +52,10 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
     private static final OWLDatatype RDFSLITERAL = new OWL2DatatypeImpl(
             RDFS_LITERAL);
     @Nonnull
-    private static final OWLLiteral trueLiteral = new OWLLiteralImplBoolean(
+    private static final OWLLiteral TRUELITERAL = new OWLLiteralImplBoolean(
             true, XSDBOOLEAN);
     @Nonnull
-    private static final OWLLiteral falseLiteral = new OWLLiteralImplBoolean(
+    private static final OWLLiteral FALSELITERAL = new OWLLiteralImplBoolean(
             false, XSDBOOLEAN);
     @Nullable
     private OWLLiteral negativeFloatZero;
@@ -137,7 +137,7 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
 
     @Override
     public OWLLiteral getOWLLiteral(boolean value) {
-        return value ? trueLiteral : falseLiteral;
+        return value ? TRUELITERAL : FALSELITERAL;
     }
 
     @Override

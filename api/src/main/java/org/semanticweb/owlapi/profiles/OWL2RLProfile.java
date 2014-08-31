@@ -70,7 +70,7 @@ import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitor;
  */
 public class OWL2RLProfile implements OWLProfile {
 
-    protected static final Set<IRI> allowedDatatypes = new HashSet<>(
+    protected static final Set<IRI> ALLOWED_DATATYPES = new HashSet<>(
             Arrays.asList(RDF_PLAIN_LITERAL.getIRI(), RDF_XML_LITERAL.getIRI(),
                     RDFS_LITERAL.getIRI(), XSD_DECIMAL.getIRI(),
                     XSD_INTEGER.getIRI(), XSD_NON_NEGATIVE_INTEGER.getIRI(),
@@ -251,7 +251,7 @@ public class OWL2RLProfile implements OWLProfile {
 
         @Override
         public void visit(OWLDatatype node) {
-            if (!allowedDatatypes.contains(node.getIRI())) {
+            if (!ALLOWED_DATATYPES.contains(node.getIRI())) {
                 violations.add(new UseOfIllegalDataRange(getCurrentOntology(),
                         getCurrentAxiom(), node));
             }
@@ -311,7 +311,7 @@ public class OWL2RLProfile implements OWLProfile {
         @Override
         public Boolean visit(OWLObjectSomeValuesFrom ce) {
             return ce.getFiller().isOWLThing()
-            || isOWL2RLSubClassExpression(ce.getFiller());
+                    || isOWL2RLSubClassExpression(ce.getFiller());
         }
 
         @Override
@@ -383,8 +383,8 @@ public class OWL2RLProfile implements OWLProfile {
         @Override
         public Boolean visit(OWLObjectMaxCardinality ce) {
             return (ce.getCardinality() == 0 || ce.getCardinality() == 1)
-            && (ce.getFiller().isOWLThing() || isOWL2RLSubClassExpression(ce
-                    .getFiller()));
+                    && (ce.getFiller().isOWLThing() || isOWL2RLSubClassExpression(ce
+                            .getFiller()));
         }
 
         @Override

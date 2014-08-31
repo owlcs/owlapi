@@ -28,7 +28,7 @@ public class OBOFormatWriterTest extends OboFormatTestBasics {
      * alphabetical ordering.
      */
     @Test
-    public void testSortTermClausesIntersection_of() {
+    public void testSortTermClausesIntersectionOf() {
         OBODoc oboDoc = parseOBOFile("equivtest.obo");
         Frame frame = oboDoc.getTermFrame("X:1");
         List<Clause> clauses = new ArrayList<>(

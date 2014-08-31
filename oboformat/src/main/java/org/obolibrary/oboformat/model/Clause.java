@@ -285,21 +285,20 @@ public class Clause {
             // special case for comparing booleans
             // this is a bit of a hack - ideally owl2obo would use the correct
             // types
-            Object _v1 = getValue();
-            Object _v2 = other.getValue();
-            if (_v1 != _v2) {
-                if (_v1 != null) {
-                    if (!_v1.equals(_v2)) {
-                        if (Boolean.TRUE.equals(_v1) && "true".equals(_v2)) {
+            Object v1 = getValue();
+            Object v2 = other.getValue();
+            if (v1 != v2) {
+                if (v1 != null) {
+                    if (!v1.equals(v2)) {
+                        if (Boolean.TRUE.equals(v1) && "true".equals(v2)) {
                             // special case - OK
-                        } else if (Boolean.TRUE.equals(_v2)
-                                && "true".equals(_v1)) {
+                        } else if (Boolean.TRUE.equals(v2) && "true".equals(v1)) {
                             // special case - OK
-                        } else if (Boolean.FALSE.equals(_v1)
-                                && "false".equals(_v2)) {
+                        } else if (Boolean.FALSE.equals(v1)
+                                && "false".equals(v2)) {
                             // special case - OK
-                        } else if (Boolean.FALSE.equals(_v2)
-                                && "false".equals(_v1)) {
+                        } else if (Boolean.FALSE.equals(v2)
+                                && "false".equals(v1)) {
                             // special case - OK
                         } else {
                             return false;

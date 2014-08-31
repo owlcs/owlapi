@@ -199,7 +199,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
         return hashcode;
     }
 
-    private int getHashCode() {
+    private final int getHashCode() {
         int hashCode = 277;
         hashCode = hashCode * 37 + getDatatype().hashCode();
         hashCode *= 37;

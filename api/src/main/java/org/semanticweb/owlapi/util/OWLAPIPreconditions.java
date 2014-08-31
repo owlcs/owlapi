@@ -18,7 +18,7 @@ import javax.annotation.Nonnull;
 import com.google.common.base.Optional;
 
 /** a set of personalized preconditions */
-public class OWLAPIPreconditions {
+public final class OWLAPIPreconditions {
 
     private OWLAPIPreconditions() {}
 

@@ -269,7 +269,7 @@ public class OWLLiteralImplString implements OWLLiteral {
         if (o instanceof OWLObjectImpl) {
             otherTypeIndex = ((OWLObjectImpl) o).index();
         } else {
-            otherTypeIndex = OWLObjectImpl.owlObjectTypeIndexProvider
+            otherTypeIndex = OWLObjectImpl.OWLOBJECT_TYPEINDEX_PROVIDER
                     .getTypeIndex(o);
         }
         int diff = thisTypeIndex - otherTypeIndex;
@@ -303,5 +303,4 @@ public class OWLLiteralImplString implements OWLLiteral {
     public Optional<OWLLiteral> asLiteral() {
         return Optional.<OWLLiteral> of(this);
     }
-
 }

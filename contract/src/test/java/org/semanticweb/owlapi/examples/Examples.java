@@ -130,7 +130,7 @@ import com.google.common.base.Optional;
 public class Examples extends TestBase {
 
     @Nonnull
-    private static final String koala = "<?xml version=\"1.0\"?>\n"
+    private static final String KOALA = "<?xml version=\"1.0\"?>\n"
             + "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\" xmlns=\"http://protege.stanford.edu/plugins/owl/owl-library/koala.owl#\" xml:base=\"http://protege.stanford.edu/plugins/owl/owl-library/koala.owl\">\n"
             + "  <owl:Ontology rdf:about=\"\"/>\n"
             + "  <owl:Class rdf:ID=\"Female\"><owl:equivalentClass><owl:Restriction><owl:onProperty><owl:FunctionalProperty rdf:about=\"#hasGender\"/></owl:onProperty><owl:hasValue><Gender rdf:ID=\"female\"/></owl:hasValue></owl:Restriction></owl:equivalentClass></owl:Class>\n"
@@ -217,7 +217,7 @@ public class Examples extends TestBase {
         // in this test, we load from a string instead
         return manager
                 .loadOntologyFromOntologyDocument(new StringDocumentSource(
-                        koala));
+                        KOALA));
     }
 
     /**
@@ -504,7 +504,7 @@ public class Examples extends TestBase {
         // a string
         OWLOntology ontology = manager
                 .loadOntologyFromOntologyDocument(new StringDocumentSource(
-                        koala));
+                        KOALA));
         // Print out all of the classes which are contained in the signature of
         // the ontology. These are the classes that are referenced by axioms in
         // the ontology.
@@ -1504,18 +1504,18 @@ public class Examples extends TestBase {
     @Test
     public
             void shouldUseIRIMappers() throws Exception {
-        IRI MGED_ONTOLOGY_IRI = IRI
+        IRI mgedOntologyIri = IRI
                 .create("http://mged.sourceforge.net/ontologies/MGEDOntology.owl");
-        IRI PROTEGE_ONTOLOGY_IRI = IRI
+        IRI protegeOntologyIri = IRI
                 .create("http://protege.stanford.edu/plugins/owl/protege");
-        IRI TONES_REPOSIITORY_IRI = IRI
+        IRI tonesRepositoryIri = IRI
                 .create("http://owl.cs.manchester.ac.uk/repository/download");
         // Create a manager to work with
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         // Load the MGED ontology. There is a copy of the MGED ontology located
         // at the address pointed to by its ontology IRI (this is good practice
         // and is recommended in the OWL 2 spec).
-        OWLOntology ontology = manager.loadOntology(MGED_ONTOLOGY_IRI);
+        OWLOntology ontology = manager.loadOntology(mgedOntologyIri);
         // Print out the ontology IRI and its imported ontology IRIs
         printOntologyAndImports(manager, ontology);
         // We'll load the MGED ontology again, but this time, we'll get the
@@ -1529,9 +1529,9 @@ public class Examples extends TestBase {
         // the document IRI that points to a copy in the TONES ontology
         // repository.
         IRI protegeOntologyDocumentIRI = getTONESRepositoryDocumentIRI(
-                PROTEGE_ONTOLOGY_IRI, TONES_REPOSIITORY_IRI);
+                protegeOntologyIri, tonesRepositoryIri);
         OWLOntologyIRIMapper iriMapper = new SimpleIRIMapper(
-                PROTEGE_ONTOLOGY_IRI, protegeOntologyDocumentIRI);
+                protegeOntologyIri, protegeOntologyDocumentIRI);
         // Create a new manager that we will use to load the MGED ontology
         OWLOntologyManager manager2 = OWLManager.createOWLOntologyManager();
         // Register our mapper with the manager
@@ -1600,14 +1600,14 @@ public class Examples extends TestBase {
      * 
      * @param ontologyIRI
      *        The IRI of the ontology.
-     * @param Tones
+     * @param tones
      *        tones iri
      * @return The document IRI of the ontology in the TONES repository.
      */
     @Nonnull
     private static IRI
-            getTONESRepositoryDocumentIRI(IRI ontologyIRI, IRI Tones) {
-        return IRI.create(Tones + "?ontology=" + ontologyIRI);
+            getTONESRepositoryDocumentIRI(IRI ontologyIRI, IRI tones) {
+        return IRI.create(tones + "?ontology=" + ontologyIRI);
     }
 
     /**

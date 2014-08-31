@@ -29,7 +29,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 
 /** Some ontology utils methods. */
-public class OntologyUtils {
+public final class OntologyUtils {
 
     private OntologyUtils() {}
 

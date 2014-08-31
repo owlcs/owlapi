@@ -86,27 +86,27 @@ public abstract class AbstractRendererAndParserTestCase extends TestBase {
         man.removeOntology(ontA);
         OWLOntology ontB = man.loadOntologyFromOntologyDocument(IRI
                 .create(tempFile.toURI()));
-        Set<OWLLogicalAxiom> AminusB = ontA.getLogicalAxioms();
-        AminusB.removeAll(ontB.getAxioms());
-        Set<OWLLogicalAxiom> BminusA = ontB.getLogicalAxioms();
-        BminusA.removeAll(ontA.getAxioms());
+        Set<OWLLogicalAxiom> aMinusB = ontA.getLogicalAxioms();
+        aMinusB.removeAll(ontB.getAxioms());
+        Set<OWLLogicalAxiom> bMinusA = ontB.getLogicalAxioms();
+        bMinusA.removeAll(ontA.getAxioms());
         StringBuilder msg = new StringBuilder();
-        if (AminusB.isEmpty() && BminusA.isEmpty()) {
+        if (aMinusB.isEmpty() && bMinusA.isEmpty()) {
             msg.append("Ontology save/load roundtrip OK.\n");
         } else {
             msg.append("Ontology save/load roundtripping error.\n");
-            msg.append("=> ").append(AminusB.size())
+            msg.append("=> ").append(aMinusB.size())
                     .append(" axioms lost in roundtripping.\n");
-            for (OWLAxiom axiom : AminusB) {
+            for (OWLAxiom axiom : aMinusB) {
                 msg.append(axiom + "\n");
             }
-            msg.append("=> ").append(BminusA.size())
+            msg.append("=> ").append(bMinusA.size())
                     .append(" axioms added after roundtripping.\n");
-            for (OWLAxiom axiom : BminusA) {
+            for (OWLAxiom axiom : bMinusA) {
                 msg.append(axiom + "\n");
             }
         }
-        assertTrue(msg.toString(), AminusB.isEmpty() && BminusA.isEmpty());
+        assertTrue(msg.toString(), aMinusB.isEmpty() && bMinusA.isEmpty());
     }
 
     protected abstract Set<OWLAxiom> getAxioms();

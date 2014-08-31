@@ -52,7 +52,7 @@ public class Frame {
     }
 
     /** Init clauses. */
-    protected void init() {
+    protected final void init() {
         clauses = new ArrayList<>();
     }
 

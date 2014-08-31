@@ -67,7 +67,8 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
     private final BuildableWeakIndexCache<OWLAnnotationProperty> annotationPropertiesByURI;
 
     @Nonnull
-    protected <V extends OWLEntity> BuildableWeakIndexCache<V> buildCache() {
+    protected final <V extends OWLEntity> BuildableWeakIndexCache<V>
+            buildCache() {
         return new BuildableWeakIndexCache<>();
     }
 

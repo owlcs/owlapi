@@ -26,7 +26,7 @@ import org.semanticweb.owlapi.rio.utils.RioUtils;
 @SuppressWarnings({ "javadoc" })
 public class RioUtilsTest {
 
-    private static final ValueFactory vf = ValueFactoryImpl.getInstance();
+    private static final ValueFactory VF = ValueFactoryImpl.getInstance();
     private RDFTriple testOwlApiTripleAllIRI;
     private RDFTriple testOwlApiTriplePlainLiteral;
     private RDFTriple testOwlApiTripleLangLiteral;
@@ -75,33 +75,33 @@ public class RioUtilsTest {
         testOwlApiTripleSubjectObjectBNode = new RDFTriple(
                 testOwlApiSubjectBNode1, testOwlApiPredicateUri1,
                 testOwlApiObjectBNode1);
-        URI testSesameSubjectUri1 = vf.createURI("urn:test:subject:uri:1");
-        URI testSesamePredicateUri1 = vf.createURI("urn:test:predicate:uri:1");
-        URI testSesameObjectUri1 = vf.createURI("urn:test:object:uri:1");
-        Literal testSesameObjectPlainLiteral1 = vf
+        URI testSesameSubjectUri1 = VF.createURI("urn:test:subject:uri:1");
+        URI testSesamePredicateUri1 = VF.createURI("urn:test:predicate:uri:1");
+        URI testSesameObjectUri1 = VF.createURI("urn:test:object:uri:1");
+        Literal testSesameObjectPlainLiteral1 = VF
                 .createLiteral("Test literal");
-        Literal testSesameObjectLangLiteral1 = vf.createLiteral("Test literal",
+        Literal testSesameObjectLangLiteral1 = VF.createLiteral("Test literal",
                 "en");
-        Literal testSesameObjectTypedLiteral1 = vf.createLiteral(
-                "Test literal", vf.createURI("urn:test:datatype:1"));
-        BNode testSesameSubjectBNode1 = vf.createBNode("subjectBnode1");
-        BNode testSesameObjectBNode1 = vf.createBNode("objectBnode1");
-        testSesameTripleAllIRI = vf.createStatement(testSesameSubjectUri1,
+        Literal testSesameObjectTypedLiteral1 = VF.createLiteral(
+                "Test literal", VF.createURI("urn:test:datatype:1"));
+        BNode testSesameSubjectBNode1 = VF.createBNode("subjectBnode1");
+        BNode testSesameObjectBNode1 = VF.createBNode("objectBnode1");
+        testSesameTripleAllIRI = VF.createStatement(testSesameSubjectUri1,
                 testSesamePredicateUri1, testSesameObjectUri1);
-        testSesameTriplePlainLiteral = vf.createStatement(
+        testSesameTriplePlainLiteral = VF.createStatement(
                 testSesameSubjectUri1, testSesamePredicateUri1,
                 testSesameObjectPlainLiteral1);
-        testSesameTripleLangLiteral = vf.createStatement(testSesameSubjectUri1,
+        testSesameTripleLangLiteral = VF.createStatement(testSesameSubjectUri1,
                 testSesamePredicateUri1, testSesameObjectLangLiteral1);
-        testSesameTripleTypedLiteral = vf.createStatement(
+        testSesameTripleTypedLiteral = VF.createStatement(
                 testSesameSubjectUri1, testSesamePredicateUri1,
                 testSesameObjectTypedLiteral1);
-        testSesameTripleSubjectBNode = vf.createStatement(
+        testSesameTripleSubjectBNode = VF.createStatement(
                 testSesameSubjectBNode1, testSesamePredicateUri1,
                 testSesameObjectUri1);
-        testSesameTripleObjectBNode = vf.createStatement(testSesameSubjectUri1,
+        testSesameTripleObjectBNode = VF.createStatement(testSesameSubjectUri1,
                 testSesamePredicateUri1, testSesameObjectBNode1);
-        testSesameTripleSubjectObjectBNode = vf.createStatement(
+        testSesameTripleSubjectObjectBNode = VF.createStatement(
                 testSesameSubjectBNode1, testSesamePredicateUri1,
                 testSesameObjectBNode1);
     }

@@ -127,7 +127,7 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
  * @since 3.0.0
  */
 @SuppressWarnings("javadoc")
-public class OWLFunctionalSyntaxFactory {
+public final class OWLFunctionalSyntaxFactory {
 
     private static final String URNTESTS_URI = "urn:tests#uri";
     private static final OWLDataFactory DF = OWLManager.getOWLDataFactory();

@@ -80,7 +80,7 @@ import org.slf4j.LoggerFactory;
  */
 public class Translators {
 
-    protected static final Logger logger = LoggerFactory
+    protected static final Logger LOGGER = LoggerFactory
             .getLogger(Translators.class);
 
     private Translators() {}
@@ -1068,14 +1068,14 @@ public class Translators {
             // know which is correct
             OWLPropertyExpression property = null;
             if (consumer.isObjectProperty(firstObject)) {
-                logger.warn(
+                LOGGER.warn(
                         "Property {} has been punned illegally: found declaration as OWLObjectProperty",
                         firstObject);
                 property = consumer.getDataFactory().getOWLObjectProperty(
                         firstObject);
             }
             if (consumer.isDataProperty(firstObject)) {
-                logger.warn(
+                LOGGER.warn(
                         "Property {} has been punned illegally: found declaration as OWLDataProperty",
                         firstObject);
                 if (property == null) {
@@ -1084,7 +1084,7 @@ public class Translators {
                 }
             }
             if (consumer.isAnnotationProperty(firstObject)) {
-                logger.warn(
+                LOGGER.warn(
                         "Property {} has been punned illegally: found declaration as OWLAnnotationProperty",
                         firstObject);
                 if (property == null) {
@@ -1096,7 +1096,7 @@ public class Translators {
             // and consider it a datatype property.
             // This matches existing behaviour.
             if (property == null) {
-                logger.warn(
+                LOGGER.warn(
                         "Property {} is undeclared at this point in parsing: typing as OWLDataProperty",
                         firstObject);
                 property = consumer.getDataFactory().getOWLDataProperty(
@@ -1122,7 +1122,7 @@ public class Translators {
 
         @Override
         public OWLIndividual translate(OWLLiteral firstObject) {
-            logger.info("Cannot translate list item to individual, because rdf:first triple is a literal triple");
+            LOGGER.info("Cannot translate list item to individual, because rdf:first triple is a literal triple");
             return null;
         }
     }
@@ -1232,7 +1232,7 @@ public class Translators {
 
         @Override
         public OWLObjectPropertyExpression translate(OWLLiteral firstObject) {
-            logger.info("Cannot translate list item as an object property, because rdf:first triple is a literal triple");
+            LOGGER.info("Cannot translate list item as an object property, because rdf:first triple is a literal triple");
             return null;
         }
     }
@@ -1744,7 +1744,7 @@ public class Translators {
 
         @Override
         public OWLObjectPropertyExpression translate(OWLLiteral firstObject) {
-            logger.info("Cannot translate list item as an object property, because rdf:first triple is a literal triple");
+            LOGGER.info("Cannot translate list item as an object property, because rdf:first triple is a literal triple");
             return null;
         }
     }
@@ -2018,7 +2018,7 @@ public class Translators {
             if (argIRI != null) {
                 // Must be a variable -- double check
                 if (!consumer.isSWRLVariable(argIRI)) {
-                    logger.info(
+                    LOGGER.info(
                             "Expected SWRL variable for SWRL Data Object: {} (possibly untyped)",
                             argIRI);
                 }
@@ -2116,7 +2116,7 @@ public class Translators {
 
         @Override
         public OWLLiteral translate(IRI firstObject) {
-            logger.info("Cannot translate list item to a constant because rdf:first triple is a resource triple");
+            LOGGER.info("Cannot translate list item to a constant because rdf:first triple is a resource triple");
             return null;
         }
 

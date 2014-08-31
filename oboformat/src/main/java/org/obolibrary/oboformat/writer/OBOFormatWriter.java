@@ -59,7 +59,7 @@ public class OBOFormatWriter {
     private static final Logger LOG = LoggerFactory
             .getLogger(OBOFormatWriter.class);
     @Nonnull
-    private static final Set<String> tagsInformative = buildTagsInformative();
+    private static final Set<String> TAGSINFORMATIVE = buildTagsInformative();
     private boolean isCheckStructure = true;
 
     /** @return true, if is check structure */
@@ -210,13 +210,13 @@ public class OBOFormatWriter {
         writeHeader(headerFrame, writer, nameProvider);
         List<Frame> termFrames = new ArrayList<>();
         termFrames.addAll(doc.getTermFrames());
-        Collections.sort(termFrames, FramesComparator.instance);
+        Collections.sort(termFrames, FramesComparator.INSTANCE);
         List<Frame> typeDefFrames = new ArrayList<>();
         typeDefFrames.addAll(doc.getTypedefFrames());
-        Collections.sort(typeDefFrames, FramesComparator.instance);
+        Collections.sort(typeDefFrames, FramesComparator.INSTANCE);
         List<Frame> instanceFrames = new ArrayList<>();
         typeDefFrames.addAll(doc.getInstanceFrames());
-        Collections.sort(instanceFrames, FramesComparator.instance);
+        Collections.sort(instanceFrames, FramesComparator.INSTANCE);
         for (Frame f : termFrames) {
             write(f, writer, nameProvider);
         }
@@ -271,7 +271,7 @@ public class OBOFormatWriter {
             @Nonnull BufferedWriter writer, NameProvider nameProvider)
             throws IOException {
         List<String> tags = duplicateTags(frame.getTags());
-        Collections.sort(tags, HeaderTagsComparator.instance);
+        Collections.sort(tags, HeaderTagsComparator.INSTANCE);
         write(new Clause(OboFormatTag.TAG_FORMAT_VERSION.getTag(), "1.2"),
                 writer, nameProvider);
         for (String tag : tags) {
@@ -279,7 +279,7 @@ public class OBOFormatWriter {
                 continue;
             }
             List<Clause> clauses = new ArrayList<>(frame.getClauses(tag));
-            Collections.sort(clauses, ClauseComparator.instance);
+            Collections.sort(clauses, ClauseComparator.INSTANCE);
             for (Clause clause : clauses) {
                 assert clause != null;
                 if (tag.equals(OboFormatTag.TAG_SUBSETDEF.getTag())) {
@@ -315,13 +315,13 @@ public class OBOFormatWriter {
         StringComparator comparator = null;
         if (frame.getType() == FrameType.TERM) {
             writeLine("[Term]", writer);
-            comparator = TermsTagsComparator.instance;
+            comparator = TermsTagsComparator.INSTANCE;
         } else if (frame.getType() == FrameType.TYPEDEF) {
             writeLine("[Typedef]", writer);
-            comparator = TypeDefTagsComparator.instance;
+            comparator = TypeDefTagsComparator.INSTANCE;
         } else if (frame.getType() == FrameType.INSTANCE) {
             writeLine("[Instance]", writer);
-            comparator = TypeDefTagsComparator.instance;
+            comparator = TypeDefTagsComparator.INSTANCE;
         }
         if (frame.getId() != null) {
             Object label = frame.getTagValue(OboFormatTag.TAG_NAME);
@@ -349,7 +349,7 @@ public class OBOFormatWriter {
         }
         for (String tag : tags) {
             List<Clause> clauses = new ArrayList<>(frame.getClauses(tag));
-            Collections.sort(clauses, ClauseComparator.instance);
+            Collections.sort(clauses, ClauseComparator.INSTANCE);
             for (Clause clause : clauses) {
                 String clauseTag = clause.getTag();
                 if (OboFormatTag.TAG_ID.getTag().equals(clauseTag)) {
@@ -446,8 +446,8 @@ public class OBOFormatWriter {
         Object value = clause.getValue();
         assert value != null;
         if (value instanceof Date) {
-            sb.append(OBOFormatConstants.headerDateFormat.get().format(
-                    (Date) value));
+            sb.append(OBOFormatConstants.headerDateFormat()
+                    .format((Date) value));
         } else if (value instanceof String) {
             sb.append(value);
         } else {
@@ -529,7 +529,7 @@ public class OBOFormatWriter {
     private static void appendXrefs(@Nonnull StringBuilder sb,
             @Nonnull Collection<Xref> xrefs) {
         List<Xref> sortedXrefs = new ArrayList<>(xrefs);
-        Collections.sort(sortedXrefs, XrefComparator.instance);
+        Collections.sort(sortedXrefs, XrefComparator.INSTANCE);
         sb.append(" [");
         Iterator<Xref> xrefsIterator = sortedXrefs.iterator();
         while (xrefsIterator.hasNext()) {
@@ -667,7 +667,7 @@ public class OBOFormatWriter {
         sb.append(": ");
         Iterator<Object> valuesIterator = clause.getValues().iterator();
         StringBuilder idsLabel = null;
-        if (nameProvider != null && tagsInformative.contains(clause.getTag())) {
+        if (nameProvider != null && TAGSINFORMATIVE.contains(clause.getTag())) {
             idsLabel = new StringBuilder();
         }
         while (valuesIterator.hasNext()) {
@@ -824,9 +824,9 @@ public class OBOFormatWriter {
     /** The Class HeaderTagsComparator. */
     private static class HeaderTagsComparator implements StringComparator {
 
-        static final HeaderTagsComparator instance = new HeaderTagsComparator();
+        static final HeaderTagsComparator INSTANCE = new HeaderTagsComparator();
         @Nonnull
-        private static final Map<String, Integer> tagsPriorities = buildTagsPriorities();
+        private static final Map<String, Integer> TAGSPRIORITIES = buildTagsPriorities();
         private static final long serialVersionUID = 40000L;
 
         @Nonnull
@@ -860,8 +860,8 @@ public class OBOFormatWriter {
 
         @Override
         public int compare(String o1, String o2) {
-            Integer i1 = tagsPriorities.get(o1);
-            Integer i2 = tagsPriorities.get(o2);
+            Integer i1 = TAGSPRIORITIES.get(o1);
+            Integer i2 = TAGSPRIORITIES.get(o2);
             if (i1 == null) {
                 i1 = 10000;
             }
@@ -875,9 +875,9 @@ public class OBOFormatWriter {
     /** The Class TermsTagsComparator. */
     private static class TermsTagsComparator implements StringComparator {
 
-        static final TermsTagsComparator instance = new TermsTagsComparator();
+        static final TermsTagsComparator INSTANCE = new TermsTagsComparator();
         @Nonnull
-        private static final Map<String, Integer> tagsPriorities = buildTagsPriorities();
+        private static final Map<String, Integer> TAGSPRIORITIES = buildTagsPriorities();
         private static final long serialVersionUID = 40000L;
 
         @Nonnull
@@ -912,8 +912,8 @@ public class OBOFormatWriter {
 
         @Override
         public int compare(String o1, String o2) {
-            Integer i1 = tagsPriorities.get(o1);
-            Integer i2 = tagsPriorities.get(o2);
+            Integer i1 = TAGSPRIORITIES.get(o1);
+            Integer i2 = TAGSPRIORITIES.get(o2);
             if (i1 == null) {
                 i1 = 10000;
             }
@@ -928,16 +928,16 @@ public class OBOFormatWriter {
     private static class ClauseListComparator implements Comparator<Clause>,
             Serializable {
 
-        protected static final ClauseListComparator instance = new ClauseListComparator();
+        protected static final ClauseListComparator INSTANCE = new ClauseListComparator();
         private static final long serialVersionUID = 40000L;
 
         @Override
         public int compare(Clause o1, Clause o2) {
             String t1 = o1.getTag();
             String t2 = o2.getTag();
-            int compare = TermsTagsComparator.instance.compare(t1, t2);
+            int compare = TermsTagsComparator.INSTANCE.compare(t1, t2);
             if (compare == 0) {
-                compare = ClauseComparator.instance.compare(o1, o2);
+                compare = ClauseComparator.INSTANCE.compare(o1, o2);
             }
             return compare;
         }
@@ -951,15 +951,15 @@ public class OBOFormatWriter {
      *        the clauses
      */
     public static void sortTermClauses(@Nonnull List<Clause> clauses) {
-        Collections.sort(clauses, ClauseListComparator.instance);
+        Collections.sort(clauses, ClauseListComparator.INSTANCE);
     }
 
     /** The Class TypeDefTagsComparator. */
     private static class TypeDefTagsComparator implements StringComparator {
 
-        static final TypeDefTagsComparator instance = new TypeDefTagsComparator();
+        static final TypeDefTagsComparator INSTANCE = new TypeDefTagsComparator();
         @Nonnull
-        private static final Map<String, Integer> tagsPriorities = buildTagsPriorities();
+        private static final Map<String, Integer> TAGSPRIORITIES = buildTagsPriorities();
         private static final long serialVersionUID = 40000L;
 
         @Nonnull
@@ -1011,8 +1011,8 @@ public class OBOFormatWriter {
 
         @Override
         public int compare(String o1, String o2) {
-            Integer i1 = tagsPriorities.get(o1);
-            Integer i2 = tagsPriorities.get(o2);
+            Integer i1 = TAGSPRIORITIES.get(o1);
+            Integer i2 = TAGSPRIORITIES.get(o2);
             if (i1 == null) {
                 i1 = 10000;
             }
@@ -1027,7 +1027,7 @@ public class OBOFormatWriter {
     private static class FramesComparator implements Comparator<Frame>,
             Serializable {
 
-        static final FramesComparator instance = new FramesComparator();
+        static final FramesComparator INSTANCE = new FramesComparator();
         private static final long serialVersionUID = 40000L;
 
         @Override
@@ -1043,7 +1043,7 @@ public class OBOFormatWriter {
     private static class ClauseComparator implements Comparator<Clause>,
             Serializable {
 
-        static final ClauseComparator instance = new ClauseComparator();
+        static final ClauseComparator INSTANCE = new ClauseComparator();
         private static final long serialVersionUID = 40000L;
 
         @Override
@@ -1126,7 +1126,7 @@ public class OBOFormatWriter {
     private static class XrefComparator implements Comparator<Xref>,
             Serializable {
 
-        static final XrefComparator instance = new XrefComparator();
+        static final XrefComparator INSTANCE = new XrefComparator();
         private static final long serialVersionUID = 40000L;
 
         @Override

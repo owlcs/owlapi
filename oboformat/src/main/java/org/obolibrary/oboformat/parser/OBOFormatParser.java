@@ -278,8 +278,8 @@ public class OBOFormatParser {
     }
 
     @Nonnull
-    private String resolvePath(@Nonnull String _path) {
-        String path = _path;
+    private String resolvePath(@Nonnull String inputPath) {
+        String path = inputPath;
         if (!(path.startsWith("http:") || path.startsWith("file:") || path
                 .startsWith("https:"))) {
             // path is not absolue then guess it.
@@ -396,14 +396,14 @@ public class OBOFormatParser {
         // check term frames
         for (Frame f : doc.getTermFrames()) {
             for (String tag : f.getTags()) {
-                OboFormatTag _tag = OBOFormatConstants.getTag(tag);
+                OboFormatTag tagconstant = OBOFormatConstants.getTag(tag);
                 Clause c = f.getClause(tag);
-                if (_tag == OboFormatTag.TAG_INTERSECTION_OF
-                        || _tag == OboFormatTag.TAG_UNION_OF
-                        || _tag == OboFormatTag.TAG_EQUIVALENT_TO
-                        || _tag == OboFormatTag.TAG_DISJOINT_FROM
-                        || _tag == OboFormatTag.TAG_RELATIONSHIP
-                        || _tag == OboFormatTag.TAG_IS_A) {
+                if (tagconstant == OboFormatTag.TAG_INTERSECTION_OF
+                        || tagconstant == OboFormatTag.TAG_UNION_OF
+                        || tagconstant == OboFormatTag.TAG_EQUIVALENT_TO
+                        || tagconstant == OboFormatTag.TAG_DISJOINT_FROM
+                        || tagconstant == OboFormatTag.TAG_RELATIONSHIP
+                        || tagconstant == OboFormatTag.TAG_IS_A) {
                     if (c.getValues().size() > 1) {
                         String error = checkRelation(c.getValue(String.class),
                                 tag, f.getId(), doc);
@@ -428,25 +428,25 @@ public class OBOFormatParser {
         // check typedef frames
         for (Frame f : doc.getTypedefFrames()) {
             for (String tag : f.getTags()) {
-                OboFormatTag _tag = OBOFormatConstants.getTag(tag);
+                OboFormatTag tagConstant = OBOFormatConstants.getTag(tag);
                 Clause c = f.getClause(tag);
                 assert c != null;
-                if (_tag == OboFormatTag.TAG_IS_A
-                        || _tag == OboFormatTag.TAG_INTERSECTION_OF
-                        || _tag == OboFormatTag.TAG_UNION_OF
-                        || _tag == OboFormatTag.TAG_EQUIVALENT_TO
-                        || _tag == OboFormatTag.TAG_DISJOINT_FROM
-                        || _tag == OboFormatTag.TAG_INVERSE_OF
-                        || _tag == OboFormatTag.TAG_TRANSITIVE_OVER
-                        || _tag == OboFormatTag.TAG_DISJOINT_OVER) {
+                if (tagConstant == OboFormatTag.TAG_IS_A
+                        || tagConstant == OboFormatTag.TAG_INTERSECTION_OF
+                        || tagConstant == OboFormatTag.TAG_UNION_OF
+                        || tagConstant == OboFormatTag.TAG_EQUIVALENT_TO
+                        || tagConstant == OboFormatTag.TAG_DISJOINT_FROM
+                        || tagConstant == OboFormatTag.TAG_INVERSE_OF
+                        || tagConstant == OboFormatTag.TAG_TRANSITIVE_OVER
+                        || tagConstant == OboFormatTag.TAG_DISJOINT_OVER) {
                     String error = checkRelation(c.getValue(String.class), tag,
                             f.getId(), doc);
                     if (error != null) {
                         danglingReferences.add(error);
                     }
-                } else if (_tag == OboFormatTag.TAG_HOLDS_OVER_CHAIN
-                        || _tag == OboFormatTag.TAG_EQUIVALENT_TO_CHAIN
-                        || _tag == OboFormatTag.TAG_RELATIONSHIP) {
+                } else if (tagConstant == OboFormatTag.TAG_HOLDS_OVER_CHAIN
+                        || tagConstant == OboFormatTag.TAG_EQUIVALENT_TO_CHAIN
+                        || tagConstant == OboFormatTag.TAG_RELATIONSHIP) {
                     String error = checkRelation(c.getValue().toString(), tag,
                             f.getId(), doc);
                     if (error != null) {
@@ -457,8 +457,8 @@ public class OBOFormatParser {
                     if (error != null) {
                         danglingReferences.add(error);
                     }
-                } else if (_tag == OboFormatTag.TAG_DOMAIN
-                        || _tag == OboFormatTag.TAG_RANGE) {
+                } else if (tagConstant == OboFormatTag.TAG_DOMAIN
+                        || tagConstant == OboFormatTag.TAG_RANGE) {
                     String error = checkClassReference(c.getValue().toString(),
                             tag, f.getId(), doc);
                     if (error != null) {
@@ -982,7 +982,7 @@ public class OBOFormatParser {
         String v = getParseUntil("!");
         v = removeTrailingWS(v);
         try {
-            Date date = OBOFormatConstants.headerDateFormat.get().parse(v);
+            Date date = OBOFormatConstants.headerDateFormat().parse(v);
             cl.addValue(date);
         } catch (ParseException e) {
             throw new OBOFormatParserException(

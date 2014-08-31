@@ -54,32 +54,29 @@ public class ProfileValidationTestCase extends TestBase {
 
     @Test
     public void testProfiles() throws OWLOntologyCreationException {
-        String TEST_NAMESPACE = "http://www.w3.org/2007/OWL/testOntology#";
-        IRI PROFILE_IDENTIFICATION_TEST_IRI = IRI(TEST_NAMESPACE
-                + "ProfileIdentificationTest");
-        IRI SPECIES_IRI = IRI(TEST_NAMESPACE + "species");
-        IRI FULL_IRI = IRI(TEST_NAMESPACE + "FULL");
-        IRI DL_IRI = IRI(TEST_NAMESPACE + "DL");
-        IRI EL_IRI = IRI(TEST_NAMESPACE + "EL");
-        IRI QL_IRI = IRI(TEST_NAMESPACE + "QL");
-        IRI RL_IRI = IRI(TEST_NAMESPACE + "RL");
-        IRI RDF_XML_PREMISE_ONTOLOGY_IRI = IRI(TEST_NAMESPACE
-                + "rdfXmlPremiseOntology");
+        String ns = "http://www.w3.org/2007/OWL/testOntology#";
+        IRI profile = IRI(ns + "ProfileIdentificationTest");
+        IRI species = IRI(ns + "species");
+        IRI fullIRI = IRI(ns + "FULL");
+        IRI dlIRI = IRI(ns + "DL");
+        IRI elIRI = IRI(ns + "EL");
+        IRI qlIRI = IRI(ns + "QL");
+        IRI rlIRI = IRI(ns + "RL");
+        IRI premiseIRI = IRI(ns + "rdfXmlPremiseOntology");
         URL resourceURL = ProfileValidationTestCase.class
                 .getResource("/all.rdf");
         IRI allTestURI = IRI.create(resourceURL);
         OWLOntology testCasesOntology = m
                 .loadOntologyFromOntologyDocument(allTestURI);
-        OWLClass profileIdentificationTestClass = Class(PROFILE_IDENTIFICATION_TEST_IRI);
-        OWLNamedIndividual EL = df.getOWLNamedIndividual(EL_IRI);
-        OWLNamedIndividual QL = df.getOWLNamedIndividual(QL_IRI);
-        OWLNamedIndividual RL = df.getOWLNamedIndividual(RL_IRI);
-        OWLObjectProperty speciesProperty = df
-                .getOWLObjectProperty(SPECIES_IRI);
-        OWLNamedIndividual FULL = df.getOWLNamedIndividual(FULL_IRI);
-        OWLNamedIndividual DL = df.getOWLNamedIndividual(DL_IRI);
+        OWLClass profileIdentificationTestClass = Class(profile);
+        OWLNamedIndividual el = df.getOWLNamedIndividual(elIRI);
+        OWLNamedIndividual ql = df.getOWLNamedIndividual(qlIRI);
+        OWLNamedIndividual rl = df.getOWLNamedIndividual(rlIRI);
+        OWLObjectProperty speciesProperty = df.getOWLObjectProperty(species);
+        OWLNamedIndividual full = df.getOWLNamedIndividual(fullIRI);
+        OWLNamedIndividual dl = df.getOWLNamedIndividual(dlIRI);
         OWLDataProperty rdfXMLPremiseOntologyProperty = df
-                .getOWLDataProperty(RDF_XML_PREMISE_ONTOLOGY_IRI);
+                .getOWLDataProperty(premiseIRI);
         for (OWLClassAssertionAxiom ax : testCasesOntology
                 .getClassAssertionAxioms(profileIdentificationTestClass)) {
             OWLIndividual ind = ax.getIndividual();
@@ -95,42 +92,42 @@ public class ProfileValidationTestCase extends TestBase {
             Collection<OWLIndividual> finder = values(
                     testCasesOntology.getObjectPropertyAssertionAxioms(ind),
                     speciesProperty);
-            if (finder.contains(FULL)) {
+            if (finder.contains(full)) {
                 checkProfile(ontology, new OWL2Profile(), true);
             }
             Collection<OWLIndividual> negativeFinder = negValues(
                     testCasesOntology
                             .getNegativeObjectPropertyAssertionAxioms(ind),
                     speciesProperty);
-            if (negativeFinder.contains(FULL)) {
+            if (negativeFinder.contains(full)) {
                 checkProfile(ontology, new OWL2Profile(), false);
             }
             // DL?
-            if (finder.contains(DL)) {
+            if (finder.contains(dl)) {
                 checkProfile(ontology, new OWL2DLProfile(), true);
             }
-            if (negativeFinder.contains(DL)) {
+            if (negativeFinder.contains(dl)) {
                 checkProfile(ontology, new OWL2DLProfile(), false);
             }
             // EL?
-            if (finder.contains(EL)) {
+            if (finder.contains(el)) {
                 checkProfile(ontology, new OWL2ELProfile(), true);
             }
-            if (negativeFinder.contains(EL)) {
+            if (negativeFinder.contains(el)) {
                 checkProfile(ontology, new OWL2ELProfile(), false);
             }
             // QL?
-            if (finder.contains(QL)) {
+            if (finder.contains(ql)) {
                 checkProfile(ontology, new OWL2QLProfile(), true);
             }
-            if (negativeFinder.contains(QL)) {
+            if (negativeFinder.contains(ql)) {
                 checkProfile(ontology, new OWL2QLProfile(), false);
             }
             // RL?
-            if (finder.contains(RL)) {
+            if (finder.contains(rl)) {
                 checkProfile(ontology, new OWL2RLProfile(), true);
             }
-            if (negativeFinder.contains(RL)) {
+            if (negativeFinder.contains(rl)) {
                 checkProfile(ontology, new OWL2RLProfile(), false);
             }
             m.removeOntology(ontology);

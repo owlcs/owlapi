@@ -21,10 +21,10 @@ import javax.annotation.Nonnull;
  *         Group
  * @since 2.0.0
  */
-public class XMLWriterPreferences {
+public final class XMLWriterPreferences {
 
     @Nonnull
-    private static final XMLWriterPreferences instance = new XMLWriterPreferences();
+    private static final XMLWriterPreferences INSTANCE = new XMLWriterPreferences();
     private boolean useNamespaceEntities;
     private boolean indenting;
     private int indentSize;
@@ -37,7 +37,7 @@ public class XMLWriterPreferences {
 
     /** @return the only instance */
     public static XMLWriterPreferences getInstance() {
-        return instance;
+        return INSTANCE;
     }
 
     /** @return use namespace entities */

@@ -40,7 +40,7 @@ public class MultipleOntologyLoadsTestCase extends TestBase {
     @Nonnull
     private final Optional<IRI> i139 = of(IRI("http://test.example.org/ontology/0139"));
     @Nonnull
-    private static final String input = "<?xml version=\"1.0\"?>\n"
+    private static final String INPUT = "<?xml version=\"1.0\"?>\n"
             + "<rdf:RDF\n"
             + "    xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\n"
             + "    xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\"\n"
@@ -57,7 +57,7 @@ public class MultipleOntologyLoadsTestCase extends TestBase {
         OWLOntology initialOntology = m
                 .createOntology(initialUniqueOWLOntologyID);
         OWLParser initialParser = new RDFXMLParser();
-        initialParser.parse(new StringDocumentSource(input), initialOntology,
+        initialParser.parse(new StringDocumentSource(INPUT), initialOntology,
                 config);
         OWLOntologyID secondUniqueOWLOntologyID = new OWLOntologyID(i139, v2);
         try {
@@ -74,7 +74,7 @@ public class MultipleOntologyLoadsTestCase extends TestBase {
         OWLOntology initialOntology = m
                 .createOntology(initialUniqueOWLOntologyID);
         OWLParser parser = new RDFXMLParser();
-        parser.parse(new StringDocumentSource(input), initialOntology, config);
+        parser.parse(new StringDocumentSource(INPUT), initialOntology, config);
         OWLOntologyID secondUniqueOWLOntologyID = new OWLOntologyID(i139, v1);
         try {
             m.createOntology(secondUniqueOWLOntologyID);
@@ -90,14 +90,14 @@ public class MultipleOntologyLoadsTestCase extends TestBase {
         OWLOntology initialOntology = m
                 .createOntology(initialUniqueOWLOntologyID);
         OWLParser parser = new RDFXMLParser();
-        parser.parse(new StringDocumentSource(input), initialOntology, config);
+        parser.parse(new StringDocumentSource(INPUT), initialOntology, config);
         assertEquals(i139, initialOntology.getOntologyID().getOntologyIRI());
         assertEquals(v1, initialOntology.getOntologyID().getVersionIRI());
         OWLOntologyID secondUniqueOWLOntologyID = new OWLOntologyID(i139, v2);
         OWLOntology secondOntology = m
                 .createOntology(secondUniqueOWLOntologyID);
         OWLParser secondParser = new RDFXMLParser();
-        secondParser.parse(new StringDocumentSource(input), secondOntology,
+        secondParser.parse(new StringDocumentSource(INPUT), secondOntology,
                 config);
         assertEquals(i139, secondOntology.getOntologyID().getOntologyIRI());
         assertEquals(v2, secondOntology.getOntologyID().getVersionIRI());
@@ -108,14 +108,14 @@ public class MultipleOntologyLoadsTestCase extends TestBase {
             throws Exception {
         OWLOntology initialOntology = m.createOntology();
         OWLParser parser = new RDFXMLParser();
-        parser.parse(new StringDocumentSource(input), initialOntology, config);
+        parser.parse(new StringDocumentSource(INPUT), initialOntology, config);
         assertEquals(i139, initialOntology.getOntologyID().getOntologyIRI());
         assertEquals(v1, initialOntology.getOntologyID().getVersionIRI());
         OWLOntologyID secondUniqueOWLOntologyID = new OWLOntologyID(i139, v2);
         OWLOntology secondOntology = m
                 .createOntology(secondUniqueOWLOntologyID);
         OWLParser secondParser = new RDFXMLParser();
-        secondParser.parse(new StringDocumentSource(input), secondOntology,
+        secondParser.parse(new StringDocumentSource(INPUT), secondOntology,
                 config);
         assertEquals(i139, secondOntology.getOntologyID().getOntologyIRI());
         assertEquals(v2, secondOntology.getOntologyID().getVersionIRI());
@@ -131,14 +131,14 @@ public class MultipleOntologyLoadsTestCase extends TestBase {
         OWLOntology initialOntology = m
                 .createOntology(initialUniqueOWLOntologyID);
         OWLParser parser = new RDFXMLParser();
-        parser.parse(new StringDocumentSource(input), initialOntology, config);
+        parser.parse(new StringDocumentSource(INPUT), initialOntology, config);
         assertEquals(i139, initialOntology.getOntologyID().getOntologyIRI());
         assertEquals(v1, initialOntology.getOntologyID().getVersionIRI());
         OWLOntologyID secondUniqueOWLOntologyID = new OWLOntologyID(i139, v2);
         OWLOntology secondOntology = m
                 .createOntology(secondUniqueOWLOntologyID);
         OWLParser secondParser = new RDFXMLParser();
-        secondParser.parse(new StringDocumentSource(input), secondOntology,
+        secondParser.parse(new StringDocumentSource(INPUT), secondOntology,
                 config);
         assertEquals(i139, secondOntology.getOntologyID().getOntologyIRI());
         assertEquals(v2, secondOntology.getOntologyID().getVersionIRI());
@@ -151,7 +151,7 @@ public class MultipleOntologyLoadsTestCase extends TestBase {
                 .createOntology(secondUniqueOWLOntologyID);
         OWLParser secondParser = new RDFXMLParser();
         // the following throws the exception
-        secondParser.parse(new StringDocumentSource(input), secondOntology,
+        secondParser.parse(new StringDocumentSource(INPUT), secondOntology,
                 config);
         assertEquals(i139, secondOntology.getOntologyID().getOntologyIRI());
         assertEquals(v2, secondOntology.getOntologyID().getVersionIRI());
@@ -163,7 +163,7 @@ public class MultipleOntologyLoadsTestCase extends TestBase {
         OWLOntology initialOntology = m
                 .createOntology(initialUniqueOWLOntologyID);
         OWLParser parser = new RDFXMLParser();
-        parser.parse(new StringDocumentSource(input), initialOntology, config);
+        parser.parse(new StringDocumentSource(INPUT), initialOntology, config);
         assertEquals(i139, initialOntology.getOntologyID().getOntologyIRI());
         assertEquals(v1, initialOntology.getOntologyID().getVersionIRI());
     }

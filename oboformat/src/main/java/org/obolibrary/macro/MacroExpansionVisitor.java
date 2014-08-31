@@ -33,7 +33,7 @@ import org.slf4j.LoggerFactory;
 /** @author cjm TODO - allow use of prefixes */
 public class MacroExpansionVisitor {
 
-    protected static final Logger log = LoggerFactory
+    protected static final Logger LOG = LoggerFactory
             .getLogger(MacroExpansionVisitor.class);
     @Nonnull
     private final OWLOntology inputOntology;
@@ -115,12 +115,12 @@ public class MacroExpansionVisitor {
                 // then add the declarations at this point
                 manchesterSyntaxTool = new ManchesterSyntaxTool(inputOntology);
             }
-            log.info("Template to Expand {}", expandTo);
+            LOG.info("Template to Expand {}", expandTo);
             expandTo = expandTo.replaceAll("\\?X",
                     manchesterSyntaxTool.getId((IRI) ax.getSubject()));
             expandTo = expandTo.replaceAll("\\?Y",
                     manchesterSyntaxTool.getId(axValIRI));
-            log.info("Expanding {}", expandTo);
+            LOG.info("Expanding {}", expandTo);
             try {
                 Set<OntologyAxiomPair> setAxp = manchesterSyntaxTool
                         .parseManchesterExpressionFrames(expandTo);
@@ -128,7 +128,7 @@ public class MacroExpansionVisitor {
                     setAx.add(axp.getAxiom());
                 }
             } catch (Exception ex) {
-                log.error(ex.getMessage(), ex);
+                LOG.error(ex.getMessage(), ex);
             }
             // TODO:
         }
@@ -189,7 +189,7 @@ public class MacroExpansionVisitor {
                         result = manchesterSyntaxTool
                                 .parseManchesterExpression(exStr);
                     } catch (ParserException e) {
-                        log.error(e.getMessage(), e);
+                        LOG.error(e.getMessage(), e);
                     }
                 }
             }

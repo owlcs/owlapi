@@ -91,12 +91,12 @@ public class GuessRDFSPropertyTypeTestCase {
     public void testProperty(@Nonnull String propertyName,
             @Nonnull String expectedDomain, @Nonnull String expectedRange,
             @Nonnull String expectedSuperProperty) {
-        IRI p11_IRI = prefixOWLOntologyFormat.getIRI(propertyName);
-        Set<OWLEntity> had_participant = cidocOntology
-                .getEntitiesInSignature(p11_IRI);
+        IRI p11IRI = prefixOWLOntologyFormat.getIRI(propertyName);
+        Set<OWLEntity> hadParticipant = cidocOntology
+                .getEntitiesInSignature(p11IRI);
         assertEquals("should have found " + propertyName, 1,
-                had_participant.size());
-        OWLEntity entity = had_participant.iterator().next();
+                hadParticipant.size());
+        OWLEntity entity = hadParticipant.iterator().next();
         assertTrue("EntityType",
                 OWLProperty.class.isAssignableFrom(entity.getClass()));
         if (entity instanceof OWLObjectProperty) {
@@ -109,11 +109,11 @@ public class GuessRDFSPropertyTypeTestCase {
         }
     }
 
-    private void testProperty(@Nonnull OWLObjectProperty p11_property,
+    private void testProperty(@Nonnull OWLObjectProperty p11property,
             @Nonnull String expectedDomain, @Nonnull String expectedRange,
             @Nonnull String expectedSuperProperty) {
         Collection<OWLClassExpression> ranges = Searcher.range(cidocOntology
-                .getObjectPropertyRangeAxioms(p11_property));
+                .getObjectPropertyRangeAxioms(p11property));
         assertEquals("should have 1 range", 1, ranges.size());
         HasIRI range = (HasIRI) ranges.iterator().next();
         IRI rangeIRI = range.getIRI();
@@ -123,7 +123,7 @@ public class GuessRDFSPropertyTypeTestCase {
         }
         assertEquals("range", expectedIRI, rangeIRI);
         Collection<OWLClassExpression> domains = Searcher.domain(cidocOntology
-                .getObjectPropertyDomainAxioms(p11_property));
+                .getObjectPropertyDomainAxioms(p11property));
         // p11_property .getDomains(cidocOntology);
         assertEquals("should have 1 domain", 1, domains.size());
         HasIRI domain = (HasIRI) domains.iterator().next();
@@ -131,9 +131,9 @@ public class GuessRDFSPropertyTypeTestCase {
         assertEquals("domain should be E5_Event",
                 prefixOWLOntologyFormat.getIRI(expectedDomain), domainIRI);
         Collection<OWLObjectPropertyExpression> superProperties = Searcher
-                .sup(cidocOntology.filterAxioms(
-                        Filters.subObjectPropertyWithSub, p11_property,
-                        INCLUDED));
+                .sup(cidocOntology
+                        .filterAxioms(Filters.subObjectPropertyWithSub,
+                                p11property, INCLUDED));
         // Set<OWLPropertyExpression> superProperties =
         // p11_property.getSuperProperties(cidocOntology);
         assertEquals("should have 1 super Property", 1, superProperties.size());
@@ -144,11 +144,11 @@ public class GuessRDFSPropertyTypeTestCase {
                 superPropertyIRI);
     }
 
-    private void testProperty(@Nonnull OWLDataProperty p11_property,
+    private void testProperty(@Nonnull OWLDataProperty p11property,
             @Nonnull String expectedDomain, @Nonnull String expectedRange,
             @Nonnull String expectedSuperProperty) {
         Collection<OWLClassExpression> ranges = Searcher.range(cidocOntology
-                .getDataPropertyRangeAxioms(p11_property));
+                .getDataPropertyRangeAxioms(p11property));
         assertEquals("should have 1 range", 1, ranges.size());
         HasIRI range = (HasIRI) ranges.iterator().next();
         IRI rangeIRI = range.getIRI();
@@ -158,7 +158,7 @@ public class GuessRDFSPropertyTypeTestCase {
         }
         assertEquals("range", expectedIRI, rangeIRI);
         Collection<OWLClassExpression> domains = Searcher.domain(cidocOntology
-                .getDataPropertyDomainAxioms(p11_property));
+                .getDataPropertyDomainAxioms(p11property));
         // p11_property .getDomains(cidocOntology);
         assertEquals("should have 1 domain", 1, domains.size());
         HasIRI domain = (HasIRI) domains.iterator().next();
@@ -167,7 +167,7 @@ public class GuessRDFSPropertyTypeTestCase {
                 prefixOWLOntologyFormat.getIRI(expectedDomain), domainIRI);
         Collection<OWLObjectPropertyExpression> superProperties = Searcher
                 .sup(cidocOntology.filterAxioms(Filters.subDataPropertyWithSub,
-                        p11_property, INCLUDED));
+                        p11property, INCLUDED));
         // Set<OWLPropertyExpression> superProperties =
         // p11_property.getSuperProperties(cidocOntology);
         assertEquals("should have 1 super Property", 1, superProperties.size());

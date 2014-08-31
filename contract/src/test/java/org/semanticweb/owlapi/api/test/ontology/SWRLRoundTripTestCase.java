@@ -48,20 +48,22 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
 @SuppressWarnings("javadoc")
 public class SWRLRoundTripTestCase extends TestBase {
 
+    @Nonnull
+    private static final String NS = "urn:test";
+
     @Test
     public void shouldDoCompleteRoundtrip() throws Exception {
-        String NS = "urn:test";
-        OWLClass A = Class(IRI(NS + "#A"));
-        OWLDataProperty P = df.getOWLDataProperty(IRI(NS + "#P"));
-        SWRLVariable X = df.getSWRLVariable(IRI(NS + "#X"));
-        SWRLVariable Y = df.getSWRLVariable(IRI(NS + "#Y"));
+        OWLClass a = Class(IRI(NS + "#A"));
+        OWLDataProperty p = df.getOWLDataProperty(IRI(NS + "#P"));
+        SWRLVariable x = df.getSWRLVariable(IRI(NS + "#X"));
+        SWRLVariable y = df.getSWRLVariable(IRI(NS + "#Y"));
         OWLOntology ontology = m.createOntology(IRI(NS));
         Set<SWRLAtom> body = new TreeSet<>();
-        body.add(df.getSWRLDataPropertyAtom(P, X, Y));
+        body.add(df.getSWRLDataPropertyAtom(p, x, y));
         body.add(df.getSWRLDataRangeAtom(
-                df.getOWLDatatype(XSDVocabulary.STRING.getIRI()), Y));
+                df.getOWLDatatype(XSDVocabulary.STRING.getIRI()), y));
         Set<SWRLAtom> head = new TreeSet<>();
-        head.add(df.getSWRLClassAtom(A, X));
+        head.add(df.getSWRLClassAtom(a, x));
         SWRLRule rule = df.getSWRLRule(body, head);
         ontology.getOWLOntologyManager().addAxiom(ontology, rule);
         ontology = roundTrip(ontology, new OWLXMLDocumentFormat());
@@ -71,18 +73,17 @@ public class SWRLRoundTripTestCase extends TestBase {
 
     @Test
     public void shouldDoCompleteRoundtripManchesterOWLSyntax() throws Exception {
-        String NS = "urn:test";
-        OWLClass A = Class(IRI(NS + "#A"));
-        OWLDataProperty P = df.getOWLDataProperty(IRI(NS + "#P"));
-        SWRLVariable X = df.getSWRLVariable(IRI(NS + "#X"));
-        SWRLVariable Y = df.getSWRLVariable(IRI(NS + "#Y"));
+        OWLClass a = Class(IRI(NS + "#A"));
+        OWLDataProperty p = df.getOWLDataProperty(IRI(NS + "#P"));
+        SWRLVariable x = df.getSWRLVariable(IRI(NS + "#X"));
+        SWRLVariable y = df.getSWRLVariable(IRI(NS + "#Y"));
         OWLOntology ontology = m.createOntology(IRI(NS));
         Set<SWRLAtom> body = new TreeSet<>();
-        body.add(df.getSWRLDataPropertyAtom(P, X, Y));
+        body.add(df.getSWRLDataPropertyAtom(p, x, y));
         body.add(df.getSWRLDataRangeAtom(
-                df.getOWLDatatype(XSDVocabulary.STRING.getIRI()), Y));
+                df.getOWLDatatype(XSDVocabulary.STRING.getIRI()), y));
         Set<SWRLAtom> head = new TreeSet<>();
-        head.add(df.getSWRLClassAtom(A, X));
+        head.add(df.getSWRLClassAtom(a, x));
         SWRLRule rule = df.getSWRLRule(body, head);
         ontology.getOWLOntologyManager().addAxiom(ontology, rule);
         ontology = roundTrip(ontology, new ManchesterSyntaxDocumentFormat());
@@ -152,7 +153,7 @@ public class SWRLRoundTripTestCase extends TestBase {
     }
 
     @Test
-    public void shouldDoCompleteRoundtripWithAnnotations_datatypeRDFXML()
+    public void shouldDoCompleteRoundtripWithAnnotationsDatatypeRDFXML()
             throws Exception {
         OWLOntology ontology = prepareOntology1();
         OWLDocumentFormat f = new RDFXMLDocumentFormat();
@@ -185,18 +186,17 @@ public class SWRLRoundTripTestCase extends TestBase {
      */
     @Nonnull
     OWLOntology prepareOntology() throws OWLOntologyCreationException {
-        String NS = "urn:test";
-        OWLClass A = Class(IRI(NS + "#A"));
-        OWLDataProperty P = df.getOWLDataProperty(IRI(NS + "#P"));
-        SWRLVariable X = df.getSWRLVariable(IRI(NS + "#X"));
-        SWRLVariable Y = df.getSWRLVariable(IRI(NS + "#Y"));
+        OWLClass a = Class(IRI(NS + "#A"));
+        OWLDataProperty p = df.getOWLDataProperty(IRI(NS + "#P"));
+        SWRLVariable x = df.getSWRLVariable(IRI(NS + "#X"));
+        SWRLVariable y = df.getSWRLVariable(IRI(NS + "#Y"));
         OWLOntology ontology = m.createOntology(IRI(NS));
         Set<SWRLAtom> body = new TreeSet<>();
-        body.add(df.getSWRLDataPropertyAtom(P, X, Y));
+        body.add(df.getSWRLDataPropertyAtom(p, x, y));
         body.add(df.getSWRLDataRangeAtom(
-                df.getOWLDatatype(XSDVocabulary.STRING.getIRI()), Y));
+                df.getOWLDatatype(XSDVocabulary.STRING.getIRI()), y));
         Set<SWRLAtom> head = new TreeSet<>();
-        head.add(df.getSWRLClassAtom(A, X));
+        head.add(df.getSWRLClassAtom(a, x));
         OWLAnnotation ann = df.getOWLAnnotation(df.getRDFSLabel(),
                 df.getOWLLiteral("test", ""));
         SWRLRule rule = df.getSWRLRule(body, head, singleton(ann));
@@ -212,7 +212,6 @@ public class SWRLRoundTripTestCase extends TestBase {
 
     @Nonnull
     OWLOntology prepareOntology1() throws OWLOntologyCreationException {
-        String NS = "urn:test";
         OWLOntology ontology = m.createOntology(IRI(NS));
         OWLDatatypeDefinitionAxiom def = df.getOWLDatatypeDefinitionAxiom(
                 df.getOWLDatatype(IRI.create("urn:mydatatype")),

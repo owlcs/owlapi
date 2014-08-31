@@ -86,8 +86,8 @@ public class BFOROXrefTest extends OboFormatTestBasics {
         OWLAPIOwl2Obo revbridge = new OWLAPIOwl2Obo(
                 OWLManager.createOWLOntologyManager());
         OBODoc d2 = revbridge.convert(owlOnt);
-        Frame part_of = d2.getTypedefFrame("part_of");
-        Collection<Clause> xrcs = part_of.getClauses(OboFormatTag.TAG_XREF);
+        Frame partOf = d2.getTypedefFrame("part_of");
+        Collection<Clause> xrcs = partOf.getClauses(OboFormatTag.TAG_XREF);
         boolean okBfo = false;
         boolean okOboRel = false;
         for (Clause c : xrcs) {

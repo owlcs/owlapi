@@ -209,7 +209,6 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         }
     }
 
-
     @Override
     @SuppressWarnings("null")
     @Nonnull
@@ -2581,8 +2580,8 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     private final Map<String, IRI> nameIRIMap = new HashMap<>();
 
     @Nonnull
-    protected IRI getIRI(@Nonnull String _name) {
-        String name = _name;
+    protected IRI getIRI(@Nonnull String inputName) {
+        String name = inputName;
         boolean fullIRI = name.equals("<");
         if (fullIRI) {
             name = consumeToken();

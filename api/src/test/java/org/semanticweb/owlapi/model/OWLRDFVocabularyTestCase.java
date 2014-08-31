@@ -52,13 +52,13 @@ public class OWLRDFVocabularyTestCase {
     }
 
     @Test
-    public void getPrefixedName_shouldStartWithOWLRDFPrefixName() {
+    public void getPrefixedNameShouldStartWithOWLRDFPrefixName() {
         assertThat(vocabulary.getPrefixedName(), startsWith(vocabulary
                 .getNamespace().getPrefixName()));
     }
 
     @Test
-    public void getIRI_shouldReturnAnIRIThatStartsWithOWLRDFPrefix() {
+    public void getIRIShouldReturnAnIRIThatStartsWithOWLRDFPrefix() {
         assertThat(vocabulary.getIRI().toString(), startsWith(vocabulary
                 .getNamespace().getPrefixIRI()));
     }

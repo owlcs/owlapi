@@ -52,13 +52,13 @@ public class SKOSVocabularyTestCase {
     }
 
     @Test
-    public void getPrefixedName_shouldStartWithSkosPrefixName() {
+    public void getPrefixedNameShouldStartWithSkosPrefixName() {
         assertThat(vocabulary.getPrefixedName(),
                 startsWith(Namespaces.SKOS.getPrefixName()));
     }
 
     @Test
-    public void getIRI_shouldReturnAnIRIThatStartsWithSkosPrefix() {
+    public void getIRIShouldReturnAnIRIThatStartsWithSkosPrefix() {
         assertThat(vocabulary.getIRI().toString(),
                 startsWith(Namespaces.SKOS.getPrefixIRI()));
     }

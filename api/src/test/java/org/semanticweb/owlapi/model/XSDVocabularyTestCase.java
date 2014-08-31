@@ -52,13 +52,13 @@ public class XSDVocabularyTestCase {
     }
 
     @Test
-    public void getPrefixedName_shouldStartWithXSDPrefixName() {
+    public void getPrefixedNameShouldStartWithXSDPrefixName() {
         assertThat(vocabulary.getPrefixedName(),
                 startsWith(Namespaces.XSD.getPrefixName()));
     }
 
     @Test
-    public void getIRI_shouldReturnAnIRIThatStartsWithXSDPrefix() {
+    public void getIRIShouldReturnAnIRIThatStartsWithXSDPrefix() {
         assertThat(vocabulary.getIRI().toString(),
                 startsWith(Namespaces.XSD.getPrefixIRI()));
     }

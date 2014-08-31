@@ -53,13 +53,13 @@ public class OWLXMLVocabularyTestCase {
     }
 
     @Test
-    public void getPrefixedName_shouldStartWithOWLXMLPrefixName() {
+    public void getPrefixedNameShouldStartWithOWLXMLPrefixName() {
         assertThat(vocabulary.getPrefixedName(),
                 startsWith(Namespaces.OWL.getPrefixName()));
     }
 
     @Test
-    public void getIRI_shouldReturnAnIRIThatStartsWithOWLXMLPrefix() {
+    public void getIRIShouldReturnAnIRIThatStartsWithOWLXMLPrefix() {
         assertThat(vocabulary.getIRI().toString(),
                 startsWith(Namespaces.OWL.getPrefixIRI()));
     }

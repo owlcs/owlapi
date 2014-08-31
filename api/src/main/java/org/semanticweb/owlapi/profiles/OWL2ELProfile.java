@@ -78,7 +78,7 @@ import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitor;
  */
 public class OWL2ELProfile implements OWLProfile {
 
-    protected static final Set<IRI> allowedDatatypes = new HashSet<>(
+    protected static final Set<IRI> ALLOWED_DATATYPES = new HashSet<>(
             Arrays.asList(RDF_PLAIN_LITERAL.getIRI(), RDF_XML_LITERAL.getIRI(),
                     RDFS_LITERAL.getIRI(), OWL_RATIONAL.getIRI(),
                     OWL_REAL.getIRI(), XSD_DECIMAL.getIRI(),
@@ -144,7 +144,7 @@ public class OWL2ELProfile implements OWLProfile {
 
         @Override
         public void visit(OWLDatatype node) {
-            if (!allowedDatatypes.contains(node.getIRI())) {
+            if (!ALLOWED_DATATYPES.contains(node.getIRI())) {
                 profileViolations.add(new UseOfIllegalDataRange(
                         getCurrentOntology(), getCurrentAxiom(), node));
             }

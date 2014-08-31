@@ -59,9 +59,10 @@ import org.slf4j.LoggerFactory;
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0
  */
-public class RioUtils {
+public final class RioUtils {
 
-    private static final Logger log = LoggerFactory.getLogger(RioUtils.class);
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(RioUtils.class);
 
     private RioUtils() {}
 
@@ -103,7 +104,7 @@ public class RioUtils {
             try {
                 subject = vf.createURI(triple.getSubject().getIRI().toString());
             } catch (IllegalArgumentException iae) {
-                log.error("Subject URI was invalid: {}", triple);
+                LOGGER.error("Subject URI was invalid: {}", triple);
                 return Collections.emptyList();
             }
         } else {
@@ -123,7 +124,7 @@ public class RioUtils {
             try {
                 object = vf.createURI(triple.getObject().getIRI().toString());
             } catch (IllegalArgumentException iae) {
-                log.error("Object URI was invalid: {}", triple);
+                LOGGER.error("Object URI was invalid: {}", triple);
                 return Collections.emptyList();
             }
         } else if (triple.getObject() instanceof RDFLiteral) {

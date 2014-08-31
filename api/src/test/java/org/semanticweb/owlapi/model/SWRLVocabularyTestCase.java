@@ -52,13 +52,13 @@ public class SWRLVocabularyTestCase {
     }
 
     @Test
-    public void getPrefixedName_shouldStartWithSWRLPrefixName() {
+    public void getPrefixedNameShouldStartWithSWRLPrefixName() {
         assertThat(vocabulary.getPrefixedName(),
                 startsWith(Namespaces.SWRL.getPrefixName()));
     }
 
     @Test
-    public void getIRI_shouldReturnAnIRIThatStartsWithSWRLPrefix() {
+    public void getIRIShouldReturnAnIRIThatStartsWithSWRLPrefix() {
         assertThat(vocabulary.getIRI().toString(),
                 startsWith(Namespaces.SWRL.getPrefixIRI()));
     }

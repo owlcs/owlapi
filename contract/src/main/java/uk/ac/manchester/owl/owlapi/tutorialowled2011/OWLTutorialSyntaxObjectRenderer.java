@@ -110,7 +110,7 @@ public class OWLTutorialSyntaxObjectRenderer extends OWLObjectVisitorAdapter {
     private final Writer writer;
     private int pos;
     int lastNewLinePos;
-    private static final boolean tables = true;
+    private static final boolean TABLES = true;
     private static final int TABLE_COLUMNS = 3;
 
     @Nonnull
@@ -178,7 +178,7 @@ public class OWLTutorialSyntaxObjectRenderer extends OWLObjectVisitorAdapter {
 
     private <T extends OWLObject> void writeCollection(
             @Nonnull Collection<T> objects) {
-        if (tables) {
+        if (TABLES) {
             writeTable(objects);
         } else {
             writeList(objects);
