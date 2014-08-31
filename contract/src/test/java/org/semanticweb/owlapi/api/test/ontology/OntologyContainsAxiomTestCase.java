@@ -14,8 +14,8 @@ package org.semanticweb.owlapi.api.test.ontology;
 
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
-import static org.semanticweb.owlapi.model.parameters.Imports.*;
 import static org.semanticweb.owlapi.model.parameters.AxiomAnnotations.*;
+import static org.semanticweb.owlapi.model.parameters.Imports.*;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -122,54 +122,44 @@ public class OntologyContainsAxiomTestCase extends TestBase {
         OWLOntology ont1 = getOWLOntology("testont1A");
         @SuppressWarnings("null")
         @Nonnull
-        IRI ont1_iri = ont1.getOntologyID().getOntologyIRI().get();
+        IRI ont1iri = ont1.getOntologyID().getOntologyIRI().get();
         OWLOntology ont2 = getOWLOntology("testont2A");
         @SuppressWarnings("null")
         @Nonnull
-        IRI ont2_iri = ont2.getOntologyID().getOntologyIRI().get();
-        OWLImportsDeclaration ont2_import = ImportsDeclaration(ont1_iri);
+        IRI ont2iri = ont2.getOntologyID().getOntologyIRI().get();
+        OWLImportsDeclaration ont2import = ImportsDeclaration(ont1iri);
         ont1.getOWLOntologyManager().applyChange(
-                new AddImport(ont2, ont2_import));
+                new AddImport(ont2, ont2import));
         OWLAnnotationProperty annoProp = AnnotationProperty(iri("annoProp"));
-        OWLAxiom ax_annoProp_decl = Declaration(annoProp);
-        ont1.getOWLOntologyManager().addAxiom(ont1, ax_annoProp_decl);
-        OWLAnnotation in_ont1_anno = Annotation(annoProp, ont1_iri);
-        OWLAnnotation in_ont2_anno = Annotation(annoProp, ont2_iri);
-        OWLClass A = Class(iri("A"));
-        OWLAxiom ax_A_decl = Declaration(A, singleton(in_ont1_anno));
-        ont1.getOWLOntologyManager().addAxiom(ont1, ax_A_decl);
-        OWLClass B = Class(iri("B"));
-        OWLAxiom ax_B_decl = Declaration(B, singleton(in_ont2_anno));
-        ont2.getOWLOntologyManager().addAxiom(ont2, ax_B_decl);
-        OWLAxiom ax_AsubB = SubClassOf(Class(iri("A")), Class(iri("B")),
-                singleton(in_ont2_anno));
-        ont2.getOWLOntologyManager().addAxiom(ont2, ax_AsubB);
+        OWLAxiom axannoPropdecl = Declaration(annoProp);
+        ont1.getOWLOntologyManager().addAxiom(ont1, axannoPropdecl);
+        OWLAnnotation inont1anno = Annotation(annoProp, ont1iri);
+        OWLAnnotation inont2anno = Annotation(annoProp, ont2iri);
+        OWLClass a = Class(iri("A"));
+        OWLAxiom axAdecl = Declaration(a, singleton(inont1anno));
+        ont1.getOWLOntologyManager().addAxiom(ont1, axAdecl);
+        OWLClass b = Class(iri("B"));
+        OWLAxiom axBdecl = Declaration(b, singleton(inont2anno));
+        ont2.getOWLOntologyManager().addAxiom(ont2, axBdecl);
+        OWLAxiom axAsubB = SubClassOf(Class(iri("A")), Class(iri("B")),
+                singleton(inont2anno));
+        ont2.getOWLOntologyManager().addAxiom(ont2, axAsubB);
         // annoProp is in ont1 and in the import closure of ont2
-        assertTrue(ont1.containsAxiom(ax_annoProp_decl, EXCLUDED,
-                CONSIDER_AXIOM_ANNOTATIONS));
-        assertFalse(ont2.containsAxiom(ax_annoProp_decl, EXCLUDED,
-                CONSIDER_AXIOM_ANNOTATIONS));
-        assertTrue(ont2.containsAxiom(ax_annoProp_decl, INCLUDED,
-                CONSIDER_AXIOM_ANNOTATIONS));
+        assertTrue(containsConsiderEx(ont1, axannoPropdecl));
+        assertFalse(containsConsiderEx(ont2, axannoPropdecl));
+        assertTrue(containsConsider(ont2, axannoPropdecl));
         // A is in ont1 and in the import closure of ont2
-        assertTrue(ont1
-                .containsAxiom(ax_A_decl, EXCLUDED, CONSIDER_AXIOM_ANNOTATIONS));
-        assertFalse(ont2.containsAxiom(ax_A_decl, EXCLUDED,
-                CONSIDER_AXIOM_ANNOTATIONS));
-        assertTrue(ont2
-                .containsAxiom(ax_A_decl, INCLUDED, CONSIDER_AXIOM_ANNOTATIONS));
+        assertTrue(containsConsiderEx(ont1, axAdecl));
+        assertFalse(containsConsiderEx(ont2, axAdecl));
+        assertTrue(containsConsider(ont2, axAdecl));
         // B is in only in ont2
-        assertFalse(ont1.containsAxiom(ax_B_decl, INCLUDED,
-                CONSIDER_AXIOM_ANNOTATIONS));
-        assertTrue(ont2
-                .containsAxiom(ax_B_decl, EXCLUDED, CONSIDER_AXIOM_ANNOTATIONS));
-        assertTrue(ont2
-                .containsAxiom(ax_B_decl, INCLUDED, CONSIDER_AXIOM_ANNOTATIONS));
+        assertFalse(containsConsider(ont1, axBdecl));
+        assertTrue(containsConsiderEx(ont2, axBdecl));
+        assertTrue(containsConsider(ont2, axBdecl));
         // A is a subclass of B is in only in ont2
-        assertFalse(ont1
-                .containsAxiom(ax_AsubB, INCLUDED, CONSIDER_AXIOM_ANNOTATIONS));
-        assertTrue(ont2.containsAxiom(ax_AsubB, EXCLUDED, CONSIDER_AXIOM_ANNOTATIONS));
-        assertTrue(ont2.containsAxiom(ax_AsubB, INCLUDED, CONSIDER_AXIOM_ANNOTATIONS));
+        assertFalse(containsConsider(ont1, axAsubB));
+        assertTrue(containsConsiderEx(ont2, axAsubB));
+        assertTrue(containsConsider(ont2, axAsubB));
         @SuppressWarnings("null")
         @Nonnull
         File savedLocation1 = folder.newFile("testont1A.owl");
@@ -188,33 +178,29 @@ public class OntologyContainsAxiomTestCase extends TestBase {
         OWLOntology ont2L = man
                 .loadOntologyFromOntologyDocument(savedLocation2);
         // annoProp is in ont1 and in the import closure of ont2
-        assertTrue(ont1L.containsAxiom(ax_annoProp_decl, EXCLUDED,
-                CONSIDER_AXIOM_ANNOTATIONS));
-        assertFalse(ont2L.containsAxiom(ax_annoProp_decl, EXCLUDED,
-                CONSIDER_AXIOM_ANNOTATIONS));
-        assertTrue(ont2L.containsAxiom(ax_annoProp_decl, INCLUDED,
-                CONSIDER_AXIOM_ANNOTATIONS));
+        assertTrue(containsConsiderEx(ont1L, axannoPropdecl));
+        assertFalse(containsConsiderEx(ont2L, axannoPropdecl));
+        assertTrue(containsConsider(ont2L, axannoPropdecl));
         // A is in ont1 and in the import closure of ont2
-        assertTrue(ont1L.containsAxiom(ax_A_decl, EXCLUDED,
-                CONSIDER_AXIOM_ANNOTATIONS));
-        assertFalse(ont2L.containsAxiom(ax_A_decl, EXCLUDED,
-                CONSIDER_AXIOM_ANNOTATIONS));
-        assertTrue(ont2L.containsAxiom(ax_A_decl, INCLUDED,
-                CONSIDER_AXIOM_ANNOTATIONS));
+        assertTrue(containsConsiderEx(ont1L, axAdecl));
+        assertFalse(containsConsiderEx(ont2L, axAdecl));
+        assertTrue(containsConsider(ont2L, axAdecl));
         // B is in only in ont2
-        assertFalse(ont1L.containsAxiom(ax_B_decl, INCLUDED,
-                CONSIDER_AXIOM_ANNOTATIONS));
-        assertTrue(ont2L.containsAxiom(ax_B_decl, EXCLUDED,
-                CONSIDER_AXIOM_ANNOTATIONS));
-        assertTrue(ont2L.containsAxiom(ax_B_decl, INCLUDED,
-                CONSIDER_AXIOM_ANNOTATIONS));
+        assertFalse(containsConsider(ont1L, axBdecl));
+        assertTrue(containsConsiderEx(ont2L, axBdecl));
+        assertTrue(containsConsider(ont2L, axBdecl));
         // A is a subclass of B is in only in ont2
-        assertFalse(ont1L.containsAxiom(ax_AsubB, INCLUDED,
-                CONSIDER_AXIOM_ANNOTATIONS));
-        assertTrue(ont2L
-                .containsAxiom(ax_AsubB, EXCLUDED, CONSIDER_AXIOM_ANNOTATIONS));
-        assertTrue(ont2L
-                .containsAxiom(ax_AsubB, INCLUDED, CONSIDER_AXIOM_ANNOTATIONS));
+        assertFalse(containsConsider(ont1L, axAsubB));
+        assertTrue(containsConsiderEx(ont2L, axAsubB));
+        assertTrue(containsConsider(ont2L, axAsubB));
+    }
+
+    boolean containsConsider(OWLOntology o, OWLAxiom ax) {
+        return o.containsAxiom(ax, INCLUDED, CONSIDER_AXIOM_ANNOTATIONS);
+    }
+
+    boolean containsConsiderEx(OWLOntology o, OWLAxiom ax) {
+        return o.containsAxiom(ax, EXCLUDED, CONSIDER_AXIOM_ANNOTATIONS);
     }
 
     @Test
@@ -242,54 +228,44 @@ public class OntologyContainsAxiomTestCase extends TestBase {
     private void runTestOntologyContainsAxioms2(
             @Nonnull OWLDocumentFormat format) throws Exception {
         OWLOntology ont1 = getOWLOntology("testont1B");
-        IRI ont1_iri = ont1.getOntologyID().getOntologyIRI().get();
+        IRI ont1iri = ont1.getOntologyID().getOntologyIRI().get();
         OWLOntology ont2 = getOWLOntology("testont2B");
-        IRI ont2_iri = ont2.getOntologyID().getOntologyIRI().get();
-        assert ont1_iri != null;
-        assert ont2_iri != null;
-        OWLImportsDeclaration ont2_import = ImportsDeclaration(ont1_iri);
+        IRI ont2iri = ont2.getOntologyID().getOntologyIRI().get();
+        assert ont1iri != null;
+        assert ont2iri != null;
+        OWLImportsDeclaration ont2import = ImportsDeclaration(ont1iri);
         ont2.getOWLOntologyManager().applyChange(
-                new AddImport(ont2, ont2_import));
+                new AddImport(ont2, ont2import));
         OWLAnnotationProperty annoProp = AnnotationProperty(iri("annoProp"));
-        OWLAxiom ax_annoProp_decl = Declaration(annoProp);
-        ont1.getOWLOntologyManager().addAxiom(ont1, ax_annoProp_decl);
-        OWLAnnotation in_ont1_anno = Annotation(annoProp, ont1_iri);
-        OWLAnnotation in_ont2_anno = Annotation(annoProp, ont2_iri);
-        OWLClass A = Class(iri("A"));
-        OWLAxiom ax_A_decl = Declaration(A, singleton(in_ont1_anno));
-        ont1.getOWLOntologyManager().addAxiom(ont1, ax_A_decl);
-        OWLClass B = Class(iri("B"));
-        OWLAxiom ax_B_decl = Declaration(B, singleton(in_ont2_anno));
-        ont2.getOWLOntologyManager().addAxiom(ont2, ax_B_decl);
-        OWLAxiom ax_AsubB = SubClassOf(Class(iri("A")), Class(iri("B")),
-                singleton(in_ont2_anno));
-        ont2.getOWLOntologyManager().addAxiom(ont2, ax_AsubB);
+        OWLAxiom axAnnoPropDecl = Declaration(annoProp);
+        ont1.getOWLOntologyManager().addAxiom(ont1, axAnnoPropDecl);
+        OWLAnnotation inOnt1Anno = Annotation(annoProp, ont1iri);
+        OWLAnnotation inOnt2Anno = Annotation(annoProp, ont2iri);
+        OWLClass a = Class(iri("A"));
+        OWLAxiom axADecl = Declaration(a, singleton(inOnt1Anno));
+        ont1.getOWLOntologyManager().addAxiom(ont1, axADecl);
+        OWLClass b = Class(iri("B"));
+        OWLAxiom axBDecl = Declaration(b, singleton(inOnt2Anno));
+        ont2.getOWLOntologyManager().addAxiom(ont2, axBDecl);
+        OWLAxiom axAsubB = SubClassOf(Class(iri("A")), Class(iri("B")),
+                singleton(inOnt2Anno));
+        ont2.getOWLOntologyManager().addAxiom(ont2, axAsubB);
         // annoProp is in ont1 and in the import closure of ont2
-        assertTrue(ont1.containsAxiom(ax_annoProp_decl, EXCLUDED,
-                CONSIDER_AXIOM_ANNOTATIONS));
-        assertFalse(ont2.containsAxiom(ax_annoProp_decl, EXCLUDED,
-                CONSIDER_AXIOM_ANNOTATIONS));
-        assertTrue(ont2.containsAxiom(ax_annoProp_decl, INCLUDED,
-                CONSIDER_AXIOM_ANNOTATIONS));
+        assertTrue(containsConsiderEx(ont1, axAnnoPropDecl));
+        assertFalse(containsConsiderEx(ont2, axAnnoPropDecl));
+        assertTrue(containsConsider(ont2, axAnnoPropDecl));
         // A is in ont1 and in the import closure of ont2
-        assertTrue(ont1
-                .containsAxiom(ax_A_decl, EXCLUDED, CONSIDER_AXIOM_ANNOTATIONS));
-        assertFalse(ont2.containsAxiom(ax_A_decl, EXCLUDED,
-                CONSIDER_AXIOM_ANNOTATIONS));
-        assertTrue(ont2
-                .containsAxiom(ax_A_decl, INCLUDED, CONSIDER_AXIOM_ANNOTATIONS));
+        assertTrue(containsConsiderEx(ont1, axADecl));
+        assertFalse(containsConsiderEx(ont2, axADecl));
+        assertTrue(containsConsider(ont2, axADecl));
         // B is in only in ont2
-        assertFalse(ont1.containsAxiom(ax_B_decl, INCLUDED,
-                CONSIDER_AXIOM_ANNOTATIONS));
-        assertTrue(ont2
-                .containsAxiom(ax_B_decl, EXCLUDED, CONSIDER_AXIOM_ANNOTATIONS));
-        assertTrue(ont2
-                .containsAxiom(ax_B_decl, INCLUDED, CONSIDER_AXIOM_ANNOTATIONS));
+        assertFalse(containsConsider(ont1, axBDecl));
+        assertTrue(containsConsiderEx(ont2, axBDecl));
+        assertTrue(containsConsider(ont2, axBDecl));
         // A is a subclass of B is in only in ont2
-        assertFalse(ont1
-                .containsAxiom(ax_AsubB, INCLUDED, CONSIDER_AXIOM_ANNOTATIONS));
-        assertTrue(ont2.containsAxiom(ax_AsubB, EXCLUDED, CONSIDER_AXIOM_ANNOTATIONS));
-        assertTrue(ont2.containsAxiom(ax_AsubB, INCLUDED, CONSIDER_AXIOM_ANNOTATIONS));
+        assertFalse(containsConsider(ont1, axAsubB));
+        assertTrue(containsConsiderEx(ont2, axAsubB));
+        assertTrue(containsConsider(ont2, axAsubB));
         @SuppressWarnings("null")
         @Nonnull
         File savedLocation1 = folder.newFile("testont1B.owl");
@@ -311,10 +287,8 @@ public class OntologyContainsAxiomTestCase extends TestBase {
         for (OWLOntology importedOntology : ont2L.getImports()) {
             for (OWLAxiom importedAxiom : importedOntology.getAxioms()) {
                 assert importedAxiom != null;
-                assertTrue(importedOntology.containsAxiom(importedAxiom,
-                        EXCLUDED, CONSIDER_AXIOM_ANNOTATIONS));
-                assertFalse(ont2L.containsAxiom(importedAxiom, EXCLUDED,
-                        CONSIDER_AXIOM_ANNOTATIONS));
+                assertTrue(containsConsiderEx(importedOntology, importedAxiom));
+                assertFalse(containsConsiderEx(ont2L, importedAxiom));
             }
         }
     }

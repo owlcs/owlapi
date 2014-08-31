@@ -20,7 +20,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  * @author ignazio
  * @since 4.0.0
  */
-public class SAXParsers {
+public final class SAXParsers {
 
     private SAXParsers() {}
 

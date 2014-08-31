@@ -30,10 +30,10 @@ import org.semanticweb.owlapi.util.SimpleRenderer;
  *         Informatics Group
  * @since 2.2.0
  */
-public class ToStringRenderer {
+public final class ToStringRenderer {
 
     @Nonnull
-    private static final ToStringRenderer instance = new ToStringRenderer();
+    private static final ToStringRenderer INSTANCE = new ToStringRenderer();
     private OWLObjectRenderer renderer;
 
     private ToStringRenderer() {
@@ -42,7 +42,7 @@ public class ToStringRenderer {
 
     /** @return the singleton instance */
     public static ToStringRenderer getInstance() {
-        return instance;
+        return INSTANCE;
     }
 
     /**

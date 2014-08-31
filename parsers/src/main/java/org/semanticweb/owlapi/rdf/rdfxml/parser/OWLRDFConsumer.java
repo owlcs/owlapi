@@ -108,7 +108,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
 
     /** The Constant DAML_OIL. */
     private static final String DAML_OIL = "http://www.daml.org/2001/03/daml+oil#";
-    private static final Logger logger = LoggerFactory
+    private static final Logger LOGGER = LoggerFactory
             .getLogger(OWLRDFConsumer.class);
     @Nonnull
     TripleLogger tripleLogger;
@@ -601,7 +601,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
     }
 
     /** Imports closure changed. */
-    protected void importsClosureChanged() {
+    protected final void importsClosureChanged() {
         // NOTE: This method only gets called when the ontology being parsed
         // adds a direct import. This is enough
         // for resolving the imports closure.
@@ -959,7 +959,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
 
     private void addType(IRI iri, Set<IRI> types, boolean explicitlyTyped) {
         if (configuration.isStrict() && !explicitlyTyped) {
-            logger.warn("STRICT: Not adding implicit type iri={} types={}",
+            LOGGER.warn("STRICT: Not adding implicit type iri={} types={}",
                     iri, types);
             return;
         }
@@ -1204,7 +1204,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
      *        the object
      */
     protected void consumeTriple(IRI subject, IRI predicate, IRI object) {
-        logger.trace("consuming triple");
+        LOGGER.trace("consuming triple");
         tripleLogger.justLog(subject, predicate, object);
         isTriplePresent(subject, predicate, object, true);
     }
@@ -1220,7 +1220,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
      *        the con
      */
     protected void consumeTriple(IRI subject, IRI predicate, OWLLiteral con) {
-        logger.trace("consuming triple");
+        LOGGER.trace("consuming triple");
         tripleLogger.justLog(subject, predicate, con);
         isTriplePresent(subject, predicate, con, true);
     }
@@ -1418,19 +1418,19 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
     // RDFConsumer implementation
     private static void printTriple(Object subject, Object predicate,
             Object object) {
-        logger.info("{} -> {} -> {}", subject, predicate, object);
+        LOGGER.info("{} -> {} -> {}", subject, predicate, object);
     }
 
     /** Dump remaining triples. */
     protected void dumpRemainingTriples() {
         // if info logging is disabled or all collections are empty, do not
         // output anything
-        if (logger.isInfoEnabled()
+        if (LOGGER.isInfoEnabled()
                 && singleValuedResTriplesByPredicate.size()
                         + singleValuedLitTriplesByPredicate.size()
                         + resTriplesBySubject.size()
                         + litTriplesBySubject.size() > 0) {
-            logger.info("dumping remaining triples");
+            LOGGER.info("dumping remaining triples");
             for (IRI predicate : singleValuedResTriplesByPredicate.keySet()) {
                 Map<IRI, IRI> map = singleValuedResTriplesByPredicate
                         .get(predicate);
@@ -1468,7 +1468,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
                 }
             }
         }
-        logger.info("done dumping remaining triples");
+        LOGGER.info("done dumping remaining triples");
     }
 
     @Override
@@ -1894,13 +1894,13 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
     }
 
     @Nonnull
-    private static final AtomicInteger errorCounter = new AtomicInteger(0);
+    private static final AtomicInteger ERRORCOUNTER = new AtomicInteger(0);
 
     @Nonnull
     private <E extends OWLEntity> E getErrorEntity(
             @Nonnull EntityType<E> entityType) {
         IRI iri = IRI.create("http://org.semanticweb.owlapi/error#", "Error"
-                + errorCounter.incrementAndGet());
+                + ERRORCOUNTER.incrementAndGet());
         return dataFactory.getOWLEntity(entityType, iri);
     }
 
@@ -1983,17 +1983,17 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
      * @return the predicates by subject
      */
     protected Set<IRI> getPredicatesBySubject(IRI subject) {
-        Set<IRI> IRIs = new HashSet<>();
+        Set<IRI> iris = new HashSet<>();
         Map<IRI, Collection<IRI>> predObjMap = resTriplesBySubject.get(subject);
         if (predObjMap != null) {
-            IRIs.addAll(predObjMap.keySet());
+            iris.addAll(predObjMap.keySet());
         }
         Map<IRI, Collection<OWLLiteral>> predObjMapLit = litTriplesBySubject
                 .get(subject);
         if (predObjMapLit != null) {
-            IRIs.addAll(predObjMapLit.keySet());
+            iris.addAll(predObjMapLit.keySet());
         }
-        return IRIs;
+        return iris;
     }
 
     /**

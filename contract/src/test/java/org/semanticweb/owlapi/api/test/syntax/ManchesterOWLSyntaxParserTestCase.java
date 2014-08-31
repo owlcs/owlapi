@@ -217,12 +217,12 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
     @Nonnull
     OWLDataProperty p;
     @Nonnull
-    OWLDatatype date_time;
+    OWLDatatype dateTime;
 
     @Before
     public void setUpPAndDateTime() {
         p = DataProperty(IRI(NS + "#p"));
-        date_time = df.getOWLDatatype(XSDVocabulary.DATE_TIME.getIRI());
+        dateTime = df.getOWLDatatype(XSDVocabulary.DATE_TIME.getIRI());
     }
 
     @Test
@@ -230,18 +230,22 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
         // given
         OWLClass a = Class(IRI(NS + "#A"));
         String text1 = "'GWAS study' and  has_publication_date some dateTime[< \"2009-01-01T00:00:00+00:00\"^^dateTime]";
-        OWLClassExpression expected = df.getOWLObjectIntersectionOf(a, df
-                .getOWLDataSomeValuesFrom(p, df.getOWLDatatypeRestriction(
-                        date_time, OWLFacet.MAX_EXCLUSIVE, df.getOWLLiteral(
-                                "2009-01-01T00:00:00+00:00", date_time))));
+        OWLClassExpression expected = df
+                .getOWLObjectIntersectionOf(a, df
+                        .getOWLDataSomeValuesFrom(p, df
+                                .getOWLDatatypeRestriction(dateTime,
+                                        OWLFacet.MAX_EXCLUSIVE,
+                                        df.getOWLLiteral(
+                                                "2009-01-01T00:00:00+00:00",
+                                                dateTime))));
         // ontology creation including labels - this is the input ontology
         OWLOntology o = m.createOntology();
         m.addAxiom(o, df.getOWLDeclarationAxiom(a));
         m.addAxiom(o, df.getOWLDeclarationAxiom(p));
-        m.addAxiom(o, df.getOWLDeclarationAxiom(date_time));
+        m.addAxiom(o, df.getOWLDeclarationAxiom(dateTime));
         m.addAxiom(o, annotation(a, "'GWAS study'"));
         m.addAxiom(o, annotation(p, "has_publication_date"));
-        m.addAxiom(o, annotation(date_time, "dateTime"));
+        m.addAxiom(o, annotation(dateTime, "dateTime"));
         // select a short form provider that uses annotations
         ShortFormProvider sfp = new AnnotationValueShortFormProvider(
                 Arrays.asList(df.getRDFSLabel()),

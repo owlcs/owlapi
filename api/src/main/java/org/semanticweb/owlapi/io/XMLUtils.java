@@ -24,7 +24,7 @@ import javax.annotation.Nullable;
  *         Informatics Group
  * @since 3.3.0
  */
-public class XMLUtils {
+public final class XMLUtils {
 
     /** &amp;lt; shortcut */
     public static final String LT = "&lt;";

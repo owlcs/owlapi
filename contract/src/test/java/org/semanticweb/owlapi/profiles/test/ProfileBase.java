@@ -30,19 +30,19 @@ public class ProfileBase {
     @Nonnull
     protected String head3 = "<rdf:RDF xml:base=\"urn:test\" xmlns=\"urn:test#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">";
 
-    private static OWLProfileReport EL(OWLOntology in) {
+    private static OWLProfileReport el(OWLOntology in) {
         return new OWL2ELProfile().checkOntology(in);
     }
 
-    private static OWLProfileReport QL(OWLOntology in) {
+    private static OWLProfileReport ql(OWLOntology in) {
         return new OWL2QLProfile().checkOntology(in);
     }
 
-    private static OWLProfileReport RL(OWLOntology in) {
+    private static OWLProfileReport rl(OWLOntology in) {
         return new OWL2RLProfile().checkOntology(in);
     }
 
-    private static OWLProfileReport DL(OWLOntology in) {
+    private static OWLProfileReport dl(OWLOntology in) {
         return new OWL2DLProfile().checkOntology(in);
     }
 
@@ -71,13 +71,13 @@ public class ProfileBase {
             boolean dl) {
         OWLOntology o = o(in);
         assertTrue("empty ontology", !o.getAxioms().isEmpty());
-        OWLProfileReport elReport = EL(o);
+        OWLProfileReport elReport = el(o);
         assertEquals(elReport.toString(), el, elReport.isInProfile());
-        OWLProfileReport qlReport = QL(o);
+        OWLProfileReport qlReport = ql(o);
         assertEquals(qlReport.toString(), ql, qlReport.isInProfile());
-        OWLProfileReport rlReport = RL(o);
+        OWLProfileReport rlReport = rl(o);
         assertEquals(rlReport.toString(), rl, rlReport.isInProfile());
-        OWLProfileReport dlReport = DL(o);
+        OWLProfileReport dlReport = dl(o);
         assertEquals(dlReport.toString(), dl, dlReport.isInProfile());
     }
 }

@@ -40,7 +40,7 @@ import com.google.inject.Injector;
 public class OWLManager implements OWLOntologyManagerFactory {
 
     private static final long serialVersionUID = 40000L;
-    private static final Injector injector = Guice.createInjector(
+    private static final Injector INJECTOR = Guice.createInjector(
             new OWLAPIImplModule(), new OWLAPIParsersModule(),
             new OWLAPIOBOModule(), new OWLAPIServiceLoaderModule());
 
@@ -57,9 +57,9 @@ public class OWLManager implements OWLOntologyManagerFactory {
      */
     @Nonnull
     public static OWLOntologyManager createOWLOntologyManager() {
-        OWLOntologyManager instance = injector
+        OWLOntologyManager instance = INJECTOR
                 .getInstance(OWLOntologyManager.class);
-        injector.injectMembers(instance);
+        INJECTOR.injectMembers(instance);
         return verifyNotNull(instance);
     }
 
@@ -70,13 +70,13 @@ public class OWLManager implements OWLOntologyManagerFactory {
      */
     @Nonnull
     public static OWLDataFactory getOWLDataFactory() {
-        return verifyNotNull(injector.getInstance(OWLDataFactory.class));
+        return verifyNotNull(INJECTOR.getInstance(OWLDataFactory.class));
     }
 
     /**
      * @return an initialized manchester syntax parser for parsing strings
      */
     public static ManchesterOWLSyntaxParser createManchesterParser() {
-        return injector.getInstance(ManchesterOWLSyntaxParser.class);
+        return INJECTOR.getInstance(ManchesterOWLSyntaxParser.class);
     }
 }

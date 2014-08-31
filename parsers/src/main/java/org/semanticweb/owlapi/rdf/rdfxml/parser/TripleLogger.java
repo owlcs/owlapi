@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
  */
 public class TripleLogger {
 
-    private static final Logger log = LoggerFactory
+    private static final Logger LOGGER = LoggerFactory
             .getLogger(TripleLogger.class);
     private PrefixManager prefixManager;
     // Debug stuff
@@ -87,8 +87,8 @@ public class TripleLogger {
      */
     public void justLog(Object s, Object p, Object o, Object lang,
             Object datatype) {
-        if (log.isTraceEnabled()) {
-            log.trace("s={} p={} o={} l={} dt={}", shorten(s), shorten(p),
+        if (LOGGER.isTraceEnabled()) {
+            LOGGER.trace("s={} p={} o={} l={} dt={}", shorten(s), shorten(p),
                     shorten(o), lang, shorten(datatype));
         }
     }
@@ -102,8 +102,8 @@ public class TripleLogger {
      *        object
      */
     public void justLog(Object s, Object p, Object o) {
-        if (log.isTraceEnabled()) {
-            log.trace("s={} p={} o={}", shorten(s), shorten(p), shorten(o));
+        if (LOGGER.isTraceEnabled()) {
+            LOGGER.trace("s={} p={} o={}", shorten(s), shorten(p), shorten(o));
         }
     }
 
@@ -132,13 +132,13 @@ public class TripleLogger {
     /** increment count and log. */
     private void incrementTripleCount() {
         if (count.incrementAndGet() % 10000 == 0) {
-            log.debug("Parsed: {} triples", count);
+            LOGGER.debug("Parsed: {} triples", count);
         }
     }
 
     /** log finl count. */
     public void logNumberOfTriples() {
-        log.debug("Total number of triples: {}", count);
+        LOGGER.debug("Total number of triples: {}", count);
     }
 
     /**
@@ -146,6 +146,6 @@ public class TripleLogger {
      *        log ontology id
      */
     public static void logOntologyID(OWLOntologyID id) {
-        log.debug("Loaded {}", id);
+        LOGGER.debug("Loaded {}", id);
     }
 }

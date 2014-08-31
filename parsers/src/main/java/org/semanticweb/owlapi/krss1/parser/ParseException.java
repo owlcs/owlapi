@@ -69,7 +69,7 @@ class ParseException extends OWLParserException {
             }
             retval += ' ' + tokenImage[tok.kind];
             retval += " \"";
-            retval += add_escapes(tok.image);
+            retval += addEscapes(tok.image);
             retval += " \"";
             tok = tok.next;
         }
@@ -87,7 +87,7 @@ class ParseException extends OWLParserException {
 
     final String eol = System.getProperty("line.separator", "\n");
 
-    static String add_escapes(String str) {
+    static String addEscapes(String str) {
         StringBuffer retval = new StringBuffer();
         char ch;
         for (int i = 0; i < str.length(); i++) {

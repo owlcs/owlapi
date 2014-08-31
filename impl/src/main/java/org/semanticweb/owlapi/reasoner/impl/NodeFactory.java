@@ -28,7 +28,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
  *         Management Group
  * @since 3.0.0
  */
-public class NodeFactory {
+public final class NodeFactory {
 
     private NodeFactory() {}
 

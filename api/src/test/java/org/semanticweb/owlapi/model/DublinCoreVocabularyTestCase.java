@@ -53,13 +53,13 @@ public class DublinCoreVocabularyTestCase {
     }
 
     @Test
-    public void getPrefixedName_shouldStartWithDublinCorePrefixName() {
+    public void getPrefixedNameShouldStartWithDublinCorePrefixName() {
         assertThat(vocabulary.getPrefixedName(),
                 startsWith(Namespaces.DC.getPrefixName()));
     }
 
     @Test
-    public void getIRI_shouldReturnAnIRIThatStartsWithDublinCorePrefix() {
+    public void getIRIShouldReturnAnIRIThatStartsWithDublinCorePrefix() {
         assertThat(vocabulary.getIRI().toString(),
                 startsWith(Namespaces.DC.getPrefixIRI()));
     }

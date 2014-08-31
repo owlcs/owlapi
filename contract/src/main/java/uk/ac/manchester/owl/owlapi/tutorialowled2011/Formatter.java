@@ -23,7 +23,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @SuppressWarnings("javadoc")
-public class Formatter {
+public final class Formatter {
 
     private Formatter() {}
 

@@ -321,7 +321,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
     // Impl - All constructors are private - factory methods are used for
     // public creation
     private static final long serialVersionUID = 40000L;
-    private static final LoadingCache<String, String> prefixCache = CacheBuilder
+    private static final LoadingCache<String, String> PREFIX_CACHE = CacheBuilder
             .newBuilder().concurrencyLevel(8).maximumSize(1024)
             .build(new CacheLoader<String, String>() {
 
@@ -335,7 +335,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
     @Nonnull
     private static String cache(@Nonnull String s) {
         try {
-            return prefixCache.get(s);
+            return PREFIX_CACHE.get(s);
         } catch (ExecutionException e) {
             return s;
         }

@@ -21,7 +21,7 @@ import javax.annotation.Nonnull;
  *         Informatics Group
  * @since 2.2.0
  */
-public class EscapeUtils {
+public final class EscapeUtils {
 
     private EscapeUtils() {}
 

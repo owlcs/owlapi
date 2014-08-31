@@ -141,16 +141,16 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple> {
         return String.format("%s %s %s.", subject, predicate, object);
     }
 
-    private static final List<IRI> orderedURIs = Arrays.asList(
+    private static final List<IRI> ORDERED_URIS = Arrays.asList(
             RDF_TYPE.getIRI(), RDFS_LABEL.getIRI(),
             OWL_EQUIVALENT_CLASS.getIRI(), RDFS_SUBCLASS_OF.getIRI(),
             OWL_DISJOINT_WITH.getIRI(), OWL_ON_PROPERTY.getIRI(),
             OWL_DATA_RANGE.getIRI(), OWL_ON_CLASS.getIRI());
 
     private static int getIndex(IRI iri) {
-        int index = orderedURIs.indexOf(iri);
+        int index = ORDERED_URIS.indexOf(iri);
         if (index == -1) {
-            index = orderedURIs.size();
+            index = ORDERED_URIS.size();
         }
         return index;
     }

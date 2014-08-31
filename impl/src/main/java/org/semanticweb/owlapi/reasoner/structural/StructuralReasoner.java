@@ -178,7 +178,7 @@ public class StructuralReasoner extends OWLReasonerBase {
      * @throws TimeOutException
      *         on timeout
      */
-    public void prepareReasoner() {
+    public final void prepareReasoner() {
         classHierarchyInfo.computeHierarchy();
         objectPropertyHierarchyInfo.computeHierarchy();
         dataPropertyHierarchyInfo.computeHierarchy();
@@ -992,7 +992,7 @@ public class StructuralReasoner extends OWLReasonerBase {
          * 
          * @param entity
          *        The entity
-         * @param _index
+         * @param inputIndex
          *        index
          * @param stack
          *        stack
@@ -1016,14 +1016,14 @@ public class StructuralReasoner extends OWLReasonerBase {
          *        A set of entities that have a raw parent that is the bottom
          *        entity
          */
-        public void tarjan(@Nonnull T entity, int _index,
+        public void tarjan(@Nonnull T entity, int inputIndex,
                 @Nonnull Stack<T> stack, @Nonnull Map<T, Integer> indexMap,
                 @Nonnull Map<T, Integer> lowlinkMap,
                 @Nonnull Set<Set<T>> result, @Nonnull Set<T> processed,
                 @Nonnull Set<T> stackEntities,
                 @Nullable Map<T, Collection<T>> cache,
                 @Nonnull Set<T> childrenOfTop, @Nonnull Set<T> parentsOfBottom) {
-            int index = _index;
+            int index = inputIndex;
             throwExceptionIfInterrupted();
             if (processed.add(entity)) {
                 Collection<T> rawChildren = rawParentChildProvider
@@ -1227,14 +1227,14 @@ public class StructuralReasoner extends OWLReasonerBase {
             return verifyNotNull(bottomNode);
         }
 
-        public void clearTopNode() {
+        public final void clearTopNode() {
             removeNode(hierarchyInfo.topEntity);
             topNode = hierarchyInfo.createNode(CollectionFactory
                     .createSet(hierarchyInfo.topEntity));
             addNode(getTopNode());
         }
 
-        public void clearBottomNode() {
+        public final void clearBottomNode() {
             removeNode(hierarchyInfo.bottomEntity);
             bottomNode = hierarchyInfo.createNode(CollectionFactory
                     .createSet(hierarchyInfo.bottomEntity));
@@ -1528,7 +1528,7 @@ public class StructuralReasoner extends OWLReasonerBase {
             rebuild();
         }
 
-        public void rebuild() {
+        public final void rebuild() {
             propertyManager = new OWLObjectPropertyManager(getRootOntology()
                     .getOWLOntologyManager(), getRootOntology());
             sub2Super = propertyManager.getPropertyHierarchy();

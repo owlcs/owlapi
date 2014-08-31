@@ -1260,13 +1260,13 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         }
     }
 
-    protected void installDefaultURIMappers() {
+    protected final void installDefaultURIMappers() {
         // By defaut install the default mapper that simply maps
         // ontology URIs to themselves.
         documentMappers.add(new NonMappingOntologyIRIMapper());
     }
 
-    protected void installDefaultOntologyFactories() {
+    protected final void installDefaultOntologyFactories() {
         // The default factories are the ones that can load
         // ontologies from http:// and file:// URIs
     }

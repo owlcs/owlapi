@@ -40,7 +40,7 @@ import com.google.common.collect.Sets;
  *        axiom type
  */
 @SuppressWarnings({ "unchecked" })
-public class AxiomType<C extends OWLAxiom> implements Serializable {
+public final class AxiomType<C extends OWLAxiom> implements Serializable {
 
     private static final long serialVersionUID = 40000L;
     private final String name;

@@ -39,7 +39,7 @@ import uk.ac.manchester.owl.owlapi.tutorial.LabelExtractor;
  * @since 2.0.0
  */
 @SuppressWarnings("javadoc")
-public class SimpleHierarchyExample {
+public final class SimpleHierarchyExample {
 
     private static final int INDENT = 4;
     @Nonnull
@@ -49,9 +49,9 @@ public class SimpleHierarchyExample {
     private final PrintStream out;
 
     private SimpleHierarchyExample(@Nonnull OWLReasonerFactory reasonerFactory,
-            @Nonnull OWLOntology _ontology) {
+            @Nonnull OWLOntology inputOntology) {
         this.reasonerFactory = reasonerFactory;
-        ontology = _ontology;
+        ontology = inputOntology;
         out = System.out;
     }
 

@@ -193,10 +193,10 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
     }
 
     @Override
-    public void setPrefix(String prefixName, String prefix) {
-        checkNotNull(prefixName, "prefixName cannot be null");
+    public void setPrefix(String inputPrefixName, String prefix) {
+        checkNotNull(inputPrefixName, "prefixName cannot be null");
         checkNotNull(prefix, "prefix cannot be null");
-        String _prefixName = prefixName;
+        String _prefixName = inputPrefixName;
         if (!_prefixName.endsWith(":")) {
             _prefixName += ":";
         }

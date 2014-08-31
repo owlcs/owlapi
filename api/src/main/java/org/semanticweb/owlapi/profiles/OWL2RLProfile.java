@@ -76,7 +76,7 @@ public class OWL2RLProfile implements OWLProfile {
         return b;
     }
 
-    protected static final Set<IRI> allowedDatatypes = new HashSet<>(
+    protected static final Set<IRI> ALLOWED_DATATYPES = new HashSet<>(
             Arrays.asList(RDF_PLAIN_LITERAL.getIRI(), RDF_XML_LITERAL.getIRI(),
                     RDFS_LITERAL.getIRI(), XSD_DECIMAL.getIRI(),
                     XSD_INTEGER.getIRI(), XSD_NON_NEGATIVE_INTEGER.getIRI(),
@@ -257,7 +257,7 @@ public class OWL2RLProfile implements OWLProfile {
 
         @Override
         public void visit(OWLDatatype node) {
-            if (!allowedDatatypes.contains(node.getIRI())) {
+            if (!ALLOWED_DATATYPES.contains(node.getIRI())) {
                 violations.add(new UseOfIllegalDataRange(getCurrentOntology(),
                         getCurrentAxiom(), node));
             }

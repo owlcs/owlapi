@@ -150,7 +150,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
      * Resets the short form provider to the default short form provider, which
      * is a PrefixManager with the default set of prefixes.
      */
-    public void resetShortFormProvider() {
+    public final void resetShortFormProvider() {
         DefaultPrefixManager defaultPrefixManager = new DefaultPrefixManager();
         shortFormProvider = defaultPrefixManager;
         iriShortFormProvider = defaultPrefixManager;

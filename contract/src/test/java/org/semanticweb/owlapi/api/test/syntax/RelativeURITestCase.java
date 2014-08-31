@@ -56,7 +56,7 @@ public class RelativeURITestCase extends AbstractAxiomsRoundTrippingTestCase {
         // exception does not have a message.
         // expectedException
         // .expectMessage(" reason is: Illegal character in fragment at index 21: http://example.com/#1#2");
-        String RDFCONTENT = ""
+        String rdfContent = ""
                 + "<rdf:RDF"
                 + "    xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\""
                 + "    xmlns:owl=\"http://www.w3.org/2002/07/owl#\""
@@ -69,6 +69,6 @@ public class RelativeURITestCase extends AbstractAxiomsRoundTrippingTestCase {
                 + "  </owl:Thing>" + "</rdf:RDF>";
         OWLOntology ontology = m.createOntology();
         RDFXMLParser parser = new RDFXMLParser();
-        parser.parse(new StringDocumentSource(RDFCONTENT), ontology, config);
+        parser.parse(new StringDocumentSource(rdfContent), ontology, config);
     }
 }

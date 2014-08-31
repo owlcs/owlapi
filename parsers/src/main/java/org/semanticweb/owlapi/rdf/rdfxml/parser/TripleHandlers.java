@@ -75,7 +75,7 @@ import com.google.common.base.Optional;
  */
 public class TripleHandlers {
 
-    static final Logger logger = LoggerFactory.getLogger(TripleHandlers.class);
+    static final Logger LOGGER = LoggerFactory.getLogger(TripleHandlers.class);
 
     private TripleHandlers() {}
 
@@ -719,30 +719,30 @@ public class TripleHandlers {
         }
 
         @Nonnull
-        protected OWLClassExpression translateClassExpression(@Nonnull IRI IRI) {
-            return consumer.translatorAccessor.translateClassExpression(IRI);
+        protected OWLClassExpression translateClassExpression(@Nonnull IRI iri) {
+            return consumer.translatorAccessor.translateClassExpression(iri);
         }
 
         @Nonnull
         protected OWLObjectPropertyExpression translateObjectProperty(
-                @Nonnull IRI IRI) {
-            return consumer.translateObjectPropertyExpression(IRI);
+                @Nonnull IRI iri) {
+            return consumer.translateObjectPropertyExpression(iri);
         }
 
         @Nonnull
         protected OWLDataPropertyExpression translateDataProperty(
-                @Nonnull IRI IRI) {
-            return consumer.translateDataPropertyExpression(IRI);
+                @Nonnull IRI iri) {
+            return consumer.translateDataPropertyExpression(iri);
         }
 
         @Nonnull
-        protected OWLDataRange translateDataRange(@Nonnull IRI IRI) {
-            return consumer.translateDataRange(IRI);
+        protected OWLDataRange translateDataRange(@Nonnull IRI iri) {
+            return consumer.translateDataRange(iri);
         }
 
         @Nonnull
-        protected OWLIndividual translateIndividual(@Nonnull IRI IRI) {
-            return consumer.translateIndividual(IRI);
+        protected OWLIndividual translateIndividual(@Nonnull IRI iri) {
+            return consumer.translateIndividual(iri);
         }
 
         protected boolean isAnonymous(@Nonnull IRI node) {
@@ -2432,7 +2432,7 @@ public class TripleHandlers {
                     && !object.equals(OWL_THING.getIRI())) {
                 // Can't have instance of built in vocabulary!
                 // Shall we throw an exception here?
-                logger.info("Individual of builtin type {}", object);
+                LOGGER.info("Individual of builtin type {}", object);
             }
             addAxiom(df.getOWLClassAssertionAxiom(
                     translateClassExpression(object),
@@ -3303,7 +3303,7 @@ public class TripleHandlers {
         public void handleTriple(IRI subject, IRI predicate, IRI object) {
             // We need to consume this triple
             consumeTriple(subject, predicate, object);
-            logger.info("Usage of rdf vocabulary: {} -> {} -> {}", subject,
+            LOGGER.info("Usage of rdf vocabulary: {} -> {} -> {}", subject,
                     predicate, object);
         }
     }

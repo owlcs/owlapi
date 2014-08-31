@@ -37,19 +37,6 @@ import com.google.common.collect.Sets;
 public enum OWLRDFVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     //@formatter:off
     // OWL Vocab
     /** http://www.w3.org/2002/07/owl#Thing                 **/    OWL_THING(Namespaces.OWL, "Thing"),
@@ -223,7 +210,7 @@ public enum OWLRDFVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
         return shortName;
     }
 
-    private static final Function<HasIRI, IRI> asIRI = new Function<HasIRI, IRI>() {
+    private static final Function<HasIRI, IRI> AS_IRI = new Function<HasIRI, IRI>() {
 
         @Override
         public IRI apply(HasIRI input) {
@@ -240,7 +227,7 @@ public enum OWLRDFVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     @Nonnull
     public static Set<IRI> asIRISet(HasIRI... i) {
         return Collections.unmodifiableSet(new HashSet<>(Collections2
-                .transform(Sets.newHashSet(i), asIRI)));
+                .transform(Sets.newHashSet(i), AS_IRI)));
     }
 
     /** Set of all IRIs for this enum values */

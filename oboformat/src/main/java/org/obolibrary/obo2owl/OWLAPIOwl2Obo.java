@@ -73,6 +73,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLQuantifiedObjectRestriction;
 import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
@@ -130,7 +131,7 @@ public class OWLAPIOwl2Obo {
      * The annotation property map.
      */
     @Nonnull
-    public static final Map<String, String> annotationPropertyMap = initAnnotationPropertyMap();
+    public static final Map<String, String> ANNOTATIONPROPERTYMAP = initAnnotationPropertyMap();
     /**
      * The ap to declare.
      */
@@ -152,10 +153,7 @@ public class OWLAPIOwl2Obo {
      */
     private boolean muteUntranslatableAxioms = false;
 
-    /**
-     * Inits the.
-     */
-    protected void init() {
+    protected final void init() {
         idSpaceMap = new HashMap<>();
         // legacy:
         idSpaceMap.put("http://www.obofoundry.org/ro/ro.owl#", "OBO_REL");
@@ -183,8 +181,8 @@ public class OWLAPIOwl2Obo {
     @Nonnull
     protected static HashMap<String, String> initAnnotationPropertyMap() {
         HashMap<String, String> map = new HashMap<>();
-        for (String key : OWLAPIObo2Owl.annotationPropertyMap.keySet()) {
-            IRI propIRI = OWLAPIObo2Owl.annotationPropertyMap.get(key);
+        for (String key : OWLAPIObo2Owl.ANNOTATIONPROPERTYMAP.keySet()) {
+            IRI propIRI = OWLAPIObo2Owl.ANNOTATIONPROPERTYMAP.get(key);
             map.put(propIRI.toString(), key);
         }
         return map;
@@ -367,7 +365,7 @@ public class OWLAPIOwl2Obo {
                             OboFormatTag.TAG_OWL_AXIOMS, axiomString));
                 }
             } catch (OwlStringException e) {
-                throw new RuntimeException(e);
+                throw new OWLRuntimeException(e);
             }
         }
         return getObodoc();
@@ -592,7 +590,7 @@ public class OWLAPIOwl2Obo {
         } else {
             OboFormatTag tag = OboFormatTag.TAG_HOLDS_OVER_CHAIN;
             for (OWLAnnotation ann : ax.getAnnotations()) {
-                if (OWLAPIObo2Owl.IRI_PROP_isReversiblePropertyChain.equals(ann
+                if (OWLAPIObo2Owl.IRI_PROP_ISREVERSIBLEPROPERTYCHAIN.equals(ann
                         .getProperty().getIRI().toString())) {
                     tag = OboFormatTag.TAG_EQUIVALENT_TO_CHAIN;
                     // remove annotation from unprocessed set.
@@ -857,8 +855,8 @@ public class OWLAPIOwl2Obo {
                     false);
             return;
         }
-        String _tag = owlObjectToTag(sup);
-        if (OboFormatTag.TAG_SYNONYMTYPEDEF.getTag().equals(_tag)) {
+        String tagObject = owlObjectToTag(sup);
+        if (OboFormatTag.TAG_SYNONYMTYPEDEF.getTag().equals(tagObject)) {
             String name = "";
             String scope = null;
             for (OWLAnnotationAssertionAxiom axiom : getOWLOntology()
@@ -884,7 +882,7 @@ public class OWLAPIOwl2Obo {
                 LOG.error("duplicate clause: {} in header", clause);
             }
             return;
-        } else if (OboFormatTag.TAG_SUBSETDEF.getTag().equals(_tag)) {
+        } else if (OboFormatTag.TAG_SUBSETDEF.getTag().equals(tagObject)) {
             String comment = "";
             for (OWLAnnotationAssertionAxiom axiom : getOWLOntology()
                     .getAnnotationAssertionAxioms(sub.getIRI())) {
@@ -998,7 +996,7 @@ public class OWLAPIOwl2Obo {
             Clause clause = new Clause(tag);
             if (tag == OboFormatTag.TAG_DATE) {
                 try {
-                    clause.addValue(OBOFormatConstants.headerDateFormat.get()
+                    clause.addValue(OBOFormatConstants.headerDateFormat()
                             .parseObject(value));
                 } catch (ParseException e) {
                     error("Could not parse date string: " + value, true);
@@ -1831,7 +1829,7 @@ public class OWLAPIOwl2Obo {
                 localId = java.net.URLDecoder.decode(s[1], "UTF-8");
                 return s[0] + ':' + localId;
             } catch (UnsupportedEncodingException e) {
-                throw new RuntimeException(
+                throw new OWLRuntimeException(
                         "UTF-8 not supported, JRE corrupted?", e);
             }
         }
@@ -1873,7 +1871,7 @@ public class OWLAPIOwl2Obo {
             return null;
         }
         String iri = iriObj.toString();
-        String tag = annotationPropertyMap.get(iri);
+        String tag = ANNOTATIONPROPERTYMAP.get(iri);
         if (tag == null) {
             // hardcoded values for legacy annotation properties: (TEMPORARY)
             if (iri.startsWith(Obo2OWLConstants.DEFAULT_IRI_PREFIX + "IAO_")) {
@@ -2386,7 +2384,8 @@ public class OWLAPIOwl2Obo {
 
     protected void error(String message, boolean shouldLogComplaint) {
         if (strictConversion) {
-            throw new RuntimeException("The conversion is halted: " + message);
+            throw new OWLRuntimeException("The conversion is halted: "
+                    + message);
         } else {
             if (!muteUntranslatableAxioms && shouldLogComplaint) {
                 LOG.error("MASKING ERROR «{}»", message, new Exception());
@@ -2396,7 +2395,8 @@ public class OWLAPIOwl2Obo {
 
     protected void warn(String message) {
         if (strictConversion) {
-            throw new RuntimeException("The conversion is halted: " + message);
+            throw new OWLRuntimeException("The conversion is halted: "
+                    + message);
         } else {
             LOG.warn("MASKING ERROR «{}»", message);
         }

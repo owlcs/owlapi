@@ -32,7 +32,7 @@ import org.slf4j.LoggerFactory;
 /** macro expansion gci visitor */
 public class MacroExpansionGCIVisitor {
 
-    protected static final Logger log = LoggerFactory
+    protected static final Logger LOG = LoggerFactory
             .getLogger(MacroExpansionGCIVisitor.class);
     private final OWLOntology inputOntology;
     private final OWLOntologyManager outputManager;
@@ -63,7 +63,7 @@ public class MacroExpansionGCIVisitor {
 
     protected void output(@Nullable OWLAxiom axiom) {
         if (axiom == null) {
-            log.error("no axiom");
+            LOG.error("no axiom");
             return;
         }
         // System.out.println("adding:"+axiom);
@@ -71,7 +71,7 @@ public class MacroExpansionGCIVisitor {
         try {
             outputManager.applyChange(addAx);
         } catch (Exception e) {
-            log.error("COULD NOT TRANSLATE AXIOM", e);
+            LOG.error("COULD NOT TRANSLATE AXIOM", e);
         }
     }
 
@@ -96,12 +96,12 @@ public class MacroExpansionGCIVisitor {
         OWLAnnotationProperty prop = ax.getProperty();
         String expandTo = visitor.expandAssertionToMap.get(prop.getIRI());
         if (expandTo != null) {
-            log.info("Template to Expand{}", expandTo);
+            LOG.info("Template to Expand{}", expandTo);
             expandTo = expandTo.replaceAll("\\?X",
                     manchesterSyntaxTool.getId((IRI) ax.getSubject()));
             expandTo = expandTo.replaceAll("\\?Y",
                     manchesterSyntaxTool.getId((IRI) ax.getValue()));
-            log.info("Expanding {}", expandTo);
+            LOG.info("Expanding {}", expandTo);
             try {
                 Set<OntologyAxiomPair> setAxp = manchesterSyntaxTool
                         .parseManchesterExpressionFrames(expandTo);
@@ -109,7 +109,7 @@ public class MacroExpansionGCIVisitor {
                     output(axp.getAxiom());
                 }
             } catch (Exception ex) {
-                log.error(ex.getMessage(), ex);
+                LOG.error(ex.getMessage(), ex);
             }
         }
     }
@@ -181,7 +181,7 @@ public class MacroExpansionGCIVisitor {
                         result = manchesterSyntaxTool
                                 .parseManchesterExpression(exStr);
                     } catch (ParserException e) {
-                        log.error(e.getMessage(), e);
+                        LOG.error(e.getMessage(), e);
                     }
                 }
             }

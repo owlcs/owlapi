@@ -81,34 +81,29 @@ public class MultiImportsTestCase extends TestBase {
     public void testTurtleGraphImport() throws OWLOntologyCreationException {
         // document without ontology declaration should be removed and
         // reimported
-        File ONTOLOGY_DIRECTORY = new File(RESOURCES, "importNoOntology");
-        IRI BOBS_ONTOLOGY_NAME = IRI
-                .create("http://www.w3.org/2013/12/FDA-TA/tests/RenalTransplantation/subject-bob");
-        OWLNamedIndividual BOBS_INDIVIDUAL = df
-                .getOWLNamedIndividual(IRI
-                        .create("http://www.w3.org/2013/12/FDA-TA/tests/RenalTransplantation/subject-bob#subjectOnImmunosuppressantA2"));
+        File ontologyDirectory = new File(RESOURCES, "importNoOntology");
+        String ns = "http://www.w3.org/2013/12/FDA-TA/tests/RenalTransplantation/";
+        IRI bobsOntologyName = IRI.create(ns + "subject-bob");
+        OWLNamedIndividual bobsIndividual = df.getOWLNamedIndividual(IRI
+                .create(ns + "subject-bob#subjectOnImmunosuppressantA2"));
         m.getIRIMappers()
-                .add(new SimpleIRIMapper(
-                        IRI.create("http://www.w3.org/2013/12/FDA-TA/tests/RenalTransplantation/subject-amy"),
-                        IRI.create(new File(ONTOLOGY_DIRECTORY,
-                                "subject-amy.ttl"))));
+                .add(new SimpleIRIMapper(IRI.create(ns + "subject-amy"), IRI
+                        .create(new File(ontologyDirectory, "subject-amy.ttl"))));
         m.getIRIMappers().add(
-                new SimpleIRIMapper(BOBS_ONTOLOGY_NAME, IRI.create(new File(
-                        ONTOLOGY_DIRECTORY, "subject-bob.ttl"))));
+                new SimpleIRIMapper(bobsOntologyName, IRI.create(new File(
+                        ontologyDirectory, "subject-bob.ttl"))));
         m.getIRIMappers()
-                .add(new SimpleIRIMapper(
-                        IRI.create("http://www.w3.org/2013/12/FDA-TA/tests/RenalTransplantation/subject-sue"),
-                        IRI.create(new File(ONTOLOGY_DIRECTORY,
-                                "subject-sue.ttl"))));
+                .add(new SimpleIRIMapper(IRI.create(ns + "subject-sue"), IRI
+                        .create(new File(ontologyDirectory, "subject-sue.ttl"))));
         m.getIRIMappers().add(
                 new SimpleIRIMapper(IRI
                         .create("http://www.w3.org/2013/12/FDA-TA/core"), IRI
-                        .create(new File(ONTOLOGY_DIRECTORY, "core.ttl"))));
+                        .create(new File(ontologyDirectory, "core.ttl"))));
         OWLOntology topLevelImport = m
-                .loadOntologyFromOntologyDocument(new File(ONTOLOGY_DIRECTORY,
+                .loadOntologyFromOntologyDocument(new File(ontologyDirectory,
                         "subjects.ttl"));
         assertTrue("Individuals about Bob are missing...",
-                topLevelImport.containsEntityInSignature(BOBS_INDIVIDUAL,
+                topLevelImport.containsEntityInSignature(bobsIndividual,
                         INCLUDED));
     }
 }

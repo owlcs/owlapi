@@ -83,7 +83,7 @@ import org.slf4j.LoggerFactory;
 public class RioParserImpl extends AbstractOWLParser implements RioParser {
 
     private static final long serialVersionUID = 40000L;
-    protected final static Logger log = LoggerFactory
+    protected final static Logger LOGGER = LoggerFactory
             .getLogger(RioParserImpl.class);
     @Nonnull
     private final RioRDFDocumentFormatFactory owlFormatFactory;
@@ -119,10 +119,10 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
                             // finished remove the genid hack below
                             if (iri.toString().startsWith("_:")
                                     || iri.toString().contains("genid")) {
-                                log.trace("isAnonymousNode(IRI {})", iri);
+                                LOGGER.trace("isAnonymousNode(IRI {})", iri);
                                 return true;
                             } else {
-                                log.trace("NOT isAnonymousNode(IRI {})", iri);
+                                LOGGER.trace("NOT isAnonymousNode(IRI {})", iri);
                                 return false;
                             }
                         }
@@ -133,10 +133,11 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
                             // represented as IRIs is
                             // finished remove the genid hack below
                             if (iri.startsWith("_:") || iri.contains("genid")) {
-                                log.trace("isAnonymousNode(String {})", iri);
+                                LOGGER.trace("isAnonymousNode(String {})", iri);
                                 return true;
                             } else {
-                                log.trace("NOT isAnonymousNode(String {})", iri);
+                                LOGGER.trace("NOT isAnonymousNode(String {})",
+                                        iri);
                                 return false;
                             }
                         }
@@ -150,11 +151,11 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
                             // represented as IRIs is
                             // finished remove the genid hack below
                             if (iri.startsWith("_:") || iri.contains("genid")) {
-                                log.trace("isAnonymousSharedNode(String {})",
-                                        iri);
+                                LOGGER.trace(
+                                        "isAnonymousSharedNode(String {})", iri);
                                 return true;
                             } else {
-                                log.trace(
+                                LOGGER.trace(
                                         "NOT isAnonymousSharedNode(String {})",
                                         iri);
                                 return false;
@@ -255,8 +256,8 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
             URLConnection conn = url.openConnection();
             createParser.parse(conn.getInputStream(), baseUri);
         }
-        if (log.isDebugEnabled()) {
-            log.debug("rioParse: timing={}", System.currentTimeMillis()
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("rioParse: timing={}", System.currentTimeMillis()
                     - rioParseStart);
         }
     }

@@ -24,7 +24,7 @@ import javax.annotation.Nonnull;
  *         Management Group
  * @since 3.0.0
  */
-public class NodeID implements Comparable<NodeID>, Serializable {
+public final class NodeID implements Comparable<NodeID>, Serializable {
 
     private static final long serialVersionUID = 40000L;
     private static final AtomicLong COUNTER = new AtomicLong();

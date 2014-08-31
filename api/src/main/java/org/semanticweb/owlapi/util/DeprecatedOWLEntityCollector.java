@@ -160,7 +160,7 @@ public class DeprecatedOWLEntityCollector implements OWLObjectVisitor,
      */
     public DeprecatedOWLEntityCollector(Set<OWLEntity> toReturn) {
         objects = toReturn;
-        anonymousIndividuals = fake;
+        anonymousIndividuals = FAKE;
     }
 
     /**
@@ -823,7 +823,7 @@ public class DeprecatedOWLEntityCollector implements OWLObjectVisitor,
         node.getSecondArgument().accept(this);
     }
 
-    private static final List<OWLAnonymousIndividual> fake = new ArrayList<OWLAnonymousIndividual>() {
+    private static final List<OWLAnonymousIndividual> FAKE = new ArrayList<OWLAnonymousIndividual>() {
 
         private static final long serialVersionUID = 40000L;
 

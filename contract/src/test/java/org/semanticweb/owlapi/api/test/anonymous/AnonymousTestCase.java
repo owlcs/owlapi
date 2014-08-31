@@ -36,16 +36,16 @@ public class AnonymousTestCase extends TestBase {
 
     @Test
     public void shouldRoundTrip() throws Exception {
-        OWLClass C = Class(IRI("urn:test#C"));
-        OWLClass D = Class(IRI("urn:test#D"));
-        OWLObjectProperty P = ObjectProperty(IRI("urn:test#p"));
-        OWLDataProperty Q = DataProperty(IRI("urn:test#q"));
+        OWLClass c = Class(IRI("urn:test#C"));
+        OWLClass d = Class(IRI("urn:test#D"));
+        OWLObjectProperty p = ObjectProperty(IRI("urn:test#p"));
+        OWLDataProperty q = DataProperty(IRI("urn:test#q"));
         OWLIndividual i = AnonymousIndividual();
         OWLOntology ontology = m.createOntology();
         List<OWLOntologyChange> changes = new ArrayList<>();
-        changes.add(new AddAxiom(ontology, SubClassOf(C, ObjectHasValue(P, i))));
-        changes.add(new AddAxiom(ontology, ClassAssertion(D, i)));
-        changes.add(new AddAxiom(ontology, DataPropertyAssertion(Q, i,
+        changes.add(new AddAxiom(ontology, SubClassOf(c, ObjectHasValue(p, i))));
+        changes.add(new AddAxiom(ontology, ClassAssertion(d, i)));
+        changes.add(new AddAxiom(ontology, DataPropertyAssertion(q, i,
                 Literal("hello"))));
         m.applyChanges(changes);
         OWLOntology ontologyReloaded = loadOntologyFromString(saveOntology(ontology));
@@ -54,17 +54,17 @@ public class AnonymousTestCase extends TestBase {
 
     @Test
     public void testRoundTripWithAnonymousIndividuals() throws Exception {
-        String NS = "http://test.com/genid#";
-        IRI ONT = IRI.create(NS + "ontology.owl");
-        OWLNamedIndividual I = df.getOWLNamedIndividual(IRI.create(NS, "i"));
-        OWLObjectProperty P = df.getOWLObjectProperty(IRI.create(NS, "p"));
-        OWLDataProperty Q = df.getOWLDataProperty(IRI.create(NS, "q"));
-        OWLOntology ontology = m.createOntology(ONT);
+        String ns = "http://test.com/genid#";
+        IRI ont = IRI.create(ns + "ontology.owl");
+        OWLNamedIndividual i = df.getOWLNamedIndividual(IRI.create(ns, "i"));
+        OWLObjectProperty p = df.getOWLObjectProperty(IRI.create(ns, "p"));
+        OWLDataProperty q = df.getOWLDataProperty(IRI.create(ns, "q"));
+        OWLOntology ontology = m.createOntology(ont);
         OWLIndividual ind = df.getOWLAnonymousIndividual();
         OWLObjectPropertyAssertionAxiom ax1 = df
-                .getOWLObjectPropertyAssertionAxiom(P, I, ind);
+                .getOWLObjectPropertyAssertionAxiom(p, i, ind);
         OWLDataPropertyAssertionAxiom ax2 = df
-                .getOWLDataPropertyAssertionAxiom(Q, ind, df.getOWLLiteral(5));
+                .getOWLDataPropertyAssertionAxiom(q, ind, df.getOWLLiteral(5));
         m.addAxiom(ontology, ax1);
         m.addAxiom(ontology, ax2);
         OWLOntology reload = roundTrip(ontology);

@@ -29,13 +29,13 @@ public class AnonymousRoundTripTestCase extends TestBase {
 
     @Test
     public void testRoundTrip() throws Exception {
-        String NS = "http://smi-protege.stanford.edu/ontologies/AnonymousIndividuals.owl";
-        OWLClass a = Class(IRI(NS + "#A"));
+        String ns = "http://smi-protege.stanford.edu/ontologies/AnonymousIndividuals.owl";
+        OWLClass a = Class(IRI(ns + "#A"));
         OWLAnonymousIndividual h = AnonymousIndividual();
         OWLAnonymousIndividual i = AnonymousIndividual();
-        OWLAnnotationProperty p = AnnotationProperty(IRI(NS + "#p"));
-        OWLObjectProperty q = ObjectProperty(IRI(NS + "#q"));
-        OWLOntology ontology = m.createOntology(IRI(NS));
+        OWLAnnotationProperty p = AnnotationProperty(IRI(ns + "#p"));
+        OWLObjectProperty q = ObjectProperty(IRI(ns + "#q"));
+        OWLOntology ontology = m.createOntology(IRI(ns));
         OWLAnnotation annotation1 = df.getOWLAnnotation(p, h);
         m.addAxiom(ontology,
                 df.getOWLAnnotationAssertionAxiom(a.getIRI(), annotation1));

@@ -25,7 +25,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  *         Informatics Group
  * @since 2.1.0
  */
-public class AxiomTypeCountMetricFactory {
+public final class AxiomTypeCountMetricFactory {
 
     private AxiomTypeCountMetricFactory() {}
 

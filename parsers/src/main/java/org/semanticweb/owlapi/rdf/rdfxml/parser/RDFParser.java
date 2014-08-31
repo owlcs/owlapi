@@ -50,15 +50,15 @@ import org.xml.sax.helpers.LocatorImpl;
  */
 public class RDFParser extends DefaultHandler implements IRIProvider {
 
-    private static final String wrongResolve = "IRI '%s' cannot be resolved against current base IRI %s reason is: %s";
+    private static final String WRONGRESOLVE = "IRI '%s' cannot be resolved against current base IRI %s reason is: %s";
     @Nonnull
-    protected static final Locator s_nullDocumentLocator = new LocatorImpl();
-    protected static final SAXParserFactory s_parserFactory = SAXParsers
+    protected static final Locator nullDocumentLocator = new LocatorImpl();
+    protected static final SAXParserFactory parserFactory = SAXParsers
             .initFactory();
     private final Map<String, String> resolvedIRIs = new HashMap<>();
     protected Map<String, IRI> uriCache = new HashMap<>();
     /** Registered error handler. */
-    protected ErrorHandler m_errorHandler = new ErrorHandler() {
+    protected ErrorHandler errorHandler = new ErrorHandler() {
 
         @Override
         public void warning(SAXParseException exception) {}
@@ -72,21 +72,21 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
         public void error(SAXParseException exception) {}
     };
     /** Stack of base IRIs. */
-    protected LinkedList<IRI> m_baseIRIs = new LinkedList<>();
-    private final Map<IRI, URI> m_baseURICache = new HashMap<>();
+    protected LinkedList<IRI> baseIRIs = new LinkedList<>();
+    private final Map<IRI, URI> baseURICache = new HashMap<>();
     /** IRI of the document being parsed. */
     protected IRI baseIRI;
     /** The stack of languages. */
     @Nonnull
-    protected LinkedList<String> m_languages = new LinkedList<>();
+    protected LinkedList<String> languages = new LinkedList<>();
     /** The current language. */
-    protected String m_language;
+    protected String language;
     /** Consumer receiving notifications about parsing events. */
-    protected RDFConsumer m_consumer;
+    protected RDFConsumer consumer;
     /** Current parser's state. */
     protected State state;
     /** Stack of parser states. */
-    protected List<State> m_states = new ArrayList<>();
+    protected List<State> states = new ArrayList<>();
     /** Document locator. */
     protected Locator documentLocator;
 
@@ -100,7 +100,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
         if (documentLocator != null) {
             return verifyNotNull(documentLocator);
         }
-        return s_nullDocumentLocator;
+        return nullDocumentLocator;
     }
 
     /**
@@ -108,18 +108,18 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
      * 
      * @param source
      *        specifies where RDF comes from
-     * @param consumer
+     * @param inputConsumer
      *        receives notifications about RDF parsing events
      * @throws SAXException
      *         SAXException
      * @throws IOException
      *         IOException
      */
-    public void
-            parse(@Nonnull InputSource source, @Nonnull RDFConsumer consumer)
-                    throws SAXException, IOException {
+    public void parse(@Nonnull InputSource source,
+            @Nonnull RDFConsumer inputConsumer) throws SAXException,
+            IOException {
         InputSource s = checkNotNull(source, "source cannot be null");
-        checkNotNull(consumer, "consumer cannot be null");
+        checkNotNull(inputConsumer, "consumer cannot be null");
         String systemID = s.getSystemId();
         try {
             if (systemID != null) {
@@ -128,10 +128,10 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
                 throw new SAXException(
                         "Supplied InputSource object myst have systemId property set, which is needed for IRI resolution.");
             }
-            m_consumer = consumer;
-            m_consumer.startModel(getBaseIRI());
-            s_parserFactory.newSAXParser().parse(source, this);
-            m_consumer.endModel();
+            consumer = inputConsumer;
+            inputConsumer.startModel(getBaseIRI());
+            parserFactory.newSAXParser().parse(source, this);
+            inputConsumer.endModel();
         } catch (ParserConfigurationException e) {
             throw new SAXException("Parser configuration exception", e);
         } catch (URISyntaxException e) {
@@ -139,8 +139,8 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
                     + "'of the supplied input source.", e);
         } finally {
             state = null;
-            m_states.clear();
-            m_baseIRIs.clear();
+            states.clear();
+            baseIRIs.clear();
         }
     }
 
@@ -156,28 +156,28 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
      *        the error handler
      */
     public void setErrorHandler(@Nonnull ErrorHandler errorHandler) {
-        m_errorHandler = checkNotNull(errorHandler,
+        this.errorHandler = checkNotNull(errorHandler,
                 "errorHandler cannot be null");
     }
 
     @Override
     public void warning(SAXParseException e) throws SAXException {
-        m_errorHandler.warning(e);
+        errorHandler.warning(e);
     }
 
     @Override
     public void error(SAXParseException e) throws SAXException {
-        m_errorHandler.error(e);
+        errorHandler.error(e);
     }
 
     @Override
     public void fatalError(SAXParseException e) throws SAXException {
-        m_errorHandler.fatalError(e);
+        errorHandler.fatalError(e);
     }
 
     @Override
     public void startDocument() {
-        m_states.clear();
+        states.clear();
         pushState(new StartRDF(this));
     }
 
@@ -199,8 +199,8 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
     public void endElement(String uri, String localName, String qName)
             throws SAXException {
         state.endElement(uri, localName, qName);
-        baseIRI = m_baseIRIs.remove(0);
-        m_language = m_languages.remove(0);
+        baseIRI = baseIRIs.remove(0);
+        language = languages.remove(0);
     }
 
     @Override
@@ -220,7 +220,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
             if (physicalIRI != null) {
                 physicalIRI = resolveIRI(physicalIRI);
             }
-            m_consumer.includeModel(logicalIRI, physicalIRI);
+            consumer.includeModel(logicalIRI, physicalIRI);
         }
     }
 
@@ -231,7 +231,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
      *        new state
      */
     public void pushState(State s) {
-        m_states.add(s);
+        states.add(s);
         state = s;
     }
 
@@ -239,14 +239,14 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
      * Pops a state from the stack.
      */
     public void popState() {
-        int size = m_states.size();
+        int size = states.size();
         verify(size == 0, "Internal exception: state stack is empty.");
         if (size == 1) {
             state = null;
         } else {
-            state = m_states.get(size - 2);
+            state = states.get(size - 2);
         }
-        m_states.remove(size - 1);
+        states.remove(size - 1);
     }
 
     @Nonnull
@@ -257,11 +257,11 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
             return IRI.create(value, null);
         }
         // cache the delegate URI if not there already
-        if (!m_baseURICache.containsKey(getBaseIRI())) {
-            m_baseURICache.put(getBaseIRI(), getBaseIRI().toURI());
+        if (!baseURICache.containsKey(getBaseIRI())) {
+            baseURICache.put(getBaseIRI(), getBaseIRI().toURI());
         }
         // get hold of the delegate URI
-        URI delegateURI = m_baseURICache.get(getBaseIRI());
+        URI delegateURI = baseURICache.get(getBaseIRI());
         assert delegateURI != null;
         // resolve against delegate
         URI resolve = delegateURI.resolve(value.replace(" ", "%20"));
@@ -277,14 +277,14 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
      */
     private void processXMLBase(@Nonnull Attributes atts) {
         checkNotNull(atts, "atts cannot be null");
-        m_baseIRIs.add(0, getBaseIRI());
+        baseIRIs.add(0, getBaseIRI());
         String value = atts.getValue(XMLNS, "base");
         if (value != null) {
             try {
                 baseIRI = resolveFromDelegate(getBaseIRI(), value);
                 resolvedIRIs.clear();
             } catch (IllegalArgumentException e) {
-                throw new RDFParserException(e, String.format(wrongResolve,
+                throw new RDFParserException(e, String.format(WRONGRESOLVE,
                         value, getBaseIRI(), e.getMessage()),
                         getDocumentLocator());
             }
@@ -299,10 +299,10 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
      */
     private void processXMLLanguage(@Nonnull Attributes atts) {
         checkNotNull(atts, "atts cannot be null");
-        m_languages.add(0, m_language);
+        languages.add(0, language);
         String value = atts.getValue(XMLLANG);
         if (value != null) {
-            m_language = value;
+            language = value;
         }
     }
 
@@ -344,7 +344,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
                     return u;
                 }
             } catch (IllegalArgumentException e) {
-                throw new RDFParserException(e, String.format(wrongResolve,
+                throw new RDFParserException(e, String.format(WRONGRESOLVE,
                         uri, getBaseIRI(), e.getMessage()),
                         getDocumentLocator());
             }
@@ -367,15 +367,15 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
     public void statementWithResourceValue(@Nonnull String subject,
             @Nonnull String predicate, @Nonnull String object,
             @Nullable String reificationID) {
-        m_consumer.statementWithResourceValue(subject, predicate, object);
+        consumer.statementWithResourceValue(subject, predicate, object);
         if (reificationID != null) {
-            m_consumer.statementWithResourceValue(reificationID, RDF_TYPE,
+            consumer.statementWithResourceValue(reificationID, RDF_TYPE,
                     RDF_STATEMENT);
-            m_consumer.statementWithResourceValue(reificationID, RDF_SUBJECT,
+            consumer.statementWithResourceValue(reificationID, RDF_SUBJECT,
                     subject);
-            m_consumer.statementWithResourceValue(reificationID, RDF_PREDICATE,
+            consumer.statementWithResourceValue(reificationID, RDF_PREDICATE,
                     predicate);
-            m_consumer.statementWithResourceValue(reificationID, RDF_OBJECT,
+            consumer.statementWithResourceValue(reificationID, RDF_OBJECT,
                     object);
         }
     }
@@ -398,17 +398,17 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
     public void statementWithLiteralValue(@Nonnull String subject,
             @Nonnull String predicate, @Nonnull String object,
             @Nullable String dataType, @Nullable String reificationID) {
-        m_consumer.statementWithLiteralValue(subject, predicate, object,
-                m_language, dataType);
+        consumer.statementWithLiteralValue(subject, predicate, object,
+                language, dataType);
         if (reificationID != null) {
-            m_consumer.statementWithResourceValue(reificationID, RDF_TYPE,
+            consumer.statementWithResourceValue(reificationID, RDF_TYPE,
                     RDF_STATEMENT);
-            m_consumer.statementWithResourceValue(reificationID, RDF_SUBJECT,
+            consumer.statementWithResourceValue(reificationID, RDF_SUBJECT,
                     subject);
-            m_consumer.statementWithResourceValue(reificationID, RDF_PREDICATE,
+            consumer.statementWithResourceValue(reificationID, RDF_PREDICATE,
                     predicate);
-            m_consumer.statementWithLiteralValue(reificationID, RDF_OBJECT,
-                    object, m_language, dataType);
+            consumer.statementWithLiteralValue(reificationID, RDF_OBJECT,
+                    object, language, dataType);
         }
     }
 

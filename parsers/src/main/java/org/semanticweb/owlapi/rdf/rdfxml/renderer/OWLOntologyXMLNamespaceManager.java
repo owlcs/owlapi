@@ -73,7 +73,7 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
         return ontology;
     }
 
-    private void processOntology() {
+    private final void processOntology() {
         if (ontologyFormat instanceof PrefixDocumentFormat) {
             PrefixDocumentFormat namespaceFormat = (PrefixDocumentFormat) ontologyFormat;
             Map<String, String> namespacesByPrefix = namespaceFormat

@@ -38,10 +38,10 @@ public class AnonymousIndividualsTestCase2 extends
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         // Originally submitted by Timothy Redmond
-        String NS = "http://another.com/ont";
-        OWLClass a = Class(IRI(NS + "#A"));
-        OWLAnnotationProperty p = AnnotationProperty(IRI(NS + "#p"));
-        OWLObjectProperty q = ObjectProperty(IRI(NS + "#q"));
+        String ns = "http://another.com/ont";
+        OWLClass a = Class(IRI(ns + "#A"));
+        OWLAnnotationProperty p = AnnotationProperty(IRI(ns + "#p"));
+        OWLObjectProperty q = ObjectProperty(IRI(ns + "#q"));
         OWLAnonymousIndividual h = AnonymousIndividual();
         OWLAnonymousIndividual i = AnonymousIndividual();
         Set<OWLAxiom> axioms = new HashSet<>();

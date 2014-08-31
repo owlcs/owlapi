@@ -22,8 +22,8 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 public class OWLLiteralCorruptionTestCase {
 
     @Test
-    public void testmain() {
-        String TEST_STRING;
+    public void shouldroundTripLiteral() {
+        String testString;
         StringBuilder sb = new StringBuilder();
         int count = 17;
         while (count-- > 0) {
@@ -31,8 +31,8 @@ public class OWLLiteralCorruptionTestCase {
             sb.appendCodePoint(0x10192);  // happens to be "ROMAN SEMUNCIA SIGN"
             sb.append('\n');
         }
-        TEST_STRING = sb.toString();
-        OWLLiteral literal = Literal(TEST_STRING);
-        assertEquals("Out = in ? false", literal.getLiteral(), TEST_STRING);
+        testString = sb.toString();
+        OWLLiteral literal = Literal(testString);
+        assertEquals("Out = in ? false", literal.getLiteral(), testString);
     }
 }
