@@ -71,7 +71,8 @@ import org.slf4j.LoggerFactory;
  */
 public class RioRenderer extends RDFRendererBase {
 
-    private final Logger logger = LoggerFactory.getLogger(getClass());
+    private static final Logger logger = LoggerFactory
+            .getLogger(RioRenderer.class);
     private final RDFHandler writer;
     private final DefaultPrefixManager pm;
     @Nonnull

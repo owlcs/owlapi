@@ -83,7 +83,7 @@ import org.slf4j.LoggerFactory;
 public class RioParserImpl extends AbstractOWLParser implements RioParser {
 
     private static final long serialVersionUID = 40000L;
-    protected final static Logger LOGGER = LoggerFactory
+    protected static final Logger LOGGER = LoggerFactory
             .getLogger(RioParserImpl.class);
     @Nonnull
     private final RioRDFDocumentFormatFactory owlFormatFactory;
@@ -269,7 +269,7 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
 
     private static class RioParserRDFHandler implements RDFHandler {
 
-        private final Logger LOGGER = LoggerFactory
+        private static final Logger LOGGER = LoggerFactory
                 .getLogger(RioParserRDFHandler.class);
         private final RDFHandler consumer;
         private long owlParseStart;

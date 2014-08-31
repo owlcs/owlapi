@@ -199,7 +199,7 @@ public class OWL2DatatypeImplTestCase extends TestBase {
     }
 
     @Test
-    public void equals() {
+    public void shouldEquals() {
         assertEquals(plainLiteral, plainLiteral);
         assertEquals(plainLiteral,
                 OWL2Datatype.RDF_PLAIN_LITERAL.getDatatype(df));

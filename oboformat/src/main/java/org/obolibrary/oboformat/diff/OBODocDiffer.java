@@ -13,7 +13,6 @@ import org.obolibrary.oboformat.model.Frame;
 import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.model.Xref;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
-import org.obolibrary.oboformat.parser.OBOFormatParser;
 
 /**
  * Diffs two OBO Documents. Performs structural diffing only - does not use
@@ -111,21 +110,5 @@ public class OBODocDiffer {
         List<Diff> diffs = getDiffsAsym(ftype, f1, f2, 1);
         diffs.addAll(getDiffsAsym(ftype, f2, f1, 2));
         return diffs;
-    }
-
-    /**
-     * @param args
-     *        args
-     * @throws Exception
-     *         Exception
-     */
-    public static void main(String[] args) throws Exception {
-        OBOFormatParser p = new OBOFormatParser();
-        OBODoc obodoc1 = p.parse(args[0]);
-        OBODoc obodoc2 = p.parse(args[1]);
-        List<Diff> diffs = OBODocDiffer.getDiffs(obodoc1, obodoc2);
-        for (Diff d : diffs) {
-            System.out.println(d);
-        }
     }
 }

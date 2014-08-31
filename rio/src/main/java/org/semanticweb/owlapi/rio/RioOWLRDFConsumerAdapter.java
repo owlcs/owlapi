@@ -60,7 +60,7 @@ import org.slf4j.LoggerFactory;
 public class RioOWLRDFConsumerAdapter extends OWLRDFConsumer implements
         RDFHandler {
 
-    private final Logger logger = LoggerFactory
+    private static final Logger logger = LoggerFactory
             .getLogger(RioOWLRDFConsumerAdapter.class);
 
     /**
