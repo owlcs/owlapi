@@ -22,16 +22,16 @@ public class OBODoc {
     protected Frame headerFrame;
     /** The term frame map. */
     @Nonnull
-    protected Map<String, Frame> termFrameMap = new HashMap<>();
+    protected final Map<String, Frame> termFrameMap = new HashMap<>();
     /** The typedef frame map. */
     @Nonnull
-    protected Map<String, Frame> typedefFrameMap = new HashMap<>();
+    protected final Map<String, Frame> typedefFrameMap = new HashMap<>();
     /** The instance frame map. */
     @Nonnull
-    protected Map<String, Frame> instanceFrameMap = new HashMap<>();
+    protected final Map<String, Frame> instanceFrameMap = new HashMap<>();
     /** The annotation frames. */
     @Nonnull
-    protected Collection<Frame> annotationFrames = new LinkedList<>();
+    protected final Collection<Frame> annotationFrames = new LinkedList<>();
     /** The imported obo docs. */
     protected Collection<OBODoc> importedOBODocs = new LinkedList<>();
 

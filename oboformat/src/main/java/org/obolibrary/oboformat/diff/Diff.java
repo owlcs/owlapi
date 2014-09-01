@@ -9,12 +9,12 @@ import org.obolibrary.oboformat.model.Frame;
 public class Diff {
 
     String type;
-    String frameType;
+    final String frameType;
     Frame frame1;
     Frame frame2;
     Clause clause1;
     Clause clause2;
-    int frameNum;
+    final int frameNum;
 
     /**
      * @param ftype

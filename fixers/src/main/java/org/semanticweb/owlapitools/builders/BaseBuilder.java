@@ -50,7 +50,7 @@ public abstract class BaseBuilder<T extends OWLObject, B> implements Builder<T> 
     @Nonnull
     protected final OWLDataFactory df;
     @Nonnull
-    protected Set<OWLAnnotation> annotations = new HashSet<>();
+    protected final Set<OWLAnnotation> annotations = new HashSet<>();
     @Nonnull
     private final OWLProfile profile = new OWL2DLProfile();
 

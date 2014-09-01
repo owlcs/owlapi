@@ -57,7 +57,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
 
     private final OWLOntologyManager manager;
     private final OWLOntology ont;
-    private boolean useStrongTyping = true;
+    private final boolean useStrongTyping;
 
     /**
      * @param manager

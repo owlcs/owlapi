@@ -37,7 +37,7 @@ public abstract class BaseSetBuilder<T extends OWLObject, B, I> extends
         BaseBuilder<T, B> {
 
     @Nonnull
-    protected Set<I> items = new HashSet<>();
+    protected final Set<I> items = new HashSet<>();
 
     /**
      * @param df

@@ -37,7 +37,7 @@ public class DLSyntaxHTMLStorer extends DLSyntaxStorerBase {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
-    protected SimpleShortFormProvider sfp = new SimpleShortFormProvider();
+    protected final SimpleShortFormProvider sfp = new SimpleShortFormProvider();
 
     @Override
     public boolean canStoreOntology(OWLDocumentFormat ontologyFormat) {

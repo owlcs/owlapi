@@ -108,8 +108,9 @@ public class OWLAPIOwl2Obo {
     /**
      * The absoulte url pattern.
      */
-    protected Pattern absoulteURLPattern = Pattern.compile("<\\s*http.*?>");
-    private static Set<String> SKIPPED_QUALIFIERS = Sets.newHashSet(
+    protected final Pattern absoulteURLPattern = Pattern
+            .compile("<\\s*http.*?>");
+    private static final Set<String> SKIPPED_QUALIFIERS = Sets.newHashSet(
             "gci_relation", "gci_filler", "cardinality", "minCardinality",
             "maxCardinality", "all_some", "all_only");
     /**

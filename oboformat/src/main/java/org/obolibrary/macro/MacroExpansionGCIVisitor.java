@@ -38,7 +38,7 @@ public class MacroExpansionGCIVisitor {
     private final OWLOntologyManager outputManager;
     @Nonnull
     private final OWLOntology outputOntology;
-    protected ManchesterSyntaxTool manchesterSyntaxTool;
+    protected final ManchesterSyntaxTool manchesterSyntaxTool;
     private final GCIVisitor visitor;
 
     /**

@@ -125,22 +125,22 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     @Nonnull
     protected final Map<OWLOntologyID, IRI> documentIRIsByID = createSyncMap();
     @Nonnull
-    protected Map<OWLOntologyID, OWLOntologyLoaderConfiguration> ontologyConfigurationsByOntologyID = new HashMap<>();
+    protected final Map<OWLOntologyID, OWLOntologyLoaderConfiguration> ontologyConfigurationsByOntologyID = new HashMap<>();
     @Nonnull
     protected final Map<OWLOntologyID, OWLDocumentFormat> ontologyFormatsByOntology = createSyncMap();
     @Nonnull
     protected final Map<OWLImportsDeclaration, OWLOntologyID> ontologyIDsByImportsDeclaration = createSyncMap();
     @Nonnull
-    protected PriorityCollection<OWLOntologyIRIMapper> documentMappers = new PriorityCollection<>();
+    protected final PriorityCollection<OWLOntologyIRIMapper> documentMappers = new PriorityCollection<>();
     @Nonnull
-    protected PriorityCollection<OWLOntologyFactory> ontologyFactories = new PriorityCollection<>();
+    protected final PriorityCollection<OWLOntologyFactory> ontologyFactories = new PriorityCollection<>();
     @Nonnull
-    protected PriorityCollection<OWLParserFactory> parserFactories = new PriorityCollection<>();
+    protected final PriorityCollection<OWLParserFactory> parserFactories = new PriorityCollection<>();
     @Nonnull
-    protected PriorityCollection<OWLStorerFactory> ontologyStorers = new PriorityCollection<>();
+    protected final PriorityCollection<OWLStorerFactory> ontologyStorers = new PriorityCollection<>();
     private final AtomicBoolean broadcastChanges = new AtomicBoolean(true);
-    protected AtomicInteger loadCount = new AtomicInteger(0);
-    protected AtomicInteger importsLoadCount = new AtomicInteger(0);
+    protected final AtomicInteger loadCount = new AtomicInteger(0);
+    protected final AtomicInteger importsLoadCount = new AtomicInteger(0);
     @Nonnull
     protected final Set<IRI> importedIRIs = createSyncSet();
     @Nonnull

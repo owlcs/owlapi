@@ -225,7 +225,7 @@ class StartRDF extends AbstractState implements State {
 class EmptyPropertyElement extends AbstractState implements State {
 
     @Nonnull
-    protected NodeElement nodeElement;
+    protected final NodeElement nodeElement;
     protected String pIRI;
 
     @Nonnull
@@ -272,7 +272,7 @@ class NodeElement extends AbstractState implements State {
     protected String subjectIRI;
     protected ReificationManager reificationManager;
     @Nonnull
-    protected AtomicLong nextLi = new AtomicLong(1);
+    protected final AtomicLong nextLi = new AtomicLong(1);
 
     NodeElement(@Nonnull RDFParser parser) {
         super(parser);
@@ -415,7 +415,7 @@ class NodeElementList extends AbstractState implements State {
 /** Parses parseTypeCollectionPropertyElt production. */
 class ParseTypeCollectionElement extends AbstractState implements State {
 
-    protected NodeElement nodeElement;
+    protected final NodeElement nodeElement;
     protected String pIRI;
     @Nullable
     protected String reificationID;
@@ -493,7 +493,7 @@ class ParseTypeCollectionElement extends AbstractState implements State {
 class ResourceOrLiteralElement extends AbstractState implements State {
 
     @Nonnull
-    protected NodeElement nodeElement;
+    protected final NodeElement nodeElement;
     protected String propertyIRI;
     @Nullable
     protected String reificationID;
@@ -556,7 +556,7 @@ class ResourceOrLiteralElement extends AbstractState implements State {
 /** Parses parseTypeLiteralPropertyElt production. */
 class ParseTypeLiteralElement extends AbstractState implements State {
 
-    protected NodeElement nodeElement;
+    protected final NodeElement nodeElement;
     protected String pIRI;
     @Nullable
     protected String reificationID;
@@ -620,7 +620,7 @@ class ParseTypeLiteralElement extends AbstractState implements State {
 /** Parses parseTypeResourcePropertyElt production. */
 class ParseTypeResourceElement extends AbstractState implements State {
 
-    protected NodeElement nodeElement;
+    protected final NodeElement nodeElement;
     protected String mpIRI;
     @Nullable
     protected String reificationID;
@@ -661,7 +661,7 @@ class ParseTypeResourceElement extends AbstractState implements State {
 class PropertyElementList extends AbstractState implements State {
 
     @Nonnull
-    protected NodeElement node;
+    protected final NodeElement node;
 
     PropertyElementList(@Nonnull NodeElement nodeElement,
             @Nonnull RDFParser parser) {
@@ -720,9 +720,9 @@ class ReificationManager {
 class ReifiedStatementBag extends ReificationManager {
 
     @Nonnull
-    protected AtomicLong elements = new AtomicLong(1);
+    protected final AtomicLong elements = new AtomicLong(1);
     @Nonnull
-    protected String iri;
+    protected final String iri;
 
     ReifiedStatementBag(@Nonnull String uri, @Nonnull RDFParser parser) {
         iri = uri;

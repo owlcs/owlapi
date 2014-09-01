@@ -143,23 +143,23 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         }
     };
     @Nonnull
-    protected Set<String> classNames = new HashSet<>();
+    protected final Set<String> classNames = new HashSet<>();
     @Nonnull
-    protected Set<String> objectPropertyNames = new HashSet<>();
+    protected final Set<String> objectPropertyNames = new HashSet<>();
     @Nonnull
-    protected Set<String> dataPropertyNames = new HashSet<>();
+    protected final Set<String> dataPropertyNames = new HashSet<>();
     @Nonnull
-    protected Set<String> individualNames = new HashSet<>();
+    protected final Set<String> individualNames = new HashSet<>();
     @Nonnull
-    protected Set<String> dataTypeNames = new HashSet<>();
+    protected final Set<String> dataTypeNames = new HashSet<>();
     @Nonnull
-    protected Set<String> annotationPropertyNames = new HashSet<>();
+    protected final Set<String> annotationPropertyNames = new HashSet<>();
     @Nonnull
     private final Map<String, SWRLBuiltInsVocabulary> ruleBuiltIns = new TreeMap<>();
     @Nonnull
     protected DefaultPrefixManager pm = new DefaultPrefixManager();
     @Nonnull
-    protected Set<ManchesterOWLSyntax> potentialKeywords = new HashSet<>();
+    protected final Set<ManchesterOWLSyntax> potentialKeywords = new HashSet<>();
     private OWLOntology defaultOntology;
     private final boolean allowEmptyFrameSections = false;
     private final Map<ManchesterOWLSyntax, AnnotatedListItemParser<OWLDataProperty, ?>> dataPropertyFrameSections = new EnumMap<>(

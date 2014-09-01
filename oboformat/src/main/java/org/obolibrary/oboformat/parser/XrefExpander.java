@@ -256,8 +256,8 @@ public class XrefExpander {
     /** genus diff expansion */
     public class GenusDifferentiaExpansion extends Rule {
 
-        protected String rel;
-        protected String tgt;
+        protected final String rel;
+        protected final String tgt;
 
         /**
          * @param rel
@@ -284,8 +284,8 @@ public class XrefExpander {
     /** reverse genus differentia expansion */
     public class ReverseGenusDifferentiaExpansion extends Rule {
 
-        protected String rel;
-        protected String tgt;
+        protected final String rel;
+        protected final String tgt;
 
         /**
          * @param rel
@@ -322,7 +322,7 @@ public class XrefExpander {
     /** relationship expansion */
     public class RelationshipExpansion extends Rule {
 
-        protected String rel;
+        protected final String rel;
 
         /**
          * @param rel

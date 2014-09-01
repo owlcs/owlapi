@@ -49,7 +49,7 @@ public abstract class AbstractRioParserFactory extends OWLParserFactoryImpl {
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
-    private RioRDFDocumentFormatFactory rioFormat;
+    private final RioRDFDocumentFormatFactory rioFormat;
 
     protected AbstractRioParserFactory(
             @Nonnull RioRDFDocumentFormatFactory rioFormat) {

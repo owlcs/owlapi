@@ -103,10 +103,10 @@ public abstract class RDFRendererBase {
     @Nonnull
     private static final OWLEntityIRIComparator OWL_ENTITY_IRI_COMPARATOR = new OWLEntityIRIComparator();
     @Nonnull
-    protected OWLOntology ontology;
+    protected final OWLOntology ontology;
     protected RDFGraph graph;
     @Nonnull
-    protected Set<IRI> prettyPrintedTypes = initPrettyTypes();
+    protected final Set<IRI> prettyPrintedTypes = initPrettyTypes();
     private final OWLDocumentFormat format;
     private Set<IRI> punned;
 

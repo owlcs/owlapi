@@ -47,10 +47,10 @@ class DLSyntaxParser implements DLSyntaxParserConstants {
 
     private String defaultNamespace = "http://www.sematicweb.org/ontologies/Ontology"
             + System.nanoTime();
-    private Map<String, String> namespaceMap = new HashMap<String, String>();
+    private final Map<String, String> namespaceMap = new HashMap<String, String>();
     private OWLDataFactory factory;
-    private Map<String, IRI> iriMap = new HashMap<String, IRI>();
-    private Map<String, IRI> qnameIRIMap = new HashMap<String, IRI>();
+    private final Map<String, IRI> iriMap = new HashMap<String, IRI>();
+    private final Map<String, IRI> qnameIRIMap = new HashMap<String, IRI>();
 
     void setOWLDataFactory(OWLDataFactory factory) {
         this.factory = factory;

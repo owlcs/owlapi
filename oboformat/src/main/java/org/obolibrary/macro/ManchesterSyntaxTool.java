@@ -53,7 +53,7 @@ public class ManchesterSyntaxTool {
     private static final Logger LOG = LoggerFactory
             .getLogger(ManchesterSyntaxTool.class);
     @Nonnull
-    protected IRIShortFormProvider iriShortFormProvider = new SimpleIRIShortFormProvider();
+    protected final IRIShortFormProvider iriShortFormProvider = new SimpleIRIShortFormProvider();
     @Nonnull
     private final OWLDataFactory dataFactory;
     @Nonnull

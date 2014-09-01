@@ -46,7 +46,7 @@ import com.google.common.base.Optional;
 public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
 
     private PrefixManager prefixManager;
-    protected OWLOntology ont;
+    protected final OWLOntology ont;
     private final Writer writer;
     private boolean writeEntitiesAsURIs = true;
     private OWLObject focusedObject;
@@ -208,8 +208,8 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         Set<OWLAxiom> writtenAxioms = new HashSet<>();
         List<OWLEntity> signature = sortOptionally(ontology.getSignature());
         Collection<IRI> illegals = OWLDocumentFormatImpl
-                .determineIllegalPunnings(
-                addMissingDeclarations, signature, ont.getPunnedIRIs(INCLUDED));
+                .determineIllegalPunnings(addMissingDeclarations, signature,
+                        ont.getPunnedIRIs(INCLUDED));
         for (OWLEntity ent : signature) {
             writeDeclarations(ent, writtenAxioms, illegals);
         }
