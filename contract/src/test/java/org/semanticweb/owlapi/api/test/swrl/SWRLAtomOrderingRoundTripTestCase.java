@@ -109,18 +109,20 @@ public class SWRLAtomOrderingRoundTripTestCase {
     }
 
     @Test
-    public void shouldPreserveOrderingInTurtleRoundTrip() throws Exception {
+    public void shouldPreserveOrderingInTurtleRoundTrip()
+            throws OWLOntologyCreationException, OWLOntologyStorageException {
         roundTrip(new TurtleDocumentFormat());
     }
 
     @Test
     public void shouldPreserveOrderingInManchesterSyntaxRoundTrip()
-            throws Exception {
+            throws OWLOntologyCreationException, OWLOntologyStorageException {
         roundTrip(new ManchesterSyntaxDocumentFormat());
     }
 
     @Test
-    public void shouldPreserveOrderingInOWLXMLRoundTrip() throws Exception {
+    public void shouldPreserveOrderingInOWLXMLRoundTrip()
+            throws OWLOntologyCreationException, OWLOntologyStorageException {
         roundTrip(new OWLXMLDocumentFormat());
     }
 }

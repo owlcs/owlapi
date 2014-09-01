@@ -320,17 +320,31 @@ public class ManchesterSyntaxTool {
                 for (OWLAnnotationAssertionAxiom aa : aas) {
                     OWLAnnotationValue v = aa.getValue();
                     OWLAnnotationProperty property = aa.getProperty();
-                    if (v instanceof OWLLiteral && property.isLabel()) {
-                        if (label.equals(((OWLLiteral) v).getLiteral())) {
-                            OWLAnnotationSubject obj = aa.getSubject();
-                            if (obj instanceof IRI) {
-                                return (IRI) obj;
-                            }
+                    if (isMatchingLabel(label, v, property)) {
+                        OWLAnnotationSubject obj = aa.getSubject();
+                        if (obj instanceof IRI) {
+                            return (IRI) obj;
                         }
                     }
                 }
             }
             return null;
+        }
+
+        /**
+         * @param label
+         *        label to match
+         * @param v
+         *        annotation value
+         * @param property
+         *        property to check
+         * @return true if property is a label, v is a literal and v matches
+         *         label
+         */
+        protected boolean isMatchingLabel(String label, OWLAnnotationValue v,
+                OWLAnnotationProperty property) {
+            return property.isLabel() && v instanceof OWLLiteral
+                    && label.equals(((OWLLiteral) v).getLiteral());
         }
 
         /**

@@ -76,8 +76,8 @@ public class OBOFormatWriter {
     }
 
     @Nonnull
-    private static HashSet<String> buildTagsInformative() {
-        HashSet<String> set = new HashSet<>();
+    private static Set<String> buildTagsInformative() {
+        Set<String> set = new HashSet<>();
         set.add(OboFormatTag.TAG_IS_A.getTag());
         set.add(OboFormatTag.TAG_RELATIONSHIP.getTag());
         set.add(OboFormatTag.TAG_DISJOINT_FROM.getTag());
@@ -465,9 +465,7 @@ public class OBOFormatWriter {
 
     private static void writeIdSpace(@Nonnull Clause cl,
             @Nonnull BufferedWriter writer) throws IOException {
-        StringBuilder sb = new StringBuilder();
-        sb.append(cl.getTag());
-        sb.append(": ");
+        StringBuilder sb = new StringBuilder(cl.getTag()).append(": ");
         Collection<Object> values = cl.getValues();
         int i = 0;
         Iterator<Object> iterator = values.iterator();
@@ -475,12 +473,12 @@ public class OBOFormatWriter {
             String value = iterator.next().toString();
             assert value != null;
             if (i == 2) {
-                sb.append('"');
-                sb.append(escapeOboString(value, EscapeMode.quotes));
-                sb.append('"');
+                sb.append('"')
+                        .append(escapeOboString(value, EscapeMode.quotes))
+                        .append('"');
             } else {
-                sb.append(escapeOboString(value, EscapeMode.simple));
-                sb.append(' ');
+                sb.append(escapeOboString(value, EscapeMode.simple))
+                        .append(' ');
             }
             i++;
         }
@@ -677,20 +675,18 @@ public class OBOFormatWriter {
         while (valuesIterator.hasNext()) {
             String value = valuesIterator.next().toString();
             assert value != null;
-            if (idsLabel != null) {
-                if (nameProvider != null) {
-                    String label = nameProvider.getName(value);
-                    if (label != null
-                            && (isOpaqueIdentifier(value) || !valuesIterator
-                                    .hasNext())) {
-                        // only print label if the label exists
-                        // and the label is different from the id
-                        // relationships: ID part_of LABEL part_of
-                        if (idsLabel.length() > 0) {
-                            idsLabel.append(' ');
-                        }
-                        idsLabel.append(label);
+            if (idsLabel != null && nameProvider != null) {
+                String label = nameProvider.getName(value);
+                if (label != null
+                        && (isOpaqueIdentifier(value) || !valuesIterator
+                                .hasNext())) {
+                    // only print label if the label exists
+                    // and the label is different from the id
+                    // relationships: ID part_of LABEL part_of
+                    if (idsLabel.length() > 0) {
+                        idsLabel.append(' ');
                     }
+                    idsLabel.append(label);
                 }
             }
             EscapeMode mode = EscapeMode.most;
@@ -722,16 +718,14 @@ public class OBOFormatWriter {
         if (value != null && !value.isEmpty()) {
             // check for colon
             int colonPos = value.indexOf(':');
-            if (colonPos > 0) {
-                // check that the suffix after the colon contains only digits
-                if (value.length() > colonPos + 1) {
-                    result = true;
-                    for (int i = colonPos; i < value.length(); i++) {
-                        char c = value.charAt(i);
-                        if (!Character.isDigit(c) && c != ':') {
-                            result = false;
-                            break;
-                        }
+            // check that the suffix after the colon contains only digits
+            if (colonPos > 0 && value.length() > colonPos + 1) {
+                result = true;
+                for (int i = colonPos; i < value.length(); i++) {
+                    char c = value.charAt(i);
+                    if (!Character.isDigit(c) && c != ':') {
+                        result = false;
+                        break;
                     }
                 }
             }

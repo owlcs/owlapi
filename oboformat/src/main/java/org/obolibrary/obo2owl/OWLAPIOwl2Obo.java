@@ -87,12 +87,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Optional;
+import com.google.common.collect.Sets;
 
 /**
  * The Class OWLAPIOwl2Obo.
  */
 public class OWLAPIOwl2Obo {
 
+    @Nonnull
+    private static final String TOP_BOTTOM_NONTRANSLATEABLE = "Assertions using owl:Thing or owl:Nothing are not translateable OBO";
     /**
      * The log.
      */
@@ -102,6 +105,13 @@ public class OWLAPIOwl2Obo {
             + "IAO_synonymtypedef";
     private static final String IRI_CLASS_SUBSETDEF = Obo2OWLConstants.DEFAULT_IRI_PREFIX
             + "IAO_subsetdef";
+    /**
+     * The absoulte url pattern.
+     */
+    protected Pattern absoulteURLPattern = Pattern.compile("<\\s*http.*?>");
+    private static Set<String> SKIPPED_QUALIFIERS = Sets.newHashSet(
+            "gci_relation", "gci_filler", "cardinality", "minCardinality",
+            "maxCardinality", "all_some", "all_only");
     /**
      * The manager.
      */
@@ -179,8 +189,8 @@ public class OWLAPIOwl2Obo {
      * @return the hash map
      */
     @Nonnull
-    protected static HashMap<String, String> initAnnotationPropertyMap() {
-        HashMap<String, String> map = new HashMap<>();
+    protected static Map<String, String> initAnnotationPropertyMap() {
+        Map<String, String> map = new HashMap<>();
         for (String key : OWLAPIObo2Owl.ANNOTATIONPROPERTYMAP.keySet()) {
             IRI propIRI = OWLAPIObo2Owl.ANNOTATIONPROPERTYMAP.get(key);
             map.put(propIRI.toString(), key);
@@ -624,12 +634,11 @@ public class OWLAPIOwl2Obo {
      */
     protected void tr(@Nonnull OWLTransitiveObjectPropertyAxiom ax) {
         OWLObjectPropertyExpression prop = ax.getProperty();
-        if (prop instanceof OWLObjectProperty) {
-            if (trObjectProperty((OWLObjectProperty) prop,
-                    OboFormatTag.TAG_IS_TRANSITIVE.getTag(), Boolean.TRUE,
-                    ax.getAnnotations())) {
-                return;
-            }
+        if (prop instanceof OWLObjectProperty
+                && trObjectProperty((OWLObjectProperty) prop,
+                        OboFormatTag.TAG_IS_TRANSITIVE.getTag(), Boolean.TRUE,
+                        ax.getAnnotations())) {
+            return;
         }
         error(ax, true);
     }
@@ -652,12 +661,11 @@ public class OWLAPIOwl2Obo {
      */
     protected void tr(@Nonnull OWLReflexiveObjectPropertyAxiom ax) {
         OWLObjectPropertyExpression prop = ax.getProperty();
-        if (prop instanceof OWLObjectProperty) {
-            if (trObjectProperty((OWLObjectProperty) prop,
-                    OboFormatTag.TAG_IS_REFLEXIVE.getTag(), Boolean.TRUE,
-                    ax.getAnnotations())) {
-                return;
-            }
+        if (prop instanceof OWLObjectProperty
+                && trObjectProperty((OWLObjectProperty) prop,
+                        OboFormatTag.TAG_IS_REFLEXIVE.getTag(), Boolean.TRUE,
+                        ax.getAnnotations())) {
+            return;
         }
         error(ax, true);
     }
@@ -670,12 +678,11 @@ public class OWLAPIOwl2Obo {
      */
     protected void tr(@Nonnull OWLInverseFunctionalObjectPropertyAxiom ax) {
         OWLObjectPropertyExpression prop = ax.getProperty();
-        if (prop instanceof OWLObjectProperty) {
-            if (trObjectProperty((OWLObjectProperty) prop,
-                    OboFormatTag.TAG_IS_INVERSE_FUNCTIONAL.getTag(),
-                    Boolean.TRUE, ax.getAnnotations())) {
-                return;
-            }
+        if (prop instanceof OWLObjectProperty
+                && trObjectProperty((OWLObjectProperty) prop,
+                        OboFormatTag.TAG_IS_INVERSE_FUNCTIONAL.getTag(),
+                        Boolean.TRUE, ax.getAnnotations())) {
+            return;
         }
         error(ax, true);
     }
@@ -690,12 +697,11 @@ public class OWLAPIOwl2Obo {
         OWLObjectPropertyExpression prop1 = ax.getFirstProperty();
         OWLObjectPropertyExpression prop2 = ax.getSecondProperty();
         if (prop1 instanceof OWLObjectProperty
-                && prop2 instanceof OWLObjectProperty) {
-            if (trObjectProperty((OWLObjectProperty) prop1,
-                    OboFormatTag.TAG_INVERSE_OF.getTag(), getIdentifier(prop2),
-                    ax.getAnnotations())) {
-                return;
-            }
+                && prop2 instanceof OWLObjectProperty
+                && trObjectProperty((OWLObjectProperty) prop1,
+                        OboFormatTag.TAG_INVERSE_OF.getTag(),
+                        getIdentifier(prop2), ax.getAnnotations())) {
+            return;
         }
         error(ax, true);
     }
@@ -743,12 +749,11 @@ public class OWLAPIOwl2Obo {
      */
     protected void tr(@Nonnull OWLAsymmetricObjectPropertyAxiom ax) {
         OWLObjectPropertyExpression prop = ax.getProperty();
-        if (prop instanceof OWLObjectProperty) {
-            if (trObjectProperty((OWLObjectProperty) prop,
-                    OboFormatTag.TAG_IS_ASYMMETRIC.getTag(), Boolean.TRUE,
-                    ax.getAnnotations())) {
-                return;
-            }
+        if (prop instanceof OWLObjectProperty
+                && trObjectProperty((OWLObjectProperty) prop,
+                        OboFormatTag.TAG_IS_ASYMMETRIC.getTag(), Boolean.TRUE,
+                        ax.getAnnotations())) {
+            return;
         }
         error(ax, true);
     }
@@ -761,12 +766,11 @@ public class OWLAPIOwl2Obo {
      */
     protected void tr(@Nonnull OWLSymmetricObjectPropertyAxiom ax) {
         OWLObjectPropertyExpression prop = ax.getProperty();
-        if (prop instanceof OWLObjectProperty) {
-            if (trObjectProperty((OWLObjectProperty) prop,
-                    OboFormatTag.TAG_IS_SYMMETRIC.getTag(), Boolean.TRUE,
-                    ax.getAnnotations())) {
-                return;
-            }
+        if (prop instanceof OWLObjectProperty
+                && trObjectProperty((OWLObjectProperty) prop,
+                        OboFormatTag.TAG_IS_SYMMETRIC.getTag(), Boolean.TRUE,
+                        ax.getAnnotations())) {
+            return;
         }
         error(ax, true);
     }
@@ -779,12 +783,11 @@ public class OWLAPIOwl2Obo {
      */
     protected void tr(@Nonnull OWLFunctionalObjectPropertyAxiom ax) {
         OWLObjectPropertyExpression prop = ax.getProperty();
-        if (prop instanceof OWLObjectProperty) {
-            if (trObjectProperty((OWLObjectProperty) prop,
-                    OboFormatTag.TAG_IS_FUNCTIONAL.getTag(), Boolean.TRUE,
-                    ax.getAnnotations())) {
-                return;
-            }
+        if (prop instanceof OWLObjectProperty
+                && trObjectProperty((OWLObjectProperty) prop,
+                        OboFormatTag.TAG_IS_FUNCTIONAL.getTag(), Boolean.TRUE,
+                        ax.getAnnotations())) {
+            return;
         }
         error(ax, true);
     }
@@ -811,11 +814,10 @@ public class OWLAPIOwl2Obo {
             return;
         }
         String range = getIdentifier(owlRange); // getIdentifier(ax.getRange());
-        if (range != null) {
-            if (trObjectProperty(prop, OboFormatTag.TAG_RANGE.getTag(), range,
-                    ax.getAnnotations())) {
-                return;
-            }
+        if (range != null
+                && trObjectProperty(prop, OboFormatTag.TAG_RANGE.getTag(),
+                        range, ax.getAnnotations())) {
+            return;
         }
         error(ax, false);
     }
@@ -920,11 +922,6 @@ public class OWLAPIOwl2Obo {
     }
 
     /**
-     * The absoulte url pattern.
-     */
-    protected Pattern absoulteURLPattern = Pattern.compile("<\\s*http.*?>");
-
-    /**
      * Tr.
      * 
      * @param aanAx
@@ -964,18 +961,16 @@ public class OWLAPIOwl2Obo {
             tag = OBOFormatConstants.getTag(tagString);
         }
         if (tag == null) {
-            if (annVal instanceof IRI && FrameType.TERM.equals(frame.getType())) {
-                if (isMetadataTag(prop)) {
-                    String propId = this.getIdentifier(prop);
-                    if (propId != null) {
-                        Clause clause = new Clause(
-                                OboFormatTag.TAG_RELATIONSHIP);
-                        clause.addValue(propId);
-                        clause.addValue(getIdentifier((IRI) annVal));
-                        addQualifiers(clause, qualifiers);
-                        frame.addClause(clause);
-                        return true;
-                    }
+            if (annVal instanceof IRI && FrameType.TERM.equals(frame.getType())
+                    && isMetadataTag(prop)) {
+                String propId = this.getIdentifier(prop);
+                if (propId != null) {
+                    Clause clause = new Clause(OboFormatTag.TAG_RELATIONSHIP);
+                    clause.addValue(propId);
+                    clause.addValue(getIdentifier((IRI) annVal));
+                    addQualifiers(clause, qualifiers);
+                    frame.addClause(clause);
+                    return true;
                 }
             }
             // annotation property does not correspond to a mapping to a tag in
@@ -1242,11 +1237,7 @@ public class OWLAPIOwl2Obo {
             if (prop == null) {
                 prop = ann.getProperty().getIRI().toString();
             }
-            if (prop.equals("gci_relation") || prop.equals("gci_filler")
-                    || prop.equals("cardinality")
-                    || prop.equals("minCardinality")
-                    || prop.equals("maxCardinality") || prop.equals("all_some")
-                    || prop.equals("all_only")) {
+            if (SKIPPED_QUALIFIERS.contains(prop)) {
                 continue;
             }
             String value = ann.getValue().toString();
@@ -1833,21 +1824,20 @@ public class OWLAPIOwl2Obo {
                         "UTF-8 not supported, JRE corrupted?", e);
             }
         }
-        if (s.length > 2 && !id.contains("#")) {
-            if (s[s.length - 1].replaceAll("[0-9]", "").isEmpty()) {
-                StringBuffer sb = new StringBuffer();
-                for (int i = 0; i < s.length; i++) {
-                    if (i > 0) {
-                        if (i == s.length - 1) {
-                            sb.append(':');
-                        } else {
-                            sb.append('_');
-                        }
+        if (s.length > 2 && !id.contains("#")
+                && s[s.length - 1].replaceAll("[0-9]", "").isEmpty()) {
+            StringBuffer sb = new StringBuffer();
+            for (int i = 0; i < s.length; i++) {
+                if (i > 0) {
+                    if (i == s.length - 1) {
+                        sb.append(':');
+                    } else {
+                        sb.append('_');
                     }
-                    sb.append(s[i]);
                 }
-                return sb.toString();
+                sb.append(s[i]);
             }
+            return sb.toString();
         }
         return iri;
     }
@@ -2021,8 +2011,7 @@ public class OWLAPIOwl2Obo {
         Set<QualifierValue> qvs = new HashSet<>();
         if (sub.isOWLNothing() || sub.isTopEntity() || sup.isTopEntity()
                 || sup.isOWLNothing()) {
-            error("Assertions using owl:Thing or owl:Nothing are not translateable OBO",
-                    ax, false);
+            error(TOP_BOTTOM_NONTRANSLATEABLE, ax, false);
             return;
         }
         // 5.2.2
@@ -2044,11 +2033,10 @@ public class OWLAPIOwl2Obo {
                     }
                     if (x instanceof OWLObjectSomeValuesFrom) {
                         r = (OWLObjectSomeValuesFrom) x;
-                        if (r.getProperty() instanceof OWLObjectProperty) {
-                            if (r.getFiller() instanceof OWLClass) {
-                                p = (OWLObjectProperty) r.getProperty();
-                                filler = (OWLClass) r.getFiller();
-                            }
+                        if (r.getProperty() instanceof OWLObjectProperty
+                                && r.getFiller() instanceof OWLClass) {
+                            p = (OWLObjectProperty) r.getProperty();
+                            filler = (OWLClass) r.getFiller();
                         }
                     }
                 }
@@ -2075,8 +2063,7 @@ public class OWLAPIOwl2Obo {
                 OWLObjectCardinalityRestriction cardinality = (OWLObjectCardinalityRestriction) sup;
                 OWLClassExpression filler = cardinality.getFiller();
                 if (filler.isBottomEntity() || filler.isTopEntity()) {
-                    error("Assertions using owl:Thing or owl:Nothing are not translateable OBO",
-                            ax, false);
+                    error(TOP_BOTTOM_NONTRANSLATEABLE, ax, false);
                     return;
                 }
                 String fillerId = getIdentifier(filler);
@@ -2092,8 +2079,7 @@ public class OWLAPIOwl2Obo {
                 OWLQuantifiedObjectRestriction r = (OWLQuantifiedObjectRestriction) sup;
                 OWLClassExpression filler = r.getFiller();
                 if (filler.isBottomEntity() || filler.isTopEntity()) {
-                    error("Assertions using owl:Thing or owl:Nothing are not translateable OBO",
-                            ax, false);
+                    error(TOP_BOTTOM_NONTRANSLATEABLE, ax, false);
                     return;
                 }
                 String fillerId = getIdentifier(filler);
@@ -2111,8 +2097,7 @@ public class OWLAPIOwl2Obo {
                         OWLObjectCardinalityRestriction restriction = (OWLObjectCardinalityRestriction) operand;
                         OWLClassExpression filler = restriction.getFiller();
                         if (filler.isBottomEntity() || filler.isTopEntity()) {
-                            error("Assertions using owl:Thing or owl:Nothing are not translateable OBO",
-                                    ax, false);
+                            error(TOP_BOTTOM_NONTRANSLATEABLE, ax, false);
                             return;
                         }
                         String fillerId = getIdentifier(filler);
@@ -2126,8 +2111,7 @@ public class OWLAPIOwl2Obo {
                         OWLQuantifiedObjectRestriction restriction = (OWLQuantifiedObjectRestriction) operand;
                         OWLClassExpression filler = restriction.getFiller();
                         if (filler.isBottomEntity() || filler.isTopEntity()) {
-                            error("Assertions using owl:Thing or owl:Nothing are not translateable OBO",
-                                    ax, false);
+                            error(TOP_BOTTOM_NONTRANSLATEABLE, ax, false);
                             return;
                         }
                         String fillerId = getIdentifier(filler);
