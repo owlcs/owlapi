@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi;
 
+import java.util.Collection;
 import java.util.ServiceConfigurationError;
 import java.util.ServiceLoader;
 
@@ -30,6 +31,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OWLStorer;
 import org.semanticweb.owlapi.model.OWLStorerFactory;
 
+import com.google.common.collect.Sets;
 import com.google.inject.AbstractModule;
 import com.google.inject.multibindings.Multibinder;
 
@@ -57,7 +59,7 @@ public class OWLAPIServiceLoaderModule extends AbstractModule {
     protected <T> void loadInstancesFromServiceLoader(Class<T> type) {
         try {
             Multibinder<T> binder = Multibinder.newSetBinder(binder(), type);
-            for (T o : ServiceLoader.load(type, getClass().getClassLoader())) {
+            for (T o : load(type)) {
                 binder.addBinding().toInstance(o);
             }
         } catch (ServiceConfigurationError e) {
@@ -66,13 +68,33 @@ public class OWLAPIServiceLoaderModule extends AbstractModule {
         }
     }
 
+    /**
+     * @param type
+     *        type to load
+     * @return itrable over T implementations
+     */
+    protected <T> Iterable<T> load(Class<T> type) {
+        // J2EE compatible search
+        Collection<T> list = Sets.newHashSet(ServiceLoader.load(type));
+        // in OSGi, the context class loader is likely null.
+        // This would trigger the use of the system class loader, which would
+        // not see the OWLAPI jar, nor any other jar containing implementations.
+        // In that case, use this class classloader to load, at a minimum, the
+        // services provided by the OWLAPI jar itself.
+        if (list.isEmpty()) {
+            list = Sets.newHashSet(ServiceLoader.load(type, getClass()
+                    .getClassLoader()));
+        }
+        return list;
+    }
+
     protected <T, F extends Provider<T>> void loadFactories(Class<F> factory,
             Class<T> type) {
         try {
             Multibinder<F> factoryBinder = Multibinder.newSetBinder(binder(),
                     factory);
             Multibinder<T> binder = Multibinder.newSetBinder(binder(), type);
-            for (F o : ServiceLoader.load(factory, getClass().getClassLoader())) {
+            for (F o : load(factory)) {
                 factoryBinder.addBinding().toInstance(o);
                 binder.addBinding().toInstance(o.get());
             }
@@ -87,9 +109,7 @@ public class OWLAPIServiceLoaderModule extends AbstractModule {
         try {
             Multibinder<OWLOntologyManagerFactory> binder = Multibinder
                     .newSetBinder(binder(), OWLOntologyManagerFactory.class);
-            for (OWLOntologyManagerFactory o : ServiceLoader.load(
-                    OWLOntologyManagerFactory.class, getClass()
-                            .getClassLoader())) {
+            for (OWLOntologyManagerFactory o : load(OWLOntologyManagerFactory.class)) {
                 binder.addBinding().toInstance(o);
             }
         } catch (ServiceConfigurationError e) {
