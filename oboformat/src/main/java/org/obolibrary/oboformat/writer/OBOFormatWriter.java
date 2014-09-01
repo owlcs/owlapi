@@ -465,7 +465,8 @@ public class OBOFormatWriter {
 
     private static void writeIdSpace(@Nonnull Clause cl,
             @Nonnull BufferedWriter writer) throws IOException {
-        StringBuilder sb = new StringBuilder(cl.getTag()).append(": ");
+        StringBuilder sb = new StringBuilder(cl.getTag());
+        sb.append(": ");
         Collection<Object> values = cl.getValues();
         int i = 0;
         Iterator<Object> iterator = values.iterator();

@@ -1,6 +1,6 @@
 package org.semanticweb.owlapi.api.test.syntax;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 
 import java.util.Set;
@@ -22,7 +22,6 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.profiles.OWL2DLProfile;
-import org.semanticweb.owlapi.profiles.OWLProfileViolation;
 
 @SuppressWarnings("javadoc")
 public class PrimerTestCase extends TestBase {

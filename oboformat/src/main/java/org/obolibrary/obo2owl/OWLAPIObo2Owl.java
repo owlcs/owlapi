@@ -1713,7 +1713,6 @@ public class OWLAPIObo2Owl {
      *        the value
      * @return the oWL annotation value
      */
-    @SuppressWarnings("null")
     @Nonnull
     protected OWLAnnotationValue trLiteral(@Nonnull Object inputValue) {
         Object value = inputValue;
@@ -1731,8 +1730,9 @@ public class OWLAPIObo2Owl {
             // e.g. boolean
             value = value.toString();
         }
-        // System.out.println("v="+value);
-        return fac.getOWLLiteral((String) value); // TODO
+        String value2 = (String) value;
+        assert value2 != null;
+        return fac.getOWLLiteral(value2); // TODO
     }
 
     /**

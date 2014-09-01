@@ -133,6 +133,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
         return manager;
     }
 
+    @SuppressWarnings("null")
     @Override
     public void setOWLOntologyManager(OWLOntologyManager manager) {
         this.manager = manager;
@@ -753,12 +754,13 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     }
 
     @Nonnull
-    private <T> Set<T> asSet(Iterable<T> i) {
+    private static <T> Set<T> asSet(Iterable<T> i) {
         List<T> list = new ArrayList<>();
         Iterables.addAll(list, i);
         return CollectionFactory
                 .getCopyOnRequestSetFromImmutableCollection(list);
     }
+
     @Override
     public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
         return asSet(ints.get(OWLAnonymousIndividual.class, OWLAxiom.class)
@@ -878,8 +880,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
         if (includeImportsClosure == EXCLUDED) {
             Iterables.addAll(
                     props,
-                    ints
-                    .get(OWLAnnotationProperty.class, OWLAxiom.class,
+                    ints.get(OWLAnnotationProperty.class, OWLAxiom.class,
                             Navigation.IN_SUB_POSITION).get().keySet());
             for (OWLAnnotation anno : ints.getOntologyAnnotations(false)) {
                 props.add(anno.getProperty());

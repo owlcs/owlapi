@@ -49,6 +49,7 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression>
      * @param annotations
      *        annotations
      */
+    @SuppressWarnings("unchecked")
     public OWLNaryPropertyAxiomImpl(@Nonnull Set<? extends P> properties,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);

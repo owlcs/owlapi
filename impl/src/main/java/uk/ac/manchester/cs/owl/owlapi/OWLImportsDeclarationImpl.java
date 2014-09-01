@@ -68,9 +68,10 @@ public class OWLImportsDeclarationImpl implements OWLImportsDeclaration,
         return iri.compareTo(o.getIRI());
     }
 
-    @SuppressWarnings("null")
     @Override
     public String toString() {
-        return String.format("Import(%s)", iri.toQuotedString());
+        String format = String.format("Import(%s)", iri.toQuotedString());
+        assert format != null;
+        return format;
     }
 }

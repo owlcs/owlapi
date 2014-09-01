@@ -52,6 +52,7 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
      * @param annotations
      *        annotations on the axiom
      */
+    @SuppressWarnings("unchecked")
     public OWLAxiomImpl(@Nonnull Collection<? extends OWLAnnotation> annotations) {
         checkNotNull(annotations, "annotations cannot be null");
         if (!annotations.isEmpty()) {
@@ -145,7 +146,6 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
         if (!(obj instanceof OWLAxiom)) {
             return false;
         }
-
         OWLAxiom other = (OWLAxiom) obj;
         // for OWLAxiomImpl comparisons, do not create wrapper objects
         if (other instanceof OWLAxiomImpl) {

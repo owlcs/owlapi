@@ -18,7 +18,6 @@ import gnu.trove.set.hash.THashSet;
 
 import java.lang.ref.SoftReference;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -48,9 +47,6 @@ import com.google.common.collect.Iterables;
  *        value
  */
 public class MapPointer<K, V extends OWLAxiom> {
-    
-    
-
 
     @Nullable
     private final AxiomType<?> type;
@@ -60,7 +56,6 @@ public class MapPointer<K, V extends OWLAxiom> {
     @Nonnull
     protected final Internals i;
     private SoftReference<Set<IRI>> iris;
-
     private int size = 0;
     private THashMap<K, THashSet<V>> map = new THashMap<>(17, 0.75F);
 
@@ -178,7 +173,9 @@ public class MapPointer<K, V extends OWLAxiom> {
     @Nonnull
     public synchronized Iterable<K> keySet() {
         init();
-        return map.keySet();
+        Set<K> keySet = map.keySet();
+        assert keySet != null;
+        return keySet;
     }
 
     /**
@@ -318,12 +315,12 @@ public class MapPointer<K, V extends OWLAxiom> {
         return Iterables.concat(map.values());
     }
 
+    @Nonnull
     private Set<V> get(K k) {
         THashSet<V> t = map.get(k);
         if (t == null) {
-            return Collections.emptySet();
+            return CollectionFactory.emptySet();
         }
         return t;
     }
-
 }
