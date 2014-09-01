@@ -41,11 +41,10 @@ import com.google.common.collect.Multimap;
 public abstract class OWLDocumentFormatImpl implements OWLDocumentFormat {
 
     private static final long serialVersionUID = 40000L;
-    private Map<Serializable, Serializable> parameterMap = new HashMap<>();
+    private final Map<Serializable, Serializable> parameterMap = new HashMap<>();
     @Nonnull
     private OWLOntologyLoaderMetaData loaderMetaData = new NullLoaderMetaData();
     private boolean addMissingTypes = true;
-
 
     @Override
     public boolean isAddMissingTypes() {
@@ -160,7 +159,6 @@ public abstract class OWLDocumentFormatImpl implements OWLDocumentFormat {
             return defaultValue;
         }
     }
-
 
     @Override
     public OWLOntologyLoaderMetaData getOntologyLoaderMetaData() {

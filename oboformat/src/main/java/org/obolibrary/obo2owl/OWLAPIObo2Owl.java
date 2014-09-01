@@ -109,7 +109,7 @@ public class OWLAPIObo2Owl {
     /** The typedef to annotation property. */
     @Nonnull
     protected final Map<String, OWLAnnotationProperty> typedefToAnnotationProperty;
-    private static Set<String> SKIPPED_QUALIFIERS = Sets.newHashSet(
+    private static final Set<String> SKIPPED_QUALIFIERS = Sets.newHashSet(
             "gci_relation", "gci_filler", "cardinality", "minCardinality",
             "maxCardinality", "all_some", "all_only");
 

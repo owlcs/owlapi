@@ -45,7 +45,7 @@ public class XMLWriterImpl implements XMLWriter {
     @Nonnull
     private final Stack<XMLElement> elementStack;
     @Nonnull
-    protected Writer writer;
+    protected final Writer writer;
     private String encoding = "";
     @Nonnull
     private final String xmlBase;

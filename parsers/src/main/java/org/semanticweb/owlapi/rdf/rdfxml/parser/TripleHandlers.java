@@ -103,22 +103,22 @@ public class TripleHandlers {
          * Such triples either constitute annotationIRIs of relationships
          * between an individual and a data literal (typed or untyped)
          */
-        protected List<LiteralTripleHandler> literals;
+        protected final List<LiteralTripleHandler> literals;
         /**
          * Handlers for general resource triples (i.e. triples which have
          * predicates that are not part of the built in OWL/RDFS/RDF vocabulary.
          * Such triples either constitute annotationIRIs or relationships
          * between an individual and another individual.
          */
-        protected List<ResourceTripleHandler> resources;
+        protected final List<ResourceTripleHandler> resources;
         /** The inverse of handler. */
         @Nonnull
-        protected TPInverseOfHandler inverseOf;
+        protected final TPInverseOfHandler inverseOf;
         /** The non built in type handler. */
         @Nonnull
         private final TPTypeHandler nonBuiltInTypes;
         @Nonnull
-        protected OWLRDFConsumer consumer;
+        protected final OWLRDFConsumer consumer;
 
         HandlerAccessor(@Nonnull OWLRDFConsumer r) {
             consumer = r;

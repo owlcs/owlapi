@@ -68,7 +68,7 @@ public abstract class OWLAxiomIndexImpl extends OWLObjectImpl implements
 
     private static final long serialVersionUID = 40000L;
     @Nonnull
-    protected Internals ints = new Internals();
+    protected final Internals ints = new Internals();
 
     @Override
     public Set<OWLDeclarationAxiom> getDeclarationAxioms(OWLEntity subject) {

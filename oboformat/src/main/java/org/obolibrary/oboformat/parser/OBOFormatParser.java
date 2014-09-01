@@ -41,7 +41,7 @@ public class OBOFormatParser {
 
     private boolean followImport;
     private Object location;
-    protected MyStream stream;
+    protected final MyStream stream;
 
     protected static class MyStream {
 

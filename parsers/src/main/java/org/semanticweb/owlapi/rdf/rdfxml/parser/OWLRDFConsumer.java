@@ -111,7 +111,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(OWLRDFConsumer.class);
     @Nonnull
-    TripleLogger tripleLogger;
+    final TripleLogger tripleLogger;
     /** The configuration. */
     @Nonnull
     private final OWLOntologyLoaderConfiguration configuration;
@@ -205,8 +205,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
     private final Collection<OWLAxiom> axiomsToBeRemoved = new ArrayList<>();
     /** The parsed all triples. */
     private boolean parsedAllTriples = false;
-    HandlerAccessor handlerAccessor;
-    TranslatorAccessor translatorAccessor;
+    final HandlerAccessor handlerAccessor;
+    final TranslatorAccessor translatorAccessor;
     private final AnonymousNodeChecker nodeCheckerDelegate;
     @SuppressWarnings("null")
     @Nonnull
@@ -540,8 +540,6 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
 
     // We cache IRIs to save memory!!
     private final Map<String, IRI> IRIMap = CollectionFactory.createMap();
-    /** The current base count. */
-    int currentBaseCount = 0;
 
     /**
      * Gets any annotations that were translated since the last call of this

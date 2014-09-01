@@ -56,7 +56,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
     protected static final SAXParserFactory parserFactory = SAXParsers
             .initFactory();
     private final Map<String, String> resolvedIRIs = new HashMap<>();
-    protected Map<String, IRI> uriCache = new HashMap<>();
+    protected final Map<String, IRI> uriCache = new HashMap<>();
     /** Registered error handler. */
     protected ErrorHandler errorHandler = new ErrorHandler() {
 
@@ -72,13 +72,13 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
         public void error(SAXParseException exception) {}
     };
     /** Stack of base IRIs. */
-    protected LinkedList<IRI> baseIRIs = new LinkedList<>();
+    protected final LinkedList<IRI> baseIRIs = new LinkedList<>();
     private final Map<IRI, URI> baseURICache = new HashMap<>();
     /** IRI of the document being parsed. */
     protected IRI baseIRI;
     /** The stack of languages. */
     @Nonnull
-    protected LinkedList<String> languages = new LinkedList<>();
+    protected final LinkedList<String> languages = new LinkedList<>();
     /** The current language. */
     protected String language;
     /** Consumer receiving notifications about parsing events. */
@@ -86,7 +86,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
     /** Current parser's state. */
     protected State state;
     /** Stack of parser states. */
-    protected List<State> states = new ArrayList<>();
+    protected final List<State> states = new ArrayList<>();
     /** Document locator. */
     protected Locator documentLocator;
 

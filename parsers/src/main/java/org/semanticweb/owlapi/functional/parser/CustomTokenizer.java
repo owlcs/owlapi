@@ -14,7 +14,7 @@ class CustomTokenizer implements TokenManager {
     private int unreadChar = -1;
     private final Reader in;
     private boolean eofSeen = false;
-    private StringBuilder buf = new StringBuilder();
+    private final StringBuilder buf = new StringBuilder();
 
     public CustomTokenizer(Reader reader) {
         in = reader;

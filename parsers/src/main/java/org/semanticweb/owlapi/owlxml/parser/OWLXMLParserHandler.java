@@ -57,7 +57,7 @@ class OWLXMLParserHandler extends DefaultHandler {
     @Nonnull
     private final Map<String, PARSER_OWLXMLVocabulary> handlerMap = new HashMap<>();
     @Nonnull
-    private Map<String, String> prefixName2PrefixMap = new HashMap<>();
+    private final Map<String, String> prefixName2PrefixMap = new HashMap<>();
     private Locator locator;
     private final Stack<URI> bases;
     @Nonnull
@@ -131,7 +131,6 @@ class OWLXMLParserHandler extends DefaultHandler {
         bases = new Stack<>();
         this.configuration = configuration;
         handlerStack = new ArrayList<>();
-        prefixName2PrefixMap = new HashMap<>();
         prefixName2PrefixMap.put("owl:", Namespaces.OWL.toString());
         prefixName2PrefixMap.put("xsd:", Namespaces.XSD.toString());
         if (topHandler != null) {

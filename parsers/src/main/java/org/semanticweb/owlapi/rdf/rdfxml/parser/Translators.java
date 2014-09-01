@@ -280,7 +280,7 @@ public class Translators {
         private final ClassExpressionMatcher classExpressionMatcher = new ClassExpressionMatcher();
         private final DataRangeMatcher dataRangeMatcher = new DataRangeMatcher();
         private final IndividualMatcher individualMatcher = new IndividualMatcher();
-        protected TranslatorAccessor accessor;
+        protected final TranslatorAccessor accessor;
 
         protected AbstractClassExpressionTranslator(OWLRDFConsumer consumer,
                 TranslatorAccessor accessor) {
@@ -543,7 +543,7 @@ public class Translators {
             ListItemTranslator<OWLClassExpression> {
 
         private final OWLRDFConsumer consumer;
-        protected TranslatorAccessor accessor;
+        protected final TranslatorAccessor accessor;
 
         ClassExpressionListItemTranslator(OWLRDFConsumer consumer,
                 TranslatorAccessor accessor) {
@@ -1886,8 +1886,8 @@ public class Translators {
             ListItemTranslator<SWRLAtom> {
 
         private final OWLRDFConsumer consumer;
-        protected OWLDataFactory dataFactory;
-        protected TranslatorAccessor accessor;
+        protected final OWLDataFactory dataFactory;
+        protected final TranslatorAccessor accessor;
 
         SWRLAtomListItemTranslator(OWLRDFConsumer consumer,
                 TranslatorAccessor accessor) {

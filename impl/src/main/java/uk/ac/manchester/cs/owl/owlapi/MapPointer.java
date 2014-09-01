@@ -57,7 +57,7 @@ public class MapPointer<K, V extends OWLAxiom> {
     protected final Internals i;
     private SoftReference<Set<IRI>> iris;
     private int size = 0;
-    private THashMap<K, THashSet<V>> map = new THashMap<>(17, 0.75F);
+    private final THashMap<K, THashSet<V>> map = new THashMap<>(17, 0.75F);
 
     private THashSet<V> set() {
         return new THashSet<>(2, 0.75F);

@@ -40,9 +40,9 @@ public class ManchesterOWLSyntaxTokenizer {
     }
 
     @Nonnull
-    protected Set<Character> skip = new HashSet<>();
-    protected Set<Character> commentDelimiters = new HashSet<>();
-    protected Set<Character> delims = new HashSet<>();
+    protected final Set<Character> skip = new HashSet<>();
+    protected final Set<Character> commentDelimiters = new HashSet<>();
+    protected final Set<Character> delims = new HashSet<>();
     private final String buffer;
     private int pos;
     private int col;
