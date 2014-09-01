@@ -1718,8 +1718,9 @@ public class OWLAPIObo2Owl {
             // e.g. boolean
             value = value.toString();
         }
-        // System.out.println("v="+value);
-        return fac.getOWLLiteral((String) value); // TODO
+        String value2 = (String) value;
+        assert value2 != null;
+        return fac.getOWLLiteral(value2); // TODO
     }
 
     /**

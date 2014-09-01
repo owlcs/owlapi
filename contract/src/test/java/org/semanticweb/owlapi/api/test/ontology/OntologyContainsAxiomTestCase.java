@@ -192,11 +192,11 @@ public class OntologyContainsAxiomTestCase extends TestBase {
         assertTrue(containsConsider(ont2L, axAsubB));
     }
 
-    boolean containsConsider(OWLOntology o, OWLAxiom ax) {
+    boolean containsConsider(OWLOntology o, @Nonnull OWLAxiom ax) {
         return o.containsAxiom(ax, INCLUDED, CONSIDER_AXIOM_ANNOTATIONS);
     }
 
-    boolean containsConsiderEx(OWLOntology o, OWLAxiom ax) {
+    boolean containsConsiderEx(OWLOntology o, @Nonnull OWLAxiom ax) {
         return o.containsAxiom(ax, EXCLUDED, CONSIDER_AXIOM_ANNOTATIONS);
     }
 

@@ -133,6 +133,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
         return manager;
     }
 
+    @SuppressWarnings("null")
     @Override
     public void setOWLOntologyManager(OWLOntologyManager manager) {
         this.manager = manager;
@@ -753,7 +754,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     }
 
     @Nonnull
-    private <T> Set<T> asSet(Iterable<T> i) {
+    private static <T> Set<T> asSet(Iterable<T> i) {
         List<T> list = new ArrayList<>();
         Iterables.addAll(list, i);
         return CollectionFactory

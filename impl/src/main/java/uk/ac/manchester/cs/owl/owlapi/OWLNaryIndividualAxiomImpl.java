@@ -46,6 +46,7 @@ public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl
      * @param annotations
      *        annotations on the axiom
      */
+    @SuppressWarnings("unchecked")
     public OWLNaryIndividualAxiomImpl(
             @Nonnull Set<? extends OWLIndividual> individuals,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {

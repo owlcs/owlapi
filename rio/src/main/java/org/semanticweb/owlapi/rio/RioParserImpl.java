@@ -269,7 +269,7 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
 
     private static class RioParserRDFHandler implements RDFHandler {
 
-        private static final Logger LOGGER = LoggerFactory
+        private static final Logger LOG = LoggerFactory
                 .getLogger(RioParserRDFHandler.class);
         private final RDFHandler consumer;
         private long owlParseStart;
@@ -294,9 +294,9 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
         public void endRDF() {
             try {
                 consumer.endRDF();
-                if (LOGGER.isDebugEnabled()) {
-                    LOGGER.debug("owlParse: timing={}",
-                            System.currentTimeMillis() - owlParseStart);
+                if (LOG.isDebugEnabled()) {
+                    LOG.debug("owlParse: timing={}", System.currentTimeMillis()
+                            - owlParseStart);
                 }
             } catch (RDFHandlerException e) {
                 throw new OWLParserException(e);
@@ -324,15 +324,15 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
                     } catch (RDFHandlerException e) {
                         throw new OWLParserException(e);
                     }
-                    LOGGER.debug("Implicitly typing list={}", nextStatement);
+                    LOG.debug("Implicitly typing list={}", nextStatement);
                 }
             } else if (nextStatement.getPredicate().equals(RDF.TYPE)
                     && nextStatement.getObject().equals(RDF.LIST)) {
                 if (!typedLists.contains(nextStatement.getSubject())) {
-                    LOGGER.debug("Explicit list type found={}", nextStatement);
+                    LOG.debug("Explicit list type found={}", nextStatement);
                     typedLists.add(nextStatement.getSubject());
                 } else {
-                    LOGGER.debug(
+                    LOG.debug(
                             "duplicate rdf:type rdf:List statements found={}",
                             nextStatement);
                 }

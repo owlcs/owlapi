@@ -47,6 +47,7 @@ public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
      * @param annotations
      *        annotations
      */
+    @SuppressWarnings("unchecked")
     public OWLNaryClassAxiomImpl(
             @Nonnull Set<? extends OWLClassExpression> classExpressions,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {

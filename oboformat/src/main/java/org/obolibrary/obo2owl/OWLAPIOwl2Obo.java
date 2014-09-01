@@ -1492,24 +1492,34 @@ public class OWLAPIOwl2Obo {
                     c.addValue(cls2);
                     equivalenceAxiomClauses.add(c);
                     if (exact != null) {
+                        String string = exact.toString();
+                        assert string != null;
                         c.addQualifierValue(new QualifierValue("cardinality",
-                                exact.toString()));
+                                string));
                     }
                     if (min != null) {
+                        String string = min.toString();
+                        assert string != null;
                         c.addQualifierValue(new QualifierValue(
-                                "minCardinality", min.toString()));
+                                "minCardinality", string));
                     }
                     if (max != null) {
+                        String string = max.toString();
+                        assert string != null;
                         c.addQualifierValue(new QualifierValue(
-                                "maxCardinality", max.toString()));
+                                "maxCardinality", string));
                     }
                     if (allSome != null) {
+                        String string = allSome.toString();
+                        assert string != null;
                         c.addQualifierValue(new QualifierValue("all_some",
-                                allSome.toString()));
+                                string));
                     }
                     if (allOnly != null) {
+                        String string = allOnly.toString();
+                        assert string != null;
                         c.addQualifierValue(new QualifierValue("all_only",
-                                allOnly.toString()));
+                                string));
                     }
                     addQualifiers(c, ax.getAnnotations());
                 } else if (!f.getClauses(OboFormatTag.TAG_INTERSECTION_OF)
