@@ -72,6 +72,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Optional;
+import com.google.common.collect.Sets;
 
 /** The Class OWLAPIObo2Owl. */
 public class OWLAPIObo2Owl {
@@ -108,6 +109,9 @@ public class OWLAPIObo2Owl {
     /** The typedef to annotation property. */
     @Nonnull
     protected final Map<String, OWLAnnotationProperty> typedefToAnnotationProperty;
+    private static Set<String> SKIPPED_QUALIFIERS = Sets.newHashSet(
+            "gci_relation", "gci_filler", "cardinality", "minCardinality",
+            "maxCardinality", "all_some", "all_only");
 
     /**
      * Instantiates a new oWLAPI obo2 owl.
@@ -216,8 +220,8 @@ public class OWLAPIObo2Owl {
      * @return property map
      */
     @Nonnull
-    protected static HashMap<String, IRI> initAnnotationPropertyMap() {
-        HashMap<String, IRI> map = new HashMap<>();
+    protected static Map<String, IRI> initAnnotationPropertyMap() {
+        Map<String, IRI> map = new HashMap<>();
         map.put(OboFormatTag.TAG_IS_OBSELETE.getTag(),
                 OWLRDFVocabulary.OWL_DEPRECATED.getIRI());
         map.put(OboFormatTag.TAG_NAME.getTag(),
@@ -1378,11 +1382,7 @@ public class OWLAPIObo2Owl {
         Collection<QualifierValue> qvs = clause.getQualifierValues();
         for (QualifierValue qv : qvs) {
             String qTag = qv.getQualifier();
-            if (qTag.equals("gci_relation") || qTag.equals("gci_filler")
-                    || qTag.equals("cardinality")
-                    || qTag.equals("minCardinality")
-                    || qTag.equals("maxCardinality") || qTag.equals("all_some")
-                    || qTag.equals("all_only")) {
+            if (SKIPPED_QUALIFIERS.contains(qTag)) {
                 continue;
             }
             OWLAnnotationProperty ap = trTagToAnnotationProp(qTag);
@@ -1485,8 +1485,7 @@ public class OWLAPIObo2Owl {
             @Nonnull Collection<QualifierValue> quals) {
         for (QualifierValue qv : quals) {
             if (qv.getQualifier().equals(q)) {
-                Object v = qv.getValue();
-                return (String) v;
+                return qv.getValue();
             }
         }
         return null;
@@ -1506,7 +1505,7 @@ public class OWLAPIObo2Owl {
         for (QualifierValue qv : quals) {
             if (qv.getQualifier().equals(q)) {
                 Object v = qv.getValue();
-                return Boolean.valueOf((String) v).booleanValue();
+                return Boolean.parseBoolean((String) v);
             }
         }
         return false;

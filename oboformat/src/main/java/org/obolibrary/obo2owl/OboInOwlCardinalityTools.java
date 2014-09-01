@@ -34,10 +34,12 @@ import org.slf4j.LoggerFactory;
  * Tools for checking and fixing cardinality constrains for OBO ontologies in
  * OWL.
  */
-public class OboInOwlCardinalityTools {
+public final class OboInOwlCardinalityTools {
 
     protected static final Logger LOGGER = LoggerFactory
             .getLogger(OboInOwlCardinalityTools.class);
+
+    private OboInOwlCardinalityTools() {}
 
     /**
      * Functor for resolving conflicts for an annotation property and its

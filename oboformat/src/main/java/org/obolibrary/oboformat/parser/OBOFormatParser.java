@@ -41,6 +41,7 @@ public class OBOFormatParser {
 
     private boolean followImport;
     private Object location;
+    protected MyStream stream;
 
     protected static class MyStream {
 
@@ -162,8 +163,6 @@ public class OBOFormatParser {
             return lineNo;
         }
     }
-
-    protected MyStream stream;
 
     /**
      * 
@@ -913,10 +912,8 @@ public class OBOFormatParser {
 
     private void parseIdRef(@Nonnull Clause cl, boolean optional) {
         String id = getParseUntil(" !{");
-        if (!optional) {
-            if (id.length() < 1) {
-                error("");
-            }
+        if (!optional && id.length() < 1) {
+            error("");
         }
         cl.addValue(id);
     }

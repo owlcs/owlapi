@@ -39,7 +39,7 @@ public class PunnedDeclarationsNotAddedTestCase extends TestBase {
     }
 
     @Nonnull
-    private OWLDocumentFormat format;
+    private final OWLDocumentFormat format;
 
     public PunnedDeclarationsNotAddedTestCase(@Nonnull OWLDocumentFormat format) {
         this.format = format;

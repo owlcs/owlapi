@@ -83,6 +83,8 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
     private int fastPruningWindowSize = 0;
     /** The owl ontology manager. */
     private final OWLOntologyManager owlOntologyManager;
+    // Creation of debugging ontology and satisfiability testing
+    private int satTestCount = 0;
 
     /**
      * Instantiates a new black box explanation.
@@ -347,9 +349,6 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
             }
         }
     }
-
-    // Creation of debugging ontology and satisfiability testing
-    private int satTestCount = 0;
 
     /**
      * Tests the satisfiability of the test class. The ontology is recreated
