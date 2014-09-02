@@ -40,11 +40,6 @@
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>owlapi-parsers</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>${project.groupId}</groupId>
 			<artifactId>owlapi-oboformat</artifactId>
 			<version>${project.version}</version>
 		</dependency>
