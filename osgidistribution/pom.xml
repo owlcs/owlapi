@@ -69,8 +69,8 @@
 						</Export-Package>
 						<Import-Package>
 						!javax.swing, !javax.annotation, !sun.misc, 
-						javax.crypto, javax.crypto.spec, javax.imageio, 
-						javax.xml.*, org.ietf.jgss, org.xml.sax.*
+						!javax.crypto.*, !javax.imageio, !org.ietf.jgss, 
+						javax.xml.*, org.xml.sax.*
 						</Import-Package>
 					</instructions>
 					<executions>
