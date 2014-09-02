@@ -13,7 +13,6 @@
 	<classpathentry kind="src" output="rio/target/classes" path="rio/src/main/resources"/>
 	<classpathentry kind="src" output="tools/target/classes" path="tools/src/main/java"/>
 	<classpathentry kind="src" output="contract/target/classes" path="contract/src/main/java"/>
-	<classpathentry kind="src" output="compatibility/target/classes" path="compatibility/src/main/java"/>
 	<classpathentry kind="src" output="impl/target/test-classes" path="impl/src/test/java"/>
 	<classpathentry kind="src" output="api/target/test-classes" path="api/src/test/java"/>
 	<classpathentry kind="src" output="contract/target/test-classes" path="contract/src/test/java"/>
@@ -21,8 +20,6 @@
 	<classpathentry kind="src" output="fixers/target/test-classes" path="fixers/src/test/java"/>
 	<classpathentry kind="src" output="oboformat/target/test-classes" path="oboformat/src/test/java"/>
 	<classpathentry kind="src" output="parsers/target/test-classes" path="parsers/src/test/java"/>
-	<classpathentry kind="src" path="compatibility/src/test/java"/>
-	<classpathentry kind="src" path="compatibility/src/test/resources"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/com/google/code/findbugs/jsr305/2.0.1/jsr305-2.0.1.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/commons-io/commons-io/2.4/commons-io-2.4.jar" sourcepath="/M2_REPO/commons-io/commons-io/2.4/commons-io-2.4-sources.jar"/>

@@ -35,7 +35,7 @@
 	<classpathentry kind="var" path="M2_REPO/org/openrdf/sesame/sesame-rio-trix/2.7.10/sesame-rio-trix-2.7.10.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/openrdf/sesame/sesame-rio-turtle/2.7.10/sesame-rio-turtle-2.7.10.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/slf4j/slf4j-simple/1.7.7/slf4j-simple-1.7.7.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.launching.macosx.MacOSXType/Java SE 7 [1.7.0_65]"/>
 	<classpathentry kind="var" path="M2_REPO/org/mockito/mockito-all/1.9.5/mockito-all-1.9.5.jar"/>
 	<classpathentry kind="var" path="M2_REPO/com/google/inject/guice/4.0-beta/guice-4.0-beta.jar" sourcepath="/M2_REPO/com/google/inject/guice/4.0-beta/guice-4.0-beta-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/com/google/guava/guava/17.0/guava-17.0.jar" sourcepath="/M2_REPO/com/google/guava/guava/17.0/guava-17.0-sources.jar"/>

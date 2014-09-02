@@ -77,6 +77,8 @@ public class CollectionFactory {
      * 
      * @param toReturn
      *        list to sort
+     * @param <T>
+     *        collection type
      */
     public static <T extends Comparable<T>> void sortOptionallyComparables(
             List<T> toReturn) {

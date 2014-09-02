@@ -1,8 +1,9 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>owlapi-distribution</artifactId>
+	<artifactId>owlapi-osgidistribution</artifactId>
 	<packaging>bundle</packaging>
-	<name>OWLAPI Distribution</name>
+	<name>OWLAPI OSGi Distribution</name>
 
 	<parent>
 		<groupId>net.sourceforge.owlapi</groupId>
@@ -57,6 +58,7 @@
 				<configuration>
 					<instructions>
 						<Bundle-SymbolicName>org.semanticweb.owl.owlapi</Bundle-SymbolicName>
+						<Embed-Dependency>guava, trove4j</Embed-Dependency>
 						<Export-Package>
 							com.clarkparsia.*,
 							de.uulm.*,
@@ -65,6 +67,11 @@
 							uk.ac.manchester.*;-split-package:=merge-first,
 							org.obolibrary.*
 						</Export-Package>
+						<Import-Package>
+						!javax.swing, !javax.annotation, !sun.misc, 
+						javax.crypto, javax.crypto.spec, javax.imageio, 
+						javax.xml.*, org.ietf.jgss, org.xml.sax.*
+						</Import-Package>
 					</instructions>
 					<executions>
 						<execution>
@@ -76,6 +83,30 @@
 						</execution>
 					</executions>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>2.3</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+						<configuration>
+							<artifactSet>
+								<excludes>
+									<exclude>org.apache.felix:org.osgi.core</exclude>
+								</excludes>
+							</artifactSet>
+							<transformers>
+								<transformer
+									implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
+							</transformers>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<artifactId>maven-javadoc-plugin</artifactId>
