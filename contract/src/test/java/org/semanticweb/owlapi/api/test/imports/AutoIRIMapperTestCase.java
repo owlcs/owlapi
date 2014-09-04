@@ -1,6 +1,6 @@
 package org.semanticweb.owlapi.api.test.imports;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
@@ -35,8 +35,7 @@ public class AutoIRIMapperTestCase extends TestBase {
     @Test
     public void shouldTestIRIMapperForOWLXML() {
         AutoIRIMapper mapper = new AutoIRIMapper(RESOURCES, false);
-        assertEquals(
-                "file:/Users/ignazio/workspace/owlapi/contract/src/test/resources/urntestontology.xml",
-                mapper.getDocumentIRI(IRI.create("urn:test:prem")).toString());
+        assertTrue(mapper.getDocumentIRI(IRI.create("urn:test:prem"))
+                .toString().endsWith("/urntestontology.xml"));
     }
 }
