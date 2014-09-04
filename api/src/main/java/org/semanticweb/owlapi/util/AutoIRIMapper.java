@@ -385,8 +385,7 @@ public class AutoIRIMapper extends DefaultHandler implements
             String ontURI = attributes.getValue(Namespaces.OWL.toString(),
                     "ontologyIRI");
             if (ontURI == null) {
-                ontURI = attributes.getValue(Namespaces.OWL.toString(),
-                        "ontologyIRI");
+                ontURI = attributes.getValue("ontologyIRI");
             }
             if (ontURI == null) {
                 return null;
