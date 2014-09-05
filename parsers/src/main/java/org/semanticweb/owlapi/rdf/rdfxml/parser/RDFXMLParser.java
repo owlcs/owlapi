@@ -60,8 +60,6 @@ public class RDFXMLParser extends AbstractOWLParser {
                 @Override
                 public void startPrefixMapping(String prefix, String uri)
                         throws SAXException {
-                    assert prefix != null;
-                    assert uri != null;
                     super.startPrefixMapping(prefix, uri);
                     format.setPrefix(prefix, uri);
                 }

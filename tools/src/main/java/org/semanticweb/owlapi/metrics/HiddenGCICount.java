@@ -69,7 +69,6 @@ public class HiddenGCICount extends IntegerValuedMetric {
         Set<OWLClass> result = new HashSet<>();
         for (OWLOntology ont : getOntologies()) {
             for (OWLClass cls : ont.getClassesInSignature()) {
-                assert cls != null;
                 if (!processed.contains(cls)) {
                     processed.add(cls);
                 } else {

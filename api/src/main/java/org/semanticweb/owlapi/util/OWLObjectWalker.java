@@ -67,7 +67,6 @@ public class OWLObjectWalker<O extends OWLObject> {
             o.accept(visitor);
             return null;
         } else {
-            assert visitorEx != null;
             return o.accept(visitorEx);
         }
     }

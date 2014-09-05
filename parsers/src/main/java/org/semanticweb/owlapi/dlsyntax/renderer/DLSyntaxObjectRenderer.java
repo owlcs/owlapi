@@ -239,8 +239,6 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
             Iterator<? extends OWLObject> it = objects.iterator();
             OWLObject o1 = it.next();
             OWLObject o2 = it.next();
-            assert o1 != null;
-            assert o2 != null;
             if (isFocusedObject(o1) || !isFocusedObject(o2)) {
                 writeObject(o1, nest);
                 writeSpace();
@@ -258,7 +256,6 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
             for (Iterator<? extends OWLObject> it = objects.iterator(); it
                     .hasNext();) {
                 OWLObject o = it.next();
-                assert o != null;
                 writeObject(o, nest);
                 if (it.hasNext()) {
                     writeSpace();
@@ -519,6 +516,7 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
         write(" .");
         write(SELF);
     }
+
     @Override
     public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
         axiom.getProperty().accept(this);

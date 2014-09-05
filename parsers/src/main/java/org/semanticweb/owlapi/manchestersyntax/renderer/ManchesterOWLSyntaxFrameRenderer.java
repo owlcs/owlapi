@@ -308,21 +308,17 @@ public class ManchesterOWLSyntaxFrameRenderer extends
             throw new OWLRuntimeException("Can only render one ontology");
         }
         OWLOntology ontology = ontologies.iterator().next();
-        assert ontology != null;
         writePrefixMap();
         writeNewLine();
         writeOntologyHeader(ontology);
         for (OWLAnnotationProperty prop : ontology
                 .getAnnotationPropertiesInSignature(EXCLUDED)) {
-            assert prop != null;
             write(prop);
         }
         for (OWLDatatype datatype : ontology.getDatatypesInSignature()) {
-            assert datatype != null;
             write(datatype);
         }
         for (OWLObjectProperty prop : ontology.getObjectPropertiesInSignature()) {
-            assert prop != null;
             write(prop);
             OWLObjectPropertyExpression invProp = prop.getInverseProperty();
             if (!ontology.getAxioms(invProp, EXCLUDED).isEmpty()) {
@@ -330,20 +326,16 @@ public class ManchesterOWLSyntaxFrameRenderer extends
             }
         }
         for (OWLDataProperty prop : ontology.getDataPropertiesInSignature()) {
-            assert prop != null;
             write(prop);
         }
         for (OWLClass cls : ontology.getClassesInSignature()) {
-            assert cls != null;
             write(cls);
         }
         for (OWLNamedIndividual ind : ontology.getIndividualsInSignature()) {
-            assert ind != null;
             write(ind);
         }
         for (OWLAnonymousIndividual ind : ontology
                 .getReferencedAnonymousIndividuals(EXCLUDED)) {
-            assert ind != null;
             write(ind);
         }
         // Nary disjoint classes axioms

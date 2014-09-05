@@ -252,7 +252,6 @@ public class RioRenderer extends RDFRendererBase {
         // Send the prefixes from the prefixmanager to the RDFHandler
         // NOTE: These may be derived from a PrefixOWLOntologyFormat
         for (String prefixName : pm.getPrefixName2PrefixMap().keySet()) {
-            assert prefixName != null;
             final String prefix = pm.getPrefix(prefixName);
             // OWLAPI generally stores prefixes with a colon at the end, while
             // Sesame Rio expects

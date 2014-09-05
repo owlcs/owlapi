@@ -29,7 +29,6 @@ import java.util.Set;
  * @param <N>
  *        type of elements
  */
-@SuppressWarnings("null")
 public class MutableTree<N> implements Tree<N> {
 
     private final N userObject;
@@ -125,7 +124,7 @@ public class MutableTree<N> implements Tree<N> {
 
     @Override
     public List<Tree<N>> getChildren() {
-        return new ArrayList<Tree<N>>(children);
+        return new ArrayList<>(children);
     }
 
     @Override

@@ -103,9 +103,7 @@ public class ConvertSuperClassesToEquivalentClass extends
         // into an intersection which is made equivalent.
         Set<OWLClassExpression> descs = new HashSet<>();
         for (OWLOntology ont : ontologies) {
-            assert ont != null;
             for (OWLSubClassOfAxiom ax : ont.getSubClassAxiomsForSubClass(cls)) {
-                assert ax != null;
                 addChange(new RemoveAxiom(ont, ax));
                 descs.add(ax.getSuperClass());
             }

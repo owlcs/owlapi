@@ -107,7 +107,6 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
                     lineCount++;
                 }
                 String s = sb.toString();
-                assert s != null;
                 ManchesterOWLSyntaxParser parser = new ManchesterOWLSyntaxParserImpl(
                         new OWLAPIConfigProvider(), ontology
                                 .getOWLOntologyManager().getOWLDataFactory());

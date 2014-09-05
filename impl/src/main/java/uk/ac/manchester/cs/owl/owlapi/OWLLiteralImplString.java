@@ -261,7 +261,6 @@ public class OWLLiteralImplString implements OWLLiteral {
         return false;
     }
 
-    @SuppressWarnings("null")
     @Override
     public int compareTo(OWLObject o) {
         int thisTypeIndex = index();
@@ -286,19 +285,16 @@ public class OWLLiteralImplString implements OWLLiteral {
         return false;
     }
 
-    @SuppressWarnings("null")
     @Override
     public Optional<IRI> asIRI() {
         return Optional.absent();
     }
 
-    @SuppressWarnings("null")
     @Override
     public Optional<OWLAnonymousIndividual> asAnonymousIndividual() {
         return Optional.absent();
     }
 
-    @SuppressWarnings("null")
     @Override
     public Optional<OWLLiteral> asLiteral() {
         return Optional.<OWLLiteral> of(this);

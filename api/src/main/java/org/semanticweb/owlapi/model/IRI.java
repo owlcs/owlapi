@@ -236,7 +236,6 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
                     "prefix and suffix cannot both be null");
         }
         if (prefix == null) {
-            assert suffix != null;
             return create(suffix);
         } else if (suffix == null) {
             // suffix set deliberately to null is used only in blank node
@@ -545,19 +544,16 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
         return visitor.visit(this);
     }
 
-    @SuppressWarnings("null")
     @Override
     public Optional<IRI> asIRI() {
         return Optional.of(this);
     }
 
-    @SuppressWarnings("null")
     @Override
     public Optional<OWLAnonymousIndividual> asAnonymousIndividual() {
         return Optional.absent();
     }
 
-    @SuppressWarnings("null")
     @Override
     public Optional<OWLLiteral> asLiteral() {
         return Optional.absent();

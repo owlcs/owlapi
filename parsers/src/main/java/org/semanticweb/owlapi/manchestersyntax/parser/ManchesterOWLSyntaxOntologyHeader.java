@@ -49,7 +49,6 @@ public class ManchesterOWLSyntaxOntologyHeader {
      * @param importsDeclarations
      *        the imports declarations
      */
-    @SuppressWarnings("null")
     public ManchesterOWLSyntaxOntologyHeader(IRI ontologyIRI, IRI versionIRI,
             @Nonnull Set<OWLAnnotation> annotations,
             Set<OWLImportsDeclaration> importsDeclarations) {

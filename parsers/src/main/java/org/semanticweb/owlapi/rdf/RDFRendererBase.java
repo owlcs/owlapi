@@ -308,7 +308,6 @@ public abstract class RDFRendererBase {
             throws IOException {
         boolean firstRendering = true;
         for (OWLEntity entity : toSortedSet(entities)) {
-            assert entity != null;
             if (createGraph(entity, illegalPuns)) {
                 if (firstRendering) {
                     firstRendering = false;
@@ -370,7 +369,6 @@ public abstract class RDFRendererBase {
         if (!annotatedIRIs.isEmpty()) {
             writeBanner(ANNOTATED_IRIS_BANNER_TEXT);
             for (IRI iri : annotatedIRIs) {
-                assert iri != null;
                 beginObject();
                 createGraph(ontology.getAnnotationAssertionAxioms(iri));
                 render(new RDFResourceIRI(iri));
@@ -383,12 +381,10 @@ public abstract class RDFRendererBase {
     private void renderAnonymousIndividuals() throws IOException {
         for (OWLAnonymousIndividual anonInd : ontology
                 .getReferencedAnonymousIndividuals(EXCLUDED)) {
-            assert anonInd != null;
             boolean anonRoot = true;
             Set<OWLAxiom> axioms = new HashSet<>();
             for (OWLAxiom ax : ontology.getReferencingAxioms(anonInd, EXCLUDED)) {
                 if (!(ax instanceof OWLDifferentIndividualsAxiom)) {
-                    assert ax != null;
                     AxiomSubjectProvider subjectProvider = new AxiomSubjectProvider();
                     OWLObject obj = subjectProvider.getSubject(ax);
                     if (!obj.equals(anonInd)) {
@@ -676,7 +672,6 @@ public abstract class RDFRendererBase {
      */
     public void renderAnonRoots() throws IOException {
         for (RDFResourceBlankNode node : graph.getRootAnonymousNodes()) {
-            assert node != null;
             render(node);
         }
     }

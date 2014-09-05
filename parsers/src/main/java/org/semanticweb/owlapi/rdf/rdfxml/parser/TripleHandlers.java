@@ -876,7 +876,6 @@ public class TripleHandlers {
         protected boolean isDataRangeStrict(@Nonnull IRI mainNode,
                 @Nonnull OWLRDFVocabulary predicate) {
             IRI object = consumer.getResourceObject(mainNode, predicate, false);
-            assert object != null;
             return isDataRangeStrict(object);
         }
 
@@ -1806,13 +1805,11 @@ public class TripleHandlers {
                                     .getOntology(), importsDeclaration));
                             for (OWLImportsDeclaration decl : importedOntology
                                     .getImportsDeclarations()) {
-                                assert decl != null;
                                 man.applyChange(new AddImport(consumer
                                         .getOntology(), decl));
                             }
                             for (OWLAnnotation anno : importedOntology
                                     .getAnnotations()) {
-                                assert anno != null;
                                 man.applyChange(new AddOntologyAnnotation(
                                         consumer.getOntology(), anno));
                             }
@@ -2352,7 +2349,6 @@ public class TripleHandlers {
                 // Property chain
                 IRI chainList = consumer.getResourceObject(subject,
                         DeprecatedVocabulary.OWL_PROPERTY_CHAIN, true);
-                assert chainList != null;
                 List<OWLObjectPropertyExpression> properties = consumer.translatorAccessor
                         .translateToObjectPropertyList(chainList);
                 addAxiom(df.getOWLSubPropertyChainOfAxiom(properties,
@@ -2476,7 +2472,6 @@ public class TripleHandlers {
                 if (!ontologyIRI.isPresent() && !isAnonymous(subject)) {
                     ontologyIRI = Optional.of(subject);
                 }
-                @SuppressWarnings("null")
                 OWLOntologyID ontologyID = new OWLOntologyID(ontologyIRI,
                         versionIRI);
                 consumer.setOntologyID(ontologyID);
@@ -2602,7 +2597,6 @@ public class TripleHandlers {
             consumeTriple(subject, predicate, object);
             IRI listNode = consumer.getResourceObject(subject,
                     OWL_MEMBERS.getIRI(), true);
-            assert listNode != null;
             if (consumer.isObjectProperty(consumer.getFirstResource(listNode,
                     false))) {
                 Set<OWLAnnotation> annotations = consumer
@@ -3265,7 +3259,6 @@ public class TripleHandlers {
                 // preserve the version IRI if it also existed before this point
                 if (!consumer.getOntology().getOntologyID().getOntologyIRI()
                         .isPresent()) {
-                    @SuppressWarnings("null")
                     OWLOntologyID id = new OWLOntologyID(Optional.of(subject),
                             consumer.getOntology().getOntologyID()
                                     .getVersionIRI());

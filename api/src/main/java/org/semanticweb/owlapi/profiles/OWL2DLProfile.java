@@ -397,7 +397,6 @@ public class OWL2DLProfile implements OWLProfile {
         private void getDatatypesInSignature(Set<OWLDatatype> datatypes,
                 OWLObject obj, Set<OWLAxiom> axioms) {
             for (OWLDatatype dt : obj.getDatatypesInSignature()) {
-                assert dt != null;
                 if (datatypes.add(dt)) {
                     for (OWLOntology ont : getCurrentOntology()
                             .getImportsClosure()) {
@@ -595,7 +594,6 @@ public class OWL2DLProfile implements OWLProfile {
                         getCurrentOntology(), axiom));
             }
             for (OWLObjectPropertyExpression prop : axiom.getProperties()) {
-                assert prop != null;
                 if (getPropertyManager().isNonSimple(prop)) {
                     profileViolations
                             .add(new UseOfNonSimplePropertyInDisjointPropertiesAxiom(
@@ -634,11 +632,9 @@ public class OWL2DLProfile implements OWLProfile {
             List<OWLObjectPropertyExpression> chain = axiom.getPropertyChain();
             OWLObjectPropertyExpression first = chain.get(0);
             OWLObjectPropertyExpression last = chain.get(chain.size() - 1);
-            assert last != null;
             // center part of the chain must be smaller in any case
             for (int i = 1; i < chain.size() - 1; i++) {
                 OWLObjectPropertyExpression propB = chain.get(i);
-                assert propB != null;
                 if (getPropertyManager().isLessThan(superProp, propB)) {
                     profileViolations.add(new UseOfPropertyInChainCausesCycle(
                             getCurrentOntology(), axiom, propB));

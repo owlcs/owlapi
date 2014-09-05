@@ -51,28 +51,23 @@ public abstract class DLSyntaxStorerBase extends AbstractOWLStorer {
         beginWritingOntology(ontology, printWriter);
         for (OWLObjectProperty prop : new TreeSet<>(
                 ontology.getObjectPropertiesInSignature())) {
-            assert prop != null;
             write(ontology, prop, ontology.getAxioms(prop, EXCLUDED),
                     printWriter);
         }
         for (OWLDataProperty prop : new TreeSet<>(
                 ontology.getDataPropertiesInSignature())) {
-            assert prop != null;
             write(ontology, prop, ontology.getAxioms(prop, EXCLUDED),
                     printWriter);
         }
         for (OWLClass cls : new TreeSet<>(ontology.getClassesInSignature())) {
-            assert cls != null;
             write(ontology, cls, ontology.getAxioms(cls, EXCLUDED), printWriter);
         }
         for (OWLNamedIndividual ind : new TreeSet<>(
                 ontology.getIndividualsInSignature())) {
-            assert ind != null;
             write(ontology, ind, ontology.getAxioms(ind, EXCLUDED), printWriter);
         }
         beginWritingGeneralAxioms(ontology.getGeneralClassAxioms(), printWriter);
         for (OWLAxiom ax : ontology.getGeneralClassAxioms()) {
-            assert ax != null;
             beginWritingAxiom(ax, printWriter);
             writeAxiom(null, ax, printWriter);
             endWritingAxiom(ax, printWriter);
@@ -88,7 +83,6 @@ public abstract class DLSyntaxStorerBase extends AbstractOWLStorer {
                     @Nonnull PrintWriter writer) {
         beginWritingAxioms(entity, axioms, writer);
         for (OWLAxiom ax : new TreeSet<>(axioms)) {
-            assert ax != null;
             beginWritingAxiom(ax, writer);
             writeAxiom(entity, ax, writer);
             endWritingAxiom(ax, writer);
@@ -98,7 +92,6 @@ public abstract class DLSyntaxStorerBase extends AbstractOWLStorer {
         usages.removeAll(axioms);
         beginWritingUsage(entity, usages, writer);
         for (OWLAxiom usage : usages) {
-            assert usage != null;
             if (!axioms.contains(usage)) {
                 beginWritingAxiom(usage, writer);
                 writeAxiom(entity, usage, writer);

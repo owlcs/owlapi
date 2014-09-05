@@ -96,7 +96,6 @@ public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl
     public Set<OWLSubClassOfAxiom> asOWLSubClassOfAxioms() {
         List<OWLClassExpression> nominalsList = new ArrayList<>();
         for (OWLIndividual individual : getIndividuals()) {
-            assert individual != null;
             nominalsList.add(new OWLObjectOneOfImpl(CollectionFactory
                     .createSet(individual)));
         }
@@ -104,8 +103,6 @@ public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl
         for (int i = 0; i < nominalsList.size() - 1; i++) {
             OWLClassExpression ceI = nominalsList.get(i);
             OWLClassExpression ceJ = nominalsList.get(i + 1);
-            assert ceI != null;
-            assert ceJ != null;
             result.add(new OWLSubClassOfAxiomImpl(ceI, ceJ, NO_ANNOTATIONS));
             result.add(new OWLSubClassOfAxiomImpl(ceJ, ceI, NO_ANNOTATIONS));
         }

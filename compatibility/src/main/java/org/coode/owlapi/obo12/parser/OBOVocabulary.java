@@ -187,7 +187,6 @@ public enum OBOVocabulary {
      *        prefixes used in the conversion.
      * @return The IRI of the converted Id.
      */
-    @SuppressWarnings("null")
     public static IRI ID2IRI(@Nonnull String oboId,
             IDSpaceManager idSpaceManager) {
         Matcher matcher = OBO_ID_PATTERN.matcher(oboId);

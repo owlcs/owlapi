@@ -123,21 +123,18 @@ public abstract class OWLProfileViolation {
     public abstract <O> O accept(
             @Nonnull OWLProfileViolationVisitorEx<O> visitor);
 
-    @SuppressWarnings("null")
     @Nonnull
     protected String toString(String template) {
         return String.format(template + " [%s in %s]", axiom,
                 ontology.getOntologyID());
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     protected String toString(String template, Object object) {
         return String.format(template + " [%s in %s]", object, axiom,
                 ontology.getOntologyID());
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     protected String toString(String template, Object object1, Object object2) {
         return String.format(template + " [%s in %s]", object1, object2, axiom,

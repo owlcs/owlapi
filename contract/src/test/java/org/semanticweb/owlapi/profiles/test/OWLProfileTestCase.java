@@ -138,7 +138,6 @@ public class OWLProfileTestCase {
     public void declare(@Nonnull OWLOntology o, @Nonnull OWLEntity... entities) {
         OWLOntologyManager m = o.getOWLOntologyManager();
         for (OWLEntity e : entities) {
-            assert e != null;
             m.addAxiom(o, Declaration(e));
         }
     }
@@ -1317,7 +1316,6 @@ public class OWLProfileTestCase {
         declare(o, op1, OP, op2, CL);
         m.addAxiom(o, ObjectPropertyRange(OP, CL));
         List<OWLObjectProperty> asList = Arrays.asList(op2, op1);
-        assert asList != null;
         m.addAxiom(o, SubPropertyChainOf(asList, OP));
         int expected = 1;
         Class[] expectedViolations = { LastPropertyInChainNotInImposedRange.class };

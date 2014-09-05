@@ -21,15 +21,12 @@ public class XrefExpanderTest extends OboFormatTestBasics {
         OBODoc tdoc = obodoc.getImportedOBODocs().iterator().next();
         assertTrue(!tdoc.getTermFrames().isEmpty());
         Frame termFrame = tdoc.getTermFrame("ZFA:0001689");
-        assert termFrame != null;
         assertEquals(2, termFrame.getClauses(OboFormatTag.TAG_INTERSECTION_OF)
                 .size());
         termFrame = tdoc.getTermFrame("EHDAA:571");
-        assert termFrame != null;
         assertEquals("UBERON:0002539",
                 termFrame.getClause(OboFormatTag.TAG_IS_A).getValue());
         termFrame = tdoc.getTermFrame("UBERON:0006800");
-        assert termFrame != null;
         assertEquals("CARO:0000008", termFrame.getClause(OboFormatTag.TAG_IS_A)
                 .getValue());
     }

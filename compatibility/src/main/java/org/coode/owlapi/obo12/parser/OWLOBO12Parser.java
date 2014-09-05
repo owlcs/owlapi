@@ -103,7 +103,6 @@ class OWLOBO12Parser extends AbstractOWLParser {
                         .getCause();
                 IRI importedOntologyIRI = ex.getOntologyID().getOntologyIRI()
                         .get();
-                assert importedOntologyIRI != null;
                 throw new UnloadableImportException(ex, ontology
                         .getOWLOntologyManager().getOWLDataFactory()
                         .getOWLImportsDeclaration(importedOntologyIRI));

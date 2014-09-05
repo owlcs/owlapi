@@ -162,7 +162,6 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
             }
             // Collect the entities that have been used in the axiom
             for (OWLEntity curObj : ax.getSignature()) {
-                assert curObj != null;
                 if (!objectsExpandedWithDefiningAxioms.contains(curObj)) {
                     int added = expandWithDefiningAxioms(curObj, remainingSpace);
                     axiomsAdded += added;
@@ -191,7 +190,6 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
             }
             // Keep track of the number of axioms that have been added
             for (OWLEntity curObj : ax.getSignature()) {
-                assert curObj != null;
                 if (!objectsExpandedWithReferencingAxioms.contains(curObj)) {
                     int added = expandWithReferencingAxioms(curObj,
                             expansionLimit);

@@ -829,7 +829,6 @@ public class Internals implements Serializable {
         Collection<OWLAxiom> toReturn = new ArrayList<>();
         for (AxiomType<?> at : filter.getAxiomTypes()) {
             for (OWLAxiom t : getAxiomsByType().getValues(at)) {
-                assert t != null;
                 if (filter.pass(t, key)) {
                     toReturn.add(t);
                 }
@@ -851,7 +850,6 @@ public class Internals implements Serializable {
             @Nonnull K key) {
         for (AxiomType<?> at : filter.getAxiomTypes()) {
             for (OWLAxiom t : getAxiomsByType().getValues(at)) {
-                assert t != null;
                 if (filter.pass(t, key)) {
                     return true;
                 }

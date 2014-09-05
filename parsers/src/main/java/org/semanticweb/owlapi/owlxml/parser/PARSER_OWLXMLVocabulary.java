@@ -1394,8 +1394,6 @@ class OWLClassAssertionAxiomElementHandler extends
     OWLAxiom createAxiom() {
         ensureNotNull(individual, "individual element");
         ensureNotNull(classExpression, "classExpression kind element");
-        assert classExpression != null;
-        assert individual != null;
         return df.getOWLClassAssertionAxiom(verifyNotNull(classExpression),
                 verifyNotNull(individual), annotations);
     }
@@ -2169,8 +2167,6 @@ class OWLInverseObjectPropertiesAxiomElementHandler extends
             // Syntactic variant of symmetric property
             propB = propA;
         }
-        assert propA != null;
-        assert propB != null;
         return df.getOWLInverseObjectPropertiesAxiom(propA, propB, annotations);
     }
 }
@@ -2751,7 +2747,6 @@ class OWLSubObjectPropertyOfAxiomElementHandler extends
 
     @Override
     OWLAxiom createAxiom() {
-        assert superProperty != null;
         assert subProperty != null || propertyList != null;
         if (subProperty != null) {
             return df.getOWLSubObjectPropertyOfAxiom(
@@ -3155,7 +3150,6 @@ class OWLOntologyHandler extends OWLElementHandler<OWLOntology> {
     @Override
     void attribute(@Nonnull String localName, String value) {
         if (localName.equals("ontologyIRI")) {
-            @SuppressWarnings("null")
             OWLOntologyID newID = new OWLOntologyID(Optional.of(IRI
                     .create(value)), handler.getOntology().getOntologyID()
                     .getVersionIRI());
@@ -3163,7 +3157,6 @@ class OWLOntologyHandler extends OWLElementHandler<OWLOntology> {
                     new SetOntologyID(handler.getOntology(), newID));
         }
         if (localName.equals("versionIRI")) {
-            @SuppressWarnings("null")
             OWLOntologyID newID = new OWLOntologyID(handler.getOntology()
                     .getOntologyID().getOntologyIRI(), Optional.of(IRI
                     .create(value)));

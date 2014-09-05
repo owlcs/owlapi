@@ -36,7 +36,6 @@ public class InferredInverseObjectPropertiesAxiomGenerator extends
             Set<OWLInverseObjectPropertiesAxiom> result) {
         for (OWLObjectPropertyExpression prop : reasoner
                 .getInverseObjectProperties(entity)) {
-            assert prop != null;
             result.add(dataFactory.getOWLInverseObjectPropertiesAxiom(entity,
                     prop));
         }

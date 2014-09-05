@@ -281,7 +281,6 @@ public class OBOFormatWriter {
             List<Clause> clauses = new ArrayList<>(frame.getClauses(tag));
             Collections.sort(clauses, ClauseComparator.INSTANCE);
             for (Clause clause : clauses) {
-                assert clause != null;
                 if (tag.equals(OboFormatTag.TAG_SUBSETDEF.getTag())) {
                     writeSynonymtypedef(clause, writer);
                 } else if (tag.equals(OboFormatTag.TAG_SYNONYMTYPEDEF.getTag())) {
@@ -422,7 +421,6 @@ public class OBOFormatWriter {
         Collection<?> values = clause.getValues();
         for (int i = 0; i < values.size(); i++) {
             String value = valuesIterator.next().toString();
-            assert value != null;
             if (i == 1) {
                 sb.append('"');
             }
@@ -444,7 +442,6 @@ public class OBOFormatWriter {
         sb.append(clause.getTag());
         sb.append(": ");
         Object value = clause.getValue();
-        assert value != null;
         if (value instanceof Date) {
             sb.append(OBOFormatConstants.headerDateFormat()
                     .format((Date) value));
@@ -469,7 +466,6 @@ public class OBOFormatWriter {
         Iterator<Object> iterator = values.iterator();
         while (iterator.hasNext() && i < 3) {
             String value = iterator.next().toString();
-            assert value != null;
             if (i == 2) {
                 sb.append('"')
                         .append(escapeOboString(value, EscapeMode.quotes))
@@ -496,7 +492,6 @@ public class OBOFormatWriter {
                 sb.append('"');
             }
             String value = valuesIterator.next().toString();
-            assert value != null;
             sb.append(escapeOboString(value, EscapeMode.quotes));
             if (first) {
                 sb.append('"');
@@ -598,7 +593,6 @@ public class OBOFormatWriter {
         // write property
         // TODO replace toString() method
         String property = it.next().toString();
-        assert property != null;
         sb.append(escapeOboString(property, EscapeMode.simple));
         // write value and optional type
         while (it.hasNext()) {
@@ -671,7 +665,6 @@ public class OBOFormatWriter {
         }
         while (valuesIterator.hasNext()) {
             String value = valuesIterator.next().toString();
-            assert value != null;
             if (idsLabel != null && nameProvider != null) {
                 String label = nameProvider.getName(value);
                 if (label != null

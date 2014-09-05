@@ -134,7 +134,6 @@ public class ManchesterOWLSyntaxTokenizer {
     private void consumeToken() {
         if (sb.length() > 0) {
             String string = sb.toString();
-            assert string != null;
             tokens.add(new Token(string, startPos, startCol, startRow));
             sb = new StringBuilder();
         }

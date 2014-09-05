@@ -188,7 +188,6 @@ public class KRSS2OWLObjectRenderer extends OWLObjectVisitorAdapter {
     @Override
     public void visit(OWLOntology ontology) {
         for (OWLClass eachClass : ontology.getClassesInSignature()) {
-            assert eachClass != null;
             boolean primitive = !isDefined(eachClass, ontology);
             if (primitive) {
                 writeOpenBracket();
@@ -251,7 +250,6 @@ public class KRSS2OWLObjectRenderer extends OWLObjectVisitorAdapter {
         }
         for (OWLObjectProperty property : ontology
                 .getObjectPropertiesInSignature()) {
-            assert property != null;
             writeOpenBracket();
             write(DEFINE_PRIMITIVE_ROLE);
             write(property);

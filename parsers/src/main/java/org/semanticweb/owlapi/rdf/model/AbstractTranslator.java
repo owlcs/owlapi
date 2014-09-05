@@ -52,6 +52,7 @@ import com.google.common.base.Optional;
  *         Informatics Group
  * @since 2.0.0
  */
+@SuppressWarnings("null")
 public abstract class AbstractTranslator<N extends Serializable, R extends N, P extends N, L extends N>
         implements OWLObjectVisitor, SWRLObjectVisitor {
 
@@ -339,7 +340,6 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
             List<OWLClassExpression> list = axiom.getClassExpressionsAsList();
             int count = list.size();
             for (int i = 0; i + 1 < count; i++) {
-                assert list.get(i) != null;
                 addTriple(list.get(i), OWL_EQUIVALENT_CLASS.getIRI(),
                         list.get(i + 1));
             }
@@ -637,7 +637,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     }
 
     @Override
-    public void visit(OWLLiteral node) {
+    public void visit(@Nonnull OWLLiteral node) {
         nodeMap.put(node, getLiteralNode(node));
     }
 
@@ -875,7 +875,6 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     private void translateAnnotations(@Nonnull OWLAxiom ax) {
         translateAnonymousNode(ax);
         for (OWLAnnotation anno : ax.getAnnotations()) {
-            assert anno != null;
             translateAnnotation(ax, anno);
         }
     }
@@ -916,7 +915,6 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
         addTriple(annotation, OWL_ANNOTATED_TARGET.getIRI(),
                 annotation.getValue());
         for (OWLAnnotation anno : annotation.getAnnotations()) {
-            assert anno != null;
             translateAnnotation(annotation, anno);
         }
     }
@@ -1064,7 +1062,6 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     private void processIfAnonymous(@Nonnull Set<OWLIndividual> inds,
             OWLAxiom root) {
         for (OWLIndividual ind : inds) {
-            assert ind != null;
             processIfAnonymous(ind, root);
         }
     }

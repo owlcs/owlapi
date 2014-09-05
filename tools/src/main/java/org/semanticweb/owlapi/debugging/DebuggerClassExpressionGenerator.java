@@ -143,10 +143,8 @@ public class DebuggerClassExpressionGenerator extends OWLAxiomVisitorAdapter {
         Set<OWLClassExpression> clses = axiom.getClassExpressions();
         Iterator<OWLClassExpression> it = clses.iterator();
         OWLClassExpression descC = it.next();
-        assert descC != null;
         OWLClassExpression notC = dataFactory.getOWLObjectComplementOf(descC);
         OWLClassExpression descD = it.next();
-        assert descD != null;
         OWLClassExpression notD = dataFactory.getOWLObjectComplementOf(descD);
         OWLObjectIntersectionOf left = dataFactory
                 .getOWLObjectIntersectionOf(CollectionFactory.createSet(descC,

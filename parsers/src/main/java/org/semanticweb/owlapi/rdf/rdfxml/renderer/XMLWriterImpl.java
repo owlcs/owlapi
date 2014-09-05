@@ -86,7 +86,6 @@ public class XMLWriterImpl implements XMLWriter {
         Collections.sort(namespaces, new StringLengthComparator());
         entities = new LinkedHashMap<>();
         for (String curNamespace : namespaces) {
-            assert curNamespace != null;
             String curPrefix = "";
             if (xmlWriterNamespaceManager.getDefaultNamespace().equals(
                     curNamespace)) {
@@ -95,7 +94,6 @@ public class XMLWriterImpl implements XMLWriter {
                 curPrefix = xmlWriterNamespaceManager
                         .getPrefixForNamespace(curNamespace);
             }
-            assert curPrefix != null;
             if (!curPrefix.isEmpty()) {
                 entities.put(curNamespace, '&' + curPrefix + ';');
             }

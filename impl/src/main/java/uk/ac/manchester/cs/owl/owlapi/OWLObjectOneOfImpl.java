@@ -80,7 +80,6 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl
         } else {
             Set<OWLClassExpression> ops = new HashSet<>();
             for (OWLIndividual ind : values) {
-                assert ind != null;
                 ops.add(new OWLObjectOneOfImpl(CollectionFactory.createSet(ind)));
             }
             return new OWLObjectUnionOfImpl(ops);

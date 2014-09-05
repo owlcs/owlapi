@@ -42,7 +42,6 @@ public class InferredSubObjectPropertyAxiomGenerator extends
         checkNotNull(entity, "entity cannot be null");
         for (OWLObjectPropertyExpression prop : reasoner
                 .getSuperObjectProperties(entity, true).getFlattened()) {
-            assert prop != null;
             result.add(dataFactory.getOWLSubObjectPropertyOfAxiom(entity, prop));
         }
     }

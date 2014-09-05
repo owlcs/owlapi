@@ -43,8 +43,6 @@ public class HasPriorityComparator<T> implements Comparator<T>, Serializable {
 
     @Override
     public int compare(T o1, T o2) {
-        assert o1 != null;
-        assert o2 != null;
         return Double.compare(getPriority(o1), getPriority(o2));
     }
 }

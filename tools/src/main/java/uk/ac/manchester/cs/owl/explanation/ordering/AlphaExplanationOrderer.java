@@ -57,13 +57,10 @@ public class AlphaExplanationOrderer implements ExplanationOrderer {
 
             @Override
             public int compare(OWLAxiom o1, OWLAxiom o2) {
-                assert o1 != null;
-                assert o2 != null;
                 return renderer.render(o1).compareTo(renderer.render(o2));
             }
         });
         for (OWLAxiom ax : sortedAxioms) {
-            assert ax != null;
             root.addChild(new ExplanationTree(ax));
         }
         return root;

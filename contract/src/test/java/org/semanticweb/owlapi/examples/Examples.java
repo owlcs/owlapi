@@ -1123,7 +1123,6 @@ public class Examples extends TestBase {
         printNode(parent);
         for (Node<OWLClass> child : reasoner.getSubClasses(
                 parent.getRepresentativeElement(), true)) {
-            assert child != null;
             // Recurse to do the children. Note that we don't have to worry
             // about cycles as there are non in the inferred class hierarchy
             // graph - a cycle gets collapsed into a single node since each
@@ -1565,7 +1564,6 @@ public class Examples extends TestBase {
         printOntology(manager, ontology);
         // List the imported ontologies
         for (OWLOntology importedOntology : ontology.getImports()) {
-            assert importedOntology != null;
             // System.out.println("Imports:");
             printOntology(manager, importedOntology);
         }

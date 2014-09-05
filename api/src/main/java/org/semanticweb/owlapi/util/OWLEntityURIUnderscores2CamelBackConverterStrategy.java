@@ -64,7 +64,6 @@ public class OWLEntityURIUnderscores2CamelBackConverterStrategy implements
         if (!path.isEmpty()) {
             int index = path.lastIndexOf('/');
             String lastPathElement = path.substring(index + 1, path.length());
-            assert lastPathElement != null;
             String camelCaseElement = toCamelCase(lastPathElement);
             String iriString = iri.toString();
             String base = iriString

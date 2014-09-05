@@ -57,7 +57,6 @@ public class NumberOfClassesWithMultipleInheritance extends IntegerValuedMetric 
         NamedConjunctChecker checker = new NamedConjunctChecker();
         for (OWLOntology ont : getOntologies()) {
             for (OWLClass cls : ont.getClassesInSignature()) {
-                assert cls != null;
                 if (processed.contains(cls)) {
                     continue;
                 }
@@ -66,7 +65,6 @@ public class NumberOfClassesWithMultipleInheritance extends IntegerValuedMetric 
                 for (OWLClassExpression sup : equivalent(
                         ont.getEquivalentClassesAxioms(cls),
                         OWLClassExpression.class)) {
-                    assert sup != null;
                     if (checker.hasNamedConjunct(sup)) {
                         count++;
                     }

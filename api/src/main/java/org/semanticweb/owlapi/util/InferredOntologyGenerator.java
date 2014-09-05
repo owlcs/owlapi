@@ -133,7 +133,6 @@ public class InferredOntologyGenerator {
         List<AddAxiom> changes = new ArrayList<>();
         for (InferredAxiomGenerator<? extends OWLAxiom> axiomGenerator : axiomGenerators) {
             for (OWLAxiom ax : axiomGenerator.createAxioms(df, reasoner)) {
-                assert ax != null;
                 changes.add(new AddAxiom(ontology, ax));
             }
         }

@@ -81,7 +81,6 @@ public class LatexRenderer extends AbstractOWLRenderer {
                 w.write("\\subsection*{Classes}\n\n");
             }
             for (OWLClass cls : clses) {
-                assert cls != null;
                 writeEntitySection(cls, w);
                 for (OWLAxiom ax : sortAxioms(ontology.getAxioms(cls, EXCLUDED))) {
                     renderer.setSubject(cls);
@@ -92,7 +91,6 @@ public class LatexRenderer extends AbstractOWLRenderer {
             w.write("\\section*{Object properties}");
             for (OWLObjectProperty prop : sortEntities(ontology
                     .getObjectPropertiesInSignature())) {
-                assert prop != null;
                 writeEntitySection(prop, w);
                 for (OWLAxiom ax : sortAxioms(ontology
                         .getAxioms(prop, EXCLUDED))) {
@@ -103,7 +101,6 @@ public class LatexRenderer extends AbstractOWLRenderer {
             w.write("\\section*{Data properties}");
             for (OWLDataProperty prop : sortEntities(ontology
                     .getDataPropertiesInSignature())) {
-                assert prop != null;
                 writeEntitySection(prop, w);
                 for (OWLAxiom ax : sortAxioms(ontology
                         .getAxioms(prop, EXCLUDED))) {
@@ -114,7 +111,6 @@ public class LatexRenderer extends AbstractOWLRenderer {
             w.write("\\section*{Individuals}");
             for (OWLNamedIndividual ind : sortEntities(ontology
                     .getIndividualsInSignature())) {
-                assert ind != null;
                 writeEntitySection(ind, w);
                 for (OWLAxiom ax : sortAxioms(ontology.getAxioms(ind, EXCLUDED))) {
                     ax.accept(renderer);
@@ -124,7 +120,6 @@ public class LatexRenderer extends AbstractOWLRenderer {
             w.write("\\section*{Datatypes}");
             for (OWLDatatype type : sortEntities(ontology
                     .getDatatypesInSignature())) {
-                assert type != null;
                 writeEntitySection(type, w);
                 for (OWLAxiom ax : sortAxioms(ontology
                         .getAxioms(type, EXCLUDED))) {

@@ -74,7 +74,6 @@ public class Debugger {
         renderer.header();
         Set<OWLClass> unsatisfiables = new HashSet<>();
         for (OWLClass clazz : ontology.getClassesInSignature()) {
-            assert clazz != null;
             /* Collect the unsatisfiable classes that aren't bottom. */
             if (!checker.isSatisfiable(clazz) && !clazz.equals(bottom)) {
                 unsatisfiables.add(clazz);

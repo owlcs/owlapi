@@ -39,8 +39,6 @@ public class IRIComparator implements Comparator<IRI>, Serializable {
 
     @Override
     public int compare(IRI o1, IRI o2) {
-        assert o1 != null;
-        assert o2 != null;
         return iriShortFormProvider.getShortForm(o1).compareTo(
                 iriShortFormProvider.getShortForm(o2));
     }

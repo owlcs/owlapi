@@ -86,7 +86,6 @@ public abstract class AbstractOWLStorer implements OWLStorer {
             URLConnection conn = url.openConnection();
             os = conn.getOutputStream();
         }
-        assert os != null;
         return os;
     }
 

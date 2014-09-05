@@ -142,7 +142,6 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
         Collections.sort(rootAxioms, new TargetAxiomsComparator(
                 getTargetAxioms(currentTarget)));
         for (OWLAxiom ax : rootAxioms) {
-            assert ax != null;
             root.addChild(new ExplanationTree(ax));
         }
         return root;
@@ -213,7 +212,6 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
             ExplanationTree child = new ExplanationTree(ax);
             tree.addChild(child);
             for (OWLEntity ent : getRHSEntitiesSorted(ax)) {
-                assert ent != null;
                 insertChildren(ent, child);
             }
         }
@@ -245,7 +243,6 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
                     "ontology" + RANDOMSTART.incrementAndGet()));
             List<AddAxiom> changes = new ArrayList<>();
             for (OWLAxiom ax : currentExplanation) {
-                assert ax != null;
                 changes.add(new AddAxiom(verifyNotNull(ont), ax));
                 ax.accept(builder);
             }

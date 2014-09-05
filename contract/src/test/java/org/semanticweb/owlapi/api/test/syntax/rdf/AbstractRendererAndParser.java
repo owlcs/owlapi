@@ -48,7 +48,6 @@ public abstract class AbstractRendererAndParser extends TestBase {
     public void testSaveAndReload() throws Exception {
         OWLOntology ontA = m.createOntology(IRI("http://rdfxmltests/ontology"));
         for (OWLAxiom ax : getAxioms()) {
-            assert ax != null;
             m.applyChange(new AddAxiom(ontA, ax));
         }
         OWLOntology ontB = roundTrip(ontA);

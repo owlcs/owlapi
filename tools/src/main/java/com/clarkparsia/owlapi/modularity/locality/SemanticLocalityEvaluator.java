@@ -202,7 +202,6 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
             Set<OWLClassExpression> result = new HashSet<>();
             for (OWLClassExpression desc : checkNotNull(classExpressions,
                     "classExpressions cannot be null")) {
-                assert desc != null;
                 result.add(replaceBottom(desc));
             }
             return result;

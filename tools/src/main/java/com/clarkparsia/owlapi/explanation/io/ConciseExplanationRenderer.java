@@ -74,7 +74,6 @@ public class ConciseExplanationRenderer implements ExplanationRenderer {
         String header = inputHeader;
         boolean first = true;
         for (OWLAxiom axiom : axioms) {
-            assert axiom != null;
             if (first) {
                 first = false;
             } else {

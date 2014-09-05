@@ -41,7 +41,6 @@ public class InferredSubClassAxiomGenerator extends
         if (reasoner.isSatisfiable(entity)) {
             for (OWLClass sup : reasoner.getSuperClasses(entity, true)
                     .getFlattened()) {
-                assert sup != null;
                 result.add(dataFactory.getOWLSubClassOfAxiom(entity, sup));
             }
         } else {

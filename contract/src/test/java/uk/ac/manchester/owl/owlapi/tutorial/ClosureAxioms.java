@@ -77,7 +77,6 @@ public class ClosureAxioms {
         }
         /* For any existentials.... */
         for (OWLObjectPropertyExpression prop : restrictions.keySet()) {
-            assert prop != null;
             System.out.println("prop: " + prop);
             Set<OWLClassExpression> fillers = restrictions.get(prop);
             for (OWLClassExpression filler : fillers) {

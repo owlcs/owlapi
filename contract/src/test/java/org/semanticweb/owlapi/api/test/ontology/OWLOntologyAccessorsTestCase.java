@@ -89,7 +89,6 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
             assertEquals(ont.getAxiomCount(axiomType), axioms.length);
             assertEquals(ont.getAxiomCount(axiomType, INCLUDED), axioms.length);
             for (OWLEntity entity : ax.getSignature()) {
-                assert entity != null;
                 assertTrue(ont.getReferencingAxioms(entity, EXCLUDED).contains(
                         ax));
                 assertTrue(ont.getSignature().contains(entity));

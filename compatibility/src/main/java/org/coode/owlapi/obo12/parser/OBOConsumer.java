@@ -314,7 +314,6 @@ class OBOConsumer implements OBOParserHandler {
             versionIRI = IRI.create(ontologyIRI.toString() + "/"
                     + dataVersionTagValue);
         }
-        @SuppressWarnings("null")
         OWLOntologyID ontologyID = new OWLOntologyID(
                 Optional.fromNullable(ontologyIRI),
                 Optional.fromNullable(versionIRI));
@@ -391,7 +390,6 @@ class OBOConsumer implements OBOParserHandler {
             } else if (inHeader) {
                 if (tag.equals(IMPORT_TAG_NAME)) {
                     String trim = value.trim();
-                    assert trim != null;
                     IRI uri = IRI.create(trim);
                     OWLImportsDeclaration decl = owlOntologyManager
                             .getOWLDataFactory().getOWLImportsDeclaration(uri);
@@ -435,7 +433,6 @@ class OBOConsumer implements OBOParserHandler {
         }
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     public String unescapeTagValue(String value) {
         String unquoted;
@@ -570,7 +567,6 @@ class OBOConsumer implements OBOParserHandler {
                         df.getOWLLiteral(xrefQuotedString)));
             }
             String xrefId = matcher.group(XREF_ID_GROUP).trim();
-            assert xrefId != null;
             OBOIdType idType = OBOIdType.getIdType(xrefId);
             OWLAnnotationValue annotationValue;
             if (idType != null) {

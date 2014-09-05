@@ -50,7 +50,6 @@ public class InvalidAxiomRoundTripTestCase extends TestBase {
 
     private void addAxioms(@Nonnull OWLAxiom... axioms) {
         for (OWLAxiom ax : axioms) {
-            assert ax != null;
             o.getOWLOntologyManager().addAxiom(o, ax);
         }
     }

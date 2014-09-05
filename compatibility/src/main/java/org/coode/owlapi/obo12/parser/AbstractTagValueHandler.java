@@ -259,7 +259,6 @@ abstract class AbstractTagValueHandler implements TagValueHandler {
         return getDataFactory().getOWLObjectProperty(getIRIFromOBOId(id));
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     protected String getUnquotedString(String value) {
         String unquotedString;
@@ -445,7 +444,6 @@ class DefTagValueHandler extends AbstractTagValueHandler {
         super(OBOVocabulary.DEF.getName(), consumer);
     }
 
-    @SuppressWarnings("null")
     @Override
     public void handle(String currentId, String value, String qualifierBlock,
             String comment) {
@@ -477,7 +475,6 @@ class DefTagValueHandler extends AbstractTagValueHandler {
             StringTokenizer tokenizer = new StringTokenizer(xrefs, ",");
             while (tokenizer.hasMoreTokens()) {
                 String xrefValue = tokenizer.nextToken();
-                assert xrefValue != null;
                 OWLAnnotation xrefAnnotation = getConsumer().parseXRef(
                         xrefValue);
                 annotations.add(xrefAnnotation);
@@ -865,7 +862,6 @@ class SynonymTagValueHandler extends AbstractTagValueHandler {
             annotations.addAll(getXRefAnnotations(matcher));
             OWLEntity subject = getConsumer().getCurrentEntity();
             String synonym = matcher.group(VALUE_GROUP);
-            assert synonym != null;
             OWLLiteral synonymLiteral = df.getOWLLiteral(synonym);
             OWLAnnotationAssertionAxiom annoAssertion = df
                     .getOWLAnnotationAssertionAxiom(property, subject.getIRI(),
@@ -890,7 +886,6 @@ class SynonymTagValueHandler extends AbstractTagValueHandler {
             StringTokenizer tokenizer = new StringTokenizer(xrefs, ",");
             while (tokenizer.hasMoreTokens()) {
                 String xref = tokenizer.nextToken();
-                assert xref != null;
                 OWLAnnotation xrefAnnotation = getConsumer().parseXRef(xref);
                 annotations.add(xrefAnnotation);
             }
@@ -919,7 +914,6 @@ class SynonymTagValueHandler extends AbstractTagValueHandler {
     private OWLAnnotation getSynonymTypeAnnotation(Matcher matcher) {
         OWLDataFactory df = getDataFactory();
         String synonymType = matcher.group(SYNONYM_TYPE_GROUP);
-        assert synonymType != null;
         return df.getOWLAnnotation(
                 df.getOWLAnnotationProperty(SYNONYM_TYPE_IRI),
                 df.getOWLLiteral(synonymType));
@@ -945,7 +939,6 @@ class SynonymTypeDefTagHandler extends AbstractTagValueHandler {
             String id = matcher.group(ID_GROUP);
             IRI annotationPropertyIRI = getIRIFromOBOId(id);
             String name = matcher.group(NAME_GROUP);
-            assert name != null;
             OWLDataFactory df = getDataFactory();
             OWLAnnotationProperty annotationProperty = df
                     .getOWLAnnotationProperty(annotationPropertyIRI);

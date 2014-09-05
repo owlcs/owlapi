@@ -210,7 +210,6 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     }
 
     @Override
-    @SuppressWarnings("null")
     @Nonnull
     public OWLOntologyLoaderConfiguration getOntologyLoaderConfiguration() {
         if (config.isPresent()) {
@@ -703,7 +702,6 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
             }
             Set<OWLClassExpression> ops = new HashSet<>();
             for (OWLClassExpression desc : descs) {
-                assert desc != null;
                 ops.add(dataFactory.getOWLObjectSomeValuesFrom(prop, desc));
             }
             OWLClassExpression filler;
@@ -712,7 +710,6 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
             } else {
                 filler = dataFactory.getOWLObjectUnionOf(descs);
             }
-            assert filler != null;
             ops.add(dataFactory.getOWLObjectAllValuesFrom(prop, filler));
             return dataFactory.getOWLObjectIntersectionOf(ops);
         } else if (SELF.matches(kw)) {
@@ -1151,9 +1148,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
                 Set<OWLOntology> onts = getOntologies();
                 Set<OWLDataRange> drs = parseDataRangeList();
                 for (OWLOntology ont : onts) {
-                    assert ont != null;
                     for (OWLDataRange dr : drs) {
-                        assert dr != null;
                         axioms.add(new OntologyAxiomPair(ont, dataFactory
                                 .getOWLDatatypeDefinitionAxiom(datatype, dr)));
                     }
@@ -1192,7 +1187,6 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         Set<OWLClassExpression> classExpressions = parseClassExpressionList();
         Set<OntologyAxiomPair> pairs = new HashSet<>();
         for (OWLOntology ont : ontologies) {
-            assert ont != null;
             pairs.add(new OntologyAxiomPair(ont,
                     dataFactory.getOWLEquivalentClassesAxiom(classExpressions,
                             annotations)));
@@ -1227,7 +1221,6 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         }
         Set<OntologyAxiomPair> pairs = new HashSet<>();
         for (OWLOntology ont : ontologies) {
-            assert ont != null;
             pairs.add(new OntologyAxiomPair(ont, propertyAxiom));
         }
         return pairs;
@@ -1255,9 +1248,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         Set<OntologyAxiomPair> pairs = new HashSet<>();
         Set<OWLAnnotation> annos = parseAnnotationList();
         for (OWLOntology ont : onts) {
-            assert ont != null;
             for (OWLAnnotation anno : annos) {
-                assert anno != null;
                 if (getOntologyLoaderConfiguration().isLoadAnnotationAxioms()) {
                     pairs.add(new OntologyAxiomPair(ont, dataFactory
                             .getOWLAnnotationAssertionAxiom(s, anno)));
@@ -1538,7 +1529,6 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         Set<OntologyAxiomPair> axioms = new HashSet<>();
         axioms.addAll(parseValuePartitionValues(onts, cls));
         for (OWLOntology ont : onts) {
-            assert ont != null;
             axioms.add(new OntologyAxiomPair(ont, dataFactory
                     .getOWLFunctionalObjectPropertyAxiom(prop)));
             axioms.add(new OntologyAxiomPair(ont, dataFactory
@@ -1561,7 +1551,6 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
             OWLSubClassOfAxiom ax = dataFactory.getOWLSubClassOfAxiom(cls,
                     superclass);
             for (OWLOntology ont : onts) {
-                assert ont != null;
                 axioms.add(new OntologyAxiomPair(ont, ax));
             }
             if (peekToken().equals(OPENBRACKET.keyword())) {
@@ -1575,7 +1564,6 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         consumeToken(CLOSEBRACKET.keyword());
         OWLAxiom ax = dataFactory.getOWLDisjointClassesAxiom(siblings);
         for (OWLOntology ont : onts) {
-            assert ont != null;
             axioms.add(new OntologyAxiomPair(ont, ax));
         }
         return axioms;
@@ -1599,7 +1587,6 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
                 new LinkedHashSet<>(head));
         List<OntologyAxiomPair> pairs = new ArrayList<>();
         for (OWLOntology ont : ontologies) {
-            assert ont != null;
             pairs.add(new OntologyAxiomPair(ont, rule));
         }
         return pairs;
@@ -1677,7 +1664,6 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         if (!isObjectPropertyName(predicate)) {
             throw new ExceptionBuilder().withObject().build();
         }
-        assert predicate != null;
         consumeToken(OPEN.keyword());
         SWRLIArgument obj1 = parseIObject();
         consumeToken(COMMA.keyword());
@@ -1834,7 +1820,6 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         Set<OWLClassExpression> classExpressions = parseClassExpressionList();
         Set<OntologyAxiomPair> pairs = new HashSet<>();
         for (OWLOntology ont : ontologies) {
-            assert ont != null;
             pairs.add(new OntologyAxiomPair(ont, dataFactory
                     .getOWLDisjointClassesAxiom(classExpressions, annotations)));
         }
@@ -1851,7 +1836,6 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         Set<OWLAnnotation> annotations = parseAnnotations();
         Set<OntologyAxiomPair> pairs = new HashSet<>();
         for (OWLOntology ont : ontologies) {
-            assert ont != null;
             pairs.add(new OntologyAxiomPair(ont, dataFactory
                     .getOWLSameIndividualAxiom(individuals, annotations)));
         }
@@ -1885,7 +1869,6 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
                     dpe, annotations);
         }
         for (OWLOntology ont : ontologies) {
-            assert ont != null;
             pairs.add(new OntologyAxiomPair(ont, propertiesAxiom));
         }
         return pairs;
@@ -1902,7 +1885,6 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         Set<OWLIndividual> individuals = parseIndividualList();
         Set<OntologyAxiomPair> pairs = new HashSet<>();
         for (OWLOntology ontology : ontologies) {
-            assert ontology != null;
             pairs.add(new OntologyAxiomPair(ontology, dataFactory
                     .getOWLDifferentIndividualsAxiom(individuals, annotations)));
         }
@@ -2228,20 +2210,17 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
                 ManchesterOWLSyntaxOntologyHeader header = parseOntologyHeader(false);
                 for (OWLImportsDeclaration decl : header
                         .getImportsDeclarations()) {
-                    assert decl != null;
                     imports.add(new AddImport(ont, decl));
                     ont.getOWLOntologyManager().makeLoadImportRequest(decl,
                             getOntologyLoaderConfiguration());
                     OWLOntology imported = ont.getOWLOntologyManager()
                             .getOntology(decl.getIRI());
-                    assert imported != null;
                     for (OWLDeclarationAxiom declaration : imported
                             .getAxioms(AxiomType.DECLARATION)) {
                         processDeclaredEntities(declaration);
                     }
                 }
                 for (OWLAnnotation anno : header.getAnnotations()) {
-                    assert anno != null;
                     ontologyAnnotations
                             .add(new AddOntologyAnnotation(ont, anno));
                 }
@@ -2279,7 +2258,6 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
                 imports.add(new AddImport(ont, decl));
                 OWLOntology imported = ont.getOWLOntologyManager().getOntology(
                         decl.getIRI());
-                assert imported != null;
                 for (OWLDeclarationAxiom declaration : imported
                         .getAxioms(AxiomType.DECLARATION)) {
                     processDeclaredEntities(declaration);
@@ -2287,7 +2265,6 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
             } else if (PREFIX.matches(section)) {
                 Map<String, IRI> nsMap = parsePrefixDeclaration();
                 for (String ns : nsMap.keySet()) {
-                    assert ns != null;
                     pm.setPrefix(ns, nsMap.get(ns).toString());
                 }
             } else if (RULE.matches(section)) {
@@ -2357,7 +2334,6 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
                             .withKeyword("Imported IRI is null").build();
                 }
                 IRI importedOntologyIRI = importedIRI.get();
-                assert importedOntologyIRI != null;
                 imports.add(dataFactory
                         .getOWLImportsDeclaration(importedOntologyIRI));
             } else if (ANNOTATIONS.matches(section)) {

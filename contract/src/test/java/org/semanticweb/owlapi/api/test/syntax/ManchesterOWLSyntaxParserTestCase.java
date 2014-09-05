@@ -405,7 +405,6 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
         OWLOntology o = loadOntologyFromString(in);
         OWLOntology result = roundTrip(o, new ManchesterSyntaxDocumentFormat());
         for (OWLAxiom ax : o.getAxioms()) {
-            assert ax != null;
             assertTrue(result.containsAxiom(ax));
         }
     }

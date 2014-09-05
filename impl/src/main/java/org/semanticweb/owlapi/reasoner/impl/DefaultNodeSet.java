@@ -107,7 +107,6 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
      */
     public void addAllNodes(@Nonnull Collection<Node<E>> nodeset) {
         for (Node<E> node : nodeset) {
-            assert node != null;
             addNode(node);
         }
     }
@@ -132,7 +131,6 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
      */
     public void addDifferentEntities(@Nonnull Set<E> entities) {
         for (E e : entities) {
-            assert e != null;
             addNode(getNode(e));
         }
     }

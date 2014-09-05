@@ -164,7 +164,6 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     private transient List<OWLOntologyChangesVetoedListener> vetoListeners = new ArrayList<>();
     @Nonnull
     private Provider<OWLOntologyLoaderConfiguration> configProvider = new OWLAPIConfigProvider();
-    @SuppressWarnings("null")
     @Nonnull
     private Optional<OWLOntologyLoaderConfiguration> config = Optional.absent();
 
@@ -185,7 +184,6 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         configProvider = provider;
     }
 
-    @SuppressWarnings("null")
     @Override
     public void setOntologyLoaderConfiguration(
             OWLOntologyLoaderConfiguration newConfig) {
@@ -193,7 +191,6 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     }
 
     @Override
-    @SuppressWarnings("null")
     @Nonnull
     public OWLOntologyLoaderConfiguration getOntologyLoaderConfiguration() {
         if (config.isPresent()) {
@@ -391,7 +388,6 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         }
         Set<OWLOntology> imports = new HashSet<>();
         for (OWLImportsDeclaration axiom : ontology.getImportsDeclarations()) {
-            assert axiom != null;
             OWLOntology importedOntology = getImportedOntology(axiom);
             if (importedOntology != null) {
                 imports.add(importedOntology);
@@ -422,7 +418,6 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     private void getImports(@Nonnull OWLOntology ont,
             @Nonnull Set<OWLOntology> result) {
         for (OWLOntology directImport : getDirectImports(ont)) {
-            assert directImport != null;
             if (result.add(directImport)) {
                 getImports(directImport, result);
             }
@@ -458,7 +453,6 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
             @Nonnull Set<OWLOntology> ontologies) {
         ontologies.add(ontology);
         for (OWLOntology ont : getDirectImports(ontology)) {
-            assert ont != null;
             if (!ontologies.contains(ont)) {
                 getImportsClosure(ont, ontologies);
             }
@@ -532,7 +526,6 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
                 changes.size() + 2);
         fireBeginChanges(changes.size());
         for (OWLOntologyChange change : changes) {
-            assert change != null;
             appliedChanges.addAll(enactChangeApplication(change));
             fireChangeApplied(change);
         }
@@ -557,7 +550,6 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
             @Nonnull Set<? extends OWLAxiom> axioms) {
         List<AddAxiom> changes = new ArrayList<>(axioms.size() + 2);
         for (OWLAxiom ax : axioms) {
-            assert ax != null;
             changes.add(new AddAxiom(ont, ax));
         }
         return applyChanges(changes);
@@ -574,7 +566,6 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
             @Nonnull Set<? extends OWLAxiom> axioms) {
         List<RemoveAxiom> changes = new ArrayList<>(axioms.size() + 2);
         for (OWLAxiom ax : axioms) {
-            assert ax != null;
             changes.add(new RemoveAxiom(ont, ax));
         }
         return applyChanges(changes);
@@ -710,7 +701,6 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
                 documentIRI = IRI.generateDocumentIRI();
             }
         }
-        assert documentIRI != null;
         if (documentIRIsByID.values().contains(documentIRI)) {
             throw new OWLOntologyDocumentAlreadyExistsException(documentIRI);
         }
@@ -788,16 +778,13 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
                 || settings == OntologyCopy.DEEP) {
             toReturn = createOntology(toCopy.getOntologyID());
             for (AxiomType<?> type : AxiomType.AXIOM_TYPES) {
-                assert type != null;
                 addAxioms(toReturn, toCopy.getAxioms(type));
             }
             for (OWLAnnotation a : toCopy.getAnnotations()) {
-                assert a != null;
                 applyChange(new AddOntologyAnnotation(toReturn, a));
             }
         }
         // toReturn now initialized
-        assert toReturn != null;
         OWLOntologyManager m = toCopy.getOWLOntologyManager();
         if (settings == OntologyCopy.MOVE || settings == OntologyCopy.DEEP) {
             setOntologyDocumentIRI(toReturn, m.getOntologyDocumentIRI(toCopy));
@@ -869,7 +856,6 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
 
     private OWLOntology getOntologyByDocumentIRI(IRI documentIRI) {
         for (OWLOntologyID ontID : documentIRIsByID.keySet()) {
-            assert ontID != null;
             IRI docIRI = documentIRIsByID.get(ontID);
             if (docIRI != null && docIRI.equals(documentIRI)) {
                 return getOntology(ontID);
@@ -1297,7 +1283,6 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         }
         for (OWLOntologyChangeListener listener : new ArrayList<>(
                 listenerMap.keySet())) {
-            assert listener != null;
             OWLOntologyChangeBroadcastStrategy strategy = listenerMap
                     .get(listener);
             if (strategy == null) {
@@ -1326,7 +1311,6 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         }
         for (ImpendingOWLOntologyChangeListener listener : new ArrayList<>(
                 impendingChangeListenerMap.keySet())) {
-            assert listener != null;
             ImpendingOWLOntologyChangeBroadcastStrategy strategy = impendingChangeListenerMap
                     .get(listener);
             if (strategy != null) {
@@ -1542,13 +1526,11 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         }
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     protected <T> Optional<T> of(T t) {
         return Optional.fromNullable(t);
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     protected Optional<IRI> absent() {
         return Optional.absent();

@@ -462,7 +462,6 @@ public class OWLAPIObo2Owl {
                 int numNamed = 0;
                 Set<OWLClassExpression> xs = new HashSet<>();
                 for (OWLClassExpression x : eca.getClassExpressions()) {
-                    assert x != null;
                     if (x instanceof OWLClass) {
                         xs.add(x);
                         numNamed++;
@@ -745,7 +744,6 @@ public class OWLAPIObo2Owl {
             axioms.add(trUnionOf(cls, clauses));
         } else {
             for (Clause clause : clauses) {
-                assert clause != null;
                 axioms.add(trTermClause(cls, t, clause));
             }
         }
@@ -1404,7 +1402,6 @@ public class OWLAPIObo2Owl {
             @Nonnull Collection<Clause> clauses) {
         Set<OWLAnnotation> anns = new HashSet<>();
         for (Clause clause : clauses) {
-            assert clause != null;
             trAnnotations(clause, anns);
         }
         return anns;
@@ -1426,8 +1423,6 @@ public class OWLAPIObo2Owl {
         Frame relFrame = obodoc.getTypedefFrame(relId);
         OWLObjectPropertyExpression pe = trObjectProp(relId);
         OWLClassExpression ce = trClass(classId);
-        assert pe != null;
-        assert ce != null;
         Integer exact = getQVInt("cardinality", quals);
         Integer min = getQVInt("minCardinality", quals);
         Integer max = getQVInt("maxCardinality", quals);
@@ -1719,7 +1714,6 @@ public class OWLAPIObo2Owl {
             value = value.toString();
         }
         String value2 = (String) value;
-        assert value2 != null;
         return fac.getOWLLiteral(value2); // TODO
     }
 

@@ -37,7 +37,6 @@ public class PrefixOntologyFormatTestCase extends AbstractRoundTrippingTestCase 
             ont = m.createOntology();
             PrefixDocumentFormat format = (PrefixDocumentFormat) ont
                     .getOWLOntologyManager().getOntologyFormat(ont);
-            assert format != null;
             format.setDefaultPrefix("http://default.com");
             format.setPrefix("a", "http://ontology.com/a#");
             format.setPrefix("b", "http://ontology.com/b#");
@@ -60,7 +59,6 @@ public class PrefixOntologyFormatTestCase extends AbstractRoundTrippingTestCase 
             prefixFormat.getPrefixName2PrefixMap();
             PrefixDocumentFormat prefixFormat2 = (PrefixDocumentFormat) ont2Format;
             for (String prefixName : prefixFormat.getPrefixNames()) {
-                assert prefixName != null;
                 assertTrue(prefixFormat2.containsPrefixMapping(prefixName));
                 assertEquals(prefixFormat.getPrefix(prefixName),
                         prefixFormat2.getPrefix(prefixName));
@@ -68,7 +66,6 @@ public class PrefixOntologyFormatTestCase extends AbstractRoundTrippingTestCase 
         }
         return ont2;
     }
-    
 
     @Override
     @Test
@@ -76,5 +73,4 @@ public class PrefixOntologyFormatTestCase extends AbstractRoundTrippingTestCase 
         // RDFJSON is an RDFDocumentFormat, but not a PrefixDocumentFormat
         // This case is not allowed for in the current heirarchy
     }
-    
 }

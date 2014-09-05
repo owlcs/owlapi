@@ -84,7 +84,6 @@ public class RioRDFDocumentFormat extends
     @Override
     public String getKey() {
         String name = format.getName();
-        assert name != null;
         return name;
     }
 
@@ -103,7 +102,6 @@ public class RioRDFDocumentFormat extends
     @Override
     public List<String> getMIMETypes() {
         List<String> mimeTypes = format.getMIMETypes();
-        assert mimeTypes != null;
         return mimeTypes;
     }
 

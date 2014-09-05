@@ -175,7 +175,6 @@ public class OWL2RLProfile implements OWLProfile {
         @Override
         public void visit(OWLEquivalentClassesAxiom axiom) {
             for (OWLClassExpression ce : axiom.getClassExpressions()) {
-                assert ce != null;
                 if (!isOWL2RLEquivalentClassExpression(ce)) {
                     violations.add(new UseOfNonEquivalentClassExpression(
                             getCurrentOntology(), axiom, ce));

@@ -133,7 +133,6 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
         return manager;
     }
 
-    @SuppressWarnings("null")
     @Override
     public void setOWLOntologyManager(OWLOntologyManager manager) {
         this.manager = manager;
@@ -264,7 +263,6 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     public Set<OWLAxiom> getTBoxAxioms(Imports includeImportsClosure) {
         Set<OWLAxiom> toReturn = new HashSet<>();
         for (AxiomType<?> type : AxiomType.TBoxAxiomTypes) {
-            assert type != null;
             toReturn.addAll(getAxioms(type, includeImportsClosure));
         }
         return toReturn;
@@ -275,7 +273,6 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     public Set<OWLAxiom> getABoxAxioms(Imports includeImportsClosure) {
         Set<OWLAxiom> toReturn = new HashSet<>();
         for (AxiomType<?> type : AxiomType.ABoxAxiomTypes) {
-            assert type != null;
             toReturn.addAll(getAxioms(type, includeImportsClosure));
         }
         return toReturn;
@@ -286,7 +283,6 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     public Set<OWLAxiom> getRBoxAxioms(Imports includeImportsClosure) {
         Set<OWLAxiom> toReturn = new HashSet<>();
         for (AxiomType<?> type : AxiomType.RBoxAxiomTypes) {
-            assert type != null;
             toReturn.addAll(getAxioms(type, includeImportsClosure));
         }
         return toReturn;
@@ -1171,7 +1167,6 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
             Set<OWLEntity> entities = getEntitiesInSignature((IRI) owlEntity,
                     includeImportsClosure);
             for (OWLEntity e : entities) {
-                assert e != null;
                 axioms.addAll(getReferencingAxioms(e, includeImportsClosure));
             }
             for (OWLDataPropertyAssertionAxiom ax : getAxioms(AxiomType.DATA_PROPERTY_ASSERTION)) {

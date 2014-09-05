@@ -151,7 +151,6 @@ public class JustificationMap {
         // Return the axioms that have the entity on the LHS
         Set<OWLAxiom> result = new HashSet<>();
         for (OWLEntity ent : seed.getSignature()) {
-            assert ent != null;
             Set<OWLAxiom> axs = getAxiomsByLHS(ent);
             for (OWLAxiom ax : axs) {
                 result.add(ax);
@@ -165,7 +164,6 @@ public class JustificationMap {
     private void buildChildren(@Nonnull Set<OWLAxiom> axiomSet) {
         List<Set<OWLAxiom>> axiomChildren = new ArrayList<>();
         for (OWLAxiom ax : axiomSet) {
-            assert ax != null;
             Set<OWLAxiom> children = build(ax);
             for (OWLAxiom childAx : children) {
                 map.put(childAx, ax);
@@ -173,7 +171,6 @@ public class JustificationMap {
             axiomChildren.add(children);
         }
         for (Set<OWLAxiom> children : axiomChildren) {
-            assert children != null;
             buildChildren(children);
         }
     }
@@ -193,7 +190,6 @@ public class JustificationMap {
         Set<OWLAxiom> result = new HashSet<>();
         for (OWLObject obj : extractor.getRHS()) {
             for (OWLEntity ent : obj.getSignature()) {
-                assert ent != null;
                 Set<OWLAxiom> axs = getAxiomsByLHS(ent);
                 for (OWLAxiom ax : axs) {
                     if (!usedAxioms.contains(ax)) {

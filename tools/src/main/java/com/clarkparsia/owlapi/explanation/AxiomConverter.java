@@ -118,7 +118,6 @@ class AxiomConverter extends OWLAxiomVisitorExAdapter<OWLClassExpression> {
     public OWLClassExpression visit(OWLDifferentIndividualsAxiom axiom) {
         Set<OWLClassExpression> nominals = new HashSet<>();
         for (OWLIndividual ind : axiom.getIndividuals()) {
-            assert ind != null;
             nominals.add(oneOf(ind));
         }
         return factory.getOWLObjectIntersectionOf(nominals);
@@ -194,7 +193,6 @@ class AxiomConverter extends OWLAxiomVisitorExAdapter<OWLClassExpression> {
     public OWLClassExpression visit(OWLSameIndividualAxiom axiom) {
         Set<OWLClassExpression> nominals = new HashSet<>();
         for (OWLIndividual ind : axiom.getIndividuals()) {
-            assert ind != null;
             nominals.add(not(oneOf(ind)));
         }
         return and(nominals);

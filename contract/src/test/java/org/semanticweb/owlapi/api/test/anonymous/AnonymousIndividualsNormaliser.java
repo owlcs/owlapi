@@ -57,7 +57,6 @@ public class AnonymousIndividualsNormaliser extends OWLObjectDuplicator {
         Collections.sort(axiomsList);
         Set<OWLAxiom> normalised = new HashSet<>();
         for (OWLAxiom ax : axiomsList) {
-            assert ax != null;
             OWLAxiom dup = duplicateObject(ax);
             normalised.add(dup);
         }

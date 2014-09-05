@@ -43,8 +43,8 @@ import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.model.parameters.AxiomAnnotations;
+import org.semanticweb.owlapi.model.parameters.Imports;
 
 import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.Multimap;
@@ -155,7 +155,6 @@ public class EntitySearcher {
             @Nonnull OWLAnnotationProperty annotationProperty) {
         Set<OWLAnnotation> toReturn = new HashSet<>();
         for (OWLOntology o : ontologies) {
-            assert o != null;
             toReturn.addAll(getAnnotations(e, o, annotationProperty));
         }
         return toReturn;
@@ -180,7 +179,6 @@ public class EntitySearcher {
             @Nonnull OWLAnnotationProperty annotationProperty) {
         Set<OWLAnnotation> toReturn = new HashSet<>();
         for (OWLOntology o : ontologies) {
-            assert o != null;
             toReturn.addAll(getAnnotations(e, o, annotationProperty));
         }
         return toReturn;
@@ -284,7 +282,6 @@ public class EntitySearcher {
             @Nonnull Iterable<OWLOntology> ontologies) {
         Collection<OWLAnnotationProperty> collection = new ArrayList<>();
         for (OWLOntology o : ontologies) {
-            assert o != null;
             collection.addAll(getSubProperties(e, o));
         }
         return collection;
@@ -358,7 +355,6 @@ public class EntitySearcher {
             @Nonnull Iterable<OWLOntology> ontologies) {
         Collection<OWLAnnotationProperty> collection = new ArrayList<>();
         for (OWLOntology o : ontologies) {
-            assert o != null;
             collection.addAll(getSuperProperties(e, o));
         }
         return collection;
@@ -433,7 +429,6 @@ public class EntitySearcher {
             @Nonnull Iterable<OWLOntology> ontologies) {
         Collection<OWLObjectPropertyExpression> collection = new ArrayList<>();
         for (OWLOntology o : ontologies) {
-            assert o != null;
             collection.addAll(getSubProperties(e, o));
         }
         return collection;
@@ -508,7 +503,6 @@ public class EntitySearcher {
             @Nonnull Iterable<OWLOntology> ontologies) {
         Collection<OWLObjectPropertyExpression> collection = new ArrayList<>();
         for (OWLOntology o : ontologies) {
-            assert o != null;
             collection.addAll(getSuperProperties(e, o));
         }
         return collection;
@@ -583,7 +577,6 @@ public class EntitySearcher {
             @Nonnull Iterable<OWLOntology> ontologies) {
         Collection<OWLDataPropertyExpression> collection = new ArrayList<>();
         for (OWLOntology o : ontologies) {
-            assert o != null;
             collection.addAll(getSubProperties(e, o));
         }
         return collection;
@@ -658,7 +651,6 @@ public class EntitySearcher {
             @Nonnull Iterable<OWLOntology> ontologies) {
         Collection<OWLDataPropertyExpression> collection = new ArrayList<>();
         for (OWLOntology o : ontologies) {
-            assert o != null;
             collection.addAll(getSuperProperties(e, o));
         }
         return collection;
@@ -700,7 +692,6 @@ public class EntitySearcher {
             @Nonnull OWLClass e, @Nonnull Iterable<OWLOntology> ontologies) {
         Collection<OWLClassExpression> collection = new ArrayList<>();
         for (OWLOntology o : ontologies) {
-            assert o != null;
             collection.addAll(getSuperClasses(e, o));
         }
         return collection;
@@ -739,7 +730,6 @@ public class EntitySearcher {
             @Nonnull OWLClass e, @Nonnull Iterable<OWLOntology> ontologies) {
         Collection<OWLClassExpression> collection = new ArrayList<>();
         for (OWLOntology o : ontologies) {
-            assert o != null;
             collection.addAll(getSubClasses(e, o));
         }
         return collection;
@@ -782,7 +772,6 @@ public class EntitySearcher {
             @Nonnull OWLClass e, @Nonnull Iterable<OWLOntology> ontologies) {
         Collection<OWLClassExpression> collection = new ArrayList<>();
         for (OWLOntology o : ontologies) {
-            assert o != null;
             collection.addAll(getEquivalentClasses(e, o));
         }
         return collection;
@@ -821,7 +810,6 @@ public class EntitySearcher {
             @Nonnull OWLClass e, @Nonnull Iterable<OWLOntology> ontologies) {
         Collection<OWLClassExpression> collection = new ArrayList<>();
         for (OWLOntology o : ontologies) {
-            assert o != null;
             collection.addAll(getDisjointClasses(e, o));
         }
         return collection;
@@ -857,7 +845,6 @@ public class EntitySearcher {
                     @Nonnull Iterable<OWLOntology> ontologies) {
         Collection<OWLIndividual> collection = new ArrayList<>();
         for (OWLOntology o : ontologies) {
-            assert o != null;
             collection.addAll(getDifferentIndividuals(e, o));
         }
         return collection;
@@ -893,7 +880,6 @@ public class EntitySearcher {
                     @Nonnull Iterable<OWLOntology> ontologies) {
         Collection<OWLIndividual> collection = new ArrayList<>();
         for (OWLOntology o : ontologies) {
-            assert o != null;
             collection.addAll(getSameIndividuals(e, o));
         }
         return collection;
@@ -939,7 +925,6 @@ public class EntitySearcher {
                     @Nonnull Iterable<OWLOntology> ontologies) {
         Collection<OWLDataPropertyExpression> collection = new ArrayList<>();
         for (OWLOntology o : ontologies) {
-            assert o != null;
             collection.addAll(getEquivalentProperties(e, o));
         }
         return collection;
@@ -979,7 +964,6 @@ public class EntitySearcher {
             @Nonnull Iterable<OWLOntology> ontologies) {
         Collection<OWLDataPropertyExpression> collection = new ArrayList<>();
         for (OWLOntology o : ontologies) {
-            assert o != null;
             collection.addAll(getDisjointProperties(e, o));
         }
         return collection;
@@ -1025,7 +1009,6 @@ public class EntitySearcher {
                     @Nonnull Iterable<OWLOntology> ontologies) {
         Collection<OWLObjectPropertyExpression> collection = new ArrayList<>();
         for (OWLOntology o : ontologies) {
-            assert o != null;
             collection.addAll(getEquivalentProperties(e, o));
         }
         return collection;
@@ -1067,7 +1050,6 @@ public class EntitySearcher {
                     @Nonnull Iterable<OWLOntology> ontologies) {
         Collection<OWLObjectPropertyExpression> collection = new ArrayList<>();
         for (OWLOntology o : ontologies) {
-            assert o != null;
             collection.addAll(getDisjointProperties(e, o));
         }
         return collection;
@@ -1110,7 +1092,6 @@ public class EntitySearcher {
             @Nonnull Iterable<OWLOntology> ontologies) {
         List<OWLIndividual> list = new ArrayList<>();
         for (OWLOntology o : ontologies) {
-            assert o != null;
             list.addAll(getIndividuals(e, o));
         }
         return list;
@@ -1191,7 +1172,6 @@ public class EntitySearcher {
             @Nonnull Iterable<OWLOntology> ontologies) {
         List<OWLClassExpression> list = new ArrayList<>();
         for (OWLOntology o : ontologies) {
-            assert o != null;
             list.addAll(getDomains(e, o));
         }
         return list;
@@ -1250,7 +1230,6 @@ public class EntitySearcher {
             @Nonnull Iterable<OWLOntology> ontologies) {
         List<OWLDataRange> list = new ArrayList<>();
         for (OWLOntology o : ontologies) {
-            assert o != null;
             list.addAll(getRanges(e, o));
         }
         return list;
@@ -1273,7 +1252,6 @@ public class EntitySearcher {
             @Nonnull Iterable<OWLOntology> ontologies) {
         List<OWLClassExpression> list = new ArrayList<>();
         for (OWLOntology o : ontologies) {
-            assert o != null;
             list.addAll(getDomains(e, o));
         }
         return list;
@@ -1314,7 +1292,6 @@ public class EntitySearcher {
             @Nonnull Iterable<OWLOntology> ontologies) {
         List<OWLClassExpression> list = new ArrayList<>();
         for (OWLOntology o : ontologies) {
-            assert o != null;
             list.addAll(getRanges(e, o));
         }
         return list;
@@ -1354,7 +1331,6 @@ public class EntitySearcher {
             @Nonnull Iterable<OWLOntology> ontologies) {
         List<IRI> list = new ArrayList<>();
         for (OWLOntology o : ontologies) {
-            assert o != null;
             list.addAll(getDomains(e, o));
         }
         return list;
@@ -1393,7 +1369,6 @@ public class EntitySearcher {
             @Nonnull Iterable<OWLOntology> ontologies) {
         List<IRI> list = new ArrayList<>();
         for (OWLOntology o : ontologies) {
-            assert o != null;
             list.addAll(getRanges(e, o));
         }
         return list;
@@ -1425,7 +1400,6 @@ public class EntitySearcher {
     public static boolean isTransitive(@Nonnull OWLObjectPropertyExpression e,
             @Nonnull Iterable<OWLOntology> ontologies) {
         for (OWLOntology o : ontologies) {
-            assert o != null;
             if (isTransitive(e, o)) {
                 return true;
             }
@@ -1459,7 +1433,6 @@ public class EntitySearcher {
     public static boolean isSymmetric(@Nonnull OWLObjectPropertyExpression e,
             @Nonnull Iterable<OWLOntology> ontologies) {
         for (OWLOntology o : ontologies) {
-            assert o != null;
             if (isSymmetric(e, o)) {
                 return true;
             }
@@ -1493,7 +1466,6 @@ public class EntitySearcher {
     public static boolean isAsymmetric(@Nonnull OWLObjectPropertyExpression e,
             @Nonnull Iterable<OWLOntology> ontologies) {
         for (OWLOntology o : ontologies) {
-            assert o != null;
             if (isAsymmetric(e, o)) {
                 return true;
             }
@@ -1527,7 +1499,6 @@ public class EntitySearcher {
     public static boolean isReflexive(@Nonnull OWLObjectPropertyExpression e,
             @Nonnull Iterable<OWLOntology> ontologies) {
         for (OWLOntology o : ontologies) {
-            assert o != null;
             if (isReflexive(e, o)) {
                 return true;
             }
@@ -1561,7 +1532,6 @@ public class EntitySearcher {
     public static boolean isIrreflexive(@Nonnull OWLObjectPropertyExpression e,
             @Nonnull Iterable<OWLOntology> ontologies) {
         for (OWLOntology o : ontologies) {
-            assert o != null;
             if (isIrreflexive(e, o)) {
                 return true;
             }
@@ -1596,7 +1566,6 @@ public class EntitySearcher {
             @Nonnull OWLObjectPropertyExpression e,
             @Nonnull Iterable<OWLOntology> ontologies) {
         for (OWLOntology o : ontologies) {
-            assert o != null;
             if (isInverseFunctional(e, o)) {
                 return true;
             }
@@ -1630,7 +1599,6 @@ public class EntitySearcher {
     public static boolean isFunctional(@Nonnull OWLObjectPropertyExpression e,
             @Nonnull Iterable<OWLOntology> ontologies) {
         for (OWLOntology o : ontologies) {
-            assert o != null;
             if (isFunctional(e, o)) {
                 return true;
             }
@@ -1664,7 +1632,6 @@ public class EntitySearcher {
     public static boolean isFunctional(@Nonnull OWLDataProperty e,
             @Nonnull Iterable<OWLOntology> ontologies) {
         for (OWLOntology o : ontologies) {
-            assert o != null;
             if (isFunctional(e, o)) {
                 return true;
             }
@@ -1699,7 +1666,6 @@ public class EntitySearcher {
     public static boolean isDefined(@Nonnull OWLClass c,
             @Nonnull Iterable<OWLOntology> ontologies) {
         for (OWLOntology o : ontologies) {
-            assert o != null;
             if (isDefined(c, o)) {
                 return true;
             }
@@ -1740,7 +1706,6 @@ public class EntitySearcher {
     public static boolean containsAxiom(@Nonnull OWLAxiom a,
             @Nonnull Iterable<OWLOntology> ontologies, boolean imports) {
         for (OWLOntology o : ontologies) {
-            assert o != null;
             if (containsAxiom(a, o, imports)) {
                 return true;
             }
@@ -1781,7 +1746,6 @@ public class EntitySearcher {
     public static boolean containsAxiomIgnoreAnnotations(@Nonnull OWLAxiom a,
             @Nonnull Iterable<OWLOntology> ontologies, boolean imports) {
         for (OWLOntology o : ontologies) {
-            assert o != null;
             if (containsAxiomIgnoreAnnotations(a, o, imports)) {
                 return true;
             }
@@ -1837,7 +1801,6 @@ public class EntitySearcher {
             @Nonnull Iterable<OWLOntology> ontologies) {
         Collection<OWLLiteral> collection = new ArrayList<>();
         for (OWLOntology o : ontologies) {
-            assert o != null;
             collection.addAll(getDataPropertyValues(i, p, o));
         }
         return collection;
@@ -1874,7 +1837,6 @@ public class EntitySearcher {
             @Nonnull Iterable<OWLOntology> ontologies) {
         Collection<OWLIndividual> collection = new ArrayList<>();
         for (OWLOntology o : ontologies) {
-            assert o != null;
             collection.addAll(getObjectPropertyValues(i, p, o));
         }
         return collection;
@@ -1912,7 +1874,6 @@ public class EntitySearcher {
             @Nonnull Iterable<OWLOntology> ontologies) {
         Collection<OWLLiteral> collection = new ArrayList<>();
         for (OWLOntology o : ontologies) {
-            assert o != null;
             collection.addAll(getNegativeDataPropertyValues(i, p, o));
         }
         return collection;
@@ -1950,7 +1911,6 @@ public class EntitySearcher {
             @Nonnull Iterable<OWLOntology> ontologies) {
         Collection<OWLIndividual> collection = new ArrayList<>();
         for (OWLOntology o : ontologies) {
-            assert o != null;
             collection.addAll(getNegativeObjectPropertyValues(i, p, o));
         }
         return collection;
@@ -1984,7 +1944,6 @@ public class EntitySearcher {
             @Nonnull OWLDataPropertyExpression p,
             @Nonnull Iterable<OWLOntology> ontologies) {
         for (OWLOntology o : ontologies) {
-            assert o != null;
             if (hasDataPropertyValues(i, p, o)) {
                 return true;
             }
@@ -2022,7 +1981,6 @@ public class EntitySearcher {
             @Nonnull OWLObjectPropertyExpression p,
             @Nonnull Iterable<OWLOntology> ontologies) {
         for (OWLOntology o : ontologies) {
-            assert o != null;
             if (hasObjectPropertyValues(i, p, o)) {
                 return true;
             }
@@ -2060,7 +2018,6 @@ public class EntitySearcher {
             @Nonnull OWLIndividual i, @Nonnull OWLDataPropertyExpression p,
             @Nonnull Iterable<OWLOntology> ontologies) {
         for (OWLOntology o : ontologies) {
-            assert o != null;
             if (hasNegativeDataPropertyValues(i, p, o)) {
                 return true;
             }
@@ -2098,7 +2055,6 @@ public class EntitySearcher {
             @Nonnull OWLIndividual i, @Nonnull OWLObjectPropertyExpression p,
             @Nonnull Iterable<OWLOntology> ontologies) {
         for (OWLOntology o : ontologies) {
-            assert o != null;
             if (hasNegativeObjectPropertyValues(i, p, o)) {
                 return true;
             }
@@ -2139,7 +2095,6 @@ public class EntitySearcher {
             @Nonnull OWLDataPropertyExpression p, @Nonnull OWLLiteral lit,
             @Nonnull Iterable<OWLOntology> ontologies) {
         for (OWLOntology o : ontologies) {
-            assert o != null;
             if (hasDataPropertyValue(i, p, lit, o)) {
                 return true;
             }
@@ -2180,7 +2135,6 @@ public class EntitySearcher {
             @Nonnull OWLObjectPropertyExpression p, @Nonnull OWLIndividual j,
             @Nonnull Iterable<OWLOntology> ontologies) {
         for (OWLOntology o : ontologies) {
-            assert o != null;
             if (hasObjectPropertyValue(i, p, j, o)) {
                 return true;
             }
@@ -2222,7 +2176,6 @@ public class EntitySearcher {
             @Nonnull OWLIndividual i, @Nonnull OWLDataPropertyExpression p,
             @Nonnull OWLLiteral lit, @Nonnull Iterable<OWLOntology> ontologies) {
         for (OWLOntology o : ontologies) {
-            assert o != null;
             if (hasNegativeDataPropertyValue(i, p, lit, o)) {
                 return true;
             }
@@ -2266,7 +2219,6 @@ public class EntitySearcher {
                     @Nonnull OWLIndividual j,
                     @Nonnull Iterable<OWLOntology> ontologies) {
         for (OWLOntology o : ontologies) {
-            assert o != null;
             if (hasNegativeObjectPropertyValue(i, p, j, o)) {
                 return true;
             }
@@ -2307,9 +2259,7 @@ public class EntitySearcher {
                     @Nonnull Iterable<OWLOntology> ontologies) {
         Multimap<OWLDataPropertyExpression, OWLLiteral> collection = LinkedListMultimap
                 .create();
-        assert collection != null;
         for (OWLOntology o : ontologies) {
-            assert o != null;
             collection.putAll(getDataPropertyValues(i, o));
         }
         return collection;
@@ -2342,7 +2292,6 @@ public class EntitySearcher {
      *        ontologies to search
      * @return property values
      */
-    @SuppressWarnings("null")
     @Nonnull
     public static Multimap<OWLObjectPropertyExpression, OWLIndividual>
             getObjectPropertyValues(@Nonnull OWLIndividual i,
@@ -2362,7 +2311,6 @@ public class EntitySearcher {
      *        ontology to search
      * @return property values
      */
-    @SuppressWarnings("null")
     @Nonnull
     public static Multimap<OWLObjectPropertyExpression, OWLIndividual>
             getNegativeObjectPropertyValues(@Nonnull OWLIndividual i,
@@ -2383,7 +2331,6 @@ public class EntitySearcher {
      *        ontology to search
      * @return property values
      */
-    @SuppressWarnings("null")
     @Nonnull
     public static Multimap<OWLDataPropertyExpression, OWLLiteral>
             getNegativeDataPropertyValues(@Nonnull OWLIndividual i,
@@ -2404,7 +2351,6 @@ public class EntitySearcher {
      *        ontologies to search
      * @return property values
      */
-    @SuppressWarnings("null")
     @Nonnull
     public static Multimap<OWLObjectPropertyExpression, OWLIndividual>
             getNegativeObjectPropertyValues(@Nonnull OWLIndividual i,
@@ -2424,7 +2370,6 @@ public class EntitySearcher {
      *        ontologies to search
      * @return property values
      */
-    @SuppressWarnings("null")
     @Nonnull
     public static Multimap<OWLDataPropertyExpression, OWLLiteral>
             getNegativeDataPropertyValues(@Nonnull OWLIndividual i,
@@ -2464,7 +2409,6 @@ public class EntitySearcher {
             @Nonnull Iterable<OWLOntology> ontologies) {
         Collection<OWLObjectPropertyExpression> collection = new ArrayList<>();
         for (OWLOntology o : ontologies) {
-            assert o != null;
             collection.addAll(getInverses(e, o));
         }
         return collection;
@@ -2496,7 +2440,6 @@ public class EntitySearcher {
             @Nonnull Iterable<OWLOntology> ontologies) {
         Collection<OWLIndividual> list = new ArrayList<>();
         for (OWLOntology o : ontologies) {
-            assert o != null;
             list.addAll(getInstances(e, o));
         }
         return list;
@@ -2528,7 +2471,6 @@ public class EntitySearcher {
                     @Nonnull Iterable<OWLOntology> ontologies) {
         Collection<OWLClassExpression> list = new ArrayList<>();
         for (OWLOntology o : ontologies) {
-            assert o != null;
             list.addAll(getTypes(e, o));
         }
         return list;

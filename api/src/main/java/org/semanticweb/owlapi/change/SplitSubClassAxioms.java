@@ -73,14 +73,12 @@ public class SplitSubClassAxioms extends AbstractCompositeOntologyChange {
             @Nonnull OWLDataFactory dataFactory) {
         super(dataFactory);
         for (OWLOntology ont : ontologies) {
-            assert ont != null;
             for (OWLSubClassOfAxiom ax : ont.getAxioms(AxiomType.SUBCLASS_OF)) {
                 ConjunctSplitter splitter = new ConjunctSplitter();
                 ax.getSuperClass().accept(splitter);
                 if (splitter.result.size() > 1) {
                     addChange(new RemoveAxiom(ont, ax));
                     for (OWLClassExpression desc : splitter.result) {
-                        assert desc != null;
                         OWLAxiom replAx = getDataFactory()
                                 .getOWLSubClassOfAxiom(ax.getSubClass(), desc);
                         addChange(new AddAxiom(ont, replAx));

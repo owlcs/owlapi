@@ -88,7 +88,6 @@ abstract class AbstractState {
             String nsIRI = atts.getURI(i);
             String localName = atts.getLocalName(i);
             String value = atts.getValue(i);
-            assert value != null;
             if (!XMLNS.equals(nsIRI)
                     && !XMLLANG.equals(localName)
                     && !(RDFNS.equals(nsIRI) && (ATTR_ID.equals(localName)

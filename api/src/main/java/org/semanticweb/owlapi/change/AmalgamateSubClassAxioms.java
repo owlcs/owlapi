@@ -56,13 +56,11 @@ public class AmalgamateSubClassAxioms extends AbstractCompositeOntologyChange {
         for (OWLOntology ont : checkNotNull(ontologies,
                 "ontologies cannot be null")) {
             for (OWLClass cls : ont.getClassesInSignature()) {
-                assert cls != null;
                 Set<OWLSubClassOfAxiom> axioms = ont
                         .getSubClassAxiomsForSubClass(cls);
                 if (axioms.size() > 1) {
                     Set<OWLClassExpression> superClasses = new HashSet<>();
                     for (OWLSubClassOfAxiom ax : axioms) {
-                        assert ax != null;
                         addChange(new RemoveAxiom(ont, ax));
                         superClasses.add(ax.getSuperClass());
                     }

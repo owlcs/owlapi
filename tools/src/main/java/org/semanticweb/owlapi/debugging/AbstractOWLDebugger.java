@@ -80,7 +80,6 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
         for (OWLOntology ont : owlOntologyManager
                 .getImportsClosure(originalOntology)) {
             for (OWLAxiom ax : ont.getLogicalAxioms()) {
-                assert ax != null;
                 changes.add(new AddAxiom(ontology, ax));
             }
         }
@@ -146,7 +145,6 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
         // We go through the current mups, axiom by axiom, and extend the tree
         // with edges for each axiom
         for (OWLAxiom axiom : mups) {
-            assert axiom != null;
             // Remove the current axiom from the ontology
             owlOntologyManager.applyChange(new RemoveAxiom(ontology, axiom));
             currentPathContents.add(axiom);

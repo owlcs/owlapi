@@ -46,7 +46,6 @@ public class BuiltInDatatypesTestCase extends TestBase {
     @Test
     public void testFailure() {
         for (IRI type : OWL2Datatype.getDatatypeIRIs()) {
-            assert type != null;
             OWLDatatype datatype = df.getOWLDatatype(type);
             if (datatype.isBuiltIn()) {
                 OWL2Datatype builtInDatatype = datatype.getBuiltInDatatype();

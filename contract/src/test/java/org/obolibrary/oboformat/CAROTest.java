@@ -20,12 +20,10 @@ public class CAROTest extends OboFormatTestBasics {
         OBODoc obodoc = parseOBOFile("caro.obo");
         assertTrue(obodoc.getTermFrames().size() > 2);
         Frame cc = obodoc.getTermFrame("CARO:0000014");
-        assert cc != null;
         assertEquals("cell component", cc.getTagValue(OboFormatTag.TAG_NAME));
         assertEquals("Anatomical structure that is a direct part of the cell.",
                 cc.getTagValue(OboFormatTag.TAG_DEF));
         Clause dc = cc.getClause(OboFormatTag.TAG_DEF);
-        assert dc != null;
         Collection<Xref> dcxs = dc.getXrefs();
         assertEquals("CARO:MAH", dcxs.iterator().next().getIdref());
         /*

@@ -64,7 +64,6 @@ public class OWLOntologyIRIChanger {
      *         specified ontology, and also update the imports declarations in
      *         any ontologies which import the specified ontology.
      */
-    @SuppressWarnings("null")
     @Nonnull
     public List<OWLOntologyChange> getChanges(@Nonnull OWLOntology ontology,
             @Nonnull IRI newIRI) {
@@ -72,7 +71,6 @@ public class OWLOntologyIRIChanger {
         changes.add(new SetOntologyID(ontology, new OWLOntologyID(Optional
                 .of(newIRI), ontology.getOntologyID().getVersionIRI())));
         for (OWLOntology ont : owlOntologyManager.getOntologies()) {
-            assert ont != null;
             for (OWLImportsDeclaration decl : ont.getImportsDeclarations()) {
                 if (decl.getIRI().equals(
                         ontology.getOntologyID().getOntologyIRI().get())) {

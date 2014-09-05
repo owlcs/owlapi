@@ -109,7 +109,6 @@ public class CreateValuePartition extends AbstractCompositeOntologyChange {
         // 1) Make the classes which represent the values, subclasses of the
         // value partition class
         for (OWLClassExpression valuePartitionValue : valuePartitionClasses) {
-            assert valuePartitionValue != null;
             addChange(new AddAxiom(targetOntology, getDataFactory()
                     .getOWLSubClassOfAxiom(valuePartitionValue,
                             valuePartitionClass)));

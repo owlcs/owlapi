@@ -219,12 +219,10 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
         PriorityCollection<OWLParserFactory> candidateParsers = parsers;
         if (documentSource.isFormatKnown()) {
             OWLDocumentFormat format = documentSource.getFormat();
-            assert format != null;
             candidateParsers = getParsersByFormat(format, parsers);
         }
         if (candidateParsers.isEmpty() && documentSource.isMIMETypeKnown()) {
             String mimeType = documentSource.getMIMEType();
-            assert mimeType != null;
             candidateParsers = getParserCandidatesByMIME(mimeType, parsers);
         }
         if (candidateParsers.isEmpty()) {

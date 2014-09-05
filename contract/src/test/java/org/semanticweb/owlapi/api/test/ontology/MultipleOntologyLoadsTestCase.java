@@ -125,7 +125,6 @@ public class MultipleOntologyLoadsTestCase extends TestBase {
     public void testMultipleVersionLoadsNoOntologyVersionIRIFirstTime()
             throws Exception {
         Optional<IRI> absent = Optional.<IRI> absent();
-        assert absent != null;
         OWLOntologyID initialUniqueOWLOntologyID = new OWLOntologyID(i139,
                 absent);
         OWLOntology initialOntology = m

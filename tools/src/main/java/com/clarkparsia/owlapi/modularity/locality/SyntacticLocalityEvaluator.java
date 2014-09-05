@@ -336,7 +336,6 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
             } else {
                 boolean nonBottomEquivDescFound = false;
                 for (OWLClassExpression desc : disjs) {
-                    assert desc != null;
                     if (!bottomEvaluator.isBottomEquivalent(desc,
                             getSignature(), localityCls)) {
                         if (nonBottomEquivDescFound) {
@@ -437,7 +436,6 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                 // because lhs could be bot
                 if (!getSignature().contains(lhs)) {
                     for (OWLClassExpression desc : rhs) {
-                        assert desc != null;
                         if (!bottomEvaluator.isBottomEquivalent(desc,
                                 getSignature(), localityCls)) {
                             isLocal = false;
@@ -456,7 +454,6 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                 if (!getSignature().contains(lhs)) {
                     boolean topEquivDescFound = false;
                     for (OWLClassExpression desc : rhs) {
-                        assert desc != null;
                         if (!bottomEvaluator.isBottomEquivalent(desc,
                                 getSignature(), localityCls)) {
                             if (topEvaluator.isTopEquivalent(desc,
@@ -491,7 +488,6 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
             Iterator<OWLClassExpression> eqs = axiom.getClassExpressions()
                     .iterator();
             OWLClassExpression first = eqs.next();
-            assert first != null;
             // axiom is local if it contains a single class expression
             if (!eqs.hasNext()) {
                 return;
@@ -512,7 +508,6 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                 // expressions
                 while (isLocal && eqs.hasNext()) {
                     OWLClassExpression next = eqs.next();
-                    assert next != null;
                     // first class expr. was BOTTOM, so this one should be
                     // BOTTOM too
                     if (!bottomEvaluator.isBottomEquivalent(next,
@@ -525,7 +520,6 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                 // expressions
                 while (isLocal && eqs.hasNext()) {
                     OWLClassExpression next = eqs.next();
-                    assert next != null;
                     // first class expr. was TOP, so this one should be TOP too
                     if (!topEvaluator.isTopEquivalent(next, getSignature(),
                             localityCls)) {
@@ -1120,7 +1114,6 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         @Override
         public void visit(OWLObjectIntersectionOf ce) {
             for (OWLClassExpression conj : ce.getOperands()) {
-                assert conj != null;
                 if (isBottomEquivalent(conj)) {
                     isBottomEquivalent = true;
                     return;
@@ -1213,7 +1206,6 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         @Override
         public void visit(OWLObjectUnionOf ce) {
             for (OWLClassExpression disj : ce.getOperands()) {
-                assert disj != null;
                 if (!isBottomEquivalent(disj)) {
                     isBottomEquivalent = false;
                     return;
@@ -1488,7 +1480,6 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         @Override
         public void visit(OWLObjectIntersectionOf ce) {
             for (OWLClassExpression conj : ce.getOperands()) {
-                assert conj != null;
                 if (!isTopEquivalent(conj)) {
                     isTopEquivalent = false;
                     return;
@@ -1587,7 +1578,6 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         @Override
         public void visit(OWLObjectUnionOf ce) {
             for (OWLClassExpression conj : ce.getOperands()) {
-                assert conj != null;
                 if (isTopEquivalent(conj)) {
                     isTopEquivalent = true;
                     return;

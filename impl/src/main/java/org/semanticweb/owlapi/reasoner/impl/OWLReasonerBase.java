@@ -29,8 +29,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.model.parameters.AxiomAnnotations;
+import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.reasoner.BufferingMode;
 import org.semanticweb.owlapi.reasoner.FreshEntityPolicy;
 import org.semanticweb.owlapi.reasoner.IndividualNodeSetPolicy;
@@ -192,7 +192,6 @@ public abstract class OWLReasonerBase implements OWLReasoner {
             }
         }
         for (OWLAxiom ax : reasonerAxioms) {
-            assert ax != null;
             if (!rootOntology.containsAxiom(ax, Imports.INCLUDED,
                     AxiomAnnotations.CONSIDER_AXIOM_ANNOTATIONS)) {
                 removed.add(ax);

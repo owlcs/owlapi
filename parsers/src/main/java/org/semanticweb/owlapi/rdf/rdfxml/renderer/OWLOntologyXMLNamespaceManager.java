@@ -92,17 +92,14 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
         }
         Set<OWLEntity> entities = getEntitiesThatRequireNamespaces();
         for (OWLEntity ent : entities) {
-            assert ent != null;
             processEntity(ent);
         }
         Map<String, String> ns2prefixMap = namespaceUtil
                 .getNamespace2PrefixMap();
         for (String ns : ns2prefixMap.keySet()) {
-            assert ns != null;
             if (!Namespaces.OWL11.inNamespace(ns)
                     && !Namespaces.OWL11XML.inNamespace(ns)) {
                 String prefix = ns2prefixMap.get(ns);
-                assert prefix != null;
                 setPrefix(prefix, ns);
             }
         }

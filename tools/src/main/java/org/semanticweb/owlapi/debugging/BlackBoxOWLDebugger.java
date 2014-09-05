@@ -145,7 +145,6 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
             temporaryAxioms.add(owlOntologyManager.getOWLDataFactory()
                     .getOWLEquivalentClassesAxiom(operands));
             for (OWLAxiom ax : temporaryAxioms) {
-                assert ax != null;
                 owlOntologyManager.applyChange(new AddAxiom(getOWLOntology(),
                         ax));
             }
@@ -160,7 +159,6 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
         currentClass = setupDebuggingClass(cls);
         generateSOSAxioms();
         for (OWLAxiom ax : temporaryAxioms) {
-            assert ax != null;
             owlOntologyManager
                     .applyChange(new RemoveAxiom(getOWLOntology(), ax));
         }
@@ -188,7 +186,6 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
             }
             // Collect the entities that have been used in the axiom
             for (OWLEntity curObj : ax.getSignature()) {
-                assert curObj != null;
                 if (!objectsExpandedWithDefiningAxioms.contains(curObj)) {
                     int added = expandWithDefiningAxioms(curObj, remainingSpace);
                     axiomsAdded += added;
@@ -217,7 +214,6 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
             }
             // Keep track of the number of axioms that have been added
             for (OWLEntity curObj : ax.getSignature()) {
-                assert curObj != null;
                 if (!objectsExpandedWithReferencingAxioms.contains(curObj)) {
                     int added = expandWithReferencingAxioms(curObj,
                             expansionLimit);
@@ -404,11 +400,9 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
         owlOntologyManager.getIRIMappers().remove(mapper);
         List<AddAxiom> changes = new ArrayList<>();
         for (OWLAxiom ax : debuggingAxioms) {
-            assert ax != null;
             changes.add(new AddAxiom(getDebuggingOntology(), ax));
         }
         for (OWLAxiom ax : temporaryAxioms) {
-            assert ax != null;
             changes.add(new AddAxiom(getDebuggingOntology(), ax));
         }
         // Ensure the ontology contains the signature of the class which is

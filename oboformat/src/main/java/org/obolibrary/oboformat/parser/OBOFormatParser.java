@@ -429,7 +429,6 @@ public class OBOFormatParser {
             for (String tag : f.getTags()) {
                 OboFormatTag tagConstant = OBOFormatConstants.getTag(tag);
                 Clause c = f.getClause(tag);
-                assert c != null;
                 if (tagConstant == OboFormatTag.TAG_IS_A
                         || tagConstant == OboFormatTag.TAG_INTERSECTION_OF
                         || tagConstant == OboFormatTag.TAG_UNION_OF
@@ -1239,7 +1238,6 @@ public class OBOFormatParser {
     private boolean parseQual(@Nonnull Clause cl) {
         parseZeroOrMoreWs();
         String rest = stream.rest();
-        assert rest != null;
         if (!rest.contains("=")) {
             error("Missing '=' in trailing qualifier block. This might happen for not properly escaped '{', '}' chars in comments.");
         }
@@ -1407,7 +1405,6 @@ public class OBOFormatParser {
     private String
             getParseUntil(@Nonnull String compl, boolean commaWhitespace) {
         String r = stream.rest();
-        assert r != null;
         int i = 0;
         boolean hasEscapedChars = false;
         while (i < r.length()) {

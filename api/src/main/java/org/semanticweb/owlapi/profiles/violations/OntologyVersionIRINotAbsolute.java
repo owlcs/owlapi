@@ -62,7 +62,6 @@ public class OntologyVersionIRINotAbsolute extends OWLProfileViolation {
                 getExpression());
     }
 
-    @SuppressWarnings("null")
     @Override
     public List<OWLOntologyChange> repair() {
         // XXX arbitrary choice

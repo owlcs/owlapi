@@ -170,8 +170,6 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
             public int compare(OWLAxiom o1, OWLAxiom o2) {
                 // The axiom that appears in most MUPS has the lowest index
                 // in the list
-                assert o1 != null;
-                assert o2 != null;
                 int occ1 = getOccurrences(o1, allMups);
                 int occ2 = getOccurrences(o2, allMups);
                 return -occ1 + occ2;
@@ -259,7 +257,6 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
                 return;
             }
             OWLAxiom axiom = orderedMups.get(0);
-            assert axiom != null;
             orderedMups.remove(0);
             if (allMups.size() == maxExplanations) {
                 LOGGER.info("Computed {} explanations", maxExplanations);
@@ -375,7 +372,6 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
         LOGGER.info("Restoring axiom: {}", axiom);
         // Remove any temporary declarations
         for (OWLDeclarationAxiom decl : temporaryDeclarations) {
-            assert decl != null;
             OntologyUtils.removeAxiom(decl, getReasoner().getRootOntology()
                     .getImportsClosure(), getOntologyManager());
         }
@@ -433,7 +429,6 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
                 getOntologyManager());
         collectTemporaryDeclarations(axiom, temporaryDeclarations);
         for (OWLDeclarationAxiom decl : temporaryDeclarations) {
-            assert decl != null;
             OntologyUtils.addAxiom(decl, getReasoner().getRootOntology()
                     .getImportsClosure(), getOntologyManager());
         }
@@ -443,7 +438,6 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
     private void collectTemporaryDeclarations(@Nonnull OWLAxiom axiom,
             @Nonnull List<OWLDeclarationAxiom> temporaryDeclarations) {
         for (OWLEntity e : getSignature(axiom)) {
-            assert e != null;
             boolean referenced = getReasoner().getRootOntology().isDeclared(e,
                     INCLUDED);
             if (!referenced) {

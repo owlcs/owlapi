@@ -138,19 +138,16 @@ public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements
         return visitor.visit(this);
     }
 
-    @SuppressWarnings("null")
     @Override
     public Optional<IRI> asIRI() {
         return Optional.absent();
     }
 
-    @SuppressWarnings("null")
     @Override
     public Optional<OWLAnonymousIndividual> asAnonymousIndividual() {
         return Optional.<OWLAnonymousIndividual> of(this);
     }
 
-    @SuppressWarnings("null")
     @Override
     public Optional<OWLLiteral> asLiteral() {
         return Optional.absent();

@@ -348,7 +348,6 @@ public class OWL2ELProfile implements OWLProfile {
                     if (!chain.isEmpty()) {
                         OWLObjectPropertyExpression lastProperty = chain
                                 .get(chain.size() - 1);
-                        assert lastProperty != null;
                         boolean rngPresent = false;
                         for (OWLOntology ont : getCurrentOntology()
                                 .getImportsClosure()) {

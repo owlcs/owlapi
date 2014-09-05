@@ -473,7 +473,6 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
         // Adding all entity declaration axioms
         // Adding all entity annotation axioms
         for (OWLEntity entity : sig) {
-            assert entity != null;
             Set<OWLDeclarationAxiom> declarationAxioms = ontology
                     .getDeclarationAxioms(entity);
             enrichedModule.addAll(declarationAxioms);
@@ -810,7 +809,6 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
         OWLOntology newOnt = manager.createOntology(iri);
         LinkedList<AddAxiom> addaxs = new LinkedList<>();
         for (OWLAxiom ax : axs) {
-            assert ax != null;
             addaxs.add(new AddAxiom(newOnt, ax));
         }
         manager.applyChanges(addaxs);

@@ -667,7 +667,6 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
         writeOpenBracket();
         write(ONE_OF);
         for (OWLIndividual individual : ce.getIndividuals()) {
-            assert individual != null;
             write(individual);
         }
         writeCloseBracket();

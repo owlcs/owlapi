@@ -45,20 +45,16 @@ public class InferredPropertyAssertionGenerator extends
         checkNotNull(entity, "entity cannot be null");
         for (OWLObjectProperty prop : reasoner.getRootOntology()
                 .getObjectPropertiesInSignature(INCLUDED)) {
-            assert prop != null;
             for (OWLNamedIndividual value : reasoner.getObjectPropertyValues(
                     entity, prop).getFlattened()) {
-                assert value != null;
                 result.add(dataFactory.getOWLObjectPropertyAssertionAxiom(prop,
                         entity, value));
             }
         }
         for (OWLDataProperty prop : reasoner.getRootOntology()
                 .getDataPropertiesInSignature(INCLUDED)) {
-            assert prop != null;
             for (OWLLiteral value : reasoner
                     .getDataPropertyValues(entity, prop)) {
-                assert value != null;
                 result.add(dataFactory.getOWLDataPropertyAssertionAxiom(prop,
                         entity, value));
             }

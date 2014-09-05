@@ -321,15 +321,12 @@ public class OBODoc {
     public void mergeContents(@Nonnull OBODoc extDoc)
             throws FrameMergeException {
         for (Frame f : extDoc.getTermFrames()) {
-            assert f != null;
             addTermFrame(f);
         }
         for (Frame f : extDoc.getTypedefFrames()) {
-            assert f != null;
             addTypedefFrame(f);
         }
         for (Frame f : extDoc.getInstanceFrames()) {
-            assert f != null;
             addInstanceFrame(f);
         }
     }

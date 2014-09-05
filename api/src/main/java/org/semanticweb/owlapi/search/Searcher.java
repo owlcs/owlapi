@@ -266,7 +266,6 @@ public final class Searcher {
             @Nullable OWLAnnotationProperty p) {
         Set<OWLAnnotation> toReturn = new HashSet<>();
         for (OWLAxiom ax : axioms) {
-            assert ax != null;
             Set<OWLAnnotation> c = annotations(ax, p);
             toReturn.addAll(c);
         }
@@ -342,7 +341,6 @@ public final class Searcher {
             @SuppressWarnings("unused") @Nonnull Class<C> type) {
         Set<C> toReturn = new HashSet<>();
         for (OWLAxiom ax : axioms) {
-            assert ax != null;
             Set<C> c = equivalent(ax);
             toReturn.addAll(c);
         }
@@ -404,7 +402,6 @@ public final class Searcher {
             @SuppressWarnings("unused") @Nonnull Class<C> type) {
         Set<C> toReturn = new HashSet<>();
         for (OWLAxiom ax : axioms) {
-            assert ax != null;
             Set<C> c = different(ax);
             toReturn.addAll(c);
         }
@@ -464,7 +461,6 @@ public final class Searcher {
             @SuppressWarnings("unused") @Nonnull Class<C> type) {
         List<C> toReturn = new ArrayList<>();
         for (OWLAxiom ax : axioms) {
-            assert ax != null;
             C c = sub(ax);
             toReturn.add(c);
         }
@@ -506,7 +502,6 @@ public final class Searcher {
             @SuppressWarnings("unused") @Nonnull Class<C> type) {
         List<C> toReturn = new ArrayList<>();
         for (OWLAxiom ax : axioms) {
-            assert ax != null;
             C c = sup(ax);
             toReturn.add(c);
         }
@@ -582,7 +577,6 @@ public final class Searcher {
             @SuppressWarnings("unused") @Nonnull Class<C> type) {
         List<C> toReturn = new ArrayList<>();
         for (OWLAxiom ax : axioms) {
-            assert ax != null;
             C c = domain(ax);
             toReturn.add(c);
         }
@@ -639,7 +633,6 @@ public final class Searcher {
             @SuppressWarnings("unused") @Nonnull Class<C> type) {
         List<C> toReturn = new ArrayList<>();
         for (OWLAxiom ax : axioms) {
-            assert ax != null;
             C c = range(ax);
             toReturn.add(c);
         }

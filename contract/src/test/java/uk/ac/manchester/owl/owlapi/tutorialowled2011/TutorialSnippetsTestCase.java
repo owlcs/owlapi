@@ -105,7 +105,7 @@ import org.slf4j.LoggerFactory;
 import uk.ac.manchester.cs.owlapi.modularity.ModuleType;
 import uk.ac.manchester.cs.owlapi.modularity.SyntacticLocalityModuleExtractor;
 
-@SuppressWarnings({ "javadoc", "null" })
+@SuppressWarnings({ "javadoc" })
 public class TutorialSnippetsTestCase {
 
     @Nonnull
@@ -467,7 +467,6 @@ public class TutorialSnippetsTestCase {
         reasoner.precomputeInferences(InferenceType.CLASS_HIERARCHY);
         // Look up and print all direct subclasses for all classes
         for (OWLClass c : o.getClassesInSignature()) {
-            assert c != null;
             // the boolean argument specifies direct subclasses; false would
             // specify all subclasses
             // a NodeSet represents a set of Nodes.
@@ -499,7 +498,6 @@ public class TutorialSnippetsTestCase {
         reasoner.precomputeInferences(InferenceType.CLASS_HIERARCHY);
         // for each class, look up the instances
         for (OWLClass c : o.getClassesInSignature()) {
-            assert c != null;
             // the boolean argument specifies direct subclasses; false would
             // specify all subclasses
             // a NodeSet represents a set of Nodes.
@@ -508,10 +506,8 @@ public class TutorialSnippetsTestCase {
             NodeSet<OWLNamedIndividual> instances = reasoner.getInstances(c,
                     true);
             for (OWLNamedIndividual i : instances.getFlattened()) {
-                assert i != null;
                 // look up all property assertions
                 for (OWLObjectProperty op : o.getObjectPropertiesInSignature()) {
-                    assert op != null;
                     NodeSet<OWLNamedIndividual> petValuesNodeSet = reasoner
                             .getObjectPropertyValues(i, op);
                     for (OWLNamedIndividual value : petValuesNodeSet
@@ -530,7 +526,6 @@ public class TutorialSnippetsTestCase {
         OWLOntology o = loadPizzaOntology(m);
         // We want to examine the restrictions on all classes.
         for (OWLClass c : o.getClassesInSignature()) {
-            assert c != null;
             // collect the properties which are used in existential restrictions
             RestrictionVisitor visitor = new RestrictionVisitor(
                     Collections.singleton(o));
@@ -757,7 +752,6 @@ public class TutorialSnippetsTestCase {
             @Nonnull OWLReasoner reasoner, OWLClass cls) {
         for (OWLObjectPropertyExpression prop : o
                 .getObjectPropertiesInSignature()) {
-            assert prop != null;
             // To test whether an instance of A MUST have a property p with a
             // filler, check for the satisfiability of A and not (some p Thing)
             // if this is satisfiable, then there might be instances with no
@@ -911,7 +905,6 @@ public class TutorialSnippetsTestCase {
         printHierarchy(reasoner, clazz, 0, new HashSet<OWLClass>());
         /* Now print out any unsatisfiable classes */
         for (OWLClass cl : o.getClassesInSignature()) {
-            assert cl != null;
             if (!reasoner.isSatisfiable(cl)) {
                 assertNotNull(labelFor(cl, o));
                 // System.out.println("XXX: " + labelFor(cl, o));

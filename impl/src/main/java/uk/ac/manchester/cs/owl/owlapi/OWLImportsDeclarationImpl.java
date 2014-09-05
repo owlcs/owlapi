@@ -71,7 +71,6 @@ public class OWLImportsDeclarationImpl implements OWLImportsDeclaration,
     @Override
     public String toString() {
         String format = String.format("Import(%s)", iri.toQuotedString());
-        assert format != null;
         return format;
     }
 }

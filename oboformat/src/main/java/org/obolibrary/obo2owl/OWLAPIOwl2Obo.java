@@ -1240,7 +1240,6 @@ public class OWLAPIOwl2Obo {
             } else if (ann.getValue() instanceof IRI) {
                 value = getIdentifier((IRI) ann.getValue());
             }
-            assert value != null;
             QualifierValue qv = new QualifierValue(prop, value);
             c.addQualifierValue(qv);
         }
@@ -1494,31 +1493,26 @@ public class OWLAPIOwl2Obo {
                     equivalenceAxiomClauses.add(c);
                     if (exact != null) {
                         String string = exact.toString();
-                        assert string != null;
                         c.addQualifierValue(new QualifierValue("cardinality",
                                 string));
                     }
                     if (min != null) {
                         String string = min.toString();
-                        assert string != null;
                         c.addQualifierValue(new QualifierValue(
                                 "minCardinality", string));
                     }
                     if (max != null) {
                         String string = max.toString();
-                        assert string != null;
                         c.addQualifierValue(new QualifierValue(
                                 "maxCardinality", string));
                     }
                     if (allSome != null) {
                         String string = allSome.toString();
-                        assert string != null;
                         c.addQualifierValue(new QualifierValue("all_some",
                                 string));
                     }
                     if (allOnly != null) {
                         String string = allOnly.toString();
-                        assert string != null;
                         c.addQualifierValue(new QualifierValue("all_only",
                                 string));
                     }
@@ -1615,7 +1609,6 @@ public class OWLAPIOwl2Obo {
         }
         if (f != null) {
             for (OWLAnnotationAssertionAxiom a : set) {
-                assert a != null;
                 tr(a, f);
             }
             add(f);
@@ -2219,7 +2212,6 @@ public class OWLAPIOwl2Obo {
         List<Clause> normalized = new ArrayList<>();
         while (!clauses.isEmpty()) {
             Clause target = clauses.remove(0);
-            assert target != null;
             List<Clause> similar = findSimilarClauses(clauses, target);
             normalized.add(target);
             mergeSimilarIntoTarget(target, similar);

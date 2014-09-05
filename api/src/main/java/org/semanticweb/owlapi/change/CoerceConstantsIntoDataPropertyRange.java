@@ -81,9 +81,7 @@ public class CoerceConstantsIntoDataPropertyRange extends
         OWLConstantReplacer replacer = new OWLConstantReplacer(
                 getDataFactory(), map);
         for (OWLOntology ont : ontologies) {
-            assert ont != null;
             for (OWLAxiom ax : ont.getLogicalAxioms()) {
-                assert ax != null;
                 OWLAxiom dupAx = replacer.duplicateObject(ax);
                 if (!ax.equals(dupAx)) {
                     addChange(new RemoveAxiom(ont, ax));
@@ -115,7 +113,6 @@ public class CoerceConstantsIntoDataPropertyRange extends
                 @Nonnull OWLDataOneOf oneOf) {
             Set<OWLLiteral> vals = new HashSet<>();
             for (OWLLiteral con : oneOf.getValues()) {
-                assert con != null;
                 vals.add(process(prop, con));
             }
             return getDataFactory().getOWLDataOneOf(vals);

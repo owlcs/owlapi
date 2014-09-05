@@ -158,7 +158,6 @@ public class OntologyContainsAxiomTestCase extends TestBase {
         assertFalse(containsConsider(ont1, axAsubB));
         assertTrue(containsConsiderEx(ont2, axAsubB));
         assertTrue(containsConsider(ont2, axAsubB));
-        @SuppressWarnings("null")
         @Nonnull
         File savedLocation1 = folder.newFile("testont1A.owl");
         FileOutputStream out1 = new FileOutputStream(savedLocation1);
@@ -228,8 +227,6 @@ public class OntologyContainsAxiomTestCase extends TestBase {
         IRI ont1iri = ont1.getOntologyID().getOntologyIRI().get();
         OWLOntology ont2 = getOWLOntology("testont2B");
         IRI ont2iri = ont2.getOntologyID().getOntologyIRI().get();
-        assert ont1iri != null;
-        assert ont2iri != null;
         OWLImportsDeclaration ont2import = ImportsDeclaration(ont1iri);
         ont2.getOWLOntologyManager().applyChange(
                 new AddImport(ont2, ont2import));
@@ -281,7 +278,6 @@ public class OntologyContainsAxiomTestCase extends TestBase {
                 .loadOntologyFromOntologyDocument(savedLocation2);
         for (OWLOntology importedOntology : ont2L.getImports()) {
             for (OWLAxiom importedAxiom : importedOntology.getAxioms()) {
-                assert importedAxiom != null;
                 assertTrue(containsConsiderEx(importedOntology, importedAxiom));
                 assertFalse(containsConsiderEx(ont2L, importedAxiom));
             }

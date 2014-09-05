@@ -1507,14 +1507,12 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
 
     private void addAnnotationAxioms() {
         for (OWLAxiom axiom : parsedAnnotationAxioms) {
-            assert axiom != null;
             owlOntologyManager.addAxiom(ontology, axiom);
         }
     }
 
     private void removeAxiomsScheduledForRemoval() {
         for (OWLAxiom axiom : axiomsToBeRemoved) {
-            assert axiom != null;
             owlOntologyManager.removeAxiom(ontology, axiom);
         }
     }
@@ -1532,7 +1530,6 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
         } else if (ontologyIRIs.size() == 1) {
             // Exactly one ontologyIRI
             IRI ontologyIRI = ontologyIRIs.iterator().next();
-            assert ontologyIRI != null;
             if (!isAnonymousNode(ontologyIRI)) {
                 ontologyIRIToSet = Optional.of(ontologyIRI);
             }
@@ -1756,7 +1753,6 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
             } else if (!configuration.isStrict()) {
                 // Try the legacy encoding
                 for (IRI facetIRI : OWLFacet.FACET_IRIS) {
-                    assert facetIRI != null;
                     OWLLiteral val;
                     while ((val = getLiteralObject(mainNode, facetIRI, true)) != null) {
                         restrictions.add(dataFactory.getOWLFacetRestriction(
@@ -1861,7 +1857,6 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
         Set<OWLAnnotation> mainNodeAnnotations = new HashSet<>();
         Set<IRI> predicates = getPredicatesBySubject(mainNode);
         for (IRI predicate : predicates) {
-            assert predicate != null;
             if (isAnnotationProperty(predicate)) {
                 IRI resVal = getResourceObject(mainNode, predicate, true);
                 while (resVal != null) {
@@ -1930,18 +1925,14 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
             IRI... augmentingTypes) {
         Set<RDFTriple> triples = new HashSet<>();
         for (IRI predicate : getPredicatesBySubject(mainNode)) {
-            assert predicate != null;
             for (IRI object : getResourceObjects(mainNode, predicate)) {
-                assert object != null;
                 triples.add(getRDFTriple(mainNode, predicate, object));
             }
             for (OWLLiteral object : getLiteralObjects(mainNode, predicate)) {
-                assert object != null;
                 triples.add(getRDFTriple(mainNode, predicate, object));
             }
         }
         for (IRI augmentingType : augmentingTypes) {
-            assert augmentingType != null;
             triples.add(getRDFTriple(mainNode,
                     OWLRDFVocabulary.RDF_TYPE.getIRI(), augmentingType));
         }
@@ -2476,9 +2467,6 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
                     continue;
                 }
                 for (IRI object : new ArrayList<>(objects)) {
-                    assert subject != null;
-                    assert predicate != null;
-                    assert object != null;
                     iterator.handleResourceTriple(subject, predicate, object);
                 }
             }
@@ -2501,9 +2489,6 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
             for (IRI predicate : new ArrayList<>(map.keySet())) {
                 Collection<OWLLiteral> objects = map.get(predicate);
                 for (OWLLiteral object : new ArrayList<>(objects)) {
-                    assert subject != null;
-                    assert predicate != null;
-                    assert object != null;
                     iterator.handleLiteralTriple(subject, predicate, object);
                 }
             }

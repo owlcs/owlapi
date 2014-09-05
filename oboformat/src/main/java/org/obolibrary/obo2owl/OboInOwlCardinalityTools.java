@@ -195,13 +195,11 @@ public final class OboInOwlCardinalityTools {
                 OboFormatTag.TAG_IS_OBSELETE, OboFormatTag.TAG_CREATED_BY,
                 OboFormatTag.TAG_CREATION_DATE);
         for (OWLClass owlClass : ontology.getClassesInSignature(INCLUDED)) {
-            assert owlClass != null;
             checkOwlEntity(owlClass, properties, ontology, reporter, handler,
                     manager);
         }
         for (OWLObjectProperty owlProperty : ontology
                 .getObjectPropertiesInSignature(INCLUDED)) {
-            assert owlProperty != null;
             checkOwlEntity(owlProperty, properties, ontology, reporter,
                     handler, manager);
         }
@@ -247,7 +245,6 @@ public final class OboInOwlCardinalityTools {
         }
         // check cardinality constraint
         for (OWLAnnotationProperty property : groupedAnnotations.keySet()) {
-            assert property != null;
             Set<OWLAnnotation> group = groupedAnnotations.get(property);
             if (group.size() > 1) {
                 if (reporter != null) {
@@ -260,12 +257,10 @@ public final class OboInOwlCardinalityTools {
                     List<OWLAnnotation> changed = handler.handleConflict(
                             property, group);
                     for (OWLAnnotation annotation : group) {
-                        assert annotation != null;
                         manager.applyChange(new RemoveOntologyAnnotation(
                                 ontology, annotation));
                     }
                     for (OWLAnnotation annotation : changed) {
-                        assert annotation != null;
                         manager.applyChange(new AddOntologyAnnotation(ontology,
                                 annotation));
                     }
@@ -302,7 +297,6 @@ public final class OboInOwlCardinalityTools {
         }
         // check cardinality constraint
         for (OWLAnnotationProperty property : groupedAxioms.keySet()) {
-            assert property != null;
             Set<OWLAnnotationAssertionAxiom> group = groupedAxioms
                     .get(property);
             if (group.size() > 1) {
@@ -316,11 +310,9 @@ public final class OboInOwlCardinalityTools {
                     List<OWLAnnotationAssertionAxiom> changed = handler
                             .handleConflict(owlClass, property, group);
                     for (OWLAnnotationAssertionAxiom axiom : group) {
-                        assert axiom != null;
                         manager.removeAxiom(ontology, axiom);
                     }
                     for (OWLAnnotationAssertionAxiom axiom : changed) {
-                        assert axiom != null;
                         manager.addAxiom(ontology, axiom);
                     }
                 }

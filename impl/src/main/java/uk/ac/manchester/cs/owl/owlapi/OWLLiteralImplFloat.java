@@ -204,19 +204,16 @@ public class OWLLiteralImplFloat extends OWLObjectImpl implements OWLLiteral {
         return visitor.visit(this);
     }
 
-    @SuppressWarnings("null")
     @Override
     public Optional<IRI> asIRI() {
         return Optional.absent();
     }
 
-    @SuppressWarnings("null")
     @Override
     public Optional<OWLAnonymousIndividual> asAnonymousIndividual() {
         return Optional.absent();
     }
 
-    @SuppressWarnings("null")
     @Override
     public Optional<OWLLiteral> asLiteral() {
         return Optional.<OWLLiteral> of(this);

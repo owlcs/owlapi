@@ -142,7 +142,6 @@ public class MapPointer<K, V extends OWLAxiom> {
         if (visitor == null) {
             return this;
         }
-        assert visitor != null;
         if (visitor instanceof InitVisitor) {
             for (V ax : (Set<V>) i.getAxiomsByType().getValues(type)) {
                 K key = ax.accept((InitVisitor<K>) visitor);
@@ -175,7 +174,6 @@ public class MapPointer<K, V extends OWLAxiom> {
     public synchronized Iterable<K> keySet() {
         init();
         Set<K> keySet = map.keySet();
-        assert keySet != null;
         return keySet;
     }
 
@@ -309,7 +307,6 @@ public class MapPointer<K, V extends OWLAxiom> {
         return removed;
     }
 
-    @SuppressWarnings("null")
     @Nonnull
     private Iterable<V> values() {
         return Iterables.concat(map.values());

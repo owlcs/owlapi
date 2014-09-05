@@ -403,7 +403,6 @@ class DLQueryPrinter {
         sb.append("\n\n");
         if (!entities.isEmpty()) {
             for (OWLEntity entity : entities) {
-                assert entity != null;
                 sb.append('\t');
                 sb.append(shortFormProvider.getShortForm(entity));
                 sb.append('\n');
