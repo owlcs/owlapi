@@ -18,6 +18,7 @@ import gnu.trove.set.hash.THashSet;
 
 import java.lang.ref.SoftReference;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -318,7 +319,7 @@ public class MapPointer<K, V extends OWLAxiom> {
     private Set<V> get(K k) {
         THashSet<V> t = map.get(k);
         if (t == null) {
-            return CollectionFactory.emptySet();
+            return Collections.emptySet();
         }
         return t;
     }
