@@ -27,8 +27,11 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.reasoner.Node;
+import org.semanticweb.owlapi.util.CollectionFactory;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
+
+import com.google.common.collect.Sets;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
@@ -122,7 +125,7 @@ public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
     @Nonnull
     @Override
     public Set<E> getEntities() {
-        return entities;
+        return CollectionFactory.copy(entities);
     }
 
     @Override
@@ -137,10 +140,9 @@ public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
 
     @Nonnull
     @Override
-    public Set<E> getEntitiesMinus(E e) {
-        HashSet<E> result = new HashSet<>(entities);
-        result.remove(e);
-        return result;
+    public Set<E> getEntitiesMinus(final E e) {
+        return CollectionFactory.copy(Sets.filter(entities,
+                (input) -> !input.equals(e)));
     }
 
     @Nonnull
