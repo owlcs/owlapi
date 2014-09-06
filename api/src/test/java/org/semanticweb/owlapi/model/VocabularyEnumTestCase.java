@@ -12,12 +12,14 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import static org.hamcrest.CoreMatchers.startsWith;
+import static java.util.Arrays.stream;
+import static java.util.stream.Collectors.toList;
+import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.semanticweb.owlapi.vocab.Namespaces.*;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -26,6 +28,12 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.semanticweb.owlapi.vocab.DublinCoreVocabulary;
 import org.semanticweb.owlapi.vocab.Namespaces;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
+import org.semanticweb.owlapi.vocab.SKOSVocabulary;
+import org.semanticweb.owlapi.vocab.SWRLBuiltInsVocabulary;
+import org.semanticweb.owlapi.vocab.SWRLVocabulary;
+import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 /**
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
@@ -34,33 +42,57 @@ import org.semanticweb.owlapi.vocab.Namespaces;
  */
 @SuppressWarnings("javadoc")
 @RunWith(Parameterized.class)
-public class DublinCoreVocabularyTestCase {
+public class VocabularyEnumTestCase {
 
-    private final DublinCoreVocabulary vocabulary;
+    private final HasIRI iri;
+    private final HasPrefixedName name;
+    private final Namespaces expected;
 
-    public DublinCoreVocabularyTestCase(DublinCoreVocabulary vocabulary) {
-        this.vocabulary = vocabulary;
+    public VocabularyEnumTestCase(Object in, Namespaces expected) {
+        iri = (HasIRI) in;
+        name = (HasPrefixedName) in;
+        this.expected = expected;
     }
 
     @Nonnull
     @Parameterized.Parameters
     public static Collection<Object[]> getData() {
-        List<Object[]> data = new ArrayList<>();
-        for (DublinCoreVocabulary v : DublinCoreVocabulary.values()) {
-            data.add(new Object[] { v });
+        return concat(
+                stream(DublinCoreVocabulary.values()).map(
+                        (input) -> new Object[] { input, DC }),
+                stream(OWLRDFVocabulary.values())
+                        .map((input) -> new Object[] { input,
+                                input.getNamespace() }),
+                stream(OWLXMLVocabulary.values()).map(
+                        (input) -> new Object[] { input, OWL }),
+                stream(SKOSVocabulary.values()).map(
+                        (input) -> new Object[] { input, SKOS }),
+                stream(SWRLBuiltInsVocabulary.values()).map(
+                        (input) -> new Object[] { input, SWRLB }),
+                stream(SWRLVocabulary.values()).map(
+                        (input) -> new Object[] { input, SWRL }),
+                stream(XSDVocabulary.values()).map(
+                        (input) -> new Object[] { input, XSD })).collect(
+                toList());
+    }
+
+    @SafeVarargs
+    private static <T> Stream<T> concat(Stream<T>... values) {
+        Stream<T> toReturn = values[0];
+        for (int i = 1; i < values.length; i++) {
+            toReturn = Stream.concat(toReturn, values[i]);
         }
-        return data;
+        return toReturn;
     }
 
     @Test
     public void getPrefixedNameShouldStartWithDublinCorePrefixName() {
-        assertThat(vocabulary.getPrefixedName(),
-                startsWith(Namespaces.DC.getPrefixName()));
+        assertThat(name.getPrefixedName(), startsWith(expected.getPrefixName()));
     }
 
     @Test
     public void getIRIShouldReturnAnIRIThatStartsWithDublinCorePrefix() {
-        assertThat(vocabulary.getIRI().toString(),
-                startsWith(Namespaces.DC.getPrefixIRI()));
+        assertThat(iri.getIRI().getNamespace(),
+                equalTo(expected.getPrefixIRI()));
     }
 }

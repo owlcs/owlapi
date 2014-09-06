@@ -32,10 +32,11 @@ public class PunnedDeclarationsNotAddedTestCase extends TestBase {
 
     @Parameters(name = "{0}")
     public static Collection<Object[]> data() {
-        return Arrays.asList(new Object[][] {
-                { new FunctionalSyntaxDocumentFormat() },
-                { new OWLXMLDocumentFormat() }, { new RDFXMLDocumentFormat() },
-                { new TurtleDocumentFormat() }, });
+        return Arrays.asList(
+                new Object[] { new FunctionalSyntaxDocumentFormat() },
+                new Object[] { new OWLXMLDocumentFormat() },
+                new Object[] { new RDFXMLDocumentFormat() },
+                new Object[] { new TurtleDocumentFormat() });
     }
 
     @Nonnull

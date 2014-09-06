@@ -52,10 +52,8 @@ public class OWLDataFactoryImplTestCase {
     @Nonnull
     @Parameterized.Parameters
     public static Collection<Object[]> parameters() {
-        OWLDataFactoryImpl noCaching = new OWLDataFactoryImpl(false, false);
-        OWLDataFactoryImpl withCaching = new OWLDataFactoryImpl(true, false);
-        return Arrays.asList(new Object[] { noCaching },
-                new Object[] { withCaching });
+        return Arrays.asList(new Object[] { new OWLDataFactoryImpl(false, false) },
+                new Object[] { new OWLDataFactoryImpl(true, false) });
     }
 
     @Test
