@@ -16,6 +16,8 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.util.CollectionFactory;
+
 /**
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group
@@ -25,7 +27,8 @@ public interface HasDataPropertiesInSignature {
 
     /**
      * A convenience method that obtains the data properties that are in the
-     * signature of this object
+     * signature of this object. The default implementation of this method
+     * returns an empty, modifiable set.
      * 
      * @return A set containing the data properties that are in the signature of
      *         this object.The set is a subset of the signature, and is not
@@ -33,5 +36,7 @@ public interface HasDataPropertiesInSignature {
      *         changes are not reflected by the signature.
      */
     @Nonnull
-    Set<OWLDataProperty> getDataPropertiesInSignature();
+    default Set<OWLDataProperty> getDataPropertiesInSignature() {
+        return CollectionFactory.createSet();
+    }
 }

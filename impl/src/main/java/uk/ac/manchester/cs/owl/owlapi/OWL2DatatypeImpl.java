@@ -12,11 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static org.semanticweb.owlapi.util.CollectionFactory.copy;
+import static org.semanticweb.owlapi.util.CollectionFactory.createSet;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.vocab.OWL2Datatype.*;
 
-import java.util.Collections;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -25,9 +24,7 @@ import org.semanticweb.owlapi.model.DataRangeType;
 import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataRangeVisitor;
 import org.semanticweb.owlapi.model.OWLDataRangeVisitorEx;
@@ -44,6 +41,7 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
+import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.HashCode;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
@@ -281,7 +279,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
 
     @Override
     public Set<OWLEntity> getSignature() {
-        return copy(Collections.<OWLEntity> singleton(this));
+        return CollectionFactory.createSet((OWLEntity) this);
     }
 
     @Override
@@ -290,43 +288,8 @@ public class OWL2DatatypeImpl implements OWLDatatype {
     }
 
     @Override
-    public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
-        return copy(Collections.<OWLAnonymousIndividual> emptySet());
-    }
-
-    @Override
-    public Set<OWLClass> getClassesInSignature() {
-        return copy(Collections.<OWLClass> emptySet());
-    }
-
-    @Override
-    public Set<OWLDataProperty> getDataPropertiesInSignature() {
-        return copy(Collections.<OWLDataProperty> emptySet());
-    }
-
-    @Override
-    public Set<OWLObjectProperty> getObjectPropertiesInSignature() {
-        return copy(Collections.<OWLObjectProperty> emptySet());
-    }
-
-    @Override
-    public Set<OWLAnnotationProperty> getAnnotationPropertiesInSignature() {
-        return copy(Collections.emptySet());
-    }
-
-    @Override
-    public Set<OWLNamedIndividual> getIndividualsInSignature() {
-        return copy(Collections.emptySet());
-    }
-
-    @Override
     public Set<OWLDatatype> getDatatypesInSignature() {
-        return copy(Collections.singleton((OWLDatatype) this));
-    }
-
-    @Override
-    public Set<OWLClassExpression> getNestedClassExpressions() {
-        return copy(Collections.<OWLClassExpression> emptySet());
+        return createSet((OWLDatatype) this);
     }
 
     @Override

@@ -15,19 +15,13 @@ package org.semanticweb.owlapi.model;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.io.OWLOntologyLoaderMetaData;
-
-import com.google.common.collect.LinkedListMultimap;
-import com.google.common.collect.Multimap;
 
 /**
  * Represents the concrete representation format of an ontology. The equality of
@@ -92,51 +86,6 @@ public abstract class OWLDocumentFormatImpl implements OWLDocumentFormat {
             }
         }
         return true;
-    }
-
-    /**
-     * @param signature
-     *        signature for the ontology
-     * @param punnedEntities
-     *        the set of entities that are known already to be punned
-     * @param add
-     *        true if missing declarations should be added. If false, no
-     *        declarations will be added.
-     * @return collection of IRIS used in illegal punnings
-     */
-    public static Collection<IRI> determineIllegalPunnings(boolean add,
-            Collection<OWLEntity> signature, Collection<IRI> punnedEntities) {
-        if (!add) {
-            return Collections.emptySet();
-        }
-        // determine what entities are illegally punned
-        Multimap<IRI, EntityType<?>> punnings = LinkedListMultimap.create();
-        for (OWLEntity e : signature) {
-            // disregard individuals as they do not give raise to illegal
-            // punnings; only keep track of punned entities, ignore the rest
-            if (!e.isOWLNamedIndividual()
-                    && punnedEntities.contains(e.getIRI())) {
-                punnings.put(e.getIRI(), e.getEntityType());
-            }
-        }
-        Collection<IRI> illegals = new HashSet<>();
-        for (IRI i : punnings.keySet()) {
-            Collection<EntityType<?>> puns = punnings.get(i);
-            if (puns.contains(EntityType.OBJECT_PROPERTY)
-                    && puns.contains(EntityType.ANNOTATION_PROPERTY)) {
-                illegals.add(i);
-            } else if (puns.contains(EntityType.DATA_PROPERTY)
-                    && puns.contains(EntityType.ANNOTATION_PROPERTY)) {
-                illegals.add(i);
-            } else if (puns.contains(EntityType.DATA_PROPERTY)
-                    && puns.contains(EntityType.OBJECT_PROPERTY)) {
-                illegals.add(i);
-            } else if (puns.contains(EntityType.DATATYPE)
-                    && puns.contains(EntityType.CLASS)) {
-                illegals.add(i);
-            }
-        }
-        return illegals;
     }
 
     @Override

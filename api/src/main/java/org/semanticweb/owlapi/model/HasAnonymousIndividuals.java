@@ -16,6 +16,8 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.util.CollectionFactory;
+
 /**
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group
@@ -25,10 +27,13 @@ public interface HasAnonymousIndividuals {
 
     /**
      * Gets the anonymous individuals occurring in this object. The set is a
-     * copy, changes are not reflected back.
+     * copy, changes are not reflected back. The default implementation of this
+     * method returns a modifiable, empty set.
      * 
      * @return A set of anonymous individuals
      */
     @Nonnull
-    Set<OWLAnonymousIndividual> getAnonymousIndividuals();
+    default Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
+        return CollectionFactory.createSet();
+    }
 }

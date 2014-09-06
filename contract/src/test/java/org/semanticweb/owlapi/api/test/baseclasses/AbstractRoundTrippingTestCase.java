@@ -25,7 +25,6 @@ import org.semanticweb.owlapi.formats.RDFJsonDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFJsonLDDocumentFormat;
 import org.semanticweb.owlapi.formats.TrigDocumentFormat;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
-import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
@@ -74,11 +73,6 @@ public abstract class AbstractRoundTrippingTestCase extends TestBase {
     @Test
     public void testManchesterOWLSyntax() throws Exception {
         roundTripOntology(ont, new ManchesterSyntaxDocumentFormat());
-    }
-
-    @Override
-    protected boolean isIgnoreDeclarationAxioms(OWLDocumentFormat format) {
-        return format instanceof ManchesterSyntaxDocumentFormat;
     }
 
     @Test

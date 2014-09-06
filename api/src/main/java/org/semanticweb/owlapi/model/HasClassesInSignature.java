@@ -16,6 +16,8 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.util.CollectionFactory;
+
 /**
  * An interface to an object that has a signature and can provide the classes
  * that are contained in its signature.
@@ -27,7 +29,8 @@ import javax.annotation.Nonnull;
 public interface HasClassesInSignature {
 
     /**
-     * Gets the classes in the signature of this object.
+     * Gets the classes in the signature of this object. The default
+     * implementation of this method returns an empty, modifiable set.
      * 
      * @return A set containing the classes that are in the signature of this
      *         object. The set is a subset of the signature, and is not backed
@@ -35,5 +38,7 @@ public interface HasClassesInSignature {
      *         not reflected by the signature.
      */
     @Nonnull
-    Set<OWLClass> getClassesInSignature();
+    default Set<OWLClass> getClassesInSignature() {
+        return CollectionFactory.createSet();
+    }
 }

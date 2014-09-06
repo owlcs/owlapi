@@ -12,27 +12,18 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import java.util.Collections;
-import java.util.Set;
-
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnnotationValueVisitor;
 import org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataVisitor;
 import org.semanticweb.owlapi.model.OWLDataVisitorEx;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
@@ -204,51 +195,6 @@ public class OWLLiteralImplString implements OWLLiteral {
     @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
-    }
-
-    @Override
-    public Set<OWLEntity> getSignature() {
-        return Collections.emptySet();
-    }
-
-    @Override
-    public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
-        return Collections.emptySet();
-    }
-
-    @Override
-    public Set<OWLClass> getClassesInSignature() {
-        return Collections.emptySet();
-    }
-
-    @Override
-    public Set<OWLAnnotationProperty> getAnnotationPropertiesInSignature() {
-        return Collections.emptySet();
-    }
-
-    @Override
-    public Set<OWLDataProperty> getDataPropertiesInSignature() {
-        return Collections.emptySet();
-    }
-
-    @Override
-    public Set<OWLObjectProperty> getObjectPropertiesInSignature() {
-        return Collections.emptySet();
-    }
-
-    @Override
-    public Set<OWLNamedIndividual> getIndividualsInSignature() {
-        return Collections.emptySet();
-    }
-
-    @Override
-    public Set<OWLDatatype> getDatatypesInSignature() {
-        return Collections.emptySet();
-    }
-
-    @Override
-    public Set<OWLClassExpression> getNestedClassExpressions() {
-        return Collections.emptySet();
     }
 
     @Override

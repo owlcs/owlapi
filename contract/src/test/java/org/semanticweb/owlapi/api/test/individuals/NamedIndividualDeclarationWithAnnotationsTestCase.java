@@ -20,7 +20,6 @@ import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractAnnotatedAxiomRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLEntity;
 
 /**
@@ -35,11 +34,6 @@ public class NamedIndividualDeclarationWithAnnotationsTestCase extends
     protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
         OWLEntity ent = NamedIndividual(iri("I"));
         return Declaration(ent, annos);
-    }
-
-    @Override
-    protected boolean isIgnoreDeclarationAxioms(OWLDocumentFormat format) {
-        return false;
     }
 
     @Override

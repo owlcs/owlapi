@@ -38,9 +38,8 @@ import org.semanticweb.owlapi.model.parameters.Imports;
  * @since 2.0.0
  */
 public interface OWLOntology extends OWLObject, HasAnnotations,
-        HasDirectImports, HasImportsClosure, HasOntologyID,
-        OWLAxiomCollection, OWLAxiomCollectionBooleanArgs,
- OWLAxiomCollectionNoArgs, OWLSignature,
+        HasDirectImports, HasImportsClosure, HasOntologyID, OWLAxiomCollection,
+        OWLAxiomCollectionBooleanArgs, OWLAxiomCollectionNoArgs, OWLSignature,
         OWLSignatureBooleanArgs, OWLAxiomIndex {
 
     /**
@@ -277,26 +276,6 @@ public interface OWLOntology extends OWLObject, HasAnnotations,
     Set<OWLClassAxiom> getGeneralClassAxioms();
 
     // References/usage
-    /**
-     * Gets the entities that are in the signature of this ontology. The
-     * signature of an ontology is the set of entities that are used to build
-     * axioms and annotations in the ontology. (See <a href=
-     * "http://www.w3.org/TR/owl2-syntax/#Entities.2C_Literals.2C_and_Anonymous_Individuals"
-     * >The OWL 2 Structural Specification</a>)
-     * 
-     * @return A set of {@code OWLEntity} objects. The set that is returned is a
-     *         copy - it will not be updated if the ontology changes. It is
-     *         therefore safe to apply changes to this ontology while iterating
-     *         over this set.
-     * @see #getClassesInSignature()
-     * @see #getObjectPropertiesInSignature()
-     * @see #getDataPropertiesInSignature()
-     * @see #getIndividualsInSignature()
-     */
-    @Nonnull
-    @Override
-    Set<OWLEntity> getSignature();
-
     /**
      * Gets the entities that are in the signature of this ontology. The
      * signature of an ontology is the set of entities that are used to build

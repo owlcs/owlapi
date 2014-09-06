@@ -19,9 +19,7 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
 
@@ -47,9 +45,4 @@ public abstract class AbstractAxiomsRoundTrippingTestCase extends
 
     @Nonnull
     protected abstract Set<? extends OWLAxiom> createAxioms();
-
-    @Override
-    protected boolean isIgnoreDeclarationAxioms(OWLDocumentFormat format) {
-        return format instanceof ManchesterSyntaxDocumentFormat;
-    }
 }

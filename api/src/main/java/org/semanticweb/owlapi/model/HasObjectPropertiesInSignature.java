@@ -16,6 +16,8 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.util.CollectionFactory;
+
 /**
  * An interface to an object that has a signature and can provide the object
  * properties that are contained in its signature.
@@ -28,7 +30,8 @@ public interface HasObjectPropertiesInSignature {
 
     /**
      * A convenience method that obtains the object properties that are in the
-     * signature of this object
+     * signature of this object. The default implementation of this method
+     * returns an empty, modifiable set.
      * 
      * @return A set containing the object properties that are in the signature
      *         of this object.The set is a subset of the signature, and is not
@@ -36,5 +39,7 @@ public interface HasObjectPropertiesInSignature {
      *         changes are not reflected by the signature.
      */
     @Nonnull
-    Set<OWLObjectProperty> getObjectPropertiesInSignature();
+    default Set<OWLObjectProperty> getObjectPropertiesInSignature() {
+        return CollectionFactory.createSet();
+    }
 }

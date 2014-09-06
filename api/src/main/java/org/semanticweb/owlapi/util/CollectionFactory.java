@@ -192,7 +192,7 @@ public class CollectionFactory {
     @Nonnull
     public static <T> Set<T> createSet() {
         // TODO large number of sets stay very small, wasting space
-        return new HashSet<>();
+        return new HashSet<>(0);
     }
 
     /**

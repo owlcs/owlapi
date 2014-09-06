@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.model;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.Serializable;
-import java.util.Set;
 
 import javax.annotation.Nonnull;
 
@@ -124,17 +123,6 @@ public abstract class OWLOntologyChange implements HasSignature, Serializable {
     public OWLOntologyChangeRecord getChangeRecord() {
         return new OWLOntologyChangeRecord(ont.getOntologyID(), getChangeData());
     }
-
-    /**
-     * Gets the signature of this ontology change. That is, the set of entities
-     * appearing in objects in this change.
-     * 
-     * @return A set of entities that correspond to the signature of this
-     *         object. The set is a copy, changes are not reflected back.
-     */
-    @Override
-    @Nonnull
-    public abstract Set<OWLEntity> getSignature();
 
     /**
      * Accepts a visitor

@@ -14,9 +14,6 @@ package org.semanticweb.owlapi.model;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.util.Collections;
-import java.util.Set;
-
 import javax.annotation.Nonnull;
 
 /**
@@ -51,11 +48,6 @@ public abstract class ImportChange extends OWLOntologyChange {
     @Nonnull
     public OWLImportsDeclaration getImportDeclaration() {
         return declaration;
-    }
-
-    @Override
-    public Set<OWLEntity> getSignature() {
-        return Collections.emptySet();
     }
 
     @Override

@@ -84,6 +84,7 @@ public abstract class TestBase {
     protected Optional<IRI> absent() {
         return Optional.absent();
     }
+
     @Nonnull
     protected <S> Set<S> singleton(S s) {
         return Collections.singleton(s);
@@ -306,11 +307,6 @@ public abstract class TestBase {
                 df.getOWLAnonymousIndividual(), df.getOWLLiteral("test2")));
         assertFalse(ax1.equals(ax2));
         assertTrue(verifyErrorIsDueToBlankNodesId(ax1, ax2));
-    }
-
-    @SuppressWarnings("unused")
-    protected boolean isIgnoreDeclarationAxioms(OWLDocumentFormat format) {
-        return true;
     }
 
     @SuppressWarnings("unused")

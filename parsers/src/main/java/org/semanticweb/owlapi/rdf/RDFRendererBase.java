@@ -257,7 +257,7 @@ public abstract class RDFRendererBase {
     }
 
     private void renderOntologyComponents() throws IOException {
-        renderInOntologySignatureEntities(OWLDocumentFormatImpl
+        renderInOntologySignatureEntities(OWLDocumentFormat
                 .determineIllegalPunnings(shouldInsertDeclarations(),
                         ontology.getSignature(),
                         ontology.getPunnedIRIs(INCLUDED)));

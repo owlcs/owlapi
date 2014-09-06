@@ -18,8 +18,6 @@ import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.Collections;
-import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -446,62 +444,9 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
         return visitor.visit(this);
     }
 
-    @Nonnull
-    @Override
-    public Set<OWLClass> getClassesInSignature() {
-        return Collections.emptySet();
-    }
-
-    @Nonnull
-    @Override
-    public Set<OWLDataProperty> getDataPropertiesInSignature() {
-        return Collections.emptySet();
-    }
-
-    @Nonnull
-    @Override
-    public Set<OWLNamedIndividual> getIndividualsInSignature() {
-        return Collections.emptySet();
-    }
-
-    @Nonnull
-    @Override
-    public Set<OWLObjectProperty> getObjectPropertiesInSignature() {
-        return Collections.emptySet();
-    }
-
-    @Nonnull
-    @Override
-    public Set<OWLEntity> getSignature() {
-        return Collections.emptySet();
-    }
-
     @Override
     public boolean containsEntityInSignature(OWLEntity owlEntity) {
         return false;
-    }
-
-    @Nonnull
-    @Override
-    public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
-        return Collections.emptySet();
-    }
-
-    @Nonnull
-    @Override
-    public Set<OWLDatatype> getDatatypesInSignature() {
-        return Collections.emptySet();
-    }
-
-    @Override
-    public Set<OWLAnnotationProperty> getAnnotationPropertiesInSignature() {
-        return Collections.emptySet();
-    }
-
-    @Nonnull
-    @Override
-    public Set<OWLClassExpression> getNestedClassExpressions() {
-        return Collections.emptySet();
     }
 
     @Override

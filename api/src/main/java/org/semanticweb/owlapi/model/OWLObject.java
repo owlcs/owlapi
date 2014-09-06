@@ -17,6 +17,8 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.util.CollectionFactory;
+
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -28,16 +30,18 @@ public interface OWLObject extends Comparable<OWLObject>, Serializable,
         HasDataPropertiesInSignature, HasIndividualsInSignature,
         HasDatatypesInSignature, HasAnnotationPropertiesInSignature {
 
-
     /**
      * Gets all of the nested (includes top level) class expressions that are
-     * used in this object
+     * used in this object. The default implementation of this method returns an
+     * empty, modifiable set.
      * 
      * @return A set of {@link org.semanticweb.owlapi.model.OWLClassExpression}s
      *         that represent the nested class expressions used in this object.
      */
     @Nonnull
-    Set<OWLClassExpression> getNestedClassExpressions();
+    default Set<OWLClassExpression> getNestedClassExpressions() {
+        return CollectionFactory.createSet();
+    }
 
     /**
      * Accepts a visitor

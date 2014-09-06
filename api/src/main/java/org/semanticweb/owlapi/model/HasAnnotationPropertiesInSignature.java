@@ -16,6 +16,8 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.util.CollectionFactory;
+
 /**
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group
@@ -25,7 +27,8 @@ public interface HasAnnotationPropertiesInSignature {
 
     /**
      * A convenience method that obtains the annotation properties that are in
-     * the signature of this object
+     * the signature of this object. Its default implementation returns an
+     * empty, modifiable set.
      * 
      * @return A set containing the annotation properties that are in the
      *         signature of this object.The set is a subset of the signature,
@@ -33,5 +36,7 @@ public interface HasAnnotationPropertiesInSignature {
      *         and changes are not reflected by the signature.
      */
     @Nonnull
-    Set<OWLAnnotationProperty> getAnnotationPropertiesInSignature();
+    default Set<OWLAnnotationProperty> getAnnotationPropertiesInSignature() {
+        return CollectionFactory.createSet();
+    }
 }
