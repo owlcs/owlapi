@@ -75,7 +75,7 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
         if (annotations.isEmpty()) {
             return Collections.emptySet();
         }
-        return getCopyOnRequestSetFromImmutableCollection(annotations);
+        return copy(annotations);
     }
 
     @Override

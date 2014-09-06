@@ -92,8 +92,7 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements
 
     @Override
     public Set<OWLPropertyExpression> getPropertyExpressions() {
-        return CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(propertyExpressions);
+        return CollectionFactory.copy(propertyExpressions);
     }
 
     @Override

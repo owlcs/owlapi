@@ -64,8 +64,7 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl
 
     @Override
     public Set<OWLIndividual> getIndividuals() {
-        return CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(values);
+        return CollectionFactory.copy(values);
     }
 
     @Override

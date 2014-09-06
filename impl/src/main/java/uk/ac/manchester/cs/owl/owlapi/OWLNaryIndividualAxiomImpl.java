@@ -57,7 +57,7 @@ public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl
 
     @Override
     public Set<OWLIndividual> getIndividuals() {
-        return getCopyOnRequestSetFromImmutableCollection(individuals);
+        return copy(individuals);
     }
 
     @Override

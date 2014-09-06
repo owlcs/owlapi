@@ -56,8 +56,7 @@ public abstract class OWLNaryBooleanClassExpressionImpl extends
 
     @Override
     public Set<OWLClassExpression> getOperands() {
-        return CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(operands);
+        return CollectionFactory.copy(operands);
     }
 
     @Override

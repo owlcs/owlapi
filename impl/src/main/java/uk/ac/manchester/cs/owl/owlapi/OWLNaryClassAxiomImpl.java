@@ -58,7 +58,7 @@ public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
 
     @Override
     public Set<OWLClassExpression> getClassExpressions() {
-        return getCopyOnRequestSetFromImmutableCollection(classExpressions);
+        return copy(classExpressions);
     }
 
     @Override

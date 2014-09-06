@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import static org.semanticweb.owlapi.util.CollectionFactory.copy;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.vocab.OWL2Datatype.*;
 
@@ -43,7 +44,6 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
-import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.HashCode;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
@@ -281,9 +281,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
 
     @Override
     public Set<OWLEntity> getSignature() {
-        return CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(Collections
-                        .<OWLEntity> singleton(this));
+        return copy(Collections.<OWLEntity> singleton(this));
     }
 
     @Override
@@ -293,58 +291,42 @@ public class OWL2DatatypeImpl implements OWLDatatype {
 
     @Override
     public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
-        return CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(Collections
-                        .<OWLAnonymousIndividual> emptySet());
+        return copy(Collections.<OWLAnonymousIndividual> emptySet());
     }
 
     @Override
     public Set<OWLClass> getClassesInSignature() {
-        return CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(Collections
-                        .<OWLClass> emptySet());
+        return copy(Collections.<OWLClass> emptySet());
     }
 
     @Override
     public Set<OWLDataProperty> getDataPropertiesInSignature() {
-        return CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(Collections
-                        .<OWLDataProperty> emptySet());
+        return copy(Collections.<OWLDataProperty> emptySet());
     }
 
     @Override
     public Set<OWLObjectProperty> getObjectPropertiesInSignature() {
-        return CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(Collections
-                        .<OWLObjectProperty> emptySet());
+        return copy(Collections.<OWLObjectProperty> emptySet());
     }
 
     @Override
     public Set<OWLAnnotationProperty> getAnnotationPropertiesInSignature() {
-        return CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(Collections
-                        .emptySet());
+        return copy(Collections.emptySet());
     }
 
     @Override
     public Set<OWLNamedIndividual> getIndividualsInSignature() {
-        return CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(Collections
-                        .emptySet());
+        return copy(Collections.emptySet());
     }
 
     @Override
     public Set<OWLDatatype> getDatatypesInSignature() {
-        return CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(Collections
-                        .singleton((OWLDatatype) this));
+        return copy(Collections.singleton((OWLDatatype) this));
     }
 
     @Override
     public Set<OWLClassExpression> getNestedClassExpressions() {
-        return CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(Collections
-                        .<OWLClassExpression> emptySet());
+        return copy(Collections.<OWLClassExpression> emptySet());
     }
 
     @Override

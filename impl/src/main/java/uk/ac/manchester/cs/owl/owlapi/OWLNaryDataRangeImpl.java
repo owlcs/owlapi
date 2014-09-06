@@ -44,8 +44,7 @@ public abstract class OWLNaryDataRangeImpl extends OWLObjectImpl implements
 
     @Override
     public Set<OWLDataRange> getOperands() {
-        return CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(operands);
+        return CollectionFactory.copy(operands);
     }
 
     @Override

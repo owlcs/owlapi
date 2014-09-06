@@ -90,8 +90,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
             signature = new WeakReference<>(set);
             anons = new WeakReference<>(anon);
         }
-        return CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(set);
+        return CollectionFactory.copy(set);
     }
 
     @Override
@@ -104,8 +103,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
         if (signature == null || verifyNotNull(signature).get() == null) {
             getSignature();
         }
-        return CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(anons.get());
+        return CollectionFactory.copy(anons.get());
     }
 
     @Override

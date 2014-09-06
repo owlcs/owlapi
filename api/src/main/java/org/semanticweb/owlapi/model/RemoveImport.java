@@ -48,9 +48,7 @@ public class RemoveImport extends ImportChange {
 
     @Override
     public Set<OWLEntity> getSignature() {
-        return CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(Collections
-                        .<OWLEntity> emptySet());
+        return CollectionFactory.copy(Collections.<OWLEntity> emptySet());
     }
 
     @Override

@@ -61,7 +61,6 @@ public abstract class OWLEntityCollectingOntologyChangeListener implements
 
     /** @return the entities which were referenced in the last change set. */
     public Set<OWLEntity> getEntities() {
-        return CollectionFactory
-                .getCopyOnRequestSetFromMutableCollection(entities);
+        return CollectionFactory.copyMutable(entities);
     }
 }

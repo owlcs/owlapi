@@ -78,8 +78,7 @@ public class RDFParserMetaData implements OWLOntologyLoaderMetaData,
 
     /** @return the set of unparsed triples, as a copy */
     public Set<RDFTriple> getUnparsedTriples() {
-        return CollectionFactory
-                .getCopyOnRequestSetFromMutableCollection(unparsedTriples);
+        return CollectionFactory.copyMutable(unparsedTriples);
     }
 
     /**

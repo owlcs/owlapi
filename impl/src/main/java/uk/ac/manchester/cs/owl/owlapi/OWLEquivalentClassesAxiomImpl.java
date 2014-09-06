@@ -137,8 +137,7 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl
                     clses.add(desc.asOWLClass());
                 }
             }
-            toReturn = CollectionFactory
-                    .getCopyOnRequestSetFromImmutableCollection(clses);
+            toReturn = CollectionFactory.copy(clses);
             namedClasses = new WeakReference<>(toReturn);
         }
         return toReturn;

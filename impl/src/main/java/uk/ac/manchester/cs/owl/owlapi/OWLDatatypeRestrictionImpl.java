@@ -93,8 +93,7 @@ public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements
 
     @Override
     public Set<OWLFacetRestriction> getFacetRestrictions() {
-        return CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(facetRestrictions);
+        return CollectionFactory.copy(facetRestrictions);
     }
 
     @Override

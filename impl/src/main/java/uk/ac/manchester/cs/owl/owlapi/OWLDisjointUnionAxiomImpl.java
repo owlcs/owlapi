@@ -68,8 +68,7 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements
 
     @Override
     public Set<OWLClassExpression> getClassExpressions() {
-        return CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(classExpressions);
+        return CollectionFactory.copy(classExpressions);
     }
 
     @Override

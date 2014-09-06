@@ -149,8 +149,7 @@ public class Internals implements Serializable {
 
         @Nonnull
         public Set<K> copy() {
-            return CollectionFactory
-                    .getCopyOnRequestSetFromMutableCollection(set);
+            return CollectionFactory.copyMutable(set);
         }
 
         @Nonnull

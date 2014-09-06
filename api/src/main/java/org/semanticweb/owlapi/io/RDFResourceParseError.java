@@ -67,7 +67,6 @@ public class RDFResourceParseError implements Serializable {
 
     /** @return the main node triples */
     public Set<RDFTriple> getMainNodeTriples() {
-        return CollectionFactory
-                .getCopyOnRequestSetFromMutableCollection(mainNodeTriples);
+        return CollectionFactory.copyMutable(mainNodeTriples);
     }
 }

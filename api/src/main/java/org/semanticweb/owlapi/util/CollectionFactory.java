@@ -382,7 +382,32 @@ public class CollectionFactory {
 
     /**
      * @param source
-     *        the source collection
+     *        the source collection, expected to be immutable
+     * @return copy on request that does not build a list immediately
+     * @param <T>
+     *        axiom type
+     */
+    @Nonnull
+    public static <T> Set<T> copy(@Nullable Collection<T> source) {
+        return getCopyOnRequestSetFromImmutableCollection(source);
+    }
+
+    /**
+     * @param source
+     *        the source collection, expected to be mutable; the backing list is
+     *        created immediately
+     * @return copy on request that builds a list immediately
+     * @param <T>
+     *        axiom type
+     */
+    @Nonnull
+    public static <T> Set<T> copyMutable(@Nullable Collection<T> source) {
+        return getCopyOnRequestSetFromMutableCollection(source);
+    }
+
+    /**
+     * @param source
+     *        the source collection, expected to be immutable
      * @return copy on request that does not build a list immediately
      * @param <T>
      *        axiom type

@@ -66,8 +66,7 @@ public class OWLDataOneOfImpl extends OWLObjectImpl implements OWLDataOneOf {
 
     @Override
     public Set<OWLLiteral> getValues() {
-        return CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(values);
+        return CollectionFactory.copy(values);
     }
 
     @Override

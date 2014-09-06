@@ -65,9 +65,8 @@ public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
             @Nonnull Set<? extends OWLAnnotation> annotations) {
         this.property = checkNotNull(property, "property cannot be null");
         this.value = checkNotNull(value, "value cannot be null");
-        anns = CollectionFactory
-                .getCopyOnRequestSetFromMutableCollection(new TreeSet<>(
-                        checkNotNull(annotations, "annotations cannot be null")));
+        anns = CollectionFactory.copyMutable(new TreeSet<>(checkNotNull(
+                annotations, "annotations cannot be null")));
     }
 
     @Override

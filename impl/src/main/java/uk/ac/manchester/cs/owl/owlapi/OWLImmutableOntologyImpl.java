@@ -753,8 +753,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     private static <T> Set<T> asSet(Iterable<T> i) {
         List<T> list = new ArrayList<>();
         Iterables.addAll(list, i);
-        return CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(list);
+        return CollectionFactory.copy(list);
     }
 
     @Override

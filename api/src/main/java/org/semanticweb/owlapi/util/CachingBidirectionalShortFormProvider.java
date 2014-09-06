@@ -56,9 +56,7 @@ public abstract class CachingBidirectionalShortFormProvider implements
 
     @Override
     public Set<String> getShortForms() {
-        return CollectionFactory
-                .getCopyOnRequestSetFromMutableCollection(shortForm2EntityMap
-                        .keySet());
+        return CollectionFactory.copyMutable(shortForm2EntityMap.keySet());
     }
 
     /**
@@ -113,8 +111,7 @@ public abstract class CachingBidirectionalShortFormProvider implements
     public Set<OWLEntity> getEntities(String shortForm) {
         Set<OWLEntity> entities = shortForm2EntityMap.get(shortForm);
         if (entities != null) {
-            return CollectionFactory
-                    .getCopyOnRequestSetFromImmutableCollection(entities);
+            return CollectionFactory.copy(entities);
         } else {
             return Collections.emptySet();
         }

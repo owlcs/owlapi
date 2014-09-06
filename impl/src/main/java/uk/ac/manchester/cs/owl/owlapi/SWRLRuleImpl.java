@@ -198,14 +198,12 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
 
     @Override
     public Set<SWRLAtom> getBody() {
-        return CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(body);
+        return CollectionFactory.copy(body);
     }
 
     @Override
     public Set<SWRLAtom> getHead() {
-        return CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(head);
+        return CollectionFactory.copy(head);
     }
 
     @Override
