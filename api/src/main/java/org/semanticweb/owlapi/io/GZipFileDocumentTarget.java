@@ -12,21 +12,19 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.io;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
-
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
 import java.util.zip.GZIPOutputStream;
 
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.google.common.base.Optional;
 
 /**
  * An ontology document target which can write to a GZIP File. Notice that this
@@ -37,9 +35,10 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  */
 public class GZipFileDocumentTarget implements OWLOntologyDocumentTarget {
 
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(GZipFileDocumentTarget.class);
     @Nonnull
     private final File out;
-    private OutputStream outputStream;
 
     /**
      * @param os
@@ -50,46 +49,17 @@ public class GZipFileDocumentTarget implements OWLOntologyDocumentTarget {
     }
 
     @Override
-    public boolean isWriterAvailable() {
-        return isOutputStreamAvailable();
-    }
-
-    @Nonnull
-    @Override
-    public Writer getWriter() {
-        if (!isWriterAvailable()) {
-            throw new UnsupportedOperationException(
-                    "writer not available; check with isWriterAvailable() first.");
+    public Optional<OutputStream> getOutputStream() {
+        try {
+            return Optional.of(new GZIPOutputStream(new FileOutputStream(out)));
+        } catch (IOException e) {
+            LOGGER.error("Cannot create output stream", e);
+            return Optional.absent();
         }
-        return new OutputStreamWriter(getOutputStream());
     }
 
     @Override
-    public boolean isOutputStreamAvailable() {
-        return true;
-    }
-
-    @Override
-    public OutputStream getOutputStream() {
-        if (outputStream == null) {
-            try {
-                outputStream = new GZIPOutputStream(new FileOutputStream(out));
-            } catch (FileNotFoundException e) {
-                throw new OWLRuntimeException(e);
-            } catch (IOException e) {
-                throw new OWLRuntimeException(e);
-            }
-        }
-        return verifyNotNull(outputStream);
-    }
-
-    @Override
-    public boolean isDocumentIRIAvailable() {
-        return true;
-    }
-
-    @Override
-    public IRI getDocumentIRI() {
-        return IRI.create(out);
+    public Optional<IRI> getDocumentIRI() {
+        return Optional.of(IRI.create(out));
     }
 }

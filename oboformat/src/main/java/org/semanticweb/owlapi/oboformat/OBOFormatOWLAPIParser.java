@@ -14,11 +14,9 @@ package org.semanticweb.owlapi.oboformat;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.Serializable;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import org.obolibrary.obo2owl.OWLAPIObo2Owl;
 import org.obolibrary.oboformat.model.OBODoc;
@@ -27,9 +25,9 @@ import org.obolibrary.oboformat.parser.OBOFormatParserException;
 import org.semanticweb.owlapi.formats.OBODocumentFormat;
 import org.semanticweb.owlapi.formats.OBODocumentFormatFactory;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
+import org.semanticweb.owlapi.io.OWLOntologyInputSourceException;
 import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserException;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -43,65 +41,21 @@ public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
 
     @Nonnull
     @Override
-    public OWLDocumentFormat parse(IRI documentIRI,
-            @Nonnull OWLOntology ontology) throws IOException {
+    public OWLDocumentFormat parse(@Nonnull OWLOntologyDocumentSource source,
+            @Nonnull OWLOntology in,
+            OWLOntologyLoaderConfiguration configuration) {
         try {
-            parse(documentIRI, null, ontology);
-        } catch (OBOFormatParserException e) {
-            throw new OWLParserException(e);
-        } catch (OWLOntologyCreationException e) {
-            throw new OWLParserException(e);
-        }
-        return new OBODocumentFormat();
-    }
-
-    @Nonnull
-    @Override
-    public OWLDocumentFormat parse(
-            @Nonnull OWLOntologyDocumentSource documentSource,
-            @Nonnull OWLOntology ontology,
-            OWLOntologyLoaderConfiguration configuration) throws IOException {
-        // XXX configuration is not used
-        try {
-            parse(null, documentSource, ontology);
-        } catch (OBOFormatParserException e) {
-            throw new OWLParserException(e);
-        } catch (OWLOntologyCreationException e) {
+            OBOFormatParser p = new OBOFormatParser();
+            OBODoc obodoc = p.parse(new BufferedReader(source
+                    .wrapInputAsReader(configuration)));
+            // create a translator object and feed it the OBO Document
+            OWLAPIObo2Owl bridge = new OWLAPIObo2Owl(in.getOWLOntologyManager());
+            bridge.convert(obodoc, in);
+            return new OBODocumentFormat();
+        } catch (OBOFormatParserException | OWLOntologyCreationException
+                | IOException | OWLOntologyInputSourceException e) {
             throw new OWLParserException(e);
         }
-        return new OBODocumentFormat();
-    }
-
-    private static OWLOntology
-            parse(@Nullable IRI iri,
-                    @Nullable OWLOntologyDocumentSource source,
-                    @Nonnull OWLOntology in) throws IOException,
-                    OWLOntologyCreationException {
-        if (iri == null && source == null) {
-            throw new IllegalArgumentException(
-                    "iri and source annot both be null");
-        }
-        OBOFormatParser p = new OBOFormatParser();
-        OBODoc obodoc = null;
-        if (iri != null) {
-            obodoc = p.parse(iri.toURI().toURL());
-        } else {
-            if (source.isReaderAvailable()) {
-                obodoc = p.parse(new BufferedReader(source.getReader()));
-            } else if (source.isInputStreamAvailable()) {
-                obodoc = p.parse(new BufferedReader(new InputStreamReader(
-                        source.getInputStream())));
-            } else {
-                return parse(source.getDocumentIRI(), null, in);
-            }
-        }
-        // create a translator object and feed it the OBO Document
-        OWLAPIObo2Owl bridge = new OWLAPIObo2Owl(in.getOWLOntologyManager());
-        OWLOntology ontology = bridge.convert(obodoc, in);
-        if (ontology == in) {
-            return in;
-        }
-        return ontology;
     }
 
     @Nonnull

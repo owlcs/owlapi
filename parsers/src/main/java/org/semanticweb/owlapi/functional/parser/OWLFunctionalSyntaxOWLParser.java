@@ -13,8 +13,6 @@
 package org.semanticweb.owlapi.functional.parser;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.Reader;
 
 import javax.annotation.Nonnull;
@@ -22,6 +20,7 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
+import org.semanticweb.owlapi.io.OWLOntologyInputSourceException;
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
@@ -54,38 +53,16 @@ public class OWLFunctionalSyntaxOWLParser extends AbstractOWLParser {
     public OWLDocumentFormat parse(
             @Nonnull OWLOntologyDocumentSource documentSource,
             @Nonnull OWLOntology ontology,
-            OWLOntologyLoaderConfiguration configuration) throws IOException {
-        Reader reader = null;
-        InputStream is = null;
-        try {
-            OWLFunctionalSyntaxParser parser;
-            if (documentSource.isReaderAvailable()) {
-                reader = documentSource.getReader();
-                parser = new OWLFunctionalSyntaxParser(new CustomTokenizer(
-                        reader));
-            } else if (documentSource.isInputStreamAvailable()) {
-                is = documentSource.getInputStream();
-                parser = new OWLFunctionalSyntaxParser(new CustomTokenizer(
-                        new InputStreamReader(is, "UTF-8")));
-            } else {
-                is = getInputStream(documentSource.getDocumentIRI(),
-                        configuration);
-                parser = new OWLFunctionalSyntaxParser(new CustomTokenizer(
-                        new InputStreamReader(is, "UTF-8")));
-            }
+            OWLOntologyLoaderConfiguration configuration) {
+        try (Reader r = documentSource.wrapInputAsReader(configuration)) {
+            OWLFunctionalSyntaxParser parser = new OWLFunctionalSyntaxParser(
+                    new CustomTokenizer(r));
             parser.setUp(ontology, configuration);
             return parser.parse();
         } catch (ParseException e) {
             throw new OWLParserException(e.getMessage(), e, 0, 0);
-        } catch (TokenMgrError e) {
+        } catch (TokenMgrError | OWLOntologyInputSourceException | IOException e) {
             throw new OWLParserException(e);
-        } finally {
-            if (is != null) {
-                is.close();
-            }
-            if (reader != null) {
-                reader.close();
-            }
         }
     }
 }

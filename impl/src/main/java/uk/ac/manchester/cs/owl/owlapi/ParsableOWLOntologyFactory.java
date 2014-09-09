@@ -12,12 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.UnknownHostException;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
@@ -27,6 +22,7 @@ import javax.inject.Inject;
 
 import org.semanticweb.owlapi.io.OWLOntologyCreationIOException;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
+import org.semanticweb.owlapi.io.OWLOntologyInputSourceException;
 import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.io.OWLParserFactory;
@@ -41,8 +37,9 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.util.PriorityCollection;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import com.google.common.base.Optional;
+import com.google.common.collect.Sets;
 
 /**
  * An ontology factory that creates ontologies by parsing documents containing
@@ -59,10 +56,8 @@ import org.slf4j.LoggerFactory;
 public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory {
 
     private static final long serialVersionUID = 40000L;
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(ParsableOWLOntologyFactory.class);
-    private final Set<String> parsableSchemes = new HashSet<>(Arrays.asList(
-            "http", "https", "file", "ftp"));
+    private final Set<String> parsableSchemes = Sets.newHashSet("http",
+            "https", "file", "ftp");
 
     /**
      * @param builder
@@ -88,32 +83,9 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
 
     @Override
     public boolean canLoad(@Nonnull OWLOntologyDocumentSource documentSource) {
-        if (documentSource.isReaderAvailable()) {
-            return true;
-        }
-        if (documentSource.isInputStreamAvailable()) {
-            return true;
-        }
-        if (parsableSchemes.contains(documentSource.getDocumentIRI()
-                .getScheme())) {
-            return true;
-        }
-        // If we can open an input stream then we can attempt to parse the
-        // ontology
-        // TODO: Take into consideration the request type!
-        try {
-            documentSource.getDocumentIRI().toURI().toURL().openConnection();
-            return true;
-        } catch (UnknownHostException e) {
-            LOGGER.info("Unknown host: {}", e.getMessage(), e);
-        } catch (MalformedURLException e) {
-            LOGGER.info("Malformed URL: {}", e.getMessage(), e);
-        } catch (FileNotFoundException e) {
-            LOGGER.info("File not found: {}", e.getMessage(), e);
-        } catch (IOException e) {
-            LOGGER.info("IO Exception: {}", e.getMessage(), e);
-        }
-        return false;
+        return documentSource.canBeLoaded()
+                || parsableSchemes.contains(documentSource.getDocumentIRI()
+                        .getScheme());
     }
 
     @Override
@@ -160,13 +132,6 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
                         configuration);
                 handler.setOntologyFormat(ont, format);
                 return ont;
-            } catch (IOException e) {
-                // For input/output exceptions, we assume that it means the
-                // source cannot be read regardless of the parsers, so we stop
-                // early
-                // First clean up
-                manager.removeOntology(ont);
-                throw new OWLOntologyCreationIOException(e);
             } catch (UnloadableImportException e) {
                 // If an import cannot be located, all parsers will fail. Again,
                 // terminate early
@@ -174,6 +139,16 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
                 manager.removeOntology(ont);
                 throw e;
             } catch (OWLParserException e) {
+                if (e.getCause() instanceof IOException
+                        || e.getCause() instanceof OWLOntologyInputSourceException) {
+                    // For input/output exceptions, we assume that it means the
+                    // source cannot be read regardless of the parsers, so we
+                    // stop
+                    // early
+                    // First clean up
+                    manager.removeOntology(ont);
+                    throw new OWLOntologyCreationIOException(e.getCause());
+                }
                 // Record this attempts and continue trying to parse.
                 exceptions.put(parser, e);
             } catch (RuntimeException e) {
@@ -212,18 +187,18 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
         if (parsers.isEmpty()) {
             return parsers;
         }
-        if (!documentSource.isFormatKnown()
-                && !documentSource.isMIMETypeKnown()) {
+        Optional<OWLDocumentFormat> format = documentSource.getFormat();
+        Optional<String> mimeType = documentSource.getMIMEType();
+        if (!format.isPresent() && !mimeType.isPresent()) {
             return parsers;
         }
         PriorityCollection<OWLParserFactory> candidateParsers = parsers;
-        if (documentSource.isFormatKnown()) {
-            OWLDocumentFormat format = documentSource.getFormat();
-            candidateParsers = getParsersByFormat(format, parsers);
+        if (format.isPresent()) {
+            candidateParsers = getParsersByFormat(format.get(), parsers);
         }
-        if (candidateParsers.isEmpty() && documentSource.isMIMETypeKnown()) {
-            String mimeType = documentSource.getMIMEType();
-            candidateParsers = getParserCandidatesByMIME(mimeType, parsers);
+        if (candidateParsers.isEmpty() && mimeType.isPresent()) {
+            candidateParsers = getParserCandidatesByMIME(mimeType.get(),
+                    parsers);
         }
         if (candidateParsers.isEmpty()) {
             return parsers;

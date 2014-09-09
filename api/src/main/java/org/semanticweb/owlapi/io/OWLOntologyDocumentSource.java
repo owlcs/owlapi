@@ -12,14 +12,21 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.io;
 
+import java.io.BufferedReader;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.Reader;
+import java.nio.charset.Charset;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
+import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
+
+import com.google.common.base.Charsets;
+import com.google.common.base.Optional;
 
 /**
  * A document source provides a point for loading an ontology. A document source
@@ -43,47 +50,88 @@ import org.semanticweb.owlapi.model.OWLDocumentFormat;
 public interface OWLOntologyDocumentSource {
 
     /**
-     * Determines if a reader is available which an ontology document can be
-     * parsed from.
+     * Select the available input source and, if it is not already a Reader,
+     * wrap it in a Reader. This method removes the duplication of code required
+     * for each caller to figure out if a reader or an inputstream is available.
+     * The returned Reader will be buffered.
      * 
-     * @return {@code true} if a reader can be obtained from this document
-     *         source, or {@code false} if a reader cannot be obtained from this
-     *         document source.
+     * @param configuration
+     *        loader configuration to use of the reader must be built form the
+     *        input IRI
+     * @param encoding
+     *        character encoding if a new Reader needs to be created.
+     * @return A Reader for the input; if no Reader can be obtained, an
+     *         OWLOntologyInputSourceException is thrown.
+     * @throws OWLOntologyInputSourceException
+     *         if an IO related exception is thrown.
      */
-    boolean isReaderAvailable();
+    default Reader wrapInputAsReader(
+            OWLOntologyLoaderConfiguration configuration, Charset encoding)
+            throws OWLOntologyInputSourceException {
+        Optional<Reader> reader = getReader();
+        if (reader.isPresent()) {
+            return new BufferedReader(reader.get());
+        }
+        Optional<InputStream> input = getInputStream();
+        if (input.isPresent()) {
+            return new BufferedReader(new InputStreamReader(input.get(),
+                    encoding));
+        }
+        Optional<InputStream> in = DocumentSourceUtils.getInputStream(
+                getDocumentIRI(), configuration);
+        if (in.isPresent()) {
+            return new BufferedReader(new InputStreamReader(in.get(), encoding));
+        }
+        throw new OWLOntologyInputSourceException(
+                "No input reader can be found");
+    }
+
+    /**
+     * Call #wrapwrapInputAsReader(OWLOntologyLoaderConfiguration, String) with
+     * UTF-* as default encoding.
+     * 
+     * @param configuration
+     *        loader configuration to use of the reader must be built form the
+     *        input IRI
+     * @return A Reader wrapped in an Optional; if no Reader can be obtained,
+     *         the result is Optional.absent. @throws
+     *         OWLOntologyInputSourceException if an IO related exception is
+     *         thrown.
+     * @throws OWLOntologyInputSourceException
+     *         if an IO related exception is thrown.
+     */
+    default Reader wrapInputAsReader(
+            OWLOntologyLoaderConfiguration configuration)
+            throws OWLOntologyInputSourceException {
+        return wrapInputAsReader(configuration, Charsets.UTF_8);
+    }
 
     /**
      * Gets a reader which an ontology document can be read from. This method
      * may be called multiple times. Each invocation will return a new
-     * {@code Reader}. This method should not be called if the
-     * {@code isReaderAvailable} method returns false. A {@code Runtime}
-     * execption will be thrown if this happens.
+     * {@code Reader}. If there is no reader stream available, returns
+     * Optional.absent.
      * 
-     * @return A new {@code Reader} which the ontology can be read from.
+     * @return A new {@code Reader} which the ontology can be read from, wrapped
+     *         in an Optional.
      */
-    @Nonnull
-    Reader getReader();
-
-    /**
-     * Determines if an input stream is available which an ontology document can
-     * be parsed from.
-     * 
-     * @return {@code true} if an input stream can be obtained, {@code false} if
-     *         an input stream cannot be obtained from this document source.
-     */
-    boolean isInputStreamAvailable();
+    default Optional<Reader> getReader() {
+        return Optional.absent();
+    }
 
     /**
      * If an input stream can be obtained from this document source then this
      * method creates it. This method may be called multiple times. Each
-     * invocation will return a new input stream. This method should not be
-     * called if the {@code isInputStreamAvailable} method returns {@code false}
-     * .
+     * invocation will return a new input stream. If there is no input stream
+     * available, returns Optional.absent. .
      * 
-     * @return A new input stream which the ontology can be read from.
+     * @return A new input stream which the ontology can be read from, wrapped
+     *         in an Optional.
      */
     @Nonnull
-    InputStream getInputStream();
+    default Optional<InputStream> getInputStream() {
+        return Optional.absent();
+    }
 
     /**
      * Gets the IRI of the ontology document.
@@ -93,16 +141,27 @@ public interface OWLOntologyDocumentSource {
     @Nonnull
     IRI getDocumentIRI();
 
-    /** @return format for the ontology, if known, null otherwise */
+    /**
+     * @return format for the ontology. If none is known, return
+     *         Optional.absent.
+     */
     @Nullable
-    OWLDocumentFormat getFormat();
+    default Optional<OWLDocumentFormat> getFormat() {
+        return Optional.absent();
+    }
 
-    /** @return true if the format is known */
-    boolean isFormatKnown();
+    /**
+     * @return MIME type for this source, if one is specified. If none is known,
+     *         return Optional.absent.
+     */
+    default Optional<String> getMIMEType() {
+        return Optional.absent();
+    }
 
-    /** @return MIME type for this source, if one is specified. */
-    String getMIMEType();
-
-    /** @return true if the MIME type for this source is known */
-    boolean isMIMETypeKnown();
+    /**
+     * @return true if at least one of input sream or reader is available for
+     *         this source, and no IOExceptions have happened when trying to
+     *         read from them.
+     */
+    boolean canBeLoaded();
 }

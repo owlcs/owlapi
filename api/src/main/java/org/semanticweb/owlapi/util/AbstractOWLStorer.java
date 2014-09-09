@@ -33,6 +33,8 @@ import org.semanticweb.owlapi.model.OWLStorer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.base.Optional;
+
 /**
  * Base class for ontology storers. Note that all current implementations are
  * stateless.
@@ -106,26 +108,30 @@ public abstract class AbstractOWLStorer implements OWLStorer {
                     @Nonnull OWLOntologyDocumentTarget target,
                     OWLDocumentFormat format)
                     throws OWLOntologyStorageException {
-        if (format.isTextual() && target.isWriterAvailable()) {
-            try (Writer w = target.getWriter();) {
+        Optional<Writer> writer = target.getWriter();
+        // XXX refactor this class: feature envy with OWLOntologyDocumentTarget
+        if (format.isTextual() && writer.isPresent()) {
+            try (Writer w = writer.get();) {
                 storeOntology(ontology, w, format);
                 w.flush();
+                return;
             } catch (IOException e) {
                 throw new OWLOntologyStorageException(e);
             }
-        } else if (target.isOutputStreamAvailable()) {
-            try {
-                storeOntology(ontology, target.getOutputStream(), format);
-            } catch (IOException e) {
-                throw new OWLOntologyStorageException(e);
-            }
-        } else if (target.isDocumentIRIAvailable()) {
-            storeOntology(ontology, target.getDocumentIRI(), format);
-        } else {
-            throw new OWLOntologyStorageException(
-                    "Neither a Writer, OutputStream or Document IRI could be obtained to store the ontology in this format: "
-                            + format.getKey());
         }
+        Optional<OutputStream> outputStream = target.getOutputStream();
+        if (outputStream.isPresent()) {
+            storeOntology(ontology, outputStream.get(), format);
+            return;
+        }
+        Optional<IRI> documentIRI = target.getDocumentIRI();
+        if (documentIRI.isPresent()) {
+            storeOntology(ontology, documentIRI.get(), format);
+            return;
+        }
+        throw new OWLOntologyStorageException(
+                "Neither a Writer, OutputStream or Document IRI could be obtained to store the ontology in this format: "
+                        + format.getKey());
     }
 
     /*

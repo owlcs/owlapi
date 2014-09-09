@@ -38,6 +38,8 @@ package org.semanticweb.owlapi.rio;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.Reader;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
@@ -77,6 +79,8 @@ import org.semanticweb.owlapi.util.AnonymousNodeChecker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.base.Optional;
+
 /**
  */
 @HasPriority(7)
@@ -106,8 +110,7 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
     public OWLDocumentFormat parse(
             final OWLOntologyDocumentSource documentSource,
             final OWLOntology ontology,
-            final OWLOntologyLoaderConfiguration configuration)
-            throws IOException {
+            final OWLOntologyLoaderConfiguration configuration) {
         try {
             RioOWLRDFConsumerAdapter consumer = new RioOWLRDFConsumerAdapter(
                     ontology, new AnonymousNodeChecker() {
@@ -191,8 +194,6 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
                 parseDocumentSource(documentSource, baseUri, handler);
             }
             return consumer.getOntologyFormat();
-        } catch (final RDFParseException e) {
-            throw new OWLParserException(e);
         } catch (final RDFHandlerException e) {
             // See sourceforge bug 3566820 for more information about this
             // branch
@@ -203,9 +204,7 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
             } else {
                 throw new OWLParserException(e);
             }
-        } catch (final UnsupportedRDFormatException e) {
-            throw new OWLParserException(e);
-        } catch (final MalformedURLException e) {
+        } catch (RDFParseException | UnsupportedRDFormatException | IOException e) {
             throw new OWLParserException(e);
         }
     }
@@ -246,19 +245,26 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
                 BasicParserSettings.VERIFY_LANGUAGE_TAGS);
         createParser.setRDFHandler(handler);
         long rioParseStart = System.currentTimeMillis();
-        if (owlFormatFactory.isTextual() && documentSource.isReaderAvailable()) {
-            createParser.parse(documentSource.getReader(), baseUri);
-        } else if (documentSource.isInputStreamAvailable()) {
-            createParser.parse(documentSource.getInputStream(), baseUri);
-        } else {
+        try {
+            Optional<Reader> reader = documentSource.getReader();
+            if (owlFormatFactory.isTextual() && reader.isPresent()) {
+                createParser.parse(reader.get(), baseUri);
+                return;
+            }
+            Optional<InputStream> input = documentSource.getInputStream();
+            if (input.isPresent()) {
+                createParser.parse(input.get(), baseUri);
+                return;
+            }
             URL url = URI.create(documentSource.getDocumentIRI().toString())
                     .toURL();
             URLConnection conn = url.openConnection();
             createParser.parse(conn.getInputStream(), baseUri);
-        }
-        if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("rioParse: timing={}", System.currentTimeMillis()
-                    - rioParseStart);
+        } finally {
+            if (LOGGER.isDebugEnabled()) {
+                LOGGER.debug("rioParse: timing={}", System.currentTimeMillis()
+                        - rioParseStart);
+            }
         }
     }
 

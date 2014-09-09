@@ -14,9 +14,6 @@ package org.semanticweb.owlapi.io;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.io.InputStream;
-import java.io.Reader;
-
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
@@ -53,34 +50,12 @@ public class IRIDocumentSource extends OWLOntologyDocumentSourceBase {
         super(format, mime);
         this.documentIRI = checkNotNull(documentIRI,
                 "document iri cannot be null");
+        loadable.set(false);
     }
 
     @Override
     public IRI getDocumentIRI() {
         return documentIRI;
-    }
-
-    @Override
-    public boolean isInputStreamAvailable() {
-        return false;
-    }
-
-    @Nonnull
-    @Override
-    public InputStream getInputStream() {
-        throw new OWLOntologyInputSourceException(
-                "InputStream not available.  Check with IRIDocumentSource.isInputStreamAvailable() first!");
-    }
-
-    @Override
-    public boolean isReaderAvailable() {
-        return false;
-    }
-
-    @Override
-    public Reader getReader() {
-        throw new OWLOntologyInputSourceException(
-                "Reader not available.  Check with IRIDocumentSource.isReaderAvailable() first!");
     }
 
     @Override

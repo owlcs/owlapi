@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.dlsyntax.parser;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.Reader;
 import java.util.Set;
 
@@ -23,6 +22,7 @@ import org.semanticweb.owlapi.formats.DLSyntaxHTMLDocumentFormat;
 import org.semanticweb.owlapi.formats.DLSyntaxHTMLDocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
+import org.semanticweb.owlapi.io.OWLOntologyInputSourceException;
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
@@ -52,36 +52,14 @@ public class DLSyntaxOWLParser extends AbstractOWLParser {
 
     @Override
     public OWLDocumentFormat parse(OWLOntologyDocumentSource documentSource,
-            OWLOntology ontology, OWLOntologyLoaderConfiguration configuration)
-            throws IOException {
-        Reader reader = null;
-        InputStream is = null;
-        try {
-            DLSyntaxParser parser;
-            if (documentSource.isReaderAvailable()) {
-                reader = documentSource.getReader();
-                parser = new DLSyntaxParser(reader);
-            } else if (documentSource.isInputStreamAvailable()) {
-                is = documentSource.getInputStream();
-                parser = new DLSyntaxParser(is);
-            } else {
-                is = getInputStream(documentSource.getDocumentIRI(),
-                        configuration);
-                parser = new DLSyntaxParser(is);
-            }
+            OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) {
+        try (Reader r = documentSource.wrapInputAsReader(configuration)) {
+            DLSyntaxParser parser = new DLSyntaxParser(r);
             Set<OWLAxiom> set = parser.parseAxioms();
             ontology.getOWLOntologyManager().addAxioms(ontology, set);
             return new DLSyntaxHTMLDocumentFormat();
-        } catch (ParseException e) {
-            throw new OWLParserException(e.getMessage(), e,
-                    e.currentToken.beginLine, e.currentToken.beginColumn);
-        } finally {
-            if (is != null) {
-                is.close();
-            }
-            if (reader != null) {
-                reader.close();
-            }
+        } catch (ParseException | OWLOntologyInputSourceException | IOException e) {
+            throw new OWLParserException(e.getMessage(), e);
         }
     }
 }

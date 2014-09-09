@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.krss1.parser;
 
 import java.io.IOException;
+import java.io.Reader;
 
 import javax.annotation.Nonnull;
 
@@ -20,6 +21,7 @@ import org.semanticweb.owlapi.formats.KRSSDocumentFormat;
 import org.semanticweb.owlapi.formats.KRSSDocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
+import org.semanticweb.owlapi.io.OWLOntologyInputSourceException;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -47,24 +49,15 @@ public class KRSSOWLParser extends AbstractOWLParser {
 
     @Override
     public OWLDocumentFormat parse(OWLOntologyDocumentSource documentSource,
-            OWLOntology ontology, OWLOntologyLoaderConfiguration configuration)
-            throws IOException {
-        try {
+            OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) {
+        try (Reader r = documentSource.wrapInputAsReader(configuration)) {
             KRSSDocumentFormat format = new KRSSDocumentFormat();
-            KRSSParser parser;
-            if (documentSource.isReaderAvailable()) {
-                parser = new KRSSParser(documentSource.getReader());
-            } else if (documentSource.isInputStreamAvailable()) {
-                parser = new KRSSParser(documentSource.getInputStream());
-            } else {
-                parser = new KRSSParser(getInputStream(
-                        documentSource.getDocumentIRI(), configuration));
-            }
+            KRSSParser parser = new KRSSParser(r);
             parser.setOntology(ontology, ontology.getOWLOntologyManager()
                     .getOWLDataFactory());
             parser.parse();
             return format;
-        } catch (ParseException e) {
+        } catch (ParseException | OWLOntologyInputSourceException | IOException e) {
             throw new KRSSOWLParserException(e);
         }
     }

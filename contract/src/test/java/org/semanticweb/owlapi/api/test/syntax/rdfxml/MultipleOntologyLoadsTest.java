@@ -15,8 +15,6 @@ package org.semanticweb.owlapi.api.test.syntax.rdfxml;
 import static org.junit.Assert.assertEquals;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
-import java.io.IOException;
-
 import javax.annotation.Nonnull;
 
 import org.junit.Test;
@@ -208,7 +206,7 @@ public class MultipleOntologyLoadsTest extends TestBase {
 
     private void parseOnto(
             @Nonnull OWLOntologyDocumentSource initialDocumentSource,
-            @Nonnull OWLOntology initialOntology) throws IOException {
+            @Nonnull OWLOntology initialOntology) {
         OWLParser initialParser = new RDFXMLParser();
         initialParser.parse(initialDocumentSource, initialOntology, config);
     }

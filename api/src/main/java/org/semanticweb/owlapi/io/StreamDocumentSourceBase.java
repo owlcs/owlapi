@@ -25,11 +25,14 @@ import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.google.common.base.Optional;
 
 /**
  * Base class for common utilities among stream, reader and file input sources.
@@ -42,12 +45,13 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 public abstract class StreamDocumentSourceBase extends
         OWLOntologyDocumentSourceBase {
 
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(StreamDocumentSourceBase.class);
     @Nonnull
     protected final IRI documentIRI;
     protected byte[] byteBuffer;
     private String encoding = "UTF-8";
-    @Nullable
-    private Boolean streamAvailable = null;
+    private boolean streamAvailable = false;
 
     /**
      * Constructs an input source which will read an ontology from a
@@ -157,40 +161,33 @@ public abstract class StreamDocumentSourceBase extends
     }
 
     @Override
-    public boolean isInputStreamAvailable() {
-        return Boolean.TRUE.equals(streamAvailable);
-    }
-
-    @Override
-    public InputStream getInputStream() {
-        if (!isInputStreamAvailable()) {
-            throw new OWLOntologyInputSourceException(
-                    "InputStream not available. Check with OWLOntologyDocumentSource.isInputStreamAvailable()");
+    public Optional<InputStream> getInputStream() {
+        if (!streamAvailable) {
+            return Optional.absent();
         }
         try {
-            return wrap(new GZIPInputStream(
-                    new ByteArrayInputStream(byteBuffer)));
+            return Optional.of(DocumentSourceUtils.wrap(new GZIPInputStream(
+                    new ByteArrayInputStream(byteBuffer))));
         } catch (IOException e) {
-            throw new OWLOntologyInputSourceException(e);
+            LOGGER.error("Buffer cannot be opened", e);
+            loadable.set(false);
+            return Optional.absent();
         }
     }
 
     @Override
-    public Reader getReader() {
-        if (!isReaderAvailable()) {
-            throw new OWLOntologyInputSourceException(
-                    "Reader not available.  Check with OWLOntologyDocumentSource.isReaderAvailable()");
+    public Optional<Reader> getReader() {
+        if (streamAvailable) {
+            return Optional.absent();
         }
         try {
-            return new InputStreamReader(wrap(new GZIPInputStream(
-                    new ByteArrayInputStream(byteBuffer))), encoding);
+            return Optional.of(new InputStreamReader(DocumentSourceUtils
+                    .wrap(new GZIPInputStream(new ByteArrayInputStream(
+                            byteBuffer))), encoding));
         } catch (IOException e) {
-            throw new OWLOntologyInputSourceException(e);
+            LOGGER.error("Buffer cannot be opened", e);
+            loadable.set(false);
+            return Optional.absent();
         }
-    }
-
-    @Override
-    public boolean isReaderAvailable() {
-        return Boolean.FALSE.equals(streamAvailable);
     }
 }

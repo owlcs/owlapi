@@ -26,6 +26,10 @@ import java.io.Writer;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.google.common.base.Optional;
 
 /**
  * An {@code OWLOntologyDocumentTarget} that supports writing out to a
@@ -37,6 +41,8 @@ import org.semanticweb.owlapi.model.IRI;
  */
 public class FileDocumentTarget implements OWLOntologyDocumentTarget {
 
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(FileDocumentTarget.class);
     @Nonnull
     private final File file;
 
@@ -50,34 +56,32 @@ public class FileDocumentTarget implements OWLOntologyDocumentTarget {
         this.file = checkNotNull(file, "file cannot be null");
     }
 
-    @Override
-    public boolean isWriterAvailable() {
-        return true;
-    }
-
     @Nonnull
     @Override
-    public Writer getWriter() throws IOException {
-        return new BufferedWriter(new FileWriter(file));
+    public Optional<Writer> getWriter() {
+        try {
+            BufferedWriter reference = new BufferedWriter(new FileWriter(file));
+            return Optional.of(reference);
+        } catch (IOException e) {
+            LOGGER.error("Writer cannot be created", e);
+            return Optional.absent();
+        }
     }
 
     @Override
-    public boolean isOutputStreamAvailable() {
-        return true;
+    public Optional<OutputStream> getOutputStream() {
+        try {
+            BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(
+                    new FileOutputStream(file));
+            return Optional.of(bufferedOutputStream);
+        } catch (IOException e) {
+            LOGGER.error("Input stream cannot be created", e);
+            return Optional.absent();
+        }
     }
 
     @Override
-    public OutputStream getOutputStream() throws IOException {
-        return new BufferedOutputStream(new FileOutputStream(file));
-    }
-
-    @Override
-    public boolean isDocumentIRIAvailable() {
-        return true;
-    }
-
-    @Override
-    public IRI getDocumentIRI() {
-        return IRI.create(file);
+    public Optional<IRI> getDocumentIRI() {
+        return Optional.of(IRI.create(file));
     }
 }

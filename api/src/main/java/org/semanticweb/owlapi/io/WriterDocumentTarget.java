@@ -14,13 +14,11 @@ package org.semanticweb.owlapi.io;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.io.OutputStream;
 import java.io.Writer;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
+import com.google.common.base.Optional;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -30,46 +28,19 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 public class WriterDocumentTarget implements OWLOntologyDocumentTarget {
 
     @Nonnull
-    private final Writer writer;
+    private final Optional<Writer> writer;
 
     /**
      * @param writer
      *        the writer to use
      */
     public WriterDocumentTarget(@Nonnull Writer writer) {
-        this.writer = checkNotNull(writer, "writer cannot be null");
+        this.writer = Optional
+                .of(checkNotNull(writer, "writer cannot be null"));
     }
 
     @Override
-    public boolean isWriterAvailable() {
-        return true;
-    }
-
-    @Override
-    public Writer getWriter() {
+    public Optional<Writer> getWriter() {
         return writer;
-    }
-
-    @Override
-    public boolean isOutputStreamAvailable() {
-        return false;
-    }
-
-    @Nonnull
-    @Override
-    public OutputStream getOutputStream() {
-        throw new OWLRuntimeException(
-                "OutputStream not available.  getOutputStream() should not be called if isOutputStreamAvailable() returns false.");
-    }
-
-    @Override
-    public boolean isDocumentIRIAvailable() {
-        return false;
-    }
-
-    @Override
-    public IRI getDocumentIRI() {
-        throw new OWLRuntimeException(
-                "IRI not available.  getDocumentIRI() should not be called if isDocumentIRIAvailable() returns false.");
     }
 }

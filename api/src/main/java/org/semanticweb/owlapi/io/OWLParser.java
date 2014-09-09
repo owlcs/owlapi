@@ -12,7 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.io;
 
-import java.io.IOException;
 import java.io.Serializable;
 
 import javax.annotation.Nonnull;
@@ -64,8 +63,6 @@ public interface OWLParser extends Serializable {
      * @return the format of the parsed ontology
      * @throws OWLParserException
      *         if there was a parsing problem parsing the ontology.
-     * @throws IOException
-     *         if there was an IO problem during parsing.
      * @throws OWLOntologyChangeException
      *         if there was a problem updating {@code ontology}. Typically this
      *         depends on the document being parsed containing an ontology with
@@ -74,8 +71,12 @@ public interface OWLParser extends Serializable {
      *         if one or more imports could not be loaded.
      */
     @Nonnull
-    OWLDocumentFormat parse(@Nonnull IRI documentIRI,
-            @Nonnull OWLOntology ontology) throws IOException;
+    default OWLDocumentFormat parse(@Nonnull IRI documentIRI,
+            @Nonnull OWLOntology ontology) {
+        return parse(new IRIDocumentSource(documentIRI, null, null), ontology,
+                ontology.getOWLOntologyManager()
+                        .getOntologyLoaderConfiguration());
+    }
 
     /**
      * Parses the ontology with a concrete representation in
@@ -92,21 +93,18 @@ public interface OWLParser extends Serializable {
      *        parsing options for the parser
      * @return the format of the parsed ontology
      * @throws OWLParserException
-     *         if there was a parsing problem parsing the ontology.
-     * @throws IOException
-     *         if there was an IO problem during parsing.
-     * @throws OWLOntologyChangeException
-     *         if there was a problem updating {@code ontology}. Typically this
-     *         depends on the document being parsed containing an ontology with
-     *         an ontology IRI clashing with one already loaded.
+     *         if there was a parsing problem parsing the ontology. @throws
+     *         OWLOntologyChangeException if there was a problem updating
+     *         {@code ontology}. Typically this depends on the document being
+     *         parsed containing an ontology with an ontology IRI clashing with
+     *         one already loaded.
      * @throws UnloadableImportException
      *         if one or more imports could not be loaded.
      */
     @Nonnull
     OWLDocumentFormat parse(@Nonnull OWLOntologyDocumentSource documentSource,
             @Nonnull OWLOntology ontology,
-            @Nonnull OWLOntologyLoaderConfiguration configuration)
-            throws IOException;
+            @Nonnull OWLOntologyLoaderConfiguration configuration);
 
     /** @return a unique name for the parser, typically the simple class name */
     @Nonnull

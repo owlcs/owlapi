@@ -12,14 +12,12 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.io;
 
-import java.io.OutputStream;
 import java.io.StringWriter;
 import java.io.Writer;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
+import com.google.common.base.Optional;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -29,48 +27,16 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 public class StringDocumentTarget implements OWLOntologyDocumentTarget {
 
     @Nonnull
-    private final StringWriter writer;
-
-    /** default constructor. */
-    public StringDocumentTarget() {
-        writer = new StringWriter();
-    }
+    private final Optional<Writer> writer = Optional.of(new StringWriter());
 
     @Nonnull
     @Override
     public String toString() {
-        return writer.getBuffer().toString();
+        return writer.get().toString();
     }
 
     @Override
-    public boolean isWriterAvailable() {
-        return true;
-    }
-
-    @Override
-    public Writer getWriter() {
+    public Optional<Writer> getWriter() {
         return writer;
-    }
-
-    @Override
-    public boolean isOutputStreamAvailable() {
-        return false;
-    }
-
-    @Override
-    public OutputStream getOutputStream() {
-        throw new OWLRuntimeException(
-                "OutputStream not available.  getOutputStream() should not be called if isOutputStreamAvailable() returns false.");
-    }
-
-    @Override
-    public boolean isDocumentIRIAvailable() {
-        return false;
-    }
-
-    @Override
-    public IRI getDocumentIRI() {
-        throw new OWLRuntimeException(
-                "IRI not available.  getDocumentIRI() should not be called if isDocumentIRIAvailable() returns false.");
     }
 }

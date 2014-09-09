@@ -39,12 +39,12 @@
 package org.coode.owlapi.obo12.parser;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.Reader;
 import java.util.List;
 
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
+import org.semanticweb.owlapi.io.OWLOntologyInputSourceException;
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
@@ -66,30 +66,15 @@ class OWLOBO12Parser extends AbstractOWLParser {
 
     private static final long serialVersionUID = 40000L;
 
-    @SuppressWarnings("resource")
     @Override
     public OWLDocumentFormat parse(OWLOntologyDocumentSource documentSource,
-            OWLOntology ontology, OWLOntologyLoaderConfiguration configuration)
-            throws OWLParserException, IOException, OWLOntologyChangeException,
-            UnloadableImportException {
-        OBOParser parser;
-        Reader reader = null;
-        InputStream is = null;
-        if (documentSource.isReaderAvailable()) {
-            reader = documentSource.getReader();
-            parser = new OBOParser(reader);
-        } else if (documentSource.isInputStreamAvailable()) {
-            is = documentSource.getInputStream();
-            parser = new OBOParser(is);
-        } else {
-            is = getInputStream(documentSource.getDocumentIRI(), configuration);
-            parser = new OBOParser(is);
-        }
+            OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) {
         RawFrameHandler rawFrameHandler = new RawFrameHandler();
         OBOConsumer oboConsumer = new OBOConsumer(ontology, configuration,
                 documentSource.getDocumentIRI());
-        parser.setHandler(rawFrameHandler);
-        try {
+        try (Reader r = documentSource.wrapInputAsReader(configuration)) {
+            OBOParser parser = new OBOParser(r);
+            parser.setHandler(rawFrameHandler);
             parser.parse();
             parseFrames(rawFrameHandler, oboConsumer);
         } catch (ParseException e) {
@@ -115,14 +100,8 @@ class OWLOBO12Parser extends AbstractOWLParser {
             } else {
                 throw new OWLParserException(e);
             }
-        } catch (TokenMgrError e) {
+        } catch (TokenMgrError | OWLOntologyInputSourceException | IOException e) {
             throw new OWLParserException(e);
-        } finally {
-            if (is != null) {
-                is.close();
-            } else if (reader != null) {
-                reader.close();
-            }
         }
         OBO12DocumentFormat format = new OBO12DocumentFormat();
         format.setIDSpaceManager(oboConsumer.getIdSpaceManager());

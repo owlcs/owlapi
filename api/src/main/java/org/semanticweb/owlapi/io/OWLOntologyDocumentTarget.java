@@ -12,7 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.io;
 
-import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Writer;
 
@@ -20,14 +19,14 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
 
+import com.google.common.base.Optional;
+
 /**
  * Specifies an interface that provides a pointer to an ontology document where
  * an ontology can be stored. <br>
  * Any client that writes an ontology to a "stream" will first try to obtain a
- * writer (if {@link #isWriterAvailable()} returns true), followed by an
- * OutputStream (if {@link #isOutputStreamAvailable()} returns true), followed
- * by trying to open a stream from a document IRI (if isDocumentIRIAvailable
- * returns true). <br>
+ * writer, followed by an OutputStream , followed by trying to open a stream
+ * from a document IRI. <br>
  * A client that writes an ontology to a database or some similar storage will
  * simply try to use the {@link IRI} returned by {@link #getDocumentIRI()}.
  * 
@@ -38,69 +37,39 @@ import org.semanticweb.owlapi.model.IRI;
 public interface OWLOntologyDocumentTarget {
 
     /**
-     * Determines if this document target can be pointed to by a
-     * {@link java.io.Writer}.
-     * 
-     * @return {@code true} if a {@link java.io.Writer} can be obtained from
-     *         this document target.
-     */
-    boolean isWriterAvailable();
-
-    /**
      * Gets a {@link java.io.Writer} that can be used to write an ontology to an
-     * ontology document.
+     * ontology document. If none is available, return Optional.absent. Do not
+     * call multiple times for the same file: the output file will be opened for
+     * write multiple times.
      * 
      * @return The writer
-     * @throws IOException
-     *         if there was a problem obtaining the writer
-     * @throws org.semanticweb.owlapi.model.OWLRuntimeException
-     *         if a writer is not available ({@link #isWriterAvailable()}
-     *         returns {@code false}) and this method is called.
      */
     @Nonnull
-    Writer getWriter() throws IOException;
-
-    /**
-     * Determines if this document target can be pointed to by an
-     * {@link java.io.OutputStream}.
-     * 
-     * @return {@code true} if an {@link java.io.OutputStream} can be obtained
-     *         from this document target.
-     */
-    boolean isOutputStreamAvailable();
+    default Optional<Writer> getWriter() {
+        return Optional.absent();
+    }
 
     /**
      * Gets an {@link java.io.OutputStream} that can be used to write an
-     * ontology to an ontology document.
+     * ontology to an ontology document. If none is available, return
+     * Optional.absent. Do not call multiple times for the same file: the output
+     * file will be opened for write multiple times.
      * 
      * @return The output stream
-     * @throws IOException
-     *         if there was a problem obtaining the output stream
-     * @throws org.semanticweb.owlapi.model.OWLRuntimeException
-     *         if an output stream is not available (
-     *         {@link #isOutputStreamAvailable()} returns {@code false} ) and
-     *         this method is called.
      */
     @Nonnull
-    OutputStream getOutputStream() throws IOException;
+    default Optional<OutputStream> getOutputStream() {
+        return Optional.absent();
+    }
 
     /**
-     * Determines if an IRI that points to an ontology document is available.
-     * The IRI encodes the exact details of how an ontology should be saved to a
-     * document.
-     * 
-     * @return {@code true} if an IRI is available, otherwise {@code false}.
-     */
-    boolean isDocumentIRIAvailable();
-
-    /**
-     * Gets an IRI that points to an ontology document.
+     * Gets an IRI that points to an ontology document. If none is available,
+     * return Optional.absent.
      * 
      * @return The IRI
-     * @throws org.semanticweb.owlapi.model.OWLRuntimeException
-     *         if an IRI is not available ({@link #isDocumentIRIAvailable()}
-     *         returns {@code false}) and this method is called.
      */
     @Nonnull
-    IRI getDocumentIRI();
+    default Optional<IRI> getDocumentIRI() {
+        return Optional.absent();
+    }
 }

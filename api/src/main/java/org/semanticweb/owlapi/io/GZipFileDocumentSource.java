@@ -14,12 +14,8 @@ package org.semanticweb.owlapi.io;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.io.UnsupportedEncodingException;
 import java.util.zip.GZIPInputStream;
 
 import javax.annotation.Nonnull;
@@ -27,6 +23,10 @@ import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.google.common.base.Optional;
 
 /**
  * An ontology document source which can read from a GZIP File.
@@ -36,6 +36,8 @@ import org.semanticweb.owlapi.model.OWLDocumentFormat;
  */
 public class GZipFileDocumentSource extends OWLOntologyDocumentSourceBase {
 
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(GZipFileDocumentSource.class);
     @Nonnull
     private final IRI documentIRI;
     @Nonnull
@@ -73,42 +75,21 @@ public class GZipFileDocumentSource extends OWLOntologyDocumentSourceBase {
         file = stream;
     }
 
-    @Override
-    public boolean isInputStreamAvailable() {
-        return file.exists();
-    }
-
     @Nonnull
     @Override
-    public InputStream getInputStream() {
+    public Optional<InputStream> getInputStream() {
         try {
-            return wrap(new GZIPInputStream(new FileInputStream(file)));
-        } catch (FileNotFoundException e) {
-            throw new OWLOntologyInputSourceException(
-                    "File not found - check that the file is available before calling this method.",
-                    e);
+            return Optional.of(DocumentSourceUtils.wrap(new GZIPInputStream(
+                    new FileInputStream(file))));
         } catch (IOException e) {
-            throw new OWLOntologyInputSourceException(e);
+            LOGGER.error("File cannot be found or opened", e);
+            loadable.set(false);
+            return Optional.absent();
         }
     }
 
     @Override
     public IRI getDocumentIRI() {
         return documentIRI;
-    }
-
-    @Override
-    public Reader getReader() {
-        try {
-            return new InputStreamReader(getInputStream(), "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            // will never happen though - UTF-8 is always supported
-            throw new OWLOntologyInputSourceException(e);
-        }
-    }
-
-    @Override
-    public boolean isReaderAvailable() {
-        return file.exists();
     }
 }

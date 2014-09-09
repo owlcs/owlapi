@@ -19,14 +19,15 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.Writer;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.google.common.base.Optional;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
@@ -35,6 +36,8 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  */
 public class ZipDocumentTarget implements OWLOntologyDocumentTarget {
 
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(ZipDocumentTarget.class);
     private final File file;
 
     /**
@@ -46,43 +49,21 @@ public class ZipDocumentTarget implements OWLOntologyDocumentTarget {
     }
 
     @Override
-    public boolean isWriterAvailable() {
-        return false;
-    }
-
-    @Nonnull
-    @Override
-    public Writer getWriter() {
-        throw new OWLRuntimeException(
-                "Writer not available.  getWriter() should not be called if isWriterAvailable() returns false.");
-    }
-
-    @Override
-    public boolean isOutputStreamAvailable() {
-        return true;
-    }
-
-    @Override
-    public OutputStream getOutputStream() throws IOException {
+    public Optional<OutputStream> getOutputStream() {
         File parentFile = file.getAbsoluteFile().getParentFile();
         if (parentFile.exists() || parentFile.mkdirs()) {
-            ZipOutputStream os = new ZipOutputStream(new BufferedOutputStream(
-                    new FileOutputStream(file)));
-            os.putNextEntry(new ZipEntry("ontology.txt"));
-            return os;
-        } else {
-            throw new IOException("Could not create directories: " + parentFile);
+            ZipOutputStream os;
+            try {
+                os = new ZipOutputStream(new BufferedOutputStream(
+                        new FileOutputStream(file)));
+                os.putNextEntry(new ZipEntry("ontology.txt"));
+                return Optional.of(os);
+            } catch (IOException e) {
+                LOGGER.error("Cannot create or find file", e);
+                return Optional.absent();
+            }
         }
-    }
-
-    @Override
-    public boolean isDocumentIRIAvailable() {
-        return false;
-    }
-
-    @Override
-    public IRI getDocumentIRI() {
-        throw new OWLRuntimeException(
-                "IRI not available.  getDocumentIRI() should not be called if isDocumentIRIAvailable() returns false.");
+        LOGGER.error("Could not create directories: {}", parentFile);
+        return Optional.absent();
     }
 }

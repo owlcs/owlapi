@@ -11,7 +11,7 @@ import java.io.StringWriter;
 import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
 
-@SuppressWarnings("javadoc")
+@SuppressWarnings({ "javadoc", "resource" })
 public class StreamDocumentSourceBaseTestCase {
 
     @Test
@@ -31,8 +31,7 @@ public class StreamDocumentSourceBaseTestCase {
                 new InputStreamReader(
                         new ByteArrayInputStream(input.getBytes()), "UTF-8"),
                 IRI.create("urn:test"), null, null) {};
-        @SuppressWarnings("resource")
-        Reader r = source.getReader();
+        Reader r = source.getReader().get();
         StringWriter w = new StringWriter();
         int i = r.read();
         while (i > -1) {

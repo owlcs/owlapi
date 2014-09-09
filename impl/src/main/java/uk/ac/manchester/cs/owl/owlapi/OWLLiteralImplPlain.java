@@ -15,10 +15,8 @@ package uk.ac.manchester.cs.owl.owlapi;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationValueVisitor;
 import org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx;
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLDataVisitor;
 import org.semanticweb.owlapi.model.OWLDataVisitorEx;
 import org.semanticweb.owlapi.model.OWLDatatype;
@@ -240,16 +238,6 @@ public class OWLLiteralImplPlain extends OWLObjectImpl implements OWLLiteral {
     @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
-    }
-
-    @Override
-    public Optional<IRI> asIRI() {
-        return Optional.absent();
-    }
-
-    @Override
-    public Optional<OWLAnonymousIndividual> asAnonymousIndividual() {
-        return Optional.absent();
     }
 
     @Override

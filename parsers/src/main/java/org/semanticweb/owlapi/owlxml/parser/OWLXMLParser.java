@@ -23,12 +23,12 @@ import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
+import org.semanticweb.owlapi.io.OWLOntologyInputSourceException;
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.SAXParsers;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -55,30 +55,21 @@ public class OWLXMLParser extends AbstractOWLParser {
 
     @Override
     public OWLDocumentFormat parse(OWLOntologyDocumentSource documentSource,
-            OWLOntology ontology, OWLOntologyLoaderConfiguration configuration)
-            throws IOException {
-        InputSource isrc = null;
+            OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) {
         try {
             OWLXMLDocumentFormat format = new OWLXMLDocumentFormat();
             SAXParserFactory factory = SAXParsers.initFactory();
             SAXParser parser = factory.newSAXParser();
-            isrc = getInputSource(documentSource, configuration);
+            InputSource isrc = getInputSource(documentSource, configuration);
             OWLXMLParserHandler handler = new OWLXMLParserHandler(ontology,
                     configuration);
             parser.parse(isrc, handler);
             format.copyPrefixesFrom(handler.getPrefixName2PrefixMap());
             return format;
-        } catch (ParserConfigurationException e) {
-            throw new OWLRuntimeException(e);
-        } catch (SAXException e) {
+        } catch (ParserConfigurationException | SAXException | IOException
+                | OWLOntologyInputSourceException e) {
             // General exception
             throw new OWLParserException(e);
-        } finally {
-            if (isrc != null && isrc.getByteStream() != null) {
-                isrc.getByteStream().close();
-            } else if (isrc != null && isrc.getCharacterStream() != null) {
-                isrc.getCharacterStream().close();
-            }
         }
     }
 }

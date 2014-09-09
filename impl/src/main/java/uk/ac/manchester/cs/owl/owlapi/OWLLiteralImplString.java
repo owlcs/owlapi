@@ -14,10 +14,8 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationValueVisitor;
 import org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx;
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLDataVisitor;
 import org.semanticweb.owlapi.model.OWLDataVisitorEx;
 import org.semanticweb.owlapi.model.OWLDatatype;
@@ -229,16 +227,6 @@ public class OWLLiteralImplString implements OWLLiteral {
     @Override
     public boolean containsEntityInSignature(OWLEntity owlEntity) {
         return false;
-    }
-
-    @Override
-    public Optional<IRI> asIRI() {
-        return Optional.absent();
-    }
-
-    @Override
-    public Optional<OWLAnonymousIndividual> asAnonymousIndividual() {
-        return Optional.absent();
     }
 
     @Override

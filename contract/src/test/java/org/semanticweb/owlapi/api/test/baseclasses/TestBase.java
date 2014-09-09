@@ -15,6 +15,7 @@ package org.semanticweb.owlapi.api.test.baseclasses;
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
+import java.io.File;
 import java.net.URL;
 import java.util.Collections;
 import java.util.HashSet;
@@ -59,6 +60,24 @@ import com.google.common.base.Optional;
 public abstract class TestBase {
 
     @Nonnull
+    protected final File RESOURCES = resources();
+
+    private static final File resources() {
+        File f = new File("contract/src/test/resources/");
+        if (f.exists()) {
+            return f;
+        } else {
+            f = new File("src/test/resources/");
+            if (f.exists()) {
+                return f;
+            } else {
+                throw new OWLRuntimeException(
+                        "MultiImportsTestCase: NO RESOURCE FOLDER ACCESSIBLE");
+            }
+        }
+    }
+
+    @Nonnull
     @Rule
     public TemporaryFolder folder = new TemporaryFolder();
     @Rule
@@ -78,11 +97,6 @@ public abstract class TestBase {
     @Nonnull
     protected <T> Optional<T> of(T t) {
         return Optional.fromNullable(t);
-    }
-
-    @Nonnull
-    protected Optional<IRI> absent() {
-        return Optional.absent();
     }
 
     @Nonnull

@@ -1,6 +1,5 @@
 package org.obolibrary.obo2owl;
 
-import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Set;
@@ -106,13 +105,8 @@ public class OwlStringTools {
             p.parse(documentSource, ontology,
                     translationManager.getOntologyLoaderConfiguration());
             return ontology.getAxioms();
-        } catch (UnloadableImportException e) {
-            throw new OwlStringException(e);
-        } catch (OWLOntologyCreationException e) {
-            throw new OwlStringException(e);
-        } catch (OWLParserException e) {
-            throw new OwlStringException(e);
-        } catch (IOException e) {
+        } catch (UnloadableImportException | OWLOntologyCreationException
+                | OWLParserException e) {
             throw new OwlStringException(e);
         }
     }

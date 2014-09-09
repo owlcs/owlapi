@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.krss2.parser;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.Reader;
 
 import javax.annotation.Nonnull;
@@ -22,6 +21,7 @@ import org.semanticweb.owlapi.formats.KRSS2DocumentFormat;
 import org.semanticweb.owlapi.formats.KRSS2DocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
+import org.semanticweb.owlapi.io.OWLOntologyInputSourceException;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -247,37 +247,16 @@ public class KRSS2OWLParser extends AbstractOWLParser {
 
     @Override
     public OWLDocumentFormat parse(OWLOntologyDocumentSource documentSource,
-            OWLOntology ontology, OWLOntologyLoaderConfiguration configuration)
-            throws IOException {
-        Reader reader = null;
-        InputStream is = null;
-        try {
+            OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) {
+        try (Reader r = documentSource.wrapInputAsReader(configuration)) {
             KRSS2DocumentFormat format = new KRSS2DocumentFormat();
-            KRSS2Parser parser;
-            if (documentSource.isReaderAvailable()) {
-                reader = documentSource.getReader();
-                parser = new KRSS2Parser(reader);
-            } else if (documentSource.isInputStreamAvailable()) {
-                is = documentSource.getInputStream();
-                parser = new KRSS2Parser(is);
-            } else {
-                is = getInputStream(documentSource.getDocumentIRI(),
-                        configuration);
-                parser = new KRSS2Parser(is);
-            }
+            KRSS2Parser parser = new KRSS2Parser(r);
             parser.setOntology(ontology, ontology.getOWLOntologyManager()
                     .getOWLDataFactory());
             parser.parse();
             return format;
-        } catch (ParseException e) {
+        } catch (ParseException | OWLOntologyInputSourceException | IOException e) {
             throw new KRSS2OWLParserException(e);
-        } finally {
-            if (is != null) {
-                is.close();
-            }
-            if (reader != null) {
-                reader.close();
-            }
         }
     }
 }

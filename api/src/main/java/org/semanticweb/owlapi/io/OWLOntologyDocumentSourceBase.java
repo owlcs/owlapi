@@ -1,17 +1,15 @@
 package org.semanticweb.owlapi.io;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-
-import java.io.InputStream;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.apache.commons.io.ByteOrderMark;
-import org.apache.commons.io.input.BOMInputStream;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
+
+import com.google.common.base.Optional;
 
 /**
  * Base class for OWLOntologyDocumentSource.
@@ -34,23 +32,9 @@ public abstract class OWLOntologyDocumentSourceBase implements
         return IRI.create(prefix + COUNTER.incrementAndGet());
     }
 
-    /**
-     * Wrap an input stream to strip BOMs.
-     * 
-     * @param delegate
-     *        delegate to wrap
-     * @return wrapped input stream
-     */
-    @Nonnull
-    public static InputStream wrap(@Nonnull InputStream delegate) {
-        checkNotNull(delegate, "delegate cannot be null");
-        return new BOMInputStream(delegate, ByteOrderMark.UTF_8,
-                ByteOrderMark.UTF_16BE, ByteOrderMark.UTF_16LE,
-                ByteOrderMark.UTF_32BE, ByteOrderMark.UTF_32LE);
-    }
-
-    private final OWLDocumentFormat format;
-    private final String mimeType;
+    private final Optional<OWLDocumentFormat> format;
+    private final Optional<String> mimeType;
+    protected final AtomicBoolean loadable = new AtomicBoolean(true);
 
     /**
      * Constructs an ontology input source using the specified file.
@@ -62,27 +46,22 @@ public abstract class OWLOntologyDocumentSourceBase implements
      */
     public OWLOntologyDocumentSourceBase(@Nullable OWLDocumentFormat format,
             @Nullable String mime) {
-        this.format = format;
-        mimeType = mime;
+        this.format = Optional.fromNullable(format);
+        mimeType = Optional.fromNullable(mime);
     }
 
     @Override
-    public OWLDocumentFormat getFormat() {
+    public boolean canBeLoaded() {
+        return loadable.get();
+    }
+
+    @Override
+    public Optional<OWLDocumentFormat> getFormat() {
         return format;
     }
 
     @Override
-    public boolean isFormatKnown() {
-        return format != null;
-    }
-
-    @Override
-    public String getMIMEType() {
+    public Optional<String> getMIMEType() {
         return mimeType;
-    }
-
-    @Override
-    public boolean isMIMETypeKnown() {
-        return mimeType != null && !mimeType.isEmpty();
     }
 }

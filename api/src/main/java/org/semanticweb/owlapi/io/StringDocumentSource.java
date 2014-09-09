@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.io;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.io.InputStream;
 import java.io.Reader;
 import java.io.StringReader;
 
@@ -22,6 +21,8 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
+
+import com.google.common.base.Optional;
 
 /**
  * An ontology input source that wraps a string.
@@ -83,24 +84,8 @@ public class StringDocumentSource extends OWLOntologyDocumentSourceBase {
     }
 
     @Override
-    public boolean isReaderAvailable() {
-        return true;
-    }
-
-    @Override
-    public Reader getReader() {
-        return new StringReader(string);
-    }
-
-    @Override
-    public boolean isInputStreamAvailable() {
-        return false;
-    }
-
-    @Override
-    public InputStream getInputStream() {
-        throw new OWLOntologyInputSourceException(
-                "InputStream not available.  Check with StringDocumentSource.isInputStreamAvailable() first!");
+    public Optional<Reader> getReader() {
+        return Optional.of(new StringReader(string));
     }
 
     @Override

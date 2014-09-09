@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.io;
 
-import java.io.IOException;
-
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
@@ -35,7 +33,7 @@ public class OWLOntologyCreationIOException extends
      * @param ioException
      *        the cause
      */
-    public OWLOntologyCreationIOException(@Nonnull IOException ioException) {
+    public OWLOntologyCreationIOException(@Nonnull Throwable ioException) {
         super("OWLOntologyCreationIOException: " + ioException.getMessage(),
                 ioException);
     }

@@ -13,12 +13,8 @@
 package org.semanticweb.owlapi.io;
 
 import java.io.OutputStream;
-import java.io.Writer;
 
-import javax.annotation.Nonnull;
-
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
+import com.google.common.base.Optional;
 
 /**
  * An output target that will output an ontology to {@code System.out}.
@@ -29,21 +25,9 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  */
 public class SystemOutDocumentTarget implements OWLOntologyDocumentTarget {
 
-    @Nonnull
     @Override
-    public IRI getDocumentIRI() {
-        throw new OWLRuntimeException(
-                "IRI not available.  getDocumentIRI() should not be called if isDocumentIRIAvailable() returns false.");
-    }
-
-    @Override
-    public boolean isDocumentIRIAvailable() {
-        return false;
-    }
-
-    @Override
-    public OutputStream getOutputStream() {
-        return new OutputStream() {
+    public Optional<OutputStream> getOutputStream() {
+        return Optional.of(new OutputStream() {
 
             @Override
             public void write(int b) {
@@ -54,22 +38,6 @@ public class SystemOutDocumentTarget implements OWLOntologyDocumentTarget {
             public void close() {
                 // Do nothing
             }
-        };
-    }
-
-    @Override
-    public boolean isOutputStreamAvailable() {
-        return true;
-    }
-
-    @Override
-    public Writer getWriter() {
-        throw new OWLRuntimeException(
-                "Writer not available.  getWriter() should not be called if isWriterAvailable() returns false.");
-    }
-
-    @Override
-    public boolean isWriterAvailable() {
-        return false;
+        });
     }
 }

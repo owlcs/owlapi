@@ -14,19 +14,19 @@ package org.semanticweb.owlapi.io;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.io.UnsupportedEncodingException;
 
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.google.common.base.Optional;
 
 /**
  * A convenience class which will prepare an input source from a file.
@@ -37,6 +37,8 @@ import org.semanticweb.owlapi.model.OWLDocumentFormat;
  */
 public class FileDocumentSource extends OWLOntologyDocumentSourceBase {
 
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(FileDocumentSource.class);
     @Nonnull
     private final File file;
 
@@ -86,34 +88,16 @@ public class FileDocumentSource extends OWLOntologyDocumentSourceBase {
         return IRI.create(file);
     }
 
-    @Override
-    public boolean isInputStreamAvailable() {
-        return true;
-    }
-
     @Nonnull
     @Override
-    public InputStream getInputStream() {
+    public Optional<InputStream> getInputStream() {
         try {
-            return wrap(new FileInputStream(file));
+            return Optional.of(DocumentSourceUtils.wrap(new FileInputStream(
+                    file)));
         } catch (FileNotFoundException e) {
-            throw new OWLOntologyInputSourceException(e);
-        }
-    }
-
-    @Override
-    public boolean isReaderAvailable() {
-        return true;
-    }
-
-    @Override
-    public Reader getReader() {
-        try {
-            return new BufferedReader(new InputStreamReader(getInputStream(),
-                    "UTF-8"));
-        } catch (UnsupportedEncodingException e) {
-            // it cannot not support UTF-8
-            throw new OWLOntologyInputSourceException(e);
+            LOGGER.error("File cannot be found", e);
+            loadable.set(false);
+            return Optional.absent();
         }
     }
 }

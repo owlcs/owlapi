@@ -17,15 +17,12 @@ import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 
 import java.io.File;
 
-import javax.annotation.Nonnull;
-
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.AutoIRIMapper;
 import org.semanticweb.owlapi.util.SimpleIRIMapper;
 
@@ -36,23 +33,6 @@ import org.semanticweb.owlapi.util.SimpleIRIMapper;
  */
 @SuppressWarnings("javadoc")
 public class MultiImportsTestCase extends TestBase {
-
-    @Nonnull
-    public static final File RESOURCES;
-    static {
-        File f = new File("contract/src/test/resources/");
-        if (f.exists()) {
-            RESOURCES = f;
-        } else {
-            f = new File("src/test/resources/");
-            if (f.exists()) {
-                RESOURCES = f;
-            } else {
-                throw new OWLRuntimeException(
-                        "MultiImportsTestCase: NO RESOURCE FOLDER ACCESSIBLE");
-            }
-        }
-    }
 
     @Test
     public void testImports() throws OWLOntologyCreationException {

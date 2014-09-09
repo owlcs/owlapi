@@ -38,8 +38,6 @@ package org.semanticweb.owlapi.rio;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import info.aduna.iteration.CloseableIteration;
 
-import java.io.InputStream;
-import java.io.Reader;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -56,7 +54,6 @@ import org.openrdf.model.util.Namespaces;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSourceBase;
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /**
@@ -216,40 +213,13 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
     }
 
     @Override
-    public boolean isReaderAvailable() {
-        return false;
-    }
-
-    @Override
-    public Reader getReader() {
-        throw new UnsupportedOperationException(
-                "No reader available for RioMemoryTripleSource, use isReaderAvailable() to check");
-    }
-
-    @Override
-    public boolean isInputStreamAvailable() {
-        return false;
-    }
-
-    @Override
-    public InputStream getInputStream() {
-        throw new UnsupportedOperationException(
-                "No input stream available for RioMemoryTripleSource, use isInputStreamAvailable() to check");
-    }
-
-    @Override
     public IRI getDocumentIRI() {
         return documentIRI;
     }
 
     @Override
-    public boolean isFormatKnown() {
+    public boolean canBeLoaded() {
         return false;
-    }
-
-    @Override
-    public OWLDocumentFormat getFormat() {
-        return null;
     }
 
     /**
@@ -282,15 +252,5 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
     public void setNamespaces(Map<String, String> nextNamespaces) {
         namespaces.clear();
         namespaces.putAll(nextNamespaces);
-    }
-
-    @Override
-    public String getMIMEType() {
-        return null;
-    }
-
-    @Override
-    public boolean isMIMETypeKnown() {
-        return false;
     }
 }
