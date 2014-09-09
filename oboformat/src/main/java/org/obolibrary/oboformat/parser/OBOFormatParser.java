@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.Reader;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -308,8 +309,8 @@ public class OBOFormatParser {
      *         parser exception
      */
     @Nonnull
-    public OBODoc parse(BufferedReader reader) throws IOException {
-        setReader(reader);
+    public OBODoc parse(Reader reader) throws IOException {
+        setReader(new BufferedReader(reader));
         OBODoc obodoc = new OBODoc();
         parseOBODoc(obodoc);
         // handle imports

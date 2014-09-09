@@ -99,7 +99,7 @@ public class GZipStreamDocumentSource extends OWLOntologyDocumentSourceBase {
             return Optional.absent();
         }
         try {
-            return Optional.of(DocumentSourceUtils.wrap(new GZIPInputStream(
+            return Optional.of(DocumentSources.wrap(new GZIPInputStream(
                     new ByteArrayInputStream(buffer))));
         } catch (IOException e) {
             LOGGER.error("Buffer cannot be opened", e);

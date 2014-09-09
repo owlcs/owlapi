@@ -3,12 +3,16 @@ package org.semanticweb.owlapi.io;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.charset.Charset;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -28,16 +32,17 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.base.Charsets;
 import com.google.common.base.Optional;
 
 /**
  * Static methods from AbstractOWLParser. Mostly used by
  * OWLOntologyDocumentSource implementations.
  */
-public class DocumentSourceUtils {
+public class DocumentSources {
 
     private static final Logger LOGGER = LoggerFactory
-            .getLogger(DocumentSourceUtils.class);
+            .getLogger(DocumentSources.class);
     private static final String ZIP_FILE_EXTENSION = ".zip";
     private static final String CONTENT_DISPOSITION_HEADER = "Content-Disposition";
     private static final Pattern CONTENT_DISPOSITION_FILE_NAME_PATTERN = Pattern
@@ -47,6 +52,85 @@ public class DocumentSourceUtils {
             .compile(".*owl|rdf|xml|mos");
     @Nonnull
     private static final String requestTypes = "application/rdf+xml, application/xml; q=0.5, text/xml; q=0.3, */*; q=0.2";
+
+    /**
+     * Select the available input source and, if it is not already a Reader,
+     * wrap it in a Reader. This method removes the duplication of code required
+     * for each caller to figure out if a reader or an inputstream is available.
+     * The returned Reader will be buffered.
+     * 
+     * @param source
+     *        ontology source
+     * @param configuration
+     *        loader configuration to use of the reader must be built form the
+     *        input IRI
+     * @param encoding
+     *        character encoding if a new Reader needs to be created.
+     * @return A Reader for the input; if no Reader can be obtained, an
+     *         OWLOntologyInputSourceException is thrown.
+     * @throws OWLOntologyInputSourceException
+     *         if an IO related exception is thrown.
+     */
+    public static Reader wrapInputAsReader(OWLOntologyDocumentSource source,
+            OWLOntologyLoaderConfiguration configuration, Charset encoding)
+            throws OWLOntologyInputSourceException {
+        Optional<Reader> reader = source.getReader();
+        if (reader.isPresent()) {
+            return new BufferedReader(reader.get());
+        }
+        return new BufferedReader(new InputStreamReader(wrapInput(source,
+                configuration), encoding));
+    }
+
+    /**
+     * Call #wrapwrapInputAsReader(OWLOntologyLoaderConfiguration, String) with
+     * UTF-* as default encoding.
+     * 
+     * @param source
+     *        ontology source
+     * @param configuration
+     *        loader configuration to use of the reader must be built form the
+     *        input IRI
+     * @return A Reader wrapped in an Optional; if no Reader can be obtained,
+     *         the result is Optional.absent. @throws
+     *         OWLOntologyInputSourceException if an IO related exception is
+     *         thrown.
+     * @throws OWLOntologyInputSourceException
+     *         if an IO related exception is thrown.
+     */
+    public static Reader wrapInputAsReader(OWLOntologyDocumentSource source,
+            OWLOntologyLoaderConfiguration configuration)
+            throws OWLOntologyInputSourceException {
+        return wrapInputAsReader(source, configuration, Charsets.UTF_8);
+    }
+
+    /**
+     * Select the available input source as an input stream. The input stream
+     * will be buffered.
+     * 
+     * @param source
+     *        ontology source
+     * @param configuration
+     *        loader configuration to use of the reader must be built form the
+     *        input IRI
+     * @return A Reader for the input; if no Reader can be obtained, an
+     *         OWLOntologyInputSourceException is thrown.
+     * @throws OWLOntologyInputSourceException
+     *         if an IO related exception is thrown.
+     */
+    public static InputStream wrapInput(OWLOntologyDocumentSource source,
+            OWLOntologyLoaderConfiguration configuration)
+            throws OWLOntologyInputSourceException {
+        Optional<InputStream> input = source.getInputStream();
+        if (!input.isPresent()) {
+            input = getInputStream(source.getDocumentIRI(), configuration);
+        }
+        if (input.isPresent()) {
+            return new BufferedInputStream(input.get());
+        }
+        throw new OWLOntologyInputSourceException(
+                "No input reader can be found");
+    }
 
     /**
      * A convenience method that obtains an input stream from a URI. This method

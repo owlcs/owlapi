@@ -17,6 +17,7 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 import static org.semanticweb.owlapi.search.Searcher.annotations;
 
 import java.io.ByteArrayInputStream;
+import java.io.StringReader;
 import java.nio.charset.Charset;
 
 import javax.annotation.Nonnull;
@@ -25,6 +26,7 @@ import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
+import org.semanticweb.owlapi.io.ReaderDocumentSource;
 import org.semanticweb.owlapi.io.StreamDocumentSource;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -84,10 +86,36 @@ public class Utf8TestCase extends TestBase {
     }
 
     @Test
-    public void testInvalidUTF8roundTrip() {
+    public void testInvalidUTF8roundTripWithInputStream()
+            throws OWLOntologyCreationException {
         // this test checks for the condition described in issue #47
-        // Input with character = 0240 (octal) should fail parsing but is read
-        // in as an owl/xml file
+        // Input with character = 0240 (octal) should work with an input stream,
+        // not with a reader
+        String onto = "<!DOCTYPE rdf:RDF [\n"
+                + "<!ENTITY xsd \"http://www.w3.org/2001/XMLSchema#\" >\n"
+                + "]>\n"
+                + "<rdf:RDF \n"
+                + "xml:base=\n"
+                + "\"http://www.example.org/ISA14#\" \n"
+                + "xmlns:owl =\"http://www.w3.org/2002/07/owl#\" \n"
+                + "xmlns:rdf =\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" \n"
+                + "xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" \n"
+                + "xmlns:xsd =\"http://www.w3.org/2001/XMLSchema#\" \n"
+                + "xmlns:ibs =\"http://www.example.org/ISA14#\" >\n"
+                + "<owl:Ontology rdf:about=\"#\" />\n"
+                + (char) 0240
+                + "<owl:Class rdf:about=\"http://www.example.org/ISA14#Researcher\"/>\n"
+                + "</rdf:RDF>";
+        ByteArrayInputStream in = new ByteArrayInputStream(
+                onto.getBytes(Charset.forName("ISO-8859-1")));
+        m.loadOntologyFromOntologyDocument(in);
+    }
+
+    @Test
+    public void testInvalidUTF8roundTripFromReader() {
+        // this test checks for the condition described in issue #47
+        // Input with character = 0240 (octal) should work with an input stream,
+        // not with a reader
         String onto = "<!DOCTYPE rdf:RDF [\n"
                 + "<!ENTITY xsd \"http://www.w3.org/2001/XMLSchema#\" >\n"
                 + "]>\n"
@@ -106,7 +134,8 @@ public class Utf8TestCase extends TestBase {
         ByteArrayInputStream in = new ByteArrayInputStream(
                 onto.getBytes(Charset.forName("ISO-8859-1")));
         try {
-            m.loadOntologyFromOntologyDocument(in);
+            m.loadOntologyFromOntologyDocument(new ReaderDocumentSource(
+                    new StringReader(onto)));
             fail("parsing should have failed, invalid input");
         } catch (Exception ex) {
             // expected to fail, but actual exception depends on the parsers in

@@ -43,6 +43,7 @@ import java.io.Reader;
 import java.util.List;
 
 import org.semanticweb.owlapi.io.AbstractOWLParser;
+import org.semanticweb.owlapi.io.DocumentSources;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLOntologyInputSourceException;
 import org.semanticweb.owlapi.io.OWLParserException;
@@ -67,12 +68,12 @@ class OWLOBO12Parser extends AbstractOWLParser {
     private static final long serialVersionUID = 40000L;
 
     @Override
-    public OWLDocumentFormat parse(OWLOntologyDocumentSource documentSource,
-            OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) {
+    public OWLDocumentFormat parse(OWLOntologyDocumentSource source,
+            OWLOntology ontology, OWLOntologyLoaderConfiguration config) {
         RawFrameHandler rawFrameHandler = new RawFrameHandler();
-        OBOConsumer oboConsumer = new OBOConsumer(ontology, configuration,
-                documentSource.getDocumentIRI());
-        try (Reader r = documentSource.wrapInputAsReader(configuration)) {
+        OBOConsumer oboConsumer = new OBOConsumer(ontology, config,
+                source.getDocumentIRI());
+        try (Reader r = DocumentSources.wrapInputAsReader(source, config)) {
             OBOParser parser = new OBOParser(r);
             parser.setHandler(rawFrameHandler);
             parser.parse();

@@ -12,7 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.oboformat;
 
-import java.io.BufferedReader;
+import static org.semanticweb.owlapi.io.DocumentSources.wrapInputAsReader;
+
 import java.io.IOException;
 import java.io.Serializable;
 
@@ -42,12 +43,10 @@ public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
     @Nonnull
     @Override
     public OWLDocumentFormat parse(@Nonnull OWLOntologyDocumentSource source,
-            @Nonnull OWLOntology in,
-            OWLOntologyLoaderConfiguration configuration) {
+            @Nonnull OWLOntology in, OWLOntologyLoaderConfiguration config) {
         try {
             OBOFormatParser p = new OBOFormatParser();
-            OBODoc obodoc = p.parse(new BufferedReader(source
-                    .wrapInputAsReader(configuration)));
+            OBODoc obodoc = p.parse(wrapInputAsReader(source, config));
             // create a translator object and feed it the OBO Document
             OWLAPIObo2Owl bridge = new OWLAPIObo2Owl(in.getOWLOntologyManager());
             bridge.convert(obodoc, in);

@@ -21,6 +21,7 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.formats.DLSyntaxHTMLDocumentFormat;
 import org.semanticweb.owlapi.formats.DLSyntaxHTMLDocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
+import org.semanticweb.owlapi.io.DocumentSources;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLOntologyInputSourceException;
 import org.semanticweb.owlapi.io.OWLParserException;
@@ -51,9 +52,9 @@ public class DLSyntaxOWLParser extends AbstractOWLParser {
     }
 
     @Override
-    public OWLDocumentFormat parse(OWLOntologyDocumentSource documentSource,
-            OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) {
-        try (Reader r = documentSource.wrapInputAsReader(configuration)) {
+    public OWLDocumentFormat parse(OWLOntologyDocumentSource source,
+            OWLOntology ontology, OWLOntologyLoaderConfiguration config) {
+        try (Reader r = DocumentSources.wrapInputAsReader(source, config)) {
             DLSyntaxParser parser = new DLSyntaxParser(r);
             Set<OWLAxiom> set = parser.parseAxioms();
             ontology.getOWLOntologyManager().addAxioms(ontology, set);

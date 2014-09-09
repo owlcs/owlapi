@@ -79,7 +79,7 @@ public class GZipFileDocumentSource extends OWLOntologyDocumentSourceBase {
     @Override
     public Optional<InputStream> getInputStream() {
         try {
-            return Optional.of(DocumentSourceUtils.wrap(new GZIPInputStream(
+            return Optional.of(DocumentSources.wrap(new GZIPInputStream(
                     new FileInputStream(file))));
         } catch (IOException e) {
             LOGGER.error("File cannot be found or opened", e);

@@ -20,6 +20,7 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
+import org.semanticweb.owlapi.io.DocumentSources;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLOntologyInputSourceException;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
@@ -50,17 +51,17 @@ public class TurtleOntologyParser extends AbstractOWLParser {
     }
 
     @Override
-    public OWLDocumentFormat parse(OWLOntologyDocumentSource documentSource,
-            OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) {
-        try (Reader r = documentSource.wrapInputAsReader(configuration)) {
+    public OWLDocumentFormat parse(OWLOntologyDocumentSource source,
+            OWLOntology ontology, OWLOntologyLoaderConfiguration config) {
+        try (Reader r = DocumentSources.wrapInputAsReader(source, config)) {
             TurtleParser parser;
             parser = new TurtleParser(r, new ConsoleTripleHandler(),
-                    documentSource.getDocumentIRI());
+                    source.getDocumentIRI());
             OWLRDFConsumerAdapter consumer = new OWLRDFConsumerAdapter(
-                    ontology, configuration);
+                    ontology, config);
             TurtleDocumentFormat format = new TurtleDocumentFormat();
             consumer.setOntologyFormat(format);
-            consumer.startModel(documentSource.getDocumentIRI());
+            consumer.startModel(source.getDocumentIRI());
             parser.setTripleHandler(consumer);
             parser.parseDocument();
             format.copyPrefixesFrom(parser.getPrefixManager());

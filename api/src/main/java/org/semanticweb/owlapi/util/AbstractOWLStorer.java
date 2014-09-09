@@ -109,7 +109,6 @@ public abstract class AbstractOWLStorer implements OWLStorer {
                     OWLDocumentFormat format)
                     throws OWLOntologyStorageException {
         Optional<Writer> writer = target.getWriter();
-        // XXX refactor this class: feature envy with OWLOntologyDocumentTarget
         if (format.isTextual() && writer.isPresent()) {
             try (Writer w = writer.get();) {
                 storeOntology(ontology, w, format);

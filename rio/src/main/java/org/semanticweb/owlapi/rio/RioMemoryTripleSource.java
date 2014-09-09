@@ -218,7 +218,7 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
     }
 
     @Override
-    public boolean canBeLoaded() {
+    public boolean readerOrInputStreamExists() {
         return false;
     }
 

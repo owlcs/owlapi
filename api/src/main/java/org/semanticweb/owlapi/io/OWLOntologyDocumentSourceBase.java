@@ -51,7 +51,7 @@ public abstract class OWLOntologyDocumentSourceBase implements
     }
 
     @Override
-    public boolean canBeLoaded() {
+    public boolean readerOrInputStreamExists() {
         return loadable.get();
     }
 

@@ -12,20 +12,15 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.io;
 
-import java.io.BufferedReader;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.Reader;
-import java.nio.charset.Charset;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
-import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 
-import com.google.common.base.Charsets;
 import com.google.common.base.Optional;
 
 /**
@@ -48,63 +43,6 @@ import com.google.common.base.Optional;
  * @since 2.0.0
  */
 public interface OWLOntologyDocumentSource {
-
-    /**
-     * Select the available input source and, if it is not already a Reader,
-     * wrap it in a Reader. This method removes the duplication of code required
-     * for each caller to figure out if a reader or an inputstream is available.
-     * The returned Reader will be buffered.
-     * 
-     * @param configuration
-     *        loader configuration to use of the reader must be built form the
-     *        input IRI
-     * @param encoding
-     *        character encoding if a new Reader needs to be created.
-     * @return A Reader for the input; if no Reader can be obtained, an
-     *         OWLOntologyInputSourceException is thrown.
-     * @throws OWLOntologyInputSourceException
-     *         if an IO related exception is thrown.
-     */
-    default Reader wrapInputAsReader(
-            OWLOntologyLoaderConfiguration configuration, Charset encoding)
-            throws OWLOntologyInputSourceException {
-        Optional<Reader> reader = getReader();
-        if (reader.isPresent()) {
-            return new BufferedReader(reader.get());
-        }
-        Optional<InputStream> input = getInputStream();
-        if (input.isPresent()) {
-            return new BufferedReader(new InputStreamReader(input.get(),
-                    encoding));
-        }
-        Optional<InputStream> in = DocumentSourceUtils.getInputStream(
-                getDocumentIRI(), configuration);
-        if (in.isPresent()) {
-            return new BufferedReader(new InputStreamReader(in.get(), encoding));
-        }
-        throw new OWLOntologyInputSourceException(
-                "No input reader can be found");
-    }
-
-    /**
-     * Call #wrapwrapInputAsReader(OWLOntologyLoaderConfiguration, String) with
-     * UTF-* as default encoding.
-     * 
-     * @param configuration
-     *        loader configuration to use of the reader must be built form the
-     *        input IRI
-     * @return A Reader wrapped in an Optional; if no Reader can be obtained,
-     *         the result is Optional.absent. @throws
-     *         OWLOntologyInputSourceException if an IO related exception is
-     *         thrown.
-     * @throws OWLOntologyInputSourceException
-     *         if an IO related exception is thrown.
-     */
-    default Reader wrapInputAsReader(
-            OWLOntologyLoaderConfiguration configuration)
-            throws OWLOntologyInputSourceException {
-        return wrapInputAsReader(configuration, Charsets.UTF_8);
-    }
 
     /**
      * Gets a reader which an ontology document can be read from. This method
@@ -159,9 +97,15 @@ public interface OWLOntologyDocumentSource {
     }
 
     /**
-     * @return true if at least one of input sream or reader is available for
-     *         this source, and no IOExceptions have happened when trying to
-     *         read from them.
+     * This method returns true if at least one of input stream or reader is
+     * available for this source, and no IOExceptions have happened when trying
+     * to read from them. This method returns false if neither reader nor input
+     * stream exist, or an attempt at reading from them has already taken place
+     * and has failed because of an IOException. This leaves attempting to
+     * resolve the document IRI as input. No attempt is made to verify that the
+     * document IRI is resolvable.
+     * 
+     * @return true if loading from reader or input stream is possible.
      */
-    boolean canBeLoaded();
+    boolean readerOrInputStreamExists();
 }

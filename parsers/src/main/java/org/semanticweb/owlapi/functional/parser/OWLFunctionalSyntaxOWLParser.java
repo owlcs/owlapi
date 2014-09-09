@@ -19,6 +19,7 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
+import org.semanticweb.owlapi.io.DocumentSources;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLOntologyInputSourceException;
 import org.semanticweb.owlapi.io.OWLParserException;
@@ -50,14 +51,14 @@ public class OWLFunctionalSyntaxOWLParser extends AbstractOWLParser {
 
     @Nonnull
     @Override
-    public OWLDocumentFormat parse(
-            @Nonnull OWLOntologyDocumentSource documentSource,
-            @Nonnull OWLOntology ontology,
-            OWLOntologyLoaderConfiguration configuration) {
-        try (Reader r = documentSource.wrapInputAsReader(configuration)) {
+    public OWLDocumentFormat
+            parse(@Nonnull OWLOntologyDocumentSource source,
+                    @Nonnull OWLOntology ontology,
+                    OWLOntologyLoaderConfiguration config) {
+        try (Reader r = DocumentSources.wrapInputAsReader(source, config)) {
             OWLFunctionalSyntaxParser parser = new OWLFunctionalSyntaxParser(
                     new CustomTokenizer(r));
-            parser.setUp(ontology, configuration);
+            parser.setUp(ontology, config);
             return parser.parse();
         } catch (ParseException e) {
             throw new OWLParserException(e.getMessage(), e, 0, 0);

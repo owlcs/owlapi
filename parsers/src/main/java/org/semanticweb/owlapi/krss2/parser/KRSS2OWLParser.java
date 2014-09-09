@@ -20,6 +20,7 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.formats.KRSS2DocumentFormat;
 import org.semanticweb.owlapi.formats.KRSS2DocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
+import org.semanticweb.owlapi.io.DocumentSources;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLOntologyInputSourceException;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
@@ -246,13 +247,12 @@ public class KRSS2OWLParser extends AbstractOWLParser {
     }
 
     @Override
-    public OWLDocumentFormat parse(OWLOntologyDocumentSource documentSource,
-            OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) {
-        try (Reader r = documentSource.wrapInputAsReader(configuration)) {
+    public OWLDocumentFormat parse(OWLOntologyDocumentSource source,
+            OWLOntology ontology, OWLOntologyLoaderConfiguration config) {
+        try (Reader r = DocumentSources.wrapInputAsReader(source, config)) {
             KRSS2DocumentFormat format = new KRSS2DocumentFormat();
             KRSS2Parser parser = new KRSS2Parser(r);
-            parser.setOntology(ontology, ontology.getOWLOntologyManager()
-                    .getOWLDataFactory());
+            parser.setOntology(ontology);
             parser.parse();
             return format;
         } catch (ParseException | OWLOntologyInputSourceException | IOException e) {

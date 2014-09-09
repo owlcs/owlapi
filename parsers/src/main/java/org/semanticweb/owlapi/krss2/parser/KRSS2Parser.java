@@ -51,9 +51,9 @@ class KRSS2Parser implements KRSS2ParserConstants {
     private boolean alwaysIRIs = false;
     private boolean alwaysNames = false;
 
-    void setOntology(OWLOntology ontology, OWLDataFactory dataFactory) {
+    void setOntology(OWLOntology ontology) {
         this.ontology = ontology;
-        this.dataFactory = dataFactory;
+        dataFactory = ontology.getOWLOntologyManager().getOWLDataFactory();
         string2IRI = new HashMap<String, IRI>();
         OWLOntologyID id = ontology.getOntologyID();
         if (!id.isAnonymous()) {

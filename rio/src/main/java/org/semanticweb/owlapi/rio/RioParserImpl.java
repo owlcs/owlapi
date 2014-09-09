@@ -35,15 +35,11 @@
  */
 package org.semanticweb.owlapi.rio;
 
+import static org.semanticweb.owlapi.io.DocumentSources.wrapInputAsReader;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.Reader;
 import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
@@ -68,7 +64,9 @@ import org.openrdf.rio.helpers.StatementCollector;
 import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.formats.RioRDFDocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
+import org.semanticweb.owlapi.io.DocumentSources;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
+import org.semanticweb.owlapi.io.OWLOntologyInputSourceException;
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
@@ -78,8 +76,6 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.util.AnonymousNodeChecker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.google.common.base.Optional;
 
 /**
  */
@@ -191,7 +187,8 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
                 }
                 handler.endRDF();
             } else {
-                parseDocumentSource(documentSource, baseUri, handler);
+                parseDocumentSource(documentSource, baseUri, handler,
+                        configuration);
             }
             return consumer.getOntologyFormat();
         } catch (final RDFHandlerException e) {
@@ -204,7 +201,8 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
             } else {
                 throw new OWLParserException(e);
             }
-        } catch (RDFParseException | UnsupportedRDFormatException | IOException e) {
+        } catch (RDFParseException | UnsupportedRDFormatException
+                | OWLOntologyInputSourceException | IOException e) {
             throw new OWLParserException(e);
         }
     }
@@ -213,7 +211,7 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
      * Parse the given document source and return a {@link StatementCollector}
      * containing the RDF statements found in the source.
      * 
-     * @param documentSource
+     * @param source
      *        An {@link OWLOntologyDocumentSource} containing RDF statements.
      * @param baseUri
      *        The base URI to use when parsing the document source.
@@ -233,9 +231,10 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
      * @throws MalformedURLException
      *         If there are malformed URLs.
      */
-    protected void parseDocumentSource(
-            final OWLOntologyDocumentSource documentSource,
-            final String baseUri, final RDFHandler handler) throws IOException,
+    protected void parseDocumentSource(final OWLOntologyDocumentSource source,
+            final String baseUri, final RDFHandler handler,
+            OWLOntologyLoaderConfiguration config)
+            throws OWLOntologyInputSourceException, IOException,
             RDFParseException, RDFHandlerException {
         final RDFParser createParser = Rio.createParser(owlFormatFactory
                 .getRioFormat());
@@ -246,20 +245,12 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
         createParser.setRDFHandler(handler);
         long rioParseStart = System.currentTimeMillis();
         try {
-            Optional<Reader> reader = documentSource.getReader();
-            if (owlFormatFactory.isTextual() && reader.isPresent()) {
-                createParser.parse(reader.get(), baseUri);
+            if (owlFormatFactory.isTextual()) {
+                createParser.parse(wrapInputAsReader(source, config), baseUri);
                 return;
             }
-            Optional<InputStream> input = documentSource.getInputStream();
-            if (input.isPresent()) {
-                createParser.parse(input.get(), baseUri);
-                return;
-            }
-            URL url = URI.create(documentSource.getDocumentIRI().toString())
-                    .toURL();
-            URLConnection conn = url.openConnection();
-            createParser.parse(conn.getInputStream(), baseUri);
+            createParser.parse(DocumentSources.wrapInput(source, config),
+                    baseUri);
         } finally {
             if (LOGGER.isDebugEnabled()) {
                 LOGGER.debug("rioParse: timing={}", System.currentTimeMillis()

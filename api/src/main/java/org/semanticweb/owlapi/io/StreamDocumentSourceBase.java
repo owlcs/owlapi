@@ -166,7 +166,7 @@ public abstract class StreamDocumentSourceBase extends
             return Optional.absent();
         }
         try {
-            return Optional.of(DocumentSourceUtils.wrap(new GZIPInputStream(
+            return Optional.of(DocumentSources.wrap(new GZIPInputStream(
                     new ByteArrayInputStream(byteBuffer))));
         } catch (IOException e) {
             LOGGER.error("Buffer cannot be opened", e);
@@ -181,7 +181,7 @@ public abstract class StreamDocumentSourceBase extends
             return Optional.absent();
         }
         try {
-            return Optional.of(new InputStreamReader(DocumentSourceUtils
+            return Optional.of(new InputStreamReader(DocumentSources
                     .wrap(new GZIPInputStream(new ByteArrayInputStream(
                             byteBuffer))), encoding));
         } catch (IOException e) {

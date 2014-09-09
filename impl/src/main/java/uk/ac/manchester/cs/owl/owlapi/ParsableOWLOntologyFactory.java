@@ -83,7 +83,7 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
 
     @Override
     public boolean canLoad(@Nonnull OWLOntologyDocumentSource documentSource) {
-        return documentSource.canBeLoaded()
+        return documentSource.readerOrInputStreamExists()
                 || parsableSchemes.contains(documentSource.getDocumentIRI()
                         .getScheme());
     }

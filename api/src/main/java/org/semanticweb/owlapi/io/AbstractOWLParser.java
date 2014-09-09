@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.io;
 
+import java.io.Reader;
 import java.io.Serializable;
 
 import javax.annotation.Nonnull;
@@ -37,12 +38,12 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
 
     @Nonnull
     protected InputSource getInputSource(
-            @Nonnull OWLOntologyDocumentSource documentSource,
+            @Nonnull OWLOntologyDocumentSource source,
             @Nonnull OWLOntologyLoaderConfiguration config)
             throws OWLOntologyInputSourceException {
-        InputSource is = new InputSource(
-                documentSource.wrapInputAsReader(config));
-        is.setSystemId(documentSource.getDocumentIRI().toString());
+        Reader in = DocumentSources.wrapInputAsReader(source, config);
+        InputSource is = new InputSource(in);
+        is.setSystemId(source.getDocumentIRI().toString());
         return is;
     }
 
