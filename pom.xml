@@ -214,6 +214,17 @@
 					<argLine>-Xmx1024M -Djava.awt.headless=true</argLine>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+				<version>1.6.2</version>
+				<extensions>true</extensions>
+				<configuration>
+					<serverId>ossrh</serverId>
+					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+					<autoReleaseAfterClose>false</autoReleaseAfterClose>
+				</configuration>
+			</plugin>
 			<!-- the FindBugs plugin for extra checks -->
 			<!--plugin>
 				<groupId>org.codehaus.mojo</groupId>
@@ -231,7 +242,7 @@
 						</configuration>
 					</execution>
 				</executions>
-				</plugin -->
+
 		</plugins>
 	</build>
 
