@@ -1,8 +1,19 @@
-Features and bug fixes in 4.0.0
+4.0.0 10 September 2014
 
 Supported Java versions: Java 7, Java 8
 
-Features
+Features:
+    added HasAnnotationPropertiesInSignature to uniform treatment of annotation properties
+    added missing EntitySearcher methods for negative property assertions
+    Use Trove collections for ontology internals
+    improved performance of OWLAxiomImpl.equals
+    Transform functions from Collection<OWLOntoloy> and Collection<OWLOntologyID> to Collection<IRI>
+    PMD critical violations addressed
+    fix ServiceLoader use to be OSGi compatible
+    create osgidistribution: osgidistribution is a jar with embedded dependencies and including the compatibility module. It addresses the issues due to the OWLAPI dependencies not being wrapped in OSGi bundles separately.
+    enabled OWLOntologyManager to build and keep a loader configuration
+    OBO 1.2 ontologies cannot be parsed by the 1.4 parser. Added 1.2 parser from OWLAPITOOLS to compatibility package.
+    added saveOntology() methods to OWLMutableOntology
     Add a copy/move ontology method to OWLOntologyManager #12
     Search introduced to replace forSuperPosition, forSubPosition, ignoreAnnotations booleans
     Imports.INCLUDED, Imports.EXCLUDED introduced instead of boolean arguments #156
@@ -63,6 +74,18 @@ Features
     Manchester OWL syntax cleanup
 
 Bug fixes (ported to 3.5)
+    Fix #278 AutoIRIMapper is not namespace aware
+    Direct imports result not updated correctly after manual load #277
+    fix #275 DL Syntax rendering of disjoint classes missing comma
+    fix #271 OWLOntology.getXXXInSignature(boolean) and similar methods
+    fix #270 Add OWLOntology.getReferencingAxioms(OWLPrimitive)
+    fix #268 Add documentation to OWLOntologyID to clarify the relationship between isAnonymous() and getOntologyIRI()
+    fix #267 Consider adding containsXInSignature methods that do not have an imports flag to OWLOntology.
+    fix #254 OWLAsymmetricObjectPropertyAxiom not rendered in DL Syntax
+    fix OWLDocumentFormat as interface #258 #259
+    fix #260 and fix #261 data and object cardinality are quantified restricitons
+    fix #255 PrefixOWLOntologyFormat is missing from the compatibility module
+    fix #253 StructuralReasoner.getSameIndividuals does not behave as advertised
     Fixed #198 A SubClassOf B will not parse
     Fixed IRI with a space: %20 escape #146
     Old OWLEntityCollector brought forward as DeprecatedOWLEntityCollector
