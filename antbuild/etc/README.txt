@@ -1,3 +1,67 @@
+3.5.1 10 September 2014
+
+Bugs:
+#278 AutoIRIMapper is not namespace aware
+3.5.1 OSGi distro
+#275 DL Syntax rendering of disjoint classes missing comma
+#277 Direct imports result not updated correctly after manual load 
+#254 OWLAsymmetricObjectPropertyAxiom not rendered in DL Syntax
+#253 StructuralReasoner.getSameIndividuals does not behave as advertised
+Reintroduced OBO parser for 1.2 from OWLAPITOOLS for backwards compatibility
+#251 OBO parser for 1.4 cannot handle some 1.2 ontologies
+More misbehaving comparators fixed
+OBO: missing [] for synonyms
+OBO: incomplete OBO writes. Always flush the buffer after writing
+#217 Manchester abstract renderer in 3.5+ swallows exceptions but prints stacktrace
+#207 OBO parser fails when a comment is in the date tag
+#198 A SubClassOf B will not parse
+#146 An IRI with a space: hard parse error or %20 escape?
+#187 RDF/XML files with a UTF-8 BOM fail to parse
+
+Features:
+Use Trove collections for ontology internals
+Guava 17.0 dependency added
+OBO updated to 5.5 release
+Don't cache any literals in OWLDataFactoryInternalsImpl.
+#190 OWLLiteralImpl improvements on memory footprint
+do not actually open a connection to verify if an URL points to an ontology
+
+
+3.5.0  12 April 2014
+
+Bugs:
+#150 Property type inference fixes
+#143 Role Chain compareTo skips every other element of the role chain.
+Switching data factory IllegalArgumentExceptions to NullPointerExceptions #131
+Fix Are properties generally defined to be copies or immutable #143
+Bug in SWRL body ordering: the parsing handler uses HashSets.
+#36 trying to read an ontology from a web page url hangs
+Manchester syntax renderer (various bugs)
+#121 set turtle default prefix slash aware
+#128 Turtle parser fails to parse literal with escaped double quote right at the end of the literal
+#109 Datatypes on literals used in annotations cause profile violations
+#117 ManchesterOWLSyntaxFrameRenderer adds too many brackets
+#114 Escaping characters in default OBOParser 3.4.10 is fixed
+#116 import statement erroneously names anonymous ontology
+#47 Input with character = 0240 (octal) should fail
+annotations on datatype definitin axioms fixed in OWL/XML
+Avoid adding inferred TransitiveObjectProperty assertions if transitivity is only vacuously true.
+#53 No warning for missing xml:base causes unexpected import
+#90 DTD processing slows down XML parse
+#88 imported turtle graph does not parse correctly
+#87 URIs with genid string are considered blank node ids
+#71 Misleading message on resolving illegal IRI
+#83 RDFTranslator: ID collision for anonymous individuals
+#78 functional parser swallows ontology already exists exception
+#74 RDF/XML invalid in ManchesterOWLSyntaxParserTestCase
+Fix swrl-built-in atom rendering
+
+Features:
+Implements Add a GWT compatible method to get the pattern for an OWL2Datatype as a raw string #152
+Implement Consider retries when loading from URLs #66 with hardcoded 5 retries and increasing timeout limit.
+Added some micro interfaces for accessing ontologies and applying changes to ontologies.
+
+
 3.4.10 18 January 2014
 
 Bugs:

@@ -1,3 +1,31 @@
+3.5.1 10 September 2014
+
+Bugs:
+#278 AutoIRIMapper is not namespace aware
+3.5.1 OSGi distro
+#275 DL Syntax rendering of disjoint classes missing comma
+#277 Direct imports result not updated correctly after manual load 
+#254 OWLAsymmetricObjectPropertyAxiom not rendered in DL Syntax
+#253 StructuralReasoner.getSameIndividuals does not behave as advertised
+Reintroduced OBO parser for 1.2 from OWLAPITOOLS for backwards compatibility
+#251 OBO parser for 1.4 cannot handle some 1.2 ontologies
+More misbehaving comparators fixed
+OBO: missing [] for synonyms
+OBO: incomplete OBO writes. Always flush the buffer after writing
+#217 Manchester abstract renderer in 3.5+ swallows exceptions but prints stacktrace
+#207 OBO parser fails when a comment is in the date tag
+#198 A SubClassOf B will not parse
+#146 An IRI with a space: hard parse error or %20 escape?
+#187 RDF/XML files with a UTF-8 BOM fail to parse
+
+Features:
+Use Trove collections for ontology internals
+Guava 17.0 dependency added
+OBO updated to 5.5 release
+Don't cache any literals in OWLDataFactoryInternalsImpl.
+#190 OWLLiteralImpl improvements on memory footprint
+do not actually open a connection to verify if an URL points to an ontology
+
 3.5.0  12 April 2014
 
 Bugs:
