@@ -65,7 +65,7 @@ public class EmptyInMemOWLOntologyFactory extends
     }
 
     @Override
-    public boolean canLoad(OWLOntologyDocumentSource documentSource) {
+    public boolean canAttemptLoading(OWLOntologyDocumentSource documentSource) {
         return false;
     }
 }

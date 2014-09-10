@@ -19,6 +19,7 @@ import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSourceBase;
 import org.semanticweb.owlapi.model.AddAxiom;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
@@ -39,13 +40,15 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 @SuppressWarnings("javadoc")
 public class DeclarationEntityReferencesTestCase extends TestBase {
 
+    private static final IRI NEXT_DOCUMENT_IRI = OWLOntologyDocumentSourceBase
+            .getNextDocumentIRI("urn:testontology");
+
     @Test
     public void testOWLClassDeclarationAxiom()
             throws OWLOntologyCreationException {
         OWLClass cls = createClass();
         OWLAxiom ax = Declaration(cls);
-        OWLOntology ont = m.createOntology(OWLOntologyDocumentSourceBase
-                .getNextDocumentIRI("urn:testontology"));
+        OWLOntology ont = m.createOntology(NEXT_DOCUMENT_IRI);
         m.applyChange(new AddAxiom(ont, ax));
         assertTrue(ont.getClassesInSignature().contains(cls));
     }
@@ -55,8 +58,7 @@ public class DeclarationEntityReferencesTestCase extends TestBase {
             throws OWLOntologyCreationException {
         OWLObjectProperty prop = createObjectProperty();
         OWLAxiom ax = Declaration(prop);
-        OWLOntology ont = m.createOntology(OWLOntologyDocumentSourceBase
-                .getNextDocumentIRI("urn:testontology"));
+        OWLOntology ont = m.createOntology(NEXT_DOCUMENT_IRI);
         m.applyChange(new AddAxiom(ont, ax));
         assertTrue(ont.getObjectPropertiesInSignature().contains(prop));
     }
@@ -66,8 +68,7 @@ public class DeclarationEntityReferencesTestCase extends TestBase {
             throws OWLOntologyCreationException {
         OWLDataProperty prop = createDataProperty();
         OWLAxiom ax = Declaration(prop);
-        OWLOntology ont = m.createOntology(OWLOntologyDocumentSourceBase
-                .getNextDocumentIRI("urn:testontology"));
+        OWLOntology ont = m.createOntology(NEXT_DOCUMENT_IRI);
         m.applyChange(new AddAxiom(ont, ax));
         assertTrue(ont.getDataPropertiesInSignature().contains(prop));
     }
@@ -77,8 +78,7 @@ public class DeclarationEntityReferencesTestCase extends TestBase {
             throws OWLOntologyCreationException {
         OWLNamedIndividual ind = createIndividual();
         OWLAxiom ax = Declaration(ind);
-        OWLOntology ont = m.createOntology(OWLOntologyDocumentSourceBase
-                .getNextDocumentIRI("urn:testontology"));
+        OWLOntology ont = m.createOntology(NEXT_DOCUMENT_IRI);
         m.applyChange(new AddAxiom(ont, ax));
         assertTrue(ont.getIndividualsInSignature().contains(ind));
     }

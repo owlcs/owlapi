@@ -935,7 +935,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         OWLOntologyID idOfLoadedOntology = new OWLOntologyID();
         try {
             for (OWLOntologyFactory factory : ontologyFactories) {
-                if (factory.canLoad(documentSource)) {
+                if (factory.canAttemptLoading(documentSource)) {
                     try {
                         // Note - there is no need to add the ontology here,
                         // because it will be added

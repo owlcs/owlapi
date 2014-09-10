@@ -79,24 +79,18 @@ public class FileDocumentSource extends OWLOntologyDocumentSourceBase {
      */
     public FileDocumentSource(@Nonnull File file, OWLDocumentFormat format,
             String mime) {
-        super(format, mime);
+        super(IRI.create(file), format, mime);
         this.file = checkNotNull(file, "file cannot be null");
-    }
-
-    @Override
-    public IRI getDocumentIRI() {
-        return IRI.create(file);
     }
 
     @Nonnull
     @Override
     public Optional<InputStream> getInputStream() {
         try {
-            return Optional.of(DocumentSources.wrap(new FileInputStream(
-                    file)));
+            return Optional.of(DocumentSources.wrap(new FileInputStream(file)));
         } catch (FileNotFoundException e) {
             LOGGER.error("File cannot be found", e);
-            loadable.set(false);
+            failedOnStreams.set(true);
             return Optional.absent();
         }
     }

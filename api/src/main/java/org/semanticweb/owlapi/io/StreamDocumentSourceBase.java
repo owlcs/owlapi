@@ -47,8 +47,6 @@ public abstract class StreamDocumentSourceBase extends
 
     private static final Logger LOGGER = LoggerFactory
             .getLogger(StreamDocumentSourceBase.class);
-    @Nonnull
-    protected final IRI documentIRI;
     protected byte[] byteBuffer;
     private String encoding = "UTF-8";
     private boolean streamAvailable = false;
@@ -68,9 +66,7 @@ public abstract class StreamDocumentSourceBase extends
      */
     public StreamDocumentSourceBase(@Nonnull InputStream stream,
             @Nonnull IRI documentIRI, OWLDocumentFormat format, String mime) {
-        super(format, mime);
-        this.documentIRI = checkNotNull(documentIRI,
-                "document iri cannot be null");
+        super(documentIRI, format, mime);
         readIntoBuffer(checkNotNull(stream, "stream cannot be null"));
         streamAvailable = true;
     }
@@ -90,9 +86,53 @@ public abstract class StreamDocumentSourceBase extends
      */
     public StreamDocumentSourceBase(@Nonnull Reader stream,
             @Nonnull IRI documentIRI, OWLDocumentFormat format, String mime) {
-        super(format, mime);
-        this.documentIRI = checkNotNull(documentIRI,
-                "document iri cannot be null");
+        super(documentIRI, format, mime);
+        checkNotNull(stream, "stream cannot be null");
+        // if the input stream carries encoding information, use it; else leave
+        // the default as UTF-8
+        if (stream instanceof InputStreamReader) {
+            encoding = ((InputStreamReader) stream).getEncoding();
+        }
+        readIntoBuffer(stream);
+        streamAvailable = false;
+    }
+
+    /**
+     * Constructs an input source which will read an ontology from a
+     * representation from the specified stream.
+     * 
+     * @param stream
+     *        The stream that the ontology representation will be read from.
+     * @param prefix
+     *        The document IRI prefix
+     * @param format
+     *        ontology format
+     * @param mime
+     *        mime type
+     */
+    protected StreamDocumentSourceBase(@Nonnull InputStream stream,
+            @Nonnull String prefix, OWLDocumentFormat format, String mime) {
+        super(prefix, format, mime);
+        readIntoBuffer(checkNotNull(stream, "stream cannot be null"));
+        streamAvailable = true;
+    }
+
+    /**
+     * Constructs an input source which will read an ontology from a
+     * representation from the specified stream.
+     * 
+     * @param stream
+     *        The stream that the ontology representation will be read from.
+     * @param prefix
+     *        The document IRI prefix
+     * @param format
+     *        ontology format
+     * @param mime
+     *        mime type
+     */
+    protected StreamDocumentSourceBase(@Nonnull Reader stream,
+            @Nonnull String prefix, OWLDocumentFormat format, String mime) {
+        super(prefix, format, mime);
         checkNotNull(stream, "stream cannot be null");
         // if the input stream carries encoding information, use it; else leave
         // the default as UTF-8
@@ -156,11 +196,6 @@ public abstract class StreamDocumentSourceBase extends
     }
 
     @Override
-    public IRI getDocumentIRI() {
-        return documentIRI;
-    }
-
-    @Override
     public Optional<InputStream> getInputStream() {
         if (!streamAvailable) {
             return Optional.absent();
@@ -170,7 +205,7 @@ public abstract class StreamDocumentSourceBase extends
                     new ByteArrayInputStream(byteBuffer))));
         } catch (IOException e) {
             LOGGER.error("Buffer cannot be opened", e);
-            loadable.set(false);
+            failedOnStreams.set(true);
             return Optional.absent();
         }
     }
@@ -186,7 +221,7 @@ public abstract class StreamDocumentSourceBase extends
                             byteBuffer))), encoding));
         } catch (IOException e) {
             LOGGER.error("Buffer cannot be opened", e);
-            loadable.set(false);
+            failedOnStreams.set(true);
             return Optional.absent();
         }
     }

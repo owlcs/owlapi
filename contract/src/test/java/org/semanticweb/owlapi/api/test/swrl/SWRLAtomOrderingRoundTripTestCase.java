@@ -19,7 +19,6 @@ import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
-import org.semanticweb.owlapi.io.OWLOntologyDocumentSourceBase;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.AxiomType;
@@ -92,9 +91,7 @@ public class SWRLAtomOrderingRoundTripTestCase {
         OWLOntologyManager man2 = OWLManager.createOWLOntologyManager();
         OWLOntology ont2 = man2
                 .loadOntologyFromOntologyDocument(new StringDocumentSource(
-                        documentTarget.toString(),
-                        OWLOntologyDocumentSourceBase
-                                .getNextDocumentIRI("string:ontology"),
+                        documentTarget.toString(), "string:ontology",
                         ontologyFormat, null));
         Set<SWRLRule> rules = ont2.getAxioms(AxiomType.SWRL_RULE);
         assertThat(rules.size(), is(1));

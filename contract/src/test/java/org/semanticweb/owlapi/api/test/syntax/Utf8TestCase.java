@@ -131,8 +131,6 @@ public class Utf8TestCase extends TestBase {
                 + (char) 0240
                 + "<owl:Class rdf:about=\"http://www.example.org/ISA14#Researcher\"/>\n"
                 + "</rdf:RDF>";
-        ByteArrayInputStream in = new ByteArrayInputStream(
-                onto.getBytes(Charset.forName("ISO-8859-1")));
         try {
             m.loadOntologyFromOntologyDocument(new ReaderDocumentSource(
                     new StringReader(onto)));

@@ -97,15 +97,28 @@ public interface OWLOntologyDocumentSource {
     }
 
     /**
-     * This method returns true if at least one of input stream or reader is
-     * available for this source, and no IOExceptions have happened when trying
-     * to read from them. This method returns false if neither reader nor input
-     * stream exist, or an attempt at reading from them has already taken place
-     * and has failed because of an IOException. This leaves attempting to
-     * resolve the document IRI as input. No attempt is made to verify that the
-     * document IRI is resolvable.
-     * 
-     * @return true if loading from reader or input stream is possible.
+     * @return true if there is no reader or input stream available for this
+     *         source, or reading from them has already been attempted in a
+     *         previous call and has failed. This leaves attempting to resolve
+     *         the document IRI as input. No attempt is made to verify that the
+     *         document IRI is resolvable.
      */
-    boolean readerOrInputStreamExists();
+    boolean hasAlredyFailedOnStreams();
+
+    /**
+     * @return true if resolving the document IRI has been attempted by a
+     *         previous call and has failed, false if resolution has not been
+     *         attempted yet or it has happened successfully.
+     */
+    boolean hasAlredyFailedOnIRIResolution();
+
+    /**
+     * IRI resolution does not happen inside this class. This method allows the
+     * resolver to mark the document IRI as unresolvable, so that the
+     * information is tracked with the source.
+     * 
+     * @param value
+     *        new value for the flag
+     */
+    void setIRIResolutionFailed(boolean value);
 }

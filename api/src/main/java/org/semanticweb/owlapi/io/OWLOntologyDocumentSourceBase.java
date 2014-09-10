@@ -1,5 +1,7 @@
 package org.semanticweb.owlapi.io;
 
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -32,27 +34,62 @@ public abstract class OWLOntologyDocumentSourceBase implements
         return IRI.create(prefix + COUNTER.incrementAndGet());
     }
 
+    private final IRI documentIRI;
     private final Optional<OWLDocumentFormat> format;
     private final Optional<String> mimeType;
-    protected final AtomicBoolean loadable = new AtomicBoolean(true);
+    protected final AtomicBoolean failedOnStreams = new AtomicBoolean(false);
+    protected final AtomicBoolean failedOnIRI = new AtomicBoolean(false);
 
     /**
      * Constructs an ontology input source using the specified file.
      * 
+     * @param iri
+     *        document IRI
      * @param format
      *        ontology format. If null, it is considered unspecified
      * @param mime
      *        mime type. If null or empty, it is considered unspecified.
      */
-    public OWLOntologyDocumentSourceBase(@Nullable OWLDocumentFormat format,
-            @Nullable String mime) {
+    public OWLOntologyDocumentSourceBase(@Nonnull IRI iri,
+            @Nullable OWLDocumentFormat format, @Nullable String mime) {
         this.format = Optional.fromNullable(format);
         mimeType = Optional.fromNullable(mime);
+        documentIRI = checkNotNull(iri, "document iri cannot be null");
+    }
+
+    /**
+     * Constructs an ontology input source using the specified file.
+     * 
+     * @param iriPrefix
+     *        document IRI prefix - used to generate a new IRI
+     * @param format
+     *        ontology format. If null, it is considered unspecified
+     * @param mime
+     *        mime type. If null or empty, it is considered unspecified.
+     */
+    public OWLOntologyDocumentSourceBase(@Nonnull String iriPrefix,
+            @Nullable OWLDocumentFormat format, @Nullable String mime) {
+        this(getNextDocumentIRI(iriPrefix), format, mime);
     }
 
     @Override
-    public boolean readerOrInputStreamExists() {
-        return loadable.get();
+    public final IRI getDocumentIRI() {
+        return documentIRI;
+    }
+
+    @Override
+    public boolean hasAlredyFailedOnStreams() {
+        return failedOnStreams.get();
+    }
+
+    @Override
+    public boolean hasAlredyFailedOnIRIResolution() {
+        return failedOnIRI.get();
+    }
+
+    @Override
+    public void setIRIResolutionFailed(boolean value) {
+        failedOnIRI.set(value);
     }
 
     @Override

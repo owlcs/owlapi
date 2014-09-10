@@ -218,7 +218,7 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
     }
 
     @Override
-    public boolean readerOrInputStreamExists() {
+    public boolean hasAlredyFailedOnStreams() {
         return false;
     }
 
@@ -252,5 +252,15 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
     public void setNamespaces(Map<String, String> nextNamespaces) {
         namespaces.clear();
         namespaces.putAll(nextNamespaces);
+    }
+
+    @Override
+    public boolean hasAlredyFailedOnIRIResolution() {
+        return false;
+    }
+
+    @Override
+    public void setIRIResolutionFailed(boolean value) {
+        // unnecessary for this class
     }
 }

@@ -36,7 +36,7 @@ public class StreamDocumentSource extends StreamDocumentSourceBase {
      *        The stream that the ontology representation will be read from.
      */
     public StreamDocumentSource(@Nonnull InputStream is) {
-        this(is, getNextDocumentIRI("inputstream:ontology"), null, null);
+        super(is, "inputstream:ontology", null, null);
     }
 
     /**
@@ -49,7 +49,7 @@ public class StreamDocumentSource extends StreamDocumentSourceBase {
      *        The document IRI
      */
     public StreamDocumentSource(@Nonnull InputStream is, @Nonnull IRI iri) {
-        this(is, iri, null, null);
+        super(is, iri, null, null);
     }
 
     /**
@@ -68,5 +68,23 @@ public class StreamDocumentSource extends StreamDocumentSourceBase {
     public StreamDocumentSource(@Nonnull InputStream stream,
             @Nonnull IRI documentIRI, OWLDocumentFormat f, String mime) {
         super(stream, documentIRI, f, mime);
+    }
+
+    /**
+     * Constructs an input source which will read an ontology from a
+     * representation from the specified stream.
+     * 
+     * @param stream
+     *        The stream that the ontology representation will be read from.
+     * @param prefix
+     *        The document IRI prefix
+     * @param f
+     *        ontology format
+     * @param mime
+     *        mime type
+     */
+    public StreamDocumentSource(@Nonnull InputStream stream,
+            @Nonnull String prefix, OWLDocumentFormat f, String mime) {
+        super(stream, prefix, f, mime);
     }
 }

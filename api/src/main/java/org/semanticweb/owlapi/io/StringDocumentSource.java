@@ -33,8 +33,6 @@ import com.google.common.base.Optional;
  */
 public class StringDocumentSource extends OWLOntologyDocumentSourceBase {
 
-    @Nonnull
-    private final IRI documentIRI;
     private final String string;
 
     /**
@@ -42,7 +40,8 @@ public class StringDocumentSource extends OWLOntologyDocumentSourceBase {
      *        the source string
      */
     public StringDocumentSource(@Nonnull String string) {
-        this(string, getNextDocumentIRI("string:ontology"), null, null);
+        super("string:ontology", null, null);
+        this.string = checkNotNull(string, "string cannot be null");
     }
 
     /**
@@ -77,19 +76,30 @@ public class StringDocumentSource extends OWLOntologyDocumentSourceBase {
      */
     public StringDocumentSource(@Nonnull String string,
             @Nonnull IRI documentIRI, OWLDocumentFormat f, String mime) {
-        super(f, mime);
+        super(documentIRI, f, mime);
         this.string = checkNotNull(string, "string cannot be null");
-        this.documentIRI = checkNotNull(documentIRI,
-                "documentIRI cannot be null");
+    }
+
+    /**
+     * Specifies a string as an ontology document.
+     * 
+     * @param string
+     *        The string
+     * @param prefix
+     *        The document IRI prefix
+     * @param f
+     *        ontology format
+     * @param mime
+     *        mime type
+     */
+    public StringDocumentSource(@Nonnull String string, @Nonnull String prefix,
+            OWLDocumentFormat f, String mime) {
+        super(prefix, f, mime);
+        this.string = checkNotNull(string, "string cannot be null");
     }
 
     @Override
     public Optional<Reader> getReader() {
         return Optional.of(new StringReader(string));
-    }
-
-    @Override
-    public IRI getDocumentIRI() {
-        return documentIRI;
     }
 }

@@ -39,8 +39,6 @@ public class GZipFileDocumentSource extends OWLOntologyDocumentSourceBase {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(GZipFileDocumentSource.class);
     @Nonnull
-    private final IRI documentIRI;
-    @Nonnull
     private final File file;
 
     /**
@@ -51,7 +49,8 @@ public class GZipFileDocumentSource extends OWLOntologyDocumentSourceBase {
      *        The file that the ontology representation will be read from.
      */
     public GZipFileDocumentSource(@Nonnull File is) {
-        this(is, getNextDocumentIRI("file:ontology"), null, null);
+        super("file:ontology", null, null);
+        file = is;
     }
 
     /**
@@ -70,8 +69,7 @@ public class GZipFileDocumentSource extends OWLOntologyDocumentSourceBase {
     public GZipFileDocumentSource(@Nonnull File stream,
             @Nonnull IRI documentIRI, @Nullable OWLDocumentFormat format,
             @Nullable String mime) {
-        super(format, mime);
-        this.documentIRI = documentIRI;
+        super(documentIRI, format, mime);
         file = stream;
     }
 
@@ -83,13 +81,8 @@ public class GZipFileDocumentSource extends OWLOntologyDocumentSourceBase {
                     new FileInputStream(file))));
         } catch (IOException e) {
             LOGGER.error("File cannot be found or opened", e);
-            loadable.set(false);
+            failedOnStreams.set(true);
             return Optional.absent();
         }
-    }
-
-    @Override
-    public IRI getDocumentIRI() {
-        return documentIRI;
     }
 }
