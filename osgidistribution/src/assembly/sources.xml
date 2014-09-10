@@ -42,15 +42,7 @@
 			<outputDirectory>.</outputDirectory>
 		</fileSet>
 		<fileSet>
-			<directory>../fixers/src/main/java</directory>
-			<outputDirectory>.</outputDirectory>
-		</fileSet>
-		<fileSet>
 			<directory>../tools/src/main/java</directory>
-			<outputDirectory>.</outputDirectory>
-		</fileSet>
-		<fileSet>
-			<directory>../compatibility/src/main/java</directory>
 			<outputDirectory>.</outputDirectory>
 		</fileSet>
 		<fileSet>
