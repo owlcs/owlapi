@@ -138,9 +138,8 @@ public class ConvertEquivalentClassesToSuperClasses extends
     @Nonnull
     private Set<OWLClassExpression> getClassExpressions(
             @Nonnull OWLClassExpression desc) {
-        Set<OWLClassExpression> result = CollectionFactory.emptySet();
         if (splitIntersections) {
-            result = desc
+            Set<OWLClassExpression> result = desc
                     .accept(new OWLClassExpressionVisitorExAdapter<Set<OWLClassExpression>>(
                             CollectionFactory.<OWLClassExpression> emptySet()) {
 
@@ -150,10 +149,10 @@ public class ConvertEquivalentClassesToSuperClasses extends
                             return ce.getOperands();
                         }
                     });
+            if (result.isEmpty()) {
+                result.add(desc);
+            }
         }
-        if (result.isEmpty()) {
-            result.add(desc);
-        }
-        return result;
+        return CollectionFactory.createSet(desc);
     }
 }
