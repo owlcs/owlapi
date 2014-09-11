@@ -129,7 +129,8 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
         String lowerCaseShortForm = shortForm.toLowerCase();
         for (String extension : EXTENSIONS) {
             if (lowerCaseShortForm.endsWith(extension)) {
-                return shortForm.substring(0, extension.length() - 1);
+                return shortForm.substring(0,
+                        shortForm.length() - extension.length());
             }
         }
         return shortForm;
