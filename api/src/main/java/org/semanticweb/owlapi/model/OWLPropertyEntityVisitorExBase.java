@@ -10,73 +10,52 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.util;
+package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
-
-import org.semanticweb.owlapi.model.AddAxiom;
-import org.semanticweb.owlapi.model.AddImport;
-import org.semanticweb.owlapi.model.AddOntologyAnnotation;
-import org.semanticweb.owlapi.model.OWLOntologyChange;
-import org.semanticweb.owlapi.model.OWLOntologyChangeVisitorEx;
-import org.semanticweb.owlapi.model.RemoveAxiom;
-import org.semanticweb.owlapi.model.RemoveImport;
-import org.semanticweb.owlapi.model.RemoveOntologyAnnotation;
-import org.semanticweb.owlapi.model.SetOntologyID;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0
+ * @since 2.2.0
  * @param <O>
- *        return type
+ *        visitor type
  */
-public class OWLOntologyChangeVisitorExAdapter<O> extends
-        OWLBaseVisitorExAdapter<O, OWLOntologyChange> implements
-        OWLOntologyChangeVisitorEx<O> {
+public interface OWLPropertyEntityVisitorExBase<O> extends OWLVisitorExBase<O> {
 
     /**
-     * adapter with object as default value
+     * visit OWLObjectProperty type
      * 
-     * @param object
-     *        default return value
+     * @param property
+     *        property to visit
+     * @return visitor value
      */
-    public OWLOntologyChangeVisitorExAdapter(@Nonnull O object) {
-        super(object);
+    @Nonnull
+    default O visit(@Nonnull OWLObjectProperty property) {
+        return doDefault(property);
     }
 
-    @Override
-    public O visit(RemoveAxiom change) {
-        return doDefault(change);
+    /**
+     * visit OWLDataProperty type
+     * 
+     * @param property
+     *        property to visit
+     * @return visitor value
+     */
+    @Nonnull
+    default O visit(@Nonnull OWLDataProperty property) {
+        return doDefault(property);
     }
 
-    @Override
-    public O visit(SetOntologyID change) {
-        return doDefault(change);
-    }
-
-    @Override
-    public O visit(AddAxiom change) {
-        return doDefault(change);
-    }
-
-    @Override
-    public O visit(AddImport change) {
-        return doDefault(change);
-    }
-
-    @Override
-    public O visit(RemoveImport change) {
-        return doDefault(change);
-    }
-
-    @Override
-    public O visit(AddOntologyAnnotation change) {
-        return doDefault(change);
-    }
-
-    @Override
-    public O visit(RemoveOntologyAnnotation change) {
-        return doDefault(change);
+    /**
+     * visit OWLAnnotationProperty type
+     * 
+     * @param property
+     *        property to visit
+     * @return visitor value
+     */
+    @Nonnull
+    default O visit(@Nonnull OWLAnnotationProperty property) {
+        return doDefault(property);
     }
 }

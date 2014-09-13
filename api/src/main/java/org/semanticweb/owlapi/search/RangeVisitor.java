@@ -3,18 +3,13 @@ package org.semanticweb.owlapi.search;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
 import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
-import org.semanticweb.owlapi.util.OWLAxiomVisitorExAdapter;
 
 @SuppressWarnings("unchecked")
-class RangeVisitor<C extends OWLObject> extends OWLAxiomVisitorExAdapter<C> {
-
-    /** default constructor */
-    public RangeVisitor() {
-        super(null);
-    }
+class RangeVisitor<C extends OWLObject> implements OWLAxiomVisitorEx<C> {
 
     @Override
     public C visit(@Nonnull OWLAnnotationPropertyRangeAxiom axiom) {

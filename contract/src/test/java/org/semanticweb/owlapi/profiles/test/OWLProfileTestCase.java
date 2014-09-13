@@ -47,8 +47,8 @@ import org.semanticweb.owlapi.profiles.OWL2QLProfile;
 import org.semanticweb.owlapi.profiles.OWL2RLProfile;
 import org.semanticweb.owlapi.profiles.OWLProfile;
 import org.semanticweb.owlapi.profiles.OWLProfileViolation;
-import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorAdapter;
-import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorExAdapter;
+import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
+import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 import org.semanticweb.owlapi.profiles.violations.CycleInDatatypeDefinition;
 import org.semanticweb.owlapi.profiles.violations.DatatypeIRIAlsoUsedAsClassIRI;
 import org.semanticweb.owlapi.profiles.violations.EmptyOneOfAxiom;
@@ -171,11 +171,11 @@ public class OWLProfileTestCase {
         checkInCollection(violations, expectedViolations);
         for (OWLProfileViolation violation : violations) {
             o.getOWLOntologyManager().applyChanges(violation.repair());
-            violation.accept(new OWLProfileViolationVisitorAdapter());
-            violation.accept(new OWLProfileViolationVisitorExAdapter<String>() {
+            violation.accept(new OWLProfileViolationVisitor() {});
+            violation.accept(new OWLProfileViolationVisitorEx<String>() {
 
                 @Override
-                protected String doDefault(@Nonnull OWLProfileViolation object) {
+                public String doDefault(@Nonnull OWLProfileViolation object) {
                     return object.toString();
                 }
             });

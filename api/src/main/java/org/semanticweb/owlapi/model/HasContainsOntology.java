@@ -26,7 +26,7 @@ public interface HasContainsOntology {
      * {@link org.semanticweb.owlapi.model.OWLOntologyID}.
      * 
      * @param id
-     *        The {@link OWLOntologyID} to test for. Not {@code null}.
+     *        The {@link OWLOntologyID} to test for.
      * @return {@code true} if this object contains an ontology that has the
      *         specified Id, otherwise, {@code false}.
      */

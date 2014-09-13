@@ -32,5 +32,7 @@ public interface OWLAnnotationObjectVisitorEx<O> extends
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLAnnotation node);
+    default O visit(@Nonnull OWLAnnotation node) {
+        return doDefault(node);
+    }
 }

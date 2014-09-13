@@ -35,7 +35,9 @@ public interface OWLAxiomVisitorEx<O> extends OWLAnnotationAxiomVisitorEx<O>,
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLDeclarationAxiom axiom);
+    default O visit(@Nonnull OWLDeclarationAxiom axiom) {
+        return doDefault(axiom);
+    }
 
     /**
      * visit OWLDatatypeDefinitionAxiom type
@@ -45,5 +47,7 @@ public interface OWLAxiomVisitorEx<O> extends OWLAnnotationAxiomVisitorEx<O>,
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLDatatypeDefinitionAxiom axiom);
+    default O visit(@Nonnull OWLDatatypeDefinitionAxiom axiom) {
+        return doDefault(axiom);
+    }
 }

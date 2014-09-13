@@ -10,67 +10,28 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.util;
+package org.semanticweb.owlapi.model;
 
-import org.semanticweb.owlapi.model.AddAxiom;
-import org.semanticweb.owlapi.model.AddImport;
-import org.semanticweb.owlapi.model.AddOntologyAnnotation;
-import org.semanticweb.owlapi.model.OWLOntologyChange;
-import org.semanticweb.owlapi.model.OWLOntologyChangeVisitor;
-import org.semanticweb.owlapi.model.RemoveAxiom;
-import org.semanticweb.owlapi.model.RemoveImport;
-import org.semanticweb.owlapi.model.RemoveOntologyAnnotation;
-import org.semanticweb.owlapi.model.SetOntologyID;
+import javax.annotation.Nonnull;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0
+ * @since 3.0.0
+ * @param <O>
+ *        return type
  */
-public class OWLOntologyChangeVisitorAdapter implements
-        OWLOntologyChangeVisitor {
+public interface OWLLiteralVisitorExBase<O> extends OWLVisitorExBase<O> {
 
     /**
-     * override this method to change the default behaviour.
+     * visit OWLLiteral type
      * 
-     * @param c
-     *        object visited
+     * @param node
+     *        node to visit
+     * @return visitor value
      */
-    protected void
-            handleDefault(@SuppressWarnings("unused") OWLOntologyChange c) {}
-
-    @Override
-    public void visit(RemoveAxiom change) {
-        handleDefault(change);
-    }
-
-    @Override
-    public void visit(SetOntologyID change) {
-        handleDefault(change);
-    }
-
-    @Override
-    public void visit(AddAxiom change) {
-        handleDefault(change);
-    }
-
-    @Override
-    public void visit(AddImport change) {
-        handleDefault(change);
-    }
-
-    @Override
-    public void visit(RemoveImport change) {
-        handleDefault(change);
-    }
-
-    @Override
-    public void visit(AddOntologyAnnotation change) {
-        handleDefault(change);
-    }
-
-    @Override
-    public void visit(RemoveOntologyAnnotation change) {
-        handleDefault(change);
+    @Nonnull
+    default O visit(@Nonnull OWLLiteral node) {
+        return doDefault(node);
     }
 }

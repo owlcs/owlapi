@@ -50,7 +50,6 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
-import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -85,8 +84,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
     }
 
     /** The Class AxiomLocalityVisitor. */
-    private class AxiomLocalityVisitor extends OWLAxiomVisitorAdapter implements
-            OWLAxiomVisitor {
+    private class AxiomLocalityVisitor implements OWLAxiomVisitor {
 
         private boolean isLocal;
 
@@ -139,8 +137,8 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
     }
 
     /** The Class BottomReplacer. */
-    private class BottomReplacer extends OWLAxiomVisitorAdapter implements
-            OWLAxiomVisitor, OWLClassExpressionVisitor {
+    private class BottomReplacer implements OWLAxiomVisitor,
+            OWLClassExpressionVisitor {
 
         private OWLAxiom newAxiom;
         private OWLClassExpression newClassExpression;

@@ -22,6 +22,7 @@ import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
 import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
 
 /**
@@ -108,8 +109,8 @@ public class NamedConjunctChecker {
         return conjuncts;
     }
 
-    private class NamedConjunctCheckerVisitor extends
-            OWLClassExpressionVisitorAdapter {
+    private class NamedConjunctCheckerVisitor implements
+            OWLClassExpressionVisitor {
 
         NamedConjunctCheckerVisitor() {}
 

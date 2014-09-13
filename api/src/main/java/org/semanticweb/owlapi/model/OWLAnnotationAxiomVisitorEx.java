@@ -21,7 +21,7 @@ import javax.annotation.Nonnull;
  * @param <O>
  *        visitor type
  */
-public interface OWLAnnotationAxiomVisitorEx<O> {
+public interface OWLAnnotationAxiomVisitorEx<O> extends OWLVisitorExBase<O> {
 
     /**
      * visit OWLAnnotationAssertionAxiom type
@@ -31,7 +31,9 @@ public interface OWLAnnotationAxiomVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLAnnotationAssertionAxiom axiom);
+    default O visit(@Nonnull OWLAnnotationAssertionAxiom axiom) {
+        return doDefault(axiom);
+    }
 
     /**
      * visit OWLSubAnnotationPropertyOfAxiom type
@@ -41,7 +43,9 @@ public interface OWLAnnotationAxiomVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLSubAnnotationPropertyOfAxiom axiom);
+    default O visit(@Nonnull OWLSubAnnotationPropertyOfAxiom axiom) {
+        return doDefault(axiom);
+    }
 
     /**
      * visit OWLAnnotationPropertyDomainAxiom type
@@ -51,7 +55,9 @@ public interface OWLAnnotationAxiomVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLAnnotationPropertyDomainAxiom axiom);
+    default O visit(@Nonnull OWLAnnotationPropertyDomainAxiom axiom) {
+        return doDefault(axiom);
+    }
 
     /**
      * visit OWLAnnotationPropertyRangeAxiom type
@@ -61,5 +67,7 @@ public interface OWLAnnotationAxiomVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLAnnotationPropertyRangeAxiom axiom);
+    default O visit(@Nonnull OWLAnnotationPropertyRangeAxiom axiom) {
+        return doDefault(axiom);
+    }
 }

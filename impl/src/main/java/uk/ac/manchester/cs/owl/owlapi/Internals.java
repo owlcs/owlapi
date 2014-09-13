@@ -38,6 +38,7 @@ import org.semanticweb.owlapi.model.OWLAnnotationSubject;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
@@ -89,7 +90,6 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.parameters.Navigation;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
-import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
 
 import com.google.common.base.Optional;
 import com.google.common.collect.Iterables;
@@ -1058,8 +1058,7 @@ public class Internals implements Serializable {
         return axiomsByType;
     }
 
-    class AddAxiomVisitor extends OWLAxiomVisitorAdapter implements
-            Serializable {
+    class AddAxiomVisitor implements OWLAxiomVisitor, Serializable {
 
         private static final long serialVersionUID = 40000L;
 
@@ -1305,8 +1304,7 @@ public class Internals implements Serializable {
         }
     }
 
-    class RemoveAxiomVisitor extends OWLAxiomVisitorAdapter implements
-            Serializable {
+    class RemoveAxiomVisitor implements OWLAxiomVisitor, Serializable {
 
         private static final long serialVersionUID = 40000L;
 

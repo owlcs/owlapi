@@ -24,11 +24,7 @@ import javax.annotation.Nonnull;
 public interface HasGetOntologies {
 
     /**
-     * Gets the (possibly empty) set of
-     * {@link org.semanticweb.owlapi.model.OWLOntology} objects contained within
-     * this object.
-     * 
-     * @return The set of ontologies. Possibly empty. Not {@code null}.
+     * @return The set of ontologies contained within this object
      */
     @Nonnull
     Set<OWLOntology> getOntologies();

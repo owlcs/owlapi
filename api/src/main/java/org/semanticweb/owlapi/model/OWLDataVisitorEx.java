@@ -21,17 +21,8 @@ import javax.annotation.Nonnull;
  * @param <O>
  *        return type
  */
-public interface OWLDataVisitorEx<O> {
-
-    /**
-     * visit OWLDatatype type
-     * 
-     * @param node
-     *        node to visit
-     * @return visitor value
-     */
-    @Nonnull
-    O visit(@Nonnull OWLDatatype node);
+public interface OWLDataVisitorEx<O> extends OWLDataEntityVisitorExBase<O>,
+        OWLLiteralVisitorExBase<O> {
 
     /**
      * visit OWLDataComplementOf type
@@ -41,7 +32,9 @@ public interface OWLDataVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLDataComplementOf node);
+    default O visit(@Nonnull OWLDataComplementOf node) {
+        return doDefault(node);
+    }
 
     /**
      * visit OWLDataOneOf type
@@ -51,7 +44,9 @@ public interface OWLDataVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLDataOneOf node);
+    default O visit(@Nonnull OWLDataOneOf node) {
+        return doDefault(node);
+    }
 
     /**
      * visit OWLDataIntersectionOf type
@@ -61,7 +56,9 @@ public interface OWLDataVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLDataIntersectionOf node);
+    default O visit(@Nonnull OWLDataIntersectionOf node) {
+        return doDefault(node);
+    }
 
     /**
      * visit OWLDataUnionOf type
@@ -71,7 +68,9 @@ public interface OWLDataVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLDataUnionOf node);
+    default O visit(@Nonnull OWLDataUnionOf node) {
+        return doDefault(node);
+    }
 
     /**
      * visit OWLDatatypeRestriction type
@@ -81,17 +80,9 @@ public interface OWLDataVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLDatatypeRestriction node);
-
-    /**
-     * visit OWLLiteral type
-     * 
-     * @param node
-     *        node to visit
-     * @return visitor value
-     */
-    @Nonnull
-    O visit(@Nonnull OWLLiteral node);
+    default O visit(@Nonnull OWLDatatypeRestriction node) {
+        return doDefault(node);
+    }
 
     /**
      * visit OWLFacetRestriction type
@@ -101,5 +92,7 @@ public interface OWLDataVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLFacetRestriction node);
+    default O visit(@Nonnull OWLFacetRestriction node) {
+        return doDefault(node);
+    }
 }

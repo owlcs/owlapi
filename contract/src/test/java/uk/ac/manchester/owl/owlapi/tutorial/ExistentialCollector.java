@@ -19,10 +19,10 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
 import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
-import org.semanticweb.owlapi.util.OWLClassExpressionVisitorAdapter;
 
 /**
  * A visitor that collects existential restrictions. If the given expression is
@@ -37,7 +37,7 @@ import org.semanticweb.owlapi.util.OWLClassExpressionVisitorAdapter;
  * @since 2.0.0
  */
 @SuppressWarnings("javadoc")
-public class ExistentialCollector extends OWLClassExpressionVisitorAdapter {
+public class ExistentialCollector implements OWLClassExpressionVisitor {
 
     /* Collected axioms */
     private final Map<OWLObjectPropertyExpression, Set<OWLClassExpression>> restrictions;

@@ -17,8 +17,10 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLClassExpressionVisitorEx;
 import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
@@ -44,7 +46,7 @@ import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 
 /** Returns true if the visited axioms are an ontology in Horn-SHIQ form. */
-public class HornAxiomVisitorEx extends OWLAxiomVisitorExAdapter<Boolean> {
+public class HornAxiomVisitorEx implements OWLAxiomVisitorEx<Boolean> {
 
     @Nonnull
     private final PositiveAppearanceVisitorEx positive = new PositiveAppearanceVisitorEx();
@@ -59,9 +61,9 @@ public class HornAxiomVisitorEx extends OWLAxiomVisitorExAdapter<Boolean> {
         return c.accept(positive).booleanValue();
     }
 
-    /** default constructor */
-    public HornAxiomVisitorEx() {
-        super(false);
+    @Override
+    public Boolean doDefault(Object object) {
+        return Boolean.FALSE;
     }
 
     @Override
@@ -82,7 +84,7 @@ public class HornAxiomVisitorEx extends OWLAxiomVisitorExAdapter<Boolean> {
     @Override
     public Boolean visit(@Nonnull OWLSubClassOfAxiom axiom) {
         return checkNegative(axiom.getSubClass())
-        && checkNegative(axiom.getSuperClass());
+                && checkNegative(axiom.getSuperClass());
     }
 
     @Override
@@ -174,11 +176,14 @@ public class HornAxiomVisitorEx extends OWLAxiomVisitorExAdapter<Boolean> {
         return true;
     }
 
-    private class PositiveAppearanceVisitorEx extends
-            OWLClassExpressionVisitorExAdapter<Boolean> {
+    private class PositiveAppearanceVisitorEx implements
+            OWLClassExpressionVisitorEx<Boolean> {
 
-        PositiveAppearanceVisitorEx() {
-            super(false);
+        PositiveAppearanceVisitorEx() {}
+
+        @Override
+        public Boolean doDefault(Object object) {
+            return Boolean.FALSE;
         }
 
         @Override
@@ -219,8 +224,8 @@ public class HornAxiomVisitorEx extends OWLAxiomVisitorExAdapter<Boolean> {
         @Override
         public Boolean visit(OWLObjectExactCardinality ce) {
             return ce.getCardinality() <= 1
-            && ce.getFiller().accept(this).booleanValue()
-            && checkNegative(ce.getFiller());
+                    && ce.getFiller().accept(this).booleanValue()
+                    && checkNegative(ce.getFiller());
         }
 
         @Override
@@ -229,11 +234,14 @@ public class HornAxiomVisitorEx extends OWLAxiomVisitorExAdapter<Boolean> {
         }
     }
 
-    private class NegativeAppearanceVisitorEx extends
-            OWLClassExpressionVisitorExAdapter<Boolean> {
+    private class NegativeAppearanceVisitorEx implements
+            OWLClassExpressionVisitorEx<Boolean> {
 
-        NegativeAppearanceVisitorEx() {
-            super(false);
+        NegativeAppearanceVisitorEx() {}
+
+        @Override
+        public Boolean doDefault(Object object) {
+            return Boolean.FALSE;
         }
 
         @Override
@@ -269,7 +277,7 @@ public class HornAxiomVisitorEx extends OWLAxiomVisitorExAdapter<Boolean> {
         @Override
         public Boolean visit(OWLObjectMinCardinality ce) {
             return ce.getCardinality() <= 1
-            && ce.getFiller().accept(this).booleanValue();
+                    && ce.getFiller().accept(this).booleanValue();
         }
     }
 }

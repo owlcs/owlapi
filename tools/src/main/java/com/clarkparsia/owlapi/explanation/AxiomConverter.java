@@ -8,7 +8,7 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -32,15 +32,14 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.util.CollectionFactory;
-import org.semanticweb.owlapi.util.OWLAxiomVisitorExAdapter;
 
 /** The Class AxiomConverter. */
-class AxiomConverter extends OWLAxiomVisitorExAdapter<OWLClassExpression> {
+class AxiomConverter implements OWLAxiomVisitorEx<OWLClassExpression> {
 
     private final OWLDataFactory factory;
 
     AxiomConverter(OWLDataFactory df) {
-        super(df.getOWLThing());
+        super();
         factory = df;
     }
 
@@ -80,7 +79,7 @@ class AxiomConverter extends OWLAxiomVisitorExAdapter<OWLClassExpression> {
     }
 
     @Override
-    protected OWLClassExpression doDefault(OWLAxiom object) {
+    public OWLClassExpression doDefault(Object object) {
         throw new OWLRuntimeException(
                 "Not implemented: Cannot generate explanation for " + object);
     }

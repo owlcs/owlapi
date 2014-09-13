@@ -42,7 +42,6 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
-import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -459,7 +458,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
     }
 
     private void removeDeclarations() {
-        OWLAxiomVisitor declarationRemover = new OWLAxiomVisitorAdapter() {
+        OWLAxiomVisitor declarationRemover = new OWLAxiomVisitor() {
 
             @Override
             public void visit(OWLDeclarationAxiom axiom) {

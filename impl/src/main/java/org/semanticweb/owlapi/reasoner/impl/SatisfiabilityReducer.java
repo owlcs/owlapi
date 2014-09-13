@@ -16,6 +16,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -33,15 +34,14 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
-import org.semanticweb.owlapi.util.OWLAxiomVisitorExAdapter;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
  * @since 3.0.0
  */
-public class SatisfiabilityReducer extends
-        OWLAxiomVisitorExAdapter<OWLClassExpression> {
+public class SatisfiabilityReducer implements
+        OWLAxiomVisitorEx<OWLClassExpression> {
 
     @Nonnull
     private final OWLDataFactory df;
@@ -51,7 +51,6 @@ public class SatisfiabilityReducer extends
      *        data factory to use
      */
     public SatisfiabilityReducer(@Nonnull OWLDataFactory dataFactory) {
-        super(null);
         df = checkNotNull(dataFactory, "dataFactory cannot be null");
     }
 

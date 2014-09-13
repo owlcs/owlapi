@@ -3,18 +3,13 @@ package org.semanticweb.owlapi.search;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
 import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
-import org.semanticweb.owlapi.util.OWLAxiomVisitorExAdapter;
 
 @SuppressWarnings("unchecked")
-class DomainVisitor<C extends OWLObject> extends OWLAxiomVisitorExAdapter<C> {
-
-    /** default constructor */
-    public DomainVisitor() {
-        super(null);
-    }
+class DomainVisitor<C extends OWLObject> implements OWLAxiomVisitorEx<C> {
 
     @Override
     public C visit(@Nonnull OWLAnnotationPropertyDomainAxiom axiom) {

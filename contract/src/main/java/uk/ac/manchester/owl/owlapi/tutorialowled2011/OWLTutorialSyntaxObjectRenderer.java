@@ -77,6 +77,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
+import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLQuantifiedDataRestriction;
@@ -91,7 +92,6 @@ import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
-import org.semanticweb.owlapi.util.OWLObjectVisitorAdapter;
 import org.semanticweb.owlapi.util.QNameShortFormProvider;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 
@@ -103,7 +103,7 @@ import org.semanticweb.owlapi.util.ShortFormProvider;
  * @since 2.0.0
  */
 @SuppressWarnings({ "javadoc" })
-public class OWLTutorialSyntaxObjectRenderer extends OWLObjectVisitorAdapter {
+public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
 
     @Nonnull
     private final ShortFormProvider shortForms;

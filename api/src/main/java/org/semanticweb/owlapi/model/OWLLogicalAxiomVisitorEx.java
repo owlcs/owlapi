@@ -21,7 +21,7 @@ import javax.annotation.Nonnull;
  * @param <O>
  *        visitor type
  */
-public interface OWLLogicalAxiomVisitorEx<O> {
+public interface OWLLogicalAxiomVisitorEx<O> extends SWRLRuleVisitorExBase<O> {
 
     /**
      * visit OWLSubClassOfAxiom type
@@ -31,7 +31,9 @@ public interface OWLLogicalAxiomVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLSubClassOfAxiom axiom);
+    default O visit(@Nonnull OWLSubClassOfAxiom axiom) {
+        return doDefault(axiom);
+    }
 
     /**
      * visit OWLNegativeObjectPropertyAssertionAxiom type
@@ -41,7 +43,9 @@ public interface OWLLogicalAxiomVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLNegativeObjectPropertyAssertionAxiom axiom);
+    default O visit(@Nonnull OWLNegativeObjectPropertyAssertionAxiom axiom) {
+        return doDefault(axiom);
+    }
 
     /**
      * visit OWLAsymmetricObjectPropertyAxiom type
@@ -51,7 +55,9 @@ public interface OWLLogicalAxiomVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLAsymmetricObjectPropertyAxiom axiom);
+    default O visit(@Nonnull OWLAsymmetricObjectPropertyAxiom axiom) {
+        return doDefault(axiom);
+    }
 
     /**
      * visit OWLReflexiveObjectPropertyAxiom type
@@ -61,7 +67,9 @@ public interface OWLLogicalAxiomVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLReflexiveObjectPropertyAxiom axiom);
+    default O visit(@Nonnull OWLReflexiveObjectPropertyAxiom axiom) {
+        return doDefault(axiom);
+    }
 
     /**
      * visit OWLDisjointClassesAxiom type
@@ -71,7 +79,9 @@ public interface OWLLogicalAxiomVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLDisjointClassesAxiom axiom);
+    default O visit(@Nonnull OWLDisjointClassesAxiom axiom) {
+        return doDefault(axiom);
+    }
 
     /**
      * visit OWLDataPropertyDomainAxiom type
@@ -81,7 +91,9 @@ public interface OWLLogicalAxiomVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLDataPropertyDomainAxiom axiom);
+    default O visit(@Nonnull OWLDataPropertyDomainAxiom axiom) {
+        return doDefault(axiom);
+    }
 
     /**
      * visit OWLObjectPropertyDomainAxiom type
@@ -91,7 +103,9 @@ public interface OWLLogicalAxiomVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLObjectPropertyDomainAxiom axiom);
+    default O visit(@Nonnull OWLObjectPropertyDomainAxiom axiom) {
+        return doDefault(axiom);
+    }
 
     /**
      * visit OWLEquivalentObjectPropertiesAxiom type
@@ -101,7 +115,9 @@ public interface OWLLogicalAxiomVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLEquivalentObjectPropertiesAxiom axiom);
+    default O visit(@Nonnull OWLEquivalentObjectPropertiesAxiom axiom) {
+        return doDefault(axiom);
+    }
 
     /**
      * visit OWLNegativeDataPropertyAssertionAxiom type
@@ -111,7 +127,9 @@ public interface OWLLogicalAxiomVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLNegativeDataPropertyAssertionAxiom axiom);
+    default O visit(@Nonnull OWLNegativeDataPropertyAssertionAxiom axiom) {
+        return doDefault(axiom);
+    }
 
     /**
      * visit OWLDifferentIndividualsAxiom type
@@ -121,7 +139,9 @@ public interface OWLLogicalAxiomVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLDifferentIndividualsAxiom axiom);
+    default O visit(@Nonnull OWLDifferentIndividualsAxiom axiom) {
+        return doDefault(axiom);
+    }
 
     /**
      * visit OWLDisjointDataPropertiesAxiom type
@@ -131,7 +151,9 @@ public interface OWLLogicalAxiomVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLDisjointDataPropertiesAxiom axiom);
+    default O visit(@Nonnull OWLDisjointDataPropertiesAxiom axiom) {
+        return doDefault(axiom);
+    }
 
     /**
      * visit OWLDisjointObjectPropertiesAxiom type
@@ -141,7 +163,9 @@ public interface OWLLogicalAxiomVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLDisjointObjectPropertiesAxiom axiom);
+    default O visit(@Nonnull OWLDisjointObjectPropertiesAxiom axiom) {
+        return doDefault(axiom);
+    }
 
     /**
      * visit OWLObjectPropertyRangeAxiom type
@@ -151,7 +175,9 @@ public interface OWLLogicalAxiomVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLObjectPropertyRangeAxiom axiom);
+    default O visit(@Nonnull OWLObjectPropertyRangeAxiom axiom) {
+        return doDefault(axiom);
+    }
 
     /**
      * visit OWLObjectPropertyAssertionAxiom type
@@ -161,7 +187,9 @@ public interface OWLLogicalAxiomVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLObjectPropertyAssertionAxiom axiom);
+    default O visit(@Nonnull OWLObjectPropertyAssertionAxiom axiom) {
+        return doDefault(axiom);
+    }
 
     /**
      * visit OWLFunctionalObjectPropertyAxiom type
@@ -171,7 +199,9 @@ public interface OWLLogicalAxiomVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLFunctionalObjectPropertyAxiom axiom);
+    default O visit(@Nonnull OWLFunctionalObjectPropertyAxiom axiom) {
+        return doDefault(axiom);
+    }
 
     /**
      * visit OWLSubObjectPropertyOfAxiom type
@@ -181,7 +211,9 @@ public interface OWLLogicalAxiomVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLSubObjectPropertyOfAxiom axiom);
+    default O visit(@Nonnull OWLSubObjectPropertyOfAxiom axiom) {
+        return doDefault(axiom);
+    }
 
     /**
      * visit OWLDisjointUnionAxiom type
@@ -191,7 +223,9 @@ public interface OWLLogicalAxiomVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLDisjointUnionAxiom axiom);
+    default O visit(@Nonnull OWLDisjointUnionAxiom axiom) {
+        return doDefault(axiom);
+    }
 
     /**
      * visit OWLSymmetricObjectPropertyAxiom type
@@ -201,7 +235,9 @@ public interface OWLLogicalAxiomVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLSymmetricObjectPropertyAxiom axiom);
+    default O visit(@Nonnull OWLSymmetricObjectPropertyAxiom axiom) {
+        return doDefault(axiom);
+    }
 
     /**
      * visit OWLDataPropertyRangeAxiom type
@@ -211,7 +247,9 @@ public interface OWLLogicalAxiomVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLDataPropertyRangeAxiom axiom);
+    default O visit(@Nonnull OWLDataPropertyRangeAxiom axiom) {
+        return doDefault(axiom);
+    }
 
     /**
      * visit OWLFunctionalDataPropertyAxiom type
@@ -221,7 +259,9 @@ public interface OWLLogicalAxiomVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLFunctionalDataPropertyAxiom axiom);
+    default O visit(@Nonnull OWLFunctionalDataPropertyAxiom axiom) {
+        return doDefault(axiom);
+    }
 
     /**
      * visit OWLEquivalentDataPropertiesAxiom type
@@ -231,7 +271,9 @@ public interface OWLLogicalAxiomVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLEquivalentDataPropertiesAxiom axiom);
+    default O visit(@Nonnull OWLEquivalentDataPropertiesAxiom axiom) {
+        return doDefault(axiom);
+    }
 
     /**
      * visit OWLClassAssertionAxiom type
@@ -241,7 +283,9 @@ public interface OWLLogicalAxiomVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLClassAssertionAxiom axiom);
+    default O visit(@Nonnull OWLClassAssertionAxiom axiom) {
+        return doDefault(axiom);
+    }
 
     /**
      * visit OWLEquivalentClassesAxiom type
@@ -251,7 +295,9 @@ public interface OWLLogicalAxiomVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLEquivalentClassesAxiom axiom);
+    default O visit(@Nonnull OWLEquivalentClassesAxiom axiom) {
+        return doDefault(axiom);
+    }
 
     /**
      * visit OWLDataPropertyAssertionAxiom type
@@ -261,7 +307,9 @@ public interface OWLLogicalAxiomVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLDataPropertyAssertionAxiom axiom);
+    default O visit(@Nonnull OWLDataPropertyAssertionAxiom axiom) {
+        return doDefault(axiom);
+    }
 
     /**
      * visit OWLTransitiveObjectPropertyAxiom type
@@ -271,7 +319,9 @@ public interface OWLLogicalAxiomVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLTransitiveObjectPropertyAxiom axiom);
+    default O visit(@Nonnull OWLTransitiveObjectPropertyAxiom axiom) {
+        return doDefault(axiom);
+    }
 
     /**
      * visit OWLIrreflexiveObjectPropertyAxiom type
@@ -281,7 +331,9 @@ public interface OWLLogicalAxiomVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLIrreflexiveObjectPropertyAxiom axiom);
+    default O visit(@Nonnull OWLIrreflexiveObjectPropertyAxiom axiom) {
+        return doDefault(axiom);
+    }
 
     /**
      * visit OWLSubDataPropertyOfAxiom type
@@ -291,7 +343,9 @@ public interface OWLLogicalAxiomVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLSubDataPropertyOfAxiom axiom);
+    default O visit(@Nonnull OWLSubDataPropertyOfAxiom axiom) {
+        return doDefault(axiom);
+    }
 
     /**
      * visit OWLInverseFunctionalObjectPropertyAxiom type
@@ -301,7 +355,9 @@ public interface OWLLogicalAxiomVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLInverseFunctionalObjectPropertyAxiom axiom);
+    default O visit(@Nonnull OWLInverseFunctionalObjectPropertyAxiom axiom) {
+        return doDefault(axiom);
+    }
 
     /**
      * visit OWLSameIndividualAxiom type
@@ -311,7 +367,9 @@ public interface OWLLogicalAxiomVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLSameIndividualAxiom axiom);
+    default O visit(@Nonnull OWLSameIndividualAxiom axiom) {
+        return doDefault(axiom);
+    }
 
     /**
      * visit OWLSubPropertyChainOfAxiom type
@@ -321,7 +379,9 @@ public interface OWLLogicalAxiomVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLSubPropertyChainOfAxiom axiom);
+    default O visit(@Nonnull OWLSubPropertyChainOfAxiom axiom) {
+        return doDefault(axiom);
+    }
 
     /**
      * visit OWLInverseObjectPropertiesAxiom type
@@ -331,7 +391,9 @@ public interface OWLLogicalAxiomVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLInverseObjectPropertiesAxiom axiom);
+    default O visit(@Nonnull OWLInverseObjectPropertiesAxiom axiom) {
+        return doDefault(axiom);
+    }
 
     /**
      * visit OWLHasKeyAxiom type
@@ -341,15 +403,7 @@ public interface OWLLogicalAxiomVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLHasKeyAxiom axiom);
-
-    /**
-     * visit SWRLRule type
-     * 
-     * @param rule
-     *        rule to visit
-     * @return visitor value
-     */
-    @Nonnull
-    O visit(@Nonnull SWRLRule rule);
+    default O visit(@Nonnull OWLHasKeyAxiom axiom) {
+        return doDefault(axiom);
+    }
 }

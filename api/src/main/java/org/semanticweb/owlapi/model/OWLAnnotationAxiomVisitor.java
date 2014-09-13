@@ -21,7 +21,7 @@ import javax.annotation.Nonnull;
  *         Management Group
  * @since 3.0.0
  */
-public interface OWLAnnotationAxiomVisitor {
+public interface OWLAnnotationAxiomVisitor extends OWLVisitorBase {
 
     /**
      * visit OWLAnnotationAssertionAxiom type
@@ -29,7 +29,9 @@ public interface OWLAnnotationAxiomVisitor {
      * @param axiom
      *        object to visit
      */
-    void visit(@Nonnull OWLAnnotationAssertionAxiom axiom);
+    default void visit(@Nonnull OWLAnnotationAssertionAxiom axiom) {
+        doDefault(axiom);
+    }
 
     /**
      * visit OWLSubAnnotationPropertyOfAxiom type
@@ -37,7 +39,9 @@ public interface OWLAnnotationAxiomVisitor {
      * @param axiom
      *        object to visit
      */
-    void visit(@Nonnull OWLSubAnnotationPropertyOfAxiom axiom);
+    default void visit(@Nonnull OWLSubAnnotationPropertyOfAxiom axiom) {
+        doDefault(axiom);
+    }
 
     /**
      * visit OWLAnnotationPropertyDomainAxiom type
@@ -45,7 +49,9 @@ public interface OWLAnnotationAxiomVisitor {
      * @param axiom
      *        object to visit
      */
-    void visit(@Nonnull OWLAnnotationPropertyDomainAxiom axiom);
+    default void visit(@Nonnull OWLAnnotationPropertyDomainAxiom axiom) {
+        doDefault(axiom);
+    }
 
     /**
      * visit OWLAnnotationPropertyRangeAxiom type
@@ -53,5 +59,7 @@ public interface OWLAnnotationAxiomVisitor {
      * @param axiom
      *        object to visit
      */
-    void visit(@Nonnull OWLAnnotationPropertyRangeAxiom axiom);
+    default void visit(@Nonnull OWLAnnotationPropertyRangeAxiom axiom) {
+        doDefault(axiom);
+    }
 }

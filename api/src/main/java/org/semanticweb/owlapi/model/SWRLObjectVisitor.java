@@ -19,15 +19,7 @@ import javax.annotation.Nonnull;
  *         Group
  * @since 2.0.0
  */
-public interface SWRLObjectVisitor {
-
-    /**
-     * visit SWRLRule type
-     * 
-     * @param node
-     *        node to visit
-     */
-    void visit(@Nonnull SWRLRule node);
+public interface SWRLObjectVisitor extends SWRLRuleVisitorBase {
 
     /**
      * visit SWRLClassAtom type
@@ -35,7 +27,9 @@ public interface SWRLObjectVisitor {
      * @param node
      *        node to visit
      */
-    void visit(@Nonnull SWRLClassAtom node);
+    default void visit(@Nonnull SWRLClassAtom node) {
+        doDefault(node);
+    }
 
     /**
      * visit SWRLDataRangeAtom type
@@ -43,7 +37,9 @@ public interface SWRLObjectVisitor {
      * @param node
      *        node to visit
      */
-    void visit(@Nonnull SWRLDataRangeAtom node);
+    default void visit(@Nonnull SWRLDataRangeAtom node) {
+        doDefault(node);
+    }
 
     /**
      * visit SWRLObjectPropertyAtom type
@@ -51,7 +47,9 @@ public interface SWRLObjectVisitor {
      * @param node
      *        node to visit
      */
-    void visit(@Nonnull SWRLObjectPropertyAtom node);
+    default void visit(@Nonnull SWRLObjectPropertyAtom node) {
+        doDefault(node);
+    }
 
     /**
      * visit SWRLDataPropertyAtom type
@@ -59,7 +57,9 @@ public interface SWRLObjectVisitor {
      * @param node
      *        node to visit
      */
-    void visit(@Nonnull SWRLDataPropertyAtom node);
+    default void visit(@Nonnull SWRLDataPropertyAtom node) {
+        doDefault(node);
+    }
 
     /**
      * visit SWRLBuiltInAtom type
@@ -67,7 +67,9 @@ public interface SWRLObjectVisitor {
      * @param node
      *        node to visit
      */
-    void visit(@Nonnull SWRLBuiltInAtom node);
+    default void visit(@Nonnull SWRLBuiltInAtom node) {
+        doDefault(node);
+    }
 
     /**
      * visit SWRLVariable type
@@ -75,7 +77,9 @@ public interface SWRLObjectVisitor {
      * @param node
      *        node to visit
      */
-    void visit(@Nonnull SWRLVariable node);
+    default void visit(@Nonnull SWRLVariable node) {
+        doDefault(node);
+    }
 
     /**
      * visit SWRLIndividualArgument type
@@ -83,7 +87,9 @@ public interface SWRLObjectVisitor {
      * @param node
      *        node to visit
      */
-    void visit(@Nonnull SWRLIndividualArgument node);
+    default void visit(@Nonnull SWRLIndividualArgument node) {
+        doDefault(node);
+    }
 
     /**
      * visit SWRLLiteralArgument type
@@ -91,7 +97,9 @@ public interface SWRLObjectVisitor {
      * @param node
      *        node to visit
      */
-    void visit(@Nonnull SWRLLiteralArgument node);
+    default void visit(@Nonnull SWRLLiteralArgument node) {
+        doDefault(node);
+    }
 
     /**
      * visit SWRLSameIndividualAtom type
@@ -99,7 +107,9 @@ public interface SWRLObjectVisitor {
      * @param node
      *        node to visit
      */
-    void visit(@Nonnull SWRLSameIndividualAtom node);
+    default void visit(@Nonnull SWRLSameIndividualAtom node) {
+        doDefault(node);
+    }
 
     /**
      * visit SWRLDifferentIndividualsAtom type
@@ -107,5 +117,7 @@ public interface SWRLObjectVisitor {
      * @param node
      *        node to visit
      */
-    void visit(@Nonnull SWRLDifferentIndividualsAtom node);
+    default void visit(@Nonnull SWRLDifferentIndividualsAtom node) {
+        doDefault(node);
+    }
 }

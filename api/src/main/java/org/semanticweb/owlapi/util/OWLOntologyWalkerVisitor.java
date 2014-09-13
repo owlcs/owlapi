@@ -19,6 +19,7 @@ import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
@@ -27,7 +28,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  *         Management Group
  * @since 2.2.0
  */
-public class OWLOntologyWalkerVisitor extends OWLObjectVisitorAdapter {
+public class OWLOntologyWalkerVisitor implements OWLObjectVisitor {
 
     @Nonnull
     private final OWLOntologyWalker walker;

@@ -26,10 +26,10 @@ import javax.annotation.Nonnull;
 public interface HasImportsClosure {
 
     /**
-     * Gets the imports closure
+     * Gets the imports closure, including the root object.
      * 
      * @return A set of ontology representing the imports closure of this object
-     *         (includes this object). Not empty and not {@code null}.
+     *         (includes this object).
      */
     @Nonnull
     Set<OWLOntology> getImportsClosure();

@@ -18,6 +18,7 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
 import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectComplementOf;
 import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
@@ -26,7 +27,6 @@ import org.semanticweb.owlapi.model.OWLObjectMaxCardinality;
 import org.semanticweb.owlapi.model.OWLObjectMinCardinality;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
-import org.semanticweb.owlapi.util.OWLClassExpressionVisitorAdapter;
 
 /**
  * Extracts the parts of a class expression which are negated. For example, A
@@ -36,8 +36,8 @@ import org.semanticweb.owlapi.util.OWLClassExpressionVisitorAdapter;
  *         Informatics Group
  * @since 2.2.0
  */
-public class OWLObjectComplementOfExtractor extends
-        OWLClassExpressionVisitorAdapter {
+public class OWLObjectComplementOfExtractor implements
+        OWLClassExpressionVisitor {
 
     private final Set<OWLClassExpression> result = new HashSet<>();
 

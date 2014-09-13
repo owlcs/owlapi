@@ -25,6 +25,7 @@ import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLClassExpressionVisitorEx;
 import org.semanticweb.owlapi.model.OWLDataComplementOf;
 import org.semanticweb.owlapi.model.OWLDataOneOf;
 import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
@@ -59,7 +60,6 @@ import org.semanticweb.owlapi.profiles.violations.UseOfIllegalDataRange;
 import org.semanticweb.owlapi.profiles.violations.UseOfNonAtomicClassExpression;
 import org.semanticweb.owlapi.profiles.violations.UseOfNonSubClassExpression;
 import org.semanticweb.owlapi.profiles.violations.UseOfNonSuperClassExpression;
-import org.semanticweb.owlapi.util.OWLClassExpressionVisitorExAdapter;
 import org.semanticweb.owlapi.util.OWLOntologyWalker;
 import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitor;
 
@@ -306,11 +306,14 @@ public class OWL2QLProfile implements OWLProfile {
         }
     }
 
-    private static class OWL2QLSubClassExpressionChecker extends
-            OWLClassExpressionVisitorExAdapter<Boolean> {
+    private static class OWL2QLSubClassExpressionChecker implements
+            OWLClassExpressionVisitorEx<Boolean> {
 
-        OWL2QLSubClassExpressionChecker() {
-            super(false);
+        OWL2QLSubClassExpressionChecker() {}
+
+        @Override
+        public Boolean doDefault(Object o) {
+            return Boolean.FALSE;
         }
 
         @Override
@@ -336,11 +339,14 @@ public class OWL2QLProfile implements OWLProfile {
         return ce.accept(subClassExpressionChecker).booleanValue();
     }
 
-    private class OWL2QLSuperClassExpressionChecker extends
-            OWLClassExpressionVisitorExAdapter<Boolean> {
+    private class OWL2QLSuperClassExpressionChecker implements
+            OWLClassExpressionVisitorEx<Boolean> {
 
-        OWL2QLSuperClassExpressionChecker() {
-            super(false);
+        OWL2QLSuperClassExpressionChecker() {}
+
+        @Override
+        public Boolean doDefault(Object o) {
+            return Boolean.FALSE;
         }
 
         @Override

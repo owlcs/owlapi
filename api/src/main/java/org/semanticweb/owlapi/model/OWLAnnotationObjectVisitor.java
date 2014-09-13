@@ -28,5 +28,7 @@ public interface OWLAnnotationObjectVisitor extends OWLAnnotationAxiomVisitor,
      * @param node
      *        object to visit
      */
-    void visit(@Nonnull OWLAnnotation node);
+    default void visit(@Nonnull OWLAnnotation node) {
+        doDefault(node);
+    }
 }

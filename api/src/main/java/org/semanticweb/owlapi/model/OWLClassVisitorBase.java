@@ -10,59 +10,29 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.util;
+package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
 /**
- * Provides a base for visitorEx adapters. The adapter can be set up to return a
- * default value.
+ * An interface to objects that can visit
+ * {@link org.semanticweb.owlapi.model.OWLClassExpression}s. (See the <a
+ * href="http://en.wikipedia.org/wiki/Visitor_pattern">Visitor Patterns</a>)
  * 
- * @author Matthew Horridge, The University Of Manchester, Information
- *         Management Group
- * @since 4.0.0
- * @param <O>
- *        visitor return type
- * @param <I>
- *        type accepting the visitor
+ * @author Matthew Horridge, The University Of Manchester Bio-Health Informatics
+ *         Group
+ * @since 3.0.0
  */
-public class OWLBaseVisitorExAdapter<O, I> {
-
-    @Nonnull
-    private final O defaultReturnValue;
+public interface OWLClassVisitorBase extends OWLVisitorBase {
 
     /**
-     * Gets the default return value for this visitor. By default, the default
-     * is {@code null}, but a fixed value (independent of the specified
-     * {@code OWLObject} {@code object}) can be specified in the constructor
-     * {@link org.semanticweb.owlapi.util.OWLBaseVisitorExAdapter#OWLBaseVisitorExAdapter(Object)}
+     * visit OWLClass type
      * 
-     * @param object
-     *        The object that was visited.
-     * @return The default return value
+     * @param ce
+     *        ce to visit
      */
     @Nonnull
-    protected O doDefault(@SuppressWarnings("unused") @Nonnull I object) {
-        return defaultReturnValue;
-    }
-
-    /**
-     * @param object
-     *        object to visit
-     * @return default value
-     * @deprecated use doDefault() instead
-     */
-    @Deprecated
-    @Nonnull
-    protected O getDefaultReturnValue(@Nonnull I object) {
-        return doDefault(object);
-    }
-
-    /**
-     * @param defaultReturnValue
-     *        default return value
-     */
-    public OWLBaseVisitorExAdapter(@Nonnull O defaultReturnValue) {
-        this.defaultReturnValue = defaultReturnValue;
+    default void visit(@Nonnull OWLClass ce) {
+        doDefault(ce);
     }
 }

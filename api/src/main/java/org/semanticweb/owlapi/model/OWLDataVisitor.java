@@ -21,15 +21,8 @@ import javax.annotation.Nonnull;
  *         Informatics Group
  * @since 2.0.0
  */
-public interface OWLDataVisitor extends OWLDataRangeVisitor {
-
-    /**
-     * visit OWLLiteral type
-     * 
-     * @param node
-     *        node to visit
-     */
-    void visit(@Nonnull OWLLiteral node);
+public interface OWLDataVisitor extends OWLDataRangeVisitor,
+        OWLLiteralVisitorBase {
 
     /**
      * visit OWLFacetRestriction type
@@ -37,5 +30,7 @@ public interface OWLDataVisitor extends OWLDataRangeVisitor {
      * @param node
      *        node to visit
      */
-    void visit(@Nonnull OWLFacetRestriction node);
+    default void visit(@Nonnull OWLFacetRestriction node) {
+        doDefault(node);
+    }
 }

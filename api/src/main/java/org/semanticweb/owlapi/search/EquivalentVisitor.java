@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
 import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
@@ -14,17 +15,20 @@ import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
-import org.semanticweb.owlapi.util.OWLAxiomVisitorExAdapter;
 
 @SuppressWarnings("unchecked")
-class EquivalentVisitor<C extends OWLObject> extends
-        OWLAxiomVisitorExAdapter<Set<C>> {
+class EquivalentVisitor<C extends OWLObject> implements
+        OWLAxiomVisitorEx<Set<C>> {
 
     private final boolean equiv;
 
     EquivalentVisitor(boolean equiv) {
-        super(Collections.<C> emptySet());
         this.equiv = equiv;
+    }
+
+    @Override
+    public Set<C> doDefault(Object o) {
+        return Collections.<C> emptySet();
     }
 
     @Nonnull

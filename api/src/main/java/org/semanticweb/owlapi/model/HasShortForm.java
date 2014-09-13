@@ -27,7 +27,7 @@ public interface HasShortForm {
     /**
      * Gets the short form.
      * 
-     * @return A string that represents the short form. Not {@code null}.
+     * @return A string that represents the short form.
      */
     @Nonnull
     String getShortForm();

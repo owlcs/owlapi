@@ -25,17 +25,8 @@ import javax.annotation.Nonnull;
  * @param <O>
  *        visitor return type
  */
-public interface OWLClassExpressionVisitorEx<O> {
-
-    /**
-     * visit OWLClass type
-     * 
-     * @param ce
-     *        ce to visit
-     * @return visitor value
-     */
-    @Nonnull
-    O visit(@Nonnull OWLClass ce);
+public interface OWLClassExpressionVisitorEx<O> extends
+        OWLClassVisitorExBase<O> {
 
     /**
      * visit OWLObjectIntersectionOf type
@@ -45,7 +36,9 @@ public interface OWLClassExpressionVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLObjectIntersectionOf ce);
+    default O visit(@Nonnull OWLObjectIntersectionOf ce) {
+        return doDefault(ce);
+    }
 
     /**
      * visit OWLObjectUnionOf type
@@ -55,7 +48,9 @@ public interface OWLClassExpressionVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLObjectUnionOf ce);
+    default O visit(@Nonnull OWLObjectUnionOf ce) {
+        return doDefault(ce);
+    }
 
     /**
      * visit OWLObjectComplementOf type
@@ -65,7 +60,9 @@ public interface OWLClassExpressionVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLObjectComplementOf ce);
+    default O visit(@Nonnull OWLObjectComplementOf ce) {
+        return doDefault(ce);
+    }
 
     /**
      * visit OWLObjectSomeValuesFrom type
@@ -75,7 +72,9 @@ public interface OWLClassExpressionVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLObjectSomeValuesFrom ce);
+    default O visit(@Nonnull OWLObjectSomeValuesFrom ce) {
+        return doDefault(ce);
+    }
 
     /**
      * visit OWLObjectAllValuesFrom type
@@ -85,7 +84,9 @@ public interface OWLClassExpressionVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLObjectAllValuesFrom ce);
+    default O visit(@Nonnull OWLObjectAllValuesFrom ce) {
+        return doDefault(ce);
+    }
 
     /**
      * visit OWLObjectHasValue type
@@ -95,7 +96,9 @@ public interface OWLClassExpressionVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLObjectHasValue ce);
+    default O visit(@Nonnull OWLObjectHasValue ce) {
+        return doDefault(ce);
+    }
 
     /**
      * visit OWLObjectMinCardinality type
@@ -105,7 +108,9 @@ public interface OWLClassExpressionVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLObjectMinCardinality ce);
+    default O visit(@Nonnull OWLObjectMinCardinality ce) {
+        return doDefault(ce);
+    }
 
     /**
      * visit OWLObjectExactCardinality type
@@ -115,7 +120,9 @@ public interface OWLClassExpressionVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLObjectExactCardinality ce);
+    default O visit(@Nonnull OWLObjectExactCardinality ce) {
+        return doDefault(ce);
+    }
 
     /**
      * visit OWLObjectMaxCardinality type
@@ -125,7 +132,9 @@ public interface OWLClassExpressionVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLObjectMaxCardinality ce);
+    default O visit(@Nonnull OWLObjectMaxCardinality ce) {
+        return doDefault(ce);
+    }
 
     /**
      * visit OWLObjectHasSelf type
@@ -135,7 +144,9 @@ public interface OWLClassExpressionVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLObjectHasSelf ce);
+    default O visit(@Nonnull OWLObjectHasSelf ce) {
+        return doDefault(ce);
+    }
 
     /**
      * visit OWLObjectOneOf type
@@ -145,7 +156,9 @@ public interface OWLClassExpressionVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLObjectOneOf ce);
+    default O visit(@Nonnull OWLObjectOneOf ce) {
+        return doDefault(ce);
+    }
 
     /**
      * visit OWLDataSomeValuesFrom type
@@ -155,7 +168,9 @@ public interface OWLClassExpressionVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLDataSomeValuesFrom ce);
+    default O visit(@Nonnull OWLDataSomeValuesFrom ce) {
+        return doDefault(ce);
+    }
 
     /**
      * visit OWLDataAllValuesFrom type
@@ -165,7 +180,9 @@ public interface OWLClassExpressionVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLDataAllValuesFrom ce);
+    default O visit(@Nonnull OWLDataAllValuesFrom ce) {
+        return doDefault(ce);
+    }
 
     /**
      * visit OWLDataHasValue type
@@ -175,7 +192,9 @@ public interface OWLClassExpressionVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLDataHasValue ce);
+    default O visit(@Nonnull OWLDataHasValue ce) {
+        return doDefault(ce);
+    }
 
     /**
      * visit OWLDataMinCardinality type
@@ -185,7 +204,9 @@ public interface OWLClassExpressionVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLDataMinCardinality ce);
+    default O visit(@Nonnull OWLDataMinCardinality ce) {
+        return doDefault(ce);
+    }
 
     /**
      * visit OWLDataExactCardinality type
@@ -195,7 +216,9 @@ public interface OWLClassExpressionVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLDataExactCardinality ce);
+    default O visit(@Nonnull OWLDataExactCardinality ce) {
+        return doDefault(ce);
+    }
 
     /**
      * visit OWLDataMaxCardinality type
@@ -205,5 +228,7 @@ public interface OWLClassExpressionVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLDataMaxCardinality ce);
+    default O visit(@Nonnull OWLDataMaxCardinality ce) {
+        return doDefault(ce);
+    }
 }

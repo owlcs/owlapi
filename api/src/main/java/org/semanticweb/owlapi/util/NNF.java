@@ -42,9 +42,9 @@ import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLDataRange;
+import org.semanticweb.owlapi.model.OWLDataRangeVisitorEx;
 import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLDataUnionOf;
-import org.semanticweb.owlapi.model.OWLDataVisitorEx;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
 import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
@@ -96,21 +96,352 @@ import org.semanticweb.owlapi.model.SWRLRule;
  *         Management Group
  * @since 2.2.0
  */
-public class NNF extends OWLDataVisitorExAdapter<OWLDataRange> implements
-        OWLClassExpressionVisitorEx<OWLClassExpression>,
-        OWLDataVisitorEx<OWLDataRange>, OWLAxiomVisitorEx<OWLAxiom> {
+public class NNF implements OWLAxiomVisitorEx<OWLAxiom> {
 
-    private boolean negated;
+    protected boolean negated;
     private final OWLDataFactory dataFactory;
+    private final OWLClassExpressionVisitorEx<OWLClassExpression> classVisitor;
+    private final OWLDataRangeVisitorEx<OWLDataRange> dataVisitor;
+
+    /**
+     * @return class visitor
+     */
+    public OWLClassExpressionVisitorEx<OWLClassExpression> getClassVisitor() {
+        return classVisitor;
+    }
 
     /**
      * @param dataFactory
      *        datafactory to use
      */
     public NNF(@Nonnull OWLDataFactory dataFactory) {
-        super(null);
         this.dataFactory = checkNotNull(dataFactory,
                 "dataFactory cannot be null");
+        dataVisitor = new OWLDataRangeVisitorEx<OWLDataRange>() {
+
+            @Override
+            public OWLDataRange visit(OWLDatatype node) {
+                if (negated) {
+                    return dataFactory.getOWLDataComplementOf(node);
+                } else {
+                    return node;
+                }
+            }
+
+            @Override
+            public OWLDataRange visit(OWLDataComplementOf node) {
+                if (negated) {
+                    return node.getDataRange();
+                } else {
+                    return node;
+                }
+            }
+
+            @Override
+            public OWLDataRange visit(OWLDataOneOf node) {
+                if (node.getValues().size() == 1) {
+                    if (negated) {
+                        return dataFactory.getOWLDataComplementOf(node);
+                    } else {
+                        return node;
+                    }
+                } else {
+                    // Encode as a data union of and return result
+                    Set<OWLDataOneOf> oneOfs = new HashSet<>();
+                    for (OWLLiteral lit : node.getValues()) {
+                        oneOfs.add(dataFactory.getOWLDataOneOf(lit));
+                    }
+                    return dataFactory.getOWLDataUnionOf(oneOfs).accept(this);
+                }
+            }
+
+            @Override
+            public OWLDataRange visit(OWLDataIntersectionOf node) {
+                Set<OWLDataRange> ops = new HashSet<>();
+                for (OWLDataRange op : node.getOperands()) {
+                    ops.add(op.accept(this));
+                }
+                if (negated) {
+                    return dataFactory.getOWLDataUnionOf(ops);
+                } else {
+                    return dataFactory.getOWLDataIntersectionOf(ops);
+                }
+            }
+
+            @Override
+            public OWLDataRange visit(OWLDataUnionOf node) {
+                Set<OWLDataRange> ops = new HashSet<>();
+                for (OWLDataRange op : node.getOperands()) {
+                    ops.add(op.accept(this));
+                }
+                if (negated) {
+                    // Flip to an intersection
+                    return dataFactory.getOWLDataIntersectionOf(ops);
+                } else {
+                    return dataFactory.getOWLDataUnionOf(ops);
+                }
+            }
+
+            @Override
+            public OWLDataRange visit(OWLDatatypeRestriction node) {
+                if (negated) {
+                    return dataFactory.getOWLDataComplementOf(node);
+                } else {
+                    return node;
+                }
+            }
+        };
+        classVisitor = new OWLClassExpressionVisitorEx<OWLClassExpression>() {
+
+            @Nonnull
+            private OWLClassExpression getNegation(
+                    @Nonnull OWLClassExpression classExpression) {
+                return dataFactory.getOWLObjectComplementOf(classExpression);
+            }
+
+            @Override
+            public OWLClassExpression visit(OWLClass ce) {
+                if (negated) {
+                    if (ce.isOWLNothing()) {
+                        return dataFactory.getOWLThing();
+                    } else if (ce.isOWLThing()) {
+                        return dataFactory.getOWLNothing();
+                    } else {
+                        return getNegation(ce);
+                    }
+                } else {
+                    return ce;
+                }
+            }
+
+            @Override
+            public OWLClassExpression visit(OWLObjectIntersectionOf ce) {
+                Set<OWLClassExpression> ops = new HashSet<>();
+                for (OWLClassExpression op : ce.getOperands()) {
+                    ops.add(op.accept(this));
+                }
+                if (negated) {
+                    return dataFactory.getOWLObjectUnionOf(ops);
+                } else {
+                    return dataFactory.getOWLObjectIntersectionOf(ops);
+                }
+            }
+
+            @Override
+            public OWLClassExpression visit(OWLObjectUnionOf ce) {
+                Set<OWLClassExpression> ops = new HashSet<>();
+                for (OWLClassExpression op : ce.getOperands()) {
+                    ops.add(op.accept(this));
+                }
+                if (negated) {
+                    // Flip to an intersection
+                    return dataFactory.getOWLObjectIntersectionOf(ops);
+                } else {
+                    return dataFactory.getOWLObjectUnionOf(ops);
+                }
+            }
+
+            @Override
+            public OWLClassExpression visit(OWLObjectComplementOf ce) {
+                if (negated) {
+                    // Cancels out.
+                    // Save and then restore.
+                    boolean neg = negated;
+                    negated = false;
+                    OWLClassExpression negDesc = ce.getOperand().accept(this);
+                    negated = neg;
+                    return negDesc;
+                } else {
+                    // Save and then restore
+                    boolean neg = negated;
+                    negated = true;
+                    OWLClassExpression negDesc = ce.getOperand().accept(this);
+                    negated = neg;
+                    return negDesc;
+                }
+            }
+
+            @Override
+            public OWLClassExpression visit(OWLObjectSomeValuesFrom ce) {
+                OWLClassExpression filler = ce.getFiller().accept(this);
+                if (negated) {
+                    return dataFactory.getOWLObjectAllValuesFrom(
+                            ce.getProperty(), filler);
+                } else {
+                    return dataFactory.getOWLObjectSomeValuesFrom(
+                            ce.getProperty(), filler);
+                }
+            }
+
+            @Override
+            public OWLClassExpression visit(OWLObjectAllValuesFrom ce) {
+                OWLClassExpression filler = ce.getFiller().accept(this);
+                if (negated) {
+                    return dataFactory.getOWLObjectSomeValuesFrom(
+                            ce.getProperty(), filler);
+                } else {
+                    return dataFactory.getOWLObjectAllValuesFrom(
+                            ce.getProperty(), filler);
+                }
+            }
+
+            @Override
+            public OWLClassExpression visit(OWLObjectHasValue ce) {
+                return ce.asSomeValuesFrom().accept(this);
+            }
+
+            @Nonnull
+            @Override
+            public OWLClassExpression visit(OWLObjectMinCardinality ce) {
+                boolean neg = negated;
+                int card = ce.getCardinality();
+                if (negated) {
+                    card = ce.getCardinality() - 1;
+                    if (card < 0) {
+                        card = 0;
+                    }
+                }
+                negated = false;
+                OWLClassExpression filler = ce.getFiller().accept(this);
+                OWLClassExpression nnf = null;
+                if (neg) {
+                    nnf = dataFactory.getOWLObjectMaxCardinality(card,
+                            ce.getProperty(), filler);
+                } else {
+                    nnf = dataFactory.getOWLObjectMinCardinality(card,
+                            ce.getProperty(), filler);
+                }
+                negated = neg;
+                return nnf;
+            }
+
+            @Override
+            public OWLClassExpression visit(OWLObjectExactCardinality ce) {
+                return ce.asIntersectionOfMinMax().accept(this);
+            }
+
+            @Override
+            public OWLClassExpression visit(OWLObjectMaxCardinality ce) {
+                boolean neg = negated;
+                int card = ce.getCardinality();
+                if (negated) {
+                    card = ce.getCardinality() + 1;
+                }
+                negated = false;
+                OWLClassExpression filler = ce.getFiller().accept(this);
+                OWLClassExpression nnf = null;
+                if (neg) {
+                    nnf = dataFactory.getOWLObjectMinCardinality(card,
+                            ce.getProperty(), filler);
+                } else {
+                    nnf = dataFactory.getOWLObjectMaxCardinality(card,
+                            ce.getProperty(), filler);
+                }
+                negated = neg;
+                return nnf;
+            }
+
+            @Override
+            public OWLClassExpression visit(OWLObjectHasSelf ce) {
+                if (negated) {
+                    return getNegation(ce);
+                } else {
+                    return ce;
+                }
+            }
+
+            @Override
+            public OWLClassExpression visit(OWLObjectOneOf ce) {
+                if (ce.getIndividuals().size() == 1) {
+                    if (negated) {
+                        return getNegation(ce);
+                    } else {
+                        return ce;
+                    }
+                } else {
+                    return ce.asObjectUnionOf().accept(this);
+                }
+            }
+
+            @Override
+            public OWLClassExpression visit(OWLDataSomeValuesFrom ce) {
+                OWLDataRange filler = ce.getFiller().accept(dataVisitor);
+                if (negated) {
+                    return dataFactory.getOWLDataAllValuesFrom(
+                            ce.getProperty(), filler);
+                } else {
+                    return dataFactory.getOWLDataSomeValuesFrom(
+                            ce.getProperty(), filler);
+                }
+            }
+
+            @Override
+            public OWLClassExpression visit(OWLDataAllValuesFrom ce) {
+                OWLDataRange filler = ce.getFiller().accept(dataVisitor);
+                if (negated) {
+                    return dataFactory.getOWLDataSomeValuesFrom(
+                            ce.getProperty(), filler);
+                } else {
+                    return dataFactory.getOWLDataAllValuesFrom(
+                            ce.getProperty(), filler);
+                }
+            }
+
+            @Override
+            public OWLClassExpression visit(OWLDataHasValue ce) {
+                return ce.asSomeValuesFrom().accept(this);
+            }
+
+            @Override
+            public OWLClassExpression visit(OWLDataExactCardinality ce) {
+                return ce.asIntersectionOfMinMax().accept(this);
+            }
+
+            @Override
+            public OWLClassExpression visit(OWLDataMaxCardinality ce) {
+                boolean neg = negated;
+                int card = ce.getCardinality();
+                if (negated) {
+                    card = ce.getCardinality() + 1;
+                }
+                negated = false;
+                OWLDataRange filler = ce.getFiller().accept(dataVisitor);
+                OWLClassExpression nnf = null;
+                if (neg) {
+                    nnf = dataFactory.getOWLDataMinCardinality(card,
+                            ce.getProperty(), filler);
+                } else {
+                    nnf = dataFactory.getOWLDataMaxCardinality(card,
+                            ce.getProperty(), filler);
+                }
+                negated = neg;
+                return nnf;
+            }
+
+            @Override
+            public OWLClassExpression visit(OWLDataMinCardinality ce) {
+                boolean neg = negated;
+                int card = ce.getCardinality();
+                if (negated) {
+                    card = ce.getCardinality() - 1;
+                    if (card < 0) {
+                        card = 0;
+                    }
+                }
+                negated = false;
+                OWLDataRange filler = ce.getFiller().accept(dataVisitor);
+                OWLClassExpression nnf = null;
+                if (neg) {
+                    nnf = dataFactory.getOWLDataMaxCardinality(card,
+                            ce.getProperty(), filler);
+                } else {
+                    nnf = dataFactory.getOWLDataMinCardinality(card,
+                            ce.getProperty(), filler);
+                }
+                negated = neg;
+                return nnf;
+            }
+        };
     }
 
     /** reset the negation. */
@@ -118,338 +449,17 @@ public class NNF extends OWLDataVisitorExAdapter<OWLDataRange> implements
         negated = false;
     }
 
-    @Nonnull
-    private OWLClassExpression getNegation(
-            @Nonnull OWLClassExpression classExpression) {
-        return dataFactory.getOWLObjectComplementOf(classExpression);
-    }
-
-    @Override
-    public OWLClassExpression visit(OWLClass ce) {
-        if (negated) {
-            if (ce.isOWLNothing()) {
-                return dataFactory.getOWLThing();
-            } else if (ce.isOWLThing()) {
-                return dataFactory.getOWLNothing();
-            } else {
-                return getNegation(ce);
-            }
-        } else {
-            return ce;
-        }
-    }
-
-    @Override
-    public OWLClassExpression visit(OWLObjectIntersectionOf ce) {
-        Set<OWLClassExpression> ops = new HashSet<>();
-        for (OWLClassExpression op : ce.getOperands()) {
-            ops.add(op.accept(this));
-        }
-        if (negated) {
-            return dataFactory.getOWLObjectUnionOf(ops);
-        } else {
-            return dataFactory.getOWLObjectIntersectionOf(ops);
-        }
-    }
-
-    @Override
-    public OWLClassExpression visit(OWLObjectUnionOf ce) {
-        Set<OWLClassExpression> ops = new HashSet<>();
-        for (OWLClassExpression op : ce.getOperands()) {
-            ops.add(op.accept(this));
-        }
-        if (negated) {
-            // Flip to an intersection
-            return dataFactory.getOWLObjectIntersectionOf(ops);
-        } else {
-            return dataFactory.getOWLObjectUnionOf(ops);
-        }
-    }
-
-    @Override
-    public OWLClassExpression visit(OWLObjectComplementOf ce) {
-        if (negated) {
-            // Cancels out.
-            // Save and then restore.
-            boolean neg = negated;
-            negated = false;
-            OWLClassExpression negDesc = ce.getOperand().accept(this);
-            negated = neg;
-            return negDesc;
-        } else {
-            // Save and then restore
-            boolean neg = negated;
-            negated = true;
-            OWLClassExpression negDesc = ce.getOperand().accept(this);
-            negated = neg;
-            return negDesc;
-        }
-    }
-
-    @Override
-    public OWLClassExpression visit(OWLObjectSomeValuesFrom ce) {
-        OWLClassExpression filler = ce.getFiller().accept(this);
-        if (negated) {
-            return dataFactory.getOWLObjectAllValuesFrom(ce.getProperty(),
-                    filler);
-        } else {
-            return dataFactory.getOWLObjectSomeValuesFrom(ce.getProperty(),
-                    filler);
-        }
-    }
-
-    @Override
-    public OWLClassExpression visit(OWLObjectAllValuesFrom ce) {
-        OWLClassExpression filler = ce.getFiller().accept(this);
-        if (negated) {
-            return dataFactory.getOWLObjectSomeValuesFrom(ce.getProperty(),
-                    filler);
-        } else {
-            return dataFactory.getOWLObjectAllValuesFrom(ce.getProperty(),
-                    filler);
-        }
-    }
-
-    @Override
-    public OWLClassExpression visit(OWLObjectHasValue ce) {
-        return ce.asSomeValuesFrom().accept(this);
-    }
-
-    @Nonnull
-    @Override
-    public OWLClassExpression visit(OWLObjectMinCardinality ce) {
-        boolean neg = negated;
-        int card = ce.getCardinality();
-        if (negated) {
-            card = ce.getCardinality() - 1;
-            if (card < 0) {
-                card = 0;
-            }
-        }
-        negated = false;
-        OWLClassExpression filler = ce.getFiller().accept(this);
-        OWLClassExpression nnf = null;
-        if (neg) {
-            nnf = dataFactory.getOWLObjectMaxCardinality(card,
-                    ce.getProperty(), filler);
-        } else {
-            nnf = dataFactory.getOWLObjectMinCardinality(card,
-                    ce.getProperty(), filler);
-        }
-        negated = neg;
-        return nnf;
-    }
-
-    @Override
-    public OWLClassExpression visit(OWLObjectExactCardinality ce) {
-        return ce.asIntersectionOfMinMax().accept(this);
-    }
-
-    @Override
-    public OWLClassExpression visit(OWLObjectMaxCardinality ce) {
-        boolean neg = negated;
-        int card = ce.getCardinality();
-        if (negated) {
-            card = ce.getCardinality() + 1;
-        }
-        negated = false;
-        OWLClassExpression filler = ce.getFiller().accept(this);
-        OWLClassExpression nnf = null;
-        if (neg) {
-            nnf = dataFactory.getOWLObjectMinCardinality(card,
-                    ce.getProperty(), filler);
-        } else {
-            nnf = dataFactory.getOWLObjectMaxCardinality(card,
-                    ce.getProperty(), filler);
-        }
-        negated = neg;
-        return nnf;
-    }
-
-    @Override
-    public OWLClassExpression visit(OWLObjectHasSelf ce) {
-        if (negated) {
-            return getNegation(ce);
-        } else {
-            return ce;
-        }
-    }
-
-    @Override
-    public OWLClassExpression visit(OWLObjectOneOf ce) {
-        if (ce.getIndividuals().size() == 1) {
-            if (negated) {
-                return getNegation(ce);
-            } else {
-                return ce;
-            }
-        } else {
-            return ce.asObjectUnionOf().accept(this);
-        }
-    }
-
-    @Override
-    public OWLClassExpression visit(OWLDataSomeValuesFrom ce) {
-        OWLDataRange filler = ce.getFiller().accept(this);
-        if (negated) {
-            return dataFactory
-                    .getOWLDataAllValuesFrom(ce.getProperty(), filler);
-        } else {
-            return dataFactory.getOWLDataSomeValuesFrom(ce.getProperty(),
-                    filler);
-        }
-    }
-
-    @Override
-    public OWLClassExpression visit(OWLDataAllValuesFrom ce) {
-        OWLDataRange filler = ce.getFiller().accept(this);
-        if (negated) {
-            return dataFactory.getOWLDataSomeValuesFrom(ce.getProperty(),
-                    filler);
-        } else {
-            return dataFactory
-                    .getOWLDataAllValuesFrom(ce.getProperty(), filler);
-        }
-    }
-
-    @Override
-    public OWLClassExpression visit(OWLDataHasValue ce) {
-        return ce.asSomeValuesFrom().accept(this);
-    }
-
-    @Override
-    public OWLClassExpression visit(OWLDataExactCardinality ce) {
-        return ce.asIntersectionOfMinMax().accept(this);
-    }
-
-    @Override
-    public OWLClassExpression visit(OWLDataMaxCardinality ce) {
-        boolean neg = negated;
-        int card = ce.getCardinality();
-        if (negated) {
-            card = ce.getCardinality() + 1;
-        }
-        negated = false;
-        OWLDataRange filler = ce.getFiller().accept(this);
-        OWLClassExpression nnf = null;
-        if (neg) {
-            nnf = dataFactory.getOWLDataMinCardinality(card, ce.getProperty(),
-                    filler);
-        } else {
-            nnf = dataFactory.getOWLDataMaxCardinality(card, ce.getProperty(),
-                    filler);
-        }
-        negated = neg;
-        return nnf;
-    }
-
-    @Override
-    public OWLClassExpression visit(OWLDataMinCardinality ce) {
-        boolean neg = negated;
-        int card = ce.getCardinality();
-        if (negated) {
-            card = ce.getCardinality() - 1;
-            if (card < 0) {
-                card = 0;
-            }
-        }
-        negated = false;
-        OWLDataRange filler = ce.getFiller().accept(this);
-        OWLClassExpression nnf = null;
-        if (neg) {
-            nnf = dataFactory.getOWLDataMaxCardinality(card, ce.getProperty(),
-                    filler);
-        } else {
-            nnf = dataFactory.getOWLDataMinCardinality(card, ce.getProperty(),
-                    filler);
-        }
-        negated = neg;
-        return nnf;
-    }
-
-    @Override
-    public OWLDataRange visit(OWLDatatype node) {
-        if (negated) {
-            return dataFactory.getOWLDataComplementOf(node);
-        } else {
-            return node;
-        }
-    }
-
-    @Override
-    public OWLDataRange visit(OWLDataComplementOf node) {
-        if (negated) {
-            return node.getDataRange();
-        } else {
-            return node;
-        }
-    }
-
-    @Override
-    public OWLDataRange visit(OWLDataOneOf node) {
-        if (node.getValues().size() == 1) {
-            if (negated) {
-                return dataFactory.getOWLDataComplementOf(node);
-            } else {
-                return node;
-            }
-        } else {
-            // Encode as a data union of and return result
-            Set<OWLDataOneOf> oneOfs = new HashSet<>();
-            for (OWLLiteral lit : node.getValues()) {
-                oneOfs.add(dataFactory.getOWLDataOneOf(lit));
-            }
-            return dataFactory.getOWLDataUnionOf(oneOfs).accept(this);
-        }
-    }
-
-    @Override
-    public OWLDataRange visit(OWLDataIntersectionOf node) {
-        Set<OWLDataRange> ops = new HashSet<>();
-        for (OWLDataRange op : node.getOperands()) {
-            ops.add(op.accept(this));
-        }
-        if (negated) {
-            return dataFactory.getOWLDataUnionOf(ops);
-        } else {
-            return dataFactory.getOWLDataIntersectionOf(ops);
-        }
-    }
-
-    @Override
-    public OWLDataRange visit(OWLDataUnionOf node) {
-        Set<OWLDataRange> ops = new HashSet<>();
-        for (OWLDataRange op : node.getOperands()) {
-            ops.add(op.accept(this));
-        }
-        if (negated) {
-            // Flip to an intersection
-            return dataFactory.getOWLDataIntersectionOf(ops);
-        } else {
-            return dataFactory.getOWLDataUnionOf(ops);
-        }
-    }
-
     @Override
     public OWLAxiom visit(OWLHasKeyAxiom axiom) {
         return axiom;
-    }
-
-    @Override
-    public OWLDataRange visit(OWLDatatypeRestriction node) {
-        if (negated) {
-            return dataFactory.getOWLDataComplementOf(node);
-        } else {
-            return node;
-        }
     }
 
     // Conversion of non-class expressions to NNF
     @Override
     public OWLAxiom visit(OWLSubClassOfAxiom axiom) {
         return dataFactory.getOWLSubClassOfAxiom(
-                axiom.getSubClass().accept(this),
-                axiom.getSuperClass().accept(this));
+                axiom.getSubClass().accept(classVisitor), axiom.getSuperClass()
+                        .accept(classVisitor));
     }
 
     @Override
@@ -471,7 +481,7 @@ public class NNF extends OWLDataVisitorExAdapter<OWLDataRange> implements
     public OWLAxiom visit(OWLDisjointClassesAxiom axiom) {
         Set<OWLClassExpression> ops = new HashSet<>();
         for (OWLClassExpression op : axiom.getClassExpressions()) {
-            ops.add(op.accept(this));
+            ops.add(op.accept(classVisitor));
         }
         return dataFactory.getOWLDisjointClassesAxiom(ops);
     }
@@ -479,13 +489,13 @@ public class NNF extends OWLDataVisitorExAdapter<OWLDataRange> implements
     @Override
     public OWLAxiom visit(OWLDataPropertyDomainAxiom axiom) {
         return dataFactory.getOWLDataPropertyDomainAxiom(axiom.getProperty(),
-                axiom.getDomain().accept(this));
+                axiom.getDomain().accept(classVisitor));
     }
 
     @Override
     public OWLAxiom visit(OWLObjectPropertyDomainAxiom axiom) {
         return dataFactory.getOWLObjectPropertyDomainAxiom(axiom.getProperty(),
-                axiom.getDomain().accept(this));
+                axiom.getDomain().accept(classVisitor));
     }
 
     @Override
@@ -516,7 +526,7 @@ public class NNF extends OWLDataVisitorExAdapter<OWLDataRange> implements
     @Override
     public OWLAxiom visit(OWLObjectPropertyRangeAxiom axiom) {
         return dataFactory.getOWLObjectPropertyRangeAxiom(axiom.getProperty(),
-                axiom.getRange().accept(this));
+                axiom.getRange().accept(classVisitor));
     }
 
     @Override
@@ -538,7 +548,7 @@ public class NNF extends OWLDataVisitorExAdapter<OWLDataRange> implements
     public OWLAxiom visit(OWLDisjointUnionAxiom axiom) {
         Set<OWLClassExpression> descs = new HashSet<>();
         for (OWLClassExpression op : axiom.getClassExpressions()) {
-            descs.add(op.accept(this));
+            descs.add(op.accept(classVisitor));
         }
         return dataFactory.getOWLDisjointUnionAxiom(axiom.getOWLClass(), descs);
     }
@@ -561,7 +571,7 @@ public class NNF extends OWLDataVisitorExAdapter<OWLDataRange> implements
     @Override
     public OWLAxiom visit(OWLDataPropertyRangeAxiom axiom) {
         return dataFactory.getOWLDataPropertyRangeAxiom(axiom.getProperty(),
-                axiom.getRange().accept(this));
+                axiom.getRange().accept(dataVisitor));
     }
 
     @Override
@@ -578,7 +588,8 @@ public class NNF extends OWLDataVisitorExAdapter<OWLDataRange> implements
     public OWLAxiom visit(OWLClassAssertionAxiom axiom) {
         if (axiom.getClassExpression().isAnonymous()) {
             return dataFactory.getOWLClassAssertionAxiom(axiom
-                    .getClassExpression().accept(this), axiom.getIndividual());
+                    .getClassExpression().accept(classVisitor), axiom
+                    .getIndividual());
         } else {
             return axiom;
         }
@@ -588,7 +599,7 @@ public class NNF extends OWLDataVisitorExAdapter<OWLDataRange> implements
     public OWLAxiom visit(OWLEquivalentClassesAxiom axiom) {
         Set<OWLClassExpression> ops = new HashSet<>();
         for (OWLClassExpression op : axiom.getClassExpressions()) {
-            ops.add(op.accept(this));
+            ops.add(op.accept(classVisitor));
         }
         return dataFactory.getOWLEquivalentClassesAxiom(ops);
     }

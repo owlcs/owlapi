@@ -36,6 +36,7 @@ import org.semanticweb.owlapi.model.OWLObjectMinCardinality;
 import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
+import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
@@ -44,14 +45,14 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  *         Informatics Group
  * @since 3.1.0
  */
-public class MaximumModalDepthFinder extends OWLObjectVisitorExAdapter<Integer> {
+public class MaximumModalDepthFinder implements OWLObjectVisitorEx<Integer> {
 
     @Nonnull
     private static final Integer _1 = 1;
 
-    /** default constructor, setting default value to 0 */
-    public MaximumModalDepthFinder() {
-        super(0);
+    @Override
+    public Integer doDefault(Object o) {
+        return 0;
     }
 
     @Override

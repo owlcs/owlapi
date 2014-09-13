@@ -22,15 +22,8 @@ import javax.annotation.Nonnull;
  *         Informatics Group
  * @since 2.0.0
  */
-public interface OWLPropertyExpressionVisitor {
-
-    /**
-     * visit OWLObjectProperty type
-     * 
-     * @param property
-     *        property to visit
-     */
-    void visit(@Nonnull OWLObjectProperty property);
+public interface OWLPropertyExpressionVisitor extends
+        OWLPropertyEntityVisitorBase {
 
     /**
      * visit OWLObjectInverseOf type
@@ -38,21 +31,7 @@ public interface OWLPropertyExpressionVisitor {
      * @param property
      *        property to visit
      */
-    void visit(@Nonnull OWLObjectInverseOf property);
-
-    /**
-     * visit OWLDataProperty type
-     * 
-     * @param property
-     *        property to visit
-     */
-    void visit(@Nonnull OWLDataProperty property);
-
-    /**
-     * visit OWLAnnotationProperty type
-     * 
-     * @param property
-     *        property to visit
-     */
-    void visit(@Nonnull OWLAnnotationProperty property);
+    default void visit(@Nonnull OWLObjectInverseOf property) {
+        doDefault(property);
+    }
 }

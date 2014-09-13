@@ -80,6 +80,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
+import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
@@ -95,7 +96,7 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
  *         Informatics Group
  * @since 2.0.0
  */
-public class DLExpressivityChecker extends OWLObjectVisitorAdapter {
+public class DLExpressivityChecker implements OWLObjectVisitor {
 
     private final Set<Construct> constructs;
     private final Set<OWLOntology> ontologies;

@@ -5,14 +5,10 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.util.OWLObjectVisitorExAdapter;
+import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
-class LabelExtractor extends OWLObjectVisitorExAdapter<String> implements
+class LabelExtractor implements OWLObjectVisitorEx<String>,
         OWLAnnotationObjectVisitorEx<String> {
-
-    public LabelExtractor() {
-        super("");
-    }
 
     @Override
     public String visit(@Nonnull OWLAnnotation node) {
@@ -24,6 +20,11 @@ class LabelExtractor extends OWLObjectVisitorExAdapter<String> implements
             OWLLiteral c = (OWLLiteral) node.getValue();
             return c.getLiteral();
         }
+        return "";
+    }
+
+    @Override
+    public String doDefault(Object individual) {
         return "";
     }
 }

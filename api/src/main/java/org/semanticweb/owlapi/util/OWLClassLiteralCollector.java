@@ -22,6 +22,7 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectComplementOf;
+import org.semanticweb.owlapi.model.OWLObjectVisitor;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
@@ -73,8 +74,7 @@ public class OWLClassLiteralCollector extends OWLObjectWalker<OWLObject> {
         return new HashSet<>(neg);
     }
 
-    private class OWLClassLiteralCollectorVisitor extends
-            OWLObjectVisitorAdapter {
+    private class OWLClassLiteralCollectorVisitor implements OWLObjectVisitor {
 
         OWLClassLiteralCollectorVisitor() {}
 

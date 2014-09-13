@@ -12,7 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import javax.annotation.Nonnull;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -21,65 +20,6 @@ import javax.annotation.Nonnull;
  * @param <O>
  *        return type
  */
-public interface OWLEntityVisitorEx<O> {
-
-    /**
-     * visit OWLClass type
-     * 
-     * @param cls
-     *        cls to visit
-     * @return visitor value
-     */
-    @Nonnull
-    O visit(@Nonnull OWLClass cls);
-
-    /**
-     * visit OWLObjectProperty type
-     * 
-     * @param property
-     *        property to visit
-     * @return visitor value
-     */
-    @Nonnull
-    O visit(@Nonnull OWLObjectProperty property);
-
-    /**
-     * visit OWLDataProperty type
-     * 
-     * @param property
-     *        property to visit
-     * @return visitor value
-     */
-    @Nonnull
-    O visit(@Nonnull OWLDataProperty property);
-
-    /**
-     * visit OWLNamedIndividual type
-     * 
-     * @param individual
-     *        individual to visit
-     * @return visitor value
-     */
-    @Nonnull
-    O visit(@Nonnull OWLNamedIndividual individual);
-
-    /**
-     * visit OWLDatatype type
-     * 
-     * @param datatype
-     *        datatype to visit
-     * @return visitor value
-     */
-    @Nonnull
-    O visit(@Nonnull OWLDatatype datatype);
-
-    /**
-     * visit OWLAnnotationProperty type
-     * 
-     * @param property
-     *        property to visit
-     * @return visitor value
-     */
-    @Nonnull
-    O visit(@Nonnull OWLAnnotationProperty property);
-}
+public interface OWLEntityVisitorEx<O> extends OWLClassVisitorExBase<O>,
+        OWLPropertyEntityVisitorExBase<O>, OWLIndividualEntityVisitorExBase<O>,
+        OWLDataEntityVisitorExBase<O> {}

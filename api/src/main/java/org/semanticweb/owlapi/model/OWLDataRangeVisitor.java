@@ -22,15 +22,7 @@ import javax.annotation.Nonnull;
  *         Management Group
  * @since 3.0.0
  */
-public interface OWLDataRangeVisitor {
-
-    /**
-     * visit OWLDatatype type
-     * 
-     * @param node
-     *        node to visit
-     */
-    void visit(@Nonnull OWLDatatype node);
+public interface OWLDataRangeVisitor extends OWLDataEntityVisitorBase {
 
     /**
      * visit OWLDataOneOf type
@@ -38,7 +30,9 @@ public interface OWLDataRangeVisitor {
      * @param node
      *        node to visit
      */
-    void visit(@Nonnull OWLDataOneOf node);
+    default void visit(@Nonnull OWLDataOneOf node) {
+        doDefault(node);
+    }
 
     /**
      * visit OWLDataComplementOf type
@@ -46,7 +40,9 @@ public interface OWLDataRangeVisitor {
      * @param node
      *        node to visit
      */
-    void visit(@Nonnull OWLDataComplementOf node);
+    default void visit(@Nonnull OWLDataComplementOf node) {
+        doDefault(node);
+    }
 
     /**
      * visit OWLDataIntersectionOf type
@@ -54,7 +50,9 @@ public interface OWLDataRangeVisitor {
      * @param node
      *        node to visit
      */
-    void visit(@Nonnull OWLDataIntersectionOf node);
+    default void visit(@Nonnull OWLDataIntersectionOf node) {
+        doDefault(node);
+    }
 
     /**
      * visit OWLDataUnionOf type
@@ -62,7 +60,9 @@ public interface OWLDataRangeVisitor {
      * @param node
      *        node to visit
      */
-    void visit(@Nonnull OWLDataUnionOf node);
+    default void visit(@Nonnull OWLDataUnionOf node) {
+        doDefault(node);
+    }
 
     /**
      * visit OWLDatatypeRestriction type
@@ -70,5 +70,7 @@ public interface OWLDataRangeVisitor {
      * @param node
      *        node to visit
      */
-    void visit(@Nonnull OWLDatatypeRestriction node);
+    default void visit(@Nonnull OWLDatatypeRestriction node) {
+        doDefault(node);
+    }
 }

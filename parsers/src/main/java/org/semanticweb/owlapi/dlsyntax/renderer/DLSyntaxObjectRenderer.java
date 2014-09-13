@@ -113,7 +113,6 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.util.IRIShortFormProvider;
-import org.semanticweb.owlapi.util.OWLObjectVisitorAdapter;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleIRIShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleShortFormProvider;
@@ -125,8 +124,8 @@ import org.semanticweb.owlapi.util.SimpleShortFormProvider;
  *         Informatics Group
  * @since 2.2.0
  */
-public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
-        OWLObjectRenderer, OWLObjectVisitor {
+public class DLSyntaxObjectRenderer implements OWLObjectRenderer,
+        OWLObjectVisitor {
 
     private ShortFormProvider shortFormProvider;
     private final IRIShortFormProvider iriShortFormProvider;

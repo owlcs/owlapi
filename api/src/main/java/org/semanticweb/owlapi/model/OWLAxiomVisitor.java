@@ -29,11 +29,15 @@ public interface OWLAxiomVisitor extends OWLAnnotationAxiomVisitor,
      * @param axiom
      *        axiom to visit
      */
-    void visit(@Nonnull OWLDeclarationAxiom axiom);
+    default void visit(@Nonnull OWLDeclarationAxiom axiom) {
+        doDefault(axiom);
+    }
 
     /**
      * @param axiom
      *        axiom to visit
      */
-    void visit(@Nonnull OWLDatatypeDefinitionAxiom axiom);
+    default void visit(@Nonnull OWLDatatypeDefinitionAxiom axiom) {
+        doDefault(axiom);
+    }
 }

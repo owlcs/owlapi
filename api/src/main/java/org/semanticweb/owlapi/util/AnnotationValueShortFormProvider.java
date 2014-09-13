@@ -28,6 +28,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologySetProvider;
 import org.semanticweb.owlapi.search.Filters;
@@ -216,8 +217,7 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
     @Override
     public void dispose() {}
 
-    private static class AnnotationLanguageFilter extends
-            OWLObjectVisitorAdapter {
+    private static class AnnotationLanguageFilter implements OWLObjectVisitor {
 
         private final OWLAnnotationProperty prop;
         private final List<String> preferredLanguages;

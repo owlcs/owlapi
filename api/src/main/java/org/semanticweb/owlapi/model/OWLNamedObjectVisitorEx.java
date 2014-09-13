@@ -21,47 +21,7 @@ import javax.annotation.Nonnull;
  * @param <O>
  *        visitor type
  */
-public interface OWLNamedObjectVisitorEx<O> {
-
-    /**
-     * visit OWLClass type
-     * 
-     * @param owlClass
-     *        owlClass to visit
-     * @return visitor value
-     */
-    @Nonnull
-    O visit(@Nonnull OWLClass owlClass);
-
-    /**
-     * visit OWLObjectProperty type
-     * 
-     * @param property
-     *        property to visit
-     * @return visitor value
-     */
-    @Nonnull
-    O visit(@Nonnull OWLObjectProperty property);
-
-    /**
-     * visit OWLDataProperty type
-     * 
-     * @param property
-     *        property to visit
-     * @return visitor value
-     */
-    @Nonnull
-    O visit(@Nonnull OWLDataProperty property);
-
-    /**
-     * visit OWLNamedIndividual type
-     * 
-     * @param owlIndividual
-     *        owlIndividual to visit
-     * @return visitor value
-     */
-    @Nonnull
-    O visit(@Nonnull OWLNamedIndividual owlIndividual);
+public interface OWLNamedObjectVisitorEx<O> extends OWLEntityVisitorEx<O> {
 
     /**
      * visit OWLOntology type
@@ -71,25 +31,7 @@ public interface OWLNamedObjectVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLOntology ontology);
-
-    /**
-     * visit OWLDatatype type
-     * 
-     * @param datatype
-     *        datatype to visit
-     * @return visitor value
-     */
-    @Nonnull
-    O visit(@Nonnull OWLDatatype datatype);
-
-    /**
-     * visit OWLAnnotationProperty type
-     * 
-     * @param property
-     *        property to visit
-     * @return visitor value
-     */
-    @Nonnull
-    O visit(@Nonnull OWLAnnotationProperty property);
+    default O visit(@Nonnull OWLOntology ontology) {
+        return doDefault(ontology);
+    }
 }

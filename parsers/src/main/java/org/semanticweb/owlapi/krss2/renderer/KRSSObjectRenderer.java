@@ -61,6 +61,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
+import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
@@ -68,7 +69,6 @@ import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.search.Filters;
 import org.semanticweb.owlapi.util.CollectionFactory;
-import org.semanticweb.owlapi.util.OWLObjectVisitorAdapter;
 
 /**
  * A {@code KRSSObjectRenderer} renderes an OWLOntology in the original KRSS
@@ -231,7 +231,7 @@ import org.semanticweb.owlapi.util.OWLObjectVisitorAdapter;
  * 
  * @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence
  */
-public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
+public class KRSSObjectRenderer implements OWLObjectVisitor {
 
     @Nonnull
     private static final String OPEN_BRACKET = "(";

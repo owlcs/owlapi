@@ -19,6 +19,7 @@ import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
@@ -29,7 +30,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  * @param <E>
  *        visitor type
  */
-public class OWLOntologyWalkerVisitorEx<E> extends OWLObjectVisitorExAdapter<E> {
+public class OWLOntologyWalkerVisitorEx<E> implements OWLObjectVisitorEx<E> {
 
     @Nonnull
     private final OWLOntologyWalker walker;
@@ -39,7 +40,6 @@ public class OWLOntologyWalkerVisitorEx<E> extends OWLObjectVisitorExAdapter<E> 
      *        walker
      */
     public OWLOntologyWalkerVisitorEx(@Nonnull OWLOntologyWalker walker) {
-        super(null);
         this.walker = checkNotNull(walker, "walker cannot be null");
     }
 

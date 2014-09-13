@@ -10,60 +10,25 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.util;
+package org.semanticweb.owlapi.model;
 
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLEntityVisitor;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
+import javax.annotation.Nonnull;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0
+ * @since 2.2.0
  */
-public class OWLEntityVisitorAdapter implements OWLEntityVisitor {
+public interface SWRLRuleVisitorBase extends OWLVisitorBase {
 
     /**
-     * override this method to change the default behaviour.
+     * visit SWRLRule type
      * 
-     * @param owlObject
-     *        visited object
+     * @param node
+     *        node to visit
      */
-    @SuppressWarnings("unused")
-    protected void handleDefault(OWLEntity owlObject) {}
-
-    @Override
-    public void visit(OWLClass cls) {
-        handleDefault(cls);
-    }
-
-    @Override
-    public void visit(OWLDatatype datatype) {
-        handleDefault(datatype);
-    }
-
-    @Override
-    public void visit(OWLDataProperty property) {
-        handleDefault(property);
-    }
-
-    @Override
-    public void visit(OWLObjectProperty property) {
-        handleDefault(property);
-    }
-
-    @Override
-    public void visit(OWLNamedIndividual individual) {
-        handleDefault(individual);
-    }
-
-    @Override
-    public void visit(OWLAnnotationProperty property) {
-        handleDefault(property);
+    @Nonnull
+    default void visit(@Nonnull SWRLRule node) {
+        doDefault(node);
     }
 }

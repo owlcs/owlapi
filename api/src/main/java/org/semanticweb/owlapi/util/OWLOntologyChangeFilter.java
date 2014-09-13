@@ -69,8 +69,8 @@ import org.semanticweb.owlapi.model.SetOntologyID;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OWLOntologyChangeFilter extends OWLAxiomVisitorAdapter implements
-        OWLAxiomVisitor, OWLOntologyChangeVisitor {
+public class OWLOntologyChangeFilter implements OWLAxiomVisitor,
+        OWLOntologyChangeVisitor {
 
     protected boolean add;
     @Nullable

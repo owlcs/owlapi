@@ -27,6 +27,7 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
@@ -61,7 +62,6 @@ import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
-import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
 import org.semanticweb.owlapi.util.OWLEntityCollector;
 
 import com.google.common.collect.LinkedHashMultimap;
@@ -225,7 +225,7 @@ public class JustificationMap {
     }
 
     /** The Class OWLAxiomPartExtractor. */
-    private static class OWLAxiomPartExtractor extends OWLAxiomVisitorAdapter {
+    private static class OWLAxiomPartExtractor implements OWLAxiomVisitor {
 
         @Nonnull
         private final Set<OWLObject> rhs = new HashSet<>();
@@ -442,8 +442,8 @@ public class JustificationMap {
     }
 
     /** The Class OWLAxiomComparator. */
-    private static class OWLAxiomComparator extends OWLAxiomVisitorAdapter
-            implements Comparator<OWLAxiom>, Serializable {
+    private static class OWLAxiomComparator implements OWLAxiomVisitor,
+            Comparator<OWLAxiom>, Serializable {
 
         private static final long serialVersionUID = 40000L;
         private int result;

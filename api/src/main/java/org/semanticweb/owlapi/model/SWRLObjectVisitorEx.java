@@ -21,17 +21,8 @@ import javax.annotation.Nonnull;
  * @param <O>
  *        visitor type
  */
-public interface SWRLObjectVisitorEx<O> {
-
-    /**
-     * visit SWRLRule type
-     * 
-     * @param node
-     *        node to visit
-     * @return visitor value
-     */
-    @Nonnull
-    O visit(@Nonnull SWRLRule node);
+public interface SWRLObjectVisitorEx<O> extends OWLVisitorExBase<O>,
+        SWRLRuleVisitorExBase<O> {
 
     /**
      * visit SWRLClassAtom type
@@ -41,7 +32,9 @@ public interface SWRLObjectVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull SWRLClassAtom node);
+    default O visit(@Nonnull SWRLClassAtom node) {
+        return doDefault(node);
+    }
 
     /**
      * visit SWRLDataRangeAtom type
@@ -51,7 +44,9 @@ public interface SWRLObjectVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull SWRLDataRangeAtom node);
+    default O visit(@Nonnull SWRLDataRangeAtom node) {
+        return doDefault(node);
+    }
 
     /**
      * visit SWRLObjectPropertyAtom type
@@ -61,7 +56,9 @@ public interface SWRLObjectVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull SWRLObjectPropertyAtom node);
+    default O visit(@Nonnull SWRLObjectPropertyAtom node) {
+        return doDefault(node);
+    }
 
     /**
      * visit SWRLDataPropertyAtom type
@@ -71,7 +68,9 @@ public interface SWRLObjectVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull SWRLDataPropertyAtom node);
+    default O visit(@Nonnull SWRLDataPropertyAtom node) {
+        return doDefault(node);
+    }
 
     /**
      * visit SWRLBuiltInAtom type
@@ -81,7 +80,9 @@ public interface SWRLObjectVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull SWRLBuiltInAtom node);
+    default O visit(@Nonnull SWRLBuiltInAtom node) {
+        return doDefault(node);
+    }
 
     /**
      * visit SWRLVariable type
@@ -91,7 +92,9 @@ public interface SWRLObjectVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull SWRLVariable node);
+    default O visit(@Nonnull SWRLVariable node) {
+        return doDefault(node);
+    }
 
     /**
      * visit SWRLIndividualArgument type
@@ -101,7 +104,9 @@ public interface SWRLObjectVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull SWRLIndividualArgument node);
+    default O visit(@Nonnull SWRLIndividualArgument node) {
+        return doDefault(node);
+    }
 
     /**
      * visit SWRLLiteralArgument type
@@ -111,7 +116,9 @@ public interface SWRLObjectVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull SWRLLiteralArgument node);
+    default O visit(@Nonnull SWRLLiteralArgument node) {
+        return doDefault(node);
+    }
 
     /**
      * visit SWRLSameIndividualAtom type
@@ -121,7 +128,9 @@ public interface SWRLObjectVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull SWRLSameIndividualAtom node);
+    default O visit(@Nonnull SWRLSameIndividualAtom node) {
+        return doDefault(node);
+    }
 
     /**
      * visit SWRLDifferentIndividualsAtom type
@@ -131,5 +140,7 @@ public interface SWRLObjectVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull SWRLDifferentIndividualsAtom node);
+    default O visit(@Nonnull SWRLDifferentIndividualsAtom node) {
+        return doDefault(node);
+    }
 }

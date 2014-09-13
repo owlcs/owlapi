@@ -24,6 +24,7 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLClassExpressionVisitorEx;
 import org.semanticweb.owlapi.model.OWLDataAllValuesFrom;
 import org.semanticweb.owlapi.model.OWLDataComplementOf;
 import org.semanticweb.owlapi.model.OWLDataHasValue;
@@ -60,7 +61,6 @@ import org.semanticweb.owlapi.profiles.violations.UseOfIllegalDataRange;
 import org.semanticweb.owlapi.profiles.violations.UseOfNonEquivalentClassExpression;
 import org.semanticweb.owlapi.profiles.violations.UseOfNonSubClassExpression;
 import org.semanticweb.owlapi.profiles.violations.UseOfNonSuperClassExpression;
-import org.semanticweb.owlapi.util.OWLClassExpressionVisitorExAdapter;
 import org.semanticweb.owlapi.util.OWLOntologyWalker;
 import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitor;
 
@@ -275,11 +275,14 @@ public class OWL2RLProfile implements OWLProfile {
         }
     }
 
-    private class OWL2RLSubClassExpressionChecker extends
-            OWLClassExpressionVisitorExAdapter<Boolean> {
+    private class OWL2RLSubClassExpressionChecker implements
+            OWLClassExpressionVisitorEx<Boolean> {
 
-        OWL2RLSubClassExpressionChecker() {
-            super(false);
+        OWL2RLSubClassExpressionChecker() {}
+
+        @Override
+        public Boolean doDefault(Object o) {
+            return Boolean.FALSE;
         }
 
         @Override
@@ -341,11 +344,14 @@ public class OWL2RLProfile implements OWLProfile {
         return ce.accept(subClassExpressionChecker).booleanValue();
     }
 
-    private class OWL2RLSuperClassExpressionChecker extends
-            OWLClassExpressionVisitorExAdapter<Boolean> {
+    private class OWL2RLSuperClassExpressionChecker implements
+            OWLClassExpressionVisitorEx<Boolean> {
 
-        OWL2RLSuperClassExpressionChecker() {
-            super(false);
+        OWL2RLSuperClassExpressionChecker() {}
+
+        @Override
+        public Boolean doDefault(Object o) {
+            return Boolean.FALSE;
         }
 
         @Override
@@ -414,11 +420,14 @@ public class OWL2RLProfile implements OWLProfile {
         return ce.accept(superClassExpressionChecker).booleanValue();
     }
 
-    private static class OWL2RLEquivalentClassExpressionChecker extends
-            OWLClassExpressionVisitorExAdapter<Boolean> {
+    private static class OWL2RLEquivalentClassExpressionChecker implements
+            OWLClassExpressionVisitorEx<Boolean> {
 
-        OWL2RLEquivalentClassExpressionChecker() {
-            super(false);
+        OWL2RLEquivalentClassExpressionChecker() {}
+
+        @Override
+        public Boolean doDefault(Object o) {
+            return Boolean.FALSE;
         }
 
         @Override

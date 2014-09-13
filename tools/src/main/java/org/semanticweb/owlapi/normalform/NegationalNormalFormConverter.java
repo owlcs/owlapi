@@ -57,6 +57,6 @@ public class NegationalNormalFormConverter implements NormalFormRewriter {
     public OWLClassExpression convertToNormalForm(
             OWLClassExpression classExpression) {
         nnf.reset();
-        return classExpression.accept(nnf);
+        return classExpression.accept(nnf.getClassVisitor());
     }
 }

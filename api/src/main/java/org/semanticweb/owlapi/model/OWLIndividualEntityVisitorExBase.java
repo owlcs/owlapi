@@ -10,68 +10,29 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.util;
+package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLEntityVisitorEx;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
-
 /**
- * Provides a default implementation of {@code OWLObjectVisitorEx}. Only the
- * methods that need specific client implementation need be overridden. The
- * adapter can be set up to return a default value.
- * 
- * @author Matthew Horridge, The University Of Manchester, Information
+ * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
- * @since 2.2.0
+ * @since 3.0.0
  * @param <O>
- *        visitor return type
+ *        return type
  */
-public class OWLEntityVisitorExAdapter<O> extends
-        OWLBaseVisitorExAdapter<O, OWLEntity> implements OWLEntityVisitorEx<O> {
+public interface OWLIndividualEntityVisitorExBase<O> extends
+        OWLVisitorExBase<O> {
 
     /**
-     * @param defaultReturnValue
-     *        default return value
+     * visit OWLNamedIndividual type
+     * 
+     * @param individual
+     *        individual to visit
+     * @return visitor value
      */
-    public OWLEntityVisitorExAdapter(@Nonnull O defaultReturnValue) {
-        super(defaultReturnValue);
-    }
-
-    @Override
-    public O visit(OWLClass cls) {
-        return doDefault(cls);
-    }
-
-    @Override
-    public O visit(OWLDatatype datatype) {
-        return doDefault(datatype);
-    }
-
-    @Override
-    public O visit(OWLDataProperty property) {
-        return doDefault(property);
-    }
-
-    @Override
-    public O visit(OWLObjectProperty property) {
-        return doDefault(property);
-    }
-
-    @Override
-    public O visit(OWLNamedIndividual individual) {
+    @Nonnull
+    default O visit(@Nonnull OWLNamedIndividual individual) {
         return doDefault(individual);
-    }
-
-    @Override
-    public O visit(OWLAnnotationProperty property) {
-        return doDefault(property);
     }
 }

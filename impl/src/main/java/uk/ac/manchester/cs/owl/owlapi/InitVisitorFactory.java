@@ -22,6 +22,7 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationSubject;
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -59,7 +60,6 @@ import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.util.CollectionFactory;
-import org.semanticweb.owlapi.util.OWLAxiomVisitorExAdapter;
 
 /** @author ignazio */
 public class InitVisitorFactory {
@@ -72,7 +72,7 @@ public class InitVisitorFactory {
      *        visitor return type
      */
     @SuppressWarnings("unchecked")
-    public static class InitVisitor<K> extends OWLAxiomVisitorExAdapter<K> {
+    public static class InitVisitor<K> implements OWLAxiomVisitorEx<K> {
 
         private final boolean sub;
         private final boolean named;
@@ -84,7 +84,6 @@ public class InitVisitorFactory {
          *        true for named classes
          */
         public InitVisitor(boolean sub, boolean named) {
-            super(null);
             this.sub = sub;
             this.named = named;
         }
@@ -271,8 +270,8 @@ public class InitVisitorFactory {
      *        collection type
      */
     @SuppressWarnings("unchecked")
-    public static class InitCollectionVisitor<K> extends
-            OWLAxiomVisitorExAdapter<Collection<K>> {
+    public static class InitCollectionVisitor<K> implements
+            OWLAxiomVisitorEx<Collection<K>> {
 
         private final boolean named;
 
@@ -281,8 +280,12 @@ public class InitVisitorFactory {
          *        true for named classes
          */
         public InitCollectionVisitor(boolean named) {
-            super(Collections.<K> emptySet());
             this.named = named;
+        }
+
+        @Override
+        public Collection<K> doDefault(Object object) {
+            return Collections.<K> emptySet();
         }
 
         @Nonnull

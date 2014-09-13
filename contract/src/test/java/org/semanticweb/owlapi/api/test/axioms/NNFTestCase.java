@@ -173,7 +173,7 @@ public class NNFTestCase extends TestBase {
     private OWLClassExpression getNNF(
             @Nonnull OWLClassExpression classExpression) {
         NNF nnf = new NNF(df);
-        return classExpression.accept(nnf);
+        return classExpression.accept(nnf.getClassVisitor());
     }
 
     @Test

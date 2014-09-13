@@ -35,7 +35,6 @@ package org.semanticweb.owlapi.change;/*
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -44,12 +43,13 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLClassExpressionVisitorEx;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.RemoveAxiom;
-import org.semanticweb.owlapi.util.OWLClassExpressionVisitorExAdapter;
+import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
  * This composite change will convert a defined class to a primitive class by
@@ -116,16 +116,20 @@ public class ConvertEquivalentClassesToSuperClasses extends
     private void generateChanges() {
         Set<OWLClassExpression> supers = new HashSet<>();
         for (OWLOntology o : ontologies) {
+            assert o != null;
             for (OWLEquivalentClassesAxiom ax : o
                     .getEquivalentClassesAxioms(cls)) {
+                assert ax != null;
                 addChange(new RemoveAxiom(o, ax));
                 for (OWLClassExpression equivCls : ax.getClassExpressions()) {
+                    assert equivCls != null;
                     supers.addAll(getClassExpressions(equivCls));
                 }
             }
         }
         supers.remove(cls);
         for (OWLClassExpression sup : supers) {
+            assert sup != null;
             addChange(new AddAxiom(targetOntology, getDataFactory()
                     .getOWLSubClassOfAxiom(cls, sup)));
         }
@@ -136,8 +140,7 @@ public class ConvertEquivalentClassesToSuperClasses extends
             @Nonnull OWLClassExpression desc) {
         if (splitIntersections) {
             Set<OWLClassExpression> result = desc
-                    .accept(new OWLClassExpressionVisitorExAdapter<Set<OWLClassExpression>>(
-                            Collections.<OWLClassExpression> emptySet()) {
+                    .accept(new OWLClassExpressionVisitorEx<Set<OWLClassExpression>>() {
 
                         @Override
                         public Set<OWLClassExpression> visit(
@@ -149,6 +152,6 @@ public class ConvertEquivalentClassesToSuperClasses extends
                 result.add(desc);
             }
         }
-        return Collections.singleton(desc);
+        return CollectionFactory.createSet(desc);
     }
 }

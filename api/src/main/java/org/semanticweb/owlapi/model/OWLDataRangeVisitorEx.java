@@ -21,7 +21,7 @@ import javax.annotation.Nonnull;
  * @param <O>
  *        visitor return type
  */
-public interface OWLDataRangeVisitorEx<O> {
+public interface OWLDataRangeVisitorEx<O> extends OWLVisitorExBase<O> {
 
     /**
      * visit OWLDatatype type
@@ -31,7 +31,9 @@ public interface OWLDataRangeVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLDatatype node);
+    default O visit(@Nonnull OWLDatatype node) {
+        return doDefault(node);
+    }
 
     /**
      * visit OWLDataOneOf type
@@ -41,7 +43,9 @@ public interface OWLDataRangeVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLDataOneOf node);
+    default O visit(@Nonnull OWLDataOneOf node) {
+        return doDefault(node);
+    }
 
     /**
      * visit OWLDataComplementOf type
@@ -51,7 +55,9 @@ public interface OWLDataRangeVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLDataComplementOf node);
+    default O visit(@Nonnull OWLDataComplementOf node) {
+        return doDefault(node);
+    }
 
     /**
      * visit OWLDataIntersectionOf type
@@ -61,7 +67,9 @@ public interface OWLDataRangeVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLDataIntersectionOf node);
+    default O visit(@Nonnull OWLDataIntersectionOf node) {
+        return doDefault(node);
+    }
 
     /**
      * visit OWLDataUnionOf type
@@ -71,7 +79,9 @@ public interface OWLDataRangeVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLDataUnionOf node);
+    default O visit(@Nonnull OWLDataUnionOf node) {
+        return doDefault(node);
+    }
 
     /**
      * visit OWLDatatypeRestriction type
@@ -81,5 +91,7 @@ public interface OWLDataRangeVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull OWLDatatypeRestriction node);
+    default O visit(@Nonnull OWLDatatypeRestriction node) {
+        return doDefault(node);
+    }
 }

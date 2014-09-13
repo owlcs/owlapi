@@ -100,11 +100,10 @@ import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
 import org.semanticweb.owlapi.model.SWRLObjectVisitor;
 import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
-import org.semanticweb.owlapi.util.OWLObjectVisitorAdapter;
 
 /** base for entity registration manager */
-public abstract class AbstractEntityRegistrationManager extends
-        OWLObjectVisitorAdapter implements OWLObjectVisitor, SWRLObjectVisitor {
+public abstract class AbstractEntityRegistrationManager implements
+        OWLObjectVisitor, SWRLObjectVisitor {
 
     // Axiom Visitor stuff
     @Nonnull

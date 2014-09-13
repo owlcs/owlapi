@@ -17,9 +17,9 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
-import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
 
 /**
  * A visitor that simply collects any subclass axioms that have the given class
@@ -30,7 +30,7 @@ import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
  * @since 2.0.0
  */
 @SuppressWarnings("javadoc")
-public class SubClassCollector extends OWLAxiomVisitorAdapter {
+public class SubClassCollector implements OWLAxiomVisitor {
 
     /* Collected axioms */
     @Nonnull

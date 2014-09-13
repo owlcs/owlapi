@@ -1,32 +1,30 @@
 package org.semanticweb.owlapi.search;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.model.HasAnnotations;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
 import org.semanticweb.owlapi.util.CollectionFactory;
-import org.semanticweb.owlapi.util.OWLAxiomVisitorExAdapter;
 
 @SuppressWarnings("unchecked")
-class AnnotationVisitor<C> extends OWLAxiomVisitorExAdapter<Set<C>> {
+class AnnotationVisitor<C> implements OWLAxiomVisitorEx<Set<C>> {
 
     private final boolean value;
 
     AnnotationVisitor(boolean value) {
-        super(Collections.<C> emptySet());
         this.value = value;
     }
 
     @Nonnull
     @Override
-    protected Set<C> doDefault(@Nonnull OWLAxiom object) {
-        return get(object.getAnnotations());
+    public Set<C> doDefault(@Nonnull Object object) {
+        return get(((HasAnnotations) object).getAnnotations());
     }
 
     @Nonnull

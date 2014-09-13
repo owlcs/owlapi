@@ -23,15 +23,7 @@ import javax.annotation.Nonnull;
  *         Group
  * @since 2.0.0
  */
-public interface OWLClassExpressionVisitor {
-
-    /**
-     * visit OWLClass type
-     * 
-     * @param ce
-     *        ce to visit
-     */
-    void visit(@Nonnull OWLClass ce);
+public interface OWLClassExpressionVisitor extends OWLClassVisitorBase {
 
     /**
      * visit OWLObjectIntersectionOf type
@@ -39,7 +31,9 @@ public interface OWLClassExpressionVisitor {
      * @param ce
      *        ce to visit
      */
-    void visit(@Nonnull OWLObjectIntersectionOf ce);
+    default void visit(@Nonnull OWLObjectIntersectionOf ce) {
+        doDefault(ce);
+    }
 
     /**
      * visit OWLObjectUnionOf type
@@ -47,7 +41,9 @@ public interface OWLClassExpressionVisitor {
      * @param ce
      *        ce to visit
      */
-    void visit(@Nonnull OWLObjectUnionOf ce);
+    default void visit(@Nonnull OWLObjectUnionOf ce) {
+        doDefault(ce);
+    }
 
     /**
      * visit OWLObjectComplementOf type
@@ -55,7 +51,9 @@ public interface OWLClassExpressionVisitor {
      * @param ce
      *        ce to visit
      */
-    void visit(@Nonnull OWLObjectComplementOf ce);
+    default void visit(@Nonnull OWLObjectComplementOf ce) {
+        doDefault(ce);
+    }
 
     /**
      * visit OWLObjectSomeValuesFrom type
@@ -63,7 +61,9 @@ public interface OWLClassExpressionVisitor {
      * @param ce
      *        ce to visit
      */
-    void visit(@Nonnull OWLObjectSomeValuesFrom ce);
+    default void visit(@Nonnull OWLObjectSomeValuesFrom ce) {
+        doDefault(ce);
+    }
 
     /**
      * visit OWLObjectAllValuesFrom type
@@ -71,7 +71,9 @@ public interface OWLClassExpressionVisitor {
      * @param ce
      *        ce to visit
      */
-    void visit(@Nonnull OWLObjectAllValuesFrom ce);
+    default void visit(@Nonnull OWLObjectAllValuesFrom ce) {
+        doDefault(ce);
+    }
 
     /**
      * visit OWLObjectHasValue type
@@ -79,7 +81,9 @@ public interface OWLClassExpressionVisitor {
      * @param ce
      *        ce to visit
      */
-    void visit(@Nonnull OWLObjectHasValue ce);
+    default void visit(@Nonnull OWLObjectHasValue ce) {
+        doDefault(ce);
+    }
 
     /**
      * visit OWLObjectMinCardinality type
@@ -87,7 +91,9 @@ public interface OWLClassExpressionVisitor {
      * @param ce
      *        ce to visit
      */
-    void visit(@Nonnull OWLObjectMinCardinality ce);
+    default void visit(@Nonnull OWLObjectMinCardinality ce) {
+        doDefault(ce);
+    }
 
     /**
      * visit OWLObjectExactCardinality type
@@ -95,7 +101,9 @@ public interface OWLClassExpressionVisitor {
      * @param ce
      *        ce to visit
      */
-    void visit(@Nonnull OWLObjectExactCardinality ce);
+    default void visit(@Nonnull OWLObjectExactCardinality ce) {
+        doDefault(ce);
+    }
 
     /**
      * visit OWLObjectMaxCardinality type
@@ -103,7 +111,9 @@ public interface OWLClassExpressionVisitor {
      * @param ce
      *        ce to visit
      */
-    void visit(@Nonnull OWLObjectMaxCardinality ce);
+    default void visit(@Nonnull OWLObjectMaxCardinality ce) {
+        doDefault(ce);
+    }
 
     /**
      * visit OWLObjectHasSelf type
@@ -111,7 +121,9 @@ public interface OWLClassExpressionVisitor {
      * @param ce
      *        ce to visit
      */
-    void visit(@Nonnull OWLObjectHasSelf ce);
+    default void visit(@Nonnull OWLObjectHasSelf ce) {
+        doDefault(ce);
+    }
 
     /**
      * visit OWLObjectOneOf type
@@ -119,7 +131,9 @@ public interface OWLClassExpressionVisitor {
      * @param ce
      *        ce to visit
      */
-    void visit(@Nonnull OWLObjectOneOf ce);
+    default void visit(@Nonnull OWLObjectOneOf ce) {
+        doDefault(ce);
+    }
 
     /**
      * visit OWLDataSomeValuesFrom type
@@ -127,7 +141,9 @@ public interface OWLClassExpressionVisitor {
      * @param ce
      *        ce to visit
      */
-    void visit(@Nonnull OWLDataSomeValuesFrom ce);
+    default void visit(@Nonnull OWLDataSomeValuesFrom ce) {
+        doDefault(ce);
+    }
 
     /**
      * visit OWLDataAllValuesFrom type
@@ -135,7 +151,9 @@ public interface OWLClassExpressionVisitor {
      * @param ce
      *        ce to visit
      */
-    void visit(@Nonnull OWLDataAllValuesFrom ce);
+    default void visit(@Nonnull OWLDataAllValuesFrom ce) {
+        doDefault(ce);
+    }
 
     /**
      * visit OWLDataHasValue type
@@ -143,7 +161,9 @@ public interface OWLClassExpressionVisitor {
      * @param ce
      *        ce to visit
      */
-    void visit(@Nonnull OWLDataHasValue ce);
+    default void visit(@Nonnull OWLDataHasValue ce) {
+        doDefault(ce);
+    }
 
     /**
      * visit OWLDataMinCardinality type
@@ -151,7 +171,9 @@ public interface OWLClassExpressionVisitor {
      * @param ce
      *        ce to visit
      */
-    void visit(@Nonnull OWLDataMinCardinality ce);
+    default void visit(@Nonnull OWLDataMinCardinality ce) {
+        doDefault(ce);
+    }
 
     /**
      * visit OWLDataExactCardinality type
@@ -159,7 +181,9 @@ public interface OWLClassExpressionVisitor {
      * @param ce
      *        ce to visit
      */
-    void visit(@Nonnull OWLDataExactCardinality ce);
+    default void visit(@Nonnull OWLDataExactCardinality ce) {
+        doDefault(ce);
+    }
 
     /**
      * visit OWLDataMaxCardinality type
@@ -167,5 +191,7 @@ public interface OWLClassExpressionVisitor {
      * @param ce
      *        ce to visit
      */
-    void visit(@Nonnull OWLDataMaxCardinality ce);
+    default void visit(@Nonnull OWLDataMaxCardinality ce) {
+        doDefault(ce);
+    }
 }

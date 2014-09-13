@@ -21,7 +21,8 @@ import javax.annotation.Nonnull;
  * @param <O>
  *        visitor type
  */
-public interface OWLAnnotationValueVisitorEx<O> {
+public interface OWLAnnotationValueVisitorEx<O> extends
+        OWLAnonymousIndividualVisitorExBase<O>, OWLLiteralVisitorExBase<O> {
 
     /**
      * visit IRI type
@@ -31,25 +32,7 @@ public interface OWLAnnotationValueVisitorEx<O> {
      * @return visitor value
      */
     @Nonnull
-    O visit(@Nonnull IRI iri);
-
-    /**
-     * visit OWLAnonymousIndividual type
-     * 
-     * @param individual
-     *        object to visit
-     * @return visitor value
-     */
-    @Nonnull
-    O visit(@Nonnull OWLAnonymousIndividual individual);
-
-    /**
-     * visit OWLLiteral type
-     * 
-     * @param literal
-     *        object to visit
-     * @return visitor value
-     */
-    @Nonnull
-    O visit(@Nonnull OWLLiteral literal);
+    default O visit(@Nonnull IRI iri) {
+        return doDefault(iri);
+    }
 }

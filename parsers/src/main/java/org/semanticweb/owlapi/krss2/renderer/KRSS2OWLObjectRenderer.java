@@ -55,15 +55,15 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
+import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.search.Filters;
-import org.semanticweb.owlapi.util.OWLObjectVisitorAdapter;
 
 /** @author Olaf Noppens */
-public class KRSS2OWLObjectRenderer extends OWLObjectVisitorAdapter {
+public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
 
     @Nonnull
     private final Writer writer;

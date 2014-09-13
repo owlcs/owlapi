@@ -22,6 +22,7 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectHasValue;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
@@ -29,7 +30,6 @@ import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.util.CollectionFactory;
-import org.semanticweb.owlapi.util.OWLClassExpressionVisitorAdapter;
 
 /**
  * This composite change adds a 'closure' axiom to an ontology for a given class
@@ -104,7 +104,7 @@ public class AddClassExpressionClosureAxiom extends
                 .getOWLSubClassOfAxiom(cls, closureAxiomDesc)));
     }
 
-    private class FillerCollector extends OWLClassExpressionVisitorAdapter {
+    private class FillerCollector implements OWLClassExpressionVisitor {
 
         @Nonnull
         private final Set<OWLClassExpression> fillers = new HashSet<>();

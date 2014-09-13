@@ -34,6 +34,7 @@ import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -75,7 +76,6 @@ import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
-import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
 
 /**
  * Provides ordering and indenting of explanations based on various ordering
@@ -421,7 +421,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
     }
 
     /** The Class SeedExtractor. */
-    private static class SeedExtractor extends OWLAxiomVisitorAdapter {
+    private static class SeedExtractor implements OWLAxiomVisitor {
 
         private OWLEntity source;
         private OWLEntity target;
@@ -514,7 +514,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
     }
 
     /** A visitor that indexes axioms by their left and right hand sides. */
-    private class AxiomMapBuilder extends OWLAxiomVisitorAdapter {
+    private class AxiomMapBuilder implements OWLAxiomVisitor {
 
         AxiomMapBuilder() {}
 

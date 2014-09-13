@@ -20,8 +20,10 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -99,8 +101,7 @@ public class SimpleRootClassChecker implements RootClassChecker {
         return true;
     }
 
-    private static class NamedSuperChecker extends
-            OWLClassExpressionVisitorAdapter {
+    private static class NamedSuperChecker implements OWLClassExpressionVisitor {
 
         protected boolean namedSuper;
 
@@ -136,7 +137,7 @@ public class SimpleRootClassChecker implements RootClassChecker {
      * A utility class that checks if an axiom gives rise to a class being a
      * subclass of Thing.
      */
-    private class RootClassCheckerHelper extends OWLAxiomVisitorAdapter {
+    private class RootClassCheckerHelper implements OWLAxiomVisitor {
 
         private boolean isRoot;
         private OWLClass cls;

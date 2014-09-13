@@ -82,7 +82,8 @@ public class ManchesterOWLSyntaxEditorParser extends
      * @deprecated use {@link #parseClassExpressionList()}
      */
     @Deprecated
-    public Set<OWLClassExpression> parseClassExpressionList(boolean b) {
+    public Set<OWLClassExpression> parseClassExpressionList(
+            @SuppressWarnings("unused") boolean b) {
         return parseClassExpressionList();
     }
 }

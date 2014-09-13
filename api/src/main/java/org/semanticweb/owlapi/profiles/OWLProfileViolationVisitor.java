@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.profiles;
 
+import javax.annotation.Nonnull;
+
 import org.semanticweb.owlapi.profiles.violations.CycleInDatatypeDefinition;
 import org.semanticweb.owlapi.profiles.violations.DatatypeIRIAlsoUsedAsClassIRI;
 import org.semanticweb.owlapi.profiles.violations.EmptyOneOfAxiom;
@@ -66,279 +68,392 @@ import org.semanticweb.owlapi.profiles.violations.UseOfUnknownDatatype;
 public interface OWLProfileViolationVisitor {
 
     /**
+     * @param object
+     *        object to visit @deprecated use doDefault() instead
+     */
+    @Deprecated
+    @Nonnull
+    default void getDefaultReturnValue(@Nonnull OWLProfileViolation object) {
+        doDefault(object);
+    }
+
+    /**
+     * Default action for the visitor.
+     * 
+     * @param object
+     *        The object that was visited.
+     */
+    @Nonnull
+    default void doDefault(
+            @SuppressWarnings("unused") @Nonnull OWLProfileViolation object) {}
+
+    /**
      * @param v
      *        IllegalPunning to visit
      */
-    void visit(IllegalPunning v);
+    default void visit(IllegalPunning v) {
+        doDefault(v);
+    }
 
     /**
      * @param v
      *        CycleInDatatypeDefinition to visit
      */
-    void visit(CycleInDatatypeDefinition v);
+    default void visit(CycleInDatatypeDefinition v) {
+        doDefault(v);
+    }
 
     /**
      * @param v
      *        UseOfBuiltInDatatypeInDatatypeDefinition to visit
      */
-    void visit(UseOfBuiltInDatatypeInDatatypeDefinition v);
+    default void visit(UseOfBuiltInDatatypeInDatatypeDefinition v) {
+        doDefault(v);
+    }
 
     /**
      * @param v
      *        DatatypeIRIAlsoUsedAsClassIRI to visit
      */
-    void visit(DatatypeIRIAlsoUsedAsClassIRI v);
+    default void visit(DatatypeIRIAlsoUsedAsClassIRI v) {
+        doDefault(v);
+    }
 
     /**
      * @param v
      *        UseOfNonSimplePropertyInAsymmetricObjectPropertyAxiom to visit
      */
-    void visit(UseOfNonSimplePropertyInAsymmetricObjectPropertyAxiom v);
+    default void visit(UseOfNonSimplePropertyInAsymmetricObjectPropertyAxiom v) {
+        doDefault(v);
+    }
 
     /**
      * @param v
      *        UseOfNonSimplePropertyInCardinalityRestriction to visit
      */
-    void visit(UseOfNonSimplePropertyInCardinalityRestriction v);
+    default void visit(UseOfNonSimplePropertyInCardinalityRestriction v) {
+        doDefault(v);
+    }
 
     /**
      * @param v
      *        UseOfNonSimplePropertyInDisjointPropertiesAxiom to visit
      */
-    void visit(UseOfNonSimplePropertyInDisjointPropertiesAxiom v);
+    default void visit(UseOfNonSimplePropertyInDisjointPropertiesAxiom v) {
+        doDefault(v);
+    }
 
     /**
      * @param v
      *        UseOfNonSimplePropertyInFunctionalPropertyAxiom to visit
      */
-    void visit(UseOfNonSimplePropertyInFunctionalPropertyAxiom v);
+    default void visit(UseOfNonSimplePropertyInFunctionalPropertyAxiom v) {
+        doDefault(v);
+    }
 
     /**
      * @param v
      *        UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom to
      *        visit
      */
-    void visit(UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom v);
+    default void visit(
+            UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom v) {
+        doDefault(v);
+    }
 
     /**
      * @param v
      *        UseOfNonSimplePropertyInIrreflexivePropertyAxiom to visit
      */
-    void visit(UseOfNonSimplePropertyInIrreflexivePropertyAxiom v);
+    default void visit(UseOfNonSimplePropertyInIrreflexivePropertyAxiom v) {
+        doDefault(v);
+    }
 
     /**
      * @param v
      *        UseOfNonSimplePropertyInObjectHasSelf to visit
      */
-    void visit(UseOfNonSimplePropertyInObjectHasSelf v);
+    default void visit(UseOfNonSimplePropertyInObjectHasSelf v) {
+        doDefault(v);
+    }
 
     /**
      * @param v
      *        UseOfPropertyInChainCausesCycle to visit
      */
-    void visit(UseOfPropertyInChainCausesCycle v);
+    default void visit(UseOfPropertyInChainCausesCycle v) {
+        doDefault(v);
+    }
 
     /**
      * @param v
      *        UseOfReservedVocabularyForAnnotationPropertyIRI to visit
      */
-    void visit(UseOfReservedVocabularyForAnnotationPropertyIRI v);
+    default void visit(UseOfReservedVocabularyForAnnotationPropertyIRI v) {
+        doDefault(v);
+    }
 
     /**
      * @param v
      *        UseOfReservedVocabularyForClassIRI to visit
      */
-    void visit(UseOfReservedVocabularyForClassIRI v);
+    default void visit(UseOfReservedVocabularyForClassIRI v) {
+        doDefault(v);
+    }
 
     /**
      * @param v
      *        UseOfReservedVocabularyForDataPropertyIRI to visit
      */
-    void visit(UseOfReservedVocabularyForDataPropertyIRI v);
+    default void visit(UseOfReservedVocabularyForDataPropertyIRI v) {
+        doDefault(v);
+    }
 
     /**
      * @param v
      *        UseOfReservedVocabularyForIndividualIRI to visit
      */
-    void visit(UseOfReservedVocabularyForIndividualIRI v);
+    default void visit(UseOfReservedVocabularyForIndividualIRI v) {
+        doDefault(v);
+    }
 
     /**
      * @param v
      *        UseOfReservedVocabularyForObjectPropertyIRI to visit
      */
-    void visit(UseOfReservedVocabularyForObjectPropertyIRI v);
+    default void visit(UseOfReservedVocabularyForObjectPropertyIRI v) {
+        doDefault(v);
+    }
 
     /**
      * @param v
      *        UseOfReservedVocabularyForOntologyIRI to visit
      */
-    void visit(UseOfReservedVocabularyForOntologyIRI v);
+    default void visit(UseOfReservedVocabularyForOntologyIRI v) {
+        doDefault(v);
+    }
 
     /**
      * @param v
      *        UseOfReservedVocabularyForVersionIRI to visit
      */
-    void visit(UseOfReservedVocabularyForVersionIRI v);
+    default void visit(UseOfReservedVocabularyForVersionIRI v) {
+        doDefault(v);
+    }
 
     /**
      * @param v
      *        UseOfTopDataPropertyAsSubPropertyInSubPropertyAxiom to visit
      */
-    void visit(UseOfTopDataPropertyAsSubPropertyInSubPropertyAxiom v);
+    default void visit(UseOfTopDataPropertyAsSubPropertyInSubPropertyAxiom v) {
+        doDefault(v);
+    }
 
     /**
      * @param v
      *        UseOfUndeclaredAnnotationProperty to visit
      */
-    void visit(UseOfUndeclaredAnnotationProperty v);
+    default void visit(UseOfUndeclaredAnnotationProperty v) {
+        doDefault(v);
+    }
 
     /**
      * @param v
      *        UseOfUndeclaredClass to visit
      */
-    void visit(UseOfUndeclaredClass v);
+    default void visit(UseOfUndeclaredClass v) {
+        doDefault(v);
+    }
 
     /**
      * @param v
      *        UseOfUndeclaredDataProperty to visit
      */
-    void visit(UseOfUndeclaredDataProperty v);
+    default void visit(UseOfUndeclaredDataProperty v) {
+        doDefault(v);
+    }
 
     /**
      * @param v
      *        UseOfUndeclaredDatatype to visit
      */
-    void visit(UseOfUndeclaredDatatype v);
+    default void visit(UseOfUndeclaredDatatype v) {
+        doDefault(v);
+    }
 
     /**
      * @param v
      *        UseOfUndeclaredObjectProperty to visit
      */
-    void visit(UseOfUndeclaredObjectProperty v);
+    default void visit(UseOfUndeclaredObjectProperty v) {
+        doDefault(v);
+    }
 
     /**
      * @param v
      *        InsufficientPropertyExpressions to visit
      */
-    void visit(InsufficientPropertyExpressions v);
+    default void visit(InsufficientPropertyExpressions v) {
+        doDefault(v);
+    }
 
     /**
      * @param v
      *        InsufficientIndividuals to visit
      */
-    void visit(InsufficientIndividuals v);
+    default void visit(InsufficientIndividuals v) {
+        doDefault(v);
+    }
 
     /**
      * @param v
      *        InsufficientOperands to visit
      */
-    void visit(InsufficientOperands v);
+    default void visit(InsufficientOperands v) {
+        doDefault(v);
+    }
 
     /**
      * @param v
      *        EmptyOneOfAxiom to visit
      */
-    void visit(EmptyOneOfAxiom v);
+    default void visit(EmptyOneOfAxiom v) {
+        doDefault(v);
+    }
 
     /**
      * @param v
      *        LastPropertyInChainNotInImposedRange to visit
      */
-    void visit(LastPropertyInChainNotInImposedRange v);
+    default void visit(LastPropertyInChainNotInImposedRange v) {
+        doDefault(v);
+    }
 
     /**
      * @param v
      *        OntologyIRINotAbsolute to visit
      */
-    void visit(OntologyIRINotAbsolute v);
+    default void visit(OntologyIRINotAbsolute v) {
+        doDefault(v);
+    }
 
     /**
      * @param v
      *        UseOfDefinedDatatypeInDatatypeRestriction to visit
      */
-    void visit(UseOfDefinedDatatypeInDatatypeRestriction v);
+    default void visit(UseOfDefinedDatatypeInDatatypeRestriction v) {
+        doDefault(v);
+    }
 
     /**
      * @param v
      *        UseOfIllegalClassExpression to visit
      */
-    void visit(UseOfIllegalClassExpression v);
+    default void visit(UseOfIllegalClassExpression v) {
+        doDefault(v);
+    }
 
     /**
      * @param v
      *        UseOfIllegalDataRange to visit
      */
-    void visit(UseOfIllegalDataRange v);
+    default void visit(UseOfIllegalDataRange v) {
+        doDefault(v);
+    }
 
     /**
      * @param v
      *        UseOfUnknownDatatype to visit
      */
-    void visit(UseOfUnknownDatatype v);
+    default void visit(UseOfUnknownDatatype v) {
+        doDefault(v);
+    }
 
     /**
      * @param v
      *        UseOfObjectPropertyInverse to visit
      */
-    void visit(UseOfObjectPropertyInverse v);
+    default void visit(UseOfObjectPropertyInverse v) {
+        doDefault(v);
+    }
 
     /**
      * @param v
      *        UseOfNonSuperClassExpression to visit
      */
-    void visit(UseOfNonSuperClassExpression v);
+    default void visit(UseOfNonSuperClassExpression v) {
+        doDefault(v);
+    }
 
     /**
      * @param v
      *        UseOfNonSubClassExpression to visit
      */
-    void visit(UseOfNonSubClassExpression v);
+    default void visit(UseOfNonSubClassExpression v) {
+        doDefault(v);
+    }
 
     /**
      * @param v
      *        UseOfNonEquivalentClassExpression to visit
      */
-    void visit(UseOfNonEquivalentClassExpression v);
+    default void visit(UseOfNonEquivalentClassExpression v) {
+        doDefault(v);
+    }
 
     /**
      * @param v
      *        UseOfNonAtomicClassExpression to visit
      */
-    void visit(UseOfNonAtomicClassExpression v);
+    default void visit(UseOfNonAtomicClassExpression v) {
+        doDefault(v);
+    }
 
     /**
      * @param v
      *        LexicalNotInLexicalSpace to visit
      */
-    void visit(LexicalNotInLexicalSpace v);
+    default void visit(LexicalNotInLexicalSpace v) {
+        doDefault(v);
+    }
 
     /**
      * @param v
      *        OntologyVersionIRINotAbsolute to visit
      */
-    void visit(OntologyVersionIRINotAbsolute v);
+    default void visit(OntologyVersionIRINotAbsolute v) {
+        doDefault(v);
+    }
 
     /**
      * @param v
      *        UseOfAnonymousIndividual to visit
      */
-    void visit(UseOfAnonymousIndividual v);
+    default void visit(UseOfAnonymousIndividual v) {
+        doDefault(v);
+    }
 
     /**
      * @param v
      *        UseOfIllegalAxiom to visit
      */
-    void visit(UseOfIllegalAxiom v);
+    default void visit(UseOfIllegalAxiom v) {
+        doDefault(v);
+    }
 
     /**
      * @param v
      *        UseOfIllegalFacetRestriction to visit
      */
-    void visit(UseOfIllegalFacetRestriction v);
+    default void visit(UseOfIllegalFacetRestriction v) {
+        doDefault(v);
+    }
 
     /**
      * @param v
      *        UseOfNonAbsoluteIRI to visit
      */
-    void visit(UseOfNonAbsoluteIRI v);
+    default void visit(UseOfNonAbsoluteIRI v) {
+        doDefault(v);
+    }
 }

@@ -6,7 +6,6 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.manchestersyntax.renderer.ParserException;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -17,11 +16,7 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 import org.semanticweb.owlapi.model.OWLIndividual;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLNamedObject;
 import org.semanticweb.owlapi.model.OWLObjectHasValue;
-import org.semanticweb.owlapi.model.OWLObjectOneOf;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
@@ -41,8 +36,7 @@ public class MacroExpansionVisitor {
     private final OWLOntologyManager manager;
     @Nonnull
     private final Visitor visitor;
-    @Nonnull
-    protected ManchesterSyntaxTool manchesterSyntaxTool;
+    protected final AbstractDataVisitorEx dataVisitor;
 
     /**
      * @param inputOntology
@@ -51,8 +45,9 @@ public class MacroExpansionVisitor {
     public MacroExpansionVisitor(@Nonnull OWLOntology inputOntology) {
         this.inputOntology = inputOntology;
         visitor = new Visitor(inputOntology);
-        manchesterSyntaxTool = new ManchesterSyntaxTool(inputOntology);
+        visitor.rebuild(inputOntology);
         manager = inputOntology.getOWLOntologyManager();
+        dataVisitor = new AbstractDataVisitorEx(manager.getOWLDataFactory());
     }
 
     /** @return ontology with expanded macros */
@@ -113,16 +108,16 @@ public class MacroExpansionVisitor {
                 // way might be to first scan the ontology for all annotation
                 // axioms that will be expanded,
                 // then add the declarations at this point
-                manchesterSyntaxTool = new ManchesterSyntaxTool(inputOntology);
+                visitor.rebuild(inputOntology);
             }
             LOG.info("Template to Expand {}", expandTo);
             expandTo = expandTo.replaceAll("\\?X",
-                    manchesterSyntaxTool.getId((IRI) ax.getSubject()));
+                    visitor.getTool().getId((IRI) ax.getSubject()));
             expandTo = expandTo.replaceAll("\\?Y",
-                    manchesterSyntaxTool.getId(axValIRI));
+                    visitor.getTool().getId(axValIRI));
             LOG.info("Expanding {}", expandTo);
             try {
-                Set<OntologyAxiomPair> setAxp = manchesterSyntaxTool
+                Set<OntologyAxiomPair> setAxp = visitor.getTool()
                         .parseManchesterExpressionFrames(expandTo);
                 for (OntologyAxiomPair axp : setAxp) {
                     setAx.add(axp.getAxiom());
@@ -139,66 +134,34 @@ public class MacroExpansionVisitor {
 
         Visitor(@Nonnull OWLOntology inputOntology) {
             super(inputOntology);
-        }
+            rangeVisitor = dataVisitor;
+            classVisitor = new AbstractMacroExpansionVisitor.AbstractClassExpressionVisitorEx() {
 
-        @Nullable
-        @Override
-        protected OWLClassExpression expandOWLObjSomeVal(
-                @Nonnull OWLClassExpression filler,
-                @Nonnull OWLObjectPropertyExpression p) {
-            return expandObject(filler, p);
-        }
+                @Nullable
+                @Override
+                protected OWLClassExpression expandOWLObjSomeVal(
+                        @Nonnull OWLClassExpression filler,
+                        @Nonnull OWLObjectPropertyExpression p) {
+                    return expandObject(filler, p);
+                }
 
-        @Override
-        protected OWLClassExpression expandOWLObjHasVal(
-                @Nonnull OWLObjectHasValue desc, OWLIndividual filler,
-                @Nonnull OWLObjectPropertyExpression p) {
-            OWLClassExpression result = expandObject(filler, p);
-            if (result != null) {
-                result = dataFactory.getOWLObjectSomeValuesFrom(
-                        desc.getProperty(), result);
-            }
-            return result;
-        }
-
-        @Nullable
-        OWLClassExpression expandObject(Object filler,
-                @Nonnull OWLObjectPropertyExpression p) {
-            OWLClassExpression result = null;
-            IRI iri = ((OWLObjectProperty) p).getIRI();
-            IRI templateVal = null;
-            if (expandExpressionMap.containsKey(iri)) {
-                if (filler instanceof OWLObjectOneOf) {
-                    Set<OWLIndividual> inds = ((OWLObjectOneOf) filler)
-                            .getIndividuals();
-                    if (inds.size() == 1) {
-                        OWLIndividual ind = inds.iterator().next();
-                        if (ind instanceof OWLNamedIndividual) {
-                            templateVal = ((OWLNamedObject) ind).getIRI();
-                        }
+                @Override
+                protected OWLClassExpression expandOWLObjHasVal(
+                        @Nonnull OWLObjectHasValue desc, OWLIndividual filler,
+                        @Nonnull OWLObjectPropertyExpression p) {
+                    OWLClassExpression result = expandObject(filler, p);
+                    if (result != null) {
+                        result = dataFactory.getOWLObjectSomeValuesFrom(
+                                desc.getProperty(), result);
                     }
+                    return result;
                 }
-                if (filler instanceof OWLNamedObject) {
-                    templateVal = ((OWLNamedObject) filler).getIRI();
-                }
-                if (templateVal != null) {
-                    String tStr = expandExpressionMap.get(iri);
-                    String exStr = tStr.replaceAll("\\?Y",
-                            manchesterSyntaxTool.getId(templateVal));
-                    try {
-                        result = manchesterSyntaxTool
-                                .parseManchesterExpression(exStr);
-                    } catch (ParserException e) {
-                        LOG.error(e.getMessage(), e);
-                    }
-                }
-            }
-            return result;
+            };
         }
     }
 
     /** Call this method to clear internal references. */
     public void dispose() {
-        manchesterSyntaxTool.dispose();
+        visitor.getTool().dispose();
     }
 }

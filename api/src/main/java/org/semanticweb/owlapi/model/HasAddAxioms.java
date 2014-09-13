@@ -29,10 +29,9 @@ public interface HasAddAxioms {
      * appropriate AddAxiom change objects are automatically generated.
      * 
      * @param ont
-     *        The ontology to which the axioms should be added. Not {@code null}
-     *        .
+     *        The ontology to which the axioms should be added.
      * @param axioms
-     *        The axioms to be added. Not {@code null}.
+     *        The axioms to be added.
      * @return A list of ontology changes that represent the changes which took
      *         place in order to add the axioms.
      */

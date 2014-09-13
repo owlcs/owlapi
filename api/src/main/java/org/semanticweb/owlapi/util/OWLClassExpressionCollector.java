@@ -47,6 +47,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
+import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.model.SWRLAtom;
@@ -63,14 +64,12 @@ import org.semanticweb.owlapi.model.SWRLRule;
  *         Informatics Group
  * @since 3.1.0
  */
-public class OWLClassExpressionCollector extends
-        OWLObjectVisitorExAdapter<Set<OWLClassExpression>> {
+public class OWLClassExpressionCollector implements
+        OWLObjectVisitorEx<Set<OWLClassExpression>> {
 
-    /**
-     * default constructor
-     */
-    public OWLClassExpressionCollector() {
-        super(Collections.<OWLClassExpression> emptySet());
+    @Override
+    public Set<OWLClassExpression> doDefault(Object o) {
+        return Collections.<OWLClassExpression> emptySet();
     }
 
     @Override
