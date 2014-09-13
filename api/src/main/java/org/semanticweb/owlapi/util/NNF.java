@@ -101,7 +101,7 @@ public class NNF implements OWLAxiomVisitorEx<OWLAxiom> {
     protected boolean negated;
     private final OWLDataFactory dataFactory;
     private final OWLClassExpressionVisitorEx<OWLClassExpression> classVisitor;
-    private final OWLDataRangeVisitorEx<OWLDataRange> dataVisitor;
+    protected final OWLDataRangeVisitorEx<OWLDataRange> dataVisitor;
 
     /**
      * @return class visitor

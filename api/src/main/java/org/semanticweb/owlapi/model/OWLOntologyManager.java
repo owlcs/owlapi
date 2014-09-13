@@ -22,11 +22,18 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.semanticweb.owlapi.io.FileDocumentSource;
+import org.semanticweb.owlapi.io.IRIDocumentSource;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
+import org.semanticweb.owlapi.io.OWLOntologyDocumentSourceBase;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 import org.semanticweb.owlapi.io.OWLParserFactory;
+import org.semanticweb.owlapi.io.StreamDocumentSource;
+import org.semanticweb.owlapi.io.StreamDocumentTarget;
 import org.semanticweb.owlapi.model.parameters.OntologyCopy;
 import org.semanticweb.owlapi.util.PriorityCollection;
+
+import com.google.common.base.Optional;
 
 /**
  * An {@code OWLOntologyManager} manages a set of ontologies. It is the main
@@ -237,7 +244,10 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      *         if there was a problem creating the ontology
      */
     @Nonnull
-    OWLOntology createOntology() throws OWLOntologyCreationException;
+    default OWLOntology createOntology() throws OWLOntologyCreationException {
+        // Brand new ontology without a URI
+        return createOntology(new OWLOntologyID());
+    }
 
     /**
      * Creates a new ontology that is initialised to contain specific axioms.
@@ -254,8 +264,12 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      *         if there was a problem copying the axioms.
      */
     @Nonnull
-    OWLOntology createOntology(@Nonnull Set<OWLAxiom> axioms)
-            throws OWLOntologyCreationException;
+    default OWLOntology createOntology(@Nonnull Set<OWLAxiom> axioms)
+            throws OWLOntologyCreationException {
+        return createOntology(axioms,
+                OWLOntologyDocumentSourceBase
+                        .getNextDocumentIRI("owlapi:ontology#ont"));
+    }
 
     /**
      * Creates a new ontology that has the specified ontology IRI and is
@@ -319,8 +333,11 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      *         manager.
      */
     @Nonnull
-    OWLOntology createOntology(@Nonnull IRI ontologyIRI)
-            throws OWLOntologyCreationException;
+    default OWLOntology createOntology(@Nonnull IRI ontologyIRI)
+            throws OWLOntologyCreationException {
+        return createOntology(new OWLOntologyID(
+                Optional.fromNullable(ontologyIRI), Optional.absent()));
+    }
 
     /**
      * Creates a new (empty) ontology that has the specified ontology ID.
@@ -420,9 +437,11 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      *         manager.
      */
     @Nonnull
-    OWLOntology createOntology(@Nonnull IRI ontologyIRI,
+    default OWLOntology createOntology(@Nonnull IRI ontologyIRI,
             @Nonnull Set<OWLOntology> ontologies)
-            throws OWLOntologyCreationException;
+            throws OWLOntologyCreationException {
+        return createOntology(ontologyIRI, ontologies, false);
+    }
 
     /**
      * Copy an ontology from another manager to this one. The returned
@@ -530,8 +549,12 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      *         {@code documentIRI}.
      */
     @Nonnull
-    OWLOntology loadOntologyFromOntologyDocument(@Nonnull IRI documentIRI)
-            throws OWLOntologyCreationException;
+    default OWLOntology loadOntologyFromOntologyDocument(
+            @Nonnull IRI documentIRI) throws OWLOntologyCreationException {
+        // Ontology URI not known in advance
+        return loadOntologyFromOntologyDocument(new IRIDocumentSource(
+                documentIRI, null, null), getOntologyLoaderConfiguration());
+    }
 
     /**
      * Loads an ontology from an ontology document contained in a local file.
@@ -568,8 +591,10 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      *         {@code documentIRI}.
      */
     @Nonnull
-    OWLOntology loadOntologyFromOntologyDocument(@Nonnull File file)
-            throws OWLOntologyCreationException;
+    default OWLOntology loadOntologyFromOntologyDocument(@Nonnull File file)
+            throws OWLOntologyCreationException {
+        return loadOntologyFromOntologyDocument(new FileDocumentSource(file));
+    }
 
     /**
      * Loads an ontology from an ontology document obtained from an input
@@ -604,9 +629,12 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      *         stream.
      */
     @Nonnull
-    OWLOntology loadOntologyFromOntologyDocument(
+    default OWLOntology loadOntologyFromOntologyDocument(
             @Nonnull InputStream inputStream)
-            throws OWLOntologyCreationException;
+            throws OWLOntologyCreationException {
+        return loadOntologyFromOntologyDocument(new StreamDocumentSource(
+                inputStream));
+    }
 
     /**
      * A convenience method that load an ontology from an input source.
@@ -643,9 +671,13 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      *         input source.
      */
     @Nonnull
-    OWLOntology loadOntologyFromOntologyDocument(
+    default OWLOntology loadOntologyFromOntologyDocument(
             @Nonnull OWLOntologyDocumentSource documentSource)
-            throws OWLOntologyCreationException;
+            throws OWLOntologyCreationException {
+        // Ontology URI not known in advance
+        return loadOntologyFromOntologyDocument(documentSource,
+                getOntologyLoaderConfiguration());
+    }
 
     /**
      * A convenience method that load an ontology from an input source with
@@ -699,7 +731,9 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      *        The ontology to be removed. If this manager does not manage the
      *        ontology then nothing happens.
      */
-    void removeOntology(@Nonnull OWLOntology ontology);
+    default void removeOntology(@Nonnull OWLOntology ontology) {
+        removeOntology(ontology.getOntologyID());
+    }
 
     /**
      * Attempts to remove an ontology. The ontology which is identified by the
@@ -787,8 +821,10 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      * @throws UnknownOWLOntologyException
      *         if this manager does not manage the specified ontology
      */
-    void saveOntology(@Nonnull OWLOntology ontology)
-            throws OWLOntologyStorageException;
+    default void saveOntology(@Nonnull OWLOntology ontology)
+            throws OWLOntologyStorageException {
+        saveOntology(ontology, getOntologyFormat(ontology));
+    }
 
     /**
      * Saves the specified ontology, using the specified document IRI to
@@ -803,8 +839,10 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      * @throws UnknownOWLOntologyException
      *         if the specified ontology is not managed by this manager.
      */
-    void saveOntology(@Nonnull OWLOntology ontology, @Nonnull IRI documentIRI)
-            throws OWLOntologyStorageException;
+    default void saveOntology(@Nonnull OWLOntology ontology,
+            @Nonnull IRI documentIRI) throws OWLOntologyStorageException {
+        saveOntology(ontology, getOntologyFormat(ontology), documentIRI);
+    }
 
     /**
      * Saves the specified ontology, to the specified output stream
@@ -819,9 +857,11 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      * @throws UnknownOWLOntologyException
      *         if this manager does not manage the specified ontology.
      */
-    void saveOntology(@Nonnull OWLOntology ontology,
+    default void saveOntology(@Nonnull OWLOntology ontology,
             @Nonnull OutputStream outputStream)
-            throws OWLOntologyStorageException;
+            throws OWLOntologyStorageException {
+        saveOntology(ontology, new StreamDocumentTarget(outputStream));
+    }
 
     /**
      * Saves the specified ontology in the specified ontology format to its
@@ -836,9 +876,11 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      * @throws UnknownOWLOntologyException
      *         if the specified ontology is not managed by this manager
      */
-    void saveOntology(@Nonnull OWLOntology ontology,
+    default void saveOntology(@Nonnull OWLOntology ontology,
             @Nonnull OWLDocumentFormat ontologyFormat)
-            throws OWLOntologyStorageException;
+            throws OWLOntologyStorageException {
+        saveOntology(ontology, ontologyFormat, getOntologyDocumentIRI(ontology));
+    }
 
     /**
      * Saves the specified ontology to the specified document IRI in the
@@ -876,10 +918,13 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      * @throws UnknownOWLOntologyException
      *         if the specified ontology is not managed by the manager.
      */
-    void saveOntology(@Nonnull OWLOntology ontology,
+    default void saveOntology(@Nonnull OWLOntology ontology,
             @Nonnull OWLDocumentFormat ontologyFormat,
             @Nonnull OutputStream outputStream)
-            throws OWLOntologyStorageException;
+            throws OWLOntologyStorageException {
+        saveOntology(ontology, ontologyFormat, new StreamDocumentTarget(
+                outputStream));
+    }
 
     /**
      * Saves the specified ontology to the specified
@@ -894,9 +939,11 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      * @throws UnknownOWLOntologyException
      *         if the specified ontology is not managed by this manager.
      */
-    void saveOntology(@Nonnull OWLOntology ontology,
+    default void saveOntology(@Nonnull OWLOntology ontology,
             @Nonnull OWLOntologyDocumentTarget documentTarget)
-            throws OWLOntologyStorageException;
+            throws OWLOntologyStorageException {
+        saveOntology(ontology, getOntologyFormat(ontology), documentTarget);
+    }
 
     /**
      * Saves the specified ontology to the specified output target in the
@@ -1125,7 +1172,10 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      *         import handling is turned on then this exception will not be
      *         thrown.
      */
-    void makeLoadImportRequest(@Nonnull OWLImportsDeclaration declaration);
+    default void makeLoadImportRequest(
+            @Nonnull OWLImportsDeclaration declaration) {
+        makeLoadImportRequest(declaration, getOntologyLoaderConfiguration());
+    }
 
     /**
      * Requests that the manager loads an imported ontology that is described by

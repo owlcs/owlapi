@@ -128,13 +128,14 @@ public class Clause {
      *        value type
      * @return value
      */
+    @SuppressWarnings("null")
     @Nullable
     public <T> T getValue(@Nonnull Class<T> cls) {
         Object value = getValue();
-        if (value != null && value.getClass().isAssignableFrom(cls)) {
+        if (cls.isInstance(value)) {
             return cls.cast(value);
         }
-        return null;
+        return (T) null;
     }
 
     /** @return value2 */
@@ -156,13 +157,14 @@ public class Clause {
      *        value type
      * @return value2
      */
+    @SuppressWarnings("null")
     @Nullable
     public <T> T getValue2(@Nonnull Class<T> cls) {
         Object value = getValue2();
-        if (value != null && value.getClass().isAssignableFrom(cls)) {
+        if (cls.isInstance(value)) {
             return cls.cast(value);
         }
-        return null;
+        return (T) null;
     }
 
     /** @return xrefs */

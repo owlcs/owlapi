@@ -86,11 +86,10 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
         annotationPropertiesByURI = buildCache();
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "null" })
     protected enum Buildable {
         OWLCLASS {
 
-            @Nonnull
             @Override
             OWLClass build(@Nonnull IRI iri) {
                 return new OWLClassImpl(iri);
@@ -98,7 +97,6 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
         },
         OWLOBJECTPROPERTY {
 
-            @Nonnull
             @Override
             OWLObjectProperty build(@Nonnull IRI iri) {
                 return new OWLObjectPropertyImpl(iri);
@@ -106,7 +104,6 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
         },
         OWLDATAPROPERTY {
 
-            @Nonnull
             @Override
             OWLDataProperty build(@Nonnull IRI iri) {
                 return new OWLDataPropertyImpl(iri);
@@ -114,7 +111,6 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
         },
         OWLNAMEDINDIVIDUAL {
 
-            @Nonnull
             @Override
             OWLNamedIndividual build(@Nonnull IRI iri) {
                 return new OWLNamedIndividualImpl(iri);
@@ -122,7 +118,6 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
         },
         OWLDATATYPE {
 
-            @Nonnull
             @Override
             OWLDatatype build(@Nonnull IRI iri) {
                 return new OWLDatatypeImpl(iri);
@@ -130,7 +125,6 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
         },
         OWLANNOTATIONPROPERTY {
 
-            @Nonnull
             @Override
             OWLAnnotationProperty build(@Nonnull IRI iri) {
                 return new OWLAnnotationPropertyImpl(iri);
