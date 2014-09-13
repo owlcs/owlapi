@@ -12,7 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
+import java.util.Arrays;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
@@ -43,29 +45,6 @@ public interface OWLAxiom extends OWLObject, HasAnnotations {
      */
     @Nonnull
     <O> O accept(@Nonnull OWLAxiomVisitorEx<O> visitor);
-
-    /**
-     * Gets the annotations that are annotate this axiom.
-     * 
-     * @return A set of annotations that annotate this axiom.
-     */
-    @Nonnull
-    @Override
-    Set<OWLAnnotation> getAnnotations();
-
-    /**
-     * Gets the annotations that annotate this axiom and whose annotation
-     * property is equal to {@code annotationProperty}.
-     * 
-     * @param annotationProperty
-     *        The annotation property that will be equal to the annotation
-     *        property of each returned annotation.
-     * @return A set of annotations that annotate this axiom, each of whose
-     *         annotation properties is equals to {@code annotationProperty}.
-     */
-    @Nonnull
-    Set<OWLAnnotation> getAnnotations(
-            @Nonnull OWLAnnotationProperty annotationProperty);
 
     /**
      * Gets an axiom that is structurally equivalent to this axiom without
@@ -149,7 +128,9 @@ public interface OWLAxiom extends OWLObject, HasAnnotations {
      *         otherwise {@code false}
      * @since 3.0
      */
-    boolean isOfType(@Nonnull AxiomType<?>... axiomTypes);
+    default boolean isOfType(@Nonnull AxiomType<?>... axiomTypes) {
+        return isOfType(Arrays.stream(axiomTypes));
+    }
 
     /**
      * Determines if this axiom is one of the specified types
@@ -160,7 +141,22 @@ public interface OWLAxiom extends OWLObject, HasAnnotations {
      *         otherwise {@code false}
      * @since 3.0
      */
-    boolean isOfType(@Nonnull Set<AxiomType<?>> types);
+    default boolean isOfType(@Nonnull Set<AxiomType<?>> types) {
+        return types.contains(getAxiomType());
+    }
+
+    /**
+     * Determines if this axiom is one of the specified types
+     * 
+     * @param types
+     *        The axiom types to check for
+     * @return {@code true} if this axioms is one of the specified types,
+     *         otherwise {@code false}
+     * @since 3.0
+     */
+    default boolean isOfType(@Nonnull Stream<AxiomType<?>> types) {
+        return types.anyMatch((x) -> getAxiomType().equals(x));
+    }
 
     /**
      * Gets this axioms in negation normal form. i.e. any class expressions

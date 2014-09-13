@@ -43,8 +43,4 @@ public interface OWLAnnotationPropertyDomainAxiom extends OWLAnnotationAxiom,
     @Nonnull
     @Override
     IRI getDomain();
-
-    @Nonnull
-    @Override
-    OWLAnnotationPropertyDomainAxiom getAxiomWithoutAnnotations();
 }

@@ -17,6 +17,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 import javax.annotation.Nonnull;
 
@@ -72,6 +73,14 @@ public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
     @Override
     public Set<OWLAnnotation> getAnnotations() {
         return anns;
+    }
+
+    @Override
+    public Set<OWLAnnotation> getAnnotations(
+            OWLAnnotationProperty annotationProperty) {
+        return anns.stream()
+                .filter((x) -> x.getProperty().equals(annotationProperty))
+                .collect(Collectors.toSet());
     }
 
     @Override

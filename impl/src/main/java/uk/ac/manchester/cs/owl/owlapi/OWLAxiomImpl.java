@@ -23,7 +23,6 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -106,21 +105,6 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
     public boolean equalsIgnoreAnnotations(OWLAxiom axiom) {
         return getAxiomWithoutAnnotations().equals(
                 axiom.getAxiomWithoutAnnotations());
-    }
-
-    @Override
-    public boolean isOfType(AxiomType<?>... axiomTypes) {
-        for (AxiomType<?> type : axiomTypes) {
-            if (getAxiomType().equals(type)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public boolean isOfType(Set<AxiomType<?>> types) {
-        return types.contains(getAxiomType());
     }
 
     /**

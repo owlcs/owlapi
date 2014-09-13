@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.model;
 
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.annotation.Nonnull;
 
@@ -35,4 +36,22 @@ public interface HasAnnotations {
      */
     @Nonnull
     Set<OWLAnnotation> getAnnotations();
+
+    /**
+     * Gets the annotations whose annotation property is equal to
+     * {@code annotationProperty}.
+     * 
+     * @param annotationProperty
+     *        The annotation property that will be equal to the annotation
+     *        property of each returned annotation.
+     * @return A set of annotations whose annotation properties is equals to
+     *         {@code annotationProperty}.
+     */
+    @Nonnull
+    default Set<OWLAnnotation> getAnnotations(
+            @Nonnull OWLAnnotationProperty annotationProperty) {
+        return getAnnotations().stream()
+                .filter((x) -> x.getProperty().equals(annotationProperty))
+                .collect(Collectors.toSet());
+    }
 }

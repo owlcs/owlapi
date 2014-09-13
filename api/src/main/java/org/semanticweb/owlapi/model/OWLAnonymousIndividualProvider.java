@@ -34,7 +34,7 @@ public interface OWLAnonymousIndividualProvider extends Serializable {
      * {@link OWLAnonymousIndividual} that do not have {@link NodeID}s that have
      * been used previously.
      * 
-     * @return The instance of {@link OWLAnonymousIndividual}. Not {@code null}.
+     * @return The instance of {@link OWLAnonymousIndividual}.
      * @see OWLAnonymousIndividualByIdProvider
      */
     @Nonnull

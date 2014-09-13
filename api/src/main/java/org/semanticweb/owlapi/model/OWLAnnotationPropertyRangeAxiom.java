@@ -43,8 +43,4 @@ public interface OWLAnnotationPropertyRangeAxiom extends OWLAnnotationAxiom,
     @Nonnull
     @Override
     IRI getRange();
-
-    @Nonnull
-    @Override
-    OWLAnnotationPropertyRangeAxiom getAxiomWithoutAnnotations();
 }

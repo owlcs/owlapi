@@ -83,11 +83,6 @@ public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements
     }
 
     @Override
-    public boolean isDeprecated() {
-        return iri.equals(OWLRDFVocabulary.OWL_DEPRECATED.getIRI());
-    }
-
-    @Override
     protected int compareObjectOfSameType(@Nonnull OWLObject object) {
         return iri.compareTo(((OWLAnnotationProperty) object).getIRI());
     }
@@ -100,16 +95,6 @@ public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements
     @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
-    }
-
-    @Override
-    public boolean isComment() {
-        return iri.equals(OWLRDFVocabulary.RDFS_COMMENT.getIRI());
-    }
-
-    @Override
-    public boolean isLabel() {
-        return iri.equals(OWLRDFVocabulary.RDFS_LABEL.getIRI());
     }
 
     @Override

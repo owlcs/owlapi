@@ -32,9 +32,8 @@ public interface OWLAnonymousIndividualByIdProvider extends Serializable {
      * 
      * @param nodeId
      *        A String that represents the {@link NodeID} of the generated
-     *        {@link OWLAnonymousIndividual}. Not {@code null}. Note:
-     *        {@code nodeId} will be prefixed with "_:" if it is not specified
-     *        with an "_:" prefix.
+     *        {@link OWLAnonymousIndividual}. Note: {@code nodeId} will be
+     *        prefixed with "_:" if it is not specified with an "_:" prefix.
      * @return An instance of {@link OWLAnonymousIndividual}
      */
     @Nonnull

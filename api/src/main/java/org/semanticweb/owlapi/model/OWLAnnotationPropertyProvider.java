@@ -26,9 +26,8 @@ public interface OWLAnnotationPropertyProvider {
      * {@code IRI}.
      * 
      * @param iri
-     *        The IRI. Not {@code null}.
-     * @return An {@link OWLAnnotationProperty} that has the specified IRI. Not
-     *         {@code null}.
+     *        The IRI.
+     * @return An {@link OWLAnnotationProperty} that has the specified IRI.
      */
     @Nonnull
     OWLAnnotationProperty getOWLAnnotationProperty(@Nonnull IRI iri);

@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+
 /**
  * Represents an <a href=
  * "http://www.w3.org/TR/owl2-syntax/#Annotation_Properties"
@@ -31,7 +33,9 @@ public interface OWLAnnotationProperty extends OWLProperty {
      *         {@code rdfs:comment}, where {@code rdfs:} expands to the usual
      *         prefix, otherwise {@code false}.
      */
-    boolean isComment();
+    default boolean isComment() {
+        return getIRI().equals(OWLRDFVocabulary.RDFS_COMMENT.getIRI());
+    }
 
     /**
      * Determines if this annotation property has an IRI corresponding to
@@ -41,7 +45,9 @@ public interface OWLAnnotationProperty extends OWLProperty {
      *         {@code rdfs:label}, where {@code rdfs:} expands to the usual
      *         prefix, otherwise {@code false}.
      */
-    boolean isLabel();
+    default boolean isLabel() {
+        return getIRI().equals(OWLRDFVocabulary.RDFS_LABEL.getIRI());
+    }
 
     /**
      * Determines if this annotation property has an IRI corresponding to
@@ -55,5 +61,7 @@ public interface OWLAnnotationProperty extends OWLProperty {
      *         {@code owl:deprecated}, where {@code owl:} expands to the usual
      *         prefix, otherwise {@code false}.
      */
-    boolean isDeprecated();
+    default boolean isDeprecated() {
+        return getIRI().equals(OWLRDFVocabulary.OWL_DEPRECATED.getIRI());
+    }
 }
