@@ -25,22 +25,13 @@ public interface OWLHasValueRestriction<V extends OWLObject> extends
         OWLRestriction, HasFiller<V> {
 
     /**
-     * Gets the value which is the filler for this restriction. In the case of
-     * an object restriction this will be an individual, in the case of a data
-     * restriction this will be a constant (data value).
-     * 
-     * @return the value
-     */
-    @Nonnull
-    @Override
-    V getFiller();
-
-    /**
      * @deprecated use getFiller instead
      * @return the value
      */
     @Deprecated
-    V getValue();
+    default V getValue() {
+        return getFiller();
+    }
 
     /**
      * A convenience method that obtains this restriction as an existential

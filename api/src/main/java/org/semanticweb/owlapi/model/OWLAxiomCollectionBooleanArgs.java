@@ -16,6 +16,9 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.model.parameters.AxiomAnnotations;
+import org.semanticweb.owlapi.model.parameters.Imports;
+
 /**
  * Ontology methods related to it being a collection of axioms. This interface
  * differes from OWLAxiomCollection because it uses booleans instead of Imports
@@ -24,9 +27,8 @@ import javax.annotation.Nonnull;
  * @author ignazio
  * @since 4.0.0
  */
-public interface OWLAxiomCollectionBooleanArgs extends HasAxioms, HasLogicalAxioms,
-        HasAxiomsByType, HasContainsAxiom {
-
+public interface OWLAxiomCollectionBooleanArgs extends HasAxioms,
+        HasLogicalAxioms, HasAxiomsByType, HasContainsAxiom, OWLAxiomCollection {
 
     /**
      * @param b
@@ -37,9 +39,9 @@ public interface OWLAxiomCollectionBooleanArgs extends HasAxioms, HasLogicalAxio
      */
     @Nonnull
     @Deprecated
-    Set<OWLAxiom> getAxioms(boolean b);
-
-
+    default Set<OWLAxiom> getAxioms(boolean b) {
+        return getAxioms(Imports.fromBoolean(b));
+    }
 
     /**
      * @param includeImportsClosure
@@ -48,8 +50,9 @@ public interface OWLAxiomCollectionBooleanArgs extends HasAxioms, HasLogicalAxio
      *         imports closure.
      */
     @Deprecated
-    int getAxiomCount(boolean includeImportsClosure);
-
+    default int getAxiomCount(boolean includeImportsClosure) {
+        return getAxiomCount(Imports.fromBoolean(includeImportsClosure));
+    }
 
     /**
      * Gets all axioms semantically relevant, i.e., all axioms that are not
@@ -63,8 +66,10 @@ public interface OWLAxiomCollectionBooleanArgs extends HasAxioms, HasLogicalAxio
      */
     @Deprecated
     @Nonnull
-    Set<OWLLogicalAxiom>
- getLogicalAxioms(boolean includeImportsClosure);
+    default Set<OWLLogicalAxiom>
+            getLogicalAxioms(boolean includeImportsClosure) {
+        return getLogicalAxioms(Imports.fromBoolean(includeImportsClosure));
+    }
 
     /**
      * Gets the number of logical axioms in this collection, optionally
@@ -76,8 +81,9 @@ public interface OWLAxiomCollectionBooleanArgs extends HasAxioms, HasLogicalAxio
      *         imports closure.
      */
     @Deprecated
-    int getLogicalAxiomCount(boolean includeImportsClosure);
-
+    default int getLogicalAxiomCount(boolean includeImportsClosure) {
+        return getLogicalAxiomCount(Imports.fromBoolean(includeImportsClosure));
+    }
 
     /**
      * Gets all axioms of the specified type.
@@ -92,9 +98,10 @@ public interface OWLAxiomCollectionBooleanArgs extends HasAxioms, HasLogicalAxio
      */
     @Deprecated
     @Nonnull
-    <T extends OWLAxiom> Set<T> getAxioms(@Nonnull AxiomType<T> axiomType,
-            boolean includeImportsClosure);
-
+    default <T extends OWLAxiom> Set<T> getAxioms(
+            @Nonnull AxiomType<T> axiomType, boolean includeImportsClosure) {
+        return getAxioms(axiomType, Imports.fromBoolean(includeImportsClosure));
+    }
 
     /**
      * Gets the axiom count of a specific type of axiom, optionally including
@@ -109,10 +116,13 @@ public interface OWLAxiomCollectionBooleanArgs extends HasAxioms, HasLogicalAxio
      * @return The number of the specified types of axioms in this collection
      */
     @Deprecated
-    <T extends OWLAxiom> int getAxiomCount(@Nonnull AxiomType<T> axiomType,
-            boolean includeImportsClosure);
+    default <T extends OWLAxiom> int getAxiomCount(
+            @Nonnull AxiomType<T> axiomType, boolean includeImportsClosure) {
+        return getAxiomCount(axiomType,
+                Imports.fromBoolean(includeImportsClosure));
+    }
 
-     /**
+    /**
      * Determines if this ontology contains the specified axiom, optionally
      * including the imports closure.
      * 
@@ -123,8 +133,11 @@ public interface OWLAxiomCollectionBooleanArgs extends HasAxioms, HasLogicalAxio
      * @return {@code true} if the ontology contains the specified axiom.
      */
     @Deprecated
-            boolean
-            containsAxiom(@Nonnull OWLAxiom axiom, boolean includeImportsClosure);
+    default boolean containsAxiom(@Nonnull OWLAxiom axiom,
+            boolean includeImportsClosure) {
+        return containsAxiom(axiom, Imports.fromBoolean(includeImportsClosure),
+                AxiomAnnotations.CONSIDER_AXIOM_ANNOTATIONS);
+    }
 
     /**
      * Determines if this ontology contains the specified axiom, optionally
@@ -142,8 +155,11 @@ public interface OWLAxiomCollectionBooleanArgs extends HasAxioms, HasLogicalAxio
      * @return {@code true} if the ontology contains the specified axiom.
      */
     @Deprecated
-    boolean containsAxiomIgnoreAnnotations(@Nonnull OWLAxiom axiom,
-            boolean includeImportsClosure);
+    default boolean containsAxiomIgnoreAnnotations(@Nonnull OWLAxiom axiom,
+            boolean includeImportsClosure) {
+        return containsAxiom(axiom, Imports.fromBoolean(includeImportsClosure),
+                AxiomAnnotations.IGNORE_AXIOM_ANNOTATIONS);
+    }
 
     /**
      * Gets the set of axioms contained in this collection that have the same
@@ -164,8 +180,11 @@ public interface OWLAxiomCollectionBooleanArgs extends HasAxioms, HasLogicalAxio
      */
     @Deprecated
     @Nonnull
-    Set<OWLAxiom> getAxiomsIgnoreAnnotations(@Nonnull OWLAxiom axiom,
-            boolean includeImportsClosure);
+    default Set<OWLAxiom> getAxiomsIgnoreAnnotations(@Nonnull OWLAxiom axiom,
+            boolean includeImportsClosure) {
+        return getAxiomsIgnoreAnnotations(axiom,
+                Imports.fromBoolean(includeImportsClosure));
+    }
 
     /**
      * Gets the axioms where the specified {@link OWLPrimitive} appears in the
@@ -184,11 +203,11 @@ public interface OWLAxiomCollectionBooleanArgs extends HasAxioms, HasLogicalAxio
      */
     @Deprecated
     @Nonnull
-    Set<OWLAxiom> getReferencingAxioms(@Nonnull OWLPrimitive owlEntity,
-            boolean includeImportsClosure);
-
-
-
+    default Set<OWLAxiom> getReferencingAxioms(@Nonnull OWLPrimitive owlEntity,
+            boolean includeImportsClosure) {
+        return getReferencingAxioms(owlEntity,
+                Imports.fromBoolean(includeImportsClosure));
+    }
 
     // Axioms that form part of a description of a named entity
     /**
@@ -214,8 +233,10 @@ public interface OWLAxiomCollectionBooleanArgs extends HasAxioms, HasLogicalAxio
      */
     @Nonnull
     @Deprecated
-    Set<OWLClassAxiom> getAxioms(@Nonnull OWLClass cls,
-            boolean includeImportsClosure);
+    default Set<OWLClassAxiom> getAxioms(@Nonnull OWLClass cls,
+            boolean includeImportsClosure) {
+        return getAxioms(cls, Imports.fromBoolean(includeImportsClosure));
+    }
 
     /**
      * Gets the axioms that form the definition/description of an object
@@ -248,9 +269,11 @@ public interface OWLAxiomCollectionBooleanArgs extends HasAxioms, HasLogicalAxio
      */
     @Nonnull
     @Deprecated
-    Set<OWLObjectPropertyAxiom> getAxioms(
+    default Set<OWLObjectPropertyAxiom> getAxioms(
             @Nonnull OWLObjectPropertyExpression property,
-            boolean includeImportsClosure);
+            boolean includeImportsClosure) {
+        return getAxioms(property, Imports.fromBoolean(includeImportsClosure));
+    }
 
     /**
      * Gets the axioms that form the definition/description of a data property.
@@ -278,8 +301,10 @@ public interface OWLAxiomCollectionBooleanArgs extends HasAxioms, HasLogicalAxio
      */
     @Nonnull
     @Deprecated
-    Set<OWLDataPropertyAxiom> getAxioms(@Nonnull OWLDataProperty property,
-            boolean includeImportsClosure);
+    default Set<OWLDataPropertyAxiom> getAxioms(
+            @Nonnull OWLDataProperty property, boolean includeImportsClosure) {
+        return getAxioms(property, Imports.fromBoolean(includeImportsClosure));
+    }
 
     /**
      * Gets the axioms that form the definition/description of an individual.
@@ -310,8 +335,10 @@ public interface OWLAxiomCollectionBooleanArgs extends HasAxioms, HasLogicalAxio
      */
     @Nonnull
     @Deprecated
-    Set<OWLIndividualAxiom> getAxioms(@Nonnull OWLIndividual individual,
-            boolean includeImportsClosure);
+    default Set<OWLIndividualAxiom> getAxioms(
+            @Nonnull OWLIndividual individual, boolean includeImportsClosure) {
+        return getAxioms(individual, Imports.fromBoolean(includeImportsClosure));
+    }
 
     /**
      * Gets the axioms that form the definition/description of an annotation
@@ -335,8 +362,11 @@ public interface OWLAxiomCollectionBooleanArgs extends HasAxioms, HasLogicalAxio
      */
     @Nonnull
     @Deprecated
-    Set<OWLAnnotationAxiom> getAxioms(@Nonnull OWLAnnotationProperty property,
-            boolean includeImportsClosure);
+    default Set<OWLAnnotationAxiom> getAxioms(
+            @Nonnull OWLAnnotationProperty property,
+            boolean includeImportsClosure) {
+        return getAxioms(property, Imports.fromBoolean(includeImportsClosure));
+    }
 
     /**
      * Gets the datatype definition axioms for the specified datatype.
@@ -351,6 +381,8 @@ public interface OWLAxiomCollectionBooleanArgs extends HasAxioms, HasLogicalAxio
      */
     @Nonnull
     @Deprecated
-    Set<OWLDatatypeDefinitionAxiom> getAxioms(@Nonnull OWLDatatype datatype,
-            boolean includeImportsClosure);
+    default Set<OWLDatatypeDefinitionAxiom> getAxioms(
+            @Nonnull OWLDatatype datatype, boolean includeImportsClosure) {
+        return getAxioms(datatype, Imports.fromBoolean(includeImportsClosure));
+    }
 }

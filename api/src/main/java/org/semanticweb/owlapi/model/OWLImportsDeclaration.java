@@ -30,8 +30,9 @@ public interface OWLImportsDeclaration extends
      * Gets the import IRI
      * 
      * @return The import IRI that points to the ontology to be imported. The
-     *         imported ontology should have this IRI as its IRI (although this
-     *         isn't enforced).
+     *         imported ontology might have this IRI as its ontology IRI but
+     *         this is not mandated. For example, an ontology with a non
+     *         resolvable ontology IRI can be deployed at a resolvable URL.
      */
     @Nonnull
     @Override

@@ -16,6 +16,8 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.model.parameters.Imports;
+
 /**
  * Ontology methods related to its signature. This interface differs from
  * OWLSignature because it uses boolean arguments to determine import closure
@@ -24,10 +26,7 @@ import javax.annotation.Nonnull;
  * @author ignazio
  * @since 4.0.0
  */
-public interface OWLSignatureBooleanArgs extends HasGetEntitiesInSignature,
-        HasClassesInSignature, HasObjectPropertiesInSignature,
-        HasDataPropertiesInSignature, HasDatatypesInSignature,
-        HasIndividualsInSignature, HasContainsEntityInSignature {
+public interface OWLSignatureBooleanArgs extends OWLSignature {
 
     /**
      * Gets the classes in the signature and optionally the imports closure.
@@ -39,7 +38,9 @@ public interface OWLSignatureBooleanArgs extends HasGetEntitiesInSignature,
      */
     @Deprecated
     @Nonnull
-    Set<OWLClass> getClassesInSignature(boolean includeImportsClosure);
+    default Set<OWLClass> getClassesInSignature(boolean includeImportsClosure) {
+        return getClassesInSignature(Imports.fromBoolean(includeImportsClosure));
+    }
 
     /**
      * Gets the object properties in the signature and optionally the imports
@@ -53,8 +54,11 @@ public interface OWLSignatureBooleanArgs extends HasGetEntitiesInSignature,
      */
     @Deprecated
     @Nonnull
-    Set<OWLObjectProperty> getObjectPropertiesInSignature(
-            boolean includeImportsClosure);
+    default Set<OWLObjectProperty> getObjectPropertiesInSignature(
+            boolean includeImportsClosure) {
+        return getObjectPropertiesInSignature(Imports
+                .fromBoolean(includeImportsClosure));
+    }
 
     /**
      * Gets the data properties in the signature and optionally the imports
@@ -68,8 +72,11 @@ public interface OWLSignatureBooleanArgs extends HasGetEntitiesInSignature,
      */
     @Deprecated
     @Nonnull
-    Set<OWLDataProperty> getDataPropertiesInSignature(
-            boolean includeImportsClosure);
+    default Set<OWLDataProperty> getDataPropertiesInSignature(
+            boolean includeImportsClosure) {
+        return getDataPropertiesInSignature(Imports
+                .fromBoolean(includeImportsClosure));
+    }
 
     /**
      * Gets the named individuals in the signature and optionally the imports
@@ -82,8 +89,11 @@ public interface OWLSignatureBooleanArgs extends HasGetEntitiesInSignature,
      */
     @Deprecated
     @Nonnull
-    Set<OWLNamedIndividual> getIndividualsInSignature(
-            boolean includeImportsClosure);
+    default Set<OWLNamedIndividual> getIndividualsInSignature(
+            boolean includeImportsClosure) {
+        return getIndividualsInSignature(Imports
+                .fromBoolean(includeImportsClosure));
+    }
 
     /**
      * Gets the referenced anonymous individuals in the signature and optionally
@@ -95,8 +105,11 @@ public interface OWLSignatureBooleanArgs extends HasGetEntitiesInSignature,
      */
     @Deprecated
     @Nonnull
-    Set<OWLAnonymousIndividual> getReferencedAnonymousIndividuals(
-            boolean includeImportsClosure);
+    default Set<OWLAnonymousIndividual> getReferencedAnonymousIndividuals(
+            boolean includeImportsClosure) {
+        return getReferencedAnonymousIndividuals(Imports
+                .fromBoolean(includeImportsClosure));
+    }
 
     /**
      * Gets the datatypes in the signature and optionally the imports closure.
@@ -109,7 +122,11 @@ public interface OWLSignatureBooleanArgs extends HasGetEntitiesInSignature,
      */
     @Deprecated
     @Nonnull
-    Set<OWLDatatype> getDatatypesInSignature(boolean includeImportsClosure);
+    default Set<OWLDatatype> getDatatypesInSignature(
+            boolean includeImportsClosure) {
+        return getDatatypesInSignature(Imports
+                .fromBoolean(includeImportsClosure));
+    }
 
     /**
      * Gets the annotation properties in the signature and optionally the
@@ -123,8 +140,11 @@ public interface OWLSignatureBooleanArgs extends HasGetEntitiesInSignature,
      */
     @Deprecated
     @Nonnull
-    Set<OWLAnnotationProperty> getAnnotationPropertiesInSignature(
-            boolean includeImportsClosure);
+    default Set<OWLAnnotationProperty> getAnnotationPropertiesInSignature(
+            boolean includeImportsClosure) {
+        return getAnnotationPropertiesInSignature(Imports
+                .fromBoolean(includeImportsClosure));
+    }
 
     /**
      * Determines if the signature contains the specified entity.
@@ -137,8 +157,11 @@ public interface OWLSignatureBooleanArgs extends HasGetEntitiesInSignature,
      *         reference to the specified entity.
      */
     @Deprecated
-    boolean containsEntityInSignature(@Nonnull OWLEntity owlEntity,
-            boolean includeImportsClosure);
+    default boolean containsEntityInSignature(@Nonnull OWLEntity owlEntity,
+            boolean includeImportsClosure) {
+        return containsEntityInSignature(owlEntity,
+                Imports.fromBoolean(includeImportsClosure));
+    }
 
     /**
      * Determines if the signature contains an entity with the specified IRI.
@@ -151,8 +174,11 @@ public interface OWLSignatureBooleanArgs extends HasGetEntitiesInSignature,
      *         with the specified IRI.
      */
     @Deprecated
-    boolean containsEntityInSignature(@Nonnull IRI entityIRI,
-            boolean includeImportsClosure);
+    default boolean containsEntityInSignature(@Nonnull IRI entityIRI,
+            boolean includeImportsClosure) {
+        return containsEntityInSignature(entityIRI,
+                Imports.fromBoolean(includeImportsClosure));
+    }
 
     // Access by IRI
     /**
@@ -167,8 +193,11 @@ public interface OWLSignatureBooleanArgs extends HasGetEntitiesInSignature,
      *         with the specified IRI.
      */
     @Deprecated
-    boolean containsClassInSignature(@Nonnull IRI owlClassIRI,
-            boolean includeImportsClosure);
+    default boolean containsClassInSignature(@Nonnull IRI owlClassIRI,
+            boolean includeImportsClosure) {
+        return containsClassInSignature(owlClassIRI,
+                Imports.fromBoolean(includeImportsClosure));
+    }
 
     /**
      * Determines if the signature contains an OWLObjectProperty that has the
@@ -182,8 +211,11 @@ public interface OWLSignatureBooleanArgs extends HasGetEntitiesInSignature,
      *         property with the specified IRI.
      */
     @Deprecated
-    boolean containsObjectPropertyInSignature(
-            @Nonnull IRI owlObjectPropertyIRI, boolean includeImportsClosure);
+    default boolean containsObjectPropertyInSignature(
+            @Nonnull IRI owlObjectPropertyIRI, boolean includeImportsClosure) {
+        return containsObjectPropertyInSignature(owlObjectPropertyIRI,
+                Imports.fromBoolean(includeImportsClosure));
+    }
 
     /**
      * Determines if the signature contains an OWLDataProperty that has the
@@ -197,8 +229,11 @@ public interface OWLSignatureBooleanArgs extends HasGetEntitiesInSignature,
      *         property with the specified IRI.
      */
     @Deprecated
-    boolean containsDataPropertyInSignature(@Nonnull IRI owlDataPropertyIRI,
-            boolean includeImportsClosure);
+    default boolean containsDataPropertyInSignature(
+            @Nonnull IRI owlDataPropertyIRI, boolean includeImportsClosure) {
+        return containsDataPropertyInSignature(owlDataPropertyIRI,
+                Imports.fromBoolean(includeImportsClosure));
+    }
 
     /**
      * Determines if the signature contains an OWLAnnotationProperty that has
@@ -212,10 +247,13 @@ public interface OWLSignatureBooleanArgs extends HasGetEntitiesInSignature,
      *         annotation property with the specified IRI.
      */
     @Deprecated
-    boolean
+    default boolean
             containsAnnotationPropertyInSignature(
                     @Nonnull IRI owlAnnotationPropertyIRI,
-                    boolean includeImportsClosure);
+                    boolean includeImportsClosure) {
+        return containsAnnotationPropertyInSignature(owlAnnotationPropertyIRI,
+                Imports.fromBoolean(includeImportsClosure));
+    }
 
     /**
      * Determines if the signature contains an OWLDatatype that has the
@@ -229,8 +267,11 @@ public interface OWLSignatureBooleanArgs extends HasGetEntitiesInSignature,
      *         with the specified IRI.
      */
     @Deprecated
-    boolean containsDatatypeInSignature(@Nonnull IRI owlDatatypeIRI,
-            boolean includeImportsClosure);
+    default boolean containsDatatypeInSignature(@Nonnull IRI owlDatatypeIRI,
+            boolean includeImportsClosure) {
+        return containsDatatypeInSignature(owlDatatypeIRI,
+                Imports.fromBoolean(includeImportsClosure));
+    }
 
     /**
      * Determines if the signature contains an OWLNamedIndividual that has the
@@ -244,8 +285,11 @@ public interface OWLSignatureBooleanArgs extends HasGetEntitiesInSignature,
      *         individual with the specified IRI.
      */
     @Deprecated
-    boolean containsIndividualInSignature(@Nonnull IRI owlIndividualIRI,
-            boolean includeImportsClosure);
+    default boolean containsIndividualInSignature(
+            @Nonnull IRI owlIndividualIRI, boolean includeImportsClosure) {
+        return containsIndividualInSignature(owlIndividualIRI,
+                Imports.fromBoolean(includeImportsClosure));
+    }
 
     /**
      * Gets the entities in the signature that have the specified IRI.
@@ -259,8 +303,11 @@ public interface OWLSignatureBooleanArgs extends HasGetEntitiesInSignature,
      */
     @Deprecated
     @Nonnull
-    Set<OWLEntity> getEntitiesInSignature(@Nonnull IRI iri,
-            boolean includeImportsClosure);
+    default Set<OWLEntity> getEntitiesInSignature(@Nonnull IRI iri,
+            boolean includeImportsClosure) {
+        return getEntitiesInSignature(iri,
+                Imports.fromBoolean(includeImportsClosure));
+    }
 
     /**
      * @param entity
@@ -270,6 +317,9 @@ public interface OWLSignatureBooleanArgs extends HasGetEntitiesInSignature,
      * @return true if entity is referenced
      */
     @Deprecated
-    boolean containsReference(@Nonnull OWLEntity entity,
-            boolean includeImportsClosure);
+    default boolean containsReference(@Nonnull OWLEntity entity,
+            boolean includeImportsClosure) {
+        return containsReference(entity,
+                Imports.fromBoolean(includeImportsClosure));
+    }
 }

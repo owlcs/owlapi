@@ -29,15 +29,7 @@ public interface OWLEquivalentObjectPropertiesAxiom extends
         OWLNaryPropertyAxiom<OWLObjectPropertyExpression>,
         OWLObjectPropertyAxiom {
 
-    @Nonnull
-    @Override
-    Set<OWLEquivalentObjectPropertiesAxiom> asPairwiseAxioms();
-
     /** @return the axioms equivalent to the equivalent object property axiom */
     @Nonnull
     Set<OWLSubObjectPropertyOfAxiom> asSubObjectPropertyOfAxioms();
-
-    @Nonnull
-    @Override
-    OWLEquivalentObjectPropertiesAxiom getAxiomWithoutAnnotations();
 }

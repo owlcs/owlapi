@@ -22,7 +22,7 @@ package org.semanticweb.owlapi.model;
 public interface HasCardinality {
 
     /**
-     * Gets the cardinality.
+     * Gets the cardinality of a restriction.
      * 
      * @return The cardinality. A non-negative integer.
      */

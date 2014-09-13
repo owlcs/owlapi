@@ -54,6 +54,7 @@ public interface OWLDataRange extends OWLObject, OWLPropertyRange,
      * @return This data range as an
      *         {@link org.semanticweb.owlapi.model.OWLDatatype}
      */
+    // XXX as optional
     @Nonnull
     OWLDatatype asOWLDatatype();
 

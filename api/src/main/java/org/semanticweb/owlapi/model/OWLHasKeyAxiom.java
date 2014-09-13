@@ -68,8 +68,4 @@ public interface OWLHasKeyAxiom extends OWLLogicalAxiom {
      */
     @Nonnull
     Set<OWLDataPropertyExpression> getDataPropertyExpressions();
-
-    @Nonnull
-    @Override
-    OWLHasKeyAxiom getAxiomWithoutAnnotations();
 }

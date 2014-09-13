@@ -43,11 +43,6 @@ public abstract class OWLValueRestrictionImpl<V extends OWLObject> extends
     }
 
     @Override
-    public V getValue() {
-        return getFiller();
-    }
-
-    @Override
     public boolean equals(Object obj) {
         if (super.equals(obj)) {
             if (!(obj instanceof OWLHasValueRestriction<?>)) {

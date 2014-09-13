@@ -23,14 +23,6 @@ public interface OWLCardinalityRestriction<F extends OWLPropertyRange> extends
         OWLQuantifiedRestriction<F>, HasCardinality {
 
     /**
-     * Gets the cardinality of this restriction
-     * 
-     * @return The cardinality of this restriction
-     */
-    @Override
-    int getCardinality();
-
-    /**
      * Determines if this restriction is qualified. Qualified cardinality
      * restrictions are defined to be cardinality restrictions that have fillers
      * which aren't TOP (owl:Thing or rdfs:Literal). An object restriction is

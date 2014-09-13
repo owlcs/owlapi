@@ -82,15 +82,6 @@ public interface OWLOntology extends OWLObject, HasAnnotations,
     void setOWLOntologyManager(OWLOntologyManager manager);
 
     /**
-     * Gets the identity of this ontology (i.e. ontology IRI + version IRI).
-     * 
-     * @return The ID of this ontology.
-     */
-    @Nonnull
-    @Override
-    OWLOntologyID getOntologyID();
-
-    /**
      * Determines whether or not this ontology is anonymous. An ontology is
      * anonymous if it does not have an ontology IRI. In this case,
      * getOntologyID().getOntologyIRI() will return an Optional.absent.
@@ -101,7 +92,9 @@ public interface OWLOntology extends OWLObject, HasAnnotations,
     boolean isAnonymous();
 
     /**
-     * Gets the annotations on this ontology.
+     * Gets the annotations on this ontology. Note: these are the annotations on
+     * the ontology itself, not the annotations contained in axxioms included in
+     * this ontology.
      * 
      * @return A set of annotations on this ontology. The set returned will be a
      *         copy - modifying the set will have no effect on the annotations
@@ -113,41 +106,6 @@ public interface OWLOntology extends OWLObject, HasAnnotations,
     Set<OWLAnnotation> getAnnotations();
 
     // Imported ontologies
-    /**
-     * Gets the set of document IRIs that are directly imported by this
-     * ontology. This corresponds to the IRIs defined by the
-     * directlyImportsDocument association as discussed in Section 3.4 of the
-     * OWL 2 Structural specification.
-     * 
-     * @return The set of directlyImportsDocument IRIs.
-     * @throws UnknownOWLOntologyException
-     *         If this ontology is no longer managed by its manager because it
-     *         was removed from the manager.
-     */
-    @Nonnull
-    Set<IRI> getDirectImportsDocuments();
-
-    /**
-     * Gets the set of <em>loaded</em> ontologies that this ontology is related
-     * to via the directlyImports relation. See Section 3.4 of the OWL 2
-     * specification for the definition of the directlyImports relation. <br>
-     * Note that there may be fewer ontologies in the set returned by this
-     * method than there are IRIs in the set returned by the
-     * {@link #getDirectImportsDocuments()} method. This will be the case if
-     * some of the ontologies that are directly imported by this ontology are
-     * not loaded for what ever reason.
-     * 
-     * @return A set of ontologies such that for this ontology O, and each
-     *         ontology O' in the set, (O, O') is in the directlyImports
-     *         relation.
-     * @throws UnknownOWLOntologyException
-     *         If this ontology is no longer managed by its manager because it
-     *         was removed from the manager.
-     */
-    @Nonnull
-    @Override
-    Set<OWLOntology> getDirectImports();
-
     /**
      * Gets the set of <em>loaded</em> ontologies that this ontology is related
      * to via the <em>transitive closure</em> of the <a
@@ -306,7 +264,9 @@ public interface OWLOntology extends OWLObject, HasAnnotations,
      * @return {@code true} if the ontology contains a declaration for the
      *         specified entity, otherwise {@code false}.
      */
-    boolean isDeclared(@Nonnull OWLEntity owlEntity);
+    default boolean isDeclared(@Nonnull OWLEntity owlEntity) {
+        return isDeclared(owlEntity, Imports.EXCLUDED);
+    }
 
     /**
      * Determines if this ontology or its imports closure declares an entity

@@ -36,6 +36,7 @@ public interface OWLDataPropertyExpression extends OWLPropertyExpression,
      * @throws OWLRuntimeException
      *         if the property is not a named property.
      */
+    // XXX as optional
     @Nonnull
     OWLDataProperty asOWLDataProperty();
 }

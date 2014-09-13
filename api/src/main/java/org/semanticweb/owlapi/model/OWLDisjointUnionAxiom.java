@@ -70,8 +70,4 @@ public interface OWLDisjointUnionAxiom extends OWLClassAxiom {
      */
     @Nonnull
     OWLDisjointClassesAxiom getOWLDisjointClassesAxiom();
-
-    @Nonnull
-    @Override
-    OWLDisjointUnionAxiom getAxiomWithoutAnnotations();
 }

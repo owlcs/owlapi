@@ -28,9 +28,8 @@ public interface OWLDataPropertyProvider extends Serializable {
      * {@code IRI}.
      * 
      * @param iri
-     *        The IRI. Not {@code null}.
-     * @return An {@link OWLDataProperty} that has the specified IRI. Not
-     *         {@code null}.
+     *        The IRI.
+     * @return An {@link OWLDataProperty} that has the specified IRI.
      */
     @Nonnull
     OWLDataProperty getOWLDataProperty(@Nonnull IRI iri);

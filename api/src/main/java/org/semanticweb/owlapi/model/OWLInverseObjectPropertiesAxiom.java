@@ -33,10 +33,6 @@ public interface OWLInverseObjectPropertiesAxiom extends
         OWLNaryPropertyAxiom<OWLObjectPropertyExpression>,
         OWLObjectPropertyAxiom {
 
-    @Nonnull
-    @Override
-    Set<OWLInverseObjectPropertiesAxiom> asPairwiseAxioms();
-
     /** @return the first of the two object properties. */
     @Nonnull
     OWLObjectPropertyExpression getFirstProperty();
@@ -48,8 +44,4 @@ public interface OWLInverseObjectPropertiesAxiom extends
     /** @return the set of subproperty axioms equivalent */
     @Nonnull
     Set<OWLSubObjectPropertyOfAxiom> asSubObjectPropertyOfAxioms();
-
-    @Nonnull
-    @Override
-    OWLInverseObjectPropertiesAxiom getAxiomWithoutAnnotations();
 }

@@ -91,6 +91,7 @@ public interface OWLEntity extends OWLObject, OWLNamedObject, OWLPrimitive {
      *         if this entity is not an OWLClass (check with the isOWLClass
      *         method first).
      */
+    // XXX as optional
     @Nonnull
     OWLClass asOWLClass();
 

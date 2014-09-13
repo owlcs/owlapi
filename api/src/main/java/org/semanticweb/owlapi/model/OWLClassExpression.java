@@ -63,7 +63,8 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange,
      * 
      * @return This class expression as an {@code OWLClass}.
      * @throws OWLRuntimeException
-     *         if this class expression is not an {@code OWLClass}.
+     *         if this class expression is not an {@code OWLClass}. XXX see if
+     *         this is better as optional
      */
     @Nonnull
     OWLClass asOWLClass();

@@ -86,19 +86,6 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject,
     boolean hasLang();
 
     /**
-     * Gets the language tag of this literal.
-     * 
-     * @return The language tag of this literal. If the literal does not have a
-     *         language tag, because it is not of the type
-     *         {@code rdf:PlainLiteral}, or because its language tag is empty,
-     *         then the empty string will be returned. (The {@code null} value
-     *         is never returned).
-     */
-    @Nonnull
-    @Override
-    String getLang();
-
-    /**
      * Determines if this {@code OWLLiteral} has a particular language tag.
      * 
      * @param lang

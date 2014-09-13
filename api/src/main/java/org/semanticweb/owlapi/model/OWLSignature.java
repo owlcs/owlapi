@@ -326,7 +326,6 @@ public interface OWLSignature extends HasGetEntitiesInSignature,
     Set<OWLEntity> getEntitiesInSignature(@Nonnull IRI iri,
             @Nonnull Imports includeImportsClosure);
 
-
     /**
      * Calculates the set of IRIs that are used for more than one entity type.
      * 
@@ -334,6 +333,7 @@ public interface OWLSignature extends HasGetEntitiesInSignature,
      *        if INCLUDED, include imports closure.
      * @return punned IRIs.
      */
+    @Nonnull
     Set<IRI> getPunnedIRIs(@Nonnull Imports includeImportsClosure);
 
     /**

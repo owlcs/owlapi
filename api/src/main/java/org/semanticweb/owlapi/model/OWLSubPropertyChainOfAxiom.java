@@ -57,8 +57,4 @@ public interface OWLSubPropertyChainOfAxiom extends OWLObjectPropertyAxiom {
      *         transitive, otherwise {@code false}.
      */
     boolean isEncodingOfTransitiveProperty();
-
-    @Nonnull
-    @Override
-    OWLSubPropertyChainOfAxiom getAxiomWithoutAnnotations();
 }

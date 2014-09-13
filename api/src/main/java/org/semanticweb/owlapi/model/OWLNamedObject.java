@@ -25,15 +25,6 @@ import javax.annotation.Nonnull;
 public interface OWLNamedObject extends OWLObject, HasIRI {
 
     /**
-     * Gets the IRI of this object
-     * 
-     * @return The IRI of this object
-     */
-    @Nonnull
-    @Override
-    IRI getIRI();
-
-    /**
      * Accepts a visitor
      * 
      * @param visitor

@@ -171,6 +171,7 @@ public interface OWLDocumentFormat extends Serializable {
      *         {@link org.semanticweb.owlapi.formats.PrefixDocumentFormat} other
      *         wise {@code false}.
      */
+    // XXX as optional
     boolean isPrefixOWLOntologyFormat();
 
     /**

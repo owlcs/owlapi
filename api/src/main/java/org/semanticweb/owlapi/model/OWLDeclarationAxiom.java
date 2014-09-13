@@ -30,8 +30,4 @@ public interface OWLDeclarationAxiom extends OWLAxiom {
     /** @return The entity that is declared by this axiom. */
     @Nonnull
     OWLEntity getEntity();
-
-    @Nonnull
-    @Override
-    OWLDeclarationAxiom getAxiomWithoutAnnotations();
 }

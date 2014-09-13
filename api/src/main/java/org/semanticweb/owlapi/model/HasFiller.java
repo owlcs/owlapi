@@ -25,7 +25,14 @@ import javax.annotation.Nonnull;
  */
 public interface HasFiller<T extends OWLObject> {
 
-    /** @return filler */
+    /**
+     * Gets the filler for this restriction. In the case of an object
+     * restriction this will be an individual, in the case of a data restriction
+     * this will be a constant (data value). For quantified restriction this
+     * will be a class expression or a data range.
+     * 
+     * @return the value
+     */
     @Nonnull
     T getFiller();
 }

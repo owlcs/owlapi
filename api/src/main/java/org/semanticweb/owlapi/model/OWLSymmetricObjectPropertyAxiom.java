@@ -31,8 +31,4 @@ public interface OWLSymmetricObjectPropertyAxiom extends
     /** @return the set of axioms equivalent to this axiom */
     @Nonnull
     Set<OWLSubObjectPropertyOfAxiom> asSubPropertyAxioms();
-
-    @Nonnull
-    @Override
-    OWLSymmetricObjectPropertyAxiom getAxiomWithoutAnnotations();
 }

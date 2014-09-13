@@ -27,10 +27,6 @@ public interface OWLObjectPropertyAssertionAxiom extends
         OWLPropertyAssertionAxiom<OWLObjectPropertyExpression, OWLIndividual>,
         OWLSubClassOfAxiomShortCut {
 
-    @Nonnull
-    @Override
-    OWLObjectPropertyAssertionAxiom getAxiomWithoutAnnotations();
-
     /**
      * Gets a simplified version of this object property axiom. This is defined
      * recursively as follows:
