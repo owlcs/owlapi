@@ -122,6 +122,6 @@ public abstract class OWLIndividualRelationshipAxiomImpl<P extends OWLPropertyEx
         if (diff != 0) {
             return diff;
         }
-        return o.compareTo(other.getObject());
+        return object.compareTo(other.getObject());
     }
 }
