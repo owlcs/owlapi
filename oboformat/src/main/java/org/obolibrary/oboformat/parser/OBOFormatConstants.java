@@ -131,17 +131,6 @@ public class OBOFormatConstants {
         return TAGSTABLE.get(tag);
     }
 
-    /** Date format for OboFormatTag.TAG_DATE Use Thread local to ensure thread
-     * safety, as {@link SimpleDateFormat} is not thread safe. 
-     * @deprecated use headerDateFormat() - ThreadLocal do not work nicely with web applications*/
-    @Deprecated
-    public static final ThreadLocal<DateFormat> headerDateFormat = new ThreadLocal<DateFormat>() {
-        @Nonnull
-        @Override
-        protected DateFormat initialValue() {
-            return new SimpleDateFormat("dd:MM:yyyy HH:mm");
-        }
-    };
     /** @return Date format for OboFormatTag.TAG_DATE*/
     public static final DateFormat headerDateFormat() {
             return new SimpleDateFormat("dd:MM:yyyy HH:mm");

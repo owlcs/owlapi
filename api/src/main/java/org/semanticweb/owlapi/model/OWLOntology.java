@@ -264,9 +264,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations,
      * @return {@code true} if the ontology contains a declaration for the
      *         specified entity, otherwise {@code false}.
      */
-    default boolean isDeclared(@Nonnull OWLEntity owlEntity) {
-        return isDeclared(owlEntity, Imports.EXCLUDED);
-    }
+    boolean isDeclared(@Nonnull OWLEntity owlEntity);
 
     /**
      * Determines if this ontology or its imports closure declares an entity

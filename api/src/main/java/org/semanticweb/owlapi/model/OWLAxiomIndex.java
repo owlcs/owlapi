@@ -57,6 +57,29 @@ public interface OWLAxiomIndex {
             @Nonnull Navigation forSubPosition);
 
     /**
+     * Generic search method: returns all axioms which refer entity, are
+     * instances of type, optionally including the imports closure in the
+     * results.
+     * 
+     * @param <T>
+     *        type of returned axioms
+     * @param type
+     *        type of axioms
+     * @param entity
+     *        referred entity (OWLPrimitive or property/class expression)
+     * @param forSubPosition
+     *        for sub axioms (subclass, subproperty), the value specifies
+     *        whether entity should appear as sub or super entity in the axioms
+     *        returned. For axiom types that have no sub/super entites, this
+     *        parameter is ignored.
+     * @return set of axioms satisfying the conditions. The set is a copy of the
+     *         data.
+     */
+    @Nonnull
+    <T extends OWLAxiom> Set<T> getAxioms(@Nonnull Class<T> type,
+            @Nonnull OWLObject entity, @Nonnull Navigation forSubPosition);
+
+    /**
      * Generic filter type for further refining search by axiom type. The
      * returned axioms are both belonging to one of the types listed by the
      * filter and satisfying its pass condition.
@@ -79,6 +102,37 @@ public interface OWLAxiomIndex {
             @Nonnull Imports includeImportsClosure);
 
     /**
+     * Generic filter type for further refining search by axiom type. The
+     * returned axioms are both belonging to one of the types listed by the
+     * filter and satisfying its pass condition.
+     * 
+     * @param <T>
+     *        type of returned axioms
+     * @param filter
+     *        the filter to match
+     * @param key
+     *        the key. Its type is generic and it is used only by the filter.
+     * @return a collection of axioms matching the request. The axioms are
+     *         collected from a set, therefore the collection contains no
+     *         duplicates. It is a copy of the data.
+     */
+    @Nonnull
+    <T extends OWLAxiom> Collection<T> filterAxioms(
+            @Nonnull OWLAxiomSearchFilter filter, @Nonnull Object key);
+
+    /**
+     * Generic containment check type for further refining search by axiom type.
+     * The method returns true if there is at least one result matching the
+     * filter.
+     * 
+     * @param filter
+     *        the filter to match
+     * @param key
+     *        the key. Its type is generic and it is used only by the filter. @return true if there is at least one result matching the filter.
+     */
+    boolean contains(@Nonnull OWLAxiomSearchFilter filter, @Nonnull Object key);
+
+    /**
      * Generic containment check type for further refining search by axiom type.
      * The method returns true if there is at least one result matching the
      * filter.
@@ -94,6 +148,34 @@ public interface OWLAxiomIndex {
     boolean contains(@Nonnull OWLAxiomSearchFilter filter, @Nonnull Object key,
             @Nonnull Imports includeImportsClosure);
 
+    /**
+     * Generic search method: resutns all axioms which refer entity, are
+     * instances of type, optionally including the imports closure in the
+     * results.
+     * 
+     * @param <T>
+     *        type of returned axioms
+     * @param type
+     *        type of axioms
+     * @param explicitClass
+     *        for overlapping indexes in the ontology internals, an explicit
+     *        class rathet than the entity class might be necessary
+     * @param entity
+     *        referred entity (OWLPrimitive or property/class expression)
+     * @param includeImports
+     *        if INCLUDED, include imports closure.
+     * @param forSubPosition
+     *        for sub axioms (subclass, subproperty), the value specifies
+     *        whether entity should appear as sub or super entity in the axioms
+     *        returned. For axiom types that have no sub/super entites, this
+     *        parameter is ignored.
+     * @return set of axioms satisfying the conditions. The set is a copy of the
+     *         data.
+     */
+    @Nonnull
+    <T extends OWLAxiom> Set<T> getAxioms(@Nonnull Class<T> type,
+            @Nonnull Class<? extends OWLObject> explicitClass,
+            @Nonnull OWLObject entity, @Nonnull Navigation forSubPosition);
 
     /**
      * Generic search method: resutns all axioms which refer entity, are

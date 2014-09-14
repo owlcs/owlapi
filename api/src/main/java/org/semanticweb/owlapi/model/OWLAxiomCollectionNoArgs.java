@@ -12,9 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
-import static org.semanticweb.owlapi.util.CollectionFactory.createSet;
-
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -33,18 +30,14 @@ public interface OWLAxiomCollectionNoArgs extends OWLAxiomCollection {
     /**
      * @return The number of axioms in this ontology.
      */
-    default int getAxiomCount() {
-        return getAxiomCount(EXCLUDED);
-    }
+    int getAxiomCount();
 
     /**
      * Gets the number of logical axioms in this collection.
      * 
      * @return The number of axioms in this collection.
      */
-    default int getLogicalAxiomCount() {
-        return getLogicalAxiomCount(EXCLUDED);
-    }
+    int getLogicalAxiomCount();
 
     /**
      * Gets the axiom count of a specific type of axiom.
@@ -55,10 +48,7 @@ public interface OWLAxiomCollectionNoArgs extends OWLAxiomCollection {
      *        axiom type class
      * @return The number of the specified types of axioms in this collection
      */
-    default <T extends OWLAxiom> int getAxiomCount(
-            @Nonnull AxiomType<T> axiomType) {
-        return getAxiomCount(axiomType, EXCLUDED);
-    }
+    <T extends OWLAxiom> int getAxiomCount(@Nonnull AxiomType<T> axiomType);
 
     /**
      * Determines if this ontology contains the specified axiom.
@@ -67,14 +57,7 @@ public interface OWLAxiomCollectionNoArgs extends OWLAxiomCollection {
      *        The axiom to search.
      * @return {@code true} if the ontology contains the specified axiom.
      */
-    default boolean containsAxiomIgnoreAnnotations(@Nonnull OWLAxiom axiom) {
-        for (OWLAxiom ax : getAxioms(axiom.getAxiomType())) {
-            if (ax.equalsIgnoreAnnotations(axiom)) {
-                return true;
-            }
-        }
-        return false;
-    }
+    boolean containsAxiomIgnoreAnnotations(@Nonnull OWLAxiom axiom);
 
     /**
      * Gets the set of axioms contained in this collection that have the same
@@ -92,18 +75,7 @@ public interface OWLAxiomCollectionNoArgs extends OWLAxiomCollection {
      *         will be contained in the set.
      */
     @Nonnull
-    default Set<OWLAxiom> getAxiomsIgnoreAnnotations(@Nonnull OWLAxiom axiom) {
-        Set<OWLAxiom> result = createSet();
-        if (containsAxiom(axiom)) {
-            result.add(axiom);
-        }
-        for (OWLAxiom ax : getAxioms(axiom.getAxiomType())) {
-            if (ax.equalsIgnoreAnnotations(axiom)) {
-                result.add(ax);
-            }
-        }
-        return result;
-    }
+    Set<OWLAxiom> getAxiomsIgnoreAnnotations(@Nonnull OWLAxiom axiom);
 
     /**
      * Gets the axioms where the specified {@link OWLPrimitive} appears in the
@@ -119,9 +91,7 @@ public interface OWLAxiomCollectionNoArgs extends OWLAxiomCollection {
      * @return All axioms referencing the entity. The set is a copy of the data.
      */
     @Nonnull
-    default Set<OWLAxiom> getReferencingAxioms(@Nonnull OWLPrimitive owlEntity) {
-        return getReferencingAxioms(owlEntity, EXCLUDED);
-    }
+    Set<OWLAxiom> getReferencingAxioms(@Nonnull OWLPrimitive owlEntity);
 
     // Axioms that form part of a description of a named entity
     /**
@@ -141,13 +111,9 @@ public interface OWLAxiomCollectionNoArgs extends OWLAxiomCollection {
      *         class that is equivalent to the disjoint union</li>
      *         </ul>
      *         The returned set is a copy of the data.
-     * @deprecated use getAxioms(entity, Imports) instead
      */
     @Nonnull
-    @Deprecated
-    default Set<OWLClassAxiom> getAxioms(@Nonnull OWLClass cls) {
-        return getAxioms(cls, EXCLUDED);
-    }
+    Set<OWLClassAxiom> getAxioms(@Nonnull OWLClass cls);
 
     /**
      * Gets the axioms that form the definition/description of an object
@@ -174,14 +140,10 @@ public interface OWLAxiomCollectionNoArgs extends OWLAxiomCollection {
      *         </li>
      *         </ul>
      *         The set that is returned is a copy of the data.
-     * @deprecated use getAxioms(entity, Imports) instead
      */
     @Nonnull
-    @Deprecated
-    default Set<OWLObjectPropertyAxiom> getAxioms(
-            @Nonnull OWLObjectPropertyExpression property) {
-        return getAxioms(property, EXCLUDED);
-    }
+    Set<OWLObjectPropertyAxiom> getAxioms(
+            @Nonnull OWLObjectPropertyExpression property);
 
     /**
      * Gets the axioms that form the definition/description of a data property.
@@ -203,14 +165,9 @@ public interface OWLAxiomCollectionNoArgs extends OWLAxiomCollection {
      *         property</li>
      *         </ul>
      *         The set is a copy of the data.
-     * @deprecated use getAxioms(entity, Imports) instead
      */
     @Nonnull
-    @Deprecated
-    default Set<OWLDataPropertyAxiom> getAxioms(
-            @Nonnull OWLDataProperty property) {
-        return getAxioms(property, EXCLUDED);
-    }
+    Set<OWLDataPropertyAxiom> getAxioms(@Nonnull OWLDataProperty property);
 
     /**
      * Gets the axioms that form the definition/description of an individual.
@@ -235,14 +192,9 @@ public interface OWLAxiomCollectionNoArgs extends OWLAxiomCollection {
      *         specified individual</li>
      *         </ul>
      *         The set is a copy of the data.
-     * @deprecated use getAxioms(entity, Imports) instead
      */
     @Nonnull
-    @Deprecated
-    default Set<OWLIndividualAxiom>
-            getAxioms(@Nonnull OWLIndividual individual) {
-        return getAxioms(individual, EXCLUDED);
-    }
+    Set<OWLIndividualAxiom> getAxioms(@Nonnull OWLIndividual individual);
 
     /**
      * Gets the axioms that form the definition/description of an annotation
@@ -260,14 +212,9 @@ public interface OWLAxiomCollectionNoArgs extends OWLAxiomCollection {
      *         specified property</li>
      *         </ul>
      *         The set is a copy of the data.
-     * @deprecated use getAxioms(entity, Imports) instead
      */
     @Nonnull
-    @Deprecated
-    default Set<OWLAnnotationAxiom> getAxioms(
-            @Nonnull OWLAnnotationProperty property) {
-        return getAxioms(property, EXCLUDED);
-    }
+    Set<OWLAnnotationAxiom> getAxioms(@Nonnull OWLAnnotationProperty property);
 
     /**
      * Gets the datatype definition axioms for the specified datatype.
@@ -276,12 +223,7 @@ public interface OWLAxiomCollectionNoArgs extends OWLAxiomCollection {
      *        The datatype
      * @return The set of datatype definition axioms for the specified datatype.
      *         The set is a copy of the data.
-     * @deprecated use getAxioms(entity, Imports) instead
      */
     @Nonnull
-    @Deprecated
-    default Set<OWLDatatypeDefinitionAxiom> getAxioms(
-            @Nonnull OWLDatatype datatype) {
-        return getAxioms(datatype, EXCLUDED);
-    }
+    Set<OWLDatatypeDefinitionAxiom> getAxioms(@Nonnull OWLDatatype datatype);
 }

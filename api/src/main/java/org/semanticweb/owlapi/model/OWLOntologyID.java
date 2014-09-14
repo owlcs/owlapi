@@ -51,9 +51,7 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
      * 
      * @param iri
      *        The ontology IRI (may be {@code null})
-     * @deprecated use the Optional based constructor instead
      */
-    @Deprecated
     public OWLOntologyID(IRI iri) {
         this(opt(iri), Optional.<IRI> absent());
     }
@@ -66,9 +64,7 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
      *        The ontology IRI (may be {@code null})
      * @param versionIRI
      *        The version IRI (must be {@code null} if the ontologyIRI is null)
-     * @deprecated use the Optional based constructor instead
      */
-    @Deprecated
     public OWLOntologyID(IRI iri, IRI versionIRI) {
         this(opt(iri), opt(versionIRI));
     }

@@ -102,7 +102,6 @@ public class OWLObjectHasValueImpl extends
 
     @Nonnull
     @Override
-    @Deprecated
     public OWLClassExpression asSomeValuesFrom() {
         return new OWLObjectSomeValuesFromImpl(
                 getProperty(),

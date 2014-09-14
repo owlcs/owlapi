@@ -12,6 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model.parameters;
 
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLOntology;
+
 /**
  * Search options
  * 
@@ -20,7 +23,21 @@ package org.semanticweb.owlapi.model.parameters;
  */
 public enum AxiomAnnotations {
     /** search for axioms ignoring annotations */
-    IGNORE_AXIOM_ANNOTATIONS,
+    IGNORE_AXIOM_ANNOTATIONS {
+
+        @Override
+        public boolean contains(OWLOntology o, OWLAxiom ax) {
+            return o.containsAxiomIgnoreAnnotations(ax);
+        }
+    },
     /** search for axioms taking annotations into account */
-    CONSIDER_AXIOM_ANNOTATIONS
+    CONSIDER_AXIOM_ANNOTATIONS {
+
+        @Override
+        public boolean contains(OWLOntology o, OWLAxiom ax) {
+            return o.containsAxiom(ax);
+        }
+    };
+
+    public abstract boolean contains(OWLOntology o, OWLAxiom ax);
 }

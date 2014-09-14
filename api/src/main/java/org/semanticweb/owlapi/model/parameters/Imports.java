@@ -12,7 +12,16 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model.parameters;
 
+import java.util.Set;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.function.ToIntFunction;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import javax.annotation.Nonnull;
+
+import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
  * An enumeration for human readable values to include/exclude imports from
@@ -23,9 +32,79 @@ import javax.annotation.Nonnull;
  */
 public enum Imports {
     /** imports are included */
-    INCLUDED,
+    INCLUDED {
+
+        @Override
+        public Stream<OWLOntology> stream(OWLOntology o) {
+            return o.getImportsClosure().stream();
+        }
+
+        @Override
+        public boolean anyMatch(OWLOntology o, Predicate<OWLOntology> base,
+                Predicate<OWLOntology> step) {
+            return stream(o).anyMatch(step);
+        }
+    },
     /** imports are excluded */
-    EXCLUDED;
+    EXCLUDED {
+
+        @Override
+        public Stream<OWLOntology> stream(OWLOntology o) {
+            return Stream.of(o);
+        }
+
+        @Override
+        public boolean anyMatch(OWLOntology o, Predicate<OWLOntology> base,
+                Predicate<OWLOntology> step) {
+            return base.test(o);
+        }
+    };
+
+    /**
+     * @param o
+     *        input ontology
+     * @return if the import closure should be included, return a stream with
+     *         all the ontologies in the imports closure. Otherwise, return a
+     *         stream with a single ontology - the input ontology.
+     */
+    public abstract Stream<OWLOntology> stream(OWLOntology o);
+
+    /**
+     * @param o
+     *        ontology to test
+     * @param base
+     *        function to use for imports excluded (i.e., base step of
+     *        recursion)
+     * @param step
+     *        function to use for regular recursions tep
+     * @return true if one of the predicates returns true at any point.
+     */
+    public abstract boolean anyMatch(OWLOntology o,
+            Predicate<OWLOntology> base, Predicate<OWLOntology> step);
+
+    public boolean anyMatch(OWLOntology o, Predicate<OWLOntology> step) {
+        return stream(o).anyMatch(step);
+    }
+
+    public
+            <T>
+            Set<T>
+            collect(OWLOntology o,
+                    Function<? super OWLOntology, ? extends Stream<? extends T>> mapper) {
+        return stream(o, mapper).collect(Collectors.toSet());
+    }
+
+    public
+            <T>
+            Stream<T>
+            stream(OWLOntology o,
+                    Function<? super OWLOntology, ? extends Stream<? extends T>> mapper) {
+        return stream(o).flatMap(mapper);
+    }
+
+    public int count(OWLOntology o, ToIntFunction<? super OWLOntology> step) {
+        return stream(o).collect(Collectors.summingInt(step)).intValue();
+    }
 
     /**
      * Transform a boolean arg in an Imports arg. True means INCLUDED

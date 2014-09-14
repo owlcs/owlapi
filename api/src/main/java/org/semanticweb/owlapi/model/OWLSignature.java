@@ -94,6 +94,14 @@ public interface OWLSignature extends HasGetEntitiesInSignature,
             @Nonnull Imports includeImportsClosure);
 
     /**
+     * Gets the referenced anonymous individuals.
+     * 
+     * @return The set of referenced anonymous individuals
+     */
+    @Nonnull
+    Set<OWLAnonymousIndividual> getReferencedAnonymousIndividuals();
+
+    /**
      * Gets the datatypes in the signature and optionally the imports closure.
      * 
      * @param includeImportsClosure
