@@ -128,7 +128,9 @@ public interface OWLAxiomIndex {
      * @param filter
      *        the filter to match
      * @param key
-     *        the key. Its type is generic and it is used only by the filter. @return true if there is at least one result matching the filter.
+     *        the key. Its type is generic and it is used only by the filter. @return
+     *        true if there is at least one result matching the filter.
+     * @return true if key is contained
      */
     boolean contains(@Nonnull OWLAxiomSearchFilter filter, @Nonnull Object key);
 
@@ -162,8 +164,6 @@ public interface OWLAxiomIndex {
      *        class rathet than the entity class might be necessary
      * @param entity
      *        referred entity (OWLPrimitive or property/class expression)
-     * @param includeImports
-     *        if INCLUDED, include imports closure.
      * @param forSubPosition
      *        for sub axioms (subclass, subproperty), the value specifies
      *        whether entity should appear as sub or super entity in the axioms

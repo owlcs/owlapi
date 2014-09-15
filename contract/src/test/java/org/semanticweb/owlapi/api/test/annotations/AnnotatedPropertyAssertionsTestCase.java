@@ -21,12 +21,11 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileTestCase;
+import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.parameters.AxiomAnnotations;
 
 /**
@@ -35,7 +34,8 @@ import org.semanticweb.owlapi.model.parameters.AxiomAnnotations;
  * @since 3.1.0
  */
 @SuppressWarnings("javadoc")
-public class AnnotatedPropertyAssertionsTestCase extends AbstractFileTestCase {
+public class AnnotatedPropertyAssertionsTestCase extends
+        AbstractFileRoundTrippingTestCase {
 
     @Nonnull
     @Override
@@ -44,7 +44,7 @@ public class AnnotatedPropertyAssertionsTestCase extends AbstractFileTestCase {
     }
 
     @Test
-    public void testCorrectAxiomAnnotated() throws OWLOntologyCreationException {
+    public void testCorrectAxiomAnnotated() {
         OWLOntology ontology = createOntology();
         OWLNamedIndividual subject = NamedIndividual(IRI("http://Example.com#myBuilding"));
         OWLObjectProperty predicate = ObjectProperty(IRI("http://Example.com#located_at"));

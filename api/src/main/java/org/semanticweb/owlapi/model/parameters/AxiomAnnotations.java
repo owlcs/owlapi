@@ -39,5 +39,13 @@ public enum AxiomAnnotations {
         }
     };
 
+    /**
+     * @param o
+     *        ontology to check
+     * @param ax
+     *        axiom to check
+     * @return true if the ontology contains the axiom, considering or
+     *         disregarding annotations depending on the axiom annotation value.
+     */
     public abstract boolean contains(OWLOntology o, OWLAxiom ax);
 }

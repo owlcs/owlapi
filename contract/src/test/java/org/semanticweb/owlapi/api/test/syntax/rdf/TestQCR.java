@@ -10,41 +10,45 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.rdf;
+package org.semanticweb.owlapi.api.test.syntax.rdf;
 
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.createIndividual;
+import static org.junit.Assert.assertTrue;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLObjectMinCardinality;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0
+ * @since 2.1.1
  */
-public class TestDifferentIndividualsAxiom extends
-        AbstractRendererAndParserTestCase {
-
-    @Nonnull
-    @Override
-    protected String getClassExpression() {
-        return "Different individuals axioms test case";
-    }
+public class TestQCR extends AbstractRendererAndParserTestCase {
 
     @Nonnull
     @Override
     protected Set<OWLAxiom> getAxioms() {
-        Set<OWLIndividual> individuals = new HashSet<>();
-        for (int i = 0; i < 5; i++) {
-            individuals.add(createIndividual());
-        }
-        OWLAxiom ax = getDataFactory().getOWLDifferentIndividualsAxiom(
-                individuals);
+        OWLClass clsA = createClass();
+        OWLClass clsB = createClass();
+        OWLClass clsC = createClass();
+        OWLObjectProperty prop = createObjectProperty();
+        OWLClassExpression filler = df.getOWLObjectIntersectionOf(clsB, clsC);
+        OWLObjectMinCardinality restriction = df.getOWLObjectMinCardinality(3,
+                prop, filler);
+        assertTrue(restriction.isQualified());
+        OWLAxiom ax = df.getOWLSubClassOfAxiom(clsA, restriction);
         return singleton(ax);
+    }
+
+    @Override
+    protected String getClassExpression() {
+        return "Qualified Cardinality";
     }
 }

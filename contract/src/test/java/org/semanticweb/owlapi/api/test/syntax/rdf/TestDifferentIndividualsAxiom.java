@@ -10,41 +10,41 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.rdf;
+package org.semanticweb.owlapi.api.test.syntax.rdf;
 
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.createIndividual;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLIndividual;
-import org.semanticweb.owlapi.model.OWLLiteral;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0
  */
-public class TestNegativeDataPropertyAssertionAxiom extends
+public class TestDifferentIndividualsAxiom extends
         AbstractRendererAndParserTestCase {
 
     @Nonnull
     @Override
     protected String getClassExpression() {
-        return "Negative data property assertion test case";
+        return "Different individuals axioms test case";
     }
 
     @Nonnull
     @Override
     protected Set<OWLAxiom> getAxioms() {
-        OWLIndividual subj = createIndividual();
-        OWLDataProperty prop = createDataProperty();
-        OWLLiteral obj = getDataFactory().getOWLLiteral("TestConstant");
-        OWLAxiom ax = getDataFactory()
-                .getOWLNegativeDataPropertyAssertionAxiom(prop, subj, obj);
+        Set<OWLIndividual> individuals = new HashSet<>();
+        for (int i = 0; i < 5; i++) {
+            individuals.add(createIndividual());
+        }
+        OWLAxiom ax = getDataFactory().getOWLDifferentIndividualsAxiom(
+                individuals);
         return singleton(ax);
     }
 }

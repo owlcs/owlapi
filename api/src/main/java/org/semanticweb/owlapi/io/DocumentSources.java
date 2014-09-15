@@ -123,7 +123,9 @@ public class DocumentSources {
             throws OWLOntologyInputSourceException {
         Optional<InputStream> input = source.getInputStream();
         if (!input.isPresent()) {
-            input = getInputStream(source.getDocumentIRI(), configuration);
+            if (!source.hasAlredyFailedOnIRIResolution()) {
+                input = getInputStream(source.getDocumentIRI(), configuration);
+            }
         }
         if (input.isPresent()) {
             return new BufferedInputStream(input.get());

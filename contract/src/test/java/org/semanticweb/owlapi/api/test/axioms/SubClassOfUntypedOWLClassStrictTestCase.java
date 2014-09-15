@@ -19,13 +19,12 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileTestCase;
+import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileRoundTrippingTestCase;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.io.RDFTriple;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 
 /**
@@ -35,7 +34,7 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
  */
 @SuppressWarnings("javadoc")
 public class SubClassOfUntypedOWLClassStrictTestCase extends
-        AbstractFileTestCase {
+        AbstractFileRoundTrippingTestCase {
 
     @Nonnull
     @Override
@@ -44,7 +43,7 @@ public class SubClassOfUntypedOWLClassStrictTestCase extends
     }
 
     @Test
-    public void testAxioms() throws OWLOntologyCreationException {
+    public void testAxioms() {
         OWLOntology ont = createOntology();
         assertTrue(ont.getAxioms(AxiomType.SUBCLASS_OF).isEmpty());
         OWLDocumentFormat format = ont.getOWLOntologyManager()

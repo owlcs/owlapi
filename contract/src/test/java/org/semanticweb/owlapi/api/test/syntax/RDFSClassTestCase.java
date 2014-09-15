@@ -18,12 +18,11 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 import javax.annotation.Nonnull;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileTestCase;
+import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health
@@ -31,10 +30,10 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
  * @since 3.3.0
  */
 @SuppressWarnings("javadoc")
-public class RDFSClassTestCase extends AbstractFileTestCase {
+public class RDFSClassTestCase extends AbstractFileRoundTrippingTestCase {
 
     @Test
-    public void testCorrectAxioms() throws OWLOntologyCreationException {
+    public void testCorrectAxioms() {
         OWLOntology ont = createOntology();
         IRI clsIRI = IRI("http://owlapi.sourceforge.net/ontology#ClsA");
         OWLClass cls = Class(clsIRI);

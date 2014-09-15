@@ -16,6 +16,7 @@ import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import java.io.File;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Collections;
 import java.util.HashSet;
@@ -32,6 +33,7 @@ import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.formats.AbstractRDFDocumentFormat;
 import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
+import org.semanticweb.owlapi.io.FileDocumentSource;
 import org.semanticweb.owlapi.io.IRIDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
@@ -60,6 +62,22 @@ public abstract class TestBase {
 
     @Nonnull
     protected final File RESOURCES = resources();
+
+    protected OWLOntologyLoaderConfiguration getConfiguration() {
+        return new OWLOntologyLoaderConfiguration();
+    }
+
+    protected OWLOntology ontologyFromClasspathFile(String fileName) {
+        try {
+            URL resource = getClass().getResource('/' + fileName);
+            return OWLManager.createOWLOntologyManager()
+                    .loadOntologyFromOntologyDocument(
+                            new FileDocumentSource(new File(resource.toURI())),
+                            getConfiguration());
+        } catch (URISyntaxException | OWLOntologyCreationException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     private static final File resources() {
         File f = new File("contract/src/test/resources/");

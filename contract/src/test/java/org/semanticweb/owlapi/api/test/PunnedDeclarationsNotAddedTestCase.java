@@ -1,4 +1,4 @@
-package org.semanticweb.owlapi;
+package org.semanticweb.owlapi.api.test;
 
 import static org.junit.Assert.*;
 

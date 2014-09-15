@@ -18,9 +18,8 @@ import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 import javax.annotation.Nonnull;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileTestCase;
+import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.vocab.DublinCoreVocabulary;
 
 /**
@@ -29,7 +28,7 @@ import org.semanticweb.owlapi.vocab.DublinCoreVocabulary;
  * @since 3.1.0
  */
 @SuppressWarnings("javadoc")
-public class DublinCoreTestCase extends AbstractFileTestCase {
+public class DublinCoreTestCase extends AbstractFileRoundTrippingTestCase {
 
     @Nonnull
     @Override
@@ -38,7 +37,7 @@ public class DublinCoreTestCase extends AbstractFileTestCase {
     }
 
     @Test
-    public void testAnnotationProperties() throws OWLOntologyCreationException {
+    public void testAnnotationProperties() {
         OWLOntology ontology = createOntology();
         for (DublinCoreVocabulary vocabulary : DublinCoreVocabulary.values()) {
             assertTrue(ontology.containsAnnotationPropertyInSignature(

@@ -42,6 +42,10 @@ public class StringDocumentSource extends OWLOntologyDocumentSourceBase {
     public StringDocumentSource(@Nonnull String string) {
         super("string:ontology", null, null);
         this.string = checkNotNull(string, "string cannot be null");
+        // avoid attempting IRI resolution if it is known to be failed
+        // a String document source needs not have an IRI and should not resolve
+        // it anyway
+        failedOnIRI.set(true);
     }
 
     /**

@@ -70,7 +70,7 @@ public class OWLOntologyLoaderConfiguration implements Serializable {
     @Nonnull
     private MissingOntologyHeaderStrategy missingOntologyHeaderStrategy = MissingOntologyHeaderStrategy.INCLUDE_GRAPH;
     /** flag to enable stack traces on parsing exceptions. */
-    private boolean reportStackTraces = false;
+    private boolean reportStackTraces = true;
     /**
      * number of retries to attempt when retrieving an ontology form a remote
      * URL. Defaults to 5.

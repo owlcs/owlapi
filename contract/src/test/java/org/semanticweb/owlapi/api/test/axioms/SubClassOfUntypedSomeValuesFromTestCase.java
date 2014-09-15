@@ -20,7 +20,7 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileTestCase;
+import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -28,7 +28,6 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
@@ -39,7 +38,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  */
 @SuppressWarnings("javadoc")
 public class SubClassOfUntypedSomeValuesFromTestCase extends
-        AbstractFileTestCase {
+        AbstractFileRoundTrippingTestCase {
 
     @Nonnull
     @Override
@@ -60,7 +59,7 @@ public class SubClassOfUntypedSomeValuesFromTestCase extends
     }
 
     @Test
-    public void testParsedAxioms() throws OWLOntologyCreationException {
+    public void testParsedAxioms() {
         OWLOntology ontology = createOntology();
         Set<OWLSubClassOfAxiom> axioms = ontology
                 .getAxioms(AxiomType.SUBCLASS_OF);

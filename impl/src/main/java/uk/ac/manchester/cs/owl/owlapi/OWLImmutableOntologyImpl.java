@@ -282,6 +282,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
 
     @Override
     public Set<OWLAxiom> getAxiomsIgnoreAnnotations(@Nonnull OWLAxiom axiom) {
+        @SuppressWarnings("unchecked")
         Stream<OWLAxiom> filter = (Stream<OWLAxiom>) getAxioms(
                 axiom.getAxiomType()).stream().filter(
                 ax -> ax.equalsIgnoreAnnotations(axiom));
@@ -484,11 +485,6 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
         List<T> list = new ArrayList<>();
         Iterables.addAll(list, i);
         return CollectionFactory.copy(list);
-    }
-
-    @Nonnull
-    private static <T> Set<T> asSet(Stream<T> i) {
-        return i.collect(Collectors.toSet());
     }
 
     @Override
@@ -925,7 +921,6 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public <A extends OWLAxiom> Set<A> getAxioms(@Nonnull Class<A> type,
             @Nonnull Class<? extends OWLObject> explicitClass,
             @Nonnull OWLObject entity, @Nonnull Imports imports,

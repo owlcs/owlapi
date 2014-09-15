@@ -5,3 +5,4 @@ org.semanticweb.owlapi.manchestersyntax.renderer.ManchesterSyntaxStorerFactory
 org.semanticweb.owlapi.krss2.renderer.KRSS2OWLSyntaxStorerFactory
 org.semanticweb.owlapi.rdf.turtle.renderer.TurtleStorerFactory
 org.semanticweb.owlapi.latex.renderer.LatexStorerFactory
+org.semanticweb.owlapi.dlsyntax.renderer.DLSyntaxStorerFactory

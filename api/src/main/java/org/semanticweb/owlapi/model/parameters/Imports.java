@@ -82,10 +82,26 @@ public enum Imports {
     public abstract boolean anyMatch(OWLOntology o,
             Predicate<OWLOntology> base, Predicate<OWLOntology> step);
 
+    /**
+     * @param o
+     *        root ontology. The root ontology only, or its import closure, are
+     *        checked, according to the enum value.
+     * @param step
+     *        method to apply
+     * @return true if any values match
+     */
     public boolean anyMatch(OWLOntology o, Predicate<OWLOntology> step) {
         return stream(o).anyMatch(step);
     }
 
+    /**
+     * @param o
+     *        root ontology. The root ontology only, or its import closure, are
+     *        included, according to the enum value.
+     * @param mapper
+     *        mapper to apply
+     * @return collection of values
+     */
     public
             <T>
             Set<T>
@@ -94,6 +110,14 @@ public enum Imports {
         return stream(o, mapper).collect(Collectors.toSet());
     }
 
+    /**
+     * @param o
+     *        root ontology
+     * @param mapper
+     *        mapper to use
+     * @return all elements mapped from the root ontology and optionally the
+     *         imports closure
+     */
     public
             <T>
             Stream<T>
@@ -102,6 +126,14 @@ public enum Imports {
         return stream(o).flatMap(mapper);
     }
 
+    /**
+     * @param o
+     *        root ontology
+     * @param step
+     *        counter to use
+     * @return sum of step over the root ontology or all ontologies in the
+     *         import closure.
+     */
     public int count(OWLOntology o, ToIntFunction<? super OWLOntology> step) {
         return stream(o).collect(Collectors.summingInt(step)).intValue();
     }

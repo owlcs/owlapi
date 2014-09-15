@@ -1,4 +1,4 @@
-package org.semanticweb.owlapi.rdf;
+package org.semanticweb.owlapi.api.test.syntax.rdf;
 
 import static org.junit.Assert.*;
 

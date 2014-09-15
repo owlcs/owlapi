@@ -20,12 +20,11 @@ import static org.semanticweb.owlapi.search.Searcher.annotations;
 import javax.annotation.Nonnull;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileTestCase;
+import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.search.Filters;
 
 /**
@@ -34,11 +33,10 @@ import org.semanticweb.owlapi.search.Filters;
  * @since 3.0.0
  */
 @SuppressWarnings("javadoc")
-public class DeprecatedTestCase extends AbstractFileTestCase {
+public class DeprecatedTestCase extends AbstractFileRoundTrippingTestCase {
 
     @Test
-    public void testAnnotationAssertionsPresent()
-            throws OWLOntologyCreationException {
+    public void testAnnotationAssertionsPresent() {
         OWLOntology ont = createOntology();
         OWLClass cls = Class(iri("http://www.semanticweb.org/owlapi/test#ClsA"));
         for (OWLAnnotation anno : annotations(ont.filterAxioms(

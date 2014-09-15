@@ -41,6 +41,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLDArgument;
 import org.semanticweb.owlapi.model.SWRLIArgument;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 import org.semanticweb.owlapitools.builders.BuilderAnnotation;
 import org.semanticweb.owlapitools.builders.BuilderAnnotationAssertion;
@@ -758,11 +759,97 @@ public class BuildersTestCase {
     }
 
     @Test
-    public void shouldBuildLiteral() {
+    public void shouldBuildBooleanLiteral() {
         // given
         BuilderLiteral builder = new BuilderLiteral(df).withValue(true)
                 .withAnnotations(annotations);
         OWLObject expected = df.getOWLLiteral(true);
+        // when
+        OWLObject built = builder.buildObject();
+        // then
+        assertEquals(expected, built);
+    }
+
+    @Test
+    public void shouldBuildIntLiteral() {
+        // given
+        BuilderLiteral builder = new BuilderLiteral(df).withValue(1)
+                .withAnnotations(annotations);
+        OWLObject expected = df.getOWLLiteral(1);
+        // when
+        OWLObject built = builder.buildObject();
+        // then
+        assertEquals(expected, built);
+    }
+
+    @Test
+    public void shouldBuildDoubleLiteral() {
+        // given
+        BuilderLiteral builder = new BuilderLiteral(df).withValue(1.1D)
+                .withAnnotations(annotations);
+        OWLObject expected = df.getOWLLiteral(1.1D);
+        // when
+        OWLObject built = builder.buildObject();
+        // then
+        assertEquals(expected, built);
+    }
+
+    @Test
+    public void shouldBuildFloatLiteral() {
+        // given
+        BuilderLiteral builder = new BuilderLiteral(df).withValue(1.2F)
+                .withAnnotations(annotations);
+        OWLObject expected = df.getOWLLiteral(1.2F);
+        // when
+        OWLObject built = builder.buildObject();
+        // then
+        assertEquals(expected, built);
+    }
+
+    @Test
+    public void shouldBuildPlainLiteral() {
+        // given
+        BuilderLiteral builder = new BuilderLiteral(df).withLiteralForm("test")
+                .withAnnotations(annotations);
+        OWLObject expected = df.getOWLLiteral("test");
+        // when
+        OWLObject built = builder.buildObject();
+        // then
+        assertEquals(expected, built);
+    }
+
+    @Test
+    public void shouldBuildPlainLanguageLiteral() {
+        // given
+        BuilderLiteral builder = new BuilderLiteral(df).withLiteralForm("test")
+                .withLanguage("en").withAnnotations(annotations);
+        OWLObject expected = df.getOWLLiteral("test", "en");
+        // when
+        OWLObject built = builder.buildObject();
+        // then
+        assertEquals(expected, built);
+    }
+
+    @Test
+    public void shouldBuildStringLiteral() {
+        // given
+        BuilderLiteral builder = new BuilderLiteral(df).withLiteralForm("test")
+                .withDatatype(OWL2Datatype.XSD_STRING)
+                .withAnnotations(annotations);
+        OWLObject expected = df.getOWLLiteral("test", OWL2Datatype.XSD_STRING);
+        // when
+        OWLObject built = builder.buildObject();
+        // then
+        assertEquals(expected, built);
+    }
+
+    @Test
+    public void shouldBuildTypedLiteral() {
+        // given
+        BuilderLiteral builder = new BuilderLiteral(df).withLiteralForm("3.14")
+                .withDatatype(OWL2Datatype.OWL_REAL)
+                .withAnnotations(annotations);
+        OWLObject expected = df.getOWLLiteral("3.14", OWL2Datatype.OWL_REAL);
         // when
         OWLObject built = builder.buildObject();
         // then

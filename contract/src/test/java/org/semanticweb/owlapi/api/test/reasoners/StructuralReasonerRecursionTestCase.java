@@ -17,10 +17,9 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 import javax.annotation.Nonnull;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileTestCase;
+import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.reasoner.BufferingMode;
 import org.semanticweb.owlapi.reasoner.SimpleConfiguration;
 import org.semanticweb.owlapi.reasoner.structural.StructuralReasoner;
@@ -31,7 +30,8 @@ import org.semanticweb.owlapi.reasoner.structural.StructuralReasoner;
  * @since 3.1.0
  */
 @SuppressWarnings("javadoc")
-public class StructuralReasonerRecursionTestCase extends AbstractFileTestCase {
+public class StructuralReasonerRecursionTestCase extends
+        AbstractFileRoundTrippingTestCase {
 
     @Nonnull
     @Override
@@ -40,7 +40,7 @@ public class StructuralReasonerRecursionTestCase extends AbstractFileTestCase {
     }
 
     @Test
-    public void testRecusion() throws OWLOntologyCreationException {
+    public void testRecusion() {
         OWLOntology ontology = createOntology();
         String ontName = ontology.getOntologyID().getOntologyIRI().get()
                 .toString();

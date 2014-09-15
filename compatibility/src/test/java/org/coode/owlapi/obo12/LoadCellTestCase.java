@@ -16,7 +16,7 @@ public class LoadCellTestCase {
     @Test
     public void shouldParse() throws OWLOntologyCreationException {
         OWLOntologyManager m = OWLManager.createOWLOntologyManager();
-        assertEquals(19, m.getOntologyParsers().size());
+        assertEquals(20, m.getOntologyParsers().size());
         OWLOntologyDocumentSource source = new StreamDocumentSource(getClass()
                 .getResourceAsStream("/celltype.obo"), "obo",
                 new OBO12DocumentFormat(), null);
@@ -26,7 +26,7 @@ public class LoadCellTestCase {
     @Test
     public void shouldParseOBO12() throws OWLOntologyCreationException {
         OWLOntologyManager m = OWLManager.createOWLOntologyManager();
-        assertEquals(19, m.getOntologyParsers().size());
+        assertEquals(20, m.getOntologyParsers().size());
         OWLOntologyDocumentSource source = new StreamDocumentSource(getClass()
                 .getResourceAsStream("/behavior.obo"), "obo",
                 new OBO12DocumentFormat(), null);
@@ -36,7 +36,7 @@ public class LoadCellTestCase {
     @Test
     public void shouldParseGenericOBO() throws OWLOntologyCreationException {
         OWLOntologyManager m = OWLManager.createOWLOntologyManager();
-        assertEquals(19, m.getOntologyParsers().size());
+        assertEquals(20, m.getOntologyParsers().size());
         OWLOntologyDocumentSource source = new StreamDocumentSource(getClass()
                 .getResourceAsStream("/behavior.obo"));
         m.loadOntologyFromOntologyDocument(source);
