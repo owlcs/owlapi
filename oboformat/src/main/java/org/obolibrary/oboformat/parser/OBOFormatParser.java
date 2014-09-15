@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -231,8 +232,7 @@ public class OBOFormatParser {
     public OBODoc parse(File file) throws IOException {
         location = file;
         BufferedReader in = new BufferedReader(new InputStreamReader(
-                new FileInputStream(file),
-                OBOFormatConstants.DEFAULT_CHARACTER_ENCODING));
+                new FileInputStream(file), StandardCharsets.UTF_8));
         try {
             return parse(in);
         } finally {
@@ -254,9 +254,8 @@ public class OBOFormatParser {
     @Nonnull
     public OBODoc parse(@Nonnull URL url) throws IOException {
         location = url;
-        BufferedReader in = new BufferedReader(
-                new InputStreamReader(url.openStream(),
-                        OBOFormatConstants.DEFAULT_CHARACTER_ENCODING));
+        BufferedReader in = new BufferedReader(new InputStreamReader(
+                url.openStream(), StandardCharsets.UTF_8));
         return parse(in);
     }
 

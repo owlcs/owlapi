@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 
 import javax.annotation.Nonnull;
 
@@ -36,7 +37,7 @@ public abstract class AbstractOWLRenderer implements OWLRenderer {
             throws OWLRendererException {
         try {
             Writer writer = new BufferedWriter(new OutputStreamWriter(os,
-                    "UTF-8"));
+                    StandardCharsets.UTF_8));
             render(ontology, writer);
             writer.flush();
         } catch (IOException e) {

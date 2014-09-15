@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.util;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.NodeID;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * default implementation for an anonymous node checker. This implementation
@@ -24,18 +26,33 @@ import org.semanticweb.owlapi.model.NodeID;
  */
 public class AnonymousNodeCheckerImpl implements AnonymousNodeChecker {
 
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(AnonymousNodeCheckerImpl.class);
+
     @Override
     public boolean isAnonymousNode(IRI iri) {
-        return NodeID.isAnonymousNodeIRI(iri);
+        boolean value = NodeID.isAnonymousNodeIRI(iri);
+        if (value) {
+            LOGGER.trace("anonymous iri {}", iri);
+        }
+        return value;
     }
 
     @Override
     public boolean isAnonymousNode(String iri) {
-        return NodeID.isAnonymousNodeIRI(iri);
+        boolean value = NodeID.isAnonymousNodeIRI(iri);
+        if (value) {
+            LOGGER.trace("anonymous string {}", iri);
+        }
+        return value;
     }
 
     @Override
     public boolean isAnonymousSharedNode(String iri) {
-        return NodeID.isAnonymousNodeID(iri);
+        boolean value = NodeID.isAnonymousNodeID(iri);
+        if (value) {
+            LOGGER.trace("anonymous shared id {}", iri);
+        }
+        return value;
     }
 }

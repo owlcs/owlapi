@@ -21,6 +21,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
@@ -48,7 +50,7 @@ public abstract class StreamDocumentSourceBase extends
     private static final Logger LOGGER = LoggerFactory
             .getLogger(StreamDocumentSourceBase.class);
     protected byte[] byteBuffer;
-    private String encoding = "UTF-8";
+    private Charset encoding = StandardCharsets.UTF_8;
     private boolean streamAvailable = false;
 
     /**
@@ -91,7 +93,8 @@ public abstract class StreamDocumentSourceBase extends
         // if the input stream carries encoding information, use it; else leave
         // the default as UTF-8
         if (stream instanceof InputStreamReader) {
-            encoding = ((InputStreamReader) stream).getEncoding();
+            encoding = Charset.forName(((InputStreamReader) stream)
+                    .getEncoding());
         }
         readIntoBuffer(stream);
         streamAvailable = false;
@@ -137,7 +140,8 @@ public abstract class StreamDocumentSourceBase extends
         // if the input stream carries encoding information, use it; else leave
         // the default as UTF-8
         if (stream instanceof InputStreamReader) {
-            encoding = ((InputStreamReader) stream).getEncoding();
+            encoding = Charset.forName(((InputStreamReader) stream)
+                    .getEncoding());
         }
         readIntoBuffer(stream);
         streamAvailable = false;

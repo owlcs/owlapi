@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringWriter;
+import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
@@ -29,8 +30,9 @@ public class StreamDocumentSourceBaseTestCase {
                 + "</rdf:RDF>";
         StreamDocumentSourceBase source = new StreamDocumentSourceBase(
                 new InputStreamReader(
-                        new ByteArrayInputStream(input.getBytes()), "UTF-8"),
-                IRI.create("urn:test"), null, null) {};
+                        new ByteArrayInputStream(input.getBytes()),
+                        StandardCharsets.UTF_8), IRI.create("urn:test"), null,
+                null) {};
         Reader r = source.getReader().get();
         StringWriter w = new StringWriter();
         int i = r.read();

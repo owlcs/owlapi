@@ -35,8 +35,10 @@
  */
 package org.semanticweb.owlapi.rio;
 
+import static java.util.Arrays.asList;
+
 import java.nio.charset.Charset;
-import java.util.Arrays;
+import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 
 import org.openrdf.rio.RDFFormat;
@@ -45,6 +47,7 @@ import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /**
  * Extended {@link RDFFormat} constants for OWL formats that can be translated
@@ -68,10 +71,9 @@ public class OWLAPIRDFFormat extends RDFFormat {
      *      Ontology Language Manchester Syntax (Second Edition)</a>
      */
     public static final OWLAPIRDFFormat MANCHESTER_OWL = new OWLAPIRDFFormat(
-            "Manchester OWL Syntax", Arrays.asList("text/owl-manchester"),
-            Charset.forName("UTF-8"), Arrays.asList("omn"),
-            SUPPORTS_NAMESPACES, NO_CONTEXTS,
-            new ManchesterSyntaxDocumentFormat());
+            "Manchester OWL Syntax", asList("text/owl-manchester"),
+            StandardCharsets.UTF_8, asList("omn"), SUPPORTS_NAMESPACES,
+            NO_CONTEXTS, new ManchesterSyntaxDocumentFormat());
     /**
      * The <a href="http://www.w3.org/TR/owl2-xml-serialization/">OWL/XML</a>
      * file format.
@@ -84,9 +86,9 @@ public class OWLAPIRDFFormat extends RDFFormat {
      *      Ontology Language XML Serialization (Second Edition)</a>
      */
     public static final OWLAPIRDFFormat OWL_XML = new OWLAPIRDFFormat(
-            "OWL/XML Syntax", Arrays.asList("application/owl+xml"),
-            Charset.forName("UTF-8"), Arrays.asList("owx"),
-            SUPPORTS_NAMESPACES, NO_CONTEXTS, new OWLXMLDocumentFormat());
+            "OWL/XML Syntax", asList("application/owl+xml"),
+            StandardCharsets.UTF_8, asList("owx"), SUPPORTS_NAMESPACES,
+            NO_CONTEXTS, new OWLXMLDocumentFormat());
     /**
      * The <a href="http://www.w3.org/TR/owl2-syntax/">OWL Functional Syntax</a>
      * file format.
@@ -101,10 +103,9 @@ public class OWLAPIRDFFormat extends RDFFormat {
      *      (Second Edition)</a>
      */
     public static final OWLAPIRDFFormat OWL_FUNCTIONAL = new OWLAPIRDFFormat(
-            "OWL Functional Syntax", Arrays.asList("text/owl-functional"),
-            Charset.forName("UTF-8"), Arrays.asList("ofn"),
-            SUPPORTS_NAMESPACES, NO_CONTEXTS,
-            new FunctionalSyntaxDocumentFormat());
+            "OWL Functional Syntax", asList("text/owl-functional"),
+            StandardCharsets.UTF_8, asList("ofn"), SUPPORTS_NAMESPACES,
+            NO_CONTEXTS, new FunctionalSyntaxDocumentFormat());
     private OWLDocumentFormat owlFormat;
     private OWLDocumentFormatFactory owlFormatFactory;
 
@@ -261,18 +262,13 @@ public class OWLAPIRDFFormat extends RDFFormat {
     public OWLDocumentFormat getOWLFormat() {
         if (owlFormatFactory != null) {
             return owlFormatFactory.createFormat();
-        } else {
-            try {
-                return owlFormat.getClass().newInstance();
-            } catch (InstantiationException e) {
-                throw new RuntimeException(
-                        "Format did not have a factory or a public default constructor",
-                        e);
-            } catch (IllegalAccessException e) {
-                throw new RuntimeException(
-                        "Format did not have a factory or a public default constructor",
-                        e);
-            }
+        }
+        try {
+            return owlFormat.getClass().newInstance();
+        } catch (InstantiationException | IllegalAccessException e) {
+            throw new OWLRuntimeException(
+                    "Format did not have a factory or a public default constructor",
+                    e);
         }
     }
 }

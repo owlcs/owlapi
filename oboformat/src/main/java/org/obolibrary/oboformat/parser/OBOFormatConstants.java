@@ -136,6 +136,4 @@ public class OBOFormatConstants {
             return new SimpleDateFormat("dd:MM:yyyy HH:mm");
         }
     
-    /** UTF-8 default encoding */
-    public static final String DEFAULT_CHARACTER_ENCODING = "UTF-8";
 }

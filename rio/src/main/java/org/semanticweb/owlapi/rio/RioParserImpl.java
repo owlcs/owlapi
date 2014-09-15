@@ -82,6 +82,7 @@ import org.slf4j.LoggerFactory;
 @HasPriority(7)
 public class RioParserImpl extends AbstractOWLParser implements RioParser {
 
+    private static final RIOAnonymousNodeChecker CHECKER = new RIOAnonymousNodeChecker();
     private static final long serialVersionUID = 40000L;
     protected static final Logger LOGGER = LoggerFactory
             .getLogger(RioParserImpl.class);
@@ -109,58 +110,7 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
             final OWLOntologyLoaderConfiguration configuration) {
         try {
             RioOWLRDFConsumerAdapter consumer = new RioOWLRDFConsumerAdapter(
-                    ontology, new AnonymousNodeChecker() {
-
-                        @Override
-                        public boolean isAnonymousNode(final IRI iri) {
-                            // HACK: FIXME: When the mess of having blank nodes
-                            // represented as IRIs is
-                            // finished remove the genid hack below
-                            if (iri.toString().startsWith("_:")
-                                    || iri.toString().contains("genid")) {
-                                LOGGER.trace("isAnonymousNode(IRI {})", iri);
-                                return true;
-                            } else {
-                                LOGGER.trace("NOT isAnonymousNode(IRI {})", iri);
-                                return false;
-                            }
-                        }
-
-                        @Override
-                        public boolean isAnonymousNode(final String iri) {
-                            // HACK: FIXME: When the mess of having blank nodes
-                            // represented as IRIs is
-                            // finished remove the genid hack below
-                            if (iri.startsWith("_:") || iri.contains("genid")) {
-                                LOGGER.trace("isAnonymousNode(String {})", iri);
-                                return true;
-                            } else {
-                                LOGGER.trace("NOT isAnonymousNode(String {})",
-                                        iri);
-                                return false;
-                            }
-                        }
-
-                        // TODO: apparently we should be tracking whether they
-                        // gave a name to the blank
-                        // node themselves
-                        @Override
-                        public boolean isAnonymousSharedNode(final String iri) {
-                            // HACK: FIXME: When the mess of having blank nodes
-                            // represented as IRIs is
-                            // finished remove the genid hack below
-                            if (iri.startsWith("_:") || iri.contains("genid")) {
-                                LOGGER.trace(
-                                        "isAnonymousSharedNode(String {})", iri);
-                                return true;
-                            } else {
-                                LOGGER.trace(
-                                        "NOT isAnonymousSharedNode(String {})",
-                                        iri);
-                                return false;
-                            }
-                        }
-                    }, configuration);
+                    ontology, CHECKER, configuration);
             consumer.setOntologyFormat(owlFormatFactory.createFormat());
             String baseUri = "urn:default:baseUri:";
             // Override the default baseUri for non-anonymous ontologies
@@ -266,6 +216,61 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
     @Override
     public String toString() {
         return getClass().getName() + " : " + owlFormatFactory;
+    }
+
+    private static class RIOAnonymousNodeChecker implements
+            AnonymousNodeChecker {
+
+        public RIOAnonymousNodeChecker() {}
+
+        @Override
+        public boolean isAnonymousNode(final IRI iri) {
+            // HACK: FIXME: When the mess of having blank nodes
+            // represented as IRIs is
+            // finished remove the genid hack below
+            if (anon(iri.toString())) {
+                LOGGER.trace("isAnonymousNode(IRI {})", iri);
+                return true;
+            } else {
+                LOGGER.trace("NOT isAnonymousNode(IRI {})", iri);
+                return false;
+            }
+        }
+
+        @Override
+        public boolean isAnonymousNode(final String iri) {
+            // HACK: FIXME: When the mess of having blank nodes
+            // represented as IRIs is
+            // finished remove the genid hack below
+            if (anon(iri)) {
+                LOGGER.trace("isAnonymousNode(String {})", iri);
+                return true;
+            } else {
+                LOGGER.trace("NOT isAnonymousNode(String {})", iri);
+                return false;
+            }
+        }
+
+        // TODO: apparently we should be tracking whether they
+        // gave a name to the blank
+        // node themselves
+        @Override
+        public boolean isAnonymousSharedNode(final String iri) {
+            // HACK: FIXME: When the mess of having blank nodes
+            // represented as IRIs is
+            // finished remove the genid hack below
+            if (anon(iri)) {
+                LOGGER.trace("isAnonymousSharedNode(String {})", iri);
+                return true;
+            } else {
+                LOGGER.trace("NOT isAnonymousSharedNode(String {})", iri);
+                return false;
+            }
+        }
+
+        boolean anon(final String iri) {
+            return iri.startsWith("_:") || iri.contains("genid");
+        }
     }
 
     private static class RioParserRDFHandler implements RDFHandler {

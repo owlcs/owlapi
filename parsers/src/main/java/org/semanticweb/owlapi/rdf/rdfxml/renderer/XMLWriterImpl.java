@@ -72,10 +72,6 @@ public class XMLWriterImpl implements XMLWriter {
                 xmlWriterNamespaceManager,
                 "xmlWriterNamespaceManager cannot be null");
         this.xmlBase = checkNotNull(xmlBase, "xmlBase cannot be null");
-        // no need to set it to UTF-8: it's supposed to be the default encoding
-        // for XML.
-        // Must be set correctly for the Writer anyway, or bugs will ensue.
-        // this.encoding = "UTF-8";
         elementStack = new Stack<>();
         setupEntities();
     }

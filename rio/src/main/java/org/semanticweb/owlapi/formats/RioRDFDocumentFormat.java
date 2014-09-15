@@ -101,8 +101,7 @@ public class RioRDFDocumentFormat extends
 
     @Override
     public List<String> getMIMETypes() {
-        List<String> mimeTypes = format.getMIMETypes();
-        return mimeTypes;
+        return format.getMIMETypes();
     }
 
     @Override

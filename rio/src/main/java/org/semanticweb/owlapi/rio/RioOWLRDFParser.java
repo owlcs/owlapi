@@ -35,8 +35,6 @@
  */
 package org.semanticweb.owlapi.rio;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
@@ -110,10 +108,9 @@ public class RioOWLRDFParser extends RDFParserBase {
     @Override
     public void parse(InputStream in, String baseURI) throws IOException {
         OWLDocumentFormat nextFormat = getRDFFormat().getOWLFormat();
-        StreamDocumentSource source = new StreamDocumentSource(checkNotNull(in,
-                "in cannot be null"), IRI.create(checkNotNull(baseURI,
-                "baseURI cannot be null")), nextFormat, getRDFFormat()
-                .getDefaultMIMEType());
+        StreamDocumentSource source = new StreamDocumentSource(in,
+                IRI.create(baseURI), nextFormat, getRDFFormat()
+                        .getDefaultMIMEType());
         render(source);
     }
 
@@ -148,10 +145,9 @@ public class RioOWLRDFParser extends RDFParserBase {
     @Override
     public void parse(Reader reader, String baseURI) throws IOException {
         OWLDocumentFormat nextFormat = getRDFFormat().getOWLFormat();
-        ReaderDocumentSource source = new ReaderDocumentSource(checkNotNull(
-                reader, "reader cannot be null"), IRI.create(checkNotNull(
-                baseURI, "baseURI cannot be null")), nextFormat, getRDFFormat()
-                .getDefaultMIMEType());
+        ReaderDocumentSource source = new ReaderDocumentSource(reader,
+                IRI.create(baseURI), nextFormat, getRDFFormat()
+                        .getDefaultMIMEType());
         render(source);
     }
 }

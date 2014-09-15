@@ -4,6 +4,7 @@ import static org.semanticweb.owlapi.search.Searcher.annotations;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -1811,7 +1812,7 @@ public class OWLAPIOwl2Obo {
         if (s.length == 2 && !id.contains("#") && !s[1].contains("_")) {
             String localId;
             try {
-                localId = java.net.URLDecoder.decode(s[1], "UTF-8");
+                localId = URLDecoder.decode(s[1], "UTF-8");
                 return s[0] + ':' + localId;
             } catch (UnsupportedEncodingException e) {
                 throw new OWLRuntimeException(

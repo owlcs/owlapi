@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Serializable;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -207,7 +208,7 @@ public class AutoIRIMapper extends DefaultHandler implements
         try {
             // Ontology: <URI>
             br = new BufferedReader(new InputStreamReader(new FileInputStream(
-                    file), "UTF-8"));
+                    file), StandardCharsets.UTF_8));
             String line = br.readLine();
             IRI ontologyIRI = null;
             while (line != null) {

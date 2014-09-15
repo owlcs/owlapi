@@ -16,6 +16,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.Set;
 
@@ -145,7 +146,7 @@ public class DLQueryExample {
     private static String readInput() throws IOException {
         InputStream is = System.in;
         InputStreamReader reader;
-        reader = new InputStreamReader(is, "UTF-8");
+        reader = new InputStreamReader(is, StandardCharsets.UTF_8);
         BufferedReader br = new BufferedReader(reader);
         return br.readLine();
     }

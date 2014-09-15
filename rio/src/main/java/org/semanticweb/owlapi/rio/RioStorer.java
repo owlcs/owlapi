@@ -40,6 +40,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -238,14 +239,10 @@ public class RioStorer extends AbstractOWLStorer {
             }
             final RioRDFDocumentFormat rioFormat = (RioRDFDocumentFormat) format;
             if (format.isTextual()) {
-                try {
-                    Writer writer = new BufferedWriter(new OutputStreamWriter(
-                            outputStream, UTF_8));
-                    rioHandler = getRDFHandlerForWriter(
-                            rioFormat.getRioFormat(), writer);
-                } catch (IOException e) {
-                    throw new OWLOntologyStorageException(e);
-                }
+                Writer writer = new BufferedWriter(new OutputStreamWriter(
+                        outputStream, StandardCharsets.UTF_8));
+                rioHandler = getRDFHandlerForWriter(rioFormat.getRioFormat(),
+                        writer);
             } else {
                 rioHandler = getRDFHandlerForOutputStream(
                         rioFormat.getRioFormat(), outputStream);

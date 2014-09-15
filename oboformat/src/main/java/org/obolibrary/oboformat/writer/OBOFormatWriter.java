@@ -12,6 +12,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.Serializable;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -171,7 +172,7 @@ public class OBOFormatWriter {
             throws IOException {
         FileOutputStream os = new FileOutputStream(new File(outFile));
         OutputStreamWriter osw = new OutputStreamWriter(os,
-                OBOFormatConstants.DEFAULT_CHARACTER_ENCODING);
+                StandardCharsets.UTF_8);
         BufferedWriter bw = new BufferedWriter(osw);
         write(doc, bw);
         bw.close();

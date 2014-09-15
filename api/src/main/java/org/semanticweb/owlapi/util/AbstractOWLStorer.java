@@ -21,6 +21,7 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.charset.StandardCharsets;
 
 import javax.annotation.Nonnull;
 
@@ -46,7 +47,6 @@ import com.google.common.base.Optional;
 public abstract class AbstractOWLStorer implements OWLStorer {
 
     private static final long serialVersionUID = 40000L;
-    protected static final String UTF_8 = "UTF-8";
     protected static final Logger LOGGER = LoggerFactory
             .getLogger(AbstractOWLStorer.class);
 
@@ -96,7 +96,7 @@ public abstract class AbstractOWLStorer implements OWLStorer {
             @Nonnull OutputStream tempOutputStream)
             throws OWLOntologyStorageException, IOException {
         Writer tempWriter = new BufferedWriter(new OutputStreamWriter(
-                tempOutputStream, UTF_8));
+                tempOutputStream, StandardCharsets.UTF_8));
         storeOntology(ontology, tempWriter, ontologyFormat);
         tempWriter.flush();
         tempWriter.close();
@@ -155,7 +155,7 @@ public abstract class AbstractOWLStorer implements OWLStorer {
         }
         try {
             Writer writer = new BufferedWriter(new OutputStreamWriter(
-                    outputStream, UTF_8));
+                    outputStream, StandardCharsets.UTF_8));
             storeOntology(ontology, writer, format);
             writer.flush();
         } catch (IOException e) {

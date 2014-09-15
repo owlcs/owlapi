@@ -18,7 +18,7 @@ import static org.semanticweb.owlapi.search.Searcher.annotations;
 
 import java.io.ByteArrayInputStream;
 import java.io.StringReader;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 import javax.annotation.Nonnull;
 
@@ -73,7 +73,7 @@ public class Utf8TestCase extends TestBase {
                 + "<owl:Class rdf:about=\"http://www.example.org/ISA14#Researcher\"/>\n"
                 + "</rdf:RDF>";
         ByteArrayInputStream in = new ByteArrayInputStream(
-                onto.getBytes(Charset.forName("ISO-8859-1")));
+                onto.getBytes(StandardCharsets.ISO_8859_1));
         OWLXMLParser parser = new OWLXMLParser();
         try {
             parser.parse(new StreamDocumentSource(in), m.createOntology(),
@@ -107,7 +107,7 @@ public class Utf8TestCase extends TestBase {
                 + "<owl:Class rdf:about=\"http://www.example.org/ISA14#Researcher\"/>\n"
                 + "</rdf:RDF>";
         ByteArrayInputStream in = new ByteArrayInputStream(
-                onto.getBytes(Charset.forName("ISO-8859-1")));
+                onto.getBytes(StandardCharsets.ISO_8859_1));
         m.loadOntologyFromOntologyDocument(in);
     }
 

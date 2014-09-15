@@ -35,19 +35,22 @@
  */
 package org.semanticweb.owlapi.rio.utils;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
 
 import org.openrdf.OpenRDFUtil;
+import org.openrdf.model.BNode;
 import org.openrdf.model.Resource;
 import org.openrdf.model.Statement;
 import org.openrdf.model.URI;
 import org.openrdf.model.Value;
 import org.openrdf.model.impl.ValueFactoryImpl;
 import org.semanticweb.owlapi.io.RDFLiteral;
+import org.semanticweb.owlapi.io.RDFNode;
 import org.semanticweb.owlapi.io.RDFResourceIRI;
 import org.semanticweb.owlapi.io.RDFTriple;
 import org.slf4j.Logger;
@@ -75,12 +78,7 @@ public final class RioUtils {
      */
     @Nullable
     public static Statement tripleAsStatement(final RDFTriple triple) {
-        Collection<Statement> statements = tripleAsStatements(triple);
-        if (!statements.isEmpty()) {
-            return statements.iterator().next();
-        } else {
-            return null;
-        }
+        return tripleAsStatements(triple).stream().findFirst().orElse(null);
     }
 
     /**
@@ -109,17 +107,15 @@ public final class RioUtils {
             }
         } else {
             // FIXME: When blank nodes are no longer represented as IRIs
-            // internally, need to fix
-            // this
-            if (triple.getSubject().getIRI().toString().startsWith("_:")) {
-                subject = vf.createBNode(triple.getSubject().getIRI()
-                        .toString().substring(2));
-            } else {
-                subject = vf.createBNode(triple.getSubject().getIRI()
-                        .toString());
-            }
+            // internally, need to fix this
+            subject = node(triple.getSubject(), vf);
         }
-        predicate = vf.createURI(triple.getPredicate().getIRI().toString());
+        try {
+            predicate = vf.createURI(triple.getPredicate().getIRI().toString());
+        } catch (IllegalArgumentException iae) {
+            LOGGER.error("Predicate URI was invalid: {}", triple);
+            return Collections.emptyList();
+        }
         if (triple.getObject() instanceof RDFResourceIRI) {
             try {
                 object = vf.createURI(triple.getObject().getIRI().toString());
@@ -128,42 +124,61 @@ public final class RioUtils {
                 return Collections.emptyList();
             }
         } else if (triple.getObject() instanceof RDFLiteral) {
-            final RDFLiteral literalObject = (RDFLiteral) triple.getObject();
-            // TODO: When updating to Sesame-2.8 the following may need to be
-            // rewritten
-            if (literalObject.isPlainLiteral()) {
-                if (literalObject.hasLang()) {
-                    object = vf.createLiteral(literalObject.getLexicalValue(),
-                            literalObject.getLang());
-                } else {
-                    object = vf.createLiteral(literalObject.getLexicalValue());
-                }
-            } else {
-                object = vf.createLiteral(literalObject.getLexicalValue(),
-                        vf.createURI(literalObject.getDatatype().toString()));
-            }
+            object = literal(vf, (RDFLiteral) triple.getObject());
         } else {
             // FIXME: When blank nodes are no longer represented as IRIs
             // internally, need to fix
             // this
-            if (triple.getObject().getIRI().toString().startsWith("_:")) {
-                object = vf.createBNode(triple.getObject().getIRI().toString()
-                        .substring(2));
-            } else {
-                object = vf.createBNode(triple.getObject().getIRI().toString());
-            }
+            object = node(triple.getObject(), vf);
         }
         if (contexts == null || contexts.length == 0) {
             return Collections.singletonList(vf.createStatement(subject,
                     predicate, object));
         } else {
-            final ArrayList<Statement> results = new ArrayList<>(
-                    contexts.length);
-            for (final Resource nextContext : contexts) {
-                results.add(vf.createStatement(subject, predicate, object,
-                        nextContext));
-            }
-            return results;
+            return Stream
+                    .of(contexts)
+                    .map((x) -> vf.createStatement(subject, predicate, object,
+                            x)).collect(Collectors.toList());
         }
+    }
+
+    /**
+     * @param vf
+     *        value factory
+     * @param literalObject
+     *        literal
+     * @return value
+     */
+    protected static Value literal(final ValueFactoryImpl vf,
+            final RDFLiteral literalObject) {
+        Value object;
+        // TODO: When updating to Sesame-2.8 the following may need to be
+        // rewritten
+        if (literalObject.isPlainLiteral()) {
+            if (literalObject.hasLang()) {
+                object = vf.createLiteral(literalObject.getLexicalValue(),
+                        literalObject.getLang());
+            } else {
+                object = vf.createLiteral(literalObject.getLexicalValue());
+            }
+        } else {
+            object = vf.createLiteral(literalObject.getLexicalValue(),
+                    vf.createURI(literalObject.getDatatype().toString()));
+        }
+        return object;
+    }
+
+    /**
+     * @param node
+     *        subject or object node
+     * @param vf
+     *        value factory
+     * @return blank node
+     */
+    protected static BNode node(final RDFNode node, final ValueFactoryImpl vf) {
+        if (node.getIRI().getNamespace().startsWith("_:")) {
+            return vf.createBNode(node.getIRI().toString().substring(2));
+        }
+        return vf.createBNode(node.getIRI().toString());
     }
 }
