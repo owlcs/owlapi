@@ -49,7 +49,11 @@ public class BuilderLiteral extends BaseBuilder<OWLLiteral, BuilderLiteral> {
      */
     public BuilderLiteral(@Nonnull OWLLiteral expected, OWLDataFactory df) {
         this(df);
-        withDatatype(expected.getDatatype()).withLanguage(expected.getLang());
+        if (expected.hasLang()) {
+            withLanguage(expected.getLang());
+        } else {
+            withDatatype(expected.getDatatype());
+        }
         if (expected.isBoolean()) {
             withValue(expected.parseBoolean());
         } else if (expected.isDouble()) {
@@ -191,6 +195,9 @@ public class BuilderLiteral extends BaseBuilder<OWLLiteral, BuilderLiteral> {
         }
         if (lang != null) {
             return df.getOWLLiteral(literalForm, lang);
+        }
+        if (datatype == null) {
+            return df.getOWLLiteral(literalForm);
         }
         return df.getOWLLiteral(literalForm, datatype);
     }
