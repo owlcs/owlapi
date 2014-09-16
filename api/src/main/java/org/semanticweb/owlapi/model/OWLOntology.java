@@ -72,6 +72,13 @@ public interface OWLOntology extends OWLObject, HasAnnotations,
     OWLOntologyManager getOWLOntologyManager();
 
     /**
+     * @return ontology format for this ontology
+     */
+    default OWLDocumentFormat getFormat() {
+        return getOWLOntologyManager().getOntologyFormat(this);
+    }
+
+    /**
      * Sets the manager for this ontology. This method is used when moving
      * ontologies from one manager to another and when removing an ontology form
      * a manager, and should be used by OWLOntologyManager implementations only.
