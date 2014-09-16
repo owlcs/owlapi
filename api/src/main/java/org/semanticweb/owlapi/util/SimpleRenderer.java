@@ -12,10 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
-import java.util.Iterator;
-import java.util.Map;
 import java.util.Set;
-import java.util.TreeSet;
 
 import javax.annotation.Nonnull;
 
@@ -93,7 +90,6 @@ import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
 import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
@@ -115,6 +111,7 @@ import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
 import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
+import org.semanticweb.owlapi.model.parameters.Imports;
 
 /**
  * A simple renderer that can be used for debugging purposes and provide an
@@ -163,27 +160,15 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
      * 
      * @param ontology
      *        The ontology whose format will be used to obtain prefix mappings
-     * @param manager
-     *        A manager which can be used to obtain the format of the specified
-     *        ontology (and possibly ontologies in its imports closure)
      * @param processImportedOntologies
      *        Specifies whether or not the prefix mapping should be obtained
      *        from imported ontologies.
      */
     public void setPrefixesFromOntologyFormat(@Nonnull OWLOntology ontology,
-            @Nonnull OWLOntologyManager manager,
             boolean processImportedOntologies) {
         resetShortFormProvider();
-        if (processImportedOntologies) {
-            for (OWLOntology importedOntology : manager
-                    .getImportsClosure(ontology)) {
-                if (!importedOntology.equals(ontology)) {
-                    copyPrefixes(manager.getOntologyFormat(importedOntology));
-                }
-            }
-        }
-        OWLDocumentFormat format = manager.getOntologyFormat(ontology);
-        copyPrefixes(format);
+        Imports.fromBoolean(processImportedOntologies).stream(ontology)
+                .forEach((o) -> copyPrefixes(o.getFormat()));
     }
 
     private void copyPrefixes(OWLDocumentFormat ontologyFormat) {
@@ -191,10 +176,11 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
             return;
         }
         PrefixDocumentFormat prefixFormat = (PrefixDocumentFormat) ontologyFormat;
-        for (Map.Entry<String, String> e : prefixFormat
-                .getPrefixName2PrefixMap().entrySet()) {
-            setPrefix(e.getKey(), e.getValue());
+        if (!isUsingDefaultShortFormProvider()) {
+            resetShortFormProvider();
         }
+        ((DefaultPrefixManager) shortFormProvider)
+                .copyPrefixesFrom(prefixFormat.getPrefixName2PrefixMap());
     }
 
     /**
@@ -236,13 +222,14 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     }
 
     protected void render(Set<? extends OWLObject> objects) {
-        for (Iterator<? extends OWLObject> it = toSortedSet(objects).iterator(); it
-                .hasNext();) {
-            it.next().accept(this);
-            if (it.hasNext()) {
-                sb.append(' ');
-            }
+        if (objects.isEmpty()) {
+            return;
         }
+        objects.stream().sorted().forEach((x) -> {
+            x.accept(this);
+            sb.append(' ');
+        });
+        sb.deleteCharAt(sb.length() - 1);
     }
 
     @Override
@@ -266,10 +253,6 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
             anno.accept(this);
             insertSpace();
         }
-    }
-
-    private static <N extends OWLObject> Set<N> toSortedSet(Set<N> set) {
-        return new TreeSet<>(set);
     }
 
     @Override
