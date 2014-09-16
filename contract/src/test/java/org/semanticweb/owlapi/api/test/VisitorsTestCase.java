@@ -473,7 +473,7 @@ public class VisitorsTestCase {
         String render = new SimpleRenderer().render(expected);
         // then
         assertEquals(
-                "DataPropertyRange(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#dp> DataRangeRestriction(xsd:double facetRestriction(maxExclusive \"6.0\"^^xsd:double) facetRestriction(minExclusive \"5.0\"^^xsd:double)))",
+                "DataPropertyRange(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#dp> DataRangeRestriction(xsd:double facetRestriction(minExclusive \"5.0\"^^xsd:double) facetRestriction(maxExclusive \"6.0\"^^xsd:double)))",
                 render);
     }
 
