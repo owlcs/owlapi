@@ -17,7 +17,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.NodeID;
 
 /** IRI node implementation */
 public class RDFResourceIRI extends RDFResource {
@@ -51,7 +50,7 @@ public class RDFResourceIRI extends RDFResource {
 
     @Override
     public boolean isAnonymous() {
-        return NodeID.isAnonymousNodeIRI(resource);
+        return false;
     }
 
     @Override

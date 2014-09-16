@@ -202,9 +202,19 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
             if (owlFormatFactory.isTextual()) {
                 createParser.parse(wrapInputAsReader(source, config), baseUri);
                 return;
+            }// if the format is not textual, but the source is a String based
+             // source,
+             // the following call can fail with an OWLOntologyInputSource
+             // exception without
+             // there being an actual I/O error. This should be considered a
+             // parser error
+             // and further parsing attempted.
+            try {
+                createParser.parse(DocumentSources.wrapInput(source, config),
+                        baseUri);
+            } catch (OWLOntologyInputSourceException e) {
+                throw new OWLParserException(e.getMessage());
             }
-            createParser.parse(DocumentSources.wrapInput(source, config),
-                    baseUri);
         } finally {
             if (LOGGER.isDebugEnabled()) {
                 LOGGER.debug("rioParse: timing={}", System.currentTimeMillis()
