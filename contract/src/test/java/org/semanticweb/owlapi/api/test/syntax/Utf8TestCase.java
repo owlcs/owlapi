@@ -24,6 +24,7 @@ import javax.annotation.Nonnull;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.io.ReaderDocumentSource;
@@ -112,11 +113,12 @@ public class Utf8TestCase extends TestBase {
     }
 
     @Test
-    public void testInvalidUTF8roundTripFromReader() {
+    public void testInvalidUTF8roundTripFromReader()
+            throws OWLOntologyCreationException {
         // this test checks for the condition described in issue #47
         // Input with character = 0240 (octal) should work with an input stream,
         // not with a reader
-        String onto = "<!DOCTYPE rdf:RDF [\n"
+        String onto1 = "<!DOCTYPE rdf:RDF [\n"
                 + "<!ENTITY xsd \"http://www.w3.org/2001/XMLSchema#\" >\n"
                 + "]>\n"
                 + "<rdf:RDF \n"
@@ -131,14 +133,27 @@ public class Utf8TestCase extends TestBase {
                 + (char) 0240
                 + "<owl:Class rdf:about=\"http://www.example.org/ISA14#Researcher\"/>\n"
                 + "</rdf:RDF>";
-        try {
-            m.loadOntologyFromOntologyDocument(new ReaderDocumentSource(
-                    new StringReader(onto)));
-            fail("parsing should have failed, invalid input");
-        } catch (Exception ex) {
-            // expected to fail, but actual exception depends on the parsers in
-            // the classpath
-        }
+        OWLOntology o1 = m
+                .loadOntologyFromOntologyDocument(new ReaderDocumentSource(
+                        new StringReader(onto1)));
+        String onto2 = "<!DOCTYPE rdf:RDF [\n"
+                + "<!ENTITY xsd \"http://www.w3.org/2001/XMLSchema#\" >\n"
+                + "]>\n"
+                + "<rdf:RDF \n"
+                + "xml:base=\n"
+                + "\"http://www.example.org/ISA14#\" \n"
+                + "xmlns:owl =\"http://www.w3.org/2002/07/owl#\" \n"
+                + "xmlns:rdf =\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" \n"
+                + "xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" \n"
+                + "xmlns:xsd =\"http://www.w3.org/2001/XMLSchema#\" \n"
+                + "xmlns:ibs =\"http://www.example.org/ISA14#\" >\n"
+                + "<owl:Ontology rdf:about=\"#\" />\n"
+                + "<owl:Class rdf:about=\"http://www.example.org/ISA14#Researcher\"/>\n"
+                + "</rdf:RDF>";
+        OWLOntology o2 = OWLManager.createOWLOntologyManager()
+                .loadOntologyFromOntologyDocument(
+                        new ReaderDocumentSource(new StringReader(onto2)));
+        equal(o1, o2);
     }
 
     @Test
