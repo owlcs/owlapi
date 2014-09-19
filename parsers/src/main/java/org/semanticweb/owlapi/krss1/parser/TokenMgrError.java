@@ -14,9 +14,9 @@
 /* JavaCCOptions: */
 package org.semanticweb.owlapi.krss1.parser;
 
-import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.io.OWLParserException;
 
-class TokenMgrError extends OWLRuntimeException {
+class TokenMgrError extends OWLParserException {
 
     private static final long serialVersionUID = 40000L;
     static final int LEXICAL_ERROR = 0;

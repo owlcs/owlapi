@@ -16,7 +16,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
@@ -43,7 +43,11 @@ public class VisitorsTestCase {
     @Parameterized.Parameters
     public static Collection<Object[]> getData() {
         Builder b = new Builder();
-        Map<OWLObject, String> map = new HashMap<>();
+        Map<OWLObject, String> map = new LinkedHashMap<>();
+        map.put(b.rule(),
+                "DLSafeRule( Body(BuiltInAtom(<urn:swrl#v1> Variable(<urn:swrl#var3>) Variable(<urn:swrl#var4>) )) Head(BuiltInAtom(<urn:swrl#v2> Variable(<urn:swrl#var5>) Variable(<urn:swrl#var6>) )) )");
+        map.put(b.bigRule(),
+                "DLSafeRule( Body(ClassAtom(<urn:test#c> Variable(<urn:swrl#var2>)) DataRangeAtom(<urn:test#datatype> Variable(<urn:swrl#var1>)) BuiltInAtom(<urn:swrl#v1> Variable(<urn:swrl#var3>) Variable(<urn:swrl#var4>) ) BuiltInAtom(<urn:test#iri> Variable(<urn:swrl#var1>) ) SameAsAtom(Variable(<urn:swrl#var2>) <urn:test#iri>) DifferentFromAtom(Variable(<urn:swrl#var2>) <urn:test#i>)) Head(ObjectPropertyAtom(<urn:test#op> Variable(<urn:swrl#var2>) Variable(<urn:swrl#var2>)) DataPropertyAtom(<urn:test#dp> Variable(<urn:swrl#var2>) \"false\"^^xsd:boolean) BuiltInAtom(<urn:swrl#v2> Variable(<urn:swrl#var5>) Variable(<urn:swrl#var6>) )) )");
         map.put(b.onto(),
                 "Ontology(OntologyID(OntologyIRI(<urn:test>) VersionIRI(<null>)) [Axioms: 0] [Logical axioms: 0])");
         map.put(b.ann(),
@@ -174,16 +178,12 @@ public class VisitorsTestCase {
                 "SubDataPropertyOf(<urn:test#dp> owl:topDataProperty)");
         map.put(b.subObject(),
                 "SubObjectPropertyOf(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#op> owl:topObjectProperty)");
-        map.put(b.rule(),
-                "DLSafeRule( Body(BuiltInAtom(<v1> Variable(<var3>) Variable(<var4>) )) Head(BuiltInAtom(<v2> Variable(<var5>) Variable(<var6>) )) )");
         map.put(b.symm(),
                 "SymmetricObjectProperty(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#op>)");
         map.put(b.trans(),
                 "TransitiveObjectProperty(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#op>)");
         map.put(b.hasKey(),
                 "HasKey(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#c> (<urn:test#iri> <urn:test#op> ) (<urn:test#dp> ))");
-        map.put(b.bigRule(),
-                "DLSafeRule( Body(ClassAtom(<urn:test#c> Variable(<var2>)) DataRangeAtom(<urn:test#datatype> Variable(<var1>)) BuiltInAtom(<v1> Variable(<var3>) Variable(<var4>) ) BuiltInAtom(<urn:test#iri> Variable(<var1>) ) SameAsAtom(Variable(<var2>) <urn:test#iri>) DifferentFromAtom(Variable(<var2>) <urn:test#i>)) Head(ObjectPropertyAtom(<urn:test#op> Variable(<var2>) Variable(<var2>)) DataPropertyAtom(<urn:test#dp> Variable(<var2>) \"false\"^^xsd:boolean) BuiltInAtom(<v2> Variable(<var5>) Variable(<var6>) )) )");
         Collection<Object[]> toReturn = new ArrayList<>();
         for (Map.Entry<OWLObject, String> e : map.entrySet()) {
             toReturn.add(new Object[] { e.getKey(), e.getValue() });

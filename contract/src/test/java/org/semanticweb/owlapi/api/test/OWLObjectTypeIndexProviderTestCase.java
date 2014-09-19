@@ -128,9 +128,6 @@ public class OWLObjectTypeIndexProviderTestCase extends TestBase {
     public void testAssertion() {
         OWLObjectTypeIndexProvider testsubject = new OWLObjectTypeIndexProvider();
         int i = testsubject.getTypeIndex(object);
-        if (expected != i) {
-            System.out.println(expected + " " + i);
-        }
         assertEquals(expected, i);
     }
 }
