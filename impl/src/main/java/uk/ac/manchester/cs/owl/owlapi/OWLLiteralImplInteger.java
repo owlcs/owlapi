@@ -188,7 +188,11 @@ public class OWLLiteralImplInteger extends OWLObjectImpl implements OWLLiteral {
         if (diff != 0) {
             return diff;
         }
-        return datatype.compareTo(other.getDatatype());
+        int compareTo = datatype.compareTo(other.getDatatype());
+        if (compareTo != 0) {
+            return compareTo;
+        }
+        return Integer.compare(literal, other.parseInteger());
     }
 
     @Override
