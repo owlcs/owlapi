@@ -60,6 +60,7 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
@@ -590,6 +591,21 @@ public abstract class RDFRendererBase {
                         continue;
                     }
                     axioms.add(ax);
+                }
+                // for object property assertion axioms where the property is
+                // anonymous and the individual is the object, the renderer will
+                // save the simplified version of the axiom.
+                // As they will have subject and object inverted, we need to
+                // collect them here, otherwise the triple will not be included
+                // because the subject will not match
+                for (OWLAxiom ax : ontology.getReferencingAxioms(individual)) {
+                    if (ax instanceof OWLObjectPropertyAssertionAxiom) {
+                        OWLObjectPropertyAssertionAxiom candidate = (OWLObjectPropertyAssertionAxiom) ax;
+                        if (candidate.getProperty().isAnonymous()
+                                && candidate.getObject().equals(individual)) {
+                            axioms.add(candidate);
+                        }
+                    }
                 }
             }
 
