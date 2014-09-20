@@ -1498,7 +1498,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
                 return dataFactory.getOWLNegativeDataPropertyAssertionAxiom(p,
                         ind, con);
             }
-        } else if (isObjectPropertyName(prop)) {
+        } else if (isObjectPropertyName(prop) || INVERSE.matches(prop)) {
             OWLObjectPropertyExpression p = parseObjectPropertyExpression(false);
             if (!negative) {
                 return dataFactory.getOWLObjectPropertyAssertionAxiom(p, ind,
