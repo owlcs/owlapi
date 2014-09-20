@@ -103,6 +103,7 @@ public class OWLObjectTypeIndexProviderTestCase extends TestBase {
         map.put(b.nop(), 2009);
         map.put(b.opa(), 2008);
         map.put(b.opaInv(), 2008);
+        map.put(b.opaInvj(), 2008);
         map.put(b.oDom(), 2022);
         map.put(b.oRange(), 2023);
         map.put(b.chain(), 2025);

@@ -92,6 +92,8 @@ public class NNFTestCase extends TestBase {
                 "ObjectPropertyAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#op> <urn:test#i> <urn:test#i>)");
         map.put(b.opaInv(),
                 "ObjectPropertyAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) InverseOf(<urn:test#op>) <urn:test#i> <urn:test#i>)");
+        map.put(b.opaInvj(),
+                "ObjectPropertyAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) InverseOf(<urn:test#op>) <urn:test#i> <urn:test#j>)");
         map.put(b.oDom(), "ObjectPropertyDomain(<urn:test#op> <urn:test#c>)");
         map.put(b.oRange(), "ObjectPropertyRange(<urn:test#op> <urn:test#c>)");
         map.put(b.chain(),

@@ -93,6 +93,8 @@ public class DeprecatedOWLEntityCollectorTestCase extends TestBase {
                 "[<urn:test#i>, <urn:test#ann>, <urn:test#op>, http://www.w3.org/2001/XMLSchema#string]");
         map.put(b.opaInv(),
                 "[<urn:test#i>, <urn:test#ann>, <urn:test#op>, http://www.w3.org/2001/XMLSchema#string]");
+        map.put(b.opaInvj(),
+                "[<urn:test#j>, <urn:test#i>, <urn:test#ann>, <urn:test#op>, http://www.w3.org/2001/XMLSchema#string]");
         map.put(b.oDom(),
                 "[<urn:test#ann>, <urn:test#op>, http://www.w3.org/2001/XMLSchema#string, <urn:test#c>]");
         map.put(b.oRange(),

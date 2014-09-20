@@ -102,6 +102,7 @@ public class HornAxiomVisitorExTestCase extends TestBase {
         map.put(b.nop(), Boolean.FALSE);
         map.put(b.opa(), Boolean.FALSE);
         map.put(b.opaInv(), Boolean.FALSE);
+        map.put(b.opaInvj(), Boolean.FALSE);
         map.put(b.oDom(), Boolean.TRUE);
         map.put(b.oRange(), Boolean.TRUE);
         map.put(b.chain(), Boolean.FALSE);

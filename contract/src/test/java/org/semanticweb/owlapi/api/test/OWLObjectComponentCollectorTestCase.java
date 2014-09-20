@@ -98,6 +98,8 @@ public class OWLObjectComponentCollectorTestCase extends TestBase {
                 "[urn:test#i, urn:test#op, <urn:test#op>, <urn:test#i>, ObjectPropertyAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#op> <urn:test#i> <urn:test#i>)]");
         map.put(b.opaInv(),
                 "[urn:test#i, urn:test#op, <urn:test#op>, InverseOf(<urn:test#op>), <urn:test#i>, ObjectPropertyAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) InverseOf(<urn:test#op>) <urn:test#i> <urn:test#i>)]");
+        map.put(b.opaInvj(),
+                "[urn:test#i, urn:test#j, urn:test#op, <urn:test#op>, InverseOf(<urn:test#op>), <urn:test#i>, <urn:test#j>, ObjectPropertyAssertion(Annotation(<urn:test#ann> \"test\"^^xsd:string) InverseOf(<urn:test#op>) <urn:test#i> <urn:test#j>)]");
         map.put(b.oDom(),
                 "[urn:test#c, urn:test#op, <urn:test#c>, <urn:test#op>, ObjectPropertyDomain(Annotation(<urn:test#ann> \"test\"^^xsd:string) <urn:test#op> <urn:test#c>)]");
         map.put(b.oRange(),

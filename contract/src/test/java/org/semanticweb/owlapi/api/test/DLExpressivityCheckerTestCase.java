@@ -75,6 +75,7 @@ public class DLExpressivityCheckerTestCase extends TestBase {
         map.put(b.nop(), "AL");
         map.put(b.opa(), "AL");
         map.put(b.opaInv(), "ALI");
+        map.put(b.opaInvj(), "ALI");
         map.put(b.oDom(), "AL");
         map.put(b.oRange(), "AL");
         map.put(b.chain(), "ALR");

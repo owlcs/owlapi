@@ -103,6 +103,9 @@ public class Builder {
     private final OWLNamedIndividual i = df.getOWLNamedIndividual(IRI
             .create("urn:test#i"));
     @Nonnull
+    private final OWLNamedIndividual j = df.getOWLNamedIndividual(IRI
+            .create("urn:test#j"));
+    @Nonnull
     private final OWLDatatype d = df.getOWLDatatype(IRI
             .create("urn:test#datatype"));
     @Nonnull
@@ -224,6 +227,11 @@ public class Builder {
     public OWLObjectPropertyAssertionAxiom opaInv() {
         return df.getOWLObjectPropertyAssertionAxiom(
                 df.getOWLObjectInverseOf(op), i, i, as);
+    }
+
+    public OWLObjectPropertyAssertionAxiom opaInvj() {
+        return df.getOWLObjectPropertyAssertionAxiom(
+                df.getOWLObjectInverseOf(op), i, j, as);
     }
 
     public OWLObjectPropertyAssertionAxiom opa() {
@@ -486,8 +494,8 @@ public class Builder {
                 dRange(), dDef(), decC(), decOp(), decDp(), decDt(), decAp(),
                 decI(), assDi(), dc(), dDp(), dOp(), du(), ec(), eDp(), eOp(),
                 fdp(), fop(), ifp(), iop(), irr(), ndp(), nop(), opa(),
-                opaInv(), oDom(), oRange(), chain(), ref(), same(), subAnn(),
-                subClass(), subData(), subObject(), rule(), symm(), trans(),
-                hasKey(), bigRule());
+                opaInv(), opaInvj(), oDom(), oRange(), chain(), ref(), same(),
+                subAnn(), subClass(), subData(), subObject(), rule(), symm(),
+                trans(), hasKey(), bigRule());
     }
 }

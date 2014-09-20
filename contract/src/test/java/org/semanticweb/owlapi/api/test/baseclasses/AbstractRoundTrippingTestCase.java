@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.api.test.baseclasses;
 
 import javax.annotation.Nonnull;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.semanticweb.owlapi.formats.DLSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
@@ -77,46 +76,32 @@ public abstract class AbstractRoundTrippingTestCase extends TestBase {
         roundTripOntology(ont, new ManchesterSyntaxDocumentFormat());
     }
 
-    @Test
-    @Ignore
     public void testTrig() throws Exception {
         // XXX to be revised
         roundTripOntology(ont, new TrigDocumentFormat());
     }
 
-    @Test
-    @Ignore
     public void testJSONLD() throws Exception {
         // XXX to be revised
         roundTripOntology(ont, new RDFJsonLDDocumentFormat());
     }
 
-    @Test
-    @Ignore
     public void testNTriples() throws Exception {
         roundTripOntology(ont, new NTriplesDocumentFormat());
     }
 
-    @Test
-    @Ignore("NQuad rendering appears to not be roundtrippable")
     public void testNQuads() throws Exception {
         roundTripOntology(ont, new NQuadsDocumentFormat());
     }
 
-    @Test
-    @Ignore("currently there are roundtrip errors")
     public void testKRSS2() throws Exception {
         roundTripOntology(ont, new KRSS2DocumentFormat());
     }
 
-    @Test
-    @Ignore("currently there are roundtrip errors")
     public void testKRSS() throws Exception {
         roundTripOntology(ont, new KRSS2DocumentFormat());
     }
 
-    @Test
-    @Ignore("currently there are roundtrip errors")
     public void testDLSyntax() throws Exception {
         roundTripOntology(ont, new DLSyntaxDocumentFormat());
     }
