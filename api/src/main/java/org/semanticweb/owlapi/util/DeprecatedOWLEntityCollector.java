@@ -12,12 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.IRI;
@@ -159,8 +155,7 @@ public class DeprecatedOWLEntityCollector implements OWLObjectVisitor,
      *        the set that will contain the results
      */
     public DeprecatedOWLEntityCollector(Set<OWLEntity> toReturn) {
-        objects = toReturn;
-        anonymousIndividuals = FAKE;
+        this(toReturn, null);
     }
 
     /**
@@ -181,7 +176,9 @@ public class DeprecatedOWLEntityCollector implements OWLObjectVisitor,
      */
     public void reset(Set<OWLEntity> toReturn) {
         objects = toReturn;
-        anonymousIndividuals.clear();
+        if (anonymousIndividuals != null) {
+            anonymousIndividuals.clear();
+        }
     }
 
     /**
@@ -248,7 +245,10 @@ public class DeprecatedOWLEntityCollector implements OWLObjectVisitor,
      */
     @Deprecated
     public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
-        return new HashSet<>(anonymousIndividuals);
+        if (anonymousIndividuals == null) {
+            return CollectionFactory.createSet();
+        }
+        return CollectionFactory.createSet(anonymousIndividuals);
     }
 
     protected void processAxiomAnnotations(OWLAxiom ax) {
@@ -706,20 +706,14 @@ public class DeprecatedOWLEntityCollector implements OWLObjectVisitor,
     public void visit(OWLAnonymousIndividual individual) {
         // Anon individuals aren't entities
         // But store them in a set anyway for utility
-        anonymousIndividuals.add(individual);
+        if (anonymousIndividuals != null) {
+            anonymousIndividuals.add(individual);
+        }
     }
 
     @Override
     public void visit(IRI iri) {}
 
-    // public void visit(OWLAnnotationValue value) {
-    // if(value.isLiteral()) {
-    // value.asLiteral().accept(this);
-    // }
-    // else if(value.isAnonymousIndividual()) {
-    // value.asOWLAnonymousIndividual().accept(this);
-    // }
-    // }
     @Override
     public void visit(OWLOntology ontology) {
         objects.addAll(ontology.getSignature());
@@ -822,123 +816,4 @@ public class DeprecatedOWLEntityCollector implements OWLObjectVisitor,
     public void visit(SWRLSameIndividualAtom node) {
         node.getSecondArgument().accept(this);
     }
-
-    private static final List<OWLAnonymousIndividual> FAKE = new ArrayList<OWLAnonymousIndividual>() {
-
-        private static final long serialVersionUID = 40000L;
-
-        @Override
-        public <T> T[] toArray(T[] arg0) {
-            return arg0;
-        }
-
-        @Override
-        public Object[] toArray() {
-            return new Object[0];
-        }
-
-        @Override
-        public List<OWLAnonymousIndividual> subList(int arg0, int arg1) {
-            return null;
-        }
-
-        @Override
-        public int size() {
-            return 0;
-        }
-
-        @Override
-        public OWLAnonymousIndividual
-                set(int arg0, OWLAnonymousIndividual arg1) {
-            return null;
-        }
-
-        @Override
-        public boolean retainAll(Collection<?> arg0) {
-            return false;
-        }
-
-        @Override
-        public boolean removeAll(Collection<?> arg0) {
-            return false;
-        }
-
-        @Override
-        public OWLAnonymousIndividual remove(int arg0) {
-            return null;
-        }
-
-        @Override
-        public boolean remove(Object arg0) {
-            return false;
-        }
-
-        @Override
-        public ListIterator<OWLAnonymousIndividual> listIterator(int arg0) {
-            return null;
-        }
-
-        @Override
-        public ListIterator<OWLAnonymousIndividual> listIterator() {
-            return null;
-        }
-
-        @Override
-        public int lastIndexOf(Object arg0) {
-            return 0;
-        }
-
-        @Override
-        public Iterator<OWLAnonymousIndividual> iterator() {
-            return null;
-        }
-
-        @Override
-        public boolean isEmpty() {
-            return false;
-        }
-
-        @Override
-        public int indexOf(Object arg0) {
-            return 0;
-        }
-
-        @Override
-        public OWLAnonymousIndividual get(int arg0) {
-            return null;
-        }
-
-        @Override
-        public boolean containsAll(Collection<?> arg0) {
-            return false;
-        }
-
-        @Override
-        public boolean contains(Object arg0) {
-            return false;
-        }
-
-        @Override
-        public void clear() {}
-
-        @Override
-        public boolean addAll(int arg0,
-                Collection<? extends OWLAnonymousIndividual> arg1) {
-            return false;
-        }
-
-        @Override
-        public boolean
-                addAll(Collection<? extends OWLAnonymousIndividual> arg0) {
-            return false;
-        }
-
-        @Override
-        public void add(int arg0, OWLAnonymousIndividual arg1) {}
-
-        @Override
-        public boolean add(OWLAnonymousIndividual arg0) {
-            return false;
-        }
-    };
 }

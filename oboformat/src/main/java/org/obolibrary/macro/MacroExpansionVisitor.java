@@ -96,9 +96,9 @@ public class MacroExpansionVisitor {
             // and the value may be not be explicitly declared. If it is not,
             // we assume it is a class
             IRI axValIRI = (IRI) ax.getValue();
-            OWLClass axValClass = visitor.dataFactory.getOWLClass(axValIRI);
+            OWLClass axValClass = visitor.df.getOWLClass(axValIRI);
             if (inputOntology.getDeclarationAxioms(axValClass).isEmpty()) {
-                OWLDeclarationAxiom newAx = visitor.dataFactory
+                OWLDeclarationAxiom newAx = visitor.df
                         .getOWLDeclarationAxiom(axValClass);
                 manager.addAxiom(inputOntology, newAx);
                 // we need to sync the MST entity checker with the new ontology
@@ -151,7 +151,7 @@ public class MacroExpansionVisitor {
                         @Nonnull OWLObjectPropertyExpression p) {
                     OWLClassExpression result = expandObject(filler, p);
                     if (result != null) {
-                        result = dataFactory.getOWLObjectSomeValuesFrom(
+                        result = df.getOWLObjectSomeValuesFrom(
                                 desc.getProperty(), result);
                     }
                     return result;

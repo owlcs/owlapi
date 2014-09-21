@@ -13,6 +13,7 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import static com.google.common.base.Optional.absent;
+import static java.util.stream.Collectors.*;
 import static org.semanticweb.owlapi.util.CollectionFactory.*;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.*;
 
@@ -26,12 +27,14 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -206,13 +209,13 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
 
     @Override
     public Set<OWLOntology> getOntologies(OWLAxiom axiom) {
-        Set<OWLOntology> result = new HashSet<>(ontologiesByID.size());
-        for (OWLOntology ont : ontologiesByID.values()) {
-            if (ont.containsAxiom(axiom)) {
-                result.add(ont);
-            }
-        }
-        return result;
+        return ontologies().filter(o -> o.containsAxiom(axiom))
+                .collect(toSet());
+    }
+
+    /** @return stream of ontologies */
+    protected Stream<OWLOntology> ontologies() {
+        return ontologiesByID.values().stream();
     }
 
     @Override
@@ -221,104 +224,63 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     }
 
     @Override
-    public boolean contains(IRI ontologyIRI) {
-        checkNotNull(ontologyIRI, "Ontology IRI cannot be null");
-        for (OWLOntologyID nextOntologyID : ontologiesByID.keySet()) {
-            if (ontologyIRI.equals(nextOntologyID.getOntologyIRI().orNull())) {
-                return true;
-            }
-        }
-        for (OWLOntologyID ont : ontologiesByID.keySet()) {
-            if (ontologyIRI.equals(ont.getVersionIRI().orNull())) {
-                return true;
-            }
-        }
+    public boolean contains(IRI iri) {
+        checkNotNull(iri, "Ontology IRI cannot be null");
+        return ids().anyMatch(o -> o.match(iri));
         // FIXME: ParsableOWLOntologyFactory seems to call this method with a
         // document/physical IRI,
         // but this method fails the general case where the ontology was loaded
         // from the given IRI directly, but was then renamed
-        return false;
+    }
+
+    /** @return stream of ids */
+    protected Stream<OWLOntologyID> ids() {
+        return ontologiesByID.keySet().stream();
     }
 
     @Override
     public boolean contains(OWLOntologyID id) {
+        if (id.isAnonymous()) {
+            return false;
+        }
         if (ontologiesByID.containsKey(id)) {
             return true;
         }
-        for (OWLOntologyID nextOntologyID : ontologiesByID.keySet()) {
-            if (!id.isAnonymous()
-                    && id.getOntologyIRI().equals(
-                            nextOntologyID.getOntologyIRI())) {
-                return true;
-            }
-        }
-        return false;
+        return ids().anyMatch(o -> id.match(o));
     }
 
     @Override
-    public boolean containsVersion(IRI ontologyVersionIRI) {
-        for (OWLOntologyID ont : ontologiesByID.keySet()) {
-            if (ontologyVersionIRI.equals(ont.getVersionIRI().orNull())) {
-                return true;
-            }
-        }
-        return false;
+    public boolean containsVersion(IRI iri) {
+        return ids().anyMatch(o -> o.matchVersion(iri));
     }
 
     @Override
-    public Set<OWLOntologyID> getOntologyIDsByVersion(IRI ontologyVersionIRI) {
-        Set<OWLOntologyID> result = new TreeSet<>();
-        for (OWLOntologyID ont : ontologiesByID.keySet()) {
-            if (ontologyVersionIRI.equals(ont.getVersionIRI().orNull())) {
-                result.add(ont);
-            }
-        }
-        return result;
+    public Set<OWLOntologyID> getOntologyIDsByVersion(IRI iri) {
+        return ids().filter(o -> o.matchVersion(iri)).collect(
+                toCollection(TreeSet::new));
     }
 
     @Override
-    public OWLOntology getOntology(IRI ontologyIRI) {
-        OWLOntologyID ontologyID = new OWLOntologyID(of(ontologyIRI),
-                of((IRI) null));
+    public OWLOntology getOntology(IRI iri) {
+        OWLOntologyID ontologyID = new OWLOntologyID(of(iri), of((IRI) null));
         OWLOntology result = ontologiesByID.get(ontologyID);
-        if (result == null) {
-            for (OWLOntologyID nextOntologyID : ontologiesByID.keySet()) {
-                if (ontologyIRI.equals(nextOntologyID.getVersionIRI().orNull())
-                        || ontologyIRI.equals(nextOntologyID.getOntologyIRI()
-                                .orNull())
-                        || ontologyIRI.equals(nextOntologyID
-                                .getDefaultDocumentIRI().orNull())) {
-                    result = ontologiesByID.get(nextOntologyID);
-                }
-            }
+        if (result != null) {
+            return result;
         }
-        return result;
-    }
-
-    /**
-     * @param first
-     *        first id
-     * @param second
-     *        second id
-     * @return true if the ids are equal or have the same ontology IRI. Ontology
-     *         version is ignored.
-     */
-    private static boolean
-            matchingIDs(OWLOntologyID first, OWLOntologyID second) {
-        if (first.isAnonymous() || second.isAnonymous()) {
-            return first.equals(second);
-        }
-        return first.getOntologyIRI().equals(second.getOntologyIRI());
+        java.util.Optional<Entry<OWLOntologyID, OWLOntology>> findAny = ontologiesByID
+                .entrySet().stream().filter(o -> o.getKey().match(iri))
+                .findAny();
+        return findAny.isPresent() ? findAny.get().getValue() : null;
     }
 
     @Override
-    public OWLOntology getOntology(OWLOntologyID ontologyID) {
-        OWLOntology result = ontologiesByID.get(ontologyID);
-        if (result == null && !ontologyID.isAnonymous()) {
-            for (OWLOntologyID nextOntologyID : ontologiesByID.keySet()) {
-                if (matchingIDs(ontologyID, nextOntologyID)) {
-                    result = ontologiesByID.get(nextOntologyID);
-                }
+    public OWLOntology getOntology(OWLOntologyID id) {
+        OWLOntology result = ontologiesByID.get(id);
+        if (result == null && !id.isAnonymous()) {
+            java.util.Optional<OWLOntologyID> findAny = ids().filter(
+                    o -> o.matchOntology(id.getOntologyIRI().get())).findAny();
+            if (findAny.isPresent()) {
+                result = ontologiesByID.get(findAny.get());
             }
         }
         // HACK: This extra clause is necessary to make getOntology match the
@@ -326,10 +288,10 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         // recorded, based on the mappers, but an ontology has not been stored
         // in ontologiesByID
         if (result == null) {
-            IRI documentIRI = getDocumentIRIFromMappers(ontologyID, true);
+            IRI documentIRI = getDocumentIRIFromMappers(id, true);
             if (documentIRI == null) {
-                if (!ontologyID.isAnonymous()) {
-                    documentIRI = ontologyID.getDefaultDocumentIRI().orNull();
+                if (!id.isAnonymous()) {
+                    documentIRI = id.getDefaultDocumentIRI().orNull();
                 } else {
                     documentIRI = IRI.generateDocumentIRI();
                 }
@@ -349,14 +311,9 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     }
 
     @Override
-    public Set<OWLOntology> getVersions(IRI ontology) {
-        Set<OWLOntology> onts = new HashSet<>();
-        for (OWLOntology ont : ontologiesByID.values()) {
-            if (ontology.equals(ont.getOntologyID().getOntologyIRI().get())) {
-                onts.add(ont);
-            }
-        }
-        return onts;
+    public Set<OWLOntology> getVersions(IRI iri) {
+        return ontologies().filter(o -> o.getOntologyID().matchOntology(iri))
+                .collect(toSet());
     }
 
     @Nullable
@@ -577,29 +534,23 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
             if (change instanceof AddImport) {
                 OWLImportsDeclaration addImportDeclaration = ((AddImport) change)
                         .getImportDeclaration();
-                boolean found = false;
                 IRI iri = addImportDeclaration.getIRI();
-                for (OWLOntologyID id : ontologiesByID.keySet()) {
-                    if (iri.equals(id.getDefaultDocumentIRI().orNull())
-                            || iri.equals(id.getOntologyIRI().orNull())
-                            || iri.equals(id.getVersionIRI().orNull())) {
-                        found = true;
-                        ontologyIDsByImportsDeclaration.put(
-                                addImportDeclaration, id);
-                    }
-                }
-                if (!found) {
+                java.util.Optional<OWLOntologyID> findFirst = ids().filter(
+                        o -> o.match(iri) || o.matchDocument(iri)).findFirst();
+                findFirst.ifPresent(o -> ontologyIDsByImportsDeclaration.put(
+                        addImportDeclaration, o));
+                if (!findFirst.isPresent()) {
                     // then the import does not refer to a known IRI for
-                    // ontologies; check for a document IRI
-                    for (Map.Entry<OWLOntologyID, IRI> e : documentIRIsByID
-                            .entrySet()) {
-                        if (e.getValue().equals(iri)) {
-                            // found the ontology id corresponding to the file
-                            // location
-                            ontologyIDsByImportsDeclaration.put(
-                                    addImportDeclaration, e.getKey());
-                        }
-                    }
+                    // ontologies; check for a document IRI to find the ontology
+                    // id corresponding to the file location
+                    documentIRIsByID
+                            .entrySet()
+                            .stream()
+                            .filter(o -> o.getValue().equals(iri))
+                            .findAny()
+                            .ifPresent(
+                                    o -> ontologyIDsByImportsDeclaration.put(
+                                            addImportDeclaration, o.getKey()));
                 }
             } else {
                 // Remove the mapping from declaration to ontology
@@ -770,30 +721,20 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     }
 
     @Nonnull
-    protected OWLOntology loadOntology(@Nonnull IRI ontologyIRI,
-            boolean allowExists,
+    protected OWLOntology loadOntology(@Nonnull IRI iri, boolean allowExists,
             @Nonnull OWLOntologyLoaderConfiguration configuration)
             throws OWLOntologyCreationException {
         OWLOntology ontByID = null;
         // Check for matches on the ontology IRI first
-        for (OWLOntologyID nextOntologyID : ontologiesByID.keySet()) {
-            if (ontologyIRI.equals(nextOntologyID.getOntologyIRI().orNull())) {
-                ontByID = ontologiesByID.get(nextOntologyID);
-            }
-        }
-        // This method may be called using a version IRI, so also check the
-        // version IRI if necessary
-        if (ontByID == null) {
-            for (OWLOntologyID nextOntologyID : ontologiesByID.keySet()) {
-                if (ontologyIRI.equals(nextOntologyID.getVersionIRI().orNull())) {
-                    ontByID = ontologiesByID.get(nextOntologyID);
-                }
-            }
+        java.util.Optional<OWLOntologyID> findAny = ids().filter(
+                o -> o.match(iri)).findAny();
+        if (findAny.isPresent()) {
+            ontByID = ontologiesByID.get(findAny.get());
         }
         if (ontByID != null) {
             return ontByID;
         }
-        OWLOntologyID id = new OWLOntologyID(of(ontologyIRI), absent());
+        OWLOntologyID id = new OWLOntologyID(of(iri), absent());
         IRI documentIRI = getDocumentIRIFromMappers(id, true);
         if (documentIRI != null) {
             if (documentIRIsByID.values().contains(documentIRI) && !allowExists) {
@@ -808,18 +749,18 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         } else {
             // Nothing we can do here. We can't get a document IRI to load
             // the ontology from.
-            throw new OntologyIRIMappingNotFoundException(ontologyIRI);
+            throw new OntologyIRIMappingNotFoundException(iri);
         }
-        return loadOntology(ontologyIRI, new IRIDocumentSource(documentIRI,
-                null, null), configuration);
+        return loadOntology(iri,
+                new IRIDocumentSource(documentIRI, null, null), configuration);
     }
 
-    private OWLOntology getOntologyByDocumentIRI(IRI documentIRI) {
-        for (OWLOntologyID ontID : documentIRIsByID.keySet()) {
-            IRI docIRI = documentIRIsByID.get(ontID);
-            if (docIRI != null && docIRI.equals(documentIRI)) {
-                return getOntology(ontID);
-            }
+    private OWLOntology getOntologyByDocumentIRI(IRI iri) {
+        java.util.Optional<Entry<OWLOntologyID, IRI>> findAny = documentIRIsByID
+                .entrySet().stream().filter(o -> iri.equals(o.getValue()))
+                .findAny();
+        if (findAny.isPresent()) {
+            return getOntology(findAny.get().getKey());
         }
         return null;
     }

@@ -99,6 +99,51 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
     }
 
     /**
+     * @return true if the input iri matches the ontology iri or the version iri
+     * @param iri
+     *        the iri to check
+     */
+    public boolean match(@Nonnull IRI iri) {
+        return matchOntology(iri) || matchVersion(iri);
+    }
+
+    /**
+     * @return true if the input iri matches the version iri
+     * @param iri
+     *        the iri to check
+     */
+    public boolean matchVersion(@Nonnull IRI iri) {
+        return iri.equals(versionIRI.orNull());
+    }
+
+    /**
+     * @return true if the input iri matches the default document iri
+     * @param iri
+     *        the iri to check
+     */
+    public boolean matchDocument(@Nonnull IRI iri) {
+        return iri.equals(getDefaultDocumentIRI().orNull());
+    }
+
+    /**
+     * @return true if the input iri matches the ontology iri
+     * @param iri
+     *        the iri to check
+     */
+    public boolean matchOntology(@Nonnull IRI iri) {
+        return iri.equals(ontologyIRI.orNull());
+    }
+
+    /**
+     * @return true if the input id has the same ontology iri
+     * @param id
+     *        the id to check
+     */
+    public boolean match(@Nonnull OWLOntologyID id) {
+        return ontologyIRI.equals(id.getOntologyIRI());
+    }
+
+    /**
      * Constructs an ontology identifier specifiying the ontology IRI and
      * version IRI.
      * 

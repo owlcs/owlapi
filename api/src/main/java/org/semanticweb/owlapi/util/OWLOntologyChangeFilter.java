@@ -20,17 +20,12 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.AddAxiom;
-import org.semanticweb.owlapi.model.AddImport;
-import org.semanticweb.owlapi.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiomChange;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyChangeVisitor;
 import org.semanticweb.owlapi.model.RemoveAxiom;
-import org.semanticweb.owlapi.model.RemoveImport;
-import org.semanticweb.owlapi.model.RemoveOntologyAnnotation;
-import org.semanticweb.owlapi.model.SetOntologyID;
 
 /**
  * Provides a convenient method to filter add/remove axiom changes based on the
@@ -133,19 +128,4 @@ public class OWLOntologyChangeFilter implements OWLAxiomVisitor,
         add = false;
         processChange(change);
     }
-
-    @Override
-    public void visit(SetOntologyID change) {}
-
-    @Override
-    public void visit(AddImport change) {}
-
-    @Override
-    public void visit(RemoveImport change) {}
-
-    @Override
-    public void visit(AddOntologyAnnotation change) {}
-
-    @Override
-    public void visit(RemoveOntologyAnnotation change) {}
 }

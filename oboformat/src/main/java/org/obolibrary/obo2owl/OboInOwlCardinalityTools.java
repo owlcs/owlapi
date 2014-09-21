@@ -1,5 +1,6 @@
 package org.obolibrary.obo2owl;
 
+import static org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag.*;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 
 import java.util.Collection;
@@ -178,22 +179,17 @@ public final class OboInOwlCardinalityTools {
         OWLOntologyManager manager = ontology.getOWLOntologyManager();
         OWLDataFactory factory = manager.getOWLDataFactory();
         Set<OWLAnnotationProperty> headerProperties = getProperties(factory,
-                OboFormatTag.TAG_ONTOLOGY, OboFormatTag.TAG_FORMAT_VERSION,
-                OboFormatTag.TAG_DATE, OboFormatTag.TAG_DEFAULT_NAMESPACE,
-                OboFormatTag.TAG_SAVED_BY, OboFormatTag.TAG_AUTO_GENERATED_BY);
+                TAG_ONTOLOGY, TAG_FORMAT_VERSION, TAG_DATE,
+                TAG_DEFAULT_NAMESPACE, TAG_SAVED_BY, TAG_AUTO_GENERATED_BY);
         checkOntologyAnnotations(headerProperties, ontology, reporter, handler,
                 manager);
         Set<OWLAnnotationProperty> properties = getProperties(factory,
-                OboFormatTag.TAG_IS_ANONYMOUS, OboFormatTag.TAG_NAME,
-                OboFormatTag.TAG_NAMESPACE, OboFormatTag.TAG_DEF,
-                OboFormatTag.TAG_COMMENT, OboFormatTag.TAG_DOMAIN,
-                OboFormatTag.TAG_RANGE, OboFormatTag.TAG_IS_ANTI_SYMMETRIC,
-                OboFormatTag.TAG_IS_CYCLIC, OboFormatTag.TAG_IS_REFLEXIVE,
-                OboFormatTag.TAG_IS_SYMMETRIC, OboFormatTag.TAG_IS_TRANSITIVE,
-                OboFormatTag.TAG_IS_FUNCTIONAL,
-                OboFormatTag.TAG_IS_INVERSE_FUNCTIONAL,
-                OboFormatTag.TAG_IS_OBSELETE, OboFormatTag.TAG_CREATED_BY,
-                OboFormatTag.TAG_CREATION_DATE);
+                TAG_IS_ANONYMOUS, TAG_NAME, TAG_NAMESPACE, TAG_DEF,
+                TAG_COMMENT, TAG_DOMAIN, TAG_RANGE, TAG_IS_ANTI_SYMMETRIC,
+                TAG_IS_CYCLIC, TAG_IS_REFLEXIVE, TAG_IS_SYMMETRIC,
+                TAG_IS_TRANSITIVE, TAG_IS_FUNCTIONAL,
+                TAG_IS_INVERSE_FUNCTIONAL, TAG_IS_OBSELETE, TAG_CREATED_BY,
+                TAG_CREATION_DATE);
         for (OWLClass owlClass : ontology.getClassesInSignature(INCLUDED)) {
             checkOwlEntity(owlClass, properties, ontology, reporter, handler,
                     manager);

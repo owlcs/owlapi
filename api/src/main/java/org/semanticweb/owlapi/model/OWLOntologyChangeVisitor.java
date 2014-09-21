@@ -19,6 +19,7 @@ import javax.annotation.Nonnull;
  *         Informatics Group
  * @since 2.0.0
  */
+@SuppressWarnings("unused")
 public interface OWLOntologyChangeVisitor {
 
     /**
@@ -27,7 +28,7 @@ public interface OWLOntologyChangeVisitor {
      * @param change
      *        change to visit
      */
-    void visit(@Nonnull AddAxiom change);
+    default void visit(@Nonnull AddAxiom change) {}
 
     /**
      * visit RemoveAxiom type
@@ -35,7 +36,7 @@ public interface OWLOntologyChangeVisitor {
      * @param change
      *        change to visit
      */
-    void visit(@Nonnull RemoveAxiom change);
+    default void visit(@Nonnull RemoveAxiom change) {}
 
     /**
      * visit SetOntologyID type
@@ -43,7 +44,7 @@ public interface OWLOntologyChangeVisitor {
      * @param change
      *        change to visit
      */
-    void visit(@Nonnull SetOntologyID change);
+    default void visit(@Nonnull SetOntologyID change) {}
 
     /**
      * visit AddImport type
@@ -51,7 +52,7 @@ public interface OWLOntologyChangeVisitor {
      * @param change
      *        change to visit
      */
-    void visit(@Nonnull AddImport change);
+    default void visit(@Nonnull AddImport change) {}
 
     /**
      * visit RemoveImport type
@@ -59,7 +60,7 @@ public interface OWLOntologyChangeVisitor {
      * @param change
      *        change to visit
      */
-    void visit(@Nonnull RemoveImport change);
+    default void visit(@Nonnull RemoveImport change) {}
 
     /**
      * visit AddOntologyAnnotation type
@@ -67,7 +68,7 @@ public interface OWLOntologyChangeVisitor {
      * @param change
      *        change to visit
      */
-    void visit(@Nonnull AddOntologyAnnotation change);
+    default void visit(@Nonnull AddOntologyAnnotation change) {}
 
     /**
      * visit RemoveOntologyAnnotation type
@@ -75,5 +76,5 @@ public interface OWLOntologyChangeVisitor {
      * @param change
      *        change to visit
      */
-    void visit(@Nonnull RemoveOntologyAnnotation change);
+    default void visit(@Nonnull RemoveOntologyAnnotation change) {}
 }

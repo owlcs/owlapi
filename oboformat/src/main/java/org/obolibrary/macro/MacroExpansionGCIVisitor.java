@@ -124,9 +124,9 @@ public class MacroExpansionGCIVisitor {
                         @Nonnull OWLObjectPropertyExpression p) {
                     OWLClassExpression gciRHS = expandObject(filler, p);
                     if (gciRHS != null) {
-                        OWLClassExpression gciLHS = dataFactory
+                        OWLClassExpression gciLHS = df
                                 .getOWLObjectSomeValuesFrom(p, filler);
-                        OWLEquivalentClassesAxiom ax = dataFactory
+                        OWLEquivalentClassesAxiom ax = df
                                 .getOWLEquivalentClassesAxiom(gciLHS, gciRHS);
                         output(ax);
                     }
@@ -140,9 +140,9 @@ public class MacroExpansionGCIVisitor {
                         @Nonnull OWLObjectPropertyExpression p) {
                     OWLClassExpression gciRHS = expandObject(filler, p);
                     if (gciRHS != null) {
-                        OWLClassExpression gciLHS = dataFactory
-                                .getOWLObjectHasValue(p, filler);
-                        OWLEquivalentClassesAxiom ax = dataFactory
+                        OWLClassExpression gciLHS = df.getOWLObjectHasValue(p,
+                                filler);
+                        OWLEquivalentClassesAxiom ax = df
                                 .getOWLEquivalentClassesAxiom(gciLHS, gciRHS);
                         output(ax);
                     }
