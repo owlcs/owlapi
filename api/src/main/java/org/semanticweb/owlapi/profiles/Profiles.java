@@ -133,15 +133,8 @@ public enum Profiles implements HasIRI, KnownFactories, OWLProfile {
             throw new OWLRuntimeException(
                     "Reasoner factory cannot be instantiated: "
                             + factoryClassName);
-        } catch (ClassNotFoundException e) {
-            throw new OWLRuntimeException(
-                    "Reasoner factory cannot be instantiated: "
-                            + factoryClassName, e);
-        } catch (InstantiationException e) {
-            throw new OWLRuntimeException(
-                    "Reasoner factory cannot be instantiated: "
-                            + factoryClassName, e);
-        } catch (IllegalAccessException e) {
+        } catch (ClassNotFoundException | InstantiationException
+                | IllegalAccessException e) {
             throw new OWLRuntimeException(
                     "Reasoner factory cannot be instantiated: "
                             + factoryClassName, e);

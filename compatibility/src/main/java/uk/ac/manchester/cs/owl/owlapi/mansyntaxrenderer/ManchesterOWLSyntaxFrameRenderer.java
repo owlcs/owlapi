@@ -46,5 +46,4 @@ public class ManchesterOWLSyntaxFrameRenderer
             @Nonnull ShortFormProvider entityShortFormProvider) {
         super(ontologies, writer, entityShortFormProvider);
     }
-
 }

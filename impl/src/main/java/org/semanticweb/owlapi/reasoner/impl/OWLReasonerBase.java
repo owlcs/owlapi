@@ -57,14 +57,7 @@ public abstract class OWLReasonerBase implements OWLReasoner {
     @Nonnull
     private final OWLReasonerConfiguration configuration;
     @Nonnull
-    private final OWLOntologyChangeListener ontologyChangeListener = new OWLOntologyChangeListener() {
-
-        @Override
-        public void
-                ontologiesChanged(List<? extends OWLOntologyChange> changes) {
-            handleRawOntologyChanges(changes);
-        }
-    };
+    private final OWLOntologyChangeListener ontologyChangeListener = changes -> handleRawOntologyChanges(changes);
 
     protected OWLReasonerBase(@Nonnull OWLOntology rootOntology,
             @Nonnull OWLReasonerConfiguration configuration,

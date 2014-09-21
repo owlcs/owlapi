@@ -44,14 +44,7 @@ public class BidirectionalShortFormProviderAdapter extends
     private Set<OWLOntology> ontologies;
     private OWLOntologyManager man;
     @Nonnull
-    private final OWLOntologyChangeListener changeListener = new OWLOntologyChangeListener() {
-
-        @Override
-        public void ontologiesChanged(
-                @Nonnull List<? extends OWLOntologyChange> changes) {
-            handleChanges(changes);
-        }
-    };
+    private final OWLOntologyChangeListener changeListener = changes -> handleChanges(changes);
 
     /**
      * @param shortFormProvider

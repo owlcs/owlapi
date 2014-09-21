@@ -178,13 +178,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
     @Nonnull
     private final List<RendererListener> listeners = new ArrayList<>();
     /** The axiom filter. */
-    private OWLAxiomFilter axiomFilter = new OWLAxiomFilter() {
-
-        @Override
-        public boolean passes(OWLAxiom axiom) {
-            return true;
-        }
-    };
+    private OWLAxiomFilter axiomFilter = axiom -> true;
     /** The rendering director. */
     private RenderingDirector renderingDirector = new DefaultRenderingDirector();
     @Nonnull

@@ -28,5 +28,4 @@ public class FunctionalSyntaxDocumentFormat extends PrefixDocumentFormatImpl {
     public String getKey() {
         return "OWL Functional Syntax";
     }
-
 }

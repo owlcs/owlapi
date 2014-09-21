@@ -233,6 +233,7 @@ public interface ManchesterOWLSyntaxParser extends
     /** @return parsed list of annotation properties */
     @Nonnull
     Set<OWLAnnotationProperty> parseAnnotationPropertyList();
+
     /** @return data range */
     @Nonnull
     OWLDataRange parseDataRange();

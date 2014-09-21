@@ -28,8 +28,6 @@ public final class Formatter {
     private Formatter() {}
 
     public static void main(String[] args) throws Exception {
-        System.out.println("Formatter.main() " + Long.MAX_VALUE
-                / (1000 * 86000 * 365));
         Map<String, String> specials = new HashMap<>();
         specials.put("public void test", "\\begin{beamerboxesrounded}{");
         specials.put("() throws Exception \\{", "}\n\\scriptsize");

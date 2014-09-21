@@ -45,13 +45,7 @@ public class MutableTree<N> implements Tree<N> {
         this.userObject = userObject;
         children = new ArrayList<>();
         child2EdgeMap = new HashMap<>();
-        toStringRenderer = new NodeRenderer<N>() {
-
-            @Override
-            public String render(Tree<N> object) {
-                return object.toString();
-            }
-        };
+        toStringRenderer = object -> object.toString();
     }
 
     @Override

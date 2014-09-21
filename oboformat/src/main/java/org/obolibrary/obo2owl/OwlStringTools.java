@@ -70,9 +70,7 @@ public class OwlStringTools {
             Writer writer = new StringWriter();
             r.render(ontology, writer);
             return writer.toString();
-        } catch (OWLRendererException e) {
-            throw new OwlStringException(e);
-        } catch (OWLOntologyCreationException e) {
+        } catch (OWLRendererException | OWLOntologyCreationException e) {
             throw new OwlStringException(e);
         }
     }

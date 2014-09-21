@@ -12,7 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer;
 
-
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -21,7 +20,6 @@ package uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer;
  *             org.semanticweb.owlapi.mansyntax.renderer.ManchesterOWLSyntaxRenderer
  */
 @Deprecated
-public class ManchesterOWLSyntaxRenderer extends
-        org.semanticweb.owlapi.manchestersyntax.renderer.ManchesterOWLSyntaxRenderer {
-
-}
+public class ManchesterOWLSyntaxRenderer
+        extends
+        org.semanticweb.owlapi.manchestersyntax.renderer.ManchesterOWLSyntaxRenderer {}

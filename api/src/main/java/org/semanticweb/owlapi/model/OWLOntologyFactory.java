@@ -98,7 +98,8 @@ public interface OWLOntologyFactory extends Serializable {
      * @return {@code true} if the factory can load from the specified input
      *         source.
      */
-    boolean canAttemptLoading(@Nonnull OWLOntologyDocumentSource documentSource);
+            boolean
+            canAttemptLoading(@Nonnull OWLOntologyDocumentSource documentSource);
 
     /**
      * An {@code OWLOntologyCreationHandler} gets notified when the factory has

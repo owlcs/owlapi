@@ -134,14 +134,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     private List<Token> tokens;
     private int tokenIndex;
     private OWLEntityChecker owlEntityChecker;
-    private OWLOntologyChecker owlOntologyChecker = new OWLOntologyChecker() {
-
-        @Nullable
-        @Override
-        public OWLOntology getOntology(String name) {
-            return null;
-        }
-    };
+    private OWLOntologyChecker owlOntologyChecker = name -> null;
     @Nonnull
     protected final Set<String> classNames = new HashSet<>();
     @Nonnull

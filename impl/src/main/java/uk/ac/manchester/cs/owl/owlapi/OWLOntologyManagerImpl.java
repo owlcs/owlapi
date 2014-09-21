@@ -827,7 +827,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
                     }
                 }
             }
-        } catch (UnloadableImportException e) {
+        } catch (UnloadableImportException | OWLOntologyCreationException e) {
             ex = e;
             throw e;
         } catch (OWLRuntimeException e) {
@@ -835,9 +835,6 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
                 ex = (OWLOntologyCreationException) e.getCause();
                 throw (OWLOntologyCreationException) e.getCause();
             }
-            throw e;
-        } catch (OWLOntologyCreationException e) {
-            ex = e;
             throw e;
         } finally {
             loadCount.decrementAndGet();

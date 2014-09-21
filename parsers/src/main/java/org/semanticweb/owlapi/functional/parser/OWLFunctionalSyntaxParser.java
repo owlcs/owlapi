@@ -150,8 +150,8 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
     }
 
     @Nonnull
-    final public FunctionalSyntaxDocumentFormat parse() throws ParseException,
-            OWLParserException, UnloadableImportException {
+    final public FunctionalSyntaxDocumentFormat parse()
+            throws OWLParserException, UnloadableImportException {
         label_1: while (true) {
             switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
                 case PREFIX: {
@@ -178,7 +178,7 @@ class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConstants {
         throw new Error("Missing return statement in function");
     }
 
-    final public void Ontology() throws ParseException, OWLParserException,
+    final public void Ontology() throws OWLParserException,
             UnloadableImportException {
         OWLAnnotation anno;
         OWLAxiom ax;

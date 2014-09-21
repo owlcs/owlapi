@@ -57,9 +57,7 @@ public class RDFXMLStorer extends AbstractOWLStorer {
                         new IllegalElementNameException(sb.toString().trim()));
             }
             renderer.render();
-        } catch (IOException e) {
-            throw new OWLOntologyStorageException(e);
-        } catch (IllegalElementNameException e) {
+        } catch (IOException | IllegalElementNameException e) {
             throw new OWLOntologyStorageException(e);
         }
     }

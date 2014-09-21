@@ -52,7 +52,7 @@ import java.util.StringTokenizer;
  */
 class Modifiers {
 
-    private Map<String, Set<String>> modifierNameValuesMap = new LinkedHashMap<>();
+    private final Map<String, Set<String>> modifierNameValuesMap = new LinkedHashMap<>();
 
     public Modifiers() {}
 

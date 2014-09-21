@@ -151,7 +151,7 @@ interface TagValueHandler {
 abstract class AbstractTagValueHandler implements TagValueHandler {
 
     @Nonnull
-    private String tag;
+    private final String tag;
     @Nonnull
     private OBOConsumer consumer;
 

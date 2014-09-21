@@ -65,13 +65,7 @@ public class ManchesterOWLSyntaxEditorParser extends
     public ManchesterOWLSyntaxEditorParser(
             final OWLOntologyLoaderConfiguration configuration,
             @Nonnull OWLDataFactory dataFactory, @Nonnull String s) {
-        super(new Provider<OWLOntologyLoaderConfiguration>() {
-
-            @Override
-            public OWLOntologyLoaderConfiguration get() {
-                return configuration;
-            }
-        }, dataFactory);
+        super(() -> configuration, dataFactory);
         setStringToParse(s);
     }
 

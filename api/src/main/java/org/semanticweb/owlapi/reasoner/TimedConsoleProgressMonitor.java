@@ -38,7 +38,7 @@ public class TimedConsoleProgressMonitor implements ReasonerProgressMonitor,
     @Override
     public void reasonerTaskStopped() {
         System.out.println("    ... finished in "
-                + (System.nanoTime() - beginTime) / 1000000D);
+                + (System.nanoTime() - beginTime) / 1000000.0D);
         lastPercentage = 0;
     }
 

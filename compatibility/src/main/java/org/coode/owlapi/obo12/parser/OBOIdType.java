@@ -61,34 +61,25 @@ enum OBOIdType {
     /**
      * Any string with an http: or https: prefix.
      */
-    URL_AS_ID(Pattern.compile("(http:|https:)[^\\s]*"), new OBOIIdTranslator() {
-
-        @Override
-        public IRI getIRIFromOBOId(OWLOntologyID ontologyID,
-                IDSpaceManager idSpaceManager, String id) {
-            return IRI.create(id);
-        }
-    }),
+    URL_AS_ID(Pattern.compile("(http:|https:)[^\\s]*"), (ontologyID,
+            idSpaceManager, id) -> IRI.create(id)),
     /**
      * Any unprefixed ID. Does not contain a colon character. The spec implies
      * the empty string matches this ID.
      */
-    UNPREFIXED_ID(Pattern.compile("[^\\s:]*"), new OBOIIdTranslator() {
-
-        @Override
-        public IRI getIRIFromOBOId(OWLOntologyID ontologyID,
-                IDSpaceManager idSpaceManager, String id) {
-            StringBuilder sb = new StringBuilder();
-            if (!ontologyID.isAnonymous()) {
-                sb.append(ontologyID.getOntologyIRI());
-            } else {
-                sb.append("anonymous");
-            }
-            sb.append("#");
-            sb.append(id);
-            return IRI.create(sb.toString());
-        }
-    }),
+    UNPREFIXED_ID(
+            Pattern.compile("[^\\s:]*"),
+            (ontologyID, idSpaceManager, id) -> {
+                StringBuilder sb = new StringBuilder();
+                if (!ontologyID.isAnonymous()) {
+                    sb.append(ontologyID.getOntologyIRI());
+                } else {
+                    sb.append("anonymous");
+                }
+                sb.append("#");
+                sb.append(id);
+                return IRI.create(sb.toString());
+            }),
     /**
      * Must contain a colon character in the ID. The idspace must only consist
      * of Alpha-Chars and possibly an underscore. The local id must only consist

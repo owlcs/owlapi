@@ -275,9 +275,9 @@ public enum OBOVocabulary {
     }
 
     @Nonnull
-    private String name;
+    private final String name;
     @Nonnull
-    private IRI iri;
+    private final IRI iri;
 
     @Nonnull
     public String getName() {

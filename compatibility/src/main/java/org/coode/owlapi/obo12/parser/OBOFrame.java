@@ -51,7 +51,7 @@ import java.util.List;
 class OBOFrame {
 
     private String frameType;
-    private List<OBOTagValuePair> tagValuePairs;
+    private final List<OBOTagValuePair> tagValuePairs;
 
     public OBOFrame(List<OBOTagValuePair> tagValuePairs) {
         this.tagValuePairs = tagValuePairs;

@@ -172,33 +172,15 @@ public class TripleHandlers {
         }
 
         public void consumeNonReservedPredicateTriples() {
-            consumer.iterateResourceTriples(new ResourceTripleIterator() {
-
-                @Override
-                public void handleResourceTriple(IRI subject,
-                        @Nonnull IRI predicate, IRI object) {
-                    apply(subject, predicate, object);
-                }
-            });
-            consumer.iterateLiteralTriples(new LiteralTripleIterator() {
-
-                @Override
-                public void handleLiteralTriple(IRI subject,
-                        @Nonnull IRI predicate, OWLLiteral object) {
-                    apply(subject, predicate, object);
-                }
-            });
+            consumer.iterateResourceTriples((subject, predicate, object) -> apply(
+                    subject, predicate, object));
+            consumer.iterateLiteralTriples((subject, predicate, object) -> apply(
+                    subject, predicate, object));
         }
 
         public void consumeAnnotatedAxioms() {
-            consumer.iterateResourceTriples(new ResourceTripleIterator() {
-
-                @Override
-                public void handleResourceTriple(IRI subject, IRI predicate,
-                        IRI object) {
-                    applyAnnotations(subject, predicate, object);
-                }
-            });
+            consumer.iterateResourceTriples((subject, predicate, object) -> applyAnnotations(
+                    subject, predicate, object));
         }
 
         /**
@@ -357,50 +339,27 @@ public class TripleHandlers {
             // property ranges, then go for triples whose predicates are not
             // system/reserved vocabulary IRIs to translate these into ABox
             // assertions or annotationIRIs
-            consumer.iterateResourceTriples(new ResourceTripleIterator() {
-
-                @Override
-                public void handleResourceTriple(@Nonnull IRI subject,
-                        @Nonnull IRI predicate, @Nonnull IRI object) {
-                    TriplePredicateHandler propertyRangeHandler = predicates
-                            .get(RDFS_RANGE.getIRI());
-                    if (propertyRangeHandler.canHandle(subject, predicate,
-                            object)) {
-                        propertyRangeHandler.handleTriple(subject, predicate,
-                                object);
-                    }
+            consumer.iterateResourceTriples((subject, predicate, object) -> {
+                TriplePredicateHandler propertyRangeHandler = predicates
+                        .get(RDFS_RANGE.getIRI());
+                if (propertyRangeHandler.canHandle(subject, predicate, object)) {
+                    propertyRangeHandler.handleTriple(subject, predicate,
+                            object);
                 }
             });
             // Now handle non-reserved predicate triples
             consumeNonReservedPredicateTriples();
             // Now axiom annotations
             consumeAnnotatedAxioms();
-            consumer.iterateResourceTriples(new ResourceTripleIterator() {
-
-                @Override
-                public void handleResourceTriple(@Nonnull IRI subject,
-                        @Nonnull IRI predicate, IRI object) {
-                    handle(subject, predicate, object);
-                }
-            });
-            consumer.iterateLiteralTriples(new LiteralTripleIterator() {
-
-                @Override
-                public void handleLiteralTriple(IRI subject, IRI predicate,
-                        OWLLiteral object) {
-                    handle(subject, predicate, object);
-                }
-            });
+            consumer.iterateResourceTriples((subject, predicate, object) -> handle(
+                    subject, predicate, object));
+            consumer.iterateLiteralTriples((subject, predicate, object) -> handle(
+                    subject, predicate, object));
             // Inverse property axioms
             inverseOf.setAxiomParsingMode(true);
-            consumer.iterateResourceTriples(new ResourceTripleIterator() {
-
-                @Override
-                public void handleResourceTriple(IRI subject,
-                        @Nonnull IRI predicate, IRI object) {
-                    if (inverseOf.canHandle(subject, predicate, object)) {
-                        inverseOf.handleTriple(subject, predicate, object);
-                    }
+            consumer.iterateResourceTriples((subject, predicate, object) -> {
+                if (inverseOf.canHandle(subject, predicate, object)) {
+                    inverseOf.handleTriple(subject, predicate, object);
                 }
             });
             return getRemainingTriples();
@@ -409,25 +368,13 @@ public class TripleHandlers {
         @Nonnull
         private Set<RDFTriple> getRemainingTriples() {
             final Set<RDFTriple> remainingTriples = new HashSet<>();
-            consumer.iterateResourceTriples(new ResourceTripleIterator() {
-
-                @Override
-                public void handleResourceTriple(IRI subject, IRI predicate,
-                        IRI object) {
-                    remainingTriples.add(new RDFTriple(subject, consumer
+            consumer.iterateResourceTriples((subject, predicate, object) -> remainingTriples
+                    .add(new RDFTriple(subject, consumer
                             .isAnonymousNode(subject), predicate, object,
-                            consumer.isAnonymousNode(object)));
-                }
-            });
-            consumer.iterateLiteralTriples(new LiteralTripleIterator() {
-
-                @Override
-                public void handleLiteralTriple(@Nonnull IRI subject,
-                        @Nonnull IRI predicate, @Nonnull OWLLiteral object) {
-                    remainingTriples.add(new RDFTriple(subject, consumer
-                            .isAnonymousNode(subject), predicate, object));
-                }
-            });
+                            consumer.isAnonymousNode(object))));
+            consumer.iterateLiteralTriples((subject, predicate, object) -> remainingTriples
+                    .add(new RDFTriple(subject, consumer
+                            .isAnonymousNode(subject), predicate, object)));
             return remainingTriples;
         }
 

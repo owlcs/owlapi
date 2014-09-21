@@ -53,7 +53,7 @@ public interface Tree<N> {
      */
     @Nonnull
     List<Tree<N>> getChildren();
-    
+
     /**
      * @param child
      *        the child to use

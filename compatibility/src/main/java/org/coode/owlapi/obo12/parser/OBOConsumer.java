@@ -89,10 +89,10 @@ class OBOConsumer implements OBOParserHandler {
             .getName());
     private static final String IMPORT_TAG_NAME = "import";
     @Nonnull
-    private OWLOntologyLoaderConfiguration configuration;
-    private OWLOntologyManager owlOntologyManager;
+    private final OWLOntologyLoaderConfiguration configuration;
+    private final OWLOntologyManager owlOntologyManager;
     @Nonnull
-    private OWLOntology ontology;
+    private final OWLOntology ontology;
     private boolean inHeader;
     private String currentId;
     private Map<String, TagValueHandler> handlerMap;
@@ -103,13 +103,13 @@ class OBOConsumer implements OBOParserHandler {
     private boolean typedefType;
     private boolean instanceType;
     @Nonnull
-    private Set<OWLClassExpression> intersectionOfOperands;
+    private final Set<OWLClassExpression> intersectionOfOperands;
     @Nonnull
     private final Set<OWLClassExpression> unionOfOperands = new HashSet<>();
     private Map<String, IRI> uriCache = new HashMap<>();
-    private Map<String, IRI> symbolicIdCache = new HashMap<>();
-    private Map<String, IRI> tagIRICache = new HashMap<>();
-    private IDSpaceManager idSpaceManager = new IDSpaceManager();
+    private final Map<String, IRI> symbolicIdCache = new HashMap<>();
+    private final Map<String, IRI> tagIRICache = new HashMap<>();
+    private final IDSpaceManager idSpaceManager = new IDSpaceManager();
     private String ontologyTagValue = "";
     private String dataVersionTagValue = "";
 

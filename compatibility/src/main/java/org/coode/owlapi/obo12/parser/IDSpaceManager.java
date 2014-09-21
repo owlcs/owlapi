@@ -60,7 +60,7 @@ import java.util.Map;
  */
 class IDSpaceManager {
 
-    private Map<String, String> idPrefix2IRIPrefixMap = new HashMap<>();
+    private final Map<String, String> idPrefix2IRIPrefixMap = new HashMap<>();
 
     /**
      * 
