@@ -169,7 +169,6 @@ public class ParsersStorersTestCase extends TestBase {
 
     @Test
     public void testTurtle() throws Exception {
-        // XXX at some point roundtripping should be supported
         test(new TurtleStorerFactory(), new TurtleOntologyParserFactory(),
                 new TurtleDocumentFormat(), true, true);
     }

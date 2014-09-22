@@ -907,7 +907,6 @@ public class TutorialSnippetsTestCase {
         for (OWLClass cl : o.getClassesInSignature()) {
             if (!reasoner.isSatisfiable(cl)) {
                 assertNotNull(labelFor(cl, o));
-                // System.out.println("XXX: " + labelFor(cl, o));
             }
         }
         reasoner.dispose();

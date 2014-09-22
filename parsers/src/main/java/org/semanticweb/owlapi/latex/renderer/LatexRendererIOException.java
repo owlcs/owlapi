@@ -19,7 +19,6 @@ import java.io.IOException;
  *         Informatics Group
  * @since 2.0.0
  */
-// XXX do we need these exceptions?
 public class LatexRendererIOException extends LatexRendererException {
 
     private static final long serialVersionUID = 40000L;

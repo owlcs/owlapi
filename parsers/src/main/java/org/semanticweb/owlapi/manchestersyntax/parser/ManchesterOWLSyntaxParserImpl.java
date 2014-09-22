@@ -936,7 +936,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
             }
             if (tok.endsWith("f") || tok.endsWith("F")) {
                 try {
-                    // XXX this extra F might qualify as Float a Double INF/-INF
+                    // this extra F might qualify as Float a Double INF/-INF
                     float f = Float.parseFloat(tok.replace("INF", "Infinity")
                             .replace("inf", "Infinity"));
                     return dataFactory.getOWLLiteral(asFloat(f),

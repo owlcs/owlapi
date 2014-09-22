@@ -87,7 +87,6 @@ public abstract class CachingBidirectionalShortFormProvider implements
         entity2ShortFormMap.put(entity, shortForm);
         Set<OWLEntity> entities = shortForm2EntityMap.get(shortForm);
         if (entities == null) {
-            // XXX what's the use of size 1? How likely it is to grow large?
             entities = new HashSet<>(1);
         }
         entities.add(entity);

@@ -930,15 +930,8 @@ public class OBOFormatParser {
 
     private boolean parseISODate(@Nonnull Clause cl) {
         String dateStr = getParseUntil(" !{");
-        // Date date;
-        // try {
-        // date = isoDateFormat.parse(dateStr);
         cl.setValue(dateStr);
         return true;
-        /*
-         * } catch (ParseException e) { // TODO Auto-generated catch block
-         * e.printStackTrace(); return false; }
-         */
     }
 
     private void parseSubsetdef(@Nonnull Clause cl) {
@@ -965,8 +958,8 @@ public class OBOFormatParser {
             // and no scope
             if (stream.peekCharIs(' ')) {
                 parseOneOrMoreWs();
-                parseIdRef(cl, true); // TODO - verify that this is a valid
-                                      // scope
+                parseIdRef(cl, true);
+                // TODO - verify that this is a valid scope
             }
         }
         parseZeroOrMoreWs();
@@ -1489,7 +1482,6 @@ public class OBOFormatParser {
     }
 
     private static String removeTrailingWS(@Nonnull String s) {
-        // TODO make this more efficient
         return s.replaceAll("\\s*$", "");
     }
 

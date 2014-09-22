@@ -27,8 +27,6 @@ import javax.inject.Provider;
  * injector used for binding, or set directly on the manager after, or in place
  * of, injection.
  */
-// XXX this could be replaced with an annotation for priority and a @Provides
-// method
 public interface OWLStorerFactory extends Serializable, Provider<OWLStorer> {
 
     /**

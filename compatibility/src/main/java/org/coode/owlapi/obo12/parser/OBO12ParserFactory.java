@@ -83,7 +83,6 @@ public class OBO12ParserFactory implements OWLParserFactory {
 
     @Override
     public OWLDocumentFormatFactory getSupportedFormat() {
-        // TODO Auto-generated method stub
         return new OBO12DocumentFormatFactory();
     }
 }

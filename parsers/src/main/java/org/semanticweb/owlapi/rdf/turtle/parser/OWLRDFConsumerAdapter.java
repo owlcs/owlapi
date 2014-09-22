@@ -54,7 +54,6 @@ public class OWLRDFConsumerAdapter extends OWLRDFConsumer implements
     @Override
     public void handleTriple(@Nonnull IRI subject, @Nonnull IRI predicate,
             @Nonnull IRI object) {
-        // XXX inefficient?
         statementWithResourceValue(subject, predicate, object);
     }
 

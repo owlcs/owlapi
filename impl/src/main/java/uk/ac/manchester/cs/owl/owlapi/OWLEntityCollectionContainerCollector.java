@@ -80,7 +80,6 @@ public class OWLEntityCollectionContainerCollector extends
      * @param toReturn
      *        the set that will contain the results
      */
-    // XXX not in the interface
     public void reset(Set<OWLEntity> toReturn) {
         objects = toReturn;
         if (anonymousIndividuals != null) {
@@ -92,7 +91,6 @@ public class OWLEntityCollectionContainerCollector extends
      * @param collectClasses
      *        true to collect classes
      */
-    // XXX not in the interface
     public void setCollectClasses(boolean collectClasses) {
         this.collectClasses = collectClasses;
     }
@@ -101,7 +99,6 @@ public class OWLEntityCollectionContainerCollector extends
      * @param collectObjectProperties
      *        true to collect object properties
      */
-    // XXX not in the interface
     public void setCollectObjectProperties(boolean collectObjectProperties) {
         this.collectObjectProperties = collectObjectProperties;
     }
@@ -118,7 +115,6 @@ public class OWLEntityCollectionContainerCollector extends
      * @param collectIndividuals
      *        true to collect individuals
      */
-    // XXX not in the interface
     public void setCollectIndividuals(boolean collectIndividuals) {
         this.collectIndividuals = collectIndividuals;
     }
@@ -127,7 +123,6 @@ public class OWLEntityCollectionContainerCollector extends
      * @param collectDatatypes
      *        true to collect datatypes
      */
-    // XXX not in the interface
     public void setCollectDatatypes(boolean collectDatatypes) {
         this.collectDatatypes = collectDatatypes;
     }
