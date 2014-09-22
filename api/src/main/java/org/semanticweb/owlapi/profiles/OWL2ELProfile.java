@@ -56,7 +56,6 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
@@ -110,7 +109,7 @@ public class OWL2ELProfile implements OWLProfile {
         OWLOntologyProfileWalker ontologyWalker = new OWLOntologyProfileWalker(
                 ontology.getImportsClosure());
         OWL2ELProfileObjectVisitor visitor = new OWL2ELProfileObjectVisitor(
-                ontologyWalker, ontology.getOWLOntologyManager());
+                ontologyWalker);
         ontologyWalker.walkStructure(visitor);
         violations.addAll(visitor.getProfileViolations());
         return new OWLProfileReport(this, violations);
@@ -118,16 +117,12 @@ public class OWL2ELProfile implements OWLProfile {
 
     protected class OWL2ELProfileObjectVisitor extends OWLOntologyWalkerVisitor {
 
-        @Nonnull
-        private final OWLOntologyManager man;
         private OWLObjectPropertyManager propertyManager;
         @Nonnull
         private final Set<OWLProfileViolation> profileViolations = new HashSet<>();
 
-        public OWL2ELProfileObjectVisitor(@Nonnull OWLOntologyWalker walker,
-                @Nonnull OWLOntologyManager man) {
+        public OWL2ELProfileObjectVisitor(@Nonnull OWLOntologyWalker walker) {
             super(walker);
-            this.man = man;
         }
 
         public Set<OWLProfileViolation> getProfileViolations() {
@@ -136,7 +131,7 @@ public class OWL2ELProfile implements OWLProfile {
 
         private OWLObjectPropertyManager getPropertyManager() {
             if (propertyManager == null) {
-                propertyManager = new OWLObjectPropertyManager(man,
+                propertyManager = new OWLObjectPropertyManager(
                         getCurrentOntology());
             }
             return propertyManager;

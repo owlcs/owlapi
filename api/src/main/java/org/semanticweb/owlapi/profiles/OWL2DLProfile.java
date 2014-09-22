@@ -57,7 +57,6 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyID;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
 import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
@@ -142,7 +141,7 @@ public class OWL2DLProfile implements OWLProfile {
         OWLOntologyProfileWalker walker = new OWLOntologyProfileWalker(
                 ontology.getImportsClosure());
         OWL2DLProfileObjectVisitor visitor = new OWL2DLProfileObjectVisitor(
-                walker, ontology.getOWLOntologyManager());
+                walker);
         walker.walkStructure(visitor);
         violations.addAll(visitor.getProfileViolations());
         return new OWLProfileReport(this, violations);
@@ -153,14 +152,10 @@ public class OWL2DLProfile implements OWLProfile {
 
         private OWLObjectPropertyManager objectPropertyManager = null;
         @Nonnull
-        private final OWLOntologyManager manager;
-        @Nonnull
         private final Set<OWLProfileViolation> profileViolations = new HashSet<>();
 
-        OWL2DLProfileObjectVisitor(@Nonnull OWLOntologyWalker walker,
-                @Nonnull OWLOntologyManager manager) {
+        OWL2DLProfileObjectVisitor(@Nonnull OWLOntologyWalker walker) {
             super(walker);
-            this.manager = manager;
         }
 
         public Set<OWLProfileViolation> getProfileViolations() {
@@ -169,7 +164,7 @@ public class OWL2DLProfile implements OWLProfile {
 
         private OWLObjectPropertyManager getPropertyManager() {
             if (objectPropertyManager == null) {
-                objectPropertyManager = new OWLObjectPropertyManager(manager,
+                objectPropertyManager = new OWLObjectPropertyManager(
                         getCurrentOntology());
             }
             return objectPropertyManager;

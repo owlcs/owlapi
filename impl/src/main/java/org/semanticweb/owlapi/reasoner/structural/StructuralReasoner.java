@@ -1506,8 +1506,7 @@ public class StructuralReasoner extends OWLReasonerBase {
         }
 
         public final void rebuild() {
-            propertyManager = new OWLObjectPropertyManager(getRootOntology()
-                    .getOWLOntologyManager(), getRootOntology());
+            propertyManager = new OWLObjectPropertyManager(getRootOntology());
             sub2Super = propertyManager.getPropertyHierarchy();
             super2Sub = new HashMap<>();
             for (OWLObjectPropertyExpression sub : sub2Super.keySet()) {

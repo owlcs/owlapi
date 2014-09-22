@@ -130,8 +130,7 @@ public class ForbiddenVocabularyTestCase extends TestBase {
         OWLSubPropertyChainOfAxiom brokenAxiom2 = df
                 .getOWLSubPropertyChainOfAxiom(Arrays.asList(child, uncle),
                         brother);
-        OWLObjectPropertyManager manager = new OWLObjectPropertyManager(
-                o.getOWLOntologyManager(), o);
+        OWLObjectPropertyManager manager = new OWLObjectPropertyManager(o);
         o.getOWLOntologyManager().addAxiom(o, brokenAxiom1);
         o.getOWLOntologyManager().addAxiom(o, brokenAxiom2);
         assertTrue(manager.isLessThan(brother, uncle));
@@ -168,8 +167,7 @@ public class ForbiddenVocabularyTestCase extends TestBase {
         OWLSubPropertyChainOfAxiom brokenAxiom1 = df
                 .getOWLSubPropertyChainOfAxiom(
                         CollectionFactory.list(father, brother), uncle);
-        OWLObjectPropertyManager manager = new OWLObjectPropertyManager(
-                o.getOWLOntologyManager(), o);
+        OWLObjectPropertyManager manager = new OWLObjectPropertyManager(o);
         o.getOWLOntologyManager().addAxiom(o, brokenAxiom1);
         assertTrue(manager.isLessThan(brother, uncle));
         OWL2DLProfile profile = new OWL2DLProfile();

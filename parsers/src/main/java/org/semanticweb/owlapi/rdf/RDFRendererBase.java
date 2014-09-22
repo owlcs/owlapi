@@ -69,7 +69,7 @@ import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.rdf.model.RDFGraph;
 import org.semanticweb.owlapi.rdf.model.RDFTranslator;
 import org.semanticweb.owlapi.search.Filters;
-import org.semanticweb.owlapi.util.AxiomSubjectProvider;
+import org.semanticweb.owlapi.util.AxiomSubjectProviderEx;
 import org.semanticweb.owlapi.util.SWRLVariableExtractor;
 
 import com.google.common.base.Optional;
@@ -386,7 +386,7 @@ public abstract class RDFRendererBase {
             Set<OWLAxiom> axioms = new HashSet<>();
             for (OWLAxiom ax : ontology.getReferencingAxioms(anonInd, EXCLUDED)) {
                 if (!(ax instanceof OWLDifferentIndividualsAxiom)) {
-                    OWLObject obj = AxiomSubjectProvider.getSubject(ax);
+                    OWLObject obj = AxiomSubjectProviderEx.getSubject(ax);
                     if (!obj.equals(anonInd)) {
                         anonRoot = false;
                         break;

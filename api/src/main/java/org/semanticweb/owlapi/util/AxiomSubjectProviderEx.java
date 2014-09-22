@@ -71,13 +71,15 @@ import org.semanticweb.owlapi.model.SWRLRule;
  */
 public class AxiomSubjectProviderEx implements OWLAxiomVisitorEx<OWLObject> {
 
+    private static final AxiomSubjectProviderEx visitor = new AxiomSubjectProviderEx();
+
     /**
      * @param axiom
      *        the axiom to visit
      * @return the subject
      */
-    public OWLObject getSubject(@Nonnull OWLAxiom axiom) {
-        return checkNotNull(axiom, "axiom cannot be null").accept(this);
+    public static OWLObject getSubject(@Nonnull OWLAxiom axiom) {
+        return checkNotNull(axiom, "axiom cannot be null").accept(visitor);
     }
 
     @Override
