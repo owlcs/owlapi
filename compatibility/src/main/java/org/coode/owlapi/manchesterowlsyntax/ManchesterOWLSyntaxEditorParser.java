@@ -21,8 +21,6 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 
-import com.google.inject.Provider;
-
 /**
  * A parser for the Manchester OWL Syntax. All properties must be defined before
  * they are used. For example, consider the restriction hasPart some Leg. The

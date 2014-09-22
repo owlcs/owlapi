@@ -837,8 +837,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
             }
             throw e;
         } finally {
-            loadCount.decrementAndGet();
-            if (loadCount.get() == 0) {
+            if (loadCount.decrementAndGet() == 0) {
                 broadcastChanges.set(true);
                 // Completed loading ontology and imports
             }

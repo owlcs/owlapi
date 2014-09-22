@@ -39,8 +39,8 @@
 package org.coode.owlapi.obo12.parser;
 
 import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormatImpl;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
 /**
  * Author: Matthew Horridge<br>
@@ -50,7 +50,7 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
  * <br>
  */
 public class OBO12DocumentFormat extends OWLDocumentFormatImpl implements
-        OWLOntologyFormat {
+        OWLDocumentFormat {
 
     private static final long serialVersionUID = 30406L;
     private IDSpaceManager idSpaceManager = new IDSpaceManager();

@@ -31,7 +31,6 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.inject.Inject;
 
 import org.semanticweb.owlapi.expression.OWLEntityChecker;

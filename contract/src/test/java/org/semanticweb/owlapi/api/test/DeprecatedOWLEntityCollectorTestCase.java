@@ -190,6 +190,7 @@ public class DeprecatedOWLEntityCollectorTestCase extends TestBase {
         return toReturn;
     }
 
+    @SuppressWarnings("deprecation")
     @Test
     public void testAssertion() {
         DeprecatedOWLEntityCollector testsubject = new DeprecatedOWLEntityCollector();
