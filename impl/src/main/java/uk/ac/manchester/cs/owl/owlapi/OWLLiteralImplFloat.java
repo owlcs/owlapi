@@ -192,7 +192,11 @@ public class OWLLiteralImplFloat extends OWLObjectImpl implements OWLLiteral {
         if (diff != 0) {
             return diff;
         }
-        return datatype.compareTo(other.getDatatype());
+        int compareTo = datatype.compareTo(other.getDatatype());
+        if (compareTo != 0) {
+            return compareTo;
+        }
+        return Float.compare(literal, other.parseFloat());
     }
 
     @Override

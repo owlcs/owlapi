@@ -192,7 +192,11 @@ public class OWLLiteralImplDouble extends OWLObjectImpl implements OWLLiteral {
         if (diff != 0) {
             return diff;
         }
-        return datatype.compareTo(other.getDatatype());
+        int compareTo = datatype.compareTo(other.getDatatype());
+        if (compareTo != 0) {
+            return compareTo;
+        }
+        return Double.compare(literal, other.parseDouble());
     }
 
     @Override
