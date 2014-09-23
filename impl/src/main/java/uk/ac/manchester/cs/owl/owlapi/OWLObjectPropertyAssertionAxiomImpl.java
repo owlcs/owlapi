@@ -117,8 +117,8 @@ public class OWLObjectPropertyAssertionAxiomImpl
         } else {
             OWLObjectInverseOf property = (OWLObjectInverseOf) getProperty();
             OWLObjectPropertyExpression invProp = property.getInverse();
-            return new OWLObjectPropertyAssertionAxiomImpl(getSubject(),
-                    invProp, getObject(), NO_ANNOTATIONS);
+            return new OWLObjectPropertyAssertionAxiomImpl(getObject(),
+                    invProp, getSubject(), NO_ANNOTATIONS);
         }
     }
 

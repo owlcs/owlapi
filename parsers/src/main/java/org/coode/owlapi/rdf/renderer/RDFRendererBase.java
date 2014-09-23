@@ -80,9 +80,9 @@ import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLNamedObject;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyID;
@@ -94,8 +94,8 @@ import org.semanticweb.owlapi.util.AxiomSubjectProvider;
 import org.semanticweb.owlapi.util.SWRLVariableExtractor;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Jan-2008
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 26-Jan-2008
  */
 public abstract class RDFRendererBase {
 
@@ -274,7 +274,7 @@ public abstract class RDFRendererBase {
     protected abstract void writeIndividualComments(OWLNamedIndividual ind)
             throws IOException;
 
-    private Map<IRI,Integer> punCounts =  new HashMap<IRI, Integer>();
+    private Map<IRI, Integer> punCounts = new HashMap<IRI, Integer>();
 
     private void findPuns() {
         incrementPunCounts(ontology.getClassesInSignature());
@@ -284,13 +284,14 @@ public abstract class RDFRendererBase {
         incrementPunCounts(ontology.getDatatypesInSignature());
         incrementPunCounts(ontology.getAnnotationPropertiesInSignature());
     }
+
     private boolean isPunned(HasIRI namedThing) {
         return isPunned(namedThing.getIRI());
     }
 
     private boolean isPunned(IRI iri) {
         Integer punCount = punCounts.get(iri);
-        if(punCount == null || punCount ==1) {
+        if (punCount == null || punCount == 1) {
             return false;
         } else {
             return true;
@@ -302,7 +303,7 @@ public abstract class RDFRendererBase {
             IRI iri = entity.getIRI();
             Integer oldBoxed = punCounts.get(iri);
             int old = oldBoxed != null ? oldBoxed : 0;
-            punCounts.put(iri,old+1);
+            punCounts.put(iri, old + 1);
         }
     }
 
@@ -310,8 +311,6 @@ public abstract class RDFRendererBase {
      * @throws IOException
      *         io error
      */
-
-
     public void render() throws IOException {
         findPuns();
         beginDocument();
@@ -632,8 +631,8 @@ public abstract class RDFRendererBase {
     private boolean createGraph(OWLEntity entity) {
         final Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         // Don't write out duplicates for punned annotations!
-        if(!isPunned(entity)) {
-       // if (!isIndividualAndClass(entity)) {
+        if (!isPunned(entity)) {
+            // if (!isIndividualAndClass(entity)) {
             axioms.addAll(entity.getAnnotationAssertionAxioms(ontology));
         }
         axioms.addAll(ontology.getDeclarationAxioms(entity));
@@ -670,6 +669,20 @@ public abstract class RDFRendererBase {
                         continue;
                     }
                     axioms.add(ax);
+                }   // for object property assertion axioms where the property is
+                // anonymous and the individual is the object, the renderer will
+                // save the simplified version of the axiom.
+                // As they will have subject and object inverted, we need to
+                // collect them here, otherwise the triple will not be included
+                // because the subject will not match
+                for (OWLAxiom ax : ontology.getReferencingAxioms(individual)) {
+                    if (ax instanceof OWLObjectPropertyAssertionAxiom) {
+                        OWLObjectPropertyAssertionAxiom candidate = (OWLObjectPropertyAssertionAxiom) ax;
+                        if (candidate.getProperty().isAnonymous()
+                                && candidate.getObject().equals(individual)) {
+                            axioms.add(candidate);
+                        }
+                    }
                 }
             }
 
