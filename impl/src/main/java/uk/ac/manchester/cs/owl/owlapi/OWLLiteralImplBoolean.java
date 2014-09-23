@@ -50,8 +50,8 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 26-Oct-2006
  */
 public class OWLLiteralImplBoolean extends OWLObjectImpl implements OWLLiteral {
 
@@ -200,7 +200,11 @@ public class OWLLiteralImplBoolean extends OWLObjectImpl implements OWLLiteral {
         if (diff != 0) {
             return diff;
         }
-        return datatype.compareTo(other.getDatatype());
+        int compareTo = datatype.compareTo(other.getDatatype());
+        if (compareTo != 0) {
+            return compareTo;
+        }
+        return Boolean.compare(literal, other.parseBoolean());
     }
 
     @Override
