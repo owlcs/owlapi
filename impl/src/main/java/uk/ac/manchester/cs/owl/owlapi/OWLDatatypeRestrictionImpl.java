@@ -40,6 +40,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 import org.semanticweb.owlapi.model.DataRangeType;
 import org.semanticweb.owlapi.model.OWLDataRangeVisitor;
@@ -76,7 +77,7 @@ public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements
             Set<OWLFacetRestriction> facetRestrictions) {
         super();
         this.datatype = datatype;
-        this.facetRestrictions = new HashSet<OWLFacetRestriction>(
+        this.facetRestrictions = new TreeSet<OWLFacetRestriction>(
                 facetRestrictions);
     }
 
