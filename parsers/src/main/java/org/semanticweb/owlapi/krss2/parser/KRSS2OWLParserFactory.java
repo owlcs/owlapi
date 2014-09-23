@@ -46,7 +46,7 @@ import org.semanticweb.owlapi.io.OWLParserFactoryImpl;
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0
  */
-@HasPriority(6)
+@HasPriority(16)
 public class KRSS2OWLParserFactory extends OWLParserFactoryImpl {
 
     private static final long serialVersionUID = 40000L;

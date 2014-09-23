@@ -129,6 +129,23 @@ public class TurtleTestCase extends TestBase {
     }
 
     @Test
+    public void shouldParseQuotedTripleQuotes()
+            throws OWLOntologyCreationException {
+        // given
+        String literal = "Diadenosine 5',5'''-P1,P4-tetraphosphate phosphorylase";
+        String working = "@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .\n "
+                + "@prefix foaf:    <http://xmlns.com/foaf/0.1/> .\n foaf:fundedBy "
+                + "rdfs:label \"\"\"" + literal + "\"\"\"@en .";
+        OWLAxiom expected = AnnotationAssertion(df.getRDFSLabel(),
+                IRI("http://xmlns.com/foaf/0.1/fundedBy"),
+                Literal(literal, "en"));
+        // when
+        OWLOntology o = loadOntologyFromString(working);
+        // then
+        assertEquals(expected, o.getAxioms().iterator().next());
+    }
+
+    @Test
     public void shouldParseOntologyThatBroke()
             throws OWLOntologyCreationException {
         // given
@@ -177,6 +194,7 @@ public class TurtleTestCase extends TestBase {
         assertTrue(ontology.containsAxiom(AnnotationAssertion(p, i,
                 Literal("1.0E7", OWL2Datatype.XSD_DOUBLE))));
     }
+
     @Test
     public void shouldParseScientificNotationWithMinus()
             throws OWLOntologyCreationException {
