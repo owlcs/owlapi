@@ -42,6 +42,7 @@ import static org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntax.*;
 
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -134,7 +135,8 @@ public class ManchesterOWLSyntaxFrameRenderer extends
     /**
      * The filtered axiom types.
      */
-    private Set<AxiomType<?>> filteredAxiomTypes = new HashSet<AxiomType<?>>();
+    private Set<AxiomType<?>> filteredAxiomTypes = new HashSet<AxiomType<?>>(
+            Arrays.asList(AxiomType.SWRL_RULE));
     /**
      * The render extensions.
      */

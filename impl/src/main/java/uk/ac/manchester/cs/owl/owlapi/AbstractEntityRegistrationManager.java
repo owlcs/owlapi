@@ -656,10 +656,12 @@ public abstract class AbstractEntityRegistrationManager implements
     @Override
     public void visit(SWRLDifferentIndividualsAtom node) {
         node.getFirstArgument().accept(this);
+        node.getSecondArgument().accept(this);
     }
 
     @Override
     public void visit(SWRLSameIndividualAtom node) {
+        node.getFirstArgument().accept(this);
         node.getSecondArgument().accept(this);
     }
 }
