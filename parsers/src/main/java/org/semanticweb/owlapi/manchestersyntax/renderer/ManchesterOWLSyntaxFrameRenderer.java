@@ -93,7 +93,6 @@ import org.semanticweb.owlapi.util.OntologyIRIShortFormProvider;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 
 import com.google.common.base.Optional;
-import com.google.common.collect.Sets;
 
 /**
  * The Class ManchesterOWLSyntaxFrameRenderer.
@@ -171,8 +170,14 @@ public class ManchesterOWLSyntaxFrameRenderer extends
     private OntologyIRIShortFormProvider shortFormProvider = new OntologyIRIShortFormProvider();
     /** The filtered axiom types. */
     @Nonnull
-    private final Set<AxiomType<?>> filteredAxiomTypes = Sets
-            .newHashSet(AxiomType.SWRL_RULE);
+    private final Set<AxiomType<?>> filteredAxiomTypes = filtered();
+
+    private static Set<AxiomType<?>> filtered() {
+        Set<AxiomType<?>> set = new HashSet<>();
+        set.add(AxiomType.SWRL_RULE);
+        return set;
+    }
+
     /** The render extensions. */
     private boolean renderExtensions = false;
     /** The listeners. */
