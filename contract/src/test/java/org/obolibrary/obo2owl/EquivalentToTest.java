@@ -21,6 +21,7 @@ import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 import org.obolibrary.oboformat.parser.OBOFormatParser;
 import org.obolibrary.oboformat.writer.OBOFormatWriter;
 import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.formats.OBODocumentFormat;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -29,7 +30,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * @author cjm see 5.9.3 and 8.2.2 of spec See
  *         http://code.google.com/p/oboformat/issues/detail?id=13
  */
-@SuppressWarnings({ "javadoc", "null" })
+@SuppressWarnings({ "javadoc" })
 public class EquivalentToTest extends OboFormatTestBasics {
 
     @Test
@@ -50,7 +51,7 @@ public class EquivalentToTest extends OboFormatTestBasics {
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         OutputStreamWriter osw = new OutputStreamWriter(os, "UTF-8");
         BufferedWriter bw = new BufferedWriter(osw);
-        w.write(obodoc, bw);
+        w.write(obodoc, bw, new OBODocumentFormat());
         bw.close();
         OBOFormatParser p = new OBOFormatParser();
         obodoc = p.parse(new BufferedReader(new InputStreamReader(

@@ -38,10 +38,12 @@ import org.obolibrary.oboformat.parser.OBOFormatConstants;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 import org.obolibrary.oboformat.parser.OBOFormatParser;
 import org.obolibrary.oboformat.parser.OBOFormatParserException;
+import org.semanticweb.owlapi.formats.OBODocumentFormat;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationSubject;
 import org.semanticweb.owlapi.model.OWLAnnotationValue;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.parameters.Imports;
@@ -103,20 +105,21 @@ public class OBOFormatWriter {
      *        the file name to read in
      * @param writer
      *        the writer
-     * @throws IOException
+     * @param format format with 
+     *        validation parameter. Either Boolean.TRUE or Boolean.FALSE. @throws IOException
      *         Signals that an I/O exception has occurred.
      * @throws OBOFormatParserException
      *         the oBO format parser exception
      */
-    public void write(@Nonnull String fn, @Nonnull BufferedWriter writer)
-            throws IOException {
+    public void write(@Nonnull String fn, @Nonnull BufferedWriter writer,
+            OWLDocumentFormat format) throws IOException {
         if (fn.startsWith("http:")) {
-            write(new URL(fn), writer);
+            write(new URL(fn), writer, format);
         } else {
             BufferedReader reader = new BufferedReader(new FileReader(new File(
                     fn)));
             try {
-                write(reader, writer);
+                write(reader, writer, format);
             } finally {
                 reader.close();
             }
@@ -130,16 +133,17 @@ public class OBOFormatWriter {
      *        the url
      * @param writer
      *        the writer
-     * @throws IOException
+     * @param format format with 
+     *        validation parameter. Either Boolean.TRUE or Boolean.FALSE. @throws IOException
      *         Signals that an I/O exception has occurred.
      * @throws OBOFormatParserException
      *         the oBO format parser exception
      */
-    public void write(@Nonnull URL url, @Nonnull BufferedWriter writer)
-            throws IOException {
+    public void write(@Nonnull URL url, @Nonnull BufferedWriter writer,
+            OWLDocumentFormat format) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(
                 url.openStream()));
-        write(reader, writer);
+        write(reader, writer, format);
     }
 
     /**
@@ -147,16 +151,17 @@ public class OBOFormatWriter {
      *        the reader
      * @param writer
      *        the writer
-     * @throws IOException
+     * @param format format with 
+     *        validation parameter. Either Boolean.TRUE or Boolean.FALSE. @throws IOException
      *         Signals that an I/O exception has occurred.
      * @throws OBOFormatParserException
      *         the oBO format parser exception
      */
-    public void write(BufferedReader reader, @Nonnull BufferedWriter writer)
-            throws IOException {
+    public void write(BufferedReader reader, @Nonnull BufferedWriter writer,
+            OWLDocumentFormat format) throws IOException {
         OBOFormatParser parser = new OBOFormatParser();
         OBODoc doc = parser.parse(reader);
-        write(doc, writer);
+        write(doc, writer, format);
     }
 
     /**
@@ -164,16 +169,17 @@ public class OBOFormatWriter {
      *        the doc
      * @param outFile
      *        the out file
-     * @throws IOException
+     * @param format format with 
+     *        validation parameter. Either Boolean.TRUE or Boolean.FALSE. @throws IOException
      *         Signals that an I/O exception has occurred.
      */
-    public void write(@Nonnull OBODoc doc, @Nonnull String outFile)
-            throws IOException {
+    public void write(@Nonnull OBODoc doc, @Nonnull String outFile,
+            OWLDocumentFormat format) throws IOException {
         FileOutputStream os = new FileOutputStream(new File(outFile));
         OutputStreamWriter osw = new OutputStreamWriter(os,
                 OBOFormatConstants.DEFAULT_CHARACTER_ENCODING);
         BufferedWriter bw = new BufferedWriter(osw);
-        write(doc, bw);
+        write(doc, bw, format);
         bw.close();
     }
 
@@ -182,13 +188,15 @@ public class OBOFormatWriter {
      *        the doc
      * @param writer
      *        the writer
+     * @param format format with 
+     *        validation parameter. Either Boolean.TRUE or Boolean.FALSE.
      * @throws IOException
      *         Signals that an I/O exception has occurred.
      */
-    public void write(@Nonnull OBODoc doc, @Nonnull BufferedWriter writer)
-            throws IOException {
+    public void write(@Nonnull OBODoc doc, @Nonnull BufferedWriter writer,
+            OWLDocumentFormat format) throws IOException {
         NameProvider nameProvider = new OBODocNameProvider(doc);
-        write(doc, writer, nameProvider);
+        write(doc, writer, nameProvider, format);
     }
 
     /**
@@ -198,13 +206,16 @@ public class OBOFormatWriter {
      *        the writer
      * @param nameProvider
      *        the name provider
+     * @param format format with 
+     *        validation parameter. Either Boolean.TRUE or Boolean.FALSE.
      * @throws IOException
      *         Signals that an I/O exception has occurred.
      */
     @SuppressWarnings("null")
     public void write(@Nonnull OBODoc doc, @Nonnull BufferedWriter writer,
-            NameProvider nameProvider) throws IOException {
-        if (isCheckStructure) {
+            NameProvider nameProvider, OWLDocumentFormat format) throws IOException {
+        setCheckStructure((Boolean)format.getParameter(OBODocumentFormat.VALIDATION, Boolean.TRUE));
+        if (isCheckStructure()) {
             doc.check();
         }
         Frame headerFrame = doc.getHeaderFrame();

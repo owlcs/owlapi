@@ -9,6 +9,7 @@ import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 import org.obolibrary.oboformat.writer.OBOFormatWriter;
 import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.formats.OBODocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 @SuppressWarnings({ "javadoc", "null" })
@@ -24,6 +25,6 @@ public class DanglingRoundTripTest extends OboFormatTestBasics {
         Clause rc = f.getClause(OboFormatTag.TAG_NAME);
         assertEquals("sense organ", rc.getValue());
         OBOFormatWriter w = new OBOFormatWriter();
-        w.write(d2, "/tmp/z.obo");
+        w.write(d2, "/tmp/z.obo", new OBODocumentFormat());
     }
 }

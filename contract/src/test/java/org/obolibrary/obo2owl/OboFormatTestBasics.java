@@ -22,6 +22,7 @@ import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.parser.OBOFormatParser;
 import org.obolibrary.oboformat.writer.OBOFormatWriter;
 import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.formats.OBODocumentFormat;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.AxiomType;
@@ -161,7 +162,7 @@ public class OboFormatTestBasics {
         StringWriter target = new StringWriter();
         OBOFormatWriter oboWriter = new OBOFormatWriter();
         BufferedWriter bw = new BufferedWriter(target);
-        oboWriter.write(obodoc, bw);
+        oboWriter.write(obodoc, bw, new OBODocumentFormat());
         bw.flush();
         return target.toString();
     }
@@ -188,10 +189,9 @@ public class OboFormatTestBasics {
     protected static String renderOboToString(@Nonnull OBODoc oboDoc)
             throws IOException {
         OBOFormatWriter writer = new OBOFormatWriter();
-        writer.setCheckStructure(true);
         StringWriter out = new StringWriter();
         BufferedWriter stream = new BufferedWriter(out);
-        writer.write(oboDoc, stream);
+        writer.write(oboDoc, stream, new OBODocumentFormat());
         stream.close();
         return out.getBuffer().toString();
     }
@@ -210,7 +210,7 @@ public class OboFormatTestBasics {
         OBOFormatWriter writer = new OBOFormatWriter();
         writer.setCheckStructure(true);
         BufferedWriter stream = new BufferedWriter(new StringWriter());
-        writer.write(oboDoc, stream);
+        writer.write(oboDoc, stream, new OBODocumentFormat());
         stream.close();
     }
 
