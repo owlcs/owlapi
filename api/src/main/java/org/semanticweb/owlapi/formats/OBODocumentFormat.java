@@ -24,6 +24,11 @@ import org.semanticweb.owlapi.model.OWLDocumentFormatImpl;
 public class OBODocumentFormat extends OWLDocumentFormatImpl {
 
     private static final long serialVersionUID = 40000L;
+    /**
+     * Key for validation parameter. Currently supports Boolean.TRUE and
+     * Boolean.FALSE. No parameter is interpreted as TRUE.
+     */
+    public static final String VALIDATION = "obo.validation";
 
     @Nonnull
     @Override

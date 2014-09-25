@@ -26,7 +26,9 @@ import org.obolibrary.oboformat.writer.OBOFormatWriter;
 import org.obolibrary.oboformat.writer.OBOFormatWriter.NameProvider;
 import org.obolibrary.oboformat.writer.OBOFormatWriter.OBODocNameProvider;
 import org.obolibrary.oboformat.writer.OBOFormatWriter.OWLOntologyNameProvider;
+import org.semanticweb.owlapi.formats.OBODocumentFormat;
 import org.semanticweb.owlapi.io.OWLRenderer;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
@@ -36,7 +38,7 @@ public class OBOFormatRenderer implements OWLRenderer {
     @Override
     public void render(@Nonnull OWLOntology ontology, @Nonnull OutputStream os)
             throws OWLOntologyStorageException {
-        render(ontology, new OutputStreamWriter(os));
+        render(ontology, new OutputStreamWriter(os), ontology.getFormat());
     }
 
     /**
@@ -48,7 +50,8 @@ public class OBOFormatRenderer implements OWLRenderer {
      *         OWLOntologyStorageException
      */
     public static void render(@Nonnull OWLOntology ontology,
-            @Nonnull Writer writer) throws OWLOntologyStorageException {
+            @Nonnull Writer writer, OWLDocumentFormat format)
+            throws OWLOntologyStorageException {
         try {
             OWLAPIOwl2Obo translator = new OWLAPIOwl2Obo(
                     ontology.getOWLOntologyManager());
@@ -81,7 +84,10 @@ public class OBOFormatRenderer implements OWLRenderer {
             } else {
                 nameProvider = new OBODocNameProvider(result);
             }
-            new OBOFormatWriter().write(result, new BufferedWriter(writer),
+            OBOFormatWriter oboFormatWriter = new OBOFormatWriter();
+            oboFormatWriter.setCheckStructure((Boolean) format.getParameter(
+                    OBODocumentFormat.VALIDATION, Boolean.TRUE));
+            oboFormatWriter.write(result, new BufferedWriter(writer),
                     nameProvider);
         } catch (IOException e) {
             throw new OWLOntologyStorageException(e);
