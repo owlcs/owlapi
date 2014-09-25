@@ -41,11 +41,16 @@ package org.coode.owlapi.obo.parser;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 10-Jan-2007
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 10-Jan-2007
  */
 public class OBOOntologyFormat extends OWLOntologyFormat {
 
+    /**
+     * Key for validation parameter. Currently supports Boolean.TRUE and
+     * Boolean.FALSE. No parameter is interpreted as TRUE.
+     */
+    public static final String VALIDATION = "obo.validation";
     private static final long serialVersionUID = 30406L;
     private IDSpaceManager idSpaceManager = new IDSpaceManager();
 

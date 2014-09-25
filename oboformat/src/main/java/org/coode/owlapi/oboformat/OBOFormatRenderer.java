@@ -6,6 +6,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 
+import org.coode.owlapi.obo.parser.OBOOntologyFormat;
 import org.obolibrary.obo2owl.OWLAPIOwl2Obo;
 import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.writer.OBOFormatWriter;
@@ -15,6 +16,7 @@ import org.obolibrary.oboformat.writer.OBOFormatWriter.OWLOntologyNameProvider;
 import org.semanticweb.owlapi.io.OWLRenderer;
 import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
@@ -28,7 +30,8 @@ public class OBOFormatRenderer implements OWLRenderer {
     @Override
     public void render(OWLOntology ontology, OutputStream os)
             throws OWLOntologyStorageException {
-        render(ontology, new OutputStreamWriter(os));
+        render(ontology, new OutputStreamWriter(os), ontology
+                .getOWLOntologyManager().getOntologyFormat(ontology));
     }
 
     /**
@@ -39,8 +42,8 @@ public class OBOFormatRenderer implements OWLRenderer {
      * @throws OWLOntologyStorageException
      *         OWLOntologyStorageException
      */
-    public void render(OWLOntology ontology, Writer writer)
-            throws OWLOntologyStorageException {
+    public static void render(OWLOntology ontology, Writer writer,
+            OWLOntologyFormat format) throws OWLOntologyStorageException {
         try {
             OWLAPIOwl2Obo translator = new OWLAPIOwl2Obo(
                     ontology.getOWLOntologyManager());
@@ -73,7 +76,10 @@ public class OBOFormatRenderer implements OWLRenderer {
             } else {
                 nameProvider = new OBODocNameProvider(result);
             }
-            new OBOFormatWriter().write(result, new BufferedWriter(writer),
+            OBOFormatWriter oboFormatWriter = new OBOFormatWriter();
+            oboFormatWriter.setCheckStructure((Boolean) format.getParameter(
+                    OBOOntologyFormat.VALIDATION, Boolean.TRUE));
+            oboFormatWriter.write(result, new BufferedWriter(writer),
                     nameProvider);
         } catch (IOException e) {
             throw new OWLOntologyStorageException(e);

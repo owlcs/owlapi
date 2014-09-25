@@ -70,7 +70,6 @@ public class OBOFormatStorer extends AbstractOWLOntologyStorer {
     @Override
     protected void storeOntology(OWLOntology ontology, Writer writer,
             OWLOntologyFormat format) throws OWLOntologyStorageException {
-        OBOFormatRenderer renderer = new OBOFormatRenderer();
-        renderer.render(ontology, writer);
+        OBOFormatRenderer.render(ontology, writer, format);
     }
 }
