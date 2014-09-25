@@ -38,7 +38,8 @@ public class OBOFormatRenderer implements OWLRenderer {
     @Override
     public void render(@Nonnull OWLOntology ontology, @Nonnull OutputStream os)
             throws OWLOntologyStorageException {
-        render(ontology, new OutputStreamWriter(os), new OBODocumentFormat());
+        render(ontology, new OutputStreamWriter(os), ontology
+                .getOWLOntologyManager().getOntologyFormat(ontology));
     }
 
     /**
