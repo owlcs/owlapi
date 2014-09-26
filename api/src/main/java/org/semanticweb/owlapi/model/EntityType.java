@@ -23,6 +23,8 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
+import com.google.common.base.Optional;
+
 /**
  * Represents the different types of OWL 2 Entities.
  * 
@@ -32,20 +34,90 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * @param <E>
  *        entity type
  */
-@SuppressWarnings("unused")
-public final class EntityType<E extends OWLEntity> implements Serializable,
+public abstract class EntityType<E extends OWLEntity> implements Serializable,
         HasShortForm, HasPrefixedName, HasIRI {
 
     private static final long serialVersionUID = 40000L;
-    //@formatter:off
-    /** class entity */             @Nonnull    public static final EntityType<OWLClass> CLASS = new EntityType<>( "Class", "Class", "Classes", OWL_CLASS);
-    /** object property entity */   @Nonnull    public static final EntityType<OWLObjectProperty> OBJECT_PROPERTY = new EntityType<>( "ObjectProperty", "Object property", "Object properties", OWL_OBJECT_PROPERTY);
-    /** data property entity */     @Nonnull    public static final EntityType<OWLDataProperty> DATA_PROPERTY = new EntityType<>( "DataProperty", "Data property", "Data properties", OWL_DATA_PROPERTY);
-    /** annotation property entity*/@Nonnull    public static final EntityType<OWLAnnotationProperty> ANNOTATION_PROPERTY = new EntityType<>( "AnnotationProperty", "Annotation property", "Annotation properties", OWL_ANNOTATION_PROPERTY);
-    /** named individual entity */  @Nonnull    public static final EntityType<OWLNamedIndividual> NAMED_INDIVIDUAL = new EntityType<>("NamedIndividual", "Named individual", "Named individuals", OWL_NAMED_INDIVIDUAL);
-    /** datatype entity */          @Nonnull    public static final EntityType<OWLDatatype> DATATYPE = new EntityType<>( "Datatype", "Datatype", "Datatypes", RDFS_DATATYPE);
-    private static final List<EntityType<?>> VALUES = Collections.<EntityType<?>> unmodifiableList(Arrays.asList(CLASS, OBJECT_PROPERTY, DATA_PROPERTY, ANNOTATION_PROPERTY, NAMED_INDIVIDUAL, DATATYPE));
-  //@formatter:on
+    /** class entity */
+    @Nonnull
+    public static final EntityType<OWLClass> CLASS = new EntityType<OWLClass>(
+            "Class", "Class", "Classes", OWL_CLASS) {
+
+        private static final long serialVersionUID = 50000L;
+
+        @Override
+        public OWLClass buildEntity(IRI i, OWLDataFactory df) {
+            return df.getOWLClass(i);
+        }
+    };
+    /** object property entity */
+    @Nonnull
+    public static final EntityType<OWLObjectProperty> OBJECT_PROPERTY = new EntityType<OWLObjectProperty>(
+            "ObjectProperty", "Object property", "Object properties",
+            OWL_OBJECT_PROPERTY) {
+
+        private static final long serialVersionUID = 50000L;
+
+        @Override
+        public OWLObjectProperty buildEntity(IRI i, OWLDataFactory df) {
+            return df.getOWLObjectProperty(i);
+        }
+    };
+    /** data property entity */
+    @Nonnull
+    public static final EntityType<OWLDataProperty> DATA_PROPERTY = new EntityType<OWLDataProperty>(
+            "DataProperty", "Data property", "Data properties",
+            OWL_DATA_PROPERTY) {
+
+        private static final long serialVersionUID = 50000L;
+
+        @Override
+        public OWLDataProperty buildEntity(IRI i, OWLDataFactory df) {
+            return df.getOWLDataProperty(i);
+        }
+    };
+    /** annotation property entity */
+    @Nonnull
+    public static final EntityType<OWLAnnotationProperty> ANNOTATION_PROPERTY = new EntityType<OWLAnnotationProperty>(
+            "AnnotationProperty", "Annotation property",
+            "Annotation properties", OWL_ANNOTATION_PROPERTY) {
+
+        private static final long serialVersionUID = 50000L;
+
+        @Override
+        public OWLAnnotationProperty buildEntity(IRI i, OWLDataFactory df) {
+            return df.getOWLAnnotationProperty(i);
+        }
+    };
+    /** named individual entity */
+    @Nonnull
+    public static final EntityType<OWLNamedIndividual> NAMED_INDIVIDUAL = new EntityType<OWLNamedIndividual>(
+            "NamedIndividual", "Named individual", "Named individuals",
+            OWL_NAMED_INDIVIDUAL) {
+
+        private static final long serialVersionUID = 50000L;
+
+        @Override
+        public OWLNamedIndividual buildEntity(IRI i, OWLDataFactory df) {
+            return df.getOWLNamedIndividual(i);
+        }
+    };
+    /** datatype entity */
+    @Nonnull
+    public static final EntityType<OWLDatatype> DATATYPE = new EntityType<OWLDatatype>(
+            "Datatype", "Datatype", "Datatypes", RDFS_DATATYPE) {
+
+        private static final long serialVersionUID = 50000L;
+
+        @Override
+        public OWLDatatype buildEntity(IRI i, OWLDataFactory df) {
+            return df.getOWLDatatype(i);
+        }
+    };
+    private static final List<EntityType<?>> VALUES = Collections
+            .<EntityType<?>> unmodifiableList(Arrays.asList(CLASS,
+                    OBJECT_PROPERTY, DATA_PROPERTY, ANNOTATION_PROPERTY,
+                    NAMED_INDIVIDUAL, DATATYPE));
     @Nonnull
     private final String name;
     @Nonnull
@@ -55,7 +127,7 @@ public final class EntityType<E extends OWLEntity> implements Serializable,
     @Nonnull
     private final String pluralPrintName;
 
-    private EntityType(@Nonnull String name, @Nonnull String print,
+    protected EntityType(@Nonnull String name, @Nonnull String print,
             @Nonnull String pluralPrint, @Nonnull OWLRDFVocabulary vocabulary) {
         this.name = name;
         this.vocabulary = vocabulary;
@@ -109,4 +181,24 @@ public final class EntityType<E extends OWLEntity> implements Serializable,
     public IRI getIRI() {
         return vocabulary.getIRI();
     }
+
+    /**
+     * @param visitor
+     *        visitor to accept
+     * @return visitor return value
+     */
+    public <T> Optional<T> accept(EntityTypeVisitorEx<T> visitor) {
+        return visitor.visit(this);
+    }
+
+    /**
+     * Build an entity of this type, using the factory passed in as df.
+     * 
+     * @param i
+     *        iri
+     * @param df
+     *        data factory
+     * @return entity
+     */
+    public abstract E buildEntity(IRI i, OWLDataFactory df);
 }

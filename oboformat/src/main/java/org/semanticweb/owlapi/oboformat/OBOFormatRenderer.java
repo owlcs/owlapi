@@ -46,6 +46,8 @@ public class OBOFormatRenderer implements OWLRenderer {
      *        ontology
      * @param writer
      *        writer
+     * @param format
+     *        format to render
      * @throws OWLOntologyStorageException
      *         OWLOntologyStorageException
      */

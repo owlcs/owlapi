@@ -87,45 +87,28 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
     }
 
     private static void checkNull(@Nonnull Collection<?> o, String name, boolean emptyAllowed) {
-        checkNotNull(o, name + " cannot be null");
+        checkNotNull(o, name );
         if (!emptyAllowed && o.isEmpty()) {
-            throw new IllegalArgumentException(name + " cannot be empty");
+            throw new IllegalArgumentException(name + " or empty");
         }
     }
 
     private static void checkNull(@Nonnull Object[] o, String name, boolean emptyAllowed) {
-        checkNotNull(o, name + " cannot be null");
+        checkNotNull(o, name );
         if (!emptyAllowed && o.length == 0) {
-            throw new IllegalArgumentException(name + " cannot be empty");
+            throw new IllegalArgumentException(name + " or empty");
         }
     }
+    
+
 
     @Nonnull
     @Override
-    @SuppressWarnings("unchecked")
     public <E extends OWLEntity> E getOWLEntity(@Nonnull EntityType<E> entityType,
             IRI iri) {
         checkNotNull(entityType, "entityType cannot be null");
         checkNotNull(iri, "iri cannot be null");
-        E ret = null;
-        if (entityType.equals(EntityType.CLASS)) {
-            ret = (E) getOWLClass(iri);
-        } else if (entityType.equals(EntityType.OBJECT_PROPERTY)) {
-            ret = (E) getOWLObjectProperty(iri);
-        } else if (entityType.equals(EntityType.DATA_PROPERTY)) {
-            ret = (E) getOWLDataProperty(iri);
-        } else if (entityType.equals(EntityType.ANNOTATION_PROPERTY)) {
-            ret = (E) getOWLAnnotationProperty(iri);
-        } else if (entityType.equals(EntityType.NAMED_INDIVIDUAL)) {
-            ret = (E) getOWLNamedIndividual(iri);
-        } else if (entityType.equals(EntityType.DATATYPE)) {
-            ret = (E) getOWLDatatype(iri);
-        }
-        if (ret != null) {
-            return ret;
-        }
-        throw new OWLRuntimeException("Entity type not recognized: "
-                + entityType + " for iri " + iri);
+        return entityType.buildEntity(iri, this);
     }
 
     @Override
@@ -317,13 +300,13 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
     @Nonnull
     @Override
     public OWLDataOneOf getOWLDataOneOf(@Nonnull Set<? extends OWLLiteral> values) {
-        checkNull(values, "values", true);
+        checkNull(values, "values cannot be null", true);
         return new OWLDataOneOfImpl(values);
     }
 
     @Override
     public OWLDataOneOf getOWLDataOneOf(OWLLiteral... values) {
-        checkNull(values, "values", true);
+        checkNull(values, "values cannot be null", true);
         return getOWLDataOneOf(CollectionFactory.createSet(values));
     }
 
@@ -337,7 +320,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
     @Override
     public OWLDataIntersectionOf getOWLDataIntersectionOf(
             OWLDataRange... dataRanges) {
-        checkNull(dataRanges, "dataRanges", true);
+        checkNull(dataRanges, "dataRange cannot be nulls", true);
         return getOWLDataIntersectionOf(CollectionFactory.createSet(dataRanges));
     }
 
@@ -345,13 +328,13 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
     @Override
     public OWLDataIntersectionOf getOWLDataIntersectionOf(
             @Nonnull Set<? extends OWLDataRange> dataRanges) {
-        checkNull(dataRanges, "dataRanges", true);
+        checkNull(dataRanges, "dataRanges cannot be null", true);
         return new OWLDataIntersectionOfImpl(dataRanges);
     }
 
     @Override
     public OWLDataUnionOf getOWLDataUnionOf(OWLDataRange... dataRanges) {
-        checkNull(dataRanges, "dataRanges", true);
+        checkNull(dataRanges, "dataRanges cannot be null", true);
         return getOWLDataUnionOf(CollectionFactory.createSet(dataRanges));
     }
 
@@ -359,7 +342,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
     @Override
     public OWLDataUnionOf getOWLDataUnionOf(
             @Nonnull Set<? extends OWLDataRange> dataRanges) {
-        checkNull(dataRanges, "dataRanges", true);
+        checkNull(dataRanges, "dataRanges cannot be null", true);
         return new OWLDataUnionOfImpl(dataRanges);
     }
 
@@ -386,7 +369,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
     @Override
     public OWLDatatypeRestriction getOWLDatatypeRestriction(
             OWLDatatype dataType, OWLFacetRestriction... facetRestrictions) {
-        checkNull(facetRestrictions, "facetRestrictions", true);
+        checkNull(facetRestrictions, "facetRestrictions cannot be null", true);
         return getOWLDatatypeRestriction(dataType,
                 CollectionFactory.createSet(facetRestrictions));
     }
@@ -521,14 +504,14 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
     @Override
     public OWLObjectIntersectionOf getOWLObjectIntersectionOf(
             @Nonnull Set<? extends OWLClassExpression> operands) {
-        checkNull(operands, "operands", true);
+        checkNull(operands, "operands cannot be null", true);
         return new OWLObjectIntersectionOfImpl(operands);
     }
 
     @Override
     public OWLObjectIntersectionOf getOWLObjectIntersectionOf(
             OWLClassExpression... operands) {
-        checkNull(operands, "operands", true);
+        checkNull(operands, "operands cannot be null", true);
         return getOWLObjectIntersectionOf(CollectionFactory.createSet(operands));
     }
 
@@ -641,13 +624,13 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
     @Override
     public OWLObjectOneOf
             getOWLObjectOneOf(@Nonnull Set<? extends OWLIndividual> values) {
-        checkNull(values, "values", true);
+        checkNull(values, "values cannot be null", true);
         return new OWLObjectOneOfImpl(values);
     }
 
     @Override
     public OWLObjectOneOf getOWLObjectOneOf(OWLIndividual... individuals) {
-        checkNull(individuals, "individuals", true);
+        checkNull(individuals, "individuals cannot be null", true);
         return getOWLObjectOneOf(CollectionFactory.createSet(individuals));
     }
 
@@ -746,13 +729,13 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
     @Override
     public OWLObjectUnionOf getOWLObjectUnionOf(
             @Nonnull Set<? extends OWLClassExpression> operands) {
-        checkNull(operands, "operands", true);
+        checkNull(operands, "operands cannot be null", true);
         return new OWLObjectUnionOfImpl(operands);
     }
 
     @Override
     public OWLObjectUnionOf getOWLObjectUnionOf(OWLClassExpression... operands) {
-        checkNull(operands, "operands", true);
+        checkNull(operands, "operands cannot be null", true);
         return getOWLObjectUnionOf(CollectionFactory.createSet(operands));
     }
 
@@ -857,7 +840,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
     public OWLDifferentIndividualsAxiom getOWLDifferentIndividualsAxiom(
             @Nonnull Set<? extends OWLIndividual> individuals,
             @Nonnull Set<? extends OWLAnnotation> annotations) {
-        checkNull(individuals, "individuals", true);
+        checkNull(individuals, "individuals cannot be null", true);
         checkAnnotations(annotations);
         return new OWLDifferentIndividualsAxiomImpl(individuals, annotations);
     }
@@ -865,7 +848,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
     @Override
     public OWLDifferentIndividualsAxiom getOWLDifferentIndividualsAxiom(
             OWLIndividual... individuals) {
-        checkNull(individuals, "individuals", true);
+        checkNull(individuals, "individuals cannot be null", true);
         return getOWLDifferentIndividualsAxiom(CollectionFactory
                 .createSet(individuals));
     }
@@ -883,7 +866,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
     public OWLDisjointClassesAxiom getOWLDisjointClassesAxiom(
             @Nonnull Set<? extends OWLClassExpression> classExpressions,
             @Nonnull Set<? extends OWLAnnotation> annotations) {
-        checkNull(classExpressions, "classExpressions", true);
+        checkNull(classExpressions, "classExpressions cannot be null", true);
         checkAnnotations(annotations);
         return new OWLDisjointClassesAxiomImpl(classExpressions, annotations);
     }
@@ -900,7 +883,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
     @Override
     public OWLDisjointClassesAxiom getOWLDisjointClassesAxiom(
             OWLClassExpression... classExpressions) {
-        checkNull(classExpressions, "classExpressions", true);
+        checkNull(classExpressions, "classExpressions cannot be null", true);
         Set<OWLClassExpression> clses = new HashSet<>();
         clses.addAll(Arrays.asList(classExpressions));
         return getOWLDisjointClassesAxiom(clses);
@@ -911,7 +894,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
     public OWLDisjointDataPropertiesAxiom getOWLDisjointDataPropertiesAxiom(
             @Nonnull Set<? extends OWLDataPropertyExpression> properties,
             @Nonnull Set<? extends OWLAnnotation> annotations) {
-        checkNull(properties, "properties", true);
+        checkNull(properties, "properties cannot be null", true);
         checkAnnotations(annotations);
         return new OWLDisjointDataPropertiesAxiomImpl(properties, annotations);
     }
@@ -927,7 +910,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
     @Override
     public OWLDisjointDataPropertiesAxiom getOWLDisjointDataPropertiesAxiom(
             OWLDataPropertyExpression... dataProperties) {
-        checkNull(dataProperties, "properties", true);
+        checkNull(dataProperties, "properties cannot be null", true);
         return getOWLDisjointDataPropertiesAxiom(CollectionFactory
                 .createSet(dataProperties));
     }
@@ -936,7 +919,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
     public OWLDisjointObjectPropertiesAxiom
             getOWLDisjointObjectPropertiesAxiom(
                     OWLObjectPropertyExpression... properties) {
-        checkNull(properties, "properties", true);
+        checkNull(properties, "properties cannot be null", true);
         return getOWLDisjointObjectPropertiesAxiom(CollectionFactory
                 .createSet(properties));
     }
@@ -956,7 +939,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
             getOWLDisjointObjectPropertiesAxiom(
                     @Nonnull Set<? extends OWLObjectPropertyExpression> properties,
                     @Nonnull Set<? extends OWLAnnotation> annotations) {
-        checkNull(properties, "properties", true);
+        checkNull(properties, "properties cannot be null", true);
         checkAnnotations(annotations);
         return new OWLDisjointObjectPropertiesAxiomImpl(properties, annotations);
     }
@@ -966,7 +949,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
     public OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom(
             @Nonnull Set<? extends OWLClassExpression> classExpressions,
             @Nonnull Set<? extends OWLAnnotation> annotations) {
-        checkNull(classExpressions, "classExpressions", true);
+        checkNull(classExpressions, "classExpressions cannot be null", true);
         checkAnnotations(annotations);
         return new OWLEquivalentClassesAxiomImpl(classExpressions, annotations);
     }
@@ -993,7 +976,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
     @Override
     public OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom(
             OWLClassExpression... classExpressions) {
-        checkNull(classExpressions, "classExpressions", true);
+        checkNull(classExpressions, "classExpressions cannot be null", true);
         Set<OWLClassExpression> clses = new HashSet<>();
         clses.addAll(Arrays.asList(classExpressions));
         return getOWLEquivalentClassesAxiom(clses);
@@ -1013,7 +996,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
             getOWLEquivalentDataPropertiesAxiom(
                     @Nonnull Set<? extends OWLDataPropertyExpression> properties,
                     @Nonnull Set<? extends OWLAnnotation> annotations) {
-        checkNull(properties, "properties", true);
+        checkNull(properties, "properties cannot be null", true);
         checkAnnotations(annotations);
         return new OWLEquivalentDataPropertiesAxiomImpl(properties, annotations);
     }
@@ -1052,7 +1035,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
     public OWLEquivalentDataPropertiesAxiom
             getOWLEquivalentDataPropertiesAxiom(
                     OWLDataPropertyExpression... properties) {
-        checkNull(properties, "properties", true);
+        checkNull(properties, "properties cannot be null", true);
         return getOWLEquivalentDataPropertiesAxiom(CollectionFactory
                 .createSet(properties));
     }
@@ -1061,7 +1044,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
     public OWLEquivalentObjectPropertiesAxiom
             getOWLEquivalentObjectPropertiesAxiom(
                     OWLObjectPropertyExpression... properties) {
-        checkNull(properties, "properties", true);
+        checkNull(properties, "properties cannot be null", true);
         return getOWLEquivalentObjectPropertiesAxiom(CollectionFactory
                 .createSet(properties));
     }
@@ -1418,7 +1401,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
     public OWLSameIndividualAxiom getOWLSameIndividualAxiom(
             @Nonnull Set<? extends OWLIndividual> individuals,
             @Nonnull Set<? extends OWLAnnotation> annotations) {
-        checkNull(individuals, "individuals", true);
+        checkNull(individuals, "individuals cannot be null", true);
         checkAnnotations(annotations);
         return new OWLSameIndividualAxiomImpl(individuals, annotations);
     }
@@ -1427,7 +1410,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
     @Override
     public OWLSameIndividualAxiom getOWLSameIndividualAxiom(
             OWLIndividual... individual) {
-        checkNull(individual, "individuals", true);
+        checkNull(individual, "individuals cannot be null", true);
         Set<OWLIndividual> inds = new HashSet<>();
         inds.addAll(Arrays.asList(individual));
         return getOWLSameIndividualAxiom(inds);
@@ -1534,7 +1517,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
             OWLObjectPropertyExpression superProperty,
             @Nonnull Set<? extends OWLAnnotation> annotations) {
         checkNotNull(superProperty, "superProperty cannot be null");
-        checkNull(chain, "chain", true);
+        checkNull(chain, "chain cannot be null", true);
         checkAnnotations(annotations);
         return new OWLSubPropertyChainAxiomImpl(chain, superProperty,
                 annotations);
@@ -1555,7 +1538,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
             @Nonnull Set<? extends OWLPropertyExpression> objectProperties,
             @Nonnull Set<? extends OWLAnnotation> annotations) {
         checkNotNull(ce, "classExpression cannot be null");
-        checkNull(objectProperties, "properties", true);
+        checkNull(objectProperties, "properties cannot be null", true);
         checkAnnotations(annotations);
         return new OWLHasKeyAxiomImpl(ce, objectProperties, annotations);
     }
@@ -1571,7 +1554,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
     public OWLHasKeyAxiom getOWLHasKeyAxiom(OWLClassExpression ce,
             OWLPropertyExpression... properties) {
         checkNotNull(ce, "classExpression cannot be null");
-        checkNull(properties, "properties", true);
+        checkNull(properties, "properties cannot be null", true);
         return getOWLHasKeyAxiom(ce,
                 CollectionFactory.createSet(properties));
     }
@@ -1582,7 +1565,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
             @Nonnull Set<? extends OWLClassExpression> classExpressions,
             @Nonnull Set<? extends OWLAnnotation> annotations) {
         checkNotNull(owlClass, "owlClass cannot be null");
-        checkNull(classExpressions, "classExpressions", true);
+        checkNull(classExpressions, "classExpressions cannot be null", true);
         checkAnnotations(annotations);
         return new OWLDisjointUnionAxiomImpl(owlClass, classExpressions,
                 annotations);
@@ -1602,7 +1585,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
             getOWLEquivalentObjectPropertiesAxiom(
                     @Nonnull Set<? extends OWLObjectPropertyExpression> properties,
                     @Nonnull Set<? extends OWLAnnotation> annotations) {
-        checkNull(properties, "properties", true);
+        checkNull(properties, "properties cannot be null", true);
         checkAnnotations(annotations);
         return new OWLEquivalentObjectPropertiesAxiomImpl(properties,
                 annotations);
@@ -1760,8 +1743,8 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
     @Override
     public SWRLRule getSWRLRule(@Nonnull Set<? extends SWRLAtom> body,
             @Nonnull Set<? extends SWRLAtom> head, @Nonnull Set<OWLAnnotation> annotations) {
-        checkNull(body, "body", true);
-        checkNull(head, "head", true);
+        checkNull(body, "body cannot be null", true);
+        checkNull(head, "head cannot be null", true);
         checkAnnotations(annotations);
         return new SWRLRuleImpl(body, head, annotations);
     }
@@ -1770,8 +1753,8 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
     @Override
     public SWRLRule getSWRLRule(@Nonnull Set<? extends SWRLAtom> body,
             @Nonnull Set<? extends SWRLAtom> head) {
-        checkNull(body, "antecedent", true);
-        checkNull(head, "consequent", true);
+        checkNull(body, "antecedent cannot be null", true);
+        checkNull(head, "consequent cannot be null", true);
         return new SWRLRuleImpl(body, head);
     }
 
