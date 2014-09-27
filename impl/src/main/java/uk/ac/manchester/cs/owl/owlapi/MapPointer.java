@@ -12,28 +12,28 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import com.google.common.collect.Iterables;
 import gnu.trove.map.hash.THashMap;
 import gnu.trove.set.hash.THashSet;
-
-import java.lang.ref.SoftReference;
-import java.util.Collection;
-import java.util.Set;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.util.CollectionFactory;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.InitCollectionVisitor;
 import uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.InitVisitor;
 
-import com.google.common.collect.Iterables;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.lang.ref.SoftReference;
+import java.util.Collection;
+import java.util.Map;
+import java.util.Set;
+
+import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 /**
  * * Objects that identify contained maps - so that getting the keys of a
@@ -47,6 +47,7 @@ import com.google.common.collect.Iterables;
  *        value
  */
 public class MapPointer<K, V extends OWLAxiom> {
+    private static Logger logger = LoggerFactory.getLogger(MapPointer.class);
 
     @Nullable
     private final AxiomType<?> type;
@@ -141,7 +142,6 @@ public class MapPointer<K, V extends OWLAxiom> {
         if (visitor == null) {
             return this;
         }
-        assert visitor != null;
         if (visitor instanceof InitVisitor) {
             for (V ax : (Set<V>) i.getAxiomsByType().getValues(type)) {
                 K key = ax.accept((InitVisitor<K>) visitor);
@@ -239,7 +239,7 @@ public class MapPointer<K, V extends OWLAxiom> {
     @Nonnull
     public synchronized Boolean containsKey(K key) {
         init();
-        return Boolean.valueOf(map.containsKey(key));
+        return map.containsKey(key);
     }
 
     /**
@@ -322,5 +322,18 @@ public class MapPointer<K, V extends OWLAxiom> {
             return CollectionFactory.emptySet();
         }
         return t;
+    }
+    /**
+     * Trims the capacity of the map entries . An application can use this operation to minimize the storage of the map pointer instance.
+
+     */
+
+    public void trimToSize() {
+        if (initialized) {
+            for (Map.Entry<K, THashSet<V>> entry : map.entrySet()) {
+                THashSet<V> set = entry.getValue();
+                set.trimToSize();
+            }
+        }
     }
 }
